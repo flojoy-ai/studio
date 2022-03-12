@@ -12,8 +12,8 @@ from VISORS import *
 
 from utils import PlotlyJSONEncoder
 
-conn = Redis()
-q = Queue(connection=conn)
+r = Redis()
+q = Queue(connection=r)
 
 import sys
 sys.path.append('../FUNCTIONS/')
@@ -133,15 +133,23 @@ end_node_results = []
 for n in end_nodes:
     job_id = 'job_id_{0}'.format(n)
     nd = get_node_data_by_id()[n]
-    print(nd)
-    job = Job.fetch(job_id, connection=Redis())
+    job = Job.fetch(job_id, connection=r)
     payload = job.result
-    print(str(payload['data'][0]['type']))
     end_node_results.append({nd['cmd']: payload})
     
-# Write the end node results to file
+# Get all job results
 
-f = open("results.json", "w")
-f.write(json.dumps(end_node_results, cls=PlotlyJSONEncoder))
-f.close()
+all_node_results = []
+
+for n in topological_sorting:
+    job_id = 'job_id_{0}'.format(n)
+    nd = get_node_data_by_id()[n]
+    print(nd)
+    job = Job.fetch(job_id, connection=r)
+    payload = job.result
+    all_node_results.append({nd['cmd']: payload})
+
+r.set('COMPLETED_JOBS', json.dumps(all_node_results, cls=PlotlyJSONEncoder))
+
+# f.write(json.dumps(end_node_results, cls=PlotlyJSONEncoder))
 

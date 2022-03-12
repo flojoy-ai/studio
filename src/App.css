@@ -1,47 +1,47 @@
 .App {
-  text-align: left;
-}
-
-.App-status {
-  padding: 0;
-  text-align: center;
-  vertical-align: middle;
-  margin: 0;
-  font-size: 14px;
-  color: white;
-  background: black;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 2vh;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  font-size: calc(12px + 1vmin);
-  color: white;
-  padding: 10px;
-}
-
-.save__controls {
-  padding: 10px;
-  border-bottom: 1px solid;
-}
-
-.save__controls button, .ReactModal__Content button {
-  margin-right: 10px;
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 0;
-  box-shadow: 2px 3px #999;
-}
-
-.react-flow__node-default {
-  width: 100px;
-  padding: 0;
-}
-
-.react-flow__edge-path {
-  stroke-width: 1.5;
-}
+    text-align: left;
+  }
+  
+  .App-status {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+    font-size: 14px;
+    color: white;
+    background: black;
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    font-size: calc(12px + 1vmin);
+    color: white;
+    padding: 10px;
+  }
+  
+  .save__controls {
+    padding: 10px;
+    border-bottom: 1px solid;
+  }
+  
+  .save__controls button, .ReactModal__Content button {
+    margin-right: 10px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 0;
+    box-shadow: 2px 3px #999;
+  }
+  
+  .react-flow__node-default {
+    width: 100px;
+    padding: 0;
+  }
+  
+  .react-flow__edge-path {
+    stroke-width: 1.5;
+  }
