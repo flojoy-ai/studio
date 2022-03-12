@@ -1,5 +1,4 @@
-import { FC } from 'react';
-import { Handle, Position, getMarkerEnd } from 'react-flow-renderer';
+import { Handle, Position } from 'react-flow-renderer';
 
 const customNodeStyles = {
     background: '#9CA8B3',

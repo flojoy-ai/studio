@@ -18,22 +18,18 @@ app.get('/ping', (req, res) => {
 
 app.get('/heartbeat', async (req, res) => {
 
-  ts = '⏰: ' + os.uptime().toString().slice(-3);
+  redis.get('COMPLETED_JOBS').then(result => {
+    let ts = '⏰: ' + os.uptime().toString().slice(-3);
+    let hb = {msg: '🐸 server connected', clock: ts, io: {}}
 
-  let heartbeat = {msg: '🐸 server connected', clock: ts, io: {}}
-
-  redis.get('COMPLETED_JOBS').then(function (result) {
-    console.log(result);
-    if(result !== null){
-      result = JSON.parse(result)
-      heartbeat.msg = `🏆 Program completed ${result.length} jobs`,
-      heartbeat.io = result;
-      redis.set('COMPLETED_JOBS', null);
+    if(typeof result === 'string' && result.trim(' ') !== ''){
+        hb.msg = '🏆 Program completed';
+        hb.io = result;
+        redis.set('COMPLETED_JOBS', null);
     }
+    console.log(hb);
+    return res.send(hb);
   });
-
-  res.send({heartbeat});
-    
 });
 
 // Parse URL-encoded bodies (as sent by HTML forms)
@@ -44,12 +40,24 @@ app.use(express.json());
 
 // Receive a flow chart, write file ("wf") to disk, & call Python watch script
 app.post('/wfc', async (req, res) => {
-  console.log('Flow chart payload:', req.body.fc);
+
+  console.log('Flow chart payload... ', req.body.fc.toString().slice(0,20));
 
   fs.writeFileSync( 'PYTHON/WATCH/fc.json', req.body.fc );
 
-  const spawn = require("child_process").spawn;
-  const pythonProcess = spawn('python',['PYTHON/WATCH/watch.py']);
+  var exec = require('child_process').exec;
+
+  var child = exec('python3 PYTHON/WATCH/watch.py')
+
+  child.stdout.on('data', function(data) {
+      console.log('stdout: ' + data.slice(0,200))
+  })
+  child.stderr.on('data', function(data) {
+      console.log('stdout: ' + data)
+  })
+  child.on('close', function(code) {
+      console.log('closing code: ' + code)
+  })
 
   res.send({ msg: '🏃‍♀️ running program...' });
 });

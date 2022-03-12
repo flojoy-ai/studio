@@ -1,4 +1,6 @@
+import os
 import json
+import time
 import networkx as nx
 import numpy as np
 from plotly import plot
@@ -15,12 +17,14 @@ from utils import PlotlyJSONEncoder
 r = Redis()
 q = Queue(connection=r)
 
-import sys
-sys.path.append('../FUNCTIONS/')
+# import sys
+# sys.path.append('../FUNCTIONS/')
 
 # Load React flow chart object from JSON file
 
-f = open('../WATCH/fc.json')
+print(os.getcwd())
+
+f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
 
@@ -90,6 +94,9 @@ nodes_by_id = get_node_data_by_id()
 
 print(nodes_by_id)
 
+def jid(n):
+    return 'JOB_ID_{0}'.format(n)
+
 for n in topological_sorting:
 
     cmd = nodes_by_id[n]['cmd']
@@ -100,7 +107,7 @@ for n in topological_sorting:
         cmd = 'CONSTANT'   
     
     func = getattr(globals()[cmd], cmd)
-    job_id = 'job_id_{0}'.format(n)
+    job_id = jid(n)
 
     print('>>> visiting node *** {0} *** ({1})'.format(cmd, n))
     print('Queueing function... ...', func)
@@ -114,7 +121,7 @@ for n in topological_sorting:
         previous_job_ids = []
         for p in DG.predecessors(n):
             prev_cmd = DG.nodes[p]['cmd']
-            prev_job_id = 'job_id_{0}'.format(p)
+            prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
             print(prev_cmd, 'is a predecessor to', cmd)
         q.enqueue(func,
@@ -122,32 +129,39 @@ for n in topological_sorting:
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
             depends_on = previous_job_ids)
 
-# Get the end node results
+# collect node results
 
 end_nodes = [x for x in DG.nodes() if DG.out_degree(x)==0 and DG.in_degree(x)==1]
 
 print(end_nodes)
 
 end_node_results = []
+all_node_results = []
+
+# give jobs 5 seconds to execute :|
+time.sleep(5)
 
 for n in end_nodes:
-    job_id = 'job_id_{0}'.format(n)
+    job_id = jid(n)
     nd = get_node_data_by_id()[n]
     job = Job.fetch(job_id, connection=r)
     payload = job.result
     end_node_results.append({nd['cmd']: payload})
-    
-# Get all job results
 
-all_node_results = []
+topological_sorting = nx.topological_sort(DG)
 
 for n in topological_sorting:
-    job_id = 'job_id_{0}'.format(n)
+    job_id = jid(n)
     nd = get_node_data_by_id()[n]
     print(nd)
     job = Job.fetch(job_id, connection=r)
-    payload = job.result
-    all_node_results.append({nd['cmd']: payload})
+    redis_payload = job.result
+    all_node_results.append({
+        'cmd': nd['cmd'],
+        'result': redis_payload
+    })
+
+print(all_node_results, '^ all node results')
 
 r.set('COMPLETED_JOBS', json.dumps(all_node_results, cls=PlotlyJSONEncoder))
 

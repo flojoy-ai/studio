@@ -40,13 +40,13 @@ const App = () => {
         if(res.cnx === true){ 
           setServerStatus('🏁 node server online' );
           // set a timer that gets an update from the server very second
-          this.heartbeat = setInterval(() => {
+          window.setInterval(() => {
             pingBackendAPI('/heartbeat')
-              .then(res => {
-                setServerStatus(res.clock);
-                if(Object.keys(res.io).length != 0) {
-                  setProgramResults(res.io)
+              .then(res => {                
+                if(Object.keys(res.io).length !== 0) {
+                  setProgramResults({status: '🤙 Python program ran successfully', io: res.io})
                 }
+                setServerStatus(res.clock);
               })
             }, 
           1000);
@@ -56,6 +56,10 @@ const App = () => {
       })
       .catch(err => console.log(err));
   }, []);
+
+const tabStyle = (theme === 'light') 
+    ? {borderColor: '#282c34'} 
+    : {borderColor: '#FFF'};
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
@@ -73,14 +77,14 @@ const App = () => {
                     border: 0,
                     cursor: 'pointer'
                   }}>
-              {theme == 'light' ? '🌙' : '🌞'}
+              {theme === 'light' ? '🌙' : '🌞'}
             </button>
         </header>
         <main>
           <Tabs>
             <TabList>
-              <Tab>PROGRAM</Tab>
-              <Tab>RESULTS</Tab>
+              <Tab style={tabStyle}>PROGRAM</Tab>
+              <Tab style={tabStyle}>RESULTS</Tab>
             </TabList>
 
             <TabPanel>
@@ -92,7 +96,7 @@ const App = () => {
                   padding: 10,
                   margin: '10px 200px'
                 }}>
-                  <ResultsTab programResults = {programResults} />
+                  <ResultsTab results = {programResults} />
               </div>
             </TabPanel>
           </Tabs>

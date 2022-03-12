@@ -36,7 +36,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
       const fc = flowObj;
       const fcStr = JSON.stringify(flowObj);
 
-      console.log('sending fc to server...', fc, fcStr);
+      console.log('sending fc to server...', fc);
 
       fetch('/wfc', {
         method: 'POST',

@@ -14,4 +14,11 @@ export const GlobalStyles = createGlobalStyle`
   a {
     color: ${({ theme }) => theme.text};
   }
+  details {
+    text-align: left;
+    font-family: monospace;
+    font-size: 18px;
+    border-bottom: 1px solid;
+    margin-bottom: 40px;
+  }
 `;

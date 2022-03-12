@@ -24,24 +24,50 @@
     padding: 10px;
   }
   
-  .save__controls {
-    padding: 10px;
-    border-bottom: 1px solid;
-  }
-  
-  .save__controls button, .ReactModal__Content button {
-    margin-right: 10px;
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 0;
-    box-shadow: 2px 3px #999;
-  }
-  
-  .react-flow__node-default {
-    width: 100px;
-    padding: 0;
-  }
-  
-  .react-flow__edge-path {
-    stroke-width: 1.5;
-  }
+.save__controls {
+  padding: 10px;
+  border-bottom: 1px solid;
+}
+
+.save__controls button, .ReactModal__Content button {
+  margin-right: 10px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 0;
+  box-shadow: 2px 3px #999;
+}
+
+.react-flow__node-default {
+  width: 100px;
+  padding: 0;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+.react-tabs__tab {
+  border: 0;
+}
+
+.react-tabs__tab--selected {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 5px solid #282c34;
+}
+
+@font-face {
+  font-family: 'PonyMaker';
+  src: url('PonyMaker.woff2') format('woff2'),
+      url('PonyMaker.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1 {
+  font-family: 'PonyMaker';
+  font-weight: normal;
+  font-style: normal;
+  margin: 0;
+}

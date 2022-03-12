@@ -7,9 +7,9 @@ def SCATTER(**kwargs):
     fig = dict(
         data = [dict(
             x = list(payload['x0']),
-            y = list(payload['x0']),
+            y = list(payload['y0']),
             type='scatter',
-            mode='markers+lines'
+            mode='markers'
         )],
         layout = {}
     )

@@ -8,6 +8,6 @@ def RAND(**kwargs):
 
     x = xy0['x0']
 
-    y = np.random.rand(len(x))
+    y = np.random.normal(size=len(x))
     
     return {'x0':x, 'y0':y}

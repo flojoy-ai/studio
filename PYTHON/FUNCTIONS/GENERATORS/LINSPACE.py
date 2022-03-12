@@ -4,9 +4,9 @@ import traceback
 def LINSPACE(**kwargs):    
     try:
         if 'ctrls' not in kwargs:
-            ctrls = dict(start=0, end=10, steps=100)
+            ctrls = dict(start=-10, end=10, steps=1000)
         elif 'start' not in kwargs['ctrls'].keys():
-            ctrls = dict(start=0, end=10, steps=100)
+            ctrls = dict(start=-10, end=10, steps=1000)
         else:
             ctrls = kwargs['ctrls']
         print(ctrls)
