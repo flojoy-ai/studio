@@ -13,5 +13,4 @@ def LINSPACE(**kwargs):
         x = np.linspace(ctrls['start'], ctrls['end'], ctrls['steps'])
     except Exception:
         print(traceback.format_exc())
-    print(x)
     return {'x0': x}

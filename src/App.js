@@ -8,7 +8,11 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './components/theme';
 import { GlobalStyles } from './components/global';
 
+import STATUS_CODES from './STATUS_CODES.json';
+
 import './App.css';
+
+
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState('Connecting to server...');
@@ -37,21 +41,37 @@ const App = () => {
  
     pingBackendAPI('/ping')
       .then(res => {
-        if(res.cnx === true){ 
-          setServerStatus('🏁 node server online' );
-          // set a timer that gets an update from the server very second
+        if('msg' in res){ 
+          setServerStatus(res.msg);
+          // set a timer that gets an update from the server every second
           window.setInterval(() => {
             pingBackendAPI('/heartbeat')
-              .then(res => {                
-                if(Object.keys(res.io).length !== 0) {
-                  setProgramResults({status: '🤙 Python program ran successfully', io: res.io})
+              .then(res => {
+                // console.log('heartbeat', res);
+                if(res.msg === STATUS_CODES['RQ_RUN_COMPLETE']) {
+                  // grab program result from redis
+                  setServerStatus(STATUS_CODES['RQ_RUN_COMPLETE']);
+                  console.log(STATUS_CODES['RQ_RUN_COMPLETE'])
+                  pingBackendAPI('/io')
+                    .then(res => {
+                      console.log('io', res);
+                      if(res.msg === STATUS_CODES['MISSING_RQ_RESULTS']) {
+                        setServerStatus(res.msg);
+                      }
+                      else{
+                        setProgramResults(res);
+                        setServerStatus(STATUS_CODES['RQ_RESULTS_RETURNED']);
+                      }
+                    });                  
                 }
-                setServerStatus(res.clock);
+                else if (res.msg !== undefined && res.msg !== ''){
+                  setServerStatus(res.msg);
+                }
               })
             }, 
           1000);
         } else {
-          setServerStatus('🛑 node server offline - run `node server.js` in your terminal');
+          setServerStatus(STATUS_CODES['SERVER_OFFLINE']);
         }
       })
       .catch(err => console.log(err));
@@ -68,15 +88,7 @@ const tabStyle = (theme === 'light')
         <p className="App-status"><code>{serverStatus}</code></p>
         <header className="App-header">
             <h1>VEKTOR</h1>
-            <button 
-              onClick={toggleTheme}
-              style={{position: 'absolute',
-                    right: 10,
-                    fontSize: 18,
-                    background: 'transparent',
-                    border: 0,
-                    cursor: 'pointer'
-                  }}>
+            <button onClick={toggleTheme} className='App-theme-toggle'>
               {theme === 'light' ? '🌙' : '🌞'}
             </button>
         </header>
@@ -90,12 +102,8 @@ const tabStyle = (theme === 'light')
             <TabPanel>
               <FlowChart />
             </TabPanel>
-            <TabPanel>
-              <div style={{
-                  height: '100vh',
-                  padding: 10,
-                  margin: '10px 200px'
-                }}>
+            <TabPanel className='App-results-panel'>
+              <div>
                   <ResultsTab results = {programResults} />
               </div>
             </TabPanel>

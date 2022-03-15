@@ -23,18 +23,33 @@
     color: white;
     padding: 10px;
   }
+
+  .App-theme-toggle {
+    position: absolute !important;
+    right: 10px !important;
+    font-size: 18px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .App-results-pane {
+    height: '100vh';
+    padding: 10;
+    margin: '10px 200px';
+  }
   
 .save__controls {
   padding: 10px;
   border-bottom: 1px solid;
 }
 
-.save__controls button, .ReactModal__Content button {
+.save__controls a, .ReactModal__Content button {
   margin-right: 10px;
   padding: 5px;
   cursor: pointer;
-  border-radius: 0;
-  box-shadow: 2px 3px #999;
+  border-radius: 2;
+  font-size: 14px;
 }
 
 .react-flow__node-default {

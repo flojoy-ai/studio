@@ -1,5 +1,6 @@
 import os
 import json
+import yaml
 import time
 import networkx as nx
 import numpy as np
@@ -11,6 +12,10 @@ from rq.job import Job
 from GENERATORS import *
 from TRANSFORMERS import *
 from VISORS import *
+
+stream = open('STATUS_CODES.yml', 'r')
+stream = open('STATUS_CODES.yml', 'r') 
+STATUS_CODES = yaml.load(stream)
 
 from utils import PlotlyJSONEncoder
 
@@ -156,14 +161,11 @@ for n in topological_sorting:
     print(nd)
     job = Job.fetch(job_id, connection=r)
     redis_payload = job.result
-    all_node_results.append({
-        'cmd': nd['cmd'],
-        'result': redis_payload
-    })
+    all_node_results.append({'cmd': nd['cmd'], 'result': redis_payload})
 
 print(all_node_results, '^ all node results')
 
-r.set('COMPLETED_JOBS', json.dumps(all_node_results, cls=PlotlyJSONEncoder))
+print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 
-# f.write(json.dumps(end_node_results, cls=PlotlyJSONEncoder))
-
+r.mset({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
+        'COMPLETED_JOBS': json.dumps(all_node_results, cls=PlotlyJSONEncoder)})

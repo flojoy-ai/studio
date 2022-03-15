@@ -1,33 +1,61 @@
 const express = require('express');
 const fs = require('fs');
 const os = require('os');
+const yaml = require('js-yaml');
+
 const Redis = require("ioredis");
 const redis = new Redis(); // uses defaults unless given configuration object  
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+const STATUS_CODES = yaml.load(fs.readFileSync('./STATUS_CODES.yml', 'utf8'));
+console.log(STATUS_CODES);
+
 // Display message that HTTP server is running...
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
 // create a GET route
-app.get('/ping', (req, res) => {
-  console.log('pinged server...');
-  res.send({ cnx: true  });
-});
+app.get('/ping', (req, res) => { res.send({ msg: STATUS_CODES['SERVER_ONLINE'] })});
 
 app.get('/heartbeat', async (req, res) => {
+  redis.get('SYSTEM_STATUS').then(sysStatus => {
 
-  redis.get('COMPLETED_JOBS').then(result => {
-    let ts = '⏰: ' + os.uptime().toString().slice(-3);
-    let hb = {msg: '🐸 server connected', clock: ts, io: {}}
+    let ts = '⏰ server uptime: ' + os.uptime().toString().slice(-3);
+    let hb = {msg: '', clock: ts}
 
-    if(typeof result === 'string' && result.trim(' ') !== ''){
-        hb.msg = '🏆 Program completed';
-        hb.io = result;
-        redis.set('COMPLETED_JOBS', null);
+    console.log('sysStatus', sysStatus);
+
+    switch(sysStatus) {
+      case null:
+        hb.msg = ts;
+        break;
+      case STATUS_CODES['RQ_RUN_COMPLETE']:  
+        hb.msg = STATUS_CODES['RQ_RUN_COMPLETE'];
+        redis.set('SYSTEM_STATUS', STATUS_CODES['STANDBY']);
+        console.log(STATUS_CODES['RQ_RUN_COMPLETE'], hb);
+        break;
+      default:
+        hb.msg = sysStatus.toString().toLowerCase().replace('_', ' ');    
     }
-    console.log(hb);
+    res.send(hb);
+  });
+});
+
+app.get('/io', async (req, res) => {
+  redis.get('COMPLETED_JOBS').then(r => {
+
+    let ts = '⏰ server uptime: ' + os.uptime().toString().slice(-3);
+    let hb = {msg: STATUS_CODES['MISSING_RQ_RESULTS'], clock: ts, io: {}}
+
+    console.log(r, '^ retrieving results');
+
+    if(typeof r === 'string' && r.trim(' ') !== ''){
+        console.log(r.toString().slice(0,10));
+        hb.msg = STATUS_CODES['RQ_RESULTS_RETURNED'];
+        hb.io = r;
+    }
+
     return res.send(hb);
   });
 });
@@ -59,5 +87,6 @@ app.post('/wfc', async (req, res) => {
       console.log('closing code: ' + code)
   })
 
-  res.send({ msg: '🏃‍♀️ running program...' });
+  redis.set('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_IN_PROCESS']);
+  res.send({ 'msg': STATUS_CODES['RQ_RUN_IN_PROCESS'] });
 });

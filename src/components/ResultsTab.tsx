@@ -9,7 +9,7 @@ const ResultsTab = ({ results }) => {
 
   return (
     <div className='Results'>
-      <p>{results.status}</p>
+      <p>Job results</p>
       {nodeResults.map((nd, k) => (
         <details key={k}>
           <summary>{nd.cmd}</summary>

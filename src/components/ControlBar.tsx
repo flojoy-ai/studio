@@ -140,10 +140,10 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
         </Tabs>
       </Modal>
 
-      <button onClick={onSave}>⏯ Run Script</button>
-      <button onClick={onRestore}>⏮ Restore Run</button>
-      <button onClick={onClickElementDelete}>🚮 Delete Node</button>
-      <button onClick={openModal}>➕ Python Function</button>
+      <a onClick={onSave}>⏯ Run Script</a>
+      <a onClick={onRestore}>⏮ Restore Run</a>
+      <a onClick={onClickElementDelete}>🚮 Delete Node</a>
+      <a onClick={openModal}>➕ Python Function</a>
     </div>
   );
 };
