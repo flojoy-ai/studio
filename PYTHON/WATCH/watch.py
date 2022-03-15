@@ -9,13 +9,17 @@ from redis import Redis
 from rq import Queue
 from rq.job import Job
 
+import warnings
+import matplotlib.cbook
+warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
+
 from GENERATORS import *
 from TRANSFORMERS import *
 from VISORS import *
 
 stream = open('STATUS_CODES.yml', 'r')
 stream = open('STATUS_CODES.yml', 'r') 
-STATUS_CODES = yaml.load(stream)
+STATUS_CODES = yaml.safe_load(stream)
 
 from utils import PlotlyJSONEncoder
 
@@ -114,8 +118,8 @@ for n in topological_sorting:
     func = getattr(globals()[cmd], cmd)
     job_id = jid(n)
 
-    print('>>> visiting node *** {0} *** ({1})'.format(cmd, n))
-    print('Queueing function... ...', func)
+    s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
+    r.set('SYSTEM_STATUS', s)
     
     node_predecessors = DG.predecessors(n)
     
@@ -134,36 +138,21 @@ for n in topological_sorting:
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
             depends_on = previous_job_ids)
 
-# collect node results
-
-end_nodes = [x for x in DG.nodes() if DG.out_degree(x)==0 and DG.in_degree(x)==1]
-
-print(end_nodes)
-
-end_node_results = []
-all_node_results = []
 
 # give jobs 5 seconds to execute :|
+# TODO: make this set by user
 time.sleep(5)
 
-for n in end_nodes:
-    job_id = jid(n)
-    nd = get_node_data_by_id()[n]
-    job = Job.fetch(job_id, connection=r)
-    payload = job.result
-    end_node_results.append({nd['cmd']: payload})
-
+# collect node results
+all_node_results = []
 topological_sorting = nx.topological_sort(DG)
 
 for n in topological_sorting:
     job_id = jid(n)
     nd = get_node_data_by_id()[n]
-    print(nd)
     job = Job.fetch(job_id, connection=r)
     redis_payload = job.result
     all_node_results.append({'cmd': nd['cmd'], 'result': redis_payload})
-
-print(all_node_results, '^ all node results')
 
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 

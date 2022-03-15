@@ -33,15 +33,14 @@
     cursor: pointer;
   }
 
-  .App-results-pane {
-    height: '100vh';
-    padding: 10;
-    margin: '10px 200px';
+  .App-results-panel {
+    background-color: #282c34;
+    height: 100vh;
   }
   
 .save__controls {
   padding: 10px;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #282c34;
 }
 
 .save__controls a, .ReactModal__Content button {
@@ -63,6 +62,12 @@
 
 .react-tabs__tab {
   border: 0;
+}
+
+.react-tabs__tab-list {
+  margin: 0;
+  padding-left: 10px;
+  border-bottom: 1px solid #282c34;
 }
 
 .react-tabs__tab--selected {

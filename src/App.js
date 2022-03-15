@@ -12,8 +12,6 @@ import STATUS_CODES from './STATUS_CODES.json';
 
 import './App.css';
 
-
-
 const App = () => {
   const [serverStatus, setServerStatus] = useState('Connecting to server...');
   const [programResults, setProgramResults] = useState({status: '⛷️ No runs yet'});
@@ -65,6 +63,7 @@ const App = () => {
                     });                  
                 }
                 else if (res.msg !== undefined && res.msg !== ''){
+                  // Program in process, awaiting a new job etc...
                   setServerStatus(res.msg);
                 }
               })
@@ -76,10 +75,6 @@ const App = () => {
       })
       .catch(err => console.log(err));
   }, []);
-
-const tabStyle = (theme === 'light') 
-    ? {borderColor: '#282c34'} 
-    : {borderColor: '#FFF'};
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
@@ -95,8 +90,8 @@ const tabStyle = (theme === 'light')
         <main>
           <Tabs>
             <TabList>
-              <Tab style={tabStyle}>PROGRAM</Tab>
-              <Tab style={tabStyle}>RESULTS</Tab>
+              <Tab >PROGRAM</Tab>
+              <Tab >RUN REPORT</Tab>
             </TabList>
 
             <TabPanel>
@@ -104,7 +99,10 @@ const tabStyle = (theme === 'light')
             </TabPanel>
             <TabPanel className='App-results-panel'>
               <div>
-                  <ResultsTab results = {programResults} />
+                  <ResultsTab 
+                    results = {programResults} 
+                    theme = {theme}
+                  />
               </div>
             </TabPanel>
           </Tabs>

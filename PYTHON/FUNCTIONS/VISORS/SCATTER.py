@@ -1,4 +1,5 @@
 from .VCTR import get_input_vectors
+from .template import init_template
 
 def SCATTER(**kwargs):
     previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
@@ -11,6 +12,6 @@ def SCATTER(**kwargs):
             type='scatter',
             mode='markers'
         )],
-        layout = {}
+        layout = dict(template = init_template())
     )
     return fig

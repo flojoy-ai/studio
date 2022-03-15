@@ -10,7 +10,6 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const STATUS_CODES = yaml.load(fs.readFileSync('./STATUS_CODES.yml', 'utf8'));
-console.log(STATUS_CODES);
 
 // Display message that HTTP server is running...
 app.listen(port, () => console.log(`Listening on port ${port}`))
@@ -33,7 +32,6 @@ app.get('/heartbeat', async (req, res) => {
       case STATUS_CODES['RQ_RUN_COMPLETE']:  
         hb.msg = STATUS_CODES['RQ_RUN_COMPLETE'];
         redis.set('SYSTEM_STATUS', STATUS_CODES['STANDBY']);
-        console.log(STATUS_CODES['RQ_RUN_COMPLETE'], hb);
         break;
       default:
         hb.msg = sysStatus.toString().toLowerCase().replace('_', ' ');    
@@ -48,10 +46,8 @@ app.get('/io', async (req, res) => {
     let ts = '⏰ server uptime: ' + os.uptime().toString().slice(-3);
     let hb = {msg: STATUS_CODES['MISSING_RQ_RESULTS'], clock: ts, io: {}}
 
-    console.log(r, '^ retrieving results');
-
     if(typeof r === 'string' && r.trim(' ') !== ''){
-        console.log(r.toString().slice(0,10));
+        console.log(r.toString().slice(0, 20));
         hb.msg = STATUS_CODES['RQ_RESULTS_RETURNED'];
         hb.io = r;
     }

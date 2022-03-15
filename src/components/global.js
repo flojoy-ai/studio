@@ -15,10 +15,19 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
   }
   details {
-    text-align: left;
-    font-family: monospace;
-    font-size: 18px;
+    text-align: center;
     border-bottom: 1px solid;
     margin-bottom: 40px;
+    color: ${({ theme }) => theme.text};
+  }
+  summary {
+    text-align: left;
+    color: ${({ theme }) => theme.text};
+  }
+  .Results {
+    background: ${({ theme }) => theme.body};
+  }
+  .Results h1 {
+    color: ${({ theme }) => theme.text};
   }
 `;

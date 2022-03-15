@@ -1,4 +1,27 @@
 .Results {
     text-align: center;
     overflow-wrap: break-word;
+    margin: auto;
+    max-width: 600px;
+    min-width: 400px;
+    overflow-x: hidden;
+    height: 100vh;
+    padding: 0 10px;
+  }
+
+  .Results h1 {
+    margin: 40px 0;
+  }
+
+  .Results summary {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    outline: none !important;
+  }
+
+  .Results .js-plotly-plot {
+    height: 300px;
+    width: 450px;
   }

@@ -1,1 +1,1 @@
-__all__ = ["HISTOGRAM", "SCATTER"]
+__all__ = ["HISTOGRAM", "SCATTER", "template"]
