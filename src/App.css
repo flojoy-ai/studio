@@ -32,11 +32,6 @@
     border: 0;
     cursor: pointer;
   }
-
-  .App-results-panel {
-    background-color: #282c34;
-    height: 100vh;
-  }
   
 .save__controls {
   padding: 10px;

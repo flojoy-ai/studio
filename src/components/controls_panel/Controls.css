@@ -1,0 +1,10 @@
+.App-controls-panel {
+    height: 100vh;
+    background-color: #f1f2f3; 
+    /* Graph paper pattern */
+    background-image: 
+      -webkit-linear-gradient(0deg, transparent .05em, rgba(0,0,0,.05) .05em, rgba(0,0,0,.05) .125000em, transparent .125000em),
+      -webkit-linear-gradient(rgba(0,0,0,.05) .062500em, transparent .062500em); 
+    background-size: .75em .75em;  
+    background-position: 0 -0.5em; 
+}

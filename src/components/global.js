@@ -24,10 +24,19 @@ export const GlobalStyles = createGlobalStyle`
     text-align: left;
     color: ${({ theme }) => theme.text};
   }
-  .Results {
+  .App-results-panel {
     background: ${({ theme }) => theme.body};
   }
-  .Results h1 {
+  .App-results-panel h1 {
     color: ${({ theme }) => theme.text};
+  }
+  .save__controls {
+    background: ${({ theme }) => theme.body};
+  }  
+  .save__controls a:hover {
+    border-bottom: 5px solid ${({ theme }) => theme.text};    
+  }
+  .react-grid-item {
+    background-color: ${({ theme }) => theme.body} !important;
   }
 `;

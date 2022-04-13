@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import FlowChart from './components/ReactFlow.tsx';
-import ResultsTab from './components/ResultsTab.tsx';
+
+import FlowChart from './components/flow_chart_panel/ReactFlow.tsx';
+import ResultsTab from './components/results_panel/ResultsTab.tsx';
+import ControlsTab from './components/controls_panel/ControlsTab.tsx';
 
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './components/theme';
@@ -91,20 +93,31 @@ const App = () => {
           <Tabs>
             <TabList>
               <Tab >PROGRAM</Tab>
-              <Tab >RUN REPORT</Tab>
+              <Tab >CONTROLS PANEL</Tab>              
+              <Tab >RESULTS</Tab>
             </TabList>
 
-            <TabPanel>
+            <TabPanel key='tab-1'>
               <FlowChart />
             </TabPanel>
-            <TabPanel className='App-results-panel'>
-              <div>
-                  <ResultsTab 
-                    results = {programResults} 
-                    theme = {theme}
-                  />
-              </div>
+
+            <TabPanel key='tab-2'>
+              <ControlsTab 
+                results = {programResults} 
+                theme = {theme}
+              />
+            </TabPanel> 
+
+            <TabPanel 
+              key='tab-3' 
+              style={{backgroundColor: '#282c34'}}
+            >
+                <ResultsTab 
+                  results = {programResults} 
+                  theme = {theme}
+                />
             </TabPanel>
+
           </Tabs>
         </main>
       </>

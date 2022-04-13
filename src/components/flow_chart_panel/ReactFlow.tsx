@@ -15,7 +15,7 @@ import CustomEdge from './CustomEdge.tsx';
 import CustomNode from './CustomNode.tsx';
 import Controls from './ControlBar.tsx';
 
-import {NOISY_SINE} from './../RECIPES.js'
+import {NOISY_SINE} from './RECIPES.js'
 
 const initialElements: Elements = NOISY_SINE.elements;
 

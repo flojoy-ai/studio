@@ -4,18 +4,22 @@ import localforage from 'localforage';
 import Modal from 'react-modal';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import {COMMANDS, SECTIONS} from '../COMMANDS_MANIFEST.js';
+import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
 localforage.config({
   name: 'react-flow',
   storeName: 'flows',
 });
 
-const flowKey = 'example-flow';
+const flowKey = 'vortx-flow';
 
 const getNodeId = () => `userGeneratedNode_${+new Date()}`;
 
-const getNodePosition = () => { return {x: 50 + Math.random() * 20, y: 50 + Math.random() + Math.random() * 20} };
+const getNodePosition = () => { 
+  return {
+    x: 50 + Math.random() * 20, 
+    y: 50 + Math.random() + Math.random() * 20} 
+};
 
 type ControlsProps = {
   rfInstance?: OnLoadParams;
@@ -36,7 +40,6 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
       const fc = flowObj;
       const fcStr = JSON.stringify(flowObj);
 
-      console.log('sending fc to server...', fc);
 
       fetch('/wfc', {
         method: 'POST',
@@ -64,9 +67,9 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
 
   const onAdd = useCallback((FUNCTION) => {
     if (FUNCTION === 'CONSTANT'){
-      let constant = prompt("Please enter a numerical constant", 2.0);
+      let constant = prompt("Please enter a numerical constant", '2.0');
       if (constant == null) {
-        constant = 2.0;
+        constant = '2.0';
       }
       FUNCTION = constant;
     }
@@ -98,6 +101,12 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
 
   return (
     <div className="save__controls">
+
+      <a onClick={onSave}>⏯ Run Script</a>
+      <a onClick={onRestore}>⏮ Restore Run</a>
+      <a onClick={onClickElementDelete}>🚮 Delete Node</a>
+      <a onClick={openModal}>🧰 Python Function</a> 
+           
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -139,11 +148,6 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
 
         </Tabs>
       </Modal>
-
-      <a onClick={onSave}>⏯ Run Script</a>
-      <a onClick={onRestore}>⏮ Restore Run</a>
-      <a onClick={onClickElementDelete}>🚮 Delete Node</a>
-      <a onClick={openModal}>➕ Python Function</a>
     </div>
   );
 };

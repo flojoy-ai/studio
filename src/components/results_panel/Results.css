@@ -1,4 +1,4 @@
-.Results {
+.App-results-panel {
     text-align: center;
     overflow-wrap: break-word;
     margin: auto;
@@ -9,11 +9,11 @@
     padding: 0 10px;
   }
 
-  .Results h1 {
+  .App-results-panel h1 {
     margin: 40px 0;
   }
 
-  .Results summary {
+  .App-results-panel summary {
     cursor: pointer;
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
@@ -21,7 +21,7 @@
     outline: none !important;
   }
 
-  .Results .js-plotly-plot {
+  .App-results-panel .js-plotly-plot {
     height: 300px;
     width: 450px;
   }

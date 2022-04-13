@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Plot from 'react-plotly.js';
 
 import './Results.css';
@@ -22,10 +22,8 @@ const ResultsTab = ({ results, theme }) => {
     yaxis: {zeroline: false, color: plotFeatureColor}
   };
 
-  console.log(theme, dfltLayout)
-
   return (
-    <div className='Results'>
+    <div className='App-results-panel'>
       <h1>Job results</h1>
       {nodeResults.map((nd, k) => (
         <details key={k} open={ k===0 ? true : false }>
@@ -46,4 +44,4 @@ const ResultsTab = ({ results, theme }) => {
   );
 };
 
-export default ResultsTab;
+export default memo(ResultsTab);
