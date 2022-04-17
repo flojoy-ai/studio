@@ -9,6 +9,8 @@ const ResultsTab = ({ results, theme }) => {
     ? JSON.parse(results.io).reverse().slice(0,5) 
     : [];
 
+  console.warn('node results', nodeResults);
+
   let plotFeatureColor = (theme === 'light' ? '#282c34' : '#fff');
   let plotBackgroundColor  = (theme === 'light' ? '#fff' : '#282c34');
 
@@ -24,20 +26,22 @@ const ResultsTab = ({ results, theme }) => {
 
   return (
     <div className='App-results-panel'>
-      <h1>Job results</h1>
+      <p>
+        {nodeResults.length === 0 ? 'No run results yet.' : ''}
+      </p>     
       {nodeResults.map((nd, k) => (
         <details key={k} open={ k===0 ? true : false }>
           <summary>{nd.cmd}</summary>
-          {('data' in nd.result && 'layout' in nd.result) &&
-            <Plot
-              data = {nd.result.data} 
-              layout = {Object.assign({}, nd.result.layout, dfltLayout)}
-              useResizeHandler />}
-          {('x0' in nd.result && 'x0' in nd.result) &&
-            <Plot
-              data = {[{'x': nd.result['x0'], 'y': nd.result['y0'] }]} 
-              layout = {Object.assign({}, {title: nd.cmd}, dfltLayout)}
-              useResizeHandler />}
+          {nd.result !== null ?
+              <Plot
+                data = {'data' in nd.result 
+                  ? nd.result.data 
+                  : [{'x': nd.result['x0'], 'y': nd.result['y0'] }]}
+                layout = {'layout' in nd.result 
+                  ? Object.assign({}, nd.result.layout, dfltLayout)
+                  : Object.assign({}, {title: `${nd.cmd}`}, dfltLayout)}
+                useResizeHandler />
+          : `⚠️ The server returned null for the ${nd.cmd} node`}
         </details>
       ))}
     </div>

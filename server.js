@@ -11,6 +11,8 @@ const port = process.env.PORT || 5000;
 
 const STATUS_CODES = yaml.load(fs.readFileSync('./STATUS_CODES.yml', 'utf8'));
 
+let lastSystemStatus = '';
+
 // Display message that HTTP server is running...
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
@@ -23,7 +25,11 @@ app.get('/heartbeat', async (req, res) => {
     let ts = '⏰ server uptime: ' + os.uptime().toString().slice(-3);
     let hb = {msg: '', clock: ts}
 
-    console.log('sysStatus', sysStatus);
+    if( sysStatus != lastSystemStatus ){
+      console.log('sysStatus', sysStatus);
+    }
+
+    lastSystemStatus = sysStatus;
 
     switch(sysStatus) {
       case null:
@@ -62,10 +68,10 @@ app.use(express.urlencoded());
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-// Receive a flow chart, write file ("wf") to disk, & call Python watch script
+// Receive a flow chart, write flow chart ("wfc") to disk, & start Python watch script
 app.post('/wfc', async (req, res) => {
 
-  console.log('Flow chart payload... ', req.body.fc.toString().slice(0,20));
+  console.log('Flow chart payload... ', req.body.fc.toString().slice(0,200));
 
   fs.writeFileSync( 'PYTHON/WATCH/fc.json', req.body.fc );
 
@@ -74,10 +80,10 @@ app.post('/wfc', async (req, res) => {
   var child = exec('python3 PYTHON/WATCH/watch.py')
 
   child.stdout.on('data', function(data) {
-      console.log('stdout: ' + data.slice(0,200))
+      console.log('Python process stdout: ' + data.slice(0,400))
   })
   child.stderr.on('data', function(data) {
-      console.log('stdout: ' + data)
+      console.log('Python process stderr: ' + data)
   })
   child.on('close', function(code) {
       console.log('closing code: ' + code)

@@ -14,6 +14,9 @@ export const GlobalStyles = createGlobalStyle`
   a {
     color: ${({ theme }) => theme.text};
   }
+  div {
+    border-color: ${({ theme }) => theme.text};
+  }
   details {
     text-align: center;
     border-bottom: 1px solid;
@@ -32,11 +35,25 @@ export const GlobalStyles = createGlobalStyle`
   }
   .save__controls {
     background: ${({ theme }) => theme.body};
+    border-bottom: 0.5px solid ${({ theme }) => theme.text};
   }  
-  .save__controls a:hover {
-    border-bottom: 5px solid ${({ theme }) => theme.text};    
+  .react-tabs__tab-list {
+    border-bottom: 0.5px solid ${({ theme }) => theme.text};
   }
-  .react-grid-item {
-    background-color: ${({ theme }) => theme.body} !important;
+  .App-controls-panel {
+    background-color: ${({ theme }) => theme.body};
+    /* Graph paper pattern */
+    background-image: 
+    -webkit-linear-gradient(0deg, transparent .05em, rgba(0,0,0,.05) .05em, rgba(0,0,0,.05) .125000em, transparent .125000em),
+    -webkit-linear-gradient(rgba(0,0,0,.05) .062500em, transparent .062500em); 
+  }
+  .ReactModal__Content {
+    background: ${({ theme }) => theme.body} !important;
+  }
+  .ReactModal__Overlay {
+    background: ${({ theme }) => theme.overlay} !important;
+  }
+  .ctrl-item {
+    background: ${({ theme }) => theme.overlay} !important;
   }
 `;

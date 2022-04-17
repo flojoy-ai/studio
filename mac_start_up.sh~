@@ -1,11 +1,14 @@
 #!/bin/bash
 
 echo 'update ES6 status codes file...'
-python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()))); f.close();'
+python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
 echo 'create symlinks...'
 ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
+
+echo 'copy python functions folder to JS-readable directory'
+cp -r PYTHON/FUNCTIONS src/components/flow_chart_panel/
 
 echo 'spinning up redis server...'
 ttab -t 'REDIS' redis-server

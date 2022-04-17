@@ -16,15 +16,11 @@ import './App.css';
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState('Connecting to server...');
-  const [programResults, setProgramResults] = useState({status: '⛷️ No runs yet'});
+  const [programResults, setProgramResults] = useState({status: STATUS_CODES.NO_RUNS_YET});
   const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
+    theme === 'light' ? setTheme('dark') : setTheme('light');
   }
 
   const pingBackendAPI = async (endpoint) => {
@@ -84,7 +80,7 @@ const App = () => {
         <GlobalStyles />
         <p className="App-status"><code>{serverStatus}</code></p>
         <header className="App-header">
-            <h1>VEKTOR</h1>
+            <h1>FLOJOY</h1>
             <button onClick={toggleTheme} className='App-theme-toggle'>
               {theme === 'light' ? '🌙' : '🌞'}
             </button>
@@ -93,12 +89,15 @@ const App = () => {
           <Tabs>
             <TabList>
               <Tab >PROGRAM</Tab>
-              <Tab >CONTROLS PANEL</Tab>              
-              <Tab >RESULTS</Tab>
+              <Tab >CTRL PANEL</Tab>              
+              <Tab style={{float: 'right'}}>LOGS</Tab>
             </TabList>
 
             <TabPanel key='tab-1'>
-              <FlowChart />
+              <FlowChart 
+                  results = {programResults} 
+                  theme = {theme}
+              />
             </TabPanel>
 
             <TabPanel key='tab-2'>

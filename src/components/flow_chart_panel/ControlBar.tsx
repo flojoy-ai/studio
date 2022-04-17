@@ -1,8 +1,10 @@
-import React, { memo, useCallback, Dispatch, FC, useState } from 'react';
+import React, {Component, memo, useCallback, Dispatch, FC, useState } from 'react';
 import { useZoomPanHelper, OnLoadParams, Elements, FlowExportObject} from 'react-flow-renderer';
 import localforage from 'localforage';
 import Modal from 'react-modal';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Select from 'react-select'
+
 import 'react-tabs/style/react-tabs.css';
 import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
@@ -65,7 +67,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     restoreFlow();
   }, [setElements, transform]);
 
-  const onAdd = useCallback((FUNCTION) => {
+  const onAdd = useCallback((FUNCTION, TYPE) => {
     if (FUNCTION === 'CONSTANT'){
       let constant = prompt("Please enter a numerical constant", '2.0');
       if (constant == null) {
@@ -75,7 +77,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     }
     const newNode = {
       id: `${FUNCTION}-${getNodeId()}`,
-      data: { label: FUNCTION },
+      data: { label: FUNCTION, type: TYPE},
       position: getNodePosition(),
     };
     setElements((els) => els.concat(newNode));
@@ -99,13 +101,36 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
   const afterOpenModal = () => {}
   const closeModal = () => { setIsOpen(false); }
 
+  const handleChange = selectedOption => {
+    console.warn(selectedOption);
+    if( selectedOption.value === 'delete' ){
+      onClickElementDelete() 
+    }
+    else if( selectedOption.value === 'undo' ){
+      onRestore();
+    }
+  };
+
+  const options = [    
+    { value: 'delete', label: '🗑️ Delete' },
+    { value: 'undo', label: '😅 Undo' },
+  ]
+
   return (
     <div className="save__controls">
 
-      <a onClick={onSave}>⏯ Run Script</a>
-      <a onClick={onRestore}>⏮ Restore Run</a>
-      <a onClick={onClickElementDelete}>🚮 Delete Node</a>
-      <a onClick={openModal}>🧰 Python Function</a> 
+      <a onClick={openModal}>🛠️ Add Python Function</a> 
+
+      <a onClick={onSave}>🏃 Run Script</a>
+
+      <Select 
+        defaultValue = {{ value: 'edit', label: '🚧 Edit' }}
+        value = {{ value: 'edit', label: '🚧 Edit' }}
+        className = 'App-select'
+        isSearchable = {false}
+        onChange = {handleChange}
+        options = {options} 
+      />
            
       <Modal
         isOpen={modalIsOpen}
@@ -115,17 +140,15 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-        <button 
-          onClick={closeModal}
-          style={{'position': 'absolute', 'right': '10px'}}
-        >
-            x close
-        </button>
+        <button onClick={closeModal} className='close-modal'>x</button>
         <Tabs>
           <TabList>
-            <Tab>Acquire & Control</Tab>
-            <Tab>Process & Transform</Tab>
-            <Tab>Save & Visualize</Tab>
+            <Tab>Simulation</Tab>
+            <Tab>Sample data</Tab>
+            <Tab>ETL</Tab>
+            <Tab>AI</Tab>
+            <Tab>DAQ</Tab>
+            <Tab>Visualization</Tab>
           </TabList>
 
           {SECTIONS.map((sections, tabIndex) =>
@@ -133,10 +156,14 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
             {sections.map((section, sectionIndex) =>
               <div key={sectionIndex}>
                 <p key={section.name}>{section.name}</p>
-                {COMMANDS[tabIndex].map((cmd, cmdIndex) =>
+                {COMMANDS.map((cmd, cmdIndex) =>
                   <span key={cmdIndex}>
                   {(section.key === cmd.type)
-                    ? <button onClick={() => onAdd(cmd.key)} key={cmd.name}>{cmd.name}</button>
+                    ? <button 
+                        onClick={() => onAdd(cmd.key, cmd.type)} 
+                        key={cmd.name}>
+                        {cmd.name}
+                      </button>
                     : null
                   }  
                   </span>              

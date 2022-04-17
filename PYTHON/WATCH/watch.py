@@ -133,6 +133,7 @@ for n in topological_sorting:
             prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
             print(prev_cmd, 'is a predecessor to', cmd)
+        print('ENQUEUING...', job_id, ctrls)
         q.enqueue(func,
             job_id = job_id,
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
@@ -156,5 +157,12 @@ for n in topological_sorting:
 
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 
+results_string = json.dumps(all_node_results, cls=PlotlyJSONEncoder)
+
+print('*********************')
+print('****** results ******')
+print('*********************')
+print(results_string)
+
 r.mset({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
-        'COMPLETED_JOBS': json.dumps(all_node_results, cls=PlotlyJSONEncoder)})
+        'COMPLETED_JOBS': results_string})

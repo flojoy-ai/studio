@@ -1,0 +1,12 @@
+import json
+
+dirs = [GENERATORS, TRANSFORMERS, VISORS, EXTRACTORS, AI, DAQ]
+
+path = 'PYTHON/FUNCTIONS'
+
+badbadnotgood = ['VCTR.py', '__init__.py', '__pycache__']
+
+for dir in dirs:
+    full_path = path + dir
+    print(full_path)
+    

@@ -11,6 +11,7 @@ const CustomNode = ({ data }) => {
     <div style={customNodeStyles}>
       <Handle type="target" position={Position.Left} style={{ borderRadius: 0 }} />
       <Handle type="source" position={Position.Right} style={{ borderRadius: 0 }} />
+      
       <div>{data.label}</div>
     </div>
   );

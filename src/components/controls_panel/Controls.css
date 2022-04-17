@@ -1,10 +1,39 @@
 .App-controls-panel {
     height: 100vh;
-    background-color: #f1f2f3; 
-    /* Graph paper pattern */
-    background-image: 
-      -webkit-linear-gradient(0deg, transparent .05em, rgba(0,0,0,.05) .05em, rgba(0,0,0,.05) .125000em, transparent .125000em),
-      -webkit-linear-gradient(rgba(0,0,0,.05) .062500em, transparent .062500em); 
     background-size: .75em .75em;  
-    background-position: 0 -0.5em; 
+    background-position: 0 -0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+    align-items: auto;
+    align-content: start    
+}
+
+.ctrl-item {
+  flex: 0 0 auto;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border: 1px solid #ccc;
+  position: relative;
+  margin: 20px;
+  min-height: 200px;
+  width: 25%;
+  resize: both;
+  cursor: pointer;
+  -webkit-user-drag: element;
+  box-shadow: 5px 10px 18px #888888;
+}
+
+.ctrl-close-btn {
+  margin: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.ctrl-meta {
+  font-size: 10px;
+  text-align: left;
 }

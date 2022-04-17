@@ -6,6 +6,8 @@ def RAND(**kwargs):
 
     xy0 = previous_job_results[0]
 
+    print('RAND', xy0)
+
     x = xy0['x0']
 
     y = np.random.normal(size=len(x))

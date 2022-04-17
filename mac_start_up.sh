@@ -7,6 +7,9 @@ echo 'create symlinks...'
 ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
+echo 'jsonify python functions and write to JS-readable directory'
+python jsonify_funk.py
+
 echo 'spinning up redis server...'
 ttab -t 'REDIS' redis-server
 sleep 2
