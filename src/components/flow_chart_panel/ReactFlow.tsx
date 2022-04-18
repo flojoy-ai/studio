@@ -11,6 +11,8 @@ import ReactFlow, {
   OnLoadParams,
 } from 'react-flow-renderer';
 
+import Plot from 'react-plotly.js';
+
 import CustomEdge from './CustomEdge.tsx';
 import CustomNode from './CustomNode.tsx';
 import Controls from './ControlBar.tsx';
@@ -29,8 +31,9 @@ const initialElements: Elements = NOISY_SINE.elements;
 const edgeTypes: EdgeTypesType = {default: CustomEdge};
 const nodeTypes: NodeTypesType = {default: CustomNode};
 
-
 const FlowChart = ({ results, theme }) => {
+
+  console.log('FlowChart RESULTS', results)
   
   const [rfInstance, setRfInstance] = useState<OnLoadParams>();
   const [elements, setElements] = useState<Elements>(initialElements);
@@ -53,25 +56,56 @@ const FlowChart = ({ results, theme }) => {
     setClickedElement(elem);
     openModal();
   }
-
-  const plotNodeResult = () => {
-
-    const nid = clickedElement.id;
-
-    return(
-      <label>hello</label>
-    );
-  }
   
   const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
-  const nodeLabel = clickedElement === null ? undefined : clickedElement.data.label;
-  const nodeType = clickedElement === null ? undefined : clickedElement.data.type;
+  const defaultLabel = 'PYTHON FUNCTION';
+  const defaultType = 'PYTHON FUNCTION TYPE';
+  
+  let nodeLabel = defaultLabel;
+  let nodeType = defaultType;
 
-  const pythonString = (nodeLabel === undefined || nodeType === undefined)
+  if (clickedElement != undefined) {
+    if ('data' in clickedElement) {
+      if ('label' in clickedElement.data && 'type' in clickedElement.data)  {
+        if (clickedElement.data.label != undefined && clickedElement.data.type != undefined) {
+          nodeLabel = clickedElement.data.label;
+          nodeType = clickedElement.data.type;
+        }
+      }
+    }
+  }
+
+  const pythonString = (nodeLabel === defaultLabel || nodeType === defaultType)
     ? '...'
     : PYTHON_FUNCTIONS[nodeType][nodeLabel+'.py'];
+
+  let nd = {};
+
+  if ('io' in results) {
+    const runResults = JSON.parse(results.io);
+    console.log(runResults);
+    console.log('nodeLabel', nodeLabel);
+    nd = runResults.filter(node => (node.cmd === nodeLabel))[0]
+    console.log(nd);
+    if(nd == undefined){
+      nd = {};
+    }
+  }
+
+  const plotFeatureColor = (theme === 'light' ? '#282c34' : '#fff');
+  const plotBackgroundColor  = (theme === 'light' ? '#fff' : '#282c34');
+
+  const dfltLayout = {
+    paper_bgcolor: 'rgba(0,0,0,0)', 
+    plot_bgcolor: plotBackgroundColor,
+    autosize: true, 
+    font: {color: plotFeatureColor},
+    margin: {t: 40, r: 20, b: 40, l: 10},
+    xaxis: {zeroline: false, color: plotFeatureColor},
+    yaxis: {zeroline: false, color: plotFeatureColor}
+  };
 
   return (
     <ReactFlowProvider>
@@ -80,9 +114,10 @@ const FlowChart = ({ results, theme }) => {
         setElements={setElements} 
         clickedElement={clickedElement}
         onElementsRemove={onElementsRemove}
+        theme={theme}
       >
       </Controls>  
-      <div style={{ height: `100vh` }}>
+      <div style={{ height: `99vh` }}>
         <ReactFlow           
           elements={elements} 
           edgeTypes={edgeTypes}
@@ -105,16 +140,24 @@ const FlowChart = ({ results, theme }) => {
       >               
         <button onClick={closeModal} className='ctrl-close-btn'>x</button>
 
-        <h1>{nodeLabel}</h1>
+        {(nodeLabel != undefined && nodeType != undefined) && (
+          <div>
+            <h1>{nodeLabel}</h1>
+            <h4>Function type: <code>{nodeType}</code></h4>
+          </div>      
+        )}
 
-        <h4>
-          Node type: <code>{nodeType}</code>
-        </h4>
-
-        {results.status === STATUS_CODES.NO_RUNS_YET
+        {Object.keys(nd).length === 0
           ? <p><code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.</p>
           : (<div>
-              <p>hello</p>
+              <Plot
+                data = {'data' in nd.result 
+                  ? nd.result.data 
+                  : [{'x': nd.result['x0'], 'y': nd.result['y0'] }]}
+                layout = {'layout' in nd.result 
+                  ? Object.assign({}, nd.result.layout, dfltLayout)
+                  : Object.assign({}, {title: `${nd.cmd}`}, dfltLayout)}
+                useResizeHandler />                
             </div>)
         }
 

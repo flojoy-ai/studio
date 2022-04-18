@@ -1,8 +1,8 @@
-from .VCTR import get_input_vectors
+from .VCTR import fetch_inputs
 from .template import init_template
 
 def HISTOGRAM(**kwargs):
-    previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
     payload = previous_job_results[0]
 
     fig = dict(

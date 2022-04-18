@@ -7,19 +7,24 @@ echo 'create symlinks...'
 ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
-echo 'copy python functions folder to JS-readable directory'
-cp -r PYTHON/FUNCTIONS src/components/flow_chart_panel/
+echo 'jsonify python functions and write to JS-readable directory'
+python jsonify_funk.py
 
-echo 'spinning up redis server...'
+echo 'shutting down any existing redis server and clearing redis memory...'
+ttab -t 'REDIS-CLI' redis-cli SHUTDOWN
+sleep 1
+redis-cli FLUSHALL
+
+echo 'spining up a fresh redis server...'
 ttab -t 'REDIS' redis-server
-sleep 2
+sleep 1
 
 echo 'starting redis worker...'
 ttab -t 'RQ WORKER' rq worker
-sleep 2
+sleep 1
 
 echo 'starting node server...'
 ttab -t 'NODE' node server.js
-sleep 2
+sleep 1
 
 ttab -t 'REACT' npm start

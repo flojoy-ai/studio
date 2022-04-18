@@ -5,11 +5,9 @@ import './Results.css';
 
 const ResultsTab = ({ results, theme }) => {
 
-  let nodeResults = ('io' in results) 
-    ? JSON.parse(results.io).reverse().slice(0,5) 
+  const nodeResults = ('io' in results) 
+    ? JSON.parse(results.io).reverse()
     : [];
-
-  console.warn('node results', nodeResults);
 
   let plotFeatureColor = (theme === 'light' ? '#282c34' : '#fff');
   let plotBackgroundColor  = (theme === 'light' ? '#fff' : '#282c34');

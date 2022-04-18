@@ -13,10 +13,8 @@ function_dict = dict()
 for dir in dirs:
     function_dict[dir] = dict()
     full_path = path + '/' + dir
-    print(full_path)
     python_files = [f for f in listdir(full_path) if (isfile(join(full_path, f)) and f not in badbadnotgood)]
     for pf in python_files:
-        print(pf)
         with open(join(full_path, pf)) as f:
             function_dict[dir][pf] = f.read()
 

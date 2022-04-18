@@ -1,12 +1,10 @@
 import numpy as np
-from VCTR import get_input_vectors
+from .VCTR import fetch_inputs
 
 def RAND(**kwargs):
-    previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
     xy0 = previous_job_results[0]
-
-    print('RAND', xy0)
 
     x = xy0['x0']
 

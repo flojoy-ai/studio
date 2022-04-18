@@ -6,7 +6,7 @@ import networkx as nx
 import numpy as np
 from plotly import plot
 from redis import Redis
-from rq import Queue
+from rq import Queue, Retry
 from rq.job import Job
 
 import warnings
@@ -24,7 +24,7 @@ STATUS_CODES = yaml.safe_load(stream)
 from utils import PlotlyJSONEncoder
 
 r = Redis()
-q = Queue(connection=r)
+q = Queue('flojoy', connection=r)
 
 # import sys
 # sys.path.append('../FUNCTIONS/')
@@ -103,6 +103,9 @@ nodes_by_id = get_node_data_by_id()
 
 print(nodes_by_id)
 
+def report_failure(job, connection, type, value, traceback):
+    print(job, connection, type, value, traceback)
+
 def jid(n):
     return 'JOB_ID_{0}'.format(n)
 
@@ -125,23 +128,30 @@ for n in topological_sorting:
     
     if len(list(node_predecessors)) == 0:
         print ('{0} ({1}) has no predecessors'.format(cmd, n))
-        q.enqueue(func, job_id = job_id, kwargs={'ctrls': ctrls})
+        q.enqueue(func, 
+            retry=Retry(max=3), 
+            on_failure=report_failure,
+            job_id = job_id, 
+            kwargs={'ctrls': ctrls})
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
             prev_cmd = DG.nodes[p]['cmd']
             prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
-            print(prev_cmd, 'is a predecessor to', cmd)
-        print('ENQUEUING...', job_id, ctrls)
+            print(prev_cmd, 'is a predecessor to', cmd)        
         q.enqueue(func,
+            retry=Retry(max=3),
+            on_failure=report_failure,
             job_id = job_id,
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
             depends_on = previous_job_ids)
+        print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
 
 # give jobs 5 seconds to execute :|
 # TODO: make this set by user
+print('***         5 sec delay           ***')
 time.sleep(5)
 
 # collect node results
@@ -152,7 +162,23 @@ for n in topological_sorting:
     job_id = jid(n)
     nd = get_node_data_by_id()[n]
     job = Job.fetch(job_id, connection=r)
+    job_status = job.get_status(refresh=True)
+    print('\n\n\n')
+    print('Job status:', nd['cmd'], job_status, job.origin)
+    if job_status is not 'finished':
+        job.refresh()
+        print('func_name', job.func_name)
+        print('enqueued_at', job.enqueued_at)
+        print('started_at', job.started_at)
+        print('exc_info', job.exc_info)
+        print('last_heartbeat', job.last_heartbeat)
+        print('worker_name', job.worker_name)
+        print('get_position', job.get_position())
+        registry = q.deferred_job_registry
+        for job_id in registry.get_job_ids():
+            print(job_id)
     redis_payload = job.result
+    print('Result fetched:', nd['cmd'], redis_payload)
     all_node_results.append({'cmd': nd['cmd'], 'result': redis_payload})
 
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])

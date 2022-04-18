@@ -3,19 +3,24 @@ from rq.job import Job
 
 import decimal
 import json as _json
+import traceback
 
 import numpy as np
 import pandas as pd
 
-def get_input_vectors(previous_job_ids):
+def fetch_inputs(previous_job_ids):
+    try:
+        inputs = []
 
-    previous_job_results = []
+        for ea in previous_job_ids:
+            job = Job.fetch(ea, connection=Redis())
+            print('fetch_input', ea, job.get_status())
+            inputs.append(job.result)
 
-    for ea in previous_job_ids:
-        job = Job.fetch(ea, connection=Redis())
-        previous_job_results.append(job.result)
-    
-    return previous_job_results
+    except Exception:
+        print(traceback.format_exc())
+
+    return inputs
 
 class PlotlyJSONEncoder(_json.JSONEncoder):
     """

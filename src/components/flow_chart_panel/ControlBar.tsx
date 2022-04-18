@@ -8,6 +8,8 @@ import Select from 'react-select'
 import 'react-tabs/style/react-tabs.css';
 import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
+import { lightTheme, darkTheme } from './../theme';
+
 localforage.config({
   name: 'react-flow',
   storeName: 'flows',
@@ -28,9 +30,10 @@ type ControlsProps = {
   setElements: Dispatch<React.SetStateAction<Elements<any>>>;
   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
+  theme: String;
 };
 
-const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, onElementsRemove }) => {
+const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, onElementsRemove, theme }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
 
@@ -116,6 +119,52 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     { value: 'undo', label: '😅 Undo' },
   ]
 
+  const customStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.selectProps.theme === 'dark' 
+        ? darkTheme.background 
+        : lightTheme.background,
+      color: state.selectProps.theme === 'dark' 
+        ? darkTheme.text 
+        : lightTheme.text,        
+    }),
+
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.selectProps.theme === 'dark' 
+        ? darkTheme.background 
+        : lightTheme.background,
+      color: state.selectProps.theme === 'dark' 
+        ? darkTheme.text 
+        : lightTheme.text,
+    }),
+
+    option: (styles, { selectProps, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        cursor: 'pointer',
+        backgroundColor: isSelected
+        ? selectProps.theme === 'dark' ? 'black' : '#eee'
+        : isFocused
+        ? selectProps.theme === 'dark' ? 'black' : '#eee'
+        : undefined,
+        ':active': {
+          ...styles[':active'],
+          backgroundColor: theme === 'dark' ? 'black' : '#eee',
+          }
+      }
+    },    
+  
+    singleValue: (provided, state) => {
+      const color = state.selectProps.theme === 'dark' 
+        ? darkTheme.text 
+        : lightTheme.text;
+  
+      return { ...provided, color };
+    }    
+  }
+
   return (
     <div className="save__controls">
 
@@ -129,7 +178,9 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
         className = 'App-select'
         isSearchable = {false}
         onChange = {handleChange}
-        options = {options} 
+        options = {options}
+        styles={customStyles}
+        theme={theme}
       />
            
       <Modal

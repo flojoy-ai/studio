@@ -1,10 +1,10 @@
 import numpy as np
-from .VCTR import get_input_vectors
+from .VCTR import fetch_inputs
 
 def ADD(**kwargs):
     ''' Add 2 input vectors and return the result '''
 
-    previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
     x = previous_job_results[0]['x0']
 

@@ -1,10 +1,10 @@
 import numpy as np
-from .VCTR import get_input_vectors
+from .VCTR import fetch_inputs
 
 def CONSTANT(**kwargs):
     ''' Generates a single x-y vector of numeric (floating point) constants'''
 
-    previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
     ctrls = kwargs['ctrls'] if 'ctrls' in kwargs else dict(constant=3)
 

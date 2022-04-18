@@ -16,8 +16,8 @@ import './App.css';
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState('Connecting to server...');
-  const [programResults, setProgramResults] = useState({status: STATUS_CODES.NO_RUNS_YET});
-  const [theme, setTheme] = useState('light');
+  const [programResults, setProgramResults] = useState({msg: STATUS_CODES.NO_RUNS_YET});
+  const [theme, setTheme] = useState('dark');
 
   const toggleTheme = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -54,9 +54,12 @@ const App = () => {
                       if(res.msg === STATUS_CODES['MISSING_RQ_RESULTS']) {
                         setServerStatus(res.msg);
                       }
-                      else{
-                        setProgramResults(res);
+                      else{                        
                         setServerStatus(STATUS_CODES['RQ_RESULTS_RETURNED']);
+                        console.log('setting results state', res);
+                        setProgramResults(res);
+                        
+                        console.warn('new program results', programResults);
                       }
                     });                  
                 }
@@ -88,7 +91,7 @@ const App = () => {
         <main>
           <Tabs>
             <TabList>
-              <Tab >PROGRAM</Tab>
+              <Tab >PYTHON SCRIPT</Tab>
               <Tab >CTRL PANEL</Tab>              
               <Tab style={{float: 'right'}}>LOGS</Tab>
             </TabList>

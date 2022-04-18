@@ -1,10 +1,10 @@
 import numpy as np
-from .VCTR import get_input_vectors
+from .VCTR import fetch_inputs
 
 def MULTIPLY(**kwargs):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
 
-    previous_job_results = get_input_vectors(kwargs['previous_job_ids'])
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
     x = previous_job_results[0]['x0']
 
