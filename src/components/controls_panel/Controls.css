@@ -93,3 +93,7 @@
   vertical-align: top;
   height: 100%;
 }
+
+.ctrl-picker-container {
+  margin-top: 20px;
+}

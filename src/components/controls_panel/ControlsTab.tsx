@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {FlowExportObject} from 'react-flow-renderer';
-import localforage from 'localforage';
 import Modal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
+import {CONTROL_OUTPUTS, CONTROL_INPUTS} from './CONTROLS_MANIFEST';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import ControlComponent from './controlComponent'
 
 import './Controls.css';
 import '../../App.css';
@@ -20,17 +21,12 @@ const ControlsTab = ({ results, theme }) => {
     const closeModal = () => { setIsModalOpen(false); }
 
     const addCtrl = ctrlObj => {
-      const ctrl = {
-        name: ctrlObj.name,
-        type: ctrlObj.type,
-        id: `ctrl-${uuidv4()}`,
-      }
-      if(ctrl.type === 'output'){
-        setCtrlCanvasOutputs([...ctrlCanvasOutputs, ctrl]);
-      }
-      else if(ctrl.type === 'input'){
-        setCtrlCanvasInputs([...ctrlCanvasInputs, ctrl]);
-      }
+      const ctrl = {...ctrlObj, id: `ctrl-${uuidv4()}`}
+    
+      ctrl.type === 'output'
+        ? setCtrlCanvasOutputs([...ctrlCanvasOutputs, ctrl])
+        : setCtrlCanvasInputs([...ctrlCanvasInputs, ctrl]);
+
       setIsModalOpen(false);
     }
 
@@ -61,19 +57,9 @@ const ControlsTab = ({ results, theme }) => {
           <div className='App-controls-panel'>
             <div className='ctrl-inputs-sidebar'>
               {ctrlCanvasInputs.map(inputCtrl =>
-                <div key={inputCtrl.id} className='ctrl-input'>
-                  <button
-                    onClick = {e => rmCtrl(e)}
-                    id = {inputCtrl.id}
-                    className='ctrl-close-btn'>
-                      x
-                  </button>
-                  <details className='ctrl-meta'>           
-                    {`Name: ${inputCtrl.name}`}
-                    <br></br>
-                    {`ID: ${inputCtrl.id}`}
-                  </details>  
-                </div>
+                <ControlComponent 
+                  ctrlObj={inputCtrl}>
+                </ControlComponent>
               )}              
             </div>
             <div className='ctrl-outputs-container'>
@@ -106,20 +92,43 @@ const ControlsTab = ({ results, theme }) => {
               contentLabel="Choose a Python function"
           >
           <button onClick={closeModal} className='ctrl-close-btn'>x</button>
+          <Tabs>
+          <TabList>
+            <Tab>Input controls</Tab>
+            <Tab>Output controls</Tab>
+          </TabList>
 
-          <button onClick={() => addCtrl({
-            type: 'output',
-            name: 'PLOT',            
-          })}>
-            Plot
-          </button>
+          <TabPanel key={0}>
+            <div className='ctrl-picker-container'>
+              {CONTROL_INPUTS.map((ctrl, ctrlIndex) =>
+                <span>
+                  <button onClick={() => addCtrl({
+                    type: ctrl.type,
+                    name: ctrl.name    
+                  })}>
+                    {ctrl.name}
+                  </button>
+                </span>
+              )}
+            </div>
+          </TabPanel>      
 
-          <button onClick={() => addCtrl({
-            type: 'input',
-            name: 'NUMERIC INPUT',            
-          })}>
-            Numeric Input
-          </button>          
+          <TabPanel key={1}>
+            <div className='ctrl-picker-container'>
+              {CONTROL_OUTPUTS.map((ctrl, ctrlIndex) =>
+                <span>
+                  <button onClick={() => addCtrl({
+                    type: ctrl.type,
+                    name: ctrl.name             
+                  })}>
+                    {ctrl.name}
+                  </button>
+                </span>
+              )}
+            </div>
+          </TabPanel>              
+
+        </Tabs>        
 
         </Modal>
       </div>

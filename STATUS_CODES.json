@@ -3,7 +3,7 @@
     "RQ_RUN_COMPLETE": "\ud83e\udd19 python script run successful",
     "MISSING_RQ_RESULTS": "\ud83d\udc7d no result found",
     "JOB_IN_RQ": "\ud83c\udfa0 queuing python job: ",
-    "RQ_RESULTS_RETURNED": "\ud83d\udd14 new results - check RUN REPORT tab",
+    "RQ_RESULTS_RETURNED": "\ud83d\udd14 new results - check LOGS",
     "STANDBY": "\ud83d\udc22 awaiting a new job",
     "SERVER_ONLINE": "\ud83c\udfc1 node server online",
     "SERVER_OFFLINE": "\ud83d\uded1 node server offline - run `node server.js` in your terminal",
