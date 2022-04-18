@@ -18,9 +18,6 @@ export const GlobalStyles = createGlobalStyle`
     border-color: ${({ theme }) => theme.text};
   }
   details {
-    text-align: center;
-    border-bottom: 1px solid;
-    margin-bottom: 40px;
     color: ${({ theme }) => theme.text};
   }
   summary {
@@ -42,6 +39,8 @@ export const GlobalStyles = createGlobalStyle`
   }
   .App-controls-panel {
     background-color: ${({ theme }) => theme.body};
+  }
+  .ctrl-outputs-canvas {
     /* Graph paper pattern */
     background-image: 
     -webkit-linear-gradient(0deg, transparent .05em, rgba(0,0,0,.05) .05em, rgba(0,0,0,.05) .125000em, transparent .125000em),
@@ -53,7 +52,7 @@ export const GlobalStyles = createGlobalStyle`
   .ReactModal__Overlay {
     background: ${({ theme }) => theme.overlay} !important;
   }
-  .ctrl-item {
-    background: ${({ theme }) => theme.overlay} !important;
+  .ctrl-output, .ctrl-input {
+    background: ${({ theme }) => theme.body} !important;
   }
 `;

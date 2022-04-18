@@ -58,7 +58,7 @@ const App = () => {
                         setServerStatus(STATUS_CODES['RQ_RESULTS_RETURNED']);
                         console.log('setting results state', res);
                         setProgramResults(res);
-                        
+
                         console.warn('new program results', programResults);
                       }
                     });                  
@@ -89,7 +89,7 @@ const App = () => {
             </button>
         </header>
         <main>
-          <Tabs>
+          <Tabs forceRenderTabPanel={true}>
             <TabList>
               <Tab >PYTHON SCRIPT</Tab>
               <Tab >CTRL PANEL</Tab>              

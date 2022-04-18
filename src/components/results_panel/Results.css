@@ -21,6 +21,12 @@
     outline: none !important;
   }
 
+  .App-results-panel details {
+    text-align: center;
+    border-bottom: 1px solid;
+    margin-bottom: 40px;
+  }
+
   .App-results-panel .js-plotly-plot {
     height: 300px;
     width: 450px;

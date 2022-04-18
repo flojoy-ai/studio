@@ -1,28 +1,42 @@
 .App-controls-panel {
-    height: 100vh;
-    background-size: .75em .75em;  
-    background-position: 0 -0.5em;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: start;
-    align-items: auto;
-    align-content: start    
+    height: 100vh; 
 }
 
-.ctrl-item {
+.App-controls-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: start;
+  align-items: auto;
+  align-content: start; 
+}
+
+.ctrl-output {
   flex: 0 0 auto;
-  background: rgba(255, 255, 255, 0.7);
+}
+
+.ctrl-output, .ctrl-input {
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 0.5px solid #ccc;
+  border-radius: 3px;
   position: relative;
-  margin: 20px;
-  min-height: 200px;
-  width: 25%;
   resize: both;
   cursor: pointer;
   -webkit-user-drag: element;
-  box-shadow: 5px 10px 18px #888888;
+  margin-top: 10px;
+}
+
+.ctrl-output {
+  margin: 20px 0 0 20px;
+  min-height: 300px;
+  height: 25%;
+  width: 45%;
+}
+
+.ctrl-input {
+  min-height: 100px;
+  height: 10%;
+  width: 100%;
 }
 
 .ctrl-close-btn {
@@ -31,9 +45,51 @@
   position: absolute;
   top: 0;
   right: 0;
+  border: 0;
+  background: transparent;
 }
 
 .ctrl-meta {
   font-size: 10px;
   text-align: left;
+  position: absolute;
+  bottom: 0
+}
+
+.input-header, .output-header {
+  padding: 10px;
+  display: inline-block;
+}
+
+.ctrl-inputs-sidebar, .input-header {
+  min-width: 200px;
+  max-width: 400px;
+  width: 25%;  border-right: 1px solid #ccc;
+  display: inline-block;
+}
+
+.ctrl-inputs-sidebar {
+  height: 100%;
+  padding: 10px;
+}
+
+.ctrl-outputs-canvas {
+  display: flex;
+  background-size: .75em .75em;  
+  background-position: 0 -0.5em;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: start;
+  align-items: auto;
+  align-content: start;
+  min-height: 800px;
+}
+
+.ctrl-outputs-container, .output-header {
+  display: inline-block;
+  width: 75%;
+}
+.ctrl-outputs-container {
+  vertical-align: top;
+  height: 100%;
 }
