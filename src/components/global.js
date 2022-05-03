@@ -58,4 +58,7 @@ export const GlobalStyles = createGlobalStyle`
   .react-tabs__tab--selected {
     border-bottom: 5px solid ${({ theme }) => theme.underline};
   }
+  .ctrl-close-btn {
+    color: ${({ theme }) => theme.text};
+  }
 `;

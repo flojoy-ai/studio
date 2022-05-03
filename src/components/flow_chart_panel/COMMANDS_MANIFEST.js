@@ -1,22 +1,22 @@
 export const COMMANDS = [
     // Generators
-    {name: 'Sine Wave', key: 'SINE', type: 'GENERATORS'},
-    {name: 'Square Wave', key: 'SQUARE', type: 'GENERATORS'},
-    {name: 'Sawtooth', key: 'SAW', type: 'GENERATORS'},
-    {name: 'Constant', key: 'CONSTANT', type: 'GENERATORS'},
-    {name: 'Linspace', key: 'LINSPACE', type: 'GENERATORS'},
-    {name: 'Random (Uniform)', key: 'RAND', type: 'GENERATORS'},
+    {name: 'Sine Wave', key: 'SINE', type: 'GENERATOR'},
+    {name: 'Square Wave', key: 'SQUARE', type: 'GENERATOR'},
+    {name: 'Sawtooth', key: 'SAW', type: 'GENERATOR'},
+    {name: 'Constant', key: 'CONSTANT', type: 'GENERATOR'},
+    {name: 'Linspace', key: 'LINSPACE', type: 'GENERATOR'},
+    {name: 'Random (Uniform)', key: 'RAND', type: 'GENERATOR'},
 
     // Extractors
     {name: 'CSV File', key: 'CSV', type: 'EXTRACTORS'},
 
-    // TRANSFORMERS
-    {name: 'Multiply', key: 'MULTIPLY', type: 'TRANSFORMERS'},
-    {name: 'Add', key: 'ADD', type: 'TRANSFORMERS'},
+    // TRANSFORMER
+    {name: 'Multiply', key: 'MULTIPLY', type: 'TRANSFORMER'},
+    {name: 'Add', key: 'ADD', type: 'TRANSFORMER'},
 
-    // VISORS
-    {name: 'Scatter Plot', key: 'SCATTER', type: 'VISORS'},
-    {name: 'Histogram', key: 'HISTOGRAM', type: 'VISORS'},
+    // VISOR
+    {name: 'Scatter Plot', key: 'SCATTER', type: 'VISOR'},
+    {name: 'Histogram', key: 'HISTOGRAM', type: 'VISOR'},
 
     // Loaders
     {name: 'CSV file', key: 'CSV_WRITE', type: 'LOADERS'}
@@ -25,7 +25,7 @@ export const COMMANDS = [
 export const SECTIONS = [
     [
         // Simulation tab
-        {name: 'Generators', key: 'GENERATORS'},
+        {name: 'Generators', key: 'GENERATOR'},
 
     ], [
 
@@ -36,7 +36,7 @@ export const SECTIONS = [
 
         // ETL tab
         {name: 'Extractors', key: 'EXTRACTORS'},
-        {name: 'Transformers', key: 'TRANSFORMERS'},
+        {name: 'Transformers', key: 'TRANSFORMER'},
         {name: 'Loaders', key: 'LOADERS'},  
 
     ], [
@@ -52,7 +52,7 @@ export const SECTIONS = [
     ], [ 
 
         // Visualization tab
-        {name: 'Visualization', key: 'VISORS'},
+        {name: 'Visualization', key: 'VISOR'},
 
     ]
 ];

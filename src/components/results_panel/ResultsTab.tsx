@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import Plot from 'react-plotly.js';
+import styledPlotLayout from './../defaultPlotLayout';
 
 import './Results.css';
 
@@ -9,18 +10,7 @@ const ResultsTab = ({ results, theme }) => {
     ? JSON.parse(results.io).reverse()
     : [];
 
-  let plotFeatureColor = (theme === 'light' ? '#282c34' : '#fff');
-  let plotBackgroundColor  = (theme === 'light' ? '#fff' : '#282c34');
-
-  let dfltLayout = {
-    paper_bgcolor: 'rgba(0,0,0,0)', 
-    plot_bgcolor: plotBackgroundColor,
-    autosize: true, 
-    font: {color: plotFeatureColor},
-    margin: {t: 40, r: 20, b: 40, l: 10},
-    xaxis: {zeroline: false, color: plotFeatureColor},
-    yaxis: {zeroline: false, color: plotFeatureColor}
-  };
+  const styledLayout = styledPlotLayout(theme);
 
   return (
     <div className='App-results-panel'>
@@ -36,8 +26,8 @@ const ResultsTab = ({ results, theme }) => {
                   ? nd.result.data 
                   : [{'x': nd.result['x0'], 'y': nd.result['y0'] }]}
                 layout = {'layout' in nd.result 
-                  ? Object.assign({}, nd.result.layout, dfltLayout)
-                  : Object.assign({}, {title: `${nd.cmd}`}, dfltLayout)}
+                  ? Object.assign({}, nd.result.layout, styledLayout)
+                  : Object.assign({}, {title: `${nd.cmd}`}, styledLayout)}
                 useResizeHandler />
           : `⚠️ The server returned null for the ${nd.cmd} node`}
         </details>

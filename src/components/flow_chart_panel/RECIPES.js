@@ -3,7 +3,7 @@ export const NOISY_SINE = {
         "id": "SINE-userGeneratedNode_1646417316016",
         "data": {
             "label": "SINE",
-          	"type": "GENERATORS"
+          	"type": "GENERATOR"
         },
         "position": {
             "x": 177.55396300324264,
@@ -14,7 +14,7 @@ export const NOISY_SINE = {
         "id": "MULTIPLY-userGeneratedNode_1646417352715",
         "data": {
             "label": "MULTIPLY",
-          	"type": "TRANSFORMERS"
+          	"type": "TRANSFORMER"
         },
         "position": {
             "x": 319.16555425993334,
@@ -25,7 +25,7 @@ export const NOISY_SINE = {
         "id": "RAND-userGeneratedNode_1646417371398",
         "data": {
             "label": "RAND",
-          	"type": "GENERATORS"
+          	"type": "GENERATOR"
         },
         "position": {
             "x": 176.78207972197464,
@@ -36,7 +36,7 @@ export const NOISY_SINE = {
         "id": "ADD-userGeneratedNode_1646417428589",
         "data": {
             "label": "ADD",
-          	"type": "TRANSFORMERS"
+          	"type": "TRANSFORMER"
         },
         "position": {
             "x": 466.25999796171885,
@@ -47,7 +47,7 @@ export const NOISY_SINE = {
         "id": "SCATTER-userGeneratedNode_1646417560399",
         "data": {
             "label": "SCATTER",
-          	"type": "VISORS"
+          	"type": "VISOR"
         },
         "position": {
             "x": 616.0457824509575,
@@ -58,7 +58,7 @@ export const NOISY_SINE = {
         "id": "HISTOGRAM-userGeneratedNode_1646417604301",
         "data": {
             "label": "HISTOGRAM",
-          	"type": "VISORS"
+          	"type": "VISOR"
         },
         "position": {
             "x": 616.0536465173421,
@@ -69,7 +69,7 @@ export const NOISY_SINE = {
         "id": "LINSPACE-userGeneratedNode_1646432683694",
         "data": {
             "label": "LINSPACE",
-          	"type": "GENERATORS"
+          	"type": "GENERATOR"
         },
         "position": {
             "x": 22.58283226103687,
@@ -80,7 +80,7 @@ export const NOISY_SINE = {
         "id": "2.0-userGeneratedNode_1646435677928",
         "data": {
             "label": "2.0",
-          	"type": "GENERATORS"
+          	"type": "GENERATOR"
         },
         "position": {
             "x": 178.50497286105076,

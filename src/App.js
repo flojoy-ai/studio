@@ -33,7 +33,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log('component did mount');
+    console.log('App component did mount');
  
     pingBackendAPI('/ping')
       .then(res => {

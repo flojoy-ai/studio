@@ -16,7 +16,7 @@
 }
 
 .ctrl-output, .ctrl-input {
-  padding: 20px;
+  padding: 0;
   border: 0.5px solid #ccc;
   border-radius: 3px;
   position: relative;
@@ -34,7 +34,7 @@
 }
 
 .ctrl-input {
-  min-height: 100px;
+  min-height: 150px;
   height: 10%;
   width: 100%;
 }
@@ -47,6 +47,11 @@
   right: 0;
   border: 0;
   background: transparent;
+  z-index: 99;
+}
+
+.ctrl-close-btn:hover{
+  color: red !important;
 }
 
 .ctrl-meta {
@@ -96,4 +101,27 @@
 
 .ctrl-picker-container {
   margin-top: 20px;
+}
+
+.ctrl-numeric-input {
+  padding: 10px;
+  width: 90%;
+  margin: 0 10px;
+}
+
+.select-node {
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  width: 100%;
+  border-bottom: 0.5px solid;
+  margin-bottom: 10px;
+  padding-right: 20px;
+}
+
+.ctrl-input label {
+  margin-left: 10px;
+
 }

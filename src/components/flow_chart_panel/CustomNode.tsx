@@ -2,7 +2,6 @@ import { Handle, Position } from 'react-flow-renderer';
 
 const customNodeStyles = {
     background: '#9CA8B3',
-    color: '#FFF',
     padding: 10,
   };
 

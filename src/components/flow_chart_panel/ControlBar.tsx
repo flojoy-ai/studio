@@ -1,9 +1,10 @@
-import React, {Component, memo, useCallback, Dispatch, FC, useState } from 'react';
-import { useZoomPanHelper, OnLoadParams, Elements, FlowExportObject} from 'react-flow-renderer';
+import React, {Component, memo, useCallback, Dispatch, FC, useState, useEffect } from 'react';
+import { useZoomPanHelper, OnLoadParams, Elements, FlowExportObject } from 'react-flow-renderer';
 import localforage from 'localforage';
 import Modal from 'react-modal';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Select from 'react-select'
+import Select from 'react-select';
+import { v4 as uuidv4 } from 'uuid';
 
 import 'react-tabs/style/react-tabs.css';
 import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
@@ -15,9 +16,7 @@ localforage.config({
   storeName: 'flows',
 });
 
-const flowKey = 'vortx-flow';
-
-const getNodeId = () => `userGeneratedNode_${+new Date()}`;
+const flowKey = 'flow-joy';
 
 const getNodePosition = () => { 
   return {
@@ -37,14 +36,25 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
 
-  const onSave = async () => {
+  const FC2LS = () => {
+    // "Flow Chart 2 Local Storage'
+    console.warn('FC2LS', rfInstance);
     if (rfInstance) {
       const flowObj = rfInstance.toObject();
       localforage.setItem(flowKey, flowObj);
+    }
+  }
 
-      const fc = flowObj;
-      const fcStr = JSON.stringify(flowObj);
+  useEffect(() => {
+    console.log('ControlBar component did mount');
+  });
 
+  const onSave = async () => {
+    if (rfInstance) {
+
+      FC2LS();
+
+      const fcStr = JSON.stringify(rfInstance.toObject());
 
       fetch('/wfc', {
         method: 'POST',
@@ -68,6 +78,8 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     };
 
     restoreFlow();
+
+    FC2LS();
   }, [setElements, transform]);
 
   const onAdd = useCallback((FUNCTION, TYPE) => {
@@ -79,12 +91,14 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
       FUNCTION = constant;
     }
     const newNode = {
-      id: `${FUNCTION}-${getNodeId()}`,
+      id: `${FUNCTION}-${uuidv4()}`,
       data: { label: FUNCTION, type: TYPE},
       position: getNodePosition(),
     };
     setElements((els) => els.concat(newNode));
     closeModal();
+
+    FC2LS();
   }, [setElements]);
 
   const onClickElementDelete = () => {
@@ -92,6 +106,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     if (rfInstance && clickedElement) {
       console.warn('ELEM TO REMOVE', clickedElement);
       onElementsRemove([clickedElement])
+      FC2LS(rfInstance);
     }
   }
 
@@ -117,7 +132,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
   const options = [    
     { value: 'delete', label: '🗑️ Delete' },
     { value: 'undo', label: '😅 Undo' },
-  ]
+  ];
 
   const customStyles = {
     menu: (provided, state) => ({
