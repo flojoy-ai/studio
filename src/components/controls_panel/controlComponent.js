@@ -14,7 +14,7 @@ localforage.config({name: 'react-flow', storeName: 'flows'});
 
 const flowKey = 'flow-joy';
 
-const ControlComponent = ({ ctrlObj, theme, updateCtrlValue, attachParam2Ctrl }) => {
+const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachParam2Ctrl }) => {
     const [flowChartObject, setFlowChartObject] = useState({});
 
     const styledLayout = styledPlotLayout(theme);
@@ -53,6 +53,30 @@ const ControlComponent = ({ ctrlObj, theme, updateCtrlValue, attachParam2Ctrl })
       }
     }
 
+    console.warn('RESULTS', results);
+
+    let plotData = [{x: [1,2,3], y:[1,2,3]}];
+    let nd = {};
+
+    if (ctrlObj.name == 'PLOT' ) {
+      // figure out what we're visualizing
+      let nodeIdToPlot = ctrlObj.param;
+      if (nodeIdToPlot !== null) {        
+        if ('io' in results) {
+          const runResults = JSON.parse(results.io);
+          const filteredResult = runResults.filter(node => (node.id === nodeIdToPlot))[0];
+          nd = filteredResult == undefined ? {} : filteredResult;
+          if(Object.keys(nd).length > 0) {
+            plotData = 'data' in nd.result 
+              ? nd.result.data 
+              : [{'x': nd.result['x0'], 'y': nd.result['y0'] }];
+          }
+        }
+      }
+    }
+
+    console.log('NNNN DEEEE', nd);
+
     return (
         <div>
             <Select 
@@ -67,7 +91,7 @@ const ControlComponent = ({ ctrlObj, theme, updateCtrlValue, attachParam2Ctrl })
             {ctrlObj.name == 'Plot' && (
                 <div>
                     <Plot
-                        data = {[{x: [1,2,3], y:[1,2,3]}]}
+                        data = {plotData}
                         layout = {styledLayout}
                         autosize = {true}
                         style = {{width: '100%', height: '100%'}}

@@ -101,8 +101,6 @@ const FlowChart = ({ results, theme }) => {
     }
   }
 
-  console.warn(PYTHON_FUNCTIONS, nodeType, nodeLabel);
-
   const pythonString = (nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType)
     ? '...'
     : PYTHON_FUNCTIONS[nodeType][nodeLabel+'.py'];
@@ -111,13 +109,8 @@ const FlowChart = ({ results, theme }) => {
 
   if ('io' in results) {
     const runResults = JSON.parse(results.io);
-    console.log(runResults);
-    console.log('nodeLabel', nodeLabel);
-    nd = runResults.filter(node => (node.cmd === nodeLabel))[0]
-    console.log(nd);
-    if(nd == undefined){
-      nd = {};
-    }
+    const filteredResult = runResults.filter(node => (node.cmd === nodeLabel))[0];
+    nd = filteredResult == undefined ? {} : filteredResult;
   }
 
   const dfltLayout = styledPlotLayout(theme);

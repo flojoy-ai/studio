@@ -91,7 +91,7 @@ const App = () => {
         <main>
           <Tabs forceRenderTabPanel={true}>
             <TabList>
-              <Tab >PYTHON SCRIPT</Tab>
+              <Tab >VISUAL PYTHON SCRIPT</Tab>
               <Tab >CTRL PANEL</Tab>              
               <Tab style={{float: 'right'}}>LOGS</Tab>
             </TabList>

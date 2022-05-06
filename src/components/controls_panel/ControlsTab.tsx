@@ -5,33 +5,53 @@ import {CONTROL_OUTPUTS, CONTROL_INPUTS} from './CONTROLS_MANIFEST';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ControlComponent from './controlComponent'
 import clone from 'just-clone';
+import localforage from 'localforage';
 
 import './Controls.css';
 import '../../App.css';
 
+localforage.config({name: 'react-flow', storeName: 'flows'});
+
 const ControlsTab = ({ results, theme }) => {
     const [modalIsOpen, setIsModalOpen] = useState(false);
-    const [ctrlsManifest, setCtrlsManifest] = useState([]);
+    const [ctrlsManifest, setCtrlsManifest] = useState([{
+      type: 'input',
+      name: 'Slider',
+      id: 'INPUT_PLACEHOLDER'
+    }, {
+      type: 'output',
+      name: 'Plot',
+      id: 'OUTPUT_PLACEHOLDER'
+    }]);
 
     const modalStyles = {overlay: {zIndex: 99},content: {zIndex: 100}};
     const openModal = () => { setIsModalOpen(true); }
     const afterOpenModal = () => {}
     const closeModal = () => { setIsModalOpen(false); }
+    
+    async function cacheManifest(manifest) {
+      try {    
+        await setCtrlsManifest(manifest);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        localforage.setItem('ctrlsManifest', manifest)
+      }
+    }
 
     const addCtrl = ctrlObj => {
       const ctrl = {...ctrlObj, id: `ctrl-${uuidv4()}`}
       console.log('adding ctrl...', ctrl);
       console.log(ctrl.type, ctrl.type=='input');
-      setCtrlsManifest([...ctrlsManifest, ctrl]);
       setIsModalOpen(false);
-      console.log('manifest...', ctrlsManifest);
+      cacheManifest([...ctrlsManifest, ctrl]);
     }
 
     const rmCtrl = e => {
       const ctrlId = e.target.id;
       console.warn('Removing', ctrlId);
       const filteredOutputs = ctrlsManifest.filter(ctrl => ctrl.id !== ctrlId);
-      setCtrlsManifest(filteredOutputs);
+      cacheManifest(filteredOutputs);
     }
 
     const updateCtrlValue = (val, ctrl) => {
@@ -42,7 +62,7 @@ const ControlsTab = ({ results, theme }) => {
           manClone[i].val = val;
         }
       });
-      setCtrlsManifest(manClone);
+      cacheManifest(manClone);
     }
 
     const attachParam2Ctrl = (param, ctrl) => {
@@ -53,8 +73,8 @@ const ControlsTab = ({ results, theme }) => {
           manClone[i].param = param;
         }
       });
-      setCtrlsManifest(manClone);
-    }    
+      cacheManifest(manClone);
+    }
 
     return (
       <div>
@@ -75,6 +95,7 @@ const ControlsTab = ({ results, theme }) => {
                   <ControlComponent 
                     ctrlObj={ctrl} 
                     theme={theme} 
+                    results={results}
                     updateCtrlValue={updateCtrlValue}
                     attachParam2Ctrl={attachParam2Ctrl}
                   />
