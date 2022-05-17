@@ -25,7 +25,7 @@ Flojoy is an open-source desktop and web app for Python scripting that welcomes 
 
 - [Ryven - Flow-based visual scripting for Python](https://ryven.org/) - Heroic open-source effort by a single grad student
 - [Datablocks](https://datablocks.pro/) - Same idea as Flojoy, but code blocks are JavaScript instead of Python
-- Apache Airflow. Famous project with some nice DAG visualizers, but requires coding and significant learning investment. Flojoy aspires to enable non-coders with similar Python-based ETL capabilities within minutes of first using th app.
+- [Apache Airflow Graph View](https://airflow.apache.org/docs/apache-airflow/stable/ui.html#graph-view). Famous project with some nice DAG visualizers, but requires coding and significant learning investment. Flojoy aspires to enable non-coders with similar Python-based ETL capabilities, within minutes of first using the app.
 - Alteryx - de facto commercial product for visual ETL scripting
 - LabVIEW - de facto commercial product for visual DAQ scripting
 - AWS Step Function - AWS visual scripting product for ETL and AI
@@ -67,4 +67,4 @@ TODO: Add a requirements.txt for Python packages
 
 - [ ] It would be nice to host a free serverless version of this app on Netlify with GitHub/Google login, so that curious Internet visitors can try the app without downloading it.
 
-- [ ] Better Desktp packaging, such as with Electron. 
+- [ ] Better Desktop packaging, such as with Electron. 
