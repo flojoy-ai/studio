@@ -1,70 +1,59 @@
-# V0R.TECH
+# Flojoy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="150" alt="image" src="https://user-images.githubusercontent.com/1865834/167226835-89577df4-0e92-4e6e-9cfb-769a8eb80683.png">
 
-## Available Scripts
+## Joyful Visual Scripting for Python
 
-In the project directory, you can run:
+Flojoy is an open-source desktop and web app for Python scripting that welcomes but does not require Python coding. Using a simple drag-drop interface, pre-written Python scripts are wired together as nodes in a flow chart. These flow charts represent simple but powerful Python scripts that can be created by non-coders, then deployed as apps or APIs for ETL, DAQ, AI, CI, data visualization, and simulation. Advanced Python practioners can add their own custom Python scripts as nodes in the flow chart, which can be published and reused by other Flojoy users.
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### A Visual Python Script (VPS) that generates a sine wave, adds noise, and visualizes the results in 2 charts
+<img width="743" alt="image" src="https://user-images.githubusercontent.com/1865834/167227351-54b2bb39-f8e6-48c5-b2ef-efd36571ae02.png">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Light mode - the same VPS in Flojoy's light mode 
+<img width="751" alt="image" src="https://user-images.githubusercontent.com/1865834/167229171-086b3d58-a6dc-4e87-8b7b-30c99cde7317.png">
 
-### `npm test`
+#### Control panel for building apps the control and visualize node parameters and outputs
+<img width="702" alt="image" src="https://user-images.githubusercontent.com/1865834/167229214-941a16d8-7320-4466-be5a-4a6282ebfeb1.png">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Python code for the SINE node in the above VPS
+<img width="714" alt="image" src="https://user-images.githubusercontent.com/1865834/167229258-de7bdcf4-8df9-42ac-a1c0-c8f8afe6f9c7.png">
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prior work of note
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [Ryven - Flow-based visual scripting for Python](Ryven - Flow-based visual scripting for Python) - Heroic open-source effort by a single grad student
+- [Datablocks](https://datablocks.pro/) - Same idea as Flojoy, but code blocks are JavaScript instead of Python
+- Apache Airflow. Famous project with some nice DAG visualizers, but requires coding and significant learning investment. Flojoy aspires to enable non-coders with similar Python-based ETL capabilities within minutes of first using th app.
+- Alteryx - de facto commercial product for visual ETL scripting
+- LabVIEW - de facto commercial product for visual DAQ scripting
+- AWS Step Function - AWS visual scripting product for ETL and AI
+- Azure ML Studio - Azure visual scripting product for AI and ML
+- NodeRed 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Architecture basics
 
-### `npm run eject`
+1. Flojoy is a single-page React app that hinges on the https://reactflow.dev/ open-source library. Creating the Flow Chart and control dashboard is done entirely in JavaScript (React), without any interaction with a backend service.
+3. React Flow serializes flow chart layout and metadata as JSON. When an app user clicks the "Run Visual Python Script" button, this JSON payload is sent to a Node (Express) server ([server.js](server.js)) through the `/wfc` endpoint ("Write Flow Chart"). Express listens on port 5000, so that `create-react-app` can listen on port 3000 for development purposes (hot reloading). The flow chart object is saved in local storage for convenient access throughout the app. 
+4. ([server.js](server.js)) writes the flow chart JSON object to Redis memory, then calls a Python script ([watch.py](https://github.com/jackparmer/flojoy/tree/main/PYTHON/WATCH) that pulls the flowchart object from Redis and munges it into a `networkx` object. (There's a Jupyter notebook in the PYTHON folder that messily illustrates transmorgifying React Flow JSON into a `networkx` object).
+5. As a `networkx` object, it's easy to perform a topological sort to determine the order of Python script execution. The Python scripts corresponding to the React Flow nodes are in the [FUNCTIONS](https://github.com/jackparmer/flojoy/tree/main/PYTHON/FUNCTIONS) folder.
+6. In topological order, the Python functions are queued as jobs in Redis using the RQ (Redis Queue) library - a lighter weight alternative to Celery. As the jobs are queued, attention is paid to which job inputs depend on other job outputs. RQ makes this easy with its `depends_on` kwarg (in the `enqueue` function).
+7. When Python jobs finish, watch.py sets a flag in Redis. The React app polls the Express server (`server.js`) once per second to see if this flag is set. If it is, then `server.js` resets the flag and returns the script results to the frontend where they are visualized in the control panel, logs tab, and flow chart node modals.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Running locally (Mac/Linux only)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+TODO: Add a requirements.txt for Python packages
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repo
+2. Make sure that you have Python, Redis, and Node already installed
+3. `cd` into the project root and run `$ sh mac_startup.sh` (Flojoy does not run on Windows yet)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Major things that are missing or do not work 💀
 
-## Learn More
+- [] Currently the control panel does not do anything. You can create a layout of input and output controls, which is cached in local storage, but these are control parameters are not yet sent to the backend and wired into the backend API. Ideally, when the Flojoy user changes an app parameter through the dashboard (such as with a slider), the script will immediately rerun and displ
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Minor things that would be nice to have 🎀
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Highlevel Roadmap
+- 
