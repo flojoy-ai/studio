@@ -17,7 +17,9 @@ let lastSystemStatus = '';
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
 // create a GET route
-app.get('/ping', (req, res) => { res.send({ msg: STATUS_CODES['SERVER_ONLINE'] })});
+app.get('/ping', (req, res) => {
+  res.send({ msg: STATUS_CODES['SERVER_ONLINE'] })
+});
 
 app.get('/heartbeat', async (req, res) => {
   redis.get('SYSTEM_STATUS').then(sysStatus => {
@@ -50,15 +52,15 @@ app.get('/io', async (req, res) => {
   redis.get('COMPLETED_JOBS').then(r => {
 
     let ts = '⏰ server uptime: ' + os.uptime().toString().slice(-3);
-    let hb = {msg: STATUS_CODES['MISSING_RQ_RESULTS'], clock: ts, io: {}}
+    let heartbeat = {msg: STATUS_CODES['MISSING_RQ_RESULTS'], clock: ts, io: {}}
 
     if(typeof r === 'string' && r.trim(' ') !== ''){
         console.log(r.toString().slice(0, 20));
-        hb.msg = STATUS_CODES['RQ_RESULTS_RETURNED'];
-        hb.io = r;
+        heartbeat.msg = STATUS_CODES['RQ_RESULTS_RETURNED'];
+        heartbeat.io = r;
     }
 
-    return res.send(hb);
+    return res.send(heartbeat);
   });
 });
 

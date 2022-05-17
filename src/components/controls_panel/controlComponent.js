@@ -53,8 +53,6 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
       }
     }
 
-    console.warn('RESULTS', results);
-
     let plotData = [{x: [1,2,3], y:[1,2,3]}];
     let nd = {};
 
@@ -74,8 +72,6 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
         }
       }
     }
-
-    console.log('NNNN DEEEE', nd);
 
     return (
         <div>
