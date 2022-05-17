@@ -23,16 +23,16 @@ Flojoy is an open-source desktop and web app for Python scripting that welcomes 
 
 ## Prior work of note
 
-- [Ryven - Flow-based visual scripting for Python](Ryven - Flow-based visual scripting for Python) - Heroic open-source effort by a single grad student
+- [Ryven - Flow-based visual scripting for Python](https://ryven.org/) - Heroic open-source effort by a single grad student
 - [Datablocks](https://datablocks.pro/) - Same idea as Flojoy, but code blocks are JavaScript instead of Python
 - Apache Airflow. Famous project with some nice DAG visualizers, but requires coding and significant learning investment. Flojoy aspires to enable non-coders with similar Python-based ETL capabilities within minutes of first using th app.
 - Alteryx - de facto commercial product for visual ETL scripting
 - LabVIEW - de facto commercial product for visual DAQ scripting
 - AWS Step Function - AWS visual scripting product for ETL and AI
 - Azure ML Studio - Azure visual scripting product for AI and ML
-- NodeRed 
+- [NodeRed](https://nodered.org/) - "Node-RED is a programming tool for wiring together hardware devices, APIs and online services"
 
-## Architecture basics
+## Architecture
 
 1. Flojoy is a single-page React app that hinges on the https://reactflow.dev/ open-source library. Creating the Flow Chart and control dashboard is done entirely in JavaScript (React), without any interaction with a backend service.
 3. React Flow serializes flow chart layout and metadata as JSON. When an app user clicks the "Run Visual Python Script" button, this JSON payload is sent to a Node (Express) server ([server.js](server.js)) through the `/wfc` endpoint ("Write Flow Chart"). Express listens on port 5000, so that `create-react-app` can listen on port 3000 for development purposes (hot reloading). The flow chart object is saved in local storage for convenient access throughout the app. 
@@ -51,9 +51,20 @@ TODO: Add a requirements.txt for Python packages
 
 ## Major things that are missing or do not work 💀
 
-- [] Currently the control panel does not do anything. You can create a layout of input and output controls, which is cached in local storage, but these are control parameters are not yet sent to the backend and wired into the backend API. Ideally, when the Flojoy user changes an app parameter through the dashboard (such as with a slider), the script will immediately rerun and displ
+- [ ] Currently the Control Panel does not do anything. You can create a layout of input and output controls, which is cached in local storage, but these  control parameters are not yet sent to the backend and integrated with running Python jobs. When the Flojoy user changes an app parameter through the Control Panel dashboard (such as with a slider), the script should immediately rerun and display the latest results in the Control Panel.
 
-## Minor things that would be nice to have 🎀
+- [ ] There are no tests or CI
 
-## Highlevel Roadmap
-- 
+- [ ] You cannot currently save a flowchart and Control Panel state as a file, then reload this state later by opening the file. Both the flow chart and control panel serialize as JSON, so the file could simply be these 2 stringified JSON objects in a YAML file with a some metadata in the header. `.vps` as a file extension (Visual Python Script)? 
+
+- [ ] The app doesn't work on Windows
+
+## Minor things that might be nice 🎀
+
+- [ ] Flojoy currently uses an interval in App.js to ping the backend every second with an HTTP request and check the server state (such as whether the job queue is finished). This would be ideally suited for websockets and the `ws` library, allowing real-time feedback on which Python jobs are running and pushing the result when complete. 
+
+- [ ] It would be nice to have a "Load an example" menu item in the flow chart tab, with a showcase of simple and fun VPS examples for AI, DAQ, image processing, simulation, etc.
+
+- [ ] It would be nice to host a free serverless version of this app on Netlify with GitHub/Google login, so that curious Internet visitors can try the app without downloading it.
+
+- [ ] Better Desktp packaging, such as with Electron. 
