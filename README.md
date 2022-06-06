@@ -1,8 +1,6 @@
 # Flojoy
 
-<img width="150" alt="image" src="https://user-images.githubusercontent.com/1865834/167226835-89577df4-0e92-4e6e-9cfb-769a8eb80683.png">
-
-## Joyful Visual Scripting for Python
+## Joyful Visual Programming for Python
 
 Flojoy is an open-source desktop and web app for Python scripting that welcomes but does not require Python coding. Using a simple drag-drop interface, pre-written Python scripts are wired together as nodes in a flow chart. These flow charts represent simple but powerful Python scripts that can be created by non-coders, then deployed as apps or APIs for ETL, DAQ, AI, CI, data visualization, and simulation. Advanced Python practioners can add their own custom Python scripts as nodes in the flow chart, which can be published and reused by other Flojoy users.
 
