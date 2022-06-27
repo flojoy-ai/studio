@@ -11,6 +11,7 @@
     "http-proxy-middleware": "^2.0.6",
     "ioredis": "^4.28.5",
     "js-yaml": "^4.1.0",
+    "just-clone": "^6.0.1",
     "localforage": "^1.10.0",
     "module": "^1.2.5",
     "plotly.js": "^2.11.0",
