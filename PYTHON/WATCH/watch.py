@@ -13,9 +13,16 @@ import warnings
 import matplotlib.cbook
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
-from GENERATORS import *
-from TRANSFORMERS import *
-from VISORS import *
+import sys
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+
+# sys.path.append('../FUNCTIONS/')
+
+from FUNCTIONS.GENERATORS import *
+from FUNCTIONS.TRANSFORMERS import *
+from FUNCTIONS.VISORS import *
 
 stream = open('STATUS_CODES.yml', 'r')
 stream = open('STATUS_CODES.yml', 'r') 
@@ -26,8 +33,6 @@ from utils import PlotlyJSONEncoder
 r = Redis()
 q = Queue('flojoy', connection=r)
 
-# import sys
-# sys.path.append('../FUNCTIONS/')
 
 # Load React flow chart object from JSON file
 
@@ -119,6 +124,7 @@ for n in topological_sorting:
         cmd = 'CONSTANT'   
     
     func = getattr(globals()[cmd], cmd)
+    print('func:', func)
     job_id = jid(n)
 
     s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
@@ -165,7 +171,7 @@ for n in topological_sorting:
     job_status = job.get_status(refresh=True)
     print('\n\n\n')
     print('Job status:', nd['cmd'], job_status, job.origin)
-    if job_status is not 'finished':
+    if job_status != 'finished':
         job.refresh()
         print('func_name', job.func_name)
         print('enqueued_at', job.enqueued_at)
