@@ -62,7 +62,8 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
       if (!!nodeIdToPlot) {       
         if (results && 'io' in results) {
           const runResults = JSON.parse(results.io).reverse();
-          const filteredResult = runResults.filter(node => (nodeIdToPlot.includes(node.cmd)))[0];
+          const filteredResult = runResults.filter(node => (nodeIdToPlot === node.id))[0];
+          console.log('filteredResult:', filteredResult);
           nd = filteredResult === undefined ? {} : filteredResult;
           if(Object.keys(nd).length > 0) {
             plotData = 'data' in nd.result
