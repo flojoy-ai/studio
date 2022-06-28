@@ -111,7 +111,8 @@ const ControlsTab = ({ results, theme }) => {
                 <div key={ctrl.id} className='ctrl-output'>
                   <button onClick = {e => rmCtrl(e)} id = {ctrl.id} className='ctrl-close-btn'>x</button>
                   <ControlComponent 
-                    ctrlObj={ctrl} 
+                    ctrlObj={ctrl}
+                    results={results}
                     theme={theme} 
                     updateCtrlValue={updateCtrlValue}
                     attachParam2Ctrl={attachParam2Ctrl}

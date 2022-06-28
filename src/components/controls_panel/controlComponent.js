@@ -56,17 +56,17 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     let plotData = [{x: [1,2,3], y:[1,2,3]}];
     let nd = {};
 
-    if (ctrlObj.name == 'PLOT' ) {
+    if (ctrlObj.name.toUpperCase() === 'PLOT' ) {
       // figure out what we're visualizing
       let nodeIdToPlot = ctrlObj.param;
-      if (nodeIdToPlot !== null) {        
-        if ('io' in results) {
-          const runResults = JSON.parse(results.io);
-          const filteredResult = runResults.filter(node => (node.id === nodeIdToPlot))[0];
-          nd = filteredResult == undefined ? {} : filteredResult;
+      if (!!nodeIdToPlot) {       
+        if (results && 'io' in results) {
+          const runResults = JSON.parse(results.io).reverse();
+          const filteredResult = runResults.filter(node => (nodeIdToPlot.includes(node.cmd)))[0];
+          nd = filteredResult === undefined ? {} : filteredResult;
           if(Object.keys(nd).length > 0) {
-            plotData = 'data' in nd.result 
-              ? nd.result.data 
+            plotData = 'data' in nd.result
+              ? nd.result.data
               : [{'x': nd.result['x0'], 'y': nd.result['y0'] }];
           }
         }
@@ -84,7 +84,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 theme={theme}
             />
 
-            {ctrlObj.name == 'Plot' && (
+            {ctrlObj.name === 'Plot' && (
                 <div>
                     <Plot
                         data = {plotData}
@@ -95,7 +95,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name == 'Numeric Input' && (
+            {ctrlObj.name === 'Numeric Input' && (
                 <div style={{margin: '30px 0'}}>
                     <input 
                         type='number'
@@ -106,7 +106,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name == 'Slider' && (
+            {ctrlObj.name === 'Slider' && (
                 <div style={{margin: '40px 10px'}}>
                   <Slider 
                     onChange = {val => {updateCtrlValue(val, ctrlObj)}}
