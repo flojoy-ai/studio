@@ -30,17 +30,23 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     let options = [];
 
     if (ctrlObj.type === 'input') {
-      Object.keys(FUNCTION_PARAMETERS).map(functionName => {
-          let params = FUNCTION_PARAMETERS[functionName];
-          const sep = ' ▶ ';
-
-          Object.keys(params).map(param => {
-              options.push({
-                  label: functionName + sep + param.toUpperCase(),
-                  value: functionName + '_' + param      
+      if(flowChartObject.elements !== undefined) {
+        flowChartObject.elements.map(node => {
+          if ('source' in node === false) { // Object is a node, not an edge
+            const nodeFunctionName = node.data.label;
+            const params = FUNCTION_PARAMETERS[nodeFunctionName];
+            const sep = ' ▶ ';
+            if(params){
+              Object.keys(params).map(param => {
+                  options.push({
+                      label: nodeFunctionName + sep + param.toUpperCase(),
+                      value: nodeFunctionName + '_' + param      
+                  });
               });
-          })
-      });
+            }
+          }
+        });
+      }
     } else if (ctrlObj.type === 'output') {
       // console.log('output', flowChartObject);
       if(flowChartObject.elements !== undefined) {
