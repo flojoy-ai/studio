@@ -27,3 +27,4 @@ yarn-debug.log*
 yarn-error.log*
 __pycache__
 dump.rdb
+*.rdb
