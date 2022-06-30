@@ -30,17 +30,23 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     let options = [];
 
     if (ctrlObj.type === 'input') {
-      Object.keys(FUNCTION_PARAMETERS).map(functionName => {
-          let params = FUNCTION_PARAMETERS[functionName];
-          const sep = ' ▶ ';
-
-          Object.keys(params).map(param => {
-              options.push({
-                  label: functionName + sep + param.toUpperCase(),
-                  value: functionName + '_' + param      
+      if(flowChartObject.elements !== undefined) {
+        flowChartObject.elements.map(node => {
+          if ('source' in node === false) { // Object is a node, not an edge
+            const nodeFunctionName = node.data.label;
+            const params = FUNCTION_PARAMETERS[nodeFunctionName];
+            const sep = ' ▶ ';
+            if(params){
+              Object.keys(params).map(param => {
+                  options.push({
+                      label: nodeFunctionName + sep + param.toUpperCase(),
+                      value: nodeFunctionName + '_' + param      
+                  });
               });
-          })
-      });
+            }
+          }
+        });
+      }
     } else if (ctrlObj.type === 'output') {
       // console.log('output', flowChartObject);
       if(flowChartObject.elements !== undefined) {
@@ -56,17 +62,18 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     let plotData = [{x: [1,2,3], y:[1,2,3]}];
     let nd = {};
 
-    if (ctrlObj.name == 'PLOT' ) {
+    if (ctrlObj.name.toUpperCase() === 'PLOT' ) {
       // figure out what we're visualizing
       let nodeIdToPlot = ctrlObj.param;
-      if (nodeIdToPlot !== null) {        
-        if ('io' in results) {
-          const runResults = JSON.parse(results.io);
-          const filteredResult = runResults.filter(node => (node.id === nodeIdToPlot))[0];
-          nd = filteredResult == undefined ? {} : filteredResult;
+      if (!!nodeIdToPlot) {       
+        if (results && 'io' in results) {
+          const runResults = JSON.parse(results.io).reverse();
+          const filteredResult = runResults.filter(node => (nodeIdToPlot === node.id))[0];
+          console.log('filteredResult:', filteredResult);
+          nd = filteredResult === undefined ? {} : filteredResult;
           if(Object.keys(nd).length > 0) {
-            plotData = 'data' in nd.result 
-              ? nd.result.data 
+            plotData = 'data' in nd.result
+              ? nd.result.data
               : [{'x': nd.result['x0'], 'y': nd.result['y0'] }];
           }
         }
@@ -84,7 +91,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 theme={theme}
             />
 
-            {ctrlObj.name == 'Plot' && (
+            {ctrlObj.name === 'Plot' && (
                 <div>
                     <Plot
                         data = {plotData}
@@ -95,7 +102,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name == 'Numeric Input' && (
+            {ctrlObj.name === 'Numeric Input' && (
                 <div style={{margin: '30px 0'}}>
                     <input 
                         type='number'
@@ -106,7 +113,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name == 'Slider' && (
+            {ctrlObj.name === 'Slider' && (
                 <div style={{margin: '40px 10px'}}>
                   <Slider 
                     onChange = {val => {updateCtrlValue(val, ctrlObj)}}

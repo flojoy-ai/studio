@@ -51,7 +51,7 @@ DG = nx.DiGraph()
 for i in range(len(elems)):
     el = elems[i]
     if 'source' not in el:
-        DG.add_node(i+1, pos=(el['position']['x'], el['position']['y']))
+        DG.add_node(i+1, pos=(el['position']['x'], el['position']['y']), id=el['id'])
         elems[i]['index'] = i+1
         elems[i]['label'] = el['id'].split('-')[0]
 
@@ -184,8 +184,7 @@ for n in topological_sorting:
         for job_id in registry.get_job_ids():
             print(job_id)
     redis_payload = job.result
-    print('Result fetched:', nd['cmd'], redis_payload)
-    all_node_results.append({'cmd': nd['cmd'], 'result': redis_payload})
+    all_node_results.append({'cmd': nd['cmd'], 'id': nd['id'], 'result': redis_payload})
 
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 
