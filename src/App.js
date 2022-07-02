@@ -13,11 +13,14 @@ import { GlobalStyles } from './components/global';
 import STATUS_CODES from './STATUS_CODES.json';
 
 import './App.css';
+import { useFlowChartState } from './hooks/useFlowChartState';
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState('Connecting to server...');
   const [programResults, setProgramResults] = useState({msg: STATUS_CODES.NO_RUNS_YET});
   const [theme, setTheme] = useState('dark');
+
+  const {elements, setElements, rfInstance, setRfInstance} = useFlowChartState();
 
   const toggleTheme = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -95,7 +98,11 @@ const App = () => {
             </TabList>
 
             <TabPanel key='tab-1'>
-              <FlowChart 
+              <FlowChart
+                  elements = {elements}
+                  setElements = {setElements}
+                  rfInstance = {rfInstance}
+                  setRfInstance = {setRfInstance}
                   results = {programResults} 
                   theme = {theme}
               />
@@ -103,6 +110,10 @@ const App = () => {
 
             <TabPanel key='tab-2'>
               <ControlsTab 
+                elements = {elements}
+                setElements = {setElements}
+                rfInstance = {rfInstance}
+                setRfInstance = {setRfInstance}
                 results = {programResults} 
                 theme = {theme}
               />

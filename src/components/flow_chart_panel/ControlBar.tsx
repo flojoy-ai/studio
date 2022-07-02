@@ -10,6 +10,7 @@ import 'react-tabs/style/react-tabs.css';
 import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
 import { lightTheme, darkTheme } from './../theme';
+import { saveFlowChartToLocalStorage, saveFlowChartInServer } from '../../services/FlowChartServices';
 
 localforage.config({
   name: 'react-flow',
@@ -36,14 +37,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
 
-  const FC2LS = () => {
-    // "Flow Chart 2 Local Storage'
-    console.warn('FC2LS', rfInstance);
-    if (rfInstance) {
-      const flowObj = rfInstance.toObject();
-      localforage.setItem(flowKey, flowObj);
-    }
-  }
+ 
 
   useEffect(() => {
     console.log('ControlBar component did mount');
@@ -51,18 +45,8 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
 
   const onSave = async () => {
     if (rfInstance) {
-
-      FC2LS();
-
-      const fcStr = JSON.stringify(rfInstance.toObject());
-
-      fetch('/wfc', {
-        method: 'POST',
-        body: JSON.stringify({fc: fcStr}),
-        headers: {'Content-type': 'application/json; charset=UTF-8'}
-      })
-      .then(resp => resp.json())
-      .then(json => console.log(json));  
+      saveFlowChartToLocalStorage(rfInstance);
+      saveFlowChartInServer(rfInstance);
     }
   };
 
@@ -79,8 +63,8 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
 
     restoreFlow();
 
-    FC2LS();
-  }, [setElements, transform]);
+    saveFlowChartToLocalStorage(rfInstance);
+  }, [setElements, transform, rfInstance]);
 
   const onAdd = useCallback((FUNCTION, TYPE) => {
     if (FUNCTION === 'CONSTANT'){
@@ -98,15 +82,15 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
     setElements((els) => els.concat(newNode));
     closeModal();
 
-    FC2LS();
-  }, [setElements]);
+    saveFlowChartToLocalStorage(rfInstance);
+  }, [setElements, rfInstance]);
 
   const onClickElementDelete = () => {
     console.warn('onClickElementDelete', clickedElement);
     if (rfInstance && clickedElement) {
       console.warn('ELEM TO REMOVE', clickedElement);
-      onElementsRemove([clickedElement])
-      FC2LS(rfInstance);
+      onElementsRemove([clickedElement] as any)
+      saveFlowChartToLocalStorage(rfInstance);
     }
   }
 
@@ -195,7 +179,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
         onChange = {handleChange}
         options = {options}
         styles={customStyles}
-        theme={theme}
+        theme={theme as any}
       />
            
       <Modal

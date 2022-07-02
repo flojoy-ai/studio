@@ -40,7 +40,11 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
               Object.keys(params).map(param => {
                   options.push({
                       label: nodeFunctionName + sep + param.toUpperCase(),
-                      value: nodeFunctionName + '_' + param      
+                      value: {
+                        functionName: nodeFunctionName,
+                        param,
+                        nodeId: node.id,
+                      }
                   });
               });
             }

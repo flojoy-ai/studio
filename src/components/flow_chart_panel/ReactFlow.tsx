@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
   addEdge,
   Elements,
   EdgeTypesType,
+  NodeTypesType,
   Connection,
   ConnectionLineType,
   Edge,
@@ -15,19 +16,19 @@ import localforage from 'localforage';
 
 import Plot from 'react-plotly.js';
 
-import CustomEdge from './CustomEdge.tsx';
-import CustomNode from './CustomNode.tsx';
-import Controls from './ControlBar.tsx';
+import CustomEdge from './CustomEdge';
+import CustomNode from './CustomNode';
+import Controls from './ControlBar';
 
 import Modal from 'react-modal';
 
-import {NOISY_SINE} from './RECIPES.js'
 import PYTHON_FUNCTIONS from './pythonFunctions.json';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco,  srcery} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import styledPlotLayout from './../defaultPlotLayout';
+import { saveFlowChartToLocalStorage } from '../../services/FlowChartServices';
 
 localforage.config({
   name: 'react-flow',
@@ -36,17 +37,13 @@ localforage.config({
 
 const flowKey = 'flow-joy';
 
-const initialElements: Elements = NOISY_SINE.elements;
-
-const edgeTypes: EdgeTypesType = {default: CustomEdge};
-const nodeTypes: NodeTypesType = {default: CustomNode};
+const edgeTypes: EdgeTypesType = {default: CustomEdge as any};
+const nodeTypes: NodeTypesType = {default: CustomNode as any};
 
 
-const FlowChart = ({ results, theme }) => {
+const FlowChart = ({ results, theme, rfInstance, setRfInstance, elements, setElements }) => {
   
-  const [rfInstance, setRfInstance] = useState<OnLoadParams>();
-  const [elements, setElements] = useState<Elements>(initialElements);
-  const [clickedElement, setClickedElement] = useState(null);
+  const [clickedElement, setClickedElement] = useState<any>(null);
 
   const [modalIsOpen, setIsModalOpen] = useState(false);
 
@@ -68,19 +65,9 @@ const FlowChart = ({ results, theme }) => {
   const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
 
-  const FC2LS = () => {
-    // "Flow Chart 2 Local Storage'
-    // console.warn('FC2LS...', rfInstance);
-    if (rfInstance) {
-      const flowObj = rfInstance.toObject();
-      // console.warn(flowObj);
-      localforage.setItem(flowKey, flowObj);
-    }
-  }
-
   useEffect(() => {
-    // console.log('ReactFlow component did mount');
-    FC2LS();
+    console.log('ReactFlow component did mount');
+    saveFlowChartToLocalStorage(rfInstance)
   });
 
   const defaultPythonFnLabel = 'PYTHON FUNCTION';
@@ -105,7 +92,7 @@ const FlowChart = ({ results, theme }) => {
     ? '...'
     : PYTHON_FUNCTIONS[nodeType][nodeLabel+'.py'];
 
-  let nd = {};
+  let nd: any = {};
 
   if ('io' in results) {
     const runResults = JSON.parse(results.io);
@@ -115,16 +102,17 @@ const FlowChart = ({ results, theme }) => {
 
   const dfltLayout = styledPlotLayout(theme);
 
+  const ReactFlowProviderAny: any = ReactFlowProvider;
+
   return (
-    <ReactFlowProvider>
+    <ReactFlowProviderAny>
       <Controls 
         rfInstance={rfInstance} 
         setElements={setElements} 
         clickedElement={clickedElement}
-        onElementsRemove={onElementsRemove}
+        onElementsRemove={onElementsRemove as any}
         theme={theme}
-      >
-      </Controls>  
+      />
       <div style={{ height: `99vh` }}>
         <ReactFlow           
           elements={elements} 
@@ -179,7 +167,7 @@ const FlowChart = ({ results, theme }) => {
           {`${JSON.stringify(clickedElement, undefined, 4)}`}
           </SyntaxHighlighter>
       </Modal>      
-    </ReactFlowProvider>
+    </ReactFlowProviderAny>
   );
 };
 
