@@ -9,6 +9,8 @@ import localforage from 'localforage';
 
 import './Controls.css';
 import '../../App.css';
+import { useFlowChartState } from '../../hooks/useFlowChartState';
+import { saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
 
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
@@ -20,7 +22,7 @@ interface CtlManifestType {
   val?: any;
 }
 
-const ControlsTab = ({ results, theme, rfInstance, setRfInstance, elements, setElements }) => {
+const ControlsTab = ({ results, theme }) => {
     const [modalIsOpen, setIsModalOpen] = useState(false);
     const [ctrlsManifest, setCtrlsManifest] = useState<CtlManifestType[]>([{
       type: 'input',
@@ -31,6 +33,9 @@ const ControlsTab = ({ results, theme, rfInstance, setRfInstance, elements, setE
       name: 'Plot',
       id: 'OUTPUT_PLACEHOLDER'
     }]);
+
+    const {rfInstance, updateCtrlInputDataForNode} = useFlowChartState();
+    const [debouncedTimerId, setDebouncedTimerId] = useState<NodeJS.Timeout | undefined>(undefined); 
 
     const modalStyles = {overlay: {zIndex: 99},content: {zIndex: 100}};
     const openModal = () => { setIsModalOpen(true); }
@@ -63,7 +68,7 @@ const ControlsTab = ({ results, theme, rfInstance, setRfInstance, elements, setE
     }
 
     const updateCtrlValue = (val, ctrl) => {
-      console.log(val, ctrl);
+      console.log('updateCtrlValue:', val, ctrl);
       let manClone = clone(ctrlsManifest);
       manClone.map((c, i) => {
         if (c.id  === ctrl.id) {
@@ -71,6 +76,22 @@ const ControlsTab = ({ results, theme, rfInstance, setRfInstance, elements, setE
         }
       });
       cacheManifest(manClone);
+      updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
+        functionName: ctrl.param.functionName,
+        param: ctrl.param.param,
+        value: val,
+      });
+
+      // save and run the script with debouncing
+      if(debouncedTimerId){
+        clearTimeout(debouncedTimerId);
+      }
+      const timerId = setTimeout(() => {
+        saveAndRunFlowChartInServer(rfInstance);
+      }, 1000);
+
+      setDebouncedTimerId(timerId);
+
     }
 
     const attachParam2Ctrl = (param, ctrl) => {
@@ -82,6 +103,8 @@ const ControlsTab = ({ results, theme, rfInstance, setRfInstance, elements, setE
         }
       });
       cacheManifest(manClone);
+
+
     }
 
     return (

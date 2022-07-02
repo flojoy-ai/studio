@@ -41,6 +41,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                   options.push({
                       label: nodeFunctionName + sep + param.toUpperCase(),
                       value: {
+                        id: nodeFunctionName + '_' + param.toUpperCase(),
                         functionName: nodeFunctionName,
                         param,
                         nodeId: node.id,

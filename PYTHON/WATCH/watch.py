@@ -51,7 +51,9 @@ DG = nx.DiGraph()
 for i in range(len(elems)):
     el = elems[i]
     if 'source' not in el:
-        DG.add_node(i+1, pos=(el['position']['x'], el['position']['y']), id=el['id'])
+        data = el['data']
+        ctrls = data['ctrls'] if 'ctrls' in data else {}
+        DG.add_node(i+1, pos=(el['position']['x'], el['position']['y']), id=el['id'], ctrls=ctrls)
         elems[i]['index'] = i+1
         elems[i]['label'] = el['id'].split('-')[0]
 
@@ -117,7 +119,8 @@ def jid(n):
 for n in topological_sorting:
 
     cmd = nodes_by_id[n]['cmd']
-    ctrls = dict()
+    ctrls = nodes_by_id[n]['ctrls']
+    print('node:', n, 'ctrls:', ctrls)
 
     if cmd.replace('.','',1).isdigit():
         ctrls['constant'] = cmd
@@ -193,7 +196,7 @@ results_string = json.dumps(all_node_results, cls=PlotlyJSONEncoder)
 print('*********************')
 print('****** results ******')
 print('*********************')
-print(results_string)
+# print(results_string)
 
 r.mset({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
         'COMPLETED_JOBS': results_string})

@@ -10,12 +10,15 @@ export function saveFlowChartToLocalStorage(rfInstance?: OnLoadParams) {
   }
 }
 
-export function saveFlowChartInServer(rfInstance?: OnLoadParams){
+export function saveAndRunFlowChartInServer(rfInstance?: OnLoadParams){
     if (!rfInstance) {
         return;
     }
 
-    const fcStr = JSON.stringify(rfInstance.toObject());
+    const rfInstanceObject = rfInstance.toObject();
+    console.log('saving flowchart to server:', rfInstanceObject);
+
+    const fcStr = JSON.stringify(rfInstanceObject);
 
     fetch('/wfc', {
       method: 'POST',

@@ -3,6 +3,7 @@ from .VCTR import fetch_inputs
 
 def SINE(**kwargs):
     previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+    print('kwargs: ', kwargs)
 
     xy0 = previous_job_results[0]
 

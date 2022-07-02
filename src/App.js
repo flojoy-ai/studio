@@ -109,11 +109,7 @@ const App = () => {
             </TabPanel>
 
             <TabPanel key='tab-2'>
-              <ControlsTab 
-                elements = {elements}
-                setElements = {setElements}
-                rfInstance = {rfInstance}
-                setRfInstance = {setRfInstance}
+              <ControlsTab
                 results = {programResults} 
                 theme = {theme}
               />

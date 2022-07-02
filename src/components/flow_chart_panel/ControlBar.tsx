@@ -10,7 +10,7 @@ import 'react-tabs/style/react-tabs.css';
 import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
 import { lightTheme, darkTheme } from './../theme';
-import { saveFlowChartToLocalStorage, saveFlowChartInServer } from '../../services/FlowChartServices';
+import { saveFlowChartToLocalStorage, saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
 
 localforage.config({
   name: 'react-flow',
@@ -46,7 +46,7 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
   const onSave = async () => {
     if (rfInstance) {
       saveFlowChartToLocalStorage(rfInstance);
-      saveFlowChartInServer(rfInstance);
+      saveAndRunFlowChartInServer(rfInstance);
     }
   };
 
