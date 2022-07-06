@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { OnLoadParams, Elements } from "react-flow-renderer";
 import { NOISY_SINE } from "../data/RECIPES.js";
 import { useAtom } from "jotai";
@@ -17,7 +16,7 @@ export function useFlowChartState() {
     setElements((elements) => {
       const node = elements.find((e) => e.id === nodeId);
       if (node) {
-          node.data.ctrls = node.data.ctls || {};
+          node.data.ctrls = node.data.ctrls || {};
           node.data.ctrls[inputId] = inputData;
       }
     });

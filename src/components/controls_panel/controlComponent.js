@@ -5,6 +5,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import localforage from 'localforage';
 
+import { useFlowChartState } from '../../hooks/useFlowChartState';
 import styledPlotLayout from './../defaultPlotLayout';
 import customDropdownStyles from './customDropdownStyles.tsx';
 
@@ -16,6 +17,7 @@ const flowKey = 'flow-joy';
 
 const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachParam2Ctrl }) => {
     const [flowChartObject, setFlowChartObject] = useState({});
+    const {elements} = useFlowChartState();
 
     const styledLayout = styledPlotLayout(theme);
 
@@ -85,6 +87,11 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
       }
     }
 
+    const inputNodeId = ctrlObj?.param?.nodeId;
+    const inputNode = elements.find((e) => e.id === inputNodeId);
+    const ctrls = inputNode?.data?.ctrls;
+    let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : 0;
+
     return (
         <div>
             <Select 
@@ -114,6 +121,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                         placeholder='Enter a number'
                         className='ctrl-numeric-input'
                         onChange = {e => {updateCtrlValue(e.target.value, ctrlObj)}}
+                        value={currentInputValue || 0}
                     />
                 </div>
             )}
@@ -122,8 +130,9 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 <div style={{margin: '40px 10px'}}>
                   <Slider 
                     onChange = {val => {updateCtrlValue(val, ctrlObj)}}
+                    value={currentInputValue || 0}
                   />
-                  <label>{ctrlObj.val ? ctrlObj.val : null}</label>
+                  <label>{currentInputValue || null}</label>
                 </div>
             )}              
 
