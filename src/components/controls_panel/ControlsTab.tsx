@@ -9,12 +9,22 @@ import localforage from 'localforage';
 
 import './Controls.css';
 import '../../App.css';
+import { useFlowChartState } from '../../hooks/useFlowChartState';
+import { saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
 
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
+interface CtlManifestType {
+  type: string;
+  name: string;
+  id: string;
+  param?: string;
+  val?: any;
+}
+
 const ControlsTab = ({ results, theme }) => {
     const [modalIsOpen, setIsModalOpen] = useState(false);
-    const [ctrlsManifest, setCtrlsManifest] = useState([{
+    const [ctrlsManifest, setCtrlsManifest] = useState<CtlManifestType[]>([{
       type: 'input',
       name: 'Slider',
       id: 'INPUT_PLACEHOLDER'
@@ -23,6 +33,9 @@ const ControlsTab = ({ results, theme }) => {
       name: 'Plot',
       id: 'OUTPUT_PLACEHOLDER'
     }]);
+
+    const {rfInstance, updateCtrlInputDataForNode} = useFlowChartState();
+    const [debouncedTimerId, setDebouncedTimerId] = useState<NodeJS.Timeout | undefined>(undefined); 
 
     const modalStyles = {overlay: {zIndex: 99},content: {zIndex: 100}};
     const openModal = () => { setIsModalOpen(true); }
@@ -42,7 +55,7 @@ const ControlsTab = ({ results, theme }) => {
     const addCtrl = ctrlObj => {
       const ctrl = {...ctrlObj, id: `ctrl-${uuidv4()}`}
       console.log('adding ctrl...', ctrl);
-      console.log(ctrl.type, ctrl.type=='input');
+      console.log(ctrl.type, ctrl.type ==='input');
       setIsModalOpen(false);
       cacheManifest([...ctrlsManifest, ctrl]);
     }
@@ -55,7 +68,7 @@ const ControlsTab = ({ results, theme }) => {
     }
 
     const updateCtrlValue = (val, ctrl) => {
-      // console.log(val, ctrl);
+      console.log('updateCtrlValue:', val, ctrl);
       let manClone = clone(ctrlsManifest);
       manClone.map((c, i) => {
         if (c.id  === ctrl.id) {
@@ -63,6 +76,22 @@ const ControlsTab = ({ results, theme }) => {
         }
       });
       cacheManifest(manClone);
+      updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
+        functionName: ctrl.param.functionName,
+        param: ctrl.param.param,
+        value: val,
+      });
+
+      // save and run the script with debouncing
+      if(debouncedTimerId){
+        clearTimeout(debouncedTimerId);
+      }
+      const timerId = setTimeout(() => {
+        saveAndRunFlowChartInServer(rfInstance);
+      }, 1000);
+
+      setDebouncedTimerId(timerId);
+
     }
 
     const attachParam2Ctrl = (param, ctrl) => {
@@ -74,6 +103,8 @@ const ControlsTab = ({ results, theme }) => {
         }
       });
       cacheManifest(manClone);
+
+
     }
 
     return (
@@ -89,7 +120,7 @@ const ControlsTab = ({ results, theme }) => {
 
           <div className='App-controls-panel'>
             <div className='ctrl-inputs-sidebar'>
-              {ctrlsManifest.filter(c => c.type == 'input').map((ctrl, i) =>
+              {ctrlsManifest.filter(c => c.type === 'input').map((ctrl, i) =>
                 <div key={ctrl.id} className='ctrl-input'>
                   <button onClick = {e => rmCtrl(e)} id = {ctrl.id} className='ctrl-close-btn'>x</button>
                   <ControlComponent 
@@ -107,7 +138,7 @@ const ControlsTab = ({ results, theme }) => {
             </div>
             <div className='ctrl-outputs-container'>
               <div className='ctrl-outputs-canvas'>
-              {ctrlsManifest.filter(c => c.type == 'output').map((ctrl, i) =>
+              {ctrlsManifest.filter(c => c.type === 'output').map((ctrl, i) =>
                 <div key={ctrl.id} className='ctrl-output'>
                   <button onClick = {e => rmCtrl(e)} id = {ctrl.id} className='ctrl-close-btn'>x</button>
                   <ControlComponent 
