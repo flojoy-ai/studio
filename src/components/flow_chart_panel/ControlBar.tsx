@@ -11,6 +11,7 @@ import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
 
 import { lightTheme, darkTheme } from './../theme';
 import { saveFlowChartToLocalStorage, saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
+import { useFlowChartState } from '../../hooks/useFlowChartState';
 
 localforage.config({
   name: 'react-flow',
@@ -33,15 +34,14 @@ type ControlsProps = {
   theme: String;
 };
 
-const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, onElementsRemove, theme }) => {
+const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
-
- 
+  const {rfInstance, setElements, rfSpatialInfo, openFileSelector, saveFile, loadFlowExportObject} = useFlowChartState();
 
   useEffect(() => {
-    console.log('ControlBar component did mount');
-  });
+    transform({ x: rfSpatialInfo.x, y: rfSpatialInfo.y, zoom: rfSpatialInfo.zoom });
+  }, [rfSpatialInfo, transform])
 
   const onSave = async () => {
     if (rfInstance) {
@@ -55,16 +55,14 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
       const flow: FlowExportObject | null = await localforage.getItem(flowKey);
 
       if (flow) {
-        const [x = 0, y = 0] = flow.position;
-        setElements(flow.elements || []);
-        transform({ x, y, zoom: flow.zoom || 0 });
+        loadFlowExportObject(flow);
       }
     };
 
     restoreFlow();
 
     saveFlowChartToLocalStorage(rfInstance);
-  }, [setElements, transform, rfInstance]);
+  }, [loadFlowExportObject, rfInstance]);
 
   const onAdd = useCallback((FUNCTION, TYPE) => {
     if (FUNCTION === 'CONSTANT'){
@@ -170,6 +168,10 @@ const Controls: FC<ControlsProps> = ({ rfInstance, setElements, clickedElement, 
       <a onClick={openModal}>🛠️ Add Python Function</a> 
 
       <a onClick={onSave}>🏃 Run Script</a>
+
+      <a onClick={openFileSelector}> Load File </a>
+
+      <a onClick={saveFile}> Save File </a>
 
       <Select 
         defaultValue = {{ value: 'edit', label: '🚧 Edit' }}

@@ -9,32 +9,16 @@ import localforage from 'localforage';
 
 import './Controls.css';
 import '../../App.css';
-import { useFlowChartState } from '../../hooks/useFlowChartState';
+import { CtlManifestType, useFlowChartState } from '../../hooks/useFlowChartState';
 import { saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
 
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
-interface CtlManifestType {
-  type: string;
-  name: string;
-  id: string;
-  param?: string;
-  val?: any;
-}
 
 const ControlsTab = ({ results, theme }) => {
     const [modalIsOpen, setIsModalOpen] = useState(false);
-    const [ctrlsManifest, setCtrlsManifest] = useState<CtlManifestType[]>([{
-      type: 'input',
-      name: 'Slider',
-      id: 'INPUT_PLACEHOLDER'
-    }, {
-      type: 'output',
-      name: 'Plot',
-      id: 'OUTPUT_PLACEHOLDER'
-    }]);
 
-    const {rfInstance, updateCtrlInputDataForNode} = useFlowChartState();
+    const {rfInstance, elements, updateCtrlInputDataForNode, ctrlsManifest, setCtrlsManifest} = useFlowChartState();
     const [debouncedTimerId, setDebouncedTimerId] = useState<NodeJS.Timeout | undefined>(undefined); 
 
     const modalStyles = {overlay: {zIndex: 99},content: {zIndex: 100}};
@@ -42,18 +26,12 @@ const ControlsTab = ({ results, theme }) => {
     const afterOpenModal = () => {}
     const closeModal = () => { setIsModalOpen(false); }
     
-    async function cacheManifest(manifest) {
-      try {    
-        await setCtrlsManifest(manifest);
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        localforage.setItem('ctrlsManifest', manifest)
-      }
+    async function cacheManifest(manifest: CtlManifestType[]) {
+        setCtrlsManifest(manifest);
     }
 
-    const addCtrl = ctrlObj => {
-      const ctrl = {...ctrlObj, id: `ctrl-${uuidv4()}`}
+    const addCtrl = (ctrlObj: Partial<CtlManifestType>)  => {
+      const ctrl: CtlManifestType = {...ctrlObj, id: `ctrl-${uuidv4()}`} as CtlManifestType
       console.log('adding ctrl...', ctrl);
       console.log(ctrl.type, ctrl.type ==='input');
       setIsModalOpen(false);
@@ -70,7 +48,7 @@ const ControlsTab = ({ results, theme }) => {
     const updateCtrlValue = (val, ctrl) => {
       console.log('updateCtrlValue:', val, ctrl);
       let manClone = clone(ctrlsManifest);
-      manClone.map((c, i) => {
+      manClone.forEach((c, i) => {
         if (c.id  === ctrl.id) {
           manClone[i].val = val;
         }
@@ -96,15 +74,19 @@ const ControlsTab = ({ results, theme }) => {
 
     const attachParam2Ctrl = (param, ctrl) => {
       console.log(param, ctrl);
+
+      const inputNode = elements.find((e) => e.id === param.nodeId);
+      const ctrls = inputNode?.data?.ctrls;
+      let currentInputValue = ctrls ? ctrls[param?.id]?.value : 0;
+
       let manClone = clone(ctrlsManifest);
       manClone.map((c, i) => {
         if (c.id  === ctrl.id) {
           manClone[i].param = param;
+          manClone[i].val = currentInputValue;
         }
       });
       cacheManifest(manClone);
-
-
     }
 
     return (
