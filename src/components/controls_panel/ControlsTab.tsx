@@ -11,6 +11,7 @@ import './Controls.css';
 import '../../App.css';
 import { CtlManifestType, useFlowChartState } from '../../hooks/useFlowChartState';
 import { saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
+import { FUNCTION_PARAMETERS } from '../flow_chart_panel/PARAMETERS_MANIFEST';
 
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
@@ -18,13 +19,25 @@ localforage.config({name: 'react-flow', storeName: 'flows'});
 const ControlsTab = ({ results, theme }) => {
     const [modalIsOpen, setIsModalOpen] = useState(false);
 
-    const {rfInstance, elements, updateCtrlInputDataForNode, ctrlsManifest, setCtrlsManifest} = useFlowChartState();
+    const {rfInstance, elements, updateCtrlInputDataForNode, removeCtrlInputDataForNode, ctrlsManifest, setCtrlsManifest} = useFlowChartState();
     const [debouncedTimerId, setDebouncedTimerId] = useState<NodeJS.Timeout | undefined>(undefined); 
 
     const modalStyles = {overlay: {zIndex: 99},content: {zIndex: 100}};
     const openModal = () => { setIsModalOpen(true); }
     const afterOpenModal = () => {}
     const closeModal = () => { setIsModalOpen(false); }
+
+    const saveAndRunFlowChart = () => {
+      // save and run the script with debouncing
+      if(debouncedTimerId){
+        clearTimeout(debouncedTimerId);
+      }
+      const timerId = setTimeout(() => {
+        saveAndRunFlowChartInServer(rfInstance);
+      }, 1000);
+
+      setDebouncedTimerId(timerId);
+    }
     
     async function cacheManifest(manifest: CtlManifestType[]) {
         setCtrlsManifest(manifest);
@@ -38,11 +51,15 @@ const ControlsTab = ({ results, theme }) => {
       cacheManifest([...ctrlsManifest, ctrl]);
     }
 
-    const rmCtrl = e => {
+    const rmCtrl = (e, ctrl: any = undefined) => {
       const ctrlId = e.target.id;
-      console.warn('Removing', ctrlId);
+      console.warn('Removing', ctrlId, ctrl);
       const filteredOutputs = ctrlsManifest.filter(ctrl => ctrl.id !== ctrlId);
       cacheManifest(filteredOutputs);
+      if(ctrl){
+        removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
+        saveAndRunFlowChart();
+      }
     }
 
     const updateCtrlValue = (val, ctrl) => {
@@ -59,25 +76,24 @@ const ControlsTab = ({ results, theme }) => {
         param: ctrl.param.param,
         value: val,
       });
-
-      // save and run the script with debouncing
-      if(debouncedTimerId){
-        clearTimeout(debouncedTimerId);
-      }
-      const timerId = setTimeout(() => {
-        saveAndRunFlowChartInServer(rfInstance);
-      }, 1000);
-
-      setDebouncedTimerId(timerId);
-
+      saveAndRunFlowChart();
     }
 
-    const attachParam2Ctrl = (param, ctrl) => {
-      console.log(param, ctrl);
 
+    const attachParam2Ctrl = (param, ctrl) => {
+      console.log('attachParam2Ctrl', param, ctrl);
+
+      // grab the current value for this param if it already exists in the flowchart elements
       const inputNode = elements.find((e) => e.id === param.nodeId);
       const ctrls = inputNode?.data?.ctrls;
-      let currentInputValue = ctrls ? ctrls[param?.id]?.value : 0;
+      const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
+      // debugger
+      const fnParam = fnParams[param?.param];
+      const defaultValue = fnParam?.default || 0;
+      console.log('attachParam2Ctrl defaultValue:', defaultValue);
+      const ctrlData = ctrls && ctrls[param?.id];
+      console.log('attachParam2Ctrl ctrlData:', ctrlData);
+      let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
 
       let manClone = clone(ctrlsManifest);
       manClone.map((c, i) => {
@@ -104,7 +120,7 @@ const ControlsTab = ({ results, theme }) => {
             <div className='ctrl-inputs-sidebar'>
               {ctrlsManifest.filter(c => c.type === 'input').map((ctrl, i) =>
                 <div key={ctrl.id} className='ctrl-input'>
-                  <button onClick = {e => rmCtrl(e)} id = {ctrl.id} className='ctrl-close-btn'>x</button>
+                  <button onClick = {e => rmCtrl(e, ctrl)} id = {ctrl.id} className='ctrl-close-btn'>x</button>
                   <ControlComponent 
                     ctrlObj={ctrl} 
                     theme={theme} 

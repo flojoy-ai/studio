@@ -95,14 +95,27 @@ export function useFlowChartState() {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    inputId: string,
+    paramId: string,
     inputData: any
   ) => {
     setElements((elements) => {
       const node = elements.find((e) => e.id === nodeId);
       if (node) {
         node.data.ctrls = node.data.ctrls || {};
-        node.data.ctrls[inputId] = inputData;
+        node.data.ctrls[paramId] = inputData;
+      }
+    });
+  };
+
+  const removeCtrlInputDataForNode = (
+    nodeId: string,
+    paramId: string,
+  ) => {
+    setElements((elements) => {
+      const node = elements.find((e) => e.id === nodeId);
+      if (node) {
+        node.data.ctrls = node.data.ctrls || {};
+        delete node.data.ctrls[paramId];
       }
     });
   };
@@ -114,6 +127,7 @@ export function useFlowChartState() {
     setElements,
     rfSpatialInfo,
     updateCtrlInputDataForNode,
+    removeCtrlInputDataForNode,
     ctrlsManifest,
     setCtrlsManifest,
     loadFlowExportObject,

@@ -47,6 +47,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                         functionName: nodeFunctionName,
                         param,
                         nodeId: node.id,
+                        inputId: ctrlObj.id,
                       }
                   });
               });
@@ -79,7 +80,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
           console.log('filteredResult:', filteredResult);
           nd = filteredResult === undefined ? {} : filteredResult;
           if(Object.keys(nd).length > 0) {
-            plotData = 'data' in nd.result
+            plotData = nd.result && 'data' in nd.result
               ? nd.result.data
               : [{'x': nd.result['x0'], 'y': nd.result['y0'] }];
           }
@@ -90,7 +91,11 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     const inputNodeId = ctrlObj?.param?.nodeId;
     const inputNode = elements.find((e) => e.id === inputNodeId);
     const ctrls = inputNode?.data?.ctrls;
-    let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : 0;
+    const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
+    const fnParam = fnParams[ctrlObj?.param?.param];
+    const defaultValue = fnParam?.default || 0;
+    
+    let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : defaultValue;
 
     return (
         <div>
