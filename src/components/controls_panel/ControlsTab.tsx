@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
-import {CONTROL_OUTPUTS, CONTROL_INPUTS} from './CONTROLS_MANIFEST';
+import {OutputControlsManifest, InputControlsManifest} from './CONTROLS_MANIFEST';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ControlComponent from './controlComponent'
 import clone from 'just-clone';
@@ -170,7 +170,7 @@ const ControlsTab = ({ results, theme }) => {
 
           <TabPanel key={0}>
             <div className='ctrl-picker-container'>
-              {CONTROL_INPUTS.map((ctrl, ctrlIndex) =>
+              {InputControlsManifest.map((ctrl, ctrlIndex) =>
                 <span key={ctrlIndex}>
                   <button onClick={() => addCtrl({
                     type: ctrl.type,
@@ -185,7 +185,7 @@ const ControlsTab = ({ results, theme }) => {
 
           <TabPanel key={1}>
             <div className='ctrl-picker-container'>
-              {CONTROL_OUTPUTS.map((ctrl, ctrlIndex) =>
+              {OutputControlsManifest.map((ctrl, ctrlIndex) =>
                 <span key={ctrlIndex}>
                   <button onClick={() => addCtrl({
                     type: ctrl.type,

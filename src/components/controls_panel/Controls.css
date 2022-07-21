@@ -22,7 +22,7 @@
   position: relative;
   resize: both;
   cursor: pointer;
-  -webkit-user-drag: element;
+  /* -webkit-user-drag: element; */
   margin-top: 10px;
 }
 
