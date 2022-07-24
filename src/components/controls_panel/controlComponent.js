@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Plot from 'react-plotly.js';
 import Select from 'react-select'
 import Slider from 'rc-slider';
@@ -7,7 +7,7 @@ import localforage from 'localforage';
 
 import { useFlowChartState } from '../../hooks/useFlowChartState';
 import styledPlotLayout from './../defaultPlotLayout';
-import customDropdownStyles from './customDropdownStyles.tsx';
+import customDropdownStyles from './customDropdownStyles';
 
 import {FUNCTION_PARAMETERS} from './../flow_chart_panel/PARAMETERS_MANIFEST'
 import { ControlNames, ControlTypes, InputControlsManifest } from './CONTROLS_MANIFEST';
@@ -20,18 +20,39 @@ const flowKey = 'flow-joy';
 const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachParam2Ctrl }) => {
     const [flowChartObject, setFlowChartObject] = useState({});
     const {elements} = useFlowChartState();
-    const [valueKnob, setValueKnob] = useState(0)
+    const [knobValue, setKnobValue] = useState(undefined)
+    const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState(undefined); 
+
+    const updateCtrlValueFromKnob = useCallback((value) => {
+      setKnobValue(value);
+
+      if(!ctrlObj?.param?.nodeId){
+        return;
+      }
+
+      if(debouncedTimerForKnobId){
+        clearTimeout(debouncedTimerForKnobId);
+      }
+      const timerId = setTimeout(() => {
+        updateCtrlValue(value, ctrlObj)
+      }, 1000);
+
+      setDebouncedTimerForKnobId(timerId);
+    }, [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]);
 
 
     const styledLayout = styledPlotLayout(theme);
 
-    if(Object.keys(flowChartObject).length === 0) {
-      localforage.getItem(flowKey)
-          .then(val => {
-            // console.log('Retrieved flow chart from local storage', val);           
-            setFlowChartObject(val);})
-          .catch(err => {console.warn(err);});
-    }
+    useEffect(() => {
+      if(Object.keys(flowChartObject).length === 0) {
+        localforage.getItem(flowKey)
+            .then(val => {
+              // console.log('Retrieved flow chart from local storage', val);           
+              setFlowChartObject(val);})
+            .catch(err => {console.warn(err);});
+      }
+    }, [flowChartObject]);
+    
 
     let options = [];
 
@@ -104,7 +125,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
         value: option,
       }
     }) || [];
-    console.log('param options:', paramOptions);
+    // console.log('param options:', paramOptions);
     
     let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : defaultValue;
 
@@ -164,13 +185,11 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                       min={0}
                       max={100}
                       step={1}
-                      value={currentInputValue || 0}
-                      // value={valueKnob}
+                      value={knobValue || currentInputValue || 0}
                       theme={{
                           donutColor: 'blue'
                       }}
-                      onValueChange={(val) => updateCtrlValue(val, ctrlObj)}
-                      // onValueChange={setValueKnob}
+                      onValueChange={updateCtrlValueFromKnob}
                       ariaLabelledBy={'my-label'}
                   >
                       {/* <label id={'my-label'}>Some slabel</label> */}
