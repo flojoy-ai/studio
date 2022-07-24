@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Plot from 'react-plotly.js';
 import Select from 'react-select'
 import Slider from 'rc-slider';
@@ -7,9 +7,11 @@ import localforage from 'localforage';
 
 import { useFlowChartState } from '../../hooks/useFlowChartState';
 import styledPlotLayout from './../defaultPlotLayout';
-import customDropdownStyles from './customDropdownStyles.tsx';
+import customDropdownStyles from './customDropdownStyles';
 
 import {FUNCTION_PARAMETERS} from './../flow_chart_panel/PARAMETERS_MANIFEST'
+import { ControlNames, ControlTypes, InputControlsManifest } from './CONTROLS_MANIFEST';
+import { Basic } from 'react-dial-knob'
 
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
@@ -18,20 +20,43 @@ const flowKey = 'flow-joy';
 const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachParam2Ctrl }) => {
     const [flowChartObject, setFlowChartObject] = useState({});
     const {elements} = useFlowChartState();
+    const [knobValue, setKnobValue] = useState(undefined)
+    const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState(undefined); 
+
+    const updateCtrlValueFromKnob = useCallback((value) => {
+      setKnobValue(value);
+
+      if(!ctrlObj?.param?.nodeId){
+        return;
+      }
+
+      if(debouncedTimerForKnobId){
+        clearTimeout(debouncedTimerForKnobId);
+      }
+      const timerId = setTimeout(() => {
+        updateCtrlValue(value, ctrlObj)
+      }, 1000);
+
+      setDebouncedTimerForKnobId(timerId);
+    }, [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]);
+
 
     const styledLayout = styledPlotLayout(theme);
 
-    if(Object.keys(flowChartObject).length === 0) {
-      localforage.getItem(flowKey)
-          .then(val => {
-            // console.log('Retrieved flow chart from local storage', val);           
-            setFlowChartObject(val);})
-          .catch(err => {console.warn(err);});
-    }
+    useEffect(() => {
+      if(Object.keys(flowChartObject).length === 0) {
+        localforage.getItem(flowKey)
+            .then(val => {
+              // console.log('Retrieved flow chart from local storage', val);           
+              setFlowChartObject(val);})
+            .catch(err => {console.warn(err);});
+      }
+    }, [flowChartObject]);
+    
 
     let options = [];
 
-    if (ctrlObj.type === 'input') {
+    if (ctrlObj.type === ControlTypes.Input) {
       if(flowChartObject.elements !== undefined) {
         flowChartObject.elements.map(node => {
           if ('source' in node === false) { // Object is a node, not an edge
@@ -55,7 +80,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
           }
         });
       }
-    } else if (ctrlObj.type === 'output') {
+    } else if (ctrlObj.type === ControlTypes.Output) {
       // console.log('output', flowChartObject);
       if(flowChartObject.elements !== undefined) {
         flowChartObject.elements.map(node => {
@@ -70,7 +95,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     let plotData = [{x: [1,2,3], y:[1,2,3]}];
     let nd = {};
 
-    if (ctrlObj.name.toUpperCase() === 'PLOT' ) {
+    if (ctrlObj.name.toUpperCase() === ControlNames.Plot ) {
       // figure out what we're visualizing
       let nodeIdToPlot = ctrlObj.param;
       if (!!nodeIdToPlot) {       
@@ -94,6 +119,13 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
     const fnParam = fnParams[ctrlObj?.param?.param];
     const defaultValue = fnParam?.default || 0;
+    const paramOptions = fnParam?.options?.map(option => {
+      return {
+        label: option,
+        value: option,
+      }
+    }) || [];
+    // console.log('param options:', paramOptions);
     
     let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : defaultValue;
 
@@ -106,9 +138,10 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 options = {options}
                 styles={customDropdownStyles}
                 theme={theme}
+                value={options?.find(option => option.value.id === ctrlObj?.param?.id)}
             />
 
-            {ctrlObj.name === 'Plot' && (
+            {ctrlObj.name === ControlNames.Plot && (
                 <div>
                     <Plot
                         data = {plotData}
@@ -119,7 +152,7 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name === 'Numeric Input' && (
+            {ctrlObj.name === ControlNames.NumericInput && (
                 <div style={{margin: '30px 0'}}>
                     <input 
                         type='number'
@@ -131,7 +164,40 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 </div>
             )}
 
-            {ctrlObj.name === 'Slider' && (
+            {ctrlObj.name === ControlNames.StaticNumericInput && (
+                <div style={{margin: '30px 0'}}>
+                    <input 
+                        type='number'
+                        placeholder='Enter a number'
+                        className='ctrl-numeric-input'
+                        onChange = {e => {updateCtrlValue(e.target.value, ctrlObj)}}
+                        disabled
+                        value={currentInputValue || 0}
+                    />
+                </div>
+            )}
+
+            {ctrlObj.name === ControlNames.Knob && (
+                <div style={{marginTop: '20px', display: 'flex', justifyContent: 'center'}}>
+                  <Basic
+                      style={{width: 'fit-content'}}
+                      diameter={70} 
+                      min={0}
+                      max={100}
+                      step={1}
+                      value={knobValue || currentInputValue || 0}
+                      theme={{
+                          donutColor: 'blue'
+                      }}
+                      onValueChange={updateCtrlValueFromKnob}
+                      ariaLabelledBy={'my-label'}
+                  >
+                      {/* <label id={'my-label'}>Some slabel</label> */}
+                  </Basic>
+                </div>
+            )}
+            
+            {ctrlObj.name === ControlNames.Slider && (
                 <div style={{margin: '40px 10px'}}>
                   <Slider 
                     onChange = {val => {updateCtrlValue(val, ctrlObj)}}
@@ -139,7 +205,66 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                   />
                   <label>{currentInputValue || null}</label>
                 </div>
-            )}              
+            )}
+            
+            {ctrlObj.name === ControlNames.Dropdown && (
+                <div style={{margin: '40px 10px'}}>
+                  <Select 
+                      className = 'select-node'
+                      isSearchable = {true}
+                      onChange = {val => {updateCtrlValue(val.value, ctrlObj)}}
+                      options = {paramOptions}
+                      styles={customDropdownStyles}
+                      theme={theme}
+                      value={paramOptions.find(opt => opt.value === currentInputValue) || ''}
+                  />
+                </div>
+            )}
+            
+            {ctrlObj.name === ControlNames.CheckboxButtonGroup && (
+                <div style={{margin: '40px 10px'}}>
+                  {paramOptions.map(option => {
+                    console.log('option:', option);
+                    return (
+                      <>
+                        <input
+                          type = "checkbox"
+                          id = {`${ctrlObj.id}_${option.value}`}
+                          name = {`${ctrlObj.id}_${option.value}`}
+                          value = {option.value}
+                          checked = {currentInputValue === option.value}
+                          onChange = {e => {updateCtrlValue(option.value, ctrlObj)}}
+                        />
+                        <label for = {`${ctrlObj.id}_${option.value}`}> {option.label} </label>
+                      </>
+                    )
+                  })}
+
+                </div>
+            )}
+            
+            {ctrlObj.name === ControlNames.RadioButtonGroup && (
+                <div style={{margin: '40px 10px'}}>
+                  {paramOptions.map(option => {
+                    console.log('option:', option);
+                    return (
+                      <>
+                        <input
+                          type = "radio"
+                          id = {`${ctrlObj.id}_${option.value}`}
+                          name = {`${ctrlObj.id}_${option.value}`}
+                          value = {option.value}
+                          checked = {currentInputValue === option.value}
+                          onChange = {e => {updateCtrlValue(option.value, ctrlObj)}}
+                        />
+                        <label for = {`${ctrlObj.id}_${option.value}`}> {option.label} </label>
+                      </>
+                    )
+                  })}
+
+                </div>
+            )}
+            
 
             <details className='ctrl-meta'>           
             {`Name: ${ctrlObj.name}`}
