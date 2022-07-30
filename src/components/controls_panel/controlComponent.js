@@ -13,16 +13,17 @@ import {FUNCTION_PARAMETERS} from './../flow_chart_panel/PARAMETERS_MANIFEST'
 import { ControlNames, ControlTypes, InputControlsManifest } from './CONTROLS_MANIFEST';
 import { Basic } from 'react-dial-knob'
 
+
 localforage.config({name: 'react-flow', storeName: 'flows'});
 
 const flowKey = 'flow-joy';
 
 const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachParam2Ctrl }) => {
     const [flowChartObject, setFlowChartObject] = useState({});
-    const {elements} = useFlowChartState();
+    const {elements, setCtrlsManifest, ctrlsManifest} = useFlowChartState();
     const [knobValue, setKnobValue] = useState(undefined)
     const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState(undefined); 
-
+    const {editMode} = useFlowChartState()
     const updateCtrlValueFromKnob = useCallback((value) => {
       setKnobValue(value);
 
@@ -129,9 +130,37 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
     
     let currentInputValue = ctrls ? ctrls[ctrlObj?.param?.id]?.value : defaultValue;
 
+    if(ctrlObj.name === ControlNames.Control_Group){
+      return (
+   
+          <div>
+
+              <div>
+                <div className='ctrl-input-group'>
+                 {
+                  ctrlsManifest.filter(ctrl=> ctrl.controlGroup === ctrlObj.id).map(ctrl=> (
+                    <ControlComponent
+                    ctrlObj={ctrl}
+                    attachParam2Ctrl={attachParam2Ctrl}
+                    results={results}
+                    theme={theme}
+                    updateCtrlValue={updateCtrlValue}
+                    />
+                  ))
+                 }
+                  </div>
+              </div>
+              <details className='ctrl-meta'>           
+            {`Name: ${ctrlObj.name}`}
+            <br></br>
+            {`ID: ${ctrlObj.id}`}
+            </details>  
+          </div>
+      )
+    }
     return (
-        <div>
-            <Select 
+        <div >
+            {editMode && <Select 
                 className = 'select-node'
                 isSearchable = {true}
                 onChange = {val => {attachParam2Ctrl(val.value, ctrlObj)}}
@@ -139,7 +168,9 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
                 styles={customDropdownStyles}
                 theme={theme}
                 value={options?.find(option => option.value.id === ctrlObj?.param?.id)}
-            />
+                isDisabled={!editMode}
+            />}
+            {!editMode && <p>{options?.find(option => option.value.id === ctrlObj?.param?.id)?.label}</p>}
 
             {ctrlObj.name === ControlNames.Plot && (
                 <div>
@@ -264,7 +295,6 @@ const ControlComponent = ({ ctrlObj, theme, results, updateCtrlValue, attachPara
 
                 </div>
             )}
-            
 
             <details className='ctrl-meta'>           
             {`Name: ${ctrlObj.name}`}

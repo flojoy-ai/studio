@@ -12,6 +12,9 @@ export interface CtlManifestType {
   id: string;
   param?: string;
   val?: any;
+  hidden?:boolean;
+  controlGroup?: string;
+  label?:string;
 }
 
 export interface RfSpatialInfoType {
@@ -26,11 +29,13 @@ const initialManifests: CtlManifestType[] = [
     type: "input",
     name: "Slider",
     id: "INPUT_PLACEHOLDER",
+    hidden: false,
   },
   {
     type: "output",
     name: "Plot",
     id: "OUTPUT_PLACEHOLDER",
+    hidden:false
   },
 ];
 
@@ -42,12 +47,13 @@ const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
   y: 0,
   zoom: 1,
 });
-
+const editModeAtom = atomWithImmer<boolean>(false);
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
+  const [editMode, setEditMode] = useAtom(editModeAtom);
 
   const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
     if(!flow){
@@ -133,5 +139,7 @@ export function useFlowChartState() {
     loadFlowExportObject,
     openFileSelector,
     saveFile,
+    editMode,
+    setEditMode
   };
 }

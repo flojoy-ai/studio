@@ -12,6 +12,7 @@ export enum ControlNames {
     RadioButtonGroup = 'Radio Button Group',
     CheckboxButtonGroup = 'Checkbox Button Group',
     Plot = 'Plot',
+    Control_Group = 'Control group'
 }
 
 export const OutputControlsManifest = [
@@ -28,4 +29,5 @@ export const InputControlsManifest = [
     {name: ControlNames.Dropdown, type: ControlTypes.Input},
     {name: ControlNames.RadioButtonGroup, type: ControlTypes.Input},
     {name: ControlNames.CheckboxButtonGroup, type: ControlTypes.Input},
+    {name: ControlNames.Control_Group, type: ControlTypes.Input},
 ]

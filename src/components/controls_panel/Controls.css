@@ -35,10 +35,24 @@
 
 .ctrl-input {
   min-height: 150px;
-  height: 10%;
   width: 100%;
 }
-
+.ctrl-header{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+}
+.ctrl-input-group {
+  display:flex;
+  gap:5px;
+  flex-direction:column;
+  padding-left:5px;
+  padding-right:5px;
+}
+.ctrl-edit-btn {
+  cursor: pointer;
+}
 .ctrl-close-btn {
   margin: 5px;
   cursor: pointer;
