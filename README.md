@@ -53,11 +53,11 @@ Flojoy is an open-source desktop and web app for Python scripting that welcomes 
 
 ## Major things that are missing or do not work 💀
 
-- [ ] Currently the Control Panel does not do anything. You can create a layout of input and output controls, which is cached in local storage, but these  control parameters are not yet sent to the backend and integrated with running Python jobs. When the Flojoy user changes an app parameter through the Control Panel dashboard (such as with a slider), the script should immediately rerun and display the latest results in the Control Panel.
+- [x] ~Currently the Control Panel does not do anything. You can create a layout of input and output controls, which is cached in local storage, but these  control parameters are not yet sent to the backend and integrated with running Python jobs. When the Flojoy user changes an app parameter through the Control Panel dashboard (such as with a slider), the script should immediately rerun and display the latest results in the Control Panel.~
 
-- [ ] There are no tests or CI
+- [ ] There are no tests or CI 😬
 
-- [ ] You cannot currently save a flowchart and Control Panel state as a file, then reload this state later by opening the file. Both the flow chart and control panel serialize as JSON, so the file could simply be these 2 stringified JSON objects in a YAML file with a some metadata in the header. `.vps` as a file extension (Visual Python Script)? 
+- [x] ~You cannot currently save a flowchart and Control Panel state as a file, then reload this state later by opening the file. Both the flow chart and control panel serialize as JSON, so the file could simply be these 2 stringified JSON objects in a YAML file with a some metadata in the header. `.vps` as a file extension (Visual Python Script)?~
 
 - [ ] The app doesn't work on Windows
 
