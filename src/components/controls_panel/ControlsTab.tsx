@@ -21,16 +21,20 @@ import {
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
-import Select from 'react-select'
+import Select from "react-select";
 import customDropdownStyles from "./customDropdownStyles";
 import { InputActionMeta } from "react-select";
+import ControlGrid from "./ControlGrid";
+import SampleRGL from "./SampleRGL";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme }) => {
   const [modalIsOpen, setIsModalOpen] = useState(false);
   const [openEditModal, setOPenEditModal] = useState(false);
-  const [currentInput, setCurrentInput] = useState<CtlManifestType & {index:number}>()
+  const [currentInput, setCurrentInput] = useState<
+    CtlManifestType & { index: number }
+  >();
 
   const {
     rfInstance,
@@ -43,7 +47,8 @@ const ControlsTab = ({ results, theme }) => {
   const [debouncedTimerId, setDebouncedTimerId] = useState<
     NodeJS.Timeout | undefined
   >(undefined);
-  const { editMode, setEditMode } = useFlowChartState();
+  const { isEditMode, setIsEditMode, gridLayout, setGridLayout } =
+    useFlowChartState();
 
   const modalStyles = { overlay: { zIndex: 99 }, content: { zIndex: 100 } };
   const openModal = () => {
@@ -75,11 +80,37 @@ const ControlsTab = ({ results, theme }) => {
       ...ctrlObj,
       id: `ctrl-${uuidv4()}`,
       hidden: false,
-      ...(ctrlObj.name === ControlNames.Control_Group && {label: 'control-group ' + (ctrlsManifest.filter(c=>c.name === ControlNames.Control_Group).length + 1)})
+      ...(ctrlObj.name === ControlNames.Control_Group && {
+        label:
+          "control-group " +
+          (ctrlsManifest.filter((c) => c.name === ControlNames.Control_Group)
+            .length +
+            1),
+      }),
     } as CtlManifestType;
     console.log("adding ctrl...", ctrl);
     console.log(ctrl.type, ctrl.type === "input");
     setIsModalOpen(false);
+    let yAxis = 0;
+    for (const el of gridLayout) {
+      if (yAxis < el.y) {
+        yAxis = el.y;
+      }
+    }
+
+    setGridLayout([
+      ...gridLayout,
+      {
+        x: 0,
+        y: yAxis + 1,
+        h: 2,
+        w: 2,
+        i: ctrl.id,
+        minH: ctrl.minHeight,
+        minW: ctrl.minWidth,
+        static: !isEditMode
+      },
+    ]);
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
@@ -88,8 +119,8 @@ const ControlsTab = ({ results, theme }) => {
     console.warn("Removing", ctrlId, ctrl);
     const filteredOutputs = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     let filterChilds: any[] = filteredOutputs;
-    if(ctrl.name === ControlNames.Control_Group){
-      filterChilds = filteredOutputs.filter(c=> c.controlGroup !== ctrl.id);
+    if (ctrl.name === ControlNames.Control_Group) {
+      filterChilds = filteredOutputs.filter((c) => c.controlGroup !== ctrl.id);
     }
     cacheManifest(filterChilds);
     if (ctrl) {
@@ -149,37 +180,50 @@ const ControlsTab = ({ results, theme }) => {
             <span
               style={{
                 cursor: "pointer",
-                ...(editMode && { color: "orange" }),
+                ...(isEditMode && { color: "orange" }),
               }}
-              onClick={() => setEditMode(true)}
+              onClick={() => setIsEditMode(true)}
             >
               Edit
             </span>
             <ReactSwitch
-              checked={editMode}
-              onChange={(nextChecked) => setEditMode(!editMode)}
+              checked={isEditMode}
+              onChange={(nextChecked) => setIsEditMode(!isEditMode)}
             />
-           
           </div>
         </div>
       </div>
+      {/* <SampleRGL/> */}
 
-      <div className="App-controls-header">
-        <div className="input-header">Inputs</div>
-        <div className="output-header">Outputs</div>
-      </div>
+      <ControlGrid
+        controlProps={{
+          theme,
+          isEditMode,
+          results,
+          updateCtrlValue,
+          attachParam2Ctrl,
+          rmCtrl,
+          setCurrentInput,
+          setOPenEditModal,
+        }}
+      />
 
-      <div className="App-controls-panel">
-        <div className="ctrl-inputs-sidebar">
-          <div className="ctrl-input-group">
-            
+      {false && (
+        <>
+          <div className="App-controls-header">
+            <div className="input-header">Inputs</div>
+            <div className="output-header">Outputs</div>
           </div>
-          {ctrlsManifest
-            .filter((c) => c.type === "input" && !c.controlGroup)
-            .map((ctrl, i) => (
-              <div key={ctrl.id} className={editMode ? "ctrl-input" : ""} >
-                <div className="ctrl-header">
-                {editMode && (
+
+          <div className="App-controls-panel">
+            <div className="ctrl-inputs-sidebar">
+              <div className="ctrl-input-group"></div>
+              {ctrlsManifest
+                .filter((c) => c.type === "input" && !c.controlGroup)
+                .map((ctrl, i) => (
+                  <div key={ctrl.id} className={isEditMode ? "ctrl-input" : ""}>
+                    {/* <div className="ctrl-header">
+                {isEditMode && (
                   <>
                   <button className="ctrl-edit-btn" onClick={()=> {
                       setCurrentInput({...ctrl, index:ctrlsManifest.findIndex(manifest=> manifest.id === ctrl.id )});
@@ -194,38 +238,52 @@ const ControlsTab = ({ results, theme }) => {
                   </button>
                   </>
                 )}
-                </div>
-              {editMode ?  <ControlComponent
-                  ctrlObj={ctrl}
-                  theme={theme}
-                  results={results}
-                  updateCtrlValue={updateCtrlValue}
-                  attachParam2Ctrl={attachParam2Ctrl}
-                /> : ctrl.hidden ? null :  <ControlComponent
-                ctrlObj={ctrl}
-                theme={theme}
-                results={results}
-                updateCtrlValue={updateCtrlValue}
-                attachParam2Ctrl={attachParam2Ctrl}
-              />}
+                </div> */}
+                    {isEditMode ? (
+                      <ControlComponent
+                        ctrlObj={ctrl}
+                        theme={theme}
+                        results={results}
+                        updateCtrlValue={updateCtrlValue}
+                        attachParam2Ctrl={attachParam2Ctrl}
+                        rmCtrl={rmCtrl}
+                        setCurrentInput={setCurrentInput}
+                        setOPenEditModal={setOPenEditModal}
+                      />
+                    ) : ctrl.hidden ? null : (
+                      <ControlComponent
+                        ctrlObj={ctrl}
+                        theme={theme}
+                        results={results}
+                        updateCtrlValue={updateCtrlValue}
+                        attachParam2Ctrl={attachParam2Ctrl}
+                        rmCtrl={rmCtrl}
+                        setCurrentInput={setCurrentInput}
+                        setOPenEditModal={setOPenEditModal}
+                      />
+                    )}
+                  </div>
+                ))}
+              <div
+                className="ctrl-input"
+                style={{ overflow: "scroll", height: 300 }}
+              >
+                <pre>{JSON.stringify(ctrlsManifest, undefined, 2)}</pre>
               </div>
-            ))}
-          <div
-            className="ctrl-input"
-            style={{ overflow: "scroll", height: 300 }}
-          >
-            <pre>{JSON.stringify(ctrlsManifest, undefined, 2)}</pre>
-          </div>
-        </div>
-        <div className="ctrl-outputs-container">
-          <div className="ctrl-outputs-canvas">
-            {ctrlsManifest
-              .filter((c) => c.type === "output")
-              .map((ctrl, i) => (
-                <div key={ctrl.id} className={editMode ? "ctrl-output" : ""} style={{margin:'20px 0 0 20px'}}> 
-                <div className="ctrl-header">
+            </div>
+            <div className="ctrl-outputs-container">
+              <div className="ctrl-outputs-canvas">
+                {ctrlsManifest
+                  .filter((c) => c.type === "output")
+                  .map((ctrl, i) => (
+                    <div
+                      key={ctrl.id}
+                      className={isEditMode ? "ctrl-output" : ""}
+                      style={{ margin: "20px 0 0 20px" }}
+                    >
+                      {/* <div className="ctrl-header">
 
-                  {editMode && (
+                  {isEditMode && (
                     <>
                     <button className="ctrl-edit-btn" onClick={()=> {
                       setCurrentInput({...ctrl, index: ctrlsManifest.findIndex(manifest=> manifest.id === ctrl.id )});
@@ -239,19 +297,24 @@ const ControlsTab = ({ results, theme }) => {
                     </button>
                     </>
                   )}
-                </div>
-                  <ControlComponent
-                    ctrlObj={ctrl}
-                    results={results}
-                    theme={theme}
-                    updateCtrlValue={updateCtrlValue}
-                    attachParam2Ctrl={attachParam2Ctrl}
-                  />
-                </div>
-              ))}
+                </div> */}
+                      <ControlComponent
+                        ctrlObj={ctrl}
+                        results={results}
+                        theme={theme}
+                        updateCtrlValue={updateCtrlValue}
+                        attachParam2Ctrl={attachParam2Ctrl}
+                        rmCtrl={rmCtrl}
+                        setCurrentInput={setCurrentInput}
+                        setOPenEditModal={setOPenEditModal}
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
       <Modal
         isOpen={modalIsOpen}
@@ -279,6 +342,8 @@ const ControlsTab = ({ results, theme }) => {
                       addCtrl({
                         type: ctrl.type,
                         name: ctrl.name,
+                        minWidth: ctrl.minWidth,
+                        minHeight: ctrl.minHeight,
                       })
                     }
                   >
@@ -312,79 +377,103 @@ const ControlsTab = ({ results, theme }) => {
       <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
-        onRequestClose={()=> setOPenEditModal(false)}
+        onRequestClose={() => setOPenEditModal(false)}
         style={modalStyles}
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-        <button onClick={()=> setOPenEditModal(false)} className="ctrl-close-btn">
+        <button
+          onClick={() => setOPenEditModal(false)}
+          className="ctrl-close-btn"
+        >
           x
         </button>
         <div>
           <p>Ctrl properties</p>
-          <div style={{
-            display:'flex',
-            flexDirection:'column',
-            gap:'5px'
-          }}>
-            {currentInput?.name === ControlNames.Control_Group && <div style={{
-              display:'flex',
-              gap:'8px',
-              alignItems:'center'
-            }}>
-              <p>Label</p>
-              <input value={ctrlsManifest[currentInput?.index!]!?.label} onChange={e=> {
-                   setCtrlsManifest(prev=> {
-                    prev[prev.findIndex(ctrl=> ctrl.id === currentInput?.id)].label = e.target.value;
-                    })
-                  }} />
-            </div>}
-            <div style={{
-              display:'flex',
-              gap:'8px',
-              alignItems:'center'
-            }}>
-              <p>Hidden</p>
-              <ReactSwitch
-              checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
-              onChange={(nextChecked) => {
-                console.log(nextChecked, ' next')
-                setCtrlsManifest(prev=> {
-                prev[currentInput?.index!].hidden = nextChecked;
-              
-                })
-              }
-            }/>
-            </div>
-           {currentInput?.name !== ControlNames.Control_Group && <div style={{
-              display:'flex',
-              gap:'8px',
-              alignItems:'center'
-            }}>
-              <p>Ctrl group: </p>
-              <div style={{width:'250px'}}>
-
-              <Select 
-                className='select-node'
-                isSearchable={true}
-                onChange={(val: any) => { 
-                  // console.log(val, 'select onchange val')
-                  // attachParam2Ctrl(val.id, ctrlsManifest);
-                  setCtrlsManifest(prev=> {
-                    prev[currentInput?.index!].controlGroup = val.id;
-                  
-                    })
-
-                } }
-                options={ctrlsManifest.filter(ctrl => ctrl.name === ControlNames.Control_Group)} // {options}
-                styles={customDropdownStyles}
-                formatOptionLabel={(data: CtlManifestType)=> data.label}
-                theme={theme}
-                value={ctrlsManifest.find(ctrl => ctrl.id === ctrlsManifest[currentInput?.index!]?.controlGroup)! || ""}
-                isDisabled={!editMode}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+          >
+            {currentInput?.name === ControlNames.Control_Group && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
+                }}
+              >
+                <p>Label</p>
+                <input
+                  value={ctrlsManifest[currentInput?.index!]!?.label}
+                  onChange={(e) => {
+                    setCtrlsManifest((prev) => {
+                      prev[
+                        prev.findIndex((ctrl) => ctrl.id === currentInput?.id)
+                      ].label = e.target.value;
+                    });
+                  }}
                 />
               </div>
-            </div>}
+            )}
+            <div
+              style={{
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
+              }}
+            >
+              <p>Hidden</p>
+              <ReactSwitch
+                checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
+                onChange={(nextChecked) => {
+                  console.log(nextChecked, " next");
+                  setCtrlsManifest((prev) => {
+                    prev[currentInput?.index!].hidden = nextChecked;
+                  });
+                }}
+              />
+            </div>
+            {currentInput?.name !== ControlNames.Control_Group && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
+                }}
+              >
+                <p>Ctrl group: </p>
+                <div style={{ width: "250px" }}>
+                  <Select
+                    className="select-node"
+                    isSearchable={true}
+                    onChange={(val: any) => {
+                      // console.log(val, 'select onchange val')
+                      // attachParam2Ctrl(val.id, ctrlsManifest);
+                      setCtrlsManifest((prev) => {
+                        prev[currentInput?.index!].controlGroup = val.id;
+                      });
+                    }}
+                    options={ctrlsManifest.filter(
+                      (ctrl) => ctrl.name === ControlNames.Control_Group
+                    )} // {options}
+                    styles={customDropdownStyles}
+                    formatOptionLabel={(data: CtlManifestType) => data.label}
+                    theme={theme}
+                    value={
+                      ctrlsManifest.find(
+                        (ctrl) =>
+                          ctrl.id ===
+                          ctrlsManifest[currentInput?.index!]?.controlGroup
+                      )! || ""
+                    }
+                    isDisabled={!isEditMode}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Modal>

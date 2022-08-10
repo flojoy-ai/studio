@@ -22,12 +22,12 @@ export const OutputControlsManifest = [
 
 export const InputControlsManifest = [
     // Outputs
-    {name: ControlNames.NumericInput, type: ControlTypes.Input},
-    {name: ControlNames.Slider, type: ControlTypes.Input},
-    {name: ControlNames.Knob, type: ControlTypes.Input},
-    {name: ControlNames.StaticNumericInput, type: ControlTypes.Input},
-    {name: ControlNames.Dropdown, type: ControlTypes.Input},
-    {name: ControlNames.RadioButtonGroup, type: ControlTypes.Input},
-    {name: ControlNames.CheckboxButtonGroup, type: ControlTypes.Input},
-    {name: ControlNames.Control_Group, type: ControlTypes.Input},
+    {name: ControlNames.NumericInput, type: ControlTypes.Input, minHeight: 1, minWidth: 2},
+    {name: ControlNames.Slider, type: ControlTypes.Input, minHeight:1, minWidth:2},
+    {name: ControlNames.Knob, type: ControlTypes.Input, minHeight:2, minWidth:2},
+    {name: ControlNames.StaticNumericInput, type: ControlTypes.Input, minHeight:1, minWidth:2},
+    {name: ControlNames.Dropdown, type: ControlTypes.Input, minHeight:1, minWidth:2},
+    {name: ControlNames.RadioButtonGroup, type: ControlTypes.Input, minHeight:1, minWidth:2},
+    {name: ControlNames.CheckboxButtonGroup, type: ControlTypes.Input, minHeight:1, minWidth:2},
+    {name: ControlNames.Control_Group, type: ControlTypes.Input, minHeight:2, minWidth:2},
 ]

@@ -23,7 +23,7 @@
   resize: both;
   cursor: pointer;
   /* -webkit-user-drag: element; */
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .ctrl-output {
@@ -36,6 +36,7 @@
 .ctrl-input {
   min-height: 150px;
   width: 100%;
+ 
 }
 .ctrl-header{
   display: flex;
@@ -64,6 +65,19 @@
   z-index: 99;
 }
 
+.ctrl-input-body {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  height:90%;
+}
+
+.ctrl-param {
+  margin: 0;
+  font-size: 15px;
+}
+
 .ctrl-close-btn:hover{
   color: red !important;
 }
@@ -72,7 +86,7 @@
   font-size: 10px;
   text-align: left;
   position: absolute;
-  bottom: 0
+  bottom: 10px;
 }
 
 .input-header, .output-header {
