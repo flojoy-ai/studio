@@ -1,29 +1,46 @@
-import React, {Component, memo, useCallback, Dispatch, FC, useState, useEffect } from 'react';
-import { useZoomPanHelper, OnLoadParams, Elements, FlowExportObject } from 'react-flow-renderer';
-import localforage from 'localforage';
-import Modal from 'react-modal';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Select from 'react-select';
-import { v4 as uuidv4 } from 'uuid';
+import React, {
+  Component,
+  memo,
+  useCallback,
+  Dispatch,
+  FC,
+  useState,
+  useEffect,
+} from "react";
+import {
+  useZoomPanHelper,
+  OnLoadParams,
+  Elements,
+  FlowExportObject,
+} from "react-flow-renderer";
+import localforage from "localforage";
+import Modal from "react-modal";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import Select from "react-select";
+import { v4 as uuidv4 } from "uuid";
 
-import 'react-tabs/style/react-tabs.css';
-import {COMMANDS, SECTIONS} from './COMMANDS_MANIFEST.js';
+import "react-tabs/style/react-tabs.css";
+import { COMMANDS, SECTIONS } from "./COMMANDS_MANIFEST.js";
 
-import { lightTheme, darkTheme } from './../theme';
-import { saveFlowChartToLocalStorage, saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
-import { useFlowChartState } from '../../hooks/useFlowChartState';
+import { lightTheme, darkTheme } from "./../theme";
+import {
+  saveFlowChartToLocalStorage,
+  saveAndRunFlowChartInServer,
+} from "../../services/FlowChartServices";
+import { useFlowChartState } from "../../hooks/useFlowChartState";
 
 localforage.config({
-  name: 'react-flow',
-  storeName: 'flows',
+  name: "react-flow",
+  storeName: "flows",
 });
 
-const flowKey = 'flow-joy';
+const flowKey = "flow-joy";
 
-const getNodePosition = () => { 
+const getNodePosition = () => {
   return {
-    x: 50 + Math.random() * 20, 
-    y: 50 + Math.random() + Math.random() * 20} 
+    x: 50 + Math.random() * 20,
+    y: 50 + Math.random() + Math.random() * 20,
+  };
 };
 
 type ControlsProps = {
@@ -34,14 +51,29 @@ type ControlsProps = {
   theme: String;
 };
 
-const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }) => {
+const Controls: FC<ControlsProps> = ({
+  clickedElement,
+  onElementsRemove,
+  theme,
+}) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
-  const {rfInstance, setElements, rfSpatialInfo, openFileSelector, saveFile, loadFlowExportObject} = useFlowChartState();
+  const {
+    rfInstance,
+    setElements,
+    rfSpatialInfo,
+    openFileSelector,
+    saveFile,
+    loadFlowExportObject,
+  } = useFlowChartState();
 
   useEffect(() => {
-    transform({ x: rfSpatialInfo.x, y: rfSpatialInfo.y, zoom: rfSpatialInfo.zoom });
-  }, [rfSpatialInfo, transform])
+    transform({
+      x: rfSpatialInfo.x,
+      y: rfSpatialInfo.y,
+      zoom: rfSpatialInfo.zoom,
+    });
+  }, [rfSpatialInfo, transform]);
 
   const onSave = async () => {
     if (rfInstance) {
@@ -64,108 +96,116 @@ const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }
     saveFlowChartToLocalStorage(rfInstance);
   }, [loadFlowExportObject, rfInstance]);
 
-  const onAdd = useCallback((FUNCTION, TYPE) => {
-    if (FUNCTION === 'CONSTANT'){
-      let constant = prompt("Please enter a numerical constant", '2.0');
-      if (constant == null) {
-        constant = '2.0';
+  const onAdd = useCallback(
+    (FUNCTION, TYPE) => {
+      if (FUNCTION === "CONSTANT") {
+        let constant = prompt("Please enter a numerical constant", "2.0");
+        if (constant == null) {
+          constant = "2.0";
+        }
+        FUNCTION = constant;
       }
-      FUNCTION = constant;
-    }
-    const newNode = {
-      id: `${FUNCTION}-${uuidv4()}`,
-      data: { label: FUNCTION, type: TYPE},
-      position: getNodePosition(),
-    };
-    setElements((els) => els.concat(newNode));
-    closeModal();
+      const newNode = {
+        id: `${FUNCTION}-${uuidv4()}`,
+        data: { label: FUNCTION, type: TYPE },
+        position: getNodePosition(),
+      };
+      setElements((els) => els.concat(newNode));
+      closeModal();
 
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [setElements, rfInstance]);
+      saveFlowChartToLocalStorage(rfInstance);
+    },
+    [setElements, rfInstance]
+  );
 
   const onClickElementDelete = () => {
-    console.warn('onClickElementDelete', clickedElement);
+    console.warn("onClickElementDelete", clickedElement);
     if (rfInstance && clickedElement) {
-      console.warn('ELEM TO REMOVE', clickedElement);
-      onElementsRemove([clickedElement] as any)
+      console.warn("ELEM TO REMOVE", clickedElement);
+      onElementsRemove([clickedElement] as any);
       saveFlowChartToLocalStorage(rfInstance);
     }
-  }
-
-  const modalStyles = {
-    overlay: {zIndex: 99},
-    content: {zIndex: 100}
   };
 
-  const openModal = () => { setIsOpen(true); }
-  const afterOpenModal = () => {}
-  const closeModal = () => { setIsOpen(false); }
+  const modalStyles = {
+    overlay: { zIndex: 99 },
+    content: { zIndex: 100 },
+  };
 
-  const handleChange = selectedOption => {
+  const openModal = () => {
+    setIsOpen(true);
+  };
+  const afterOpenModal = () => {};
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const handleChange = (selectedOption) => {
     console.warn(selectedOption);
-    if( selectedOption.value === 'delete' ){
-      onClickElementDelete() 
-    }
-    else if( selectedOption.value === 'undo' ){
+    if (selectedOption.value === "delete") {
+      onClickElementDelete();
+    } else if (selectedOption.value === "undo") {
       onRestore();
     }
   };
 
-  const options = [    
-    { value: 'delete', label: '🗑️ Delete' },
-    { value: 'undo', label: '😅 Undo' },
+  const options = [
+    { value: "delete", label: "🗑️ Delete" },
+    { value: "undo", label: "😅 Undo" },
   ];
 
   const customStyles = {
     menu: (provided, state) => ({
       ...provided,
-      backgroundColor: state.selectProps.theme === 'dark' 
-        ? darkTheme.background 
-        : lightTheme.background,
-      color: state.selectProps.theme === 'dark' 
-        ? darkTheme.text 
-        : lightTheme.text,        
+      backgroundColor:
+        state.selectProps.theme === "dark"
+          ? darkTheme.background
+          : lightTheme.background,
+      color:
+        state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text,
     }),
 
     control: (provided, state) => ({
       ...provided,
-      backgroundColor: state.selectProps.theme === 'dark' 
-        ? darkTheme.background 
-        : lightTheme.background,
-      color: state.selectProps.theme === 'dark' 
-        ? darkTheme.text 
-        : lightTheme.text,
+      backgroundColor:
+        state.selectProps.theme === "dark"
+          ? darkTheme.background
+          : lightTheme.background,
+      color:
+        state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text,
     }),
 
     option: (styles, { selectProps, isFocused, isSelected }) => {
       return {
         ...styles,
-        cursor: 'pointer',
+        cursor: "pointer",
         backgroundColor: isSelected
-        ? selectProps.theme === 'dark' ? 'black' : '#eee'
-        : isFocused
-        ? selectProps.theme === 'dark' ? 'black' : '#eee'
-        : undefined,
-        ':active': {
-          ...styles[':active'],
-          backgroundColor: theme === 'dark' ? 'black' : '#eee',
-          }
-      }
-    },    
-  
+          ? selectProps.theme === "dark"
+            ? "black"
+            : "#eee"
+          : isFocused
+          ? selectProps.theme === "dark"
+            ? "black"
+            : "#eee"
+          : undefined,
+        ":active": {
+          ...styles[":active"],
+          backgroundColor: theme === "dark" ? "black" : "#eee",
+        },
+      };
+    },
+
     singleValue: (provided, state) => {
-      const color = state.selectProps.theme === 'dark' 
-        ? darkTheme.text 
-        : lightTheme.text;
-  
+      const color =
+        state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text;
+
       return { ...provided, color };
-    }    
-  }
+    },
+  };
 
   return (
     <div className="save__controls">
-
-      <a onClick={openModal}>🛠️ Add Python Function</a> 
+      <a onClick={openModal}>🛠️ Add Python Function</a>
 
       <a onClick={onSave}>🏃 Run Script</a>
 
@@ -173,17 +213,17 @@ const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }
 
       <a onClick={saveFile}> Save File </a>
 
-      <Select 
-        defaultValue = {{ value: 'edit', label: '🚧 Edit' }}
-        value = {{ value: 'edit', label: '🚧 Edit' }}
-        className = 'App-select'
-        isSearchable = {false}
-        onChange = {handleChange}
-        options = {options}
+      <Select
+        defaultValue={{ value: "edit", label: "🚧 Edit" }}
+        value={{ value: "edit", label: "🚧 Edit" }}
+        className="App-select"
+        isSearchable={false}
+        onChange={handleChange}
+        options={options}
         styles={customStyles}
         theme={theme as any}
       />
-           
+
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -192,7 +232,9 @@ const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-        <button onClick={closeModal} className='close-modal'>x</button>
+        <button onClick={closeModal} className="close-modal">
+          x
+        </button>
         <Tabs>
           <TabList>
             <Tab>Simulation</Tab>
@@ -203,28 +245,27 @@ const Controls: FC<ControlsProps> = ({ clickedElement, onElementsRemove, theme }
             <Tab>Visualization</Tab>
           </TabList>
 
-          {SECTIONS.map((sections, tabIndex) =>
+          {SECTIONS.map((sections, tabIndex) => (
             <TabPanel key={tabIndex}>
-            {sections.map((section, sectionIndex) =>
-              <div key={sectionIndex}>
-                <p key={section.name}>{section.name}</p>
-                {COMMANDS.map((cmd, cmdIndex) =>
-                  <span key={cmdIndex}>
-                  {(section.key === cmd.type)
-                    ? <button 
-                        onClick={() => onAdd(cmd.key, cmd.type)} 
-                        key={cmd.name}>
-                        {cmd.name}
-                      </button>
-                    : null
-                  }  
-                  </span>              
-                )}
-              </div>
-            )}
+              {sections.map((section, sectionIndex) => (
+                <div key={sectionIndex}>
+                  <p key={section.name}>{section.name}</p>
+                  {COMMANDS.map((cmd, cmdIndex) => (
+                    <span key={cmdIndex}>
+                      {section.key === cmd.type ? (
+                        <button
+                          onClick={() => onAdd(cmd.key, cmd.type)}
+                          key={cmd.name}
+                        >
+                          {cmd.name}
+                        </button>
+                      ) : null}
+                    </span>
+                  ))}
+                </div>
+              ))}
             </TabPanel>
-          )}          
-
+          ))}
         </Tabs>
       </Modal>
     </div>

@@ -44,6 +44,8 @@
 .save__controls {
   padding: 10px;
   border-bottom: 1px solid #282c34;
+  display: flex;
+  align-items: center;
 }
 
 .save__controls a, .ReactModal__Content button {
@@ -52,6 +54,16 @@
   cursor: pointer;
   border-radius: 2;
   font-size: 14px;
+}
+
+.switch_container{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.flex {
+  display: flex;
+  width: 100%;
 }
 
 .react-flow__node-default {

@@ -5,6 +5,7 @@ import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
+import { Layout } from "react-grid-layout";
 
 export interface CtlManifestType {
   type: string;
@@ -12,6 +13,11 @@ export interface CtlManifestType {
   id: string;
   param?: string;
   val?: any;
+  hidden?:boolean;
+  controlGroup?: string;
+  label?:string;
+  minHeight: number;
+  minWidth: number;
 }
 
 export interface RfSpatialInfoType {
@@ -26,12 +32,18 @@ const initialManifests: CtlManifestType[] = [
     type: "input",
     name: "Slider",
     id: "INPUT_PLACEHOLDER",
+    hidden: false,
+    minHeight:1,
+    minWidth:2
   },
-  {
-    type: "output",
-    name: "Plot",
-    id: "OUTPUT_PLACEHOLDER",
-  },
+  // {
+  //   type: "output",
+  //   name: "Plot",
+  //   id: "OUTPUT_PLACEHOLDER",
+  //   hidden:false,
+  //   minHeight:300,
+  //   minWidth:500
+  // },
 ];
 
 const rfInstanceAtom = atomWithImmer<OnLoadParams | undefined>(undefined);
@@ -42,12 +54,23 @@ const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
   y: 0,
   zoom: 1,
 });
-
+const editModeAtom = atomWithImmer<boolean>(false);
+const gridLayoutAtom = atomWithImmer<Layout[]>(initialManifests.map((ctrl,i)=>({
+  x:0,
+  y:0,
+  h:2,
+  w:2,
+  minH:ctrl.minHeight,
+  minW:ctrl.minWidth,
+  i:ctrl.id
+})));
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
+  const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
+  const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
 
   const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
     if(!flow){
@@ -74,6 +97,7 @@ export function useFlowChartState() {
       console.log('parsedFileContent:', parsedFileContent);
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
+      setGridLayout(parsedFileContent.gridLayout)
       loadFlowExportObject(flow);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
@@ -83,6 +107,7 @@ export function useFlowChartState() {
       const fileContent = {
         rfInstance: rfInstance.toObject(),
         ctrlsManifest,
+        gridLayout
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
@@ -133,5 +158,9 @@ export function useFlowChartState() {
     loadFlowExportObject,
     openFileSelector,
     saveFile,
+    isEditMode,
+    setIsEditMode,
+    gridLayout,
+    setGridLayout
   };
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect, ReactNode } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
@@ -10,77 +10,92 @@ import ReactFlow, {
   ConnectionLineType,
   Edge,
   OnLoadParams,
-} from 'react-flow-renderer';
+} from "react-flow-renderer";
 
-import localforage from 'localforage';
+import localforage from "localforage";
 
-import Plot from 'react-plotly.js';
+import Plot from "react-plotly.js";
 
-import CustomEdge from './CustomEdge';
-import CustomNode from './CustomNode';
-import Controls from './ControlBar';
+import CustomEdge from "./CustomEdge";
+import CustomNode from "./CustomNode";
+import Controls from "./ControlBar";
 
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-import PYTHON_FUNCTIONS from './pythonFunctions.json';
+import PYTHON_FUNCTIONS from "./pythonFunctions.json";
 
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco,  srcery} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-import styledPlotLayout from './../defaultPlotLayout';
-import { saveFlowChartToLocalStorage } from '../../services/FlowChartServices';
+import styledPlotLayout from "./../defaultPlotLayout";
+import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 
 localforage.config({
-  name: 'react-flow',
-  storeName: 'flows',
+  name: "react-flow",
+  storeName: "flows",
 });
 
-const flowKey = 'flow-joy';
+const flowKey = "flow-joy";
 
-const edgeTypes: EdgeTypesType = {default: CustomEdge as any};
-const nodeTypes: NodeTypesType = {default: CustomNode as any};
+const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
+const nodeTypes: NodeTypesType = { default: CustomNode as any };
 
-
-const FlowChart = ({ results, theme, rfInstance, setRfInstance, elements, setElements }) => {
-  
-  const [clickedElement, setClickedElement] = useState<any>(null);
+const FlowChart = ({
+  results,
+  theme,
+  rfInstance,
+  setRfInstance,
+  elements,
+  setElements,
+  clickedElement,
+  setClickedElement,
+}) => {
+  // const [clickedElement, setClickedElement] = useState<any>(null);
 
   const [modalIsOpen, setIsModalOpen] = useState(false);
 
   const modalStyles = {
-      overlay: {zIndex: 99},
-      content: {zIndex: 100}
-    };
-  
-  const openModal = () => { setIsModalOpen(true); }
-  const afterOpenModal = () => {}
-  const closeModal = () => { setIsModalOpen(false); }
+    overlay: { zIndex: 99 },
+    content: { zIndex: 100 },
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const afterOpenModal = () => {};
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const onClickElement = (evt, elem) => {
-    console.log('evt & element from click event', evt, elem);
+    console.log("evt & element from click event", evt, elem);
     setClickedElement(elem);
     openModal();
-  }
-  
-  const onElementsRemove = (elementsToRemove: Elements) => setElements((els) => removeElements(elementsToRemove, els));
-  const onConnect = (params: Connection | Edge) => setElements((els) => addEdge(params, els));
+  };
+
+  const onElementsRemove = (elementsToRemove: Elements) =>
+    setElements((els) => removeElements(elementsToRemove, els));
+  const onConnect = (params: Connection | Edge) =>
+    setElements((els) => addEdge(params, els));
 
   useEffect(() => {
-    console.log('ReactFlow component did mount');
-    saveFlowChartToLocalStorage(rfInstance)
+    console.log("ReactFlow component did mount");
+    saveFlowChartToLocalStorage(rfInstance);
   });
 
-  const defaultPythonFnLabel = 'PYTHON FUNCTION';
-  const defaultPythonFnType = 'PYTHON FUNCTION TYPE';
-  
+  const defaultPythonFnLabel = "PYTHON FUNCTION";
+  const defaultPythonFnType = "PYTHON FUNCTION TYPE";
+
   let nodeLabel = defaultPythonFnLabel;
   let nodeType = defaultPythonFnType;
 
-
   if (clickedElement != undefined) {
-    if ('data' in clickedElement) {
-      if ('label' in clickedElement.data && 'type' in clickedElement.data)  {
-        if (clickedElement.data.label != undefined && clickedElement.data.type != undefined) {
+    if ("data" in clickedElement) {
+      if ("label" in clickedElement.data && "type" in clickedElement.data) {
+        if (
+          clickedElement.data.label != undefined &&
+          clickedElement.data.type != undefined
+        ) {
           nodeLabel = clickedElement.data.label;
           nodeType = clickedElement.data.type;
         }
@@ -88,15 +103,18 @@ const FlowChart = ({ results, theme, rfInstance, setRfInstance, elements, setEle
     }
   }
 
-  const pythonString = (nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType)
-    ? '...'
-    : PYTHON_FUNCTIONS[nodeType][nodeLabel+'.py'];
+  const pythonString =
+    nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
+      ? "..."
+      : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"];
 
   let nd: any = {};
 
-  if ('io' in results) {
+  if ("io" in results) {
     const runResults = JSON.parse(results.io);
-    const filteredResult = runResults.filter(node => (node.cmd === nodeLabel))[0];
+    const filteredResult = runResults.filter(
+      (node) => node.cmd === nodeLabel
+    )[0];
     nd = filteredResult == undefined ? {} : filteredResult;
   }
 
@@ -106,25 +124,24 @@ const FlowChart = ({ results, theme, rfInstance, setRfInstance, elements, setEle
 
   return (
     <ReactFlowProviderAny>
-      <Controls 
+      {/* <Controls 
         rfInstance={rfInstance} 
         setElements={setElements} 
         clickedElement={clickedElement}
         onElementsRemove={onElementsRemove as any}
         theme={theme}
-      />
+      /> */}
       <div style={{ height: `99vh` }}>
-        <ReactFlow           
-          elements={elements} 
-          edgeTypes={edgeTypes}          
+        <ReactFlow
+          elements={elements}
+          edgeTypes={edgeTypes}
           nodeTypes={nodeTypes}
           connectionLineType={ConnectionLineType.SmoothStep}
-          onElementsRemove={onElementsRemove} 
-          onConnect={onConnect} 
+          onElementsRemove={onElementsRemove}
+          onConnect={onConnect}
           onLoad={setRfInstance}
-          onElementClick={(evt, elem) => onClickElement(evt, elem)}  
-        >
-        </ReactFlow>
+          onElementClick={(evt, elem) => onClickElement(evt, elem)}
+        ></ReactFlow>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -132,41 +149,59 @@ const FlowChart = ({ results, theme, rfInstance, setRfInstance, elements, setEle
         onRequestClose={closeModal}
         style={modalStyles}
         ariaHideApp={false}
-        contentLabel=''
-      >               
-        <button onClick={closeModal} className='ctrl-close-btn'>x</button>
+        contentLabel=""
+      >
+        <button onClick={closeModal} className="ctrl-close-btn">
+          x
+        </button>
 
-        {(nodeLabel != undefined && nodeType != undefined) && (
+        {nodeLabel != undefined && nodeType != undefined && (
           <div>
             <h1>{nodeLabel}</h1>
-            <h4>Function type: <code>{nodeType}</code></h4>
-          </div>      
+            <h4>
+              Function type: <code>{nodeType}</code>
+            </h4>
+          </div>
         )}
 
-        {Object.keys(nd).length === 0
-          ? <p><code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.</p>
-          : (<div>
-              <Plot
-                data = {'data' in nd.result 
-                  ? nd.result.data 
-                  : [{'x': nd.result['x0'], 'y': nd.result['y0'] }]}
-                layout = {'layout' in nd.result 
+        {Object.keys(nd).length === 0 ? (
+          <p>
+            <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
+          </p>
+        ) : (
+          <div>
+            <Plot
+              data={
+                "data" in nd.result
+                  ? nd.result.data
+                  : [{ x: nd.result["x0"], y: nd.result["y0"] }]
+              }
+              layout={
+                "layout" in nd.result
                   ? Object.assign({}, nd.result.layout, dfltLayout)
-                  : Object.assign({}, {title: `${nd.cmd}`}, dfltLayout)}
-                useResizeHandler />                
-            </div>)
-        }
+                  : Object.assign({}, { title: `${nd.cmd}` }, dfltLayout)
+              }
+              useResizeHandler
+            />
+          </div>
+        )}
 
         <h3>Python code</h3>
-        <SyntaxHighlighter language="python" style={theme === 'dark' ? srcery : docco}>
+        <SyntaxHighlighter
+          language="python"
+          style={theme === "dark" ? srcery : docco}
+        >
           {pythonString}
         </SyntaxHighlighter>
 
         <h3>Node data</h3>
-        <SyntaxHighlighter language="json" style={theme === 'dark' ? srcery : docco}>
+        <SyntaxHighlighter
+          language="json"
+          style={theme === "dark" ? srcery : docco}
+        >
           {`${JSON.stringify(clickedElement, undefined, 4)}`}
-          </SyntaxHighlighter>
-      </Modal>      
+        </SyntaxHighlighter>
+      </Modal>
     </ReactFlowProviderAny>
   );
 };
