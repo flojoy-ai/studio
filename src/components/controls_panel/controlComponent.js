@@ -398,7 +398,7 @@ const ControlComponent = ({
           {paramOptions.map((option) => {
             console.log("option:", option);
             return (
-              <>
+              <div>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -413,7 +413,7 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </>
+              </div>
             );
           })}
         </div>
@@ -424,7 +424,7 @@ const ControlComponent = ({
           {paramOptions.map((option) => {
             console.log("option:", option);
             return (
-              <>
+              <div style={{width:'max-content'}}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -439,7 +439,7 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </>
+              </div>
             );
           })}
         </div>
