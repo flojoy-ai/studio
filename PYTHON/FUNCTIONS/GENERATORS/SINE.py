@@ -12,8 +12,6 @@ def SINE(**kwargs):
         'waveform': 'sine'
     }
 
-    print('params:', params)
-
     if 'ctrls' in kwargs:
         ctrls = kwargs['ctrls']
         for key, input in ctrls.items():
@@ -21,6 +19,7 @@ def SINE(**kwargs):
             if paramName in params:
                 params[paramName] = input['value']
 
+    print('params sine:', params)
 
     xy0 = previous_job_results[0]
     x = xy0['x0']
@@ -30,17 +29,17 @@ def SINE(**kwargs):
     F = params['frequency']
     Y0 = params['offset']
 
+    print('A:', A)
+    print('F:', F)
+    print('Y0:', Y0)
+
     if waveform == 'sine':
         y = Y0 + A * np.sin(np.radians(2 * np.pi * F) * x)
     elif waveform == 'square':
-        y = Y0 + A * signal.square(2 * np.pi * F * x)
+        y = Y0 + A * signal.square(2 * np.pi * F * x / 10)
     elif waveform == 'triangle':
-        y = Y0 + A * signal.sawtooth(2 * np.pi * F * x, 0.5)
+        y = Y0 + A * signal.sawtooth(2 * np.pi * F * x / 10, 0.5)
     elif waveform == 'sawtooth':
-        y = Y0 + A * signal.sawtooth(2 * np.pi * F * x)
-            #     y = [float(tab_data['offset_input']) +
-            #  float(tab_data['amplitude_input']) *
-            #  (signal.square(2.0 * np.pi * float(tab_data['frequency_input']) / 10 * t))
-            #  for t in time]
+        y = Y0 + A * signal.sawtooth(2 * np.pi * F / 10 * x)
 
     return {'x0':x, 'y0':y}
