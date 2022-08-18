@@ -127,10 +127,10 @@ const ControlComponent = ({
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
-  if (ctrlObj.name.toUpperCase() === ControlNames.Plot) {
+  if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
     // figure out what we're visualizing
     let nodeIdToPlot = ctrlObj.param;
-    if (!!nodeIdToPlot) {
+    if (nodeIdToPlot) {
       if (results && "io" in results) {
         const runResults = JSON.parse(results.io).reverse();
         const filteredResult = runResults.filter(
@@ -396,9 +396,8 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.CheckboxButtonGroup && (
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
-            console.log("option:", option);
             return (
-              <>
+              <div>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -413,7 +412,7 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </>
+              </div>
             );
           })}
         </div>
@@ -422,9 +421,8 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.RadioButtonGroup && (
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
-            console.log("option:", option);
             return (
-              <>
+              <div style={{width:'max-content'}}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -439,7 +437,7 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </>
+              </div>
             );
           })}
         </div>
