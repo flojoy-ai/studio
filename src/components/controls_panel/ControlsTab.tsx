@@ -26,12 +26,14 @@ import customDropdownStyles from "./customDropdownStyles";
 import { InputActionMeta } from "react-select";
 import ControlGrid from "./ControlGrid";
 import SampleRGL from "./SampleRGL";
+import ResultsTab from "../results_panel/ResultsTab";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
-const ControlsTab = ({ results, theme }) => {
+const ControlsTab = ({ results, theme, programResults }) => {
   const [modalIsOpen, setIsModalOpen] = useState(false);
   const [openEditModal, setOPenEditModal] = useState(false);
+  const [showLogs, setShowLogs] = useState(false);
   const [currentInput, setCurrentInput] = useState<
     CtlManifestType & { index: number }
   >();
@@ -173,13 +175,18 @@ const ControlsTab = ({ results, theme }) => {
 
   return (
     <div>
-      <div className="save__controls">
-        <div className="flex" style={{ justifyContent: "space-between" }}>
-          <a onClick={openModal}>🎚️ Add Control</a>
+      <div className="save__controls border-color" style={{borderBottom:'1px solid'}}>
+        <div className="flex" style={{ justifyContent: "space-between", paddingLeft:'12px', paddingRight:'12px'  }}>
+          <div className="flex" style={{gap:'8px'}}>
+          <a onClick={openModal}> <span style={{color:theme === 'dark' ? '#99F5FF' : 'blue', marginRight:'5px', fontSize:'20px'}}>
+             +
+            </span>
+             Add Control</a>
           <div className="switch_container">
             <span
               style={{
                 cursor: "pointer",
+                fontSize:'14px',
                 ...(isEditMode && { color: "orange" }),
               }}
               onClick={() => setIsEditMode(true)}
@@ -189,13 +196,20 @@ const ControlsTab = ({ results, theme }) => {
             <ReactSwitch
               checked={isEditMode}
               onChange={(nextChecked) => setIsEditMode(!isEditMode)}
+              height={22}
+              width={50}
             />
           </div>
+          </div>
+          <a onClick={()=>setShowLogs(prev=>!prev)}>LOGS</a>
         </div>
       </div>
       {/* <SampleRGL/> */}
-
-      <ControlGrid
+      {showLogs && (
+        
+       <ResultsTab results={programResults} theme={theme} /> 
+      )}
+     {!showLogs && <ControlGrid
         controlProps={{
           theme,
           isEditMode,
@@ -206,7 +220,7 @@ const ControlsTab = ({ results, theme }) => {
           setCurrentInput,
           setOPenEditModal,
         }}
-      />
+      />}
 
       {false && (
         <>

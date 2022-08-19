@@ -4,11 +4,13 @@ export const lightTheme = {
     text: '#282c34',
     overlay: 'rgba(255,255,255,0.75)',
     underline: '#282c34',
+    borderColor: '#00000024',
   }
   
   export const darkTheme = {
-    body: '#282c34',
+    body: '#000000cf',
     text: '#FFF',
     overlay: 'rgba(0,0,0,0.75)',
-    underline: 'black'
+    underline: 'black',
+    borderColor: '#ffffff38'
 }

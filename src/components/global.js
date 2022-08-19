@@ -14,6 +14,10 @@ export const GlobalStyles = createGlobalStyle`
   a {
     color: ${({ theme }) => theme.text};
   }
+  main {
+    background-color: ${({theme})=> theme.body};
+    color: ${({theme})=> theme.text}
+  }
   div {
     border-color: ${({ theme }) => theme.text};
   }
@@ -24,21 +28,29 @@ export const GlobalStyles = createGlobalStyle`
     text-align: left;
     color: ${({ theme }) => theme.text};
   }
+  .App-header.dark {
+    background-color: ${({theme})=>theme.body}
+  }
   .App-results-panel {
     background: ${({ theme }) => theme.body};
   }
+  .App-brand {
+    color: ${({theme})=> theme.text}
+  }
+  .App-status {
+    color: ${({theme})=>theme.text}
+  }
   .App-results-panel h1 {
     color: ${({ theme }) => theme.text};
-  }
-  .save__controls {
-    background: ${({ theme }) => theme.body};
-    border-bottom: 0.5px solid ${({ theme }) => theme.text};
-  }  
+  } 
   .react-tabs__tab-list {
     border-bottom: 0.5px solid ${({ theme }) => theme.text};
   }
   .App-controls-panel {
     background-color: ${({ theme }) => theme.body};
+  }
+  .border-color {
+    border-color: ${({theme})=> theme.borderColor}!important;
   }
   .ctrl-outputs-canvas {
     /* Graph paper pattern */
