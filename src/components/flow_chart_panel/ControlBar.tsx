@@ -178,6 +178,7 @@ const Controls: FC<ControlsProps> = ({
     option: (styles, { selectProps, isFocused, isSelected }) => {
       return {
         ...styles,
+        fontSize: '16px',
         cursor: "pointer",
         backgroundColor: isSelected
           ? selectProps.theme === "dark"
@@ -199,7 +200,7 @@ const Controls: FC<ControlsProps> = ({
       const color =
         state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text;
 
-      return { ...provided, color };
+      return { ...provided, color, fontSize:'16px' };
     },
   };
 

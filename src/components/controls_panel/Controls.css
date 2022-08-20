@@ -136,6 +136,10 @@
   padding: 10px;
   width: 90%;
   margin: 0 10px;
+  background-color: transparent;
+  outline: none;
+  border:'1px solid'
+  ; border-radius: 10px;
 }
 
 .select-node {

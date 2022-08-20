@@ -79,7 +79,7 @@ export default function ControlGrid({
       className="layout"
       layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
       //   breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+      cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
       // rowHeight={130}
       onLayoutChange={(currentLayout, allLayout) => {
         console.log("currentLayout:", currentLayout);
@@ -96,8 +96,9 @@ export default function ControlGrid({
             }}
             style={{
               ...(controlProps.theme === "dark" && {
-                backgroundColor: "#424242",
+                backgroundColor: "#191919",
               }),
+              borderRadius:'16px'
               // minHeight:ctrl.minHeight, minWidth:ctrl.minWidth
             }}
           >
@@ -142,7 +143,8 @@ function Control({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        ...(theme === "dark" && { backgroundColor: "#424242" }),
+        borderRadius:'16px',
+       backgroundColor: theme === "dark" ? "#14131361" : '#58454517',
       }}
     >
       {isEditMode ? (

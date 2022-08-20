@@ -22,9 +22,9 @@ export const OutputControlsManifest = [
 
 export const InputControlsManifest = [
     // Outputs
-    {name: ControlNames.NumericInput, type: ControlTypes.Input, minHeight: 1, minWidth: 2},
+    {name: ControlNames.NumericInput, type: ControlTypes.Input, minHeight: 1, minWidth: 1},
     {name: ControlNames.Slider, type: ControlTypes.Input, minHeight:1, minWidth:2},
-    {name: ControlNames.Knob, type: ControlTypes.Input, minHeight:2, minWidth:2},
+    {name: ControlNames.Knob, type: ControlTypes.Input, minHeight:2, minWidth:1},
     {name: ControlNames.StaticNumericInput, type: ControlTypes.Input, minHeight:1, minWidth:2},
     {name: ControlNames.Dropdown, type: ControlTypes.Input, minHeight:1, minWidth:2},
     {name: ControlNames.RadioButtonGroup, type: ControlTypes.Input, minHeight:1, minWidth:2},

@@ -107,7 +107,7 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    // console.log('output', flowChartObject);
+    console.log('output', flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.map((node) => {
         if ("source" in node === false) {
@@ -216,6 +216,7 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
+              console.log('value in select:', val, options)
               attachParam2Ctrl(val.value, ctrlObj);
             }}
             options={options}
@@ -290,11 +291,12 @@ const ControlComponent = ({
           <input
             type="number"
             placeholder="Enter a number"
-            className="ctrl-numeric-input"
+            className="ctrl-numeric-input border-color"
             onChange={(e) => {
               updateCtrlValue(e.target.value, ctrlObj);
             }}
             value={currentInputValue || 0}
+            style={{...( theme === 'dark' && {color:'#fff'})}}
           />
         </div>
       )}

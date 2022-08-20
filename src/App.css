@@ -8,25 +8,32 @@
     vertical-align: middle;
     margin: 0;
     font-size: 14px;
-    color: white;
-    background: black;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
   
   .App-header {
-    background-color: #282c34;
     min-height: 2vh;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: left;
-    font-size: calc(12px + 1vmin);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     color: white;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 80px;
+    border-bottom: 1px solid #00000024;
   }
+  /* .App-header h1 {
+    font-size: calc(12px + 1vmin);
+  } */
 
+  .App-brand {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
   .App-theme-toggle {
-    position: absolute !important;
-    right: 10px !important;
+    /* position: absolute !important;
+    right: 10px !important; */
     font-size: 18px;
     background: transparent;
     border: 0;
@@ -40,10 +47,33 @@
     cursor: pointer;
     z-index: 99;
   }
+  .App-tabs {
+    gap: 16px;
+    height: 100%;
+    align-items: center;
+  }
+  .App-control-buttons {
+    justify-content: flex-end;
+  }
+  .App-tabs a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .App-tabs a.active-light {
+    border-bottom: 1px solid rgb(14, 14, 231);
+  }
+
+  .App-tabs a.active-dark {
+    border-bottom: 1px solid #99F5FF;
+  }
   
 .save__controls {
   padding: 10px;
-  border-bottom: 1px solid #282c34;
+  /* border-bottom: 1px solid #282c34; */
   display: flex;
   align-items: center;
 }
@@ -119,4 +149,11 @@ pre {
 
 div {
   scrollbar-width: none;
+}
+
+.justify-center {
+  justify-content: center;
+}
+.items-center {
+  align-items: center;
 }

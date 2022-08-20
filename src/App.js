@@ -16,6 +16,8 @@ import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./components/flow_chart_panel/ControlBar";
+
+
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
   const [programResults, setProgramResults] = useState({
@@ -26,10 +28,14 @@ const App = () => {
 
   const { elements, setElements, rfInstance, setRfInstance } =
     useFlowChartState();
-
+  const [currentTab, setCurrentTab] = useState('visual');
+    
+  // const queryParameter = new URLSearchParams(window.location.search);
   const toggleTheme = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
+
+
 
   const pingBackendAPI = async (endpoint) => {
     const resp = await fetch(endpoint);
@@ -42,7 +48,10 @@ const App = () => {
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
 
-  useEffect(() => {
+  // useEffect(()=>{
+  //   setCurrentTab(queryParameter.get('tab') ? 'panel' :'visual')
+  // },[window.location.search])
+    useEffect(() => {
     console.log("App component did mount");
 
     pingBackendAPI("/ping")
@@ -86,17 +95,50 @@ const App = () => {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowProvider>
         <GlobalStyles />
-        <p className="App-status">
+        <p className="App-status" style={{backgroundColor:theme === 'dark' ? "#14131361" : '#58454517'}}>
           <code>{serverStatus}</code>
         </p>
-        <header className="App-header">
-          <h1>FLOJOY</h1>
+        <header className={`flex App-header border-color  ${theme === 'dark' && 'dark'}`}>
+          <div className="flex App-tabs">
+          <h1 className="App-brand">FLOJOY</h1>
+          <a onClick={()=>setCurrentTab('visual')} className={currentTab !== 'panel' ? 'active-'+theme :''}>VISUAL PYTHON SCRIPT</a>
+          <a onClick={()=>setCurrentTab('panel')} className={currentTab === 'panel' ? 'active-'+theme :''}>CTRL PANEL</a>
+          </div>
+          <div className="flex App-control-buttons">
+
+          <Controls
+                  rfInstance={rfInstance}
+                  setElements={setElements}
+                  clickedElement={clickedElement}
+                  onElementsRemove={onElementsRemove}
+                  theme={theme}
+                />
           <button onClick={toggleTheme} className="App-theme-toggle">
             {theme === "light" ? "🌙" : "🌞"}
           </button>
+          </div>
         </header>
-        <main>
-          <Tabs forceRenderTabPanel={true}>
+        <main style={
+        {minHeight:'85vh'}
+        }>
+          {
+            currentTab !== 'panel' ? (
+              <FlowChart
+              elements={elements}
+              setElements={setElements}
+              rfInstance={rfInstance}
+              setRfInstance={setRfInstance}
+              results={programResults}
+              theme={theme}
+              clickedElement={clickedElement}
+              setClickedElement={setClickedElement}
+            />
+            ) : (
+              <ControlsTab results={programResults} theme={theme} programResults={programResults} />
+            )
+          }
+          
+          {/* <Tabs forceRenderTabPanel={true}>
             <TabList>
               <Tab>VISUAL PYTHON SCRIPT</Tab>
               <Tab>CTRL PANEL</Tab>
@@ -140,7 +182,7 @@ const App = () => {
             <TabPanel key="tab-3" style={{ backgroundColor: "#282c34" }}>
               <ResultsTab results={programResults} theme={theme} />
             </TabPanel>
-          </Tabs>
+          </Tabs> */}
         </main>
       </ReactFlowProvider>
     </ThemeProvider>
