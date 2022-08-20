@@ -1,5 +1,5 @@
 #!/bin/bash
-source venv2/bin/activate
+[ -d "venv2/bin/activate" ] && source venv2/bin/activate
 
 helpFunction()
 {
