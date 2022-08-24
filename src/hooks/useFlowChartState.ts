@@ -45,7 +45,7 @@ const initialManifests: CtlManifestType[] = [
   //   minWidth:500
   // },
 ];
-
+const uiThemeAtom = atomWithImmer<"light" | 'dark'>('dark');
 const rfInstanceAtom = atomWithImmer<OnLoadParams | undefined>(undefined);
 const elementsAtom = atomWithImmer<Elements>(initialElements);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
@@ -71,6 +71,7 @@ export function useFlowChartState() {
   const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
+  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom)
 
   const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
     if(!flow){
@@ -123,15 +124,16 @@ export function useFlowChartState() {
     paramId: string,
     inputData: any
   ) => {
-    setElements((elements) => {
-      const node = elements.find((e) => e.id === nodeId);
-      if (node) {
-        node.data.ctrls = node.data.ctrls || {};
-        node.data.ctrls[paramId] = inputData;
-      }
+    setElements(element=> {
+    const node = element.find((e) => e.id === nodeId);
+        if (node) {
+          // console.log(' node.data.ctrls: ', node.data.ctrls)
+      // node.data.ctrls = node.data.ctrls || {};
+      node.data.ctrls[paramId] = inputData;
+    }
+    console.log('updated node: ', JSON.stringify(node))
     });
   };
-
   const removeCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
@@ -161,6 +163,8 @@ export function useFlowChartState() {
     isEditMode,
     setIsEditMode,
     gridLayout,
-    setGridLayout
+    setGridLayout,
+    uiTheme,
+    setUiTheme
   };
 }

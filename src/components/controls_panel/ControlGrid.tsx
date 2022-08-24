@@ -64,8 +64,8 @@ export default function ControlGrid({
   //   }
   // }, [ctrlsManifest, isEditMode, layout, setLayout]);
 
-  console.log("ctrlsManifest:", ctrlsManifest);
-  console.log("layouts:", gridLayout);
+  // console.log("ctrlsManifest:", ctrlsManifest);
+  // console.log("layouts:", gridLayout);
   useEffect(()=>{
     if(isEditMode){
       setGridLayout(prev=> prev.map(layout=> ({...layout, static:false})))

@@ -16,7 +16,8 @@ import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./components/flow_chart_panel/ControlBar";
-
+import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
+import { useWindowSize } from "react-use";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
@@ -26,16 +27,19 @@ const App = () => {
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState(null);
 
-  const { elements, setElements, rfInstance, setRfInstance } =
+  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
     useFlowChartState();
-  const [currentTab, setCurrentTab] = useState('visual');
-    
-  // const queryParameter = new URLSearchParams(window.location.search);
+  const [currentTab, setCurrentTab] = useState("visual");
+  const { width: windowWidth } = useWindowSize();
   const toggleTheme = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
+    if (theme === "light") {
+      setTheme("dark");
+      setUiTheme("dark");
+    } else {
+      setTheme("light");
+      setUiTheme("light");
+    }
   };
-
-
 
   const pingBackendAPI = async (endpoint) => {
     const resp = await fetch(endpoint);
@@ -48,10 +52,7 @@ const App = () => {
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
 
-  // useEffect(()=>{
-  //   setCurrentTab(queryParameter.get('tab') ? 'panel' :'visual')
-  // },[window.location.search])
-    useEffect(() => {
+  useEffect(() => {
     console.log("App component did mount");
 
     pingBackendAPI("/ping")
@@ -95,35 +96,81 @@ const App = () => {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowProvider>
         <GlobalStyles />
-        <p className="App-status" style={{backgroundColor:theme === 'dark' ? "#14131361" : '#58454517'}}>
+        <p
+          className="App-status"
+          style={{
+            backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
+          }}
+        >
           <code>{serverStatus}</code>
         </p>
-        <header className={`flex App-header border-color  ${theme === 'dark' && 'dark'}`}>
-          <div className="flex App-tabs">
-          <h1 className="App-brand">FLOJOY</h1>
-          <a onClick={()=>setCurrentTab('visual')} className={currentTab !== 'panel' ? 'active-'+theme :''}>VISUAL PYTHON SCRIPT</a>
-          <a onClick={()=>setCurrentTab('panel')} className={currentTab === 'panel' ? 'active-'+theme :''}>CTRL PANEL</a>
+        <header
+          className={`flex App-header border-color  ${
+            theme === "dark" && "dark"
+          }`}
+          style={{
+            ...(windowWidth <= 700 && {
+              flexDirection: "column",
+              height: "fit-content",
+            }),
+          }}
+        >
+          <div
+            className=" App-tabs flex"
+            style={{
+              width: windowWidth <= 700 ? '100%' :'750px'
+            }}
+          >
+            <h1 className="App-brand">FLOJOY</h1>
+            <a
+              onClick={() => setCurrentTab("visual")}
+              className={currentTab !== "panel" ? "active-" + theme : ""}
+              style={{
+                ...(windowWidth <= 700 && {
+                  minHeight:'55px'
+                })
+              }}
+            >
+              {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"}
+            </a>
+            <a
+              onClick={() => setCurrentTab("panel")}
+              className={currentTab === "panel" ? "active-" + theme : ""}
+              style={{
+                ...(windowWidth <= 700 && {
+                  minHeight:'55px'
+                })
+              }}
+            >
+              {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"}
+            </a>
           </div>
-          <div className="flex App-control-buttons">
-
-          <Controls
-                  rfInstance={rfInstance}
-                  setElements={setElements}
-                  clickedElement={clickedElement}
-                  onElementsRemove={onElementsRemove}
-                  theme={theme}
-                />
-          <button onClick={toggleTheme} className="App-theme-toggle">
-            {theme === "light" ? "🌙" : "🌞"}
-          </button>
+          <div
+            className="flex App-control-buttons"
+            style={{
+              width:
+                windowWidth >= 1080
+                  ? "750px"
+                  : windowWidth <= 700
+                  ? "100%"
+                  : "420px",
+            }}
+          >
+            <Controls
+              rfInstance={rfInstance}
+              setElements={setElements}
+              clickedElement={clickedElement}
+              onElementsRemove={onElementsRemove}
+              theme={theme}
+            />
+            <button onClick={toggleTheme} className="App-theme-toggle">
+              {theme === "light" ? <LightIcon /> : <DarkIcon />}
+            </button>
           </div>
         </header>
-        <main style={
-        {minHeight:'85vh'}
-        }>
-          {
-            currentTab !== 'panel' ? (
-              <FlowChart
+        <main style={{ minHeight: "85vh" }}>
+          {currentTab !== "panel" ? (
+            <FlowChart
               elements={elements}
               setElements={setElements}
               rfInstance={rfInstance}
@@ -133,11 +180,14 @@ const App = () => {
               clickedElement={clickedElement}
               setClickedElement={setClickedElement}
             />
-            ) : (
-              <ControlsTab results={programResults} theme={theme} programResults={programResults} />
-            )
-          }
-          
+          ) : (
+            <ControlsTab
+              results={programResults}
+              theme={theme}
+              programResults={programResults}
+            />
+          )}
+
           {/* <Tabs forceRenderTabPanel={true}>
             <TabList>
               <Tab>VISUAL PYTHON SCRIPT</Tab>

@@ -147,7 +147,6 @@ const ControlsTab = ({ results, theme, programResults }) => {
     });
     saveAndRunFlowChart();
   };
-
   const attachParam2Ctrl = (param, ctrl) => {
     console.log("attachParam2Ctrl", param, ctrl);
 

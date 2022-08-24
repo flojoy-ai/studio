@@ -3,11 +3,14 @@ export const NOISY_SINE = {
         "id": "SINE-userGeneratedNode_1646417316016",
         "data": {
             "label": "SINE",
-          	"type": "GENERATOR"
+          	"type": "GENERATOR",
+            "ctrls": {},
         },
         "position": {
-            "x": 177.55396300324264,
-            "y": 84.6734922467507
+            // "x": 177.55396300324264,
+            x: 315,
+            // "y": 84.6734922467507,
+            y:55
         },
         "type": "default"
     }, {
@@ -15,10 +18,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "MULTIPLY",
           	"type": "TRANSFORMER"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 319.16555425993334,
-            "y": 115.76932525364177
+            // "x": 319.16555425993334,
+            // "y": 115.76932525364177
+            "x": 532,
+            "y": 100
         },
         "type": "default"
     }, {
@@ -26,10 +32,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "RAND",
           	"type": "GENERATOR"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 176.78207972197464,
-            "y": 144.80185344693288
+            // "x": 176.78207972197464,
+            // "y": 144.80185344693288
+            "x": 315,
+            "y": 212
         },
         "type": "default"
     }, {
@@ -37,10 +46,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "ADD",
           	"type": "TRANSFORMER"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 466.25999796171885,
-            "y": 163.1823153721549
+            // "x": 466.25999796171885,
+            // "y": 163.1823153721549
+            "x": 782,
+            "y": 210
         },
         "type": "default"
     }, {
@@ -48,10 +60,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "SCATTER",
           	"type": "VISOR"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 616.0457824509575,
-            "y": 128.13874851945644
+            // "x": 616.0457824509575,
+            // "y": 128.13874851945644
+            "x": 1002,
+            "y": 55
         },
         "type": "default"
     }, {
@@ -59,10 +74,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "HISTOGRAM",
           	"type": "VISOR"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 616.0536465173421,
-            "y": 194.2288925878753
+            // "x": 616.0536465173421,
+            // "y": 194.2288925878753
+            "x": 1002,
+            "y": 369
         },
         "type": "default"
     }, {
@@ -70,10 +88,12 @@ export const NOISY_SINE = {
         "data": {
             "label": "LINSPACE",
           	"type": "GENERATOR"
+            ,"ctrls":{},
         },
         "position": {
             "x": 22.58283226103687,
-            "y": 144.88054916558963
+            // "y": 144.88054916558963
+            "y": 217
         },
         "type": "default"
     }, {
@@ -81,10 +101,13 @@ export const NOISY_SINE = {
         "data": {
             "label": "2.0",
           	"type": "GENERATOR"
+            ,"ctrls":{},
         },
         "position": {
-            "x": 178.50497286105076,
-            "y": 206.64209529671734
+            // "x": 178.50497286105076,
+            // "y": 206.64209529671734
+            "x": 315,
+            "y": 369
         },
         "type": "default"
     }, {
