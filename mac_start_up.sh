@@ -19,6 +19,9 @@ do
    esac
 done
 
+echo 'making sure latest JS packages are installed'
+npm install
+
 echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
