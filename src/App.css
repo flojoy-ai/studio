@@ -1,76 +1,82 @@
 .App {
-    text-align: left;
-  }
-  
-  .App-status {
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-    margin: 0;
-    font-size: 14px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
-  .App-header {
-    min-height: 2vh;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 80px;
-    border-bottom: 1px solid #00000024;
-  }
-  /* .App-header h1 {
+  text-align: left;
+}
+
+.App-status {
+  padding: 0;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.App-header {
+  min-height: 2vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 80px;
+  border-bottom: 1px solid #00000024;
+}
+
+/* .App-header h1 {
     font-size: calc(12px + 1vmin);
   } */
 
-  .App-brand {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-  .App-theme-toggle {
-    /* position: absolute !important;
+.App-brand {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.App-theme-toggle {
+  /* position: absolute !important;
     right: 10px !important; */
-    font-size: 18px;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-  }
+  font-size: 18px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
 
-  .App-select {
-    width: 120px;
-    display: inline-block;
-    margin-right: 10px;
-    cursor: pointer;
-    z-index: 99;
-  }
-  .App-tabs {
-    gap: 16px;
-    height: 100%;
-    align-items: center;
-  }
-  .App-control-buttons {
-    justify-content: flex-end;
-  }
-  .App-tabs a {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  .App-tabs a.active-light {
-    border-bottom: 1px solid rgb(14, 14, 231);
-  }
+.App-select {
+  width: 120px;
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  z-index: 99;
+}
 
-  .App-tabs a.active-dark {
-    border-bottom: 1px solid #99F5FF;
-  }
-  
+.App-tabs {
+  gap: 16px;
+  height: 100%;
+  align-items: center;
+}
+
+.App-control-buttons {
+  justify-content: flex-end;
+}
+
+.App-tabs a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.App-tabs a.active-light {
+  border-bottom: 1px solid rgb(14, 14, 231);
+}
+
+.App-tabs a.active-dark {
+  border-bottom: 1px solid #99F5FF;
+}
+
 .save__controls {
   padding: 10px;
   /* border-bottom: 1px solid #282c34; */
@@ -78,7 +84,8 @@
   align-items: center;
 }
 
-.save__controls a, .ReactModal__Content button {
+.save__controls a,
+.ReactModal__Content button {
   margin-right: 10px;
   padding: 5px;
   cursor: pointer;
@@ -86,21 +93,32 @@
   font-size: 14px;
 }
 
-.switch_container{
+.switch_container {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .flex {
   display: flex;
   width: 100%;
 }
 
 .react-flow__node-default {
-  width: 100px;
-  padding: 0;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+  width: fit-content;
+  padding: 0px;
+  /* box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24); */
   font-weight: 600;
+  /* border-radius: 17px; */
+  /* background-color: #99f5ff4f; */
+  /* border: 1px solid #99F5FF; */
+  /* color: #99F5FF; */
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+
 }
 
 .react-flow__edge-path {
@@ -130,7 +148,7 @@
 @font-face {
   font-family: 'PonyMaker';
   src: url('PonyMaker.woff2') format('woff2'),
-      url('PonyMaker.woff') format('woff');
+    url('PonyMaker.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -154,6 +172,7 @@ div {
 .justify-center {
   justify-content: center;
 }
+
 .items-center {
   align-items: center;
 }

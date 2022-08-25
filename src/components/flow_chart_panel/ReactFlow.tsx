@@ -29,6 +29,8 @@ import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import styledPlotLayout from "./../defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
+import { useFlowChartState } from "../../hooks/useFlowChartState";
+import ResultsTab from "../results_panel/ResultsTab";
 
 localforage.config({
   name: "react-flow",
@@ -53,7 +55,7 @@ const FlowChart = ({
   // const [clickedElement, setClickedElement] = useState<any>(null);
 
   const [modalIsOpen, setIsModalOpen] = useState(false);
-
+  const [showLogs, setShowLogs] = useState(false)
   const modalStyles = {
     overlay: { zIndex: 99 },
     content: { zIndex: 100 },
@@ -74,9 +76,9 @@ const FlowChart = ({
   };
 
   const onElementsRemove = (elementsToRemove: Elements) =>
-    setElements((els) => removeElements(elementsToRemove, els));
+    setElements((els: Elements<any>) => removeElements(elementsToRemove, els));
   const onConnect = (params: Connection | Edge) =>
-    setElements((els) => addEdge(params, els));
+    setElements((els: Elements<any>) => addEdge(params, els));
 
   useEffect(() => {
     console.log("ReactFlow component did mount");
@@ -124,25 +126,38 @@ const FlowChart = ({
 
   return (
     <ReactFlowProviderAny>
-      {/* <Controls 
+      
+      <div className="save__controls border-color" style={{borderBottom:'1px solid'}}>
+        <div className="flex" style={{ justifyContent: "space-between", paddingLeft:'12px', paddingRight:'12px', alignItems:'center'  }}>
+        <Controls 
         rfInstance={rfInstance} 
         setElements={setElements} 
         clickedElement={clickedElement}
         onElementsRemove={onElementsRemove as any}
         theme={theme}
-      /> */}
-      <div style={{ height: `99vh` }}>
+        isVisualMode
+      />
+          <a 
+          onClick={()=>setShowLogs(prev=>!prev)}
+          >LOGS</a>
+        </div>
+      </div>
+      {showLogs && (
+        
+        <ResultsTab results={results} theme={theme} /> 
+       )}
+      {!showLogs && <div style={{ height: `99vh` }}>
         <ReactFlow
           elements={elements}
           edgeTypes={edgeTypes}
           nodeTypes={nodeTypes}
-          connectionLineType={ConnectionLineType.SmoothStep}
+          connectionLineType={ConnectionLineType.Step}
           onElementsRemove={onElementsRemove}
           onConnect={onConnect}
           onLoad={setRfInstance}
-          onElementClick={(evt, elem) => onClickElement(evt, elem)}
+          onElementClick={(evt, elem) => onClickElement(evt, elem)}       
         ></ReactFlow>
-      </div>
+      </div>}
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

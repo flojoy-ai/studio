@@ -142,7 +142,7 @@ const ControlComponent = ({
           plotData =
             nd.result && "data" in nd.result
               ? nd.result.data
-              : [{ x: nd.result["x0"], y: nd.result["y0"] }];
+              : nd.result && [{ x: nd.result["x0"], y: nd.result["y0"] }];
         }
       }
     }
@@ -269,20 +269,19 @@ const ControlComponent = ({
           {ctrlObj.type === "output"
             ? options?.find((option) => option.value === ctrlObj?.param)?.label
             : options?.find((option) => option.value.id === ctrlObj?.param?.id)
-                ?.label}
+              ?.label}
         </p>
       )}
 
       {ctrlObj.name === ControlNames.Plot && (
-        <div style={{ flex: "1" }}>
-          <div style={{ height: "100%" }}>
-            <Plot
-              data={plotData}
-              layout={styledLayout}
-              autosize={true}
-              style={{ width: "100%", height: "100%" }}
-            />
-          </div>
+        <div style={{ flex: "1", height: '100%', widht: '100%' }}>
+          <Plot
+            data={plotData}
+            layout={styledLayout}
+            autosize={true}
+            style={{ width: "100%", height: "100%" }}
+          />
+
         </div>
       )}
 
@@ -296,7 +295,7 @@ const ControlComponent = ({
               updateCtrlValue(e.target.value, ctrlObj);
             }}
             value={currentInputValue || 0}
-            style={{...( theme === 'dark' && {color:'#fff'})}}
+            style={{ ...(theme === 'dark' && { color: '#fff' }) }}
           />
         </div>
       )}
@@ -329,23 +328,23 @@ const ControlComponent = ({
                 });
               }
             }}
-            style={{ width: "100%", display:'flex', justifyContent:'center', alignItems:'center' }}
+            style={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}
           >
-          <Basic
-            style={{ width: "fit-content" }}
-            diameter={70}
-            min={0}
-            max={100}
-            step={1}
-            value={knobValue || currentInputValue || 0}
-            theme={{
-              donutColor: "blue",
-            }}
-            onValueChange={updateCtrlValueFromKnob}
-            ariaLabelledBy={"my-label"}
-          >
-            {/* <label id={'my-label'}>Some slabel</label> */}
-          </Basic>
+            <Basic
+              style={{ width: "fit-content" }}
+              diameter={70}
+              min={0}
+              max={100}
+              step={1}
+              value={knobValue || currentInputValue || 0}
+              theme={{
+                donutColor: "blue",
+              }}
+              onValueChange={updateCtrlValueFromKnob}
+              ariaLabelledBy={"my-label"}
+            >
+              {/* <label id={'my-label'}>Some slabel</label> */}
+            </Basic>
           </div>
         </div>
       )}
@@ -424,7 +423,7 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{width:'max-content'}}>
+              <div style={{ width: 'max-content' }}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
