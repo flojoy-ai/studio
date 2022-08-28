@@ -10,6 +10,7 @@ import ReactFlow, {
   ConnectionLineType,
   Edge,
   OnLoadParams,
+  OnLoadFunc,
 } from "react-flow-renderer";
 
 import localforage from "localforage";
@@ -55,7 +56,7 @@ const FlowChart = ({
   // const [clickedElement, setClickedElement] = useState<any>(null);
 
   const [modalIsOpen, setIsModalOpen] = useState(false);
-  const [showLogs, setShowLogs] = useState(false)
+  const [showLogs, setShowLogs] = useState(false);
   const modalStyles = {
     overlay: { zIndex: 99 },
     content: { zIndex: 100 },
@@ -123,30 +124,13 @@ const FlowChart = ({
   const dfltLayout = styledPlotLayout(theme);
 
   const ReactFlowProviderAny: any = ReactFlowProvider;
+  const onLoad: OnLoadFunc = (rfIns: any) => {
+    setRfInstance(rfIns.toObject());
+  };
 
   return (
     <ReactFlowProviderAny>
-      
-      <div className="save__controls border-color" style={{borderBottom:'1px solid'}}>
-        <div className="flex" style={{ justifyContent: "space-between", paddingLeft:'12px', paddingRight:'12px', alignItems:'center'  }}>
-        <Controls 
-        rfInstance={rfInstance} 
-        setElements={setElements} 
-        clickedElement={clickedElement}
-        onElementsRemove={onElementsRemove as any}
-        theme={theme}
-        isVisualMode
-      />
-          <a 
-          onClick={()=>setShowLogs(prev=>!prev)}
-          >LOGS</a>
-        </div>
-      </div>
-      {showLogs && (
-        
-        <ResultsTab results={results} theme={theme} /> 
-       )}
-      {!showLogs && <div style={{ height: `99vh` }}>
+      <div style={{ height: `99vh` }}>
         <ReactFlow
           elements={elements}
           edgeTypes={edgeTypes}
@@ -154,10 +138,10 @@ const FlowChart = ({
           connectionLineType={ConnectionLineType.Step}
           onElementsRemove={onElementsRemove}
           onConnect={onConnect}
-          onLoad={setRfInstance}
-          onElementClick={(evt, elem) => onClickElement(evt, elem)}       
+          onLoad={onLoad}
+          onElementClick={(evt, elem) => onClickElement(evt, elem)}
         ></ReactFlow>
-      </div>}
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

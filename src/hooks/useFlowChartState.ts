@@ -45,8 +45,9 @@ const initialManifests: CtlManifestType[] = [
   //   minWidth:500
   // },
 ];
+const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | 'dark'>('dark');
-const rfInstanceAtom = atomWithImmer<OnLoadParams | undefined>(undefined);
+const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(undefined);
 const elementsAtom = atomWithImmer<Elements>(initialElements);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
@@ -72,6 +73,7 @@ export function useFlowChartState() {
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom)
+  const [showLogs, setShowLogs] = useAtom(showLogsAtom);
 
   const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
     if(!flow){
@@ -106,7 +108,7 @@ export function useFlowChartState() {
   const saveFile = async () => {
     if (rfInstance) {
       const fileContent = {
-        rfInstance: rfInstance.toObject(),
+        rfInstance,
         ctrlsManifest,
         gridLayout
       };
@@ -127,11 +129,8 @@ export function useFlowChartState() {
     setElements(element=> {
     const node = element.find((e) => e.id === nodeId);
         if (node) {
-          // console.log(' node.data.ctrls: ', node.data.ctrls)
-      // node.data.ctrls = node.data.ctrls || {};
       node.data.ctrls[paramId] = inputData;
     }
-    console.log('updated node: ', JSON.stringify(node))
     });
   };
   const removeCtrlInputDataForNode = (
@@ -146,7 +145,13 @@ export function useFlowChartState() {
       }
     });
   };
-
+  useEffect(()=>{
+    setRfInstance(prev=>{
+      if(prev){
+        prev.elements = elements
+      }
+    })
+  },[elements])
   return {
     rfInstance,
     setRfInstance,
@@ -165,6 +170,8 @@ export function useFlowChartState() {
     gridLayout,
     setGridLayout,
     uiTheme,
-    setUiTheme
+    setUiTheme,
+    showLogs,
+    setShowLogs
   };
 }

@@ -7,31 +7,31 @@
                     "label": "SINE",
                     "type": "GENERATOR",
                     "ctrls": {
-                        "SINE_WAVEFORM": {
+                        "SINE_FREQUENCY": {
                             "functionName": "SINE",
-                            "param": "waveform",
-                            "value": "triangle"
+                            "param": "frequency",
+                            "value": 8
                         },
                         "SINE_AMPLITUDE": {
                             "functionName": "SINE",
                             "param": "amplitude",
-                            "value": 14
+                            "value": 75
                         },
                         "SINE_OFFSET": {
                             "functionName": "SINE",
                             "param": "offset",
-                            "value": 74
+                            "value": 16
                         },
-                        "SINE_FREQUENCY": {
+                        "SINE_WAVEFORM": {
                             "functionName": "SINE",
-                            "param": "frequency",
-                            "value": 5
+                            "param": "waveform",
+                            "value": "triangle"
                         }
                     }
                 },
                 "position": {
-                    "x": 177.55396300324264,
-                    "y": 84.6734922467507
+                    "x": 670,
+                    "y": 105
                 },
                 "type": "default"
             },
@@ -39,11 +39,12 @@
                 "id": "MULTIPLY-userGeneratedNode_1646417352715",
                 "data": {
                     "label": "MULTIPLY",
-                    "type": "TRANSFORMER"
+                    "type": "TRANSFORMER",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 319.16555425993334,
-                    "y": 115.76932525364177
+                    "x": 852,
+                    "y": 130
                 },
                 "type": "default"
             },
@@ -51,11 +52,12 @@
                 "id": "RAND-userGeneratedNode_1646417371398",
                 "data": {
                     "label": "RAND",
-                    "type": "GENERATOR"
+                    "type": "GENERATOR",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 176.78207972197464,
-                    "y": 144.80185344693288
+                    "x": 668,
+                    "y": 215
                 },
                 "type": "default"
             },
@@ -63,11 +65,12 @@
                 "id": "ADD-userGeneratedNode_1646417428589",
                 "data": {
                     "label": "ADD",
-                    "type": "TRANSFORMER"
+                    "type": "TRANSFORMER",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 466.25999796171885,
-                    "y": 163.1823153721549
+                    "x": 992,
+                    "y": 210
                 },
                 "type": "default"
             },
@@ -75,11 +78,12 @@
                 "id": "SCATTER-userGeneratedNode_1646417560399",
                 "data": {
                     "label": "SCATTER",
-                    "type": "VISOR"
+                    "type": "VISOR",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 616.0457824509575,
-                    "y": 128.13874851945644
+                    "x": 1202,
+                    "y": 115
                 },
                 "type": "default"
             },
@@ -87,11 +91,12 @@
                 "id": "HISTOGRAM-userGeneratedNode_1646417604301",
                 "data": {
                     "label": "HISTOGRAM",
-                    "type": "VISOR"
+                    "type": "VISOR",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 616.0536465173421,
-                    "y": 194.2288925878753
+                    "x": 1202,
+                    "y": 319
                 },
                 "type": "default"
             },
@@ -99,11 +104,18 @@
                 "id": "LINSPACE-userGeneratedNode_1646432683694",
                 "data": {
                     "label": "LINSPACE",
-                    "type": "GENERATOR"
+                    "type": "GENERATOR",
+                    "ctrls": {
+                        "LINSPACE_STEP": {
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "0"
+                        }
+                    }
                 },
                 "position": {
-                    "x": 22.58283226103687,
-                    "y": 144.88054916558963
+                    "x": 422,
+                    "y": 217
                 },
                 "type": "default"
             },
@@ -111,11 +123,12 @@
                 "id": "2.0-userGeneratedNode_1646435677928",
                 "data": {
                     "label": "2.0",
-                    "type": "GENERATOR"
+                    "type": "GENERATOR",
+                    "ctrls": {}
                 },
                 "position": {
-                    "x": 178.50497286105076,
-                    "y": 206.64209529671734
+                    "x": 668,
+                    "y": 330
                 },
                 "type": "default"
             },
@@ -200,142 +213,101 @@
     },
     "ctrlsManifest": [
         {
-            "type": "output",
-            "name": "Plot",
-            "id": "ctrl-e7155db1-8ace-4efc-a044-0bd3077126a0",
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
             "hidden": false,
-            "param": "SINE-userGeneratedNode_1646417316016",
-            "val": 0
+            "minHeight": 1,
+            "minWidth": 2,
+            "param": {
+                "id": "SINE_FREQUENCY",
+                "functionName": "SINE",
+                "param": "frequency",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "INPUT_PLACEHOLDER"
+            },
+            "val": 8
         },
         {
             "type": "input",
-            "name": "Radio Button Group",
+            "name": "Slider",
             "minWidth": 2,
             "minHeight": 1,
-            "id": "ctrl-3349f1f9-75f9-49fc-9f58-94a83f406c76",
+            "id": "ctrl-1f408851-399d-463b-a682-ff4d94b77729",
+            "hidden": false,
+            "param": {
+                "id": "SINE_AMPLITUDE",
+                "functionName": "SINE",
+                "param": "amplitude",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "ctrl-1f408851-399d-463b-a682-ff4d94b77729"
+            },
+            "val": 75
+        },
+        {
+            "type": "input",
+            "name": "Knob",
+            "minWidth": 1,
+            "minHeight": 2,
+            "id": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b",
+            "hidden": false,
+            "param": {
+                "id": "SINE_OFFSET",
+                "functionName": "SINE",
+                "param": "offset",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b"
+            },
+            "val": 16
+        },
+        {
+            "type": "input",
+            "name": "Dropdown",
+            "minWidth": 2,
+            "minHeight": 2,
+            "id": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a",
             "hidden": false,
             "param": {
                 "id": "SINE_WAVEFORM",
                 "functionName": "SINE",
                 "param": "waveform",
                 "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-3349f1f9-75f9-49fc-9f58-94a83f406c76"
+                "inputId": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a"
             },
             "val": "triangle"
         },
         {
             "type": "input",
-            "name": "Knob",
-            "minWidth": 2,
-            "minHeight": 2,
-            "id": "ctrl-cfb63e7a-8215-491c-96d2-1581b2dc9393",
-            "hidden": false,
-            "param": {
-                "id": "SINE_FREQUENCY",
-                "functionName": "SINE",
-                "param": "frequency",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-cfb63e7a-8215-491c-96d2-1581b2dc9393"
-            },
-            "val": 5
-        },
-        {
-            "type": "input",
-            "name": "Knob",
-            "minWidth": 2,
-            "minHeight": 2,
-            "id": "ctrl-facd7b5b-cb14-4b79-9a07-d0bceaafabc7",
-            "hidden": false,
-            "param": {
-                "id": "SINE_AMPLITUDE",
-                "functionName": "SINE",
-                "param": "amplitude",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-facd7b5b-cb14-4b79-9a07-d0bceaafabc7"
-            },
-            "val": 14
-        },
-        {
-            "type": "input",
-            "name": "Knob",
-            "minWidth": 2,
-            "minHeight": 2,
-            "id": "ctrl-8a815655-4f6a-4a8d-b5a8-91fbcf7ea976",
-            "hidden": false,
-            "param": {
-                "id": "SINE_OFFSET",
-                "functionName": "SINE",
-                "param": "offset",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-8a815655-4f6a-4a8d-b5a8-91fbcf7ea976"
-            },
-            "val": 74
-        },
-        {
-            "type": "input",
-            "name": "Static Numeric Input",
-            "minWidth": 2,
+            "name": "Numeric Input",
+            "minWidth": 1,
             "minHeight": 1,
-            "id": "ctrl-5e2959e9-80c4-4fac-9156-ab2af930bcc4",
+            "id": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399",
             "hidden": false,
             "param": {
-                "id": "SINE_FREQUENCY",
-                "functionName": "SINE",
-                "param": "frequency",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-5e2959e9-80c4-4fac-9156-ab2af930bcc4"
-            },
-            "val": "1"
-        },
-        {
-            "type": "input",
-            "name": "Static Numeric Input",
-            "minWidth": 2,
-            "minHeight": 1,
-            "id": "ctrl-c33e2b22-9ac4-4b93-9649-75e84d680160",
-            "hidden": false,
-            "param": {
-                "id": "SINE_AMPLITUDE",
-                "functionName": "SINE",
-                "param": "amplitude",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-c33e2b22-9ac4-4b93-9649-75e84d680160"
-            },
-            "val": "1"
-        },
-        {
-            "type": "input",
-            "name": "Static Numeric Input",
-            "minWidth": 2,
-            "minHeight": 1,
-            "id": "ctrl-f9e73435-eb13-4557-9d54-a6a3e04dccdc",
-            "hidden": false,
-            "param": {
-                "id": "SINE_OFFSET",
-                "functionName": "SINE",
-                "param": "offset",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-f9e73435-eb13-4557-9d54-a6a3e04dccdc"
+                "id": "LINSPACE_STEP",
+                "functionName": "LINSPACE",
+                "param": "step",
+                "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
+                "inputId": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399"
             },
             "val": "0"
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "id": "ctrl-59180432-3be2-4c2e-8563-5a613a151db7",
+            "hidden": false,
+            "param": "SINE-userGeneratedNode_1646417316016",
+            "val": 0
         }
     ],
     "gridLayout": [
         {
-            "w": 5,
-            "h": 2,
-            "x": 6,
-            "y": 0,
-            "i": "ctrl-e7155db1-8ace-4efc-a044-0bd3077126a0",
-            "moved": false,
-            "static": true
-        },
-        {
-            "w": 5,
+            "w": 2,
             "h": 1,
-            "x": 6,
-            "y": 2,
-            "i": "ctrl-3349f1f9-75f9-49fc-9f58-94a83f406c76",
+            "x": 0,
+            "y": 0,
+            "i": "INPUT_PLACEHOLDER",
             "minW": 2,
             "minH": 1,
             "moved": false,
@@ -343,33 +315,22 @@
         },
         {
             "w": 2,
-            "h": 2,
+            "h": 1,
             "x": 0,
-            "y": 0,
-            "i": "ctrl-cfb63e7a-8215-491c-96d2-1581b2dc9393",
+            "y": 1,
+            "i": "ctrl-1f408851-399d-463b-a682-ff4d94b77729",
             "minW": 2,
-            "minH": 2,
+            "minH": 1,
             "moved": false,
             "static": true
         },
         {
-            "w": 2,
+            "w": 1,
             "h": 2,
-            "x": 2,
+            "x": 3,
             "y": 0,
-            "i": "ctrl-facd7b5b-cb14-4b79-9a07-d0bceaafabc7",
-            "minW": 2,
-            "minH": 2,
-            "moved": false,
-            "static": true
-        },
-        {
-            "w": 2,
-            "h": 2,
-            "x": 4,
-            "y": 0,
-            "i": "ctrl-8a815655-4f6a-4a8d-b5a8-91fbcf7ea976",
-            "minW": 2,
+            "i": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b",
+            "minW": 1,
             "minH": 2,
             "moved": false,
             "static": true
@@ -379,31 +340,29 @@
             "h": 2,
             "x": 0,
             "y": 2,
-            "i": "ctrl-5e2959e9-80c4-4fac-9156-ab2af930bcc4",
+            "i": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a",
             "minW": 2,
-            "minH": 1,
+            "minH": 2,
             "moved": false,
             "static": true
         },
         {
-            "w": 2,
+            "w": 1,
             "h": 2,
             "x": 2,
-            "y": 2,
-            "i": "ctrl-c33e2b22-9ac4-4b93-9649-75e84d680160",
-            "minW": 2,
+            "y": 0,
+            "i": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399",
+            "minW": 1,
             "minH": 1,
             "moved": false,
             "static": true
         },
         {
-            "w": 2,
-            "h": 2,
+            "w": 4,
+            "h": 4,
             "x": 4,
-            "y": 2,
-            "i": "ctrl-f9e73435-eb13-4557-9d54-a6a3e04dccdc",
-            "minW": 2,
-            "minH": 1,
+            "y": 0,
+            "i": "ctrl-59180432-3be2-4c2e-8563-5a613a151db7",
             "moved": false,
             "static": true
         }

@@ -142,7 +142,7 @@ const ControlComponent = ({
           plotData =
             nd.result && "data" in nd.result
               ? nd.result.data
-              : nd.result && [{ x: nd.result["x0"], y: nd.result["y0"] }];
+              : [{ x: nd.result["x0"], y: nd.result["y0"] }];
         }
       }
     }
@@ -175,32 +175,7 @@ const ControlComponent = ({
       });
     }
   };
-  if (ctrlObj.name === ControlNames.Control_Group) {
-    return (
-      <div>
-        <div>
-          <div className="ctrl-input-group">
-            {ctrlsManifest
-              .filter((ctrl) => ctrl.controlGroup === ctrlObj.id)
-              .map((ctrl) => (
-                <ControlComponent
-                  ctrlObj={ctrl}
-                  attachParam2Ctrl={attachParam2Ctrl}
-                  results={results}
-                  theme={theme}
-                  updateCtrlValue={updateCtrlValue}
-                />
-              ))}
-          </div>
-        </div>
-        <details className="ctrl-meta">
-          {`Name: ${ctrlObj.name}`}
-          <br></br>
-          {`ID: ${ctrlObj.id}`}
-        </details>
-      </div>
-    );
-  }
+
   return (
     <div
       style={{
