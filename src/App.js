@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 
 import FlowChart from "./components/flow_chart_panel/ReactFlow.tsx";
 import ResultsTab from "./components/results_panel/ResultsTab.tsx";
@@ -21,14 +19,21 @@ import { useWindowSize } from "react-use";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
+  const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [programResults, setProgramResults] = useState({
     msg: STATUS_CODES.NO_RUNS_YET,
   });
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState(null);
 
-  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
-    useFlowChartState();
+  const {
+    elements,
+    setElements,
+    rfInstance,
+    setRfInstance,
+    setUiTheme,
+    showLogs,
+  } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState("visual");
   const { width: windowWidth } = useWindowSize();
   const toggleTheme = () => {
@@ -118,7 +123,7 @@ const App = () => {
           <div
             className=" App-tabs flex"
             style={{
-              width: windowWidth <= 700 ? '100%' :'750px'
+              width: windowWidth <= 700 ? "100%" : "750px",
             }}
           >
             <h1 className="App-brand">FLOJOY</h1>
@@ -127,22 +132,24 @@ const App = () => {
               className={currentTab !== "panel" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
-                  minHeight:'55px'
-                })
+                  minHeight: "55px",
+                }),
               }}
             >
-              {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"}
+              SCRIPT
+              {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
             </a>
             <a
               onClick={() => setCurrentTab("panel")}
               className={currentTab === "panel" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
-                  minHeight:'55px'
-                })
+                  minHeight: "55px",
+                }),
               }}
             >
-              {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"}
+              CTRLS
+              {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </a>
           </div>
           <div
@@ -162,6 +169,8 @@ const App = () => {
               clickedElement={clickedElement}
               onElementsRemove={onElementsRemove}
               theme={theme}
+              isVisualMode={currentTab === "visual"}
+              setOpenCtrlModal={setOpenCtrlModal}
             />
             <button onClick={toggleTheme} className="App-theme-toggle">
               {theme === "light" ? <LightIcon /> : <DarkIcon />}
@@ -169,7 +178,9 @@ const App = () => {
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-          {currentTab !== "panel" ? (
+          {showLogs ? (
+            <ResultsTab results={programResults} theme={theme} />
+          ) : currentTab !== "panel" ? (
             <FlowChart
               elements={elements}
               setElements={setElements}
@@ -185,6 +196,8 @@ const App = () => {
               results={programResults}
               theme={theme}
               programResults={programResults}
+              openCtrlModal={openCtrlModal}
+              setOpenCtrlModal={setOpenCtrlModal}
             />
           )}
 

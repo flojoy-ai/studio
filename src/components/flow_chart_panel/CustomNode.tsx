@@ -15,8 +15,8 @@ const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
     return {
       // background: '#9CA8B3',
       padding: 10,
-      height: "105px",
-      width: "192px",
+      height: "75px",
+      width: "135px",
       boxShadow: "0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)",
       fontWeight: 600,
       borderRadius: "65px",
@@ -30,8 +30,8 @@ const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
     };
   } else {
     return {
-      height: "115px",
-      width: "115px",
+      height: "80px",
+      width: "80px",
       borderRadius: "6px",
       border: theme === 'light'? "1px solid #2E83FF" : "1px solid rgba(123, 97, 255, 1)",
       backgroundColor: theme === 'light' ? "rgba(46, 131, 255, 0.2)" : "rgb(123 97 255 / 16%)",
@@ -88,6 +88,8 @@ const CustomNode = ({ data }) => {
       <div
         style={{
           position: "relative",
+          height:119,
+          width:'fit-content'
         }}
       >
         <Handle
@@ -106,7 +108,7 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                top: 31,
+                top: 21,
                 left: "50%",
                 transform: "translateX(-50%)",
               }}
@@ -115,9 +117,10 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                bottom: 15,
+                bottom: 9,
                 left: "50%",
                 transform: "translateX(-50%)",
+                height:62
               }}
             />
           </>
@@ -128,7 +131,7 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                top: 31,
+                top: 20,
                 left: "50%",
                 transform: "translateX(-50%)",
               }}
@@ -137,13 +140,14 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                bottom: 15,
-                left: 71,
+                bottom: 4,
+                left: 47,
+                height:64
               }}
             />
           </>
         )}
-        <BGTemplate style={{}} theme={uiTheme} />
+        <BGTemplate style={{height:120,width:188}} theme={uiTheme} />
       </div>
     );
   }

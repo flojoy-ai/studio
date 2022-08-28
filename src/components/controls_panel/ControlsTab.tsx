@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 import {
   OutputControlsManifest,
   InputControlsManifest,
-  ControlTypes,
-  ControlNames,
 } from "./CONTROLS_MANIFEST";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import ControlComponent from "./controlComponent";
@@ -21,17 +19,19 @@ import {
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
-import Select from "react-select";
-import customDropdownStyles from "./customDropdownStyles";
-import { InputActionMeta } from "react-select";
+// import customDropdownStyles from "./customDropdownStyles";
 import ControlGrid from "./ControlGrid";
-import SampleRGL from "./SampleRGL";
 import ResultsTab from "../results_panel/ResultsTab";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
-const ControlsTab = ({ results, theme, programResults }) => {
-  const [modalIsOpen, setIsModalOpen] = useState(false);
+const ControlsTab = ({
+  results,
+  theme,
+  programResults,
+  setOpenCtrlModal,
+  openCtrlModal,
+}) => {
   const [openEditModal, setOPenEditModal] = useState(false);
   const [showLogs, setShowLogs] = useState(false);
   const [currentInput, setCurrentInput] = useState<
@@ -49,16 +49,12 @@ const ControlsTab = ({ results, theme, programResults }) => {
   const [debouncedTimerId, setDebouncedTimerId] = useState<
     NodeJS.Timeout | undefined
   >(undefined);
-  const { isEditMode, setIsEditMode, gridLayout, setGridLayout } =
-    useFlowChartState();
+  const { isEditMode, gridLayout, setGridLayout } = useFlowChartState();
 
   const modalStyles = { overlay: { zIndex: 99 }, content: { zIndex: 100 } };
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
   const afterOpenModal = () => {};
   const closeModal = () => {
-    setIsModalOpen(false);
+    setOpenCtrlModal(false);
   };
 
   const saveAndRunFlowChart = () => {
@@ -82,17 +78,10 @@ const ControlsTab = ({ results, theme, programResults }) => {
       ...ctrlObj,
       id: `ctrl-${uuidv4()}`,
       hidden: false,
-      ...(ctrlObj.name === ControlNames.Control_Group && {
-        label:
-          "control-group " +
-          (ctrlsManifest.filter((c) => c.name === ControlNames.Control_Group)
-            .length +
-            1),
-      }),
     } as CtlManifestType;
     console.log("adding ctrl...", ctrl);
     console.log(ctrl.type, ctrl.type === "input");
-    setIsModalOpen(false);
+    setOpenCtrlModal(false);
     let yAxis = 0;
     for (const el of gridLayout) {
       if (yAxis < el.y) {
@@ -110,7 +99,7 @@ const ControlsTab = ({ results, theme, programResults }) => {
         i: ctrl.id,
         minH: ctrl.minHeight,
         minW: ctrl.minWidth,
-        static: !isEditMode
+        static: !isEditMode,
       },
     ]);
     cacheManifest([...ctrlsManifest, ctrl]);
@@ -121,9 +110,6 @@ const ControlsTab = ({ results, theme, programResults }) => {
     console.warn("Removing", ctrlId, ctrl);
     const filteredOutputs = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     let filterChilds: any[] = filteredOutputs;
-    if (ctrl.name === ControlNames.Control_Group) {
-      filterChilds = filteredOutputs.filter((c) => c.controlGroup !== ctrl.id);
-    }
     cacheManifest(filterChilds);
     if (ctrl) {
       removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
@@ -145,8 +131,8 @@ const ControlsTab = ({ results, theme, programResults }) => {
       param: ctrl.param.param,
       value: val,
     });
-    saveAndRunFlowChart();
   };
+  console.log("ctrl manifest: ", ctrlsManifest);
   const attachParam2Ctrl = (param, ctrl) => {
     console.log("attachParam2Ctrl", param, ctrl);
 
@@ -172,54 +158,28 @@ const ControlsTab = ({ results, theme, programResults }) => {
     cacheManifest(manClone);
   };
 
+  useEffect(() => {
+    saveAndRunFlowChart();
+  }, [rfInstance]);
+
   return (
     <div>
-      <div className="save__controls border-color" style={{borderBottom:'1px solid'}}>
-        <div className="flex" style={{ justifyContent: "space-between", paddingLeft:'12px', paddingRight:'12px'  }}>
-          <div className="flex" style={{gap:'8px'}}>
-          <a onClick={openModal}> <span style={{color:theme === 'dark' ? '#99F5FF' : 'blue', marginRight:'5px', fontSize:'20px'}}>
-             +
-            </span>
-             Add Control</a>
-          <div className="switch_container">
-            <span
-              style={{
-                cursor: "pointer",
-                fontSize:'14px',
-                ...(isEditMode && { color: "orange" }),
-              }}
-              onClick={() => setIsEditMode(true)}
-            >
-              Edit
-            </span>
-            <ReactSwitch
-              checked={isEditMode}
-              onChange={(nextChecked) => setIsEditMode(!isEditMode)}
-              height={22}
-              width={50}
-            />
-          </div>
-          </div>
-          <a onClick={()=>setShowLogs(prev=>!prev)}>LOGS</a>
-        </div>
-      </div>
       {/* <SampleRGL/> */}
-      {showLogs && (
-        
-       <ResultsTab results={programResults} theme={theme} /> 
+      {showLogs && <ResultsTab results={programResults} theme={theme} />}
+      {!showLogs && (
+        <ControlGrid
+          controlProps={{
+            theme,
+            isEditMode,
+            results,
+            updateCtrlValue,
+            attachParam2Ctrl,
+            rmCtrl,
+            setCurrentInput,
+            setOPenEditModal,
+          }}
+        />
       )}
-     {!showLogs && <ControlGrid
-        controlProps={{
-          theme,
-          isEditMode,
-          results,
-          updateCtrlValue,
-          attachParam2Ctrl,
-          rmCtrl,
-          setCurrentInput,
-          setOPenEditModal,
-        }}
-      />}
 
       {false && (
         <>
@@ -330,7 +290,7 @@ const ControlsTab = ({ results, theme, programResults }) => {
       )}
 
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={openCtrlModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={modalStyles}
@@ -410,27 +370,6 @@ const ControlsTab = ({ results, theme, programResults }) => {
               gap: "5px",
             }}
           >
-            {currentInput?.name === ControlNames.Control_Group && (
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  alignItems: "center",
-                }}
-              >
-                <p>Label</p>
-                <input
-                  value={ctrlsManifest[currentInput?.index!]!?.label}
-                  onChange={(e) => {
-                    setCtrlsManifest((prev) => {
-                      prev[
-                        prev.findIndex((ctrl) => ctrl.id === currentInput?.id)
-                      ].label = e.target.value;
-                    });
-                  }}
-                />
-              </div>
-            )}
             <div
               style={{
                 display: "flex",
@@ -449,8 +388,8 @@ const ControlsTab = ({ results, theme, programResults }) => {
                 }}
               />
             </div>
-            {currentInput?.name !== ControlNames.Control_Group && (
-              <div
+
+            {/* <div
                 style={{
                   display: "flex",
                   gap: "8px",
@@ -486,7 +425,7 @@ const ControlsTab = ({ results, theme, programResults }) => {
                   />
                 </div>
               </div>
-            )}
+            */}
           </div>
         </div>
       </Modal>

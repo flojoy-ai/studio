@@ -1,21 +1,21 @@
-import { OnLoadParams } from "react-flow-renderer";
+import { FlowExportObject } from "react-flow-renderer";
 import localforage from "localforage";
 const flowKey = "flow-joy";
 
-export function saveFlowChartToLocalStorage(rfInstance?: OnLoadParams) {
+export function saveFlowChartToLocalStorage(rfInstance?: FlowExportObject<any>) {
   console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
-    const flowObj = rfInstance.toObject();
+    const flowObj = rfInstance;
     localforage.setItem(flowKey, flowObj);
   }
 }
 
-export function saveAndRunFlowChartInServer(rfInstance?: OnLoadParams){
+export function saveAndRunFlowChartInServer(rfInstance?: FlowExportObject<any>){
     if (!rfInstance) {
         return;
     }
 
-    const rfInstanceObject = rfInstance.toObject();
+    const rfInstanceObject = rfInstance ;
     console.log('saving flowchart to server:', rfInstanceObject);
 
     const fcStr = JSON.stringify(rfInstanceObject);
