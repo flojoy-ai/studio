@@ -16,9 +16,11 @@ import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./components/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
+// import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
+  // const {serverStatus, programResults} = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [programResults, setProgramResults] = useState({
     msg: STATUS_CODES.NO_RUNS_YET,
@@ -56,7 +58,7 @@ const App = () => {
   };
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-
+console.log(' program result: ', 'io' in programResults && JSON.parse(programResults.io))
   useEffect(() => {
     console.log("App component did mount");
 
@@ -89,7 +91,7 @@ const App = () => {
                 setServerStatus(res.msg);
               }
             });
-          }, 1000);
+          }, 100);
         } else {
           setServerStatus(STATUS_CODES["SERVER_OFFLINE"]);
         }
@@ -178,7 +180,29 @@ const App = () => {
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-          {showLogs ? (
+          <div style={{display:showLogs ? 'block' : 'none'}}>
+          <ResultsTab results={programResults} theme={theme} />
+          </div>
+          <div style={{display: !showLogs && currentTab !== 'panel' ? 'block' : 'none'}}>
+          <FlowChart
+              elements={elements}
+              setElements={setElements}
+              rfInstance={rfInstance}
+              setRfInstance={setRfInstance}
+              results={programResults}
+              theme={theme}
+              clickedElement={clickedElement}
+              setClickedElement={setClickedElement}
+            />
+          </div>
+          {!showLogs && currentTab === 'panel' && <ControlsTab
+              results={programResults}
+              theme={theme}
+              programResults={programResults}
+              openCtrlModal={openCtrlModal}
+              setOpenCtrlModal={setOpenCtrlModal}
+            />}
+          {/* {showLogs ? (
             <ResultsTab results={programResults} theme={theme} />
           ) : currentTab !== "panel" ? (
             <FlowChart
@@ -199,7 +223,7 @@ const App = () => {
               openCtrlModal={openCtrlModal}
               setOpenCtrlModal={setOpenCtrlModal}
             />
-          )}
+          )} */}
 
           {/* <Tabs forceRenderTabPanel={true}>
             <TabList>

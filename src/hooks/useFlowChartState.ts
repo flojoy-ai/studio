@@ -127,10 +127,12 @@ export function useFlowChartState() {
     inputData: any
   ) => {
     setElements(element=> {
+      console.log('param id in set element: ', paramId)
     const node = element.find((e) => e.id === nodeId);
         if (node) {
       node.data.ctrls[paramId] = inputData;
     }
+    console.log(' node after updating element: ', JSON.stringify(node))
     });
   };
   const removeCtrlInputDataForNode = (

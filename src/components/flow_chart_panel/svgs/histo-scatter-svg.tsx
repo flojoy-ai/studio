@@ -53,7 +53,7 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
         <path
           d="M6.05078 0.5H242.971C246.008 0.5 248.471 2.96243 248.471 6V151.88C248.471 154.917 246.008 157.38 242.971 157.38H6.05077C3.01321 157.38 0.550781 154.917 0.550781 151.88V5.99999C0.550781 2.96243 3.01321 0.5 6.05078 0.5Z"
           fill="#7B61FF"
-          fill-opacity="0.17"
+          fillOpacity="0.17"
           stroke="#7B61FF"
         />
       </svg>
@@ -61,7 +61,7 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
   }
   return (
     <svg
-    style={style}
+      style={style}
       width="250"
       height="159"
       viewBox="0 0 250 159"
@@ -71,7 +71,7 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
       <path
         d="M0.88501 6C0.88501 2.96243 3.34744 0.5 6.38501 0.5H243.882C246.92 0.5 249.382 2.96243 249.382 6V152.246C249.382 155.284 246.92 157.746 243.882 157.746H6.385C3.34744 157.746 0.88501 155.284 0.88501 152.246V6Z"
         fill="#99F5FF"
-        fill-opacity="0.2"
+        fillOpacity="0.2"
         stroke="#99F5FF"
       />
     </svg>
@@ -89,7 +89,7 @@ export const ScatterBubbles = ({ style, theme }: SvgProps) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_15_1623)">
+        <g clipPath="url(#clip0_15_1623)">
           <path
             d="M88.1981 59.5588C91.2845 59.5588 93.7865 57.0551 93.7865 53.9666C93.7865 50.8781 91.2845 48.3744 88.1981 48.3744C85.1117 48.3744 82.6097 50.8781 82.6097 53.9666C82.6097 57.0551 85.1117 59.5588 88.1981 59.5588Z"
             fill="#7B61FF"
@@ -274,7 +274,7 @@ export const ScatterBubbles = ({ style, theme }: SvgProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_13_593)">
+      <g clipPath="url(#clip0_13_593)">
         <path
           d="M88.8457 59.8269C91.9392 59.8269 94.447 57.3173 94.447 54.2217C94.447 51.126 91.9392 48.6165 88.8457 48.6165C85.7522 48.6165 83.2444 51.126 83.2444 54.2217C83.2444 57.3173 85.7522 59.8269 88.8457 59.8269Z"
           fill="#99F5FF"
@@ -497,7 +497,7 @@ export const HistoLabels = ({ style, theme }: SvgProps) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_15_1657)">
+        <g clipPath="url(#clip0_15_1657)">
           <path
             d="M13.8564 63.894H0.957397V85.8161H13.8564V63.894Z"
             fill="#7B61FF"
@@ -545,7 +545,7 @@ export const HistoLabels = ({ style, theme }: SvgProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_13_627)">
+      <g clipPath="url(#clip0_13_627)">
         <path
           d="M13.3943 63.8243H0.465332V85.7972H13.3943V63.8243Z"
           fill="#99F5FF"

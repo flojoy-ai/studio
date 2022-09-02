@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -19,7 +19,6 @@ import {
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
-// import customDropdownStyles from "./customDropdownStyles";
 import ControlGrid from "./ControlGrid";
 import ResultsTab from "../results_panel/ResultsTab";
 
@@ -64,7 +63,7 @@ const ControlsTab = ({
     }
     const timerId = setTimeout(() => {
       saveAndRunFlowChartInServer(rfInstance);
-    }, 1000);
+    }, 700);
 
     setDebouncedTimerId(timerId);
   };
@@ -159,27 +158,28 @@ const ControlsTab = ({
   };
 
   useEffect(() => {
-    saveAndRunFlowChart();
+    if(rfInstance?.elements.length === 0){
+      setCtrlsManifest([])
+    } else {
+      saveAndRunFlowChart();
+    }
   }, [rfInstance]);
 
   return (
     <div>
       {/* <SampleRGL/> */}
-      {showLogs && <ResultsTab results={programResults} theme={theme} />}
-      {!showLogs && (
-        <ControlGrid
-          controlProps={{
-            theme,
-            isEditMode,
-            results,
-            updateCtrlValue,
-            attachParam2Ctrl,
-            rmCtrl,
-            setCurrentInput,
-            setOPenEditModal,
-          }}
-        />
-      )}
+      <ControlGrid
+        controlProps={{
+          theme,
+          isEditMode,
+          results,
+          updateCtrlValue,
+          attachParam2Ctrl,
+          rmCtrl,
+          setCurrentInput,
+          setOPenEditModal,
+        }}
+      />
 
       {false && (
         <>
@@ -195,23 +195,6 @@ const ControlsTab = ({
                 .filter((c) => c.type === "input" && !c.controlGroup)
                 .map((ctrl, i) => (
                   <div key={ctrl.id} className={isEditMode ? "ctrl-input" : ""}>
-                    {/* <div className="ctrl-header">
-                {isEditMode && (
-                  <>
-                  <button className="ctrl-edit-btn" onClick={()=> {
-                      setCurrentInput({...ctrl, index:ctrlsManifest.findIndex(manifest=> manifest.id === ctrl.id )});
-                      setOPenEditModal(true)}}>&#9998;</button>
-                    
-                  <button
-                    onClick={(e) => rmCtrl(e, ctrl)}
-                    id={ctrl.id}
-                    className='ctrl-edit-btn'
-                  >
-                    x
-                  </button>
-                  </>
-                )}
-                </div> */}
                     {isEditMode ? (
                       <ControlComponent
                         ctrlObj={ctrl}
@@ -254,23 +237,6 @@ const ControlsTab = ({
                       className={isEditMode ? "ctrl-output" : ""}
                       style={{ margin: "20px 0 0 20px" }}
                     >
-                      {/* <div className="ctrl-header">
-
-                  {isEditMode && (
-                    <>
-                    <button className="ctrl-edit-btn" onClick={()=> {
-                      setCurrentInput({...ctrl, index: ctrlsManifest.findIndex(manifest=> manifest.id === ctrl.id )});
-                      setOPenEditModal(true)}}>&#9998;</button>
-                    <button
-                      onClick={(e) => rmCtrl(e)}
-                      id={ctrl.id}
-                      className='ctrl-edit-btn'
-                    >
-                      x
-                    </button>
-                    </>
-                  )}
-                </div> */}
                       <ControlComponent
                         ctrlObj={ctrl}
                         results={results}
@@ -388,44 +354,6 @@ const ControlsTab = ({
                 }}
               />
             </div>
-
-            {/* <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  alignItems: "center",
-                }}
-              >
-                <p>Ctrl group: </p>
-                <div style={{ width: "250px" }}>
-                  <Select
-                    className="select-node"
-                    isSearchable={true}
-                    onChange={(val: any) => {
-                      // console.log(val, 'select onchange val')
-                      // attachParam2Ctrl(val.id, ctrlsManifest);
-                      setCtrlsManifest((prev) => {
-                        prev[currentInput?.index!].controlGroup = val.id;
-                      });
-                    }}
-                    options={ctrlsManifest.filter(
-                      (ctrl) => ctrl.name === ControlNames.Control_Group
-                    )} // {options}
-                    styles={customDropdownStyles}
-                    formatOptionLabel={(data: CtlManifestType) => data.label}
-                    theme={theme}
-                    value={
-                      ctrlsManifest.find(
-                        (ctrl) =>
-                          ctrl.id ===
-                          ctrlsManifest[currentInput?.index!]?.controlGroup
-                      )! || ""
-                    }
-                    isDisabled={!isEditMode}
-                  />
-                </div>
-              </div>
-            */}
           </div>
         </div>
       </Modal>

@@ -11,6 +11,7 @@ from rq.job import Job
 
 import warnings
 import matplotlib.cbook
+
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 import sys
@@ -19,6 +20,7 @@ sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 
 # sys.path.append('../FUNCTIONS/')
+from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -120,12 +122,12 @@ for n in topological_sorting:
 
     cmd = nodes_by_id[n]['cmd']
     ctrls = nodes_by_id[n]['ctrls']
-    print('node:', n, 'ctrls:', ctrls)
+    print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd)
 
     if cmd.replace('.','',1).isdigit():
-        ctrls['constant'] = cmd
+        # ctrls['constant'] = cmd
         cmd = 'CONSTANT'   
-    
+    print('after assinging to cmd, ctrls: ', ctrls)
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
     job_id = jid(n)
@@ -156,12 +158,15 @@ for n in topological_sorting:
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
             depends_on = previous_job_ids)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
+        previous_job_results = fetch_inputs(previous_job_ids)
+        payload = previous_job_results[0]
+        print('kwargs job result', payload)
 
 
 # give jobs 5 seconds to execute :|
 # TODO: make this set by user
 print('***         5 sec delay           ***')
-time.sleep(5)
+time.sleep(2)
 
 # collect node results
 all_node_results = []

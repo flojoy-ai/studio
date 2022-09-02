@@ -16,7 +16,7 @@ def LINSPACE(**kwargs):
             if paramName in params:
                 params[paramName] = input['value']
 
-    x = np.linspace(params['start'], params['end'], params['steps'])
+        x = np.linspace(params['start'], params['end'], params['steps'])
 
     return {'x0': x}
   
