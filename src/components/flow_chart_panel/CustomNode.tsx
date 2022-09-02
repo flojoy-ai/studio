@@ -15,8 +15,8 @@ const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
     return {
       // background: '#9CA8B3',
       padding: 10,
-      height: "75px",
-      width: "135px",
+      height: "105px",
+      width: "192px",
       boxShadow: "0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)",
       fontWeight: 600,
       borderRadius: "65px",
@@ -30,8 +30,8 @@ const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
     };
   } else {
     return {
-      height: "80px",
-      width: "80px",
+      height: "115px",
+      width: "115px",
       borderRadius: "6px",
       border: theme === 'light'? "1px solid #2E83FF" : "1px solid rgba(123, 97, 255, 1)",
       backgroundColor: theme === 'light' ? "rgba(46, 131, 255, 0.2)" : "rgb(123 97 255 / 16%)",
@@ -65,19 +65,23 @@ const CustomNode = ({ data }) => {
         {data.label === "MULTIPLY" && (
           <MultiplySvg
             style={{
-              position: "absolute",
-              top: 34,
-              left: 21,
+              position: 'absolute',
+              top: '41px',
+              left: '29px',
+              height: '19px',
+              width: '18px',
             }}
           />
         )}
         {data.label === "ADD" && (
           <AddSvg
-            style={{
-              position: "absolute",
-              top: 34,
-              left: 19,
-            }}
+          style={{
+            position: 'absolute',
+            top: '41px',
+            left: '29px',
+            height: '19px',
+            width: '18px',
+          }}
           />
         )}
       </div>
@@ -88,7 +92,7 @@ const CustomNode = ({ data }) => {
       <div
         style={{
           position: "relative",
-          height:119,
+          // height:119,
           width:'fit-content'
         }}
       >
@@ -117,10 +121,10 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                bottom: 9,
+                bottom: 5,
                 left: "50%",
                 transform: "translateX(-50%)",
-                height:62
+                height:105
               }}
             />
           </>
@@ -140,14 +144,17 @@ const CustomNode = ({ data }) => {
               theme={uiTheme}
               style={{
                 position: "absolute",
-                bottom: 4,
-                left: 47,
-                height:64
+                bottom: '-4px',
+                left: 79,
+                height:106,
+                width:109
               }}
             />
           </>
         )}
-        <BGTemplate style={{height:120,width:188}} theme={uiTheme} />
+        <BGTemplate 
+        // style={{height:120,width:188}}
+         theme={uiTheme} />
       </div>
     );
   }

@@ -10,11 +10,7 @@ import styledPlotLayout from "./../defaultPlotLayout";
 import customDropdownStyles from "./customDropdownStyles";
 
 import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
-import {
-  ControlNames,
-  ControlTypes,
-  InputControlsManifest,
-} from "./CONTROLS_MANIFEST";
+import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Basic } from "react-dial-knob";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
@@ -32,13 +28,7 @@ const ControlComponent = ({
   setOPenEditModal,
 }) => {
   const [flowChartObject, setFlowChartObject] = useState({});
-  const {
-    elements,
-    setCtrlsManifest,
-    ctrlsManifest,
-    setGridLayout,
-    gridLayout,
-  } = useFlowChartState();
+  const { elements, ctrlsManifest, setGridLayout } = useFlowChartState();
   const [knobValue, setKnobValue] = useState(undefined);
   const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] =
     useState(undefined);
@@ -70,7 +60,6 @@ const ControlComponent = ({
       localforage
         .getItem(flowKey)
         .then((val) => {
-          // console.log('Retrieved flow chart from local storage', val);
           setFlowChartObject(val);
         })
         .catch((err) => {
@@ -87,7 +76,11 @@ const ControlComponent = ({
         if ("source" in node === false) {
           // Object is a node, not an edge
           const nodeFunctionName = node.data.label;
-          const params = FUNCTION_PARAMETERS[nodeFunctionName];
+          const isConstant =
+            !isNaN(nodeFunctionName) && !isNaN(parseFloat(nodeFunctionName));
+          const params = isConstant
+            ? FUNCTION_PARAMETERS["CONSTANT"]
+            : FUNCTION_PARAMETERS[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
             Object.keys(params).map((param) => {
@@ -107,7 +100,7 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    console.log('output', flowChartObject);
+    console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.map((node) => {
         if ("source" in node === false) {
@@ -133,16 +126,23 @@ const ControlComponent = ({
     if (nodeIdToPlot) {
       if (results && "io" in results) {
         const runResults = JSON.parse(results.io).reverse();
+        console.log(" runresult persed reverse: ", runResults);
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];
         console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
-          plotData =
-            nd.result && "data" in nd.result
-              ? nd.result.data
-              : [{ x: nd.result["x0"], y: nd.result["y0"] }];
+          if(nd.result){
+            if('data' in nd.result){
+              plotData =nd.result.data;
+            } else {
+              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }]
+            }
+          } else {
+           plotData = [{ x: [65, 59, 80, 81, 56,], y: [40,45, 65, 23, 85,] }]
+          }
+           
         }
       }
     }
@@ -161,7 +161,6 @@ const ControlComponent = ({
         value: option,
       };
     }) || [];
-  // console.log('param options:', paramOptions);
 
   let currentInputValue = ctrls
     ? ctrls[ctrlObj?.param?.id]?.value
@@ -191,7 +190,7 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              console.log('value in select:', val, options)
+              console.log("value in select:", val, options);
               attachParam2Ctrl(val.value, ctrlObj);
             }}
             options={options}
@@ -229,34 +228,30 @@ const ControlComponent = ({
           </button>
         </div>
       )}
-      {/* {isEditMode && <Select 
-                className = 'select-node'
-                isSearchable = {true}
-                onChange = {val => {attachParam2Ctrl(val.value, ctrlObj)}}
-                options = {options}
-                styles={customDropdownStyles}
-                theme={theme}
-                value={options?.find(option => option.value.id === ctrlObj?.param?.id)}
-                isDisabled={!isEditMode}
-            />} */}
       {!isEditMode && (
         <p className="ctrl-param">
           {ctrlObj.type === "output"
             ? options?.find((option) => option.value === ctrlObj?.param)?.label
             : options?.find((option) => option.value.id === ctrlObj?.param?.id)
-              ?.label}
+                ?.label}
         </p>
       )}
 
       {ctrlObj.name === ControlNames.Plot && (
-        <div style={{ flex: "1", height: '100%', widht: '100%' }}>
+        <div
+          style={{
+            flex: "1",
+            height: "100%",
+            widht: "100%",
+            paddingBottom: "10px",
+          }}
+        >
           <Plot
             data={plotData}
             layout={styledLayout}
             autosize={true}
             style={{ width: "100%", height: "100%" }}
           />
-
         </div>
       )}
 
@@ -270,7 +265,7 @@ const ControlComponent = ({
               updateCtrlValue(e.target.value, ctrlObj);
             }}
             value={currentInputValue || 0}
-            style={{ ...(theme === 'dark' && { color: '#fff' }) }}
+            style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
         </div>
       )}
@@ -303,7 +298,12 @@ const ControlComponent = ({
                 });
               }
             }}
-            style={{ width: "100%", display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <Basic
               style={{ width: "fit-content" }}
@@ -398,7 +398,7 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: 'max-content' }}>
+              <div style={{ width: "max-content" }}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}

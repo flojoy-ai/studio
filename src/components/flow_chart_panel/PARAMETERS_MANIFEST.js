@@ -9,5 +9,10 @@ export const FUNCTION_PARAMETERS = {
         start: {type: 'float', default: '0'},
         end: {type: 'float', default: '0'},
         step: {type: 'float', default: '1'},
-    },    
+    }, 
+    CONSTANT:{
+        constant: {
+            type: 'float', default:'3'
+        }
+    }
 };

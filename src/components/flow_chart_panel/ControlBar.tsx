@@ -117,9 +117,11 @@ const Controls: FC<ControlsProps> = ({
   }, [rfSpatialInfo, transform]);
 
   const onSave = async () => {
-    if (rfInstance) {
+    if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
       saveAndRunFlowChartInServer(rfInstance);
+    } else {
+      alert("There is no program to send to server. \n Please add at least one node first.")
     }
   };
 
@@ -148,13 +150,13 @@ const Controls: FC<ControlsProps> = ({
       }
       const newNode = {
         id: `${FUNCTION}-${uuidv4()}`,
-        data: { label: FUNCTION, type: TYPE },
+        data: { label: FUNCTION, type: TYPE , ctrls:{}},
         position: getNodePosition(),
       };
       setElements((els) => els.concat(newNode));
       closeModal();
 
-      saveFlowChartToLocalStorage(rfInstance);
+      // saveFlowChartToLocalStorage(rfInstance);
     },
     [setElements, rfInstance]
   );
@@ -244,6 +246,9 @@ const Controls: FC<ControlsProps> = ({
       return { ...provided, color, fontSize: "16px" };
     },
   };
+  useEffect(()=>{
+    saveFlowChartToLocalStorage(rfInstance)
+  },[rfInstance])
 
   return (
     <div className="save__controls">
@@ -306,7 +311,7 @@ const Controls: FC<ControlsProps> = ({
         Save
         {/* {windowWidth >=1080 ?'Save File':'Save'}  */}
       </a>
-      {isVisualMode && (
+      {/* {isVisualMode && (
         <Select
           defaultValue={{ value: "edit", label: <EditLabel label={"Edit"} /> }}
           value={{ value: "edit", label: <EditLabel label={"Edit"} /> }}
@@ -317,7 +322,7 @@ const Controls: FC<ControlsProps> = ({
           styles={customStyles}
           theme={theme as any}
         />
-      )}
+      )} */}
       {!isVisualMode && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span

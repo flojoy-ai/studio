@@ -32,6 +32,7 @@ import styledPlotLayout from "./../defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import ResultsTab from "../results_panel/ResultsTab";
+import { useWindowSize } from "react-use";
 
 localforage.config({
   name: "react-flow",
@@ -54,7 +55,7 @@ const FlowChart = ({
   setClickedElement,
 }) => {
   // const [clickedElement, setClickedElement] = useState<any>(null);
-
+  const {width:windowWidth} = useWindowSize()
   const [modalIsOpen, setIsModalOpen] = useState(false);
   const [showLogs, setShowLogs] = useState(false);
   const modalStyles = {
@@ -124,7 +125,15 @@ const FlowChart = ({
   const dfltLayout = styledPlotLayout(theme);
 
   const ReactFlowProviderAny: any = ReactFlowProvider;
-  const onLoad: OnLoadFunc = (rfIns: any) => {
+  const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
+    rfIns.fitView();
+    const flowSize = 1107;
+    const xPosition =windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
+    rfIns.setTransform({
+      x: xPosition,
+      y: 22,
+      zoom: 0.8
+    })
     setRfInstance(rfIns.toObject());
   };
 
