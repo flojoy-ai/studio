@@ -11,7 +11,7 @@ import customDropdownStyles from "./customDropdownStyles";
 
 import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
-import { Basic } from "react-dial-knob";
+import { Basic, Silver } from "react-dial-knob";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -305,21 +305,20 @@ const ControlComponent = ({
               alignItems: "center",
             }}
           >
-            <Basic
-              style={{ width: "fit-content" }}
-              diameter={70}
+            <Silver
+              style={{ width: "fit-content", boxShadow:0 }}
+              // diameter={70}
+              knobStyle={{boxShadow:0}}
               min={0}
               max={100}
               step={1}
               value={knobValue || currentInputValue || 0}
-              theme={{
-                donutColor: "blue",
-              }}
+              diameter={120}
               onValueChange={updateCtrlValueFromKnob}
               ariaLabelledBy={"my-label"}
             >
               {/* <label id={'my-label'}>Some slabel</label> */}
-            </Basic>
+            </Silver>
           </div>
         </div>
       )}

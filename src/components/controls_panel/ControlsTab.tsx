@@ -21,6 +21,8 @@ import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
 import ResultsTab from "../results_panel/ResultsTab";
+import AddCtrlModal from "./AddCtrlModal";
+import ModalCloseSvg from "../../utils/ModalCloseSvg";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -50,7 +52,17 @@ const ControlsTab = ({
   >(undefined);
   const { isEditMode, gridLayout, setGridLayout } = useFlowChartState();
 
-  const modalStyles = { overlay: { zIndex: 99 }, content: { zIndex: 100 } };
+  const modalStyles: ReactModal.Styles = {
+    overlay: { zIndex: 99 },
+    content: {
+      border: "1px solid rgba(41, 41, 41, 1)",
+      borderRadius: "8px",
+      zIndex: 100,
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+    },
+  };
   const afterOpenModal = () => {};
   const closeModal = () => {
     setOpenCtrlModal(false);
@@ -255,64 +267,13 @@ const ControlsTab = ({
         </>
       )}
 
-      <Modal
-        isOpen={openCtrlModal}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={modalStyles}
-        ariaHideApp={false}
-        contentLabel="Choose a Python function"
-      >
-        <button onClick={closeModal} className="ctrl-close-btn">
-          x
-        </button>
-        <Tabs>
-          <TabList>
-            <Tab>Inputs</Tab>
-            <Tab>Outputs</Tab>
-          </TabList>
-
-          <TabPanel key={0}>
-            <div className="ctrl-picker-container">
-              {InputControlsManifest.map((ctrl, ctrlIndex) => (
-                <span key={ctrlIndex}>
-                  <button
-                    onClick={() =>
-                      addCtrl({
-                        type: ctrl.type,
-                        name: ctrl.name,
-                        minWidth: ctrl.minWidth,
-                        minHeight: ctrl.minHeight,
-                      })
-                    }
-                  >
-                    {ctrl.name}
-                  </button>
-                </span>
-              ))}
-            </div>
-          </TabPanel>
-
-          <TabPanel key={1}>
-            <div className="ctrl-picker-container">
-              {OutputControlsManifest.map((ctrl, ctrlIndex) => (
-                <span key={ctrlIndex}>
-                  <button
-                    onClick={() =>
-                      addCtrl({
-                        type: ctrl.type,
-                        name: ctrl.name,
-                      })
-                    }
-                  >
-                    {ctrl.name}
-                  </button>
-                </span>
-              ))}
-            </div>
-          </TabPanel>
-        </Tabs>
-      </Modal>
+      <AddCtrlModal
+      isOpen={openCtrlModal}
+      afterOpenModal={afterOpenModal}
+      closeModal={closeModal}
+      addCtrl={addCtrl}
+      theme={theme}
+      />
       <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
@@ -321,12 +282,14 @@ const ControlsTab = ({
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-        <button
-          onClick={() => setOPenEditModal(false)}
-          className="ctrl-close-btn"
-        >
-          x
-        </button>
+       <button onClick={() => setOPenEditModal(false)} className="close-modal">
+        <ModalCloseSvg
+          style={{
+            height: 23,
+            width: 23,
+          }}
+        />
+      </button>
         <div>
           <p>Ctrl properties</p>
           <div
