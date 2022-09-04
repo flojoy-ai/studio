@@ -30,6 +30,9 @@ import {
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import { useWindowSize } from "react-use";
 import ReactSwitch from "react-switch";
+import ModalCloseSvg from "../../utils/ModalCloseSvg";
+import PythonFuncModal from "./PythonFuncModal";
+import PlayIconSvg from "../../utils/PlayIconSvg";
 
 localforage.config({
   name: "react-flow",
@@ -81,7 +84,7 @@ type ControlsProps = {
   setElements: Dispatch<React.SetStateAction<Elements<any>>>;
   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
-  theme: String;
+  theme: string;
   isVisualMode?: boolean;
   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
 };
@@ -121,7 +124,9 @@ const Controls: FC<ControlsProps> = ({
       saveFlowChartToLocalStorage(rfInstance);
       saveAndRunFlowChartInServer(rfInstance);
     } else {
-      alert("There is no program to send to server. \n Please add at least one node first.")
+      alert(
+        "There is no program to send to server. \n Please add at least one node first."
+      );
     }
   };
 
@@ -150,7 +155,7 @@ const Controls: FC<ControlsProps> = ({
       }
       const newNode = {
         id: `${FUNCTION}-${uuidv4()}`,
-        data: { label: FUNCTION, type: TYPE , ctrls:{}},
+        data: { label: FUNCTION, type: TYPE, ctrls: {} },
         position: getNodePosition(),
       };
       setElements((els) => els.concat(newNode));
@@ -168,11 +173,6 @@ const Controls: FC<ControlsProps> = ({
       onElementsRemove([clickedElement] as any);
       saveFlowChartToLocalStorage(rfInstance);
     }
-  };
-
-  const modalStyles = {
-    overlay: { zIndex: 99 },
-    content: { zIndex: 100 },
   };
 
   const openModal = () => {
@@ -246,9 +246,9 @@ const Controls: FC<ControlsProps> = ({
       return { ...provided, color, fontSize: "16px" };
     },
   };
-  useEffect(()=>{
-    saveFlowChartToLocalStorage(rfInstance)
-  },[rfInstance])
+  useEffect(() => {
+    saveFlowChartToLocalStorage(rfInstance);
+  }, [rfInstance]);
 
   return (
     <div className="save__controls">
@@ -268,12 +268,16 @@ const Controls: FC<ControlsProps> = ({
         </a>
       ) : (
       )} */}
+         <button className={theme === 'dark' ? 'cmd-btn-dark':"cmd-btn run-btn"} onClick={onSave}>
+        <PlayIconSvg style={{marginRight:'6px'}} theme={theme} /> Play
+        {/* {windowWidth >=1080 ? 'Run Script':'Run'} */}
+      </button>
       <a
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          gap:'4px'
+          gap: "4px",
         }}
         onClick={() => {
           if (isVisualMode) {
@@ -297,10 +301,7 @@ const Controls: FC<ControlsProps> = ({
         {/* {windowWidth >= 1080 ?'Add Python Function' : 'Add'} */}
       </a>
 
-      <a onClick={onSave}>
-        Run
-        {/* {windowWidth >=1080 ? 'Run Script':'Run'} */}
-      </a>
+   
 
       <a onClick={openFileSelector}>
         Load
@@ -345,50 +346,13 @@ const Controls: FC<ControlsProps> = ({
       )}
       <a onClick={() => setShowLogs((prev) => !prev)}>LOGS</a>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={modalStyles}
-        ariaHideApp={false}
-        contentLabel="Choose a Python function"
-      >
-        <button onClick={closeModal} className="close-modal">
-          x
-        </button>
-        <Tabs>
-          <TabList>
-            <Tab>Simulation</Tab>
-            <Tab>Sample data</Tab>
-            <Tab>ETL</Tab>
-            <Tab>AI</Tab>
-            <Tab>DAQ</Tab>
-            <Tab>Visualization</Tab>
-          </TabList>
-
-          {SECTIONS.map((sections, tabIndex) => (
-            <TabPanel key={tabIndex}>
-              {sections.map((section, sectionIndex) => (
-                <div key={sectionIndex}>
-                  <p key={section.name}>{section.name}</p>
-                  {COMMANDS.map((cmd, cmdIndex) => (
-                    <span key={cmdIndex}>
-                      {section.key === cmd.type ? (
-                        <button
-                          onClick={() => onAdd(cmd.key, cmd.type)}
-                          key={cmd.name}
-                        >
-                          {cmd.name}
-                        </button>
-                      ) : null}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </TabPanel>
-          ))}
-        </Tabs>
-      </Modal>
+      <PythonFuncModal
+        afterOpenModal={afterOpenModal}
+        closeModal={closeModal}
+        modalIsOpen={modalIsOpen}
+        onAdd={onAdd}
+        theme={theme}
+      />
     </div>
   );
 };
