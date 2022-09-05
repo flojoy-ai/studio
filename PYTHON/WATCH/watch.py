@@ -90,7 +90,7 @@ labels = {}
 for el in elems:
     # if element is not a node
     if 'source' not in el:
-        labels[el['index']] = el['data']['label']
+        labels[el['index']] = el['data']['func']
                 
 nx.set_node_attributes(DG, labels, 'cmd')
 nx.draw(DG, pos, with_labels=True, labels = labels)
@@ -127,7 +127,7 @@ for n in topological_sorting:
     if cmd.replace('.','',1).isdigit():
         # ctrls['constant'] = cmd
         cmd = 'CONSTANT'   
-    print('after assinging to cmd, ctrls: ', ctrls)
+    print('after assinging to cmd:' , cmd)
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
     job_id = jid(n)

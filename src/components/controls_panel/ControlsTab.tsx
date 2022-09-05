@@ -105,7 +105,7 @@ const ControlsTab = ({
       {
         x: 0,
         y: yAxis + 1,
-        h: 2,
+        h: ctrl.minHeight > 2 ? ctrl.minHeight : 2,
         w: 2,
         i: ctrl.id,
         minH: ctrl.minHeight,
@@ -153,12 +153,12 @@ const ControlsTab = ({
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
-    const defaultValue = fnParam?.default || 0;
+    const defaultValue = param.functionName === 'CONSTANT' ? ctrl.val : (fnParam?.default ? fnParam.default: 0);
     console.log("attachParam2Ctrl defaultValue:", defaultValue);
     const ctrlData = ctrls && ctrls[param?.id];
     console.log("attachParam2Ctrl ctrlData:", ctrlData);
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-
+console.log(' attaching value: ', currentInputValue)
     let manClone = clone(ctrlsManifest);
     manClone.map((c, i) => {
       if (c.id === ctrl.id) {

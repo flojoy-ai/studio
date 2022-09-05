@@ -1,5 +1,7 @@
+ias venv="source $HOME/venv/bin/activate"
 #!/bin/bash
-[ -d "venv2/bin/activate" ] && source venv2/bin/activate
+# source venv2/bin/activate
+alias venv="source $HOME/venv/bin/activate"
 
 helpFunction()
 {
@@ -18,9 +20,6 @@ do
       ?) helpFunction ;; # Print helpFunction in case parameter is non-existent
    esac
 done
-
-echo 'making sure latest JS packages are installed'
-npm install
 
 echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
@@ -56,11 +55,11 @@ fi
 
 
 echo 'starting redis worker...'
-ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
 
 echo 'starting node server...'
-ttab -t 'NODE' "${venvCmd} node server.js"
+npx ttab -t 'NODE' "${venvCmd} node server.js"
 sleep 1
 
 echo 'starting react server...'
-ttab -t 'REACT' "${venvCmd} npm start"
+npx ttab -t 'REACT' "${venvCmd} npm start"

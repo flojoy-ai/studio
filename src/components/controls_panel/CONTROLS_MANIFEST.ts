@@ -16,7 +16,7 @@ export enum ControlNames {
 
 export const OutputControlsManifest = [
     // Inputs
-    {name: ControlNames.Plot, type: ControlTypes.Output}
+    {name: ControlNames.Plot, type: ControlTypes.Output, minHeight:3, minWidth:2},
 ]
 
 export const InputControlsManifest = [
