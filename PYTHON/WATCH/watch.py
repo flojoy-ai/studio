@@ -150,17 +150,23 @@ for n in topological_sorting:
             prev_cmd = DG.nodes[p]['cmd']
             prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
-            print(prev_cmd, 'is a predecessor to', cmd)        
+            print(prev_cmd, 'is a predecessor to', cmd)
         q.enqueue(func,
             retry=Retry(max=3),
             on_failure=report_failure,
             job_id = job_id,
-            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
+            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},
             depends_on = previous_job_ids)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
         previous_job_results = fetch_inputs(previous_job_ids)
         payload = previous_job_results[0]
         print('kwargs job result', payload)
+
+
+# give jobs 5 seconds to execute :|
+# TODO: make this set by user
+print('***         5 sec delay           ***')
+time.sleep(2)
 
 # collect node results
 all_node_results = []
