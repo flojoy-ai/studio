@@ -162,12 +162,6 @@ for n in topological_sorting:
         payload = previous_job_results[0]
         print('kwargs job result', payload)
 
-
-# give jobs 5 seconds to execute :|
-# TODO: make this set by user
-print('***         5 sec delay           ***')
-time.sleep(2)
-
 # collect node results
 all_node_results = []
 topological_sorting = nx.topological_sort(DG)

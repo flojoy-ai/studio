@@ -172,7 +172,7 @@ const FlowChart = ({
           </div>
         )}
 
-        {Object.keys(nd).length === 0 ? (
+        {Object.keys(nd).length === 0 || !nd.result ? (
           <p>
             <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
           </p>

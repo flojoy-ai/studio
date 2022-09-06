@@ -83,7 +83,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
                     console.log("setting results state", res);
                     setProgramResults(res);
 
-                    console.warn("new program results", programResults);
+                    console.warn("new program results", res);
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {
