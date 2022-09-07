@@ -100,7 +100,7 @@ const FlowChart = ({
           clickedElement.data.label != undefined &&
           clickedElement.data.type != undefined
         ) {
-          nodeLabel = clickedElement.data.label;
+          nodeLabel = clickedElement.data.func;
           nodeType = clickedElement.data.type;
         }
       }
@@ -172,7 +172,7 @@ const FlowChart = ({
           </div>
         )}
 
-        {Object.keys(nd).length === 0 ? (
+        {Object.keys(nd).length === 0 || !nd.result ? (
           <p>
             <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
           </p>

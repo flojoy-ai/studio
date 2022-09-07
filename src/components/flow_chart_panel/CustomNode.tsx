@@ -47,7 +47,7 @@ const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
 
 const CustomNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
-  if (data.label === "MULTIPLY" || data.label === "ADD") {
+  if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
       <div style={{ position: "relative" }}>
         <Handle
@@ -62,7 +62,7 @@ const CustomNode = ({ data }) => {
         />
 
         <AddBGTemplate />
-        {data.label === "MULTIPLY" && (
+        {data.func === "MULTIPLY" && (
           <MultiplySvg
             style={{
               position: 'absolute',
@@ -73,7 +73,7 @@ const CustomNode = ({ data }) => {
             }}
           />
         )}
-        {data.label === "ADD" && (
+        {data.func === "ADD" && (
           <AddSvg
           style={{
             position: 'absolute',
@@ -87,7 +87,7 @@ const CustomNode = ({ data }) => {
       </div>
     );
   }
-  if (data.label === "HISTOGRAM" || data.label === "SCATTER") {
+  if (data.func === "HISTOGRAM" || data.func === "SCATTER") {
     return (
       <div
         style={{
@@ -106,7 +106,7 @@ const CustomNode = ({ data }) => {
           position={Position.Right}
           style={{ borderRadius: 0 }}
         />
-        {data.label === "SCATTER" && (
+        {data.func === "SCATTER" && (
           <>
             <ScatterTitle
               theme={uiTheme}
@@ -129,7 +129,7 @@ const CustomNode = ({ data }) => {
             />
           </>
         )}
-        {data.label === "HISTOGRAM" && (
+        {data.func === "HISTOGRAM" && (
           <>
             <HistoTitle
               theme={uiTheme}

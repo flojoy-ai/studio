@@ -72,7 +72,7 @@ const PythonFuncModal = ({
         <Fragment key={index}>
           {sections[0].key === activeTab &&
             sections.map((section) => (
-              <Fragment>
+              <Fragment key={section.key}>
                 <div key={section.key}>
                   <p>{section.name}</p>
                   <div
@@ -86,12 +86,14 @@ const PythonFuncModal = ({
                   >
                     {COMMANDS.map((cmd, cmdIndex) => (
                       <Fragment key={cmdIndex}>
-                        {activeTab === cmd.type ? (
+                        {section.key === cmd.type ? (
                           <button
                             className={
                               theme === "dark" ? "cmd-btn-dark" : "cmd-btn"
                             }
-                            onClick={() => onAdd(cmd.key, cmd.type)}
+                            onClick={() =>{
+                              console.log(' cmd : ', cmd)
+                              onAdd(cmd.key, cmd.type,)}}
                             key={cmd.name}
                           >
                             {cmd.name}

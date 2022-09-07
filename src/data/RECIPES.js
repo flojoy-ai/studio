@@ -58,6 +58,7 @@ export const NOISY_SINE = {
       id: "SINE-userGeneratedNode_1646417316016",
       data: {
         label: "SINE",
+        func: 'SINE',
         type: "GENERATOR",
         ctrls: {},
       },
@@ -68,6 +69,7 @@ export const NOISY_SINE = {
       id: "MULTIPLY-userGeneratedNode_1646417352715",
       data: {
         label: "MULTIPLY",
+        func: 'MULTIPLY',
         type: "TRANSFORMER",
         ctrls: {},
       },
@@ -78,6 +80,7 @@ export const NOISY_SINE = {
       id: "RAND-userGeneratedNode_1646417371398",
       data: {
         label: "RAND",
+        func: 'RAND',
         type: "GENERATOR",
         ctrls: {},
       },
@@ -88,6 +91,7 @@ export const NOISY_SINE = {
       id: "ADD-userGeneratedNode_1646417428589",
       data: {
         label: "ADD",
+        func: 'ADD',
         type: "TRANSFORMER",
         ctrls: {},
       },
@@ -98,6 +102,7 @@ export const NOISY_SINE = {
       id: "SCATTER-userGeneratedNode_1646417560399",
       data: {
         label: "SCATTER",
+        func: 'SCATTER',
         type: "VISOR",
         ctrls: {},
       },
@@ -108,6 +113,7 @@ export const NOISY_SINE = {
       id: "HISTOGRAM-userGeneratedNode_1646417604301",
       data: {
         label: "HISTOGRAM",
+        func: 'HISTOGRAM',
         type: "VISOR",
         ctrls: {},
       },
@@ -118,6 +124,7 @@ export const NOISY_SINE = {
       id: "LINSPACE-userGeneratedNode_1646432683694",
       data: {
         label: "LINSPACE",
+        func: 'LINSPACE',
         type: "GENERATOR",
         ctrls: {},
       },
@@ -128,6 +135,7 @@ export const NOISY_SINE = {
       id: "2.0-userGeneratedNode_1646435677928",
       data: {
         label: "2.0",
+        func: 'CONSTANT',
         type: "GENERATOR",
         ctrls: {},
       },

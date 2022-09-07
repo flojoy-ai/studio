@@ -75,19 +75,16 @@ const ControlComponent = ({
       flowChartObject.elements.map((node) => {
         if ("source" in node === false) {
           // Object is a node, not an edge
-          const nodeFunctionName = node.data.label;
-          const isConstant =
-            !isNaN(nodeFunctionName) && !isNaN(parseFloat(nodeFunctionName));
-          const params = isConstant
-            ? FUNCTION_PARAMETERS["CONSTANT"]
-            : FUNCTION_PARAMETERS[nodeFunctionName];
+          const nodeLabel = node.data.label;
+          const nodeFunctionName = node.data.func;
+          const params = FUNCTION_PARAMETERS[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
             Object.keys(params).map((param) => {
               options.push({
-                label: nodeFunctionName + sep + param.toUpperCase(),
+                label: nodeLabel + sep + param.toUpperCase(),
                 value: {
-                  id: nodeFunctionName + "_" + param.toUpperCase(),
+                  id: nodeFunctionName + '_' + nodeLabel.toString().split(' ').join('') + "_" + param.toUpperCase(),
                   functionName: nodeFunctionName,
                   param,
                   nodeId: node.id,
@@ -116,7 +113,7 @@ const ControlComponent = ({
       });
     }
   }
-
+console.log('options in ctrcomponent:', options)
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
@@ -139,9 +136,7 @@ const ControlComponent = ({
             } else {
               plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }]
             }
-          } else {
-           plotData = [{ x: [65, 59, 80, 81, 56,], y: [40,45, 65, 23, 85,] }]
-          }
+          } 
            
         }
       }
@@ -153,7 +148,7 @@ const ControlComponent = ({
   const ctrls = inputNode?.data?.ctrls;
   const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
   const fnParam = fnParams[ctrlObj?.param?.param];
-  const defaultValue = fnParam?.default || 0;
+  const defaultValue = ctrlObj?.param?.functionName === 'CONSTANT' ? ctrlObj.val : (fnParam?.default ? fnParam.default: 0);
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -162,10 +157,10 @@ const ControlComponent = ({
       };
     }) || [];
 
-  let currentInputValue = ctrls
+  let currentInputValue =ctrlObj?.param?.functionName === 'CONSTANT' ? defaultValue: ( ctrls
     ? ctrls[ctrlObj?.param?.id]?.value
-    : defaultValue;
-
+    : defaultValue);
+// console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
   const makeLayoutStatic = () => {
     // alert('making static')
     if (isEditMode) {

@@ -83,7 +83,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
                     console.log("setting results state", res);
                     setProgramResults(res);
 
-                    console.warn("new program results", programResults);
+                    console.warn("new program results", res);
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {
@@ -131,7 +131,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
             <h1 className="App-brand">FLOJOY</h1>
             <a
               onClick={() => setCurrentTab("visual")}
-              className={currentTab !== "panel" ? "active-" + theme : ""}
+              className={currentTab === "visual" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
@@ -153,6 +153,11 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
               CTRLS
               {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </a>
+        <a  
+              className={currentTab === "debug" ? "active-" + theme : ""}
+        
+        onClick={() => setCurrentTab('debug')}>DEBUG</a>
+
           </div>
           <div
             className="flex App-control-buttons"
@@ -180,10 +185,8 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-          <div style={{display:showLogs ? 'block' : 'none'}}>
-          <ResultsTab results={programResults} theme={theme} />
-          </div>
-          <div style={{display: !showLogs && currentTab !== 'panel' ? 'block' : 'none'}}>
+          {currentTab === 'debug' && <ResultsTab results={programResults} theme={theme} />}
+          <div style={{display: currentTab === 'visual' ? 'block' : 'none'}}>
           <FlowChart
               elements={elements}
               setElements={setElements}
@@ -195,7 +198,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
               setClickedElement={setClickedElement}
             />
           </div>
-          {!showLogs && currentTab === 'panel' && <ControlsTab
+          {currentTab === 'panel' && <ControlsTab
               results={programResults}
               theme={theme}
               programResults={programResults}

@@ -5,7 +5,7 @@ def CONSTANT(**kwargs):
     print('running constant in python program...')
     # ''' Generates a single x-y vector of numeric (floating point) constants'''
     params = {
-        'constant': 3
+        'constant': 2
     }
     previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 

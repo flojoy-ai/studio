@@ -121,6 +121,8 @@ const AddCtrlModal = ({
                   addCtrl({
                     type: ctrl.type,
                     name: ctrl.name,
+                    minWidth: ctrl.minWidth,
+                    minHeight: ctrl.minHeight,
                   })
                 }
               >
