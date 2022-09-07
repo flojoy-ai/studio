@@ -178,7 +178,7 @@ for n in topological_sorting:
     job_status = job.get_status(refresh=True)
     print('\n\n\n')
     print('Job status:', nd['cmd'], job_status, job.origin)
-    while job_status != 'finished' and job_status != 'failed':
+    while job_status != 'finished' and job_status != 'failed' and job_status != 'deferred':
         time.sleep(5)
         job.refresh()
         job_status = job.get_status(refresh=True)
