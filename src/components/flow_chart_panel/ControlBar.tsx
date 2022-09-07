@@ -146,16 +146,20 @@ const Controls: FC<ControlsProps> = ({
 
   const onAdd = useCallback(
     (FUNCTION, TYPE) => {
+      let functionName;
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
           constant = "2.0";
         }
-        FUNCTION = constant;
+        functionName = constant;
+      } else {
+        functionName = prompt('Please enter a name for this node')
       }
+     if(!functionName) return;
       const newNode = {
         id: `${FUNCTION}-${uuidv4()}`,
-        data: { label: FUNCTION, type: TYPE, ctrls: {} },
+        data: { label: functionName, func:FUNCTION, type: TYPE, ctrls: {} },
         position: getNodePosition(),
       };
       setElements((els) => els.concat(newNode));
@@ -344,7 +348,7 @@ const Controls: FC<ControlsProps> = ({
           />
         </div>
       )}
-      <a onClick={() => setShowLogs((prev) => !prev)}>LOGS</a>
+      {/* <a onClick={() => setShowLogs((prev) => !prev)}>LOGS</a> */}
 
       <PythonFuncModal
         afterOpenModal={afterOpenModal}

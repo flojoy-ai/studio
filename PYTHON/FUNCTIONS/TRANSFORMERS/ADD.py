@@ -11,5 +11,4 @@ def ADD(**kwargs):
     y = np.add(
         previous_job_results[0]['y0'], 
         previous_job_results[1]['y0'])
-    
     return {'x0':x, 'y0':y}

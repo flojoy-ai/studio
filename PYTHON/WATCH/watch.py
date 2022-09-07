@@ -18,7 +18,6 @@ import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-
 # sys.path.append('../FUNCTIONS/')
 from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
@@ -27,7 +26,6 @@ from FUNCTIONS.TRANSFORMERS import *
 from FUNCTIONS.VISORS import *
 
 stream = open('STATUS_CODES.yml', 'r')
-stream = open('STATUS_CODES.yml', 'r') 
 STATUS_CODES = yaml.safe_load(stream)
 
 from utils import PlotlyJSONEncoder
@@ -90,7 +88,7 @@ labels = {}
 for el in elems:
     # if element is not a node
     if 'source' not in el:
-        labels[el['index']] = el['data']['label']
+        labels[el['index']] = el['data']['func']
                 
 nx.set_node_attributes(DG, labels, 'cmd')
 nx.draw(DG, pos, with_labels=True, labels = labels)
@@ -119,15 +117,14 @@ def jid(n):
     return 'JOB_ID_{0}'.format(n)
 
 for n in topological_sorting:
-
     cmd = nodes_by_id[n]['cmd']
     ctrls = nodes_by_id[n]['ctrls']
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd)
 
     if cmd.replace('.','',1).isdigit():
         # ctrls['constant'] = cmd
-        cmd = 'CONSTANT'   
-    print('after assinging to cmd, ctrls: ', ctrls)
+        cmd = 'CONSTANT'
+    print('after assinging to cmd:' , cmd)
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
     job_id = jid(n)
@@ -140,23 +137,25 @@ for n in topological_sorting:
     if len(list(node_predecessors)) == 0:
         print ('{0} ({1}) has no predecessors'.format(cmd, n))
         q.enqueue(func, 
-            retry=Retry(max=3), 
+            retry=Retry(max=100),
             on_failure=report_failure,
             job_id = job_id, 
-            kwargs={'ctrls': ctrls})
+            kwargs={'ctrls': ctrls},
+            result_ttl=500)
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
             prev_cmd = DG.nodes[p]['cmd']
             prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
-            print(prev_cmd, 'is a predecessor to', cmd)        
+            print(prev_cmd, 'is a predecessor to', cmd)
         q.enqueue(func,
-            retry=Retry(max=3),
+            retry=Retry(max=100),
             on_failure=report_failure,
             job_id = job_id,
-            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},            
-            depends_on = previous_job_ids)
+            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},
+            depends_on = previous_job_ids,
+            result_ttl=500)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
         previous_job_results = fetch_inputs(previous_job_ids)
         payload = previous_job_results[0]
@@ -165,8 +164,8 @@ for n in topological_sorting:
 
 # give jobs 5 seconds to execute :|
 # TODO: make this set by user
-print('***         5 sec delay           ***')
-time.sleep(2)
+print('***         20 sec delay           ***')
+time.sleep(20)
 
 # collect node results
 all_node_results = []

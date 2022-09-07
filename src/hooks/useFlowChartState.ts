@@ -127,10 +127,14 @@ export function useFlowChartState() {
     inputData: any
   ) => {
     setElements(element=> {
-      console.log('param id in set element: ', paramId)
+      console.log('param id in set element: ', inputData)
     const node = element.find((e) => e.id === nodeId);
         if (node) {
       node.data.ctrls[paramId] = inputData;
+      if(node.data.func === 'CONSTANT'){
+        node.data.label = inputData.value
+      }
+      // node.data.label = inputData.value
     }
     console.log(' node after updating element: ', JSON.stringify(node))
     });
