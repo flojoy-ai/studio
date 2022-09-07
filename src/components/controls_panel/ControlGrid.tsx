@@ -87,6 +87,19 @@ export default function ControlGrid({
       }}
     >
       {ctrlsManifest.map((ctrl, i) => {
+        if (ctrl.hidden && !isEditMode) {
+          return (
+            <div
+              key={ctrl.id}
+              data-grid={{
+                ...gridLayout.find((l) => l.i === ctrl.id)
+              }}
+              style={{
+                display: 'none'
+              }}
+            />
+          );
+        }
         return (
           <div
             key={ctrl.id}
