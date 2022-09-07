@@ -100,7 +100,7 @@ const FlowChart = ({
           clickedElement.data.label != undefined &&
           clickedElement.data.type != undefined
         ) {
-          nodeLabel = clickedElement.data.label;
+          nodeLabel = clickedElement.data.func;
           nodeType = clickedElement.data.type;
         }
       }

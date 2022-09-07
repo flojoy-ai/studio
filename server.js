@@ -77,7 +77,7 @@ app.post('/wfc', async (req, res) => {
 
   fs.writeFileSync( 'PYTHON/WATCH/fc.json', req.body.fc );
 
-  var exec = require('child_process').execSync;
+  var exec = require('child_process').exec;
 
   var child = exec('python3 PYTHON/WATCH/watch.py')
 
