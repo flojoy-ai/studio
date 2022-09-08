@@ -164,8 +164,8 @@ for n in topological_sorting:
 
 # give jobs 5 seconds to execute :|
 # TODO: make this set by user
-print('***         20 sec delay           ***')
-time.sleep(20)
+print('***         5 sec delay           ***')
+time.sleep(5)
 
 # collect node results
 all_node_results = []
@@ -178,6 +178,11 @@ for n in topological_sorting:
     job_status = job.get_status(refresh=True)
     print('\n\n\n')
     print('Job status:', nd['cmd'], job_status, job.origin)
+    while job_status != 'finished' and job_status != 'failed' and job_status != 'deferred':
+        time.sleep(5)
+        job.refresh()
+        job_status = job.get_status(refresh=True)
+    
     if job_status != 'finished':
         job.refresh()
         print('func_name', job.func_name)
