@@ -7,6 +7,9 @@ def CONSTANT(**kwargs):
     params = {
         'constant': 2
     }
+    x = list()
+    for i in range(1000):
+        x.append(i)
     previous_job_results = list()
 
     if 'previous_job_ids' in kwargs:
@@ -22,9 +25,6 @@ def CONSTANT(**kwargs):
         xy0 = previous_job_results[0]
         x = xy0['x0']
         y = np.full(len(x), float(params['constant']))
-        return {'x0':x, 'y0':y}
-    x = list()
-    for i in range(1000):
-        x.append(i)
-    y = np.full(1000, float(params['constant']))
+    else:    
+        y = np.full(len(x), float(params['constant']))
     return {'x0': x,'y0':y}
