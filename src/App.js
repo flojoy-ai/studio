@@ -137,6 +137,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
                   minHeight: "55px",
                 }),
               }}
+              data-cy="script-btn"
             >
               SCRIPT
               {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
@@ -149,14 +150,18 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
                   minHeight: "55px",
                 }),
               }}
+              data-cy="ctrls-btn"
             >
               CTRLS
               {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </a>
-        <a  
+            <a
               className={currentTab === "debug" ? "active-" + theme : ""}
-        
-        onClick={() => setCurrentTab('debug')}>DEBUG</a>
+              onClick={() => setCurrentTab('debug')}
+              data-cy="debug-btn"
+            >
+              DEBUG
+            </a>
 
           </div>
           <div
