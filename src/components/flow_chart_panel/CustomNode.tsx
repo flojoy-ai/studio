@@ -87,7 +87,7 @@ const CustomNode = ({ data }) => {
       </div>
     );
   }
-  if (data.func === "HISTOGRAM" || data.func === "SCATTER") {
+  if (data.type === "VISOR") {
     return (
       <div
         style={{
@@ -150,6 +150,58 @@ const CustomNode = ({ data }) => {
                 width:109
               }}
             />
+          </>
+        )}
+        {data.func === "LINE" && (
+          <>
+            <div style={{
+              position: "absolute",
+              top: 21,
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "white"
+            }}>
+              LINE
+            </div>
+          </>
+        )}
+        {data.func === "SURFACE3D" && (
+          <>
+            <div style={{
+              position: "absolute",
+              top: 21,
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "white"
+            }}>
+              3D Surface
+            </div>
+          </>
+        )}
+        {data.func === "SCATTER3D" && (
+          <>
+            <div style={{
+              position: "absolute",
+              top: 21,
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "white"
+            }}>
+              3D Scatter
+            </div>
+          </>
+        )}
+        {data.func === "BAR" && (
+          <>
+            <div style={{
+              position: "absolute",
+              top: 21,
+              left: "50%",
+              transform: "translateX(-50%)",
+              color: "white"
+            }}>
+              Bar
+            </div>
           </>
         )}
         <BGTemplate 

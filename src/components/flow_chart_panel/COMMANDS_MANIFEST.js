@@ -17,6 +17,10 @@ export const COMMANDS = [
     // VISOR
     {name: 'Scatter Plot', key: 'SCATTER', type: 'VISOR'},
     {name: 'Histogram', key: 'HISTOGRAM', type: 'VISOR'},
+    {name: 'Line', key: 'LINE', type: 'VISOR'},
+    {name: '3D Surface Plot', key: 'SURFACE3D', type: 'VISOR'},
+    {name: '3D Scatter Plot', key: 'SCATTER3D', type: 'VISOR'},
+    {name: 'Bar Chart', key: 'BAR', type: 'VISOR'},
 
     // Loaders
     {name: 'CSV file', key: 'CSV_WRITE', type: 'LOADERS'}
