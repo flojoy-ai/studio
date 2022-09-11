@@ -137,7 +137,8 @@ for n in topological_sorting:
     if len(list(DG.predecessors(n))) == 0:
         print ('{0} ({1}) has no predecessors'.format(cmd, n))
         q.enqueue(func, 
-            retry=Retry(max=3),
+            retry=Retry(max=100), # TODO: have to understand why the SINE node is failing for few times then succeeds
+            job_timeout='3m',
             on_failure=report_failure,
             job_id = job_id, 
             kwargs={'ctrls': ctrls},
@@ -150,7 +151,8 @@ for n in topological_sorting:
             previous_job_ids.append(prev_job_id)
             print(prev_cmd, 'is a predecessor to', cmd)            
         q.enqueue(func,
-            retry=Retry(max=3),
+            retry=Retry(max=100),
+            job_timeout='3m',
             on_failure=report_failure,
             job_id = job_id,
             kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},
@@ -159,28 +161,39 @@ for n in topological_sorting:
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
 
-# give jobs 5 seconds to execute :|
-# TODO: make this set by user
-print('***         5 sec delay           ***')
-time.sleep(5)
-
 # collect node results
 all_node_results = []
 topological_sorting = nx.topological_sort(DG)
 
+print('\n\n')
+
+is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = get_node_data_by_id()[n]
     job = Job.fetch(job_id, connection=r)
-    job_status = job.get_status(refresh=True)
-    print('\n\n\n')
-    print('Job status:', nd['cmd'], job_status, job.origin)
-    while job_status != 'finished' and job_status != 'failed':
-        time.sleep(3)
-        job.refresh()
+    job_status, redis_payload, attempt_count = None, None, 0
+    while True: # or change it to wait for maximum amount of time, then we can declare job timed out
+        time.sleep(0.5)
         job_status= job.get_status(refresh=True)
-    redis_payload = job.result
-    all_node_results.append({'cmd': nd['cmd'], 'id': nd['id'], 'result':redis_payload})
+        redis_payload = job.result
+        attempt_count += 1
+
+        print('Job status:', nd['cmd'], job_status, job.origin, 'attempt:', attempt_count)
+
+        if job_status == 'finished':
+            break
+        if is_any_node_failed:
+            print('cacneling', nd['cmd'], 'due to failure in another node')
+            job.delete()
+            job_status = "cancelled"
+            break
+        if job_status == 'failed':
+            is_any_node_failed = True
+            break
+
+    all_node_results.append({'cmd': nd['cmd'], 'id': nd['id'], 'result':redis_payload, 'job_status': job_status})
+    
 print('\n\n')
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 

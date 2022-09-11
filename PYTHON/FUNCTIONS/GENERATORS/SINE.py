@@ -4,6 +4,7 @@ from scipy import signal
 
 def SINE(**kwargs):
     previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+    valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
 
     params = {
         'frequency': 1,
@@ -29,6 +30,10 @@ def SINE(**kwargs):
     F = params['frequency']
     Y0 = params['offset']
 
+    if waveform not in valid_waveforms:
+        waveform = valid_waveforms[0]
+        print('invalid waveform passed as param, using default:', waveform)
+
     print('A:', A)
     print('F:', F)
     print('Y0:', Y0)
@@ -42,4 +47,5 @@ def SINE(**kwargs):
     elif waveform == 'sawtooth':
         y = Y0 + A * signal.sawtooth(2 * np.pi * F / 10 * x)
 
+    print('finished sine')
     return {'x0':x, 'y0':y}
