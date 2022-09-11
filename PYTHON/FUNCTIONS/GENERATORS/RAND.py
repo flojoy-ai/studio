@@ -1,13 +1,22 @@
 import numpy as np
 from .VCTR import fetch_inputs
+import json
+import traceback
 
 def RAND(**kwargs):
-    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+    try:
+        print('~ RAND ~')
+        print(json.dumps(kwargs))
+        print('PID', kwargs['previous_job_ids'])
 
-    xy0 = previous_job_results[0]
+        previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
-    x = xy0['x0']
+        xy0 = previous_job_results[0]
 
-    y = np.random.normal(size=len(x))
+        x = xy0['x0']
+
+        y = np.random.normal(size=len(x))
+    except Exception:
+        print(traceback.format_exc())
     
     return {'x0':x, 'y0':y}

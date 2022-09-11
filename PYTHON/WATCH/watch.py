@@ -1,5 +1,6 @@
 import os
 import json
+import queue
 import yaml
 import time
 import networkx as nx
@@ -184,13 +185,16 @@ for n in topological_sorting:
         if job_status == 'finished':
             break
         if is_any_node_failed:
-            print('cacneling', nd['cmd'], 'due to failure in another node')
+            print('canceling', nd['cmd'], 'due to failure in another node')
             job.delete()
             job_status = "cancelled"
             break
         if job_status == 'failed':
             is_any_node_failed = True
             break
+        if job_status == 'deferred':
+            registry = q.deferred_job_registry
+            registry.requeue(job_id)
 
     all_node_results.append({'cmd': nd['cmd'], 'id': nd['id'], 'result':redis_payload, 'job_status': job_status})
     
