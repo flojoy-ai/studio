@@ -4,6 +4,8 @@ from .VCTR import fetch_inputs
 def MULTIPLY(**kwargs):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
 
+    print('MULTIPLY started with kwards', kwargs)
+
     previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
     x = previous_job_results[0]['x0']
