@@ -58,7 +58,10 @@ const App = () => {
   };
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-console.log(' program result: ', 'io' in programResults && JSON.parse(programResults.io))
+  console.log(
+    " program result: ",
+    "io" in programResults && JSON.parse(programResults.io)
+  );
   useEffect(() => {
     console.log("App component did mount");
 
@@ -123,7 +126,7 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
           }}
         >
           <div
-            className=" App-tabs flex"
+            className="App-tabs flex"
             style={{
               width: windowWidth <= 700 ? "100%" : "750px",
             }}
@@ -157,12 +160,11 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
             </a>
             <a
               className={currentTab === "debug" ? "active-" + theme : ""}
-              onClick={() => setCurrentTab('debug')}
+              onClick={() => setCurrentTab("debug")}
               data-cy="debug-btn"
             >
               DEBUG
             </a>
-
           </div>
           <div
             className="flex App-control-buttons"
@@ -190,29 +192,11 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-          {currentTab === 'debug' && <ResultsTab results={programResults} theme={theme} />}
-          <div style={{display: currentTab === 'visual' ? 'block' : 'none'}}>
-          <FlowChart
-              elements={elements}
-              setElements={setElements}
-              rfInstance={rfInstance}
-              setRfInstance={setRfInstance}
-              results={programResults}
-              theme={theme}
-              clickedElement={clickedElement}
-              setClickedElement={setClickedElement}
-            />
-          </div>
-          {currentTab === 'panel' && <ControlsTab
-              results={programResults}
-              theme={theme}
-              programResults={programResults}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />}
-          {/* {showLogs ? (
+        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+
             <ResultsTab results={programResults} theme={theme} />
-          ) : currentTab !== "panel" ? (
+          </div>
+          <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             <FlowChart
               elements={elements}
               setElements={setElements}
@@ -223,7 +207,8 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
               clickedElement={clickedElement}
               setClickedElement={setClickedElement}
             />
-          ) : (
+          </div>
+          {currentTab === "panel" && (
             <ControlsTab
               results={programResults}
               theme={theme}
@@ -231,53 +216,8 @@ console.log(' program result: ', 'io' in programResults && JSON.parse(programRes
               openCtrlModal={openCtrlModal}
               setOpenCtrlModal={setOpenCtrlModal}
             />
-          )} */}
-
-          {/* <Tabs forceRenderTabPanel={true}>
-            <TabList>
-              <Tab>VISUAL PYTHON SCRIPT</Tab>
-              <Tab>CTRL PANEL</Tab>
-              <li
-                style={{
-                  display: "inline-flex",
-                  gap: 12,
-                  paddingLeft: "6px",
-                  paddingRight: "6px",
-                  fontSize: 16,
-                }}
-              >
-                <Controls
-                  rfInstance={rfInstance}
-                  setElements={setElements}
-                  clickedElement={clickedElement}
-                  onElementsRemove={onElementsRemove}
-                  theme={theme}
-                />
-              </li>
-              <Tab style={{ float: "right" }}>LOGS</Tab>
-            </TabList>
-
-            <TabPanel key="tab-1">
-              <FlowChart
-                elements={elements}
-                setElements={setElements}
-                rfInstance={rfInstance}
-                setRfInstance={setRfInstance}
-                results={programResults}
-                theme={theme}
-                clickedElement={clickedElement}
-                setClickedElement={setClickedElement}
-              />
-            </TabPanel>
-
-            <TabPanel key="tab-2">
-              <ControlsTab results={programResults} theme={theme} />
-            </TabPanel>
-
-            <TabPanel key="tab-3" style={{ backgroundColor: "#282c34" }}>
-              <ResultsTab results={programResults} theme={theme} />
-            </TabPanel>
-          </Tabs> */}
+          )}
+          
         </main>
       </ReactFlowProvider>
     </ThemeProvider>
