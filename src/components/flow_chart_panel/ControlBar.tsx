@@ -301,7 +301,7 @@ const Controls: FC<ControlsProps> = ({
         >
           +
         </div>
-        <div>Add</div>
+        <div data-cy={`add-${isVisualMode ? 'node':'ctrl'}`}>Add</div>
         {/* {windowWidth >= 1080 ?'Add Python Function' : 'Add'} */}
       </a>
 
@@ -331,6 +331,7 @@ const Controls: FC<ControlsProps> = ({
       {!isVisualMode && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span
+          data-cy='operation-switch' 
             style={{
               cursor: "pointer",
               fontSize: "14px",
