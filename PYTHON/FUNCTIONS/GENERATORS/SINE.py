@@ -7,7 +7,7 @@ def SINE(**kwargs):
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
 
     params = {
-        'frequency': 1,
+        'frequency': 3.14,
         'offset': 0,
         'amplitude': 1,
         'waveform': 'sine'
