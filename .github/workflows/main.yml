@@ -22,6 +22,8 @@ jobs:
         run: npm install
       - name: Run test
         run: npm test
+      - name : Build
+        run: npm run build
   
   testPython:
     runs-on: ubuntu-latest
