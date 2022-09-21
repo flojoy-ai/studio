@@ -1,0 +1,31 @@
+version: "3.9"
+
+
+services:
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+  
+  backend:
+    build: 
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    restart: always
+    expose: 
+      - "5000"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    
+  frontend:
+    build: 
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
