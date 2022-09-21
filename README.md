@@ -1,3 +1,5 @@
+[![CI](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml/badge.svg?branch=addTest)](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml)
+
 # Flojoy
 
 Please see [https://docs.flojoy.io](https://docs.flojoy.io)
