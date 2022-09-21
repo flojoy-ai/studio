@@ -36,6 +36,8 @@
 //   }
 // }
 
+import 'cypress-wait-until';
+
 Cypress.Commands.add('visitHomepage', ()=>{
     cy.visit('http://localhost:3000')
 })

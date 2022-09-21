@@ -7,4 +7,8 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
+  requestTimeout : 30000,
+  numTestsKeptInMemory: 0,
+  responseTimeout : 50000,
+  pageLoadTimeout: 100000
 });

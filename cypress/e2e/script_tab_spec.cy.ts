@@ -1,6 +1,6 @@
 describe('flow chart', () => {
   beforeEach(()=>{
-    cy.visitHomepage()
+    cy.visit('/')
   })
   it('Flow chart should be loaded.', () => {
     cy.get('.react-flow');
