@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
-import {
-  OutputControlsManifest,
-  InputControlsManifest,
-} from "./CONTROLS_MANIFEST";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import ControlComponent from "./controlComponent";
 import clone from "just-clone";
 import localforage from "localforage";
@@ -20,7 +15,6 @@ import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
-import ResultsTab from "../results_panel/ResultsTab";
 import AddCtrlModal from "./AddCtrlModal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 
@@ -34,7 +28,6 @@ const ControlsTab = ({
   openCtrlModal,
 }) => {
   const [openEditModal, setOPenEditModal] = useState(false);
-  const [showLogs, setShowLogs] = useState(false);
   const [currentInput, setCurrentInput] = useState<
     CtlManifestType & { index: number }
   >();
@@ -68,7 +61,7 @@ const ControlsTab = ({
     setOpenCtrlModal(false);
   };
 
-  const saveAndRunFlowChart = () => {
+  const saveAndRunFlowChart = useCallback(  () => {
     // save and run the script with debouncing
     if (debouncedTimerId) {
       clearTimeout(debouncedTimerId);
@@ -78,7 +71,8 @@ const ControlsTab = ({
     }, 700);
 
     setDebouncedTimerId(timerId);
-  };
+  }, [debouncedTimerId, rfInstance]);
+  
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -160,7 +154,7 @@ const ControlsTab = ({
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
 console.log(' attaching value: ', currentInputValue)
     let manClone = clone(ctrlsManifest);
-    manClone.map((c, i) => {
+    manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].param = param;
         manClone[i].val = currentInputValue;
@@ -175,7 +169,7 @@ console.log(' attaching value: ', currentInputValue)
     } else {
       saveAndRunFlowChart();
     }
-  }, [rfInstance]);
+  }, [rfInstance, setCtrlsManifest, saveAndRunFlowChart]);
 
   return (
     <div>
