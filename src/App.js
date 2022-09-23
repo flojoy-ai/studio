@@ -34,7 +34,6 @@ const App = () => {
     rfInstance,
     setRfInstance,
     setUiTheme,
-    showLogs,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState("visual");
   const { width: windowWidth } = useWindowSize();
@@ -132,9 +131,9 @@ const App = () => {
             }}
           >
             <h1 className="App-brand">FLOJOY</h1>
-            <a
+            <button
               onClick={() => setCurrentTab("visual")}
-              className={currentTab === "visual" ? "active-" + theme : ""}
+              className={"btn-noborder " + currentTab === "visual" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
@@ -144,10 +143,10 @@ const App = () => {
             >
               SCRIPT
               {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
-            </a>
-            <a
+            </button>
+            <button
               onClick={() => setCurrentTab("panel")}
-              className={currentTab === "panel" ? "active-" + theme : ""}
+              className={"btn-noborder " + currentTab === "panel" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
@@ -157,14 +156,14 @@ const App = () => {
             >
               CTRLS
               {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
-            </a>
-            <a
-              className={currentTab === "debug" ? "active-" + theme : ""}
+            </button>
+            <button
+              className={"btn-noborder " + currentTab === "debug" ? "active-" + theme : ""}
               onClick={() => setCurrentTab("debug")}
               data-cy="debug-btn"
             >
               DEBUG
-            </a>
+            </button>
           </div>
           <div
             className="flex App-control-buttons"
