@@ -22,9 +22,8 @@ jobs:
         run: npm install
       - name: Run test
         run: npm test
-      # TODO: Re-enable after eslint issues fixed 
-      # - name : Build
-      #   run: npm run build
+      - name : Build
+        run: npm run build
   
   testPython:
     runs-on: ubuntu-latest
