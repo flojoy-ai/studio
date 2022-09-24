@@ -7,7 +7,19 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
-  
+      
+  # rq-worker:
+  #   image: jaredv/rq-docker:latest
+  #   command: rq worker -u redis://redis:6379 flojoy
+
+  rq-worker:
+    build: 
+      context: .
+      dockerfile: ./docker/rq-worker/Dockerfile
+    restart: always
+    depends_on:
+      - redis
+
   backend:
     build: 
       context: .
@@ -18,7 +30,7 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - redis
+      - rq-worker
     
   frontend:
     build: 

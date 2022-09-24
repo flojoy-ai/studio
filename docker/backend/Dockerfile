@@ -15,7 +15,6 @@ RUN python -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(
 # RUN echo 'create symlinks...'
 # RUN ln STATUS_CODES.yml PYTHON/WATCH/
 # RUN ln STATUS_CODES.yml src
-
 RUN python jsonify_funk.py
 
 EXPOSE 5000

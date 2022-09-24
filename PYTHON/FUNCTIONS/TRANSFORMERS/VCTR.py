@@ -13,7 +13,7 @@ def fetch_inputs(previous_job_ids):
         inputs = []
 
         for ea in previous_job_ids:
-            job = Job.fetch(ea, connection=Redis())
+            job = Job.fetch(ea, connection=Redis(host='redis', port=6379))
             print('fetch_input', ea, job.get_status())
             inputs.append(job.result)
 

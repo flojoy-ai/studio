@@ -31,7 +31,7 @@ STATUS_CODES = yaml.safe_load(stream)
 
 from utils import PlotlyJSONEncoder
 
-r = Redis()
+r = Redis(host='redis', port=6379)
 q = Queue('flojoy', connection=r)
 
 

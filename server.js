@@ -4,7 +4,11 @@ const os = require('os');
 const yaml = require('js-yaml');
 
 const Redis = require("ioredis");
-const redis = new Redis(); // uses defaults unless given configuration object  
+const redis = new Redis({host:'redis', port:6379}); // uses defaults unless given configuration object  
+
+redis.on('error', ()=> {
+  console.log('Redis error occured. Reconnecting');
+})
 
 const app = express();
 const port = process.env.PORT || 5000;
