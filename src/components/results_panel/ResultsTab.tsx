@@ -48,7 +48,7 @@ useEffect(()=>{
       }))
     )
   }
-},[nodeResults])
+},[nodeResults, rfInstance])
   return (
     <ReactFlowProviderAny>
     <div style={{ height: `99vh` }}>

@@ -1,12 +1,10 @@
 import "react-grid-layout/css/styles.css";
-import { Responsive, WidthProvider, Layout } from "react-grid-layout";
-import { useAtom } from "jotai";
-import { atomWithImmer } from "jotai/immer";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import "./Controls.css";
 import "../../App.css";
 import ControlComponent from "./controlComponent";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -72,7 +70,7 @@ export default function ControlGrid({
     } else {
       setGridLayout(prev=> prev.map(layout=> ({...layout, static:true})))
     }
-  },[isEditMode])
+  },[isEditMode, setGridLayout])
 
   return (
     <ResponsiveGridLayout
