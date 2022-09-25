@@ -21,10 +21,13 @@ services:
       context: .
       dockerfile: ./docker/backend/Dockerfile
     restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     expose: 
-      - "5000"
+      - 5000
     ports:
-      - "5000:5000"
+      - 5000:5000
     depends_on:
       - rq-worker
     
@@ -33,7 +36,12 @@ services:
       context: .
       dockerfile: ./docker/frontend/Dockerfile
     restart: always
+    environment:
+      - BACKEND_HOST=backend
+      - BACKEND_PORT=5000
+    expose: 
+      - 3000
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - backend
