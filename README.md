@@ -15,3 +15,20 @@ Please see [https://docs.flojoy.io](https://docs.flojoy.io)
 
    - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
    - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
+
+
+
+#### Running on Dockerr (Windows/Mac/Linux/any other os with docker)
+
+1. install docker
+2. Run `docker compose up` on the cli to build, create and run the containers, networks and volumes.
+ First time it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run. 
+3. Run `docker compose down` to stop and remove the containers, networks and volumes.
+
+
+#### To view logs of any service
+Currently there are four services.
+**redis**, **rq-worker**, **backend**, **frontend**
+
+To follow realtime log of any of them, open up a terminal and run:
+`docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
