@@ -3,9 +3,9 @@ WORKDIR /code
 
 COPY . .
 
-RUN npm install
+RUN npm ci 
 
-ENV NODE_ENV production
+ENV NODE_ENV development
 
 EXPOSE 3000
 
