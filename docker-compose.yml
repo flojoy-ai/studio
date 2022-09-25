@@ -7,10 +7,6 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
-      
-  # rq-worker:
-  #   image: jaredv/rq-docker:latest
-  #   command: rq worker -u redis://redis:6379 flojoy
 
   rq-worker:
     build: 
