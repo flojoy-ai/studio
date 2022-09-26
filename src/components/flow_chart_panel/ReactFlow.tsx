@@ -87,7 +87,7 @@ const FlowChart = ({
   let nodeLabel = defaultPythonFnLabel;
   let nodeType = defaultPythonFnType;
 
-  if (clickedElement !== undefined) {
+  if (clickedElement) {
     if ("data" in clickedElement) {
       if ("label" in clickedElement.data && "type" in clickedElement.data) {
         if (

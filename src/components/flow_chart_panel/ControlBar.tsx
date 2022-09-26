@@ -142,7 +142,7 @@ const Controls: FC<ControlsProps> = ({
         </a>
       ) : (
       )} */}
-         <button className={theme === 'dark' ? 'cmd-btn-dark':"cmd-btn run-btn"} onClick={onSave}>
+      <button className={theme === 'dark' ? 'cmd-btn-dark':"cmd-btn run-btn"} onClick={onSave}>
         <PlayIconSvg style={{marginRight:'6px'}} theme={theme} /> Play
         {/* {windowWidth >=1080 ? 'Run Script':'Run'} */}
       </button>

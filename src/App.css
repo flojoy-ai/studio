@@ -60,20 +60,23 @@
   justify-content: flex-end;
 }
 
-.App-tabs a {
+.App-tabs button {
   height: 100%;
   display: flex;
   align-items: center;
   text-decoration: none;
   font-size: 14px;
   cursor: pointer;
+  background: none !important;
+  border: none;
+  padding: 0 !important;
 }
 
-.App-tabs a.active-light {
+.App-tabs button.active-light {
   border-bottom: 1px solid rgb(14, 14, 231);
 }
 
-.App-tabs a.active-dark {
+.App-tabs button.active-dark {
   border-bottom: 1px solid #99F5FF;
 }
 
@@ -85,12 +88,15 @@
   gap:16px
 }
 
-.save__controls a{
+.save__controls button.btn-noborder{
   margin-right: 10px;
   padding: 5px;
   cursor: pointer;
   border-radius: 2;
   font-size: 14px;
+  background: none !important;
+  border: none;
+  padding: 0 !important;
 }
 /* .ReactModal__Content button {
   margin-right: 10px;
