@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect } from "react";
 import ReactFlow, {
   ReactFlowProvider,
   removeElements,
@@ -19,7 +19,6 @@ import Plot from "react-plotly.js";
 
 import CustomEdge from "./CustomEdge";
 import CustomNode from "./CustomNode";
-import Controls from "./ControlBar";
 
 import Modal from "react-modal";
 
@@ -30,16 +29,12 @@ import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import styledPlotLayout from "./../defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
-import ResultsTab from "../results_panel/ResultsTab";
 import { useWindowSize } from "react-use";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
-
-const flowKey = "flow-joy";
 
 const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
 const nodeTypes: NodeTypesType = { default: CustomNode as any };
@@ -57,7 +52,6 @@ const FlowChart = ({
   // const [clickedElement, setClickedElement] = useState<any>(null);
   const {width:windowWidth} = useWindowSize()
   const [modalIsOpen, setIsModalOpen] = useState(false);
-  const [showLogs, setShowLogs] = useState(false);
   const modalStyles = {
     overlay: { zIndex: 99 },
     content: { zIndex: 100 },
@@ -93,12 +87,12 @@ const FlowChart = ({
   let nodeLabel = defaultPythonFnLabel;
   let nodeType = defaultPythonFnType;
 
-  if (clickedElement != undefined) {
+  if (clickedElement !== undefined) {
     if ("data" in clickedElement) {
       if ("label" in clickedElement.data && "type" in clickedElement.data) {
         if (
-          clickedElement.data.label != undefined &&
-          clickedElement.data.type != undefined
+          clickedElement.data.label !== undefined &&
+          clickedElement.data.type !== undefined
         ) {
           nodeLabel = clickedElement.data.func;
           nodeType = clickedElement.data.type;
@@ -119,7 +113,7 @@ const FlowChart = ({
     const filteredResult = runResults.filter(
       (node) => node.cmd === nodeLabel
     )[0];
-    nd = filteredResult == undefined ? {} : filteredResult;
+    nd = filteredResult === undefined ? {} : filteredResult;
   }
 
   const dfltLayout = styledPlotLayout(theme);
@@ -163,7 +157,7 @@ const FlowChart = ({
           x
         </button>
 
-        {nodeLabel != undefined && nodeType != undefined && (
+        {nodeLabel !== undefined && nodeType !== undefined && (
           <div>
             <h1>{nodeLabel}</h1>
             <h4>

@@ -8,12 +8,17 @@ import traceback
 import numpy as np
 import pandas as pd
 
+import os
+
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+
 def fetch_inputs(previous_job_ids):
     try:
         inputs = []
 
         for ea in previous_job_ids:
-            job = Job.fetch(ea, connection=Redis())
+            job = Job.fetch(ea, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
             inputs.append(job.result)
 
     except Exception:

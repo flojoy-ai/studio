@@ -11,7 +11,7 @@ import customDropdownStyles from "./customDropdownStyles";
 
 import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
-import { Basic, Silver } from "react-dial-knob";
+import { Silver } from "react-dial-knob";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -72,7 +72,7 @@ const ControlComponent = ({
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
-      flowChartObject.elements.map((node) => {
+      flowChartObject.elements.forEach((node) => {
         if ("source" in node === false) {
           // Object is a node, not an edge
           const nodeLabel = node.data.label;
@@ -80,7 +80,7 @@ const ControlComponent = ({
           const params = FUNCTION_PARAMETERS[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
-            Object.keys(params).map((param) => {
+            Object.keys(params).forEach((param) => {
               options.push({
                 label: nodeLabel + sep + param.toUpperCase(),
                 value: {
@@ -99,7 +99,7 @@ const ControlComponent = ({
   } else if (ctrlObj.type === ControlTypes.Output) {
     console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
-      flowChartObject.elements.map((node) => {
+      flowChartObject.elements.forEach((node) => {
         if ("source" in node === false) {
           // Object is a node, not an edge
           let label =

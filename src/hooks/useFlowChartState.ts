@@ -1,4 +1,4 @@
-import { OnLoadParams, Elements, FlowExportObject } from "react-flow-renderer";
+import { Elements, FlowExportObject } from "react-flow-renderer";
 import { CTRLS_MANIFEST, GRID_LAYOUT, NOISY_SINE } from "../data/RECIPES.js";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
@@ -78,7 +78,7 @@ export function useFlowChartState() {
       setGridLayout(parsedFileContent.gridLayout)
       loadFlowExportObject(flow);
     });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
+  }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
   const saveFile = async () => {
     if (rfInstance) {
@@ -132,7 +132,7 @@ export function useFlowChartState() {
         prev.elements = elements
       }
     })
-  },[elements])
+  },[elements, setRfInstance])
   return {
     rfInstance,
     setRfInstance,

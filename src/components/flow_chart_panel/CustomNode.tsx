@@ -1,14 +1,15 @@
 import React from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
+import Scatter3D from "./nodes/3d-scatter";
+import Surface3D from "./nodes/3d-surface";
+import BarChart from "./nodes/bar";
+import Histogram from "./nodes/Histogram";
+import LineChart from "./nodes/line-chart";
+import Scatter from "./nodes/Scatter";
 import { AddBGTemplate, AddSvg, MultiplySvg } from "./svgs/add-multiply-svg";
 import {
-  BGTemplate,
-  HistoLabels,
-  HistoTitle,
-  ScatterBubbles,
-  ScatterTitle,
-} from "./svgs/histo-scatter-svg";
+  BGTemplate} from "./svgs/histo-scatter-svg";
 
 const getNodeStyle = (data, theme): React.CSSProperties | undefined => {
   if (data.label === "LINSPACE") {
@@ -107,102 +108,24 @@ const CustomNode = ({ data }) => {
           style={{ borderRadius: 0 }}
         />
         {data.func === "SCATTER" && (
-          <>
-            <ScatterTitle
-              theme={uiTheme}
-              style={{
-                position: "absolute",
-                top: 21,
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            />
-            <ScatterBubbles
-              theme={uiTheme}
-              style={{
-                position: "absolute",
-                bottom: 5,
-                left: "50%",
-                transform: "translateX(-50%)",
-                height:105
-              }}
-            />
-          </>
+          <Scatter theme={uiTheme} />
         )}
         {data.func === "HISTOGRAM" && (
-          <>
-            <HistoTitle
-              theme={uiTheme}
-              style={{
-                position: "absolute",
-                top: 20,
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            />
-            <HistoLabels
-              theme={uiTheme}
-              style={{
-                position: "absolute",
-                bottom: '-4px',
-                left: 79,
-                height:106,
-                width:109
-              }}
-            />
-          </>
+          <Histogram theme={uiTheme} />
         )}
         {data.func === "LINE" && (
-          <>
-            <div style={{
-              position: "absolute",
-              top: 21,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "white"
-            }}>
-              LINE
-            </div>
-          </>
+          <LineChart theme={uiTheme} />
         )}
         {data.func === "SURFACE3D" && (
-          <>
-            <div style={{
-              position: "absolute",
-              top: 21,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "white"
-            }}>
-              3D Surface
-            </div>
-          </>
+          <Surface3D theme={uiTheme} />
         )}
         {data.func === "SCATTER3D" && (
-          <>
-            <div style={{
-              position: "absolute",
-              top: 21,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "white"
-            }}>
-              3D Scatter
-            </div>
-          </>
+          <Scatter3D 
+          theme={uiTheme}
+          />
         )}
         {data.func === "BAR" && (
-          <>
-            <div style={{
-              position: "absolute",
-              top: 21,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "white"
-            }}>
-              Bar
-            </div>
-          </>
+          <BarChart theme={uiTheme} />
         )}
         <BGTemplate 
         // style={{height:120,width:188}}
