@@ -37,6 +37,10 @@
 // }
 
 import 'cypress-wait-until';
+import 'cypress-file-upload';
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+
+addMatchImageSnapshotCommand();
 
 Cypress.Commands.add('visitHomepage', ()=>{
     cy.visit('http://localhost:3000')

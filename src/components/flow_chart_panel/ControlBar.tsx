@@ -110,6 +110,7 @@ const Controls: FC<ControlsProps> = ({
     loadFlowExportObject,
   } = useFlowChartState();
   const { width: windowWidth } = useWindowSize();
+  let fileReader;
 
   useEffect(() => {
     transform({
@@ -307,7 +308,7 @@ const Controls: FC<ControlsProps> = ({
 
    
 
-      <a onClick={openFileSelector}>
+      <a data-cy='load' onClick={openFileSelector}>
         Load
         {/* {windowWidth >=1080 ?'Load File': 'Load'} */}
       </a>

@@ -20,7 +20,7 @@
       "noEmit": true,
       "jsx": "react-jsx",
       "noImplicitAny": false,
-      "types": ["node", "cypress"]
+      "types": ["node", "cypress", "cypress-file-upload"]
     },
     "include": [
       "src",

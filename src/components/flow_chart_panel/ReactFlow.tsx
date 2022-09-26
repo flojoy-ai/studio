@@ -177,7 +177,7 @@ const FlowChart = ({
             <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
           </p>
         ) : (
-          <div>
+          <div id={nd.id}>
             <Plot
               data={
                 "data" in nd.result
