@@ -26,7 +26,7 @@ const App = () => {
     msg: STATUS_CODES.NO_RUNS_YET,
   });
   const [theme, setTheme] = useState("dark");
-  const [clickedElement, setClickedElement] = useState(null);
+  const [clickedElement, setClickedElement] = useState([]);
 
   const {
     elements,
