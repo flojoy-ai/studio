@@ -70,6 +70,7 @@ export default function ControlGrid({
     } else {
       setGridLayout(prev=> prev.map(layout=> ({...layout, static:true})))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[isEditMode])
 
   return (

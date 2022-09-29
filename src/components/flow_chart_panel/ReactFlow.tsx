@@ -79,6 +79,7 @@ const FlowChart = ({
   useEffect(() => {
     console.log("ReactFlow component did mount");
     saveFlowChartToLocalStorage(rfInstance);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const defaultPythonFnLabel = "PYTHON FUNCTION";

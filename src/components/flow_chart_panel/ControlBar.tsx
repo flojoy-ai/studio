@@ -72,6 +72,7 @@ const Controls: FC<ControlsProps> = ({
       y: rfSpatialInfo.y,
       zoom: rfSpatialInfo.zoom,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfSpatialInfo]);
 
   const onSave = async () => {

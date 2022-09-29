@@ -78,6 +78,7 @@ export function useFlowChartState() {
       setGridLayout(parsedFileContent.gridLayout)
       loadFlowExportObject(flow);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filesContent, loadFlowExportObject]);
 
   const saveFile = async () => {
@@ -132,6 +133,7 @@ export function useFlowChartState() {
         prev.elements = elements
       }
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[elements])
   return {
     rfInstance,
