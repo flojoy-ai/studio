@@ -70,7 +70,7 @@ export default function ControlGrid({
     } else {
       setGridLayout(prev=> prev.map(layout=> ({...layout, static:true})))
     }
-  },[isEditMode, setGridLayout])
+  },[isEditMode])
 
   return (
     <ResponsiveGridLayout

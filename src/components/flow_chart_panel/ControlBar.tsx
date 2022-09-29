@@ -72,7 +72,7 @@ const Controls: FC<ControlsProps> = ({
       y: rfSpatialInfo.y,
       zoom: rfSpatialInfo.zoom,
     });
-  }, [rfSpatialInfo, transform]);
+  }, [rfSpatialInfo]);
 
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {

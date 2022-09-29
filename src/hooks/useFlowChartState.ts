@@ -78,7 +78,7 @@ export function useFlowChartState() {
       setGridLayout(parsedFileContent.gridLayout)
       loadFlowExportObject(flow);
     });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
+  }, [filesContent, loadFlowExportObject]);
 
   const saveFile = async () => {
     if (rfInstance) {
@@ -132,7 +132,7 @@ export function useFlowChartState() {
         prev.elements = elements
       }
     })
-  },[elements, setRfInstance])
+  },[elements])
   return {
     rfInstance,
     setRfInstance,

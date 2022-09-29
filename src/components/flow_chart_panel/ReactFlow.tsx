@@ -79,7 +79,7 @@ const FlowChart = ({
   useEffect(() => {
     console.log("ReactFlow component did mount");
     saveFlowChartToLocalStorage(rfInstance);
-  });
+  }, []);
 
   const defaultPythonFnLabel = "PYTHON FUNCTION";
   const defaultPythonFnType = "PYTHON FUNCTION TYPE";

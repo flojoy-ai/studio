@@ -57,7 +57,7 @@ export const SocketContextProvider = ({ children }) => {
         }
       });
     }
-  });
+  }, []);
 
   return (
     <SocketContext.Provider value={{ serverStatus, programResults }}>
