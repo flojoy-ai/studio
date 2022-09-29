@@ -95,6 +95,7 @@ export default function ControlGrid({
               style={{
                 display: 'none'
               }}
+              data-cy="ctrl-grid-item"
             />
           );
         }
@@ -112,6 +113,7 @@ export default function ControlGrid({
               borderRadius:'16px'
               // minHeight:ctrl.minHeight, minWidth:ctrl.minWidth
             }}
+            data-cy="ctrl-grid-item"
           >
             <Control
               key={ctrl.id}

@@ -84,7 +84,12 @@ const ControlComponent = ({
               options.push({
                 label: nodeLabel + sep + param.toUpperCase(),
                 value: {
-                  id: nodeFunctionName + '_' + nodeLabel.toString().split(' ').join('') + "_" + param.toUpperCase(),
+                  id:
+                    nodeFunctionName +
+                    "_" +
+                    nodeLabel.toString().split(" ").join("") +
+                    "_" +
+                    param.toUpperCase(),
                   functionName: nodeFunctionName,
                   param,
                   nodeId: node.id,
@@ -113,7 +118,7 @@ const ControlComponent = ({
       });
     }
   }
-console.log('options in ctrcomponent:', options)
+  console.log("options in ctrcomponent:", options);
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
@@ -130,14 +135,13 @@ console.log('options in ctrcomponent:', options)
         console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
-          if(nd.result){
-            if('data' in nd.result){
-              plotData =nd.result.data;
+          if (nd.result) {
+            if ("data" in nd.result) {
+              plotData = nd.result.data;
             } else {
-              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }]
+              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }];
             }
-          } 
-           
+          }
         }
       }
     }
@@ -148,7 +152,12 @@ console.log('options in ctrcomponent:', options)
   const ctrls = inputNode?.data?.ctrls;
   const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
   const fnParam = fnParams[ctrlObj?.param?.param];
-  const defaultValue = ctrlObj?.param?.functionName === 'CONSTANT' ? ctrlObj.val : (fnParam?.default ? fnParam.default: 0);
+  const defaultValue =
+    ctrlObj?.param?.functionName === "CONSTANT"
+      ? ctrlObj.val
+      : fnParam?.default
+      ? fnParam.default
+      : 0;
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -157,10 +166,13 @@ console.log('options in ctrcomponent:', options)
       };
     }) || [];
 
-  let currentInputValue =ctrlObj?.param?.functionName === 'CONSTANT' ? defaultValue: ( ctrls
-    ? ctrls[ctrlObj?.param?.id]?.value
-    : defaultValue);
-// console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
+  let currentInputValue =
+    ctrlObj?.param?.functionName === "CONSTANT"
+      ? defaultValue
+      : ctrls
+      ? ctrls[ctrlObj?.param?.id]?.value
+      : defaultValue;
+  // console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
   const makeLayoutStatic = () => {
     // alert('making static')
     if (isEditMode) {
@@ -257,7 +269,7 @@ console.log('options in ctrcomponent:', options)
             placeholder="Enter a number"
             className="ctrl-numeric-input border-color"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              updateCtrlValue(parseInt(e.target.value), ctrlObj);
             }}
             value={currentInputValue || 0}
             style={{ ...(theme === "dark" && { color: "#fff" }) }}
@@ -272,7 +284,7 @@ console.log('options in ctrcomponent:', options)
             placeholder="Enter a number"
             className="ctrl-numeric-input"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              updateCtrlValue(parseInt(e.target.value), ctrlObj);
             }}
             disabled
             value={currentInputValue || 0}
@@ -301,9 +313,9 @@ console.log('options in ctrcomponent:', options)
             }}
           >
             <Silver
-              style={{ width: "fit-content", boxShadow:0 }}
+              style={{ width: "fit-content", boxShadow: 0 }}
               // diameter={70}
-              knobStyle={{boxShadow:0}}
+              knobStyle={{ boxShadow: 0 }}
               min={0}
               max={100}
               step={1}
