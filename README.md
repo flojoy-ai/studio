@@ -22,7 +22,8 @@ Please see [https://docs.flojoy.io](https://docs.flojoy.io)
 1. Install docker if you haven't already.
 2. Run `docker compose up` on the cli to build, create and run the containers, networks and volumes.
  First time it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
-3. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
+3. Run `npm start`
+4. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
 
 Run `docker compose down` to stop and remove the containers, networks and volumes.
 
