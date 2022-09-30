@@ -43,7 +43,7 @@ const App = () => {
   };
 
   const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(endpoint);
+    const resp = await fetch(`http://localhost:5000${endpoint}`);
     const body = await resp.json();
     if (resp.status !== 200) {
       throw Error(body.message);
