@@ -10,21 +10,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  buildImages:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-      - name: Build RQ Worker
-        run: docker-compose build rq-worker
-      - name: Build backend
-        run: docker-compose build backend
+  # buildImages:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.10'
+  #         cache: 'pip'
+  #     - name: Build RQ Worker
+  #       run: docker-compose build rq-worker
+  #     - name: Build backend
+  #       run: docker-compose build backend
   
   buildElectron:
     runs-on: ${{ matrix.os }}
@@ -46,6 +46,4 @@ jobs:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-          args: "--publish always"
           release: true
