@@ -56,7 +56,7 @@
     "eject": "react-scripts eject",
     "cypress": "cypress open",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-package": "npm run build && electron-builder build --publish never",
+    "electron-package": "npm run build && electron-builder build --publish always -mwl",
     "electron-publish": "electron-builder build --publish always -mwl"
   },
   "build": {
@@ -67,21 +67,15 @@
       "electron/main.ts",
       "package.json"
     ],
-    "extraFiles": [
-      "docker-compose-prod.yml"
+    "extraResources": [
+      {
+        "from": "./docker-compose-prod.yml",
+        "to": "./docker-compose-prod.yml"
+      }
     ],
-    "extends": null,
     "mac": {
-      "target": "dmg",
-      "publish": "github"
-    },
-    "linux": {
-      "target": "tar.gz",
-      "publish": "github"
-    },
-    "win": {
-      "target": "portable",
-      "publish": "github"
+      "target": ["dmg"],
+      "darkModeSupport": true
     }
   },
   "eslintConfig": {
