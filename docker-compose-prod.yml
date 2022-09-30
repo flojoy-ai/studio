@@ -1,0 +1,37 @@
+version: "3.9"
+
+
+services:
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  rq-worker:
+    image: shahadishraq/flojoy-rq-worker:latest
+    build: 
+      context: .
+      dockerfile: ./docker/rq-worker/Dockerfile
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  backend:
+    image: shahadishraq/flojoy-desktop:latest
+    build: 
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    expose: 
+      - 5000
+    ports:
+      - 5000:5000
+    depends_on:
+      - rq-worker
