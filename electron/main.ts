@@ -1,6 +1,18 @@
-const { app, BrowserWindow, screen: electronScreen } = require('electron');
+const { app, BrowserWindow, } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+const runCommand = async (command) => {
+  try{
+    const { stdout, stderr } = await exec(command);
+    console.log('stdout: ', stdout);
+    console.log('stderr: ', stderr);
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 const createMainWindow = () => {
   let mainWindow = new BrowserWindow({
@@ -24,6 +36,13 @@ const createMainWindow = () => {
 
   mainWindow.on('closed', () => {
     mainWindow.destroy();
+    runCommand('docker compose -f docker-compose-prod.yml down')
+      .then(() => {
+        if (process.platform !== 'darwin') {
+          app.quit();
+        }
+        process.exit()
+      });
   });
 
   mainWindow.webContents.on('new-window', (event, url) => {
@@ -32,18 +51,14 @@ const createMainWindow = () => {
   });
 };
 
-app.whenReady().then(() => {
-  createMainWindow();
 
+app.whenReady().then(() => {
+  runCommand('docker compose -f docker-compose-prod.yml up');
+
+  createMainWindow();
   app.on('activate', () => {
     if (!BrowserWindow.getAllWindows().length) {
       createMainWindow();
     }
   });
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
 });

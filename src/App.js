@@ -50,14 +50,30 @@ const App = () => {
     }
     return body;
   };
+
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
   console.log(
     " program result: ",
     "io" in programResults && JSON.parse(programResults.io)
   );
+
   useEffect(() => {
-    console.log("App component did mount");
+    console.log("App component did mount"); 
+    pingBackend();
+  });
+
+  const pingBackend = async () => {
+    let success = false;
+    while (!success) {
+      pingBackendAPI("/ping")
+        // eslint-disable-next-line no-loop-func
+        .then(() => {success = true;})
+        .catch((err) => console.log(err));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 5000);
+      });;
+    }
 
     pingBackendAPI("/ping")
       .then((res) => {
@@ -94,7 +110,7 @@ const App = () => {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  };
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
