@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
 const os = require('os');
 const yaml = require('js-yaml');
@@ -15,6 +16,7 @@ redis.on('error', ()=> {
 })
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 const STATUS_CODES = yaml.load(fs.readFileSync('./STATUS_CODES.yml', 'utf8'));
