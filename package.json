@@ -74,7 +74,9 @@
       }
     ],
     "mac": {
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "darkModeSupport": true
     }
   },
@@ -103,9 +105,9 @@
     "@types/uuid": "^8.3.4",
     "concurrently": "^7.4.0",
     "cypress": "^10.7.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "react-dial-knob": "^1.3.0",
     "electron": "^21.0.1",
-    "electron-builder": "22.10.5"
+    "electron-builder": "^23.3.3",
+    "eslint-plugin-cypress": "^2.12.1",
+    "react-dial-knob": "^1.3.0"
   }
 }
