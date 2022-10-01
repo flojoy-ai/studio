@@ -15,11 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Npm install
-        run: npm install --legacy-peer-deps
+      - uses: isbang/compose-action@v1.2.0
+      - name: Run frontend
+        run: npm start
       - name: Run test
         run: npm test
       - name: Build
@@ -38,10 +36,3 @@ jobs:
         run: |
           cd PYTHON
           python -m pytest
-
-  runTests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.2.0
-      - run: npm run test
