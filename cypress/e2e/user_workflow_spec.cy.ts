@@ -12,10 +12,10 @@ describe('user workflow', ()=> {
     })
 
     it('Switch to ctrls tab upon clicking on CTRLS.',()=>{
-        cy.get('a').contains('CTRLS').click().should('have.class', 'active-dark')
+        cy.get('button').contains('CTRLS').click().should('have.class', 'active-dark')
     })
     it('Enables operation mode upon clicking edit switch button.',()=>{
-        cy.get('a').contains('CTRLS').click();
+        cy.get('button').contains('CTRLS').click();
         cy.get('[data-cy=operation-switch]').contains('Edit').click().should('have.css','color','rgb(255, 165, 0)')
         cy.get('.ctrl-input')
     })

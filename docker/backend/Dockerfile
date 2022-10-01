@@ -6,7 +6,7 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 COPY package.json package.json
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 

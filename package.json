@@ -47,7 +47,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "node_modules/.bin/cypress run",
     "eject": "react-scripts eject",
     "cypress": "cypress open"
   },

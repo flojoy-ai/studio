@@ -3,7 +3,7 @@ WORKDIR /code
 
 COPY . .
 
-RUN npm ci 
+RUN npm ci --legacy-peer-deps
 
 ENV NODE_ENV development
 
