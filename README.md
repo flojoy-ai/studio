@@ -4,14 +4,15 @@
 
 Please see [https://docs.flojoy.io](https://docs.flojoy.io)
 
-***
+---
+
 #### Running locally (Mac/Linux only)
 
 1. Clone the repo
 1. Make sure that you have Python, Redis, and Node already installed
 1. `cd` into the project root
 1. Install the required python packages: `pip install -r requirements.txt`
-1. Install npm packages: `npm install`
+1. Install npm packages: `npm install --legacy-peer-deps`
 1. Run `$ sh mac_startup.sh` (Flojoy does not run on Windows yet)
 
    - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
@@ -21,8 +22,9 @@ Please see [https://docs.flojoy.io](https://docs.flojoy.io)
 
 1. Install docker if you haven't already.
 2. Run `docker compose up` on the cli to build, create and run the containers, networks and volumes.
- First time it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
-3. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
+   First time it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
+3. Run `npm start`
+4. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
 
 Run `docker compose down` to stop and remove the containers, networks and volumes.
 
