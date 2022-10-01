@@ -15,7 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - uses: isbang/compose-action@v1.2.0
+      - name: Npm install
+        run: npm install --legacy-peer-deps
       - name: Run frontend
         run: npm start
       - name: Run test
