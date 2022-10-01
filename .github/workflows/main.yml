@@ -21,12 +21,12 @@ jobs:
       - uses: isbang/compose-action@v1.2.0
       - name: Npm install
         run: npm install --legacy-peer-deps
-      - name: Run frontend
-        run: npm start
       - name: Run test
-        run: npm test
-      - name: Build
-        run: npm run build
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+          start: npm start
+          browser: chrome
 
   testPython:
     runs-on: ubuntu-latest
