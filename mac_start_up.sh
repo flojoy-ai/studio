@@ -53,7 +53,20 @@ then
    echo "venv cmd: ${venvCmd}"
 fi
 
+FILE=.flojoy/flojoy.yaml
+if test -f "$FILE"; then
+    echo "$FILE exists."
+else
+   mkdir .flojoy && touch .flojoy/flojoy.yaml
+   get_current_directory() {
+      current_file="${PWD}/${0}"
+      echo "${current_file%/*}"
+   }
 
+   CWD=$(get_current_directory)
+   echo "PATH=$CWD" > .flojoy/flojoy.yaml
+   echo "Error: Directory .flojoy/flojoy.yaml does not exists. creating new directory with yaml file."
+fi
 echo 'starting redis worker...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
 
