@@ -12,7 +12,7 @@ import {
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
 import AddCtrlModal from "./AddCtrlModal";

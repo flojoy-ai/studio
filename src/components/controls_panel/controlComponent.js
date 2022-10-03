@@ -9,7 +9,7 @@ import { useFlowChartState } from "../../hooks/useFlowChartState";
 import styledPlotLayout from "./../defaultPlotLayout";
 import customDropdownStyles from "./customDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
 

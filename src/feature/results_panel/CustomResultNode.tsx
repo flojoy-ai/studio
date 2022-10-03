@@ -1,7 +1,7 @@
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import Plot from "react-plotly.js";
-import styledPlotLayout from "./../defaultPlotLayout";
+import styledPlotLayout from "../../components/defaultPlotLayout";
 
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
