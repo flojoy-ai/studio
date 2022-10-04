@@ -160,9 +160,9 @@ for n in topological_sorting:
             retry=Retry(max=100),
             job_timeout='3m',
             on_failure=report_failure,
-            job_id = job_id,
-            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},
-            depends_on = previous_job_ids,
+            job_id=job_id,
+            depends_on=previous_job_ids,
+            previous_job_ids=previous_job_ids,
             result_ttl=500)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
