@@ -1,28 +1,14 @@
 import numpy as np
-from .VCTR import fetch_inputs
+from .flojoy import flojoy
 from scipy import signal
 
-def SINE(**kwargs):
-    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+@flojoy
+def SINE(node_inputs, params):
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
-
-    params = {
-        'frequency': 3.14,
-        'offset': 0,
-        'amplitude': 1,
-        'waveform': 'sine'
-    }
-
-    if 'ctrls' in kwargs:
-        ctrls = kwargs['ctrls']
-        for key, input in ctrls.items():
-            paramName = input['param']
-            if paramName in params:
-                params[paramName] = input['value']
 
     print('params sine:', params)
 
-    xy0 = previous_job_results[0]
+    xy0 = node_inputs[0]
     x = xy0['x0']
 
     waveform = params['waveform']

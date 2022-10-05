@@ -1,9 +1,9 @@
-from .VCTR import fetch_inputs
+from .flojoy import flojoy
 from .template import init_template
 
-def SCATTER(**kwargs):
-    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
-    payload = previous_job_results[0]
+@flojoy
+def SCATTER(node_inputs, params):
+    payload = node_inputs[0]
 
     fig = dict(
         data = [dict(

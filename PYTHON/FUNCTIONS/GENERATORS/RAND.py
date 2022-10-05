@@ -1,17 +1,15 @@
 import numpy as np
-from .VCTR import fetch_inputs
+from .flojoy import flojoy
 import json
 import traceback
 
-def RAND(**kwargs):
+@flojoy
+def RAND(node_inputs, params):
     try:
         print('~ RAND ~')
-        print(json.dumps(kwargs))
-        print('PID', kwargs['previous_job_ids'])
+        print(json.dumps(params))
 
-        previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
-
-        xy0 = previous_job_results[0]
+        xy0 = node_inputs[0]
 
         x = xy0['x0']
 

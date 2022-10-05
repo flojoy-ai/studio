@@ -1,6 +1,7 @@
-from .VCTR import fetch_inputs
+from .flojoy import flojoy
 from .template import init_template
 
+@flojoy
 def HISTOGRAM(**kwargs):
     previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
     payload = previous_job_results[0]

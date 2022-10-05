@@ -1,25 +1,16 @@
 import numpy as np
-from .VCTR import fetch_inputs
+from .flojoy import flojoy
 
-def CONSTANT(**kwargs):
+def CONSTANT(node_inputs, params):
     print('running constant in python program...',)
     # ''' Generates a single x-y vector of numeric (floating point) constants'''
-    params = {
-        'constant': 2
-    }
-    previous_job_results = list()
 
-    if 'previous_job_ids' in kwargs:
-        previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
-    
-    if 'ctrls' in kwargs:
-        ctrls = kwargs['ctrls']
     for key, input in ctrls.items():
         paramName = input['param']
         if paramName in params:
                 params[paramName] = input['value']
-    if previous_job_results.__len__() > 0:
-        xy0 = previous_job_results[0]
+    if node_inputs.__len__() > 0:
+        xy0 = node_inputs[0]
         x = xy0['x0']
         y = np.full(len(x), float(params['constant']))
         return {'x0':x, 'y0':y}
