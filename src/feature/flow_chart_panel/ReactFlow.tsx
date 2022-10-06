@@ -136,7 +136,7 @@ const FlowChart = ({
 
   return (
     <ReactFlowProviderAny>
-      <div style={{ height: `99vh` }}>
+      <div style={{ height: `99vh` }} data-testid="react-flow">
         <ReactFlow
           elements={elements}
           edgeTypes={edgeTypes}
