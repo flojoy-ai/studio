@@ -1,5 +1,5 @@
 import numpy as np
-from .flojoy import flojoy
+from joyflo import flojoy
 from scipy import signal
 
 @flojoy

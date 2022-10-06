@@ -1,6 +1,6 @@
 import numpy as np
 import traceback
-from .flojoy import flojoy
+from joyflo import flojoy
 
 @flojoy
 def LINSPACE(node_inputs, params):

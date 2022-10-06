@@ -1,5 +1,5 @@
 import numpy as np
-from .flojoy import flojoy
+from joyflo import flojoy
 
 def CONSTANT(node_inputs, params):
     print('running constant in python program...',)

@@ -1,5 +1,5 @@
 import numpy as np
-from .flojoy import flojoy
+from joyflo import flojoy
 import json
 import traceback
 

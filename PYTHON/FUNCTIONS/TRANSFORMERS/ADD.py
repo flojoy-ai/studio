@@ -1,5 +1,5 @@
 import numpy as np
-from .flojoy import flojoy
+from joyflo import flojoy
 
 @flojoy
 def ADD(node_inputs, params):

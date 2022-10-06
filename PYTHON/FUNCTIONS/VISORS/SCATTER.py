@@ -1,4 +1,4 @@
-from .flojoy import flojoy
+from joyflo import flojoy
 from .template import init_template
 
 @flojoy
