@@ -54,13 +54,13 @@ describe('Run Default App', ()=> {
     });
   });
 
-  it('Should click through all the charts and check if charts are there', () => {
-    nodes.forEach(node => {
-      cy.get(`[data-id="${node.selector}"]`).click({ force: true, multiple: true });
-      matchPlotSnapshot(`[id="${node.selector}"]`, node.name);
-      cy.get('.ctrl-close-btn').click({ force: true });
-    });
-  });
+  // it('Should click through all the charts and check if charts are there', () => {
+  //   nodes.forEach(node => {
+  //     cy.get(`[data-id="${node.selector}"]`).click({ force: true, multiple: true });
+  //     matchPlotSnapshot(`[id="${node.selector}"]`, node.name);
+  //     cy.get('.ctrl-close-btn').click({ force: true });
+  //   });
+  // });
 
   it('Visit to the DEBUG page and match the complete snapshot', () => {
     cy.get('[data-cy=debug-btn]').click();
