@@ -2,13 +2,12 @@ from joyflo import flojoy
 from .template import init_template
 
 @flojoy
-def SCATTER(node_inputs, params):
-    payload = node_inputs[0]
+def SCATTER(v, params):
 
     fig = dict(
         data = [dict(
-            x = list(payload['x0']),
-            y = list(payload['y0']),
+            x = list(v[0].x),
+            y = list(v[0].y),
             type='scatter',
             mode='markers'
         )],

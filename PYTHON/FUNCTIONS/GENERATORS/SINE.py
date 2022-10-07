@@ -1,15 +1,15 @@
 import numpy as np
-from joyflo import flojoy
+import pandas as pd
+from joyflo import flojoy, VectorXY
 from scipy import signal
 
 @flojoy
-def SINE(node_inputs, params):
+def SINE(v, params):
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
 
     print('params sine:', params)
 
-    xy0 = node_inputs[0]
-    x = xy0['x0']
+    x = v[0].x
 
     waveform = params['waveform']
     A = params['amplitude']
@@ -34,4 +34,5 @@ def SINE(node_inputs, params):
         y = Y0 + A * signal.sawtooth(2 * np.pi * F / 10 * x)
 
     print('finished sine')
-    return {'x0':x, 'y0':y}
+    
+    return VectorXY(x = x, y = y)

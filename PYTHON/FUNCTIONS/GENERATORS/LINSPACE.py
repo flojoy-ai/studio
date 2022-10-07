@@ -1,9 +1,9 @@
 import numpy as np
 import traceback
-from joyflo import flojoy
+from joyflo import flojoy, VectorXY
 
 @flojoy
-def LINSPACE(node_inputs, params):
+def LINSPACE(v, params):
     x = np.linspace(params['start'], params['end'], params['steps'])
 
-    return {'x0': x}
+    return VectorXY(x = x, y = None)

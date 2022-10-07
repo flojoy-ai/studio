@@ -1,15 +1,14 @@
 import numpy as np
-from joyflo import flojoy
+from joyflo import flojoy, VectorXY
 
 @flojoy
-def ADD(node_inputs, params):
+def ADD(v, params):
     ''' Add 2 input vectors and return the result '''
     y2 = [0]
     
-    x = node_inputs[0]['x0']
-    if len(node_inputs) == 2:
-        y2 = node_inputs[1]['y0']
-    y = np.add(
-        node_inputs[0]['y0'], 
-        y2)
-    return {'x0':x, 'y0':y}
+    x = v[0].x
+    if len(v) == 2:
+        y2 = v[1].y
+        
+    y = np.add(v[0].y, y2)
+    return VectorXY(x = x, y = y)

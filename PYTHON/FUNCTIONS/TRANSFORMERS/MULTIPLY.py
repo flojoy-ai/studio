@@ -1,16 +1,14 @@
 import numpy as np
-from joyflo import flojoy
+from joyflo import flojoy, VectorXY
 
 @flojoy
-def MULTIPLY(node_inputs, params):
+def MULTIPLY(v, params):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
 
     print('MULTIPLY started with params', params)
 
-    x = node_inputs[0]['x0']
+    x = v[0].x
 
-    y = np.multiply(
-        node_inputs[0]['y0'], 
-        node_inputs[1]['y0'])
+    y = np.multiply(v[0].y, v[1].y)
 
-    return {'x0':x, 'y0':y}
+    return VectorXY(x = x, y = y)

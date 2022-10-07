@@ -1,205 +1,195 @@
-from box import Box
-import numpy as np
-import traceback
-import yaml
-import json
-import re
-from pathlib import Path
-from collections import UserDict
-
 from redis import Redis
 from rq.job import Job
 
-class CtrlPanel():
-    '''
-    A class for the flojoy dashboard UI
-    Usage
-    -----
-    panel = CtrlPanel()
-    print(panel.get_state()['SINE'])
-    {
-        frequency: ...,
-        amplitude: ...,
-        ...
-    }
-    '''
+import decimal
+import json as _json
+import traceback
 
-    def get_state(self):
-        root = get_flojoy_root_dir()
-        path = root + 'PYTHON/WATCH/fc.json'
-        f = open(path)
-        fc = json.loads(f.read())
-        elems = fc['elements']
-        
-        ctrls_dict = dict()
+import numpy as np
+import pandas as pd
 
-        for i in range(len(elems)):
-            el = elems[i]
-            if 'source' not in el:
-                data = el['data']
-                ctrls = data['ctrls'] if 'ctrls' in data else {}
-                label = el['id'].split('-')[0]
-                ctrls_dict[label] = ctrls
+import os
 
-        return ctrls_dict
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 
-class VectorXY(Box):
-    '''
-    A class for x-y paired numpy arrays that supports dot assignment
-    Usage
-    -----
-    import numpy as np
-    v = VectorXY()
-    v.x = np.linspace(1,20,0.1)
-    v.y = np.sin(v.x)
-    '''
-
-    @staticmethod
-    def _ndarrayify(value):
-        s = str(type(value))
-        v_type = s.split("'")[1]
-
-        match v_type:
-            case 'int' | 'float':
-                value = np.array([value])
-            case 'list':
-                value = np.array(value)
-            case 'numpy.ndarray':
-                pass
-            case _:
-                raise ValueError(value)
-        return value
-    
-    def __init__(self, **kwargs):
-        if 'x' in kwargs:
-            self['x'] = self._ndarrayify(kwargs['x'])
-        else:
-            self['x'] = np.array([])
-        
-        if 'y' in kwargs:
-            self['y'] = self._ndarrayify(kwargs['y'])
-        else:
-            self['y'] = np.array([])
-
-    def __getitem__(self, key, **kwargs):
-        if key not in ['x','y']:
-            raise KeyError(key)
-        elif key == '_ignore_default':
-            pass
-        else:
-            return super().__getitem__(key)
-
-    def __setitem__(self, key, value):
-        if key not in ['x','y']:
-            raise KeyError(key)
-        else:
-            value = self._ndarrayify(value)
-            super().__setitem__(key, value)
-
-def get_flojoy_root_dir():
-    home = str(Path.home())
-    path = home + '/.flojoy/flojoy.yaml' # TODO: Upate shell script to add ~/.flojoy/flojoy.yaml
-    stream = open(path, 'r')
-    yaml_dict = yaml.load(stream, Loader=yaml.FullLoader)
-    return yaml_dict['PATH']
-
-def js_to_json(s):
-    '''
-    Converts an ES6 JS file with a single JS Object definition to JSON
-    '''
-    split = s.split('=')[1]
-    clean = split.replace('\n','').replace("'",'').replace(',}','}').rstrip(';')
-    single_space = ''.join(clean.split())
-    dbl_quotes = re.sub(r'(\w+)',r'"\1"', single_space).replace('""', '"')
-    rm_comma = dbl_quotes.replace('},}', '}}')
-
-    return json.loads(rm_comma)
-
-def get_parameter_manifest():
-    root = get_flojoy_root_dir()
-    f = open(root + 'src/components/flow_chart_panel/PARAMETERS_MANIFEST.js')
-    param_manifest = js_to_json(f.read())
-    return param_manifest
-
-def fetch_inputs(previous_job_ids, mock=False):
-    '''
-    Queries Redis for job results
-    Parameters
-    ----------
-    previous_job_ids : list of Redis job IDs that directly precede this node
-    
-    Returns
-    -------
-    inputs : list of VectorXY objects
-    '''
-    if mock is True:
-        return [VectorXY(x = np.linspace(0,10,100))]
-
-    inputs = []
-
+def fetch_inputs(previous_job_ids):
     try:
+        inputs = []
+
         for ea in previous_job_ids:
-            job = Job.fetch(ea, connection=Redis())
+            job = Job.fetch(ea, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
             inputs.append(job.result)
+
     except Exception:
         print(traceback.format_exc())
 
     return inputs
 
-def flojoy(func):
-    '''
-    Decorator to turn Python functions with numerical return
-    values into Flojoy nodes.
-    @flojoy is intended to eliminate  boilerplate in connecting
-    Python scripts as visual nodes 
-    Into whatever function it wraps, @flojoy injects
-    1. the last node's input as an XYVector
-    2. parameters for that function (either set byt the user or default)
-    Parameters
-    ----------
-    func : Python function object
-    Returns
-    -------
-    VectorYX object 
-    Usage Example
-    -------------
-    @flojoy
-    def SINE(v, params):
-        print('params passed to SINE', params)
-        output = VectorXY(
-            x=v[0].x, 
-            y=np.sin(v[0].x)
+class PlotlyJSONEncoder(_json.JSONEncoder):
+    """
+    Meant to be passed as the `cls` kwarg to json.dumps(obj, cls=..)
+    See PlotlyJSONEncoder.default for more implementation information.
+    Additionally, this encoder overrides nan functionality so that 'Inf',
+    'NaN' and '-Inf' encode to 'null'. Which is stricter JSON than the Python
+    version.
+    """    
+
+    def coerce_to_strict(self, const):
+        """
+        This is used to ultimately *encode* into strict JSON, see `encode`
+        """
+        # before python 2.7, 'true', 'false', 'null', were include here.
+        if const in ("Infinity", "-Infinity", "NaN"):
+            return None
+        else:
+            return const
+
+    def encode(self, o):
+        """
+        Load and then dump the result using parse_constant kwarg
+        Note that setting invalid separators will cause a failure at this step.
+        """
+        # this will raise errors in a normal-expected way
+        encoded_o = super(PlotlyJSONEncoder, self).encode(o)
+        # Brute force guessing whether NaN or Infinity values are in the string
+        # We catch false positive cases (e.g. strings such as titles, labels etc.)
+        # but this is ok since the intention is to skip the decoding / reencoding
+        # step when it's completely safe
+
+        if not ("NaN" in encoded_o or "Infinity" in encoded_o):
+            return encoded_o
+
+        # now:
+        #    1. `loads` to switch Infinity, -Infinity, NaN to None
+        #    2. `dumps` again so you get 'null' instead of extended JSON
+        try:
+            new_o = _json.loads(encoded_o, parse_constant=self.coerce_to_strict)
+        except ValueError:
+
+            # invalid separators will fail here. raise a helpful exception
+            raise ValueError(
+                "Encoding into strict JSON failed. Did you set the separators "
+                "valid JSON separators?"
+            )
+        else:
+            return _json.dumps(
+                new_o,
+                sort_keys=self.sort_keys,
+                indent=self.indent,
+                separators=(self.item_separator, self.key_separator),
+            )
+
+    def default(self, obj):
+        """
+        Accept an object (of unknown type) and try to encode with priority:
+        1. builtin:     user-defined objects
+        2. sage:        sage math cloud
+        3. pandas:      dataframes/series
+        4. numpy:       ndarrays
+        5. datetime:    time/datetime objects
+        Each method throws a NotEncoded exception if it fails.
+        The default method will only get hit if the object is not a type that
+        is naturally encoded by json:
+            Normal objects:
+                dict                object
+                list, tuple         array
+                str, unicode        string
+                int, long, float    number
+                True                true
+                False               false
+                None                null
+            Extended objects:
+                float('nan')        'NaN'
+                float('infinity')   'Infinity'
+                float('-infinity')  '-Infinity'
+        Therefore, we only anticipate either unknown iterables or values here.
+        """
+        # TODO: The ordering if these methods is *very* important. Is this OK?
+        encoding_methods = (
+            self.encode_as_plotly,
+            self.encode_as_numpy,
+            self.encode_as_pandas,
+            self.encode_as_datetime,
+            self.encode_as_date,
+            self.encode_as_list,  # because some values have `tolist` do last.
+            self.encode_as_decimal,
         )
-        return output
-    pj_ids = [123, 456]
-    # equivalent to: decorated_sin = flojoy(SINE)
-    print(SINE(previous_job_ids = pj_ids, mock = True))    
-    '''
+        for encoding_method in encoding_methods:
+            try:
+                return encoding_method(obj)
+            except NotEncodable:
+                pass
+        return _json.JSONEncoder.default(self, obj)
 
-    def inner(previous_job_ids, mock):
-        FN = func.__name__
+    @staticmethod
+    def encode_as_plotly(obj):
+        """Attempt to use a builtin `to_plotly_json` method."""
+        try:
+            return obj.to_plotly_json()
+        except AttributeError:
+            raise NotEncodable
 
-        # Get default command paramaters
-        default_params = {}
-        pm = get_parameter_manifest()
-        for param in pm[FN]:
-            default_params[param] = pm[FN][param]['default']
+    @staticmethod
+    def encode_as_list(obj):
+        """Attempt to use `tolist` method to convert to normal Python list."""
+        if hasattr(obj, "tolist"):
+            return obj.tolist()
+        else:
+            raise NotEncodable
 
-        # Get command parameters set by the user through the control panel
-        panel = CtrlPanel()
-        user_set_parameters = panel.get_state()
-        func_params = user_set_parameters[FN] if FN in user_set_parameters else default_params
+    @staticmethod
+    def encode_as_pandas(obj):
+        """Attempt to convert pandas.NaT"""
+        if not pd:
+            raise NotEncodable
 
-        # Make sure that function parameters set is fully loaded
-        # If function is missing a parameter, fill-in with default value
-        for key in default_params.keys():
-            if key not in func_params.keys():
-                func_params[key] = default_params[key]
+        if obj is pd.NaT:
+            return None
+        else:
+            raise NotEncodable
 
-        node_inputs = fetch_inputs(previous_job_ids, mock)
+    @staticmethod
+    def encode_as_numpy(obj):
+        """Attempt to convert numpy.ma.core.masked"""
+        if not np:
+            raise NotEncodable
 
-        print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
+        if obj is np.ma.core.masked:
+            return float("nan")
+        elif isinstance(obj, np.ndarray) and obj.dtype.kind == "M":
+            try:
+                return np.datetime_as_string(obj).tolist()
+            except TypeError:
+                pass
 
-        return func(node_inputs, func_params)
-    
-    return inner
+        raise NotEncodable
+
+    @staticmethod
+    def encode_as_datetime(obj):
+        """Convert datetime objects to iso-format strings"""
+        try:
+            return obj.isoformat()
+        except AttributeError:
+            raise NotEncodable
+
+    @staticmethod
+    def encode_as_date(obj):
+        """Attempt to convert to utc-iso time string using date methods."""
+        try:
+            time_string = obj.isoformat()
+        except AttributeError:
+            raise NotEncodable
+        else:
+            return iso_to_plotly_time_string(time_string)
+
+    @staticmethod
+    def encode_as_decimal(obj):
+        """Attempt to encode decimal by converting it to float"""
+        if isinstance(obj, decimal.Decimal):
+            return float(obj)
+        else:
+            raise NotEncodable
+
+class NotEncodable(Exception):
+    pass

@@ -1,20 +1,18 @@
 import numpy as np
-from joyflo import flojoy
+from joyflo import flojoy, VectorXY
 import json
 import traceback
 
 @flojoy
-def RAND(node_inputs, params):
+def RAND(v, params):
     try:
         print('~ RAND ~')
         print(json.dumps(params))
 
-        xy0 = node_inputs[0]
-
-        x = xy0['x0']
+        x = v[0].x
 
         y = np.random.normal(size=len(x))
     except Exception:
         print(traceback.format_exc())
     
-    return {'x0':x, 'y0':y}
+    return VectorXY(x = x, y = y)
