@@ -15,6 +15,6 @@ describe('flow chart', () => {
   it('Should open modal on clicking upon add a node.', ()=>{
     cy.get('[data-cy=add-node]').click();
     cy.contains('p', 'Generators');
-    cy.get('button').contains('Constant').click();
+    cy.get(':nth-child(3) > .flex > :nth-child(4)').contains('Constant');
   });
 })
