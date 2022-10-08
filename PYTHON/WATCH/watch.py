@@ -111,7 +111,12 @@ is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = nodes_by_id[n]
-    job = Job.fetch(job_id, connection=r)
+    # TODO have to investigate if and why this fails sometime
+    # best is to remove this try catch, so we will have to come back to it soon
+    try:
+        job = Job.fetch(job_id, connection=r)
+    except e:
+        print(e)
     job_status, redis_payload, attempt_count = None, None, 0
     while True: # or change it to wait for maximum amount of time, then we can declare job timed out
         time.sleep(0.5)
