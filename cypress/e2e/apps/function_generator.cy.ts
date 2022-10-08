@@ -54,7 +54,7 @@ describe('Run Default App', ()=> {
     });
   });
 
-  /*
+
   it('Should click through all the charts and check if charts are there', () => {
     nodes.forEach(node => {
       cy.get(`[data-id="${node.selector}"]`).click({ force: true, multiple: true });
@@ -62,7 +62,7 @@ describe('Run Default App', ()=> {
       cy.get('.ctrl-close-btn').click({ force: true });
     });
   });
-
+  /*
   it('Visit to the DEBUG page and match the complete snapshot', () => {
     cy.get('[data-cy=debug-btn]').click();
     matchPlotSnapshot(`main`, 'debug');
