@@ -22,4 +22,10 @@ s = json.dumps(function_dict)
 result = open('src/components/flow_chart_panel/pythonFunctions.json', 'w')
 result.write(s)
 result.close()
-    
+
+
+'''@cypress/snapshot expects there's a snapshot file in the root directory'''
+
+snapshot_cypress_test = open('./snapshots.js', 'w')
+snapshot_cypress_test.close()
+
