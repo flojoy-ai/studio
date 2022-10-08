@@ -58,11 +58,11 @@ describe('Run Default App', ()=> {
   it('Should click through all the charts and check if charts are there', () => {
     nodes.forEach(node => {
       cy.get(`[data-id="${node.selector}"]`).click({ force: true, multiple: true });
-      matchPlotSnapshot(`[id="${node.selector}"]`, node.name);
+      matchPlotSnapshot(`[data-id="${node.selector}"]`, node.name);
       cy.get('.ctrl-close-btn').click({ force: true });
     });
   });
-  /*
+
   it('Visit to the DEBUG page and match the complete snapshot', () => {
     cy.get('[data-cy=debug-btn]').click();
     matchPlotSnapshot(`main`, 'debug');
@@ -90,12 +90,12 @@ describe('Run Default App', ()=> {
       cy.get('[data-cy=script-btn]').click();
       nodes.forEach(node => {
         cy.get(`[data-id="${node.selector}"]`).click({ force: true, multiple: true });
-        matchPlotSnapshot(`[id="${node.selector}"]`, `${node.name}-ctrl-${index}`);
+        matchPlotSnapshot(`[data-id="${node.selector}"]`, `${node.name}-ctrl-${index}`);
         cy.get('.ctrl-close-btn').click({ force: true });
       });
       cy.get('[data-cy=debug-btn]').click();
       matchPlotSnapshot(`main`, `debug-ctrl-${index}`);
     });
   });
-  */
+
 })

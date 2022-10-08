@@ -40,6 +40,8 @@ import 'cypress-wait-until';
 import 'cypress-file-upload';
 import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
+require('@cypress/snapshot').register();
+
 addMatchImageSnapshotCommand({
     allowSizeMismatch: true,
     failureThreshold: 0.03, // threshold for entire image

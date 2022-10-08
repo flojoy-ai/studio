@@ -16,6 +16,7 @@ const matchPlotSnapshot = (selector: string, name: string) => {
   // }
 
   return cy.waitUntil(function() {
+    /*
     return cy.get(selector).should('be.visible').matchImageSnapshot(name,{
       allowSizeMismatch: true,
       failureThreshold: 0.3, // threshold for entire image
@@ -24,6 +25,9 @@ const matchPlotSnapshot = (selector: string, name: string) => {
       capture: 'viewport', // capture viewport in screenshot
     });
   }, { timeout: 50000 });
+  */
+  return cy.get(selector).should('be.visible').snapshot();
+}, { timeout: 50000 });
 }
 
 export {
