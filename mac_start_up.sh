@@ -58,10 +58,11 @@ FILE=$HOME/.flojoy/flojoy.yaml
 if test -f "$FILE"; then
     echo "$FILE exists."
 else
-   cd $HOME && mkdir .flojoy && touch .flojoy/flojoy.yaml
-   echo "PATH=$CWD" > .flojoy/flojoy.yaml
-   echo "Error: Directory .flojoy/flojoy.yaml does not exists. creating new directory with yaml file."
+   mkdir $HOME/.flojoy && touch $HOME/.flojoy/flojoy.yaml
+   echo "PATH=$CWD" > $HOME/.flojoy/flojoy.yaml
+   echo "directory ~/.flojoy/flojoy.yaml does not exists. creating new directory with yaml file."
 fi
+
 echo 'starting redis worker...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
 

@@ -8,13 +8,14 @@ from rq.job import Job
 
 import warnings
 import matplotlib.cbook
-from joyflo import reactflow_to_networkx
 
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
 import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+from joyflo import reactflow_to_networkx
 
 # sys.path.append('../FUNCTIONS/')
 from FUNCTIONS.VISORS.VCTR import fetch_inputs
@@ -66,6 +67,7 @@ for n in topological_sorting:
     print('*********************')
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
     print('*********************')
+    # print('globals:', globals())
   
     func = getattr(globals()[cmd], cmd)
     print('func:', func)

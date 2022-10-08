@@ -9,7 +9,5 @@ PyYAML==6.0
 redis==4.3.3
 rq==1.10.1
 scipy==1.9.0
-joyflo-sma==0.1.2
-
 # Testing
 pytest==7.1.3
