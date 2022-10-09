@@ -1,8 +1,7 @@
 {
-  "name": "daq-labs",
+  "name": "flojoy-desktop",
   "version": "0.1.0",
   "private": true,
-  "main": "electron/main.ts",
   "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
@@ -62,9 +61,10 @@
   "build": {
     "appId": "io.flojoy.desktop",
     "productName": "Flojoy Desktop",
+    "asar": false,
     "files": [
       "build/**/*",
-      "electron/main.ts",
+      "electron/main.js",
       "package.json"
     ],
     "extraResources": [
@@ -74,11 +74,19 @@
       }
     ],
     "mac": {
-      "target": [
-        "dmg"
-      ],
+      "target": ["dmg"],
       "darkModeSupport": true
-    }
+    },
+    "linux": {
+      "target": ["tar.gz"]
+    },
+    "win": {
+      "target": ["portable"]
+    },
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "extends": null
   },
   "eslintConfig": {
     "extends": [

@@ -10,9 +10,6 @@ services:
 
   rq-worker:
     image: shahadishraq/flojoy-rq-worker:latest
-    build: 
-      context: .
-      dockerfile: ./docker/rq-worker/Dockerfile
     restart: always
     environment:
       - REDIS_HOST=redis
@@ -22,9 +19,6 @@ services:
 
   backend:
     image: shahadishraq/flojoy-desktop:latest
-    build: 
-      context: .
-      dockerfile: ./docker/backend/Dockerfile
     restart: always
     environment:
       - REDIS_HOST=redis
