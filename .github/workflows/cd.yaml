@@ -31,6 +31,8 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
+    env:
+      DEBUG: electron-builder
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
