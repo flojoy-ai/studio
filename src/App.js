@@ -28,13 +28,8 @@ const App = () => {
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);
 
-  const {
-    elements,
-    setElements,
-    rfInstance,
-    setRfInstance,
-    setUiTheme,
-  } = useFlowChartState();
+  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
+    useFlowChartState();
   const [currentTab, setCurrentTab] = useState("visual");
   const { width: windowWidth } = useWindowSize();
   const toggleTheme = () => {
@@ -133,24 +128,25 @@ const App = () => {
             <h1 className="App-brand">FLOJOY</h1>
             <button
               onClick={() => setCurrentTab("visual")}
-              className={"btn-noborder " + currentTab === "visual" ? "active-" + theme : ""}
+              className={currentTab === "visual" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="script-btn"
             >
               SCRIPT
-              {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
             </button>
             <button
               onClick={() => setCurrentTab("panel")}
-              className={"btn-noborder " + currentTab === "panel" ? "active-" + theme : ""}
+              className={currentTab === "panel" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="ctrls-btn"
             >
@@ -158,8 +154,11 @@ const App = () => {
               {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </button>
             <button
-              className={"btn-noborder " + currentTab === "debug" ? "active-" + theme : ""}
+              className={currentTab === "debug" ? "active-" + theme : ""}
               onClick={() => setCurrentTab("debug")}
+              style={{
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
               data-cy="debug-btn"
             >
               DEBUG
@@ -191,8 +190,7 @@ const App = () => {
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-
+          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
             <ResultsTab results={programResults} theme={theme} />
           </div>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
@@ -216,7 +214,6 @@ const App = () => {
               setOpenCtrlModal={setOpenCtrlModal}
             />
           )}
-          
         </main>
       </ReactFlowProvider>
     </ThemeProvider>

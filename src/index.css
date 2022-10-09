@@ -16,4 +16,6 @@ code {
   border: none;
   padding: 0;
   background: none;
+  outline: none;
+  background: transparent;
 }
