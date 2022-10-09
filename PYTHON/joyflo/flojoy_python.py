@@ -11,6 +11,7 @@ import networkx as nx
 from redis import Redis
 from rq.job import Job
 import os
+from functools import wraps
 
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
 REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
@@ -196,9 +197,8 @@ def flojoy(func):
     # equivalent to: decorated_sin = flojoy(SINE)
     print(SINE(previous_job_ids = pj_ids, mock = True))    
     '''
-
+    @wraps(func)
     def inner(previous_job_ids, mock):
-        
         print("DECORATOR IS WORKING!!!")
 
         FN = func.__name__
@@ -225,6 +225,9 @@ def flojoy(func):
         # print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
 
         return func(node_inputs, func_params)
+
+    # inner.original = func
+    # inner.original.__qualname__ += ".original"   
     
     return inner
 

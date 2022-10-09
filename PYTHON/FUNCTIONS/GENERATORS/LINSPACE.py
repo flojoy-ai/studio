@@ -1,10 +1,22 @@
 import numpy as np
-from joyflo.flojoy_python import flojoy, VectorXY
+# from functools import wraps
+from joyflo import flojoy, VectorXY
+# from joyflo import VectorXY
+
+
+# def flojoy(func):
+#     @wraps(func)
+#     def inner(previous_job_ids, mock):
+#         print("DECORATOR IS WORKING!!!")
+#         func()
+    
+#     return inner
 
 @flojoy
 def LINSPACE(v, params):
     print("LINSPACE IS RUNNING!!!")
 
     x = np.linspace(params['start'], params['end'], params['steps'])
+    # x = np.linspace(0,100,1)
 
     return VectorXY(x = x, y = None)
