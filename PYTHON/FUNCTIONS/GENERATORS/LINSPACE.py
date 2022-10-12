@@ -12,7 +12,7 @@ from joyflo import flojoy, VectorXY
     
 #     return inner
 
-@flojoy
+# @flojoy
 def LINSPACE(v, params):
     print("LINSPACE IS RUNNING!!!")
 

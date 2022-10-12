@@ -126,7 +126,7 @@ for n in topological_sorting:
         redis_payload = job.result
         attempt_count += 1
 
-        print('Job status:', nd['cmd'], job_status, job.origin, 'attempt:', attempt_count)
+        print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
 
         if job_status == 'finished':
             break

@@ -222,12 +222,12 @@ def flojoy(func):
 
         node_inputs = fetch_inputs(previous_job_ids, mock)
 
-        # print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
+        print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
 
         return func(node_inputs, func_params)
 
-    # inner.original = func
-    # inner.original.__qualname__ += ".original"   
+    inner.original = func
+    inner.original.__qualname__ += ".original"   
     
     return inner
 
