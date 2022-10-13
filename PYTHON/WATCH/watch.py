@@ -5,9 +5,11 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+import traceback
 
 import warnings
 import matplotlib.cbook
+from joyflo import reactflow_to_networkx
 
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
@@ -117,8 +119,8 @@ for n in topological_sorting:
     # best is to remove this try catch, so we will have to come back to it soon
     try:
         job = Job.fetch(job_id, connection=r)
-    except e:
-        print(e)
+    except Exception:
+        print(traceback.format_exc())
     job_status, redis_payload, attempt_count = None, None, 0
     while True: # or change it to wait for maximum amount of time, then we can declare job timed out
         time.sleep(0.5)
