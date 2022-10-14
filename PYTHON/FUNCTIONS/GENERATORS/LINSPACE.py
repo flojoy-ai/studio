@@ -12,11 +12,11 @@ from joyflo import flojoy, VectorXY
     
 #     return inner
 
-# @flojoy
+@flojoy
 def LINSPACE(v, params):
     print("LINSPACE IS RUNNING!!!")
 
-    x = np.linspace(params['start'], params['end'], params['steps'])
+    x = np.linspace(int(params['start']), int(params['end']), int(params['step']))
     # x = np.linspace(0,100,1)
 
     return VectorXY(x = x, y = None)

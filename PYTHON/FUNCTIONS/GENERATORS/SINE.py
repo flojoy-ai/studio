@@ -5,6 +5,7 @@ from scipy import signal
 
 @flojoy
 def SINE(v, params):
+    print('SINE v, params:', v, params)
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
 
     print('params sine:', params)

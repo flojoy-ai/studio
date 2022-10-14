@@ -9,7 +9,6 @@ import traceback
 
 import warnings
 import matplotlib.cbook
-from joyflo import reactflow_to_networkx
 
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
@@ -87,6 +86,7 @@ for n in topological_sorting:
             job_id = job_id, 
             kwargs={'ctrls': ctrls},
             result_ttl=500)
+        print('ENQUEUING...', cmd, job_id, ctrls)
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
@@ -99,6 +99,7 @@ for n in topological_sorting:
             job_timeout='3m',
             on_failure=report_failure,
             job_id=job_id,
+            kwargs={'ctrls': ctrls},
             depends_on=previous_job_ids,
             previous_job_ids=previous_job_ids,
             result_ttl=500)

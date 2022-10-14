@@ -1,6 +1,7 @@
 import numpy as np
 from joyflo import flojoy, VectorXY
 
+@flojoy
 def CONSTANT(v, params):
     print('running constant in python program...',)
     # ''' Generates a single x-y vector of numeric (floating point) constants'''

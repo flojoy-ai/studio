@@ -34,7 +34,7 @@ class CtrlPanel():
 
     def get_state(self):
         root = get_flojoy_root_dir()
-        path = root + 'PYTHON/WATCH/fc.json'
+        path = root + '/PYTHON/WATCH/fc.json'
         f = open(path)
         fc = json.loads(f.read())
         elems = fc['elements']
@@ -68,6 +68,7 @@ class VectorXY(Box):
     @staticmethod
     def _ndarrayify(value):
         s = str(type(value))
+        print('_ndarrayify value:', value, 'type:', s)
         v_type = s.split("'")[1]
 
         match v_type:
@@ -76,6 +77,8 @@ class VectorXY(Box):
             case 'list':
                 value = np.array(value)
             case 'numpy.ndarray':
+                pass
+            case 'NoneType':
                 pass
             case _:
                 raise ValueError(value)
@@ -112,6 +115,7 @@ def get_flojoy_root_dir():
     path = home + '/.flojoy/flojoy.yaml' # TODO: Upate shell script to add ~/.flojoy/flojoy.yaml
     stream = open(path, 'r')
     yaml_dict = yaml.load(stream, Loader=yaml.FullLoader)
+    print('yaml_dict:', yaml_dict)
     return yaml_dict['PATH']
 
 def js_to_json(s):
@@ -128,7 +132,7 @@ def js_to_json(s):
 
 def get_parameter_manifest():
     root = get_flojoy_root_dir()
-    f = open(root + 'src/components/flow_chart_panel/PARAMETERS_MANIFEST.js')
+    f = open(root + '/src/components/flow_chart_panel/PARAMETERS_MANIFEST.js')
     param_manifest = js_to_json(f.read())
     return param_manifest
 
@@ -198,38 +202,46 @@ def flojoy(func):
     print(SINE(previous_job_ids = pj_ids, mock = True))    
     '''
     @wraps(func)
-    def inner(previous_job_ids, mock):
-        print("DECORATOR IS WORKING!!!")
+    # def wrapper(previous_job_ids, mock):
+    def wrapper(*args, **kwargs):    
+        try:
+            print("DECORATOR IS WORKING!!!", args, kwargs)
+            previous_job_ids, mock = {}, {}
 
-        FN = func.__name__
+            FN = func.__name__
 
-        # Get default command paramaters
-        default_params = {}
-        pm = get_parameter_manifest()
-        for param in pm[FN]:
-            default_params[param] = pm[FN][param]['default']
+            # Get default command paramaters
+            default_params = {}
+            pm = get_parameter_manifest()
+            for param in pm[FN]:
+                default_params[param] = pm[FN][param]['default']
 
-        # Get command parameters set by the user through the control panel
-        panel = CtrlPanel()
-        user_set_parameters = panel.get_state()
-        func_params = user_set_parameters[FN] if FN in user_set_parameters else default_params
+            # Get command parameters set by the user through the control panel
+            panel = CtrlPanel()
+            user_set_parameters = panel.get_state()
+            func_params = user_set_parameters[FN] if FN in user_set_parameters else default_params
 
-        # Make sure that function parameters set is fully loaded
-        # If function is missing a parameter, fill-in with default value
-        for key in default_params.keys():
-            if key not in func_params.keys():
-                func_params[key] = default_params[key]
+            # Make sure that function parameters set is fully loaded
+            # If function is missing a parameter, fill-in with default value
+            for key in default_params.keys():
+                if key not in func_params.keys():
+                    func_params[key] = default_params[key]
 
-        node_inputs = fetch_inputs(previous_job_ids, mock)
+            node_inputs = fetch_inputs(previous_job_ids, mock)
 
-        print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
+            print('Executing function ', FN, ' where  pjs = ', previous_job_ids)
+            print('node_inputs, func_params:', node_inputs, func_params)
+            return func(node_inputs, func_params)
+        except Exception:
+            print(traceback.format_exc())
+            raise
 
-        return func(node_inputs, func_params)
+    print("I'm here: ", func)
 
-    inner.original = func
-    inner.original.__qualname__ += ".original"   
+    wrapper.original = func
+    wrapper.original.__qualname__ += ".original"   
     
-    return inner
+    return wrapper
 
 
 def reactflow_to_networkx(elems):
