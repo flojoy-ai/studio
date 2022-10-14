@@ -6,11 +6,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import {
-  useZoomPanHelper,
-  OnLoadParams,
-  Elements,
-} from "react-flow-renderer";
+import { useZoomPanHelper, OnLoadParams, Elements } from "react-flow-renderer";
 import localforage from "localforage";
 import { v4 as uuidv4 } from "uuid";
 
@@ -96,12 +92,12 @@ const Controls: FC<ControlsProps> = ({
         }
         functionName = constant;
       } else {
-        functionName = prompt('Please enter a name for this node')
+        functionName = prompt("Please enter a name for this node");
       }
-     if(!functionName) return;
+      if (!functionName) return;
       const newNode = {
         id: `${FUNCTION}-${uuidv4()}`,
-        data: { label: functionName, func:FUNCTION, type: TYPE, ctrls: {} },
+        data: { label: functionName, func: FUNCTION, type: TYPE, ctrls: {} },
         position: getNodePosition(),
       };
       setElements((els) => els.concat(newNode));
@@ -111,7 +107,6 @@ const Controls: FC<ControlsProps> = ({
     },
     [setElements]
   );
-
 
   const openModal = () => {
     setIsOpen(true);
@@ -148,7 +143,7 @@ const Controls: FC<ControlsProps> = ({
         {/* {windowWidth >=1080 ? 'Run Script':'Run'} */}
       </button>
       <button
-        className="btn-noborder"
+        className="save__controls_button"
         style={{
           display: "flex",
           alignItems: "center",
@@ -173,7 +168,14 @@ const Controls: FC<ControlsProps> = ({
         >
           +
         </div>
-        <div data-cy={`add-${isVisualMode ? 'node':'ctrl'}`}>Add</div>
+        <div
+          style={{
+            color: theme === "dark" ? "#fff" : "#000",
+          }}
+          data-cy={`add-${isVisualMode ? "node" : "ctrl"}`}
+        >
+          Add
+        </div>
         {/* {windowWidth >= 1080 ?'Add Python Function' : 'Add'} */}
       </button>
 
@@ -182,7 +184,13 @@ const Controls: FC<ControlsProps> = ({
         {/* {windowWidth >=1080 ?'Load File': 'Load'} */}
       </button>
 
-      <button className="btn-noborder" onClick={saveFile}>
+      <button
+        className="save__controls_button"
+        style={{
+          color: theme === "dark" ? "#fff" : "#000",
+        }}
+        onClick={saveFile}
+      >
         Save
         {/* {windowWidth >=1080 ?'Save File':'Save'}  */}
       </button>
@@ -201,7 +209,7 @@ const Controls: FC<ControlsProps> = ({
       {!isVisualMode && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span
-          data-cy='operation-switch' 
+            data-cy="operation-switch"
             style={{
               cursor: "pointer",
               fontSize: "14px",

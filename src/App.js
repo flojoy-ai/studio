@@ -137,11 +137,11 @@ const App = () => {
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="script-btn"
             >
               SCRIPT
-              {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
             </button>
             <button
               onClick={() => setCurrentTab("panel")}
@@ -154,6 +154,7 @@ const App = () => {
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="ctrls-btn"
             >
@@ -167,6 +168,9 @@ const App = () => {
                   : "btn-noborder"
               }
               onClick={() => setCurrentTab("debug")}
+              style={{
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
               data-cy="debug-btn"
             >
               DEBUG
