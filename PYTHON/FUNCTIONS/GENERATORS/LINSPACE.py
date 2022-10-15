@@ -17,6 +17,6 @@ def LINSPACE(v, params):
     print("LINSPACE IS RUNNING!!!")
 
     x = np.linspace(int(params['start']), int(params['end']), int(params['step']))
-    # x = np.linspace(0,100,1)
+    print('0.100.1: ', np.linspace(0,100,1), ' params: ',x)
 
     return VectorXY(x = x, y = None)

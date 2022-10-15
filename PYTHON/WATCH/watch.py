@@ -78,7 +78,7 @@ for n in topological_sorting:
     r.set('SYSTEM_STATUS', s)
    
     if len(list(DG.predecessors(n))) == 0:
-        print ('{0} ({1}) has no predecessors'.format(cmd, n))
+        print('{0} ({1}) has no predecessors'.format(cmd, n))
         q.enqueue(func, 
             retry=Retry(max=100), # TODO: have to understand why the SINE node is failing for few times then succeeds
             job_timeout='3m',
@@ -99,9 +99,8 @@ for n in topological_sorting:
             job_timeout='3m',
             on_failure=report_failure,
             job_id=job_id,
-            kwargs={'ctrls': ctrls},
+            kwargs={'ctrls': ctrls,'previous_job_ids':previous_job_ids,},
             depends_on=previous_job_ids,
-            previous_job_ids=previous_job_ids,
             result_ttl=500)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
@@ -130,7 +129,9 @@ for n in topological_sorting:
         attempt_count += 1
 
         print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
-
+        if attempt_count > 9:
+            job.delete()
+            break
         if job_status == 'finished':
             break
         if is_any_node_failed:

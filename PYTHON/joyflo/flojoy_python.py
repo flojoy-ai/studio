@@ -115,8 +115,8 @@ def get_flojoy_root_dir():
     path = home + '/.flojoy/flojoy.yaml' # TODO: Upate shell script to add ~/.flojoy/flojoy.yaml
     stream = open(path, 'r')
     yaml_dict = yaml.load(stream, Loader=yaml.FullLoader)
-    print('yaml_dict:', yaml_dict)
-    return yaml_dict['PATH']
+    # print('yaml_dict:', yaml_dict.split(':'))
+    return yaml_dict.split(':')[1]
 
 def js_to_json(s):
     '''
@@ -156,10 +156,12 @@ def fetch_inputs(previous_job_ids, mock=False):
     try:
         for ea in previous_job_ids:
             job = Job.fetch(ea, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
+            print('prv job result: ', job.result , ' job: ', job)
             inputs.append(job.result)
     except Exception:
         print(traceback.format_exc())
-
+    
+    print(' inputs in fetch input: ', inputs)
     return inputs
 
 def flojoy(func):
@@ -206,7 +208,9 @@ def flojoy(func):
     def wrapper(*args, **kwargs):    
         try:
             print("DECORATOR IS WORKING!!!", args, kwargs)
-            previous_job_ids, mock = {}, {}
+            previous_job_ids, mock = {}, False
+            if 'previous_job_ids' in kwargs:
+                previous_job_ids=kwargs['previous_job_ids']
 
             FN = func.__name__
 

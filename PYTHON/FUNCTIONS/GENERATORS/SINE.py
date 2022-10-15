@@ -10,7 +10,7 @@ def SINE(v, params):
 
     print('params sine:', params)
 
-    x = v[0].x
+    x = v[0]['x0']
 
     waveform = params['waveform']
     A = params['amplitude']
@@ -24,6 +24,7 @@ def SINE(v, params):
     print('A:', A)
     print('F:', F)
     print('Y0:', Y0)
+    print('x:', x)
 
     if waveform == 'sine':
         y = Y0 + A * np.sin(np.radians(2 * np.pi * F) * x)
