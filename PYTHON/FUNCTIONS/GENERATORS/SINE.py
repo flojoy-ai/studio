@@ -8,23 +8,15 @@ def SINE(v, params):
     print('SINE v, params:', v, params)
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
 
-    print('params sine:', params)
-
-    x = v[0]['x0']
+    x = v[0].x
 
     waveform = params['waveform']
-    A = params['amplitude']
-    F = params['frequency']
-    Y0 = params['offset']
-
+    A = int(params['amplitude'])
+    F = int(params['frequency'])
+    Y0 =int( params['offset'])
     if waveform not in valid_waveforms:
         waveform = valid_waveforms[0]
         print('invalid waveform passed as param, using default:', waveform)
-
-    print('A:', A)
-    print('F:', F)
-    print('Y0:', Y0)
-    print('x:', x)
 
     if waveform == 'sine':
         y = Y0 + A * np.sin(np.radians(2 * np.pi * F) * x)

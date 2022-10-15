@@ -70,6 +70,7 @@ class VectorXY(Box):
         s = str(type(value))
         print('_ndarrayify value:', value, 'type:', s)
         v_type = s.split("'")[1]
+        print(' v_type: ', v_type)
 
         match v_type:
             case 'int' | 'float':
@@ -216,20 +217,21 @@ def flojoy(func):
 
             # Get default command paramaters
             default_params = {}
+            func_params ={}
             pm = get_parameter_manifest()
-            for param in pm[FN]:
-                default_params[param] = pm[FN][param]['default']
+            if FN in pm:
+                for param in pm[FN]:
+                    default_params[param] = pm[FN][param]['default']
+                # Get command parameters set by the user through the control panel
+                panel = CtrlPanel()
+                user_set_parameters = panel.get_state()
+                func_params = user_set_parameters[FN] if FN in user_set_parameters else default_params
 
-            # Get command parameters set by the user through the control panel
-            panel = CtrlPanel()
-            user_set_parameters = panel.get_state()
-            func_params = user_set_parameters[FN] if FN in user_set_parameters else default_params
-
-            # Make sure that function parameters set is fully loaded
-            # If function is missing a parameter, fill-in with default value
-            for key in default_params.keys():
-                if key not in func_params.keys():
-                    func_params[key] = default_params[key]
+                # Make sure that function parameters set is fully loaded
+                # If function is missing a parameter, fill-in with default value
+                for key in default_params.keys():
+                    if key not in func_params.keys():
+                        func_params[key] = default_params[key]
 
             node_inputs = fetch_inputs(previous_job_ids, mock)
 

@@ -6,9 +6,9 @@ export const FUNCTION_PARAMETERS = {
         waveform: {type: 'select', options: ["sine", "square", "triangle", "sawtooth"], default: 'sine'},
     },
     LINSPACE: {
-        start: {type: 'float', default: '0'},
+        start: {type: 'float', default: '10'},
         end: {type: 'float', default: '0'},
-        step: {type: 'float', default: '1'},
+        step: {type: 'float', default: '100'},
     }, 
     CONSTANT:{
         constant: {

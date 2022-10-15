@@ -67,8 +67,8 @@ echo 'starting redis worker...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
 
 echo 'starting node server...'
-# npx ttab -t 'NODE' "${venvCmd} node server.js"
+npx ttab -t 'NODE' "${venvCmd} node server.js"
 sleep 1
 
 echo 'starting react server...'
-# npx ttab -t 'REACT' "${venvCmd} npm start"
+npx ttab -t 'REACT' "${venvCmd} npm start"
