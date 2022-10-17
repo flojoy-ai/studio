@@ -59,7 +59,7 @@ const CustomResultNode = ({ data }) => {
         <Plot
           data={
             !data.resultData?.data
-              ? [{ x: data.resultData["x0"], y: data.resultData["y0"] }]
+              ? [{ x: data.resultData["x"], y: data.resultData["y"] }]
               : data.resultData.data
           }
           layout={

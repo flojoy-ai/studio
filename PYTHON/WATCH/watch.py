@@ -19,7 +19,6 @@ sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 from joyflo import reactflow_to_networkx
 
 # sys.path.append('../FUNCTIONS/')
-from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *

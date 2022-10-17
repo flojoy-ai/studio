@@ -169,7 +169,7 @@ console.log(' attaching value: ', currentInputValue)
     } else {
       saveAndRunFlowChart();
     }
-  }, [rfInstance, setCtrlsManifest, saveAndRunFlowChart]);
+  }, [rfInstance]);
 
   return (
     <div>

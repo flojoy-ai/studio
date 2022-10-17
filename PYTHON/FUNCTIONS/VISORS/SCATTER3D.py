@@ -9,7 +9,6 @@ def SCATTER3D(v, params):
             x = list(v[0].x),
             y = list(v[0].y),
             z = list(v[0].z) if v[0].z is not None else list([0] * len(v[0].x)),
-            # z = list(v[0]['z0']) if 'z0' in payload else list([0] * len(v[0]['x0'])),
             type='scatter3d',
             mode='markers'
         )],
