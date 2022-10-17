@@ -62,6 +62,7 @@ const App = () => {
   useEffect(() => {
     console.log("App component did mount"); 
     pingBackend();
+// eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   const pingBackend = async () => {
