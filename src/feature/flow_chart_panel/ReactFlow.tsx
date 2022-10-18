@@ -18,8 +18,6 @@ import localforage from "localforage";
 import CustomEdge from "./CustomEdge";
 import CustomNode from "./CustomNode";
 import PYTHON_FUNCTIONS from "./pythonFunctions.json";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styledPlotLayout from "../../components/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { useWindowSize } from "react-use";
