@@ -14,15 +14,20 @@ def CONSTANT(**kwargs):
     
     if 'ctrls' in kwargs:
         ctrls = kwargs['ctrls']
+    else:
+        ctrls = {}
+
     for key, input in ctrls.items():
         paramName = input['param']
         if paramName in params:
-                params[paramName] = input['value']
+            params[paramName] = input['value']
+
     if previous_job_results.__len__() > 0:
         xy0 = previous_job_results[0]
         x = xy0['x0']
         y = np.full(len(x), float(params['constant']))
         return {'x0':x, 'y0':y}
+        
     x = list()
     for i in range(1000):
         x.append(i)

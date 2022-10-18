@@ -18,7 +18,8 @@ import localforage from "localforage";
 import CustomEdge from "./CustomEdge";
 import CustomNode from "./CustomNode";
 import PYTHON_FUNCTIONS from "./pythonFunctions.json";
-
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import styledPlotLayout from "../../components/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { useWindowSize } from "react-use";
@@ -54,7 +55,7 @@ const FlowChart = ({
   setClickedElement,
 }: Props) => {
   // const [clickedElement, setClickedElement] = useState<any>(null);
-  const { width: windowWidth } = useWindowSize();
+  const {  width:  windowWidth  } = useWindowSize();;
   const [modalIsOpen, setIsModalOpen] = useState(false);
   const modalStyles = {
     overlay: { zIndex: 99 },
@@ -125,7 +126,7 @@ const FlowChart = ({
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
     const flowSize = 1107;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
+    const xPosition =  windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.setTransform({
       x: xPosition,
       y: 22,

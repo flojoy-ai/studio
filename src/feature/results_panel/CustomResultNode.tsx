@@ -6,6 +6,7 @@ import styledPlotLayout from "../../components/defaultPlotLayout";
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
+  console.log("data.resultData:", data.resultData);
   return (
     <div style={{ position: "relative" }}>
       {(data.func === "MULTIPLY" || data.func === "ADD") && (
@@ -52,17 +53,19 @@ const CustomResultNode = ({ data }) => {
           </>
         )}
 
-      {data?.resultData !== null ? (
+      {!data?.resultData ? (
+        <p> `NO Result`</p>
+      ) : (
         <Plot
           data={
-            "data" in data.resultData
-              ? data.resultData.data
-              : [{ x: data.resultData["x0"], y: data.resultData["y0"] }]
+            !data.resultData?.data
+              ? [{ x: data.resultData["x0"], y: data.resultData["y0"] }]
+              : data.resultData.data
           }
           layout={
-            "layout" in data.resultData
-              ? Object.assign({}, data.resultData.layout, styledLayout)
-              : Object.assign({}, { title: `${data.func}` }, styledLayout)
+            !data.resultData?.layout
+              ? Object.assign({}, { title: `${data.func}` }, styledLayout)
+              : Object.assign({}, data.resultData.layout, styledLayout)
           }
           useResizeHandler
           style={{
@@ -70,8 +73,6 @@ const CustomResultNode = ({ data }) => {
             width: 230,
           }}
         />
-      ) : (
-        <p> `NO Result`</p>
       )}
     </div>
   );
