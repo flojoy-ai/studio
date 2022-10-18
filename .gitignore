@@ -2,8 +2,17 @@
 
 # python
 /venv
+.python-version
 
-# dependencies
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+
+# node
 /node_modules
 /.pnp
 .pnp.js
