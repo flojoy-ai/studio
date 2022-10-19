@@ -1,0 +1,2 @@
+COMMAND:
+  - {name: 'Add', key: 'ADD', type: 'TRANSFORMER'}
