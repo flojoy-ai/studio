@@ -134,7 +134,7 @@ console.log('options in ctrcomponent:', options)
             if('data' in nd.result){
               plotData =nd.result.data;
             } else {
-              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }]
+              plotData = [{ x: nd.result["x"], y: nd.result["y"] }]
             }
           } 
            

@@ -46,7 +46,8 @@ const App = () => {
     const resp = await fetch(`http://localhost:5000${endpoint}`);
     const body = await resp.json();
     if (resp.status !== 200) {
-      throw Error(body.message);
+      // throw Error(body.message);
+      return console.log('error in pingBackendApi', body.message)
     }
     return body;
   };
@@ -61,7 +62,8 @@ const App = () => {
   useEffect(() => {
     console.log("App component did mount"); 
     pingBackend();
-  });
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const pingBackend = async () => {
     let success = false;
@@ -72,7 +74,7 @@ const App = () => {
         .catch((err) => console.log(err));
       await new Promise((resolve) => {
         setTimeout(resolve, 5000);
-      });;
+      });
     }
 
     pingBackendAPI("/ping")

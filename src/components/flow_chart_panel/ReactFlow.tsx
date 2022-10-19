@@ -175,7 +175,7 @@ const FlowChart = ({
             <Plot
               data={
                 !nd.result?.data
-                  ? [{ x: nd.result["x0"], y: nd.result["y0"] }]
+                  ? [{ x: nd.result["x"], y: nd.result["y"] }]
                   : nd.result.data
               }
               layout={

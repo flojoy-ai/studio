@@ -1,3 +1,3 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv2"
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv3"
 }
