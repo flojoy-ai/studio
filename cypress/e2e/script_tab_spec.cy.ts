@@ -16,5 +16,6 @@ describe('flow chart', () => {
     cy.get('[data-cy=add-node]').click();
     cy.contains('p', 'Generators')
     cy.get('button').contains('Constant').click();
+    setTimeout(done,5000);
   })
 })
