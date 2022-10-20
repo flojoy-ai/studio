@@ -6,7 +6,6 @@ import styledPlotLayout from "../../components/defaultPlotLayout";
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
-  console.log("data.resultData:", data.resultData);
   return (
     <div style={{ position: "relative" }}>
       {(data.func === "MULTIPLY" || data.func === "ADD") && (

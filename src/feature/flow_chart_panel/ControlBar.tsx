@@ -44,8 +44,6 @@ type ControlsProps = {
 };
 
 const Controls: FC<ControlsProps> = ({
-  clickedElement,
-  onElementsRemove,
   theme,
   isVisualMode,
   setOpenCtrlModal,
@@ -101,8 +99,6 @@ const Controls: FC<ControlsProps> = ({
       };
       setElements((els) => els.concat(newNode));
       closeModal();
-
-      // saveFlowChartToLocalStorage(rfInstance);
     },
     [setElements]
   );
@@ -121,22 +117,6 @@ const Controls: FC<ControlsProps> = ({
 
   return (
     <div className="save__controls">
-      {/* {isVisualMode ? (
-        <a onClick={openModal}>
-          {" "}
-          <span
-            style={{
-              color: theme === "dark" ? "#99F5FF" : "blue",
-              marginRight: "5px",
-              fontSize: "20px",
-            }}
-          >
-            +
-          </span>
-        {windowWidth >= 1080 ?'Add Control' : 'Add'}
-        </a>
-      ) : (
-      )} */}
       <button
         className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
         style={{
@@ -145,7 +125,6 @@ const Controls: FC<ControlsProps> = ({
         onClick={onSave}
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
-        {/* {windowWidth >=1080 ? 'Run Script':'Run'} */}
       </button>
       <button
         className="save__controls_button"
@@ -167,7 +146,6 @@ const Controls: FC<ControlsProps> = ({
         <div
           style={{
             color: theme === "dark" ? "#99F5FF" : "blue",
-            // marginRight: "5px",
             fontSize: "20px",
           }}
         >
@@ -181,7 +159,6 @@ const Controls: FC<ControlsProps> = ({
         >
           Add
         </div>
-        {/* {windowWidth >= 1080 ?'Add Python Function' : 'Add'} */}
       </button>
 
       <button
@@ -192,7 +169,6 @@ const Controls: FC<ControlsProps> = ({
         onClick={openFileSelector}
       >
         Load
-        {/* {windowWidth >=1080 ?'Load File': 'Load'} */}
       </button>
 
       <button
@@ -203,20 +179,7 @@ const Controls: FC<ControlsProps> = ({
         onClick={saveFile}
       >
         Save
-        {/* {windowWidth >=1080 ?'Save File':'Save'}  */}
       </button>
-      {/* {isVisualMode && (
-        <Select
-          defaultValue={{ value: "edit", label: <EditLabel label={"Edit"} /> }}
-          value={{ value: "edit", label: <EditLabel label={"Edit"} /> }}
-          className="App-select"
-          isSearchable={false}
-          onChange={handleChange}
-          options={options}
-          styles={customStyles}
-          theme={theme as any}
-        />
-      )} */}
       {!isVisualMode && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span
@@ -238,8 +201,6 @@ const Controls: FC<ControlsProps> = ({
           />
         </div>
       )}
-      {/* <a onClick={() => setShowLogs((prev) => !prev)}>LOGS</a> */}
-
       <PythonFuncModal
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}

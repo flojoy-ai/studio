@@ -1,5 +1,10 @@
-import { FC } from 'react';
-import { EdgeProps, getSmoothStepPath, getMarkerEnd, ArrowHeadType, } from 'react-flow-renderer';
+import { FC } from "react";
+import {
+  EdgeProps,
+  getSmoothStepPath,
+  getMarkerEnd,
+  ArrowHeadType,
+} from "react-flow-renderer";
 
 const CustomEdge: FC<EdgeProps> = ({
   id,
@@ -9,16 +14,25 @@ const CustomEdge: FC<EdgeProps> = ({
   targetY,
   sourcePosition,
   targetPosition,
-  data,
-  arrowHeadType,
-  markerEndId,
 }) => {
-  const edgePath = getSmoothStepPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, });
+  const edgePath = getSmoothStepPath({
+    sourceX,
+    sourceY,
+    sourcePosition,
+    targetX,
+    targetY,
+    targetPosition,
+  });
   const markerEnd = getMarkerEnd(ArrowHeadType.Arrow);
 
   return (
     <>
-      <path id={id} className="react-flow__edge-path" d={edgePath} markerEnd={markerEnd} />
+      <path
+        id={id}
+        className="react-flow__edge-path"
+        d={edgePath}
+        markerEnd={markerEnd}
+      />
     </>
   );
 };

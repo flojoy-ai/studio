@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import Select from "react-select";
 import Slider from "rc-slider";
@@ -36,11 +36,9 @@ const ControlComponent = ({
   const updateCtrlValueFromKnob = useCallback(
     (value) => {
       setKnobValue(value);
-
       if (!ctrlObj?.param?.nodeId) {
         return;
       }
-
       if (debouncedTimerForKnobId) {
         clearTimeout(debouncedTimerForKnobId);
       }
@@ -84,7 +82,12 @@ const ControlComponent = ({
               options.push({
                 label: nodeLabel + sep + param.toUpperCase(),
                 value: {
-                  id: nodeFunctionName + '_' + nodeLabel.toString().split(' ').join('') + "_" + param.toUpperCase(),
+                  id:
+                    nodeFunctionName +
+                    "_" +
+                    nodeLabel.toString().split(" ").join("") +
+                    "_" +
+                    param.toUpperCase(),
                   functionName: nodeFunctionName,
                   param,
                   nodeId: node.id,
@@ -113,7 +116,6 @@ const ControlComponent = ({
       });
     }
   }
-console.log('options in ctrcomponent:', options)
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
@@ -123,21 +125,19 @@ console.log('options in ctrcomponent:', options)
     if (nodeIdToPlot) {
       if (results && "io" in results) {
         const runResults = JSON.parse(results.io).reverse();
-        console.log(" runresult persed reverse: ", runResults);
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];
         console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
-          if(nd.result){
-            if('data' in nd.result){
-              plotData =nd.result.data;
+          if (nd.result) {
+            if ("data" in nd.result) {
+              plotData = nd.result.data;
             } else {
-              plotData = [{ x: nd.result["x"], y: nd.result["y"] }]
+              plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
             }
-          } 
-           
+          }
         }
       }
     }
@@ -148,7 +148,12 @@ console.log('options in ctrcomponent:', options)
   const ctrls = inputNode?.data?.ctrls;
   const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
   const fnParam = fnParams[ctrlObj?.param?.param];
-  const defaultValue = ctrlObj?.param?.functionName === 'CONSTANT' ? ctrlObj.val : (fnParam?.default ? fnParam.default: 0);
+  const defaultValue =
+    ctrlObj?.param?.functionName === "CONSTANT"
+      ? ctrlObj.val
+      : fnParam?.default
+      ? fnParam.default
+      : 0;
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -157,12 +162,13 @@ console.log('options in ctrcomponent:', options)
       };
     }) || [];
 
-  let currentInputValue =ctrlObj?.param?.functionName === 'CONSTANT' ? defaultValue: ( ctrls
-    ? ctrls[ctrlObj?.param?.id]?.value
-    : defaultValue);
-// console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
+  let currentInputValue =
+    ctrlObj?.param?.functionName === "CONSTANT"
+      ? defaultValue
+      : ctrls
+      ? ctrls[ctrlObj?.param?.id]?.value
+      : defaultValue;
   const makeLayoutStatic = () => {
-    // alert('making static')
     if (isEditMode) {
       setGridLayout((prev) => {
         prev[prev.findIndex((layout) => layout.i === ctrlObj.id)].static = true;
@@ -301,9 +307,9 @@ console.log('options in ctrcomponent:', options)
             }}
           >
             <Silver
-              style={{ width: "fit-content", boxShadow:0 }}
+              style={{ width: "fit-content", boxShadow: 0 }}
               // diameter={70}
-              knobStyle={{boxShadow:0}}
+              knobStyle={{ boxShadow: 0 }}
               min={0}
               max={100}
               step={1}

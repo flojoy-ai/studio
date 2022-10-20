@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
 import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
@@ -46,31 +46,28 @@ const App = () => {
     const resp = await fetch(`http://localhost:5000${endpoint}`);
     const body = await resp.json();
     if (resp.status !== 200) {
-      // throw Error(body.message);
-      return console.log('error in pingBackendApi', body.message)
+      return console.log("error in pingBackendApi", body.message);
     }
     return body;
   };
 
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-  console.log(
-    " program result: ",
-    "io" in programResults && JSON.parse(programResults.io)
-  );
 
   useEffect(() => {
-    console.log("App component did mount"); 
+    console.log("App component did mount");
     pingBackend();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const pingBackend = async () => {
     let success = false;
     while (!success) {
       pingBackendAPI("/ping")
         // eslint-disable-next-line no-loop-func
-        .then(() => {success = true;})
+        .then(() => {
+          success = true;
+        })
         .catch((err) => console.log(err));
       await new Promise((resolve) => {
         setTimeout(resolve, 5000);
@@ -84,21 +81,15 @@ const App = () => {
           // set a timer that gets an update from the server every second
           window.setInterval(() => {
             pingBackendAPI("/heartbeat").then((res) => {
-              // console.log('heartbeat', res);
               if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
                 // grab program result from redis
                 setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
-                // console.log(STATUS_CODES["RQ_RUN_COMPLETE"]);
                 pingBackendAPI("/io").then((res) => {
-                  // console.log("io", res);
                   if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
                     setServerStatus(res.msg);
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
-                    // console.log("setting results state", res);
                     setProgramResults(res);
-
-                    // console.warn("new program results", res);
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {
@@ -169,7 +160,6 @@ const App = () => {
               data-cy="ctrls-btn"
             >
               CTRLS
-              {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </button>
             <button
               className={currentTab === "debug" ? "active-" + theme : ""}

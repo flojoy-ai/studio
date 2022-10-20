@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import ReactFlow, {
   ConnectionLineType,
   EdgeTypesType,
@@ -7,11 +7,9 @@ import ReactFlow, {
   OnLoadParams,
   ReactFlowProvider,
 } from "react-flow-renderer";
-// import Plot from 'react-plotly.js';
 import { useWindowSize } from "react-use";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
-// import styledPlotLayout from './../defaultPlotLayout';
 import CustomResultNode from "./CustomResultNode";
 import { nodePosition } from "./NODE_POSITION";
 
@@ -29,7 +27,6 @@ const ResultsTab = ({ results, theme }) => {
     [results]
   );
 
-  // const styledLayout = styledPlotLayout(theme);
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
@@ -40,7 +37,6 @@ const ResultsTab = ({ results, theme }) => {
       y: 52,
       zoom: 0.7,
     });
-    // setResultElements(rfIns.toObject())
   };
   useEffect(() => {
     if (nodeResults && nodeResults.length > 0 && rfInstance) {
@@ -71,26 +67,6 @@ const ResultsTab = ({ results, theme }) => {
         ></ReactFlow>
       </div>
     </ReactFlowProviderAny>
-    // <div className='App-results-panel'>
-    //   <p>
-    //     {nodeResults.length === 0 ? 'No run results yet.' : ''}
-    //   </p>
-    //   {nodeResults.map((nd, k) => (
-    //     <details key={k} open={ k===0 ? true : false }>
-    //       <summary>{nd.cmd}</summary>
-    //       {nd.result !== null ?
-    //           <Plot
-    //             data = {'data' in nd.result
-    //               ? nd.result.data
-    //               : [{'x': nd.result['x0'], 'y': nd.result['y0'] }]}
-    //             layout = {'layout' in nd.result
-    //               ? Object.assign({}, nd.result.layout, styledLayout)
-    //               : Object.assign({}, {title: `${nd.cmd}`}, styledLayout)}
-    //             useResizeHandler />
-    //       : `⚠️ The server returned null for the ${nd.cmd} node`}
-    //     </details>
-    //   ))}
-    // </div>
   );
 };
 

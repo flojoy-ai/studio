@@ -5,7 +5,6 @@ interface SvgProps {
   theme?: "light" | "dark";
 }
 
-
 export const BGTemplate = ({ style, theme }: SvgProps) => {
   if (theme === "light") {
     return (
@@ -44,7 +43,3 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
     </svg>
   );
 };
-
-
-
-

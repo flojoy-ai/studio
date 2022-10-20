@@ -3,7 +3,6 @@ import Plot from "react-plotly.js";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-
 interface Props {
   modalIsOpen: boolean;
   afterOpenModal: () => void;
@@ -17,7 +16,6 @@ interface Props {
   clickedElement: any;
   pythonString: String;
 }
-
 
 const NodeModal = ({
   modalIsOpen,
