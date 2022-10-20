@@ -1,0 +1,2 @@
+COMMAND:
+  - {name: '3D Surface Plot', key: 'SURFACE3D', type: 'VISOR'}

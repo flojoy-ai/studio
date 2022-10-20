@@ -169,7 +169,8 @@ console.log(' attaching value: ', currentInputValue)
     } else {
       saveAndRunFlowChart();
     }
-  }, [rfInstance, setCtrlsManifest, saveAndRunFlowChart]);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rfInstance]);
 
   return (
     <div>

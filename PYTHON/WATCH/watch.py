@@ -5,10 +5,10 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+import traceback
 
 import warnings
 import matplotlib.cbook
-from joyflo import reactflow_to_networkx
 
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
@@ -16,8 +16,9 @@ import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
+from joyflo import reactflow_to_networkx
+
 # sys.path.append('../FUNCTIONS/')
-from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -66,6 +67,7 @@ for n in topological_sorting:
     print('*********************')
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
     print('*********************')
+    # print('globals:', globals())
   
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
@@ -75,7 +77,7 @@ for n in topological_sorting:
     r.set('SYSTEM_STATUS', s)
    
     if len(list(DG.predecessors(n))) == 0:
-        print ('{0} ({1}) has no predecessors'.format(cmd, n))
+        print('{0} ({1}) has no predecessors'.format(cmd, n))
         q.enqueue(func, 
             retry=Retry(max=100), # TODO: have to understand why the SINE node is failing for few times then succeeds
             job_timeout='3m',
@@ -83,6 +85,7 @@ for n in topological_sorting:
             job_id = job_id, 
             kwargs={'ctrls': ctrls},
             result_ttl=500)
+        print('ENQUEUING...', cmd, job_id, ctrls)
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
@@ -95,8 +98,8 @@ for n in topological_sorting:
             job_timeout='3m',
             on_failure=report_failure,
             job_id=job_id,
+            kwargs={'ctrls': ctrls,'previous_job_ids':previous_job_ids,},
             depends_on=previous_job_ids,
-            previous_job_ids=previous_job_ids,
             result_ttl=500)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
@@ -111,7 +114,12 @@ is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = nodes_by_id[n]
-    job = Job.fetch(job_id, connection=r)
+    # TODO have to investigate if and why this fails sometime
+    # best is to remove this try catch, so we will have to come back to it soon
+    try:
+        job = Job.fetch(job_id, connection=r)
+    except Exception:
+        print(traceback.format_exc())
     job_status, redis_payload, attempt_count = None, None, 0
     while True: # or change it to wait for maximum amount of time, then we can declare job timed out
         time.sleep(0.5)
@@ -119,8 +127,10 @@ for n in topological_sorting:
         redis_payload = job.result
         attempt_count += 1
 
-        print('Job status:', nd['cmd'], job_status, job.origin, 'attempt:', attempt_count)
-
+        print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
+        if attempt_count > 9:
+            job.delete()
+            break
         if job_status == 'finished':
             break
         if is_any_node_failed:
