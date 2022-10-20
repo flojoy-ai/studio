@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import FlowChart from "./components/flow_chart_panel/ReactFlow.tsx";
-import ResultsTab from "./components/results_panel/ResultsTab.tsx";
+import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
 import ControlsTab from "./components/controls_panel/ControlsTab.tsx";
 
 import { ThemeProvider } from "styled-components";
@@ -13,7 +13,7 @@ import STATUS_CODES from "./STATUS_CODES.json";
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
-import Controls from "./components/flow_chart_panel/ControlBar";
+import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
 // import { useSocket } from "./hooks/useSocket";
