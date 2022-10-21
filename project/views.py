@@ -67,10 +67,10 @@ def io(request):
 def wfc(request):
     print('Flow chart payload... ', request.data['fc'][:200])
 
-    with open('../PYTHON/WATCH/fc.json', 'w') as file:
+    with open('PYTHON/WATCH/fc.json', 'w') as file:
         file.write(request.data['fc'])
     
-    process = Popen(['python3', '../PYTHON/WATCH/watch.py'], stdout=PIPE, stderr=PIPE)
+    process = Popen(['python3', 'PYTHON/WATCH/watch.py'], stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
     
     if stdout:
