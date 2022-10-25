@@ -52,13 +52,7 @@ const App = () => {
   };
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-  console.log(
-    " program result: ",
-    "io" in programResults && JSON.parse(programResults.io)
-  );
   useEffect(() => {
-    console.log("App component did mount");
-
     pingBackendAPI("/ping")
       .then((res) => {
         if ("msg" in res) {
@@ -70,17 +64,14 @@ const App = () => {
               if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
                 // grab program result from redis
                 setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
-                console.log(STATUS_CODES["RQ_RUN_COMPLETE"]);
                 pingBackendAPI("/io").then((res) => {
-                  console.log("io", res);
                   if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
                     setServerStatus(res.msg);
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
-                    console.log("setting results state", res);
                     setProgramResults(res);
 
-                    console.warn("new program results", res);
+                    console.log("new program results", res);
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {

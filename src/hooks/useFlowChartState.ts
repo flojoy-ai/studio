@@ -72,7 +72,6 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      console.log('parsedFileContent:', parsedFileContent);
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
       setGridLayout(parsedFileContent.gridLayout)
@@ -103,8 +102,7 @@ export function useFlowChartState() {
     inputData: any
   ) => {
     setElements(element=> {
-      console.log('param id in set element: ', inputData)
-    const node = element.find((e) => e.id === nodeId);
+     const node = element.find((e) => e.id === nodeId);
         if (node) {
       node.data.ctrls[paramId] = inputData;
       if(node.data.func === 'CONSTANT'){
@@ -112,7 +110,6 @@ export function useFlowChartState() {
       }
       // node.data.label = inputData.value
     }
-    console.log(' node after updating element: ', JSON.stringify(node))
     });
   };
   const removeCtrlInputDataForNode = (

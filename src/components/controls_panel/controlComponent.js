@@ -12,6 +12,7 @@ import customDropdownStyles from "./customDropdownStyles";
 import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
+import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -102,7 +103,6 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if ("source" in node === false) {
@@ -118,7 +118,6 @@ const ControlComponent = ({
       });
     }
   }
-  console.log("options in ctrcomponent:", options);
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
@@ -128,11 +127,9 @@ const ControlComponent = ({
     if (nodeIdToPlot) {
       if (results && "io" in results) {
         const runResults = JSON.parse(results.io).reverse();
-        console.log(" runresult persed reverse: ", runResults);
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];
-        console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
           if (nd.result) {
@@ -181,7 +178,7 @@ const ControlComponent = ({
       });
     }
   };
-
+  
   return (
     <div
       style={{
@@ -197,7 +194,6 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              console.log("value in select:", val, options);
               attachParam2Ctrl(val.value, ctrlObj);
             }}
             options={options}
@@ -253,10 +249,12 @@ const ControlComponent = ({
             paddingBottom: "10px",
           }}
         >
-          <Plot
+          <PlotlyComponent
+            id={options?.find((option) => option.value === ctrlObj?.param)?.value || 'default'}
             data={plotData}
             layout={styledLayout}
             autosize={true}
+            useResizeHandler
             style={{ width: "100%", height: "100%" }}
           />
         </div>

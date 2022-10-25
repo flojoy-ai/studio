@@ -66,7 +66,6 @@ const FlowChart = ({
   };
 
   const onClickElement = (evt, elem) => {
-    console.log("evt & element from click event", evt, elem);
     setClickedElement(elem);
     openModal();
   };
@@ -77,7 +76,6 @@ const FlowChart = ({
     setElements((els: Elements<any>) => addEdge(params, els));
 
   useEffect(() => {
-    console.log("ReactFlow component did mount");
     saveFlowChartToLocalStorage(rfInstance);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

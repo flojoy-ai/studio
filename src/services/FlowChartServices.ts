@@ -16,8 +16,7 @@ export function saveAndRunFlowChartInServer(rfInstance?: FlowExportObject<any>){
     }
 
     const rfInstanceObject = rfInstance ;
-    console.log('saving flowchart to server:', rfInstanceObject);
-
+    
     const fcStr = JSON.stringify(rfInstanceObject);
 
     fetch('/wfc', {

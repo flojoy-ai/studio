@@ -10,7 +10,7 @@ export const NOISY_SINE = {
           SINE_SINE_FREQUENCY: {
             functionName: "SINE",
             param: "frequency",
-            value: 3,
+            value: 13,
           },
           SINE_SINE_AMPLITUDE: {
             functionName: "SINE",

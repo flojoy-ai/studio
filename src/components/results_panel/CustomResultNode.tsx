@@ -2,6 +2,7 @@ import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import Plot from "react-plotly.js";
 import styledPlotLayout from "./../defaultPlotLayout";
+import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
 
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
@@ -53,7 +54,8 @@ const CustomResultNode = ({ data }) => {
         )}
 
       {data?.resultData !== null ? (
-        <Plot
+        <PlotlyComponent
+          id={data.func}
           data={
             "data" in data.resultData
               ? data.resultData.data

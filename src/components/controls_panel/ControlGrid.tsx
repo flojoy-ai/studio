@@ -81,7 +81,6 @@ export default function ControlGrid({
       cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
       // rowHeight={130}
       onLayoutChange={(currentLayout, allLayout) => {
-        console.log("currentLayout:", currentLayout);
         setGridLayout(currentLayout);
       }}
     >

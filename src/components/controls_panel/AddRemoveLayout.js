@@ -67,8 +67,6 @@ const AddRemoveLayout = ({defaultProps, ...props}) => {
 
     const onAddItem = useCallback(() => {
    /*eslint no-console: 0*/
-   console.log("adding", "n" + newCounter);
-   console.log('items', items)
    setItems(
        // Add a new item. It must have a unique key!
        items.concat({

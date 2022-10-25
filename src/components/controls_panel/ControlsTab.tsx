@@ -84,8 +84,6 @@ const ControlsTab = ({
       id: `ctrl-${uuidv4()}`,
       hidden: false,
     } as CtlManifestType;
-    console.log("adding ctrl...", ctrl);
-    console.log(ctrl.type, ctrl.type === "input");
     setOpenCtrlModal(false);
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -123,7 +121,6 @@ const ControlsTab = ({
   };
 
   const updateCtrlValue = (val, ctrl) => {
-    console.log("updateCtrlValue:", val, ctrl);
     let manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -137,10 +134,8 @@ const ControlsTab = ({
       value: val,
     });
   };
-  console.log("ctrl manifest: ", ctrlsManifest);
   const attachParam2Ctrl = (param, ctrl) => {
-    console.log("attachParam2Ctrl", param, ctrl);
-
+   
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
@@ -148,11 +143,8 @@ const ControlsTab = ({
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue = param.functionName === 'CONSTANT' ? ctrl.val : (fnParam?.default ? fnParam.default: 0);
-    console.log("attachParam2Ctrl defaultValue:", defaultValue);
     const ctrlData = ctrls && ctrls[param?.id];
-    console.log("attachParam2Ctrl ctrlData:", ctrlData);
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-console.log(' attaching value: ', currentInputValue)
     let manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -305,7 +297,6 @@ console.log(' attaching value: ', currentInputValue)
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });
