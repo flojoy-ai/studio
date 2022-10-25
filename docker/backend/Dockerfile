@@ -1,12 +1,12 @@
 # https://hub.docker.com/r/nikolaik/python-nodejs
-FROM nikolaik/python-nodejs:latest
-WORKDIR /code
 FROM ubuntu
 # ...
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get -y install gcc mono-mcs && \
     rm -rf /var/lib/apt/lists/*
+FROM nikolaik/python-nodejs:latest
+WORKDIR /code
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
