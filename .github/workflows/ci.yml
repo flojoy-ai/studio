@@ -27,15 +27,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install GFortran Linux
-        run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-get update
-          sudo apt-get install -y gcc-${GCC_V} gfortran-${GCC_V}
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_V} 100 \
-          --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_V} \
-          --slave /usr/bingcov gcov /usr/bin/gcov-${GCC_V}
-      - uses: isbang/compose-action@v1.2.0
+      - name: Docker Compose Action
+        uses: isbang/compose-action@v1.3.2
       - name: Npm install
         run: npm install --legacy-peer-deps
       - name: Run test
