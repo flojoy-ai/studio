@@ -1,3 +1,4 @@
+pip==21.3.1
 joyflo-sma
 matplotlib==3.5.2
 networkx==2.8.4
