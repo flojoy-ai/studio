@@ -52,6 +52,9 @@ describe("Run Default App", () => {
   });
 
   it("Should run the app", () => {
+    cy.contains(".App-status", "🐢 awaiting a new job", {
+      timeout: 20000,
+    });
     cy.contains("button", "Play").click().wait(5000);
   });
 

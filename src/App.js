@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import FlowChart from "./components/flow_chart_panel/ReactFlow.tsx";
-import ResultsTab from "./components/results_panel/ResultsTab.tsx";
+import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
 import ControlsTab from "./components/controls_panel/ControlsTab.tsx";
 
 import { ThemeProvider } from "styled-components";
@@ -13,7 +13,7 @@ import STATUS_CODES from "./STATUS_CODES.json";
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
-import Controls from "./components/flow_chart_panel/ControlBar";
+import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
 // import { useSocket } from "./hooks/useSocket";
@@ -43,16 +43,37 @@ const App = () => {
   };
 
   const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(endpoint);
+    const resp = await fetch(`http://localhost:5000${endpoint}`);
     const body = await resp.json();
     if (resp.status !== 200) {
-      throw Error(body.message);
+      return console.log("error in pingBackendApi", body.message);
     }
     return body;
   };
+
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
+
   useEffect(() => {
+    console.log("App component did mount");
+    pingBackend();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const pingBackend = async () => {
+    let success = false;
+    while (!success) {
+      pingBackendAPI("/ping")
+        // eslint-disable-next-line no-loop-func
+        .then(() => {
+          success = true;
+        })
+        .catch((err) => console.log(err));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 5000);
+      });
+    }
+
     pingBackendAPI("/ping")
       .then((res) => {
         if ("msg" in res) {
@@ -60,7 +81,6 @@ const App = () => {
           // set a timer that gets an update from the server every second
           window.setInterval(() => {
             pingBackendAPI("/heartbeat").then((res) => {
-              // console.log('heartbeat', res);
               if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
                 // grab program result from redis
                 setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
@@ -70,8 +90,6 @@ const App = () => {
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
                     setProgramResults(res);
-
-                    console.log("new program results", res);
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {
@@ -79,13 +97,13 @@ const App = () => {
                 setServerStatus(res.msg);
               }
             });
-          }, 100);
+          }, 1000);
         } else {
           setServerStatus(STATUS_CODES["SERVER_OFFLINE"]);
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  };
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -119,45 +137,36 @@ const App = () => {
             <h1 className="App-brand">FLOJOY</h1>
             <button
               onClick={() => setCurrentTab("visual")}
-              className={
-                currentTab === "visual"
-                  ? "btn-noborder active-" + theme
-                  : "btn-noborder"
-              }
+              className={currentTab === "visual" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="script-btn"
             >
               SCRIPT
-              {/* {windowWidth >= 1080 ? "VISUAL PYTHON SCRIPT" : "SCRIPT"} */}
             </button>
             <button
               onClick={() => setCurrentTab("panel")}
-              className={
-                currentTab === "panel"
-                  ? "btn-noborder active-" + theme
-                  : "btn-noborder"
-              }
+              className={currentTab === "panel" ? "active-" + theme : ""}
               style={{
                 ...(windowWidth <= 700 && {
                   minHeight: "55px",
                 }),
+                color: theme === "dark" ? "#fff" : "#000",
               }}
               data-cy="ctrls-btn"
             >
               CTRLS
-              {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </button>
             <button
-              className={
-                currentTab === "debug"
-                  ? "btn-noborder active-" + theme
-                  : "btn-noborder"
-              }
+              className={currentTab === "debug" ? "active-" + theme : ""}
               onClick={() => setCurrentTab("debug")}
+              style={{
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
               data-cy="debug-btn"
             >
               DEBUG

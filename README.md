@@ -36,3 +36,8 @@ Currently there are four services.
 To follow realtime log of any of them, open up a terminal and run:
 `docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
 You can also use the docker-desktop to control and check logs for the services.
+
+
+#### Using electronjs locally
+Run `npm run electron-dev` to start electron app locally. It will start the docker containers to run the necessary backend parts.
+To package the electron app, run `npm run electron-package`. The `dist` folder will hold the generated artifacts.

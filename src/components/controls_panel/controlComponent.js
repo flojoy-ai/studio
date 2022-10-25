@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Plot from "react-plotly.js";
+import { useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -9,7 +8,7 @@ import { useFlowChartState } from "../../hooks/useFlowChartState";
 import styledPlotLayout from "./../defaultPlotLayout";
 import customDropdownStyles from "./customDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
 import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
@@ -37,11 +36,9 @@ const ControlComponent = ({
   const updateCtrlValueFromKnob = useCallback(
     (value) => {
       setKnobValue(value);
-
       if (!ctrlObj?.param?.nodeId) {
         return;
       }
-
       if (debouncedTimerForKnobId) {
         clearTimeout(debouncedTimerForKnobId);
       }
@@ -136,7 +133,7 @@ const ControlComponent = ({
             if ("data" in nd.result) {
               plotData = nd.result.data;
             } else {
-              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }];
+              plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
             }
           }
         }
@@ -169,16 +166,14 @@ const ControlComponent = ({
       : ctrls
       ? ctrls[ctrlObj?.param?.id]?.value
       : defaultValue;
-  // console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
   const makeLayoutStatic = () => {
-    // alert('making static')
     if (isEditMode) {
       setGridLayout((prev) => {
         prev[prev.findIndex((layout) => layout.i === ctrlObj.id)].static = true;
       });
     }
   };
-  
+
   return (
     <div
       style={{
@@ -250,7 +245,10 @@ const ControlComponent = ({
           }}
         >
           <PlotlyComponent
-            id={options?.find((option) => option.value === ctrlObj?.param)?.value || 'default'}
+            id={
+              options?.find((option) => option.value === ctrlObj?.param)
+                ?.value || "default"
+            }
             data={plotData}
             layout={styledLayout}
             autosize={true}
