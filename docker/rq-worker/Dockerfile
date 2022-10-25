@@ -18,10 +18,7 @@ RUN useradd --no-log-init --home-dir /home/nonprivuser --create-home --shell /bi
 USER nonprivuser
 WORKDIR /home/nonprivuser
 
-# Git/Curl -- don't disable recommends here or you won't have Certification Authority certificates and will fail
-RUN sudo apt-get install -yq git curl > /dev/null
-RUN sudo apt-get install --no-install-recommends -yq make gfortran libcoarrays-dev > /dev/null && \
-  sudo apt-get clean -q
+RUN sudo apt-get install --no-install-recommends -yq make gfortran 
 FROM nikolaik/python-nodejs:latest
 
 COPY requirements.txt requirements.txt
