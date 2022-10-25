@@ -11,12 +11,19 @@ on:
 
 jobs:
   buildNode:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        gcc_v: [9] # Version of GFortran we want to use.
+        rust: [stable]
+    env:
+      FC: gfortran-${{ matrix.gcc_v }}
+      GCC_V: ${{ matrix.gcc_v }}
 
     steps:
       - uses: actions/checkout@v3
-        env:
-          FC: gfortran-${{ matrix.gcc_v }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
