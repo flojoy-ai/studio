@@ -20,7 +20,7 @@ WORKDIR /home/nonprivuser
 
 # Git/Curl -- don't disable recommends here or you won't have Certification Authority certificates and will fail
 RUN sudo apt-get install -yq git curl > /dev/null
-RUN sudo apt-get install --no-install-recommends -yq make gfortran libcoarrays-dev libopenmpi-dev open-coarrays-bin > /dev/null && \
+RUN sudo apt-get install --no-install-recommends -yq make gfortran libcoarrays-dev > /dev/null && \
   sudo apt-get clean -q
 FROM nikolaik/python-nodejs:latest
 
