@@ -2,8 +2,8 @@
 FROM ubuntu
 # ...
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && \
-    apt-get install gfortran
+RUN sudo apt-get install --no-install-recommends -yq make gfortran libcoarrays-dev libopenmpi-dev open-coarrays-bin > /dev/null && \
+  sudo apt-get clean -q
 FROM nikolaik/python-nodejs:latest
 WORKDIR /code
 COPY requirements.txt requirements.txt
