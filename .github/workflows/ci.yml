@@ -29,9 +29,10 @@ jobs:
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_V} 100 \
           --slave /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_V} \
           --slave /usr/bingcov gcov /usr/bin/gcov-${GCC_V}
+      - name: Install GFortran macOS
+        if: contains( matrix.os, 'macos')
+        run: brew install gcc@${GCC_V} || brew upgrade gcc@${GCC_V} || true
       - uses: isbang/compose-action@v1.2.0
-      
-      
       - name: Npm install
         run: npm install --legacy-peer-deps
       - name: Run test
