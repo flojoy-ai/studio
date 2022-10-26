@@ -20,6 +20,7 @@ def ping(request):
     }
     return Response(response, status=200)
 
+lastSysStatus = ""
 
 @api_view(['GET'])
 def heartbeat(request):
@@ -30,7 +31,10 @@ def heartbeat(request):
         'clock': ts
     }
     
-    print('sysStatus', sysStatus)
+    global lastSysStatus
+    if sysStatus != lastSysStatus:
+        print('sysStatus', sysStatus)
+    lastSysStatus = sysStatus
 
     if sysStatus == None:
         response['msg'] = ts
