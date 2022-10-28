@@ -31,6 +31,9 @@ ln STATUS_CODES.yml src
 echo 'jsonify python functions and write to JS-readable directory'
 python jsonify_funk.py
 
+echo 'generate manifest for python nodes to frontend'
+python3 generate_manifest.py
+
 if [ $initRedis ]
 then
     echo 'shutting down any existing redis server and clearing redis memory...'
@@ -52,7 +55,16 @@ then
    venvCmd="source ${venv}/bin/activate &&"
    echo "venv cmd: ${venvCmd}"
 fi
+CWD="$PWD"
 
+FILE=$HOME/.flojoy/flojoy.yaml
+if test -f "$FILE"; then
+    echo "$FILE exists."
+else
+   mkdir $HOME/.flojoy && touch $HOME/.flojoy/flojoy.yaml
+   echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
+   echo "directory ~/.flojoy/flojoy.yaml does not exists. Creating new directory with yaml file."
+fi
 
 echo 'starting redis worker...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"

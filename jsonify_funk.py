@@ -19,7 +19,7 @@ for dir in dirs:
             function_dict[dir.rstrip('S')][pf] = f.read()
 
 s = json.dumps(function_dict)
-result = open('src/components/flow_chart_panel/pythonFunctions.json', 'w')
+result = open('src/feature/flow_chart_panel/pythonFunctions.json', 'w')
 result.write(s)
 result.close()
 

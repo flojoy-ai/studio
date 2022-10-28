@@ -2,7 +2,7 @@ describe('user workflow', ()=> {
     beforeEach(()=>{
         cy.visit('/')
     });
-   
+
     it('Flow chart should be loaded.', () => {
         cy.get('.react-flow');
       })
@@ -20,5 +20,5 @@ describe('user workflow', ()=> {
         cy.get('.ctrl-input')
     })
 
-   
+
 })

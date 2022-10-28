@@ -13,9 +13,9 @@ export interface CtlManifestType {
   id: string;
   param?: any;
   val?: any;
-  hidden?:boolean;
+  hidden?: boolean;
   controlGroup?: string;
-  label?:string;
+  label?: string;
   minHeight: number;
   minWidth: number;
 }
@@ -29,8 +29,10 @@ export interface RfSpatialInfoType {
 const initialElements: Elements = NOISY_SINE.elements;
 const initialManifests: CtlManifestType[] = CTRLS_MANIFEST;
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | 'dark'>('dark');
-const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(undefined);
+const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
+const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
+  undefined
+);
 const elementsAtom = atomWithImmer<Elements>(initialElements);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
@@ -47,20 +49,23 @@ export function useFlowChartState() {
   const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom)
+  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
 
-  const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
-    if(!flow){
+  const loadFlowExportObject = useCallback(
+    (flow: FlowExportObject) => {
+      if (!flow) {
         return;
-    }
-    setElements(flow.elements || []);
-    setRfSpatialInfo({
+      }
+      setElements(flow.elements || []);
+      setRfSpatialInfo({
         x: flow.position[0] || 0,
         y: flow.position[1] || 0,
         zoom: flow.zoom || 0,
-    });
-  }, [setElements, setRfSpatialInfo])
+      });
+    },
+    [setElements, setRfSpatialInfo]
+  );
 
   const [openFileSelector, { filesContent }] = useFilePicker({
     readAs: "Text",
@@ -72,10 +77,9 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      console.log('parsedFileContent:', parsedFileContent);
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
-      setGridLayout(parsedFileContent.gridLayout)
+      setGridLayout(parsedFileContent.gridLayout);
       loadFlowExportObject(flow);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,7 +90,7 @@ export function useFlowChartState() {
       const fileContent = {
         rfInstance,
         ctrlsManifest,
-        gridLayout
+        gridLayout,
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
@@ -103,8 +107,7 @@ export function useFlowChartState() {
     inputData: any
   ) => {
     setElements(element=> {
-      console.log('param id in set element: ', inputData)
-    const node = element.find((e) => e.id === nodeId);
+     const node = element.find((e) => e.id === nodeId);
         if (node) {
       node.data.ctrls[paramId] = inputData;
       if(node.data.func === 'CONSTANT'){
@@ -112,13 +115,9 @@ export function useFlowChartState() {
       }
       // node.data.label = inputData.value
     }
-    console.log(' node after updating element: ', JSON.stringify(node))
     });
   };
-  const removeCtrlInputDataForNode = (
-    nodeId: string,
-    paramId: string,
-  ) => {
+  const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {
       const node = elements.find((e) => e.id === nodeId);
       if (node) {
@@ -127,14 +126,14 @@ export function useFlowChartState() {
       }
     });
   };
-  useEffect(()=>{
-    setRfInstance(prev=>{
-      if(prev){
-        prev.elements = elements
+  useEffect(() => {
+    setRfInstance((prev) => {
+      if (prev) {
+        prev.elements = elements;
       }
-    })
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[elements])
+  }, [elements]);
   return {
     rfInstance,
     setRfInstance,
@@ -155,6 +154,6 @@ export function useFlowChartState() {
     uiTheme,
     setUiTheme,
     showLogs,
-    setShowLogs
+    setShowLogs,
   };
 }

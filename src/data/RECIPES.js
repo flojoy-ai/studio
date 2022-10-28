@@ -10,7 +10,7 @@ export const NOISY_SINE = {
           SINE_SINE_FREQUENCY: {
             functionName: "SINE",
             param: "frequency",
-            value: 3,
+            value: 13,
           },
           SINE_SINE_AMPLITUDE: {
             functionName: "SINE",
@@ -120,7 +120,7 @@ export const NOISY_SINE = {
           LINSPACE_LINSPACE_STEP: {
             functionName: "LINSPACE",
             param: "step",
-            value: 3,
+            value: 1000,
           },
         },
       },
@@ -140,7 +140,7 @@ export const NOISY_SINE = {
           "CONSTANT_2.0_CONSTANT": {
             functionName: "CONSTANT",
             param: "constant",
-            value: 8,
+            value: 2,
           },
           CONSTANT_8_CONSTANT: {
             functionName: "CONSTANT",
@@ -359,7 +359,7 @@ export const CTRLS_MANIFEST = [
       nodeId: "LINSPACE-userGeneratedNode_1646432683694",
       inputId: "ctrl-553646f8-9986-448b-b81a-8cdf10cc875f",
     },
-    val: 3,
+    val: 1000,
   },
   {
     type: "input",

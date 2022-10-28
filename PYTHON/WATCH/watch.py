@@ -1,14 +1,11 @@
 import os
 import json
-import queue
 import yaml
 import time
-import networkx as nx
-import numpy as np
-from plotly import plot
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+import traceback
 
 import warnings
 import matplotlib.cbook
@@ -19,8 +16,9 @@ import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
+from joyflo import reactflow_to_networkx
+
 # sys.path.append('../FUNCTIONS/')
-from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -42,79 +40,20 @@ q = Queue('flojoy', connection=r)
 
 # Load React flow chart object from JSON file
 
-# print(os.getcwd())
-
 f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
 
 # Replicate the React Flow chart in Python's networkx
 
-DG = nx.DiGraph()
+convert_reactflow_to_networkx = reactflow_to_networkx(elems) 
 
-# Add nodes to networkx directed graph
+# get topological sorting from reactflow_to_networx function imported from flojoy package
 
-for i in range(len(elems)):
-    el = elems[i]
-    if 'source' not in el:
-        data = el['data']
-        ctrls = data['ctrls'] if 'ctrls' in data else {}
-        DG.add_node(i+1, pos=(el['position']['x'], el['position']['y']), id=el['id'], ctrls=ctrls)
-        elems[i]['index'] = i+1
-        elems[i]['label'] = el['id'].split('-')[0]
+topological_sorting = convert_reactflow_to_networkx['topological_sort']
 
-pos = nx.get_node_attributes(DG,'pos')
-
-# Add edges to networkx directed graph
-
-def get_tuple(edge):
-    e = [-1, -1]
-    src_id = edge['source']
-    tgt_id = edge['target']
-    # iterate through all nodes looking for matching edge
-    for el in elems:
-        if 'id' in el:
-            if el['id'] == src_id:
-                e[0] = el['index']
-            elif el['id'] == tgt_id:
-                e[1] = el['index']
-    return tuple(e)
-
-for i in range(len(elems)):
-    el = elems[i]
-    if 'source' in el:
-        # element is an edge
-        e = get_tuple(el)
-        DG.add_edge(*e)
-
-# Add labels (commands) to networkx nodes
-
-labels = {}
-
-for el in elems:
-    # if element is not a node
-    if 'source' not in el:
-        labels[el['index']] = el['data']['func']
-                
-nx.set_node_attributes(DG, labels, 'cmd')
-nx.draw(DG, pos, with_labels=True, labels = labels)
-
-# Add labels and data to each node object
-
-def get_node_data_by_id():
-    nodes_by_id = dict()
-    for n, nd in DG.nodes().items():
-        if n is not None:
-            nodes_by_id[n] = nd
-    return nodes_by_id
-
-# Traverse tree in reverse topological sort 
-# and add jobs to Redis queue
-
-topological_sorting = nx.topological_sort(DG)
-nodes_by_id = get_node_data_by_id()
-
-# print(nodes_by_id)
+nodes_by_id = convert_reactflow_to_networkx['getNode']()
+DG = convert_reactflow_to_networkx['DG']
 
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
@@ -128,11 +67,8 @@ for n in topological_sorting:
     print('*********************')
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
     print('*********************')
+    # print('globals:', globals())
   
-    # if cmd.replace('.','',1).isdigit():
-    #     # ctrls['constant'] = cmd
-    #     cmd = 'CONSTANT'
-    # print('after assinging to cmd:' , cmd)
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
     job_id = jid(n)
@@ -141,7 +77,7 @@ for n in topological_sorting:
     r.set('SYSTEM_STATUS', s)
    
     if len(list(DG.predecessors(n))) == 0:
-        print ('{0} ({1}) has no predecessors'.format(cmd, n))
+        print('{0} ({1}) has no predecessors'.format(cmd, n))
         q.enqueue(func, 
             retry=Retry(max=100), # TODO: have to understand why the SINE node is failing for few times then succeeds
             job_timeout='3m',
@@ -149,6 +85,7 @@ for n in topological_sorting:
             job_id = job_id, 
             kwargs={'ctrls': ctrls},
             result_ttl=500)
+        print('ENQUEUING...', cmd, job_id, ctrls)
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
@@ -160,24 +97,29 @@ for n in topological_sorting:
             retry=Retry(max=100),
             job_timeout='3m',
             on_failure=report_failure,
-            job_id = job_id,
-            kwargs={'ctrls': ctrls, 'previous_job_ids': previous_job_ids},
-            depends_on = previous_job_ids,
+            job_id=job_id,
+            kwargs={'ctrls': ctrls,'previous_job_ids':previous_job_ids,},
+            depends_on=previous_job_ids,
             result_ttl=500)
         print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
 
 # collect node results
 all_node_results = []
-topological_sorting = nx.topological_sort(DG)
+topological_sorting = reactflow_to_networkx(elems)['topological_sort']
 
 print('\n\n')
 
 is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
-    nd = get_node_data_by_id()[n]
-    job = Job.fetch(job_id, connection=r)
+    nd = nodes_by_id[n]
+    # TODO have to investigate if and why this fails sometime
+    # best is to remove this try catch, so we will have to come back to it soon
+    try:
+        job = Job.fetch(job_id, connection=r)
+    except Exception:
+        print(traceback.format_exc())
     job_status, redis_payload, attempt_count = None, None, 0
     while True: # or change it to wait for maximum amount of time, then we can declare job timed out
         time.sleep(0.5)
@@ -185,8 +127,10 @@ for n in topological_sorting:
         redis_payload = job.result
         attempt_count += 1
 
-        print('Job status:', nd['cmd'], job_status, job.origin, 'attempt:', attempt_count)
-
+        print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
+        if attempt_count > 9:
+            job.delete()
+            break
         if job_status == 'finished':
             break
         if is_any_node_failed:

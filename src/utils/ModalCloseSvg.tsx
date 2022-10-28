@@ -1,4 +1,3 @@
-
 const ModalCloseSvg = ({style}:{style?:Record<string, any>}) => {
   return (
     <svg

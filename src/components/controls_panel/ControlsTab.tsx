@@ -12,7 +12,7 @@ import {
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
 import AddCtrlModal from "./AddCtrlModal";
@@ -20,13 +20,7 @@ import ModalCloseSvg from "../../utils/ModalCloseSvg";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
-const ControlsTab = ({
-  results,
-  theme,
-  programResults,
-  setOpenCtrlModal,
-  openCtrlModal,
-}) => {
+const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const [openEditModal, setOPenEditModal] = useState(false);
   const [currentInput, setCurrentInput] = useState<
     CtlManifestType & { index: number }
@@ -61,7 +55,7 @@ const ControlsTab = ({
     setOpenCtrlModal(false);
   };
 
-  const saveAndRunFlowChart = useCallback(  () => {
+  const saveAndRunFlowChart = useCallback(() => {
     // save and run the script with debouncing
     if (debouncedTimerId) {
       clearTimeout(debouncedTimerId);
@@ -72,7 +66,6 @@ const ControlsTab = ({
 
     setDebouncedTimerId(timerId);
   }, [debouncedTimerId, rfInstance]);
-  
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -84,8 +77,6 @@ const ControlsTab = ({
       id: `ctrl-${uuidv4()}`,
       hidden: false,
     } as CtlManifestType;
-    console.log("adding ctrl...", ctrl);
-    console.log(ctrl.type, ctrl.type === "input");
     setOpenCtrlModal(false);
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -110,7 +101,7 @@ const ControlsTab = ({
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
-  const rmCtrl = (e, ctrl: any = undefined) => {
+  const rmCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
     const filteredOutputs = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
@@ -122,8 +113,7 @@ const ControlsTab = ({
     }
   };
 
-  const updateCtrlValue = (val, ctrl) => {
-    console.log("updateCtrlValue:", val, ctrl);
+  const updateCtrlValue = (val: any, ctrl: any) => {
     let manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -137,22 +127,21 @@ const ControlsTab = ({
       value: val,
     });
   };
-  console.log("ctrl manifest: ", ctrlsManifest);
   const attachParam2Ctrl = (param, ctrl) => {
-    console.log("attachParam2Ctrl", param, ctrl);
-
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
-    const defaultValue = param.functionName === 'CONSTANT' ? ctrl.val : (fnParam?.default ? fnParam.default: 0);
-    console.log("attachParam2Ctrl defaultValue:", defaultValue);
+    const defaultValue =
+      param.functionName === "CONSTANT"
+        ? ctrl.val
+        : fnParam?.default
+        ? fnParam.default
+        : 0;
     const ctrlData = ctrls && ctrls[param?.id];
-    console.log("attachParam2Ctrl ctrlData:", ctrlData);
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-console.log(' attaching value: ', currentInputValue)
     let manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -164,12 +153,12 @@ console.log(' attaching value: ', currentInputValue)
   };
 
   useEffect(() => {
-    if(rfInstance?.elements.length === 0){
-      setCtrlsManifest([])
+    if (rfInstance?.elements.length === 0) {
+      setCtrlsManifest([]);
     } else {
       saveAndRunFlowChart();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfInstance]);
 
   return (
@@ -263,11 +252,11 @@ console.log(' attaching value: ', currentInputValue)
       )}
 
       <AddCtrlModal
-      isOpen={openCtrlModal}
-      afterOpenModal={afterOpenModal}
-      closeModal={closeModal}
-      addCtrl={addCtrl}
-      theme={theme}
+        isOpen={openCtrlModal}
+        afterOpenModal={afterOpenModal}
+        closeModal={closeModal}
+        addCtrl={addCtrl}
+        theme={theme}
       />
       <Modal
         isOpen={openEditModal}
@@ -277,14 +266,14 @@ console.log(' attaching value: ', currentInputValue)
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-       <button onClick={() => setOPenEditModal(false)} className="close-modal">
-        <ModalCloseSvg
-          style={{
-            height: 23,
-            width: 23,
-          }}
-        />
-      </button>
+        <button onClick={() => setOPenEditModal(false)} className="close-modal">
+          <ModalCloseSvg
+            style={{
+              height: 23,
+              width: 23,
+            }}
+          />
+        </button>
         <div>
           <p>Ctrl properties</p>
           <div
@@ -305,7 +294,6 @@ console.log(' attaching value: ', currentInputValue)
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });

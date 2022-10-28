@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Plot from "react-plotly.js";
+import { useCallback, useEffect, useState } from "react";
 import Select from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -9,9 +8,10 @@ import { useFlowChartState } from "../../hooks/useFlowChartState";
 import styledPlotLayout from "./../defaultPlotLayout";
 import customDropdownStyles from "./customDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "./../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
+import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -36,11 +36,9 @@ const ControlComponent = ({
   const updateCtrlValueFromKnob = useCallback(
     (value) => {
       setKnobValue(value);
-
       if (!ctrlObj?.param?.nodeId) {
         return;
       }
-
       if (debouncedTimerForKnobId) {
         clearTimeout(debouncedTimerForKnobId);
       }
@@ -102,7 +100,6 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if ("source" in node === false) {
@@ -118,7 +115,6 @@ const ControlComponent = ({
       });
     }
   }
-  console.log("options in ctrcomponent:", options);
   let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd = {};
 
@@ -128,18 +124,16 @@ const ControlComponent = ({
     if (nodeIdToPlot) {
       if (results && "io" in results) {
         const runResults = JSON.parse(results.io).reverse();
-        console.log(" runresult persed reverse: ", runResults);
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];
-        console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
           if (nd.result) {
             if ("data" in nd.result) {
               plotData = nd.result.data;
             } else {
-              plotData = [{ x: nd.result["x0"], y: nd.result["y0"] }];
+              plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
             }
           }
         }
@@ -172,9 +166,7 @@ const ControlComponent = ({
       : ctrls
       ? ctrls[ctrlObj?.param?.id]?.value
       : defaultValue;
-  // console.log(' currentvalue is in ctrlcomponent:', ctrlObj, ctrlObj?.val, defaultValue, )
   const makeLayoutStatic = () => {
-    // alert('making static')
     if (isEditMode) {
       setGridLayout((prev) => {
         prev[prev.findIndex((layout) => layout.i === ctrlObj.id)].static = true;
@@ -197,7 +189,6 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              console.log("value in select:", val, options);
               attachParam2Ctrl(val.value, ctrlObj);
             }}
             options={options}
@@ -253,10 +244,15 @@ const ControlComponent = ({
             paddingBottom: "10px",
           }}
         >
-          <Plot
+          <PlotlyComponent
+            id={
+              options?.find((option) => option.value === ctrlObj?.param)
+                ?.value || "default"
+            }
             data={plotData}
             layout={styledLayout}
             autosize={true}
+            useResizeHandler
             style={{ width: "100%", height: "100%" }}
           />
         </div>
