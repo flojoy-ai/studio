@@ -11,7 +11,7 @@ export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: string;
+  param?: any;
   val?: any;
   hidden?: boolean;
   controlGroup?: string;

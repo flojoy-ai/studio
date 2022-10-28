@@ -1,7 +1,7 @@
 import { FC } from "react";
 import {
   EdgeProps,
-  getSmoothStepPath,
+  getBezierPath,
   getMarkerEnd,
   ArrowHeadType,
 } from "react-flow-renderer";
@@ -15,7 +15,7 @@ const CustomEdge: FC<EdgeProps> = ({
   sourcePosition,
   targetPosition,
 }) => {
-  const edgePath = getSmoothStepPath({
+  const edgePath = getBezierPath({
     sourceX,
     sourceY,
     sourcePosition,
