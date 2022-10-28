@@ -121,6 +121,7 @@ const FlowChart = ({
 
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
+    console.log(" loaded rfInstance: ", rfIns.toObject());
     rfIns.fitView();
     const flowSize = 1107;
     const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
@@ -131,7 +132,7 @@ const FlowChart = ({
     });
     setRfInstance(rfIns.toObject());
   };
-
+  console.log(" rfInstance: ", rfInstance);
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="react-flow">

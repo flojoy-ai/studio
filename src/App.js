@@ -90,6 +90,7 @@ const App = () => {
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
                     setProgramResults(res);
+                    console.log('program result: ', JSON.parse(res.io).reverse())
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {

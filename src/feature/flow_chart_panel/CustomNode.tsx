@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import Scatter3D from "./nodes/3d-scatter";
@@ -9,12 +9,26 @@ import LineChart from "./nodes/line-chart";
 import Scatter from "./nodes/Scatter";
 import { AddBGTemplate, AddSvg, MultiplySvg } from "./svgs/add-multiply-svg";
 import { BGTemplate } from "./svgs/histo-scatter-svg";
-
+interface CustomNodeProps {
+  data: {
+    label: string;
+    func: string;
+    type: string;
+    ctrls: {
+      [key: string]: {
+        functionName: string;
+        param: string;
+        value: number;
+      };
+    };
+    selects?: any;
+  };
+}
 const getNodeStyle = (
-  data: any,
+  data: CustomNodeProps["data"],
   theme: "light" | "dark"
 ): React.CSSProperties | undefined => {
-  if (data.label === "LINSPACE") {
+  if (data.func === "LINSPACE") {
     return {
       // background: '#9CA8B3',
       padding: 10,
@@ -22,7 +36,8 @@ const getNodeStyle = (
       width: "192px",
       boxShadow: "0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)",
       fontWeight: 600,
-      borderRadius: "65px",
+      // borderRadius: "65px",
+      borderRadius: "6px",
       backgroundColor:
         theme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
       border:
@@ -31,11 +46,16 @@ const getNodeStyle = (
           : "1px solid #99F5FF",
       color: theme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       fontSize: "17px",
     };
-  } else {
+  } else if (
+    data.func === "SINE" ||
+    data.func === "RAND" ||
+    data.func === "CONSTANT"
+  ) {
     return {
       height: "115px",
       width: "115px",
@@ -47,7 +67,15 @@ const getNodeStyle = (
       backgroundColor:
         theme === "light" ? "rgba(46, 131, 255, 0.2)" : "rgb(123 97 255 / 16%)",
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
+      alignItems: "center",
+      fontSize: "17px",
+      color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+    };
+  } else {
+    return {
+      display: "flex",
       alignItems: "center",
       fontSize: "17px",
       color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
@@ -55,22 +83,50 @@ const getNodeStyle = (
   }
 };
 
-const CustomNode = ({ data }) => {
+const CustomNode = ({ data }: CustomNodeProps) => {
   const { uiTheme } = useFlowChartState();
+  const params = Object.values(data.ctrls);
+  return (
+    <div
+      style={{
+        position: "relative",
+        ...getNodeStyle(data, uiTheme),
+        height: "fit-content",
+        minHeight: 115,
+        ...(params.length > 0 && { paddingBottom: "8px" }),
+      }}
+    >
+      <NodeComponent data={data} uiTheme={uiTheme} params={params} />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: params.length > 0 ? (params.length + 1) * 30 : "fit-content",
+        }}
+      >
+        <HandleComponent data={data} params={params} />
+      </div>
+    </div>
+  );
+};
+
+export default CustomNode;
+
+const NodeComponent = ({
+  data,
+  uiTheme,
+  params,
+}: CustomNodeProps & {
+  uiTheme: any;
+  params: {
+    functionName: string;
+    param: string;
+    value: number;
+  }[];
+}) => {
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
-      <div style={{ position: "relative" }}>
-        <Handle
-          type="target"
-          position={Position.Left}
-          style={{ borderRadius: 0 }}
-        />
-        <Handle
-          type="source"
-          position={Position.Right}
-          style={{ borderRadius: 0 }}
-        />
-
+      <Fragment>
         <AddBGTemplate />
         {data.func === "MULTIPLY" && (
           <MultiplySvg
@@ -94,28 +150,12 @@ const CustomNode = ({ data }) => {
             }}
           />
         )}
-      </div>
+      </Fragment>
     );
   }
   if (data.type === "VISOR") {
     return (
-      <div
-        style={{
-          position: "relative",
-          // height:119,
-          width: "fit-content",
-        }}
-      >
-        <Handle
-          type="target"
-          position={Position.Left}
-          style={{ borderRadius: 0 }}
-        />
-        <Handle
-          type="source"
-          position={Position.Right}
-          style={{ borderRadius: 0 }}
-        />
+      <Fragment>
         {data.func === "SCATTER" && <Scatter theme={uiTheme} />}
         {data.func === "HISTOGRAM" && <Histogram theme={uiTheme} />}
         {data.func === "LINE" && <LineChart theme={uiTheme} />}
@@ -123,24 +163,90 @@ const CustomNode = ({ data }) => {
         {data.func === "SCATTER3D" && <Scatter3D theme={uiTheme} />}
         {data.func === "BAR" && <BarChart theme={uiTheme} />}
         <BGTemplate theme={uiTheme} />
-      </div>
+      </Fragment>
     );
   }
   return (
-    <div style={getNodeStyle(data, uiTheme)}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        style={{ borderRadius: 0 }}
-      />
-      <Handle
-        type="source"
-        position={Position.Right}
-        style={{ borderRadius: 0 }}
-      />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        padding: "5px",
+        width: "100%",
+      }}
+    >
       <div>{data.label}</div>
     </div>
   );
 };
 
-export default CustomNode;
+const HandleComponent = ({
+  data,
+  params,
+}: CustomNodeProps & {
+  params: {
+    functionName: string;
+    param: string;
+    value: number;
+  }[];
+}) => {
+  return (
+    <Fragment>
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ borderRadius: 0, height: 8, width: 8 }}
+      />
+
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{
+          borderRadius: 0,
+          height: 8,
+          width: 8,
+          ...(params.length > 0 && { top: 15 }),
+        }}
+        id={data.func}
+      />
+
+      {params.length > 0 &&
+        params.map((param, i) => (
+          <Handle
+            key={param.param}
+            type="target"
+            position={Position.Left}
+            style={{
+              gap: "5px",
+              borderRadius: 0,
+              top: 30 * (i + 1) + 40,
+              minHeight: 10,
+              display: "flex",
+              alignItems: "center",
+              background: "transparent",
+              border: 0,
+            }}
+            id={param.param}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                pointerEvents: "none",
+              }}
+            >
+              <div
+                style={{
+                  height: 8,
+                  width: 8,
+                  backgroundColor: "#000",
+                  border: "1px solid #fff",
+                }}
+              ></div>
+              <div style={{ paddingLeft: "8px" }}>{param.param}</div>
+            </div>
+          </Handle>
+        ))}
+    </Fragment>
+  );
+};

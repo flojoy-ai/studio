@@ -127,7 +127,16 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       value: val,
     });
   };
-  const attachParam2Ctrl = (param, ctrl) => {
+  const attachParam2Ctrl = (
+    param: {
+      id: string;
+      functionName: string;
+      param: string;
+      nodeId: string;
+      inputId: string;
+    },
+    ctrl: any
+  ) => {
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
