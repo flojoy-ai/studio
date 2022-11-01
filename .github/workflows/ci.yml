@@ -29,6 +29,10 @@ jobs:
           node-version: 16
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
+        with:
+         context: .
+         cache-from: type=gha
+         cache-to: type=gha,mode=max
       - name: Npm install
         run: npm install --legacy-peer-deps
       - name: Run test
