@@ -59,7 +59,7 @@ describe("Run Default App", () => {
   });
 
   it("Should wait for finishing", () => {
-    cy.contains(".App-status", "🐢 awaiting a new job", {
+    cy.contains(".App-status", "🔔 new results - check LOGS", {
       timeout: 20000000,
     });
   });

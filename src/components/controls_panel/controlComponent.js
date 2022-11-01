@@ -386,7 +386,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>
@@ -400,7 +400,7 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }}>
+              <div style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -411,7 +411,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>

@@ -6,7 +6,8 @@ const matchPlotlyOutput = (selector:string) => {
         output = win.plotlyOutput;
     }).then(()=>{
         cy.fixture('plotlyDefaultOutput').then(data=>{
-            cy.log(' fixure log : ', output[selector], selector)
+            // cy.log(' fixure log : ', output[selector], selector)
+            // cy.log(' data log : ', data[selector], data)
             expect(data[selector].data[0].x).to.deep.equal(output[selector].data[0].x)
             expect(data[selector].data[0].y).to.deep.equal(output[selector].data[0].y)
        

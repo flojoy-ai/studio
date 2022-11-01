@@ -6,6 +6,7 @@ import PlotlyComponent from "../../components/plotly-wrapper/PlotlyComponent";
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
+  console.log(' data in custom result:' , data)
   return (
     <div style={{ position: "relative" }}>
       {(data.func === "MULTIPLY" || data.func === "ADD") && (
@@ -56,7 +57,7 @@ const CustomResultNode = ({ data }) => {
         <p> `NO Result`</p>
       ) : (
         <PlotlyComponent
-          id={data.func}
+          id={data.id}
           data={
             !data.resultData?.data
               ? [{ x: data.resultData["x"], y: data.resultData["y"] }]
