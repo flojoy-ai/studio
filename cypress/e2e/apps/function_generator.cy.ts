@@ -61,7 +61,8 @@ describe("Run Default App", () => {
   it("Should wait for finishing", () => {
     cy.contains(".App-status", "🔔 new results - check LOGS", {
       timeout: 20000000,
-    });
+    }).wait(5000);
+  
   });
 
   it("Should click through all the charts and check if charts are there", () => {
