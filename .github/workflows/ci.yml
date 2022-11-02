@@ -11,16 +11,7 @@ on:
 
 jobs:
   buildNode:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        gcc_v: [9] # Version of GFortran we want to use.
-        rust: [stable]
-    env:
-      FC: gfortran-${{ matrix.gcc_v }}
-      GCC_V: ${{ matrix.gcc_v }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -29,10 +20,13 @@ jobs:
           node-version: 16
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
         with:
-         context: .
-         cache-from: type=gha
-         cache-to: type=gha,mode=max
+          key: foo-docker-cache-{hash}
+          restore-keys: |
+            foo-docker-cache-
       - name: Npm install
         run: npm install --legacy-peer-deps
       - name: Run test
