@@ -125,7 +125,7 @@ const Controls: FC<ControlsProps> = ({
         }}
         onClick={onSave}
       >
-        <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
+        <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} />Play
       </button>
       <button
         className="save__controls_button"

@@ -36,19 +36,19 @@
 //   }
 // }
 
-import 'cypress-wait-until';
-import 'cypress-file-upload';
-import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+// import 'cypress-wait-until';
+// import 'cypress-file-upload';
+// import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
 
-require('@cypress/snapshot').register();
+// require('@cypress/snapshot').register();
 
-addMatchImageSnapshotCommand({
-    allowSizeMismatch: true,
-    failureThreshold: 0.03, // threshold for entire image
-    failureThresholdType: 'percent', // percent of image or number of pixels
-    customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
-    capture: 'viewport', // capture viewport in screenshot
-  });
+// addMatchImageSnapshotCommand({
+//     allowSizeMismatch: true,
+//     failureThreshold: 0.03, // threshold for entire image
+//     failureThresholdType: 'percent', // percent of image or number of pixels
+//     customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+//     capture: 'viewport', // capture viewport in screenshot
+//   });
 
 Cypress.Commands.add('visitHomepage', ()=>{
     cy.visit('http://localhost:3000/')

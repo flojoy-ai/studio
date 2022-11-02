@@ -1,5 +1,5 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
-import { matchPlotSnapshot } from "../utils/assertions";
+// import { matchPlotSnapshot } from "../utils/assertions";
 import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
 
 const nodes = [
@@ -37,34 +37,23 @@ const ctrlParameters = [
 ];
 
 describe("Run Default App", () => {
-  it("visit page", () => {
-    cy.visit("/");
-  });
-
-  it("Flow chart should be loaded.", () => {
+  it("Visit page", () => {
+    cy.visit("/").wait(1000);
     cy.get(".react-flow");
   });
-  it("Switch to ctrls tab upon clicking on CTRLS.", () => {
-    cy.get("button")
-      .contains("CTRLS")
-      .click()
-      .should("have.class", "active-dark");
-  });
-
   it("Should run the app", () => {
-    // cy.contains(".App-status", "🐢 awaiting a new job", {
-    //   timeout: 20000,
-    // });
-    cy.contains("button", "Play").click().wait(5000);
+    cy.contains("code", "🐢 awaiting a new job", {
+      timeout: 20000,
+    });
+    cy.get("button").contains("Play").click().wait(5000);
   });
 
   it("Should wait for finishing", () => {
     cy.contains(".App-status", "🔔 new results - check LOGS", {
       timeout: 20000000,
     }).wait(5000);
-  
   });
-
+  
   it("Should click through all the charts and check if charts are there", () => {
     cy.get('button').contains('SCRIPT').click();
     nodes.forEach((node) => {
@@ -76,6 +65,12 @@ describe("Run Default App", () => {
       cy.get(".ctrl-close-btn").click({ force: true });
     });
   });
+  // it("Switch to ctrls tab upon clicking on CTRLS.", () => {
+  //   cy.get("button")
+  //     .contains("CTRLS")
+  //     .click()
+  //     .should("have.class", "active-dark");
+  // });
 
   // it('Visit to the DEBUG page and match the complete snapshot', () => {
   //   cy.get('[data-cy=debug-btn]').click();
