@@ -18,8 +18,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Docker Compose Action
-        uses: isbang/compose-action@v1.3.2
+        # Pull the latest image to build, and avoid caching pull-only images.
+        # (docker pull is faster than caching in most cases.)
+      - run: docker-compose pull
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
@@ -27,6 +28,8 @@ jobs:
           key: foo-docker-cache-{hash}
           restore-keys: |
             foo-docker-cache-
+      - name: Docker Compose Action
+        uses: isbang/compose-action@v1.3.2
       - name: Npm install
         run: npm install --legacy-peer-deps
       - name: Run test
