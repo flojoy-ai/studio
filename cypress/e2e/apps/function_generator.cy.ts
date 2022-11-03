@@ -37,29 +37,22 @@ const ctrlParameters = [
 ];
 
 describe("Run Default App", () => {
-  it("Visit page", () => {
+  it("Should load default flow chart", () => {
     cy.visit("/").wait(1000);
     cy.get(".react-flow");
   });
-
   
-  
-  it("Switch to ctrls tab upon clicking on CTRLS.", () => {
+  it("Switch to ctrls tab upon clicking on CTRLS button.", () => {
     cy.get("button")
       .contains("CTRLS")
       .click()
       .should("have.class", "active-dark");
   });
-  it("Should run the app", () => {
-    // cy.contains(".App-status", "🐢 awaiting a new job", {
-    //   timeout: 20000,
-    // });
+  it("Run the app by clicking Play button", () => {
     cy.get("button").contains("Play").click().wait(5000);
   });
-  it('Visit to the DEBUG page and match the complete snapshot', () => {
+  it('Switch to DEBUG tab and wait for finishing', () => {
     cy.get('button').contains('DEBUG').click();
-  });
-  it("Should wait for finishing", () => {
     cy.get("[data-testid=results-flow]", {timeout: 200000});
   });
   it("Should click through all the charts and check if charts are there", () => {
