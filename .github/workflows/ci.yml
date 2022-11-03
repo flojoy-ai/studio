@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["main", "addTest", "sifat/testingcodebase"]
+    branches: ["main", "addTest", "cypress-e2e-testing"]
   pull_request:
-    branches: ["main", "addTest", "sifat/testingcodebase"]
+    branches: ["main", "addTest", "cypress-e2e-testing"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
