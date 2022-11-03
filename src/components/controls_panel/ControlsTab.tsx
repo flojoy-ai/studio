@@ -294,7 +294,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });

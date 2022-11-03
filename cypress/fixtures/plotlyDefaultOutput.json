@@ -1,0 +1,479 @@
+{
+    "default": {
+        "id": "default",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "SINE-userGeneratedNode_1646417316016": {
+        "id": "SINE-userGeneratedNode_1646417316016",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "MULTIPLY-userGeneratedNode_1646417352715": {
+        "id": "MULTIPLY-userGeneratedNode_1646417352715",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "RAND-userGeneratedNode_1646417371398": {
+        "id": "RAND-userGeneratedNode_1646417371398",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "ADD-userGeneratedNode_1646417428589": {
+        "id": "ADD-userGeneratedNode_1646417428589",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "SCATTER-userGeneratedNode_1646417560399": {
+        "id": "SCATTER-userGeneratedNode_1646417560399",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "HISTOGRAM-userGeneratedNode_1646417604301": {
+        "id": "HISTOGRAM-userGeneratedNode_1646417604301",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "LINSPACE-userGeneratedNode_1646432683694": {
+        "id": "LINSPACE-userGeneratedNode_1646432683694",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    },
+    "2.0-userGeneratedNode_1646435677928": {
+        "id": "2.0-userGeneratedNode_1646435677928",
+        "data": [
+            {
+                "x": [
+                    1,
+                    2,
+                    3
+                ],
+                "y": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        ],
+        "layout": {
+            "paper_bgcolor": "rgba(0, 0, 0, 0)",
+            "plot_bgcolor": "#282c34",
+            "autosize": true,
+            "font": {
+                "color": "#fff"
+            },
+            "margin": {
+                "t": 40,
+                "r": 40,
+                "b": 40,
+                "l": 40
+            },
+            "xaxis": {
+                "type": "linear",
+                "range": [
+                    0.8308977035490606,
+                    3.1691022964509394
+                ],
+                "autorange": true
+            },
+            "yaxis": {
+                "type": "linear",
+                "range": [
+                    0.8616290480863592,
+                    3.138370951913641
+                ],
+                "autorange": true
+            }
+        },
+        "autosize": true,
+        "useResizeHandler": true,
+        "style": {
+            "width": "100%",
+            "height": "100%"
+        }
+    }
+}

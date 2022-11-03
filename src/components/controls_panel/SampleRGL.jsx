@@ -71,7 +71,6 @@ export default class SampleRGL extends React.PureComponent {
 
   onAddItem() {
     /*eslint no-console: 0*/
-    console.log("adding", "n" + this.state.newCounter);
     this.setState({
       // Add a new item. It must have a unique key!
       items: this.state.items.concat({

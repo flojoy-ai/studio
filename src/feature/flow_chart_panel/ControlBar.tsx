@@ -66,7 +66,8 @@ const Controls: FC<ControlsProps> = ({
       y: rfSpatialInfo.y,
       zoom: rfSpatialInfo.zoom,
     });
-  }, [rfSpatialInfo, transform]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rfSpatialInfo]);
 
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
@@ -124,7 +125,7 @@ const Controls: FC<ControlsProps> = ({
         }}
         onClick={onSave}
       >
-        <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
+        <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} />Play
       </button>
       <button
         className="save__controls_button"

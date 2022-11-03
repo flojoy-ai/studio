@@ -44,7 +44,6 @@ export default function ControlGrid({
       layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
       cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
       onLayoutChange={(currentLayout, allLayout) => {
-        console.log("currentLayout:", currentLayout);
         setGridLayout(currentLayout);
       }}
     >
@@ -59,6 +58,7 @@ export default function ControlGrid({
               style={{
                 display: "none",
               }}
+              data-cy="ctrl-grid-item"
             />
           );
         }
@@ -75,6 +75,7 @@ export default function ControlGrid({
               }),
               borderRadius: "16px",
             }}
+            data-cy="ctrl-grid-item"
           >
             <Control
               key={ctrl.id}

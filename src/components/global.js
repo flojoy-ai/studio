@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   *,
@@ -14,9 +14,12 @@ export const GlobalStyles = createGlobalStyle`
   a {
     color: ${({ theme }) => theme.text};
   }
+  button {
+    color: ${({ theme }) => theme.text};
+  }
   main {
-    background-color: ${({theme})=> theme.body};
-    color: ${({theme})=> theme.text}
+    background-color: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.text}
   }
   div {
     border-color: ${({ theme }) => theme.text};
@@ -29,16 +32,16 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
   }
   .App-header.dark {
-    background-color: ${({theme})=>theme.body}
+    background-color: ${({ theme }) => theme.body}
   }
   .App-results-panel {
     background: ${({ theme }) => theme.body};
   }
   .App-brand {
-    color: ${({theme})=> theme.text}
+    color: ${({ theme }) => theme.text}
   }
   .App-status {
-    color: ${({theme})=>theme.text}
+    color: ${({ theme }) => theme.text}
   }
   .App-results-panel h1 {
     color: ${({ theme }) => theme.text};
@@ -50,7 +53,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.body};
   }
   .border-color {
-    border-color: ${({theme})=> theme.borderColor}!important;
+    border-color: ${({ theme }) => theme.borderColor}!important;
   }
   .ctrl-outputs-canvas {
     /* Graph paper pattern */

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import Plot from "react-plotly.js";
 import Select from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -12,6 +11,7 @@ import customDropdownStyles from "./customDropdownStyles";
 import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
+import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -100,7 +100,6 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if ("source" in node === false) {
@@ -128,7 +127,6 @@ const ControlComponent = ({
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];
-        console.log("filteredResult:", filteredResult);
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
           if (nd.result) {
@@ -191,7 +189,6 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              console.log("value in select:", val, options);
               attachParam2Ctrl(val.value, ctrlObj);
             }}
             options={options}
@@ -247,10 +244,15 @@ const ControlComponent = ({
             paddingBottom: "10px",
           }}
         >
-          <Plot
+          <PlotlyComponent
+            id={
+              options?.find((option) => option.value === ctrlObj?.param)
+                ?.value || "default"
+            }
             data={plotData}
             layout={styledLayout}
             autosize={true}
+            useResizeHandler
             style={{ width: "100%", height: "100%" }}
           />
         </div>
@@ -263,7 +265,7 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className="ctrl-numeric-input border-color"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              updateCtrlValue(parseInt(e.target.value), ctrlObj);
             }}
             value={currentInputValue || 0}
             style={{ ...(theme === "dark" && { color: "#fff" }) }}
@@ -278,7 +280,7 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className="ctrl-numeric-input"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              updateCtrlValue(parseInt(e.target.value), ctrlObj);
             }}
             disabled
             value={currentInputValue || 0}
@@ -384,7 +386,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>
@@ -398,7 +400,7 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }}>
+              <div style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -409,7 +411,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>
