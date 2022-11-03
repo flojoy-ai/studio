@@ -51,9 +51,9 @@ describe("Run Default App", () => {
       .should("have.class", "active-dark");
   });
   it("Should run the app", () => {
-    cy.contains(".App-status", "🐢 awaiting a new job", {
-      timeout: 20000,
-    });
+    // cy.contains(".App-status", "🐢 awaiting a new job", {
+    //   timeout: 20000,
+    // });
     cy.get("button").contains("Play").click().wait(5000);
   });
   it('Visit to the DEBUG page and match the complete snapshot', () => {
