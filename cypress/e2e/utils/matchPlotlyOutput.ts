@@ -3,9 +3,11 @@
 const matchPlotlyOutput = (selector:string) => {
     let output:any;
     cy.window().then((win: any)=> {
+        cy.log('window obj: ', win.plotlyOutput)
         output = win.plotlyOutput;
     }).then(()=>{
         cy.fixture('plotlyDefaultOutput').then(data=>{
+            cy.log('window log:', output)
             // cy.log(' fixure log : ', output[selector], selector)
             // cy.log(' data log : ', data[selector], data)
             expect(data[selector].data[0].x).to.deep.equal(output[selector].data[0].x)

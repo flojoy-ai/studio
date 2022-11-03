@@ -41,19 +41,27 @@ describe("Run Default App", () => {
     cy.visit("/").wait(1000);
     cy.get(".react-flow");
   });
+
+  
+  
+  it("Switch to ctrls tab upon clicking on CTRLS.", () => {
+    cy.get("button")
+      .contains("CTRLS")
+      .click()
+      .should("have.class", "active-dark");
+  });
   it("Should run the app", () => {
-    cy.contains("code", "🐢 awaiting a new job", {
+    cy.contains(".App-status", "🐢 awaiting a new job", {
       timeout: 20000,
     });
     cy.get("button").contains("Play").click().wait(5000);
   });
-
-  it("Should wait for finishing", () => {
-    cy.contains(".App-status", "🔔 new results - check LOGS", {
-      timeout: 20000000,
-    }).wait(5000);
+  it('Visit to the DEBUG page and match the complete snapshot', () => {
+    cy.get('button').contains('DEBUG').click();
   });
-  
+  it("Should wait for finishing", () => {
+    cy.get("[data-testid=results-flow]", {timeout: 200000});
+  });
   it("Should click through all the charts and check if charts are there", () => {
     cy.get('button').contains('SCRIPT').click();
     nodes.forEach((node) => {
@@ -65,17 +73,9 @@ describe("Run Default App", () => {
       cy.get(".ctrl-close-btn").click({ force: true });
     });
   });
-  // it("Switch to ctrls tab upon clicking on CTRLS.", () => {
-  //   cy.get("button")
-  //     .contains("CTRLS")
-  //     .click()
-  //     .should("have.class", "active-dark");
-  // });
+  
 
-  // it('Visit to the DEBUG page and match the complete snapshot', () => {
-  //   cy.get('[data-cy=debug-btn]').click();
-  //   matchPlotSnapshot(`main`, 'debug');
-  // });
+  
 
   // it('Visit to the CTRL tab, and for different variations of inputs, test different output on all the DEBUG, SCRIPTS, and CTRL tabs.', () => {
   //   ctrlParameters.forEach((singleIter, index) => {
