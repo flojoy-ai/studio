@@ -11,9 +11,9 @@ import { useWindowSize } from "react-use";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
 import CustomResultNode from "./CustomResultNode";
-import { nodePosition } from "./NODE_POSITION";
+import { nodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
-import "./Results.css";
+import "./style/Results.css";
 
 const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
 const nodeTypes: NodeTypesType = { default: CustomResultNode as any };
@@ -64,7 +64,7 @@ const ResultsTab = ({ results, theme }) => {
           nodeTypes={nodeTypes}
           connectionLineType={ConnectionLineType.Step}
           onLoad={onLoad}
-        ></ReactFlow>
+        />
       </div>
     </ReactFlowProviderAny>
   );

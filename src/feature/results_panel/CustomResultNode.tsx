@@ -1,7 +1,7 @@
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import Plot from "react-plotly.js";
-import styledPlotLayout from "../../components/defaultPlotLayout";
+import styledPlotLayout from "../common/defaultPlotLayout";
 
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
@@ -14,11 +14,13 @@ const CustomResultNode = ({ data }) => {
           type="target"
           position={Position.Left}
           style={{ borderRadius: 0 }}
+          data-testid="result-node-handle-left"
         />
         <Handle
           type="source"
           position={Position.Right}
           style={{ borderRadius: 0 }}
+          data-testid="result-node-handle-right"
         />
       </>
 

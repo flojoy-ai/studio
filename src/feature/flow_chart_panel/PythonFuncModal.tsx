@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { COMMANDS, SECTIONS } from "./COMMANDS_MANIFEST";
+import { COMMANDS, SECTIONS } from "./manifest/COMMANDS_MANIFEST";
 const modalStyles: ReactModal.Styles = {
   overlay: { zIndex: 99 },
   content: {
