@@ -7,7 +7,7 @@ const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} data-test-id={'result-flow-chart'}>
       {(data.func === "MULTIPLY" || data.func === "ADD") && (
         <>
           <Handle

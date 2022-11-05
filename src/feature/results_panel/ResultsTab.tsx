@@ -26,7 +26,6 @@ const ResultsTab = ({ results, theme }) => {
     () => ("io" in results ? JSON.parse(results.io).reverse() : []),
     [results]
   );
-
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
@@ -46,6 +45,7 @@ const ResultsTab = ({ results, theme }) => {
           position: nodePosition[elem?.data?.func],
           data: {
             ...elem.data,
+            id: elem.id,
             ...(!("source" in elem) && {
               resultData: nodeResults?.find((result) => result.id === elem.id)
                 ?.result,

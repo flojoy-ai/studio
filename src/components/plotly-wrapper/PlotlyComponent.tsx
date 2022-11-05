@@ -8,11 +8,9 @@ type PlotProps = {
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
   useEffect(() => {
-    return () => {
-      (window as any).plotlyOutput = {
-        ...(window as any).plotlyOutput,
-        [id]: props,
-      };
+    (window as any).plotlyOutput = {
+      ...(window as any).plotlyOutput,
+      [id]: props,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
