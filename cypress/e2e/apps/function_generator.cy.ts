@@ -43,7 +43,7 @@ describe("Run Default App", () => {
   });
   it("Wait for server to be ready to take new job.", () => {
     cy.get(".App-status").contains("🐢 awaiting a new job", {
-      timeout: 10000,
+      timeout: 1000000,
     });
   });
   it("Switch to DEBUG tab", () => {
