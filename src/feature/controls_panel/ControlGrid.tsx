@@ -1,7 +1,7 @@
 import "react-grid-layout/css/styles.css";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import "./Controls.css";
+import "./style/Controls.css";
 import "../../App.css";
 import ControlComponent from "./controlComponent";
 import { useEffect } from "react";

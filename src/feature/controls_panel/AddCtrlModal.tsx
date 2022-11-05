@@ -4,7 +4,7 @@ import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import {
   InputControlsManifest,
   OutputControlsManifest,
-} from "./CONTROLS_MANIFEST";
+} from "./manifest/CONTROLS_MANIFEST";
 const modalStyles: ReactModal.Styles = {
   overlay: { zIndex: 99 },
   content: {

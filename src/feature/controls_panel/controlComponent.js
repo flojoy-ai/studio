@@ -6,11 +6,11 @@ import "rc-slider/assets/index.css";
 import localforage from "localforage";
 
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import styledPlotLayout from "./../defaultPlotLayout";
-import customDropdownStyles from "./customDropdownStyles";
+import styledPlotLayout from "../common/defaultPlotLayout";
+import customDropdownStyles from "./style/customDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
-import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { ControlNames, ControlTypes } from "./manifest/CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
 
 localforage.config({ name: "react-flow", storeName: "flows" });

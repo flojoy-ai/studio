@@ -5,14 +5,14 @@ import ControlComponent from "./controlComponent";
 import clone from "just-clone";
 import localforage from "localforage";
 
-import "./Controls.css";
+import "./style/Controls.css";
 import "../../App.css";
 import {
   CtlManifestType,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
 import AddCtrlModal from "./AddCtrlModal";
