@@ -1,4 +1,4 @@
-import manifests from "../../data/manifests-latest.json";
+import manifests from "../../../data/manifests-latest.json";
 export const COMMANDS = manifests.commands;
 
 export const SECTIONS = [
