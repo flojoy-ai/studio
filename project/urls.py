@@ -6,6 +6,7 @@ from .views import (
     heartbeat,
     io,
     wfc,
+    test_socket,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path('heartbeat', heartbeat),
     path('io', io),
     path('wfc', wfc),
+    path('', test_socket)
 ]

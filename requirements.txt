@@ -1,3 +1,5 @@
+channels==4.0.0
+daphne==4.0.0
 Django==4.1.2
 django-cors-header
 matplotlib==3.5.2

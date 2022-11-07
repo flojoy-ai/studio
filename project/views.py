@@ -6,12 +6,18 @@ from subprocess import Popen, PIPE
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.shortcuts import render
+
 # Connect to our Redis instance
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
                                   port=settings.REDIS_PORT, db=0)
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader);
 
+
+def test_socket(request):
+    return render(request, 'test_socket.html')
+    
 
 @api_view(['GET'])
 def ping(request):
@@ -79,6 +85,7 @@ def wfc(request):
     
     if stdout:
         print(stdout)
+        
     if stderr:
         print(stderr)
     
