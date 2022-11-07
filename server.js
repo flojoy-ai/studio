@@ -67,7 +67,7 @@ app.get("/io", async (req, res) => {
     };
 
     if (typeof r === "string" && r.trim(" ") !== "") {
-      console.log(r.toString().slice(0, 20));
+      console.log('python result: ', r.toString().slice(0, 20));
       heartbeat.msg = STATUS_CODES["RQ_RESULTS_RETURNED"];
       heartbeat.io = r;
     }

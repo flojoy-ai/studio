@@ -5,6 +5,8 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+from rq.worker import Worker
+from rq.command import send_kill_horse_command
 import traceback
 
 import warnings
@@ -43,6 +45,11 @@ q = Queue('flojoy', connection=r)
 f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
+
+# Stop any running rq job
+workers = Worker.all(r)
+for worker in workers:
+    send_kill_horse_command(r, worker.name);
 
 # Replicate the React Flow chart in Python's networkx
 

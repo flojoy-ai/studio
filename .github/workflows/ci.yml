@@ -25,7 +25,7 @@ jobs:
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
         with:
-          key: foo-docker-cache-{hash}
+          key: foo-docker-cache-1-{hash}
           restore-keys: |
             foo-docker-cache-
       - name: Docker Compose Action

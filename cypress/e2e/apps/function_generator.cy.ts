@@ -106,11 +106,19 @@ describe("Run Default App", () => {
       });
     });
   });
+  it("Wait for current job to finish", () => {
+    cy.get(".App-status").contains("🐢 awaiting a new job", {
+      timeout: 10000,
+    });
+  });
   it("Switch to DEBUG tab", () => {
     cy.get("button")
       .contains("DEBUG")
       .click()
       .should("have.class", "active-dark");
+  });
+  it("Run the app by clicking Play button", () => {
+    cy.get("button").contains("Play").click().wait(5000);
   });
   it("Wait for current job to finish", () => {
     cy.get(".App-status").contains("🐢 awaiting a new job", {
