@@ -39,11 +39,11 @@ const ctrlParameters = [
 describe("Run Default App", () => {
   it("Should load default flow chart", () => {
     cy.visit("/").wait(1000);
-    cy.get(".react-flow");
+    cy.get("[data-test-id=flow-chart]", { timeout: 20000 });;
   });
   it("Wait for server to be ready to take new job.", () => {
-    cy.get(".App-status").contains("🐢 awaiting a new job", {
-      timeout: 10000,
+    cy.contains(".App-status", "🐢 awaiting a new job", {
+      timeout: 50000,
     });
   });
   it("Switch to DEBUG tab", () => {

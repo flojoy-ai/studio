@@ -59,7 +59,7 @@ const CustomNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative" }} data-test-id={'flow-chart'}>
         <Handle
           type="target"
           position={Position.Left}
@@ -105,6 +105,7 @@ const CustomNode = ({ data }) => {
           // height:119,
           width: "fit-content",
         }}
+        data-test-id={'flow-chart'}
       >
         <Handle
           type="target"
@@ -127,7 +128,7 @@ const CustomNode = ({ data }) => {
     );
   }
   return (
-    <div style={getNodeStyle(data, uiTheme)}>
+    <div style={getNodeStyle(data, uiTheme)} data-test-id={'flow-chart'}>
       <Handle
         type="target"
         position={Position.Left}

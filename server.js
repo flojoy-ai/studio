@@ -53,6 +53,7 @@ app.get("/heartbeat", async (req, res) => {
       default:
         hb.msg = sysStatus.toString().toLowerCase().replace("_", " ");
     }
+    console.warn('System Status: ', lastSystemStatus)
     res.send(hb);
   });
 });
