@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { NOISY_SINE } from "../data/RECIPES.js";
+import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
@@ -37,6 +37,7 @@ const initialManifests: CtlManifestType[] = [
     minWidth: 2,
   },
 ];
+
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
@@ -61,6 +62,7 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     i: ctrl.id,
   }))
 );
+
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);
@@ -111,6 +113,7 @@ export function useFlowChartState() {
         ctrlsManifest,
         gridLayout,
       };
+      
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
       var blob = new Blob([fileContentJsonString], {
@@ -128,6 +131,7 @@ export function useFlowChartState() {
     setElements((element) => {
       console.log("param id in set element: ", inputData);
       const node = element.find((e) => e.id === nodeId);
+      
       if (node) {
         node.data.ctrls[paramId] = inputData;
         if (node.data.func === "CONSTANT") {
@@ -137,6 +141,7 @@ export function useFlowChartState() {
       console.log(" node after updating element: ", JSON.stringify(node));
     });
   };
+
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {
       const node = elements.find((e) => e.id === nodeId);
@@ -146,6 +151,7 @@ export function useFlowChartState() {
       }
     });
   };
+
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
@@ -153,6 +159,7 @@ export function useFlowChartState() {
       }
     });
   }, [elements, setRfInstance]);
+
   return {
     rfInstance,
     setRfInstance,
