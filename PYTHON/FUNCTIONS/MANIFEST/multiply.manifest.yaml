@@ -1,2 +1,0 @@
-COMMAND:
-  - {name: 'Multiply', key: 'MULTIPLY', type: 'TRANSFORMER'}

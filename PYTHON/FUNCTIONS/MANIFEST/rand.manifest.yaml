@@ -1,2 +1,0 @@
-COMMAND:
-  - { name: "Random (Uniform)", key: "RAND", type: "GENERATOR" }

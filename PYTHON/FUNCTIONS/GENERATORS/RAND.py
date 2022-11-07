@@ -1,14 +1,22 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from .VCTR import fetch_inputs
+import json
 import traceback
 
-@flojoy
-def RAND(v, params):
+def RAND(**kwargs):
     try:
-        x = v[0].x
+        print('~ RAND ~')
+        print(json.dumps(kwargs))
+        print('PID', kwargs['previous_job_ids'])
+
+        previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+
+        xy0 = previous_job_results[0]
+
+        x = xy0['x0']
 
         y = np.random.normal(size=len(x))
     except Exception:
         print(traceback.format_exc())
     
-    return VectorXY(x = x, y = y)
+    return {'x0':x, 'y0':y}

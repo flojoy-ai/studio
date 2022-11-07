@@ -1,12 +1,17 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from .VCTR import fetch_inputs
 
-@flojoy
-def MULTIPLY(v, params):
+def MULTIPLY(**kwargs):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
 
-    x = v[0].x
+    print('MULTIPLY started with kwards', kwargs)
 
-    y = np.multiply(v[0].y, v[1].y)
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
 
-    return VectorXY(x = x, y = y)
+    x = previous_job_results[0]['x0']
+
+    y = np.multiply(
+        previous_job_results[0]['y0'], 
+        previous_job_results[1]['y0'])
+
+    return {'x0':x, 'y0':y}

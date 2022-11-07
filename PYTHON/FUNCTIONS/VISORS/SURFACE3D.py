@@ -1,14 +1,15 @@
-from joyflo import flojoy
+from .VCTR import fetch_inputs
 from .template import init_template
 
-@flojoy
-def SURFACE3D(v, params):
+def SURFACE3D(**kwargs):
+    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
+    payload = previous_job_results[0]
 
     fig = dict(
         data = [dict(
-            x = list(v[0].x),
-            y = list(v[0].y),
-            z = list(v[0].z) if v[0].z is not None else list([0] * len(v[0].y)),
+            x = list(payload['x0']),
+            y = list(payload['y0']),
+            z = list(payload['z0']) if 'z0' in payload else list([0] * len(payload['y0'])),
             type='surface'
         )],
         layout = dict(template = init_template())

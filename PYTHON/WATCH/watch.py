@@ -5,10 +5,10 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
-import traceback
 
 import warnings
 import matplotlib.cbook
+from joyflo import reactflow_to_networkx
 
 warnings.filterwarnings("ignore",category=matplotlib.cbook.mplDeprecation)
 
@@ -16,9 +16,8 @@ import sys
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-from joyflo import reactflow_to_networkx
-
 # sys.path.append('../FUNCTIONS/')
+from FUNCTIONS.VISORS.VCTR import fetch_inputs
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -46,7 +45,7 @@ elems = fc['elements']
 
 # Replicate the React Flow chart in Python's networkx
 
-convert_reactflow_to_networkx = reactflow_to_networkx(elems) 
+convert_reactflow_to_networkx = reactflow_to_networkx(elems)
 
 # get topological sorting from reactflow_to_networx function imported from flojoy package
 
@@ -64,44 +63,42 @@ def jid(n):
 for n in topological_sorting:
     cmd = nodes_by_id[n]['cmd']
     ctrls = nodes_by_id[n]['ctrls']
-    print('*********************')
-    print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
-    print('*********************')
-    # print('globals:', globals())
-  
+    # print('*********************')
+    # print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
+    # print('*********************')
+
     func = getattr(globals()[cmd], cmd)
-    print('func:', func)
+    # print('func:', func)
     job_id = jid(n)
 
     s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
     r.set('SYSTEM_STATUS', s)
-   
+
     if len(list(DG.predecessors(n))) == 0:
-        print('{0} ({1}) has no predecessors'.format(cmd, n))
-        q.enqueue(func, 
+        # print ('{0} ({1}) has no predecessors'.format(cmd, n))
+        q.enqueue(func,
             retry=Retry(max=100), # TODO: have to understand why the SINE node is failing for few times then succeeds
             job_timeout='3m',
             on_failure=report_failure,
-            job_id = job_id, 
+            job_id = job_id,
             kwargs={'ctrls': ctrls},
             result_ttl=500)
-        print('ENQUEUING...', cmd, job_id, ctrls)
     else:
         previous_job_ids = []
         for p in DG.predecessors(n):
             prev_cmd = DG.nodes[p]['cmd']
             prev_job_id = jid(p)
             previous_job_ids.append(prev_job_id)
-            print(prev_cmd, 'is a predecessor to', cmd)            
+            # print(prev_cmd, 'is a predecessor to', cmd)
         q.enqueue(func,
             retry=Retry(max=100),
             job_timeout='3m',
             on_failure=report_failure,
             job_id=job_id,
-            kwargs={'ctrls': ctrls,'previous_job_ids':previous_job_ids,},
             depends_on=previous_job_ids,
+            previous_job_ids=previous_job_ids,
             result_ttl=500)
-        print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
+        # print('ENQUEUING...', cmd, job_id, ctrls, previous_job_ids)
 
 
 # collect node results
@@ -114,12 +111,7 @@ is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = nodes_by_id[n]
-    # TODO have to investigate if and why this fails sometime
-    # best is to remove this try catch, so we will have to come back to it soon
-    try:
-        job = Job.fetch(job_id, connection=r)
-    except Exception:
-        print(traceback.format_exc())
+    job = Job.fetch(job_id, connection=r)
     job_status, redis_payload, attempt_count = None, None, 0
     while True: # or change it to wait for maximum amount of time, then we can declare job timed out
         time.sleep(0.5)
@@ -127,10 +119,8 @@ for n in topological_sorting:
         redis_payload = job.result
         attempt_count += 1
 
-        print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
-        if attempt_count > 9:
-            job.delete()
-            break
+        print('Job status:', nd['cmd'], job_status, job.origin, 'attempt:', attempt_count)
+
         if job_status == 'finished':
             break
         if is_any_node_failed:
@@ -146,7 +136,7 @@ for n in topological_sorting:
             registry.requeue(job_id)
 
     all_node_results.append({'cmd': nd['cmd'], 'id': nd['id'], 'result':redis_payload, 'job_status': job_status})
-    
+
 print('\n\n')
 print('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_COMPLETE'])
 
