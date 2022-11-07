@@ -16,11 +16,9 @@ import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
-// import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
-  // const {serverStatus, programResults} = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [programResults, setProgramResults] = useState({
     msg: STATUS_CODES.NO_RUNS_YET,
