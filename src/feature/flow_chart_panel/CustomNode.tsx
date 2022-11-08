@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
+import { ElementsData } from "./ControlBar";
 import Scatter3D from "./nodes/3d-scatter";
 import Surface3D from "./nodes/3d-surface";
 import BarChart from "./nodes/bar";
@@ -10,19 +11,7 @@ import Scatter from "./nodes/Scatter";
 import { AddBGTemplate, AddSvg, MultiplySvg } from "./svgs/add-multiply-svg";
 import { BGTemplate } from "./svgs/histo-scatter-svg";
 interface CustomNodeProps {
-  data: {
-    label: string;
-    func: string;
-    type: string;
-    ctrls: {
-      [key: string]: {
-        functionName: string;
-        param: string;
-        value: number;
-      };
-    };
-    selects?: any;
-  };
+  data: ElementsData;
 }
 const getNodeStyle = (
   data: CustomNodeProps["data"],
@@ -85,9 +74,9 @@ const getNodeStyle = (
 
 const CustomNode = ({ data }: CustomNodeProps) => {
   const { uiTheme } = useFlowChartState();
-  const params = Object.values(data.ctrls);
+  const params = data.inputs || [];
   return (
-    <div
+    <div 
       style={{
         position: "relative",
         ...getNodeStyle(data, uiTheme),
@@ -104,7 +93,7 @@ const CustomNode = ({ data }: CustomNodeProps) => {
           height: params.length > 0 ? (params.length + 1) * 30 : "fit-content",
         }}
       >
-        <HandleComponent data={data} params={params} />
+        <HandleComponent data={data} inputs={params} />
       </div>
     </div>
   );
@@ -118,11 +107,7 @@ const NodeComponent = ({
   params,
 }: CustomNodeProps & {
   uiTheme: any;
-  params: {
-    functionName: string;
-    param: string;
-    value: number;
-  }[];
+  params: ElementsData['inputs'];
 }) => {
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
@@ -132,7 +117,7 @@ const NodeComponent = ({
           <MultiplySvg
             style={{
               position: "absolute",
-              top: "41px",
+              top: "47px",
               left: "29px",
               height: "19px",
               width: "18px",
@@ -143,7 +128,7 @@ const NodeComponent = ({
           <AddSvg
             style={{
               position: "absolute",
-              top: "41px",
+              top: "47px",
               left: "29px",
               height: "19px",
               width: "18px",
@@ -182,14 +167,11 @@ const NodeComponent = ({
 
 const HandleComponent = ({
   data,
-  params,
+  inputs,
 }: CustomNodeProps & {
-  params: {
-    functionName: string;
-    param: string;
-    value: number;
-  }[];
+  inputs: ElementsData['inputs'];
 }) => {
+  const params = inputs || [];
   return (
     <Fragment>
       <Handle
@@ -213,7 +195,7 @@ const HandleComponent = ({
       {params.length > 0 &&
         params.map((param, i) => (
           <Handle
-            key={param.param}
+            key={param.id}
             type="target"
             position={Position.Left}
             style={{
@@ -226,7 +208,7 @@ const HandleComponent = ({
               background: "transparent",
               border: 0,
             }}
-            id={param.param}
+            id={param.id}
           >
             <div
               style={{
@@ -243,7 +225,7 @@ const HandleComponent = ({
                   border: "1px solid #fff",
                 }}
               ></div>
-              <div style={{ paddingLeft: "8px" }}>{param.param}</div>
+              <div style={{ paddingLeft: "8px" }}>{param.name}</div>
             </div>
           </Handle>
         ))}
