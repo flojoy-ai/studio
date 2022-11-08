@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import { COMMANDS, SECTIONS } from "./COMMANDS_MANIFEST";
-import { NodeOnAddFunc } from "./ControlBar";
+import type { NodeOnAddFunc } from "./ControlBar";
 import { FUNCTION_PARAMETERS } from "./PARAMETERS_MANIFEST";
 const modalStyles: ReactModal.Styles = {
   overlay: { zIndex: 99 },
@@ -110,6 +110,7 @@ const PythonFuncModal = ({
                                 FUNCTION: cmd.key,
                                 type: cmd.type,
                                 params: FUNCTION_PARAMETERS[cmd.key],
+                                inputs: cmd.inputs
                               });
                             }}
                             key={cmd.name}

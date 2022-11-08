@@ -1,5 +1,11 @@
 import manifests from "../../data/manifests-latest.json";
-export const COMMANDS = manifests.commands;
+type Commands = {
+  name: string;
+  type: string;
+  key: string;
+  inputs?: { name: string; id: string }[];
+}[];
+export const COMMANDS: Commands = manifests.commands;
 
 export const SECTIONS = [
   [
