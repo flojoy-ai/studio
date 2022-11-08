@@ -33,6 +33,17 @@ const CustomEdge: FC<EdgeProps> = ({
         d={edgePath}
         markerEnd={markerEnd}
       />
+
+    <text>
+        <textPath
+          href={`#${id}`}
+          style={{ fontSize: '12px' }}
+          startOffset="50%"
+          textAnchor="middle"
+        >
+          "CustomEdge"
+        </textPath>
+      </text>
     </>
   );
 };
