@@ -11,38 +11,38 @@ module.exports = function(app) {
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-  })
-    );
+    })
+  );
 
   app.use(
     '/wfc',
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-  })
-    );
+    })
+  );
 
   app.use(
     '/io',
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-  })
-    );
+    })
+  );
 
   app.use(
     '/ping',
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-  })
-    );
+    })
+  );
 
   app.use(
     '/heartbeat',
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-  })
-    );
+    })
+  );
 };
