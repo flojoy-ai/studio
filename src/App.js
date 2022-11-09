@@ -14,7 +14,7 @@ import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/ControlBar";
-import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
+import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 
 const App = () => {
