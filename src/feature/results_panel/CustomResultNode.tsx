@@ -64,7 +64,7 @@ const CustomResultNode = ({ data }) => {
           layout={
             !data.resultData?.layout
               ? Object.assign({}, { title: `${data.func}` }, styledLayout)
-              : Object.assign({}, data.resultData.layout, styledLayout)
+              : Object.assign({},{ title: `${data.func}` }, data.resultData.layout, styledLayout)
           }
           useResizeHandler
           style={{
