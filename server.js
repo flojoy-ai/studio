@@ -48,7 +48,6 @@ app.get("/heartbeat", async (req, res) => {
         break;
       case STATUS_CODES["RQ_RUN_COMPLETE"]:
         hb.msg = STATUS_CODES["RQ_RUN_COMPLETE"];
-        redis.set("SYSTEM_STATUS", STATUS_CODES["STANDBY"]);
         break;
       default:
         hb.msg = sysStatus.toString().toLowerCase().replace("_", " ");
@@ -71,6 +70,7 @@ app.get("/io", async (req, res) => {
       heartbeat.msg = STATUS_CODES["RQ_RESULTS_RETURNED"];
       heartbeat.io = r;
     }
+    redis.set("SYSTEM_STATUS", STATUS_CODES["STANDBY"]);
 
     return res.send(heartbeat);
   });

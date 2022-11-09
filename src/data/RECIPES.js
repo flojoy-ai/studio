@@ -209,13 +209,13 @@ export const NOISY_SINE = {
       targetHandle: "MULTIPLY",
       id: "reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
     },
-    {
-      source: "RAND-userGeneratedNode_1646417371398",
-      sourceHandle: null,
-      target: "MULTIPLY-userGeneratedNode_1646417352715",
-      targetHandle: "MULTIPLY",
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
-    },
+    // {
+    //   source: "RAND-userGeneratedNode_1646417371398",
+    //   sourceHandle: null,
+    //   target: "MULTIPLY-userGeneratedNode_1646417352715",
+    //   targetHandle: "MULTIPLY",
+    //   id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
+    // },
     {
       source: "RAND-userGeneratedNode_1646417371398",
       sourceHandle: null,
@@ -230,13 +230,13 @@ export const NOISY_SINE = {
       targetHandle: "ADD",
       id: "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589ADD",
     },
-    {
-      source: "2.0-userGeneratedNode_1646435677928",
-      sourceHandle: null,
-      target: "ADD-userGeneratedNode_1646417428589",
-      targetHandle: "ADD",
-      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589ADD",
-    },
+    // {
+    //   source: "2.0-userGeneratedNode_1646435677928",
+    //   sourceHandle: null,
+    //   target: "ADD-userGeneratedNode_1646417428589",
+    //   targetHandle: "ADD",
+    //   id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589ADD",
+    // },
     {
       source: "2.0-userGeneratedNode_1646435677928",
       sourceHandle: null,
