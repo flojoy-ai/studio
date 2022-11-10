@@ -4,11 +4,14 @@ from joyflo import flojoy, VectorXY
 @flojoy
 def ADD(v, params):
     ''' Add 2 input vectors and return the result '''
-    y2 = [0]
+    print('ADD v:', v);
+    a = [0]
+    b = [0]
     
-    x = v[0].x
     if len(v) == 2:
-        y2 = v[1]['y']
+        a = v[0].y
+        b = v[1]['y']
         
-    y = np.add(v[0].y, y2)
-    return VectorXY(x = x, y = y)
+    y = np.add(a, b)
+
+    return VectorXY(x = [a, b], y = y)
