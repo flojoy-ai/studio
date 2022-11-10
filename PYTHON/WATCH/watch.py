@@ -128,8 +128,10 @@ for n in topological_sorting:
         attempt_count += 1
 
         print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
-        if attempt_count > 9:
+        if attempt_count > 100:
+            print('job timed out, deliting it')
             job.delete()
+            job_status = "timeout"
             break
         if job_status == 'finished':
             break
