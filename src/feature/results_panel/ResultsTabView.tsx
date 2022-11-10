@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useMemo } from "react";
 import ReactFlow, {
   ConnectionLineType,
   EdgeTypesType,
@@ -8,26 +8,22 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "react-flow-renderer";
 import { useWindowSize } from "react-use";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
 import CustomResultNode from "./CustomResultNode";
-import { nodePosition } from "./manifest/NODE_POSITION_MANIFEST";
-
+import { useResultsTabState } from "./ResultsTabState";
+import { useResultsTabEffects } from "./ResultsTabEffects";
 import "./style/Results.css";
 
 const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
 const nodeTypes: NodeTypesType = { default: CustomResultNode as any };
 
-const ResultsTab = ({ results, theme }) => {
+const ResultsTab = ({ results }) => {
+  const {
+    resultElements,
+    setResultElements,
+  } = useResultsTabState();
+  
   const { width: windowWidth } = useWindowSize();
-  const { rfInstance } = useFlowChartState();
-  const [resultElements, setResultElements] = useState<any[]>([]);
-  const nodeResults = useMemo(
-    () => ("io" in results ? JSON.parse(results.io).reverse() : []),
-    [results]
-  );
-
-  const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
     const flowSize = 1271;
@@ -38,23 +34,16 @@ const ResultsTab = ({ results, theme }) => {
       zoom: 0.7,
     });
   };
-  useEffect(() => {
-    if (nodeResults && nodeResults.length > 0 && rfInstance) {
-      setResultElements(
-        rfInstance?.elements.map((elem) => ({
-          ...elem,
-          position: nodePosition[elem?.data?.func],
-          data: {
-            ...elem.data,
-            ...(!("source" in elem) && {
-              resultData: nodeResults?.find((result) => result.id === elem.id)
-                ?.result,
-            }),
-          },
-        }))
-      );
-    }
-  }, [nodeResults, rfInstance]);
+
+  const ReactFlowProviderAny: any = ReactFlowProvider;
+
+  const nodeResults = useMemo(
+    () => ("io" in results ? JSON.parse(results.io).reverse() : []),
+    [results]
+  );
+
+  useResultsTabEffects(nodeResults);
+
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="results-flow">
