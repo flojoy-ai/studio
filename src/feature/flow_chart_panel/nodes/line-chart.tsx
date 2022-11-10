@@ -13,7 +13,7 @@ const LineChartIcon = ({ style }: SvgProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_5_233)">
+      <g clipPath="url(#clip0_5_233)">
         <path
           d="M98.767 12.8638L84.2327 22.7416L70.2441 12.4731L56.2556 26.1248L42.267 11.5529L28.2784 41.6368L14.2898 35.718L0.136417 44.7087"
           stroke="#99F5FF"

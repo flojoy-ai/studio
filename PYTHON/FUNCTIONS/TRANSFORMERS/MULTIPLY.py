@@ -5,8 +5,9 @@ from joyflo import flojoy, VectorXY
 def MULTIPLY(v, params):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
 
-    x = v[0].x
+    a = v[0].y
+    b = v[1].y
 
-    y = np.multiply(v[0].y, v[1].y)
+    y = np.multiply(a, b)
 
-    return VectorXY(x = x, y = y)
+    return VectorXY(x = [a, b], y = y)

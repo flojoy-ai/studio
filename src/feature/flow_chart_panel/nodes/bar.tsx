@@ -13,7 +13,7 @@ const BarChartIcon = ({ style }: SvgProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_5_181)">
+      <g clipPath="url(#clip0_5_181)">
         <path d="M10.4212 43.7522H0V58.9191H10.4212V43.7522Z" fill="#99F5FF" />
         <path d="M24.5665 0H14.1453V58.8693H24.5665V0Z" fill="#99F5FF" />
         <path
