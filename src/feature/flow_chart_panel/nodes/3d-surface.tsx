@@ -13,7 +13,7 @@ const Surface3DIcon = ({ style }: SvgProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_5_155)">
+      <g clipPath="url(#clip0_5_155)">
         <path
           opacity="0.64"
           d="M36.0463 13.4356L38.7161 11.4509L76.2222 18.3223L58.8807 32.4693L26.6173 23.9811L36.0463 13.4356Z"

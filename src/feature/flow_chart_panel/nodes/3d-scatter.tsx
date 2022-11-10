@@ -13,7 +13,7 @@ const Scatter3DIcon = ({ style }: { style?: CSSProperties }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_5_36)">
+      <g clipPath="url(#clip0_5_36)">
         <path
           opacity="0.9"
           d="M35.4886 44L0 65.3533H71.4382L101 44H35.4886Z"
