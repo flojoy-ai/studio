@@ -7,7 +7,7 @@ def SINE(v, params):
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
     print(' sine params: ', params)
 
-    x = v[0].x
+    x = v[0].y
 
     waveform = params['waveform']
     A = int(params['amplitude'])
