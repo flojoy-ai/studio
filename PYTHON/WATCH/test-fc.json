@@ -143,7 +143,7 @@
        {
           "id":"2.0-userGeneratedNode_1646435677928",
           "data":{
-             "label":8,
+             "label":"CONSTANT",
              "func":"CONSTANT",
              "type":"GENERATOR",
              "ctrls":{
@@ -166,11 +166,64 @@
           "type":"default"
        },
        {
+         "id":"CONDITIONAL-userGeneratedNode_1646435677929",
+          "data":{
+             "label":"CONDITIONAL",
+             "func":"",
+             "type":"CONDITIONAL",
+             "ctrls":{
+                "CONDITIONAL_OPERATOR":{
+                  "operator" : "IS_GREATER_THAN",
+                   "functionName":"",
+                   "param":"",
+                   "value":null
+                }
+             }
+          },
+          "position":{
+             "x":291,
+             "y":500
+          },
+          "type":"special"
+       },
+       {
+         "source":"LINSPACE-userGeneratedNode_1646432683694",
+          "sourceHandle":null,
+          "target":"SINE-userGeneratedNode_1646417316016",
+          "targetHandle":null,
+          "id":"reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-SINE-userGeneratedNode_1646417316016null",
+          "type":"default"
+       },
+       {
+         "source":"LINSPACE-userGeneratedNode_1646432683694",
+          "sourceHandle":null,
+          "target":"RAND-userGeneratedNode_1646417371398",
+          "targetHandle":null,
+          "id":"reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-RAND-userGeneratedNode_1646417371398null",
+          "type":"default"
+       },
+       {
+         "source":"SINE-userGeneratedNode_1646417316016",
+          "sourceHandle":null,
+          "target":"ADD-userGeneratedNode_1646417428589",
+          "targetHandle":null,
+          "id":"reactflow__edge-SINE-userGeneratedNode_1646417316016null-ADD-userGeneratedNode_1646417428589null",
+          "type":"default"
+       },
+       {
           "source":"SINE-userGeneratedNode_1646417316016",
           "sourceHandle":null,
           "target":"MULTIPLY-userGeneratedNode_1646417352715",
           "targetHandle":null,
           "id":"reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715null",
+          "type":"default"
+       },
+       {
+          "source":"RAND-userGeneratedNode_1646417371398",
+          "sourceHandle":null,
+          "target":"ADD-userGeneratedNode_1646417428589",
+          "targetHandle":null,
+          "id":"reactflow__edge-RAND-userGeneratedNode_1646417371398null-ADD-userGeneratedNode_1646417428589null",
           "type":"default"
        },
        {
@@ -182,60 +235,38 @@
           "type":"default"
        },
        {
+         "source":"ADD-userGeneratedNode_1646417428589",
+         "sourceHandle":null,
+         "target":"CONDITIONAL-userGeneratedNode_1646435677929",
+         "targetHandle":null,
+         "id":"reactflow__edge-RAND-userGeneratedNode_1646417371398null-CONDITIONAL-userGeneratedNode_1646435677929null",
+         "type":"default"
+      },
+       {
           "source":"MULTIPLY-userGeneratedNode_1646417352715",
           "sourceHandle":null,
-          "target":"ADD-userGeneratedNode_1646417428589",
+          "target":"CONDITIONAL-userGeneratedNode_1646435677929",
           "targetHandle":null,
-          "id":"reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589null",
+          "id":"reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-CONDITIONAL-userGeneratedNode_1646435677929null",
           "type":"default"
        },
        {
-          "source":"ADD-userGeneratedNode_1646417428589",
-          "sourceHandle":null,
-          "target":"SCATTER-userGeneratedNode_1646417560399",
-          "targetHandle":null,
-          "id":"reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER-userGeneratedNode_1646417560399null",
-          "type":"default"
-       },
-       {
-          "source":"ADD-userGeneratedNode_1646417428589",
+          "source":"CONDITIONAL-userGeneratedNode_1646435677929",
           "sourceHandle":null,
           "target":"HISTOGRAM-userGeneratedNode_1646417604301",
           "targetHandle":null,
-          "id":"reactflow__edge-ADD-userGeneratedNode_1646417428589null-HISTOGRAM-userGeneratedNode_1646417604301null",
-          "type":"default"
+          "id":"reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-HISTOGRAM-userGeneratedNode_1646417604301null",
+          "type":"special",
+          "label":"true"
        },
        {
-          "source":"LINSPACE-userGeneratedNode_1646432683694",
+          "source":"CONDITIONAL-userGeneratedNode_1646435677929",
           "sourceHandle":null,
-          "target":"SINE-userGeneratedNode_1646417316016",
+          "target":"SCATTER-userGeneratedNode_1646417560399",
           "targetHandle":null,
-          "id":"reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-SINE-userGeneratedNode_1646417316016null",
-          "type":"default"
-       },
-       {
-          "source":"LINSPACE-userGeneratedNode_1646432683694",
-          "sourceHandle":null,
-          "target":"RAND-userGeneratedNode_1646417371398",
-          "targetHandle":null,
-          "id":"reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-RAND-userGeneratedNode_1646417371398null",
-          "type":"default"
-       },
-       {
-          "source":"2.0-userGeneratedNode_1646435677928",
-          "sourceHandle":null,
-          "target":"ADD-userGeneratedNode_1646417428589",
-          "targetHandle":null,
-          "id":"reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589null",
-          "type":"default"
-       },
-       {
-          "source":"LINSPACE-userGeneratedNode_1646432683694",
-          "sourceHandle":null,
-          "target":"2.0-userGeneratedNode_1646435677928",
-          "targetHandle":null,
-          "id":"reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-2.0-userGeneratedNode_1646435677928null",
-          "type":"default"
+          "id":"reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-SCATTER-userGeneratedNode_1646417560399null",
+          "type":"special",
+          "label":"false"
        }
     ],
     "position":[
