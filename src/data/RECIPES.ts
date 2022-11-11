@@ -1,5 +1,3 @@
-const START_POSITION_X = 0;
-const START_POSITION_Y = 105;
 const lin2SineX = 192 + 99;
 const sine2otherY = 42 + 175;
 const sine2multiplyX = 115 + 117;
