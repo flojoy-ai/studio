@@ -7,50 +7,70 @@ const sine2multiplyY = 30;
 const multiply2AddX = 190 + 70;
 const add2ScatterX = 99 + 127;
 
-const nodePosition = {
-  linspace: {
-    x: START_POSITION_X,
-    y: START_POSITION_Y + sine2otherY,
-  },
-  sine: {
-    x: START_POSITION_X + lin2SineX,
-    y: START_POSITION_Y,
-  },
-  rand: {
-    x: START_POSITION_X + lin2SineX,
-    y: START_POSITION_Y + sine2otherY,
-  },
-  2: {
-    x: START_POSITION_X + lin2SineX,
-    y: START_POSITION_Y + sine2otherY + 157,
-  },
-  multiply: {
-    x: START_POSITION_X + lin2SineX + sine2multiplyX,
-    y: START_POSITION_Y + sine2multiplyY,
-  },
-  add: {
-    x: START_POSITION_X + lin2SineX + sine2multiplyX + multiply2AddX,
-    y: START_POSITION_Y + sine2otherY,
-  },
-  scatter: {
+class NodePosition {
+  constructor(private readonly START_POSITION_X:number, private readonly START_POSITION_Y: number){}
+  linspace = {
+    x: this.START_POSITION_X,
+    y: this.START_POSITION_Y + sine2otherY,
+  };
+  sine={
+    x: this.START_POSITION_X + lin2SineX,
+    y: this.START_POSITION_Y,
+  }
+  rand= {
+    x: this.START_POSITION_X + lin2SineX,
+    y: this.START_POSITION_Y + sine2otherY,
+  }
+  2= {
+    x: this.START_POSITION_X + lin2SineX,
+    y: this.START_POSITION_Y + sine2otherY + 157,
+  };
+  multiply= {
+    x: this.START_POSITION_X + lin2SineX + sine2multiplyX,
+    y: this.START_POSITION_Y + sine2multiplyY,
+  }
+  add= {
+    x: this.START_POSITION_X + lin2SineX + sine2multiplyX + multiply2AddX,
+    y: this.START_POSITION_Y + sine2otherY,
+  }
+  scatter= {
     x:
-      START_POSITION_X +
+      this.START_POSITION_X +
       lin2SineX +
       sine2multiplyX +
       multiply2AddX +
       add2ScatterX,
-    y: START_POSITION_Y,
-  },
-  histogram: {
+    y: this.START_POSITION_Y,
+  }
+  line= {
+    x:this.scatter.x,
+    y: this.scatter.y + 162
+  }
+  histogram= {
     x:
-      START_POSITION_X +
+      this.START_POSITION_X +
       lin2SineX +
       sine2multiplyX +
       multiply2AddX +
       add2ScatterX,
-    y: START_POSITION_Y + sine2otherY + sine2otherY - 42,
-  },
-};
+    // y: this.START_POSITION_Y + sine2otherY + sine2otherY - 42,
+    y: this.line.y + 162
+  }
+  surface3d={
+    x:this.scatter.x,
+    y:this.histogram.y + 162
+  }
+  scatter3d={
+    x: this.scatter.x,
+    y: this.surface3d.y + 162
+  }
+  bar = {
+    x: this.scatter.x,
+    y: this.scatter.y - 162
+  }
+}
+
+export const nodePosition =  new NodePosition(0, 105)
 
 export const NOISY_SINE = {
   elements: [
@@ -179,6 +199,47 @@ export const NOISY_SINE = {
       type: "default",
     },
     {
+      id: "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
+      data: {
+        label: "3D Scatter",
+        func: "SCATTER3D",
+        type: "VISOR",
+        ctrls: {},
+        inputs: [],
+      },
+      position: nodePosition.scatter3d,
+    },
+    {
+      id: "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
+      data: {
+        label: "3D Surface",
+        func: "SURFACE3D",
+        type: "VISOR",
+        ctrls: {},
+      },
+      position: nodePosition.surface3d,
+    },
+    {
+      id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      data: {
+        label: "Line",
+        func: "LINE",
+        type: "VISOR",
+        ctrls: {},
+      },
+      position: nodePosition.line,
+    },
+    {
+      id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+      data: {
+        label: "Bar",
+        func: "BAR",
+        type: "VISOR",
+        ctrls: {},
+      },
+      position: nodePosition.bar,
+    },
+    {
       source: "LINSPACE-userGeneratedNode_1646432683694",
       sourceHandle: null,
       target: "SINE-userGeneratedNode_1646417316016",
@@ -258,7 +319,39 @@ export const NOISY_SINE = {
       targetHandle: "HISTOGRAM",
       id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-HISTOGRAM-userGeneratedNode_1646417604301HISTOGRAM",
     },
+
+    {
+      source: "ADD-userGeneratedNode_1646417428589",
+      sourceHandle: null,
+      target: "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
+      targetHandle: "SCATTER3D",
+      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484SCATTER3D",
+    },
+
+    {
+      source: "ADD-userGeneratedNode_1646417428589",
+      sourceHandle: null,
+      target: "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
+      targetHandle: "SURFACE3D",
+      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480dSURFACE3D",
+    },
+
+    {
+      source: "ADD-userGeneratedNode_1646417428589",
+      sourceHandle: null,
+      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      targetHandle: "LINE",
+      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bLINE",
+    },
+
+    {
+      source: "ADD-userGeneratedNode_1646417428589",
+      sourceHandle: null,
+      target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+      targetHandle: "BAR",
+      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-BAR-6106326f-ff85-4940-9f5b-018381e2e2ceBAR",
+    },
   ],
   position: [0, 0],
-  zoom: 1,
+  zoom: 0.8,
 };
