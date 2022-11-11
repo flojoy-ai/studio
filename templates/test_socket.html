@@ -18,8 +18,13 @@
             let data = JSON.parse(e.data);
             console.log('Data:', data);
 
-            if (data.type === 'pong') {
-                console.log('You have been ponged');
+            if (data.type === 'ping_response') {
+                console.log('You have been responsed for ping');
+                console.log(data)
+            }
+            else if (data.type === 'heartbeat_response') {
+                console.log('You have been responsed for heartbeat');
+                console.log(data)
             }
 
         }
@@ -27,8 +32,7 @@
         let headingElement = document.getElementById("heading-button");
         headingElement.addEventListener('click', (e) => {
             jobSocket.send(JSON.stringify({
-                'type': 'ping',
-                'message': 'tor maare baap'
+                'type': 'heartbeat',
             }))
         })
         
