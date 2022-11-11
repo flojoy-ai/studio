@@ -127,8 +127,8 @@ const FlowChart = ({
     const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.setTransform({
       x: xPosition,
-      y: 22,
-      zoom: 0.8,
+      y: 61,
+      zoom: 0.7,
     });
     setRfInstance(rfIns.toObject());
   };

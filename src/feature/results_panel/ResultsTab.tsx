@@ -11,7 +11,7 @@ import { useWindowSize } from "react-use";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
 import CustomResultNode from "./CustomResultNode";
-import { nodePosition } from "./NODE_POSITION";
+import { resultnodePosition } from "./NODE_POSITION";
 
 import "./Results.css";
 
@@ -43,7 +43,7 @@ const ResultsTab = ({ results, theme }) => {
       setResultElements(
         rfInstance?.elements.map((elem) => ({
           ...elem,
-          position: nodePosition[elem?.data?.func],
+          position: resultnodePosition[elem?.data?.func],
           data: {
             ...elem.data,
             ...(!("source" in elem) && {
