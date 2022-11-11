@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Flojoy</h1>
+    <button id="heading-button">This is button </button>
     <script type="text/javascript">
         let url = `ws://${window.location.host}/ws/socket-server/`;
 
@@ -16,7 +17,21 @@
         jobSocket.onmessage = function(e) {
             let data = JSON.parse(e.data);
             console.log('Data:', data);
+
+            if (data.type === 'pong') {
+                console.log('You have been ponged');
+            }
+
         }
+
+        let headingElement = document.getElementById("heading-button");
+        headingElement.addEventListener('click', (e) => {
+            jobSocket.send(JSON.stringify({
+                'type': 'ping',
+                'message': 'tor maare baap'
+            }))
+        })
+        
     </script>
 </body>
 </html>
