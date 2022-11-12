@@ -2,6 +2,8 @@ import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import { COMMANDS, SECTIONS } from "./COMMANDS_MANIFEST";
+import type { NodeOnAddFunc } from "./ControlBar";
+import { FUNCTION_PARAMETERS } from "./PARAMETERS_MANIFEST";
 const modalStyles: ReactModal.Styles = {
   overlay: { zIndex: 99 },
   content: {
@@ -14,13 +16,21 @@ const modalStyles: ReactModal.Styles = {
   },
 };
 
+interface Props {
+  modalIsOpen: boolean;
+  afterOpenModal: () => void;
+  closeModal: () => void;
+  onAdd: NodeOnAddFunc;
+  theme: "light" | "dark";
+}
+
 const PythonFuncModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
   onAdd,
   theme,
-}) => {
+}: Props) => {
   const [activeTab, setActiveTab] = useState(SECTIONS[0][0].key);
   const activeBtnStyle = {
     height: "100%",
@@ -49,7 +59,10 @@ const PythonFuncModal = ({
       <div
         className="flex tab-panel"
         style={{
-            borderBottom: theme === 'dark'? '1px solid rgb(47, 46, 46)' : '1px solid rgba(217, 217, 217, 1)',
+          borderBottom:
+            theme === "dark"
+              ? "1px solid rgb(47, 46, 46)"
+              : "1px solid rgba(217, 217, 217, 1)",
           alignItems: "center",
           gap: "8px",
         }}
@@ -91,8 +104,15 @@ const PythonFuncModal = ({
                             className={
                               theme === "dark" ? "cmd-btn-dark" : "cmd-btn"
                             }
-                            onClick={() =>{
-                              onAdd(cmd.key, cmd.type,)}}
+                            onClick={() => {
+                              console.log(" cmd : ", cmd);
+                              onAdd({
+                                FUNCTION: cmd.key,
+                                type: cmd.type,
+                                params: FUNCTION_PARAMETERS[cmd.key],
+                                inputs: cmd.inputs
+                              });
+                            }}
                             key={cmd.name}
                           >
                             {cmd.name}

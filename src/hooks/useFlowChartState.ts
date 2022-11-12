@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { CTRLS_MANIFEST, GRID_LAYOUT, NOISY_SINE } from "../data/RECIPES.js";
+import { CTRLS_MANIFEST, GRID_LAYOUT, NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";

@@ -30,7 +30,7 @@ ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
 echo 'jsonify python functions and write to JS-readable directory'
-python jsonify_funk.py
+python3 jsonify_funk.py
 
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py

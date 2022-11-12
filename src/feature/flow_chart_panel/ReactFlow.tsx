@@ -121,17 +121,18 @@ const FlowChart = ({
 
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
+    console.log(" loaded rfInstance: ", rfIns.toObject());
     rfIns.fitView();
     const flowSize = 1107;
     const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.setTransform({
       x: xPosition,
-      y: 22,
-      zoom: 0.8,
+      y: 61,
+      zoom: 0.7,
     });
     setRfInstance(rfIns.toObject());
   };
-
+  console.log(" rfInstance: ", rfInstance);
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="react-flow">

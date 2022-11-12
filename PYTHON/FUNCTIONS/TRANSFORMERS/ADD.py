@@ -4,11 +4,9 @@ from joyflo import flojoy, VectorXY
 @flojoy
 def ADD(v, params):
     ''' Add 2 input vectors and return the result '''
-    print('ADD v:', v);
     a = [0]
     b = [0]
     
-    # x = v[0].x
     if len(v) == 2:
         a = v[0].y
         b = v[1]['y']

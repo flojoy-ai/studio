@@ -8,7 +8,7 @@ def CONSTANT(v, params):
     if v.__len__() > 0:
         x = v[0].y
         y = np.full(len(x), float(params['constant']))
-        return {'x':x, 'y':y}
+        return VectorXY(x = x, y = y)
         
     x = list()
     for i in range(1000):

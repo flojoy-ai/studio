@@ -43,7 +43,7 @@ const App = () => {
   };
 
   const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(`http://localhost:5000${endpoint}`);
+    const resp = await fetch(endpoint);
     const body = await resp.json();
     if (resp.status !== 200) {
       return console.log("error in pingBackendApi", body.message);
@@ -90,6 +90,7 @@ const App = () => {
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
                     setProgramResults(res);
+                    console.log('program result: ', JSON.parse(res.io).reverse())
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {

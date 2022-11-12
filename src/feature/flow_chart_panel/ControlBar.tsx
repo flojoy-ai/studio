@@ -25,6 +25,35 @@ localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
+type ParamTypes = {
+  [x: string]: {
+    type: string;
+    options?: string[];
+    default: number | string;
+  };
+};
+export type NodeOnAddFunc = (props: {
+  FUNCTION: string;
+  type: string;
+  params: ParamTypes | undefined;
+  inputs?: Array<{name:string, id:string}> | undefined;
+}) => void;
+
+export type ElementsData = {
+  label: string;
+  func: string;
+  type: string;
+  ctrls: {
+    [key: string]: {
+      functionName: string;
+      param: string;
+      value: number;
+    };
+  };
+  inputs?: Array<{name:string; id:string}>
+  selects?: any;
+}
+
 
 const getNodePosition = () => {
   return {
@@ -38,7 +67,7 @@ type ControlsProps = {
   setElements: Dispatch<React.SetStateAction<Elements<any>>>;
   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
-  theme: string;
+  theme: "light" | "dark";
   isVisualMode?: boolean;
   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
 };
@@ -80,9 +109,9 @@ const Controls: FC<ControlsProps> = ({
     }
   };
 
-  const onAdd = useCallback(
-    (FUNCTION, TYPE) => {
-      let functionName;
+  const onAdd: NodeOnAddFunc = useCallback(
+    ({ FUNCTION, params, type,inputs }) => {
+      let functionName: string;
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
@@ -90,12 +119,42 @@ const Controls: FC<ControlsProps> = ({
         }
         functionName = constant;
       } else {
-        functionName = prompt("Please enter a name for this node");
+        functionName = prompt("Please enter a name for this node")!;
       }
       if (!functionName) return;
+      const funcParams = params
+        ? Object.keys(params).reduce(
+            (
+              prev: Record<
+                string,
+                {
+                  functionName: string;
+                  param: keyof ParamTypes;
+                  value: string | number;
+                }
+              >,
+              param
+            ) => ({
+              ...prev,
+              [FUNCTION + "_" + functionName + "_" + param.toUpperCase()]: {
+                functionName: FUNCTION,
+                param,
+                value: params![param].default,
+              },
+            }),
+            {}
+          )
+        : {};
+
       const newNode = {
         id: `${FUNCTION}-${uuidv4()}`,
-        data: { label: functionName, func: FUNCTION, type: TYPE, ctrls: {} },
+        data: {
+          label: functionName,
+          func: FUNCTION,
+          type,
+          ctrls: funcParams,
+          inputs
+        },
         position: getNodePosition(),
       };
       setElements((els) => els.concat(newNode));

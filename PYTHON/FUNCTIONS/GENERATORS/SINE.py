@@ -6,8 +6,9 @@ from scipy import signal
 def SINE(v, params):
     valid_waveforms = ["sine", "square", "triangle", "sawtooth"]
     print(' sine params: ', params)
-
-    x = v[0].y
+    x = None
+    if v.__len__() > 0:
+        x = v[0].y
 
     waveform = params['waveform']
     A = int(params['amplitude'])

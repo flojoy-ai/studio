@@ -1,16 +1,32 @@
-export const nodePosition = {
+export const resultnodePosition = {
     'LINSPACE':{
         x: 72,
         y: 280
     },
-    'SINE':{x:497,y:'-2'}
-    ,'RAND':{x:494,y:280},
-    "CONSTANT":{x:493, y:569},
-    "MULTIPLY":{x:870,y:90},
-    "ADD":{x:1208,y:278},
-    "SCATTER":{x:1500,y:63},
+    'SINE':{x:430,y:5}
+    ,'RAND':{x:435,y:276},
+    "CONSTANT":{x:449, y:563},
+    "MULTIPLY":{x:779,y:116},
+    "ADD":{x:1057,y:347},
+    "SCATTER":{x:1364,y:130},
     "HISTOGRAM":{
-        x:1508,
-        y:472
+        x:1485,
+        y:415
+    },
+    'SCATTER3D':{
+        "x": 1818.48,
+        "y": 553.576
+    },
+    "SURFACE3D": {
+        "x": 1419.82,
+        "y": 697.145
+    },
+    "LINE":{
+        "x": 1741.65,
+        "y": 215.656
+    },
+    "BAR":{
+        "x": 1617.64,
+        "y": -63.992
     }
 }
