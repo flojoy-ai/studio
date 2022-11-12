@@ -1,6 +1,7 @@
-ias venv="source $HOME/venv/bin/activate"
 #!/bin/bash
 # source venv2/bin/activate
+
+#ias venv="source $HOME/venv/bin/activate"
 alias venv="source $HOME/venv/bin/activate"
 
 helpFunction()
