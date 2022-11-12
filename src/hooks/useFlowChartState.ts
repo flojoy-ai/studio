@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { CTRLS_MANIFEST, GRID_LAYOUT, NOISY_SINE } from "../data/RECIPES";
+import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
@@ -27,7 +27,16 @@ export interface RfSpatialInfoType {
 }
 
 const initialElements: Elements = NOISY_SINE.elements;
-const initialManifests: CtlManifestType[] = CTRLS_MANIFEST;
+const initialManifests: CtlManifestType[] = [
+  {
+    type: "input",
+    name: "Slider",
+    id: "INPUT_PLACEHOLDER",
+    hidden: false,
+    minHeight: 1,
+    minWidth: 2,
+  },
+];
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
@@ -41,7 +50,17 @@ const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
   zoom: 1,
 });
 const editModeAtom = atomWithImmer<boolean>(false);
-const gridLayoutAtom = atomWithImmer<Layout[]>(GRID_LAYOUT);
+const gridLayoutAtom = atomWithImmer<Layout[]>(
+  initialManifests.map((ctrl, i) => ({
+    x: 0,
+    y: 0,
+    h: 2,
+    w: 2,
+    minH: ctrl.minHeight,
+    minW: ctrl.minWidth,
+    i: ctrl.id,
+  }))
+);
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);

@@ -92,6 +92,7 @@ const CustomNode = ({ data }: CustomNodeProps) => {
           flexDirection: "column",
           height: params.length > 0 ? (params.length + 1) * 30 : "fit-content",
         }}
+        data-test-id={'flow-chart'}
       >
         <HandleComponent data={data} inputs={params} />
       </div>
@@ -146,29 +147,12 @@ const NodeComponent = ({
             }}
           />
         )}
-      </Fragment>
+      </div>
     );
   }
   if (data.type === "VISOR") {
     return (
-      <div
-        style={{
-          position: "relative",
-          // height:119,
-          width: "fit-content",
-        }}
-        data-test-id={'flow-chart'}
-      >
-        <Handle
-          type="target"
-          position={Position.Left}
-          style={{ borderRadius: 0 }}
-        />
-        <Handle
-          type="source"
-          position={Position.Right}
-          style={{ borderRadius: 0 }}
-        />
+      <Fragment>
         {data.func === "SCATTER" && <Scatter theme={uiTheme} />}
         {data.func === "HISTOGRAM" && <Histogram theme={uiTheme} />}
         {data.func === "LINE" && <LineChart theme={uiTheme} />}
@@ -198,7 +182,7 @@ const HandleComponent = ({
   inputs,
 }: CustomNodeProps & {
   inputs: ElementsData['inputs'];
-})} data-test-id={'flow-chart' => {
+}) => {
   const params = inputs || [];
   return (
     <Fragment>
