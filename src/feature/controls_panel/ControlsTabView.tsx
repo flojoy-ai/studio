@@ -1,30 +1,38 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
-import ControlComponent from "./controlComponent";
+import ControlComponent from "./views/controlComponent";
 import clone from "just-clone";
 import localforage from "localforage";
 
-import "./Controls.css";
+import "./style/Controls.css";
+import { modalStyles } from "./style/ControlModalStyles"
+
 import "../../App.css";
 import {
   CtlManifestType,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import ReactSwitch from "react-switch";
-import ControlGrid from "./ControlGrid";
-import AddCtrlModal from "./AddCtrlModal";
+import ControlGrid from "./views/ControlGrid";
+import AddCtrlModal from "./views/AddCtrlModal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
+import { useControlsTabState } from "./ControlsTabState";
+import { useControlsTabEffects } from "./ControlsTabEffects";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
-  const [openEditModal, setOPenEditModal] = useState(false);
-  const [currentInput, setCurrentInput] = useState<
-    CtlManifestType & { index: number }
-  >();
+  const {
+    openEditModal,
+    setOpenEditModal,
+    currentInput,
+    setCurrentInput,
+    debouncedTimerId,
+    setDebouncedTimerId,
+  } = useControlsTabState();
 
   const {
     rfInstance,
@@ -33,23 +41,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     removeCtrlInputDataForNode,
     ctrlsManifest,
     setCtrlsManifest,
+    isEditMode,
+    gridLayout,
+    setGridLayout,
   } = useFlowChartState();
-  const [debouncedTimerId, setDebouncedTimerId] = useState<
-    NodeJS.Timeout | undefined
-  >(undefined);
-  const { isEditMode, gridLayout, setGridLayout } = useFlowChartState();
 
-  const modalStyles: ReactModal.Styles = {
-    overlay: { zIndex: 99 },
-    content: {
-      border: "1px solid rgba(41, 41, 41, 1)",
-      borderRadius: "8px",
-      zIndex: 100,
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%,-50%)",
-    },
-  };
   const afterOpenModal = () => {};
   const closeModal = () => {
     setOpenCtrlModal(false);
@@ -65,19 +61,21 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 700);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance]);
+  }, [debouncedTimerId, setDebouncedTimerId, rfInstance]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
-  const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
+  const addCtrl = (setOpenCtrlModal, ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
       ...ctrlObj,
       id: `ctrl-${uuidv4()}`,
       hidden: false,
     } as CtlManifestType;
+
     setOpenCtrlModal(false);
+
     let yAxis = 0;
     for (const el of gridLayout) {
       if (yAxis < el.y) {
@@ -98,15 +96,17 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
         static: !isEditMode,
       },
     ]);
+
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
-  const rmCtrl = (e: any, ctrl: any = undefined) => {
+  const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
     const filteredOutputs = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     let filterChilds: any[] = filteredOutputs;
     cacheManifest(filterChilds);
+
     if (ctrl) {
       removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
       saveAndRunFlowChart();
@@ -127,7 +127,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       value: val,
     });
   };
-  const attachParam2Ctrl = (
+
+  const attachParamsToCtrl = (
     param: {
       id: string;
       functionName: string;
@@ -141,14 +142,15 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     const inputNode = elements.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
+
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
       param.functionName === "CONSTANT"
         ? ctrl.val
         : fnParam?.default
-        ? fnParam.default
-        : 0;
+          ? fnParam.default
+          : 0;
     const ctrlData = ctrls && ctrls[param?.id];
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
     let manClone = clone(ctrlsManifest);
@@ -161,28 +163,20 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     cacheManifest(manClone);
   };
 
-  useEffect(() => {
-    if (rfInstance?.elements.length === 0) {
-      setCtrlsManifest([]);
-    } else {
-      saveAndRunFlowChart();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rfInstance]);
+  useControlsTabEffects();
 
   return (
     <div data-testid="controls-tab">
-      {/* <SampleRGL/> */}
       <ControlGrid
         controlProps={{
           theme,
           isEditMode,
           results,
           updateCtrlValue,
-          attachParam2Ctrl,
-          rmCtrl,
+          attachParamsToCtrl,
+          removeCtrl,
           setCurrentInput,
-          setOPenEditModal,
+          setOpenEditModal,
         }}
       />
 
@@ -206,10 +200,10 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
                         theme={theme}
                         results={results}
                         updateCtrlValue={updateCtrlValue}
-                        attachParam2Ctrl={attachParam2Ctrl}
-                        rmCtrl={rmCtrl}
+                        attachParamsToCtrl={attachParamsToCtrl}
+                        removeCtrl={removeCtrl}
                         setCurrentInput={setCurrentInput}
-                        setOPenEditModal={setOPenEditModal}
+                        setOpenEditModal={setOpenEditModal}
                       />
                     ) : ctrl.hidden ? null : (
                       <ControlComponent
@@ -217,10 +211,10 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
                         theme={theme}
                         results={results}
                         updateCtrlValue={updateCtrlValue}
-                        attachParam2Ctrl={attachParam2Ctrl}
-                        rmCtrl={rmCtrl}
+                        attachParamsToCtrl={attachParamsToCtrl}
+                        removeCtrl={removeCtrl}
                         setCurrentInput={setCurrentInput}
-                        setOPenEditModal={setOPenEditModal}
+                        setOpenEditModal={setOpenEditModal}
                       />
                     )}
                   </div>
@@ -247,10 +241,10 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
                         results={results}
                         theme={theme}
                         updateCtrlValue={updateCtrlValue}
-                        attachParam2Ctrl={attachParam2Ctrl}
-                        rmCtrl={rmCtrl}
+                        attachParamsToCtrl={attachParamsToCtrl}
+                        removeCtrl={removeCtrl}
                         setCurrentInput={setCurrentInput}
-                        setOPenEditModal={setOPenEditModal}
+                        setOpenEditModal={setOpenEditModal}
                       />
                     </div>
                   ))}
@@ -270,12 +264,12 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
-        onRequestClose={() => setOPenEditModal(false)}
+        onRequestClose={() => setOpenEditModal(false)}
         style={modalStyles}
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
-        <button onClick={() => setOPenEditModal(false)} className="close-modal">
+        <button onClick={() => setOpenEditModal(false)} className="close-modal">
           <ModalCloseSvg
             style={{
               height: 23,
