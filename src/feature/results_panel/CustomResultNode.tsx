@@ -1,12 +1,12 @@
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import Plot from "react-plotly.js";
-import styledPlotLayout from "../../components/defaultPlotLayout";
+import styledPlotLayout from "../common/defaultPlotLayout";
 
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
-  
+
   return (
     <div style={{ position: "relative" }} data-testid="result-node">
       <>
