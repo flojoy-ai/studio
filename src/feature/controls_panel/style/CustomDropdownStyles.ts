@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from "./../common/theme";
+import { lightTheme, darkTheme } from "../../common/theme";
 
 const customDropdownStyles = {
   menu: (provided, state) => ({
