@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ResultsTab from '../ResultsTab'
+import ResultsTab from '../ResultsTabView'
 
 describe('ResultsTab', () => {
   it('should render the result flow chart', () => {

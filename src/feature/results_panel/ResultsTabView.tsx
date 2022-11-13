@@ -9,11 +9,11 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import { useWindowSize } from "react-use";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
-import CustomResultNode from "./CustomResultNode";
+import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
 import { useResultsTabEffects } from "./ResultsTabEffects";
 
-import "./Results.css";
+import "./style/Results.css";
 
 const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
 const nodeTypes: NodeTypesType = { default: CustomResultNode as any };
