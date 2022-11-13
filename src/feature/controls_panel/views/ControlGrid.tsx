@@ -1,22 +1,13 @@
 import "react-grid-layout/css/styles.css";
 import { Responsive, WidthProvider } from "react-grid-layout";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
-import "./Controls.css";
-import "../../App.css";
+import { useFlowChartState } from "../../../hooks/useFlowChartState";
+import "../style/Controls.css";
+import "../../../App.css";
 import ControlComponent from "./controlComponent";
 import { useEffect } from "react";
+import { ControlProps } from "../types/ControlProps";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-export interface ControlProps {
-  theme: any;
-  isEditMode: any;
-  results: any;
-  updateCtrlValue: any;
-  attachParam2Ctrl: any;
-  rmCtrl: any;
-  setCurrentInput: any;
-  setOPenEditModal: any;
-}
 
 export default function ControlGrid({
   controlProps,
@@ -102,10 +93,10 @@ function Control({
     theme,
     results,
     updateCtrlValue,
-    attachParam2Ctrl,
-    rmCtrl,
+    attachParamsToCtrl,
+    removeCtrl,
     setCurrentInput,
-    setOPenEditModal,
+    setOpenEditModal,
   } = controlProps;
 
   return (
@@ -126,10 +117,10 @@ function Control({
           theme={theme}
           results={results}
           updateCtrlValue={updateCtrlValue}
-          attachParam2Ctrl={attachParam2Ctrl}
-          rmCtrl={rmCtrl}
+          attachParamsToCtrl={attachParamsToCtrl}
+          removeCtrl={removeCtrl}
           setCurrentInput={setCurrentInput}
-          setOPenEditModal={setOPenEditModal}
+          setOpenEditModal={setOpenEditModal}
         />
       ) : ctrl.hidden ? null : (
         <ControlComponent
@@ -137,10 +128,10 @@ function Control({
           theme={theme}
           results={results}
           updateCtrlValue={updateCtrlValue}
-          attachParam2Ctrl={attachParam2Ctrl}
-          rmCtrl={rmCtrl}
+          attachParamsToCtrl={attachParamsToCtrl}
+          removeCtrl={removeCtrl}
           setCurrentInput={setCurrentInput}
-          setOPenEditModal={setOPenEditModal}
+          setOpenEditModal={setOpenEditModal}
         />
       )}
     </div>

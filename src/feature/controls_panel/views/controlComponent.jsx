@@ -5,12 +5,12 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import localforage from "localforage";
 
-import { useFlowChartState } from "../../hooks/useFlowChartState";
-import styledPlotLayout from "../common/defaultPlotLayout";
-import customDropdownStyles from "./customDropdownStyles";
+import { useFlowChartState } from "../../../hooks/useFlowChartState";
+import styledPlotLayout from "../../common/defaultPlotLayout";
+import customDropdownStyles from "../style/CustomDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
-import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../../flow_chart_panel/PARAMETERS_MANIFEST";
+import { ControlNames, ControlTypes } from "../manifest/CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
@@ -22,10 +22,10 @@ const ControlComponent = ({
   theme,
   results,
   updateCtrlValue,
-  attachParam2Ctrl,
-  rmCtrl,
+  attachParamsToCtrl,
+  removeCtrl,
   setCurrentInput,
-  setOPenEditModal,
+  setOpenEditModal,
 }) => {
   const [flowChartObject, setFlowChartObject] = useState({});
   const { elements, ctrlsManifest, setGridLayout } = useFlowChartState();
@@ -192,7 +192,7 @@ const ControlComponent = ({
             isSearchable={true}
             onChange={(val) => {
               console.log("value in select:", val, options);
-              attachParam2Ctrl(val.value, ctrlObj);
+              attachParamsToCtrl(val.value, ctrlObj);
             }}
             options={options}
             styles={customDropdownStyles}
@@ -214,14 +214,14 @@ const ControlComponent = ({
                   (manifest) => manifest.id === ctrlObj.id
                 ),
               });
-              setOPenEditModal(true);
+              setOpenEditModal(true);
             }}
           >
             &#9998;
           </button>
 
           <button
-            onClick={(e) => rmCtrl(e, ctrlObj)}
+            onClick={(e) => removeCtrl(e, ctrlObj)}
             id={ctrlObj.id}
             className="ctrl-edit-btn"
           >
