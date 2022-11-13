@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useResultsTabState } from "./ResultsTabState";
-import { resultNodePosition } from "./NODE_POSITION";
+import { resultNodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
 export function useResultsTabEffects(nodeResults) {
     const { resultElements, setResultElements, rfInstance } = useResultsTabState();
