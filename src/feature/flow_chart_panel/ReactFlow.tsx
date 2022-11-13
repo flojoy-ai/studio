@@ -18,7 +18,7 @@ import localforage from "localforage";
 import CustomEdge from "./CustomEdge";
 import CustomNode from "./CustomNode";
 import PYTHON_FUNCTIONS from "./pythonFunctions.json";
-import styledPlotLayout from "../../components/defaultPlotLayout";
+import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { useWindowSize } from "react-use";
 import NodeModal from "./views/NodeModal";
