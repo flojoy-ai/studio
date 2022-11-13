@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
 import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
-import ControlsTab from "./feature/controls_panel/ControlsTab.tsx";
+import ControlsTab from "./feature/controls_panel/ControlsTabView.tsx";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./feature/common/theme";
