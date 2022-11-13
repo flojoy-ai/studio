@@ -6,51 +6,21 @@ import styledPlotLayout from "../../components/defaultPlotLayout";
 const CustomResultNode = ({ data }) => {
   const { uiTheme } = useFlowChartState();
   const styledLayout = styledPlotLayout(uiTheme);
+  
   return (
-    <div style={{ position: "relative" }}>
-      {(data.func === "MULTIPLY" || data.func === "ADD") && (
-        <>
-          <Handle
-            type="target"
-            position={Position.Left}
-            style={{ borderRadius: 0 }}
-          />
-          <Handle
-            type="source"
-            position={Position.Right}
-            style={{ borderRadius: 0 }}
-          />
-        </>
-      )}
-      {data.type === "VISOR" && (
-        <>
-          <Handle
-            type="target"
-            position={Position.Left}
-            style={{ borderRadius: 0 }}
-          />
-          <Handle
-            type="source"
-            position={Position.Right}
-            style={{ borderRadius: 0 }}
-          />
-        </>
-      )}
-      {!(data.func === "MULTIPLY" || data.func === "ADD") &&
-        data.type !== "VISOR" && (
-          <>
-            <Handle
-              type="target"
-              position={Position.Left}
-              style={{ borderRadius: 0 }}
-            />
-            <Handle
-              type="source"
-              position={Position.Right}
-              style={{ borderRadius: 0 }}
-            />
-          </>
-        )}
+    <div style={{ position: "relative" }} data-testid="result-node">
+      <>
+        <Handle
+          type="target"
+          position={Position.Left}
+          style={{ borderRadius: 0 }}
+        />
+        <Handle
+          type="source"
+          position={Position.Right}
+          style={{ borderRadius: 0 }}
+        />
+      </>
 
       {!data?.resultData ? (
         <p> `NO Result`</p>
