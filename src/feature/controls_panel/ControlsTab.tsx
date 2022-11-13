@@ -171,7 +171,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   }, [rfInstance]);
 
   return (
-    <div>
+    <div data-testid="controls-tab">
       {/* <SampleRGL/> */}
       <ControlGrid
         controlProps={{
