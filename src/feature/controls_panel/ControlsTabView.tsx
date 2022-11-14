@@ -1,26 +1,26 @@
+import clone from "just-clone";
+import localforage from "localforage";
 import { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
-import ControlComponent from "./views/controlComponent";
-import clone from "just-clone";
-import localforage from "localforage";
+import ControlComponent from "./views/ControlComponent";
 
+import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
-import { modalStyles } from "./style/ControlModalStyles"
 
+import ReactSwitch from "react-switch";
 import "../../App.css";
 import {
   CtlManifestType,
-  useFlowChartState,
+  useFlowChartState
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
-import ReactSwitch from "react-switch";
-import ControlGrid from "./views/ControlGrid";
-import AddCtrlModal from "./views/AddCtrlModal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { useControlsTabState } from "./ControlsTabState";
+import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
+import { useControlsTabState } from "./ControlsTabState";
+import AddCtrlModal from "./views/AddCtrlModal";
+import ControlGrid from "./views/ControlGrid";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
