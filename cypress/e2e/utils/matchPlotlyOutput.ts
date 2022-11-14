@@ -1,15 +1,12 @@
+
 const matchPlotlyOutput = (selector:string, resultFixture: string) => {
     let output:any;
     cy.window().then((win: any)=> {
-        output = win.plotlyOutput;
-        
+        output = win.plotlyOutput;        
     }).then(()=>{
-        cy.fixture(resultFixture).then(data=>{
-            expect(data[selector].data[0].x).to.deep.equal(output[selector].data[0].x)
-            if(selector === "SINE-userGeneratedNode_1646417316016"){
-                expect(data[selector].data[0].y).to.deep.equal(output[selector].data[0].y)
-            }
-       
+        cy.fixture(resultFixture).then(expectedData=>{
+            expect(output[selector].data[0].x).to.deep.equal(expectedData[selector].data[0].x)
+            expect(output[selector].data[0].y).to.deep.equal(expectedData[selector].data[0].y)
         })
     })
 }
