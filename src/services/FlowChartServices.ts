@@ -5,7 +5,7 @@ const flowKey = "flow-joy";
 export function saveFlowChartToLocalStorage(
   rfInstance?: FlowExportObject<any>
 ) {
-  console.warn("saveFlowChartToLocalStorage:", rfInstance);
+  // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
     const flowObj = rfInstance;
     localforage.setItem(flowKey, flowObj);
@@ -20,7 +20,7 @@ export function saveAndRunFlowChartInServer(
   }
 
   const rfInstanceObject = rfInstance;
-  console.log("saving flowchart to server:", rfInstanceObject);
+  // console.log("saving flowchart to server:", rfInstanceObject);
 
   const fcStr = JSON.stringify(rfInstanceObject);
 

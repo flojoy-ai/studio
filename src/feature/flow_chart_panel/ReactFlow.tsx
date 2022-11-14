@@ -132,7 +132,6 @@ const FlowChart = ({
     });
     setRfInstance(rfIns.toObject());
   };
-  console.log(" rfInstance: ", rfInstance);
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="react-flow">

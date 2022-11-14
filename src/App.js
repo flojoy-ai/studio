@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
 import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
@@ -8,23 +8,17 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./components/theme";
 import { GlobalStyles } from "./components/global";
 
-import STATUS_CODES from "./STATUS_CODES.json";
-
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
-// import { useSocket } from "./hooks/useSocket";
+import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const [serverStatus, setServerStatus] = useState("Connecting to server...");
-  // const {serverStatus, programResults} = useSocket();
+  const { serverStatus, programResults } = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
-  const [programResults, setProgramResults] = useState({
-    msg: STATUS_CODES.NO_RUNS_YET,
-  });
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);
 
@@ -42,69 +36,8 @@ const App = () => {
     }
   };
 
-  const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(endpoint);
-    const body = await resp.json();
-    if (resp.status !== 200) {
-      return console.log("error in pingBackendApi", body.message);
-    }
-    return body;
-  };
-
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-
-  useEffect(() => {
-    console.log("App component did mount");
-    pingBackend();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const pingBackend = async () => {
-    let success = false;
-    while (!success) {
-      pingBackendAPI("/ping")
-        // eslint-disable-next-line no-loop-func
-        .then(() => {
-          success = true;
-        })
-        .catch((err) => console.log(err));
-      await new Promise((resolve) => {
-        setTimeout(resolve, 5000);
-      });
-    }
-
-    pingBackendAPI("/ping")
-      .then((res) => {
-        if ("msg" in res) {
-          setServerStatus(res.msg);
-          // set a timer that gets an update from the server every second
-          window.setInterval(() => {
-            pingBackendAPI("/heartbeat").then((res) => {
-              if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
-                // grab program result from redis
-                setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
-                pingBackendAPI("/io").then((res) => {
-                  if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
-                    setServerStatus(res.msg);
-                  } else {
-                    setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
-                    setProgramResults(res);
-                    console.log('program result: ', JSON.parse(res.io).reverse())
-                  }
-                });
-              } else if (res.msg !== undefined && res.msg !== "") {
-                // Program in process, awaiting a new job etc...
-                setServerStatus(res.msg);
-              }
-            });
-          }, 1000);
-        } else {
-          setServerStatus(STATUS_CODES["SERVER_OFFLINE"]);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

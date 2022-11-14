@@ -69,6 +69,10 @@ fi
 echo 'starting redis worker...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
 
+echo 'starting django server...'
+npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver"
+sleep 1
+
 echo 'starting node server...'
 npx ttab -t 'NODE' "${venvCmd} node server.js"
 sleep 1
