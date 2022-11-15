@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useEffect } from "react";
 import ReactFlow, {
   ConnectionLineType,
   EdgeTypesType,
@@ -11,7 +11,8 @@ import { useWindowSize } from "react-use";
 import CustomEdge from "../flow_chart_panel/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
-import { useResultsTabEffects } from "./ResultsTabEffects";
+import { useFlowChartState } from "../../hooks/useFlowChartState";
+import { resultNodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
 import "./style/Results.css";
 
@@ -23,6 +24,7 @@ const ResultsTab = ({ results }) => {
     resultElements,
     setResultElements,
   } = useResultsTabState();
+  const { rfInstance } = useFlowChartState();
 
   const { width: windowWidth } = useWindowSize();
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
@@ -43,7 +45,23 @@ const ResultsTab = ({ results }) => {
     [results]
   );
 
-  useResultsTabEffects(nodeResults);
+  useEffect(() => {
+    if (nodeResults && nodeResults.length > 0 && rfInstance) {
+      setResultElements(
+        rfInstance?.elements.map((elem) => ({
+          ...elem,
+          position: resultNodePosition[elem?.data?.func],
+          data: {
+            ...elem.data,
+            ...(!("source" in elem) && {
+              resultData: nodeResults?.find((result) => result.id === elem.id)
+                ?.result,
+            }),
+          },
+        }))
+      );
+    }
+  }, [nodeResults, rfInstance]);
 
   return (
     <ReactFlowProviderAny>
