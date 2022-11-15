@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import FlowChart from "./components/flow_chart_panel/ReactFlow.tsx";
-import ResultsTab from "./components/results_panel/ResultsTab.tsx";
+import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
 import ControlsTab from "./components/controls_panel/ControlsTab.tsx";
 
 import { ThemeProvider } from "styled-components";
@@ -13,7 +13,7 @@ import STATUS_CODES from "./STATUS_CODES.json";
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
-import Controls from "./components/flow_chart_panel/ControlBar";
+import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
 // import { useSocket } from "./hooks/useSocket";
@@ -43,36 +43,35 @@ const App = () => {
   };
 
   const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(`http://localhost:5000${endpoint}`);
+    const resp = await fetch(endpoint);
     const body = await resp.json();
     if (resp.status !== 200) {
-      throw Error(body.message);
+      return console.log("error in pingBackendApi", body.message);
     }
     return body;
   };
 
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
-  console.log(
-    " program result: ",
-    "io" in programResults && JSON.parse(programResults.io)
-  );
 
   useEffect(() => {
-    console.log("App component did mount"); 
+    console.log("App component did mount");
     pingBackend();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const pingBackend = async () => {
     let success = false;
     while (!success) {
       pingBackendAPI("/ping")
         // eslint-disable-next-line no-loop-func
-        .then(() => {success = true;})
+        .then(() => {
+          success = true;
+        })
         .catch((err) => console.log(err));
       await new Promise((resolve) => {
         setTimeout(resolve, 5000);
-      });;
+      });
     }
 
     pingBackendAPI("/ping")
@@ -82,21 +81,16 @@ const App = () => {
           // set a timer that gets an update from the server every second
           window.setInterval(() => {
             pingBackendAPI("/heartbeat").then((res) => {
-              // console.log('heartbeat', res);
               if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
                 // grab program result from redis
                 setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
-                // console.log(STATUS_CODES["RQ_RUN_COMPLETE"]);
                 pingBackendAPI("/io").then((res) => {
-                  // console.log("io", res);
                   if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
                     setServerStatus(res.msg);
                   } else {
                     setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
-                    // console.log("setting results state", res);
                     setProgramResults(res);
-
-                    // console.warn("new program results", res);
+                    console.log('program result: ', JSON.parse(res.io).reverse())
                   }
                 });
               } else if (res.msg !== undefined && res.msg !== "") {
@@ -167,7 +161,6 @@ const App = () => {
               data-cy="ctrls-btn"
             >
               CTRLS
-              {/* {windowWidth >= 1080 ? "CTRL PANEL" : "CTRLS"} */}
             </button>
             <button
               className={currentTab === "debug" ? "active-" + theme : ""}

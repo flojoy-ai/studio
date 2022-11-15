@@ -1,5 +1,3 @@
-import React from "react";
-
 const PlayIconSvg = ({ style, theme }: {theme:string, style?: Record<string, any> }) => {
   return (
     <svg

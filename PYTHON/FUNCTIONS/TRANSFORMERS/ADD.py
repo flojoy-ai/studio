@@ -1,17 +1,16 @@
 import numpy as np
-from .VCTR import fetch_inputs
+from joyflo import flojoy, VectorXY
 
-def ADD(**kwargs):
+@flojoy
+def ADD(v, params):
     ''' Add 2 input vectors and return the result '''
-    y2 = [0]
+    a = [0]
+    b = [0]
     
+    if len(v) == 2:
+        a = v[0].y
+        b = v[1]['y']
+        
+    y = np.add(a, b)
 
-    previous_job_results = fetch_inputs(kwargs['previous_job_ids'])
-
-    x = previous_job_results[0]['x0']
-    if len(previous_job_results) == 2:
-        y2 = previous_job_results[1]['y0']
-    y = np.add(
-        previous_job_results[0]['y0'], 
-        y2)
-    return {'x0':x, 'y0':y}
+    return VectorXY(x = [a, b], y = y)

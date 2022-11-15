@@ -7,9 +7,6 @@ import ControlComponent from "./controlComponent";
 import { useEffect } from "react";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-
-// const atomLayouts = atomWithImmer<Layout[] | undefined>(undefined);
-
 export interface ControlProps {
   theme: any;
   isEditMode: any;
@@ -26,59 +23,26 @@ export default function ControlGrid({
 }: {
   controlProps: ControlProps;
 }) {
-  // const [layout, setLayoutI] = useAtom(atomLayouts);
   const { ctrlsManifest, gridLayout, setGridLayout } = useFlowChartState();
   const { isEditMode } = controlProps;
 
-  // const setLayout = useCallback(
-  //   (layouts: Layout[]) => {
-  //     console.log("setting layouts to:", layouts);
-  //     setLayoutI(layouts);
-  //   },
-  //   [setLayoutI]
-  // );
-
-  // if currently the layouts is undefined, place the controls automatically
-  // useEffect(() => {
-  //   if (!layout) {
-  //     let x = 0;
-  //     const ctrlLayouts = ctrlsManifest.map((ctrl, i) => {
-  //       const w =  2;//ctrl.label === 'output' ? 40 : 20;
-  //       const layoutParams: Layout = {
-  //         i: ctrl.name + i,
-  //         x,
-  //         y: 0,
-  //         w,
-  //         h: 2,
-  //         minH:ctrl.minHeight,
-  //         minW:ctrl.minWidth,
-  //         static: isEditMode,
-  //       };
-  //       // x += w;
-  //       return layoutParams;
-  //     });
-  //     console.log('ctrlLayouts: ', ctrlLayouts)
-  //     setLayout(ctrlLayouts);
-  //   }
-  // }, [ctrlsManifest, isEditMode, layout, setLayout]);
-
-  // console.log("ctrlsManifest:", ctrlsManifest);
-  // console.log("layouts:", gridLayout);
-  useEffect(()=>{
-    if(isEditMode){
-      setGridLayout(prev=> prev.map(layout=> ({...layout, static:false})))
+  useEffect(() => {
+    if (isEditMode) {
+      setGridLayout((prev) =>
+        prev.map((layout) => ({ ...layout, static: false }))
+      );
     } else {
-      setGridLayout(prev=> prev.map(layout=> ({...layout, static:true})))
+      setGridLayout((prev) =>
+        prev.map((layout) => ({ ...layout, static: true }))
+      );
     }
-  },[isEditMode, setGridLayout])
+  }, [isEditMode, setGridLayout]);
 
   return (
     <ResponsiveGridLayout
       className="layout"
       layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
-      //   breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
       cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
-      // rowHeight={130}
       onLayoutChange={(currentLayout, allLayout) => {
         console.log("currentLayout:", currentLayout);
         setGridLayout(currentLayout);
@@ -90,10 +54,10 @@ export default function ControlGrid({
             <div
               key={ctrl.id}
               data-grid={{
-                ...gridLayout.find((l) => l.i === ctrl.id)
+                ...gridLayout.find((l) => l.i === ctrl.id),
               }}
               style={{
-                display: 'none'
+                display: "none",
               }}
             />
           );
@@ -109,8 +73,7 @@ export default function ControlGrid({
               ...(controlProps.theme === "dark" && {
                 backgroundColor: "#191919",
               }),
-              borderRadius:'16px'
-              // minHeight:ctrl.minHeight, minWidth:ctrl.minWidth
+              borderRadius: "16px",
             }}
           >
             <Control
@@ -129,10 +92,9 @@ export default function ControlGrid({
 function Control({
   controlProps,
   ctrl,
-  ctrlIndex,
 }: {
   controlProps: ControlProps;
-  ctrl;
+  ctrl: any;
   ctrlIndex: number;
 }) {
   const {
@@ -154,8 +116,8 @@ function Control({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        borderRadius:'16px',
-       backgroundColor: theme === "dark" ? "#14131361" : '#58454517',
+        borderRadius: "16px",
+        backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
       }}
     >
       {isEditMode ? (

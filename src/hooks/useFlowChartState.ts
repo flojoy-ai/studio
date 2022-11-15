@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { NOISY_SINE } from "../data/RECIPES.js";
+import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
@@ -11,11 +11,11 @@ export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: string;
+  param?: any;
   val?: any;
-  hidden?:boolean;
+  hidden?: boolean;
   controlGroup?: string;
-  label?:string;
+  label?: string;
   minHeight: number;
   minWidth: number;
 }
@@ -33,21 +33,15 @@ const initialManifests: CtlManifestType[] = [
     name: "Slider",
     id: "INPUT_PLACEHOLDER",
     hidden: false,
-    minHeight:1,
-    minWidth:2
+    minHeight: 1,
+    minWidth: 2,
   },
-  // {
-  //   type: "output",
-  //   name: "Plot",
-  //   id: "OUTPUT_PLACEHOLDER",
-  //   hidden:false,
-  //   minHeight:300,
-  //   minWidth:500
-  // },
 ];
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | 'dark'>('dark');
-const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(undefined);
+const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
+const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
+  undefined
+);
 const elementsAtom = atomWithImmer<Elements>(initialElements);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
@@ -56,15 +50,17 @@ const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
   zoom: 1,
 });
 const editModeAtom = atomWithImmer<boolean>(false);
-const gridLayoutAtom = atomWithImmer<Layout[]>(initialManifests.map((ctrl,i)=>({
-  x:0,
-  y:0,
-  h:2,
-  w:2,
-  minH:ctrl.minHeight,
-  minW:ctrl.minWidth,
-  i:ctrl.id
-})));
+const gridLayoutAtom = atomWithImmer<Layout[]>(
+  initialManifests.map((ctrl, i) => ({
+    x: 0,
+    y: 0,
+    h: 2,
+    w: 2,
+    minH: ctrl.minHeight,
+    minW: ctrl.minWidth,
+    i: ctrl.id,
+  }))
+);
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);
@@ -72,20 +68,23 @@ export function useFlowChartState() {
   const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom)
+  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
 
-  const loadFlowExportObject = useCallback((flow: FlowExportObject ) => {
-    if(!flow){
+  const loadFlowExportObject = useCallback(
+    (flow: FlowExportObject) => {
+      if (!flow) {
         return;
-    }
-    setElements(flow.elements || []);
-    setRfSpatialInfo({
+      }
+      setElements(flow.elements || []);
+      setRfSpatialInfo({
         x: flow.position[0] || 0,
         y: flow.position[1] || 0,
         zoom: flow.zoom || 0,
-    });
-  }, [setElements, setRfSpatialInfo])
+      });
+    },
+    [setElements, setRfSpatialInfo]
+  );
 
   const [openFileSelector, { filesContent }] = useFilePicker({
     readAs: "Text",
@@ -97,10 +96,10 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      console.log('parsedFileContent:', parsedFileContent);
+      console.log("parsedFileContent:", parsedFileContent);
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
-      setGridLayout(parsedFileContent.gridLayout)
+      setGridLayout(parsedFileContent.gridLayout);
       loadFlowExportObject(flow);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
@@ -110,7 +109,7 @@ export function useFlowChartState() {
       const fileContent = {
         rfInstance,
         ctrlsManifest,
-        gridLayout
+        gridLayout,
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
@@ -126,23 +125,19 @@ export function useFlowChartState() {
     paramId: string,
     inputData: any
   ) => {
-    setElements(element=> {
-      console.log('param id in set element: ', inputData)
-    const node = element.find((e) => e.id === nodeId);
-        if (node) {
-      node.data.ctrls[paramId] = inputData;
-      if(node.data.func === 'CONSTANT'){
-        node.data.label = inputData.value
+    setElements((element) => {
+      console.log("param id in set element: ", inputData);
+      const node = element.find((e) => e.id === nodeId);
+      if (node) {
+        node.data.ctrls[paramId] = inputData;
+        if (node.data.func === "CONSTANT") {
+          node.data.label = inputData.value;
+        }
       }
-      // node.data.label = inputData.value
-    }
-    console.log(' node after updating element: ', JSON.stringify(node))
+      console.log(" node after updating element: ", JSON.stringify(node));
     });
   };
-  const removeCtrlInputDataForNode = (
-    nodeId: string,
-    paramId: string,
-  ) => {
+  const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {
       const node = elements.find((e) => e.id === nodeId);
       if (node) {
@@ -151,13 +146,13 @@ export function useFlowChartState() {
       }
     });
   };
-  useEffect(()=>{
-    setRfInstance(prev=>{
-      if(prev){
-        prev.elements = elements
+  useEffect(() => {
+    setRfInstance((prev) => {
+      if (prev) {
+        prev.elements = elements;
       }
-    })
-  },[elements, setRfInstance])
+    });
+  }, [elements, setRfInstance]);
   return {
     rfInstance,
     setRfInstance,
@@ -178,6 +173,6 @@ export function useFlowChartState() {
     uiTheme,
     setUiTheme,
     showLogs,
-    setShowLogs
+    setShowLogs,
   };
 }

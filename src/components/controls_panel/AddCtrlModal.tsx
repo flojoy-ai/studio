@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import {
@@ -26,7 +26,10 @@ const AddCtrlModal = ({
   const [activeTab, setActiveTab] = useState("input");
   const activeBtnStyle = {
     height: "100%",
-    borderBottom: theme === 'dark'? "2px solid rgb(153, 245, 255)" : '2px solid rgba(123, 97, 255, 1)',
+    borderBottom:
+      theme === "dark"
+        ? "2px solid rgb(153, 245, 255)"
+        : "2px solid rgba(123, 97, 255, 1)",
   };
   return (
     <ReactModal
@@ -48,7 +51,10 @@ const AddCtrlModal = ({
       <div
         className="flex tab-panel"
         style={{
-            borderBottom: theme === 'dark'? '1px solid rgb(47, 46, 46)' : '1px solid rgba(217, 217, 217, 1)',
+          borderBottom:
+            theme === "dark"
+              ? "1px solid rgb(47, 46, 46)"
+              : "1px solid rgba(217, 217, 217, 1)",
           alignItems: "center",
           gap: "8px",
         }}

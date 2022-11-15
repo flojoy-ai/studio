@@ -31,14 +31,14 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on('ping', (data) => {
+      socket.current.on("ping", (data) => {
         if ("msg" in data) {
           setServerStatus(data.msg);
           // set a timer that gets an update from the server every secon
         } else {
           setServerStatus(STATUS_CODES["SERVER_OFFLINE"]);
         }
-      })
+      });
       socket.current.on("program-results", (res) => {
         if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
           setServerStatus(res.msg);

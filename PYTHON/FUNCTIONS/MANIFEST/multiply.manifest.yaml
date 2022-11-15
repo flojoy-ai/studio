@@ -1,0 +1,7 @@
+COMMAND:
+  - {
+      name: "Multiply",
+      key: "MULTIPLY",
+      type: "TRANSFORMER",
+      inputs: [{ name: "y", id: "multiply_y" }],
+    }
