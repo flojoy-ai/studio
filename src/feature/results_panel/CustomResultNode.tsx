@@ -1,6 +1,6 @@
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import styledPlotLayout from "../../components/defaultPlotLayout";
+import styledPlotLayout from "../common/defaultPlotLayout";
 import PlotlyComponent from "../../components/plotly-wrapper/PlotlyComponent";
 
 const CustomResultNode = ({ data }) => {

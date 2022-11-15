@@ -5,13 +5,13 @@ import "rc-slider/assets/index.css";
 import localforage from "localforage";
 
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import styledPlotLayout from "../defaultPlotLayout";
+import styledPlotLayout from "../common/defaultPlotLayout";
 import customDropdownStyles from "./customDropdownStyles";
 
 import { FUNCTION_PARAMETERS } from "../../feature/flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "./CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
-import PlotlyComponent from "../plotly-wrapper/PlotlyComponent";
+import PlotlyComponent from "../../components/plotly-wrapper/PlotlyComponent";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -240,7 +240,7 @@ const ControlComponent = ({
           style={{
             flex: "1",
             height: "100%",
-            widht: "100%",
+            width: "100%",
             paddingBottom: "10px",
           }}
         >

@@ -65,7 +65,7 @@ describe("Run Default App", () => {
   });
 
   it("Wait for job finishing", () => {
-    cy.get("[data-test-id=result-flow-chart]", { timeout: 200000 });
+    cy.get("[data-testid=results-flow]", { timeout: 200000 });
   });
 
   it("Switch to SCRIPT tab", () => {

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
 import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
-import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
-import ControlsTab from "./components/controls_panel/ControlsTab.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTabView.tsx";
+import ControlsTab from "./feature/controls_panel/ControlsTab.tsx";
 
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "./components/theme";
-import { GlobalStyles } from "./components/global";
+import { lightTheme, darkTheme } from "./feature/common/theme";
+import { GlobalStyles } from "./feature/common/global";
 
 import STATUS_CODES from "./STATUS_CODES.json";
 
@@ -14,13 +14,11 @@ import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/ControlBar";
-import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
+import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
-// import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
-  // const {serverStatus, programResults} = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [programResults, setProgramResults] = useState({
     msg: STATUS_CODES.NO_RUNS_YET,
