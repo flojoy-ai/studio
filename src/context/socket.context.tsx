@@ -9,6 +9,7 @@ export const SocketContextProvider = ({ children }) => {
   const [programResults, setProgramResults] = useState({
     msg: STATUS_CODES.NO_RUNS_YET,
   });
+  const [runningNode, setRunningNode] = useState('');
   const [serverStatus, setServerStatus] = useState("Connecting to server...");
 
   useEffect(() => {
@@ -16,12 +17,13 @@ export const SocketContextProvider = ({ children }) => {
       socket.current = new WebSocketServer(
         "ws://localhost:8000/ws/socket-server/",
         setServerStatus,
-        setProgramResults
+        setProgramResults,
+        setRunningNode
       );
     }
   }, []);
   return (
-    <SocketContext.Provider value={{ serverStatus, programResults }}>
+    <SocketContext.Provider value={{ serverStatus, programResults, runningNode }}>
       {children}
     </SocketContext.Provider>
   );

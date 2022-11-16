@@ -43,6 +43,7 @@ export type ElementsData = {
   label: string;
   func: string;
   type: string;
+  running?: boolean;
   ctrls: {
     [key: string]: {
       functionName: string;

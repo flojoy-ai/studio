@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
 import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
@@ -17,7 +17,7 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const { serverStatus, programResults } = useSocket();
+  const { serverStatus, programResults, runningNode } = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);
@@ -38,6 +38,20 @@ const App = () => {
 
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
+
+  useEffect(() => {
+    setElements((prev) => {
+      prev.forEach((el) => {
+        if (el?.data?.func === runningNode) {
+          el.data.running = true;
+        } else {
+          if (el.data?.running) {
+            el.data.running = false;
+          }
+        }
+      });
+    });
+  }, [runningNode]);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

@@ -42,14 +42,14 @@ def get_response():
     response = {
         'type': 'ping_response',
         'msg': '',
-        'io': ''
+        'io': '',
+        'running': redis_instance.get('RUNNING_NODE').decode(encoding='utf-8')
     }
+    # print('response : ', response)
     if lastSysStatus != sysStatus:
         lastSysStatus = sysStatus
-        response = {
-            'type': 'ping_response',
-            'msg': lastSysStatus
-        }
+        response['type'] = 'ping_response'
+        response['msg']: lastSysStatus
     if sysStatus == None:
         response['msg'] = 'ts'
     elif sysStatus == STATUS_CODES['RQ_RUN_COMPLETE']:
@@ -62,6 +62,8 @@ def get_response():
     else:
         response['msg'] = str(
             sysStatus).lower().replace('_', ' ')
+    response['running'] = redis_instance.get(
+        'RUNNING_NODE').decode(encoding='utf-8')
     return response
 
 

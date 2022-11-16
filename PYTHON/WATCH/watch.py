@@ -114,6 +114,7 @@ is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = nodes_by_id[n]
+    r.set('RUNNING_NODE', nd['cmd'].upper())
     # TODO have to investigate if and why this fails sometime
     # best is to remove this try catch, so we will have to come back to it soon
     try:
@@ -160,4 +161,4 @@ print('*********************')
 # print(results_string)
 
 r.mset({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
-        'COMPLETED_JOBS': results_string})
+        'COMPLETED_JOBS': results_string, 'RUNNING_NODE': ''})

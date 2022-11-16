@@ -2,9 +2,11 @@ export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
   private heartbeatResponse: any;
-  constructor(url: string, pingResponse: any, heartbeatResponse: any) {
+  private runningNode: any;
+  constructor(url: string, pingResponse: any, heartbeatResponse: any, runningNode:any) {
     this.pingResponse = pingResponse;
     this.heartbeatResponse = heartbeatResponse;
+    this.runningNode = runningNode;
     this.server = new WebSocket(url);
     this.init();
   }
@@ -19,12 +21,18 @@ export class WebSocketServer {
             if (this.pingResponse) {
               this.pingResponse(data.msg);
             }
+            if(this.runningNode){
+              this.runningNode(data.running)
+            }
             this.heartbeatResponse(data);
           }
           break;
         case "ping_response":
           if (this.pingResponse) {
             this.pingResponse(data.msg);
+          }
+          if(this.runningNode){
+            this.runningNode(data.running)
           }
           break;
         case "connection_established":
