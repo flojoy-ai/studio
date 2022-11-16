@@ -21,7 +21,7 @@ const ctrlParameters = [
     { title: "SINE ▶ FREQUENCY", value: 85 },
     // { title: "SINE ▶ OFFSET", value: "0" },
     { title: "SINE ▶ AMPLITUDE", value: 25 },
-    { title: "SINE ▶ WAVEFORM", value: "sine" },
+    // { title: "SINE ▶ WAVEFORM", value: "sine" },
     { title: "8 ▶ CONSTANT", value: 8 },
   ],
   // [
@@ -65,7 +65,7 @@ describe("Run Default App", () => {
   });
 
   it("Wait for job finishing", () => {
-    cy.get("[data-testid=results-flow]", { timeout: 200000 });
+    cy.get("[data-testid=result-node]", { timeout: 200000 });
   });
 
   it("Switch to SCRIPT tab", () => {
@@ -96,30 +96,33 @@ describe("Run Default App", () => {
       .should("have.css", "color", "rgb(255, 165, 0)");
   });
 
-  // it("For different variations of inputs, Change inputs value.", () => {
-  //   cy.get("[data-cy=ctrls-select]").within(($ele) => {
-  //     cy.get("button").contains("x").click();
-  //   });
-  //   cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").click();
-  //   ctrlParameters.forEach((singleIter, index) => {
-  //     cy.get("[data-cy=ctrls-select]").click();
-  //     singleIter.forEach((item) => {
-  //       cy.contains("[data-cy=ctrl-grid-item]", item.title).within(() => {
-  //         if (item.title === "SINE ▶ WAVEFORM") {
-  //           return cy
-  //             .get(`input[value=${item.value}]`)
-  //             .check(item.value.toString());
-  //         }
-  //         return cy
-  //           .get(`input[type=number]`)
-  //           // .get(`.rc-slider`)
-  //           .focus()
-  //           .type("{selectall}")
-  //           .type(item.value.toString());
-  //       });
-  //     });
-  //   });
-  // });
+  it("Remove existing ctrl grid.", () => {
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      return false
+    })
+    cy.get("button[id=INPUT_PLACEHOLDER]").click();
+  });
+
+  it("For different variations of inputs, Change inputs value.", () => {
+    cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").click();
+    ctrlParameters.forEach((singleIter, index) => {
+      singleIter.forEach((item) => {
+        cy.get("[data-cy=ctrls-select]").click();
+        cy.contains("[data-cy=ctrl-grid-item]", item.title).within(() => {
+          if (item.title === "SINE ▶ WAVEFORM") {
+            return cy
+              .get(`input[value="${item.value}"]`)
+              .check(item.value.toString());
+          }
+          return cy
+            .get(`input[type=number]`)
+            .focus()
+            .type("{selectall}") 
+            .type(item.value.toString());
+        });
+      });
+    });
+  });
   
   it("Wait for current job to finish", () => {
     cy.get(".App-status").contains("🐢 awaiting a new job", {
@@ -143,8 +146,8 @@ describe("Run Default App", () => {
     });
   });
 
-  it("Wait 3 sec to reflect current changes on plotly", () => {
-    cy.wait(3000);
+  it("Wait 10 sec to reflect current changes on plotly", () => {
+    cy.wait(10000);
   });
 
   // it("Compare new results with plotlyCustomResults.json", () => {
