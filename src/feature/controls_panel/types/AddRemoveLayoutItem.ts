@@ -5,4 +5,4 @@ export interface AddRemoveLayoutItem {
   w: number,
   h: number,
   add?: boolean,
-};
+}
