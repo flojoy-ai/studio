@@ -1,23 +1,18 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
-import ControlComponent from "./views/ControlComponent";
 
 import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
 import "../../App.css";
-import {
-  CtlManifestType,
-  useFlowChartState
-} from "../../hooks/useFlowChartState";
+import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
-import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
@@ -46,7 +41,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setGridLayout,
   } = useFlowChartState();
 
-  const afterOpenModal = () => {};
+  const afterOpenModal = () => { };
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
@@ -61,13 +56,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 700);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, setDebouncedTimerId, rfInstance]);
+  }, [debouncedTimerId, rfInstance]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
-  const addCtrl = (setOpenCtrlModal, ctrlObj: Partial<CtlManifestType>) => {
+  const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
       ...ctrlObj,
       id: `ctrl-${uuidv4()}`,
@@ -103,8 +98,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    const filteredOutputs = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
-    let filterChilds: any[] = filteredOutputs;
+    let filterChilds: any[] = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
 
     if (ctrl) {
@@ -163,7 +157,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     cacheManifest(manClone);
   };
 
-  useControlsTabEffects();
+  useEffect(() => {
+    if (rfInstance?.elements.length === 0) {
+      setCtrlsManifest([]);
+    } else {
+      saveAndRunFlowChart();
+    }
+  }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
@@ -180,7 +180,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
         }}
       />
 
-      {false && (
+      {/*{
         <>
           <div className="App-controls-header">
             <div className="input-header">Inputs</div>
@@ -252,7 +252,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
             </div>
           </div>
         </>
-      )}
+      }*/}
 
       <AddCtrlModal
         isOpen={openCtrlModal}
