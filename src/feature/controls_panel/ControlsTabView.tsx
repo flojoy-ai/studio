@@ -12,7 +12,7 @@ import "../../App.css";
 import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";

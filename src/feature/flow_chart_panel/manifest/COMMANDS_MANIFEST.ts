@@ -1,4 +1,5 @@
-import manifests from "../../data/manifests-latest.json";
+import manifests from "../../../data/manifests-latest.json";
+
 type Commands = {
   name: string;
   type: string;
