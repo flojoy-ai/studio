@@ -12,6 +12,7 @@ import customDropdownStyles from "../style/CustomDropdownStyles";
 import { FUNCTION_PARAMETERS } from "../../flow_chart_panel/PARAMETERS_MANIFEST";
 import { ControlNames, ControlTypes } from "../manifest/CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
+import { ControlOptions } from "../types/ControlOptions";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -27,27 +28,28 @@ const ControlComponent = ({
   setCurrentInput,
   setOpenEditModal,
 }) => {
-  const [flowChartObject, setFlowChartObject] = useState({});
-  const { elements, ctrlsManifest, setGridLayout } = useFlowChartState();
-  const [knobValue, setKnobValue] = useState(undefined);
-  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] =
-    useState(undefined);
-  const { isEditMode } = useFlowChartState();
-  const updateCtrlValueFromKnob = useCallback(
-    (value) => {
-      setKnobValue(value);
-      if (!ctrlObj?.param?.nodeId) {
-        return;
-      }
-      if (debouncedTimerForKnobId) {
-        clearTimeout(debouncedTimerForKnobId);
-      }
-      const timerId = setTimeout(() => {
-        updateCtrlValue(value, ctrlObj);
-      }, 1000);
+  const { elements, ctrlsManifest, setGridLayout, isEditMode } = useFlowChartState();
 
-      setDebouncedTimerForKnobId(timerId);
-    },
+  const [flowChartObject, setFlowChartObject] = useState<any>({});
+  const [knobValue, setKnobValue] = useState<number>();
+  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] =
+    useState<NodeJS.Timeout | undefined>(undefined);
+
+  const updateCtrlValueFromKnob = useCallback((value) => {
+    setKnobValue(value);
+
+    if (!ctrlObj?.param?.nodeId) {
+      return;
+    }
+    if (debouncedTimerForKnobId) {
+      clearTimeout(debouncedTimerForKnobId);
+    }
+    const timerId = setTimeout(() => {
+      updateCtrlValue(value, ctrlObj);
+    }, 1000);
+
+    setDebouncedTimerForKnobId(timerId);
+  },
     [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
   );
 
@@ -66,12 +68,12 @@ const ControlComponent = ({
     }
   }, [flowChartObject]);
 
-  let options = [];
+  let options: ControlOptions[] = [];
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
-        if ("source" in node === false) {
+        if (!("source" in node)) {
           // Object is a node, not an edge
           const nodeLabel = node.data.label;
           const nodeFunctionName = node.data.func;
@@ -103,7 +105,7 @@ const ControlComponent = ({
     console.log("output", flowChartObject);
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
-        if ("source" in node === false) {
+        if (!("source" in node)) {
           // Object is a node, not an edge
           let label =
             "Visualize node: " +
@@ -116,8 +118,9 @@ const ControlComponent = ({
       });
     }
   }
-  let plotData = [{ x: [1, 2, 3], y: [1, 2, 3] }];
-  let nd = {};
+
+  let plotData: any = [{ x: [1, 2, 3], y: [1, 2, 3] }];
+  let nd: any = {};
 
   if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
     // figure out what we're visualizing
@@ -129,6 +132,7 @@ const ControlComponent = ({
           (node) => nodeIdToPlot === node.id
         )[0];
         console.log("filteredResult:", filteredResult);
+
         nd = filteredResult === undefined ? {} : filteredResult;
         if (Object.keys(nd).length > 0) {
           if (nd.result) {
@@ -152,8 +156,8 @@ const ControlComponent = ({
     ctrlObj?.param?.functionName === "CONSTANT"
       ? ctrlObj.val
       : fnParam?.default
-      ? fnParam.default
-      : 0;
+        ? fnParam.default
+        : 0;
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -166,8 +170,9 @@ const ControlComponent = ({
     ctrlObj?.param?.functionName === "CONSTANT"
       ? defaultValue
       : ctrls
-      ? ctrls[ctrlObj?.param?.id]?.value
-      : defaultValue;
+        ? ctrls[ctrlObj?.param?.id]?.value
+        : defaultValue;
+
   const makeLayoutStatic = () => {
     if (isEditMode) {
       setGridLayout((prev) => {
@@ -192,7 +197,7 @@ const ControlComponent = ({
             isSearchable={true}
             onChange={(val) => {
               console.log("value in select:", val, options);
-              attachParamsToCtrl(val.value, ctrlObj);
+              if (val) attachParamsToCtrl(val.value, ctrlObj);
             }}
             options={options}
             styles={customDropdownStyles}
@@ -201,8 +206,8 @@ const ControlComponent = ({
               ctrlObj.type === "output"
                 ? options?.find((option) => option.value === ctrlObj?.param)
                 : options?.find(
-                    (option) => option.value.id === ctrlObj?.param?.id
-                  )
+                  (option) => option.value.id === ctrlObj?.param?.id
+                )
             }
           />
           <button
@@ -234,7 +239,7 @@ const ControlComponent = ({
           {ctrlObj.type === "output"
             ? options?.find((option) => option.value === ctrlObj?.param)?.label
             : options?.find((option) => option.value.id === ctrlObj?.param?.id)
-                ?.label}
+              ?.label}
         </p>
       )}
 
@@ -307,9 +312,9 @@ const ControlComponent = ({
             }}
           >
             <Silver
-              style={{ width: "fit-content", boxShadow: 0 }}
+              style={{ width: "fit-content", boxShadow: "0" }}
               // diameter={70}
-              knobStyle={{ boxShadow: 0 }}
+              knobStyle={{ boxShadow: "0" }}
               min={0}
               max={100}
               step={1}
@@ -318,7 +323,7 @@ const ControlComponent = ({
               onValueChange={updateCtrlValueFromKnob}
               ariaLabelledBy={"my-label"}
             >
-              {/* <label id={'my-label'}>Some slabel</label> */}
+              {/* <label id={'my-label'}>Some label</label> */}
             </Silver>
           </div>
         </div>
@@ -384,7 +389,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>
@@ -409,7 +414,7 @@ const ControlComponent = ({
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
-                <label for={`${ctrlObj.id}_${option.value}`}>
+                <label htmlFor={`${ctrlObj.id}_${option.value}`}>
                   {" "}
                   {option.label}{" "}
                 </label>
