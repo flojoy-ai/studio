@@ -22,7 +22,7 @@ const AddCtrlModal = ({
         ? "2px solid rgb(153, 245, 255)"
         : "2px solid rgba(123, 97, 255, 1)",
   };
-  
+
   return (
     <ReactModal
       isOpen={isOpen}

@@ -10,7 +10,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
  */
 const AddRemoveLayout = ({ defaultProps, ...props }) => {
   const { layouts, columns, breakpoints } = props;
-  
+
   const defaultItems = [0, 1, 2, 3, 4].map((i, key, list) => {
     return {
       i: i.toString(),
