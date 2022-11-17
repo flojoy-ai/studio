@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
+import { AddRemoveLayoutItem } from "../types/AddRemoveLayoutItem";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -9,32 +10,25 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
  */
 const AddRemoveLayout = ({ defaultProps, ...props }) => {
   const { layouts, columns, breakpoints } = props;
+  
+  const defaultItems = [0, 1, 2, 3, 4].map((i, key, list) => {
+    return {
+      i: i.toString(),
+      x: i * 2,
+      y: 0,
+      w: 2,
+      h: 2,
+      add: i === list.length - 1,
+    };
+  });
 
-  const [items, setItems] = useState(
-    [0, 1, 2, 3, 4].map((i, key, list) => {
-      return {
-        i: i.toString(),
-        x: i * 2,
-        y: 0,
-        w: 2,
-        h: 2,
-        add: i === list.length - 1,
-      };
-    })
-  );
-
+  const [items, setItems] = useState<AddRemoveLayoutItem[]>(defaultItems);
   const [newCounter, setNewCounter] = useState(0);
   const [breakpoint, setBreakpoint] = useState(null);
   const [cols, setCols] = useState([]);
   const [layout, setLayout] = useState(null);
 
   const createElement = (el) => {
-    const removeStyle = {
-      position: "absolute",
-      right: "2px",
-      top: 0,
-      cursor: "pointer",
-    };
     const i = el.add ? "+" : el.i;
     return (
       <div key={i} data-grid={el}>
@@ -51,7 +45,12 @@ const AddRemoveLayout = ({ defaultProps, ...props }) => {
         )}
         <span
           className="remove"
-          style={removeStyle}
+          style={{
+            position: "absolute",
+            right: "2px",
+            top: 0,
+            cursor: "pointer",
+          }}
           onClick={() => {
             onRemoveItem(i);
           }}
@@ -66,11 +65,13 @@ const AddRemoveLayout = ({ defaultProps, ...props }) => {
     /*eslint no-console: 0*/
     console.log("adding", "n" + newCounter);
     console.log("items", items);
+
     setItems(
       // Add a new item. It must have a unique key!
       items.concat({
         i: "n" + newCounter,
-        x: (items.length * 2) % (cols || 12),
+        // x: (items.length * 2) % (cols || 12),
+        x: (items.length * 2) % (cols.length || 12),
         y: Infinity, // puts it at the bottom
         w: 2,
         h: 2,
