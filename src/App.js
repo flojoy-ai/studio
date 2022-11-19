@@ -15,13 +15,21 @@ import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
+import NodeErrorShow from "./components/NodeErrorShow";
 
 const App = () => {
-  const { serverStatus, programResults, runningNode } = useSocket();
+  const { states } = useSocket();
+  const {
+    serverStatus,
+    programResults,
+    runningNode,
+    failedNodes,
+    failureReason,
+  } = states;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);
-
+  const [openErrorLog, setOpenErrorLog] = useState(true);
   const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
     useFlowChartState();
   const [currentTab, setCurrentTab] = useState("visual");
@@ -49,9 +57,16 @@ const App = () => {
             el.data.running = false;
           }
         }
+        if (el?.data?.func && failedNodes.includes(el.data.func)) {
+          el.data.failed = true;
+        } else {
+          if (el?.data?.failed) {
+            el.data.failed = false;
+          }
+        }
       });
     });
-  }, [runningNode]);
+  }, [runningNode, failedNodes]);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -170,6 +185,13 @@ const App = () => {
               setOpenCtrlModal={setOpenCtrlModal}
             />
           )}
+          <NodeErrorShow
+            afterOpenModal={() => false}
+            closeModal={() => setOpenErrorLog(false)}
+            data={failureReason}
+            modalIsOpen={failureReason.length > 0 && openErrorLog}
+            theme={theme}
+          />
         </main>
       </ReactFlowProvider>
     </ThemeProvider>

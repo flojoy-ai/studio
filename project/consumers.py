@@ -9,7 +9,7 @@ import asyncio
 
 # Connect to our Redis instance
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-                                   port=settings.REDIS_PORT, db=0)
+                                   port=settings.REDIS_PORT, db=0, decode_responses=True)
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
 lastSysStatus = ""
@@ -38,14 +38,16 @@ Scheduler.run_continuously = run_continuously
 def get_response():
     global lastSysStatus
     sysStatus = redis_instance.get(
-        'SYSTEM_STATUS').decode(encoding='utf-8')
+        'SYSTEM_STATUS')
+    failed_nodes = redis_instance.lrange('FAILED_NODES',0,10);
     response = {
         'type': 'ping_response',
         'msg': '',
         'io': '',
-        'running': redis_instance.get('RUNNING_NODE').decode(encoding='utf-8')
+        'running': redis_instance.get('RUNNING_NODE'),
+        'failed': failed_nodes,
+        'failureReason': redis_instance.lrange('FAILED_REASON',0,10)
     }
-    # print('response : ', response)
     if lastSysStatus != sysStatus:
         lastSysStatus = sysStatus
         response['type'] = 'ping_response'
@@ -54,7 +56,7 @@ def get_response():
         response['msg'] = 'ts'
     elif sysStatus == STATUS_CODES['RQ_RUN_COMPLETE']:
         job_results = redis_instance.get(
-            'COMPLETED_JOBS').decode(encoding='utf-8')
+            'COMPLETED_JOBS')
         response['type'] = 'heartbeat_response'
         response['io'] = job_results
         response['msg'] = lastSysStatus
@@ -63,7 +65,7 @@ def get_response():
         response['msg'] = str(
             sysStatus).lower().replace('_', ' ')
     response['running'] = redis_instance.get(
-        'RUNNING_NODE').decode(encoding='utf-8')
+        'RUNNING_NODE')
     return response
 
 

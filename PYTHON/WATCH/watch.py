@@ -43,6 +43,11 @@ q = Queue('flojoy', connection=r)
 f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
+# r.delete('FAILED_NODES');
+for i in range(0, r.llen('FAILED_NODES')):
+    r.lpop('FAILED_NODES')
+for i in range(0, r.llen('FAILED_REASON')):
+    r.lpop('FAILED_REASON')
 
 # Replicate the React Flow chart in Python's networkx
 
@@ -60,7 +65,6 @@ def report_failure(job, connection, type, value, traceback):
 
 def jid(n):
     return 'JOB_ID_{0}'.format(n)
-
 for n in topological_sorting:
     cmd = nodes_by_id[n]['cmd']
     ctrls = nodes_by_id[n]['ctrls']
@@ -131,6 +135,8 @@ for n in topological_sorting:
         print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
         if attempt_count > 100:
             print('job timed out, deliting it')
+            failed_reason = nd['cmd'] + ' for origin: ' + job.origin + ' is timed out'
+            r.rpush('FAILED_REASON', failed_reason)
             job.delete()
             job_status = "timeout"
             break
@@ -138,10 +144,15 @@ for n in topological_sorting:
             break
         if is_any_node_failed:
             print('canceling', nd['cmd'], 'due to failure in another node')
+            failed_reason = nd['cmd'] + ' cancelled origin: ' + job.origin + ' due to failure in another node'
+            r.rpush('FAILED_REASON', failed_reason)
             job.delete()
             job_status = "cancelled"
             break
         if job_status == 'failed':
+            r.rpush('FAILED_NODES', str(nd['cmd'].upper()))
+            failed_reason = nd['cmd'] + ' ' + job_status + ' origin: ' + job.origin + ' attempt: ' + str(attempt_count)
+            r.rpush('FAILED_REASON', failed_reason)
             is_any_node_failed = True
             break
         if job_status == 'deferred':

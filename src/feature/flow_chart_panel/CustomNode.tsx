@@ -96,7 +96,10 @@ const CustomNode = ({ data }: CustomNodeProps) => {
   const params = data.inputs || [];
   return (
     <div style={{
-      ...(data.running && getboxShadow(data))
+      ...(data.running && getboxShadow(data)),
+      ...(data.failed && {
+        boxShadow: 'rgb(183 0 0) 0px 0px 50px 15px'
+      })
     }}>
     <div 
       style={{
