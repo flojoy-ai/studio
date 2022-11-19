@@ -1,6 +1,7 @@
 import { Handle, Position } from "react-flow-renderer";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import Plot from "react-plotly.js";
+import PlotlyComponent from "../../../components/plotly-wrapper/PlotlyComponent";
 import styledPlotLayout from "../../common/defaultPlotLayout";
 
 const CustomResultNode = ({ data }) => {
@@ -25,7 +26,25 @@ const CustomResultNode = ({ data }) => {
       {!data?.resultData ? (
         <p> `NO Result`</p>
       ) : (
-        <Plot
+        // <Plot
+        //   data={
+        //     !data.resultData?.data
+        //       ? [{ x: data.resultData["x"], y: data.resultData["y"] }]
+        //       : data.resultData.data
+        //   }
+        //   layout={
+        //     !data.resultData?.layout
+        //       ? Object.assign({}, { title: `${data.func}` }, styledLayout)
+        //       : Object.assign({},{ title: `${data.func}` }, data.resultData.layout, styledLayout)
+        //   }
+        //   useResizeHandler
+        //   style={{
+        //     height: 235,
+        //     width: 230,
+        //   }}
+        // />
+        <PlotlyComponent
+          id={data.id}
           data={
             !data.resultData?.data
               ? [{ x: data.resultData["x"], y: data.resultData["y"] }]
