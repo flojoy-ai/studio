@@ -185,13 +185,6 @@ const App = () => {
               setOpenCtrlModal={setOpenCtrlModal}
             />
           )}
-          <NodeErrorShow
-            afterOpenModal={() => false}
-            closeModal={() => setOpenErrorLog(false)}
-            data={failureReason}
-            modalIsOpen={failureReason.length > 0 && openErrorLog}
-            theme={theme}
-          />
         </main>
       </ReactFlowProvider>
     </ThemeProvider>
