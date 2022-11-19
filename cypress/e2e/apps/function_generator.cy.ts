@@ -44,13 +44,15 @@ describe("Run Default App", () => {
   });
 
   it("Wait for server to be ready to take new job.", () => {
+    cy.wait(5000);
     cy.get(".App-status")
+    .find('code')
     .then( ($ele) => {
       if ($ele.text().includes("🐢 awaiting a new job") || 
-              $ele.text().includes("⏰ server uptime:")) {
-        return true;
+      $ele.text().includes("⏰ server uptime:")) {
+          return true;
       } else {
-        return false;
+        throw new Error("not correct status")
       }
     });
   });
@@ -73,82 +75,89 @@ describe("Run Default App", () => {
       .click();
   });
 
-  // it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
-  //   nodes.forEach((node) => {
-  //     cy.get(`[data-id="${node.selector}"]`).click({
-  //       force: true,
-  //       multiple: true,
-  //     });
-  //     matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-  //     cy.get(".ctrl-close-btn").click({ force: true });
-  //     });
+  it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
+    // cy.on('fail', (err, runnable) => {
+    //   cy.get(".ctrl-close-btn").click({ force: true });
+    //   if(err.message.includes('undefined value of output')){
+    //       return false;
+    //   }
+    //   return true;
+    // })
+    nodes.forEach((node) => {
+      cy.get(`[data-id="${node.selector}"]`).click({
+        force: true,
+        multiple: true,
+      });
+      matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
+      cy.get(".ctrl-close-btn").click({ force: true });
+      });
+  });
+
+  // it("Switch to ctrls tab upon clicking on CTRLS button.", () => {
+  //   cy.get(`[data-cy="ctrls-btn"]`)
+  //     .click();
   // });
 
-  it("Switch to ctrls tab upon clicking on CTRLS button.", () => {
-    cy.get(`[data-cy="ctrls-btn"]`)
-      .click();
-  });
+  // it("Enable operation mode by clicking on Edit switch button", () => {
+  //   cy.get("[data-cy=operation-switch]")
+  //     .contains("Edit")
+  //     .click()
+  //     .should("have.css", "color", "rgb(255, 165, 0)");
+  // });
 
-  it("Enable operation mode by clicking on Edit switch button", () => {
-    cy.get("[data-cy=operation-switch]")
-      .contains("Edit")
-      .click()
-      .should("have.css", "color", "rgb(255, 165, 0)");
-  });
+  // it("Remove existing ctrl grid.", () => {
+  //   Cypress.on('uncaught:exception', (err, runnable) => {
+  //     return false
+  //   })
+  //   cy.get("button[id=INPUT_PLACEHOLDER]").click();
+  // });
 
-  it("Remove existing ctrl grid.", () => {
-    Cypress.on('uncaught:exception', (err, runnable) => {
-      return false
-    })
-    cy.get("button[id=INPUT_PLACEHOLDER]").click();
-  });
-
-  it("For different variations of inputs, Change inputs value.", () => {
-    cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").click();
-    ctrlParameters.forEach((singleIter, index) => {
-      singleIter.forEach((item) => {
-        cy.get("[data-cy=ctrls-select]").click();
-        cy.contains("[data-cy=ctrl-grid-item]", item.title).within(() => {
-          if (item.title === "SINE ▶ WAVEFORM") {
-            return cy
-              .get(`input[value="${item.value}"]`)
-              .check(item.value.toString());
-          }
-          return cy
-            .get(`input[type=number]`)
-            .focus()
-            .type("{selectall}") 
-            .type(item.value.toString());
-        });
-      });
-    });
-  });
+  // it("For different variations of inputs, Change inputs value.", () => {
+  //   cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").click();
+  //   ctrlParameters.forEach((singleIter, index) => {
+  //     singleIter.forEach((item) => {
+  //       cy.get("[data-cy=ctrls-select]").click();
+  //       cy.contains("[data-cy=ctrl-grid-item]", item.title).within(() => {
+  //         if (item.title === "SINE ▶ WAVEFORM") {
+  //           return cy
+  //             .get(`input[value="${item.value}"]`)
+  //             .check(item.value.toString());
+  //         }
+  //         return cy
+  //           .get(`input[type=number]`)
+  //           .focus()
+  //           .type("{selectall}") 
+  //           .type(item.value.toString());
+  //       });
+  //     });
+  //   });
+  // });
   
-  it("Wait for current job to finish", () => {
-    cy.get(".App-status").contains("🐢 awaiting a new job", {
-      timeout: 60000,
-    });
-  });
+  // it("Wait for current job to finish", () => {
+  //   cy.get(".App-status").contains("🐢 awaiting a new job", {
+  //     timeout: 60000,
+  //   });
+  // });
 
-  it("Switch to DEBUG tab", () => {
-    cy.get(`[data-cy="debug-btn"]`)
-      .click();
-  });
+  // it("Switch to DEBUG tab", () => {
+  //   cy.get(`[data-cy="debug-btn"]`)
+  //     .click();
+  // });
 
-  it("Run the app by clicking Play button", () => {
-    cy.get("button").contains("Play").click().wait(5000);
-  });
+  // it("Run the app by clicking Play button", () => {
+  //   cy.get("button").contains("Play").click().wait(5000);
+  // });
 
-  it("Wait for current job to finish", () => {
-    cy.get(".App-status").contains("🐢 awaiting a new job", {
-      timeout: 60000,
-      matchCase: false
-    });
-  });
+  // it("Wait for current job to finish", () => {
+  //   cy.get(".App-status").contains("🐢 awaiting a new job", {
+  //     timeout: 60000,
+  //     matchCase: false
+  //   });
+  // });
 
-  it("Wait 10 sec to reflect current changes on plotly", () => {
-    cy.wait(10000);
-  });
+  // it("Wait 10 sec to reflect current changes on plotly", () => {
+  //   cy.wait(10000);
+  // });
 
   // it("Compare new results with plotlyCustomResults.json", () => {
   //   nodes.forEach((node) => {
