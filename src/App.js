@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView.tsx";
-import ResultsTab from "./feature/results_panel/ResultsTab.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTabView.tsx";
 import ControlsTab from "./feature/controls_panel/ControlsTabView.tsx";
 
 import { ThemeProvider } from "styled-components";
