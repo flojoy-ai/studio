@@ -19,7 +19,7 @@ def CONDITIONAL(**kwargs):
         raise Exception("OPERATOR NULL")
     else:
         if operator == 'IS_GREATER_THAN':
-            return {'x0':previous_job_results[0]['x0'],'y0':previous_job_results[0]['y0'],'direction':'true'}
+            return {'x0':previous_job_results[0]['x0'],'y0':previous_job_results[0]['y0'],'direction':'false'}
 
             '''
             if len(previous_job_result) == 2:
