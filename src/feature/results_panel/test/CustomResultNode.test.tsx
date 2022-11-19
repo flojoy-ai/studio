@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import CustomResultNode from '../CustomResultNode'
+import CustomResultNode from '../views/CustomResultNode'
 import { ReactFlowProvider } from "react-flow-renderer";
 
 describe('CustomResultNode', () => {
