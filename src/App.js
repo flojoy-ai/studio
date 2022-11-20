@@ -15,21 +15,13 @@ import Controls from "./feature/flow_chart_panel/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/themeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
-import NodeErrorShow from "./components/NodeErrorShow";
 
 const App = () => {
   const { states } = useSocket();
-  const {
-    serverStatus,
-    programResults,
-    runningNode,
-    failedNodes,
-    failureReason,
-  } = states;
+  const { serverStatus, programResults, runningNode, failedNodes } = states;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);
-  const [openErrorLog, setOpenErrorLog] = useState(true);
   const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
     useFlowChartState();
   const [currentTab, setCurrentTab] = useState("visual");
@@ -66,6 +58,7 @@ const App = () => {
         }
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runningNode, failedNodes]);
 
   return (

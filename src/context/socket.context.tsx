@@ -1,5 +1,4 @@
 import { createContext, useEffect, useRef, useState } from "react";
-import STATUS_CODES from "../STATUS_CODES.json";
 import { WebSocketServer } from "../web-socket/socket";
 
 export const SocketContext = createContext<any>(null);

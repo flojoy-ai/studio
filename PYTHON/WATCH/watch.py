@@ -5,6 +5,8 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+from rq.worker import Worker
+from rq.command import send_kill_horse_command
 import traceback
 
 import warnings
@@ -17,8 +19,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from joyflo import reactflow_to_networkx
-
-# sys.path.append('../FUNCTIONS/')
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -43,7 +43,12 @@ q = Queue('flojoy', connection=r)
 f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
-# r.delete('FAILED_NODES');
+
+# Stop any running rq job
+workers = Worker.all(r)
+for worker in workers:
+    send_kill_horse_command(r, worker.name);
+
 for i in range(0, r.llen('FAILED_NODES')):
     r.lpop('FAILED_NODES')
 for i in range(0, r.llen('FAILED_REASON')):
@@ -58,6 +63,7 @@ convert_reactflow_to_networkx = reactflow_to_networkx(elems)
 topological_sorting = convert_reactflow_to_networkx['topological_sort']
 
 nodes_by_id = convert_reactflow_to_networkx['getNode']()
+
 DG = convert_reactflow_to_networkx['DG']
 
 def report_failure(job, connection, type, value, traceback):
@@ -71,7 +77,6 @@ for n in topological_sorting:
     print('*********************')
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
     print('*********************')
-    # print('globals:', globals())
   
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
@@ -133,13 +138,6 @@ for n in topological_sorting:
         attempt_count += 1
 
         print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
-        if attempt_count > 100:
-            print('job timed out, deliting it')
-            failed_reason = nd['cmd'] + ' for origin: ' + job.origin + ' is timed out'
-            r.rpush('FAILED_REASON', failed_reason)
-            job.delete()
-            job_status = "timeout"
-            break
         if job_status == 'finished':
             break
         if is_any_node_failed:
