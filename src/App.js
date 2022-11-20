@@ -188,7 +188,7 @@ const App = () => {
               clickedElement={clickedElement}
               onElementsRemove={onElementsRemove}
               theme={theme}
-              isVisualMode={currentTab === "visual"}
+              activeTab={currentTab}
               setOpenCtrlModal={setOpenCtrlModal}
             />
             <button onClick={toggleTheme} className="App-theme-toggle">
