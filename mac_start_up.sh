@@ -59,7 +59,9 @@ CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
 if test -f "$FILE"; then
-    echo "$FILE exists."
+   touch $HOME/.flojoy/flojoy.yaml
+   echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
+   echo "$FILE exists."
 else
    mkdir $HOME/.flojoy && touch $HOME/.flojoy/flojoy.yaml
    echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
