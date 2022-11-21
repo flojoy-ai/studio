@@ -1,22 +1,13 @@
-import "react-grid-layout/css/styles.css";
-import { Responsive, WidthProvider } from "react-grid-layout";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
-import "./Controls.css";
-import "../../App.css";
-import ControlComponent from "./controlComponent";
 import { useEffect } from "react";
+import { Responsive, WidthProvider } from "react-grid-layout";
+import "react-grid-layout/css/styles.css";
+import "../../../App.css";
+import { useFlowChartState } from "../../../hooks/useFlowChartState";
+import "../style/Controls.css";
+import { ControlProps } from "../types/ControlProps";
+import Control from "./Control";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
-export interface ControlProps {
-  theme: any;
-  isEditMode: any;
-  results: any;
-  updateCtrlValue: any;
-  attachParam2Ctrl: any;
-  rmCtrl: any;
-  setCurrentInput: any;
-  setOPenEditModal: any;
-}
 
 export default function ControlGrid({
   controlProps,
@@ -62,6 +53,7 @@ export default function ControlGrid({
             />
           );
         }
+
         return (
           <div
             key={ctrl.id}
@@ -86,63 +78,5 @@ export default function ControlGrid({
         );
       })}
     </ResponsiveGridLayout>
-  );
-}
-
-function Control({
-  controlProps,
-  ctrl,
-}: {
-  controlProps: ControlProps;
-  ctrl: any;
-  ctrlIndex: number;
-}) {
-  const {
-    isEditMode,
-    theme,
-    results,
-    updateCtrlValue,
-    attachParam2Ctrl,
-    rmCtrl,
-    setCurrentInput,
-    setOPenEditModal,
-  } = controlProps;
-
-  return (
-    <div
-      className={isEditMode ? "ctrl-input" : ""}
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: "16px",
-        backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
-      }}
-    >
-      {isEditMode ? (
-        <ControlComponent
-          ctrlObj={ctrl}
-          theme={theme}
-          results={results}
-          updateCtrlValue={updateCtrlValue}
-          attachParam2Ctrl={attachParam2Ctrl}
-          rmCtrl={rmCtrl}
-          setCurrentInput={setCurrentInput}
-          setOPenEditModal={setOPenEditModal}
-        />
-      ) : ctrl.hidden ? null : (
-        <ControlComponent
-          ctrlObj={ctrl}
-          theme={theme}
-          results={results}
-          updateCtrlValue={updateCtrlValue}
-          attachParam2Ctrl={attachParam2Ctrl}
-          rmCtrl={rmCtrl}
-          setCurrentInput={setCurrentInput}
-          setOPenEditModal={setOPenEditModal}
-        />
-      )}
-    </div>
   );
 }

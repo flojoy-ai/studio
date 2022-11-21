@@ -1,21 +1,12 @@
 import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
+import ModalCloseSvg from "../../../utils/ModalCloseSvg";
 import {
   InputControlsManifest,
   OutputControlsManifest,
-} from "./CONTROLS_MANIFEST";
-const modalStyles: ReactModal.Styles = {
-  overlay: { zIndex: 99 },
-  content: {
-    border: "1px solid rgba(41, 41, 41, 1)",
-    borderRadius: "8px",
-    zIndex: 100,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-  },
-};
+} from "../manifest/CONTROLS_MANIFEST";
+import { modalStyles } from "../style/ControlModalStyles"
+
 const AddCtrlModal = ({
   isOpen,
   afterOpenModal,
@@ -31,6 +22,7 @@ const AddCtrlModal = ({
         ? "2px solid rgb(153, 245, 255)"
         : "2px solid rgba(123, 97, 255, 1)",
   };
+
   return (
     <ReactModal
       isOpen={isOpen}

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ControlsTab from '../ControlsTab'
+import ControlsTab from '../ControlsTabView'
 
 describe('ControlsTab', () => {
     it('should render the controls tab', () => {
