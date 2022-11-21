@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import FlowChart from "./feature/flow_chart_panel/ReactFlow.tsx";
-import ControlsTab from "./feature/controls_panel/ControlsTabView.tsx";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView.tsx";
 import ResultsTab from "./feature/results_panel/ResultsTabView.tsx";
+import ControlsTab from "./feature/controls_panel/ControlsTabView.tsx";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./feature/common/theme";
@@ -13,7 +13,7 @@ import STATUS_CODES from "./STATUS_CODES.json";
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { ReactFlowProvider, removeElements } from "react-flow-renderer";
-import Controls from "./feature/flow_chart_panel/ControlBar";
+import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 
@@ -201,7 +201,7 @@ const App = () => {
             <ResultsTab results={programResults} theme={theme} />
           </div>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-            <FlowChart
+            <FlowChartTab
               elements={elements}
               setElements={setElements}
               rfInstance={rfInstance}

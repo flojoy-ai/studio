@@ -1,28 +1,10 @@
 import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { COMMANDS, SECTIONS } from "./COMMANDS_MANIFEST";
-import type { NodeOnAddFunc } from "./ControlBar";
-import { FUNCTION_PARAMETERS } from "./PARAMETERS_MANIFEST";
-const modalStyles: ReactModal.Styles = {
-  overlay: { zIndex: 99 },
-  content: {
-    border: "1px solid rgba(41, 41, 41, 1)",
-    borderRadius: "8px",
-    zIndex: 100,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-  },
-};
-
-interface Props {
-  modalIsOpen: boolean;
-  afterOpenModal: () => void;
-  closeModal: () => void;
-  onAdd: NodeOnAddFunc;
-  theme: "light" | "dark";
-}
+import ModalCloseSvg from "../../../utils/ModalCloseSvg";
+import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
+import { PythonFuncModalProps } from "../types/PythonFuncModalProps";
+import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
+import { PythonFuncModalStyles } from "../style/PythonModalStyle";
 
 const PythonFuncModal = ({
   modalIsOpen,
@@ -30,8 +12,9 @@ const PythonFuncModal = ({
   closeModal,
   onAdd,
   theme,
-}: Props) => {
+}: PythonFuncModalProps) => {
   const [activeTab, setActiveTab] = useState(SECTIONS[0][0].key);
+
   const activeBtnStyle = {
     height: "100%",
     borderBottom:
@@ -39,12 +22,13 @@ const PythonFuncModal = ({
         ? "2px solid rgb(153, 245, 255)"
         : "2px solid rgba(123, 97, 255, 1)",
   };
+
   return (
     <ReactModal
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      style={modalStyles}
+      style={PythonFuncModalStyles}
       ariaHideApp={false}
       contentLabel="Choose a Python function"
     >

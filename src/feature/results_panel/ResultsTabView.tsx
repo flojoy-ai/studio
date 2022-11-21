@@ -8,7 +8,7 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "react-flow-renderer";
 import { useWindowSize } from "react-use";
-import CustomEdge from "../flow_chart_panel/CustomEdge";
+import CustomEdge from "../flow_chart_panel/views/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
 import { useFlowChartState } from "../../hooks/useFlowChartState";

@@ -1,12 +1,11 @@
-import React, {
+import {
   memo,
   useCallback,
-  Dispatch,
   FC,
   useState,
   useEffect,
 } from "react";
-import { useZoomPanHelper, OnLoadParams, Elements } from "react-flow-renderer";
+import { useZoomPanHelper } from "react-flow-renderer";
 import localforage from "localforage";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,61 +14,24 @@ import "react-tabs/style/react-tabs.css";
 import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
-} from "../../services/FlowChartServices";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
+} from "../../../services/FlowChartServices";
+import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
 import PythonFuncModal from "./PythonFuncModal";
-import PlayIconSvg from "../../utils/PlayIconSvg";
+import PlayIconSvg from "../../../utils/PlayIconSvg";
+import { ControlsProps } from "../types/ControlsProps";
+import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
-type ParamTypes = {
-  [x: string]: {
-    type: string;
-    options?: string[];
-    default: number | string;
-  };
-};
-export type NodeOnAddFunc = (props: {
-  FUNCTION: string;
-  type: string;
-  params: ParamTypes | undefined;
-  inputs?: Array<{name:string, id:string}> | undefined;
-}) => void;
-
-export type ElementsData = {
-  label: string;
-  func: string;
-  type: string;
-  ctrls: {
-    [key: string]: {
-      functionName: string;
-      param: string;
-      value: number;
-    };
-  };
-  inputs?: Array<{name:string; id:string}>
-  selects?: any;
-}
-
 
 const getNodePosition = () => {
   return {
     x: 50 + Math.random() * 20,
     y: 50 + Math.random() + Math.random() * 20,
   };
-};
-
-type ControlsProps = {
-  rfInstance?: OnLoadParams;
-  setElements: Dispatch<React.SetStateAction<Elements<any>>>;
-  clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
-  onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
-  theme: "light" | "dark";
-  isVisualMode?: boolean;
-  setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Controls: FC<ControlsProps> = ({
@@ -89,14 +51,6 @@ const Controls: FC<ControlsProps> = ({
     saveFile,
   } = useFlowChartState();
 
-  useEffect(() => {
-    transform({
-      x: rfSpatialInfo.x,
-      y: rfSpatialInfo.y,
-      zoom: rfSpatialInfo.zoom,
-    });
-  }, [rfSpatialInfo, transform]);
-
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
@@ -109,7 +63,7 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type,inputs }) => {
+    ({ FUNCTION, params, type, inputs }) => {
       let functionName: string;
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
@@ -123,26 +77,26 @@ const Controls: FC<ControlsProps> = ({
       if (!functionName) return;
       const funcParams = params
         ? Object.keys(params).reduce(
-            (
-              prev: Record<
-                string,
-                {
-                  functionName: string;
-                  param: keyof ParamTypes;
-                  value: string | number;
-                }
-              >,
-              param
-            ) => ({
-              ...prev,
-              [FUNCTION + "_" + functionName + "_" + param.toUpperCase()]: {
-                functionName: FUNCTION,
-                param,
-                value: params![param].default,
-              },
-            }),
-            {}
-          )
+          (
+            prev: Record<
+              string,
+              {
+                functionName: string;
+                param: keyof ParamTypes;
+                value: string | number;
+              }
+            >,
+            param
+          ) => ({
+            ...prev,
+            [FUNCTION + "_" + functionName + "_" + param.toUpperCase()]: {
+              functionName: FUNCTION,
+              param,
+              value: params![param].default,
+            },
+          }),
+          {}
+        )
         : {};
 
       const newNode = {
@@ -165,10 +119,18 @@ const Controls: FC<ControlsProps> = ({
   const openModal = () => {
     setIsOpen(true);
   };
-  const afterOpenModal = () => {};
+  const afterOpenModal = () => { };
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    transform({
+      x: rfSpatialInfo.x,
+      y: rfSpatialInfo.y,
+      zoom: rfSpatialInfo.zoom,
+    });
+  }, [rfSpatialInfo, transform]);
 
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
