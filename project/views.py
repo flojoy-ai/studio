@@ -5,8 +5,9 @@ import redis
 from subprocess import Popen, PIPE
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+import json
 from django.shortcuts import render
+from PYTHON.WATCH import watch
 
 # Connect to our Redis instance
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
@@ -79,19 +80,25 @@ def io(request):
 def wfc(request):
     print('Flow chart payload... ', request.data['fc'][:100])
 
-    redis_instance.set('SYSTEM_STATUS', STATUS_CODES['RQ_RUN_IN_PROCESS'])
-    with open('PYTHON/WATCH/fc.json', 'w') as file:
-        file.write(request.data['fc'])
+    # with open('PYTHON/WATCH/fc.json', 'w') as file:
+    #     file.write(request.data['fc'])
 
-    process = Popen(['python3', 'PYTHON/WATCH/watch.py'],
-                    stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
+    # f = open('PYTHON/WATCH/fc.json')
+    # fc = json.loads(f.read())
+    fc = json.loads(request.data['fc'])
+    jobId = request.data['jobId']
+    redis_instance.set(jobId, json.dumps({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS']}))
+    watch.run(fc,jobId)
 
-    if stdout:
-        print(stdout, '\n\n')
+    # process = Popen(['python3', 'PYTHON/WATCH/watch.py'],
+    #                 stdout=PIPE, stderr=PIPE)
+    # stdout, stderr = process.communicate()
 
-    if stderr:
-        print(stderr, '\n\n')
+    # if stdout:
+    #     print(stdout, '\n\n')
+
+    # if stderr:
+    #     print(stderr, '\n\n')
 
     response = {
         'msg': STATUS_CODES['RQ_RUN_IN_PROCESS'],

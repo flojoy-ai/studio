@@ -5,6 +5,7 @@ interface WebSocketServerProps {
   runningNode: any;
   failedNodes: any;
   failureReason: any;
+  socketId: any
 }
 export class WebSocketServer {
   private server: WebSocket;
@@ -13,6 +14,7 @@ export class WebSocketServer {
   private runningNode: any;
   private failedNodes: any;
   private failureReason: any;
+  private socketId:any
   constructor({
     url,
     pingResponse,
@@ -20,12 +22,14 @@ export class WebSocketServer {
     runningNode,
     failedNodes,
     failureReason,
+    socketId
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
     this.heartbeatResponse = heartbeatResponse;
     this.runningNode = runningNode;
     this.failedNodes = failedNodes;
     this.failureReason = failureReason;
+    this.socketId = socketId
     this.server = new WebSocket(url);
     this.init();
   }
@@ -67,6 +71,9 @@ export class WebSocketServer {
           }
           break;
         case "connection_established":
+          if(this.socketId){
+            this.socketId(data.socketId)
+          }
           this.server.send(
             JSON.stringify({
               type: "ping",
