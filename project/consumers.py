@@ -78,7 +78,10 @@ class FlojoyConsumer(AsyncJsonWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
-        self.socketId = uuid.uuid1().__str__()
+        id = uuid.uuid1().__str__()
+        while redis_instance.get(id) is not None:
+            id = uuid.uuid1().__str__()
+        self.socketId = id
         await self.send_json({
             'type': 'connection_established',
             'msg': 'You are now connected to flojoy servers',

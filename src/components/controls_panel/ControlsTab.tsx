@@ -67,7 +67,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 700);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance]);
+  }, [debouncedTimerId, rfInstance, socketId]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
