@@ -74,6 +74,9 @@ export class WebSocketServer {
           if(this.socketId){
             this.socketId(data.socketId)
           }
+          if(this.pingResponse){
+            this.pingResponse(data.msg)
+          }
           this.server.send(
             JSON.stringify({
               type: "ping",

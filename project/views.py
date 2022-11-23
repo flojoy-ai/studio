@@ -79,26 +79,11 @@ def io(request):
 @api_view(['POST'])
 def wfc(request):
     print('Flow chart payload... ', request.data['fc'][:100])
-
-    # with open('PYTHON/WATCH/fc.json', 'w') as file:
-    #     file.write(request.data['fc'])
-
-    # f = open('PYTHON/WATCH/fc.json')
-    # fc = json.loads(f.read())
+    
     fc = json.loads(request.data['fc'])
     jobId = request.data['jobId']
     redis_instance.set(jobId, json.dumps({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS']}))
     watch.run(fc,jobId)
-
-    # process = Popen(['python3', 'PYTHON/WATCH/watch.py'],
-    #                 stdout=PIPE, stderr=PIPE)
-    # stdout, stderr = process.communicate()
-
-    # if stdout:
-    #     print(stdout, '\n\n')
-
-    # if stderr:
-    #     print(stderr, '\n\n')
 
     response = {
         'msg': STATUS_CODES['RQ_RUN_IN_PROCESS'],

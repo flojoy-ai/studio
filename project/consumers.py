@@ -37,23 +37,19 @@ def run_continuously(self, interval=1):
 
 Scheduler.run_continuously = run_continuously
 
-connected_sockets = []
-
-
 def get_response(socketId):
     global lastSysStatus
     loadSysStatus = redis_instance.get(socketId)
     sysStatus = json.loads(
         loadSysStatus) if loadSysStatus is not None else None
-    failed_nodes = redis_instance.lrange('FAILED_NODES', 0, 10)
     ts = '⏰ server uptime: ' + str(uptime.uptime())
     response = {
         'type': 'ping_response',
         'msg': '',
         'io': '',
         'running': sysStatus['RUNNING_NODE'] if sysStatus is not None and 'RUNNING_NODE' in sysStatus else '',
-        'failed': failed_nodes,
-        'failureReason': redis_instance.lrange('FAILED_REASON', 0, 10)
+        'failed': sysStatus['FAILED_NODES'] if sysStatus is not None and 'FAILED_NODES' in sysStatus else [],
+        'failureReason': []
     }
     if sysStatus is not None and 'SYSTEM_STATUS' in sysStatus and lastSysStatus != sysStatus['SYSTEM_STATUS']:
         lastSysStatus = sysStatus['SYSTEM_STATUS']
@@ -71,7 +67,6 @@ def get_response(socketId):
         if 'SYSTEM_STATUS' in sysStatus:
             response['msg'] = str(
                 sysStatus['SYSTEM_STATUS']).lower().replace('_', ' ')
-        print(' system status not found: ', sysStatus)
     response['running'] = sysStatus[
         'RUNNING_NODE'] if sysStatus is not None and 'RUNNING_NODE' in sysStatus else ''
     return response
@@ -86,10 +81,11 @@ class FlojoyConsumer(AsyncJsonWebsocketConsumer):
         self.socketId = uuid.uuid1().__str__()
         await self.send_json({
             'type': 'connection_established',
-            'message': 'You are now connected to flojoy servers',
+            'msg': 'You are now connected to flojoy servers',
             'socketId': self.socketId
         })
-        connected_sockets.append(self.socketId)
+        redis_instance.set(self.socketId, json.dumps(
+            {'SYSTEM_STATUS': STATUS_CODES['STANDBY']}))
 
         def get_redis_status():
             asyncio.run(self.send_message(get_response(self.socketId)))
@@ -102,7 +98,6 @@ class FlojoyConsumer(AsyncJsonWebsocketConsumer):
         start_scheduler()
 
     async def send_message(self, text):
-        # print('sending message to : ', self.socketId)
         await self.send_json(text)
         if (text['type'] == 'heartbeat_response'):
             self.send_count += 1
