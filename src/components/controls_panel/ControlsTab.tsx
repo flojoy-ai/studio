@@ -17,6 +17,7 @@ import ReactSwitch from "react-switch";
 import ControlGrid from "./ControlGrid";
 import AddCtrlModal from "./AddCtrlModal";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
+import { useSocket } from "../../hooks/useSocket";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -34,6 +35,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     ctrlsManifest,
     setCtrlsManifest,
   } = useFlowChartState();
+  const {states: {socketId}} = useSocket()
   const [debouncedTimerId, setDebouncedTimerId] = useState<
     NodeJS.Timeout | undefined
   >(undefined);
@@ -61,7 +63,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       clearTimeout(debouncedTimerId);
     }
     const timerId = setTimeout(() => {
-      saveAndRunFlowChartInServer(rfInstance);
+      saveAndRunFlowChartInServer({rfInstance, jobId:socketId});
     }, 700);
 
     setDebouncedTimerId(timerId);

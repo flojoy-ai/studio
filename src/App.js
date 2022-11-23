@@ -17,8 +17,9 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const { states } = useSocket();
-  const { serverStatus, programResults, runningNode, failedNodes } = states;
+  const {
+    states: { serverStatus, programResults, runningNode, failedNodes },
+  } = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState("dark");
   const [clickedElement, setClickedElement] = useState([]);

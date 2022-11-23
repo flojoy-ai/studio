@@ -9,6 +9,7 @@ type States = {
   serverStatus: string;
   failedNodes: any[];
   failureReason: any[];
+  socketId: string;
 };
 export const SocketContextProvider = ({ children }) => {
   const socket = useRef<WebSocketServer>();
@@ -18,6 +19,7 @@ export const SocketContextProvider = ({ children }) => {
     serverStatus: "Connecting to server...",
     failedNodes: [],
     failureReason: [],
+    socketId: '',
   });
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
@@ -33,7 +35,8 @@ export const SocketContextProvider = ({ children }) => {
         heartbeatResponse: handleStateChange('programResults'),
         runningNode: handleStateChange('runningNode'),
         failedNodes: handleStateChange('failedNodes'),
-        failureReason: handleStateChange('failureReason')
+        failureReason: handleStateChange('failureReason'),
+        socketId: handleStateChange('socketId')
       });
     }
   }, []);

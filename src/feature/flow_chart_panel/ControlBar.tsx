@@ -20,6 +20,7 @@ import { useFlowChartState } from "../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
 import PythonFuncModal from "./PythonFuncModal";
 import PlayIconSvg from "../../utils/PlayIconSvg";
+import { useSocket } from "../../hooks/useSocket";
 
 localforage.config({
   name: "react-flow",
@@ -78,6 +79,7 @@ const Controls: FC<ControlsProps> = ({
   isVisualMode,
   setOpenCtrlModal,
 }) => {
+  const {states:{socketId}} = useSocket();
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
   const {
@@ -101,7 +103,7 @@ const Controls: FC<ControlsProps> = ({
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
-      saveAndRunFlowChartInServer(rfInstance);
+      saveAndRunFlowChartInServer({rfInstance, jobId: socketId});
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."

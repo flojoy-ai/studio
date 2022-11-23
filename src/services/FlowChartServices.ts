@@ -12,9 +12,13 @@ export function saveFlowChartToLocalStorage(
   }
 }
 
-export function saveAndRunFlowChartInServer(
-  rfInstance?: FlowExportObject<any>
-) {
+export function saveAndRunFlowChartInServer({
+  rfInstance,
+  jobId,
+}: {
+  rfInstance?: FlowExportObject<any>;
+  jobId: string;
+}) {
   if (!rfInstance) {
     return;
   }
@@ -26,7 +30,7 @@ export function saveAndRunFlowChartInServer(
 
   fetch("/wfc", {
     method: "POST",
-    body: JSON.stringify({ fc: fcStr }),
+    body: JSON.stringify({ fc: fcStr, jobId }),
     headers: { "Content-type": "application/json; charset=UTF-8" },
   })
     .then((resp) => resp.json())
