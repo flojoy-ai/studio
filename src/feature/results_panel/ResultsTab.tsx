@@ -30,8 +30,8 @@ const ResultsTab = ({ results, theme }) => {
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
-    const flowSize = 1271;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
+    const flowSize = 1304;
+    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 3 : 0;
     rfIns.setTransform({
       x: xPosition,
       y: 52,

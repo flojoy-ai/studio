@@ -5,6 +5,8 @@ import time
 from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
+from rq.worker import Worker
+from rq.command import send_kill_horse_command
 import traceback
 
 import warnings
@@ -17,8 +19,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from joyflo import reactflow_to_networkx
-
-# sys.path.append('../FUNCTIONS/')
 
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.TRANSFORMERS import *
@@ -44,6 +44,16 @@ f = open('PYTHON/WATCH/fc.json')
 fc = json.loads(f.read())
 elems = fc['elements']
 
+# Stop any running rq job
+workers = Worker.all(r)
+for worker in workers:
+    send_kill_horse_command(r, worker.name);
+
+for i in range(0, r.llen('FAILED_NODES')):
+    r.lpop('FAILED_NODES')
+for i in range(0, r.llen('FAILED_REASON')):
+    r.lpop('FAILED_REASON')
+
 # Replicate the React Flow chart in Python's networkx
 
 convert_reactflow_to_networkx = reactflow_to_networkx(elems) 
@@ -53,6 +63,7 @@ convert_reactflow_to_networkx = reactflow_to_networkx(elems)
 topological_sorting = convert_reactflow_to_networkx['topological_sort']
 
 nodes_by_id = convert_reactflow_to_networkx['getNode']()
+
 DG = convert_reactflow_to_networkx['DG']
 
 def report_failure(job, connection, type, value, traceback):
@@ -60,14 +71,12 @@ def report_failure(job, connection, type, value, traceback):
 
 def jid(n):
     return 'JOB_ID_{0}'.format(n)
-
 for n in topological_sorting:
     cmd = nodes_by_id[n]['cmd']
     ctrls = nodes_by_id[n]['ctrls']
     print('*********************')
     print('node:', n, 'ctrls:', ctrls, "cmd: ", cmd,)
     print('*********************')
-    # print('globals:', globals())
   
     func = getattr(globals()[cmd], cmd)
     print('func:', func)
@@ -114,6 +123,7 @@ is_any_node_failed = False
 for n in topological_sorting:
     job_id = jid(n)
     nd = nodes_by_id[n]
+    r.set('RUNNING_NODE', nd['cmd'].upper())
     # TODO have to investigate if and why this fails sometime
     # best is to remove this try catch, so we will have to come back to it soon
     try:
@@ -128,19 +138,19 @@ for n in topological_sorting:
         attempt_count += 1
 
         print('Job status:', nd['cmd'], job_status, 'origin:', job.origin, 'attempt:', attempt_count)
-        if attempt_count > 100:
-            print('job timed out, deliting it')
-            job.delete()
-            job_status = "timeout"
-            break
         if job_status == 'finished':
             break
         if is_any_node_failed:
             print('canceling', nd['cmd'], 'due to failure in another node')
+            failed_reason = nd['cmd'] + ' cancelled origin: ' + job.origin + ' due to failure in another node'
+            r.rpush('FAILED_REASON', failed_reason)
             job.delete()
             job_status = "cancelled"
             break
         if job_status == 'failed':
+            r.rpush('FAILED_NODES', str(nd['cmd'].upper()))
+            failed_reason = nd['cmd'] + ' ' + job_status + ' origin: ' + job.origin + ' attempt: ' + str(attempt_count)
+            r.rpush('FAILED_REASON', failed_reason)
             is_any_node_failed = True
             break
         if job_status == 'deferred':
@@ -160,4 +170,4 @@ print('*********************')
 # print(results_string)
 
 r.mset({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
-        'COMPLETED_JOBS': results_string})
+        'COMPLETED_JOBS': results_string, 'RUNNING_NODE': ''})

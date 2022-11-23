@@ -1,10 +1,31 @@
+interface WebSocketServerProps {
+  url: string;
+  pingResponse: any;
+  heartbeatResponse: any;
+  runningNode: any;
+  failedNodes: any;
+  failureReason: any;
+}
 export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
   private heartbeatResponse: any;
-  constructor(url: string, pingResponse: any, heartbeatResponse: any) {
+  private runningNode: any;
+  private failedNodes: any;
+  private failureReason: any;
+  constructor({
+    url,
+    pingResponse,
+    heartbeatResponse,
+    runningNode,
+    failedNodes,
+    failureReason,
+  }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
     this.heartbeatResponse = heartbeatResponse;
+    this.runningNode = runningNode;
+    this.failedNodes = failedNodes;
+    this.failureReason = failureReason;
     this.server = new WebSocket(url);
     this.init();
   }
@@ -16,15 +37,33 @@ export class WebSocketServer {
       switch (data.type) {
         case "heartbeat_response":
           if (this.heartbeatResponse) {
+            if (this.failureReason) {
+              this.failureReason(data.failureReason);
+            }
+            if (this.failedNodes) {
+              this.failedNodes(data.failed);
+            }
             if (this.pingResponse) {
               this.pingResponse(data.msg);
+            }
+            if (this.runningNode) {
+              this.runningNode(data.running);
             }
             this.heartbeatResponse(data);
           }
           break;
         case "ping_response":
+          if (this.failureReason) {
+            this.failureReason(data.failureReason);
+          }
+          if (this.failedNodes) {
+            this.failedNodes(data.failed);
+          }
           if (this.pingResponse) {
             this.pingResponse(data.msg);
+          }
+          if (this.runningNode) {
+            this.runningNode(data.running);
           }
           break;
         case "connection_established":

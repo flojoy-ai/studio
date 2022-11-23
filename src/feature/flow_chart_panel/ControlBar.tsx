@@ -36,13 +36,15 @@ export type NodeOnAddFunc = (props: {
   FUNCTION: string;
   type: string;
   params: ParamTypes | undefined;
-  inputs?: Array<{name:string, id:string}> | undefined;
+  inputs?: Array<{ name: string; id: string }> | undefined;
 }) => void;
 
 export type ElementsData = {
   label: string;
   func: string;
   type: string;
+  running?: boolean;
+  failed?: boolean;
   ctrls: {
     [key: string]: {
       functionName: string;
@@ -50,10 +52,9 @@ export type ElementsData = {
       value: number;
     };
   };
-  inputs?: Array<{name:string; id:string}>
+  inputs?: Array<{ name: string; id: string }>;
   selects?: any;
-}
-
+};
 
 const getNodePosition = () => {
   return {
@@ -109,7 +110,7 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type,inputs }) => {
+    ({ FUNCTION, params, type, inputs }) => {
       let functionName: string;
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
@@ -152,7 +153,7 @@ const Controls: FC<ControlsProps> = ({
           func: FUNCTION,
           type,
           ctrls: funcParams,
-          inputs
+          inputs,
         },
         position: getNodePosition(),
       };
