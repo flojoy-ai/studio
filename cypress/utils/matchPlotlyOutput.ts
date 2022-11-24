@@ -7,6 +7,7 @@ const matchPlotlyOutput = (selector:string, resultFixture: string) => {
             if (output === undefined) {
                 throw new Error("undefined value of output")
             } else {
+                cy.writeFile("./logs.txt", output)
                 cy.wrap(output[selector].data[0]).snapshot({ name: resultFixture + '_' + selector});
             }
     })
