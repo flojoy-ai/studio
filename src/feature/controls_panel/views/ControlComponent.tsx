@@ -191,7 +191,7 @@ const ControlComponent = ({
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header">
+        <div className="ctrl-header" data-cy="ctrls-select">
           <Select
             className="select-node"
             isSearchable={true}

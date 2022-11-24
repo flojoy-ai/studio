@@ -61,7 +61,7 @@ const NodeModal = ({
             //   useResizeHandler
             // />
             <PlotlyComponent
-              id={nd?.result?.id}
+              id={nd.id}
               data={
                 "data" in nd?.result
                 ? nd.result.data
