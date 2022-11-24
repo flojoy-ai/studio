@@ -41,7 +41,7 @@ describe("Run Default App", () => {
 
   it("Should load default flow chart", () => {
     cy.visit("/").wait(1000);
-    cy.get("[data-test-id=flow-chart]", { timeout: 20000 });;
+    cy.get("[data-testid=react-flow]", { timeout: 20000 });;
   });
 
   it("Wait for server to be ready to take new job.", () => {
