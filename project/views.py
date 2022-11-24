@@ -82,8 +82,9 @@ def wfc(request):
     
     fc = json.loads(request.data['fc'])
     jobId = request.data['jobId']
+    cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
     redis_instance.set(jobId, json.dumps({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS']}))
-    watch.run(fc,jobId)
+    watch.run(fc,jobId,cancel_existing_jobs)
 
     response = {
         'msg': STATUS_CODES['RQ_RUN_IN_PROCESS'],

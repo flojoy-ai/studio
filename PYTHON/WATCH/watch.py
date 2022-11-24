@@ -11,6 +11,7 @@ from rq.job import Job
 from rq.worker import Worker
 from rq.command import send_kill_horse_command
 import traceback
+import uuid
 
 import warnings
 import matplotlib.cbook
@@ -41,20 +42,10 @@ def dump(data):
     return json.dumps(data)
 
 
-def run(fc, jobId):
-    print('running flojoy for : ', jobId)
+def run(fc, jobset_id:str, cancel_existing_jobs:bool):
+    print('running flojoy for : ', jobset_id)
 
     elems = fc['elements']
-
-    # Stop any running rq job
-    workers = Worker.all(r)
-    for worker in workers:
-        send_kill_horse_command(r, worker.name)
-
-    for i in range(0, r.llen('FAILED_NODES')):
-        r.lpop('FAILED_NODES')
-    for i in range(0, r.llen('FAILED_REASON')):
-        r.lpop('FAILED_REASON')
 
     # Replicate the React Flow chart in Python's networkx
 
@@ -68,20 +59,43 @@ def run(fc, jobId):
 
     DG = convert_reactflow_to_networkx['DG']
 
+    def get_redis_obj(id):
+        get_obj = r.get(id)
+        parse_obj = json.loads(get_obj) if get_obj is not None else None
+        return parse_obj
+    
+    r_obj = get_redis_obj(jobset_id)
+
+    if(cancel_existing_jobs):
+        if r_obj is not None and 'ALL_JOBS' in r_obj:
+            for i in r_obj['ALL_JOBS']:
+                try:
+                    job = Job.fetch(r_obj['ALL_JOBS'][i], connection=r)
+                except Exception:
+                    print(traceback.format_exc())
+                job.delete()
+
+
     def report_failure(job, connection, type, value, traceback):
         print(job, connection, type, value, traceback)
 
     def jid(n):
-        return 'JOB_ID_{0}'.format(n)
+        return get_redis_obj(jobset_id)['ALL_JOBS'][n]
     for n in topological_sorting:
         cmd = nodes_by_id[n]['cmd']
         ctrls = nodes_by_id[n]['ctrls']
-
         func = getattr(globals()[cmd], cmd)
-        job_id = jid(n)
-
+        job_id = 'JOB_' + uuid.uuid1().__str__()
+        r_obj = get_redis_obj(jobset_id)
+        prev_jobs = r_obj['ALL_JOBS'] if 'ALL_JOBS' in r_obj else {};
+        r.set(jobset_id, dump({
+            **r_obj, 'ALL_JOBS': {
+                **prev_jobs, cmd: job_id
+            }
+        }))
         s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
-        r.set(jobId, dump({'SYSTEM_STATUS': s}))
+        r_obj = get_redis_obj(jobset_id)
+        r.set(jobset_id, dump({**r_obj, 'SYSTEM_STATUS': s}))
 
         if len(list(DG.predecessors(n))) == 0:
             q.enqueue(func,
@@ -96,7 +110,7 @@ def run(fc, jobId):
             previous_job_ids = []
             for p in DG.predecessors(n):
                 prev_cmd = DG.nodes[p]['cmd']
-                prev_job_id = jid(p)
+                prev_job_id = jid(prev_cmd)
                 previous_job_ids.append(prev_job_id)
             q.enqueue(func,
                       retry=Retry(max=100),
@@ -115,14 +129,12 @@ def run(fc, jobId):
     failed_nodes = []
     is_any_node_failed = False
     for n in topological_sorting:
-        job_id = jid(n)
         nd = nodes_by_id[n]
-        get_redis_object = r.get(jobId)
-        parse_redis_object = json.loads(
-            get_redis_object) if get_redis_object is not None else {}
-        r.set(jobId, dump({**parse_redis_object,
+        job_id = jid(nd['cmd'])
+        r_obj = get_redis_obj(jobset_id)
+        r.set(jobset_id, dump({**r_obj,
               'RUNNING_NODE': nd['cmd'].upper()}))
-        prev_failed_nodes = parse_redis_object['FAILED_NODES'] if 'FAILED_NODES' in parse_redis_object else [
+        prev_failed_nodes = r_obj['FAILED_NODES'] if 'FAILED_NODES' in r_obj else [
         ]
         # TODO have to investigate if and why this fails sometime
         # best is to remove this try catch, so we will have to come back to it soon
@@ -146,7 +158,7 @@ def run(fc, jobId):
             if job_status == 'failed':
                 failed_nodes.append(str(nd['cmd'].upper()))
                 prev_failed_nodes.append(str(nd['cmd'].upper()))
-                r.set(jobId, dump({**parse_redis_object,
+                r.set(jobset_id, dump({**r_obj,
                       'FAILED_NODES': prev_failed_nodes}))
                 is_any_node_failed = True
                 break
@@ -158,9 +170,9 @@ def run(fc, jobId):
             {'cmd': nd['cmd'], 'id': nd['id'], 'result': redis_payload, 'job_status': job_status})
 
     print('\n\n')
-    print(STATUS_CODES['RQ_RUN_COMPLETE'], ' for ', jobId)
+    print(STATUS_CODES['RQ_RUN_COMPLETE'], ' for ', jobset_id)
 
     results_string = json.dumps(all_node_results, cls=PlotlyJSONEncoder)
 
-    r.set(jobId, dump({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
+    r.set(jobset_id, dump({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
                        'COMPLETED_JOBS': results_string, 'RUNNING_NODE': '', 'FAILED_NODES': failed_nodes}))
