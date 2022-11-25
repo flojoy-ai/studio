@@ -10,17 +10,28 @@ REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 
 
 def LOOP(**kwargs):
-    ''' Add 2 input vectors and return the result '''
-    if "prev_iteration_job" in kwargs:
-        prev_iteration_job_id = kwargs['prev_iteration_job']
-        job = Job.fetch(prev_iteration_job_id, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
-        previous_job_results = job.result
 
-        return {'x0':previous_job_results['x0'],'y0':previous_job_results['y0']}
+    if "previous_job_ids" in kwargs:
 
-    else:
-        if "previous_job_ids" in kwargs:
-            previous_job_ids = kwargs['previous_job_ids']
-            previous_job_results = fetch_inputs(previous_job_ids)
+        '''
+            Checking if there's a conditional node with previous iteration output
+        '''
 
-    return {'x0':[1,2,3],'y0':[2,3,4]}
+        previous_job_ids = kwargs['previous_job_ids']
+
+        conditional_job_result = None
+        for prev_id in previous_job_ids:
+            job = Job.fetch(prev_id, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
+            if "CONDITIONAL_OPERATOR" in job.kwargs['ctrls']:
+                conditional_job_result = job.result
+                break
+
+        if conditional_job_result is not None:
+            print(conditional_job_result)
+            return {'x0':conditional_job_result['x0'],'y0':conditional_job_result['y0']}
+
+        previous_job_ids = kwargs['previous_job_ids']
+        previous_job_results = fetch_inputs(previous_job_ids)
+
+
+    return {'x0':[1,2,3],'y0':[2,3,4]} # returning random value
