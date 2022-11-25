@@ -56,7 +56,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 700);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance]);
+  }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -163,7 +163,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     } else {
       saveAndRunFlowChart();
     }
-  }, [rfInstance]);
+  }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
 
   return (
     <div data-testid="controls-tab">

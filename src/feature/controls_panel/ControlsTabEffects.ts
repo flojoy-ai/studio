@@ -17,7 +17,7 @@ export function useControlsTabEffects() {
         }, 700);
 
         setDebouncedTimerId(timerId);
-    }, [debouncedTimerId, rfInstance]);
+    }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);
 
     useEffect(() => {
         if (rfInstance?.elements.length === 0) {
@@ -25,5 +25,5 @@ export function useControlsTabEffects() {
         } else {
             saveAndRunFlowChart();
         }
-    }, [rfInstance]);
+    }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
 }

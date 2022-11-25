@@ -61,7 +61,7 @@ const ResultsTab = ({ results }) => {
         }))
       );
     }
-  }, [nodeResults, rfInstance]);
+  }, [nodeResults, rfInstance, setResultElements]);
 
   return (
     <ReactFlowProviderAny>

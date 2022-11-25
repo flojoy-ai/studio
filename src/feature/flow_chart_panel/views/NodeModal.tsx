@@ -1,5 +1,4 @@
 import ReactModal from "react-modal";
-import Plot from "react-plotly.js";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
