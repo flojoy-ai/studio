@@ -21,20 +21,20 @@ def CONDITIONAL(**kwargs):
     is_part_of_loop = None
     direction = True
     return_job = None
-    loop_start_node = None
 
     for prev_job_id in previous_job_ids:
         job = Job.fetch(prev_job_id, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
+
         if "flow_control_value" in job.kwargs['ctrls']:
-            loop_start_node = job
             current_iteration_value = job.kwargs['ctrls']['flow_control_value']['initial_value']
             number_of_iterations = job.kwargs['ctrls']['flow_control_value']["numder_of_iterations"]
 
-            if number_of_iterations > current_iteration_value:
-                job.kwargs['ctrls']['flow_control_value']["initial_value"] = current_iteration_value + 1
+            print(current_iteration_value)
+            print(number_of_iterations)
+
+            if number_of_iterations > current_iteration_value + 1:
                 direction = False
             is_part_of_loop = True
-
         else:
             return_job = job.result
 
@@ -42,7 +42,6 @@ def CONDITIONAL(**kwargs):
         if direction:
             return {'x0':return_job['x0'],'y0':return_job['y0'],'direction':'true'}
         else:
-            loop_start_node.kwargs['prev_iteration_job'] = return_job
             return {'direction':'false','x0':return_job['x0'],'y0':return_job['y0']}
 
     operator = ""
