@@ -16,8 +16,6 @@ def LOOP(**kwargs):
         job = Job.fetch(prev_iteration_job_id, connection=Redis(host=REDIS_HOST, port=REDIS_PORT))
         previous_job_results = job.result
 
-        print(previous_job_results)
-
         return {'x0':previous_job_results['x0'],'y0':previous_job_results['y0']}
 
     else:
