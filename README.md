@@ -8,6 +8,9 @@ Please see [https://docs.flojoy.io](https://docs.flojoy.io) for documentation
 
 # Flojoy Quickstart
 
+- [Run Flojoy with Docker](#run-flojoy-on-docker)
+- [Run Flojoy without Docker (Mac/Linux only)](#run-flojoy-without-docker-maclinux-only)
+
 ## Run Flojoy on Docker
 
 1. Install Docker if you haven't already (https://docs.docker.com/get-docker/).
@@ -38,7 +41,7 @@ You can also use the docker-desktop to control and check logs for the services.
 3. `cd` into the project root
 4. Install the required python packages: `pip3 install -r requirements.txt`
 5. Install npm packages: `npm install`
-6. Run `$ sh mac_startup.sh` (Flojoy does not run on Windows without Docker)
+6. Run `$ sh mac_startup.sh`
 
    - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
    - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
