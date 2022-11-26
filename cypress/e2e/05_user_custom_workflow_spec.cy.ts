@@ -1,4 +1,4 @@
-import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
+/* eslint-disable cypress/no-unnecessary-waiting */
 
 const nodes = [
   { selector: "LINSPACE-userGeneratedNode_1646432683694", name: "linspace" },

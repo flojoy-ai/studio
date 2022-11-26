@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Script Tab Functionalities', () => {
   it("Should load default flow chart", () => {
     cy.visit("/").wait(1000);

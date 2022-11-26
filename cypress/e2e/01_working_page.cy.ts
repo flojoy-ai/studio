@@ -1,3 +1,5 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
+
 describe('Load default page and switch between tabs', () => {
   it("Should load default flow chart", () => {
     cy.visit("/").wait(1000);

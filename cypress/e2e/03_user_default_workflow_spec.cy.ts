@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
 
 const nodes = [
