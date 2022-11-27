@@ -9,3 +9,4 @@ RUN cd PYTHON
 WORKDIR /PYTHON
 
 CMD [ "rq", "worker", "--url", "redis://redis:6379", "flojoy" ]
+# CMD [ "rq", "worker", "flojoy" ]

@@ -5,7 +5,6 @@ import traceback
 @flojoy
 def RAND(v, params):
     try:
-        # rng = np.random.default_rng(123)
         x = v[0].y
         y = np.random.normal(size=len(x))
     except Exception:
