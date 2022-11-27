@@ -110,7 +110,7 @@ const FlowChart = ({
   let nd: any = {};
 
   if (results && "io" in results) {
-    const runResults = JSON.parse(results.io);
+    const runResults = results.io; // JSON.parse(results.io);
     const filteredResult = runResults.filter(
       (node: any) => node.cmd === nodeLabel
     )[0];

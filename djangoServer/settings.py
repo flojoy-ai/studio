@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'djangoServer.urls'
 
 TEMPLATES = [
     {
@@ -65,9 +65,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'project.wsgi.application'
+WSGI_APPLICATION = 'djangoServer.wsgi.application'
 
-ASGI_APPLICATION = 'project.asgi.application'
+ASGI_APPLICATION = 'djangoServer.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

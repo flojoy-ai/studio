@@ -124,7 +124,7 @@ const ControlComponent = ({
     let nodeIdToPlot = ctrlObj.param;
     if (nodeIdToPlot) {
       if (results && "io" in results) {
-        const runResults = JSON.parse(results.io).reverse();
+        const runResults = results.io.reverse();
         const filteredResult = runResults.filter(
           (node) => nodeIdToPlot === node.id
         )[0];

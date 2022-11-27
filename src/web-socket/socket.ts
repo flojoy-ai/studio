@@ -53,7 +53,13 @@ export class WebSocketServer {
             if (this.runningNode) {
               this.runningNode(data.running);
             }
-            this.heartbeatResponse(data);
+            const parseIo =  data.io.map((e:string)=>JSON.parse(e))
+            this.heartbeatResponse({...data,io: parseIo});
+            this.server.send(
+              JSON.stringify({
+                type: "heartbeat_received",
+              })
+            );
           }
           break;
         case "ping_response":
@@ -77,11 +83,6 @@ export class WebSocketServer {
           if(this.pingResponse){
             this.pingResponse(data.msg)
           }
-          this.server.send(
-            JSON.stringify({
-              type: "ping",
-            })
-          );
           break;
 
         default:

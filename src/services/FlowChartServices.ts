@@ -30,7 +30,7 @@ export function saveAndRunFlowChartInServer({
 
   fetch("/wfc", {
     method: "POST",
-    body: JSON.stringify({ fc: fcStr, jobId }),
+    body: JSON.stringify({ fc: fcStr, jobsetId:jobId }),
     headers: { "Content-type": "application/json; charset=UTF-8" },
   })
     .then((resp) => resp.json())

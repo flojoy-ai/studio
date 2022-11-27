@@ -23,7 +23,7 @@ const ResultsTab = ({ results, theme }) => {
   const { rfInstance } = useFlowChartState();
   const [resultElements, setResultElements] = useState<any[]>([]);
   const nodeResults = useMemo(
-    () => ("io" in results ? JSON.parse(results.io).reverse() : []),
+    () => ("io" in results ? results.io : []),
     [results]
   );
 

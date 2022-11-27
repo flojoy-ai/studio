@@ -43,14 +43,23 @@ def get_response(socketId):
     sysStatus = json.loads(
         loadSysStatus) if loadSysStatus is not None else None
     ts = '⏰ server uptime: ' + str(uptime.uptime())
+    all_nodes = redis_instance.lrange(socketId+'_ALL_NODES',0, 20) or []
+    all_results = redis_instance.lrange(socketId+'_NODE_RESULTS', 0, 20) or []
+
     response = {
         'type': 'ping_response',
         'msg': '',
-        'io': '',
+        'io': all_results,
         'running': sysStatus['RUNNING_NODE'] if sysStatus is not None and 'RUNNING_NODE' in sysStatus else '',
         'failed': sysStatus['FAILED_NODES'] if sysStatus is not None and 'FAILED_NODES' in sysStatus else [],
-        'failureReason': []
+        'failureReason': [],
+        # 'all_nodes':all_nodes,
+        # 'all_results': all_results,
     }
+    if all_results.__len__() > 0 and all_results.__len__() == all_nodes.__len__():
+        response['type'] = 'heartbeat_response'
+        response['msg'] = '🤙 python script run successful'
+        return response 
     if sysStatus is not None and 'SYSTEM_STATUS' in sysStatus and lastSysStatus != sysStatus['SYSTEM_STATUS']:
         lastSysStatus = sysStatus['SYSTEM_STATUS']
         response['type'] = 'ping_response'
@@ -60,7 +69,7 @@ def get_response(socketId):
     elif 'SYSTEM_STATUS' in sysStatus and sysStatus['SYSTEM_STATUS'] == STATUS_CODES['RQ_RUN_COMPLETE']:
         job_results = sysStatus['COMPLETED_JOBS']
         response['type'] = 'heartbeat_response'
-        response['io'] = job_results
+        # response['io'] = job_results
         response['msg'] = lastSysStatus
 
     else:
@@ -102,11 +111,21 @@ class FlojoyConsumer(AsyncJsonWebsocketConsumer):
 
     async def send_message(self, text):
         await self.send_json(text)
-        if (text['type'] == 'heartbeat_response'):
-            self.send_count += 1
-            print('send count: ', self.send_count)
-            if (self.send_count == 3):
-                redis_instance.set(self.socketId, json.dumps({
-                    'SYSTEM_STATUS': STATUS_CODES['STANDBY']}))
-                self.send_count = 0
+        # if (text['type'] == 'heartbeat_response'):
+        #     self.send_count += 1
+        #     print('send count: ', self.send_count)
+        #     if (self.send_count == 3):
+        #         redis_instance.set(self.socketId, json.dumps({
+        #             'SYSTEM_STATUS': STATUS_CODES['STANDBY']}))
+        #         self.send_count = 0
         return
+    
+    async def receive(self, text_data=None, bytes_data=None, **kwargs):
+        text_data_json = json.loads(text_data)
+
+        if text_data_json['type'] == 'heartbeat_received':
+            redis_instance.delete(self.socketId+'_ALL_NODES')
+            redis_instance.delete(self.socketId+'_NODE_RESULTS')
+            redis_instance.set(self.socketId, json.dumps({
+                    'SYSTEM_STATUS': STATUS_CODES['STANDBY']}))
+            
