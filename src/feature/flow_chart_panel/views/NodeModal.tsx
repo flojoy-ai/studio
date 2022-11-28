@@ -2,20 +2,7 @@ import ReactModal from "react-modal";
 import Plot from "react-plotly.js";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
-interface Props {
-  modalIsOpen: boolean;
-  afterOpenModal: () => void;
-  closeModal: () => void;
-  modalStyles: ReactModal.Styles;
-  nodeLabel: any;
-  nodeType: any;
-  nd: any;
-  dfltLayout: any;
-  theme: "dark" | "light";
-  clickedElement: any;
-  pythonString: String;
-}
+import { NodeModalProps } from "../types/NodeModalProps";
 
 const NodeModal = ({
   modalIsOpen,
@@ -26,10 +13,10 @@ const NodeModal = ({
   nodeType,
   nd,
   pythonString,
-  dfltLayout,
+  defaultLayout,
   theme,
   clickedElement,
-}: Props) => {
+}: NodeModalProps) => {
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -67,8 +54,8 @@ const NodeModal = ({
               }
               layout={
                 "layout" in nd.result
-                  ? Object.assign({}, nd.result.layout, dfltLayout)
-                  : Object.assign({}, { title: `${nd.cmd}` }, dfltLayout)
+                  ? Object.assign({}, nd.result.layout, defaultLayout)
+                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
             />
