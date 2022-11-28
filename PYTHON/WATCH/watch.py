@@ -19,7 +19,6 @@ sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 from FUNCTIONS.VISORS import *
 from FUNCTIONS.TRANSFORMERS import *
 from FUNCTIONS.GENERATORS import *
-from utils.utils import PlotlyJSONEncoder
 
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
@@ -116,62 +115,3 @@ def run(**kwargs):
                       depends_on=previous_job_ids,
                       result_ttl=500)
     return
-
-
-
-
-    
-    # collect node results
-    # all_node_results = []
-    # topological_sorting = reactflow_to_networkx(elems)['topological_sort']
-
-    # failed_nodes = []
-    # is_any_node_failed = False
-    # for n in topological_sorting:
-    #     nd = nodes_by_id[n]
-    #     job_id = jid(nd['cmd'])
-    #     # r_obj = get_redis_obj(jobset_id)
-    #     # r.set(jobset_id, dump({**r_obj,
-    #     #       'RUNNING_NODE': nd['cmd'].upper()}))
-    #     prev_failed_nodes = r_obj['FAILED_NODES'] if 'FAILED_NODES' in r_obj else [
-    #     ]
-    #     # TODO have to investigate if and why this fails sometime
-    #     # best is to remove this try catch, so we will have to come back to it soon
-    #     try:
-    #         job = Job.fetch(job_id, connection=r)
-    #     except Exception:
-    #         print(traceback.format_exc())
-    #     job_status, redis_payload, attempt_count = None, None, 0
-    #     while True:  # or change it to wait for maximum amount of time, then we can declare job timed out
-    #         time.sleep(0.5)
-    #         job_status = job.get_status(refresh=True)
-    #         redis_payload = job.result
-    #         attempt_count += 1
-
-    #         if job_status == 'finished':
-    #             break
-    #         if is_any_node_failed:
-    #             job.delete()
-    #             job_status = "cancelled"
-    #             break
-    #         if job_status == 'failed':
-    #             failed_nodes.append(str(nd['cmd'].upper()))
-    #             prev_failed_nodes.append(str(nd['cmd'].upper()))
-    #             r.set(jobset_id, dump({**r_obj,
-    #                   'FAILED_NODES': prev_failed_nodes}))
-    #             is_any_node_failed = True
-    #             break
-    #         if job_status == 'deferred':
-    #             registry = q.deferred_job_registry
-    #             registry.requeue(job_id)
-
-    #     all_node_results.append(
-    #         {'cmd': nd['cmd'], 'id': nd['id'], 'result': redis_payload, 'job_status': job_status})
-
-    # print('\n\n')
-    # print(STATUS_CODES['RQ_RUN_COMPLETE'], ' for ', jobset_id)
-
-    # results_string = json.dumps(all_node_results, cls=PlotlyJSONEncoder)
-
-    # r.set(jobset_id, dump({'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_COMPLETE'],
-    #                    'COMPLETED_JOBS': results_string, 'RUNNING_NODE': '', 'FAILED_NODES': failed_nodes}))
