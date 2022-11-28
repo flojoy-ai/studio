@@ -122,29 +122,33 @@ const ControlComponent = ({
   let plotData: any = [{ x: [1, 2, 3], y: [1, 2, 3] }];
   let nd: any = {};
 
-  if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
-    // figure out what we're visualizing
-    let nodeIdToPlot = ctrlObj.param;
-    if (nodeIdToPlot) {
-      if (results && "io" in results) {
-        const runResults = JSON.parse(results.io).reverse();
-        const filteredResult = runResults.filter(
-          (node) => nodeIdToPlot === node.id
-        )[0];
-        console.log("filteredResult:", filteredResult);
+  try{
+    if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
+      // figure out what we're visualizing
+      let nodeIdToPlot = ctrlObj.param;
+      if (nodeIdToPlot) {
+        if (results && "io" in results) {
+          const runResults = JSON.parse(results.io).reverse();
+          const filteredResult = runResults.filter(
+            (node) => nodeIdToPlot === node.id
+          )[0];
+          console.log("filteredResult:", filteredResult);
 
-        nd = filteredResult === undefined ? {} : filteredResult;
-        if (Object.keys(nd).length > 0) {
-          if (nd.result) {
-            if ("data" in nd.result) {
-              plotData = nd.result.data;
-            } else {
-              plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
+          nd = filteredResult === undefined ? {} : filteredResult;
+          if (Object.keys(nd).length > 0) {
+            if (nd.result) {
+              if ("data" in nd.result) {
+                plotData = nd.result.data;
+              } else {
+                plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
+              }
             }
           }
         }
       }
     }
+  } catch(e){
+    console.error(e);
   }
 
   const inputNodeId = ctrlObj?.param?.nodeId;
