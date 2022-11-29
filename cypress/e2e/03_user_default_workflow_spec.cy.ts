@@ -51,14 +51,14 @@ describe('User default workflow', ()=> {
           .click();
       });
     
-      it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
-        nodes.forEach((node) => {
-          cy.get(`[data-id="${node.selector}"]`).click({
-            force: true,
-            multiple: true,
-          });
-          matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-          cy.get(".ctrl-close-btn").click({ force: true });
-          });
-      });
+      // it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
+      //   nodes.forEach((node) => {
+      //     cy.get(`[data-id="${node.selector}"]`).click({
+      //       force: true,
+      //       multiple: true,
+      //     });
+      //     matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
+      //     cy.get(".ctrl-close-btn").click({ force: true });
+      //     });
+      // });
 })
