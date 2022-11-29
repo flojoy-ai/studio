@@ -39,7 +39,7 @@ You can also use the docker-desktop to control and check logs for the services.
 1. Clone this repo
 2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 3.
 3. `cd` into the project root
-4. Install the required python packages: `pip3 install -r requirements.txt`
+4. Install the required python packages: `python -m pip install -U -r requirements.txt`
 5. Install npm packages: `npm install`
 6. Run `$ sh mac_startup.sh`
 
