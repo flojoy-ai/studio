@@ -12,7 +12,7 @@ python-box==6.0
 PyYAML==6.0
 redis==4.3.3
 rq==1.10.1
-scipy==1.9.0
+scipy==1.9.3
 uptime
 schedule
 djangorestframework==3.14.0
