@@ -46,19 +46,6 @@ const NodeModal = ({
       ) : (
         <div>
           {nd?.result && (
-            // <Plot
-            //   data={
-            //     "data" in nd?.result
-            //       ? nd.result.data
-            //       : [{ x: nd.result["x"], y: nd.result["y"] }]
-            //   }
-            //   layout={
-            //     "layout" in nd.result
-            //       ? Object.assign({}, nd.result.layout, defaultLayout)
-            //       : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
-            //   }
-            //   useResizeHandler
-            // />
             <PlotlyComponent
               id={nd.id}
               data={
@@ -72,10 +59,10 @@ const NodeModal = ({
                 : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
-              // style={{
-              //   height: 235,
-              //   width: 230,
-              // }}
+              style={{
+                height: 635,
+                width: 630,
+              }}
             />
           )}
         </div>
