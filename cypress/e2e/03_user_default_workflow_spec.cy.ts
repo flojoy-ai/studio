@@ -50,15 +50,19 @@ describe('User default workflow', ()=> {
         cy.get(`[data-cy="script-btn"]`)
           .click();
       });
+
+      it("Wait for server to be ready to take new job.", () => {
+        cy.contains(".App-status", "🐢 awaiting a new job", {timeout : 4000})
+      });
     
-      // it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
-      //   nodes.forEach((node) => {
-      //     cy.get(`[data-id="${node.selector}"]`).click({
-      //       force: true,
-      //       multiple: true,
-      //     });
-      //     matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-      //     cy.get(".ctrl-close-btn").click({ force: true });
-      //     });
-      // });
+      it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
+        nodes.forEach((node) => {
+          cy.get(`[data-id="${node.selector}"]`).click({
+            force: true,
+            multiple: true,
+          });
+          matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
+          cy.get(".ctrl-close-btn").click({ force: true });
+          });
+      });
 })
