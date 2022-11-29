@@ -5,32 +5,34 @@
                 "id": "SINE-userGeneratedNode_1646417316016",
                 "data": {
                     "label": "SINE",
+                    "func": "SINE",
                     "type": "GENERATOR",
                     "ctrls": {
-                        "SINE_FREQUENCY": {
+                        "SINE_SINE_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 8
+                            "value": 43
                         },
-                        "SINE_AMPLITUDE": {
-                            "functionName": "SINE",
-                            "param": "amplitude",
-                            "value": 75
-                        },
-                        "SINE_OFFSET": {
+                        "SINE_SINE_offset": {
                             "functionName": "SINE",
                             "param": "offset",
-                            "value": 16
+                            "value": 0
                         },
-                        "SINE_WAVEFORM": {
+                        "SINE_SINE_amplitude": {
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "SINE_SINE_waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
-                            "value": "triangle"
+                            "value": "square"
                         }
-                    }
+                    },
+                    "running": false
                 },
                 "position": {
-                    "x": 670,
+                    "x": 291,
                     "y": 105
                 },
                 "type": "default"
@@ -38,13 +40,21 @@
             {
                 "id": "MULTIPLY-userGeneratedNode_1646417352715",
                 "data": {
-                    "label": "MULTIPLY",
+                    "label": "X",
+                    "func": "MULTIPLY",
                     "type": "TRANSFORMER",
-                    "ctrls": {}
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "multiply_y"
+                        }
+                    ],
+                    "running": false
                 },
                 "position": {
-                    "x": 852,
-                    "y": 130
+                    "x": 523,
+                    "y": 135
                 },
                 "type": "default"
             },
@@ -52,25 +62,35 @@
                 "id": "RAND-userGeneratedNode_1646417371398",
                 "data": {
                     "label": "RAND",
+                    "func": "RAND",
                     "type": "GENERATOR",
-                    "ctrls": {}
+                    "ctrls": {},
+                    "running": false
                 },
                 "position": {
-                    "x": 668,
-                    "y": 215
+                    "x": 291,
+                    "y": 322
                 },
                 "type": "default"
             },
             {
                 "id": "ADD-userGeneratedNode_1646417428589",
                 "data": {
-                    "label": "ADD",
+                    "label": "+",
+                    "func": "ADD",
                     "type": "TRANSFORMER",
-                    "ctrls": {}
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "add_y"
+                        }
+                    ],
+                    "running": false
                 },
                 "position": {
-                    "x": 992,
-                    "y": 210
+                    "x": 783,
+                    "y": 322
                 },
                 "type": "default"
             },
@@ -78,12 +98,14 @@
                 "id": "SCATTER-userGeneratedNode_1646417560399",
                 "data": {
                     "label": "SCATTER",
+                    "func": "SCATTER",
                     "type": "VISOR",
-                    "ctrls": {}
+                    "ctrls": {},
+                    "running": false
                 },
                 "position": {
-                    "x": 1202,
-                    "y": 115
+                    "x": 1009,
+                    "y": 105
                 },
                 "type": "default"
             },
@@ -91,118 +113,223 @@
                 "id": "HISTOGRAM-userGeneratedNode_1646417604301",
                 "data": {
                     "label": "HISTOGRAM",
+                    "func": "HISTOGRAM",
                     "type": "VISOR",
-                    "ctrls": {}
+                    "ctrls": {},
+                    "running": false
                 },
                 "position": {
-                    "x": 1202,
-                    "y": 319
+                    "x": 1009,
+                    "y": 429
                 },
                 "type": "default"
             },
             {
                 "id": "LINSPACE-userGeneratedNode_1646432683694",
                 "data": {
-                    "label": "LINSPACE",
+                    "label": "Linspace",
+                    "func": "LINSPACE",
                     "type": "GENERATOR",
                     "ctrls": {
-                        "LINSPACE_STEP": {
+                        "LINSPACE_Linspace_start": {
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 13
+                        },
+                        "LINSPACE_Linspace_end": {
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "0"
+                        },
+                        "LINSPACE_Linspace_step": {
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": "0"
+                            "value": "1000"
                         }
                     }
                 },
                 "position": {
-                    "x": 422,
-                    "y": 217
+                    "x": 0,
+                    "y": 322
                 },
                 "type": "default"
             },
             {
                 "id": "2.0-userGeneratedNode_1646435677928",
                 "data": {
-                    "label": "2.0",
+                    "label": "10",
+                    "func": "CONSTANT",
                     "type": "GENERATOR",
-                    "ctrls": {}
+                    "ctrls": {
+                        "CONSTANT_2.0_CONSTANT": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": "3"
+                        },
+                        "CONSTANT_2.0_constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": "10"
+                        }
+                    },
+                    "running": false
                 },
                 "position": {
-                    "x": 668,
-                    "y": 330
+                    "x": 291,
+                    "y": 479
                 },
                 "type": "default"
             },
             {
-                "source": "SINE-userGeneratedNode_1646417316016",
-                "sourceHandle": null,
-                "target": "MULTIPLY-userGeneratedNode_1646417352715",
-                "targetHandle": null,
-                "id": "reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715null",
-                "type": "default"
+                "id": "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
+                "data": {
+                    "label": "3D Scatter",
+                    "func": "SCATTER3D",
+                    "type": "VISOR",
+                    "ctrls": {},
+                    "inputs": [],
+                    "running": false
+                },
+                "position": {
+                    "x": 1009,
+                    "y": 753
+                }
             },
             {
-                "source": "RAND-userGeneratedNode_1646417371398",
-                "sourceHandle": null,
-                "target": "MULTIPLY-userGeneratedNode_1646417352715",
-                "targetHandle": null,
-                "id": "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
-                "type": "default"
+                "id": "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
+                "data": {
+                    "label": "3D Surface",
+                    "func": "SURFACE3D",
+                    "type": "VISOR",
+                    "ctrls": {},
+                    "running": false
+                },
+                "position": {
+                    "x": 1009,
+                    "y": 591
+                }
             },
             {
-                "source": "MULTIPLY-userGeneratedNode_1646417352715",
-                "sourceHandle": null,
-                "target": "ADD-userGeneratedNode_1646417428589",
-                "targetHandle": null,
-                "id": "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589null",
-                "type": "default"
+                "id": "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+                "data": {
+                    "label": "Line",
+                    "func": "LINE",
+                    "type": "VISOR",
+                    "ctrls": {},
+                    "running": false
+                },
+                "position": {
+                    "x": 1009,
+                    "y": 267
+                }
             },
             {
-                "source": "ADD-userGeneratedNode_1646417428589",
-                "sourceHandle": null,
-                "target": "SCATTER-userGeneratedNode_1646417560399",
-                "targetHandle": null,
-                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER-userGeneratedNode_1646417560399null",
-                "type": "default"
-            },
-            {
-                "source": "ADD-userGeneratedNode_1646417428589",
-                "sourceHandle": null,
-                "target": "HISTOGRAM-userGeneratedNode_1646417604301",
-                "targetHandle": null,
-                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-HISTOGRAM-userGeneratedNode_1646417604301null",
-                "type": "default"
+                "id": "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+                "data": {
+                    "label": "Bar",
+                    "func": "BAR",
+                    "type": "VISOR",
+                    "ctrls": {},
+                    "running": false
+                },
+                "position": {
+                    "x": 1009,
+                    "y": -57
+                }
             },
             {
                 "source": "LINSPACE-userGeneratedNode_1646432683694",
                 "sourceHandle": null,
                 "target": "SINE-userGeneratedNode_1646417316016",
-                "targetHandle": null,
-                "id": "reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-SINE-userGeneratedNode_1646417316016null",
-                "type": "default"
+                "targetHandle": "SINE",
+                "animated": false,
+                "id": "reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-SINE-3c918322-f469-4971-aee3-ab2603fe0885SINE"
             },
             {
                 "source": "LINSPACE-userGeneratedNode_1646432683694",
                 "sourceHandle": null,
                 "target": "RAND-userGeneratedNode_1646417371398",
-                "targetHandle": null,
-                "id": "reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-RAND-userGeneratedNode_1646417371398null",
-                "type": "default"
-            },
-            {
-                "source": "2.0-userGeneratedNode_1646435677928",
-                "sourceHandle": null,
-                "target": "ADD-userGeneratedNode_1646417428589",
-                "targetHandle": null,
-                "id": "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589null",
-                "type": "default"
+                "targetHandle": "RAND",
+                "animated": false,
+                "id": "reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-RAND-31ba3a7f-f33c-4811-aa24-8df85d590a20RAND"
             },
             {
                 "source": "LINSPACE-userGeneratedNode_1646432683694",
                 "sourceHandle": null,
                 "target": "2.0-userGeneratedNode_1646435677928",
-                "targetHandle": null,
-                "id": "reactflow__edge-LINSPACE-userGeneratedNode_1646432683694null-2.0-userGeneratedNode_1646435677928null",
-                "type": "default"
+                "targetHandle": "CONSTANT",
+                "animated": false,
+                "id": "reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-CONSTANT-b4d8b0a2-09a6-4104-bbf8-3fee98cf7cb7CONSTANT"
+            },
+            {
+                "source": "SINE-userGeneratedNode_1646417316016",
+                "sourceHandle": null,
+                "target": "MULTIPLY-userGeneratedNode_1646417352715",
+                "targetHandle": "MULTIPLY",
+                "id": "reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY"
+            },
+            {
+                "source": "RAND-userGeneratedNode_1646417371398",
+                "sourceHandle": null,
+                "target": "MULTIPLY-userGeneratedNode_1646417352715",
+                "targetHandle": "multiply_y",
+                "id": "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715multiply_y"
+            },
+            {
+                "source": "MULTIPLY-userGeneratedNode_1646417352715",
+                "sourceHandle": null,
+                "target": "ADD-userGeneratedNode_1646417428589",
+                "targetHandle": "ADD",
+                "id": "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589ADD"
+            },
+            {
+                "source": "2.0-userGeneratedNode_1646435677928",
+                "sourceHandle": null,
+                "target": "ADD-userGeneratedNode_1646417428589",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589add_y"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "SCATTER-userGeneratedNode_1646417560399",
+                "targetHandle": "SCATTER",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER-userGeneratedNode_1646417560399SCATTER"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "HISTOGRAM-userGeneratedNode_1646417604301",
+                "targetHandle": "HISTOGRAM",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-HISTOGRAM-userGeneratedNode_1646417604301HISTOGRAM"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
+                "targetHandle": "SCATTER3D",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484SCATTER3D"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
+                "targetHandle": "SURFACE3D",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480dSURFACE3D"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+                "targetHandle": "LINE",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bLINE"
+            },
+            {
+                "source": "ADD-userGeneratedNode_1646417428589",
+                "sourceHandle": null,
+                "target": "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+                "targetHandle": "BAR",
+                "id": "reactflow__edge-ADD-userGeneratedNode_1646417428589null-BAR-6106326f-ff85-4940-9f5b-018381e2e2ceBAR"
             }
         ],
         "position": [
@@ -220,91 +347,191 @@
             "minHeight": 1,
             "minWidth": 2,
             "param": {
-                "id": "SINE_FREQUENCY",
+                "id": "SINE_SINE_frequency",
                 "functionName": "SINE",
                 "param": "frequency",
                 "nodeId": "SINE-userGeneratedNode_1646417316016",
                 "inputId": "INPUT_PLACEHOLDER"
             },
-            "val": 8
-        },
-        {
-            "type": "input",
-            "name": "Slider",
-            "minWidth": 2,
-            "minHeight": 1,
-            "id": "ctrl-1f408851-399d-463b-a682-ff4d94b77729",
-            "hidden": false,
-            "param": {
-                "id": "SINE_AMPLITUDE",
-                "functionName": "SINE",
-                "param": "amplitude",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-1f408851-399d-463b-a682-ff4d94b77729"
-            },
-            "val": 75
-        },
-        {
-            "type": "input",
-            "name": "Knob",
-            "minWidth": 1,
-            "minHeight": 2,
-            "id": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b",
-            "hidden": false,
-            "param": {
-                "id": "SINE_OFFSET",
-                "functionName": "SINE",
-                "param": "offset",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b"
-            },
-            "val": 16
-        },
-        {
-            "type": "input",
-            "name": "Dropdown",
-            "minWidth": 2,
-            "minHeight": 2,
-            "id": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a",
-            "hidden": false,
-            "param": {
-                "id": "SINE_WAVEFORM",
-                "functionName": "SINE",
-                "param": "waveform",
-                "nodeId": "SINE-userGeneratedNode_1646417316016",
-                "inputId": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a"
-            },
-            "val": "triangle"
+            "val": 43
         },
         {
             "type": "input",
             "name": "Numeric Input",
             "minWidth": 1,
             "minHeight": 1,
-            "id": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399",
+            "id": "ctrl-2df9e5a3-bd3b-4e38-815e-b6615a854c62",
             "hidden": false,
             "param": {
-                "id": "LINSPACE_STEP",
-                "functionName": "LINSPACE",
-                "param": "step",
-                "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
-                "inputId": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399"
+                "id": "SINE_SINE_offset",
+                "functionName": "SINE",
+                "param": "offset",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "ctrl-2df9e5a3-bd3b-4e38-815e-b6615a854c62"
             },
-            "val": "0"
+            "val": 0
+        },
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-70283db9-c164-4d1f-9665-816e8ca5de13",
+            "hidden": false,
+            "param": {
+                "id": "SINE_SINE_amplitude",
+                "functionName": "SINE",
+                "param": "amplitude",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "ctrl-70283db9-c164-4d1f-9665-816e8ca5de13"
+            },
+            "val": 1
         },
         {
             "type": "output",
             "name": "Plot",
-            "id": "ctrl-59180432-3be2-4c2e-8563-5a613a151db7",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-1cb2a552-3fbc-4463-9e58-ec5b433e7af9",
             "hidden": false,
             "param": "SINE-userGeneratedNode_1646417316016",
+            "val": 0
+        },
+        {
+            "type": "input",
+            "name": "Dropdown",
+            "minWidth": 2,
+            "minHeight": 2,
+            "id": "ctrl-6b8bf30a-534f-48aa-84f9-2917623e8d1c",
+            "hidden": false,
+            "param": {
+                "id": "SINE_SINE_waveform",
+                "functionName": "SINE",
+                "param": "waveform",
+                "nodeId": "SINE-userGeneratedNode_1646417316016",
+                "inputId": "ctrl-6b8bf30a-534f-48aa-84f9-2917623e8d1c"
+            },
+            "val": "square"
+        },
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-df9887fc-2e60-4daf-b094-d7f099989d83",
+            "hidden": false,
+            "param": {
+                "id": "LINSPACE_Linspace_end",
+                "functionName": "LINSPACE",
+                "param": "end",
+                "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
+                "inputId": "ctrl-df9887fc-2e60-4daf-b094-d7f099989d83"
+            },
+            "val": "0"
+        },
+        {
+            "type": "input",
+            "name": "Numeric Input",
+            "minWidth": 1,
+            "minHeight": 1,
+            "id": "ctrl-ef4dcf4e-ad8c-438f-9097-7446b7491561",
+            "hidden": false,
+            "param": {
+                "id": "LINSPACE_Linspace_step",
+                "functionName": "LINSPACE",
+                "param": "step",
+                "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
+                "inputId": "ctrl-ef4dcf4e-ad8c-438f-9097-7446b7491561"
+            },
+            "val": "1000"
+        },
+        {
+            "type": "input",
+            "name": "Knob",
+            "minWidth": 1,
+            "minHeight": 2,
+            "id": "ctrl-dc280f22-b5dd-4181-9914-294b540e99a5",
+            "hidden": false,
+            "param": {
+                "id": "LINSPACE_Linspace_start",
+                "functionName": "LINSPACE",
+                "param": "start",
+                "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
+                "inputId": "ctrl-dc280f22-b5dd-4181-9914-294b540e99a5"
+            },
+            "val": 13
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-f7b2033a-67e0-4057-9208-aa05f99d0f4a",
+            "hidden": false,
+            "param": "LINSPACE-userGeneratedNode_1646432683694",
+            "val": 0
+        },
+        {
+            "type": "input",
+            "name": "Numeric Input",
+            "minWidth": 1,
+            "minHeight": 1,
+            "id": "ctrl-398b4b5c-3d59-4740-9ec3-7daf0bbdd529",
+            "hidden": false,
+            "param": {
+                "id": "CONSTANT_2.0_constant",
+                "functionName": "CONSTANT",
+                "param": "constant",
+                "nodeId": "2.0-userGeneratedNode_1646435677928",
+                "inputId": "ctrl-398b4b5c-3d59-4740-9ec3-7daf0bbdd529"
+            },
+            "val": "10"
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-23e7dfae-2918-44fb-aea9-0ec87af0e793",
+            "hidden": false,
+            "param": "2.0-userGeneratedNode_1646435677928",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-8d1b6e35-1ea9-4b66-96ff-7ae1e58ade12",
+            "hidden": false,
+            "param": "HISTOGRAM-userGeneratedNode_1646417604301",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-c40d9edd-e43f-4986-8fc3-f88a08a3dcd3",
+            "hidden": false,
+            "param": "SCATTER-userGeneratedNode_1646417560399",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-34d6f8d9-b8f2-4d0d-b8f6-271c33ba300f",
+            "hidden": false,
+            "param": "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
             "val": 0
         }
     ],
     "gridLayout": [
         {
             "w": 2,
-            "h": 1,
+            "h": 2,
             "x": 0,
             "y": 0,
             "i": "INPUT_PLACEHOLDER",
@@ -315,23 +542,34 @@
         },
         {
             "w": 2,
-            "h": 1,
-            "x": 0,
-            "y": 1,
-            "i": "ctrl-1f408851-399d-463b-a682-ff4d94b77729",
+            "h": 2,
+            "x": 2,
+            "y": 0,
+            "i": "ctrl-2df9e5a3-bd3b-4e38-815e-b6615a854c62",
+            "minW": 1,
+            "minH": 1,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 2,
+            "x": 2,
+            "y": 2,
+            "i": "ctrl-70283db9-c164-4d1f-9665-816e8ca5de13",
             "minW": 2,
             "minH": 1,
             "moved": false,
             "static": true
         },
         {
-            "w": 1,
-            "h": 2,
-            "x": 3,
+            "w": 2,
+            "h": 4,
+            "x": 4,
             "y": 0,
-            "i": "ctrl-3dfb377b-bf5b-43b1-b6f5-35693cfe809b",
-            "minW": 1,
-            "minH": 2,
+            "i": "ctrl-1cb2a552-3fbc-4463-9e58-ec5b433e7af9",
+            "minW": 2,
+            "minH": 3,
             "moved": false,
             "static": true
         },
@@ -340,29 +578,108 @@
             "h": 2,
             "x": 0,
             "y": 2,
-            "i": "ctrl-409f3a1a-b91c-4883-87a6-d7dcb326b91a",
+            "i": "ctrl-6b8bf30a-534f-48aa-84f9-2917623e8d1c",
             "minW": 2,
             "minH": 2,
             "moved": false,
             "static": true
         },
         {
-            "w": 1,
+            "w": 2,
+            "h": 2,
+            "x": 0,
+            "y": 4,
+            "i": "ctrl-df9887fc-2e60-4daf-b094-d7f099989d83",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
             "h": 2,
             "x": 2,
-            "y": 0,
-            "i": "ctrl-ce70f8e8-c71e-48c6-a2cc-2a5b4878d399",
+            "y": 4,
+            "i": "ctrl-ef4dcf4e-ad8c-438f-9097-7446b7491561",
             "minW": 1,
             "minH": 1,
             "moved": false,
             "static": true
         },
         {
-            "w": 4,
+            "w": 2,
+            "h": 2,
+            "x": 6,
+            "y": 4,
+            "i": "ctrl-dc280f22-b5dd-4181-9914-294b540e99a5",
+            "minW": 1,
+            "minH": 2,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
             "h": 4,
-            "x": 4,
+            "x": 6,
             "y": 0,
-            "i": "ctrl-59180432-3be2-4c2e-8563-5a613a151db7",
+            "i": "ctrl-f7b2033a-67e0-4057-9208-aa05f99d0f4a",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 2,
+            "x": 4,
+            "y": 4,
+            "i": "ctrl-398b4b5c-3d59-4740-9ec3-7daf0bbdd529",
+            "minW": 1,
+            "minH": 1,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 2,
+            "y": 6,
+            "i": "ctrl-23e7dfae-2918-44fb-aea9-0ec87af0e793",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 0,
+            "y": 6,
+            "i": "ctrl-8d1b6e35-1ea9-4b66-96ff-7ae1e58ade12",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 6,
+            "y": 6,
+            "i": "ctrl-c40d9edd-e43f-4986-8fc3-f88a08a3dcd3",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 4,
+            "y": 6,
+            "i": "ctrl-34d6f8d9-b8f2-4d0d-b8f6-271c33ba300f",
+            "minW": 2,
+            "minH": 3,
             "moved": false,
             "static": true
         }

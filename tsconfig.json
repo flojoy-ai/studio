@@ -20,6 +20,13 @@
       "noEmit": true,
       "jsx": "react-jsx",
       "noImplicitAny": false,
+      "baseUrl": ".",
+      "paths": {
+        "@src/*": ["src/*"],
+        "@feature/*": ["src/feature/*"],
+        "@hooks/*": ["src/hooks/*"],
+        "@utils/*": ["src/utils/*"]
+      }
     },
     "include": [
       "src"
