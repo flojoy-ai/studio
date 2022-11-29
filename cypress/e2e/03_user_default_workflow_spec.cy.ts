@@ -51,10 +51,6 @@ describe('User default workflow', ()=> {
           .click();
       });
 
-      it("Wait for server to be ready to take new job.", () => {
-        cy.contains(".App-status", "🐢 awaiting a new job", {timeout : 4000})
-      });
-    
       it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
         nodes.forEach((node) => {
           cy.get(`[data-id="${node.selector}"]`).click({
