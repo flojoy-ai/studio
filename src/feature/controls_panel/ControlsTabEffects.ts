@@ -14,7 +14,7 @@ export function useControlsTabEffects() {
         }
         const timerId = setTimeout(() => {
             saveAndRunFlowChartInServer(rfInstance);
-        }, 700);
+        }, 3000);
 
         setDebouncedTimerId(timerId);
     }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);

@@ -1,4 +1,4 @@
-joyflo-sma
+joyflo-sma==0.2.0
 matplotlib==3.5.2
 networkx==2.8.4
 numpy==1.23.0

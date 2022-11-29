@@ -26,6 +26,34 @@ localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
+// type ParamTypes = {
+//   [x: string]: {
+//     type: string;
+//     options?: string[];
+//     default: number | string;
+//   };
+// };
+// export type NodeOnAddFunc = (props: {
+//   FUNCTION: string;
+//   type: string;
+//   params: ParamTypes | undefined;
+//   inputs?: Array<{ name: string; id: string }> | undefined;
+// }) => void;
+
+export type ElementsData = {
+  label: string;
+  func: string;
+  type: string;
+  ctrls: {
+    [key: string]: {
+      functionName: string;
+      param: string;
+      value: number;
+    };
+  };
+  inputs?: Array<{ name: string; id: string }>;
+  selects?: any;
+};
 
 const getNodePosition = () => {
   return {
@@ -34,9 +62,19 @@ const getNodePosition = () => {
   };
 };
 
+// type ControlsProps = {
+//   rfInstance?: OnLoadParams;
+//   setElements: Dispatch<React.SetStateAction<Elements<any>>>;
+//   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
+//   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
+//   theme: "light" | "dark";
+//   activeTab: "debug" | "panel" | "visual";
+//   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
+// };
+
 const Controls: FC<ControlsProps> = ({
   theme,
-  isVisualMode,
+  activeTab,
   setOpenCtrlModal,
 }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -106,7 +144,7 @@ const Controls: FC<ControlsProps> = ({
           func: FUNCTION,
           type,
           ctrls: funcParams,
-          inputs
+          inputs,
         },
         position: getNodePosition(),
       };
@@ -147,61 +185,67 @@ const Controls: FC<ControlsProps> = ({
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
       </button>
-      <button
-        className="save__controls_button"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "4px",
-        }}
-        onClick={() => {
-          if (isVisualMode) {
-            openModal();
-          } else {
-            setOpenCtrlModal((prev) => !prev);
-          }
-        }}
-      >
-        {" "}
-        <div
+      {activeTab !== "debug" && (
+        <button
+          className="save__controls_button"
           style={{
-            color: theme === "dark" ? "#99F5FF" : "blue",
-            fontSize: "20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "4px",
+          }}
+          onClick={() => {
+            if (activeTab === "visual") {
+              openModal();
+            } else {
+              setOpenCtrlModal((prev) => !prev);
+            }
           }}
         >
-          +
-        </div>
-        <div
+          {" "}
+          <div
+            style={{
+              color: theme === "dark" ? "#99F5FF" : "blue",
+              fontSize: "20px",
+            }}
+          >
+            +
+          </div>
+          <div
+            style={{
+              color: theme === "dark" ? "#fff" : "#000",
+            }}
+            data-cy={`add-${activeTab === "visual" ? "node" : "ctrl"}`}
+          >
+            Add
+          </div>
+        </button>
+      )}
+
+      {activeTab !== "debug" && (
+        <button
+          className="save__controls_button"
           style={{
             color: theme === "dark" ? "#fff" : "#000",
           }}
-          data-cy={`add-${isVisualMode ? "node" : "ctrl"}`}
+          onClick={openFileSelector}
         >
-          Add
-        </div>
-      </button>
+          Load
+        </button>
+      )}
 
-      <button
-        className="save__controls_button"
-        style={{
-          color: theme === "dark" ? "#fff" : "#000",
-        }}
-        onClick={openFileSelector}
-      >
-        Load
-      </button>
-
-      <button
-        className="save__controls_button"
-        style={{
-          color: theme === "dark" ? "#fff" : "#000",
-        }}
-        onClick={saveFile}
-      >
-        Save
-      </button>
-      {!isVisualMode && (
+      {activeTab !== "debug" && (
+        <button
+          className="save__controls_button"
+          style={{
+            color: theme === "dark" ? "#fff" : "#000",
+          }}
+          onClick={saveFile}
+        >
+          Save
+        </button>
+      )}
+      {activeTab !== "visual" && activeTab !== "debug" && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span
             data-cy="operation-switch"

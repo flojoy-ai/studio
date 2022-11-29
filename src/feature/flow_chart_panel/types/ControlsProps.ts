@@ -7,6 +7,7 @@ export type ControlsProps = {
   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
   theme: "light" | "dark";
+  activeTab: "debug" | "panel" | "visual";
   isVisualMode?: boolean;
   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
 }
