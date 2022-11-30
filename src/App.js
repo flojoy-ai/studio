@@ -110,6 +110,7 @@ const App = () => {
         <GlobalStyles />
         <p
           className="App-status"
+          data-cy="app-status"
           style={{
             backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
           }}

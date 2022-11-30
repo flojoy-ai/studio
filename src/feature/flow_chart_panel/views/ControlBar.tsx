@@ -182,6 +182,7 @@ const Controls: FC<ControlsProps> = ({
           color: theme === "dark" ? "#fff" : "#000",
         }}
         onClick={onSave}
+        data-cy="btn-play"
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
       </button>

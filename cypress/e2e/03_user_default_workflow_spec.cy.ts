@@ -15,14 +15,12 @@ const nodes = [
 
 describe('User default workflow', ()=> {
   
-    it("Should load default flow chart", () => {
+      it("Should complete default workflow", () => {
         cy.visit("/").wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
-      });
-    
-      it("Wait for server to be ready to take new job.", () => {
+
         cy.wait(10000);
-        cy.get(".App-status")
+        cy.get(`[data-cy="app-status"]`)
         .find('code')
         .then( ($ele) => {
           if ($ele.text().includes("🐢 awaiting a new job") || 
@@ -32,27 +30,17 @@ describe('User default workflow', ()=> {
             throw new Error("not correct status")
           }
         });
-      });
-    
-      it("Switch to DEBUG tab", () => {
+      
         cy.get(`[data-cy="debug-btn"]`)
           .click();
-      });
-    
-      it("Run the app by clicking Play button", () => {
-        cy.get("button").contains("Play").click().wait(5000);
-      });
-    
-      it("Wait for job finishing", () => {
+      
+        cy.get(`[data-cy="btn-play"]`).click().wait(5000);
+      
         cy.get("[data-testid=result-node]", { timeout: 200000 });
-      });
-    
-      it("Switch to SCRIPT tab", () => {
+      
         cy.get(`[data-cy="script-btn"]`)
           .click();
-      });
-
-      it("Click through all the charts and compare results with plotlyDefaultOutput.json", () => {
+      
         nodes.forEach((node) => {
           cy.window().then(window => window.disableIntercom = true);
           cy.get(`[data-id="${node.selector}"]`).click({
