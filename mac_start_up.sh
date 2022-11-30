@@ -1,4 +1,3 @@
-ias venv="source $HOME/venv/bin/activate"
 #!/bin/bash
 # source venv2/bin/activate
 alias venv="source $HOME/venv/bin/activate"
@@ -6,15 +5,19 @@ alias venv="source $HOME/venv/bin/activate"
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -r -v venv-path"
+   echo "Usage: $0 -n -p -r -v venv-path"
    echo -r "shuts down existing redis server and spins up a fresh one"
    echo -v "path to a virtualenv"
+   echo -n "installs npm packages"
+   echo -p "installs python packages"
    exit 1 # Exit script after printing help
 }
 
-while getopts "rv:" opt
+while getopts "rv:np" opt
 do
    case "$opt" in
+      p) initPythonPackages=true;;
+      n) initNodePackages=true;;
       r) initRedis=true ;;
       v) venv="$OPTARG" ;;
       ?) helpFunction ;; # Print helpFunction in case parameter is non-existent
@@ -34,19 +37,32 @@ python3 jsonify_funk.py
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
+if [ $initNodePackages ]
+then 
+   echo '-n flag provided'
+   echo 'Node packages will be installed from package.json!'
+   npm install
+fi
+
+if [ $initPythonPackages ]
+then 
+   echo '-p flag provided'
+   echo 'Python packages will be installed from requirements.txt file!'
+   pip install -r requirements.txt
+fi
+
 if [ $initRedis ]
 then
     echo 'shutting down any existing redis server and clearing redis memory...'
-    ttab -t 'REDIS-CLI' redis-cli SHUTDOWN
+    npx ttab -t 'REDIS-CLI' redis-cli SHUTDOWN
     sleep 2
     redis-cli FLUSHALL
     sleep 2
 
     echo 'spining up a fresh redis server...'
-    ttab -t 'REDIS' redis-server
-    sleep 2
+    npx ttab -t 'REDIS' redis-server
+    sleep 2 
 fi
-
 
 venvCmd=""
 if [ ! -z "$venv" ]
