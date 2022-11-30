@@ -14,6 +14,15 @@ export enum ControlNames {
   Plot = "Plot",
 }
 
+export enum PlotTypeNames {
+  ScatterPlot3D = "3D Scatter Plot",
+  ScatterPlot = "Scatter Plot",
+  Histogram = "Histogram",
+  SurfacePlot3D = "3D Surface Plot",
+  Line = "Line",
+  BarChart = "Bar Chart",
+}
+
 export const OutputControlsManifest = [
   // Inputs
   {
@@ -21,6 +30,34 @@ export const OutputControlsManifest = [
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
+  },
+];
+
+export const PlotTypesManifest = [
+  // Plot types
+  {
+    name: PlotTypeNames.ScatterPlot3D,
+    type: ControlTypes.Output,
+  },
+  {
+    name: PlotTypeNames.ScatterPlot,
+    type: ControlTypes.Output,
+  },
+  {
+    name: PlotTypeNames.Histogram,
+    type: ControlTypes.Output,
+  },
+  {
+    name: PlotTypeNames.SurfacePlot3D,
+    type: ControlTypes.Output,
+  },
+  {
+    name: PlotTypeNames.Line,
+    type: ControlTypes.Output,
+  },
+  {
+    name: PlotTypeNames.BarChart,
+    type: ControlTypes.Output,
   },
 ];
 
