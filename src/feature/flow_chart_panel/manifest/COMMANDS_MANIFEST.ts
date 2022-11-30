@@ -31,8 +31,4 @@ export const SECTIONS = [
     // DAQ tab
     { name: "DAQ", key: "DAQ" },
   ],
-  [
-    // Visualization tab
-    { name: "Visualization", key: "VISOR" },
-  ],
 ];
