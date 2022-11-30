@@ -4,7 +4,7 @@ const ctrlParameters = [
       { title: "Linspace ▶ END", value: 34 },
       { title: "Linspace ▶ STEP", value: 3000 },
       { title: "SINE ▶ FREQUENCY", value: 85 },
-      // { title: "SINE ▶ OFFSET", value: "0" },
+      { title: "SINE ▶ OFFSET", value: 0 },
       { title: "SINE ▶ AMPLITUDE", value: 25 },
       // { title: "SINE ▶ WAVEFORM", value: "sine" },
       { title: "2.0 ▶ CONSTANT", value: 8 },

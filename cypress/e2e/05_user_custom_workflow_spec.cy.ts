@@ -19,7 +19,7 @@ const ctrlParameters = [
     { title: "SINE ▶ FREQUENCY", value: 85 },
     { title: "SINE ▶ OFFSET", value: 0 },
     { title: "SINE ▶ AMPLITUDE", value: 25 },
-    { title: "SINE ▶ WAVEFORM", value: "sine" },
+    // { title: "SINE ▶ WAVEFORM", value: "sine" },
     { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
   // [
