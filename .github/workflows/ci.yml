@@ -34,11 +34,11 @@ jobs:
         run: npm install --legacy-peer-deps
       - name: Run test
         uses: cypress-io/github-action@v4
-        with:
-           build: npm run build
-           start: npm start
-           browser: chrome
-           headed: true
+        # with:
+        #    build: npm run build
+        #    start: npm start
+        #    browser: chrome
+        #    headed: true
   
   testPython:
     runs-on: ubuntu-latest

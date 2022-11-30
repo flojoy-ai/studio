@@ -17,9 +17,9 @@ const ctrlParameters = [
     { title: "Linspace ▶ END", value: 34 },
     { title: "Linspace ▶ STEP", value: 3000 },
     { title: "SINE ▶ FREQUENCY", value: 85 },
-    // { title: "SINE ▶ OFFSET", value: "0" },
+    { title: "SINE ▶ OFFSET", value: 0 },
     { title: "SINE ▶ AMPLITUDE", value: 25 },
-    // { title: "SINE ▶ WAVEFORM", value: "sine" },
+    { title: "SINE ▶ WAVEFORM", value: "sine" },
     { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
   // [
@@ -82,9 +82,9 @@ describe('user workflow', ()=> {
     cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").first().click();
     ctrlParameters.forEach((singleIter, index) => {
       singleIter.forEach((item) => {
-        cy.get("[data-cy=ctrls-select]").last().click();
+        cy.get("[data-cy=ctrls-select]").click();
         cy.contains("[data-cy=ctrl-grid-item]", item.title).within(($ele) => {
-          cy.wrap($ele).click();
+          cy.contains(`${item.title}`).click({force: true});
           if (item.title === "SINE ▶ WAVEFORM") {
             return cy
               .get(`input[value="${item.value}"]`)
@@ -92,9 +92,8 @@ describe('user workflow', ()=> {
           }
           return cy
             .get(`input[type=number]`)
-            .focus()
-            .type('{selectall}')
-            .type(`${item.value.toString()}`);
+            .click()
+            .type(`{selectall}${item.value.toString()}`)
         });
       });
     });

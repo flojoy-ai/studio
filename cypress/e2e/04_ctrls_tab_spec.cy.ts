@@ -23,11 +23,13 @@ const ctrlParameters = [
 
 describe('Ctrl Tab management', () => {
     it("Should load default flow chart", () => {
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.visit("/").wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
       });
     
       it("Wait for server to be ready to take new job.", () => {
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(10000);
         cy.get(".App-status")
         .find('code')
@@ -68,9 +70,9 @@ describe('Ctrl Tab management', () => {
     cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").first().click();
     ctrlParameters.forEach((singleIter, index) => {
       singleIter.forEach((item) => {
-        cy.get("[data-cy=ctrls-select]").last().click();
+        cy.get("[data-cy=ctrls-select]").click();
         cy.contains("[data-cy=ctrl-grid-item]", item.title).within(($ele) => {
-          cy.wrap($ele).click();
+          cy.contains(`${item.title}`).click({force: true});
           if (item.title === "SINE ▶ WAVEFORM") {
             return cy
               .get(`input[value="${item.value}"]`)
@@ -78,9 +80,8 @@ describe('Ctrl Tab management', () => {
           }
           return cy
             .get(`input[type=number]`)
-            .focus()
-            .type('{selectall}')
-            .type(`${item.value.toString()}`);
+            .click()
+            .type(`{selectall}${item.value.toString()}`)
         });
       });
     });
