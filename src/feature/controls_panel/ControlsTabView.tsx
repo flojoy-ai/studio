@@ -56,6 +56,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 700);
 
     setDebouncedTimerId(timerId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
@@ -163,6 +164,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     } else {
       saveAndRunFlowChart();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfInstance]);
 
   return (

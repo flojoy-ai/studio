@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
 import { useWindowSize } from "react-use";
 
 export function useFlowChartTabState() {
@@ -10,7 +9,7 @@ export function useFlowChartTabState() {
     setIsModalOpen(true);
   };
 
-  const afterOpenModal = () => { };
+  const afterOpenModal = () => {};
 
   const closeModal = () => {
     setIsModalOpen(false);
