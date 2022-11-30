@@ -11,7 +11,7 @@
                         "SINE_SINE_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 43
+                            "value": 11
                         },
                         "SINE_SINE_offset": {
                             "functionName": "SINE",
@@ -26,7 +26,7 @@
                         "SINE_SINE_waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
-                            "value": "square"
+                            "value": "sawtooth"
                         }
                     },
                     "running": false
@@ -134,19 +134,20 @@
                         "LINSPACE_Linspace_start": {
                             "functionName": "LINSPACE",
                             "param": "start",
-                            "value": 13
+                            "value": 50
                         },
                         "LINSPACE_Linspace_end": {
                             "functionName": "LINSPACE",
                             "param": "end",
-                            "value": "0"
+                            "value": 16
                         },
                         "LINSPACE_Linspace_step": {
                             "functionName": "LINSPACE",
                             "param": "step",
-                            "value": "1000"
+                            "value": "3001"
                         }
-                    }
+                    },
+                    "running": false
                 },
                 "position": {
                     "x": 0,
@@ -353,7 +354,7 @@
                 "nodeId": "SINE-userGeneratedNode_1646417316016",
                 "inputId": "INPUT_PLACEHOLDER"
             },
-            "val": 43
+            "val": 11
         },
         {
             "type": "input",
@@ -388,16 +389,6 @@
             "val": 1
         },
         {
-            "type": "output",
-            "name": "Plot",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-1cb2a552-3fbc-4463-9e58-ec5b433e7af9",
-            "hidden": false,
-            "param": "SINE-userGeneratedNode_1646417316016",
-            "val": 0
-        },
-        {
             "type": "input",
             "name": "Dropdown",
             "minWidth": 2,
@@ -411,7 +402,7 @@
                 "nodeId": "SINE-userGeneratedNode_1646417316016",
                 "inputId": "ctrl-6b8bf30a-534f-48aa-84f9-2917623e8d1c"
             },
-            "val": "square"
+            "val": "sawtooth"
         },
         {
             "type": "input",
@@ -427,7 +418,7 @@
                 "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
                 "inputId": "ctrl-df9887fc-2e60-4daf-b094-d7f099989d83"
             },
-            "val": "0"
+            "val": 16
         },
         {
             "type": "input",
@@ -443,7 +434,7 @@
                 "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
                 "inputId": "ctrl-ef4dcf4e-ad8c-438f-9097-7446b7491561"
             },
-            "val": "1000"
+            "val": "3001"
         },
         {
             "type": "input",
@@ -459,17 +450,7 @@
                 "nodeId": "LINSPACE-userGeneratedNode_1646432683694",
                 "inputId": "ctrl-dc280f22-b5dd-4181-9914-294b540e99a5"
             },
-            "val": 13
-        },
-        {
-            "type": "output",
-            "name": "Plot",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-f7b2033a-67e0-4057-9208-aa05f99d0f4a",
-            "hidden": false,
-            "param": "LINSPACE-userGeneratedNode_1646432683694",
-            "val": 0
+            "val": 50
         },
         {
             "type": "input",
@@ -479,7 +460,7 @@
             "id": "ctrl-398b4b5c-3d59-4740-9ec3-7daf0bbdd529",
             "hidden": false,
             "param": {
-                "id": "CONSTANT_2.0_constant",
+                "id": "CONSTANT_10_constant",
                 "functionName": "CONSTANT",
                 "param": "constant",
                 "nodeId": "2.0-userGeneratedNode_1646435677928",
@@ -494,17 +475,7 @@
             "minHeight": 3,
             "id": "ctrl-23e7dfae-2918-44fb-aea9-0ec87af0e793",
             "hidden": false,
-            "param": "2.0-userGeneratedNode_1646435677928",
-            "val": 0
-        },
-        {
-            "type": "output",
-            "name": "Plot",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-8d1b6e35-1ea9-4b66-96ff-7ae1e58ade12",
-            "hidden": false,
-            "param": "HISTOGRAM-userGeneratedNode_1646417604301",
+            "param": "SINE-userGeneratedNode_1646417316016",
             "val": 0
         },
         {
@@ -514,7 +485,7 @@
             "minHeight": 3,
             "id": "ctrl-c40d9edd-e43f-4986-8fc3-f88a08a3dcd3",
             "hidden": false,
-            "param": "SCATTER-userGeneratedNode_1646417560399",
+            "param": "MULTIPLY-userGeneratedNode_1646417352715",
             "val": 0
         },
         {
@@ -523,6 +494,56 @@
             "minWidth": 2,
             "minHeight": 3,
             "id": "ctrl-34d6f8d9-b8f2-4d0d-b8f6-271c33ba300f",
+            "hidden": false,
+            "param": "2.0-userGeneratedNode_1646435677928",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-7bfc4567-8e99-4717-9509-0a1e8cdb5add",
+            "hidden": false,
+            "param": "LINSPACE-userGeneratedNode_1646432683694",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-26a46fd9-cc6b-4d38-9d61-551edcb15bed",
+            "hidden": false,
+            "param": "ADD-userGeneratedNode_1646417428589",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-3c5e5085-da62-40ef-b046-21ae09d2f9db",
+            "hidden": false,
+            "param": "HISTOGRAM-userGeneratedNode_1646417604301",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-8c830281-7327-4a4a-bcb2-e23f33d9806d",
+            "hidden": false,
+            "param": "SCATTER-userGeneratedNode_1646417560399",
+            "val": 0
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-a849ebeb-6ce4-4388-921d-65e518bf01db",
             "hidden": false,
             "param": "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
             "val": 0
@@ -564,17 +585,6 @@
         },
         {
             "w": 2,
-            "h": 4,
-            "x": 4,
-            "y": 0,
-            "i": "ctrl-1cb2a552-3fbc-4463-9e58-ec5b433e7af9",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": true
-        },
-        {
-            "w": 2,
             "h": 2,
             "x": 0,
             "y": 2,
@@ -587,8 +597,8 @@
         {
             "w": 2,
             "h": 2,
-            "x": 0,
-            "y": 4,
+            "x": 6,
+            "y": 2,
             "i": "ctrl-df9887fc-2e60-4daf-b094-d7f099989d83",
             "minW": 2,
             "minH": 1,
@@ -598,8 +608,8 @@
         {
             "w": 2,
             "h": 2,
-            "x": 2,
-            "y": 4,
+            "x": 4,
+            "y": 2,
             "i": "ctrl-ef4dcf4e-ad8c-438f-9097-7446b7491561",
             "minW": 1,
             "minH": 1,
@@ -610,7 +620,7 @@
             "w": 2,
             "h": 2,
             "x": 6,
-            "y": 4,
+            "y": 0,
             "i": "ctrl-dc280f22-b5dd-4181-9914-294b540e99a5",
             "minW": 1,
             "minH": 2,
@@ -619,20 +629,9 @@
         },
         {
             "w": 2,
-            "h": 4,
-            "x": 6,
-            "y": 0,
-            "i": "ctrl-f7b2033a-67e0-4057-9208-aa05f99d0f4a",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": true
-        },
-        {
-            "w": 2,
             "h": 2,
             "x": 4,
-            "y": 4,
+            "y": 0,
             "i": "ctrl-398b4b5c-3d59-4740-9ec3-7daf0bbdd529",
             "minW": 1,
             "minH": 1,
@@ -643,7 +642,7 @@
             "w": 2,
             "h": 3,
             "x": 2,
-            "y": 6,
+            "y": 4,
             "i": "ctrl-23e7dfae-2918-44fb-aea9-0ec87af0e793",
             "minW": 2,
             "minH": 3,
@@ -653,19 +652,8 @@
         {
             "w": 2,
             "h": 3,
-            "x": 0,
-            "y": 6,
-            "i": "ctrl-8d1b6e35-1ea9-4b66-96ff-7ae1e58ade12",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": true
-        },
-        {
-            "w": 2,
-            "h": 3,
             "x": 6,
-            "y": 6,
+            "y": 4,
             "i": "ctrl-c40d9edd-e43f-4986-8fc3-f88a08a3dcd3",
             "minW": 2,
             "minH": 3,
@@ -676,8 +664,63 @@
             "w": 2,
             "h": 3,
             "x": 4,
-            "y": 6,
+            "y": 4,
             "i": "ctrl-34d6f8d9-b8f2-4d0d-b8f6-271c33ba300f",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 0,
+            "y": 4,
+            "i": "ctrl-7bfc4567-8e99-4717-9509-0a1e8cdb5add",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 0,
+            "y": 7,
+            "i": "ctrl-26a46fd9-cc6b-4d38-9d61-551edcb15bed",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 2,
+            "y": 7,
+            "i": "ctrl-3c5e5085-da62-40ef-b046-21ae09d2f9db",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 4,
+            "y": 7,
+            "i": "ctrl-8c830281-7327-4a4a-bcb2-e23f33d9806d",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": true
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 6,
+            "y": 7,
+            "i": "ctrl-a849ebeb-6ce4-4388-921d-65e518bf01db",
             "minW": 2,
             "minH": 3,
             "moved": false,
