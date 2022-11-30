@@ -10,7 +10,7 @@ import styledPlotLayout from "../../common/defaultPlotLayout";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { FUNCTION_PARAMETERS } from "../../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import { ControlNames, ControlTypes } from "../manifest/CONTROLS_MANIFEST";
+import { ControlNames, ControlTypes, PlotTypesManifest } from "../manifest/CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
 import { ControlOptions } from "../types/ControlOptions";
 
@@ -69,6 +69,7 @@ const ControlComponent = ({
   }, [flowChartObject]);
 
   let options: ControlOptions[] = [];
+  let plotOptions: ControlOptions[] = [];
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
@@ -103,6 +104,7 @@ const ControlComponent = ({
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
     console.log("output", flowChartObject);
+
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if (!("source" in node)) {
@@ -115,6 +117,12 @@ const ControlComponent = ({
             ")";
           options.push({ label: label, value: node.id });
         }
+      });
+    }
+
+    if (ctrlObj.name === ControlNames.Plot){
+      PlotTypesManifest.forEach((item) => {
+        plotOptions.push({ label: item.name, value: item.name});
       });
     }
   }
@@ -238,6 +246,28 @@ const ControlComponent = ({
           </button>
         </div>
       )}
+
+      {ctrlObj.name === ControlNames.Plot && (
+        <Select
+          className="select-node"
+          isSearchable={true}
+          onChange={(val) => {
+            console.log("plot type value in select:", val, options);
+            if (val) attachParamsToCtrl(val.value, ctrlObj);
+          }}
+          options={plotOptions}
+          styles={customDropdownStyles}
+          theme={theme}
+          value={
+            ctrlObj.type === "output"
+              ? plotOptions?.find((option) => option.value === ctrlObj?.param)
+              : plotOptions?.find(
+                (option) => option.value.id === ctrlObj?.param?.id
+              )
+          }
+        />
+      )}
+
       {!isEditMode && (
         <p className="ctrl-param">
           {ctrlObj.type === "output"
