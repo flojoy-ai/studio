@@ -53,7 +53,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "node_modules/.bin/cypress run",
+    "test": "node_modules/.bin/cypress run --headed --browser chrome",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
