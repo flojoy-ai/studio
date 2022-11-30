@@ -37,8 +37,8 @@ jobs:
         with:
            build: npm run build
            start: npm start
-          #  browser: chrome
-          #  headed: true
+           browser: chrome
+           headed: true
   
   testPython:
     runs-on: ubuntu-latest

@@ -15,7 +15,7 @@ const nodes = [
 
 describe('User default workflow', ()=> {
   
-      it("Should load default flow chart", () => {
+    it("Should load default flow chart", () => {
         cy.visit("/").wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
       });
