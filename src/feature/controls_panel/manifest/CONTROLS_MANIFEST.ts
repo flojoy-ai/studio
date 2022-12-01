@@ -37,27 +37,27 @@ export const PlotTypesManifest = [
   // Plot types
   {
     name: PlotTypeNames.ScatterPlot3D,
-    type: ControlTypes.Output,
+    type: "scatter3d",
   },
   {
     name: PlotTypeNames.ScatterPlot,
-    type: ControlTypes.Output,
+    type: "scatter",
   },
   {
     name: PlotTypeNames.Histogram,
-    type: ControlTypes.Output,
+    type: "histogram",
   },
   {
     name: PlotTypeNames.SurfacePlot3D,
-    type: ControlTypes.Output,
+    type: "surface",
   },
   {
     name: PlotTypeNames.Line,
-    type: ControlTypes.Output,
+    type: "lines",
   },
   {
     name: PlotTypeNames.BarChart,
-    type: ControlTypes.Output,
+    type: "bars",
   },
 ];
 
