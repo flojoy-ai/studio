@@ -121,12 +121,13 @@ const ControlComponent = ({
 
     if (ctrlObj.name === ControlNames.Plot){
       PlotTypesManifest.forEach((item) => {
-        plotOptions.push({ label: item.name, value: item.name});
+        plotOptions.push({ label: item.name, value: item.type});
       });
     }
   }
 
   let plotData: any = [{ x: [1, 2, 3], y: [1, 2, 3] }];
+  let plotOption: ControlOptions = {label: 'Line', value: 'lines'};
   let nd: any = {};
 
   try{
@@ -147,7 +148,7 @@ const ControlComponent = ({
               if ("data" in nd.result) {
                 plotData = nd.result.data;
               } else {
-                plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
+                plotData = [{ x: nd.result["x"], y: nd.result["y"], type: plotOption.value }];
               }
             }
           }
@@ -252,7 +253,10 @@ const ControlComponent = ({
           isSearchable={true}
           onChange={(val) => {
             console.log("plot type value in select:", val, options);
-            if (val) attachParamsToCtrl(val.value, ctrlObj);
+            if (val) {
+              attachParamsToCtrl(val.value, ctrlObj);
+              plotOption = val;
+            }
           }}
           options={plotOptions}
           styles={customDropdownStyles}
