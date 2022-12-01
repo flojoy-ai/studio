@@ -51,10 +51,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "test": "node_modules/.bin/cypress run --headed --browser chrome",
-    "eject": "react-scripts eject",
+    "eject": "react-app-rewired eject",
     "starts": "react-app-rewired start",
     "builds": "react-app-rewired build",
     "tests": "react-app-rewired test --watchAll=false",

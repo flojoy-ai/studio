@@ -6,19 +6,13 @@ const target = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 
 module.exports = function(app) {
-  app.use(
-    '/wfc',
-    createProxyMiddleware({
-      target: target,
-      changeOrigin: true,
-    })
-  );
 
   app.use(
     '/wfc',
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
+      logLevel: 'debug'
     })
   );
 
