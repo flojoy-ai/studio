@@ -16,7 +16,9 @@ const nodes = [
 describe('User default workflow', ()=> {
   
       it("Should complete default workflow", () => {
-        cy.visit("/").wait(1000);
+        cy.visit("/", {onBeforeLoad (win) {
+          win.disableIntercom = true;
+        }}).wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
 
         cy.wait(10000);
@@ -42,7 +44,6 @@ describe('User default workflow', ()=> {
           .click();
       
         nodes.forEach((node) => {
-          cy.window().then(window => window.disableIntercom = true);
           cy.get(`[data-id="${node.selector}"]`).click({
             force: true,
             multiple: true,
