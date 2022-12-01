@@ -17,7 +17,6 @@ import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MAN
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
-import {useControlsTabEffects} from './ControlsTabEffects'
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -44,7 +43,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
-  useControlsTabEffects()
  
   const afterOpenModal = () => { };
   const closeModal = () => {
