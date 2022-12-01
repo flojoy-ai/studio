@@ -1,3 +1,4 @@
+ias venv="source $HOME/venv/bin/activate"
 #!/bin/bash
 # source venv2/bin/activate
 alias venv="source $HOME/venv/bin/activate"
@@ -84,11 +85,14 @@ else
    echo "directory ~/.flojoy/flojoy.yaml does not exists. Creating new directory with yaml file."
 fi
 
-echo 'starting redis worker...'
-npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
+echo 'starting redis worker for flojoy-watch'
+npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
-echo 'starting node server...'
-npx ttab -t 'NODE' "${venvCmd} node server.js"
+echo 'starting redis worker for nodes...'
+npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+
+echo 'starting django server...'
+npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver"
 sleep 1
 
 echo 'starting react server...'
