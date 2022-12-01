@@ -6,13 +6,10 @@ export const NodeStyle = (
 ): React.CSSProperties | undefined => {
   if (data.func === "LINSPACE") {
     return {
-      // background: '#9CA8B3',
       padding: 10,
       height: "105px",
       width: "192px",
-      boxShadow: "0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)",
       fontWeight: 600,
-      // borderRadius: "65px",
       borderRadius: "6px",
       backgroundColor:
         theme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
@@ -55,6 +52,7 @@ export const NodeStyle = (
       alignItems: "center",
       fontSize: "17px",
       color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+      background: 'transparent'
     };
   }
 };

@@ -2,6 +2,8 @@ export type ElementsData = {
   label: string;
   func: string;
   type: string;
+  running?: boolean;
+  failed?:boolean;
   ctrls: {
     [key: string]: {
       functionName: string;

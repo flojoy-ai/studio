@@ -4,6 +4,7 @@ from joyflo import flojoy, VectorXY
 @flojoy
 def CONSTANT(v, params):
     # ''' Generates a single x-y vector of numeric (floating point) constants'''
+    print('constant params: ',params)
 
     if v.__len__() > 0:
         x = v[0].y
