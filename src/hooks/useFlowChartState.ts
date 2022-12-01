@@ -126,7 +126,6 @@ export function useFlowChartState() {
     inputData: any
   ) => {
     setElements((element) => {
-      console.log("param id in set element: ", inputData);
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         node.data.ctrls[paramId] = inputData;
@@ -134,8 +133,8 @@ export function useFlowChartState() {
           node.data.label = inputData.value;
         }
       }
-      console.log(" node after updating element: ", JSON.stringify(node));
     });
+
   };
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {
@@ -152,7 +151,8 @@ export function useFlowChartState() {
         prev.elements = elements;
       }
     });
-  }, [elements, setRfInstance]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [elements]);
   return {
     rfInstance,
     setRfInstance,

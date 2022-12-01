@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flojoy socket event</title>
+  </head>
+  <body>
+    <h1>Flojoy</h1>
+    <button id="heading-button">This is button</button>
+    <script type="text/javascript">
+      let url = `ws://${window.location.host}/ws/socket-server/`;
+
+      const jobSocket = new WebSocket(url);
+      jobSocket.onmessage = function (e) {
+        let data = JSON.parse(e.data);
+        console.log('data received: ', data)
+
+        if (data.type === "ping_response") {
+        //   console.log("You have been responsed for ping");
+          console.log(data);
+        //   jobSocket.send(
+        //     JSON.stringify({
+        //       type: "ping",
+        //     })
+        //   );
+        } else if (data.type === "heartbeat_response") {
+          console.log("You have been responsed for heartbeat");
+          console.log(data);
+        } else if (data.type === "connection_established") {
+          console.log("You have been responsed for connection");
+          console.log(data);
+          jobSocket.send(
+            JSON.stringify({
+              type: "ping",
+            })
+          );
+        }
+      };
+
+      let headingElement = document.getElementById("heading-button");
+      headingElement.addEventListener("click", (e) => {
+        jobSocket.send(
+          JSON.stringify({
+            type: "ping",
+          })
+        );
+      });
+    </script>
+  </body>
+</html>
