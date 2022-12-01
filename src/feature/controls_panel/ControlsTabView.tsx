@@ -166,13 +166,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     cacheManifest(manClone);
   };
 
-  useEffect(() => {
-    if (rfInstance?.elements.length === 0) {
-      setCtrlsManifest([]);
-    } else {
-      saveAndRunFlowChart();
-    }
-  }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
+  // useEffect(() => {
+  //   if (rfInstance?.elements.length === 0) {
+  //     setCtrlsManifest([]);
+  //   } else {
+  //     saveAndRunFlowChart();
+  //   }
+  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
