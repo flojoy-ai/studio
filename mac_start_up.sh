@@ -68,10 +68,10 @@ else
 fi
 
 echo 'starting redis worker for flojoy-watch'
-npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} rq worker flojoy-watch"
+npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
 echo 'starting redis worker for nodes...'
-npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 echo 'starting django server...'
 npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver"
