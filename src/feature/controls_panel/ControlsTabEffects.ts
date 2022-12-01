@@ -7,21 +7,21 @@ export function useControlsTabEffects() {
     const { debouncedTimerId, setDebouncedTimerId } = useControlsTabState();
     const { setCtrlsManifest, rfInstance } = useFlowChartState();
 
-    const saveAndRunFlowChart = useCallback(() => {
-        // save and run the script with debouncing
-        if (debouncedTimerId) {
-            clearTimeout(debouncedTimerId);
-        }
-        const timerId = setTimeout(() => saveAndRunFlowChartInServer(rfInstance), 3000);
+    // const saveAndRunFlowChart = useCallback(() => {
+    //     // save and run the script with debouncing
+    //     if (debouncedTimerId) {
+    //         clearTimeout(debouncedTimerId);
+    //     }
+    //     const timerId = setTimeout(() => saveAndRunFlowChartInServer(rfInstance), 3000);
 
-        setDebouncedTimerId(timerId);
-    }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);
+    //     setDebouncedTimerId(timerId);
+    // }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);
 
-    useEffect(() => {
-        if (rfInstance?.elements.length === 0) {
-            setCtrlsManifest([]);
-        } else {
-            saveAndRunFlowChart();
-        }
-    }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
+    // useEffect(() => {
+    //     if (rfInstance?.elements.length === 0) {
+    //         setCtrlsManifest([]);
+    //     } else {
+    //         saveAndRunFlowChart();
+    //     }
+    // }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
 }
