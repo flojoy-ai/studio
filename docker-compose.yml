@@ -18,6 +18,16 @@ services:
       - REDIS_PORT=6379
     depends_on:
       - redis
+  flojoy-watch:
+    build: 
+      context: .
+      dockerfile: ./docker/flojoy-watch/Dockerfile
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
 
   backend:
     build: 

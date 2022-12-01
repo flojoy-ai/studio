@@ -90,7 +90,7 @@ const ControlComponent = ({
                     "_" +
                     nodeLabel.toString().split(" ").join("") +
                     "_" +
-                    param.toUpperCase(),
+                    param,
                   functionName: nodeFunctionName,
                   param,
                   nodeId: node.id,
@@ -103,8 +103,7 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    console.log("output", flowChartObject);
-
+    
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if (!("source" in node)) {
@@ -136,7 +135,7 @@ const ControlComponent = ({
       let nodeIdToPlot = ctrlObj.param;
       if (nodeIdToPlot) {
         if (results && "io" in results) {
-          const runResults = JSON.parse(results.io).reverse();
+          const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];

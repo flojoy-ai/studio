@@ -59,7 +59,6 @@ const FlowChartTab = ({
   };
 
   const onClickElement = (evt: any, elem: any) => {
-    console.log("evt & element from click event", evt, elem);
     setClickedElement(elem);
     openModal();
   };
@@ -69,6 +68,10 @@ const FlowChartTab = ({
 
   const onConnect = (params: Connection | Edge) =>
     setElements((els: Elements<any>) => addEdge(params, els));
+  
+  useEffect(() => {
+    saveFlowChartToLocalStorage(rfInstance);
+  }, [rfInstance]);
 
   let nodeLabel = defaultPythonFnLabel;
   let nodeType = defaultPythonFnType;
@@ -95,7 +98,7 @@ const FlowChartTab = ({
   let nd: any = {};
 
   if (results && "io" in results) {
-    const runResults = JSON.parse(results.io);
+    const runResults = results.io; // JSON.parse(results.io);
     const filteredResult = runResults.filter(
       (node: any) => node.cmd === nodeLabel
     )[0];
@@ -121,13 +124,6 @@ const FlowChartTab = ({
 
     setRfInstance(rfIns.toObject());
   };
-
-  console.log(" rfInstance: ", rfInstance);
-
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
-
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="react-flow">
