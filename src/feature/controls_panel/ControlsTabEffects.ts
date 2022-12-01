@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import { useControlsTabState } from "./ControlsTabState";
-import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
+import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices"
 
 export function useControlsTabEffects() {
     const { debouncedTimerId, setDebouncedTimerId } = useControlsTabState();
@@ -12,9 +12,7 @@ export function useControlsTabEffects() {
         if (debouncedTimerId) {
             clearTimeout(debouncedTimerId);
         }
-        const timerId = setTimeout(() => {
-            saveAndRunFlowChartInServer(rfInstance);
-        }, 3000);
+        const timerId = setTimeout(() => saveAndRunFlowChartInServer(rfInstance), 3000);
 
         setDebouncedTimerId(timerId);
     }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);

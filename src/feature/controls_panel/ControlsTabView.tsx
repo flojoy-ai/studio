@@ -12,14 +12,18 @@ import "../../App.css";
 import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
+import { useSocket } from "../../hooks/useSocket";
 import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
+import {useControlsTabEffects} from './ControlsTabEffects'
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
+
+  const {states: {socketId}} = useSocket()
   const {
     openEditModal,
     setOpenEditModal,
@@ -40,27 +44,34 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
-
+  useControlsTabEffects()
+ 
   const afterOpenModal = () => { };
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
 
-  const saveAndRunFlowChart = useCallback(() => {
-    // save and run the script with debouncing
-    if (debouncedTimerId) {
-      clearTimeout(debouncedTimerId);
-    }
-    const timerId = setTimeout(() => {
-      saveAndRunFlowChartInServer(rfInstance);
-    }, 700);
 
-    setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance, setDebouncedTimerId]);
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
+
+  const saveAndRunFlowChart = useCallback(() => {
+    if (debouncedTimerId) {
+      clearTimeout(debouncedTimerId);
+    }
+    const timerId = setTimeout(() => {
+      saveAndRunFlowChartInServer({rfInstance, jobId:socketId});
+    }, 3000);
+
+    setDebouncedTimerId(timerId);
+  }, [debouncedTimerId, rfInstance, setDebouncedTimerId, socketId]);
+
+  // eslint-disable-next-line @typescript-eslint/no-redeclare
+  // async function cacheManifest(manifest: CtlManifestType[]) {
+  //   setCtrlsManifest(manifest);
+  // }
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
@@ -179,80 +190,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
           setOpenEditModal,
         }}
       />
-
-      {/*{
-        <>
-          <div className="App-controls-header">
-            <div className="input-header">Inputs</div>
-            <div className="output-header">Outputs</div>
-          </div>
-
-          <div className="App-controls-panel">
-            <div className="ctrl-inputs-sidebar">
-              <div className="ctrl-input-group"></div>
-              {ctrlsManifest
-                .filter((c) => c.type === "input" && !c.controlGroup)
-                .map((ctrl, i) => (
-                  <div key={ctrl.id} className={isEditMode ? "ctrl-input" : ""}>
-                    {isEditMode ? (
-                      <ControlComponent
-                        ctrlObj={ctrl}
-                        theme={theme}
-                        results={results}
-                        updateCtrlValue={updateCtrlValue}
-                        attachParamsToCtrl={attachParamsToCtrl}
-                        removeCtrl={removeCtrl}
-                        setCurrentInput={setCurrentInput}
-                        setOpenEditModal={setOpenEditModal}
-                      />
-                    ) : ctrl.hidden ? null : (
-                      <ControlComponent
-                        ctrlObj={ctrl}
-                        theme={theme}
-                        results={results}
-                        updateCtrlValue={updateCtrlValue}
-                        attachParamsToCtrl={attachParamsToCtrl}
-                        removeCtrl={removeCtrl}
-                        setCurrentInput={setCurrentInput}
-                        setOpenEditModal={setOpenEditModal}
-                      />
-                    )}
-                  </div>
-                ))}
-              <div
-                className="ctrl-input"
-                style={{ overflow: "scroll", height: 300 }}
-              >
-                <pre>{JSON.stringify(ctrlsManifest, undefined, 2)}</pre>
-              </div>
-            </div>
-            <div className="ctrl-outputs-container">
-              <div className="ctrl-outputs-canvas">
-                {ctrlsManifest
-                  .filter((c) => c.type === "output")
-                  .map((ctrl, i) => (
-                    <div
-                      key={ctrl.id}
-                      className={isEditMode ? "ctrl-output" : ""}
-                      style={{ margin: "20px 0 0 20px" }}
-                    >
-                      <ControlComponent
-                        ctrlObj={ctrl}
-                        results={results}
-                        theme={theme}
-                        updateCtrlValue={updateCtrlValue}
-                        attachParamsToCtrl={attachParamsToCtrl}
-                        removeCtrl={removeCtrl}
-                        setCurrentInput={setCurrentInput}
-                        setOpenEditModal={setOpenEditModal}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        </>
-      }*/}
 
       <AddCtrlModal
         isOpen={openCtrlModal}

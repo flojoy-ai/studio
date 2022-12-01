@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView.tsx";
-import ResultsTab from "./feature/results_panel/ResultsTabView.tsx";
-import ControlsTab from "./feature/controls_panel/ControlsTabView.tsx";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView"; //"./feature/flow_chart_panel/FlowChartTabView.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTabView";
+import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./feature/common/theme";
 import { GlobalStyles } from "./feature/common/global";
-
-import STATUS_CODES from "./STATUS_CODES.json";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
@@ -16,19 +14,20 @@ import { ReactFlowProvider, removeElements } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
+import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const [serverStatus, setServerStatus] = useState("Connecting to server...");
+  const {
+    states: { serverStatus, programResults, runningNode, failedNodes },
+  } = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
-  const [programResults, setProgramResults] = useState({
-    msg: STATUS_CODES.NO_RUNS_YET,
-  });
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState([]);
-
   const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
     useFlowChartState();
-  const [currentTab, setCurrentTab] = useState("visual");
+  const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
+    "visual"
+  );
   const { width: windowWidth } = useWindowSize();
   const toggleTheme = () => {
     if (theme === "light") {
@@ -40,73 +39,34 @@ const App = () => {
     }
   };
 
-  const pingBackendAPI = async (endpoint) => {
-    const resp = await fetch(endpoint);
-    const body = await resp.json();
-    if (resp.status !== 200) {
-      return console.log("error in pingBackendApi", body.message);
-    }
-    return body;
-  };
-
   const onElementsRemove = (elementsToRemove) =>
     setElements((els) => removeElements(elementsToRemove, els));
 
   useEffect(() => {
-    console.log("App component did mount");
-    pingBackend();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const pingBackend = async () => {
-    let success = false;
-    while (!success) {
-      pingBackendAPI("/ping")
-        // eslint-disable-next-line no-loop-func
-        .then(() => {
-          success = true;
-        })
-        .catch((err) => console.log(err));
-      await new Promise((resolve) => {
-        setTimeout(resolve, 5000);
-      });
-    }
-
-    pingBackendAPI("/ping")
-      .then((res) => {
-        if ("msg" in res) {
-          setServerStatus(res.msg);
-          // set a timer that gets an update from the server every second
-          window.setInterval(() => {
-            pingBackendAPI("/heartbeat").then((res) => {
-              if (res.msg === STATUS_CODES["RQ_RUN_COMPLETE"]) {
-                // grab program result from redis
-                setServerStatus(STATUS_CODES["RQ_RUN_COMPLETE"]);
-                pingBackendAPI("/io").then((res) => {
-                  if (res.msg === STATUS_CODES["MISSING_RQ_RESULTS"]) {
-                    setServerStatus(res.msg);
-                  } else {
-                    setServerStatus(STATUS_CODES["RQ_RESULTS_RETURNED"]);
-                    setProgramResults(res);
-                    console.log('program result: ', JSON.parse(res.io).reverse())
-                  }
-                });
-              } else if (res.msg !== undefined && res.msg !== "") {
-                // Program in process, awaiting a new job etc...
-                setServerStatus(res.msg);
-              }
-            });
-          }, 1000);
+    setElements((prev) => {
+      prev.forEach((el) => {
+        if (el?.data?.func === runningNode) {
+          el.data.running = true;
         } else {
-          setServerStatus(STATUS_CODES["SERVER_OFFLINE"]);
+          if (el.data?.running) {
+            el.data.running = false;
+          }
         }
-      })
-      .catch((err) => console.log(err));
-  };
-
+        if (el?.data?.func && failedNodes.includes(el.data.func)) {
+          el.data.failed = true;
+        } else {
+          if (el?.data?.failed) {
+            el.data.failed = false;
+          }
+        }
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runningNode, failedNodes]);
+  const ReactFlowChartProvider: any = ReactFlowProvider;
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <ReactFlowProvider>
+      <ReactFlowChartProvider>
         <GlobalStyles />
         <p
           className="App-status"
@@ -184,10 +144,6 @@ const App = () => {
             }}
           >
             <Controls
-              rfInstance={rfInstance}
-              setElements={setElements}
-              clickedElement={clickedElement}
-              onElementsRemove={onElementsRemove}
               theme={theme}
               activeTab={currentTab}
               setOpenCtrlModal={setOpenCtrlModal}
@@ -199,7 +155,7 @@ const App = () => {
         </header>
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-            <ResultsTab results={programResults} theme={theme} />
+            <ResultsTab results={programResults} />
           </div>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             <FlowChartTab
@@ -217,13 +173,12 @@ const App = () => {
             <ControlsTab
               results={programResults}
               theme={theme}
-              programResults={programResults}
               openCtrlModal={openCtrlModal}
               setOpenCtrlModal={setOpenCtrlModal}
             />
           )}
         </main>
-      </ReactFlowProvider>
+      </ReactFlowChartProvider>
     </ThemeProvider>
   );
 };

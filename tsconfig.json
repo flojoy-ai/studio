@@ -20,7 +20,14 @@
       "noEmit": true,
       "jsx": "react-jsx",
       "noImplicitAny": false,
-      "types": ["node", "cypress"]
+      "types": ["node", "cypress"],
+      "baseUrl": ".",
+      "paths": {
+        "@src/*": ["src/*"],
+        "@feature/*": ["src/feature/*"],
+        "@hooks/*": ["src/hooks/*"],
+        "@utils/*": ["src/utils/*"]
+      }
     },
     "include": [
       "src","cypress"
