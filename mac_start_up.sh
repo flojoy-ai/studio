@@ -1,7 +1,6 @@
-ias venv="source $HOME/venv/bin/activate"
 #!/bin/bash
-# source venv2/bin/activate
 alias venv="source $HOME/venv/bin/activate"
+djangoPort=8000
 
 helpFunction()
 {
@@ -14,9 +13,10 @@ helpFunction()
    exit 1 # Exit script after printing help
 }
 
-while getopts "rv:np" opt
+while getopts "rv:npP:" opt
 do
    case "$opt" in
+      P) djangoPort="$OPTARG";;
       p) initPythonPackages=true;;
       n) initNodePackages=true;;
       r) initRedis=true ;;
@@ -91,8 +91,14 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-echo 'starting django server...'
-npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver"
+if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+   djangoPort=$((djangoPort + 1))
+   echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+else
+   echo "starting django server on port ${djangoPort}..."
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+fi
 sleep 1
 
 echo 'starting react server...'

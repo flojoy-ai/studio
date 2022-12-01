@@ -1,6 +1,11 @@
 import json
 from os import listdir
 from os.path import isfile, join
+import os;from dotenv import set_key;
+
+open(os.getcwd()+'/.env', 'r')
+env_file = os.getcwd()+'/.env'
+set_key(env_file, 'REACT_APP_BACKEND_PORT', '4000')
 
 dirs = ['GENERATORS', 'TRANSFORMERS', 'VISORS']
 

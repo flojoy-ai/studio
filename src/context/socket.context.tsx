@@ -11,6 +11,7 @@ type States = {
   failureReason: any[];
   socketId: string;
 };
+const BACKEND_PORT= +process.env.REACT_APP_BACKEND_PORT! || 8000
 export const SocketContextProvider = ({ children }) => {
   const socket = useRef<WebSocketServer>();
   const [states, setStates] = useState<States>({
@@ -29,8 +30,9 @@ export const SocketContextProvider = ({ children }) => {
   };
   useEffect(() => {
     if (!socket.current) {
+      console.log(' BACKEND_PORT:', process.env.REACT_APP_BACKEND_PORT)
       socket.current = new WebSocketServer({
-        url: "ws://localhost:8000/ws/socket-server/",
+        url: `ws://localhost:${BACKEND_PORT}/ws/socket-server/`,
         pingResponse: handleStateChange('serverStatus'),
         heartbeatResponse: handleStateChange('programResults'),
         runningNode: handleStateChange('runningNode'),
