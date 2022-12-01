@@ -21,39 +21,14 @@ import PythonFuncModal from "./PythonFuncModal";
 import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
+import { useSocket } from "@hooks/useSocket";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
-// type ParamTypes = {
-//   [x: string]: {
-//     type: string;
-//     options?: string[];
-//     default: number | string;
-//   };
-// };
-// export type NodeOnAddFunc = (props: {
-//   FUNCTION: string;
-//   type: string;
-//   params: ParamTypes | undefined;
-//   inputs?: Array<{ name: string; id: string }> | undefined;
-// }) => void;
 
-export type ElementsData = {
-  label: string;
-  func: string;
-  type: string;
-  ctrls: {
-    [key: string]: {
-      functionName: string;
-      param: string;
-      value: number;
-    };
-  };
-  inputs?: Array<{ name: string; id: string }>;
-  selects?: any;
-};
+
 
 const getNodePosition = () => {
   return {
@@ -62,21 +37,13 @@ const getNodePosition = () => {
   };
 };
 
-// type ControlsProps = {
-//   rfInstance?: OnLoadParams;
-//   setElements: Dispatch<React.SetStateAction<Elements<any>>>;
-//   clickedElement: Dispatch<React.SetStateAction<Elements<any>>>;
-//   onElementsRemove: Dispatch<React.SetStateAction<Elements<any>>>;
-//   theme: "light" | "dark";
-//   activeTab: "debug" | "panel" | "visual";
-//   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
-// };
 
 const Controls: FC<ControlsProps> = ({
   theme,
   activeTab,
   setOpenCtrlModal,
 }) => {
+  const {states:{socketId}} = useSocket();
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
   const {
@@ -92,7 +59,7 @@ const Controls: FC<ControlsProps> = ({
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
-      saveAndRunFlowChartInServer(rfInstance);
+      saveAndRunFlowChartInServer({rfInstance, jobId: socketId});
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -101,7 +68,7 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type, inputs }) => {
+    ({ FUNCTION, params, type,  inputs }) => {
       let functionName: string;
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
