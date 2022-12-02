@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,7 +17,6 @@ import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MAN
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
-import {useControlsTabEffects} from './ControlsTabEffects'
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -44,7 +43,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
-  useControlsTabEffects()
  
   const afterOpenModal = () => { };
   const closeModal = () => {
@@ -168,13 +166,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     cacheManifest(manClone);
   };
 
-  useEffect(() => {
-    if (rfInstance?.elements.length === 0) {
-      setCtrlsManifest([]);
-    } else {
-      saveAndRunFlowChart();
-    }
-  }, [rfInstance, saveAndRunFlowChart, setCtrlsManifest]);
+  // useEffect(() => {
+  //   if (rfInstance?.elements.length === 0) {
+  //     setCtrlsManifest([]);
+  //   } else {
+  //     saveAndRunFlowChart();
+  //   }
+  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
