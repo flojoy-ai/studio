@@ -47,6 +47,7 @@ You can also use the docker-desktop to control and check logs for the services.
    - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
    - If you have not installed npm packages manually, provide `-n` argument to install packages.
    - If you have not installed python packages manually, provide `-p` argument to install required python packages. 
+   - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
 
 ## Run ElectronJS locally
 Run `npm run electron-dev` to start Electron app locally. It will start the Docker containers to run the necessary backend parts.
