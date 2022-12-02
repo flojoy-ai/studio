@@ -53,12 +53,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "node_modules/.bin/cypress run --headed --browser chrome",
+    "test": "node_modules/.bin/cypress run",
     "eject": "react-app-rewired eject",
-    "starts": "react-app-rewired start",
-    "builds": "react-app-rewired build",
-    "tests": "react-app-rewired test --watchAll=false",
-    "ejects": "react-app-rewired eject",
     "cypress": "cypress open",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
