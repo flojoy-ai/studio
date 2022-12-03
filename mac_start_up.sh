@@ -74,7 +74,7 @@ echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 echo 'starting django server...'
-npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver"
+npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver 0.8000"
 sleep 1
 
 echo 'starting react server...'
