@@ -1,3 +1,4 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/venv3"
+    "python.defaultInterpreterPath": "${workspaceFolder}/venv3",
+    "git.ignoreLimitWarning": true
 }
