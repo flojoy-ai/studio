@@ -8,11 +8,14 @@ import threading
 import asyncio
 import uuid
 import json
+import os
 import uptime
 
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 # Connect to our Redis instance
-redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-                                   port=settings.REDIS_PORT, db=0, decode_responses=True)
+redis_instance = redis.StrictRedis(host=REDIS_HOST,
+                                   port=REDIS_PORT, db=0, decode_responses=True)
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
 lastSysStatus = ""
