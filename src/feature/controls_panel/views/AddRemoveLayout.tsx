@@ -24,9 +24,9 @@ const AddRemoveLayout = ({ defaultProps, ...props }) => {
 
   const [items, setItems] = useState<AddRemoveLayoutItem[]>(defaultItems);
   const [newCounter, setNewCounter] = useState(0);
-  const [breakpoint, setBreakpoint] = useState(null);
+  const [, setBreakpoint] = useState(null);
   const [cols, setCols] = useState([]);
-  const [layout, setLayout] = useState(null);
+  const [, setLayout] = useState(null);
 
   const createElement = (el) => {
     const i = el.add ? "+" : el.i;
@@ -80,7 +80,7 @@ const AddRemoveLayout = ({ defaultProps, ...props }) => {
 
     // Increment the counter to ensure key is always unique.
     setNewCounter(newCounter + 1);
-  }, [items, newCounter]);
+  }, [cols.length, items, newCounter]);
 
   // We're using the cols coming back from this to calculate where to add new items.
   const onBreakpointChange = (breakpoint, cols) => {

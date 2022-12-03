@@ -2,6 +2,7 @@
 
 # python
 /venv
+/venv2
 
 # dependencies
 /node_modules
@@ -10,6 +11,7 @@
 
 # testing
 /coverage
+/cypress/screenshots/
 
 # production
 /build
