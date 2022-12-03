@@ -16,14 +16,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
     # third party
+    'channels',
     'rest_framework',
     'corsheaders',
-    'channels',
     'daphne',
     # default
     'django.contrib.admin',
@@ -68,6 +67,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoServer.wsgi.application'
 
 ASGI_APPLICATION = 'djangoServer.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

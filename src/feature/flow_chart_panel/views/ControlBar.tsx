@@ -37,7 +37,7 @@ const Controls: FC<ControlsProps> = ({
   activeTab,
   setOpenCtrlModal,
 }) => {
-  const {states:{socketId}} = useSocket();
+  const {states:{socketId, setProgramResults}} = useSocket();
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
   const {
@@ -53,6 +53,7 @@ const Controls: FC<ControlsProps> = ({
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
+      setProgramResults({io:[]})
       saveAndRunFlowChartInServer({rfInstance, jobId: socketId});
     } else {
       alert(

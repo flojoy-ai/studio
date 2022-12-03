@@ -10,6 +10,8 @@ import traceback
 import uuid
 import warnings
 import matplotlib.cbook
+import requests
+from dotenv import find_dotenv, dotenv_values
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
@@ -28,7 +30,8 @@ REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 
 r = Redis(host=REDIS_HOST, port=REDIS_PORT)
 q = Queue('flojoy', connection=r)
-
+ 
+port = dotenv_values('.env')['REACT_APP_BACKEND_PORT'] if find_dotenv() != '' else '8000'
 
 def dump(data):
     return json.dumps(data)
@@ -37,7 +40,7 @@ def run(**kwargs):
     fc = kwargs['fc']
     jobset_id = kwargs['jobsetId']
     cancel_existing_jobs = kwargs['cancel_existing_jobs']
-    print('running flojoy for jobset id: ', jobset_id)
+    print('running flojoy for jobset id: ', jobset_id, ' env: ', dotenv_values('.env')['REACT_APP_BACKEND_PORT'] )
 
     elems = fc['elements']
     # Replicate the React Flow chart in Python's networkx
@@ -86,6 +89,10 @@ def run(**kwargs):
             **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
                 **prev_jobs, cmd: job_id
             }
+        }))
+        requests.post('http://localhost:'+port +'/worker_response', json=dump({
+            'SYSTEM_STATUS': s,
+            'jobsetId': jobset_id
         }))
         r.rpush(jobset_id+'_ALL_NODES', cmd.upper())
         job_status_key = jobset_id + '_'+ cmd.upper() + '_STATUS'

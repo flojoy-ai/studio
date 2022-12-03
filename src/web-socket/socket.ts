@@ -7,6 +7,12 @@ interface WebSocketServerProps {
   failureReason: any;
   socketId: any
 }
+
+enum ResponseEnum {
+systemStatus = 'SYSTEM_STATUS',
+nodeResults = 'NODE_RESULTS',
+runningNode = 'RUNNING_NODE',
+}
 export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
@@ -39,6 +45,17 @@ export class WebSocketServer {
       let data = JSON.parse(ev.data);
       // console.log("data received: ", data.type === "heartbeat_response");
       switch (data.type) {
+        case "worker_response":
+          if(data[ResponseEnum.systemStatus]){
+            this.pingResponse(data[ResponseEnum.systemStatus])
+          }
+          if(data[ResponseEnum.nodeResults]){
+            this.heartbeatResponse(prev=>({io: [...prev.io,data[ResponseEnum.nodeResults]]}))
+          }
+          if(data[ResponseEnum.runningNode]){
+            this.runningNode(data[ResponseEnum.runningNode])
+          }
+          break;
         case "heartbeat_response":
           if (this.heartbeatResponse) {
             if (this.failureReason) {
@@ -89,6 +106,7 @@ export class WebSocketServer {
           console.log(" default data type: ", data);
           break;
       }
+
     };
   }
   disconnect() {

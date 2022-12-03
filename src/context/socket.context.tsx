@@ -22,6 +22,7 @@ export const SocketContextProvider = ({ children }) => {
     failureReason: [],
     socketId: '',
   });
+  const [programResults, setProgramResults] = useState({io:[]});
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
       ...prev,
@@ -34,7 +35,7 @@ export const SocketContextProvider = ({ children }) => {
       socket.current = new WebSocketServer({
         url: `ws://localhost:${BACKEND_PORT}/ws/socket-server/`,
         pingResponse: handleStateChange('serverStatus'),
-        heartbeatResponse: handleStateChange('programResults'),
+        heartbeatResponse: setProgramResults, //handleStateChange('programResults'),
         runningNode: handleStateChange('runningNode'),
         failedNodes: handleStateChange('failedNodes'),
         failureReason: handleStateChange('failureReason'),
@@ -44,7 +45,7 @@ export const SocketContextProvider = ({ children }) => {
   }, []);
   return (
     <SocketContext.Provider
-      value={{ states }}
+      value={{states: {...states, programResults, setProgramResults} }}
     >
       {children}
     </SocketContext.Provider>

@@ -9,6 +9,10 @@ import sys
 from django.shortcuts import render
 import os
 from rq import Queue
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
@@ -28,6 +32,21 @@ def test_socket(request):
 
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
+
+
+@api_view(['POST'])
+def worker_response(request):
+    jsonify_data = json.loads(request.data)
+    # print(' josingy data; ', jsonify_data)
+    layer = get_channel_layer()
+    async_to_sync(layer.group_send)('flojoy', {
+        'type': 'worker_response',
+        **jsonify_data
+    })
+    response = {
+        'success': True,
+    }
+    return Response(response, status=200)
 
 
 @api_view(['POST'])
