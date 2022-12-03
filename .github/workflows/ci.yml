@@ -29,12 +29,8 @@ jobs:
       #     restore-keys: |
       #       foo-docker-cache-1
       
-      - name: Docker Base Compose Action Build
+      - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
-        with:
-          compose-file: |
-            docker-compose-base.yml
-            docker-compose.yml
 
       - name: Npm install
         run: npm install --legacy-peer-deps

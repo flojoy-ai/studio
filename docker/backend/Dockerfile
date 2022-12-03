@@ -1,6 +1,6 @@
 # https://hub.docker.com/r/nikolaik/python-nodejs
 
-FROM --platform=linux/amd64 flojoy-desktop-base-image
+FROM syridit/flojoy-development:latest
 # WORKDIR /code
 
 COPY requirements.txt requirements.txt
