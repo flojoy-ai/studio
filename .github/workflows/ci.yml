@@ -20,7 +20,7 @@ jobs:
           node-version: 16
         # Pull the latest image to build, and avoid caching pull-only images.
         # (docker pull is faster than caching in most cases.)
-      - run: docker-compose pull
+      # - run: docker-compose pull
       # - uses: satackey/action-docker-layer-caching@v0.0.11
       #   # Ignore the failure of a step and avoid terminating the job.
       #   continue-on-error: true
