@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView"; //"./feature/flow_chart_panel/FlowChartTabView.tsx";
-import ResultsTab from "@feature/results_panel/ResultsTabView";
-import ControlsTab from "@feature/controls_panel/ControlsTabView";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView"; //"./feature/flow_chart_panel/FlowChartTabView.tsx";
+import ResultsTab from "./feature/results_panel/ResultsTabView";
+import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
 import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "@feature/common/theme";
-import { GlobalStyles } from "@feature/common/global";
+import { lightTheme, darkTheme } from "./feature/common/theme";
+import { GlobalStyles } from "./feature/common/global";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
@@ -14,7 +14,7 @@ import { ReactFlowProvider } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
-import { useSocket } from "@hooks/useSocket";
+import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
   const {
@@ -58,6 +58,7 @@ const App = () => {
         <GlobalStyles />
         <p
           className="App-status"
+          data-cy="app-status"
           style={{
             backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
           }}

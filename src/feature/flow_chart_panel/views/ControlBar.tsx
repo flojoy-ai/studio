@@ -15,7 +15,7 @@ import PythonFuncModal from "./PythonFuncModal";
 import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
-import { useSocket } from "@hooks/useSocket";
+import { useSocket } from "../../../hooks/useSocket";
 
 localforage.config({
   name: "react-flow",
@@ -144,6 +144,7 @@ const Controls: FC<ControlsProps> = ({
           color: theme === "dark" ? "#fff" : "#000",
         }}
         onClick={onSave}
+        data-cy="btn-play"
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
       </button>

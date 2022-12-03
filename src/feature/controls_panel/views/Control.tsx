@@ -26,6 +26,7 @@ export default function Control({
   return (
     <div
       className={isEditMode ? "ctrl-input" : ""}
+      data-cy="ctrl-grid-item"
       style={{
         width: "100%",
         height: "100%",

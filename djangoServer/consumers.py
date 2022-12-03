@@ -4,11 +4,14 @@ from django.conf import settings
 from channels.generic.websocket import WebsocketConsumer
 import uuid
 import json
+import os
 from asgiref.sync import async_to_sync
 
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 # Connect to our Redis instance
-redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
-                                   port=settings.REDIS_PORT, db=0, decode_responses=True)
+redis_instance = redis.StrictRedis(host=REDIS_HOST,
+                                   port=REDIS_PORT, db=0, decode_responses=True)
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
 lastSysStatus = ""
@@ -34,10 +37,6 @@ class FlojoyConsumer(WebsocketConsumer):
             'socketId': self.socketId,
             'SYSTEM_STATUS': STATUS_CODES['STANDBY']
         }))
-        
-    def send_message(self, text):
-        self.send(text)
-        return
 
     def worker_response(self, event):
         if(event['jobsetId'] == self.socketId):
