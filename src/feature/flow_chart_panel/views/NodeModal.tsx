@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
-import Plot from "react-plotly.js";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import PlotlyComponent from "../../common/PlotlyComponent";
 import { NodeModalProps } from "../types/NodeModalProps";
 
 const NodeModal = ({
@@ -46,18 +46,23 @@ const NodeModal = ({
       ) : (
         <div>
           {nd?.result && (
-            <Plot
+            <PlotlyComponent
+              id={nd.id}
               data={
                 "data" in nd?.result
-                  ? nd.result.data
-                  : [{ x: nd.result["x"], y: nd.result["y"] }]
+                ? nd.result.data
+                : [{ x: nd.result["x"], y: nd.result["y"] }]
               }
               layout={
                 "layout" in nd.result
-                  ? Object.assign({}, nd.result.layout, defaultLayout)
-                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
+                ? Object.assign({}, nd.result.layout, defaultLayout)
+                : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
+              style={{
+                height: 635,
+                width: 630,
+              }}
             />
           )}
         </div>

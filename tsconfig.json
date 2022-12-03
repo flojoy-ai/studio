@@ -20,6 +20,7 @@
       "noEmit": true,
       "jsx": "react-jsx",
       "noImplicitAny": false,
+      "types": ["node", "cypress"],
       "baseUrl": ".",
       "paths": {
         "@src/*": ["src/*"],
@@ -29,6 +30,6 @@
       }
     },
     "include": [
-      "src"
+      "src","cypress"
     ]
   }
