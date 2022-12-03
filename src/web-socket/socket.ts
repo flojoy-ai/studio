@@ -40,19 +40,18 @@ export class WebSocketServer {
     this.init();
   }
   init() {
-    console.log(" socket readystate: ", this.server.readyState);
     this.server.onmessage = (ev) => {
       let data = JSON.parse(ev.data);
       // console.log("data received: ", data.type === "heartbeat_response");
       switch (data.type) {
         case "worker_response":
-          if(data[ResponseEnum.systemStatus]){
+          if(ResponseEnum.systemStatus in data){
             this.pingResponse(data[ResponseEnum.systemStatus])
           }
-          if(data[ResponseEnum.nodeResults]){
-            this.heartbeatResponse(prev=>({io: [...prev.io,data[ResponseEnum.nodeResults]]}))
+          if(ResponseEnum.nodeResults in data){
+            this.heartbeatResponse((prev:any)=>({io: [...prev.io,data[ResponseEnum.nodeResults]]}))
           }
-          if(data[ResponseEnum.runningNode]){
+          if(ResponseEnum.runningNode in data){
             this.runningNode(data[ResponseEnum.runningNode])
           }
           break;

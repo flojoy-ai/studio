@@ -34,15 +34,17 @@ def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
 
-@api_view(['POST'])
-def worker_response(request):
-    jsonify_data = json.loads(request.data)
-    # print(' josingy data; ', jsonify_data)
+def send_msg_to_socket(msg: dict):
     layer = get_channel_layer()
     async_to_sync(layer.group_send)('flojoy', {
         'type': 'worker_response',
-        **jsonify_data
+        **msg
     })
+
+@api_view(['POST'])
+def worker_response(request):
+    jsonify_data = json.loads(request.data)
+    send_msg_to_socket(jsonify_data)
     response = {
         'success': True,
     }
@@ -56,8 +58,9 @@ def wfc(request):
     fc = json.loads(request.data['fc'])
     jobsetId = request.data['jobsetId']
     cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
-    redis_instance.set(jobsetId, json.dumps(
-        {'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS']}))
+    msg = {
+        'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId}
+    send_msg_to_socket(msg=msg)
     func = getattr(globals()['watch'], 'run')
     q.enqueue(func,
               job_timeout='3m',

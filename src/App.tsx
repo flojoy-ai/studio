@@ -43,6 +43,7 @@ const App = () => {
     setElements((els) => removeElements(elementsToRemove, els));
 
   useEffect(() => {
+    console.log(' running node: ', runningNode)
     setElements((prev) => {
       prev.forEach((el) => {
         if (el?.data?.func === runningNode) {
