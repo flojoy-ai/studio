@@ -45,12 +45,6 @@ then
    npm install
 fi
 
-if [ $initPythonPackages ]
-then 
-   echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!'
-   pip install -r requirements.txt
-fi
 
 if [ $initRedis ]
 then
@@ -72,6 +66,14 @@ then
    venvCmd="source ${venv}/bin/activate &&"
    echo "venv cmd: ${venvCmd}"
 fi
+
+if [ $initPythonPackages ]
+then 
+   echo '-p flag provided'
+   echo 'Python packages will be installed from requirements.txt file!'
+   npx ttab -t 'Python packages' "${venvCmd} pip install -r requirements.txt"
+fi
+
 CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
