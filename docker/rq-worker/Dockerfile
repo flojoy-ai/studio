@@ -1,5 +1,6 @@
 # https://hub.docker.com/r/nikolaik/python-nodejs
-FROM nikolaik/python-nodejs:latest
+# FROM --platform=linux/amd64 flojoy-app-base-image
+FROM --platform=linux/amd64 flojoy-desktop-base-image
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
