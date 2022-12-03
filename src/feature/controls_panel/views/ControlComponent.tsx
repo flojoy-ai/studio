@@ -195,7 +195,7 @@ const ControlComponent = ({
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header">
+        <div className="ctrl-header" data-cy="ctrls-select">
           <Select
             className="select-node"
             isSearchable={true}
@@ -266,7 +266,7 @@ const ControlComponent = ({
       )}
 
       {ctrlObj.name === ControlNames.NumericInput && (
-        <div className="ctrl-input-body">
+        <div className="ctrl-input-body" data-cy="numeric-input">
           <input
             type="number"
             placeholder="Enter a number"
