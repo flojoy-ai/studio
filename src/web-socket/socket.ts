@@ -3,39 +3,40 @@ interface WebSocketServerProps {
   pingResponse: any;
   heartbeatResponse: any;
   runningNode: any;
-  failedNodes: any;
+  failedNode: any;
   failureReason: any;
-  socketId: any
+  socketId: any;
 }
 
 enum ResponseEnum {
-systemStatus = 'SYSTEM_STATUS',
-nodeResults = 'NODE_RESULTS',
-runningNode = 'RUNNING_NODE',
+  systemStatus = "SYSTEM_STATUS",
+  nodeResults = "NODE_RESULTS",
+  runningNode = "RUNNING_NODE",
+  failedNodes = "FAILED_NODES",
 }
 export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
   private heartbeatResponse: any;
   private runningNode: any;
-  private failedNodes: any;
+  private failedNode: any;
   private failureReason: any;
-  private socketId:any
+  private socketId: any;
   constructor({
     url,
     pingResponse,
     heartbeatResponse,
     runningNode,
-    failedNodes,
+    failedNode,
     failureReason,
-    socketId
+    socketId,
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
     this.heartbeatResponse = heartbeatResponse;
     this.runningNode = runningNode;
-    this.failedNodes = failedNodes;
+    this.failedNode = failedNode;
     this.failureReason = failureReason;
-    this.socketId = socketId
+    this.socketId = socketId;
     this.server = new WebSocket(url);
     this.init();
   }
@@ -45,59 +46,33 @@ export class WebSocketServer {
       // console.log("data received: ", data.type === "heartbeat_response");
       switch (data.type) {
         case "worker_response":
-          if(ResponseEnum.systemStatus in data){
-            this.pingResponse(data[ResponseEnum.systemStatus])
-          }
-          if(ResponseEnum.nodeResults in data){
-            this.heartbeatResponse((prev:any)=>({io: [...prev.io,data[ResponseEnum.nodeResults]]}))
-          }
-          if(ResponseEnum.runningNode in data){
-            this.runningNode(data[ResponseEnum.runningNode])
-          }
-          break;
-        case "heartbeat_response":
-          if (this.heartbeatResponse) {
-            if (this.failureReason) {
-              this.failureReason(data.failureReason);
+          if (ResponseEnum.systemStatus in data) {
+            this.pingResponse(data[ResponseEnum.systemStatus]);
+            if (
+              data[ResponseEnum.systemStatus] ===
+              "🤙 python script run successful"
+            ) {
+              this.pingResponse("🐢 awaiting a new job");
             }
-            if (this.failedNodes) {
-              this.failedNodes(data.failed);
-            }
-            if (this.pingResponse) {
-              this.pingResponse(data.msg);
-            }
-            if (this.runningNode) {
-              this.runningNode(data.running);
-            }
-            const parseIo =  data.io.map((e:string)=>JSON.parse(e))
-            this.heartbeatResponse({...data,io: parseIo});
-            this.server.send(
-              JSON.stringify({
-                type: "heartbeat_received",
-              })
-            );
           }
-          break;
-        case "ping_response":
-          if (this.failureReason) {
-            this.failureReason(data.failureReason);
+          if (ResponseEnum.nodeResults in data) {
+            this.heartbeatResponse((prev: any) => ({
+              io: [...prev.io, data[ResponseEnum.nodeResults]],
+            }));
           }
-          if (this.failedNodes) {
-            this.failedNodes(data.failed);
+          if (ResponseEnum.runningNode in data) {
+            this.runningNode(data[ResponseEnum.runningNode]);
           }
-          if (this.pingResponse) {
-            this.pingResponse(data.msg);
-          }
-          if (this.runningNode) {
-            this.runningNode(data.running);
+          if (ResponseEnum.failedNodes in data) {
+            this.failedNode(data[ResponseEnum.failedNodes]);
           }
           break;
         case "connection_established":
-          if(this.socketId){
-            this.socketId(data.socketId)
+          if (this.socketId) {
+            this.socketId(data.socketId);
           }
-          if(this.pingResponse){
-            this.pingResponse(data.msg)
+          if (ResponseEnum.systemStatus in data) {
+            this.pingResponse(data[ResponseEnum.systemStatus]);
           }
           break;
 
@@ -105,7 +80,6 @@ export class WebSocketServer {
           console.log(" default data type: ", data);
           break;
       }
-
     };
   }
   disconnect() {

@@ -41,6 +41,7 @@ def send_msg_to_socket(msg: dict):
         **msg
     })
 
+
 @api_view(['POST'])
 def worker_response(request):
     jsonify_data = json.loads(request.data)
@@ -59,7 +60,7 @@ def wfc(request):
     jobsetId = request.data['jobsetId']
     cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
     msg = {
-        'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId}
+        'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId, 'FAILED_NODES': '', 'RUNNING_NODES': ''}
     send_msg_to_socket(msg=msg)
     func = getattr(globals()['watch'], 'run')
     q.enqueue(func,

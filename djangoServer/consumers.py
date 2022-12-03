@@ -31,11 +31,10 @@ class FlojoyConsumer(WebsocketConsumer):
         self.send(json.dumps({
             'type': 'connection_established',
             'msg': 'You are now connected to flojoy servers',
-            'socketId': self.socketId
+            'socketId': self.socketId,
+            'SYSTEM_STATUS': STATUS_CODES['STANDBY']
         }))
-        redis_instance.set(self.socketId, json.dumps(
-            {'SYSTEM_STATUS': STATUS_CODES['STANDBY']}))
-
+        
     def send_message(self, text):
         self.send(text)
         return

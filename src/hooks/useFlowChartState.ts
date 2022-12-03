@@ -37,6 +37,8 @@ const initialManifests: CtlManifestType[] = [
     minWidth: 2,
   },
 ];
+const failedNodeAtom = atomWithImmer<string>('')
+const runningNodeAtom = atomWithImmer<string>('')
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
@@ -70,6 +72,8 @@ export function useFlowChartState() {
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
+  const [runningNode, setRunningNode] = useAtom(runningNodeAtom)
+  const [failedNode, setFailedNode] = useAtom(failedNodeAtom)
 
   const loadFlowExportObject = useCallback(
     (flow: FlowExportObject) => {
@@ -174,5 +178,9 @@ export function useFlowChartState() {
     setUiTheme,
     showLogs,
     setShowLogs,
+    runningNode,
+    setRunningNode,
+    failedNode,
+    setFailedNode
   };
 }

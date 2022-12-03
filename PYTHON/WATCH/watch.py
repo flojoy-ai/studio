@@ -39,6 +39,9 @@ def get_port():
     return p
  
 port = get_port()
+def send_to_socket(data):
+            requests.post('http://localhost:'+port +
+                          '/worker_response', json=json.dumps(data))
 
 def dump(data):
     return json.dumps(data)
@@ -66,7 +69,7 @@ def run(**kwargs):
 
     def get_redis_obj(id):
         get_obj = r.get(id)
-        parse_obj = json.loads(get_obj) if get_obj is not None else None
+        parse_obj = json.loads(get_obj) if get_obj is not None else {}
         return parse_obj
     
     r_obj = get_redis_obj(jobset_id)
@@ -101,10 +104,10 @@ def run(**kwargs):
                     **prev_jobs, cmd: job_id
                 }
             }))
-            requests.post('http://localhost:'+port +'/worker_response', json=dump({
+            send_to_socket({
                 'SYSTEM_STATUS': s,
                 'jobsetId': jobset_id
-            }))
+            })
             r.rpush(jobset_id+'_ALL_NODES', cmd.upper())
             if len(list(DG.predecessors(n))) == 0:
                 q.enqueue(func,

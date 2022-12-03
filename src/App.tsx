@@ -10,7 +10,7 @@ import { GlobalStyles } from "@feature/common/global";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
-import { ReactFlowProvider, removeElements } from "react-flow-renderer";
+import { ReactFlowProvider } from "react-flow-renderer";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
@@ -18,13 +18,20 @@ import { useSocket } from "@hooks/useSocket";
 
 const App = () => {
   const {
-    states: { serverStatus, programResults, runningNode, failedNodes },
+    states: { serverStatus, programResults, runningNode, failedNode },
   } = useSocket();
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState([]);
-  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
-    useFlowChartState();
+  const {
+    elements,
+    setElements,
+    rfInstance,
+    setRfInstance,
+    setUiTheme,
+    setRunningNode,
+    setFailedNode,
+  } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
   );
@@ -39,31 +46,11 @@ const App = () => {
     }
   };
 
-  const onElementsRemove = (elementsToRemove) =>
-    setElements((els) => removeElements(elementsToRemove, els));
-
   useEffect(() => {
-    console.log(' running node: ', runningNode)
-    setElements((prev) => {
-      prev.forEach((el) => {
-        if (el?.data?.func === runningNode) {
-          el.data.running = true;
-        } else {
-          if (el.data?.running) {
-            el.data.running = false;
-          }
-        }
-        if (el?.data?.func && failedNodes.includes(el.data.func)) {
-          el.data.failed = true;
-        } else {
-          if (el?.data?.failed) {
-            el.data.failed = false;
-          }
-        }
-      });
-    });
+    setRunningNode(runningNode);
+    setFailedNode(failedNode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runningNode, failedNodes]);
+  }, [runningNode, failedNode]);
   const ReactFlowChartProvider: any = ReactFlowProvider;
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

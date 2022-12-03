@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,7 +9,10 @@ import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
 import "../../App.css";
-import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
+import {
+  CtlManifestType,
+  useFlowChartState,
+} from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import { useSocket } from "../../hooks/useSocket";
@@ -17,13 +20,14 @@ import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MAN
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
-import {useControlsTabEffects} from './ControlsTabEffects'
+import { useControlsTabEffects } from "./ControlsTabEffects";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
-
-  const {states: {socketId}} = useSocket()
+  const {
+    states: { socketId, setProgramResults },
+  } = useSocket();
   const {
     openEditModal,
     setOpenEditModal,
@@ -44,14 +48,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
-  useControlsTabEffects()
- 
-  const afterOpenModal = () => { };
+
+  const afterOpenModal = () => {};
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
-
-
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -62,12 +63,15 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       clearTimeout(debouncedTimerId);
     }
     const timerId = setTimeout(() => {
-      saveAndRunFlowChartInServer({rfInstance, jobId:socketId});
+      setProgramResults({ io: [] });
+      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
     }, 3000);
 
     setDebouncedTimerId(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
+
+  useControlsTabEffects(saveAndRunFlowChart);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
@@ -105,7 +109,9 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    let filterChilds: any[] = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    let filterChilds: any[] = ctrlsManifest.filter(
+      (ctrl) => ctrl.id !== ctrlId
+    );
     cacheManifest(filterChilds);
 
     if (ctrl) {
@@ -150,8 +156,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       param.functionName === "CONSTANT"
         ? ctrl.val
         : fnParam?.default
-          ? fnParam.default
-          : 0;
+        ? fnParam.default
+        : 0;
     const ctrlData = ctrls && ctrls[param?.id];
     let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
     let manClone = clone(ctrlsManifest);

@@ -4,10 +4,9 @@ import { WebSocketServer } from "../web-socket/socket";
 export const SocketContext = createContext<any>(null);
 
 type States = {
-  programResults: any;
   runningNode: string;
   serverStatus: string;
-  failedNodes: any[];
+  failedNode: string;
   failureReason: any[];
   socketId: string;
 };
@@ -15,14 +14,13 @@ const BACKEND_PORT= +process.env.REACT_APP_BACKEND_PORT! || 8000
 export const SocketContextProvider = ({ children }) => {
   const socket = useRef<WebSocketServer>();
   const [states, setStates] = useState<States>({
-    programResults: {},
     runningNode: "",
     serverStatus: "Connecting to server...",
-    failedNodes: [],
+    failedNode: '',
     failureReason: [],
     socketId: '',
   });
-  const [programResults, setProgramResults] = useState({io:[]});
+  const [programResults, setProgramResults] = useState<{io:any[]}>({io:[]});
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
       ...prev,
@@ -31,16 +29,18 @@ export const SocketContextProvider = ({ children }) => {
   };
   useEffect(() => {
     if (!socket.current) {
-      console.log(' BACKEND_PORT:', process.env.REACT_APP_BACKEND_PORT)
       socket.current = new WebSocketServer({
         url: `ws://localhost:${BACKEND_PORT}/ws/socket-server/`,
         pingResponse: handleStateChange('serverStatus'),
-        heartbeatResponse: setProgramResults, //handleStateChange('programResults'),
+        heartbeatResponse: setProgramResults,
         runningNode: handleStateChange('runningNode'),
-        failedNodes: handleStateChange('failedNodes'),
+        failedNode: handleStateChange('failedNode'),
         failureReason: handleStateChange('failureReason'),
         socketId: handleStateChange('socketId')
       });
+    }
+    return ()=> {
+      socket.current?.disconnect()
     }
   }, []);
   return (
