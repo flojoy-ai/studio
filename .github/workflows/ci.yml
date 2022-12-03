@@ -35,9 +35,6 @@ jobs:
           compose-file: |
             docker-compose-base.yml
             docker-compose.yml
-      
-      - name: Docker Compose Action
-        uses: isbang/compose-action@v1.3.2
 
       - name: Npm install
         run: npm install --legacy-peer-deps
