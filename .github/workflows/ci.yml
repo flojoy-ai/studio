@@ -28,15 +28,19 @@ jobs:
           key: foo-docker-cache-1-{hash}
           restore-keys: |
             foo-docker-cache-1
-      - name: Docker Compose Action
+      
+      - name: Docker Base Compose Action Build
         uses: isbang/compose-action@v1.3.2
         with:
           compose-file: "docker-compose-base.yml"
           compose-flags: "build" 
-          compose-file: "docker-compose.yml"
-          compose-flags: "up" 
+      
+      - name: Docker Compose Action
+        uses: isbang/compose-action@v1.3.2
+
       - name: Npm install
         run: npm install --legacy-peer-deps
+      
       - name: Run test
         uses: cypress-io/github-action@v4
         with:
