@@ -142,7 +142,7 @@ const ControlComponent = ({
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];
-          console.log("filteredResult:", filteredResult);
+          console.log("filteredResult: ", filteredResult);
 
           nd = filteredResult === undefined ? {} : filteredResult;
           if (Object.keys(nd).length > 0) {
@@ -150,7 +150,13 @@ const ControlComponent = ({
               if ("data" in nd.result) {
                 plotData = nd.result.data;
               } else {
-                plotData = [{ x: nd.result["x"], y: nd.result["y"], type: plotOption.value }];
+                if (ctrlObj.name === ControlNames.Plot) {
+                  const type = selectedPlotType?.type;
+                  const mode = selectedPlotType?.mode;
+                  plotData = [{ x: nd.result["x"], y: nd.result["y"], z: Array(nd.result["x"].length).fill(0), type, mode }];
+                } else {
+                  plotData = [{ x: nd.result["x"], y: nd.result["y"]}];
+                }
               }
             }
           }
