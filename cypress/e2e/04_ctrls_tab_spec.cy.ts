@@ -26,9 +26,7 @@ describe('Ctrl Tab management', () => {
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.visit("/").wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
-      });
-    
-      it("Wait for server to be ready to take new job.", () => {
+
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(10000);
         cy.get(`[data-cy="app-status"]`)
@@ -41,8 +39,7 @@ describe('Ctrl Tab management', () => {
             throw new Error("not correct status")
           }
         });
-      });
-  it("Switch to ctrls tab upon clicking on CTRLS button.", () => {
+
     cy.get("body").then($body => {
       if ($body.find(".ctrl-close-btn").length > 0) {   
         cy.get(".ctrl-close-btn").click({ force: true }); 
@@ -50,23 +47,17 @@ describe('Ctrl Tab management', () => {
     });
     cy.get(`[data-cy="ctrls-btn"]`)
       .click({timeout : 10000});
-  });
 
-  it("Enable operation mode by clicking on Edit switch button", () => {
     cy.get("[data-cy=operation-switch]")
       .contains("Edit")
       .click()
       .should("have.css", "color", "rgb(255, 165, 0)");
-  });
 
-  it("Remove existing ctrl grid.", () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
       return false
     })
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
-  });
 
-  it("For different variations of inputs, Change inputs value.", () => {
     cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").first().click();
     ctrlParameters.forEach((singleIter, index) => {
       singleIter.forEach((item) => {
