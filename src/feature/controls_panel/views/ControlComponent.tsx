@@ -217,14 +217,18 @@ const ControlComponent = ({
             isSearchable={true}
             onChange={(val) => {
               console.log("value in select:", val, options);
-              if (val) attachParamsToCtrl(val.value, ctrlObj);
+              if (val) {
+                console.log(selectedPlotType);
+                selectedNode = val.value;
+                attachParamsToCtrl({node: val.value, plotType: selectedPlotType}, ctrlObj);
+              }
             }}
             options={options}
             styles={customDropdownStyles}
             theme={theme}
             value={
               ctrlObj.type === "output"
-                ? options?.find((option) => option.value === ctrlObj?.param)
+                ? options?.find((option) => option.value === ctrlObj?.param?.node)
                 : options?.find(
                   (option) => option.value.id === ctrlObj?.param?.id
                 )
