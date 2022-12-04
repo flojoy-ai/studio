@@ -38,14 +38,16 @@ export const PlotTypesManifest = [
   {
     name: PlotTypeNames.ScatterPlot3D,
     type: "scatter3d",
+    mode: "markers"
   },
   {
     name: PlotTypeNames.ScatterPlot,
     type: "scatter",
+    mode: "markers"
   },
   {
     name: PlotTypeNames.Histogram,
-    type: "histogram",
+    type: "histogram"
   },
   {
     name: PlotTypeNames.SurfacePlot3D,
@@ -53,11 +55,12 @@ export const PlotTypesManifest = [
   },
   {
     name: PlotTypeNames.Line,
-    type: "lines",
+    type: "scatter",
+    mode: "lines"
   },
   {
     name: PlotTypeNames.BarChart,
-    type: "bars",
+    type: "bar",
   },
 ];
 
