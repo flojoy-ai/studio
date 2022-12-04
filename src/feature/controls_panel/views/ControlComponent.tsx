@@ -249,24 +249,21 @@ const ControlComponent = ({
 
       {ctrlObj.name === ControlNames.Plot && (
         <Select
-          className="select-node"
+          className="select-plot-type"
           isSearchable={true}
           onChange={(val) => {
-            console.log("plot type value in select:", val, options);
+            console.log("plot type value in select:", val, plotOptions);
             if (val) {
-              attachParamsToCtrl(val.value, ctrlObj);
-              plotOption = val;
+              selectedPlotType = val.value;
+              attachParamsToCtrl({ node: selectedNode, plotType: val.value }, ctrlObj);
             }
           }}
           options={plotOptions}
           styles={customDropdownStyles}
           theme={theme}
           value={
-            ctrlObj.type === "output"
-              ? plotOptions?.find((option) => option.value === ctrlObj?.param)
-              : plotOptions?.find(
-                (option) => option.value.id === ctrlObj?.param?.id
-              )
+            plotOptions?.find((option) => option.value.type === ctrlObj?.param?.plotType.type
+             && option.value.mode === ctrlObj?.param?.plotType.mode)
           }
         />
       )}
