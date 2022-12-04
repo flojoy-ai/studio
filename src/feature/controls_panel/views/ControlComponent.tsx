@@ -121,14 +121,16 @@ const ControlComponent = ({
 
     if (ctrlObj.name === ControlNames.Plot){
       PlotTypesManifest.forEach((item) => {
-        plotOptions.push({ label: item.name, value: item.type});
+        plotOptions.push({ label: item.name, value: {type: item.type, mode: item.mode || undefined}});
       });
     }
   }
 
-  let plotData: any = [{ x: [1, 2, 3], y: [1, 2, 3] }];
-  let plotOption: ControlOptions = {label: 'Line', value: 'lines'};
+  let selectedPlotType = ctrlObj?.param?.plotType ? ctrlObj?.param?.plotType : { type: 'scatter', mode: 'lines' }
+  let selectedNode = ctrlObj?.param?.node;
+
   let nd: any = {};
+  let plotData: any = [{ ...selectedPlotType, x: [1, 2, 3], y: [1, 2, 3], z: [1, 2, 3] }];
 
   try{
     if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
