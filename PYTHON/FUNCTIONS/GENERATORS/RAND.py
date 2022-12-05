@@ -6,8 +6,8 @@ import traceback
 def RAND(v, params):
     try:
         x = v[0].y
-        # y = x
-        y = np.random.normal(size=len(x))
+        y = x
+        # y = np.random.normal(size=len(x))
     except Exception:
         print(traceback.format_exc())
     
