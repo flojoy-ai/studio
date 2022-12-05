@@ -28,11 +28,14 @@ describe("User default workflow", () => {
           $ele.text().includes("🐢 awaiting a new job") ||
           $ele.text().includes("⏰ server uptime:")
         ) {
-          cy.log('System Status before run: ', $ele.text())
           return true;
         } else {
           throw new Error("not correct status");
         }
+      });
+      cy.get(`[data-cy="app-status"]`)
+      .find("code").then($ele=>{
+        cy.log(' server status before run: ' , $ele.text())
       });
 
     cy.get(`[data-cy="debug-btn"]`).click();
