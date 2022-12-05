@@ -32,9 +32,6 @@ jobs:
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
 
-      - name: Get docker logs
-        uses: jwalton/gh-docker-logs@v2
-
 
       - name: Npm install
         run: npm install --legacy-peer-deps
@@ -49,6 +46,9 @@ jobs:
           record: true
         env:
           CYPRESS_RECORD_KEY: 3c98f575-ab11-472a-b562-1ebc8e46e4f1
+      - name: Get docker logs
+        uses: jwalton/gh-docker-logs@v2
+
 
   testPython:
     runs-on: ubuntu-latest
