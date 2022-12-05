@@ -42,6 +42,8 @@ jobs:
           start: npm start
           browser: chrome
           install: false
+        env:
+          CYPRESS_RECORD_KEY: 3c98f575-ab11-472a-b562-1ebc8e46e4f1
 
   testPython:
     runs-on: ubuntu-latest
