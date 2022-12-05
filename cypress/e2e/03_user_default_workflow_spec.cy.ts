@@ -28,6 +28,7 @@ describe("User default workflow", () => {
           $ele.text().includes("🐢 awaiting a new job") ||
           $ele.text().includes("⏰ server uptime:")
         ) {
+          cy.log('System Status before run: ', $ele.text())
           return true;
         } else {
           throw new Error("not correct status");
@@ -43,7 +44,7 @@ describe("User default workflow", () => {
         cy.log(' server status: ' , $ele.text())
       });
       cy.get(`[data-cy="app-status"]`)
-      .find("code").contains("🐢 awaiting a new job", { timeout: 60000 })
+      .find("code").contains("🐢 awaiting a new job", { timeout: 160000 })
 
     cy.get("[data-testid=result-node]");
 
