@@ -45,12 +45,6 @@ then
    npm install
 fi
 
-if [ $initPythonPackages ]
-then 
-   echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!'
-   pip install -r requirements.txt
-fi
 
 if [ $initRedis ]
 then
@@ -72,6 +66,14 @@ then
    venvCmd="source ${venv}/bin/activate &&"
    echo "venv cmd: ${venvCmd}"
 fi
+
+if [ $initPythonPackages ]
+then 
+   echo '-p flag provided'
+   echo 'Python packages will be installed from requirements.txt file!'
+   npx ttab -t 'Python packages' "${venvCmd} pip install -r requirements.txt"
+fi
+
 CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
@@ -94,10 +96,10 @@ npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_
 if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
    djangoPort=$((djangoPort + 1))
    echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
-   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver 0:${djangoPort}"
 else
    echo "starting django server on port ${djangoPort}..."
-   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver 0:${djangoPort}"
 fi
 sleep 1
 

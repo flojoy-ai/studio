@@ -2,6 +2,8 @@ import { createContext, useEffect, useRef, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 
 export const SocketContext = createContext<any>(null);
+const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || 'localhost';
+const BACKEND_PORT= +process.env.REACT_APP_BACKEND_PORT! || 8000
 
 type States = {
   programResults: any;
@@ -11,7 +13,6 @@ type States = {
   failureReason: any[];
   socketId: string;
 };
-const BACKEND_PORT= +process.env.REACT_APP_BACKEND_PORT! || 8000
 export const SocketContextProvider = ({ children }) => {
   const socket = useRef<WebSocketServer>();
   const [states, setStates] = useState<States>({
@@ -32,7 +33,7 @@ export const SocketContextProvider = ({ children }) => {
     if (!socket.current) {
       console.log(' BACKEND_PORT:', process.env.REACT_APP_BACKEND_PORT)
       socket.current = new WebSocketServer({
-        url: `ws://localhost:${BACKEND_PORT}/ws/socket-server/`,
+        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
         pingResponse: handleStateChange('serverStatus'),
         heartbeatResponse: handleStateChange('programResults'),
         runningNode: handleStateChange('runningNode'),
