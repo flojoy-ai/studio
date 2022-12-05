@@ -15,7 +15,7 @@ const nodes = [
 describe("User default workflow", () => {
   it("Should complete default workflow", () => {
     cy.visit("/", {
-      onBeforeLoad(win:any) {
+      onBeforeLoad(win: any) {
         win.disableIntercom = true;
       },
     }).wait(1000);
@@ -37,9 +37,13 @@ describe("User default workflow", () => {
     cy.get(`[data-cy="debug-btn"]`).click();
 
     cy.get(`[data-cy="btn-play"]`).click();
+    cy.wait(5000)
     cy.get(`[data-cy="app-status"]`)
-      .find("code")
-      .contains("🐢 awaiting a new job", { timeout: 60000 });
+      .find("code").then($ele=>{
+        cy.log(' server status: ' , $ele.text())
+      });
+      cy.get(`[data-cy="app-status"]`)
+      .find("code").contains("🐢 awaiting a new job", { timeout: 60000 })
 
     cy.get("[data-testid=result-node]");
 
