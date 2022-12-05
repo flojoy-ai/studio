@@ -7,9 +7,10 @@ export function useControlsTabEffects(saveAndRunFlowChart) {
   useEffect(() => {
     if (rfInstance?.elements.length === 0) {
       setCtrlsManifest([]);
-    } else {
-      saveAndRunFlowChart();
     }
+      // } else {
+    //   saveAndRunFlowChart();
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfInstance]);
 }

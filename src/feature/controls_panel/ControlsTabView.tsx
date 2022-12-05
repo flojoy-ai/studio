@@ -114,7 +114,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     );
     cacheManifest(filterChilds);
 
-    if (ctrl) {
+    if (ctrl.param) {
       removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
       saveAndRunFlowChart();
     }
@@ -169,14 +169,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     });
     cacheManifest(manClone);
   };
-
-  // useEffect(() => {
-  //   if (rfInstance?.elements.length === 0) {
-  //     setCtrlsManifest([]);
-  //   } else {
-  //     saveAndRunFlowChart();
-  //   }
-  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
