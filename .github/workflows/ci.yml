@@ -32,6 +32,10 @@ jobs:
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
 
+      - name: Get docker logs
+        uses: jwalton/gh-docker-logs@v2
+
+
       - name: Npm install
         run: npm install --legacy-peer-deps
       
