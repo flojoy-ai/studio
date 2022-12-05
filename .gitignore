@@ -35,7 +35,6 @@ dump.rdb
 *.rdb
 *.pyc
 .ipynb_checkpoints
-src/data/manifests-latest.json
 PYTHON/WATCH/fc.json
 src/feature/flow_chart_panel/pythonFunctions.json
 
