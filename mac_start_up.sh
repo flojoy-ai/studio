@@ -67,13 +67,6 @@ then
    echo "venv cmd: ${venvCmd}"
 fi
 
-if [ $initPythonPackages ]
-then 
-   echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!'
-   npx ttab -t 'Python packages' "${venvCmd} pip install -r requirements.txt"
-fi
-
 CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
@@ -93,14 +86,30 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
-   djangoPort=$((djangoPort + 1))
-   echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
-   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver 0:${djangoPort}"
+if [ $initPythonPackages ]
+then
+   echo '-p flag provided'
+   echo 'Python packages will be installed from requirements.txt file!' 
+   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+      djangoPort=$((djangoPort + 1))
+      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   else
+      echo "starting django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   fi
 else
-   echo "starting django server on port ${djangoPort}..."
-   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver 0:${djangoPort}"
+   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+      djangoPort=$((djangoPort + 1))
+      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   else
+      echo "starting django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   fi
 fi
+
+
 sleep 1
 
 echo 'starting react server...'
