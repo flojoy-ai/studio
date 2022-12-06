@@ -114,12 +114,12 @@ const ControlComponent = ({
             " (#" +
             node.id.slice(-5) +
             ")";
-          options.push({ label: label, value: node.id });
+          options.push({ label: label, value: node.id, type: node.data.label });
         }
       });
     }
 
-    if (ctrlObj.name === ControlNames.Plot){
+    if (ctrlObj.name === ControlNames.Plot) {
       PlotTypesManifest.forEach((item) => {
         plotOptions.push({ label: item.name, value: {type: item.type, mode: item.mode || undefined}});
       });
