@@ -3,5 +3,5 @@ COMMAND:
       name: "Multiply",
       key: "MULTIPLY",
       type: "TRANSFORMER",
-      inputs: [{ name: "y", id: "multiply_y" }],
+      inputs: [{ name: "x1", id: "multiply_x1" }],
     }
