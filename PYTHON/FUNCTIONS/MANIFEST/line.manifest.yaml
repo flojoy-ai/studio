@@ -1,2 +1,6 @@
 COMMAND:
-  - {name: 'Line', key: 'LINE', type: 'VISOR'}
+  - {
+      name: 'Line',
+      key: 'LINE',
+      type: 'VISOR'
+    }

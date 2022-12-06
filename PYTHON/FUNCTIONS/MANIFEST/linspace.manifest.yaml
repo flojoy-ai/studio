@@ -1,12 +1,20 @@
 COMMAND:
   - {
-      name: Linspace,
-      key: LINSPACE,
-      type: GENERATOR,
-      parameters:
-        {
-          start: { type: "float", default: "10" },
-          end: { type: "float", default: "0" },
-          step: { type: "float", default: "1000" },
+      name: 'Linspace',
+      key: 'LINSPACE',
+      type: 'GENERATOR',
+      parameters: {
+        start: { 
+          type: 'float',
+          default: '10'
         },
+        end: { 
+          type: 'float',
+          default: '0'
+        },
+        step: {
+          type: 'float',
+          default: '1000'
+        },
+      }
     }
