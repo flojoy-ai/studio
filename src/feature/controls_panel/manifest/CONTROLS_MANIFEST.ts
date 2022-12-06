@@ -12,6 +12,7 @@ export enum ControlNames {
   RadioButtonGroup = "Radio Button Group",
   CheckboxButtonGroup = "Checkbox Button Group",
   Plot = "Plot",
+  TextInput = "Text Input",
 }
 
 export const OutputControlsManifest = [
@@ -26,6 +27,12 @@ export const OutputControlsManifest = [
 
 export const InputControlsManifest = [
   // Outputs
+  {
+    name: ControlNames.TextInput,
+    type: ControlTypes.Input,
+    minHeight: 1,
+    minWidth: 1,
+  },
   {
     name: ControlNames.NumericInput,
     type: ControlTypes.Input,
