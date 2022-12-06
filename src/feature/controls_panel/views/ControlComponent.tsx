@@ -70,6 +70,9 @@ const ControlComponent = ({
 
   let options: ControlOptions[] = [];
   let plotOptions: ControlOptions[] = [];
+  let inputOptions: any = [];
+  let outputOptions: any = [];
+  let nodeType: string = '';
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
@@ -103,7 +106,6 @@ const ControlComponent = ({
       });
     }
   } else if (ctrlObj.type === ControlTypes.Output) {
-    
     if (flowChartObject.elements !== undefined) {
       flowChartObject.elements.forEach((node) => {
         if (!("source" in node)) {
@@ -118,6 +120,8 @@ const ControlComponent = ({
         }
       });
     }
+
+    nodeType = options.find((option) => option.value === ctrlObj?.param?.node)?.type || '';
 
     if (ctrlObj.name === ControlNames.Plot) {
       PlotTypesManifest.forEach((item) => {
@@ -156,6 +160,11 @@ const ControlComponent = ({
                   plotData = [{ x: nd.result["x"], y: nd.result["y"], z: Array(nd.result["x"].length).fill(0), type, mode }];
                 } else {
                   plotData = [{ x: nd.result["x"], y: nd.result["y"]}];
+                }
+
+                if (nodeType === '+' || nodeType === 'X') {
+                  inputOptions = Object.values(nd.result["x"]);
+                  outputOptions = nd.result["y"];
                 }
               }
             }
@@ -218,7 +227,6 @@ const ControlComponent = ({
             onChange={(val) => {
               console.log("value in select:", val, options);
               if (val) {
-                console.log(selectedPlotType);
                 selectedNode = val.value;
                 attachParamsToCtrl({node: val.value, plotType: selectedPlotType}, ctrlObj);
               }
@@ -259,7 +267,7 @@ const ControlComponent = ({
         </div>
       )}
 
-      {ctrlObj.name === ControlNames.Plot && (
+      {isEditMode && ctrlObj.name === ControlNames.Plot && (
         <Select
           className="select-plot-type"
           isSearchable={true}
@@ -279,13 +287,57 @@ const ControlComponent = ({
           }
         />
       )}
+      
+      {nodeType === '+' || nodeType === 'X' &&
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flex: "1",
+          }}
+        >
+        <Select
+          className="select-plot-type"
+          isSearchable={true}
+          onChange={(val) => {
+            console.log("input value in select:", val, plotOptions);
+            if (val) {
+
+            }
+          }}
+          options={inputOptions}
+          styles={customDropdownStyles}
+          theme={theme}
+        />
+        <Select
+          className="select-plot-type"
+          isSearchable={true}
+          onChange={(val) => {
+            console.log("output value in select:", val, plotOptions);
+            if (val) {
+            }
+          }}
+          options={outputOptions}
+          styles={customDropdownStyles}
+          theme={theme}
+        />
+        </div>
+      }
 
       {!isEditMode && (
         <p className="ctrl-param">
           {ctrlObj.type === "output"
-            ? options?.find((option) => option.value === ctrlObj?.param)?.label
+            ? options?.find((option) => option.value === ctrlObj?.param?.node)?.label
             : options?.find((option) => option.value.id === ctrlObj?.param?.id)
               ?.label}
+        </p>
+      )}
+
+      {!isEditMode && ctrlObj.name === ControlNames.Plot && (
+        <p className="ctrl-param">
+          Plot: {plotOptions?.find((option) => option.value.type === ctrlObj?.param?.plotType.type
+            && option.value.mode === ctrlObj?.param?.plotType.mode)?.label
+          }
         </p>
       )}
 
@@ -295,7 +347,7 @@ const ControlComponent = ({
             flex: "1",
             height: "100%",
             width: "100%",
-            paddingBottom: "10px",
+            paddingBottom: "20px",
           }}
         >
           <Plot

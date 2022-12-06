@@ -7,7 +7,7 @@ const styledPlotLayout = theme => {
       plot_bgcolor: plotBackgroundColor,
       autosize: true, 
       font: {color: plotFeatureColor},
-      margin: {t: 40, r: 40, b: 40, l: 40},
+      margin: {t: 40, r: 40, b: 60, l: 40},
       // xaxis: {zeroline: false, color: plotFeatureColor},
       // yaxis: {zeroline: false, color: plotFeatureColor}
     };
