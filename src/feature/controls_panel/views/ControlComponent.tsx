@@ -135,7 +135,7 @@ const ControlComponent = ({
   try{
     if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
       // figure out what we're visualizing
-      let nodeIdToPlot = ctrlObj.param;
+      let nodeIdToPlot = ctrlObj.param.node;
       if (nodeIdToPlot) {
         if (results && "io" in results) {
           const runResults = results.io.reverse();
