@@ -12,7 +12,6 @@ import CustomEdge from "../flow_chart_panel/views/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import { resultNodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
 import "./style/Results.css";
 
