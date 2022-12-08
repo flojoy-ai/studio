@@ -164,11 +164,13 @@ const ControlComponent = ({
                 } else {
                   plotData = [{ x: nd.result["x"], y: nd.result["y"]}];
                 }
-
+                
                 if (nodeType === '+' || nodeType === 'X') {
                   inputOptions = Object.values(nd.result["x"]);
-                  outputOptions = nd.result["y"];
+                } else {
+                  inputOptions = nd.result["x"];
                 }
+                outputOptions = nd.result["y"];
               }
             }
           }
