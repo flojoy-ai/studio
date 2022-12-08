@@ -13,4 +13,4 @@ def ADD(v, params):
         
     y = np.add(x0, x1)
 
-    return VectorXY(x = {x0, x1}, y = y)
+    return VectorXY(x={'x0': x0, 'x1': x1}, y=y)
