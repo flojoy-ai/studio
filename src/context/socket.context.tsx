@@ -2,6 +2,7 @@ import { createContext, useEffect, useRef, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 
 export const SocketContext = createContext<any>(null);
+const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || 'localhost';
 
 type States = {
   programResults: any;
@@ -30,7 +31,7 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (!socket.current) {
       socket.current = new WebSocketServer({
-        url: "ws://localhost:8000/ws/socket-server/",
+        url: "ws://"+SOCKET_HOST+":8000/ws/socket-server/",
         pingResponse: handleStateChange('serverStatus'),
         heartbeatResponse: handleStateChange('programResults'),
         runningNode: handleStateChange('runningNode'),

@@ -2,6 +2,7 @@
 
 # python
 /venv
+/venv2
 
 # dependencies
 /node_modules
@@ -10,6 +11,7 @@
 
 # testing
 /coverage
+/cypress/screenshots/
 
 # production
 /build
@@ -36,3 +38,4 @@ dump.rdb
 src/data/manifests-latest.json
 PYTHON/WATCH/fc.json
 src/feature/flow_chart_panel/pythonFunctions.json
+venv2

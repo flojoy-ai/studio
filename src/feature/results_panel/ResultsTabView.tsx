@@ -62,7 +62,8 @@ const ResultsTab = ({ results }) => {
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodeResults, rfInstance]);
+  }, [nodeResults, rfInstance, setResultElements]);
+
 
   return (
     <ReactFlowProviderAny>

@@ -1,0 +1,12 @@
+version: "3.9"
+
+
+services:
+
+  base-image:
+    build:
+      context: .
+      dockerfile: ./docker/base/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 0

@@ -3,7 +3,7 @@ import { useResultsTabState } from "./ResultsTabState";
 import { resultNodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
 export function useResultsTabEffects(nodeResults) {
-	const { resultElements, setResultElements, rfInstance } = useResultsTabState();
+	const { setResultElements, rfInstance } = useResultsTabState();
 
 	useEffect(() => {
 		if (nodeResults && nodeResults.length > 0 && rfInstance) {
@@ -21,5 +21,5 @@ export function useResultsTabEffects(nodeResults) {
 				}))
 			);
 		}
-	}, [nodeResults, rfInstance]);
+	}, [nodeResults, rfInstance, setResultElements]);
 }
