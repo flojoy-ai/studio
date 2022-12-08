@@ -113,7 +113,7 @@ export function useFlowChartState() {
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
-      var blob = new Blob([fileContentJsonString], {
+      const blob = new Blob([fileContentJsonString], {
         type: "text/plain;charset=utf-8",
       });
       saveAs(blob, "flojoy.txt");
@@ -134,7 +134,6 @@ export function useFlowChartState() {
         }
       }
     });
-
   };
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {

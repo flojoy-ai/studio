@@ -58,7 +58,6 @@ const App = () => {
         }
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runningNode, failedNodes]);
   const ReactFlowChartProvider: any = ReactFlowProvider;
   return (
