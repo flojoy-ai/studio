@@ -10,4 +10,4 @@ def MULTIPLY(v, params):
 
     y = np.multiply(x0, x1)
 
-    return VectorXY(x = [x0, x1], y = y)
+    return VectorXY(x = {x0, x1}, y = y)
