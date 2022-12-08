@@ -1,5 +1,7 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 
+import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
+
 const nodes = [
   { selector: "LINSPACE-userGeneratedNode_1646432683694", name: "linspace" },
   { selector: "SINE-userGeneratedNode_1646417316016", name: "sine" },
@@ -36,11 +38,11 @@ const ctrlParameters = [
 
 describe('user workflow', ()=> {
     it("Should load default flow chart", () => {
-        cy.visit("/").wait(1000);
+      cy.visit("/", {onBeforeLoad (win) {
+        win.disableIntercom = true;
+      }}).wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
-      });
-    
-      it("Wait for server to be ready to take new job.", () => {
+
         cy.wait(10000);
         cy.get(`[data-cy="app-status"]`)
         .find('code')
@@ -52,9 +54,7 @@ describe('user workflow', ()=> {
             throw new Error("not correct status")
           }
         });
-      });
 
-  it("Switch to ctrls tab upon clicking on CTRLS button.", () => {
     cy.get("body").then($body => {
       if ($body.find(".ctrl-close-btn").length > 0) {   
         cy.get(".ctrl-close-btn").click({ force: true }); 
@@ -62,23 +62,17 @@ describe('user workflow', ()=> {
     });
     cy.get(`[data-cy="ctrls-btn"]`)
       .click({timeout : 10000});
-  });
 
-  it("Enable operation mode by clicking on Edit switch button", () => {
     cy.get("[data-cy=operation-switch]")
       .contains("Edit")
       .click()
       .should("have.css", "color", "rgb(255, 165, 0)");
-  });
 
-  it("Remove existing ctrl grid.", () => {
     Cypress.on('uncaught:exception', (err, runnable) => {
       return false
     })
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
-  });
 
-  it("For different variations of inputs, Change inputs value.", () => {
     cy.get("[data-cy=add-ctrl]").click().get("button").contains("Numeric Input").first().click();
     ctrlParameters.forEach((singleIter, index) => {
       singleIter.forEach((item) => {
@@ -97,37 +91,29 @@ describe('user workflow', ()=> {
         });
       });
     });
-  });
-  
-  it("Wait for current job to finish", () => {
+
     cy.get(".App-status").contains("🐢 awaiting a new job", {
       timeout: 60000,
     });
-  });
 
-  it("Switch to DEBUG tab", () => {
     cy.get(`[data-cy="debug-btn"]`)
       .click();
-  });
 
-  it("Run the app by clicking Play button", () => {
     cy.get(`[data-cy="btn-play"]`).contains("Play").click().wait(5000);
-  });
 
-  it("Wait for current job to finish", () => {
-    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-      timeout: 60000,
-      matchCase: false
-    });
-  });
+    cy.get("[data-testid=result-node]", { timeout: 200000 });
 
-  it("Wait 5 sec to reflect current changes on plotly", () => {
-    cy.wait(5000);
-  });
+    cy.get(`[data-cy="script-btn"]`)
+          .click();
+      
+    nodes.forEach((node) => {
+      cy.get(`[data-id="${node.selector}"]`).click({
+        force: true,
+        multiple: true,
+      });
+      matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
+      cy.get(".ctrl-close-btn").click({ force: true });
+      });
 
-  // it("Compare new results with plotlyCustomResults.json", () => {
-  //   nodes.forEach((node) => {
-  //     matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
-  //   });
-  // });
+  });
 })

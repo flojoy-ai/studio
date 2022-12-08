@@ -28,28 +28,31 @@ const ControlComponent = ({
   setCurrentInput,
   setOpenEditModal,
 }) => {
-  const { elements, ctrlsManifest, setGridLayout, isEditMode } = useFlowChartState();
+  const { elements, ctrlsManifest, setGridLayout, isEditMode } =
+    useFlowChartState();
 
   const [flowChartObject, setFlowChartObject] = useState<any>({});
   const [knobValue, setKnobValue] = useState<number>();
-  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] =
-    useState<NodeJS.Timeout | undefined>(undefined);
+  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState<
+    NodeJS.Timeout | undefined
+  >(undefined);
 
-  const updateCtrlValueFromKnob = useCallback((value) => {
-    setKnobValue(value);
+  const updateCtrlValueFromKnob = useCallback(
+    (value) => {
+      setKnobValue(value);
 
-    if (!ctrlObj?.param?.nodeId) {
-      return;
-    }
-    if (debouncedTimerForKnobId) {
-      clearTimeout(debouncedTimerForKnobId);
-    }
-    const timerId = setTimeout(() => {
-      updateCtrlValue(value, ctrlObj);
-    }, 1000);
+      if (!ctrlObj?.param?.nodeId) {
+        return;
+      }
+      if (debouncedTimerForKnobId) {
+        clearTimeout(debouncedTimerForKnobId);
+      }
+      const timerId = setTimeout(() => {
+        updateCtrlValue(value, ctrlObj);
+      }, 1000);
 
-    setDebouncedTimerForKnobId(timerId);
-  },
+      setDebouncedTimerForKnobId(timerId);
+    },
     [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
   );
 
@@ -136,7 +139,7 @@ const ControlComponent = ({
   let nd: any = {};
   let plotData: any = [{ ...selectedPlotType, x: [1, 2, 3], y: [1, 2, 3], z: [1, 2, 3] }];
 
-  try{
+  try {
     if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
       // figure out what we're visualizing
       let nodeIdToPlot = ctrlObj.param.node;
@@ -172,7 +175,7 @@ const ControlComponent = ({
         }
       }
     }
-  } catch(e){
+  } catch (e) {
     console.error(e);
   }
 
@@ -185,8 +188,8 @@ const ControlComponent = ({
     ctrlObj?.param?.functionName === "CONSTANT"
       ? ctrlObj.val
       : fnParam?.default
-        ? fnParam.default
-        : 0;
+      ? fnParam.default
+      : 0;
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -199,8 +202,8 @@ const ControlComponent = ({
     ctrlObj?.param?.functionName === "CONSTANT"
       ? defaultValue
       : ctrls
-        ? ctrls[ctrlObj?.param?.id]?.value
-        : defaultValue;
+      ? ctrls[ctrlObj?.param?.id]?.value
+      : defaultValue;
 
   const makeLayoutStatic = () => {
     if (isEditMode) {
@@ -238,8 +241,8 @@ const ControlComponent = ({
               ctrlObj.type === "output"
                 ? options?.find((option) => option.value === ctrlObj?.param?.node)
                 : options?.find(
-                  (option) => option.value.id === ctrlObj?.param?.id
-                )
+                    (option) => option.value.id === ctrlObj?.param?.id
+                  )
             }
           />
           <button
@@ -329,7 +332,7 @@ const ControlComponent = ({
           {ctrlObj.type === "output"
             ? options?.find((option) => option.value === ctrlObj?.param?.node)?.label
             : options?.find((option) => option.value.id === ctrlObj?.param?.id)
-              ?.label}
+                ?.label}
         </p>
       )}
 
@@ -355,6 +358,21 @@ const ControlComponent = ({
             layout={styledLayout}
             autosize={true}
             style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      )}
+
+      {ctrlObj.name === ControlNames.TextInput && (
+        <div className="ctrl-input-body" data-cy="numeric-input">
+          <input
+            type="text"
+            placeholder="Write your text.."
+            className="ctrl-numeric-input border-color"
+            onChange={(e) => {
+              updateCtrlValue(e.target.value, ctrlObj);
+            }}
+            value={currentInputValue || ""}
+            style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
         </div>
       )}
