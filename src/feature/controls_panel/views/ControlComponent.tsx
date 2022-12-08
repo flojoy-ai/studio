@@ -291,7 +291,7 @@ const ControlComponent = ({
         />
       )}
       
-      {nodeType === '+' || nodeType === 'X' &&
+      {(nodeType) &&
         <div
           style={{
             display: "flex",
@@ -312,6 +312,7 @@ const ControlComponent = ({
           styles={customDropdownStyles}
           theme={theme}
         />
+        {(nodeType === '+' || nodeType === 'X') && 
         <Select
           className="select-plot-type"
           isSearchable={true}
@@ -323,7 +324,7 @@ const ControlComponent = ({
           options={outputOptions}
           styles={customDropdownStyles}
           theme={theme}
-        />
+        />}
         </div>
       }
 
