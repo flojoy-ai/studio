@@ -11,6 +11,7 @@ import ReactFlow, {
   Edge,
   OnLoadParams,
   OnLoadFunc,
+  FlowElement,
 } from "react-flow-renderer";
 
 import localforage from "localforage";
@@ -45,13 +46,8 @@ const FlowChartTab = ({
   clickedElement,
   setClickedElement,
 }: FlowChartProps) => {
-  const {
-    windowWidth,
-    modalIsOpen,
-    openModal,
-    afterOpenModal,
-    closeModal,
-  } = useFlowChartTabState();
+  const { windowWidth, modalIsOpen, openModal, afterOpenModal, closeModal } =
+    useFlowChartTabState();
 
   const modalStyles = {
     overlay: { zIndex: 99 },
@@ -68,7 +64,7 @@ const FlowChartTab = ({
 
   const onConnect = (params: Connection | Edge) =>
     setElements((els: Elements<any>) => addEdge(params, els));
-  
+
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
@@ -102,7 +98,7 @@ const FlowChartTab = ({
     const filteredResult = runResults.filter(
       (node: any) => node.cmd === nodeLabel
     )[0];
-    
+
     nd = filteredResult === undefined ? {} : filteredResult;
   }
 
@@ -110,12 +106,11 @@ const FlowChartTab = ({
 
   const ReactFlowProviderAny: any = ReactFlowProvider;
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
-    console.log(" loaded rfInstance: ", rfIns.toObject());
     rfIns.fitView();
-    
+
     const flowSize = 1107;
     const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
-    
+
     rfIns.setTransform({
       x: xPosition,
       y: 61,
@@ -124,6 +119,14 @@ const FlowChartTab = ({
 
     setRfInstance(rfIns.toObject());
   };
+
+  const handleNodeDrag = (e: any, node: FlowElement) => {
+    setElements((elems: Elements) => {
+      const nodeIndex = elems.findIndex((el) => el.id === node.id);
+      elems[nodeIndex] = node;
+    });
+  };
+
   return (
     <ReactFlowProviderAny>
       <div style={{ height: `99vh` }} data-testid="react-flow">
@@ -134,6 +137,7 @@ const FlowChartTab = ({
           connectionLineType={ConnectionLineType.Step}
           onElementsRemove={onElementsRemove}
           onConnect={onConnect}
+          onNodeDragStop={handleNodeDrag}
           onLoad={onLoad}
           onElementClick={(evt, elem) => onClickElement(evt, elem)}
         />
