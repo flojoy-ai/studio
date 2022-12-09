@@ -64,12 +64,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 3000);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance, setDebouncedTimerId, socketId]);
-
-  // eslint-disable-next-line @typescript-eslint/no-redeclare
-  // async function cacheManifest(manifest: CtlManifestType[]) {
-  //   setCtrlsManifest(manifest);
-  // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedTimerId, rfInstance]);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {

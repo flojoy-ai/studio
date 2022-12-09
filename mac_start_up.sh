@@ -1,19 +1,24 @@
 #!/bin/bash
-# source venv2/bin/activate
 alias venv="source $HOME/venv/bin/activate"
+djangoPort=8000
 
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -r -v venv-path"
+   echo "Usage: $0 -n -p -r -v venv-path"
    echo -r "shuts down existing redis server and spins up a fresh one"
    echo -v "path to a virtualenv"
+   echo -n "installs npm packages"
+   echo -p "installs python packages"
    exit 1 # Exit script after printing help
 }
 
-while getopts "rv:" opt
+while getopts "rv:npP:" opt
 do
    case "$opt" in
+      P) djangoPort="$OPTARG";;
+      p) initPythonPackages=true;;
+      n) initNodePackages=true;;
       r) initRedis=true ;;
       v) venv="$OPTARG" ;;
       ?) helpFunction ;; # Print helpFunction in case parameter is non-existent
@@ -33,6 +38,14 @@ python3 jsonify_funk.py
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
+if [ $initNodePackages ]
+then 
+   echo '-n flag provided'
+   echo 'Node packages will be installed from package.json!'
+   npm install
+fi
+
+
 if [ $initRedis ]
 then
     echo 'shutting down any existing redis server and clearing redis memory...'
@@ -43,9 +56,8 @@ then
 
     echo 'spining up a fresh redis server...'
     npx ttab -t 'REDIS' redis-server
-    sleep 2
+    sleep 2 
 fi
-
 
 venvCmd=""
 if [ ! -z "$venv" ]
@@ -54,6 +66,7 @@ then
    venvCmd="source ${venv}/bin/activate &&"
    echo "venv cmd: ${venvCmd}"
 fi
+
 CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
@@ -73,8 +86,30 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-echo 'starting django server...'
-npx ttab -t 'Django' "${venvCmd} python3 manage.py runserver 0:8000"
+if [ $initPythonPackages ]
+then
+   echo '-p flag provided'
+   echo 'Python packages will be installed from requirements.txt file!' 
+   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+      djangoPort=$((djangoPort + 1))
+      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   else
+      echo "starting django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   fi
+else
+   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+      djangoPort=$((djangoPort + 1))
+      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   else
+      echo "starting django server on port ${djangoPort}..."
+      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   fi
+fi
+
+
 sleep 1
 
 echo 'starting react server...'
