@@ -9,7 +9,7 @@ export function useFlowChartTabState() {
     setIsModalOpen(true);
   };
 
-  const afterOpenModal = () => { };
+  const afterOpenModal = () => {};
 
   const closeModal = () => {
     setIsModalOpen(false);
