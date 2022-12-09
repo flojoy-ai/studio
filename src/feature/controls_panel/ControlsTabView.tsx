@@ -66,12 +66,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }, 3000);
 
     setDebouncedTimerId(timerId);
-  }, [debouncedTimerId, rfInstance, setDebouncedTimerId, socketId]);
-
-  // eslint-disable-next-line @typescript-eslint/no-redeclare
-  // async function cacheManifest(manifest: CtlManifestType[]) {
-  //   setCtrlsManifest(manifest);
-  // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedTimerId, rfInstance]);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
@@ -109,7 +105,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    let filterChilds: any[] = ctrlsManifest.filter(
+    const filterChilds: any[] = ctrlsManifest.filter(
       (ctrl) => ctrl.id !== ctrlId
     );
     cacheManifest(filterChilds);
@@ -121,7 +117,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   };
 
   const updateCtrlValue = (val: any, ctrl: any) => {
-    let manClone = clone(ctrlsManifest);
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].val = val;
@@ -159,8 +155,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
         ? fnParam.default
         : 0;
     const ctrlData = ctrls && ctrls[param?.id];
-    let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-    let manClone = clone(ctrlsManifest);
+    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].param = param;

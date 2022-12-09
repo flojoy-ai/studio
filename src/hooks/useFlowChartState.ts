@@ -7,12 +7,18 @@ import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";
 
+export interface CtrlManifestParam {
+  functionName: string;
+  param: string;
+  nodeId: string;
+  id: string;
+}
 export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: any;
-  val?: any;
+  param?: string | CtrlManifestParam;
+  val?: string | number;
   hidden?: boolean;
   controlGroup?: string;
   label?: string;

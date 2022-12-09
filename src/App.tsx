@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView"; //"./feature/flow_chart_panel/FlowChartTabView.tsx";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
@@ -59,7 +59,8 @@ const App = () => {
       });
     });
   }, [runningNode, failedNodes]);
-  const ReactFlowChartProvider: any = ReactFlowProvider;
+  const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
+    ReactFlowProvider;
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowChartProvider>

@@ -1,8 +1,15 @@
+import { ControlComponentStateType } from "@src/feature/controls_panel/views/ControlComponentState";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
-import { ControlNames, ControlTypes } from "../manifest/CONTROLS_MANIFEST";
+import { Elements, FlowExportObject } from "react-flow-renderer";
+import {
+  ControlNames,
+  ControlTypes,
+} from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { CtlManifestType, CtrlManifestParam } from "./useFlowChartState";
 
-const ControlComponentEffects = ({
+const useControlComponentEffects = ({
   flowChartObject,
   localforage,
   flowKey,
@@ -23,13 +30,24 @@ const ControlComponentEffects = ({
   setTextInput,
   setNumberInput,
   setSliderInput,
+}: ControlComponentStateType & {
+  ctrlObj: CtlManifestType;
+  results: ResultsType;
 }) => {
   useEffect(() => {
-    if (Object.keys(flowChartObject).length === 0) {
+    if (!flowChartObject) {
       localforage
         .getItem(flowKey)
         .then((val) => {
-          setFlowChartObject(val);
+          setFlowChartObject(
+            val as FlowExportObject<{
+              label: string;
+              func: string;
+              elements: Elements;
+              position: [number, number];
+              zoom: number;
+            }>
+          );
         })
         .catch((err) => {
           console.warn(err);
@@ -40,37 +58,43 @@ const ControlComponentEffects = ({
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
-        ? selectOptions?.find((option: any) => option.value === ctrlObj?.param)
+        ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
         : selectOptions?.find(
-            (option: any) => option.value.id === ctrlObj?.param?.id
-          )
+            (option) =>
+              option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
+          )!
     );
-  }, [ctrlObj?.param, ctrlObj?.param?.id, selectOptions, ctrlObj?.type]);
+  }, [
+    ctrlObj?.param,
+    (ctrlObj?.param as CtrlManifestParam)?.id,
+    selectOptions,
+    ctrlObj?.type,
+  ]);
 
   useEffect(() => {
-    setNumberInput(0);
+    setNumberInput("0");
     setTextInput("");
     setKnobValue(0);
-    setSliderInput(0);
+    setSliderInput("0");
   }, [selectedOption]);
   useEffect(() => {
     try {
       if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
         // figure out what we're visualizing
-        let nodeIdToPlot = ctrlObj.param;
+        const nodeIdToPlot = ctrlObj.param;
         if (nodeIdToPlot) {
           if (results && "io" in results) {
-            const runResults = results.io.reverse();
+            const runResults = results.io!.reverse();
             const filteredResult = runResults.filter(
-              (node: any) => nodeIdToPlot === node.id
+              (node) => nodeIdToPlot === node.id
             )[0];
-            setNd(filteredResult === undefined ? {} : filteredResult);
-            if (Object.keys(nd).length > 0) {
-              if (nd.result) {
-                if ("data" in nd.result) {
-                  setPlotData(nd.result.data);
+            setNd(filteredResult === undefined ? null : filteredResult);
+            if (Object.keys(nd!).length > 0) {
+              if (nd!.result) {
+                if ("data" in nd!.result) {
+                  setPlotData(nd!.result!.data!);
                 } else {
-                  setPlotData([{ x: nd.result["x"], y: nd.result["y"] }]);
+                  setPlotData([{ x: nd!.result["x"]!, y: nd!.result["y"]! }]);
                 }
               }
             }
@@ -83,19 +107,21 @@ const ControlComponentEffects = ({
   }, [ctrlObj, nd, results, selectedOption]);
   useEffect(() => {
     if (ctrls) {
-      setCurrentInputValue(ctrls[ctrlObj?.param?.id]?.value);
+      setCurrentInputValue(
+        ctrls[(ctrlObj?.param as CtrlManifestParam)?.id!]?.value
+      );
     } else {
-      setCurrentInputValue(defaultValue);
+      setCurrentInputValue(defaultValue as number);
     }
   }, [ctrls, ctrlObj, selectedOption]);
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
-      if (flowChartObject.elements !== undefined) {
-        flowChartObject.elements.forEach((node: any) => {
+      if (flowChartObject!?.elements !== undefined) {
+        flowChartObject!.elements.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
-            const nodeLabel = node.data.label;
-            const nodeFunctionName = node.data.func;
+            const nodeLabel = node.data!.label;
+            const nodeFunctionName = node.data!.func;
             const params = FUNCTION_PARAMETERS[nodeFunctionName];
             const sep = " ▶ ";
             if (params) {
@@ -124,13 +150,13 @@ const ControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject.elements !== undefined) {
-        flowChartObject.elements.forEach((node: any) => {
+      if (flowChartObject!.elements !== undefined) {
+        flowChartObject!.elements.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
-            let label =
+            const label =
               "Visualize node: " +
-              node.data.label +
+              node.data!.label +
               " (#" +
               node.id.slice(-5) +
               ")";
@@ -148,4 +174,4 @@ const ControlComponentEffects = ({
   }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
 };
 
-export default ControlComponentEffects;
+export default useControlComponentEffects;
