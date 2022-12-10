@@ -41,8 +41,10 @@ jobs:
           pyenv global 3.11
           echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
           echo 'PATH=$(pyenv root)/shims:$PATH' >> ~/.zshrc
-          pwd
           ln -s -f /usr/local/bin/python3.11 /usr/local/bin/python
+          pip install virtualenv
+          virtualenv venv2
+          source venv2/bin/activate
           python --version
           pip install -r requirements.txt
       
@@ -50,7 +52,7 @@ jobs:
         run: npm install --legacy-peer-deps
       
       - name: Run Mac Start Script
-        run: sh mac_start_up.sh -r
+        run: sh mac_start_up.sh -v venv2 -r
       
       - name: Run test
         uses: cypress-io/github-action@v4
