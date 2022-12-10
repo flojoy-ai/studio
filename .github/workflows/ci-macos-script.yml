@@ -36,6 +36,10 @@ jobs:
 
       - name: Install python dependencies
         run: |
+          brew install pyenv
+          pyenv install 3.11
+          pyenv global 3.11
+          echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
           python --version
           pip install -r requirements.txt
       
