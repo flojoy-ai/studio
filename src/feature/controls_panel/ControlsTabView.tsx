@@ -9,7 +9,10 @@ import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
 import "../../App.css";
-import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
+import {
+  CtlManifestType,
+  useFlowChartState,
+} from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
 import ModalCloseSvg from "../../utils/ModalCloseSvg";
 import { useSocket } from "../../hooks/useSocket";
@@ -21,8 +24,9 @@ import ControlGrid from "./views/ControlGrid";
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
-
-  const {states: {socketId}} = useSocket()
+  const {
+    states: { socketId },
+  } = useSocket();
   const {
     openEditModal,
     setOpenEditModal,
@@ -43,13 +47,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
- 
-  const afterOpenModal = () => { };
+
+  const afterOpenModal = () => null;
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
-
-
 
   async function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -60,7 +62,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       clearTimeout(debouncedTimerId);
     }
     const timerId = setTimeout(() => {
-      saveAndRunFlowChartInServer({rfInstance, jobId:socketId});
+      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
     }, 3000);
 
     setDebouncedTimerId(timerId);
@@ -103,7 +105,9 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    let filterChilds: any[] = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    const filterChilds: any[] = ctrlsManifest.filter(
+      (ctrl) => ctrl.id !== ctrlId
+    );
     cacheManifest(filterChilds);
 
     if (ctrl) {
@@ -113,7 +117,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   };
 
   const updateCtrlValue = (val: any, ctrl: any) => {
-    let manClone = clone(ctrlsManifest);
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].val = val;
@@ -148,11 +152,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       param.functionName === "CONSTANT"
         ? ctrl.val
         : fnParam?.default
-          ? fnParam.default
-          : 0;
+        ? fnParam.default
+        : 0;
     const ctrlData = ctrls && ctrls[param?.id];
-    let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-    let manClone = clone(ctrlsManifest);
+    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].param = param;

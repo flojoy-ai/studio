@@ -1,3 +1,4 @@
+import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import "react-grid-layout/css/styles.css";
 import "../../../App.css";
 import "../style/Controls.css";
@@ -9,7 +10,7 @@ export default function Control({
   ctrl,
 }: {
   controlProps: ControlProps;
-  ctrl: any;
+  ctrl: CtlManifestType;
   ctrlIndex: number;
 }) {
   const {

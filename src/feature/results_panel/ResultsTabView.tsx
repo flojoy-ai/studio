@@ -39,7 +39,7 @@ const ResultsTab = ({ results }) => {
   const ReactFlowProviderAny: any = ReactFlowProvider;
 
   const nodeResults = useMemo(
-    () => ("io" in results ? results.io : []),
+    () => (results && "io" in results ? results.io : []),
     [results]
   );
 
