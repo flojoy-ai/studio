@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "develop", "feature/script/mac-startup"]
+  pull_request:
+    branches: ["main", "develop"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  buildNode:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+        - 'macOS-latest'
+        # - 'windows-latest' # windows is currently not supported.
+        redis:
+        - '6.0'
+        node-version:
+        - 16
+
+    steps:
+      - uses: actions/checkout@v3  
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-verison }}
+
+      - name: Setup Redis
+        uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: ${{ matrix.redis }}
+          auto-start: "false"
+
+      - name: Install python dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Install node dependencies
+        run: npm install --legacy-peer-deps
+      
+      - name: Run Mac Start Script
+        run: sh mac_start_up.sh -r
+      
+      - name: Run test
+        uses: cypress-io/github-action@v4
