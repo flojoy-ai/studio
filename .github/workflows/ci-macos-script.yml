@@ -26,9 +26,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3  
-      - uses: actions/setup-python@v4
+      - name: Setup python
+        uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-verison }} 
+          python-version: ${{ matrix.python-verison }}
+          cache: "pip"
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-verison }}
