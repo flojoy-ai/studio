@@ -34,6 +34,9 @@ jobs:
           redis-version: ${{ matrix.redis }}
           auto-start: "false"
 
+      - name: Upgrade python
+        run: brew install python3 && cp /usr/local/bin/python3 /usr/local/bin/python
+
       - name: Install python dependencies
         run: pip install -r requirements.txt
       
