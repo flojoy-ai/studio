@@ -35,8 +35,9 @@ jobs:
           auto-start: "false"
 
       - name: Install python dependencies
-        run: python --version
-        run: pip install -r requirements.txt
+        run: |
+          python --version
+          pip install -r requirements.txt
       
       - name: Install node dependencies
         run: npm install --legacy-peer-deps
