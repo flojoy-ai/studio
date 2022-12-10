@@ -40,6 +40,7 @@ jobs:
           pyenv install 3.11
           pyenv global 3.11
           echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
+          echo 'PATH=$(pyenv root)/shims:$PATH' >> ~/.zshrc
           which python
           python --version
           pip install -r requirements.txt
