@@ -1,4 +1,4 @@
-name: CI
+name: CI-MAC-SCRIPT
 
 on:
   push:
@@ -21,9 +21,14 @@ jobs:
         - '6.0'
         node-version:
         - 16
+        python-version:
+        - '3.10'
 
     steps:
       - uses: actions/checkout@v3  
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-verison }} 
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-verison }}
@@ -35,24 +40,13 @@ jobs:
           auto-start: "false"
 
       - name: Install python dependencies
-        run: |
-          brew install pyenv
-          pyenv install 3.11
-          pyenv global 3.11
-          echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc
-          echo 'PATH=$(pyenv root)/shims:$PATH' >> ~/.zshrc
-          ln -s -f /usr/local/bin/python3.11 /usr/local/bin/python
-          pip install virtualenv
-          virtualenv venv2
-          source venv2/bin/activate
-          python --version
-          pip install -r requirements.txt
+        run:  pip install -r requirements.txt
       
       - name: Install node dependencies
         run: npm install --legacy-peer-deps
       
       - name: Run Mac Start Script
-        run: sh mac_start_up.sh -v venv2 -r
+        run: sh mac_start_up.sh -r
       
       - name: Run test
         uses: cypress-io/github-action@v4
