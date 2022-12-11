@@ -89,7 +89,7 @@ const useControlComponentEffects = ({
               (node) => nodeIdToPlot === node.id
             )[0];
             setNd(filteredResult === undefined ? null : filteredResult);
-            if (Object.keys(nd!).length > 0) {
+            if (nd && Object.keys(nd!).length > 0) {
               if (nd!.result) {
                 if ("data" in nd!.result) {
                   setPlotData(nd!.result!.data!);
@@ -150,7 +150,7 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!.elements !== undefined) {
+      if (flowChartObject!?.elements !== undefined) {
         flowChartObject!.elements.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
