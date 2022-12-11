@@ -132,6 +132,9 @@ const ControlComponent = ({
 
   let selectedPlotType = ctrlObj?.param?.plotType ? ctrlObj?.param?.plotType : { type: 'scatter', mode: 'lines' }
   let selectedNode = ctrlObj?.param?.node;
+  let selectedInputNode: any = undefined;
+  let selectedOutputNode: any = undefined;
+
 
   let nd: any = {};
   let plotData: any = [{ ...selectedPlotType, x: [1, 2, 3], y: [1, 2, 3], z: [1, 2, 3] }];
@@ -310,7 +313,13 @@ const ControlComponent = ({
           onChange={(val) => {
             console.log("input value in select:", val, plotOptions);
             if (val) {
-
+              selectedInputNode = val.value;
+              attachParamsToCtrl({
+                node: selectedNode,
+                plotType: selectedPlotType,
+                input: val.value,
+                output: selectedOutputNode
+              }, ctrlObj);
             }
           }}
           placeholder="Select X"
@@ -325,6 +334,13 @@ const ControlComponent = ({
           onChange={(val) => {
             console.log("output value in select:", val, plotOptions);
             if (val) {
+              selectedOutputNode = val.value;
+              attachParamsToCtrl({
+                node: selectedNode, 
+                plotType: selectedPlotType, 
+                input: selectedInputNode, 
+                output: val.value 
+              }, ctrlObj);
             }
           }}
           placeholder="Select Y"
