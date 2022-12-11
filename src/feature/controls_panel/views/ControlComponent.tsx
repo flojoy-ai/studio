@@ -238,7 +238,10 @@ const ControlComponent = ({
               console.log("value in select:", val, options);
               if (val) {
                 selectedNode = val.value;
-                attachParamsToCtrl({node: val.value, plotType: selectedPlotType}, ctrlObj);
+                attachParamsToCtrl({
+                  node: val.value, 
+                  plotType: selectedPlotType
+                }, ctrlObj);
               }
             }}
             options={options}
@@ -285,7 +288,10 @@ const ControlComponent = ({
             console.log("plot type value in select:", val, plotOptions);
             if (val) {
               selectedPlotType = val.value;
-              attachParamsToCtrl({ node: selectedNode, plotType: val.value }, ctrlObj);
+              attachParamsToCtrl({
+                node: selectedNode, 
+                plotType: val.value
+              }, ctrlObj);
             }
           }}
           options={plotOptions}
