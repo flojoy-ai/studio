@@ -170,10 +170,9 @@ const ControlComponent = ({
                   if (selectedPlotType.type === 'histogram') {
                     inputOptions.push({ label: 'y', value: nd.result["y"] })
                   }
-
                   outputOptions.push({ label: 'y', value: nd.result["y"] })
 
-                  plotData = [{ x: nd.result["x"], y: nd.result["y"], z: Array(nd.result["x"].length).fill(0), type, mode }];
+                  plotData = [{ x: selectedInputNode, y: selectedOutputNode, z: Array(selectedInputNode.length).fill(0), type, mode }];
                 } else {
                   plotData = [{ x: nd.result["x"], y: nd.result["y"]}];
                 }
