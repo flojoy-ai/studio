@@ -75,7 +75,6 @@ const ControlComponent = ({
   let plotOptions: ControlOptions[] = [];
   let inputOptions: any = [];
   let outputOptions: any = [];
-  let nodeType: string = '';
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
@@ -119,12 +118,10 @@ const ControlComponent = ({
             " (#" +
             node.id.slice(-5) +
             ")";
-          options.push({ label: label, value: node.id, type: node.data.label });
+          options.push({ label: label, value: node.id });
         }
       });
     }
-
-    nodeType = options.find((option) => option.value === ctrlObj?.param?.node)?.type || '';
 
     if (ctrlObj.name === ControlNames.Plot) {
       PlotTypesManifest.forEach((item) => {
@@ -293,7 +290,7 @@ const ControlComponent = ({
         />
       )}
       
-      {(nodeType) &&
+      {(isEditMode && ctrlObj.name === ControlNames.Plot) &&
         <div
           style={{
             display: "flex",
@@ -314,7 +311,7 @@ const ControlComponent = ({
           styles={customDropdownStyles}
           theme={theme}
         />
-        {(nodeType === '+' || nodeType === 'X') && 
+        {(selectedPlotType.type !== 'histogram') && 
         <Select
           className="select-plot-type"
           isSearchable={true}
