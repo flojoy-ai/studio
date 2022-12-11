@@ -73,8 +73,8 @@ const ControlComponent = ({
 
   let options: ControlOptions[] = [];
   let plotOptions: ControlOptions[] = [];
-  let inputOptions: any = [];
-  let outputOptions: any = [];
+  let inputOptions: ControlOptions[] = [];
+  let outputOptions: ControlOptions[] = [];
 
   if (ctrlObj.type === ControlTypes.Input) {
     if (flowChartObject.elements !== undefined) {
@@ -157,17 +157,23 @@ const ControlComponent = ({
                 if (ctrlObj.name === ControlNames.Plot) {
                   const type = selectedPlotType?.type;
                   const mode = selectedPlotType?.mode;
+                  if (typeof nd.result["x"] === 'object') {
+                    for (const [key, value] of Object.entries(nd.result["x"])) {
+                      inputOptions.push({ label: key, value: value });
+                    }
+                  } else {
+                    inputOptions.push({ label: 'x', value: nd.result["x"] })
+                  }
+                  if (selectedPlotType.type === 'histogram') {
+                    inputOptions.push({ label: 'y', value: nd.result["y"] })
+                  }
+
+                  outputOptions.push({ label: 'y', value: nd.result["y"] })
+
                   plotData = [{ x: nd.result["x"], y: nd.result["y"], z: Array(nd.result["x"].length).fill(0), type, mode }];
                 } else {
                   plotData = [{ x: nd.result["x"], y: nd.result["y"]}];
                 }
-                
-                if (nodeType === '+' || nodeType === 'X') {
-                  inputOptions = Object.values(nd.result["x"]);
-                } else {
-                  inputOptions = nd.result["x"];
-                }
-                outputOptions = nd.result["y"];
               }
             }
           }
@@ -307,6 +313,7 @@ const ControlComponent = ({
 
             }
           }}
+          placeholder="Select X"
           options={inputOptions}
           styles={customDropdownStyles}
           theme={theme}
@@ -320,6 +327,7 @@ const ControlComponent = ({
             if (val) {
             }
           }}
+          placeholder="Select Y"
           options={outputOptions}
           styles={customDropdownStyles}
           theme={theme}
