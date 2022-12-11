@@ -7,12 +7,18 @@ import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";
 
+export interface CtrlManifestParam {
+  functionName: string;
+  param: string;
+  nodeId: string;
+  id: string;
+}
 export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: any;
-  val?: any;
+  param?: string | CtrlManifestParam;
+  val?: string | number;
   hidden?: boolean;
   controlGroup?: string;
   label?: string;
@@ -117,7 +123,7 @@ export function useFlowChartState() {
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
-      var blob = new Blob([fileContentJsonString], {
+      const blob = new Blob([fileContentJsonString], {
         type: "text/plain;charset=utf-8",
       });
       saveAs(blob, "flojoy.txt");
@@ -138,7 +144,6 @@ export function useFlowChartState() {
         }
       }
     });
-
   };
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setElements((elements) => {

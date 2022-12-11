@@ -25,9 +25,8 @@ import { useControlsTabEffects } from "./ControlsTabEffects";
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
-  const {
-    states: { socketId, setProgramResults },
-  } = useSocket();
+  const { states } = useSocket();
+  const { socketId, setProgramResults } = states!;
   const {
     openEditModal,
     setOpenEditModal,
@@ -49,7 +48,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setGridLayout,
   } = useFlowChartState();
 
-  const afterOpenModal = () => {};
+  const afterOpenModal = () => null;
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
@@ -109,7 +108,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    let filterChilds: any[] = ctrlsManifest.filter(
+    const filterChilds: any[] = ctrlsManifest.filter(
       (ctrl) => ctrl.id !== ctrlId
     );
     cacheManifest(filterChilds);
@@ -121,7 +120,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   };
 
   const updateCtrlValue = (val: any, ctrl: any) => {
-    let manClone = clone(ctrlsManifest);
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].val = val;
@@ -159,8 +158,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
         ? fnParam.default
         : 0;
     const ctrlData = ctrls && ctrls[param?.id];
-    let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-    let manClone = clone(ctrlsManifest);
+    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].param = param;

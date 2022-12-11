@@ -42,7 +42,7 @@ export class WebSocketServer {
   }
   init() {
     this.server.onmessage = (ev) => {
-      let data = JSON.parse(ev.data);
+      const data = JSON.parse(ev.data);
       // console.log("data received: ", data.type === "heartbeat_response");
       switch (data.type) {
         case "worker_response":

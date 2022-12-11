@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView"; //"./feature/flow_chart_panel/FlowChartTabView.tsx";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
@@ -17,9 +17,8 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const {
-    states: { serverStatus, programResults, runningNode, failedNode },
-  } = useSocket();
+  const { states } = useSocket();
+  const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState([]);

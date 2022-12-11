@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-explicit-any: 0 */
 import { useEffect } from "react";
 import Plot, { PlotParams } from "react-plotly.js";
 
