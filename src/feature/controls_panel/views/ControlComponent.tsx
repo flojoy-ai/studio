@@ -236,6 +236,84 @@ const ControlComponent = ({
         </p>
       )}
 
+      {isEditMode && ctrlObj.name === ControlNames.Plot && (
+        <Select
+          className="select-plot-type"
+          isSearchable={true}
+          onChange={(val) => {
+            if (val) {
+              attachParamsToCtrl({
+                node: selectedOption?.value,
+                plot: val.value
+              }, ctrlObj);
+            }
+          }}
+          theme={theme as unknown as ThemeConfig}
+          options={plotOptions}
+          styles={customDropdownStyles}
+          value={selectedPlotOption}
+        />
+      )}
+
+      {!isEditMode && ctrlObj.name === ControlNames.Plot && (
+        <p className="ctrl-param">
+          Plot: {plotOptions?.find((option) => 
+            option.value.type === (ctrlObj?.param as PlotManifestParam)?.plot?.type
+            && option.value.mode === (ctrlObj?.param as PlotManifestParam)?.plot?.mode)?.label}
+        </p>
+        
+      )}
+
+      {(isEditMode && ctrlObj.name === ControlNames.Plot) &&
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flex: "1",
+          }}
+        >
+          <Select
+            className="select-plot-type"
+            isSearchable={true}
+            onChange={(val) => {
+              if (val) {
+                attachParamsToCtrl({
+                  node: selectedOption?.value,
+                  plot: selectedPlotOption?.value,
+                  input: val.value,
+                  output: selectedOutputOption?.value
+                }, ctrlObj);
+              }
+            }}
+            placeholder="Select X"
+            options={inputOptions}
+            styles={customDropdownStyles}
+            theme={theme as unknown as ThemeConfig}
+            value={selectedInputOption}
+          />
+          {(selectedPlotOption?.type !== 'histogram') &&
+            <Select
+              className="select-plot-type"
+              isSearchable={true}
+            onChange={(val) => {
+              if (val) {
+                attachParamsToCtrl({
+                  node: selectedOption?.value,
+                  plot: selectedPlotOption?.value,
+                  input: selectedInputOption?.value,
+                  output: val.value
+                }, ctrlObj);
+              }
+            }}
+              placeholder="Select Y"
+              options={outputOptions}
+              styles={customDropdownStyles}
+              theme={theme as unknown as ThemeConfig}
+              value={selectedOutputOption}
+            />}
+        </div>
+      }
+
       {ctrlObj.name === ControlNames.Plot && (
         <div
           style={{
