@@ -224,10 +224,11 @@ const ControlComponent = ({
           </button>
         </div>
       )}
+
       {!isEditMode && (
         <p className="ctrl-param">
           {ctrlObj.type === "output"
-            ? selectOptions?.find((option) => option.value === ctrlObj?.param)
+            ? selectOptions?.find((option) => option.value === (ctrlObj?.param as PlotManifestParam)?.node)
               ?.label
             : selectOptions?.find(
               (option) =>
