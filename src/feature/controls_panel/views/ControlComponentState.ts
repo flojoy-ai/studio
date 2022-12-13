@@ -51,9 +51,9 @@ const ControlComponentState = ({
   const [plotData, setPlotData] = useState([{
     x: [1, 2, 3],
     y: [1, 2, 3],
-    // z: [1, 2, 3],
-    // type: 'scatter',
-    // mode: 'lines'
+    z: [1, 2, 3],
+    type: 'scatter',
+    mode: 'lines'
   }]);
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined

@@ -137,9 +137,9 @@ const useControlComponentEffects = ({
                   setPlotData([{
                     x: selectedInputOption?.value,
                     y: selectedOutputOption?.value,
-                    // z: Array(selectedInputOption?.value.length).fill(0),
-                    // type: selectedPlotOption?.value.type,
-                    // mode: selectedPlotOption?.value.mode
+                    z: Array(selectedInputOption?.value.length).fill(0),
+                    type: selectedPlotOption?.value.type,
+                    mode: selectedPlotOption?.value.mode
                   }]);
                 }
               }
