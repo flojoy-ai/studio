@@ -13,11 +13,24 @@ export interface CtrlManifestParam {
   nodeId: string;
   id: string;
 }
+
+export interface PlotManifestParam {
+  node: string;
+  plot: PlotType;
+  input?: string;
+  output?: string;
+}
+
+interface PlotType {
+  type: string,
+  mode: string
+}
+
 export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: string | CtrlManifestParam;
+  param?: PlotManifestParam | CtrlManifestParam;
   val?: string | number;
   hidden?: boolean;
   controlGroup?: string;
