@@ -1,9 +1,6 @@
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import {
-  ResultIO,
-  ResultsType,
-} from "@src/feature/results_panel/types/ResultsType";
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
   CtrlManifestParam,
@@ -13,6 +10,7 @@ import localforage from "localforage";
 import { useState } from "react";
 import { Elements, FlowExportObject } from "react-flow-renderer";
 import { ControlOptions } from "../types/ControlOptions";
+import { PlotDataType } from "../types/PlotData";
 type ControlComponentStateProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
@@ -28,14 +26,18 @@ const ControlComponentState = ({
     useFlowChartState();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
+  const [plotOptions, setPlotOptions] = useState<ControlOptions[]>([]);
+  const [inputOptions, setInputOptions] = useState<ControlOptions[]>([]);
+  const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
+
   const [flowChartObject, setFlowChartObject] = useState<
     | FlowExportObject<{
-        label: string;
-        func: string;
-        elements: Elements;
-        position: [number, number];
-        zoom: number;
-      }>
+      label: string;
+      func: string;
+      elements: Elements;
+      position: [number, number];
+      zoom: number;
+    }>
     | undefined
   >(undefined);
   const [knobValue, setKnobValue] = useState<number>();
@@ -47,8 +49,23 @@ const ControlComponentState = ({
   >(undefined);
   const [currentInputValue, setCurrentInputValue] = useState(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
-  const [plotData, setPlotData] = useState([{ x: [1, 2, 3], y: [1, 2, 3] }]);
+  const [plotData, setPlotData] = useState<PlotDataType[] | undefined>([{
+    x: [1, 2, 3],
+    y: [1, 2, 3],
+    z: [1, 2, 3],
+    type: 'scatter',
+    mode: 'lines'
+  }]);
   const [selectedOption, setSelectedOption] = useState<
+    ControlOptions | undefined
+  >(undefined);
+  const [selectedPlotOption, setSelectedPlotOption] = useState<
+    ControlOptions | undefined
+  >(undefined);
+  const [selectedInputOption, setSelectedInputOption] = useState<
+    ControlOptions | undefined
+  >(undefined);
+  const [selectedOutputOption, setSelectedOutputOption] = useState<
     ControlOptions | undefined
   >(undefined);
   const styledLayout = styledPlotLayout(theme);
@@ -64,8 +81,8 @@ const ControlComponentState = ({
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val
       : fnParam?.default
-      ? fnParam.default
-      : 0;
+        ? fnParam.default
+        : 0;
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
@@ -73,6 +90,7 @@ const ControlComponentState = ({
         value: option,
       };
     }) || [];
+
   return {
     ctrls,
     defaultValue,
@@ -83,6 +101,12 @@ const ControlComponentState = ({
     isEditMode,
     selectOptions,
     setSelectOptions,
+    plotOptions,
+    setPlotOptions,
+    inputOptions,
+    setInputOptions,
+    outputOptions,
+    setOutputOptions,
     flowChartObject,
     setFlowChartObject,
     knobValue,
@@ -103,6 +127,12 @@ const ControlComponentState = ({
     setPlotData,
     selectedOption,
     setSelectedOption,
+    selectedPlotOption,
+    setSelectedPlotOption,
+    selectedInputOption,
+    setSelectedInputOption,
+    selectedOutputOption,
+    setSelectedOutputOption,
     localforage,
     flowKey,
   };
