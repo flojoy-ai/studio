@@ -16,7 +16,7 @@ export interface CtrlManifestParam {
 
 export interface PlotManifestParam {
   node: string;
-  plot: PlotType;
+  plot?: PlotType;
   input?: string;
   output?: string;
 }
