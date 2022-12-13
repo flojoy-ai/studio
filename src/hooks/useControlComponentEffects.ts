@@ -120,7 +120,27 @@ const useControlComponentEffects = ({
                 if ("data" in nd!.result) {
                   setPlotData(nd!.result!.data!);
                 } else {
-                  setPlotData([{ x: nd!.result["x"]!, y: nd!.result["y"]! }]);
+                  const inputOptions: ControlOptions[] = [];
+                  if (typeof nd!.result["x"] === 'object') {
+                    for (const [key, value] of Object.entries(nd!.result["x"]!)) {
+                      inputOptions.push({ label: key, value: value });
+                    }
+                  } else {
+                    inputOptions.push({ label: 'x', value: nd!.result["x"]! })
+                  }
+                  if (selectedPlotOption?.value.type === 'histogram') {
+                    inputOptions.push({ label: 'y', value: nd!.result["y"]! })
+                  }
+
+                  setInputOptions(inputOptions);
+                  setOutputOptions([{ label: 'y', value: nd!.result["y"]!}])
+                  setPlotData([{
+                    x: selectedInputOption?.value,
+                    y: selectedOutputOption?.value,
+                    z: Array(selectedInputOption?.value.length).fill(0),
+                    type: selectedPlotOption?.value.type,
+                    mode: selectedPlotOption?.value.mode
+                  }]);
                 }
               }
             }
