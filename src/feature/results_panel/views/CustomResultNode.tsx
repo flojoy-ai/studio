@@ -25,23 +25,6 @@ const CustomResultNode = ({ data }) => {
       {!data?.resultData ? (
         <p> `NO Result`</p>
       ) : (
-        // <Plot
-        //   data={
-        //     !data.resultData?.data
-        //       ? [{ x: data.resultData["x"], y: data.resultData["y"] }]
-        //       : data.resultData.data
-        //   }
-        //   layout={
-        //     !data.resultData?.layout
-        //       ? Object.assign({}, { title: `${data.func}` }, styledLayout)
-        //       : Object.assign({},{ title: `${data.func}` }, data.resultData.layout, styledLayout)
-        //   }
-        //   useResizeHandler
-        //   style={{
-        //     height: 235,
-        //     width: 230,
-        //   }}
-        // />
         <PlotlyComponent
           id={data.id}
           data={
@@ -52,12 +35,17 @@ const CustomResultNode = ({ data }) => {
           layout={
             !data.resultData?.layout
               ? Object.assign({}, { title: `${data.func}` }, styledLayout)
-              : Object.assign({},{ title: `${data.func}` }, data.resultData.layout, styledLayout)
+              : Object.assign(
+                  {},
+                  { title: `${data.func}` },
+                  data.resultData.layout,
+                  styledLayout
+                )
           }
           useResizeHandler
           style={{
-            height: 235,
-            width: 230,
+            height: 190,
+            width: 210,
           }}
         />
       )}

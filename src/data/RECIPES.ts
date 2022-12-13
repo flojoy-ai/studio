@@ -6,32 +6,35 @@ const multiply2AddX = 190 + 70;
 const add2ScatterX = 99 + 127;
 
 class NodePosition {
-  constructor(private readonly START_POSITION_X:number, private readonly START_POSITION_Y: number){}
+  constructor(
+    private readonly START_POSITION_X: number,
+    private readonly START_POSITION_Y: number
+  ) {}
   linspace = {
     x: this.START_POSITION_X,
     y: this.START_POSITION_Y + sine2otherY,
   };
-  sine={
+  sine = {
     x: this.START_POSITION_X + lin2SineX,
     y: this.START_POSITION_Y,
-  }
-  rand= {
+  };
+  rand = {
     x: this.START_POSITION_X + lin2SineX,
     y: this.START_POSITION_Y + sine2otherY,
-  }
-  2= {
+  };
+  2 = {
     x: this.START_POSITION_X + lin2SineX,
     y: this.START_POSITION_Y + sine2otherY + 157,
   };
-  multiply= {
+  multiply = {
     x: this.START_POSITION_X + lin2SineX + sine2multiplyX,
     y: this.START_POSITION_Y + sine2multiplyY,
-  }
-  add= {
+  };
+  add = {
     x: this.START_POSITION_X + lin2SineX + sine2multiplyX + multiply2AddX,
     y: this.START_POSITION_Y + sine2otherY,
-  }
-  scatter= {
+  };
+  scatter = {
     x:
       this.START_POSITION_X +
       lin2SineX +
@@ -39,12 +42,12 @@ class NodePosition {
       multiply2AddX +
       add2ScatterX,
     y: this.START_POSITION_Y,
-  }
-  line= {
-    x:this.scatter.x,
-    y: this.scatter.y + 162
-  }
-  histogram= {
+  };
+  line = {
+    x: this.scatter.x,
+    y: this.scatter.y + 162,
+  };
+  histogram = {
     x:
       this.START_POSITION_X +
       lin2SineX +
@@ -52,23 +55,23 @@ class NodePosition {
       multiply2AddX +
       add2ScatterX,
     // y: this.START_POSITION_Y + sine2otherY + sine2otherY - 42,
-    y: this.line.y + 162
-  }
-  surface3d={
-    x:this.scatter.x,
-    y:this.histogram.y + 162
-  }
-  scatter3d={
+    y: this.line.y + 162,
+  };
+  surface3d = {
     x: this.scatter.x,
-    y: this.surface3d.y + 162
-  }
+    y: this.histogram.y + 162,
+  };
+  scatter3d = {
+    x: this.scatter.x,
+    y: this.surface3d.y + 162,
+  };
   bar = {
     x: this.scatter.x,
-    y: this.scatter.y - 162
-  }
+    y: this.scatter.y - 162,
+  };
 }
 
-export const nodePosition =  new NodePosition(0, 105)
+export const nodePosition = new NodePosition(0, 105);
 
 export const NOISY_SINE = {
   elements: [
@@ -186,7 +189,7 @@ export const NOISY_SINE = {
         func: "CONSTANT",
         type: "GENERATOR",
         ctrls: {
-          "CONSTANT_2.0_CONSTANT": {
+          "CONSTANT_2.0_constant": {
             functionName: "CONSTANT",
             param: "constant",
             value: "3",

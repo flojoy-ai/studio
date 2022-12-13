@@ -12,7 +12,6 @@ import CustomEdge from "../flow_chart_panel/views/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import { resultNodePosition } from "./manifest/NODE_POSITION_MANIFEST";
 
 import "./style/Results.css";
 
@@ -20,20 +19,19 @@ const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
 const nodeTypes: NodeTypesType = { default: CustomResultNode as any };
 
 const ResultsTab = ({ results }) => {
-  const {
-    resultElements,
-    setResultElements,
-  } = useResultsTabState();
-  const { rfInstance } = useFlowChartState();
+  const { resultElements, setResultElements } = useResultsTabState();
+  const { elements } = useFlowChartState();
 
   const { width: windowWidth } = useWindowSize();
   const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
     rfIns.fitView();
-    const flowSize = 1304;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 3 : 0;
+
+    const flowSize = 1107;
+    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
+
     rfIns.setTransform({
       x: xPosition,
-      y: 52,
+      y: 61,
       zoom: 0.7,
     });
   };
@@ -41,16 +39,16 @@ const ResultsTab = ({ results }) => {
   const ReactFlowProviderAny: any = ReactFlowProvider;
 
   const nodeResults = useMemo(
-    () => ("io" in results ? results.io : []),
+    () => (results && "io" in results ? results.io : []),
     [results]
   );
 
   useEffect(() => {
-    if (nodeResults && nodeResults.length > 0 && rfInstance) {
+    if (nodeResults && nodeResults.length > 0 && elements.length > 0) {
       setResultElements(
-        rfInstance?.elements.map((elem) => ({
+        elements.map((elem: any) => ({
           ...elem,
-          position: resultNodePosition[elem?.data?.func],
+          position: elem.position, //resultNodePosition[elem?.data?.func],
           data: {
             ...elem.data,
             ...(!("source" in elem) && {
@@ -61,7 +59,8 @@ const ResultsTab = ({ results }) => {
         }))
       );
     }
-  }, [nodeResults, rfInstance, setResultElements]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nodeResults, elements]);
 
   return (
     <ReactFlowProviderAny>
