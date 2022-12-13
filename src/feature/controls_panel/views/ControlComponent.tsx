@@ -3,7 +3,6 @@ import Plot from "react-plotly.js";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import localforage from "localforage";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -13,6 +12,7 @@ import useControlComponentEffects from "@hooks/useControlComponentEffects";
 import {
   CtlManifestType,
   CtrlManifestParam,
+  PlotManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 
@@ -21,7 +21,7 @@ type ControlComponentProps = {
   theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (val: string, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (val: PlotManifestParam, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
@@ -69,6 +69,18 @@ const ControlComponent = ({
     setPlotData,
     selectedOption,
     setSelectedOption,
+    plotOptions,
+    setPlotOptions,
+    inputOptions,
+    setInputOptions,
+    outputOptions,
+    setOutputOptions,
+    selectedPlotOption,
+    setSelectedPlotOption,
+    selectedInputOption,
+    setSelectedInputOption,
+    selectedOutputOption,
+    setSelectedOutputOption,
     ctrls,
     defaultValue,
     paramOptions,
@@ -137,6 +149,15 @@ const ControlComponent = ({
     results,
     selectedOption,
     selectOptions,
+    plotOptions,
+    inputOptions,
+    outputOptions,
+    sliderInput,
+    styledLayout,
+    textInput,
+    selectedPlotOption,
+    selectedInputOption,
+    selectedOutputOption,
     setCurrentInputValue,
     setDebouncedTimerForKnobId,
     setFlowChartObject,
@@ -146,12 +167,15 @@ const ControlComponent = ({
     setNumberInput,
     setPlotData,
     setSelectedOption,
+    setSelectedPlotOption,
+    setSelectedInputOption,
+    setSelectedOutputOption,
     setSelectOptions,
+    setPlotOptions,
+    setInputOptions,
+    setOutputOptions,
     setSliderInput,
     setTextInput,
-    sliderInput,
-    styledLayout,
-    textInput,
   });
 
   return (
