@@ -1,3 +1,4 @@
+import { ControlOptions } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/ControlComponentState";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
@@ -6,8 +7,13 @@ import { Elements, FlowExportObject } from "react-flow-renderer";
 import {
   ControlNames,
   ControlTypes,
+  PlotTypesManifest,
 } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
-import { CtlManifestType, CtrlManifestParam } from "./useFlowChartState";
+import {
+  CtlManifestType,
+  CtrlManifestParam,
+  PlotManifestParam
+} from "./useFlowChartState";
 
 const useControlComponentEffects = ({
   flowChartObject,
@@ -15,17 +21,25 @@ const useControlComponentEffects = ({
   flowKey,
   setFlowChartObject,
   setSelectedOption,
+  setSelectedPlotOption,
   ctrlObj,
   selectOptions,
+  plotOptions,
   results,
   setNd,
   setPlotData,
   nd,
   selectedOption,
+  selectedPlotOption,
+  selectedInputOption,
+  selectedOutputOption,
   setCurrentInputValue,
   defaultValue,
   ctrls,
   setSelectOptions,
+  setPlotOptions,
+  setInputOptions,
+  setOutputOptions,
   setKnobValue,
   setTextInput,
   setNumberInput,
