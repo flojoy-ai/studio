@@ -86,16 +86,28 @@ const useControlComponentEffects = ({
   ]);
 
   useEffect(() => {
+    setSelectedPlotOption(
+      plotOptions?.find((option) =>
+        option.value.type === (ctrlObj?.param as PlotManifestParam)?.plot?.type
+        && option.value.mode === (ctrlObj?.param as PlotManifestParam)?.plot?.mode)!
+    );
+  }, [
+    ctrlObj?.param,
+    plotOptions,
+  ]);
+
+  useEffect(() => {
     setNumberInput("0");
     setTextInput("");
     setKnobValue(0);
     setSliderInput("0");
   }, [selectedOption]);
+
   useEffect(() => {
     try {
       if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
         // figure out what we're visualizing
-        const nodeIdToPlot = ctrlObj.param;
+        const nodeIdToPlot = (ctrlObj?.param as PlotManifestParam)?.node;
         if (nodeIdToPlot) {
           if (results && "io" in results) {
             const runResults = results.io!.reverse();
@@ -119,6 +131,7 @@ const useControlComponentEffects = ({
       console.error(e);
     }
   }, [ctrlObj, nd, results, selectedOption]);
+
   useEffect(() => {
     if (ctrls) {
       setCurrentInputValue(
@@ -128,6 +141,7 @@ const useControlComponentEffects = ({
       setCurrentInputValue(defaultValue as number);
     }
   }, [ctrls, ctrlObj, selectedOption]);
+
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
       if (flowChartObject!?.elements !== undefined) {
@@ -181,9 +195,21 @@ const useControlComponentEffects = ({
           }
         });
       }
+      if (ctrlObj.name === ControlNames.Plot) {
+        PlotTypesManifest.forEach((item) => {
+          plotOptions.push({ 
+            label: item.name,
+            value: {
+              type: item.type,
+              mode: item.mode || undefined 
+            } 
+          });
+        });
+      }
     }
     return () => {
       setSelectOptions([]);
+      setPlotOptions([])
     };
   }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
 };
