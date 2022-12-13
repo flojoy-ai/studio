@@ -10,7 +10,6 @@ import localforage from "localforage";
 import { useState } from "react";
 import { Elements, FlowExportObject } from "react-flow-renderer";
 import { ControlOptions } from "../types/ControlOptions";
-import { PlotDataType } from "../types/PlotData";
 type ControlComponentStateProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
@@ -49,7 +48,7 @@ const ControlComponentState = ({
   >(undefined);
   const [currentInputValue, setCurrentInputValue] = useState(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
-  const [plotData, setPlotData] = useState<PlotDataType[] | undefined>([{
+  const [plotData, setPlotData] = useState([{
     x: [1, 2, 3],
     y: [1, 2, 3],
     z: [1, 2, 3],
