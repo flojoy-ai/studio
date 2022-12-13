@@ -193,7 +193,12 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              if (val) attachParamsToCtrl(val.value, ctrlObj);
+              if (val) {
+                attachParamsToCtrl({
+                  node: val.value,
+                  plot: selectedPlotOption?.value,
+                }, ctrlObj);
+              }
             }}
             theme={theme as unknown as ThemeConfig}
             options={selectOptions}
