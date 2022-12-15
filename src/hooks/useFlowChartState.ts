@@ -32,7 +32,7 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialElements: Elements = NOISY_SINE.elements;
+const initialElements: Elements = [];
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",
@@ -150,6 +150,35 @@ export function useFlowChartState() {
       }
     });
   };
+
+  const fetchExampleApp = (fileName: string) => {
+    fetch("/example-apps/" + fileName, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setCtrlsManifest(data.ctrlsManifest || initialManifests);
+        const flow = data.rfInstance;
+        setGridLayout(data.gridLayout);
+        loadFlowExportObject(flow);
+      })
+      .catch((err) => console.log("fetch example app err: ", err));
+  };
+
+  useEffect(() => {
+    if (elements?.length === 0) {
+      const queryString = window?.location?.search;
+      const fileName =
+        queryString.startsWith("?test_example_app") &&
+        queryString.split("=")[1];
+      fetchExampleApp(fileName || "flojoy.txt");
+    }
+  }, [window?.location?.search]);
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
