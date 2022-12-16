@@ -129,14 +129,30 @@ export function useFlowChartState() {
   const updateCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
-    inputData: any
+    inputData: {
+      functionName: string;
+      param: string;
+      value: string | number;
+    }
   ) => {
     setElements((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        node.data.ctrls[paramId] = inputData;
         if (node.data.func === "CONSTANT") {
+          const nodeCtrls = node.data.ctrls;
+          const splitNodeCtrlKey = Object.keys(nodeCtrls)[0].split("_");
+          const ctrlKey =
+            splitNodeCtrlKey[0] +
+            "_" +
+            inputData.value +
+            "_" +
+            splitNodeCtrlKey[2];
+          node.data.ctrls = {
+            [ctrlKey]: inputData,
+          };
           node.data.label = inputData.value;
+        } else {
+          node.data.ctrls[paramId] = inputData;
         }
       }
     });

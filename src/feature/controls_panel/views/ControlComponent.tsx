@@ -3,7 +3,6 @@ import Plot from "react-plotly.js";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import localforage from "localforage";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -15,13 +14,17 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ControlOptions, CtrlOptionValue } from "../types/ControlOptions";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (val: string, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (
+    val: ControlOptions["value"],
+    ctrlObj: CtlManifestType
+  ) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
@@ -207,7 +210,8 @@ const ControlComponent = ({
                 ?.label
             : selectOptions?.find(
                 (option) =>
-                  option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
+                  (option.value as CtrlOptionValue).id ===
+                  (ctrlObj?.param as CtrlManifestParam)?.id
               )?.label}
         </p>
       )}

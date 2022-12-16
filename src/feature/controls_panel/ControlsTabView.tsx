@@ -11,6 +11,7 @@ import ReactSwitch from "react-switch";
 import "../../App.css";
 import {
   CtlManifestType,
+  CtrlManifestParam,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
@@ -20,6 +21,7 @@ import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MAN
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
+import { CtrlOptionValue } from "./types/ControlOptions";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -116,7 +118,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }
   };
 
-  const updateCtrlValue = (val: any, ctrl: any) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -124,22 +126,20 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       }
     });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
-      functionName: ctrl.param.functionName,
-      param: ctrl.param.param,
-      value: val,
-    });
+    updateCtrlInputDataForNode(
+      (ctrl.param! as CtrlManifestParam).nodeId,
+      (ctrl.param! as CtrlManifestParam).id,
+      {
+        functionName: (ctrl.param! as CtrlManifestParam).functionName,
+        param: (ctrl.param! as CtrlManifestParam).param,
+        value: val,
+      }
+    );
   };
 
   const attachParamsToCtrl = (
-    param: {
-      id: string;
-      functionName: string;
-      param: string;
-      nodeId: string;
-      inputId: string;
-    },
-    ctrl: any
+    param: CtrlOptionValue,
+    ctrl: CtlManifestType
   ) => {
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
@@ -165,14 +165,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     });
     cacheManifest(manClone);
   };
-
-  // useEffect(() => {
-  //   if (rfInstance?.elements.length === 0) {
-  //     setCtrlsManifest([]);
-  //   } else {
-  //     saveAndRunFlowChart();
-  //   }
-  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
