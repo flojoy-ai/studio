@@ -72,7 +72,7 @@ const useControlComponentEffects = ({
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
-        ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
+        ? selectOptions?.find((option) => option.value === (ctrlObj?.param as PlotManifestParam)?.node)!
         : selectOptions?.find(
             (option) =>
               option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
@@ -198,7 +198,7 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!.elements !== undefined) {
+      if (flowChartObject!?.elements !== undefined) {
         flowChartObject!.elements.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
