@@ -14,10 +14,10 @@ import {
   CtrlManifestParam,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { useSocket } from "../../hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
+import ModalCloseSvg from "@src/utils/ModalCloseSvg";
+import { useSocket } from "@src/hooks/useSocket";
+import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
@@ -55,7 +55,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setOpenCtrlModal(false);
   };
 
-  async function cacheManifest(manifest: CtlManifestType[]) {
+  function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -224,7 +224,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });

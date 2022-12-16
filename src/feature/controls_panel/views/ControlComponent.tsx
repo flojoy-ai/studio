@@ -22,7 +22,7 @@ type ControlComponentProps = {
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   attachParamsToCtrl: (
-    val: ControlOptions["value"],
+    val: CtrlOptionValue,
     ctrlObj: CtlManifestType
   ) => void;
   removeCtrl: (
@@ -103,14 +103,17 @@ const ControlComponent = ({
   );
 
   const handleCtrlValueChange = (
-    func: Dispatch<SetStateAction<string>>,
+    setValue: Dispatch<SetStateAction<string>>,
     value: string
   ) => {
-    func(value);
+    setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
       return;
     }
     updateCtrlValue(value, ctrlObj);
+    if((ctrlObj.param as CtrlManifestParam).functionName === 'CONSTANT'){
+      attachParamsToCtrl({...selectedOption?.value as CtrlOptionValue, id: 'CONSTANT_'+ value +'_constant' }, ctrlObj)
+    }
   };
 
   const makeLayoutStatic = () => {
@@ -165,6 +168,7 @@ const ControlComponent = ({
         flex: "1",
         padding: "16px",
       }}
+      data-cy={ctrlObj.id}
     >
       {isEditMode && (
         <div className="ctrl-header" data-cy="ctrls-select">
@@ -172,7 +176,7 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              if (val) attachParamsToCtrl(val.value, ctrlObj);
+              if (val) attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}
             theme={theme as unknown as ThemeConfig}
             options={selectOptions}

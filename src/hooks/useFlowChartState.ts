@@ -146,7 +146,7 @@ export function useFlowChartState() {
             "_" +
             inputData.value +
             "_" +
-            splitNodeCtrlKey[2];
+            splitNodeCtrlKey[2].toLowerCase();
           node.data.ctrls = {
             [ctrlKey]: inputData,
           };
