@@ -217,13 +217,16 @@ const useControlComponentEffects = ({
       }
       if (ctrlObj.name === ControlNames.Plot) {
         PlotTypesManifest.forEach((item) => {
-          plotOptions.push({ 
-            label: item.name,
-            value: {
-              type: item.type,
-              mode: item.mode || undefined 
-            } 
-          });
+          setPlotOptions((prev) => [
+            ...prev,
+            {
+              label: item.name,
+              value: {
+                type: item.type,
+                mode: item.mode || undefined
+              }
+            },
+          ]);
         });
       }
     }
