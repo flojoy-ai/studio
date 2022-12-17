@@ -36,7 +36,7 @@ const createMainWindow = () => {
 
   mainWindow.on('closed', () => {
     mainWindow.destroy();
-    runCommand('docker compose -f docker-compose-prod.yml down')
+    runCommand('docker compose -f docker-compose.yml down')
       .then(() => {
         if (process.platform !== 'darwin') {
           app.quit();
@@ -53,7 +53,7 @@ const createMainWindow = () => {
 
 
 app.whenReady().then(() => {
-  runCommand('docker compose -f docker-compose-prod.yml up');
+  runCommand('docker compose -f docker-compose.yml up');
 
   createMainWindow();
   app.on('activate', () => {
