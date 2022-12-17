@@ -3,7 +3,7 @@ import Plot from "react-plotly.js";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import localforage from "localforage";
+import { Display as SevenSegmentDisplay } from "react-7-segment-display";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -225,6 +225,26 @@ const ControlComponent = ({
             data={plotData}
             layout={styledLayout}
             style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      )}
+      {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+            paddingBottom: "10px",
+          }}
+        >
+          <SevenSegmentDisplay
+            color="#99F5FF"
+            count={2}
+            height={200}
+            skew={false}
+            value={plotData}
           />
         </div>
       )}

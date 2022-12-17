@@ -79,7 +79,7 @@ const useControlComponentEffects = ({
   }, [selectedOption]);
   useEffect(() => {
     try {
-      if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
+      // if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
         // figure out what we're visualizing
         const nodeIdToPlot = ctrlObj.param;
         if (nodeIdToPlot) {
@@ -100,7 +100,7 @@ const useControlComponentEffects = ({
             }
           }
         }
-      }
+      // }
     } catch (e) {
       console.error(e);
     }
@@ -150,7 +150,7 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!.elements !== undefined) {
+      if (flowChartObject!?.elements !== undefined) {
         flowChartObject!.elements.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
