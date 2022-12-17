@@ -268,7 +268,7 @@ export const NOISY_SINE = {
       source: "SINE-userGeneratedNode_1646417316016",
       sourceHandle: null,
       target: "MULTIPLY-userGeneratedNode_1646417352715",
-      targetHandle: "MULTIPLY",
+      targetHandle: null,
       id: "reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
     },
     // {
@@ -356,3 +356,258 @@ export const NOISY_SINE = {
   position: [0, 0],
   zoom: 0.8,
 };
+
+export const LOOP_APP = {
+  elements: [
+    {
+      "id": "LINSPACE-userGeneratedNode_1646432683694",
+      "data": {
+        "label": "LINSPACE",
+        "func": "LINSPACE",
+        "type": "GENERATOR",
+        "ctrls": {
+          "LINSPACE_LINSPACE_START": {
+            "functionName": "LINSPACE",
+            "param": "start",
+            "value": 1
+          },
+          "LINSPACE_LINSPACE_END": {
+            "functionName": "LINSPACE",
+            "param": "end",
+            "value": 14
+          },
+          "LINSPACE_LINSPACE_STEP": {
+            "functionName": "LINSPACE",
+            "param": "step",
+            "value": 3
+          }
+        }
+      },
+      "position": {
+        "x": -61,
+        "y": 268
+      },
+      "type": "default"
+    },
+    {
+      "id": "LOOP-userGeneratedNode_1646417604301",
+      "data": {
+        "label": "LOOP",
+        "func": "LOOP",
+        "type": "LOOP",
+        "ctrls": {
+          "initial_value": {
+            "value": 0,
+            "param": "initial_count"
+          },
+          "numder_of_iterations": {
+            "value": 3,
+            "param": "iteration_count"
+          },
+          "iteration_step":{
+            "value":1,
+            "param":"step"
+          }
+        },
+        inputs: [
+          {
+            name: "body",
+            id: "body",
+          },
+          {
+            name: "end",
+            id: "end"
+          }
+        ]
+      },
+      "position": {
+        "x": 265,
+        "y": 281
+      },
+      "type": "default"
+    },
+    {
+      "id": "RAND-userGeneratedNode_1646417371398",
+      "data": {
+        "label": "RAND",
+        "func": "RAND",
+        "type": "GENERATOR",
+        "ctrls": {
+
+        }
+      },
+      "position": {
+        "x": 550,
+        "y": 619
+      },
+      "type": "default"
+    },
+    {
+      "id": "MULTIPLY-userGeneratedNode_1646417352715",
+      "data": {
+        "label": "MULTIPLY",
+        "func": "MULTIPLY",
+        "type": "TRANSFORMER",
+        "ctrls": {
+
+        },
+        inputs: [
+          {
+            name: "y",
+            id: "multiply_y",
+          },
+        ],
+      },
+      "position": {
+        "x": 715,
+        "y": 495
+      },
+      "type": "default"
+    },
+    {
+      "id": "CONDITIONAL-userGeneratedNode_1646435677929",
+      "data": {
+        "label": "CONDITIONAL",
+        "func": "CONDITIONAL",
+        "type": "COMPARATOR",
+        "ctrls": {
+          "CONDITIONAL_OPERATOR": {
+            "param": "operator_type",
+            "value": "<="
+          }
+        }
+      },
+      "position": {
+        "x": 900,
+        "y": 426
+      },
+      "type": "default"
+    },
+    {
+      "id": "END-userGeneratedNode_1646417604301",
+      "data": {
+        "label": "END",
+        "func": "BREAK",
+        "type": "LOOP",
+        "ctrls": {}
+      },
+      "position": {
+        "x": 257,
+        "y": 559
+      },
+      "type": "default"
+    },
+    {
+      id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      data: {
+        label: "Line",
+        func: "LINE",
+        type: "VISOR",
+        ctrls: {},
+      },
+      position: {
+        x: 901,
+        y: 212
+      },
+    },
+    {
+      id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+      data: {
+        label: "Bar",
+        func: "BAR",
+        type: "VISOR",
+        ctrls: {},
+      },
+      position: {
+        x: 907,
+        y: -16
+      },
+    },
+    {
+      "source": "LINSPACE-userGeneratedNode_1646432683694",
+      "sourceHandle": null,
+      "target": "LOOP-userGeneratedNode_1646417604301",
+      "targetHandle": null,
+      "id": "LINSPACE-userGeneratedNode_1646432683694null-LOOP-userGeneratedNode_1646417604301null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "targetHandle": null,
+      "target": "RAND-userGeneratedNode_1646417371398",
+      "sourceHandle": "body",
+      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-RAND-userGeneratedNode_1646417371398null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "sourceHandle": "body",
+      "target": "MULTIPLY-userGeneratedNode_1646417352715",
+      "targetHandle": null,
+      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-MULTIPLY-userGeneratedNode_1646417352715null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "sourceHandle": "body",
+      "target": "CONDITIONAL-userGeneratedNode_1646435677929",
+      "targetHandle": null,
+      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "RAND-userGeneratedNode_1646417371398",
+      "sourceHandle": null,
+      "target": "MULTIPLY-userGeneratedNode_1646417352715",
+      "targetHandle": "multiply_y",
+      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "MULTIPLY-userGeneratedNode_1646417352715",
+      "sourceHandle": null,
+      "target": "CONDITIONAL-userGeneratedNode_1646435677929",
+      "targetHandle": null,
+      "id": "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      "type": "default",
+      "label":"default"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "sourceHandle": "end",
+      "target": "END-userGeneratedNode_1646417604301",
+      "targetHandle": null,
+      "id": "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-END-userGeneratedNode_1646417604301null",
+      "type": "default",
+      "label": "false"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "sourceHandle": null,
+      "target": "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      "targetHandle": null,
+      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
+      "type": "default",
+      "label":"true"
+    },
+    {
+      "source": "LOOP-userGeneratedNode_1646417604301",
+      "sourceHandle": null,
+      "target": "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+      "targetHandle": null,
+      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
+      "type": "default",
+      "label":"true"
+    },
+  ],
+  "position": [
+    0,
+    0
+  ],
+  "zoom": 1
+}

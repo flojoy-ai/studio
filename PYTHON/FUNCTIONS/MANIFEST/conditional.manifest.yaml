@@ -1,0 +1,7 @@
+COMMAND:
+  - {
+      name: conditional,
+      key: CONDITIONAL,
+      type: COMPARATORS,
+      parameters: { operator_type: { type: "string", default: ">=" } },
+    }

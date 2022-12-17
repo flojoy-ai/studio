@@ -1,0 +1,12 @@
+COMMAND:
+  - {
+      name: loop,
+      key: LOOP,
+      type: LOOPS,
+      parameters:
+        {
+          initial_count: { type: "int", default: 0 },
+          iteration_count: { type: "int", default: 2 },
+          step: { type: "int", default: 1 },
+        },
+    }

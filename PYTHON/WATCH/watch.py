@@ -21,6 +21,8 @@ sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 from FUNCTIONS.VISORS import *
 from FUNCTIONS.TRANSFORMERS import *
 from FUNCTIONS.GENERATORS import *
+from FUNCTIONS.LOOPS import *
+from FUNCTIONS.COMPARATORS import *
 
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
@@ -37,7 +39,7 @@ def get_port():
     except:
         p = '8000'
     return p
- 
+
 port = get_port()
 def send_to_socket(data):
             requests.post('http://localhost:'+port +
@@ -48,11 +50,11 @@ def dump(data):
 
 def run(**kwargs):
     fc = kwargs['fc']
-    
+
     jobset_id = kwargs['jobsetId']
 
     cancel_existing_jobs = kwargs['cancel_existing_jobs']
-    
+
     print('running flojoy for jobset id: ', jobset_id)
 
     elems = fc['elements']
@@ -62,6 +64,7 @@ def run(**kwargs):
 
     # get topological sorting from reactflow_to_networx function imported from flojoy packag
     topological_sorting = convert_reactflow_to_networkx['topological_sort']
+    print(topological_sorting)
 
     nodes_by_id = convert_reactflow_to_networkx['getNode']()
 
@@ -71,7 +74,7 @@ def run(**kwargs):
         get_obj = r.get(id)
         parse_obj = json.loads(get_obj) if get_obj is not None else {}
         return parse_obj
-    
+
     r_obj = get_redis_obj(jobset_id)
 
     if(cancel_existing_jobs):
@@ -99,6 +102,7 @@ def run(**kwargs):
             s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
             r_obj = get_redis_obj(jobset_id)
             prev_jobs = r_obj['ALL_JOBS'] if 'ALL_JOBS' in r_obj else {};
+
             r.set(jobset_id, dump({
                 **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
                     **prev_jobs, cmd: job_id
@@ -109,6 +113,8 @@ def run(**kwargs):
                 'jobsetId': jobset_id
             })
             r.rpush(jobset_id+'_ALL_NODES', cmd.upper())
+
+            # print(r.lrange(jobset_id,0,-1))
             if len(list(DG.predecessors(n))) == 0:
                 q.enqueue(func,
                         # TODO: have to understand why the SINE node is failing for few times then succeeds

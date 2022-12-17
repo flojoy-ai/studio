@@ -1,1 +1,1 @@
-__all__ = ["watch"]
+__all__ = ["watch","testwatch"]
