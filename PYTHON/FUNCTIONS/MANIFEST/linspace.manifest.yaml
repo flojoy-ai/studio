@@ -2,7 +2,7 @@ COMMAND:
   - {
       name: Linspace,
       key: LINSPACE,
-      type: GENERATOR,
+      type: SIMULATION,
       parameters:
         {
           start: { type: "float", default: "10" },
