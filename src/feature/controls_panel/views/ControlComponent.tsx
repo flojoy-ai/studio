@@ -254,6 +254,7 @@ const ControlComponent = ({
               }, ctrlObj);
             }
           }}
+          placeholder="Select Plot Type"
           theme={theme as unknown as ThemeConfig}
           options={plotOptions}
           styles={customDropdownStyles}
@@ -275,7 +276,6 @@ const ControlComponent = ({
           style={{
             display: "flex",
             flexDirection: "row",
-            flex: "1",
           }}
         >
           <Select
