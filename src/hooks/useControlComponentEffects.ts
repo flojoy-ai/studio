@@ -117,23 +117,23 @@ const useControlComponentEffects = ({
             setNd(filteredResult === undefined ? null : filteredResult);
             if (Object.keys(nd!).length > 0) {
               if (nd!.result) {
+                const inputOptions: ControlOptions[] = [];
+                if (typeof nd!.result["x"] === 'object') {
+                  for (const [key, value] of Object.entries(nd!.result["x"]!)) {
+                    inputOptions.push({ label: key, value: value });
+                  }
+                } else {
+                  inputOptions.push({ label: 'x', value: nd!.result["x"]! })
+                }
+                if (selectedPlotOption?.value.type === 'histogram') {
+                  inputOptions.push({ label: 'y', value: nd!.result["y"]! })
+                }
+                setInputOptions(inputOptions);
+                setOutputOptions([{ label: 'y', value: nd!.result["y"]! }])
+
                 if ("data" in nd!.result) {
                   setPlotData(nd!.result!.data!);
                 } else {
-                  const inputOptions: ControlOptions[] = [];
-                  if (typeof nd!.result["x"] === 'object') {
-                    for (const [key, value] of Object.entries(nd!.result["x"]!)) {
-                      inputOptions.push({ label: key, value: value });
-                    }
-                  } else {
-                    inputOptions.push({ label: 'x', value: nd!.result["x"]! })
-                  }
-                  if (selectedPlotOption?.value.type === 'histogram') {
-                    inputOptions.push({ label: 'y', value: nd!.result["y"]! })
-                  }
-
-                  setInputOptions(inputOptions);
-                  setOutputOptions([{ label: 'y', value: nd!.result["y"]!}])
                   setPlotData([{
                     x: selectedInputOption?.value,
                     y: selectedOutputOption?.value,
