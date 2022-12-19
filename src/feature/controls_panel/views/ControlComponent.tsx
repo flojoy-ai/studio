@@ -330,7 +330,11 @@ const ControlComponent = ({
           }}
         >
           <Plot
-            data={plotData}
+            data={[{
+              ...plotData[0],
+              type: selectedPlotOption?.value.type,
+              mode: selectedPlotOption?.value.mode,
+            }]}
             layout={styledLayout}
             style={{ width: "100%", height: "100%" }}
           />

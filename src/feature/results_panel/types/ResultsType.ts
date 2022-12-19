@@ -9,9 +9,9 @@ export type ResultIO = {
     data?: {
       x: Array<number>;
       y: Array<number>;
-      z?: Array<number>;
-      type?: string;
-      mode?: string;
+      z: Array<number>;
+      type: string;
+      mode: string;
     }[];
   };
 };
