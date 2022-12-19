@@ -1,4 +1,4 @@
-from joyflo import flojoy
+from joyflo import flojoy,VectorXY
 from redis import Redis
 import os
 import json
@@ -13,7 +13,7 @@ def get_iteration_info(jobset_id):
     parse_obj = json.loads(env_info) if env_info is not None else {}
 
     special_type_jobs = parse_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in parse_obj else {}
-    print(special_type_jobs)
+
     if len(special_type_jobs):
         return special_type_jobs['LOOP']['params']['initial_value'],special_type_jobs['LOOP']['params']['total_iterations'],special_type_jobs['LOOP']['params']['step']
     return None,None,None
@@ -27,7 +27,6 @@ def set_body_execution_done(jobset_id):
     loop_jobs = {
         "status":"finished",
         "is_loop_body_execution_finished":True,
-        "is_loop_end_execution_finished":False,
         "params":{}
     }
 
@@ -53,7 +52,6 @@ def increase_current_iteration(jobset_id,initial_value,total_iterations,step):
     loop_jobs = {
         "status":"ongoing",
         "is_loop_body_execution_finished":False,
-        "is_loop_end_execution_finished":False,
         "params":{
                 "initial_value":initial_value + step,
                 "total_iterations":total_iterations,
@@ -104,4 +102,4 @@ def CONDITIONAL(v,params):
     else:
         increase_current_iteration(jobset_id,initial_value,total_iterations,step)
 
-    return v
+    return VectorXY(x=v[0].x,y=v[0].y)

@@ -20,7 +20,13 @@ const HandleComponent = ({
       <Handle
         type="source"
         position={Position.Right}
-        style={{ borderRadius: 0, height: 8, width: 8 }}
+        style={{
+          display: data.func == 'LOOP' ? 'none' :'block',
+          borderRadius: 0,
+          height: 8,
+          width: 8,
+          // display: data.func == 'LOOP' && 'none'
+        }}
         isValidConnection={isValidConnection}
         id="main"
       />
@@ -50,7 +56,7 @@ const HandleComponent = ({
                 style={{
                   gap: "5px",
                   borderRadius: 0,
-                  top: 30 * (i + 1) + 70,
+                  top: 30 * (i + 1) + 40,
                   minHeight: 10,
                   display: "flex",
                   alignItems: "center",

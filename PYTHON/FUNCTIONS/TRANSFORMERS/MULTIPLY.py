@@ -9,5 +9,5 @@ def MULTIPLY(v, params):
     b = v[1].y
 
     y = np.multiply(a, b)
-
+    print(VectorXY(x = [a, b], y = y))
     return VectorXY(x = [a, b], y = y)

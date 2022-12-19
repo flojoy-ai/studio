@@ -17,7 +17,8 @@ const highlightShadow = {
   'CONSTANT': {boxShadow: 'rgb(116 24 181 / 97%) 0px 0px 50px 15px'},
   'MULTIPLY': {boxShadow: 'rgb(112 96 13) 0px 0px 50px 15px', background: '#78640f96'},
   'ADD': {boxShadow: 'rgb(112 96 13) 0px 0px 50px 15px', background: '#78640f96'},
-  'LOOP':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'blue'}
+  'LOOP':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'blue'},
+  'CONDITIONAL' : {boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'yellow'}
 
 }
 const getboxShadow = (data: ElementsData) =>{

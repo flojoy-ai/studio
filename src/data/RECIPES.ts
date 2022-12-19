@@ -411,12 +411,12 @@ export const LOOP_APP = {
         },
         inputs: [
           {
-            name: "body",
-            id: "body",
-          },
-          {
             name: "end",
             id: "end"
+          },
+          {
+            name: "body",
+            id: "body",
           }
         ]
       },
@@ -480,20 +480,6 @@ export const LOOP_APP = {
       "position": {
         "x": 900,
         "y": 426
-      },
-      "type": "default"
-    },
-    {
-      "id": "END-userGeneratedNode_1646417604301",
-      "data": {
-        "label": "END",
-        "func": "BREAK",
-        "type": "LOOP",
-        "ctrls": {}
-      },
-      "position": {
-        "x": 257,
-        "y": 559
       },
       "type": "default"
     },
@@ -580,15 +566,6 @@ export const LOOP_APP = {
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
       "sourceHandle": "end",
-      "target": "END-userGeneratedNode_1646417604301",
-      "targetHandle": null,
-      "id": "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-END-userGeneratedNode_1646417604301null",
-      "type": "default",
-      "label": "false"
-    },
-    {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": null,
       "target": "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
@@ -597,7 +574,7 @@ export const LOOP_APP = {
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": null,
+      "sourceHandle": "end",
       "target": "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
