@@ -49,8 +49,16 @@ You can also use the docker-desktop to control and check logs for the services.
    - If you have not installed python packages manually, provide `-p` argument to install required python packages. 
    - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
 
-## Run ElectronJS locally
-Run `npm run electron-dev` to start Electron app locally. It will start the Docker containers to run the necessary backend parts.
+# Run ElectronJS locally
+1. Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
+Put any specific tag value if you need, or use the latest.
+```
+BACKEND_IMAGE_TAG=latest
+RQ_WORKER_IMAGE_TAG=latest
+WATCH_IMAGE_TAG=latest
+```
+2. Run `npm run electron-dev` to start Electron app locally. It will start the Docker containers to run the necessary backend parts.
+
 To package the electron app, run `npm run electron-package`. The `dist` folder will hold the generated artifacts.
 
 ## CD
