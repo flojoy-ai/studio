@@ -43,7 +43,7 @@ describe("User default workflow", () => {
         cy.log(' server status: ' , $ele.text())
       });
       cy.get(`[data-cy="app-status"]`)
-      .find("code").contains("🐢 awaiting a new job", { timeout: 60000 })
+      .find("code").contains("🐢 awaiting a new job", { timeout: 600000 })
 
     cy.get("[data-testid=result-node]");
 
