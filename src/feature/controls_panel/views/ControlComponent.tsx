@@ -153,18 +153,20 @@ const ControlComponent = ({
     styledLayout,
     textInput,
   });
-
+console.log('flowObje', flowChartObject)
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
+        justifyContent:'center',
+        alignItems:'center',
         flex: "1",
         padding: "16px",
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header" data-cy="ctrls-select">
+        <div className="ctrl-header" data-cy="ctrls-select" style={{width:'100%'}}>
           <Select
             className="select-node"
             isSearchable={true}
@@ -230,18 +232,11 @@ const ControlComponent = ({
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            width: "100%",
-            paddingBottom: "10px",
-          }}
+          className="seven_segment_container"
         >
           <SevenSegmentDisplay
-            color="#99F5FF"
-            count={2}
+            color={ctrlObj.segmentColor || "#99F5FF"}
+            count={4}
             height={200}
             skew={false}
             value={plotData}

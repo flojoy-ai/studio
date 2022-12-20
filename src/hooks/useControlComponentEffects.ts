@@ -41,6 +41,7 @@ const useControlComponentEffects = ({
         .then((val) => {
           setFlowChartObject(
             val as FlowExportObject<{
+              ctrls:Record<string, any>,
               label: string;
               func: string;
               elements: Elements;
