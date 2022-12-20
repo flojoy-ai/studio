@@ -27,6 +27,7 @@ STATUS_CODES = yaml.safe_load(stream)
 
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
 REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+BACKEND_HOST = os.environ.get('BACKEND_HOST', 'localhost')
 
 r = Redis(host=REDIS_HOST, port=REDIS_PORT)
 q = Queue('flojoy', connection=r)
@@ -41,8 +42,7 @@ def get_port():
 port = get_port()
 def send_to_socket(data):
     try:
-        requests.post('http://flojoy-desktop-backend-1:'+port +
-                          '/worker_response', json=json.dumps(data))
+        requests.post('http://{}:{}/worker_response'.format(BACKEND_HOST, port), json=json.dumps(data))
     except Exception:
             print('Sending to socket failed: ', Exception, traceback.format_exc())
             raise                          
