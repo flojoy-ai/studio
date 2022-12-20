@@ -29,6 +29,10 @@ const createMainWindow = () => {
   const startURL = isDev
     ? 'http://localhost:3000'
     : `file://${path.join(__dirname, '../build/index.html')}`;
+  
+  const composeFile = isDev
+    ? 'docker-compose.yml'
+    : 'docker-compose-prod.yml';
 
   mainWindow.loadURL(startURL);
 
@@ -36,7 +40,7 @@ const createMainWindow = () => {
 
   mainWindow.on('closed', () => {
     mainWindow.destroy();
-    runCommand('docker compose -f docker-compose.yml down')
+    runCommand(`docker compose -f ${composeFile} down`)
       .then(() => {
         if (process.platform !== 'darwin') {
           app.quit();
@@ -53,7 +57,7 @@ const createMainWindow = () => {
 
 
 app.whenReady().then(() => {
-  runCommand('docker compose -f docker-compose.yml up');
+  runCommand(`docker compose -f ${composeFile} up`);
 
   createMainWindow();
   app.on('activate', () => {
