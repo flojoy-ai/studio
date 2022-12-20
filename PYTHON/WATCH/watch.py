@@ -40,8 +40,13 @@ def get_port():
  
 port = get_port()
 def send_to_socket(data):
-            requests.post('http://localhost:'+port +
+    try:
+        requests.post('http://flojoy-desktop-backend-1:'+port +
                           '/worker_response', json=json.dumps(data))
+    except Exception:
+            print('Sending to socket failed: ', Exception, traceback.format_exc())
+            raise                          
+
 
 def dump(data):
     return json.dumps(data)
@@ -134,7 +139,7 @@ def run(**kwargs):
                         depends_on=previous_job_ids,
                         result_ttl=500)
     except Exception:
-            print(traceback.format_exc())
+            print('Error occured: ', Exception, traceback.format_exc())
             raise
 
     return
