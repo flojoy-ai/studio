@@ -1,1 +1,52 @@
-{"_v": 3, "commands": [{"name": "Sine Wave", "key": "SINE", "type": "SIMULATION"}, {"name": "Square Wave", "key": "SQUARE", "type": "SIMULATION"}, {"name": "Sawtooth", "key": "SAW", "type": "SIMULATION"}, {"name": "3D Scatter Plot", "key": "SCATTER3D", "type": "VISOR", "inputs": []}, {"name": "Multiply", "key": "MULTIPLY", "type": "REGRESSIONS", "inputs": [{"name": "y", "id": "multiply_y"}]}, {"name": "Scatter Plot", "key": "SCATTER", "type": "VISOR"}, {"name": "Linspace", "key": "LINSPACE", "type": "SIMULATION"}, {"name": "Random (Uniform)", "key": "RAND", "type": "SIMULATION"}, {"name": "Add", "key": "ADD", "type": "REGRESSIONS", "inputs": [{"name": "y", "id": "add_y"}]}, {"name": "Histogram", "key": "HISTOGRAM", "type": "VISOR"}, {"name": "3D Surface Plot", "key": "SURFACE3D", "type": "VISOR"}, {"name": "Line", "key": "LINE", "type": "VISOR"}, {"name": "Bar Chart", "key": "BAR", "type": "VISOR"}, {"name": "Constant", "key": "CONSTANT", "type": "SIMULATION"}], "parameters": {"SINE": {"frequency": {"type": "float", "default": 1}, "offset": {"type": "float", "default": 0}, "amplitude": {"type": "float", "default": 1}, "waveform": {"type": "select", "options": ["sine", "square", "triangle", "sawtooth"], "default": "sine"}}, "LINSPACE": {"start": {"type": "float", "default": "10"}, "end": {"type": "float", "default": "0"}, "step": {"type": "float", "default": "1000"}}, "CONSTANT": {"constant": {"type": "float", "default": "3"}}}}
+{
+  "_v": 3,
+  "commands": [
+    { "name": "Sine Wave", "key": "SINE", "type": "SIMULATION" },
+    { "name": "Square Wave", "key": "SQUARE", "type": "SIMULATION" },
+    { "name": "Sawtooth", "key": "SAW", "type": "SIMULATION" },
+    {
+      "name": "3D Scatter Plot",
+      "key": "SCATTER3D",
+      "type": "VISOR",
+      "inputs": []
+    },
+    {
+      "name": "Multiply",
+      "key": "MULTIPLY",
+      "type": "ARITHMETIC",
+      "inputs": [{ "name": "y", "id": "multiply_y" }]
+    },
+    { "name": "Scatter Plot", "key": "SCATTER", "type": "VISOR" },
+    { "name": "Linspace", "key": "LINSPACE", "type": "SIMULATION" },
+    { "name": "Random (Uniform)", "key": "RAND", "type": "SIMULATION" },
+    {
+      "name": "Add",
+      "key": "ADD",
+      "type": "ARITHMETIC",
+      "inputs": [{ "name": "y", "id": "add_y" }]
+    },
+    { "name": "Histogram", "key": "HISTOGRAM", "type": "VISOR" },
+    { "name": "3D Surface Plot", "key": "SURFACE3D", "type": "VISOR" },
+    { "name": "Line", "key": "LINE", "type": "VISOR" },
+    { "name": "Bar Chart", "key": "BAR", "type": "VISOR" },
+    { "name": "Constant", "key": "CONSTANT", "type": "SIMULATION" }
+  ],
+  "parameters": {
+    "SINE": {
+      "frequency": { "type": "float", "default": 1 },
+      "offset": { "type": "float", "default": 0 },
+      "amplitude": { "type": "float", "default": 1 },
+      "waveform": {
+        "type": "select",
+        "options": ["sine", "square", "triangle", "sawtooth"],
+        "default": "sine"
+      }
+    },
+    "LINSPACE": {
+      "start": { "type": "float", "default": "10" },
+      "end": { "type": "float", "default": "0" },
+      "step": { "type": "float", "default": "1000" }
+    },
+    "CONSTANT": { "constant": { "type": "float", "default": "3" } }
+  }
+}

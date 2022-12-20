@@ -31,6 +31,7 @@ export const SECTIONS = [
     title: "Transformers",
     child: [
       // Transformers tab
+      {name: 'Arithmetic', key: 'ARITHMETIC'},
       { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
       { name: "Signal processing", key: "SIGNAL_PROCESSING" },
       { name: "Regressions", key: "REGRESSIONS" },
