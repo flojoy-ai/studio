@@ -30,7 +30,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - BACKEND_HOST=backend
+      - BACKEND_HOST=flojoy-desktop_backend_1
     depends_on:
       - redis
       - backend
@@ -43,7 +43,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - BACKEND_HOST=backend
+      - BACKEND_HOST=flojoy-desktop_backend_1
     depends_on:
       - redis
       - backend
