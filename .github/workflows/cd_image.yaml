@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo "image_name=onscene/flojoy" >> $GITHUB_ENV
+      - run: echo "image_name=onscene/flojoy-base" >> $GITHUB_ENV
       - run: echo "commit_id_short=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Build Base Image
         run: BASE_IMAGE_TAG=$commit_id_short docker-compose -f docker-compose-base.yml build base-image

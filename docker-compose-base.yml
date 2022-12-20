@@ -3,7 +3,7 @@ version: "3.9"
 
 services:
   base-image:
-    image: onscene/flojoy:${BASE_IMAGE_TAG}
+    image: onscene/flojoy-base:${BASE_IMAGE_TAG}
     build:
       context: .
       dockerfile: ./docker/base/Dockerfile
