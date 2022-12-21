@@ -25,7 +25,6 @@ const HandleComponent = ({
           borderRadius: 0,
           height: 8,
           width: 8,
-          // display: data.func == 'LOOP' && 'none'
         }}
         isValidConnection={isValidConnection}
         id="main"

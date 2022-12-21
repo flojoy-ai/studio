@@ -98,6 +98,7 @@ def run(**kwargs):
     r_obj = get_redis_obj(jobset_id)
 
     if(cancel_existing_jobs):
+        print(r_obj)
         if r_obj is not None and 'ALL_JOBS' in r_obj:
             for i in r_obj['ALL_JOBS']:
                 try:
@@ -241,11 +242,7 @@ def run(**kwargs):
 
         if len(special_type_jobs):
 
-            #check for if its a LOOP JOBS & CURRENTLY ONGOING
-
-            if len(special_type_jobs['LOOP'])  and special_type_jobs['LOOP']['status'] == 'ongoing':
-
-                r.set(jobset_id, dump({
+            r.set(jobset_id, dump({
                     **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
                         **prev_jobs, cmd: job_id
                     },
@@ -254,9 +251,20 @@ def run(**kwargs):
                     }
                 }))
 
+            #check for if its a LOOP JOBS & CURRENTLY ONGOING
+
+            if len(special_type_jobs['LOOP'])  and special_type_jobs['LOOP']['status'] == 'ongoing':
+
                 if cmd == 'LOOP':
                     topological_sorting = loop_nodes[1:]+[loop_nodes[0]] + topological_sorting
                     print("second Iteration: ",topological_sorting)
+            else:
+                r.set(jobset_id, dump({
+                    **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
+                        **prev_jobs, cmd: job_id
+                    },
+                    'SPECIAL_TYPE_JOBS':{}
+                }))
         else:
             if cmd == 'LOOP':
                 loop_jobs = {
@@ -317,7 +325,7 @@ def run(**kwargs):
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes and is_part_of_loop_body else node_serial
 
             elif is_part_of_loop_end:
-                if special_type_jobs['LOOP']['is_loop_body_execution_finished']:
+                if len(special_type_jobs) == 0:
                     is_eligible_to_enqueue = True
                     loop_nodes = []
 

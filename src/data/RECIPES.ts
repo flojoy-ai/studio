@@ -401,7 +401,7 @@ export const LOOP_APP = {
             "param": "initial_count"
           },
           "numder_of_iterations": {
-            "value": 3,
+            "value": 2,
             "param": "iteration_count"
           },
           "iteration_step":{

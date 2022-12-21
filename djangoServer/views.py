@@ -59,6 +59,7 @@ def wfc(request):
     fc = json.loads(request.data['fc'])
     jobsetId = request.data['jobsetId']
     cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
+    print("cancel existing jobs ",cancel_existing_jobs)
     msg = {
         'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId, 'FAILED_NODES': '', 'RUNNING_NODES': ''}
     send_msg_to_socket(msg=msg)
