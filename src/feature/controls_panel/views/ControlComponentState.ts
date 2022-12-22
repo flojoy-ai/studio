@@ -24,11 +24,11 @@ const ControlComponentState = ({
   ctrlObj,
   theme,
 }: ControlComponentStateProps) => {
-  const { elements, ctrlsManifest, setGridLayout, isEditMode } =
+  const { rfInstance: flowChartObject, elements, ctrlsManifest, setGridLayout, isEditMode } =
     useFlowChartState();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
-  const [flowChartObject, setFlowChartObject] = useState<
+  const [flowChartObjects, setFlowChartObject] = useState<
     | FlowExportObject<{
         label: string;
         func: string;

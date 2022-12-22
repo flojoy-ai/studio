@@ -87,10 +87,13 @@ const Controls: FC<ControlsProps> = ({
               param
             ) => ({
               ...prev,
-              [FUNCTION + "_" + functionName + "_" + param.toUpperCase()]: {
+              [FUNCTION + "_" + functionName + "_" + param]: {
                 functionName: FUNCTION,
                 param,
-                value: params![param].default,
+                value:
+                  FUNCTION === "CONSTANT"
+                    ? +functionName
+                    : params![param].default,
               },
             }),
             {}
