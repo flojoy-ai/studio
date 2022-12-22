@@ -37,7 +37,7 @@ def LOOP(**kwargs):
 
     return {'x0':[1,2,3],'y0':[2,3,4]} # returning random value
 '''
-from joyflo import flojoy,VectorXY
+from joyflo import flojoy,DataContainer
 
 @flojoy
 def LOOP(v,params):
@@ -58,4 +58,4 @@ def LOOP(v,params):
 
     # if x == None:
     #     x = y
-    return VectorXY(x=[1,2,3,4,5],y=[1,2,3,4,5,6])
+    return DataContainer(x=[1,2,3,4,5],y=[1,2,3,4,5,6])

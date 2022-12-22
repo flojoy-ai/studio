@@ -1,4 +1,4 @@
-from joyflo import flojoy,VectorXY
+from joyflo import flojoy,DataContainer
 from redis import Redis
 import os
 import json
@@ -102,4 +102,4 @@ def CONDITIONAL(v,params):
     else:
         increase_current_iteration(jobset_id,initial_value,total_iterations,step)
 
-    return VectorXY(x=v[0].x,y=v[0].y)
+    return DataContainer(x=v[0].x,y=v[0].y)

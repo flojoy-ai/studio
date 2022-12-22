@@ -267,13 +267,15 @@ def run(**kwargs):
                 }))
         else:
             if cmd == 'LOOP':
+                print("HERE")
+                print(ctrls)
                 loop_jobs = {
                     "status":"ongoing",
                     "is_loop_body_execution_finished":False,
                     "params":{
-                                "initial_value":ctrls['initial_value']['value'],
-                                "total_iterations":ctrls["numder_of_iterations"]["value"],
-                                "step":ctrls["iteration_step"]['value']
+                                "initial_value":int(ctrls['LOOP_LOOP_initial_count']['value']),
+                                "total_iterations":int(ctrls["LOOP_LOOP_iteration_count"]["value"]),
+                                "step":int(ctrls["LOOP_LOOP_step"]['value'])
                             }
                 }
 

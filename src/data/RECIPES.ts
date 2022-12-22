@@ -366,17 +366,17 @@ export const LOOP_APP = {
         "func": "LINSPACE",
         "type": "GENERATOR",
         "ctrls": {
-          "LINSPACE_LINSPACE_START": {
+          "LINSPACE_LINSPACE_start": {
             "functionName": "LINSPACE",
             "param": "start",
             "value": 1
           },
-          "LINSPACE_LINSPACE_END": {
+          "LINSPACE_LINSPACE_end": {
             "functionName": "LINSPACE",
             "param": "end",
             "value": 14
           },
-          "LINSPACE_LINSPACE_STEP": {
+          "LINSPACE_LINSPACE_step": {
             "functionName": "LINSPACE",
             "param": "step",
             "value": 3
@@ -396,15 +396,15 @@ export const LOOP_APP = {
         "func": "LOOP",
         "type": "LOOP",
         "ctrls": {
-          "initial_value": {
+          "LOOP_LOOP_initial_count": {
             "value": 0,
             "param": "initial_count"
           },
-          "numder_of_iterations": {
+          "LOOP_LOOP_iteration_count": {
             "value": 2,
             "param": "iteration_count"
           },
-          "iteration_step":{
+          "LOOP_LOOP_step":{
             "value":1,
             "param":"step"
           }
@@ -471,7 +471,7 @@ export const LOOP_APP = {
         "func": "CONDITIONAL",
         "type": "COMPARATOR",
         "ctrls": {
-          "CONDITIONAL_OPERATOR": {
+          "CONDITIONAL_CONDITIONAL_operator_type": {
             "param": "operator_type",
             "value": "<="
           }
