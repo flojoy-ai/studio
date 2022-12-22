@@ -1,5 +1,5 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from joyflo import flojoy, DataContainer
 
 @flojoy
 def MULTIPLY(v, params):
@@ -9,5 +9,5 @@ def MULTIPLY(v, params):
     b = v[1].y
 
     y = np.multiply(a, b)
-    print(VectorXY(x = [a, b], y = y))
-    return VectorXY(x = [a, b], y = y)
+
+    return DataContainer(x = [a, b], y = y)

@@ -1,5 +1,5 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from joyflo import flojoy, DataContainer
 import traceback
 
 @flojoy
@@ -11,4 +11,4 @@ def RAND(v, params):
     except Exception:
         print(traceback.format_exc())
 
-    return VectorXY(x = x, y = y)
+    return DataContainer(x = x, y = y)

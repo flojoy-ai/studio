@@ -1,5 +1,5 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from joyflo import flojoy, DataContainer
 
 @flojoy
 def ADD(v, params):
@@ -13,4 +13,4 @@ def ADD(v, params):
 
     y = np.add(a, b)
 
-    return VectorXY(x = [a, b], y = y)
+    return DataContainer(x = [a, b], y = y)

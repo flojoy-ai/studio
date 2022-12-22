@@ -1,4 +1,3 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
 
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
 
@@ -104,9 +103,11 @@ describe("user workflow", () => {
     cy.get(`[data-cy="btn-play"]`).contains("Play").click();
     cy.get(`[data-cy="app-status"]`)
       .find("code")
-      .contains("🐢 awaiting a new job", { timeout: 60000 });
+      .contains("🐢 awaiting a new job", { timeout: 600000 });
 
-    cy.get("[data-testid=result-node]", { timeout: 200000 });
+    cy.get("[data-testid=result-node]", { timeout: 20000 });
+
+    cy.wait(30000);
 
     cy.get(`[data-cy="script-btn"]`).click();
 
