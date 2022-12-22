@@ -25,8 +25,6 @@ import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";
 import { useFlowChartTabState } from "./FlowChartTabState";
 
-import SideBar from "./views/SideBar";
-
 localforage.config({
   name: "react-flow",
   storeName: "flows",
@@ -158,7 +156,6 @@ const FlowChartTab = ({
         pythonString={pythonString}
         theme={theme}
       />
-      <SideBar/>
     </ReactFlowProviderAny>
   );
 };
