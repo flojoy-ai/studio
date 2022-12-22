@@ -206,18 +206,11 @@ def run(**kwargs):
         return status
 
     loop_nodes = []
-    total_loop_execution = 0
 
     while len(topological_sorting) != 0:
-        print(topological_sorting)
         node_serial = topological_sorting.pop(0)
 
         cmd = nodes_by_id[node_serial]['cmd']
-
-
-        total_loop_execution = total_loop_execution + 1
-
-        print("current func: ",cmd)
 
         func = getattr(globals()[cmd], cmd)
         ctrls = nodes_by_id[node_serial]['ctrls']
@@ -257,7 +250,6 @@ def run(**kwargs):
 
                 if cmd == 'LOOP':
                     topological_sorting = loop_nodes[1:]+[loop_nodes[0]] + topological_sorting
-                    print("second Iteration: ",topological_sorting)
             else:
                 r.set(jobset_id, dump({
                     **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
@@ -267,8 +259,7 @@ def run(**kwargs):
                 }))
         else:
             if cmd == 'LOOP':
-                print("HERE")
-                print(ctrls)
+
                 loop_jobs = {
                     "status":"ongoing",
                     "is_loop_body_execution_finished":False,

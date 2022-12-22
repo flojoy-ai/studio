@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { LOOP_APP } from "../data/RECIPES";
+import { CONDITIONAL } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
@@ -32,7 +32,7 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialElements: Elements = LOOP_APP.elements;
+const initialElements: Elements = CONDITIONAL.elements;
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",

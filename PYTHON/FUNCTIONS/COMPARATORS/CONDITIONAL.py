@@ -14,7 +14,7 @@ def get_iteration_info(jobset_id):
 
     special_type_jobs = parse_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in parse_obj else {}
 
-    if len(special_type_jobs):
+    if len(special_type_jobs) and 'LOOP' in special_type_jobs:
         return special_type_jobs['LOOP']['params']['initial_value'],special_type_jobs['LOOP']['params']['total_iterations'],special_type_jobs['LOOP']['params']['step']
     return None,None,None
 
@@ -72,6 +72,16 @@ def increase_current_iteration(jobset_id,initial_value,total_iterations,step):
         }
     }))
 
+def condition_type(jobset_id):
+    env_info = r.get(jobset_id)
+    parse_obj = json.loads(env_info) if env_info is not None else {}
+
+    special_type_jobs = parse_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in parse_obj else {}
+
+    if 'LOOP' in special_type_jobs and special_type_jobs['LOOP']['status'] == 'ongoing':
+        return 'LOOP'
+    return 'CONDITION'
+
 @flojoy
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
@@ -79,27 +89,40 @@ def CONDITIONAL(v,params):
     jobset_id = params['jobset_id']
     operator = params['operator_type']
 
-    initial_value, total_iterations,step = get_iteration_info(jobset_id)
+    type = condition_type(jobset_id=jobset_id)
 
-    print("initial value ",initial_value)
+    if type == 'LOOP':
+        initial_value, total_iterations,step = get_iteration_info(jobset_id)
 
-    if operator == "<=":
-        bool_ = total_iterations <= initial_value + step
-    elif operator == ">":
-        bool_ = total_iterations > initial_value + step
-    elif operator == "<":
-        bool_ = total_iterations < initial_value + step
-    elif operator == ">=":
-        bool_ = total_iterations < initial_value + step
-    elif operator == "!=" :
-        bool_ = total_iterations != initial_value + step
+        print("initial value ",initial_value)
+
+        if operator == "<=":
+            bool_ = total_iterations <= initial_value + step
+        elif operator == ">":
+            bool_ = total_iterations > initial_value + step
+        elif operator == "<":
+            bool_ = total_iterations < initial_value + step
+        elif operator == ">=":
+            bool_ = total_iterations < initial_value + step
+        elif operator == "!=" :
+            bool_ = total_iterations != initial_value + step
+        else:
+            bool_ = total_iterations == initial_value + step
+        print("Bool value: ",bool_)
+
+        if bool_:
+            set_body_execution_done(jobset_id)
+        else:
+            increase_current_iteration(jobset_id,initial_value,total_iterations,step)
+
+        return DataContainer(x=v[0].x,y=v[0].y)
+
     else:
-        bool_ = total_iterations == initial_value + step
-    print("Bool value: ",bool_)
+        x1 = v[0].x
+        y1 = v[0].y
 
-    if bool_:
-        set_body_execution_done(jobset_id)
-    else:
-        increase_current_iteration(jobset_id,initial_value,total_iterations,step)
+        x2 = v[1].x
+        y2 = v[1].y
 
-    return DataContainer(x=v[0].x,y=v[0].y)
+        # comparing only x values, if x is none, then comparing only y values
+        return DataContainer(x=v[0].x,y=v[0].y)
