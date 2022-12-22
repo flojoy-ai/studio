@@ -27,10 +27,10 @@ export function saveAndRunFlowChartInServer({
   // console.log("saving flowchart to server:", rfInstanceObject);
 
   const fcStr = JSON.stringify(rfInstanceObject);
-
+  
   fetch("/wfc", {
     method: "POST",
-    body: JSON.stringify({ fc: fcStr, jobsetId:jobId }),
+    body: JSON.stringify({ fc: fcStr, jobsetId:jobId, cancelExistingJobs: true}),
     headers: { "Content-type": "application/json; charset=UTF-8" },
   })
     .then((resp) => resp.json())

@@ -13,7 +13,6 @@ export interface CtrlManifestParam {
   nodeId: string;
   id: string;
 }
-
 export interface PlotManifestParam {
   node: string;
   plot?: PlotType;
@@ -56,6 +55,8 @@ const initialManifests: CtlManifestType[] = [
     minWidth: 2,
   },
 ];
+const failedNodeAtom = atomWithImmer<string>('')
+const runningNodeAtom = atomWithImmer<string>('')
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
@@ -89,6 +90,8 @@ export function useFlowChartState() {
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
+  const [runningNode, setRunningNode] = useAtom(runningNodeAtom)
+  const [failedNode, setFailedNode] = useAtom(failedNodeAtom)
 
   const loadFlowExportObject = useCallback(
     (flow: FlowExportObject) => {
@@ -142,14 +145,30 @@ export function useFlowChartState() {
   const updateCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
-    inputData: any
+    inputData: {
+      functionName: string;
+      param: string;
+      value: string | number;
+    }
   ) => {
     setElements((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        node.data.ctrls[paramId] = inputData;
         if (node.data.func === "CONSTANT") {
+          const nodeCtrls = node.data.ctrls;
+          const splitNodeCtrlKey = Object.keys(nodeCtrls)[0].split("_");
+          const ctrlKey =
+            splitNodeCtrlKey[0] +
+            "_" +
+            inputData.value +
+            "_" +
+            splitNodeCtrlKey[2].toLowerCase();
+          node.data.ctrls = {
+            [ctrlKey]: inputData,
+          };
           node.data.label = inputData.value;
+        } else {
+          node.data.ctrls[paramId] = inputData;
         }
       }
     });
@@ -192,5 +211,9 @@ export function useFlowChartState() {
     setUiTheme,
     showLogs,
     setShowLogs,
+    runningNode,
+    setRunningNode,
+    failedNode,
+    setFailedNode
   };
 }

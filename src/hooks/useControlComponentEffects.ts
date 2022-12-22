@@ -1,4 +1,7 @@
-import { ControlOptions } from "@src/feature/controls_panel/types/ControlOptions";
+
+import {ControlOptions,
+  CtrlOptionValue,
+} from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/ControlComponentState";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
@@ -25,6 +28,8 @@ const useControlComponentEffects = ({
   ctrlObj,
   selectOptions,
   plotOptions,
+  ctrlObj,
+  selectOptions,
   results,
   setNd,
   setPlotData,
@@ -76,6 +81,11 @@ const useControlComponentEffects = ({
         : selectOptions?.find(
             (option) =>
               option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
+        ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
+        : selectOptions?.find(
+            (option) =>
+            (option.value as CtrlOptionValue).id ===
+            (ctrlObj?.param as CtrlManifestParam)?.id
           )!
     );
   }, [
@@ -108,6 +118,7 @@ const useControlComponentEffects = ({
       if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
         // figure out what we're visualizing
         const nodeIdToPlot = (ctrlObj?.param as PlotManifestParam)?.node;
+        const nodeIdToPlot = ctrlObj.param;
         if (nodeIdToPlot) {
           if (results && "io" in results) {
             const runResults = results.io!.reverse();
@@ -141,6 +152,12 @@ const useControlComponentEffects = ({
                     type: selectedPlotOption?.value.type,
                     mode: selectedPlotOption?.value.mode
                   }]);
+            if (nd && Object.keys(nd!).length > 0) {
+              if (nd!.result) {
+                if ("data" in nd!.result) {
+                  setPlotData(nd!.result!.data!);
+                } else {
+                  setPlotData([{ x: nd!.result["x"]!, y: nd!.result["y"]! }]);
                 }
               }
             }
@@ -233,6 +250,9 @@ const useControlComponentEffects = ({
     return () => {
       setSelectOptions([]);
       setPlotOptions([])
+    }
+    return () => {
+      setSelectOptions([]);
     };
   }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
 };

@@ -4,9 +4,8 @@ from joyflo import flojoy, DataContainer
 @flojoy
 def MULTIPLY(v, params):
     ''' Takes 2 input vectors, multiplies them, and returns the result '''
-    x0 = v[0].y
-    x1 = v[1].y
+    a = v[0].y
+    b = v[1].y
+    y = np.multiply(a, b)
 
-    y = np.multiply(x0, x1)
-
-    return DataContainer(x = x0, y = y)
+    return DataContainer(x = [a, b], y = y)

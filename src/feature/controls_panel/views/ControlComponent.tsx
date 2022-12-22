@@ -15,6 +15,7 @@ import {
   PlotManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { CtrlOptionValue } from "../types/ControlOptions";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
@@ -22,6 +23,7 @@ type ControlComponentProps = {
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   attachParamsToCtrl: (val: PlotManifestParam, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
@@ -120,6 +122,23 @@ const ControlComponent = ({
       return;
     }
     updateCtrlValue(value, ctrlObj);
+    setValue: Dispatch<SetStateAction<string>>,
+    value: string
+  ) => {
+    setValue(value);
+    if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+      return;
+    }
+    updateCtrlValue(value, ctrlObj);
+    if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
+      attachParamsToCtrl(
+        {
+          ...(selectedOption?.value as CtrlOptionValue),
+          id: "CONSTANT_" + value + "_constant",
+        },
+        ctrlObj
+      );
+    }
   };
 
   const makeLayoutStatic = () => {
@@ -176,6 +195,12 @@ const ControlComponent = ({
     setOutputOptions,
     setSliderInput,
     setTextInput,
+    setSelectOptions,
+    setSliderInput,
+    setTextInput,
+    sliderInput,
+    styledLayout,
+    textInput,
   });
 
   return (
@@ -193,12 +218,14 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              if (val) {
+if (val) {
                 attachParamsToCtrl({
                   node: val.value,
                   plot: selectedPlotOption?.value,
                 }, ctrlObj);
               }
+              if (val)
+                attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}
             theme={theme as unknown as ThemeConfig}
             options={selectOptions}
@@ -239,6 +266,13 @@ const ControlComponent = ({
               (option) =>
                 option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
             )?.label}
+            ? selectOptions?.find((option) => option.value === ctrlObj?.param)
+                ?.label
+            : selectOptions?.find(
+                (option) =>
+                  (option.value as CtrlOptionValue).id ===
+                  (ctrlObj?.param as CtrlManifestParam)?.id
+              )?.label}
         </p>
       )}
 

@@ -1,6 +1,9 @@
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import {
+  ResultIO,
+  ResultsType,
+} from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
   CtrlManifestParam,
@@ -21,7 +24,7 @@ const ControlComponentState = ({
   ctrlObj,
   theme,
 }: ControlComponentStateProps) => {
-  const { elements, ctrlsManifest, setGridLayout, isEditMode } =
+  const { rfInstance: flowChartObject, elements, ctrlsManifest, setGridLayout, isEditMode } =
     useFlowChartState();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
@@ -48,6 +51,7 @@ const ControlComponentState = ({
   >(undefined);
   const [currentInputValue, setCurrentInputValue] = useState(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
+
   const [plotData, setPlotData] = useState([{
     x: [1, 2, 3],
     y: [1, 2, 3],
@@ -67,6 +71,7 @@ const ControlComponentState = ({
   const [selectedOutputOption, setSelectedOutputOption] = useState<
     ControlOptions | undefined
   >(undefined);
+
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
@@ -80,8 +85,9 @@ const ControlComponentState = ({
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val
       : fnParam?.default
-        ? fnParam.default
-        : 0;
+      ? fnParam.default
+      : 0;
+
   const paramOptions =
     fnParam?.options?.map((option) => {
       return {
