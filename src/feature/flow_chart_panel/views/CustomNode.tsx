@@ -30,8 +30,8 @@ const CustomNode = ({ data }: CustomNodeProps) => {
   
   return (
     <div style={{
-      ...(runningNode === data.func && getboxShadow(data)),
-      ...(failedNode === data.func && {
+      ...(runningNode === data.id && getboxShadow(data)),
+      ...(failedNode === data.id && {
         boxShadow: 'rgb(183 0 0) 0px 0px 50px 15px'
       })
     }}>

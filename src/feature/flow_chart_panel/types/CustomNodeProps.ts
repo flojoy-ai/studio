@@ -1,4 +1,5 @@
 export type ElementsData = {
+  id: string;
   label: string;
   func: string;
   type: string;
