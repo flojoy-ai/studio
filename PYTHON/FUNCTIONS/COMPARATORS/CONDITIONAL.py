@@ -82,10 +82,44 @@ def condition_type(jobset_id):
         return 'LOOP'
     return 'CONDITION'
 
+def compare_values(first_value,second_value,operator):
+    bool_ = None
+    if operator == "<=":
+        bool_ = first_value <= second_value
+    elif operator == ">":
+        bool_ = first_value > second_value
+    elif operator == "<":
+        bool_ = first_value < second_value
+    elif operator == ">=":
+        bool_ = first_value < second_value
+    elif operator == "!=" :
+        bool_ = first_value != second_value
+    else:
+        bool_ = first_value == second_value
+    return bool_
+
+def set_direction(jobset_id,bool_):
+    env_info = r.get(jobset_id)
+    r_obj = json.loads(env_info) if env_info is not None else {}
+    special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {}
+
+    conditional_jobs = {
+        "direction":bool(bool_)
+    }
+
+    r.set(jobset_id, json.dumps({
+        **r_obj,
+        'SPECIAL_TYPE_JOBS':{
+            **special_type_jobs,
+            'CONDITIONAL':conditional_jobs
+        }
+    }))
+
 @flojoy
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
-    print(params)
+    print("params: ",params)
+    print("value: ",v)
     jobset_id = params['jobset_id']
     operator = params['operator_type']
 
@@ -96,18 +130,8 @@ def CONDITIONAL(v,params):
 
         print("initial value ",initial_value)
 
-        if operator == "<=":
-            bool_ = total_iterations <= initial_value + step
-        elif operator == ">":
-            bool_ = total_iterations > initial_value + step
-        elif operator == "<":
-            bool_ = total_iterations < initial_value + step
-        elif operator == ">=":
-            bool_ = total_iterations < initial_value + step
-        elif operator == "!=" :
-            bool_ = total_iterations != initial_value + step
-        else:
-            bool_ = total_iterations == initial_value + step
+        bool_ = compare_values(total_iterations,initial_value+step,operator)
+
         print("Bool value: ",bool_)
 
         if bool_:
@@ -124,5 +148,21 @@ def CONDITIONAL(v,params):
         x2 = v[1].x
         y2 = v[1].y
 
+
+        print(x1[0])
+        print(x2[0])
         # comparing only x values, if x is none, then comparing only y values
-        return DataContainer(x=v[0].x,y=v[0].y)
+
+        if x1[0] == x2[0] :
+            bool_ = compare_values(y1[0],y2[0],params)
+        else:
+            bool_ = compare_values(x1[0],x2[0],params)
+
+        print(bool_)
+
+        set_direction(jobset_id,bool_)
+
+        if bool_:
+            return DataContainer(x=v[0].x,y=v[0].y)
+
+        return DataContainer(x=v[1].x,y = v[1].y)

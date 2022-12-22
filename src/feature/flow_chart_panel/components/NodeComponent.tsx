@@ -66,9 +66,15 @@ const NodeComponent = ({
         justifyContent: "center",
         padding: "5px",
         width: "100%",
+        flexDirection:'column'
       }}
     >
       <div>{data.label}</div>
+      <div>
+        {
+          data.label == 'CONDITIONAL' && data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']
+        }
+      </div>
     </div>
   );
 };

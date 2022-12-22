@@ -605,7 +605,10 @@ export const CONDITIONAL = {
           },
         },
       },
-      position: nodePosition[2],
+      position: {
+        x:146,
+        y:46
+      },
       type: "default",
     },
     {
@@ -622,7 +625,10 @@ export const CONDITIONAL = {
           },
         },
       },
-      position: nodePosition[2],
+      position: {
+        x:145,
+        y:400
+      },
       type: "default",
     },
     {
@@ -639,8 +645,8 @@ export const CONDITIONAL = {
         }
       },
       "position": {
-        "x": 900,
-        "y": 426
+        "x": 500,
+        "y": 218
       },
       "type": "default"
     },
@@ -652,7 +658,10 @@ export const CONDITIONAL = {
         type: "VISOR",
         ctrls: {},
       },
-      position: nodePosition.line,
+      position: {
+        x:1203,
+        y:308
+      },
     },
     {
       id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
@@ -662,7 +671,42 @@ export const CONDITIONAL = {
         type: "VISOR",
         ctrls: {},
       },
-      position: nodePosition.bar,
+      position: {
+        x:1157,
+        y:-48
+      },
+    },
+    {
+      "id": "RAND-userGeneratedNode_1646417371398",
+      "data": {
+        "label": "RAND",
+        "func": "RAND",
+        "type": "GENERATOR",
+        "ctrls": {
+
+        }
+      },
+      "position": {
+        "x": 887,
+        "y": 393
+      },
+      "type": "default"
+    },
+    {
+      "id": "RAND-userGeneratedNode_1646417371399",
+      "data": {
+        "label": "RAND",
+        "func": "RAND",
+        "type": "GENERATOR",
+        "ctrls": {
+
+        }
+      },
+      "position": {
+        "x": 897,
+        "y": 59
+      },
+      "type": "default"
     },
     {
       source: "2.0-userGeneratedNode_1646435677928",
@@ -681,23 +725,39 @@ export const CONDITIONAL = {
       id: "reactflow__edge-2.0-userGeneratedNode_1646435677929null-CONDITIONAL-userGeneratedNode_1646435677929null",
     },
     {
-      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      target: "RAND-userGeneratedNode_1646417371398",
       sourceHandle: null,
       source: "CONDITIONAL-userGeneratedNode_1646435677929",
       targetHandle: null,
       animated: false,
-      label:'true',
-      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
+      label:'True',
+      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371398null",
+    },
+    {
+      target: "RAND-userGeneratedNode_1646417371399",
+      sourceHandle: null,
+      source: "CONDITIONAL-userGeneratedNode_1646435677929",
+      targetHandle: null,
+      animated: false,
+      label:'False',
+      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371399null",
+    },
+    {
+      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      sourceHandle: null,
+      source: "RAND-userGeneratedNode_1646417371398",
+      targetHandle: null,
+      animated: false,
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
     },
     {
       target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
       sourceHandle: null,
-      source: "CONDITIONAL-userGeneratedNode_1646435677929",
+      source: "RAND-userGeneratedNode_1646417371399",
       targetHandle: null,
       animated: false,
-      label:'false',
-      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
-    },
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
+    }
   ],
   position: [0, 0],
   zoom: 0.8,
