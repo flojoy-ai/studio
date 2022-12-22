@@ -27,7 +27,7 @@ export function saveAndRunFlowChartInServer({
   // console.log("saving flowchart to server:", rfInstanceObject);
 
   const fcStr = JSON.stringify(rfInstanceObject);
-
+  
   fetch("/wfc", {
     method: "POST",
     body: JSON.stringify({ fc: fcStr, jobsetId:jobId }),
