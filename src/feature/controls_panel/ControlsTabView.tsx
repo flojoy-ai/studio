@@ -228,7 +228,6 @@ const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });

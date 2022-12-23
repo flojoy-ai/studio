@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
-import Plot from "react-plotly.js";
+import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -16,19 +15,21 @@ import {
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
+import PlotControl from "./PlotControl";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (val: PlotManifestParam, ctrlObj: CtlManifestType) => void;
-  attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (
+    val: CtrlOptionValue | PlotManifestParam,
+    ctrlObj: CtlManifestType
+  ) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
   ) => void;
-
   setCurrentInput: Dispatch<
     SetStateAction<CtlManifestType & { index: number }>
   >;
@@ -52,7 +53,6 @@ const ControlComponent = ({
     selectOptions,
     setSelectOptions,
     flowChartObject,
-    setFlowChartObject,
     knobValue,
     setKnobValue,
     textInput,
@@ -67,33 +67,23 @@ const ControlComponent = ({
     setCurrentInputValue,
     nd,
     setNd,
-    plotData,
     setPlotData,
+    selectedPlotOption,
+    plotData,
     selectedOption,
     setSelectedOption,
-    plotOptions,
-    setPlotOptions,
     inputOptions,
-    setInputOptions,
     outputOptions,
     setOutputOptions,
-    selectedPlotOption,
     setSelectedPlotOption,
-    selectedInputOption,
-    setSelectedInputOption,
-    selectedOutputOption,
-    setSelectedOutputOption,
     ctrls,
     defaultValue,
     paramOptions,
     styledLayout,
-    localforage,
-    flowKey,
   } = ControlComponentState({
     theme,
     ctrlObj,
   });
-
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       setKnobValue(value);
@@ -114,14 +104,6 @@ const ControlComponent = ({
   );
 
   const handleCtrlValueChange = (
-    func: Dispatch<SetStateAction<string>>,
-    value: string
-  ) => {
-    func(value);
-    if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-      return;
-    }
-    updateCtrlValue(value, ctrlObj);
     setValue: Dispatch<SetStateAction<string>>,
     value: string
   ) => {
@@ -130,6 +112,7 @@ const ControlComponent = ({
       return;
     }
     updateCtrlValue(value, ctrlObj);
+
     if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
       attachParamsToCtrl(
         {
@@ -150,6 +133,10 @@ const ControlComponent = ({
   };
 
   useControlComponentEffects({
+    nd,
+    selectedPlotOption,
+    setNd,
+    setPlotData,
     ctrlObj,
     ctrls,
     ctrlsManifest,
@@ -157,50 +144,30 @@ const ControlComponent = ({
     debouncedTimerForKnobId,
     defaultValue,
     flowChartObject,
-    flowKey,
     isEditMode,
     knobValue,
-    localforage,
-    nd,
     numberInput,
     paramOptions,
     plotData,
     results,
     selectedOption,
     selectOptions,
-    plotOptions,
     inputOptions,
     outputOptions,
     sliderInput,
     styledLayout,
     textInput,
-    selectedPlotOption,
-    selectedInputOption,
-    selectedOutputOption,
     setCurrentInputValue,
     setDebouncedTimerForKnobId,
-    setFlowChartObject,
     setGridLayout,
     setKnobValue,
-    setNd,
     setNumberInput,
-    setPlotData,
     setSelectedOption,
     setSelectedPlotOption,
-    setSelectedInputOption,
-    setSelectedOutputOption,
     setSelectOptions,
-    setPlotOptions,
-    setInputOptions,
     setOutputOptions,
     setSliderInput,
     setTextInput,
-    setSelectOptions,
-    setSliderInput,
-    setTextInput,
-    sliderInput,
-    styledLayout,
-    textInput,
   });
 
   return (
@@ -218,12 +185,6 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-if (val) {
-                attachParamsToCtrl({
-                  node: val.value,
-                  plot: selectedPlotOption?.value,
-                }, ctrlObj);
-              }
               if (val)
                 attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}
@@ -256,123 +217,23 @@ if (val) {
           </button>
         </div>
       )}
-
       {!isEditMode && (
-        <p className="ctrl-param">
-          {ctrlObj.type === "output"
-            ? selectOptions?.find((option) => option.value === (ctrlObj?.param as PlotManifestParam)?.node)
-              ?.label
-            : selectOptions?.find(
-              (option) =>
-                option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
-            )?.label}
-            ? selectOptions?.find((option) => option.value === ctrlObj?.param)
-                ?.label
-            : selectOptions?.find(
-                (option) =>
-                  (option.value as CtrlOptionValue).id ===
-                  (ctrlObj?.param as CtrlManifestParam)?.id
-              )?.label}
-        </p>
+        <p className="ctrl-param">Node: {selectedOption?.label}</p>
       )}
-
-      {isEditMode && ctrlObj.name === ControlNames.Plot && (
-        <Select
-          className="select-plot-type"
-          isSearchable={true}
-          onChange={(val) => {
-            if (val) {
-              attachParamsToCtrl({
-                node: selectedOption?.value,
-                plot: val.value
-              }, ctrlObj);
-            }
-          }}
-          placeholder="Select Plot Type"
-          theme={theme as unknown as ThemeConfig}
-          options={plotOptions}
-          styles={customDropdownStyles}
-          value={selectedPlotOption}
-        />
-      )}
-
-      {!isEditMode && ctrlObj.name === ControlNames.Plot && (
-        <p className="ctrl-param">
-          Plot: {plotOptions?.find((option) => 
-            option.value.type === (ctrlObj?.param as PlotManifestParam)?.plot?.type
-            && option.value.mode === (ctrlObj?.param as PlotManifestParam)?.plot?.mode)?.label}
-        </p>
-        
-      )}
-
-      {(isEditMode && ctrlObj.name === ControlNames.Plot) &&
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Select
-            className="select-plot-type"
-            isSearchable={true}
-            onChange={(val) => {
-              if (val) {
-                attachParamsToCtrl({
-                  node: selectedOption?.value,
-                  plot: selectedPlotOption?.value,
-                  input: val.value,
-                  output: selectedOutputOption?.value
-                }, ctrlObj);
-              }
-            }}
-            placeholder="Select X"
-            options={inputOptions}
-            styles={customDropdownStyles}
-            theme={theme as unknown as ThemeConfig}
-            value={selectedInputOption}
-          />
-          {(selectedPlotOption?.type !== 'histogram') &&
-            <Select
-              className="select-plot-type"
-              isSearchable={true}
-            onChange={(val) => {
-              if (val) {
-                attachParamsToCtrl({
-                  node: selectedOption?.value,
-                  plot: selectedPlotOption?.value,
-                  input: selectedInputOption?.value,
-                  output: val.value
-                }, ctrlObj);
-              }
-            }}
-              placeholder="Select Y"
-              options={outputOptions}
-              styles={customDropdownStyles}
-              theme={theme as unknown as ThemeConfig}
-              value={selectedOutputOption}
-            />}
-        </div>
-      }
-
       {ctrlObj.name === ControlNames.Plot && (
-        <div
-          style={{
-            flex: "1",
-            height: "100%",
-            width: "100%",
-            paddingBottom: "10px",
-          }}
-        >
-          <Plot
-            data={[{
-              ...plotData[0],
-              type: selectedPlotOption?.value.type,
-              mode: selectedPlotOption?.value.mode,
-            }]}
-            layout={styledLayout}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
+        <PlotControl
+          nd={nd}
+          results={results}
+          setNd={setNd}
+          setPlotData={setPlotData}
+          ctrlObj={ctrlObj}
+          isEditMode={isEditMode}
+          plotData={plotData}
+          selectedOption={selectedOption}
+          selectedPlotOption={selectedPlotOption}
+          theme={theme}
+          setSelectedPlotOption={setSelectedPlotOption}
+        />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
@@ -565,4 +426,4 @@ if (val) {
   );
 };
 
-export default ControlComponent;
+export default memo(ControlComponent);

@@ -1,3 +1,5 @@
+import { PlotData } from "plotly.js";
+
 export enum ControlTypes {
   Input = "input",
   Output = "output",
@@ -33,8 +35,12 @@ export const OutputControlsManifest = [
     minWidth: 2,
   },
 ];
-
-export const PlotTypesManifest = [
+type IPlotTypesManifest ={
+  name: PlotTypeNames,
+  type: PlotData['type'],
+  mode?: PlotData['mode']
+}
+export const PlotTypesManifest: IPlotTypesManifest[] = [
   // Plot types
   {
     name: PlotTypeNames.ScatterPlot3D,
@@ -48,7 +54,7 @@ export const PlotTypesManifest = [
   },
   {
     name: PlotTypeNames.Histogram,
-    type: "histogram"
+    type: "histogram",
   },
   {
     name: PlotTypeNames.SurfacePlot3D,

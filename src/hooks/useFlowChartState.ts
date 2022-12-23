@@ -6,6 +6,7 @@ import { saveAs } from "file-saver";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";
+import localforage from "localforage";
 
 export interface CtrlManifestParam {
   functionName: string;
@@ -21,15 +22,15 @@ export interface PlotManifestParam {
 }
 
 interface PlotType {
-  type: string,
-  mode: string
+  type: string;
+  mode: string;
 }
 
 export interface CtlManifestType {
   type: string;
   name: string;
   id: string;
-  param?: PlotManifestParam | CtrlManifestParam;
+  param?: PlotManifestParam | CtrlManifestParam | string;
   val?: string | number;
   hidden?: boolean;
   controlGroup?: string;
@@ -55,8 +56,8 @@ const initialManifests: CtlManifestType[] = [
     minWidth: 2,
   },
 ];
-const failedNodeAtom = atomWithImmer<string>('')
-const runningNodeAtom = atomWithImmer<string>('')
+const failedNodeAtom = atomWithImmer<string>("");
+const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
@@ -81,7 +82,10 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     i: ctrl.id,
   }))
 );
+localforage.config({ name: "react-flow", storeName: "flows" });
+
 export function useFlowChartState() {
+  const flowKey = "flow-joy";
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [elements, setElements] = useAtom(elementsAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
@@ -90,8 +94,8 @@ export function useFlowChartState() {
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
-  const [runningNode, setRunningNode] = useAtom(runningNodeAtom)
-  const [failedNode, setFailedNode] = useAtom(failedNodeAtom)
+  const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
+  const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
 
   const loadFlowExportObject = useCallback(
     (flow: FlowExportObject) => {
@@ -183,6 +187,26 @@ export function useFlowChartState() {
     });
   };
   useEffect(() => {
+    if (!rfInstance) {
+      localforage
+        .getItem(flowKey)
+        .then((val) => {
+          setRfInstance(
+            val as FlowExportObject<{
+              label: string;
+              func: string;
+              elements: Elements;
+              position: [number, number];
+              zoom: number;
+            }>
+          );
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+    }
+  }, [rfInstance]);
+  useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
         prev.elements = elements;
@@ -214,6 +238,6 @@ export function useFlowChartState() {
     runningNode,
     setRunningNode,
     failedNode,
-    setFailedNode
+    setFailedNode,
   };
 }
