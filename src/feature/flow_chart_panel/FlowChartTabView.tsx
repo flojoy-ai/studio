@@ -96,7 +96,7 @@ const FlowChartTab = ({
   if (results && "io" in results) {
     const runResults = results.io; // JSON.parse(results.io);
     const filteredResult = runResults.filter(
-      (node: any) => node.cmd === nodeLabel
+      (node: any) => node.id === clickedElement.id
     )[0];
 
     nd = filteredResult === undefined ? {} : filteredResult;

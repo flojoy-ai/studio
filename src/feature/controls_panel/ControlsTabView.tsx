@@ -11,16 +11,18 @@ import ReactSwitch from "react-switch";
 import "../../App.css";
 import {
   CtlManifestType,
+  CtrlManifestParam,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { useSocket } from "../../hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
+import ModalCloseSvg from "@src/utils/ModalCloseSvg";
+import { useSocket } from "@src/hooks/useSocket";
+import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
 import { useControlsTabEffects } from "./ControlsTabEffects";
+import { CtrlOptionValue } from "./types/ControlOptions";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -53,7 +55,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setOpenCtrlModal(false);
   };
 
-  async function cacheManifest(manifest: CtlManifestType[]) {
+  function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -119,7 +121,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }
   };
 
-  const updateCtrlValue = (val: any, ctrl: any) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -127,22 +129,20 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       }
     });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
-      functionName: ctrl.param.functionName,
-      param: ctrl.param.param,
-      value: val,
-    });
+    updateCtrlInputDataForNode(
+      (ctrl.param! as CtrlManifestParam).nodeId,
+      (ctrl.param! as CtrlManifestParam).id,
+      {
+        functionName: (ctrl.param! as CtrlManifestParam).functionName,
+        param: (ctrl.param! as CtrlManifestParam).param,
+        value: val,
+      }
+    );
   };
 
   const attachParamsToCtrl = (
-    param: {
-      id: string;
-      functionName: string;
-      param: string;
-      nodeId: string;
-      inputId: string;
-    },
-    ctrl: any
+    param: CtrlOptionValue,
+    ctrl: CtlManifestType
   ) => {
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
