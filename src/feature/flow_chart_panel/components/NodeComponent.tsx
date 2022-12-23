@@ -71,18 +71,7 @@ const NodeComponent = ({
       }}
     >
       <div>
-        {
-          data.label == '2.0' ? (
-            <p>
-              CONSTANT {data['ctrls']['CONSTANT_2.0_constant']['value']}
-            </p>
-          ) :
-          (
-            <p>
-              {data.label}
-            </p>
-          )
-        }
+        {data.label}
       </div>
       <div>
         {
