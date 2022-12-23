@@ -118,6 +118,7 @@ describe("user workflow", () => {
       });
       matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
       cy.get(".ctrl-close-btn").click({ force: true });
+      cy.wait(3000)
     });
   });
 });
