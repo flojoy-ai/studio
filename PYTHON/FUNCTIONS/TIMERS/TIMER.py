@@ -1,10 +1,11 @@
-from joyflo import flojoy,VectorXY
+from joyflo import flojoy,DataContainer
 import time
 
 @flojoy
 def TIMER(v,params):
     print("executing timer")
-    seconds = params['seconds']
+
+    seconds = int(params['sleep_time'])
     time.sleep(seconds)
 
-    return v
+    return DataContainer(x=v[0].x,y=v[0].y)

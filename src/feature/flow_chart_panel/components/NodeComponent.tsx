@@ -17,6 +17,7 @@ const NodeComponent = ({
   uiTheme: any;
   params: ElementsData['inputs'];
 }) => {
+  console.log(data);
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
       <Fragment>
@@ -69,10 +70,39 @@ const NodeComponent = ({
         flexDirection:'column'
       }}
     >
-      <div>{data.label}</div>
       <div>
         {
-          data.label == 'CONDITIONAL' && data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']
+          data.label == '2.0' ? (
+            <p>
+              CONSTANT {data['ctrls']['CONSTANT_2.0_constant']['value']}
+            </p>
+          ) :
+          (
+            <p>
+              {data.label}
+            </p>
+          )
+        }
+      </div>
+      <div>
+        {
+          data.label == 'CONDITIONAL' ? (
+            <p>
+              x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
+            </p>
+          )
+          : (
+            <>
+
+              {
+                data.label == 'TIMER' && (
+                  <p>
+                    {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
+                  </p>
+                )
+              }
+            </>
+          )
         }
       </div>
     </div>

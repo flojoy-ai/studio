@@ -400,6 +400,7 @@ export const LOOP_APP = {
     {
       "id": "LINSPACE-userGeneratedNode_1646432683694",
       "data": {
+        "id": "LINSPACE-userGeneratedNode_1646432683694",
         "label": "LINSPACE",
         "func": "LINSPACE",
         "type": "GENERATOR",
@@ -430,6 +431,7 @@ export const LOOP_APP = {
     {
       "id": "LOOP-userGeneratedNode_1646417604301",
       "data": {
+        "id": "LOOP-userGeneratedNode_1646417604301",
         "label": "LOOP",
         "func": "LOOP",
         "type": "LOOP",
@@ -467,6 +469,7 @@ export const LOOP_APP = {
     {
       "id": "RAND-userGeneratedNode_1646417371398",
       "data": {
+        "id": "RAND-userGeneratedNode_1646417371398",
         "label": "RAND",
         "func": "RAND",
         "type": "GENERATOR",
@@ -483,6 +486,7 @@ export const LOOP_APP = {
     {
       "id": "MULTIPLY-userGeneratedNode_1646417352715",
       "data": {
+        "id": "MULTIPLY-userGeneratedNode_1646417352715",
         "label": "MULTIPLY",
         "func": "MULTIPLY",
         "type": "TRANSFORMER",
@@ -505,15 +509,26 @@ export const LOOP_APP = {
     {
       "id": "CONDITIONAL-userGeneratedNode_1646435677929",
       "data": {
+        "id": "CONDITIONAL-userGeneratedNode_1646435677929",
         "label": "CONDITIONAL",
         "func": "CONDITIONAL",
         "type": "COMPARATOR",
         "ctrls": {
           "CONDITIONAL_CONDITIONAL_operator_type": {
             "param": "operator_type",
-            "value": "<="
+            "value": ">"
           }
-        }
+        },
+        inputs: [
+          {
+            name: "x",
+            id: "first"
+          },
+          {
+            name: "y",
+            id: "second",
+          }
+        ]
       },
       "position": {
         "x": 900,
@@ -524,6 +539,7 @@ export const LOOP_APP = {
     {
       id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
       data: {
+        id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
         label: "Line",
         func: "LINE",
         type: "VISOR",
@@ -537,6 +553,7 @@ export const LOOP_APP = {
     {
       id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
       data: {
+        id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
         label: "Bar",
         func: "BAR",
         type: "VISOR",
@@ -554,7 +571,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "LINSPACE-userGeneratedNode_1646432683694null-LOOP-userGeneratedNode_1646417604301null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
@@ -563,7 +579,6 @@ export const LOOP_APP = {
       "sourceHandle": "body",
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-RAND-userGeneratedNode_1646417371398null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
@@ -572,7 +587,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-MULTIPLY-userGeneratedNode_1646417352715null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
@@ -581,7 +595,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-CONDITIONAL-userGeneratedNode_1646435677929null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "RAND-userGeneratedNode_1646417371398",
@@ -590,7 +603,6 @@ export const LOOP_APP = {
       "targetHandle": "multiply_y",
       "id": "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "MULTIPLY-userGeneratedNode_1646417352715",
@@ -599,7 +611,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-CONDITIONAL-userGeneratedNode_1646435677929null",
       "type": "default",
-      "label":"default"
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
@@ -608,7 +619,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
       "type": "default",
-      "label":"true"
     },
     {
       "source": "LOOP-userGeneratedNode_1646417604301",
@@ -617,7 +627,6 @@ export const LOOP_APP = {
       "targetHandle": null,
       "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
       "type": "default",
-      "label":"true"
     },
   ],
   "position": [
@@ -632,6 +641,7 @@ export const CONDITIONAL = {
     {
       id: "2.0-userGeneratedNode_1646435677928",
       data: {
+        id: "2.0-userGeneratedNode_1646435677928",
         label: "2.0",
         func: "CONSTANT",
         type: "GENERATOR",
@@ -644,7 +654,7 @@ export const CONDITIONAL = {
         },
       },
       position: {
-        x:146,
+        x:96,
         y:46
       },
       type: "default",
@@ -652,6 +662,7 @@ export const CONDITIONAL = {
     {
       id: "2.0-userGeneratedNode_1646435677929",
       data: {
+        id: "2.0-userGeneratedNode_1646435677929",
         label: "2.0",
         func: "CONSTANT",
         type: "GENERATOR",
@@ -672,15 +683,26 @@ export const CONDITIONAL = {
     {
       "id": "CONDITIONAL-userGeneratedNode_1646435677929",
       "data": {
+        "id": "CONDITIONAL-userGeneratedNode_1646435677929",
         "label": "CONDITIONAL",
         "func": "CONDITIONAL",
         "type": "COMPARATOR",
         "ctrls": {
           "CONDITIONAL_CONDITIONAL_operator_type": {
             "param": "operator_type",
-            "value": "<="
+            "value": ">"
           }
-        }
+        },
+        inputs: [
+          {
+            name: "x",
+            id: "first"
+          },
+          {
+            name: "y",
+            id: "second",
+          }
+        ],
       },
       "position": {
         "x": 500,
@@ -691,6 +713,7 @@ export const CONDITIONAL = {
     {
       id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
       data: {
+        id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
         label: "Line",
         func: "LINE",
         type: "VISOR",
@@ -704,6 +727,7 @@ export const CONDITIONAL = {
     {
       id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
       data: {
+        id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
         label: "Bar",
         func: "BAR",
         type: "VISOR",
@@ -715,8 +739,28 @@ export const CONDITIONAL = {
       },
     },
     {
+      id:"TIMER-userGeneratedNode_1646435677929",
+      data:{
+        id:"TIMER-userGeneratedNode_1646435677929",
+        label:'TIMER',
+        func:'TIMER',
+        type:'TIMER',
+        ctrls :{
+          "TIMER_TIMER_sleep_time":{
+            "param":'sleep_time',
+            "value":3
+          }
+        },
+      },
+      "position": {
+        x:256,
+        y:146
+      },
+    },
+    {
       "id": "RAND-userGeneratedNode_1646417371398",
       "data": {
+        "id": "RAND-userGeneratedNode_1646417371398",
         "label": "RAND",
         "func": "RAND",
         "type": "GENERATOR",
@@ -733,6 +777,7 @@ export const CONDITIONAL = {
     {
       "id": "RAND-userGeneratedNode_1646417371399",
       "data": {
+        "id": "RAND-userGeneratedNode_1646417371399",
         "label": "RAND",
         "func": "RAND",
         "type": "GENERATOR",
@@ -749,16 +794,24 @@ export const CONDITIONAL = {
     {
       source: "2.0-userGeneratedNode_1646435677928",
       sourceHandle: null,
-      target: "CONDITIONAL-userGeneratedNode_1646435677929",
+      target: "TIMER-userGeneratedNode_1646435677929",
       targetHandle: null,
       animated: false,
-      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-TIMER-userGeneratedNode_1646435677929null",
+    },
+    {
+      source: "TIMER-userGeneratedNode_1646435677929",
+      sourceHandle: null,
+      target: "CONDITIONAL-userGeneratedNode_1646435677929",
+      targetHandle: "first",
+      animated: false,
+      id: "reactflow__edge-TIMER-userGeneratedNode_1646435677929null-CONDITIONAL-userGeneratedNode_1646435677929null",
     },
     {
       source: "2.0-userGeneratedNode_1646435677929",
       sourceHandle: null,
       target: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: null,
+      targetHandle: "second",
       animated: false,
       id: "reactflow__edge-2.0-userGeneratedNode_1646435677929null-CONDITIONAL-userGeneratedNode_1646435677929null",
     },

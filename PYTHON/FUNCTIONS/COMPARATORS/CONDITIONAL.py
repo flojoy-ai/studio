@@ -118,8 +118,7 @@ def set_direction(jobset_id,bool_):
 @flojoy
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
-    print("params: ",params)
-    print("value: ",v)
+
     jobset_id = params['jobset_id']
     operator = params['operator_type']
 
@@ -128,11 +127,7 @@ def CONDITIONAL(v,params):
     if type == 'LOOP':
         initial_value, total_iterations,step = get_iteration_info(jobset_id)
 
-        print("initial value ",initial_value)
-
         bool_ = compare_values(total_iterations,initial_value+step,operator)
-
-        print("Bool value: ",bool_)
 
         if bool_:
             set_body_execution_done(jobset_id)
@@ -148,21 +143,21 @@ def CONDITIONAL(v,params):
         x2 = v[1].x
         y2 = v[1].y
 
-
-        print(x1[0])
-        print(x2[0])
         # comparing only x values, if x is none, then comparing only y values
 
         if x1[0] == x2[0] :
-            bool_ = compare_values(y1[0],y2[0],params)
+            bool_ = compare_values(y1[0],y2[0],operator)
         else:
-            bool_ = compare_values(x1[0],x2[0],params)
-
-        print(bool_)
+            bool_ = compare_values(x1[0],x2[0],operator)
 
         set_direction(jobset_id,bool_)
 
-        if bool_:
-            return DataContainer(x=v[0].x,y=v[0].y)
+        if operator in ["<=","<"]:
+            if not bool_:
+                return DataContainer(x=v[0].x,y=v[0].y)
 
-        return DataContainer(x=v[1].x,y = v[1].y)
+            return DataContainer(x=v[1].x,y = v[1].y)
+        else:
+            if bool_:
+                return DataContainer(x=v[0].x,y=v[0].y)
+            return DataContainer(x=v[1].x,y = v[1].y)

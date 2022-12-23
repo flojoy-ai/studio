@@ -63,7 +63,7 @@ def wfc(request):
     msg = {
         'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId, 'FAILED_NODES': '', 'RUNNING_NODES': ''}
     send_msg_to_socket(msg=msg)
-    func = getattr(globals()['testwatch'], 'run')
+    func = getattr(globals()['watch'], 'run')
     q.enqueue(func,
               job_timeout='3m',
               on_failure=report_failure,
