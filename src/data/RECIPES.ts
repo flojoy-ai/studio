@@ -484,6 +484,23 @@ export const LOOP_APP = {
       "type": "default"
     },
     {
+      "id": "RAND-userGeneratedNode_1646417371399",
+      "data": {
+        "id": "RAND-userGeneratedNode_1646417371399",
+        "label": "RAND",
+        "func": "RAND",
+        "type": "GENERATOR",
+        "ctrls": {
+
+        }
+      },
+      "position": {
+        "x": 550,
+        "y": 619
+      },
+      "type": "default"
+    },
+    {
       "id": "MULTIPLY-userGeneratedNode_1646417352715",
       "data": {
         "id": "MULTIPLY-userGeneratedNode_1646417352715",
@@ -607,9 +624,17 @@ export const LOOP_APP = {
     {
       "source": "MULTIPLY-userGeneratedNode_1646417352715",
       "sourceHandle": null,
+      "target": "RAND-userGeneratedNode_1646417371399",
+      "targetHandle": null,
+      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371399null-RAND-userGeneratedNode_1646417371399null",
+      "type": "default",
+    },
+    {
+      "source": "RAND-userGeneratedNode_1646417371399",
+      "sourceHandle": null,
       "target": "CONDITIONAL-userGeneratedNode_1646435677929",
       "targetHandle": null,
-      "id": "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371399null-CONDITIONAL-userGeneratedNode_1646435677929null",
       "type": "default",
     },
     {

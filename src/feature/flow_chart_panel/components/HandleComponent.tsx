@@ -19,7 +19,7 @@ const HandleComponent = ({
     <Fragment>
 
       {params.length > 0 ?
-        data.func == 'CONDITIONAL' &&
+        data.func == 'CONDITIONAL' ?(
         params.map((param, i) => {
             return (
               <Handle
@@ -68,6 +68,20 @@ const HandleComponent = ({
               </Handle>
             )
         }
+        )):
+        (
+          <Handle
+            type="target"
+            position={Position.Left}
+            style={{
+              borderRadius: 0,
+              height: 8,
+              width: 8,
+              ...(params.length > 0 && { top: 15 }),
+            }}
+            id={data.func}
+            isValidConnection={isValidConnection}
+          />
         )
         :
         (

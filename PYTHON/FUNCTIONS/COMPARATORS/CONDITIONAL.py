@@ -127,9 +127,9 @@ def CONDITIONAL(v,params):
     if type == 'LOOP':
         initial_value, total_iterations,step = get_iteration_info(jobset_id)
 
-        bool_ = compare_values(total_iterations,initial_value+step,operator)
+        bool_ = compare_values(initial_value+step,total_iterations,operator)
 
-        if bool_:
+        if not bool_:
             set_body_execution_done(jobset_id)
         else:
             increase_current_iteration(jobset_id,initial_value,total_iterations,step)

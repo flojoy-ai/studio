@@ -13,7 +13,7 @@ import matplotlib.cbook
 import requests
 from dotenv import dotenv_values
 import time
-from rq.registry import StartedJobRegistry,FinishedJobRegistry
+from rq.registry import StartedJobRegistry,FinishedJobRegistry,DeferredJobRegistry
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
@@ -55,20 +55,6 @@ def handle_loop_body(cmd,node_serial):
     pass
 
 
-'''
-
-    |
-    |   ----------------------------------------------------
-    |
-    |   Finished LOOP implementation.
-    |   TODO requeue jobs, those are part of loop body.
-    |        Currently after remaining break nodes the jobs are not enqueing.
-    |
-    |   ----------------------------------------------------
-    |
-'''
-
-
 def run(**kwargs):
     fc = kwargs['fc']
 
@@ -100,7 +86,8 @@ def run(**kwargs):
     r_obj = get_redis_obj(jobset_id)
 
     if(cancel_existing_jobs):
-
+        print(r_obj)
+        print(q.count)
         if r_obj is not None and 'ALL_JOBS' in r_obj:
             for i in r_obj['ALL_JOBS']:
                 try:
@@ -109,6 +96,9 @@ def run(**kwargs):
                     print(traceback.format_exc())
                 if job is not None:
                     job.delete()
+            print("JOB DELETE OK")
+
+    r.set(jobset_id, dump({}))
 
     def report_failure(job, connection, type, value, traceback):
         print(job, connection, type, value, traceback)
@@ -170,14 +160,16 @@ def run(**kwargs):
                 Remove all predecessors and enqueue only conditional node job_id
             '''
 
-            if status == False:
-                for node_id in loop_nodes:
-                    id = nodes_by_id[node_id]['id']
-                    if 'CONDITIONAL' in id:
-                        prev_cmd = DG.nodes[node_id]['cmd']
-                        prev_job_id = jid(prev_cmd+id)
-                        previous_job_ids.append(prev_job_id)
-                        return previous_job_ids
+            # if status == False:
+
+            for node_id in loop_nodes:
+                id = nodes_by_id[node_id]['id']
+                if 'CONDITIONAL' in id:
+                    prev_cmd = DG.nodes[node_id]['cmd']
+                    prev_job_id = jid(prev_cmd+id)
+                    previous_job_ids.append(prev_job_id)
+                    return previous_job_ids
+
 
         if cmd == 'CONDITIONAL' and len(loop_nodes) > 0:
             for p in DG.predecessors(node_serial):
@@ -236,7 +228,6 @@ def run(**kwargs):
                 return True
             except :
                 return False
-
 
     loop_nodes = []
 
@@ -396,12 +387,12 @@ def run(**kwargs):
                         job_id=job_id,
                         kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,'node_id': nodes_by_id[node_serial]['id']},
                         result_ttl=500)
-                time.sleep(2.5)
-
             else:
                 previous_job_ids = get_previous_job_ids(cmd,node_serial,loop_nodes,node_id)
-                if cmd == 'CONDITIONAL':
+
+                if cmd == 'LOOP':
                     print(previous_job_ids)
+
                 q.enqueue(func,
                         retry=Retry(max=100),
                         job_timeout='3m',
@@ -411,8 +402,8 @@ def run(**kwargs):
                                 'previous_job_ids': previous_job_ids, 'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
                         depends_on=previous_job_ids,
                         result_ttl=500)
-                time.sleep(2.5)
-
+            if cmd == 'CONDITIONAL':
+                time.sleep(len(loop_nodes)+1)
         else:
             topological_sorting.append(node_serial)
 
