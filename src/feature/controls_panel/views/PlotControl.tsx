@@ -151,7 +151,7 @@ const PlotControl = ({
               options={inputOptions}
               styles={customDropdownStyles}
               theme={theme as unknown as ThemeConfig}
-              value={selectedKeys && selectedKeys![key]}
+              value={selectedKeys && selectedKeys![key] || ''}
             />
           ))}
         </div>
@@ -174,7 +174,7 @@ const PlotControl = ({
             },
           ]}
           layout={styledPlotLayout(theme)}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
         />
       </div>
     </Fragment>

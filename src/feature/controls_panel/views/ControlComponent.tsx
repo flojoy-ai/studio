@@ -361,7 +361,7 @@ const ControlComponent = ({
             options={paramOptions}
             styles={customDropdownStyles}
             value={
-              paramOptions.find((opt) => +opt.value === currentInputValue) || ""
+              paramOptions.find((opt) => opt.value === currentInputValue.toString()) || ""
             }
           />
         </div>
@@ -371,13 +371,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div>
+              <div key={option.value}>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === +option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
@@ -396,13 +396,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }}>
+              <div style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === +option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
