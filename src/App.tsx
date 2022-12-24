@@ -17,14 +17,20 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const {
-    states: { serverStatus, programResults, runningNode, failedNodes },
-  } = useSocket();
+  const { states } = useSocket();
+  const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState([]);
-  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
-    useFlowChartState();
+  const {
+    elements,
+    setElements,
+    rfInstance,
+    setRfInstance,
+    setUiTheme,
+    setRunningNode,
+    setFailedNode,
+  } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
   );
@@ -40,27 +46,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    setElements((prev) => {
-      prev.forEach((el) => {
-        if (el?.data?.func === runningNode) {
-          el.data.running = true;
-        } else {
-          if (el.data?.running) {
-            el.data.running = false;
-          }
-        }
-        if (el?.data?.func && failedNodes.includes(el.data.func)) {
-          el.data.failed = true;
-        } else {
-          if (el?.data?.failed) {
-            el.data.failed = false;
-          }
-        }
-      });
-    });
-  }, [runningNode, failedNodes]);
-  const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
-    ReactFlowProvider;
+    setRunningNode(runningNode);
+    setFailedNode(failedNode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runningNode, failedNode]);
+  const ReactFlowChartProvider: any = ReactFlowProvider;
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowChartProvider>

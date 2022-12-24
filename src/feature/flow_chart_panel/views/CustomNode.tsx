@@ -25,13 +25,13 @@ const getboxShadow = (data: ElementsData) =>{
 
 
 const CustomNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
   
   return (
     <div style={{
-      ...(data.running && getboxShadow(data)),
-      ...(data.failed && {
+      ...(runningNode === data.id && getboxShadow(data)),
+      ...(failedNode === data.id && {
         boxShadow: 'rgb(183 0 0) 0px 0px 50px 15px'
       })
     }}>
