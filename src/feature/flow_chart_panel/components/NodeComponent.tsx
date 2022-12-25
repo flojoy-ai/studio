@@ -17,7 +17,7 @@ const NodeComponent = ({
   uiTheme: any;
   params: ElementsData['inputs'];
 }) => {
-  console.log(data);
+
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
       <Fragment>

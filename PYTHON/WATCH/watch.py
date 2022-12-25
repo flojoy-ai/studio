@@ -192,15 +192,27 @@ def run(**kwargs):
             previous_job_ids.append(prev_job_id)
         return previous_job_ids
 
+    '''
+        TODO Fixing the child children node, whether they are eligible to enqueue or not
+    '''
 
-    def check_if_default_node_part_of_loop():
+    def check_if_default_node_part_of_loop(node_serial,enqued_job_list):
         r_obj = get_redis_obj(jobset_id)
         special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {}
 
-        status = len(special_type_jobs) and \
+        loop_status = len(special_type_jobs) and \
                 len(special_type_jobs['LOOP']) if 'LOOP' in special_type_jobs else False and \
                 special_type_jobs['LOOP']['status'] == 'ongoing' if 'LOOP' in special_type_jobs else False
-        return status
+
+        is_eligible_to_enqueue = True
+
+        # if len(list(DG.predecessors(node_serial))):
+        print(loop_status)
+        for p in DG.predecessors(node_serial):
+            if p not in enqued_job_list:
+                return loop_status,not is_eligible_to_enqueue # must wait for next cycle
+        return loop_status,is_eligible_to_enqueue
+
 
     def is_eligible_on_condition(node_serial,direction):
 
@@ -232,6 +244,11 @@ def run(**kwargs):
                 return False
 
     loop_nodes = []
+    enqued_job_list = []
+
+    for node_serial in topological_sorting:
+        print(nodes_by_id[node_serial]['cmd'])
+        print(nodes_by_id[node_serial]['id'])
 
     while len(topological_sorting) != 0:
 
@@ -244,6 +261,8 @@ def run(**kwargs):
         func = getattr(globals()[cmd], cmd)
         ctrls = nodes_by_id[node_serial]['ctrls']
         node_id = nodes_by_id[node_serial]['id']
+
+        # print(nodes_by_id)
 
         job_id = 'JOB_' + cmd + '_' + uuid.uuid1().__str__()
         print("job_id: ",job_id)
@@ -290,6 +309,7 @@ def run(**kwargs):
                         },
                         'SPECIAL_TYPE_JOBS':{}
                     }))
+                    loop_nodes = []
             elif 'CONDITIONAL' in special_type_jobs:
 
                 print("direction: ",special_type_jobs['CONDITIONAL']['direction'])
@@ -356,8 +376,9 @@ def run(**kwargs):
                         **special_type_jobs
                     }
                 }))
-        print(get_redis_obj(jobset_id))
         is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = check_loop_type(node_serial,cmd,node_id)
+
+        print(is_part_of_loop)
 
         if is_part_of_loop:
 
@@ -372,9 +393,10 @@ def run(**kwargs):
                     loop_nodes = []
 
         else:
-            is_eligible_to_enqueue = True
-
-            if check_if_default_node_part_of_loop():
+            print("here")
+            is_loop_ongoing,is_eligible_to_enqueue = check_if_default_node_part_of_loop(node_serial,enqued_job_list)
+            print(is_eligible_to_enqueue)
+            if is_loop_ongoing and is_eligible_to_enqueue:
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes else node_serial
 
         print("is eligible to enqueue: ",is_eligible_to_enqueue)
@@ -391,9 +413,11 @@ def run(**kwargs):
                         job_id=job_id,
                         kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,'node_id': nodes_by_id[node_serial]['id']},
                         result_ttl=500)
+                enqued_job_list.append(node_serial)
+
             else:
                 previous_job_ids = get_previous_job_ids(cmd,node_serial,loop_nodes,node_id)
-
+                print(previous_job_ids)
                 if cmd == 'LOOP':
                     print(previous_job_ids)
 
@@ -406,8 +430,14 @@ def run(**kwargs):
                                 'previous_job_ids': previous_job_ids, 'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
                         depends_on=previous_job_ids,
                         result_ttl=500)
+                enqued_job_list.append(node_serial)
+
             if cmd == 'CONDITIONAL':
-                time.sleep(len(loop_nodes)+1)
+                # if is_part_of_loop:
+                while True:
+                    job = Job.fetch(job_id, connection=r)
+                    if job.get_status() == 'finished':
+                        break
         else:
             topological_sorting.append(node_serial)
 

@@ -138,7 +138,7 @@ const useControlComponentEffects = ({
                       id:
                         nodeFunctionName +
                         "_" +
-                        nodeLabel.toString().split(" ").join("") +
+                        nodeFunctionName +
                         "_" +
                         param,
                       functionName: nodeFunctionName,

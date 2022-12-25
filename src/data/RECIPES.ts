@@ -878,3 +878,9 @@ export const CONDITIONAL = {
   position: [0, 0],
   zoom: 0.8,
 };
+
+export const EMPTY_CANVAS = {
+  elements:[],
+  position: [0, 0],
+  zoom: 0.8,
+}
