@@ -42,4 +42,5 @@ from joyflo import flojoy,DataContainer
 @flojoy
 def LOOP(v,params):
     print("EXECUTING LOOP")
+    print(v)
     return DataContainer(x=[1,2,3,4,5],y=[1,2,3,4,5,6])

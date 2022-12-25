@@ -1,8 +1,7 @@
 COMMAND:
   - {
-      name: conditional,
+      name: loop-conditional,
       key: CONDITIONAL,
       type: COMPARATOR,
       parameters: { operator_type: { type: "string", default: ">=" } },
-      inputs: [{ name: "x", id: "first" }, { name: "y", id: "second" }],
     }

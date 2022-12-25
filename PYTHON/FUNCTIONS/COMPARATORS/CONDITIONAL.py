@@ -131,10 +131,35 @@ def CONDITIONAL(v,params):
 
         if not bool_:
             set_body_execution_done(jobset_id)
+
+            # return {
+            #     "data": DataContainer(x=v[0].x,y=v[0].y),
+            #     "type": 'LOOP',
+            #     "params":{
+            #         "initial_value" : initial_value + step,
+            #         "total_iterations": total_iterations,
+            #         "step":step
+            #     },
+            #     "verdict": 'finished',
+            #     "direction": True
+            # }
+
         else:
             increase_current_iteration(jobset_id,initial_value,total_iterations,step)
 
+            # return {
+            #     "data": DataContainer(x=v[0].x,y=v[0].y),
+            #     "type": 'LOOP',
+            #     "params":{
+            #         "initial_value" : initial_value + step,
+            #         "total_iterations": total_iterations,
+            #         "step":step
+            #     },
+            #     "verdict": 'ongoing',
+            #     "direction": False
+            # }
         return DataContainer(x=v[0].x,y=v[0].y)
+
 
     else:
         x1 = v[0].x

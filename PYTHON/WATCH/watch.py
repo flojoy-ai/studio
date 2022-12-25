@@ -85,6 +85,8 @@ def run(**kwargs):
 
     r_obj = get_redis_obj(jobset_id)
 
+
+
     if(cancel_existing_jobs):
         print(r_obj)
         print(q.count)
@@ -290,6 +292,8 @@ def run(**kwargs):
                     }))
             elif 'CONDITIONAL' in special_type_jobs:
 
+                print("direction: ",special_type_jobs['CONDITIONAL']['direction'])
+
                 status = is_eligible_on_condition(node_serial,special_type_jobs['CONDITIONAL']['direction'])
 
                 if not status:
@@ -330,7 +334,7 @@ def run(**kwargs):
 
             elif cmd == 'CONDITIONAL':
                 conditional_jobs = {
-                    "direction":False
+                    "direction":True
                 }
 
                 r.set(jobset_id, dump({
@@ -352,7 +356,7 @@ def run(**kwargs):
                         **special_type_jobs
                     }
                 }))
-
+        print(get_redis_obj(jobset_id))
         is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = check_loop_type(node_serial,cmd,node_id)
 
         if is_part_of_loop:
