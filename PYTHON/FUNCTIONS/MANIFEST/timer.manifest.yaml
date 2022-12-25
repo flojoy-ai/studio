@@ -2,6 +2,6 @@ COMMAND:
   - {
       name: timer,
       key: TIMER,
-      type: TIMERS,
+      type: TIMER,
       parameters: { sleep_time: { type: "int", default: 0 } },
     }

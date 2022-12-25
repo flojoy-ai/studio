@@ -2,7 +2,7 @@ COMMAND:
   - {
       name: loop,
       key: LOOP,
-      type: LOOPS,
+      type: LOOP,
       parameters:
         {
           initial_count: { type: "int", default: 0 },

@@ -35,4 +35,22 @@ export const SECTIONS = [
     // Visualization tab
     { name: "Visualization", key: "VISOR" },
   ],
+  [
+    {
+      name: 'Loop',
+      key:'LOOP'
+    }
+  ],
+  [
+    {
+      name:'Conditional',
+      key:'COMPARATOR'
+    }
+  ],
+  [
+    {
+      name:'TImer',
+      key:'TIMER'
+    }
+  ]
 ];
