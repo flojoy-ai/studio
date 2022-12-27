@@ -7,7 +7,6 @@ from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
 import traceback
-import uuid
 import warnings
 import matplotlib.cbook
 import requests
@@ -114,26 +113,29 @@ def run(**kwargs):
             if len(list(DG.predecessors(n))) == 0:
                 q.enqueue(func,
                         # TODO: have to understand why the SINE node is failing for few times then succeeds
-                        retry=Retry(max=100),
+                        retry=Retry(max=3),
                         job_timeout='3m',
                         on_failure=report_failure,
                         job_id=job_id,
                         kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,'node_id': nodes_by_id[n]['id']},
-                        result_ttl=500)
+                        result_ttl=500,
+                        )
             else:
                 previous_job_ids = []
                 for p in DG.predecessors(n):
                     prev_job_id = DG.nodes[p]['id']
                     previous_job_ids.append(prev_job_id)
                 q.enqueue(func,
-                        retry=Retry(max=100),
+                        retry=Retry(max=3),
                         job_timeout='3m',
                         on_failure=report_failure,
                         job_id=job_id,
                         kwargs={'ctrls': ctrls,
                                 'previous_job_ids': previous_job_ids, 'jobset_id': jobset_id, 'node_id': nodes_by_id[n]['id']},
                         depends_on=previous_job_ids,
-                        result_ttl=500)
+                        result_ttl=500,
+                        
+                        )
     except Exception:
             print('Error occured: ', Exception, traceback.format_exc())
             raise
