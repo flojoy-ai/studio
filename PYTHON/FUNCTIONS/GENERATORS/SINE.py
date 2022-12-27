@@ -1,5 +1,5 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from joyflo import flojoy, DataContainer
 from scipy import signal
 
 @flojoy
@@ -27,4 +27,4 @@ def SINE(v, params):
     elif waveform == 'sawtooth':
         y = Y0 + A * signal.sawtooth(2 * np.pi * F / 10 * x)
     
-    return VectorXY(x = x, y = y)
+    return DataContainer(x = x, y = y)

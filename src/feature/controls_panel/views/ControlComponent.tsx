@@ -15,13 +15,14 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { CtrlOptionValue } from "../types/ControlOptions";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (val: string, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
@@ -100,14 +101,23 @@ const ControlComponent = ({
   );
 
   const handleCtrlValueChange = (
-    func: Dispatch<SetStateAction<string>>,
+    setValue: Dispatch<SetStateAction<string>>,
     value: string
   ) => {
-    func(value);
+    setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
       return;
     }
     updateCtrlValue(value, ctrlObj);
+    if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
+      attachParamsToCtrl(
+        {
+          ...(selectedOption?.value as CtrlOptionValue),
+          id: "CONSTANT_" + value + "_constant",
+        },
+        ctrlObj
+      );
+    }
   };
 
   const makeLayoutStatic = () => {
@@ -153,7 +163,6 @@ const ControlComponent = ({
     styledLayout,
     textInput,
   });
-console.log('flowObje', flowChartObject)
   return (
     <div
       style={{
@@ -171,7 +180,8 @@ console.log('flowObje', flowChartObject)
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              if (val) attachParamsToCtrl(val.value, ctrlObj);
+              if (val)
+                attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}
             theme={theme as unknown as ThemeConfig}
             options={selectOptions}
@@ -209,7 +219,8 @@ console.log('flowObje', flowChartObject)
                 ?.label
             : selectOptions?.find(
                 (option) =>
-                  option.value.id === (ctrlObj?.param as CtrlManifestParam)?.id
+                  (option.value as CtrlOptionValue).id ===
+                  (ctrlObj?.param as CtrlManifestParam)?.id
               )?.label}
         </p>
       )}
@@ -239,7 +250,7 @@ console.log('flowObje', flowChartObject)
             count={4}
             height={200}
             skew={false}
-            value={plotData}
+            value={plotData.length > 0 && plotData[0].y ? plotData[0].y[0]: '0000'}
           />
         </div>
       )}

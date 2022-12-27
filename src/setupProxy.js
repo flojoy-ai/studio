@@ -1,31 +1,21 @@
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || '127.0.0.1';
+const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
 const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT || 8000;
 const target = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
-
-module.exports = function(app) {
-
+module.exports = function (app) {
   app.use(
-    '/wfc',
+    "/wfc",
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-      logLevel: 'debug'
+      logLevel: "debug",
     })
   );
 
   app.use(
-    '/io',
-    createProxyMiddleware({
-      target: target,
-      changeOrigin: true,
-    })
-  );
-
-  app.use(
-    '/ping',
+    "/io",
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
@@ -33,7 +23,15 @@ module.exports = function(app) {
   );
 
   app.use(
-    '/heartbeat',
+    "/ping",
+    createProxyMiddleware({
+      target: target,
+      changeOrigin: true,
+    })
+  );
+
+  app.use(
+    "/heartbeat",
     createProxyMiddleware({
       target: target,
       changeOrigin: true,

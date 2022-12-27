@@ -9,6 +9,10 @@ import sys
 from django.shortcuts import render
 import os
 from rq import Queue
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
@@ -30,6 +34,24 @@ def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
 
+def send_msg_to_socket(msg: dict):
+    layer = get_channel_layer()
+    async_to_sync(layer.group_send)('flojoy', {
+        'type': 'worker_response',
+        **msg
+    })
+
+
+@api_view(['POST'])
+def worker_response(request):
+    jsonify_data = json.loads(request.data)
+    send_msg_to_socket(jsonify_data)
+    response = {
+        'success': True,
+    }
+    return Response(response, status=200)
+
+
 @api_view(['POST'])
 def wfc(request):
     print('Flow chart payload... ', request.data['fc'][:100])
@@ -37,8 +59,9 @@ def wfc(request):
     fc = json.loads(request.data['fc'])
     jobsetId = request.data['jobsetId']
     cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
-    redis_instance.set(jobsetId, json.dumps(
-        {'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS']}))
+    msg = {
+        'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId, 'FAILED_NODES': '', 'RUNNING_NODES': ''}
+    send_msg_to_socket(msg=msg)
     func = getattr(globals()['watch'], 'run')
     q.enqueue(func,
               job_timeout='3m',

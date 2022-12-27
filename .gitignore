@@ -37,5 +37,6 @@ dump.rdb
 .ipynb_checkpoints
 PYTHON/WATCH/fc.json
 src/feature/flow_chart_panel/pythonFunctions.json
-venv2
+
 .env
+venv2

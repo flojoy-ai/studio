@@ -11,23 +11,25 @@ import ReactSwitch from "react-switch";
 import "../../App.css";
 import {
   CtlManifestType,
+  CtrlManifestParam,
   useFlowChartState,
 } from "../../hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { useSocket } from "../../hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
+import ModalCloseSvg from "@src/utils/ModalCloseSvg";
+import { useSocket } from "@src/hooks/useSocket";
+import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
 import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
+import { useControlsTabEffects } from "./ControlsTabEffects";
+import { CtrlOptionValue } from "./types/ControlOptions";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
-  const {
-    states: { socketId },
-  } = useSocket();
+  const { states } = useSocket();
+  const { socketId, setProgramResults } = states!;
   const {
     openEditModal,
     setOpenEditModal,
@@ -54,7 +56,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setOpenCtrlModal(false);
   };
 
-  async function cacheManifest(manifest: CtlManifestType[]) {
+  function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -63,12 +65,15 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       clearTimeout(debouncedTimerId);
     }
     const timerId = setTimeout(() => {
+      setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
     }, 3000);
 
     setDebouncedTimerId(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
+
+  useControlsTabEffects(saveAndRunFlowChart);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
@@ -111,13 +116,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     );
     cacheManifest(filterChilds);
 
-    if (ctrl) {
+    if (ctrl.param) {
       removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
       saveAndRunFlowChart();
     }
   };
 
-  const updateCtrlValue = (val: any, ctrl: any) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -125,22 +130,20 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       }
     });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
-      functionName: ctrl.param.functionName,
-      param: ctrl.param.param,
-      value: val,
-    });
+    updateCtrlInputDataForNode(
+      (ctrl.param! as CtrlManifestParam).nodeId,
+      (ctrl.param! as CtrlManifestParam).id,
+      {
+        functionName: (ctrl.param! as CtrlManifestParam).functionName,
+        param: (ctrl.param! as CtrlManifestParam).param,
+        value: val,
+      }
+    );
   };
 
   const attachParamsToCtrl = (
-    param: {
-      id: string;
-      functionName: string;
-      param: string;
-      nodeId: string;
-      inputId: string;
-    },
-    ctrl: any
+    param: CtrlOptionValue,
+    ctrl: CtlManifestType
   ) => {
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
@@ -166,14 +169,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     });
     cacheManifest(manClone);
   };
-
-  // useEffect(() => {
-  //   if (rfInstance?.elements.length === 0) {
-  //     setCtrlsManifest([]);
-  //   } else {
-  //     saveAndRunFlowChart();
-  //   }
-  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
