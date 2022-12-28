@@ -9,4 +9,12 @@ COMMAND:
           end: { type: "float", default: "0" },
           step: { type: "float", default: "1000" },
         },
-    }
+        end: { 
+          type: 'float',
+          default: '0'
+        },
+        step: {
+          type: 'float',
+          default: '1000'
+        },
+      }

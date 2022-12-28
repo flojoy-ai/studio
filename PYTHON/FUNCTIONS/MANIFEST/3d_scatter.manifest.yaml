@@ -1,2 +1,7 @@
 COMMAND:
-  - {name: '3D Scatter Plot', key: 'SCATTER3D', type: 'VISOR', inputs: []}
+  - {
+      name: '3D Scatter Plot',
+      key: 'SCATTER3D',
+      type: 'VISOR',
+      inputs: []
+    }

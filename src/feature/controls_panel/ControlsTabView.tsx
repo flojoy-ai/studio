@@ -30,6 +30,7 @@ localforage.config({ name: "react-flow", storeName: "flows" });
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
+
   const {
     openEditModal,
     setOpenEditModal,
@@ -56,7 +57,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setOpenCtrlModal(false);
   };
 
-  function cacheManifest(manifest: CtlManifestType[]) {
+ function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -122,7 +123,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     }
   };
 
-  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
+const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -228,7 +229,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });

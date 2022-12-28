@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
-import Plot from "react-plotly.js";
+import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -13,21 +12,25 @@ import useControlComponentEffects from "@hooks/useControlComponentEffects";
 import {
   CtlManifestType,
   CtrlManifestParam,
+  PlotManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
+import PlotControl from "./PlotControl";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
+  attachParamsToCtrl: (
+    val: CtrlOptionValue | PlotManifestParam,
+    ctrlObj: CtlManifestType
+  ) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
   ) => void;
-
   setCurrentInput: Dispatch<
     SetStateAction<CtlManifestType & { index: number }>
   >;
@@ -51,7 +54,6 @@ const ControlComponent = ({
     selectOptions,
     setSelectOptions,
     flowChartObject,
-    setFlowChartObject,
     knobValue,
     setKnobValue,
     textInput,
@@ -66,21 +68,23 @@ const ControlComponent = ({
     setCurrentInputValue,
     nd,
     setNd,
-    plotData,
     setPlotData,
+    selectedPlotOption,
+    plotData,
     selectedOption,
     setSelectedOption,
+    inputOptions,
+    outputOptions,
+    setOutputOptions,
+    setSelectedPlotOption,
     ctrls,
     defaultValue,
     paramOptions,
     styledLayout,
-    localforage,
-    flowKey,
   } = ControlComponentState({
     theme,
     ctrlObj,
   });
-
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       setKnobValue(value);
@@ -109,6 +113,7 @@ const ControlComponent = ({
       return;
     }
     updateCtrlValue(value, ctrlObj);
+
     if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
       attachParamsToCtrl(
         {
@@ -129,6 +134,10 @@ const ControlComponent = ({
   };
 
   useControlComponentEffects({
+    nd,
+    selectedPlotOption,
+    setNd,
+    setPlotData,
     ctrlObj,
     ctrls,
     ctrlsManifest,
@@ -136,32 +145,30 @@ const ControlComponent = ({
     debouncedTimerForKnobId,
     defaultValue,
     flowChartObject,
-    flowKey,
     isEditMode,
     knobValue,
-    localforage,
-    nd,
     numberInput,
     paramOptions,
     plotData,
     results,
     selectedOption,
     selectOptions,
-    setCurrentInputValue,
-    setDebouncedTimerForKnobId,
-    setFlowChartObject,
-    setGridLayout,
-    setKnobValue,
-    setNd,
-    setNumberInput,
-    setPlotData,
-    setSelectedOption,
-    setSelectOptions,
-    setSliderInput,
-    setTextInput,
+    inputOptions,
+    outputOptions,
     sliderInput,
     styledLayout,
     textInput,
+    setCurrentInputValue,
+    setDebouncedTimerForKnobId,
+    setGridLayout,
+    setKnobValue,
+    setNumberInput,
+    setSelectedOption,
+    setSelectedPlotOption,
+    setSelectOptions,
+    setOutputOptions,
+    setSliderInput,
+    setTextInput,
   });
   return (
     <div
@@ -213,33 +220,22 @@ const ControlComponent = ({
         </div>
       )}
       {!isEditMode && (
-        <p className="ctrl-param">
-          {ctrlObj.type === "output"
-            ? selectOptions?.find((option) => option.value === ctrlObj?.param)
-                ?.label
-            : selectOptions?.find(
-                (option) =>
-                  (option.value as CtrlOptionValue).id ===
-                  (ctrlObj?.param as CtrlManifestParam)?.id
-              )?.label}
-        </p>
+        <p className="ctrl-param">Node: {selectedOption?.label}</p>
       )}
-
       {ctrlObj.name === ControlNames.Plot && (
-        <div
-          style={{
-            flex: "1",
-            height: "100%",
-            width: "100%",
-            paddingBottom: "10px",
-          }}
-        >
-          <Plot
-            data={plotData}
-            layout={styledLayout}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
+        <PlotControl
+          nd={nd}
+          results={results}
+          setNd={setNd}
+          setPlotData={setPlotData}
+          ctrlObj={ctrlObj}
+          isEditMode={isEditMode}
+          plotData={plotData}
+          selectedOption={selectedOption}
+          selectedPlotOption={selectedPlotOption}
+          theme={theme}
+          setSelectedPlotOption={setSelectedPlotOption}
+        />
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <div
@@ -380,7 +376,7 @@ const ControlComponent = ({
             options={paramOptions}
             styles={customDropdownStyles}
             value={
-              paramOptions.find((opt) => +opt.value === currentInputValue) || ""
+              paramOptions.find((opt) => opt.value === currentInputValue.toString()) || ""
             }
           />
         </div>
@@ -390,13 +386,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div>
+              <div key={option.value}>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === +option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
@@ -415,13 +411,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }}>
+              <div style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === +option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
@@ -445,4 +441,4 @@ const ControlComponent = ({
   );
 };
 
-export default ControlComponent;
+export default memo(ControlComponent);

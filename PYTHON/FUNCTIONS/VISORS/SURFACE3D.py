@@ -8,7 +8,7 @@ def SURFACE3D(v, params):
         data = [dict(
             x = list(v[0].x),
             y = list(v[0].y),
-            z =  list([0] * len(v[0].y)),
+            z = list([0] * len(v[0].y)),
             type='surface'
         )],
         layout = dict(template = init_template())

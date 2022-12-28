@@ -156,6 +156,18 @@
   padding-right: 20px;
 }
 
+.select-plot-type {
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  width: 100%;
+  border-bottom: 0.5px solid;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
 .ctrl-input label {
   margin-left: 10px;
 

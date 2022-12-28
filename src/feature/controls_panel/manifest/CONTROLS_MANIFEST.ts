@@ -1,3 +1,5 @@
+import { PlotData } from "plotly.js";
+
 export enum ControlTypes {
   Input = "input",
   Output = "output",
@@ -16,6 +18,15 @@ export enum ControlNames {
   SevenSegmentDisplay = "Seven Segment Display"
 }
 
+export enum PlotTypeNames {
+  ScatterPlot3D = "3D Scatter Plot",
+  ScatterPlot = "Scatter Plot",
+  Histogram = "Histogram",
+  SurfacePlot3D = "3D Surface Plot",
+  Line = "Line",
+  BarChart = "Bar Chart",
+}
+
 export const OutputControlsManifest = [
   // Inputs
   {
@@ -29,6 +40,41 @@ export const OutputControlsManifest = [
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
+  },
+];
+type IPlotTypesManifest ={
+  name: PlotTypeNames,
+  type: PlotData['type'],
+  mode?: PlotData['mode']
+}
+export const PlotTypesManifest: IPlotTypesManifest[] = [
+  // Plot types
+  {
+    name: PlotTypeNames.ScatterPlot3D,
+    type: "scatter3d",
+    mode: "markers"
+  },
+  {
+    name: PlotTypeNames.ScatterPlot,
+    type: "scatter",
+    mode: "markers"
+  },
+  {
+    name: PlotTypeNames.Histogram,
+    type: "histogram",
+  },
+  {
+    name: PlotTypeNames.SurfacePlot3D,
+    type: "surface",
+  },
+  {
+    name: PlotTypeNames.Line,
+    type: "scatter",
+    mode: "lines"
+  },
+  {
+    name: PlotTypeNames.BarChart,
+    type: "bar",
   },
 ];
 

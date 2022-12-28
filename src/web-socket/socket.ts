@@ -75,7 +75,6 @@ export class WebSocketServer {
             this.pingResponse(data[ResponseEnum.systemStatus]);
           }
           break;
-
         default:
           console.log(" default data type: ", data);
           break;
