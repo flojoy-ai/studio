@@ -105,6 +105,7 @@ def run(**kwargs):
     def report_failure(job, connection, type, value, traceback):
         print(job, connection, type, value, traceback)
 
+
     def jid(n):
         try:
             job_id = get_redis_obj(jobset_id)['ALL_JOBS'][n]
@@ -113,36 +114,55 @@ def run(**kwargs):
             return None
         return job_id
 
-    def get_current_status():
-        r_obj = get_redis_obj(jobset_id)
-
-        '''
-            Check for if there's a speical type JOBS
-        '''
+    def get_loop_status(r_obj,loop_info = False):
 
         special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {}
-        conditional_job_status = special_type_jobs['CONDITIONAL'] if 'CONDITIONAL' in special_type_jobs else {}
 
-        if len(conditional_job_status):
-            return conditional_job_status['direction']
+        loop_status = len(special_type_jobs) and \
+                len(special_type_jobs['LOOP']) if 'LOOP' in special_type_jobs else False
 
-        return None
+        current_iteration = 0
+        initial_value = 0
+        loop_ongoing = False
 
-    def check_loop_type(node_serial,cmd,node_id):
+        print("LOOP STATUS: ", loop_status)
+
+        if loop_status:
+
+            loop_ongoing = special_type_jobs['LOOP']['status'] == 'ongoing' if (loop_status and 'status' in special_type_jobs['LOOP']) else False
+            loop_finished = special_type_jobs['LOOP']['status'] == 'finished' if (loop_status and 'status' in special_type_jobs['LOOP']) else False
+
+            print("LOOP ONGOING: ",loop_ongoing)
+            print("LOOP FINISHED: ",loop_finished)
+
+            if loop_ongoing or loop_finished:
+                current_iteration = special_type_jobs['LOOP']['params']['current_iteration']
+                initial_value = special_type_jobs['LOOP']['params']['initial_value']
+
+        if not loop_info:
+            return loop_ongoing
+
+        return loop_status,current_iteration,initial_value
+
+
+    def check_loop_type(node_serial,cmd,node_id,current_loop_id):
         is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = False,False,False
 
         if len(list(DG.predecessors(node_serial))) == 0:
             return is_part_of_loop,not is_part_of_loop_body,is_part_of_loop_end
 
-        if cmd == "LOOP":
+        if cmd == "LOOP" and current_loop_id == node_id:
             return True,True,False
+
+        print(edge_info)
 
         for value in edge_info[node_id]:
 
             for key,val in value.items():
 
                 if key == 'source' and 'LOOP' in val:
-                    is_part_of_loop = True
+                    if val == current_loop_id:
+                        is_part_of_loop = True
 
                 if key == 'sourceHandle':
                     if val == 'body':
@@ -152,25 +172,31 @@ def run(**kwargs):
 
         return is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end
 
-    def get_previous_job_ids(cmd,node_serial,loop_nodes,node_id):
+    def get_previous_job_ids(cmd,node_serial,loop_nodes,node_id,r_obj):
+
+        loop_status,current_iteration,initial_value = get_loop_status(r_obj,loop_info=True)
+
+        print(loop_status)
+        print(current_iteration)
+        print(initial_value)
+
         previous_job_ids = []
 
-        if cmd == 'LOOP' and len(loop_nodes) > 0:
-            status = get_current_status()
+        if cmd == 'LOOP':
 
-            '''
-                Remove all predecessors and enqueue only conditional node job_id
-            '''
+            if loop_status and current_iteration != initial_value:
 
-            # if status == False:
+                '''
+                    Remove all predecessors and enqueue only conditional node job_id
+                '''
 
-            for node_id in loop_nodes:
-                id = nodes_by_id[node_id]['id']
-                if 'CONDITIONAL' in id:
-                    prev_cmd = DG.nodes[node_id]['cmd']
-                    prev_job_id = jid(prev_cmd+id)
-                    previous_job_ids.append(prev_job_id)
-                    return previous_job_ids
+                for node_id in loop_nodes:
+                    id = nodes_by_id[node_id]['id']
+                    if 'CONDITIONAL' in id:
+                        prev_cmd = DG.nodes[node_id]['cmd']
+                        prev_job_id = jid(prev_cmd+id)
+                        previous_job_ids.append(prev_job_id)
+                        return previous_job_ids
 
 
         if cmd == 'CONDITIONAL' and len(loop_nodes) > 0:
@@ -188,6 +214,8 @@ def run(**kwargs):
             prev_cmd = DG.nodes[p]['cmd']
             id = DG.nodes[p]['id']
 
+            print(prev_cmd+id)
+
             prev_job_id = jid(str(prev_cmd)+str(id))
             previous_job_ids.append(prev_job_id)
         return previous_job_ids
@@ -196,18 +224,12 @@ def run(**kwargs):
         TODO Fixing the child children node, whether they are eligible to enqueue or not
     '''
 
-    def check_if_default_node_part_of_loop(node_serial,enqued_job_list):
-        r_obj = get_redis_obj(jobset_id)
-        special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {}
+    def check_if_default_node_part_of_loop(node_serial,enqued_job_list,r_obj):
 
-        loop_status = len(special_type_jobs) and \
-                len(special_type_jobs['LOOP']) if 'LOOP' in special_type_jobs else False and \
-                special_type_jobs['LOOP']['status'] == 'ongoing' if 'LOOP' in special_type_jobs else False
+        loop_status = get_loop_status(r_obj)
 
         is_eligible_to_enqueue = True
 
-        # if len(list(DG.predecessors(node_serial))):
-        print(loop_status)
         for p in DG.predecessors(node_serial):
             if p not in enqued_job_list:
                 return loop_status,not is_eligible_to_enqueue # must wait for next cycle
@@ -245,6 +267,7 @@ def run(**kwargs):
 
     loop_nodes = []
     enqued_job_list = []
+    current_loop = ""
 
     for node_serial in topological_sorting:
         print(nodes_by_id[node_serial]['cmd'])
@@ -253,6 +276,7 @@ def run(**kwargs):
     while len(topological_sorting) != 0:
 
         print(topological_sorting)
+        print("LOOP NODES: ",loop_nodes)
 
         node_serial = topological_sorting.pop(0)
 
@@ -262,12 +286,12 @@ def run(**kwargs):
         ctrls = nodes_by_id[node_serial]['ctrls']
         node_id = nodes_by_id[node_serial]['id']
 
-        # print(nodes_by_id)
-
         job_id = 'JOB_' + cmd + '_' + uuid.uuid1().__str__()
-        print("job_id: ",job_id)
+        print("job_id: ",node_id)
         s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
         r_obj = get_redis_obj(jobset_id)
+
+        print(r_obj)
 
         '''
             Check for if there's ALL_JOBS keyword
@@ -289,6 +313,10 @@ def run(**kwargs):
 
             if 'LOOP' in special_type_jobs:
 
+                if cmd == 'LOOP' and node_id != current_loop:
+                    topological_sorting.append(node_serial)
+                    continue
+
                 r.set(jobset_id, dump({
                     **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
                         **prev_jobs, str(cmd)+str(node_id): job_id
@@ -309,7 +337,7 @@ def run(**kwargs):
                         },
                         'SPECIAL_TYPE_JOBS':{}
                     }))
-                    loop_nodes = []
+
             elif 'CONDITIONAL' in special_type_jobs:
 
                 print("direction: ",special_type_jobs['CONDITIONAL']['direction'])
@@ -336,6 +364,7 @@ def run(**kwargs):
                     "params":{
                                 "initial_value":int(ctrls['LOOP_LOOP_initial_count']['value']),
                                 "total_iterations":int(ctrls["LOOP_LOOP_iteration_count"]["value"]),
+                                "current_iteration":int(ctrls['LOOP_LOOP_initial_count']['value']),
                                 "step":int(ctrls["LOOP_LOOP_step"]['value'])
                             }
                 }
@@ -349,7 +378,7 @@ def run(**kwargs):
                         'LOOP':loop_jobs
                     }
                 }))
-
+                current_loop = node_id
                 topological_sorting.append(node_serial)
 
             elif cmd == 'CONDITIONAL':
@@ -376,25 +405,31 @@ def run(**kwargs):
                         **special_type_jobs
                     }
                 }))
-        is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = check_loop_type(node_serial,cmd,node_id)
+        is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = check_loop_type(node_serial,cmd,node_id,current_loop)
 
         print(is_part_of_loop)
+        print("IS PART OF BODY: ",is_part_of_loop_body)
 
         if is_part_of_loop:
 
             if is_part_of_loop_body:
                 is_eligible_to_enqueue = True
 
+                if cmd == 'LOOP' and current_loop == node_id:
+                    loop_nodes = []
+
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes and is_part_of_loop_body else node_serial
 
             elif is_part_of_loop_end:
+
+                print("here")
+
                 if len(special_type_jobs) == 0:
                     is_eligible_to_enqueue = True
                     loop_nodes = []
 
         else:
-            print("here")
-            is_loop_ongoing,is_eligible_to_enqueue = check_if_default_node_part_of_loop(node_serial,enqued_job_list)
+            is_loop_ongoing,is_eligible_to_enqueue = check_if_default_node_part_of_loop(node_serial,enqued_job_list,r_obj)
             print(is_eligible_to_enqueue)
             if is_loop_ongoing and is_eligible_to_enqueue:
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes else node_serial
@@ -416,7 +451,7 @@ def run(**kwargs):
                 enqued_job_list.append(node_serial)
 
             else:
-                previous_job_ids = get_previous_job_ids(cmd,node_serial,loop_nodes,node_id)
+                previous_job_ids = get_previous_job_ids(cmd,node_serial,loop_nodes,node_id,r_obj)
                 print(previous_job_ids)
                 if cmd == 'LOOP':
                     print(previous_job_ids)

@@ -54,22 +54,19 @@ def CONDITIONAL(v,params):
         initial_value = params['loop_current_iteration']
         total_iterations = params['loop_total_iteration']
         step = params['loop_step']
+        current_iteration = params['current_iteration']
 
-        print(total_iterations)
-        print(operator)
+        bool_ = compare_values(current_iteration+step,total_iterations,operator)
 
-        # initial_value, total_iterations,step = get_iteration_info(jobset_id)
-
-        bool_ = compare_values(initial_value+step,total_iterations,operator)
-        print(bool_)
         if not bool_:
 
             return {
                 "data": DataContainer(x=v[0].x,y=v[0].y),
                 "type": 'LOOP',
                 "params":{
-                    "initial_value" : initial_value + step,
+                    "initial_value" : initial_value,
                     "total_iterations": total_iterations,
+                    "current_iteration":current_iteration + step,
                     "step":step
                 },
                 "verdict": 'finished',
@@ -82,8 +79,9 @@ def CONDITIONAL(v,params):
                 "data": DataContainer(x=v[0].x,y=v[0].y),
                 "type": 'LOOP',
                 "params":{
-                    "initial_value" : initial_value + step,
+                    "initial_value" : initial_value,
                     "total_iterations": total_iterations,
+                    "current_iteration":current_iteration + step,
                     "step":step
                 },
                 "verdict": 'ongoing',
