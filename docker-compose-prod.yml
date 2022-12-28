@@ -9,7 +9,16 @@ services:
       - 6379:6379
 
   rq-worker:
-    image: shahadishraq/flojoy-rq-worker:latest
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG}
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  flojoy-watch:
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG}
     restart: always
     environment:
       - REDIS_HOST=redis
@@ -18,14 +27,14 @@ services:
       - redis
 
   backend:
-    image: shahadishraq/flojoy-desktop:latest
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG}
     restart: always
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     expose: 
-      - 5000
+      - 8000
     ports:
-      - 5000:5000
+      - 8000:8000
     depends_on:
       - rq-worker

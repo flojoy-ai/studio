@@ -15,6 +15,7 @@ export enum ControlNames {
   CheckboxButtonGroup = "Checkbox Button Group",
   Plot = "Plot",
   TextInput = "Text Input",
+  SevenSegmentDisplay = "Seven Segment Display"
 }
 
 export enum PlotTypeNames {
@@ -30,6 +31,12 @@ export const OutputControlsManifest = [
   // Inputs
   {
     name: ControlNames.Plot,
+    type: ControlTypes.Output,
+    minHeight: 3,
+    minWidth: 2,
+  },
+  {
+    name: ControlNames.SevenSegmentDisplay,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,

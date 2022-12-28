@@ -51,8 +51,7 @@ const useControlComponentEffects = ({
     setKnobValue(0);
     setSliderInput("0");
   }, [selectedOption]);
-
-  useEffect(() => {
+useEffect(() => {
     if (ctrls) {
       setCurrentInputValue(
         ctrls[(ctrlObj?.param as CtrlManifestParam)?.id!]?.value

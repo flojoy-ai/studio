@@ -1,12 +1,2 @@
 COMMAND:
-  - {
-      name: 'Add',
-      key: 'ADD',
-      type: 'TRANSFORMER',
-      inputs: [
-        {
-          name: 'x1',
-          id: 'add_x1' 
-        }
-      ]
-    }
+  - {name: 'Add', key: 'ADD', type: 'ARITHMETIC', inputs: [{ name: "y", id: "add_y" }]}

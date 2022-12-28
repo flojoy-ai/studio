@@ -33,6 +33,7 @@ export interface CtlManifestType {
   param?: PlotManifestParam | CtrlManifestParam | string;
   val?: string | number;
   hidden?: boolean;
+  segmentColor?: string;
   controlGroup?: string;
   label?: string;
   minHeight: number;

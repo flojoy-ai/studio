@@ -1,12 +1,7 @@
 COMMAND:
   - {
-      name: 'Constant',
-      key: 'CONSTANT',
-      type: 'GENERATOR',
-      parameters: { 
-        constant: { 
-          type: 'float',
-          default: 3 
-        } 
-      }
+      name: "Constant",
+      key: "CONSTANT",
+      type: "SIMULATION",
+      parameters: { constant: { type: "float", default: '3' } },
     }

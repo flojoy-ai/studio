@@ -2,6 +2,6 @@ COMMAND:
   - {
       name: "Multiply",
       key: "MULTIPLY",
-      type: "TRANSFORMER",
-      inputs: [{ name: "x1", id: "multiply_x1" }],
+      type: "ARITHMETIC",
+      inputs: [{ name: "y", id: "multiply_y" }],
     }
