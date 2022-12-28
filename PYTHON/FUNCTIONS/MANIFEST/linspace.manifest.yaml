@@ -18,4 +18,3 @@ COMMAND:
           default: '1000'
         },
       }
-    }
