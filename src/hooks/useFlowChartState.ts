@@ -20,6 +20,7 @@ export interface CtlManifestType {
   param?: string | CtrlManifestParam;
   val?: string | number;
   hidden?: boolean;
+  segmentColor?: string;
   controlGroup?: string;
   label?: string;
   minHeight: number;

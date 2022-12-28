@@ -44,6 +44,7 @@ const useControlComponentEffects = ({
         .then((val) => {
           setFlowChartObject(
             val as FlowExportObject<{
+              ctrls:Record<string, any>,
               label: string;
               func: string;
               elements: Elements;
@@ -83,7 +84,7 @@ const useControlComponentEffects = ({
   }, [selectedOption]);
   useEffect(() => {
     try {
-      if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
+      // if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
         // figure out what we're visualizing
         const nodeIdToPlot = ctrlObj.param;
         if (nodeIdToPlot) {
@@ -104,7 +105,7 @@ const useControlComponentEffects = ({
             }
           }
         }
-      }
+      // }
     } catch (e) {
       console.error(e);
     }

@@ -3,6 +3,7 @@ import Plot from "react-plotly.js";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { Display as SevenSegmentDisplay } from "react-7-segment-display";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -162,18 +163,19 @@ const ControlComponent = ({
     styledLayout,
     textInput,
   });
-
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
+        justifyContent:'center',
+        alignItems:'center',
         flex: "1",
         padding: "16px",
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header" data-cy="ctrls-select">
+        <div className="ctrl-header" data-cy="ctrls-select" style={{width:'100%'}}>
           <Select
             className="select-node"
             isSearchable={true}
@@ -236,6 +238,19 @@ const ControlComponent = ({
             data={plotData}
             layout={styledLayout}
             style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      )}
+      {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
+        <div
+          className="seven_segment_container"
+        >
+          <SevenSegmentDisplay
+            color={ctrlObj.segmentColor || "#99F5FF"}
+            count={4}
+            height={200}
+            skew={false}
+            value={plotData.length > 0 && plotData[0].y ? plotData[0].y[0]: '0000'}
           />
         </div>
       )}

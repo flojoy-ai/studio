@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,6 +21,7 @@ import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAM
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
+import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 
@@ -207,7 +208,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
             }}
           />
         </button>
-        <div>
+        {currentInput && <div>
           <p>Ctrl properties</p>
           <div
             style={{
@@ -234,8 +235,22 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
                 }}
               />
             </div>
+            {ctrlsManifest[currentInput?.index!]?.name === ControlNames.SevenSegmentDisplay && (<div
+              style={{
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
+              }}
+            >
+              <p>Segment Color </p>
+              <input type="color" name="seven_segment_color" id="seven_segment_color" value={ctrlsManifest[currentInput.index].segmentColor || ''} onChange={e=> {
+                setCtrlsManifest((prev) => {
+                  prev[currentInput?.index!].segmentColor = e.target.value;
+                });
+                }} />
+            </div>)}
           </div>
-        </div>
+        </div>}
       </Modal>
     </div>
   );

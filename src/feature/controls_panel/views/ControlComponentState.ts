@@ -30,6 +30,7 @@ const ControlComponentState = ({
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
   const [flowChartObjects, setFlowChartObject] = useState<
     | FlowExportObject<{
+        ctrls: Record<string, any>,
         label: string;
         func: string;
         elements: Elements;
