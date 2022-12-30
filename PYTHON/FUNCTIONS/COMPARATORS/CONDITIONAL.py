@@ -66,7 +66,7 @@ def CONDITIONAL(v,params):
                 "params":{
                     "initial_value" : initial_value,
                     "total_iterations": total_iterations,
-                    "current_iteration":current_iteration + step,
+                    "current_iteration":current_iteration ,
                     "step":step
                 },
                 "verdict": 'finished'
