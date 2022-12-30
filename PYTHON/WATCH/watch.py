@@ -546,11 +546,18 @@ def run(**kwargs):
 
             r.set(jobset_id,redis_env)
             if cmd == 'CONDITIONAL':
-                # if is_part_of_loop:
-                while True:
-                    job = Job.fetch(job_id, connection=r)
-                    if job.get_status() == 'finished':
-                        break
+
+                job = Job.fetch(job_id, connection=r)
+                if job.get_status() != 'finished':
+                    r.set(jobset_id,dump({
+                        **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {**prev_jobs},
+                        "SPECIAL_TYPE_JOBS":{
+                            **special_type_jobs
+                        },
+                        'sorting_state':topological_sorting
+                        }))
+
+                    return
         else:
             check = check_pred_exist_in_current_queue(topological_sorting,enqued_job_list,node_serial)
 
