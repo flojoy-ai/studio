@@ -187,6 +187,8 @@ def run(**kwargs):
                 '''
                     Remove all predecessors and enqueue only conditional node job_id
                 '''
+                print("LOOP NODES: ")
+                print(loop_nodes)
 
                 for node_id in loop_nodes:
                     id = nodes_by_id[node_id]['id']
@@ -357,6 +359,15 @@ def run(**kwargs):
                                 }
                             }
                         })
+                    else:
+                        redis_env = dump({
+                            **r_obj,'SYSTEM_STATUS': s, 'ALL_JOBS': {
+                                **prev_jobs, str(cmd)+str(node_id): job_id
+                            },
+                            'SPECIAL_TYPE_JOBS':{
+                                **special_type_jobs,
+                            }
+                        })
 
                 if len(special_type_jobs['LOOP'])  and special_type_jobs['LOOP']['status'] == 'ongoing':
 
@@ -477,9 +488,6 @@ def run(**kwargs):
             if is_part_of_loop_body:
                 is_eligible_to_enqueue = True
 
-                if cmd == 'LOOP' and current_loop == node_id:
-                    loop_nodes = []
-
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes and is_part_of_loop_body else node_serial
 
 
@@ -539,6 +547,9 @@ def run(**kwargs):
                         depends_on=previous_job_ids,
                         result_ttl=500)
                 enqued_job_list.append(node_serial)
+
+                if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
+                    loop_nodes = []
                 # time.sleep(3)
 
                 # if (node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):

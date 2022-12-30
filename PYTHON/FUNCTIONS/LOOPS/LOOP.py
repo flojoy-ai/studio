@@ -8,6 +8,8 @@ def LOOP(v,params):
     x = v[0].x
     y = v[0].y
 
+    print(v)
+
     if x is None:
         x = np.full(len(y),1)
 
