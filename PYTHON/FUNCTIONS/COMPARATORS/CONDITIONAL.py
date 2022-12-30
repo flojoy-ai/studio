@@ -69,8 +69,7 @@ def CONDITIONAL(v,params):
                     "current_iteration":current_iteration + step,
                     "step":step
                 },
-                "verdict": 'finished',
-                "direction": True
+                "verdict": 'finished'
             }
 
         else:
@@ -84,22 +83,21 @@ def CONDITIONAL(v,params):
                     "current_iteration":current_iteration + step,
                     "step":step
                 },
-                "verdict": 'ongoing',
-                "direction": False
+                "verdict": 'ongoing'
             }
     else:
+
         x1 = v[0].x
         y1 = v[0].y
 
         x2 = v[1].x
         y2 = v[1].y
 
-        if x1[0] == x2[0] :
-            bool_ = compare_values(y1[0],y2[0],operator)
-        else:
-            bool_ = compare_values(x1[0],x2[0],operator)
+        bool_ = compare_values(y1[0],y2[0],operator)
 
         set_direction(jobset_id,bool_)
+
+        print(bool_)
 
         if operator in ["<=","<"]:
             if not bool_:

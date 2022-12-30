@@ -4,8 +4,9 @@ type Commands = {
   name: string;
   type: string;
   key: string;
-  inputs?: { name: string; id: string }[];
+  inputs?: { name: string; id: string; type: string }[];
 }[];
+
 export const COMMANDS: Commands = manifests.commands;
 
 export const SECTIONS = [

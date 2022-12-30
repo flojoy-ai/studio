@@ -117,6 +117,7 @@ export const NOISY_SINE = {
           {
             name: "y",
             id: "multiply_y",
+            type:"source"
           },
         ],
       },
@@ -149,6 +150,7 @@ export const NOISY_SINE = {
           {
             name: "y",
             id: "add_y",
+            type:"source"
           },
         ],
       },

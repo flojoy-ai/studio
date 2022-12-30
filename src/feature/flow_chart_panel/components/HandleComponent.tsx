@@ -18,13 +18,26 @@ const HandleComponent = ({
   return (
     <Fragment>
 
+      {
+        /**
+         *
+         * Rendering target handle.
+         *  If its conditional render two target handle (x,y)
+         *  otherwise render one target handle
+         *
+         */
+      }
+
       {params.length > 0 ?
-        data.func == 'CONDITIONAL' ?(
+        data.func == 'CONDITIONAL' ? (
         params.map((param, i) => {
+          console.log(param);
+          if (param.type == 'target'){
+
             return (
               <Handle
                 key={param.id}
-                type="target"
+                type={param.type}
                 position={Position.Left}
                 style={{
                   gap: "5px",
@@ -67,6 +80,7 @@ const HandleComponent = ({
                 </div>
               </Handle>
             )
+          }
         }
         )):
         (
@@ -101,64 +115,75 @@ const HandleComponent = ({
         )
       }
 
-        <Handle
-          type="source"
-          position={Position.Right}
-          style={{
-            display: data.func == 'LOOP' ? 'none' :'block',
-            borderRadius: 0,
-            height: 8,
-            width: 8,
-          }}
-          isValidConnection={isValidConnection}
-          id="main"
-        />
 
 
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{
+          display: data.func == 'LOOP' || data.func == 'CONDITIONAL' ? 'none' :'block',
+          borderRadius: 0,
+          height: 8,
+          width: 8,
+        }}
+        isValidConnection={isValidConnection}
+        id="main"
+      />
+
+
+      {
+        /**
+         *
+         * Rendering Source Handles.
+         *  If its conditional render two source handle, ( true, false)
+         *  If its loop render two source hanles ( body,end)
+         *  otherwise render one single handle
+         */
+      }
 
       {params.length > 0 &&
         params.map((param, i) => {
-          if(data.func === 'LOOP'){
-
-            return (
-              <Handle
-                key={param.id}
-                type="source"
-                position={Position.Right}
-                style={{
-                  gap: "5px",
-                  borderRadius: 0,
-                  top: 30 * (i + 1) + 40,
-                  minHeight: 10,
-                  display: "flex",
-                  alignItems: "center",
-                  background: "transparent",
-                  border: 0,
-                  right: '-2px'
-                }}
-                id={param.id}
-                isValidConnection={isValidConnection}
-              >
-                <div
+          if(data.func === 'LOOP' || data.func == 'CONDITIONAL'){
+            if (param.type == 'source'){
+              return (
+                <Handle
+                  key={param.id}
+                  type={param.type}
+                  position={Position.Right}
                   style={{
+                    gap: "5px",
+                    borderRadius: 0,
+                    top: 30 * (i + 1) + 40,
+                    minHeight: 10,
                     display: "flex",
                     alignItems: "center",
-                    pointerEvents: "none",
+                    background: "transparent",
+                    border: 0,
+                    right: '-2px'
                   }}
+                  id={param.id}
+                  isValidConnection={isValidConnection}
                 >
                   <div
                     style={{
-                      height: 8,
-                      width: 8,
-                      backgroundColor: "#000",
-                      border: "1px solid #fff",
+                      display: "flex",
+                      alignItems: "center",
+                      pointerEvents: "none",
                     }}
-                  ></div>
-                  <div style={{ paddingLeft: "8px",transform:'translateX(-63px)' }}>{param.name}</div>
-
-                </div>
-              </Handle>
-            )
+                  >
+                    <div
+                      style={{
+                        height: 8,
+                        width: 8,
+                        backgroundColor: "#000",
+                        border: "1px solid #fff",
+                      }}
+                    ></div>
+                    <div style={{ paddingLeft: "8px",transform:'translateX(-63px)' }}>{param.name}</div>
+                  </div>
+                </Handle>
+              )
+            }
           }
           else {
             return (
