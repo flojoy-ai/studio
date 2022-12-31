@@ -1,0 +1,204 @@
+{
+    "rfInstance": {
+        "elements": [
+            {
+                "id": "CONSTANT-d7d37e07-d580-4456-96fd-1c11e3a570d1",
+                "type": "default",
+                "position": {
+                    "x": 165.5424079184525,
+                    "y": 126.12543210999456
+                },
+                "data": {
+                    "id": "CONSTANT-d7d37e07-d580-4456-96fd-1c11e3a570d1",
+                    "label": "25",
+                    "func": "CONSTANT",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "CONSTANT_25_constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 25
+                        }
+                    }
+                }
+            },
+            {
+                "id": "CONSTANT-ffa230f9-a641-432f-8814-5d594eecb126",
+                "type": "default",
+                "position": {
+                    "x": 159.06031436823156,
+                    "y": 565.6330319490179
+                },
+                "data": {
+                    "id": "CONSTANT-ffa230f9-a641-432f-8814-5d594eecb126",
+                    "label": "10",
+                    "func": "CONSTANT",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "CONSTANT_10_constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 10
+                        }
+                    }
+                }
+            },
+            {
+                "id": "RAND-e2f62d99-4186-483a-b6bb-2d8c32366845",
+                "type": "default",
+                "position": {
+                    "x": 310.2704096495063,
+                    "y": 320.75507237385125
+                },
+                "data": {
+                    "id": "RAND-e2f62d99-4186-483a-b6bb-2d8c32366845",
+                    "label": "Random",
+                    "func": "RAND",
+                    "type": "SIMULATION",
+                    "ctrls": {}
+                }
+            },
+            {
+                "id": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+                "type": "default",
+                "position": {
+                    "x": 626.9233580729418,
+                    "y": 295.9648119061516
+                },
+                "data": {
+                    "id": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+                    "label": "X",
+                    "func": "MULTIPLY",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "multiply_y"
+                        }
+                    ]
+                }
+            },
+            {
+                "source": "CONSTANT-d7d37e07-d580-4456-96fd-1c11e3a570d1",
+                "sourceHandle": null,
+                "target": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+                "targetHandle": "MULTIPLY",
+                "id": "reactflow__edge-CONSTANT-d7d37e07-d580-4456-96fd-1c11e3a570d1null-MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48MULTIPLY"
+            },
+            {
+                "source": "RAND-e2f62d99-4186-483a-b6bb-2d8c32366845",
+                "sourceHandle": null,
+                "target": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+                "targetHandle": "multiply_y",
+                "id": "reactflow__edge-RAND-e2f62d99-4186-483a-b6bb-2d8c32366845null-MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48multiply_y"
+            },
+            {
+                "id": "ADD-38f51d3d-35c4-44a9-827f-d3568942c3fc",
+                "type": "default",
+                "position": {
+                    "x": 832.4645258135574,
+                    "y": 462.0264595588072
+                },
+                "data": {
+                    "id": "ADD-38f51d3d-35c4-44a9-827f-d3568942c3fc",
+                    "label": "+",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "add_y"
+                        }
+                    ]
+                }
+            },
+            {
+                "source": "CONSTANT-ffa230f9-a641-432f-8814-5d594eecb126",
+                "sourceHandle": null,
+                "target": "ADD-38f51d3d-35c4-44a9-827f-d3568942c3fc",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-CONSTANT-ffa230f9-a641-432f-8814-5d594eecb126null-ADD-38f51d3d-35c4-44a9-827f-d3568942c3fcadd_y"
+            },
+            {
+                "source": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+                "sourceHandle": null,
+                "target": "ADD-38f51d3d-35c4-44a9-827f-d3568942c3fc",
+                "targetHandle": "ADD",
+                "id": "reactflow__edge-MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48null-ADD-38f51d3d-35c4-44a9-827f-d3568942c3fcADD"
+            }
+        ],
+        "position": [
+            0,
+            0
+        ],
+        "zoom": 1
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2
+        },
+        {
+            "type": "output",
+            "name": "Seven Segment Display",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-1e06bced-bd5e-477d-af28-5f9a9f15e183",
+            "hidden": false,
+            "param": "ADD-38f51d3d-35c4-44a9-827f-d3568942c3fc",
+            "val": 0,
+            "segmentColor": "#fe2020"
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-9925740c-3ab5-48e2-ac81-d51e69011d05",
+            "hidden": false,
+            "param": "MULTIPLY-2f5d3cbb-422d-4ff9-8bcf-86f70927ca48",
+            "val": 0
+        }
+    ],
+    "gridLayout": [
+        {
+            "w": 2,
+            "h": 2,
+            "x": 0,
+            "y": 0,
+            "i": "INPUT_PLACEHOLDER",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 2,
+            "y": 0,
+            "i": "ctrl-1e06bced-bd5e-477d-af28-5f9a9f15e183",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 4,
+            "y": 0,
+            "i": "ctrl-9925740c-3ab5-48e2-ac81-d51e69011d05",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": false
+        }
+    ]
+}

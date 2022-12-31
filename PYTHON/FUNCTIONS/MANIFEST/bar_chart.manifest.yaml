@@ -1,2 +1,6 @@
 COMMAND:
-  - {name: 'Bar Chart', key: 'BAR', type: 'VISOR'}
+  - {
+      name: 'Bar Chart',
+      key: 'BAR',
+      type: 'VISOR'
+    }

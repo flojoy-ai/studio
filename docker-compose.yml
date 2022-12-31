@@ -8,29 +8,8 @@ services:
     ports:
       - 6379:6379
 
-  rq-worker:
-    build: 
-      context: .
-      dockerfile: ./docker/rq-worker/Dockerfile
-    restart: always
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
-
-  flojoy-watch:
-    build: 
-      context: .
-      dockerfile: ./docker/flojoy-watch/Dockerfile
-    restart: always
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
-
   backend:
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG}
     build: 
       context: .
       dockerfile: ./docker/backend/Dockerfile
@@ -43,4 +22,34 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - rq-worker
+      - redis
+
+  rq-worker:
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG}
+    build: 
+      context: .
+      dockerfile: ./docker/rq-worker/Dockerfile
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BACKEND_HOST=backend
+    depends_on:
+      - redis
+      - backend
+
+  flojoy-watch:
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG}
+    build: 
+      context: .
+      dockerfile: ./docker/flojoy-watch/Dockerfile
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BACKEND_HOST=backend
+    depends_on:
+      - redis
+      - backend
+
+

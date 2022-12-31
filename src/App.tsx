@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
@@ -17,18 +17,30 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
-  const {
-    states: { serverStatus, programResults, runningNode, failedNodes },
-  } = useSocket();
+  const { states } = useSocket();
+  const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState([]);
-  const { elements, setElements, rfInstance, setRfInstance, setUiTheme } =
-    useFlowChartState();
+  const {
+    elements,
+    setElements,
+    rfInstance,
+    setRfInstance,
+    setUiTheme,
+    setRunningNode,
+    setFailedNode,
+    setCtrlsManifest,
+    setGridLayout,
+    loadFlowExportObject,
+  } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
   );
   const { width: windowWidth } = useWindowSize();
+  const queryString = window?.location?.search;
+  const fileName =
+    queryString.startsWith("?test_example_app") && queryString.split("=")[1];
   const toggleTheme = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -39,28 +51,41 @@ const App = () => {
     }
   };
 
-  useEffect(() => {
-    setElements((prev) => {
-      prev.forEach((el) => {
-        if (el?.data?.func === runningNode) {
-          el.data.running = true;
-        } else {
-          if (el.data?.running) {
-            el.data.running = false;
-          }
-        }
-        if (el?.data?.func && failedNodes.includes(el.data.func)) {
-          el.data.failed = true;
-        } else {
-          if (el?.data?.failed) {
-            el.data.failed = false;
-          }
-        }
-      });
-    });
-  }, [runningNode, failedNodes]);
+  const fetchExampleApp = useCallback(
+    (fileName: string) => {
+      fetch("/example-apps/" + fileName, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          setCtrlsManifest(data.ctrlsManifest);
+          const flow = data.rfInstance;
+          setGridLayout(data.gridLayout);
+          loadFlowExportObject(flow);
+        })
+        .catch((err) => console.log("fetch example app err: ", err));
+    },
+    [fileName]
+  );
+
   const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
     ReactFlowProvider;
+  useEffect(() => {
+    setRunningNode(runningNode);
+    setFailedNode(failedNode);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [runningNode, failedNode]);
+  useEffect(() => {
+    if (fileName) {
+      fetchExampleApp(fileName);
+    }
+  }, [fileName]);
+
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowChartProvider>

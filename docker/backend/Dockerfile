@@ -1,6 +1,6 @@
 # https://hub.docker.com/r/nikolaik/python-nodejs
 
-FROM syridit/flojoy-development:latest
+FROM onscene/flojoy-base:latest
 # WORKDIR /code
 
 COPY requirements.txt requirements.txt

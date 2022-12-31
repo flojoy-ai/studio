@@ -89,7 +89,7 @@ const FlowChartTab = ({
   const pythonString =
     nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
       ? "..."
-      : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"];
+      : PYTHON_FUNCTIONS[nodeLabel + ".py"];
 
   let nd: any = {};
 
@@ -129,7 +129,7 @@ const FlowChartTab = ({
 
   return (
     <ReactFlowProviderAny>
-      <div style={{ height: `99vh` }} data-testid="react-flow">
+      <div style={{ height: `99vh` }} data-testid="react-flow" data-rfinstance={JSON.stringify(rfInstance?.elements)}>
         <ReactFlow
           elements={elements}
           edgeTypes={edgeTypes}

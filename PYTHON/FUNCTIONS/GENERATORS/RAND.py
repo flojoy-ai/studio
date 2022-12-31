@@ -1,14 +1,15 @@
 import numpy as np
-from joyflo import flojoy, VectorXY
+from joyflo import flojoy, DataContainer
 import traceback
+
 
 @flojoy
 def RAND(v, params):
-    try:
+    x = None
+    if len(v) > 0:
         x = v[0].y
-        y = x
-        # y = np.random.normal(size=len(x))
-    except Exception:
-        print(traceback.format_exc())
-    
-    return VectorXY(x = x, y = y)
+        y = np.random.normal(size=len(x))
+    else:
+        y = np.random.normal(size=1000)
+
+    return DataContainer(x=x, y=y)

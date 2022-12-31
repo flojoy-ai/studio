@@ -1,2 +1,6 @@
 COMMAND:
-  - {name: 'Histogram', key: 'HISTOGRAM', type: 'VISOR'}
+  - {
+      name: 'Histogram',
+      key: 'HISTOGRAM',
+      type: 'VISOR'
+    }

@@ -12,37 +12,50 @@ const nodes = [
   { selector: "HISTOGRAM-userGeneratedNode_1646417604301", name: "histogram" },
 ];
 
+describe("User default workflow", () => {
+  it("Should complete default workflow", () => {
+    cy.visit("/", {
+      onBeforeLoad(win: any) {
+        win.disableIntercom = true;
+      },
+    }).wait(1000);
+    cy.get("[data-testid=react-flow]", { timeout: 20000 });
 
-describe('User default workflow', ()=> {
-  
-      it("Should complete default workflow", () => {
-        cy.visit("/", {onBeforeLoad (win:any) {
-          win.disableIntercom = true;
-        }});
-        cy.get("[data-testid=react-flow]", { timeout: 20000 });;
-
-        cy.get(`[data-cy="app-status"]`)
-        .find('code')
-        cy.get(`[data-cy="app-status"]`)
-        .find('code').contains("🐢 awaiting a new job", {timeout: 5000});
-      
-        cy.get(`[data-cy="debug-btn"]`)
-          .click();
-      
-        cy.get(`[data-cy="btn-play"]`).click();
-      
-        cy.get("[data-testid=result-node]", { timeout: 200000 });
-      
-        cy.get(`[data-cy="script-btn"]`)
-          .click();
-      
-        nodes.forEach((node) => {
-          cy.get(`[data-id="${node.selector}"]`).click({
-            force: true,
-            multiple: true,
-          });
-          matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-          cy.get(".ctrl-close-btn").click({ force: true });
-          });
+    cy.get(`[data-cy="app-status"]`)
+      .find("code")
+      .then(($ele) => {
+        if (
+          $ele.text().includes("🐢 awaiting a new job") ||
+          $ele.text().includes("⏰ server uptime:")
+        ) {
+          return true;
+        } else {
+          throw new Error("not correct status");
+        }
       });
-})
+
+    cy.get(`[data-cy="debug-btn"]`).click();
+
+    cy.get(`[data-cy="btn-play"]`).click();
+    cy.wait(5000)
+    cy.get(`[data-cy="app-status"]`)
+      .find("code").then($ele=>{
+        cy.log(' server status: ' , $ele.text())
+      });
+      cy.get(`[data-cy="app-status"]`)
+      .find("code").contains("🐢 awaiting a new job", { timeout: 600000 })
+
+    cy.get("[data-testid=result-node]");
+
+    cy.get(`[data-cy="script-btn"]`).click();
+
+    nodes.forEach((node) => {
+      cy.get(`[data-id="${node.selector}"]`).click({
+        force: true,
+        multiple: true,
+      });
+      matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
+      cy.get(".ctrl-close-btn").click({ force: true });
+    });
+  });
+});
