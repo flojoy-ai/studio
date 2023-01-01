@@ -4,6 +4,7 @@ from joyflo import flojoy, DataContainer
 @flojoy
 def ADD(v, params):
     ''' Add 2 input vectors and return the result '''
+    # print(' v in add node: ', v)
     a = [0]
     b = [0]
 
@@ -13,4 +14,4 @@ def ADD(v, params):
 
     y = np.add(a, b)
 
-    return DataContainer(x = [a, b], y = y)
+    return DataContainer(x = {'a':a, 'b':b}, y = y)

@@ -9,6 +9,7 @@ services:
       - 6379:6379
 
   backend:
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG}
     build: 
       context: .
       dockerfile: ./docker/backend/Dockerfile
@@ -24,6 +25,7 @@ services:
       - redis
 
   rq-worker:
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG}
     build: 
       context: .
       dockerfile: ./docker/rq-worker/Dockerfile
@@ -37,6 +39,7 @@ services:
       - backend
 
   flojoy-watch:
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG}
     build: 
       context: .
       dockerfile: ./docker/flojoy-watch/Dockerfile

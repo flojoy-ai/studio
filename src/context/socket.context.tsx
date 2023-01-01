@@ -19,6 +19,7 @@ const DEFAULT_STATES = {
   socketId: "",
 };
 export const SocketContext = createContext<{ states: States } | null>(null);
+
 const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || "localhost";
 const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT! || 8000;
 
@@ -51,8 +52,7 @@ export const SocketContextProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{ states: { ...states, programResults, setProgramResults } }}
-    >
-      {children}
+    >      {children}
     </SocketContext.Provider>
   );
 };

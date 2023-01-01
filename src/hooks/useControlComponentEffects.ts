@@ -5,25 +5,16 @@ import { ControlComponentStateType } from "@src/feature/controls_panel/views/Con
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
-import { Elements, FlowExportObject } from "react-flow-renderer";
 import {
-  ControlNames,
   ControlTypes,
 } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { CtlManifestType, CtrlManifestParam } from "./useFlowChartState";
 
 const useControlComponentEffects = ({
   flowChartObject,
-  localforage,
-  flowKey,
-  setFlowChartObject,
   setSelectedOption,
   ctrlObj,
   selectOptions,
-  results,
-  setNd,
-  setPlotData,
-  nd,
   selectedOption,
   setCurrentInputValue,
   defaultValue,
@@ -38,34 +29,13 @@ const useControlComponentEffects = ({
   results: ResultsType;
 }) => {
   useEffect(() => {
-    if (!flowChartObject) {
-      localforage
-        .getItem(flowKey)
-        .then((val) => {
-          setFlowChartObject(
-            val as FlowExportObject<{
-              label: string;
-              func: string;
-              elements: Elements;
-              position: [number, number];
-              zoom: number;
-            }>
-          );
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    }
-  }, [flowChartObject]);
-
-  useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
         ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
         : selectOptions?.find(
             (option) =>
-            (option.value as CtrlOptionValue).id ===
-            (ctrlObj?.param as CtrlManifestParam)?.id
+              (option.value as CtrlOptionValue).id ===
+              (ctrlObj?.param as CtrlManifestParam)?.id
           )!
     );
   }, [
@@ -81,35 +51,7 @@ const useControlComponentEffects = ({
     setKnobValue(0);
     setSliderInput("0");
   }, [selectedOption]);
-  useEffect(() => {
-    try {
-      if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
-        // figure out what we're visualizing
-        const nodeIdToPlot = ctrlObj.param;
-        if (nodeIdToPlot) {
-          if (results && "io" in results) {
-            const runResults = results.io!.reverse();
-            const filteredResult = runResults.filter(
-              (node) => nodeIdToPlot === node.id
-            )[0];
-            setNd(filteredResult === undefined ? null : filteredResult);
-            if (nd && Object.keys(nd!).length > 0) {
-              if (nd!.result) {
-                if ("data" in nd!.result) {
-                  setPlotData(nd!.result!.data!);
-                } else {
-                  setPlotData([{ x: nd!.result["x"]!, y: nd!.result["y"]! }]);
-                }
-              }
-            }
-          }
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }, [ctrlObj, nd, results, selectedOption]);
-  useEffect(() => {
+useEffect(() => {
     if (ctrls) {
       setCurrentInputValue(
         ctrls[(ctrlObj?.param as CtrlManifestParam)?.id!]?.value
@@ -118,6 +60,7 @@ const useControlComponentEffects = ({
       setCurrentInputValue(defaultValue as number);
     }
   }, [ctrls, ctrlObj, selectedOption]);
+
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
       if (flowChartObject!?.elements !== undefined) {

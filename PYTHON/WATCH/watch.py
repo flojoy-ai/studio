@@ -7,7 +7,6 @@ from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
 import traceback
-import uuid
 import warnings
 import matplotlib.cbook
 import requests
@@ -520,7 +519,7 @@ def run(**kwargs):
 
                 q.enqueue(func,
                         # TODO: have to understand why the SINE node is failing for few times then succeeds
-                        retry=Retry(max=100),
+                        retry=Retry(max=3),
                         job_timeout='3m',
                         on_failure=report_failure,
                         job_id=job_id,
@@ -538,7 +537,7 @@ def run(**kwargs):
                     print(previous_job_ids)
 
                 q.enqueue(func,
-                        retry=Retry(max=100),
+                        retry=Retry(max=3),
                         job_timeout='3m',
                         on_failure=report_failure,
                         job_id=job_id,

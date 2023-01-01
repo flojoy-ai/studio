@@ -34,6 +34,7 @@ const Controls: FC<ControlsProps> = ({
   activeTab,
   setOpenCtrlModal,
 }) => {
+
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);

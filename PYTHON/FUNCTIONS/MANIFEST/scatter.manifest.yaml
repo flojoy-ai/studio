@@ -1,2 +1,6 @@
 COMMAND:
-  - {name: 'Scatter Plot', key: 'SCATTER', type: 'VISOR'}
+  - {
+      name: 'Scatter Plot',
+      key: 'SCATTER',
+      type: 'VISOR'
+    }
