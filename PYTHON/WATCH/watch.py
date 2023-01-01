@@ -7,6 +7,7 @@ from redis import Redis
 from rq import Queue, Retry
 from rq.job import Job
 import traceback
+import uuid
 import warnings
 import matplotlib.cbook
 import requests

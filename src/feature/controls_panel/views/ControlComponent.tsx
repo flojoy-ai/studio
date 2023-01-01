@@ -85,6 +85,9 @@ const ControlComponent = ({
     theme,
     ctrlObj,
   });
+
+  console.log("CONTROL COMPONENT STATE: ",results);
+
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       setKnobValue(value);

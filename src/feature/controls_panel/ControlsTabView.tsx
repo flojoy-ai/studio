@@ -31,6 +31,8 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
 
+  console.log("CONTROLS TAB: ",results);
+
   const {
     openEditModal,
     setOpenEditModal,

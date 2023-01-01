@@ -53,12 +53,22 @@ const usePlotControlEffect = ({
    */
   const updatePlotValue = () => {
     const result: any = {};
+
+    console.log("node data: ",nd);
+    console.log("selected keys: ",selectedKeys)
+
     if (nd?.result && "data" in nd!.result) {
+
+      console.log("SETTING RESULT DATA")
+
       result.x = nd?.result?.data![0]?.x;
       result.y = nd?.result?.data![0]?.y;
       result.type = nd?.result?.data![0]?.type;
       result.mode = nd?.result?.data![0]?.mode;
     }
+
+    console.log("PLOT DATA RESULT: ",result)
+
     if (selectedKeys) {
       for (const [key, value] of Object.entries(selectedKeys)) {
         if (key !== "type") {
@@ -70,6 +80,9 @@ const usePlotControlEffect = ({
       result.type = selectedPlotOption.value.type;
       result.mode = selectedPlotOption.value.mode;
     }
+
+    console.log("PLOT DATA RESULT: ",result)
+
     setPlotData([result]);
   };
 
@@ -125,6 +138,7 @@ const usePlotControlEffect = ({
     try {
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
+      console.log("Result HERE: ",results);
       if (nodeIdToPlot) {
         if (results && "io" in results) {
           const runResults = results.io!.reverse();

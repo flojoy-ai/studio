@@ -28,6 +28,7 @@ const useControlComponentEffects = ({
   ctrlObj: CtlManifestType;
   results: ResultsType;
 }) => {
+
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
