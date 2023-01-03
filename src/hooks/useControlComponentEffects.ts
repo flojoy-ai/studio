@@ -24,6 +24,8 @@ const useControlComponentEffects = ({
   setTextInput,
   setNumberInput,
   setSliderInput,
+  setNd,
+  results
 }: ControlComponentStateType & {
   ctrlObj: CtlManifestType;
   results: ResultsType;
@@ -120,6 +122,27 @@ useEffect(() => {
       setSelectOptions([]);
     };
   }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
+
+  // Filter attached node result from all node results
+  useEffect(() => {
+    try {
+      // figure out what we're visualizing
+      const nodeIdToPlot = ctrlObj?.param;
+      console.log("Result HERE: ",results);
+      if (nodeIdToPlot) {
+        if (results && "io" in results) {
+          const runResults = results.io!.reverse();
+          const filteredResult = runResults.filter(
+            (node) => nodeIdToPlot === node.id
+          )[0];
+          setNd(filteredResult === undefined ? null : filteredResult);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [ctrlObj.param, results.io, selectedOption]);
+
 };
 
 export default useControlComponentEffects;

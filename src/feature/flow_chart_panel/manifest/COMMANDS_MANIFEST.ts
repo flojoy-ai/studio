@@ -26,6 +26,7 @@ export const SECTIONS = [
       { name: "Timers", key: "TIMER" },
       { name: "Loops", key: "LOOP" },
       { name: "Conditionals", key: "CONDITIONAL" },
+      { name: "Loop Conditionals", key: "CONDITIONAL"}
     ],
   },
   {

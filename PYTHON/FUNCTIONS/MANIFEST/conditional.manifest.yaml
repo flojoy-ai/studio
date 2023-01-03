@@ -2,7 +2,7 @@ COMMAND:
   - {
       name: conditional,
       key: CONDITIONAL,
-      type: COMPARATOR,
+      type: CONDITIONAL,
       parameters: { operator_type: { type: "string", default: ">=" } },
       inputs:
         [

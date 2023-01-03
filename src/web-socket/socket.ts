@@ -58,9 +58,20 @@ export class WebSocketServer {
             }
           }
           if (ResponseEnum.nodeResults in data) {
-            this.heartbeatResponse((prev: any) => ({
-              io: [...prev.io, data[ResponseEnum.nodeResults]],
-            }));
+            this.heartbeatResponse((prev: any) => {
+              const isExist = prev.io.find((node)=> node.id === data[ResponseEnum.nodeResults].id)
+              if(isExist){
+                const filterResult = prev.io.filter(node => node.id !== data[ResponseEnum.nodeResults].id)
+                return {
+                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+                }
+              }
+
+              return {
+                io: [...prev.io, data[ResponseEnum.nodeResults]],
+              }
+            }
+            );
           }
           if (ResponseEnum.runningNode in data) {
             this.runningNode(data[ResponseEnum.runningNode]);

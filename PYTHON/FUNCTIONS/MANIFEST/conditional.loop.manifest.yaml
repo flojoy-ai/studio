@@ -2,6 +2,6 @@ COMMAND:
   - {
       name: loop-conditional,
       key: CONDITIONAL,
-      type: COMPARATOR,
+      type: CONDITIONAL,
       parameters: { operator_type: { type: "string", default: ">=" } },
     }
