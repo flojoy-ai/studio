@@ -121,21 +121,15 @@ const NodeComponent = ({
                   Object.keys(additionalInfos).map((value,index)=>{
                     if(value === data.id){
                       if(Object.keys(additionalInfos[data.id]).length > 1){
-
-                        return (
-                          <p key={index+1}>
-                            Current Iteration: {
-                              additionalInfos[data.id]['current_iteration']
-                            }
-                          </p>
-                        )
-                      }
-                      else{
-                        return (
-                          <p key={index+1}>
-                            Current Iteration: {data['ctrls']['LOOP_LOOP_iteration_count']['value']}
-                          </p>
-                        )
+                        if (additionalInfos[data.id]['current_iteration'] !== data['ctrls']['LOOP_LOOP_initial_count']['value']){
+                          return (
+                            <p key={index+1}>
+                              Current Iteration: {
+                                additionalInfos[data.id]['current_iteration']
+                              }
+                            </p>
+                          )
+                        }
                       }
                     }
                   })

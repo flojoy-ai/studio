@@ -44,8 +44,6 @@ def set_direction(jobset_id,bool_):
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
 
-    print("previous iteration values: ",v)
-
     jobset_id = params['jobset_id']
     operator = params['operator_type']
 
