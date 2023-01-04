@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Scatter3D from "./nodes/3d-scatter";
 import Surface3D from "./nodes/3d-surface";
 import BarChart from "./nodes/bar";
@@ -13,9 +13,11 @@ const NodeComponent = ({
   data,
   uiTheme,
   params,
+  additionalInfos
 }: CustomNodeProps & {
   uiTheme: any;
   params: ElementsData['inputs'];
+  additionalInfos:any
 }) => {
 
   if (data.func === "MULTIPLY" || data.func === "ADD") {
@@ -75,22 +77,71 @@ const NodeComponent = ({
       </div>
       <div>
         {
-          data.label == 'CONDITIONAL' ? (
-            <p>
-              x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
-            </p>
-          )
-          : (
+          data.func == 'CONDITIONAL' && (
             <>
-
               {
-                data.label == 'TIMER' && (
+                params?.length !== 0 ? (
                   <p>
-                    {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
+                    x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
                   </p>
+                ) : (
+                  <>
+                    {
+                      Object.keys(additionalInfos).map((value,index)=>{
+                        if(value === data.id){
+                          return (
+                            <p key={index+1}>
+                              status: {
+                                additionalInfos[data.id]['status']
+                              }
+                            </p>
+                          )
+                        }
+                      })
+                    }
+                  </>
                 )
               }
             </>
+          )
+        }
+        {
+          data.func == 'TIMER' && (
+            <p>
+              {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
+            </p>
+          )
+        }
+        {
+          data.func == 'LOOP' && (
+            <div>
+              <p>Total Iteration: {data['ctrls']['LOOP_LOOP_iteration_count']['value']}</p>
+              <>
+                {
+                  Object.keys(additionalInfos).map((value,index)=>{
+                    if(value === data.id){
+                      if(Object.keys(additionalInfos[data.id]).length > 1){
+
+                        return (
+                          <p key={index+1}>
+                            Current Iteration: {
+                              additionalInfos[data.id]['current_iteration']
+                            }
+                          </p>
+                        )
+                      }
+                      else{
+                        return (
+                          <p key={index+1}>
+                            Current Iteration: {data['ctrls']['LOOP_LOOP_iteration_count']['value']}
+                          </p>
+                        )
+                      }
+                    }
+                  })
+                }
+              </>
+            </div>
           )
         }
       </div>

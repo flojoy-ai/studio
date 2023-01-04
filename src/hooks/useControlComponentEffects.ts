@@ -128,7 +128,6 @@ useEffect(() => {
     try {
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
-      console.log("Result HERE: ",results);
       if (nodeIdToPlot) {
         if (results && "io" in results) {
           const runResults = results.io!.reverse();

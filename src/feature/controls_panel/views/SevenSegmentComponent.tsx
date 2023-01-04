@@ -10,10 +10,23 @@ const SevenSegmentComponent = ({
 
     const [data,setData] = useState(0);
 
-    // console.log(object);
     useEffect(()=>{
         if(nd){
-            setData(nd.result.y[0])
+          if(typeof nd.result.y[0] == 'number'){
+            const number = nd.result.y[0]
+            if(number < 0){
+              const value = Math.floor(Math.random() * 100);
+              setData(value)
+            }
+            else{
+              if (Number.isInteger(number)){
+                setData(Math.floor(number))
+              }
+              else{
+                setData(Math.floor(number+1))
+              }
+            }
+          }
         }
     },[nd])
 
