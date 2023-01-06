@@ -5,7 +5,7 @@ const nodes = [
   { selector: "LINSPACE-userGeneratedNode_1646432683694", name: "linspace" },
   { selector: "SINE-userGeneratedNode_1646417316016", name: "sine" },
   { selector: "RAND-userGeneratedNode_1646417371398", name: "rand" },
-  { selector: "CONSTANT-userGeneratedNode_1646435677928", name: "constant" },
+  { selector:"2.0-userGeneratedNode_1646435677928", name: "constant" },
   { selector: "MULTIPLY-userGeneratedNode_1646417352715", name: "multiply" },
   { selector: "ADD-userGeneratedNode_1646417428589", name: "add" },
   { selector: "SCATTER-userGeneratedNode_1646417560399", name: "scatter" },
@@ -20,7 +20,7 @@ const ctrlParameters = [
     { title: "SINE ▶ FREQUENCY", value: 85 },
     { title: "SINE ▶ OFFSET", value: 0 },
     { title: "SINE ▶ AMPLITUDE", value: 25 },
-    { title: "10 ▶ CONSTANT", value: 8 },
+    { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
   // [
   //   { title: "LINSPACE ▶ START", value: "5" },
@@ -105,8 +105,6 @@ describe("user workflow", () => {
       .contains("🐢 awaiting a new job", { timeout: 600000 });
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
-
-    cy.wait(30000);
 
     cy.get(`[data-cy="script-btn"]`).click();
 

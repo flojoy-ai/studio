@@ -46,7 +46,7 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialElements: Elements = [];
+const initialElements: Elements = NOISY_SINE.elements;
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",
@@ -188,26 +188,28 @@ export function useFlowChartState() {
     });
   };
 
-  useEffect(() => {
-    if (!rfInstance) {
-      localforage
-        .getItem(flowKey)
-        .then((val) => {
-          setRfInstance(
-            val as FlowExportObject<{
-              label: string;
-              func: string;
-              elements: Elements;
-              position: [number, number];
-              zoom: number;
-            }>
-          );
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    }
-  }, [rfInstance]);
+  // useEffect(() => {
+  //   console.log(' rendering..')
+  //   if (!rfInstance) {
+  //     console.log(' getting rfInstance from localforage: ', rfInstance)
+  //     localforage
+  //       .getItem(flowKey)
+  //       .then((val) => {
+  //         setRfInstance(
+  //           val as FlowExportObject<{
+  //             label: string;
+  //             func: string;
+  //             elements: Elements;
+  //             position: [number, number];
+  //             zoom: number;
+  //           }>
+  //         );
+  //       })
+  //       .catch((err) => {
+  //         console.warn(err);
+  //       });
+  //   }
+  // }, [rfInstance]);
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {

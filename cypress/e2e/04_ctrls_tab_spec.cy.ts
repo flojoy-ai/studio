@@ -6,7 +6,7 @@ const ctrlParameters = [
       { title: "SINE ▶ FREQUENCY", value: 85 },
       { title: "SINE ▶ OFFSET", value: 0 },
       { title: "SINE ▶ AMPLITUDE", value: 25 },
-      { title: "10 ▶ CONSTANT", value: 8 },
+      { title: "2.0 ▶ CONSTANT", value: 8 },
     ],
     // [
     //   { title: "LINSPACE ▶ START", value: "5" },

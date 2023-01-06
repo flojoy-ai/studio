@@ -1,5 +1,4 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
-import "cypress-file-upload";
 
 describe("Load default page and switch between tabs", () => {
   it("Landing page should behave normally", () => {

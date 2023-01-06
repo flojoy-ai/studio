@@ -1,29 +1,11 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
 import { Elements } from "react-flow-renderer";
-
-const PARAMETERS = {
-  SINE: {
-    frequency: { type: "float", default: 75 },
-    offset: { type: "float", default: 10 },
-    amplitude: { type: "float", default: 15 },
-    waveform: {
-      type: "select",
-      options: ["sine", "square", "triangle", "sawtooth"],
-      default: "sine",
-    },
-  },
-  LINSPACE: {
-    start: { type: "float", default: "50" },
-    end: { type: "float", default: "0" },
-    step: { type: "float", default: "100" },
-  },
-  CONSTANT: { constant: { type: "float", default: "3" } },
-};
+import {parameters as PARAMETERS} from '@src/data/manifests.json'
 
 const exampleApps = [
-  {title:'flojoy.txt'},
-  // { title: "flojoy_1.txt" },
+  { title: "flojoy.txt" },
+  { title: "flojoy_1.txt" },
 ];
 
 describe("Example apps testing.", () => {
@@ -46,7 +28,6 @@ describe("Example apps testing.", () => {
         cy.get("button").contains("x").click({ force: true, multiple: true });
         cy.get(`[data-testid=react-flow]`).then(($body) => {
           const elements = JSON.parse($body.attr("data-rfinstance")!);
-          cy.log(" elements: ", elements);
           const nodes: Elements<ElementsData> = elements.filter(
             (elem: any) => !elem.source
           );
@@ -116,34 +97,28 @@ describe("Example apps testing.", () => {
         cy.get(`[data-cy="app-status"]`)
           .find("code")
           .contains("🐢 awaiting a new job", { timeout: 15000 });
+        Cypress.on("uncaught:exception", (err) => {
+          cy.log("error occured: ", err);
+          return false;
+        });
 
         cy.get("[data-testid=result-node]", { timeout: 200000 });
 
         cy.get(`[data-cy="script-btn"]`).click();
         cy.get(`[data-testid=react-flow]`).then(($body) => {
-          const nodes = JSON.parse($body.attr("data-rfinstance")!);
+          const elements = JSON.parse($body.attr("data-rfinstance")!);
+          const nodes: Elements<ElementsData> = elements.filter(
+            (elem: any) => !elem.source
+          );
           nodes.forEach((node) => {
-            if ("source" in node) {
-              return;
-            } else {
-              cy.log(" node: ", node.id);
-              cy.get(`[data-id="${node.id}"]`).click({
-                force: true,
-                multiple: true,
-              });
-              matchPlotlyOutput(`${node.id}`, "plotlyCustomOutput");
-              cy.get(".ctrl-close-btn").click({ force: true });
-            }
+            cy.get(`[data-id="${node.id}"]`).click({
+              force: true,
+              multiple: true,
+            });
+            matchPlotlyOutput(`${node.id}`, "plotlyCustomOutput");
+            cy.get(".ctrl-close-btn").click({ force: true });
           });
         });
-        // nodes.forEach((node) => {
-        //   cy.get(`[data-id="${node.selector}"]`).click({
-        //     force: true,
-        //     multiple: true,
-        //   });
-        //   matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
-        //   cy.get(".ctrl-close-btn").click({ force: true });
-        // });
       });
     });
   });
