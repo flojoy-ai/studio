@@ -14,7 +14,7 @@ const PlotlyComponent = (props: PlotProps) => {
     }
     (window as any).plotlyOutput = {
       ...(window as any).plotlyOutput,
-      [id]: props,
+      [id]: {data},
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
