@@ -1,5 +1,5 @@
 
-const matchPlotlyOutput = (selector:string, resultFixture: string) => {
+const matchPlotlyOutput = (selector?:string, resultFixture?: string) => {
     let output:any;
     cy.window().then((win: any)=> {
         output = win.plotlyOutput;  
@@ -8,7 +8,11 @@ const matchPlotlyOutput = (selector:string, resultFixture: string) => {
                 // ToDo need to find out why resultdata is not set in win.plotlyOutput in github action test
                 throw Error("output is undefined");
             } else {
-                cy.wrap(output[selector].data[0]).snapshot({ name: resultFixture + '_' + selector});
+                if(!selector){
+                    cy.wrap(output).snapshot({name: 'results'})
+                } else {
+                    cy.wrap(output[selector].data[0]).snapshot({ name: resultFixture + '_' + selector});
+                }
             }
     })
 }

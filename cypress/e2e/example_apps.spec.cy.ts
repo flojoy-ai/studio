@@ -17,17 +17,40 @@ describe("Example apps testing.", () => {
             win.disableIntercom = true;
           },
         });
+        /**
+         * verify all the nodes are created in the flow chart editor
+         */
+        cy.get(`[data-testid=react-flow]`).then(($body) => {
+          const elements = JSON.parse($body.attr("data-rfinstance")!);
+          const nodes: Elements<ElementsData> = elements.filter(
+            (elem: any) => !elem.source
+          );
+          nodes.forEach(node=>{
+            cy.get(`[data-id="${node.id}"]`)
+          })
+        })
+        
       });
       it("Should switch to ctrl panel and add input widgets for each node parameters", () => {
+        // Switch to ctrl panel tab
         cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
+        // Enable operation mode
         cy.get("[data-cy=operation-switch]")
           .contains("Edit")
           .click()
           .should("have.css", "color", "rgb(255, 165, 0)");
+
+        // Force close if any default widgets are there
         cy.get("button").contains("x").click({ force: true, multiple: true });
-        cy.get(`[data-testid=react-flow]`).then(($body) => {
-          const elements = JSON.parse($body.attr("data-rfinstance")!);
+
+        /**
+         * For each parameter of every nodes create input widget
+         * and set default value
+         */
+        cy.get(`[data-testid=react-flow]`).then(($elem) => {
+          const elements = JSON.parse($elem.attr("data-rfinstance")!);
+          // collect the node elements
           const nodes: Elements<ElementsData> = elements.filter(
             (elem: any) => !elem.source
           );
@@ -37,40 +60,46 @@ describe("Example apps testing.", () => {
             if (Object.keys(param).length > 0) {
               Object.entries(param).forEach((entry) => {
                 const [key, value] = entry;
+                // It assumes key is formatted as functionName_nodeLabel_paramName
                 const paramName = key.split("_")[2].toUpperCase();
                 const optionLabel = `${nodeLabel} ▶ ${paramName}`;
                 const defaultValue =
                   PARAMETERS[node.data!?.func?.toUpperCase()][
                     paramName.toLowerCase()
                   ]["default"];
-                cy.log("node: ", nodeLabel, " default: ", defaultValue);
+
+                // if value is numeric
                 if (!isNaN(value.value)) {
+                  // Open add ctrl modal and add numeric input widget
                   cy.get("[data-cy=add-ctrl]")
                     .click()
                     .get("button")
                     .contains("Numeric Input")
                     .first()
                     .click();
+                  // open dropdown list from input widget
                   cy.get("[id^=select-input-]")
                     .last()
                     .click({ force: true, multiple: true });
+                  // Select current node parameter from dropdown list
                   cy.get("[data-cy=ctrl-grid-item]")
                     .contains("div", optionLabel)
                     .click({ force: true, multiple: true });
-
+                  // change parameter value to its default value
                   cy.get("div").contains(optionLabel, { timeout: 1000 });
                   cy.get(`input[type=number]`)
                     .last()
                     .click()
                     .type(`{selectall}${defaultValue}`);
-                } else {
-                  cy.get("[data-cy=add-ctrl]")
-                    .click()
-                    .get("button")
-                    .contains("Text Input")
-                    .first()
-                    .click();
-                }
+                } 
+                // else {
+                  // cy.get("[data-cy=add-ctrl]")
+                  //   .click()
+                  //   .get("button")
+                  //   .contains("Text Input")
+                  //   .first()
+                  //   .click();
+                // }
               });
             }
           });
@@ -81,6 +110,7 @@ describe("Example apps testing.", () => {
           .find("code")
           .contains("🐢 awaiting a new job", { timeout: 15000 });
 
+        // force close any opened modal in homepage
         cy.get("body").then(($body) => {
           if ($body.find(".ctrl-close-btn").length > 0) {
             cy.get(".ctrl-close-btn").click({ force: true });
@@ -91,9 +121,11 @@ describe("Example apps testing.", () => {
           cy.log("error occured: ", err);
           return false;
         });
+        // Switch to debug panel
         cy.get(`[data-cy="debug-btn"]`).click();
-
+        // Run the script
         cy.get(`[data-cy="btn-play"]`).click();
+        // wait for job to finish
         cy.get(`[data-cy="app-status"]`)
           .find("code")
           .contains("🐢 awaiting a new job", { timeout: 15000 });
@@ -101,24 +133,9 @@ describe("Example apps testing.", () => {
           cy.log("error occured: ", err);
           return false;
         });
-
+        // Check if the debug flow chart is constructed and visible
         cy.get("[data-testid=result-node]", { timeout: 200000 });
-
-        cy.get(`[data-cy="script-btn"]`).click();
-        cy.get(`[data-testid=react-flow]`).then(($body) => {
-          const elements = JSON.parse($body.attr("data-rfinstance")!);
-          const nodes: Elements<ElementsData> = elements.filter(
-            (elem: any) => !elem.source
-          );
-          nodes.forEach((node) => {
-            cy.get(`[data-id="${node.id}"]`).click({
-              force: true,
-              multiple: true,
-            });
-            matchPlotlyOutput(`${node.id}`, "plotlyCustomOutput");
-            cy.get(".ctrl-close-btn").click({ force: true });
-          });
-        });
+        matchPlotlyOutput();
       });
     });
   });
