@@ -1,6 +1,5 @@
 import numpy as np
 from joyflo import flojoy, DataContainer
-import traceback
 
 
 @flojoy
@@ -13,6 +12,6 @@ def RAND(v, params):
         y = x
         # y = np.random.normal(size=len(x))
     else:
-        y = np.random.normal(size=1000)
+        y = np.full(1000, 1000)
 
     return DataContainer(x=x, y=y)
