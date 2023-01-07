@@ -88,8 +88,7 @@ def run(**kwargs):
 
 
     if(cancel_existing_jobs):
-        print(r_obj)
-        print(q.count)
+
         if r_obj is not None and 'ALL_JOBS' in r_obj:
             for i in r_obj['ALL_JOBS']:
                 try:
@@ -125,15 +124,10 @@ def run(**kwargs):
         initial_value = 0
         loop_ongoing = False
 
-        print("LOOP STATUS: ", loop_status)
-
         if loop_status:
 
             loop_ongoing = special_type_jobs['LOOP']['status'] == 'ongoing' if (loop_status and 'status' in special_type_jobs['LOOP']) else False
             loop_finished = special_type_jobs['LOOP']['status'] == 'finished' if (loop_status and 'status' in special_type_jobs['LOOP']) else False
-
-            print("LOOP ONGOING: ",loop_ongoing)
-            print("LOOP FINISHED: ",loop_finished)
 
             if loop_ongoing or loop_finished:
                 current_iteration = special_type_jobs['LOOP']['params']['current_iteration']
@@ -174,10 +168,6 @@ def run(**kwargs):
 
         loop_status,current_iteration,initial_value = get_loop_status(r_obj,loop_info=True)
 
-        print(loop_status)
-        print(current_iteration)
-        print(initial_value)
-
         previous_job_ids = []
 
         if cmd == 'LOOP':
@@ -187,8 +177,6 @@ def run(**kwargs):
                 '''
                     Remove all predecessors and enqueue only conditional node job_id
                 '''
-                print("LOOP NODES: ")
-                print(loop_nodes)
 
                 for node_id in loop_nodes:
                     id = nodes_by_id[node_id]['id']
@@ -286,14 +274,7 @@ def run(**kwargs):
     current_loop = ""
     redis_env = ""
 
-
-    for node_serial in topological_sorting:
-        print(node_serial, nodes_by_id[node_serial]['cmd'],nodes_by_id[node_serial]['id'])
-
     while len(topological_sorting) != 0:
-
-        print(topological_sorting)
-        print("LOOP NODES: ",loop_nodes)
 
         node_serial = topological_sorting.pop(0)
 
@@ -304,11 +285,9 @@ def run(**kwargs):
         node_id = nodes_by_id[node_serial]['id']
 
         job_id = 'JOB_' + cmd + '_' + uuid.uuid1().__str__()
-        print("job_id: ",node_id)
+
         s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
         r_obj = get_redis_obj(jobset_id)
-
-        print(r_obj)
 
         '''
             Check for if there's ALL_JOBS keyword
@@ -383,10 +362,7 @@ def run(**kwargs):
 
             if 'CONDITIONAL' in special_type_jobs:
 
-                print("direction: ",special_type_jobs['CONDITIONAL']['direction'])
-
                 status = is_eligible_on_condition(node_serial,special_type_jobs['CONDITIONAL']['direction'])
-                print("status:" ,status)
 
                 if not status:
                     continue
@@ -480,9 +456,6 @@ def run(**kwargs):
 
         is_part_of_loop,is_part_of_loop_body,is_part_of_loop_end = check_loop_type(node_serial,cmd,node_id,current_loop)
 
-        print(is_part_of_loop)
-        print("IS PART OF BODY: ",is_part_of_loop_body)
-
         if is_part_of_loop:
 
             if is_part_of_loop_body:
@@ -492,8 +465,6 @@ def run(**kwargs):
 
 
             elif is_part_of_loop_end:
-
-                print("here")
 
                 if cmd == 'LOOP' and ('LOOP' not in special_type_jobs):
                     is_eligible_to_enqueue = True
@@ -505,11 +476,9 @@ def run(**kwargs):
 
         else:
             is_loop_ongoing,is_eligible_to_enqueue = check_if_default_node_part_of_loop(node_serial,enqued_job_list,r_obj)
-            print(is_eligible_to_enqueue)
+
             if is_loop_ongoing and is_eligible_to_enqueue:
                 loop_nodes.append(node_serial) if node_serial not in loop_nodes else node_serial
-
-        print("is eligible to enqueue: ",is_eligible_to_enqueue)
 
         # if(node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):
         #     break
@@ -533,9 +502,6 @@ def run(**kwargs):
 
             else:
                 previous_job_ids = get_previous_job_ids(cmd,node_serial,loop_nodes,node_id,r_obj)
-                print(previous_job_ids)
-                if cmd == 'LOOP':
-                    print(previous_job_ids)
 
                 q.enqueue(func,
                         retry=Retry(max=3),
