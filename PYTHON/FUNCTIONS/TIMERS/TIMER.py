@@ -5,10 +5,11 @@ import time
 def TIMER(v,params):
     print("executing timer")
 
+    seconds = int(params['sleep_time'])
+    time.sleep(seconds)
+
     if len(v) == 0:
         return DataContainer(x=None,y=None)
 
-    seconds = int(params['sleep_time'])
-    time.sleep(seconds)
 
     return DataContainer(x=v[0].x,y=v[0].y)
