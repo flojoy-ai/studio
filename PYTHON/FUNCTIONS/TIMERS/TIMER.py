@@ -5,6 +5,9 @@ import time
 def TIMER(v,params):
     print("executing timer")
 
+    if len(v) == 0:
+        return DataContainer(x=None,y=None)
+
     seconds = int(params['sleep_time'])
     time.sleep(seconds)
 
