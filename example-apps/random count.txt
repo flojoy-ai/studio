@@ -1,0 +1,245 @@
+{
+    "rfInstance": {
+        "elements": [
+            {
+                "id": "CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93",
+                "type": "default",
+                "position": {
+                    "x": 35.94718106949914,
+                    "y": 216.77659420493268
+                },
+                "data": {
+                    "id": "CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93",
+                    "label": "1",
+                    "func": "CONSTANT",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "CONSTANT_CONSTANT_constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 1
+                        }
+                    }
+                }
+            },
+            {
+                "id": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "type": "default",
+                "position": {
+                    "x": 306.87896987353463,
+                    "y": 177.87926289428572
+                },
+                "data": {
+                    "id": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                    "label": "loop",
+                    "func": "LOOP",
+                    "type": "LOOP",
+                    "ctrls": {
+                        "LOOP_LOOP_initial_count": {
+                            "functionName": "LOOP",
+                            "param": "initial_count",
+                            "value": "0"
+                        },
+                        "LOOP_LOOP_iteration_count": {
+                            "functionName": "LOOP",
+                            "param": "iteration_count",
+                            "value": "10"
+                        },
+                        "LOOP_LOOP_step": {
+                            "functionName": "LOOP",
+                            "param": "step",
+                            "value": 1
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "source"
+                        },
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "source"
+                        }
+                    ]
+                }
+            },
+            {
+                "source": "CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93",
+                "sourceHandle": "main",
+                "target": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "targetHandle": "LOOP",
+                "id": "reactflow__edge-CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93main-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09LOOP"
+            },
+            {
+                "id": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
+                "type": "default",
+                "position": {
+                    "x": 612.375085393846,
+                    "y": 390.7607962913907
+                },
+                "data": {
+                    "id": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
+                    "label": "rand",
+                    "func": "RAND",
+                    "type": "SIMULATION",
+                    "ctrls": {}
+                }
+            },
+            {
+                "source": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "sourceHandle": "body",
+                "target": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
+                "targetHandle": "RAND",
+                "id": "reactflow__edge-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09body-RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35RAND"
+            },
+            {
+                "id": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
+                "type": "default",
+                "position": {
+                    "x": 851.9250669527246,
+                    "y": 230.58824565577504
+                },
+                "data": {
+                    "id": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
+                    "label": "loop cond",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONAL",
+                    "ctrls": {
+                        "CONDITIONAL_CONDITIONAL_operator_type": {
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": "<="
+                        }
+                    }
+                }
+            },
+            {
+                "source": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
+                "sourceHandle": "main",
+                "target": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
+                "targetHandle": "CONDITIONAL",
+                "id": "reactflow__edge-RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35main-CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2CONDITIONAL"
+            },
+            {
+                "source": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "sourceHandle": "body",
+                "target": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
+                "targetHandle": "CONDITIONAL",
+                "id": "reactflow__edge-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09body-CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2CONDITIONAL"
+            }
+        ],
+        "position": [
+            0,
+            0
+        ],
+        "zoom": 1
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "param": {
+                "id": "LOOP_LOOP_initial_count",
+                "functionName": "LOOP",
+                "param": "initial_count",
+                "nodeId": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "inputId": "INPUT_PLACEHOLDER"
+            },
+            "val": "0"
+        },
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-5b214a80-19af-44b2-81f3-b85524fb7cb5",
+            "hidden": false,
+            "param": {
+                "id": "LOOP_LOOP_iteration_count",
+                "functionName": "LOOP",
+                "param": "iteration_count",
+                "nodeId": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "inputId": "ctrl-5b214a80-19af-44b2-81f3-b85524fb7cb5"
+            },
+            "val": "10"
+        },
+        {
+            "type": "output",
+            "name": "Seven Segment Display",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-d1c3e397-7a51-4393-a08c-2c1b0e3f867e",
+            "hidden": false,
+            "param": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+            "val": 0
+        },
+        {
+            "type": "input",
+            "name": "Text Input",
+            "minWidth": 1,
+            "minHeight": 1,
+            "id": "ctrl-fbb45d4a-cfc9-4c04-aec2-63ebf2583b3c",
+            "hidden": false,
+            "param": {
+                "id": "CONDITIONAL_CONDITIONAL_operator_type",
+                "functionName": "CONDITIONAL",
+                "param": "operator_type",
+                "nodeId": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
+                "inputId": "ctrl-fbb45d4a-cfc9-4c04-aec2-63ebf2583b3c"
+            },
+            "val": "<="
+        }
+    ],
+    "gridLayout": [
+        {
+            "w": 2,
+            "h": 2,
+            "x": 0,
+            "y": 0,
+            "i": "INPUT_PLACEHOLDER",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 2,
+            "x": 0,
+            "y": 2,
+            "i": "ctrl-5b214a80-19af-44b2-81f3-b85524fb7cb5",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 2,
+            "y": 0,
+            "i": "ctrl-d1c3e397-7a51-4393-a08c-2c1b0e3f867e",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 2,
+            "x": 4,
+            "y": 0,
+            "i": "ctrl-fbb45d4a-cfc9-4c04-aec2-63ebf2583b3c",
+            "minW": 1,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        }
+    ]
+}
