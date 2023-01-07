@@ -16,8 +16,7 @@ const PlotControlState = ({
   const [selectedKeys, setSelectedKeys] = useState<Record<string, any> | null>(
     null
   );
-    console.log("PLOT CONTROL STATE: ",results);
-    console.log("selected key: ",selectedKeys);
+
   return {
     setInputOptions,
     setPlotOptions,

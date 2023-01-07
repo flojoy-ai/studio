@@ -26,7 +26,7 @@ const HandleComponent = ({
       {params.length > 0 ?
         data.func == 'CONDITIONAL' ? (
         params.map((param, i) => {
-          console.log(param);
+
           if (param.type == 'target'){
 
             return (

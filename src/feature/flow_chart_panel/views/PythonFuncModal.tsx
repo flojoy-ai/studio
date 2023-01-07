@@ -89,7 +89,6 @@ const PythonFuncModal = ({
                               theme === "dark" ? "cmd-btn-dark" : "cmd-btn"
                             }
                             onClick={() => {
-                              console.log(" cmd : ", cmd);
                               onAdd({
                                 FUNCTION: cmd.key,
                                 type: cmd.type,

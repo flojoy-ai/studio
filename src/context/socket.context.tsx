@@ -34,8 +34,6 @@ export const SocketContextProvider = ({ children }) => {
     }));
   };
 
-  console.log("Program Results: ",programResults);
-
   useEffect(() => {
     if (!socket.current) {
       socket.current = new WebSocketServer({
