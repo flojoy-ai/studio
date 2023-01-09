@@ -131,12 +131,15 @@ def check_if_default_node_part_of_loop(node_serial, enqued_job_list, r_obj, DG):
     return loop_status, is_eligible_to_enqueue
 
 
-def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, all_job_key):
+def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, all_job_key,current_conditional):
     id = DG.nodes[node_serial]['id']
     if len(list(DG.predecessors(node_serial))) == 1:
         p = list(DG.predecessors(node_serial))[0]
         prev_cmd = DG.nodes[p]['cmd']
+        pred_id = DG.nodes[p]['id']
         if prev_cmd == 'CONDITIONAL':
+            if current_conditional != pred_id:
+                return False
             edge_label = edge_info[id][0]['sourceHandle']
             if edge_label != 'default':
                 if edge_label.lower() != str(direction).lower():
@@ -153,6 +156,8 @@ def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, 
         try:
             job = Job.fetch(prev_job_id, connection=r)
             if prev_cmd == 'CONDITIONAL':
+                if current_conditional != pred_id:
+                    return False
                 for value in edge_info[id]:
                     if value['source'] == pred_id:
                         edge_label = value['sourceHandle']
@@ -268,6 +273,7 @@ def run(**kwargs):
     enqued_job_list = []
     current_loop = ""
     redis_env = ""
+    current_conditional = ""
 
     r.set(jobset_id, dump({}))
 
@@ -288,6 +294,8 @@ def run(**kwargs):
         s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
         r_obj = get_redis_obj(jobset_id)
         prev_jobs = get_redis_obj(all_jobs_key)
+
+        print(r_obj)
 
         '''
             Check for if there's a speical type JOBS
@@ -330,6 +338,7 @@ def run(**kwargs):
                                 }
                             }
                         })
+                        current_conditional = node_id
                     else:
                         redis_env = dump({
                             **r_obj, 'SYSTEM_STATUS': s,
@@ -353,20 +362,13 @@ def run(**kwargs):
                 direction = special_type_jobs['CONDITIONAL']['direction']
 
                 status = is_eligible_on_condition(node_serial=node_serial, direction=direction,
-                                                  DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key)
+                                                  DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
+                                                  current_conditional = current_conditional)
 
                 if not status:
                     continue
 
-                if cmd != 'LOOP':
-
-                    redis_env = dump({
-                        **r_obj, 'SYSTEM_STATUS': s,
-                        'SPECIAL_TYPE_JOBS': {
-                            **special_type_jobs
-                        }
-                    })
-                else:
+                if cmd == 'LOOP':
                     loop_jobs = {
                         "status": "ongoing",
                         "is_loop_body_execution_finished": False,
@@ -388,6 +390,36 @@ def run(**kwargs):
 
                     current_loop = node_id
                     topological_sorting.append(node_serial)
+
+                elif cmd =='CONDITIONAL':
+                    check_inputs = True if len(
+                        nodes_by_id[node_serial]['inputs']) else False
+
+                    if check_inputs:
+                        redis_env = dump({
+                            **r_obj, 'SYSTEM_STATUS': s,
+                            'SPECIAL_TYPE_JOBS': {
+                                **special_type_jobs,
+                                'CONDITIONAL': {
+                                    "direction": True
+                                }
+                            }
+                        })
+                        current_conditional = node_id
+                    else:
+                        redis_env = dump({
+                            **r_obj, 'SYSTEM_STATUS': s,
+                            'SPECIAL_TYPE_JOBS': {
+                                **special_type_jobs,
+                            }
+                        })
+                else:
+                    redis_env = dump({
+                        **r_obj, 'SYSTEM_STATUS': s,
+                        'SPECIAL_TYPE_JOBS': {
+                            **special_type_jobs
+                        }
+                    })
 
         else:
             if cmd == 'LOOP':
@@ -426,7 +458,7 @@ def run(**kwargs):
                         'CONDITIONAL': conditional_jobs
                     }
                 })
-
+                current_conditional = node_id
             else:
                 redis_env = dump({
                     **r_obj, 'SYSTEM_STATUS': s,
