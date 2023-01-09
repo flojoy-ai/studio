@@ -24,7 +24,7 @@ const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || "localhost";
 const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT! || 8000;
 
 export const SocketContextProvider = ({ children }) => {
-  const socket = useRef<WebSocketServer>();
+  const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<ResultsType>({ io: [] });
   const handleStateChange = (state: keyof States) => (value: any) => {
@@ -34,24 +34,25 @@ export const SocketContextProvider = ({ children }) => {
     }));
   };
 
-  console.log("Program Results: ",programResults);
-
   useEffect(() => {
-    if (!socket.current) {
-      socket.current = new WebSocketServer({
+    if (!socket) { 
+      console.log('Creating new WebSocket connection to backend')
+      const ws = new WebSocketServer({
         url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
         pingResponse: handleStateChange("serverStatus"),
-        heartbeatResponse: setProgramResults,
+        onNodeResultsReceived: setProgramResults,
         runningNode: handleStateChange("runningNode"),
         failedNode: handleStateChange("failedNode"),
         failureReason: handleStateChange("failureReason"),
         socketId: handleStateChange("socketId"),
+        onClose: (ev) => {
+          console.log('socket closed with event:', ev);
+          setSocket(undefined);
+        }
       });
+      setSocket(ws);
     }
-    return () => {
-      socket.current?.disconnect();
-    };
-  }, []);
+  }, [socket]);
   return (
     <SocketContext.Provider
       value={{ states: { ...states, programResults, setProgramResults } }}
