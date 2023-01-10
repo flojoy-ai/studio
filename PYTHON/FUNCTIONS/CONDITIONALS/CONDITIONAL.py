@@ -72,12 +72,13 @@ def CONDITIONAL(v,params):
         if operator in ["<=","<"]:
             if not bool_:
                 data = DataContainer(x=v[0].x,y=v[0].y)
-
-            data = DataContainer(x=v[1].x,y = v[1].y)
+            else:
+                data = DataContainer(x=v[1].x,y = v[1].y)
         else:
             if bool_:
                 data = DataContainer(x=v[0].x,y=v[0].y)
-            data = DataContainer(x=v[1].x,y = v[1].y)
+            else:
+                data = DataContainer(x=v[1].x,y = v[1].y)
 
         return {
             "data" : data,
