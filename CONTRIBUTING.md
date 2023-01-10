@@ -27,10 +27,10 @@ submit for the review again. - This cycle repeats itself till the PR gets
 approved.
 
 **4. Approved** - Once the PR is approved, it gets a Tag with v*.. pattern. For example : `v0.1.1` it initiates CD tests. - We can't move forward if test 
-fails. - In such situations, we may request you to make further changes to your
-PR for the tests to pass. - Once the tests pass, we now bring all the code in
-the internal code base.
+fails. - In such situations, we may request you to make further changes to your PR for the tests to pass. - Once the tests pass, we now bring all the code in the internal code base.
+
 ---
+
 ### Custom Node Rules
 1.  **Manifest File** - Write a manifest file for the node in yaml format. The name of the file should contain `.manifest.yaml` suffix following by node name in `/PYTHON/FUNCTIONS/MANIFEST` folder. Here is an example of manifest file of `SINE WAVE` node `sine.manifest.yaml`.
     ```yaml
@@ -55,12 +55,12 @@ the internal code base.
     ```
     **COMMAND:** `COMMAND` is a scalar list of object. Where each object contains:
 
-    `name:` name of the node.  
-    `key:` node key.   
+    `name:` Name of the node.  
+    `key:` Node key.   
     `type:` Type of node.    
-    `parameters:` object of node parameters. Where for each key is a parameter name and value is an object of:
-    - `type:` type of parameter value.
-    - `default:` default value of the parameter.    
+    `parameters:` Object of node parameters. Where for each key is a parameter name and value is an object of:
+    - `type:` Type of parameter value.
+    - `default:` Default value of the parameter.    
     - `options:` Array of options if parameter is of `select` type
     
 
@@ -76,12 +76,22 @@ the internal code base.
         def FUNCTION_NAME(v, params):
     ```
     - `v`: Node inputs in `list` format. In other word, output of previous nodes.   
-    - `params:` Current node parameters in `dict` format.    
-    ***DataContainer:** A python class that returns different type of data objects. A simple use of `DataContainer` is as follows:    
+    - `params:` Current node parameters in `dict` format.   
+        
+    **DataContainer:** A python class that returns different type of data objects. A simple use of `DataContainer` is as follows:    
     ```code
+        x = 10
+        y = 15
         return DataContainer(type='ordered_pair', x=x, y=y)
+        # {'type': 'ordered_pair', 'x': [10], 'y':[15] }
     ```
-    
+ 3. **New Category** - If node belongs to a new category not exist in `PYTHON/FUNCTIONS` directory. 
+    - Create a folder with category name in uppercase inside `PYTHON/FUNCTIONS/` directory.
+    - Register that category under head category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
+    - In `jsonify_funk.py` file located in root directory add category folder name in `dirs` list variable.
+ 
+ ---
+ 
 ### Running Automated Cypress E2E Test
 
 With your custom node you can create and test example apps. To do so:
