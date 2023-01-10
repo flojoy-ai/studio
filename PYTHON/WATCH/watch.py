@@ -369,14 +369,19 @@ def run(**kwargs):
                     continue
 
                 if cmd == 'LOOP':
+
+                    intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
+                    total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
+                    step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
+
                     loop_jobs = {
                         "status": "ongoing",
                         "is_loop_body_execution_finished": False,
                         "params": {
-                            "initial_value": int(ctrls['LOOP_LOOP_initial_count']['value']),
-                            "total_iterations": int(ctrls["LOOP_LOOP_iteration_count"]["value"]),
-                            "current_iteration": int(ctrls['LOOP_LOOP_initial_count']['value']),
-                            "step": int(ctrls["LOOP_LOOP_step"]['value'])
+                            "initial_value": int(ctrls[intial_value]['value']),
+                            "total_iterations": int(ctrls[total_iteration]["value"]),
+                            "current_iteration": int(ctrls[intial_value]['value']),
+                            "step": int(ctrls[step]['value'])
                         }
                     }
 
@@ -424,14 +429,18 @@ def run(**kwargs):
         else:
             if cmd == 'LOOP':
 
+                intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
+                total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
+                step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
+
                 loop_jobs = {
                     "status": "ongoing",
                     "is_loop_body_execution_finished": False,
                     "params": {
-                        "initial_value": int(ctrls['LOOP_LOOP_initial_count']['value']),
-                        "total_iterations": int(ctrls["LOOP_LOOP_iteration_count"]["value"]),
-                        "current_iteration": int(ctrls['LOOP_LOOP_initial_count']['value']),
-                        "step": int(ctrls["LOOP_LOOP_step"]['value'])
+                        "initial_value": int(ctrls[intial_value]['value']),
+                        "total_iterations": int(ctrls[total_iteration]["value"]),
+                        "current_iteration": int(ctrls[intial_value]['value']),
+                        "step": int(ctrls[step]['value'])
                     }
                 }
 
