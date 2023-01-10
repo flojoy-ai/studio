@@ -295,8 +295,6 @@ def run(**kwargs):
         r_obj = get_redis_obj(jobset_id)
         prev_jobs = get_redis_obj(all_jobs_key)
 
-        print(r_obj)
-
         '''
             Check for if there's a speical type JOBS
         '''
