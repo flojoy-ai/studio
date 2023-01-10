@@ -1,2 +1,2 @@
 COMMAND:
-  - { name: "Random (Uniform)", key: "RAND", type: "SIMULATION" }
+  - { name: "Random (Uniform)", key: "RAND", type: "GENERATOR" }

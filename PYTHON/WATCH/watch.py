@@ -21,7 +21,7 @@ from FUNCTIONS.VISORS import *
 from FUNCTIONS.TRANSFORMERS import *
 from FUNCTIONS.GENERATORS import *
 from FUNCTIONS.LOOPS import *
-from FUNCTIONS.COMPARATORS import *
+from FUNCTIONS.CONDITIONALS import *
 from FUNCTIONS.TIMERS import *
 
 stream = open('STATUS_CODES.yml', 'r')
