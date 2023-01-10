@@ -23,56 +23,6 @@
                 }
             },
             {
-                "id": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
-                "type": "default",
-                "position": {
-                    "x": 306.87896987353463,
-                    "y": 177.87926289428572
-                },
-                "data": {
-                    "id": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
-                    "label": "loop",
-                    "func": "LOOP",
-                    "type": "LOOP",
-                    "ctrls": {
-                        "LOOP_LOOP_initial_count": {
-                            "functionName": "LOOP",
-                            "param": "initial_count",
-                            "value": "0"
-                        },
-                        "LOOP_LOOP_iteration_count": {
-                            "functionName": "LOOP",
-                            "param": "iteration_count",
-                            "value": "10"
-                        },
-                        "LOOP_LOOP_step": {
-                            "functionName": "LOOP",
-                            "param": "step",
-                            "value": 1
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "name": "end",
-                            "id": "end",
-                            "type": "source"
-                        },
-                        {
-                            "name": "body",
-                            "id": "body",
-                            "type": "source"
-                        }
-                    ]
-                }
-            },
-            {
-                "source": "CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93",
-                "sourceHandle": "main",
-                "target": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
-                "targetHandle": "LOOP",
-                "id": "reactflow__edge-CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93main-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09LOOP"
-            },
-            {
                 "id": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
                 "type": "default",
                 "position": {
@@ -86,13 +36,6 @@
                     "type": "SIMULATION",
                     "ctrls": {}
                 }
-            },
-            {
-                "source": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
-                "sourceHandle": "body",
-                "target": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
-                "targetHandle": "RAND",
-                "id": "reactflow__edge-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09body-RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35RAND"
             },
             {
                 "id": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
@@ -123,11 +66,61 @@
                 "id": "reactflow__edge-RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35main-CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2CONDITIONAL"
             },
             {
-                "source": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "id": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
+                "type": "default",
+                "position": {
+                    "x": 217.03560900320915,
+                    "y": 208.94948087465255
+                },
+                "data": {
+                    "id": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
+                    "label": "loop",
+                    "func": "LOOP",
+                    "type": "LOOP",
+                    "ctrls": {
+                        "LOOP_loop_initial_count": {
+                            "functionName": "LOOP",
+                            "param": "initial_count",
+                            "value": 0
+                        },
+                        "LOOP_loop_iteration_count": {
+                            "functionName": "LOOP",
+                            "param": "iteration_count",
+                            "value": "32"
+                        },
+                        "LOOP_loop_step": {
+                            "functionName": "LOOP",
+                            "param": "step",
+                            "value": 1
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "source"
+                        },
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "source"
+                        }
+                    ]
+                }
+            },
+            {
+                "source": "CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93",
+                "sourceHandle": "main",
+                "target": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
+                "targetHandle": "LOOP",
+                "id": "reactflow__edge-CONSTANT-b5d44bb5-8995-4e6b-90b2-5d0e5c686b93main-LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4cLOOP"
+            },
+            {
+                "source": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
                 "sourceHandle": "body",
-                "target": "CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2",
-                "targetHandle": "CONDITIONAL",
-                "id": "reactflow__edge-LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09body-CONDITIONAL-25c6d61d-c1a0-48ae-a977-36a7b2d687c2CONDITIONAL"
+                "target": "RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35",
+                "targetHandle": "RAND",
+                "id": "reactflow__edge-LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4cbody-RAND-f5a5d7cf-257b-473a-83f3-dfb635f92b35RAND"
             }
         ],
         "position": [
@@ -145,13 +138,13 @@
             "minHeight": 1,
             "minWidth": 2,
             "param": {
-                "id": "LOOP_LOOP_initial_count",
+                "id": "LOOP_loop_initial_count",
                 "functionName": "LOOP",
                 "param": "initial_count",
-                "nodeId": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "nodeId": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
                 "inputId": "INPUT_PLACEHOLDER"
             },
-            "val": "0"
+            "val": 0
         },
         {
             "type": "input",
@@ -161,13 +154,13 @@
             "id": "ctrl-5b214a80-19af-44b2-81f3-b85524fb7cb5",
             "hidden": false,
             "param": {
-                "id": "LOOP_LOOP_iteration_count",
+                "id": "LOOP_loop_iteration_count",
                 "functionName": "LOOP",
                 "param": "iteration_count",
-                "nodeId": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+                "nodeId": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
                 "inputId": "ctrl-5b214a80-19af-44b2-81f3-b85524fb7cb5"
             },
-            "val": "10"
+            "val": "32"
         },
         {
             "type": "output",
@@ -176,7 +169,7 @@
             "minHeight": 3,
             "id": "ctrl-d1c3e397-7a51-4393-a08c-2c1b0e3f867e",
             "hidden": false,
-            "param": "LOOP-4e07c988-6147-44e8-b8f8-ddeaa6140a09",
+            "param": "LOOP-683e30b2-d3a6-4e0a-8d5f-47262b5bbb4c",
             "val": 0
         },
         {
