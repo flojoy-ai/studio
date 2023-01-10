@@ -12,7 +12,7 @@ from rq import Queue
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from rq.command import send_stop_job_command
-
+from rq.exceptions import InvalidJobOperation
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
@@ -56,7 +56,10 @@ def worker_response(request):
 def stop_running_jobs(jobs: list, jobset_id:str):
     if len(jobs) > 0:
         for job_id in jobs:
-            send_stop_job_command(connection=r, job_id=job_id.decode('utf-8'))
+            try:
+                send_stop_job_command(connection=r, job_id=job_id.decode('utf-8'))
+            except InvalidJobOperation: # if job is currently not executing (e.g. finished, etc.), ignore the exception
+                pass
             r.lrem('{}_watch'.format(jobset_id), 1, job_id.decode('utf-8'))
         for job_id in q.failed_job_registry.get_job_ids():
             q.delete(job_id)
