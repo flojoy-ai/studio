@@ -17,7 +17,6 @@ export const SECTIONS = [
       { name: "Simulations", key: "SIMULATION" },
       { name: "Sample Datasets", key: "SAMPLE_DATASET" },
       { name: "Sample Images", key: "SAMPLE_IMAGE" },
-      { name: "Generators", key: "GENERATOR" },
     ],
   },
   {

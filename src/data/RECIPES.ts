@@ -81,7 +81,7 @@ export const NOISY_SINE = {
         id: "SINE-userGeneratedNode_1646417316016",
         label: "SINE",
         func: "SINE",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {
           SINE_SINE_frequency: {
             functionName: "SINE",
@@ -131,7 +131,7 @@ export const NOISY_SINE = {
 
         label: "RAND",
         func: "RAND",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {},
       },
       position: nodePosition.rand,
@@ -190,7 +190,7 @@ export const NOISY_SINE = {
 
         label: "Linspace",
         func: "LINSPACE",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {
           LINSPACE_Linspace_start: {
             functionName: "LINSPACE",
@@ -219,7 +219,7 @@ export const NOISY_SINE = {
 
         label: "2.0",
         func: "CONSTANT",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {
           "CONSTANT_2.0_constant": {
             functionName: "CONSTANT",
@@ -405,7 +405,7 @@ export const LOOP_APP = {
         "id": "LINSPACE-userGeneratedNode_1646432683694",
         "label": "LINSPACE",
         "func": "LINSPACE",
-        "type": "GENERATOR",
+        "type": "SIMULATION",
         "ctrls": {
           "LINSPACE_LINSPACE_start": {
             "functionName": "LINSPACE",
@@ -474,7 +474,7 @@ export const LOOP_APP = {
         "id": "RAND-userGeneratedNode_1646417371398",
         "label": "RAND",
         "func": "RAND",
-        "type": "GENERATOR",
+        "type": "SIMULATION",
         "ctrls": {
 
         }
@@ -491,7 +491,7 @@ export const LOOP_APP = {
         "id": "RAND-userGeneratedNode_1646417371399",
         "label": "RAND",
         "func": "RAND",
-        "type": "GENERATOR",
+        "type": "SIMULATION",
         "ctrls": {
 
         }
@@ -671,7 +671,7 @@ export const CONDITIONAL = {
         id: "2.0-userGeneratedNode_1646435677928",
         label: "2.0",
         func: "CONSTANT",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {
           "CONSTANT_2.0_constant": {
             functionName: "CONSTANT",
@@ -692,7 +692,7 @@ export const CONDITIONAL = {
         id: "2.0-userGeneratedNode_1646435677929",
         label: "2.0",
         func: "CONSTANT",
-        type: "GENERATOR",
+        type: "SIMULATION",
         ctrls: {
           "CONSTANT_2.0_constant": {
             functionName: "CONSTANT",
@@ -790,7 +790,7 @@ export const CONDITIONAL = {
         "id": "RAND-userGeneratedNode_1646417371398",
         "label": "RAND",
         "func": "RAND",
-        "type": "GENERATOR",
+        "type": "SIMULATION",
         "ctrls": {
 
         }
@@ -807,7 +807,7 @@ export const CONDITIONAL = {
         "id": "RAND-userGeneratedNode_1646417371399",
         "label": "RAND",
         "func": "RAND",
-        "type": "GENERATOR",
+        "type": "SIMULATION",
         "ctrls": {
 
         }
