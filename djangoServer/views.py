@@ -1,6 +1,6 @@
+from datetime import datetime
 from PYTHON.WATCH import *
 import yaml
-from django.conf import settings
 import redis
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -11,7 +11,8 @@ import os
 from rq import Queue
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-
+from rq.command import send_stop_job_command
+from rq.exceptions import InvalidJobOperation
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
@@ -52,24 +53,41 @@ def worker_response(request):
     return Response(response, status=200)
 
 
+def stop_running_jobs(jobs: list, jobset_id:str):
+    if len(jobs) > 0:
+        for job_id in jobs:
+            try:
+                send_stop_job_command(connection=r, job_id=job_id.decode('utf-8'))
+            except InvalidJobOperation: # if job is currently not executing (e.g. finished, etc.), ignore the exception
+                pass
+            r.lrem('{}_watch'.format(jobset_id), 1, job_id.decode('utf-8'))
+        for job_id in q.failed_job_registry.get_job_ids():
+            q.delete(job_id)
+
+
 @api_view(['POST'])
 def wfc(request):
+
     print('Flow chart payload... ', request.data['fc'][:100])
 
     fc = json.loads(request.data['fc'])
     jobsetId = request.data['jobsetId']
+    running_jobs = r.lrange('{}_watch'.format(jobsetId), 0, 20)
     cancel_existing_jobs = request.data['cancelExistingJobs'] if 'cancelExistingJobs' in request.data else True
-    print("cancel existing jobs ",cancel_existing_jobs)
+    # Stop all running job to free up the worker and remove all failed jobs
+    stop_running_jobs(running_jobs, jobsetId)
     msg = {
         'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'], 'jobsetId': jobsetId, 'FAILED_NODES': '', 'RUNNING_NODES': ''}
     send_msg_to_socket(msg=msg)
     func = getattr(globals()['watch'], 'run')
+    job_id = '{}_{}'.format(jobsetId, datetime.now())
+    r.lpush('{}_watch'.format(jobsetId), job_id)
     q.enqueue(func,
               job_timeout='3m',
               on_failure=report_failure,
-              job_id=jobsetId,
+              job_id=job_id,
               kwargs={'fc': fc, 'jobsetId': jobsetId,
-                      'cancel_existing_jobs': cancel_existing_jobs},
+                      'cancel_existing_jobs': cancel_existing_jobs, 'my_job_id': job_id},
               result_ttl=500
               )
     response = {

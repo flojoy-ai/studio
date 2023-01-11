@@ -89,7 +89,7 @@ const Controls: FC<ControlsProps> = ({
               param
             ) => ({
               ...prev,
-              [FUNCTION + "_" + FUNCTION + "_" + param]: {
+              [FUNCTION + "_" + functionName + "_" + param]: {
                 functionName: FUNCTION,
                 param,
                 value:

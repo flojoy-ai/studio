@@ -10,11 +10,6 @@ const HandleComponent = ({
 }) => {
   const params = inputs || [];
 
-  const isValidConnection = (connection) => {
-    // connection.source to connection.target validation
-    return true
-  }
-
   return (
     <Fragment>
 
@@ -31,6 +26,7 @@ const HandleComponent = ({
       {params.length > 0 ?
         data.func == 'CONDITIONAL' ? (
         params.map((param, i) => {
+
           if (param.type == 'target'){
 
             return (
@@ -50,7 +46,6 @@ const HandleComponent = ({
                   right: '-2px'
                 }}
                 id={param.id}
-                isValidConnection={isValidConnection}
               >
                 <div
                   style={{
@@ -93,7 +88,6 @@ const HandleComponent = ({
               ...(params.length > 0 && { top: 15 }),
             }}
             id={data.func}
-            isValidConnection={isValidConnection}
           />
         )
         :
@@ -108,7 +102,6 @@ const HandleComponent = ({
               ...(params.length > 0 && { top: 15 }),
             }}
             id={data.func}
-            isValidConnection={isValidConnection}
           />
         )
       }
@@ -124,7 +117,6 @@ const HandleComponent = ({
           height: 8,
           width: 8,
         }}
-        isValidConnection={isValidConnection}
         id="main"
       />
 
@@ -160,7 +152,6 @@ const HandleComponent = ({
                     right: '-2px'
                   }}
                   id={param.id}
-                  isValidConnection={isValidConnection}
                 >
                   <div
                     style={{

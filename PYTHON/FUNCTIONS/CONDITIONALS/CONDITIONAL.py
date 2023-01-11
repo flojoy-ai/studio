@@ -1,11 +1,4 @@
 from joyflo import flojoy,DataContainer
-from redis import Redis
-import os
-import json
-
-REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
-REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
-r = Redis(host=REDIS_HOST, port=REDIS_PORT)
 
 def compare_values(first_value,second_value,operator):
     bool_ = None
@@ -23,28 +16,10 @@ def compare_values(first_value,second_value,operator):
         bool_ = first_value == second_value
     return bool_
 
-def set_direction(jobset_id,bool_):
-    env_info = r.get(jobset_id)
-    r_obj = json.loads(env_info) if env_info is not None else {}
-    special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {}
-
-    conditional_jobs = {
-        "direction":bool(bool_)
-    }
-
-    r.set(jobset_id, json.dumps({
-        **r_obj,
-        'SPECIAL_TYPE_JOBS':{
-            **special_type_jobs,
-            'CONDITIONAL':conditional_jobs
-        }
-    }))
-
 @flojoy
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
 
-    jobset_id = params['jobset_id']
     operator = params['operator_type']
 
     type = params['type']
@@ -87,24 +62,26 @@ def CONDITIONAL(v,params):
             }
     else:
 
-        x1 = v[0].x
         y1 = v[0].y
-
-        x2 = v[1].x
         y2 = v[1].y
 
         bool_ = compare_values(y1[0],y2[0],operator)
 
-        set_direction(jobset_id,bool_)
-
-        print(bool_)
+        data = None
 
         if operator in ["<=","<"]:
             if not bool_:
-                return DataContainer(x=v[0].x,y=v[0].y)
-
-            return DataContainer(x=v[1].x,y = v[1].y)
+                data = DataContainer(x=v[0].x,y=v[0].y)
+            else:
+                data = DataContainer(x=v[1].x,y = v[1].y)
         else:
             if bool_:
-                return DataContainer(x=v[0].x,y=v[0].y)
-            return DataContainer(x=v[1].x,y = v[1].y)
+                data = DataContainer(x=v[0].x,y=v[0].y)
+            else:
+                data = DataContainer(x=v[1].x,y = v[1].y)
+
+        return {
+            "data" : data,
+            "type" : "CONDITIONAL",
+            "direction" : bool_
+        }

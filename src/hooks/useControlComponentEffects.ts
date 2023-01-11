@@ -84,7 +84,7 @@ useEffect(() => {
                       id:
                         nodeFunctionName +
                         "_" +
-                        nodeFunctionName +
+                        nodeLabel.toString().split(" ").join("") +
                         "_" +
                         param,
                       functionName: nodeFunctionName,

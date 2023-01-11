@@ -54,7 +54,10 @@ const usePlotControlEffect = ({
   const updatePlotValue = () => {
     const result: any = {};
 
+
     if (nd?.result && "data" in nd!.result) {
+
+
       result.x = nd?.result?.data![0]?.x;
       result.y = nd?.result?.data![0]?.y;
       result.type = nd?.result?.data![0]?.type;
@@ -64,7 +67,7 @@ const usePlotControlEffect = ({
     if (selectedKeys) {
       for (const [key, value] of Object.entries(selectedKeys)) {
         if (key !== "type") {
-          result[key] = value.value;
+          result[key] = value?.value;
         }
       }
     }
@@ -90,7 +93,7 @@ const usePlotControlEffect = ({
       if (prev) {
         for (const [key, value] of Object.entries(prev!)) {
           updatedKeys[key] = inputOptions.find(
-            (opt) => opt.label === value.label
+            (opt) => opt.label === value?.label
           );
         }
       }
