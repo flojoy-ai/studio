@@ -19,10 +19,10 @@ approved.
 
 ### How to create a custom node
 1.  **Node Function** - A python function for the node. Create a new script file and place it in right category folder in `/PYTHON/FUNCTIONS/`  directory. The script file name should be the node name in uppercase.  
-    import `@flojoy` decorator and `DataContainer` class from `flojoy` package : 
+    import `@flojoy` decorator and `DataContainer` class from `joyflo` package : 
 
     ```bash
-        from flojoy import flojoy, DataContainer
+        from joyflo import flojoy, DataContainer
     ```
     Decorate your function with `@flojoy` like below:
     ```bash
