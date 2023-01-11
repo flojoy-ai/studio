@@ -35,7 +35,6 @@ export default function ControlGrid({
       layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
       cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
       onLayoutChange={(currentLayout, allLayout) => {
-        console.log("currentLayout:", currentLayout);
         setGridLayout(currentLayout);
       }}
     >

@@ -1,22 +1,42 @@
-import { useCallback, useEffect, useState } from "react";
-import Plot from "react-plotly.js";
-import Select from "react-select";
+import { Dispatch, memo, SetStateAction, useCallback } from "react";
+import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import localforage from "localforage";
 
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import styledPlotLayout from "../../common/defaultPlotLayout";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
-import { FUNCTION_PARAMETERS } from "../../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import { ControlNames, ControlTypes } from "../manifest/CONTROLS_MANIFEST";
+import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
 import { Silver } from "react-dial-knob";
-import { ControlOptions } from "../types/ControlOptions";
+import ControlComponentState from "./ControlComponentState";
+import useControlComponentEffects from "@hooks/useControlComponentEffects";
+import {
+  CtlManifestType,
+  CtrlManifestParam,
+  PlotManifestParam,
+} from "@src/hooks/useFlowChartState";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { CtrlOptionValue } from "../types/ControlOptions";
+import PlotControl from "./PlotControl";
+import SevenSegmentComponent from "./SevenSegmentComponent";
 
-localforage.config({ name: "react-flow", storeName: "flows" });
-
-const flowKey = "flow-joy";
+type ControlComponentProps = {
+  ctrlObj: CtlManifestType;
+  theme: "light" | "dark";
+  results: ResultsType;
+  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
+  attachParamsToCtrl: (
+    val: CtrlOptionValue | PlotManifestParam,
+    ctrlObj: CtlManifestType
+  ) => void;
+  removeCtrl: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ctrl: CtlManifestType
+  ) => void;
+  setCurrentInput: Dispatch<
+    SetStateAction<CtlManifestType & { index: number }>
+  >;
+  setOpenEditModal: Dispatch<SetStateAction<boolean>>;
+};
 
 const ControlComponent = ({
   ctrlObj,
@@ -27,28 +47,58 @@ const ControlComponent = ({
   removeCtrl,
   setCurrentInput,
   setOpenEditModal,
-}) => {
-  const { elements, ctrlsManifest, setGridLayout, isEditMode } =
-    useFlowChartState();
-
-  const [flowChartObject, setFlowChartObject] = useState<any>({});
-  const [knobValue, setKnobValue] = useState<number>();
-  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState<
-    NodeJS.Timeout | undefined
-  >(undefined);
+}: ControlComponentProps) => {
+  const {
+    ctrlsManifest,
+    setGridLayout,
+    isEditMode,
+    selectOptions,
+    setSelectOptions,
+    flowChartObject,
+    knobValue,
+    setKnobValue,
+    textInput,
+    setTextInput,
+    numberInput,
+    setNumberInput,
+    sliderInput,
+    setSliderInput,
+    debouncedTimerForKnobId,
+    setDebouncedTimerForKnobId,
+    currentInputValue,
+    setCurrentInputValue,
+    nd,
+    setNd,
+    setPlotData,
+    selectedPlotOption,
+    plotData,
+    selectedOption,
+    setSelectedOption,
+    inputOptions,
+    outputOptions,
+    setOutputOptions,
+    setSelectedPlotOption,
+    ctrls,
+    defaultValue,
+    paramOptions,
+    styledLayout,
+  } = ControlComponentState({
+    theme,
+    ctrlObj,
+  });
 
   const updateCtrlValueFromKnob = useCallback(
-    (value) => {
+    (value: number) => {
       setKnobValue(value);
 
-      if (!ctrlObj?.param?.nodeId) {
+      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
       if (debouncedTimerForKnobId) {
         clearTimeout(debouncedTimerForKnobId);
       }
       const timerId = setTimeout(() => {
-        updateCtrlValue(value, ctrlObj);
+        updateCtrlValue(value.toString(), ctrlObj);
       }, 1000);
 
       setDebouncedTimerForKnobId(timerId);
@@ -56,128 +106,26 @@ const ControlComponent = ({
     [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
   );
 
-  const styledLayout = styledPlotLayout(theme);
-
-  useEffect(() => {
-    if (Object.keys(flowChartObject).length === 0) {
-      localforage
-        .getItem(flowKey)
-        .then((val) => {
-          setFlowChartObject(val);
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
+  const handleCtrlValueChange = (
+    setValue: Dispatch<SetStateAction<string>>,
+    value: string
+  ) => {
+    setValue(value);
+    if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+      return;
     }
-  }, [flowChartObject]);
+    updateCtrlValue(value, ctrlObj);
 
-  let options: ControlOptions[] = [];
-
-  if (ctrlObj.type === ControlTypes.Input) {
-    if (flowChartObject.elements !== undefined) {
-      flowChartObject.elements.forEach((node) => {
-        if (!("source" in node)) {
-          // Object is a node, not an edge
-          const nodeLabel = node.data.label;
-          const nodeFunctionName = node.data.func;
-          const params = FUNCTION_PARAMETERS[nodeFunctionName];
-          const sep = " ▶ ";
-          if (params) {
-            Object.keys(params).forEach((param) => {
-              options.push({
-                label: nodeLabel + sep + param.toUpperCase(),
-                value: {
-                  id:
-                    nodeFunctionName +
-                    "_" +
-                    nodeLabel.toString().split(" ").join("") +
-                    "_" +
-                    param,
-                  functionName: nodeFunctionName,
-                  param,
-                  nodeId: node.id,
-                  inputId: ctrlObj.id,
-                },
-              });
-            });
-          }
-        }
-      });
+    if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
+      attachParamsToCtrl(
+        {
+          ...(selectedOption?.value as CtrlOptionValue),
+          id: "CONSTANT_" + value + "_constant",
+        },
+        ctrlObj
+      );
     }
-  } else if (ctrlObj.type === ControlTypes.Output) {
-    if (flowChartObject.elements !== undefined) {
-      flowChartObject.elements.forEach((node) => {
-        if (!("source" in node)) {
-          // Object is a node, not an edge
-          let label =
-            "Visualize node: " +
-            node.data.label +
-            " (#" +
-            node.id.slice(-5) +
-            ")";
-          options.push({ label: label, value: node.id });
-        }
-      });
-    }
-  }
-
-  let plotData: any = [{ x: [1, 2, 3], y: [1, 2, 3] }];
-  let nd: any = {};
-
-  try {
-    if (ctrlObj.name.toUpperCase() === ControlNames.Plot.toUpperCase()) {
-      // figure out what we're visualizing
-      let nodeIdToPlot = ctrlObj.param;
-      if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io.reverse();
-          const filteredResult = runResults.filter(
-            (node) => nodeIdToPlot === node.id
-          )[0];
-          console.log("filteredResult:", filteredResult);
-
-          nd = filteredResult === undefined ? {} : filteredResult;
-          if (Object.keys(nd).length > 0) {
-            if (nd.result) {
-              if ("data" in nd.result) {
-                plotData = nd.result.data;
-              } else {
-                plotData = [{ x: nd.result["x"], y: nd.result["y"] }];
-              }
-            }
-          }
-        }
-      }
-    }
-  } catch (e) {
-    console.error(e);
-  }
-
-  const inputNodeId = ctrlObj?.param?.nodeId;
-  const inputNode = elements.find((e) => e.id === inputNodeId);
-  const ctrls = inputNode?.data?.ctrls;
-  const fnParams = FUNCTION_PARAMETERS[ctrlObj?.param?.functionName] || {};
-  const fnParam = fnParams[ctrlObj?.param?.param];
-  const defaultValue =
-    ctrlObj?.param?.functionName === "CONSTANT"
-      ? ctrlObj.val
-      : fnParam?.default
-      ? fnParam.default
-      : 0;
-  const paramOptions =
-    fnParam?.options?.map((option) => {
-      return {
-        label: option,
-        value: option,
-      };
-    }) || [];
-
-  let currentInputValue =
-    ctrlObj?.param?.functionName === "CONSTANT"
-      ? defaultValue
-      : ctrls
-      ? ctrls[ctrlObj?.param?.id]?.value
-      : defaultValue;
+  };
 
   const makeLayoutStatic = () => {
     if (isEditMode) {
@@ -187,34 +135,67 @@ const ControlComponent = ({
     }
   };
 
+  useControlComponentEffects({
+    nd,
+    selectedPlotOption,
+    setNd,
+    setPlotData,
+    ctrlObj,
+    ctrls,
+    ctrlsManifest,
+    currentInputValue,
+    debouncedTimerForKnobId,
+    defaultValue,
+    flowChartObject,
+    isEditMode,
+    knobValue,
+    numberInput,
+    paramOptions,
+    plotData,
+    results,
+    selectedOption,
+    selectOptions,
+    inputOptions,
+    outputOptions,
+    sliderInput,
+    styledLayout,
+    textInput,
+    setCurrentInputValue,
+    setDebouncedTimerForKnobId,
+    setGridLayout,
+    setKnobValue,
+    setNumberInput,
+    setSelectedOption,
+    setSelectedPlotOption,
+    setSelectOptions,
+    setOutputOptions,
+    setSliderInput,
+    setTextInput,
+  });
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
+        justifyContent:'center',
+        alignItems:'center',
         flex: "1",
         padding: "16px",
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header" data-cy="ctrls-select">
+        <div className="ctrl-header" data-cy="ctrls-select" style={{width:'100%'}}>
           <Select
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              console.log("value in select:", val, options);
-              if (val) attachParamsToCtrl(val.value, ctrlObj);
+              if (val)
+                attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}
-            options={options}
+            theme={theme as unknown as ThemeConfig}
+            options={selectOptions}
             styles={customDropdownStyles}
-            theme={theme}
-            value={
-              ctrlObj.type === "output"
-                ? options?.find((option) => option.value === ctrlObj?.param)
-                : options?.find(
-                    (option) => option.value.id === ctrlObj?.param?.id
-                  )
-            }
+            value={selectedOption}
           />
           <button
             className="ctrl-edit-btn"
@@ -241,30 +222,29 @@ const ControlComponent = ({
         </div>
       )}
       {!isEditMode && (
-        <p className="ctrl-param">
-          {ctrlObj.type === "output"
-            ? options?.find((option) => option.value === ctrlObj?.param)?.label
-            : options?.find((option) => option.value.id === ctrlObj?.param?.id)
-                ?.label}
-        </p>
+        <p className="ctrl-param">Node: {selectedOption?.label}</p>
       )}
-
       {ctrlObj.name === ControlNames.Plot && (
-        <div
-          style={{
-            flex: "1",
-            height: "100%",
-            width: "100%",
-            paddingBottom: "10px",
-          }}
-        >
-          <Plot
-            data={plotData}
-            layout={styledLayout}
-            autosize={true}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
+        <PlotControl
+          nd={nd}
+          results={results}
+          setNd={setNd}
+          setPlotData={setPlotData}
+          ctrlObj={ctrlObj}
+          isEditMode={isEditMode}
+          plotData={plotData}
+          selectedOption={selectedOption}
+          selectedPlotOption={selectedPlotOption}
+          theme={theme}
+          setSelectedPlotOption={setSelectedPlotOption}
+        />
+      )}
+      {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
+        <SevenSegmentComponent
+          ctrlObj={ctrlObj}
+          plotData={plotData}
+          nd={nd}
+        />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
@@ -274,9 +254,9 @@ const ControlComponent = ({
             placeholder="Write your text.."
             className="ctrl-numeric-input border-color"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              handleCtrlValueChange(setTextInput, e.target.value);
             }}
-            value={currentInputValue || ""}
+            value={currentInputValue || textInput || ""}
             style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
         </div>
@@ -289,9 +269,9 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className="ctrl-numeric-input border-color"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              handleCtrlValueChange(setNumberInput, e.target.value);
             }}
-            value={currentInputValue || 0}
+            value={currentInputValue || numberInput || 0}
             style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
         </div>
@@ -304,10 +284,10 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className="ctrl-numeric-input"
             onChange={(e) => {
-              updateCtrlValue(e.target.value, ctrlObj);
+              handleCtrlValueChange(setNumberInput, e.target.value);
             }}
             disabled
-            value={currentInputValue || 0}
+            value={currentInputValue || numberInput || 0}
           />
         </div>
       )}
@@ -368,11 +348,11 @@ const ControlComponent = ({
             <Slider
               className="custom-slider"
               onChange={(val) => {
-                updateCtrlValue(val, ctrlObj);
+                handleCtrlValueChange(setSliderInput, val.toString());
               }}
-              value={currentInputValue || 0}
+              value={currentInputValue || +sliderInput || 0}
             />
-            <label>{currentInputValue || null}</label>
+            <label>{currentInputValue ? currentInputValue : sliderInput}</label>
           </div>
         </div>
       )}
@@ -383,13 +363,16 @@ const ControlComponent = ({
             className="select-node"
             isSearchable={true}
             onChange={(val) => {
-              updateCtrlValue(val.value, ctrlObj);
+              updateCtrlValue(
+                (val as { label: string; value: string }).value,
+                ctrlObj
+              );
             }}
+            theme={theme as unknown as ThemeConfig}
             options={paramOptions}
             styles={customDropdownStyles}
-            theme={theme}
             value={
-              paramOptions.find((opt) => opt.value === currentInputValue) || ""
+              paramOptions.find((opt) => opt.value === currentInputValue.toString()) || ""
             }
           />
         </div>
@@ -399,13 +382,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div>
+              <div key={option.value}>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
@@ -424,13 +407,13 @@ const ControlComponent = ({
         <div className="ctrl-input-body">
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }}>
+              <div style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
-                  checked={currentInputValue === option.value}
+                  checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
@@ -454,4 +437,4 @@ const ControlComponent = ({
   );
 };
 
-export default ControlComponent;
+export default memo(ControlComponent);

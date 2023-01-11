@@ -22,8 +22,6 @@ localforage.config({
   storeName: "flows",
 });
 
-
-
 const getNodePosition = () => {
   return {
     x: 50 + Math.random() * 20,
@@ -31,13 +29,14 @@ const getNodePosition = () => {
   };
 };
 
-
 const Controls: FC<ControlsProps> = ({
   theme,
   activeTab,
   setOpenCtrlModal,
 }) => {
-  const {states:{socketId}} = useSocket();
+
+  const { states } = useSocket();
+  const { socketId, setProgramResults } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
   const { transform } = useZoomPanHelper();
   const {
@@ -53,7 +52,8 @@ const Controls: FC<ControlsProps> = ({
   const onSave = async () => {
     if (rfInstance && rfInstance.elements.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
-      saveAndRunFlowChartInServer({rfInstance, jobId: socketId});
+      setProgramResults({ io: [] });
+      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -62,8 +62,9 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type,  inputs }) => {
+    ({ FUNCTION, params, type, inputs }) => {
       let functionName: string;
+      const id = `${FUNCTION}-${uuidv4()}`
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
@@ -88,10 +89,13 @@ const Controls: FC<ControlsProps> = ({
               param
             ) => ({
               ...prev,
-              [FUNCTION + "_" + functionName + "_" + param.toUpperCase()]: {
+              [FUNCTION + "_" + functionName + "_" + param]: {
                 functionName: FUNCTION,
                 param,
-                value: params![param].default,
+                value:
+                  FUNCTION === "CONSTANT"
+                    ? +functionName
+                    : params![param].default,
               },
             }),
             {}
@@ -99,8 +103,9 @@ const Controls: FC<ControlsProps> = ({
         : {};
 
       const newNode = {
-        id: `${FUNCTION}-${uuidv4()}`,
+        id: id,
         data: {
+          id:id,
           label: functionName,
           func: FUNCTION,
           type,
@@ -118,7 +123,7 @@ const Controls: FC<ControlsProps> = ({
   const openModal = () => {
     setIsOpen(true);
   };
-  const afterOpenModal = () => {};
+  const afterOpenModal = () => null;
   const closeModal = () => {
     setIsOpen(false);
   };

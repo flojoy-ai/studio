@@ -1,98 +1,105 @@
 interface WebSocketServerProps {
   url: string;
   pingResponse: any;
-  heartbeatResponse: any;
+  onNodeResultsReceived: any;
   runningNode: any;
-  failedNodes: any;
+  failedNode: any;
   failureReason: any;
-  socketId: any
+  socketId: any;
+  onClose?: (ev: CloseEvent) => void;
+}
+
+enum ResponseEnum {
+  systemStatus = "SYSTEM_STATUS",
+  nodeResults = "NODE_RESULTS",
+  runningNode = "RUNNING_NODE",
+  failedNodes = "FAILED_NODES",
 }
 export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
-  private heartbeatResponse: any;
+  private onNodeResultsReceived: any;
   private runningNode: any;
-  private failedNodes: any;
+  private failedNode: any;
   private failureReason: any;
-  private socketId:any
+  private socketId: any;
+  private onClose?: (ev: CloseEvent) => void;
   constructor({
     url,
     pingResponse,
-    heartbeatResponse,
+    onNodeResultsReceived,
     runningNode,
-    failedNodes,
+    failedNode,
     failureReason,
-    socketId
+    socketId,
+    onClose,
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
-    this.heartbeatResponse = heartbeatResponse;
+    this.onNodeResultsReceived = onNodeResultsReceived;
     this.runningNode = runningNode;
-    this.failedNodes = failedNodes;
+    this.failedNode = failedNode;
     this.failureReason = failureReason;
-    this.socketId = socketId
+    this.socketId = socketId;
     this.server = new WebSocket(url);
+    this.onClose = onClose;
     this.init();
   }
   init() {
-    console.log(" socket readystate: ", this.server.readyState);
     this.server.onmessage = (ev) => {
-      let data = JSON.parse(ev.data);
-      // console.log("data received: ", data.type === "heartbeat_response");
+      const data = JSON.parse(ev.data);
+      console.log('New WebScoket Message:', data);
       switch (data.type) {
-        case "heartbeat_response":
-          if (this.heartbeatResponse) {
-            if (this.failureReason) {
-              this.failureReason(data.failureReason);
+        case "worker_response":
+          if (ResponseEnum.systemStatus in data) {
+            this.pingResponse(data[ResponseEnum.systemStatus]);
+            if (
+              data[ResponseEnum.systemStatus] ===
+              "🤙 python script run successful"
+            ) {
+              this.pingResponse("🐢 awaiting a new job");
             }
-            if (this.failedNodes) {
-              this.failedNodes(data.failed);
+          }
+          if (ResponseEnum.nodeResults in data) {
+            this.onNodeResultsReceived((prev: any) => {
+              const isExist = prev.io.find((node)=> node.id === data[ResponseEnum.nodeResults].id)
+              if(isExist){
+                const filterResult = prev.io.filter(node => node.id !== data[ResponseEnum.nodeResults].id)
+                return {
+                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+                }
+              }
+
+              return {
+                io: [...prev.io, data[ResponseEnum.nodeResults]],
+              }
             }
-            if (this.pingResponse) {
-              this.pingResponse(data.msg);
-            }
-            if (this.runningNode) {
-              this.runningNode(data.running);
-            }
-            const parseIo =  data.io.map((e:string)=>JSON.parse(e))
-            this.heartbeatResponse({...data,io: parseIo});
-            this.server.send(
-              JSON.stringify({
-                type: "heartbeat_received",
-              })
             );
           }
-          break;
-        case "ping_response":
-          if (this.failureReason) {
-            this.failureReason(data.failureReason);
+          if (ResponseEnum.runningNode in data) {
+            this.runningNode(data[ResponseEnum.runningNode]);
           }
-          if (this.failedNodes) {
-            this.failedNodes(data.failed);
-          }
-          if (this.pingResponse) {
-            this.pingResponse(data.msg);
-          }
-          if (this.runningNode) {
-            this.runningNode(data.running);
+          if (ResponseEnum.failedNodes in data) {
+            this.failedNode(data[ResponseEnum.failedNodes]);
           }
           break;
         case "connection_established":
-          if(this.socketId){
-            this.socketId(data.socketId)
+          if (this.socketId) {
+            this.socketId(data.socketId);
           }
-          if(this.pingResponse){
-            this.pingResponse(data.msg)
+          if (ResponseEnum.systemStatus in data) {
+            this.pingResponse(data[ResponseEnum.systemStatus]);
           }
           break;
-
         default:
           console.log(" default data type: ", data);
           break;
       }
     };
+    this.server.onclose = this.onClose || null;
   }
   disconnect() {
-    this.server.close(0);
+    console.log('Disconnecting WebSocket server');
+    this.server.close();
   }
   emit(data: string) {
     this.server.send(

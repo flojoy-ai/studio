@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -9,20 +9,28 @@ import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
 import "../../App.css";
-import { CtlManifestType, useFlowChartState } from "../../hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "../../services/FlowChartServices";
-import ModalCloseSvg from "../../utils/ModalCloseSvg";
-import { useSocket } from "../../hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "../flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import {
+  CtlManifestType,
+  CtrlManifestParam,
+  useFlowChartState,
+} from "../../hooks/useFlowChartState";
+import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
+import ModalCloseSvg from "@src/utils/ModalCloseSvg";
+import { useSocket } from "@src/hooks/useSocket";
+import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
+import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
+import { useControlsTabEffects } from "./ControlsTabEffects";
+import { CtrlOptionValue } from "./types/ControlOptions";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
+  const { states } = useSocket();
+  const { socketId, setProgramResults } = states!;
 
-  const {states: {socketId}} = useSocket()
   const {
     openEditModal,
     setOpenEditModal,
@@ -43,15 +51,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
- 
-  const afterOpenModal = () => { };
+
+  const afterOpenModal = () => null;
   const closeModal = () => {
     setOpenCtrlModal(false);
   };
 
-
-
-  async function cacheManifest(manifest: CtlManifestType[]) {
+ function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -60,12 +66,15 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       clearTimeout(debouncedTimerId);
     }
     const timerId = setTimeout(() => {
-      saveAndRunFlowChartInServer({rfInstance, jobId:socketId});
+      setProgramResults({ io: [] });
+      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
     }, 3000);
 
     setDebouncedTimerId(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
+
+  useControlsTabEffects(saveAndRunFlowChart);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const ctrl: CtlManifestType = {
@@ -103,39 +112,39 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    let filterChilds: any[] = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    const filterChilds: any[] = ctrlsManifest.filter(
+      (ctrl) => ctrl.id !== ctrlId
+    );
     cacheManifest(filterChilds);
 
-    if (ctrl) {
+    if (ctrl.param) {
       removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
       saveAndRunFlowChart();
     }
   };
 
-  const updateCtrlValue = (val: any, ctrl: any) => {
-    let manClone = clone(ctrlsManifest);
+const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].val = val;
       }
     });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id, {
-      functionName: ctrl.param.functionName,
-      param: ctrl.param.param,
-      value: val,
-    });
+    updateCtrlInputDataForNode(
+      (ctrl.param! as CtrlManifestParam).nodeId,
+      (ctrl.param! as CtrlManifestParam).id,
+      {
+        functionName: (ctrl.param! as CtrlManifestParam).functionName,
+        param: (ctrl.param! as CtrlManifestParam).param,
+        value: val,
+      }
+    );
   };
 
   const attachParamsToCtrl = (
-    param: {
-      id: string;
-      functionName: string;
-      param: string;
-      nodeId: string;
-      inputId: string;
-    },
-    ctrl: any
+    param: CtrlOptionValue,
+    ctrl: CtlManifestType
   ) => {
     // grab the current value for this param if it already exists in the flowchart elements
     const inputNode = elements.find((e) => e.id === param.nodeId);
@@ -148,11 +157,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
       param.functionName === "CONSTANT"
         ? ctrl.val
         : fnParam?.default
-          ? fnParam.default
-          : 0;
+        ? fnParam.default
+        : 0;
     const ctrlData = ctrls && ctrls[param?.id];
-    let currentInputValue = ctrlData ? ctrlData.value : defaultValue;
-    let manClone = clone(ctrlsManifest);
+    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
         manClone[i].param = param;
@@ -161,14 +170,6 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     });
     cacheManifest(manClone);
   };
-
-  // useEffect(() => {
-  //   if (rfInstance?.elements.length === 0) {
-  //     setCtrlsManifest([]);
-  //   } else {
-  //     saveAndRunFlowChart();
-  //   }
-  // }, [rfInstance]);
 
   return (
     <div data-testid="controls-tab">
@@ -208,7 +209,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
             }}
           />
         </button>
-        <div>
+        {currentInput && <div>
           <p>Ctrl properties</p>
           <div
             style={{
@@ -228,15 +229,28 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
               <ReactSwitch
                 checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
                 onChange={(nextChecked) => {
-                  console.log(nextChecked, " next");
                   setCtrlsManifest((prev) => {
                     prev[currentInput?.index!].hidden = nextChecked;
                   });
                 }}
               />
             </div>
+            {ctrlsManifest[currentInput?.index!]?.name === ControlNames.SevenSegmentDisplay && (<div
+              style={{
+                display: "flex",
+                gap: "8px",
+                alignItems: "center",
+              }}
+            >
+              <p>Segment Color </p>
+              <input type="color" name="seven_segment_color" id="seven_segment_color" value={ctrlsManifest[currentInput.index].segmentColor || ''} onChange={e=> {
+                setCtrlsManifest((prev) => {
+                  prev[currentInput?.index!].segmentColor = e.target.value;
+                });
+                }} />
+            </div>)}
           </div>
-        </div>
+        </div>}
       </Modal>
     </div>
   );

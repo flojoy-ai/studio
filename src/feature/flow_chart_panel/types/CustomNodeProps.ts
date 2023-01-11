@@ -1,4 +1,5 @@
 export type ElementsData = {
+  id: string;
   label: string;
   func: string;
   type: string;
@@ -11,7 +12,7 @@ export type ElementsData = {
       value: number;
     };
   };
-  inputs?: Array<{ name: string; id: string }>
+  inputs?: Array<{ name: string; id: string; type:string }>
   selects?: any;
 }
 

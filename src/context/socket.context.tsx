@@ -1,53 +1,62 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { SetStateAction } from "jotai";
+import { createContext, Dispatch, useEffect, useRef, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
-
-export const SocketContext = createContext<any>(null);
-const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || 'localhost';
-const BACKEND_PORT= +process.env.REACT_APP_BACKEND_PORT! || 8000
-
 type States = {
-  programResults: any;
+  programResults: ResultsType | null;
+  setProgramResults: Dispatch<SetStateAction<ResultsType>>;
   runningNode: string;
   serverStatus: string;
-  failedNodes: any[];
-  failureReason: any[];
+  failedNode: string;
+  failureReason: string[];
   socketId: string;
 };
+const DEFAULT_STATES = {
+  runningNode: "",
+  serverStatus: "Connecting to server...",
+  failedNode: "",
+  failureReason: [],
+  socketId: "",
+};
+export const SocketContext = createContext<{ states: States } | null>(null);
+
+const SOCKET_HOST = process.env.REACT_APP_SOCKET_HOST || "localhost";
+const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT! || 8000;
+
 export const SocketContextProvider = ({ children }) => {
-  const socket = useRef<WebSocketServer>();
-  const [states, setStates] = useState<States>({
-    programResults: {},
-    runningNode: "",
-    serverStatus: "Connecting to server...",
-    failedNodes: [],
-    failureReason: [],
-    socketId: '',
-  });
+  const [socket, setSocket] = useState<WebSocketServer>();
+  const [states, setStates] = useState(DEFAULT_STATES);
+  const [programResults, setProgramResults] = useState<ResultsType>({ io: [] });
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
       ...prev,
       [state]: value,
     }));
   };
+
   useEffect(() => {
-    if (!socket.current) {
-      console.log(' BACKEND_PORT:', process.env.REACT_APP_BACKEND_PORT)
-      socket.current = new WebSocketServer({
+    if (!socket) { 
+      console.log('Creating new WebSocket connection to backend')
+      const ws = new WebSocketServer({
         url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
-        pingResponse: handleStateChange('serverStatus'),
-        heartbeatResponse: handleStateChange('programResults'),
-        runningNode: handleStateChange('runningNode'),
-        failedNodes: handleStateChange('failedNodes'),
-        failureReason: handleStateChange('failureReason'),
-        socketId: handleStateChange('socketId')
+        pingResponse: handleStateChange("serverStatus"),
+        onNodeResultsReceived: setProgramResults,
+        runningNode: handleStateChange("runningNode"),
+        failedNode: handleStateChange("failedNode"),
+        failureReason: handleStateChange("failureReason"),
+        socketId: handleStateChange("socketId"),
+        onClose: (ev) => {
+          console.log('socket closed with event:', ev);
+          setSocket(undefined);
+        }
       });
+      setSocket(ws);
     }
-  }, []);
+  }, [socket]);
   return (
     <SocketContext.Provider
-      value={{ states }}
-    >
-      {children}
+      value={{ states: { ...states, programResults, setProgramResults } }}
+    >      {children}
     </SocketContext.Provider>
   );
 };

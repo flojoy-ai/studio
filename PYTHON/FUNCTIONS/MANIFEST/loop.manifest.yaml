@@ -1,0 +1,17 @@
+COMMAND:
+  - {
+      name: loop,
+      key: LOOP,
+      type: LOOP,
+      parameters:
+        {
+          initial_count: { type: "int", default: 0 },
+          iteration_count: { type: "int", default: 2 },
+          step: { type: "int", default: 1 },
+        },
+      inputs:
+        [
+          { name: "end", id: "end", type: "source" },
+          { name: "body", id: "body", type: "source" },
+        ],
+    }

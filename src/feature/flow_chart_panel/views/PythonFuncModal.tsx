@@ -13,7 +13,7 @@ const PythonFuncModal = ({
   onAdd,
   theme,
 }: PythonFuncModalProps) => {
-  const [activeTab, setActiveTab] = useState(SECTIONS[0][0].key);
+  const [activeTab, setActiveTab] = useState(SECTIONS[0].title);
 
   const activeBtnStyle = {
     height: "100%",
@@ -54,21 +54,21 @@ const PythonFuncModal = ({
         {SECTIONS.map((section) => (
           <button
             className="btn-tab"
-            onClick={() => setActiveTab(section[0].key)}
-            key={section[0].key}
+            onClick={() => setActiveTab(section.title)}
+            key={section.title}
             style={{
-              ...(activeTab === section[0].key && activeBtnStyle),
+              ...(activeTab === section.title && activeBtnStyle),
             }}
           >
-            {section[0].name}
+            {section.title}
           </button>
         ))}
       </div>
 
       {SECTIONS.map((sections, index) => (
         <Fragment key={index}>
-          {sections[0].key === activeTab &&
-            sections.map((section) => (
+          {sections.title === activeTab &&
+            sections.child.map((section) => (
               <Fragment key={section.key}>
                 <div key={section.key}>
                   <p>{section.name}</p>
@@ -89,7 +89,6 @@ const PythonFuncModal = ({
                               theme === "dark" ? "cmd-btn-dark" : "cmd-btn"
                             }
                             onClick={() => {
-                              console.log(" cmd : ", cmd);
                               onAdd({
                                 FUNCTION: cmd.key,
                                 type: cmd.type,
