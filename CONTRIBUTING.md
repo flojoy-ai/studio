@@ -1,15 +1,9 @@
 # Contributing guidelines
-## Pull Request Checklist
 
-Before sending your pull requests, make sure you do the following:
--   Read and follow [Custom Node Rules](#custom-node-rules)
--   Read the [Pull Request Workflow](#pull-request-workflow). 
-- Run [Automated Cypress E2E test](#running-automated-cypress-e2e-test)
-
-## How to become a contributor and submit your own custom node
+## How to contribute code
 ### Pull Request Workflow
 
-**1. New PR** - As a contributor, you submit a New PR on GitHub. - We inspect
+**1. New PR** - As a contributor, you submit a New PR on GitHub. Before submitting your PR make sure that code is working and system is working as well, also write description in PR body with Testing steps you take to test changes - We inspect
 every incoming PR. At this stage we check if the PR is valid and meets certain quality
 requirements. - For example - We check if PR has sufficient
 description, if applicable unit tests are added, passed CI etc.
@@ -32,7 +26,29 @@ fails. - In such situations, we may request you to make further changes to your 
 ---
 
 ### Custom Node Rules
-1.  **Manifest File** - Write a manifest file for the node in yaml format. The name of the file should contain `.manifest.yaml` suffix following by node name in `/PYTHON/FUNCTIONS/MANIFEST` folder. Here is an example of manifest file of `SINE WAVE` node `sine.manifest.yaml`.
+1.  **Node Function** - A python function for the node. Create a new script file and place it in right category folder in `/PYTHON/FUNCTIONS/`  directory. The script file name should be the node name in uppercase.  
+    import `@flojoy` decorator `DataContainer` class from `flojoy` package : 
+
+    ```bash
+        from flojoy import flojoy, DataContainer
+    ```
+    Decorate your function with `@flojoy` like below:
+    ```bash
+        @flojoy
+        def FUNCTION_NAME(v, params):
+    ```
+    - `v`: This will receive the output of all the incoming nodes and this will be in `list` format.
+    - `params:` A node can have some parameters that can change its behavior. This parameters can be modified in CTRL panel. You have to declare then in manifest file. This will be in `dict` format.  
+
+    Your node function should return an object of `DataContainer` class.   
+    **DataContainer:**  A python class that can represent different type of data objects such as - `image`, `ordered_pair`, `matrix` etc. Here is an example of how to return `DataContainer` object:    
+    ```code
+        x = 10
+        y = 15
+        return DataContainer(type='ordered_pair', x=x, y=y)
+        # {'type': 'ordered_pair', 'x': [10], 'y':[15] }
+    ```
+2.  **Manifest File** - Write a manifest file for the node in yaml format in `/PYTHON/FUNCTIONS/MANIFEST` folder. The name of the file should contain `.manifest.yaml` suffix following by node name. Here is an example of manifest file of `SINE WAVE` node `sine.manifest.yaml`.
     ```yaml
     COMMAND:
       - {
@@ -56,51 +72,23 @@ fails. - In such situations, we may request you to make further changes to your 
     **COMMAND:** `COMMAND` is a scalar list of object. Where each object contains:
 
     `name:` Name of the node.  
-    `key:` Node key.   
-    `type:` Type of node.    
-    `parameters:` Object of node parameters. Where for each key is a parameter name and value is an object of:
+    `key:` A string to identify the node which should be unique among other nodes.   
+    `type:` A sub-category from `COMMAND_MANIFEST.ts` in `src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`.    
+    `parameters:` Parameters which node expects in it's function's parameter `params`. In ctrl panel to let users modify the parameters this manifest is used. It's an Object. Where for each key is a parameter name and value is an object of:
     - `type:` Type of parameter value.
     - `default:` Default value of the parameter.    
     - `options:` Array of options if parameter is of `select` type
     
-
-2.  **Node Function** - A python function for the node. Place the function in right category folder in `/PYTHON/FUNCTIONS/`  directory. File name should be node name in uppercase.  
-    In function body import `@flojoy` decorator from `flojoy_python` package :   
-
-    ```bash
-        from flojoy import flojoy, DataContainer
-    ```
-    Use decorator before your function like:
-    ```bash
-        @flojoy
-        def FUNCTION_NAME(v, params):
-    ```
-    - `v`: Node inputs in `list` format. In other word, output of previous nodes.   
-    - `params:` Current node parameters in `dict` format.   
-        
-    **DataContainer:** A python class that returns different type of data objects. A simple use of `DataContainer` is as follows:    
-    ```code
-        x = 10
-        y = 15
-        return DataContainer(type='ordered_pair', x=x, y=y)
-        # {'type': 'ordered_pair', 'x': [10], 'y':[15] }
-    ```
- 3. **New Category** - If node belongs to a new category not exist in `PYTHON/FUNCTIONS` directory. 
+ 3. **New Category** - If your node belongs to a category which doesn't have a corresponding folder in `PYTHON/FUNCTIONS` directory. 
     - Create a folder with category name in uppercase inside `PYTHON/FUNCTIONS/` directory.
-    - Register that category under head category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
+    - Register that category under proper parent category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
     - In `jsonify_funk.py` file located in root directory add category folder name in `dirs` list variable.
  
  ---
  
 ### Running Automated Cypress E2E Test
 
-With your custom node you can create and test example apps. To do so:
-- Create a new flow chart with your node and save it by clicking on `save` on control bar.
-- Place your saved example app in `public/example-apps/` directory.
-- In `cypress/e2e/example_apps.spec.cy.ts` file add an object in `exampleApp` array as follows:
-    - `title`: name of the example app file.
-
-It will automatically generate a test for your example app, which will run on CI. You can test locally and save snapshot by running following script in terminal:
+Run:
 ```bash
     npm run test
 ```
