@@ -26,5 +26,5 @@ def SINE(v, params):
         y = Y0 + A * signal.sawtooth(2 * np.pi * F * x / 10, 0.5)
     elif waveform == 'sawtooth':
         y = Y0 + A * signal.sawtooth(2 * np.pi * F / 10 * x)
-    
+
     return DataContainer(x = x, y = y)

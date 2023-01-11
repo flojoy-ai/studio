@@ -53,16 +53,21 @@ const usePlotControlEffect = ({
    */
   const updatePlotValue = () => {
     const result: any = {};
+
+
     if (nd?.result && "data" in nd!.result) {
+
+
       result.x = nd?.result?.data![0]?.x;
       result.y = nd?.result?.data![0]?.y;
       result.type = nd?.result?.data![0]?.type;
       result.mode = nd?.result?.data![0]?.mode;
     }
+
     if (selectedKeys) {
       for (const [key, value] of Object.entries(selectedKeys)) {
         if (key !== "type") {
-          result[key] = value.value;
+          result[key] = value?.value;
         }
       }
     }
@@ -70,6 +75,7 @@ const usePlotControlEffect = ({
       result.type = selectedPlotOption.value.type;
       result.mode = selectedPlotOption.value.mode;
     }
+
     setPlotData([result]);
   };
 
@@ -87,7 +93,7 @@ const usePlotControlEffect = ({
       if (prev) {
         for (const [key, value] of Object.entries(prev!)) {
           updatedKeys[key] = inputOptions.find(
-            (opt) => opt.label === value.label
+            (opt) => opt.label === value?.label
           );
         }
       }
@@ -120,24 +126,7 @@ const usePlotControlEffect = ({
     };
   }, []);
 
-  // Filter attached node result from all node results
-  useEffect(() => {
-    try {
-      // figure out what we're visualizing
-      const nodeIdToPlot = ctrlObj?.param;
-      if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io!.reverse();
-          const filteredResult = runResults.filter(
-            (node) => nodeIdToPlot === node.id
-          )[0];
-          setNd(filteredResult === undefined ? null : filteredResult);
-        }
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }, [ctrlObj.param, results.io, selectedOption, selectedPlotOption]);
+
 
   // Cleanup selected keys when ctrlobj parameter is updated
   useEffect(() => {

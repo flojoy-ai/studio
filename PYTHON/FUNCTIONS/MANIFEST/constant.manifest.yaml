@@ -3,5 +3,5 @@ COMMAND:
       name: "Constant",
       key: "CONSTANT",
       type: "SIMULATION",
-      parameters: { constant: { type: "float", default: '3' } },
+      parameters: { constant: { type: "float", default: "3" } },
     }

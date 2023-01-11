@@ -64,6 +64,7 @@ const Controls: FC<ControlsProps> = ({
   const onAdd: NodeOnAddFunc = useCallback(
     ({ FUNCTION, params, type, inputs }) => {
       let functionName: string;
+      const id = `${FUNCTION}-${uuidv4()}`
       if (FUNCTION === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
@@ -102,8 +103,9 @@ const Controls: FC<ControlsProps> = ({
         : {};
 
       const newNode = {
-        id: `${FUNCTION}-${uuidv4()}`,
+        id: id,
         data: {
+          id:id,
           label: functionName,
           func: FUNCTION,
           type,

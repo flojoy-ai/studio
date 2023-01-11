@@ -3,5 +3,5 @@ COMMAND:
       name: "Multiply",
       key: "MULTIPLY",
       type: "ARITHMETIC",
-      inputs: [{ name: "y", id: "multiply_y" }],
+      inputs: [{ name: "y", id: "multiply_y", type: "target" }],
     }

@@ -4,11 +4,17 @@ export const NodeStyle = (
   data: CustomNodeProps["data"],
   theme: "light" | "dark"
 ): React.CSSProperties | undefined => {
-  if (data.func === "LINSPACE") {
+  if (
+      data.func === "LINSPACE" ||
+      data.func === 'LOOP' ||
+      data.func === 'CONDITIONAL' ||
+      data.func == 'BREAK' ||
+      data.func == 'TIMER'
+    ) {
     return {
       padding: 10,
       height: "105px",
-      width: "192px",
+      width: "190px",
       fontWeight: 600,
       borderRadius: "6px",
       backgroundColor:

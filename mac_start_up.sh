@@ -80,6 +80,11 @@ else
    echo "directory ~/.flojoy/flojoy.yaml does not exists. Creating new directory with yaml file."
 fi
 
+echo 'closing all existing rq workers (if any)'
+python close-all-rq-workers.py
+echo 'rq info after closing:'
+rq info
+
 echo 'starting redis worker for flojoy-watch'
 npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 

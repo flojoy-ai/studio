@@ -3,7 +3,6 @@ from .template import init_template
 
 @flojoy
 def BAR(v, params):
-
     fig = dict(
         data = [dict(
             x = list(v[0].x),

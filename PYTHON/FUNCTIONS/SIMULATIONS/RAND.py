@@ -10,5 +10,5 @@ def RAND(v, params):
         y = np.random.normal(size=len(x))
     except Exception:
         print(traceback.format_exc())
-    
+
     return DataContainer(x = x, y = y)

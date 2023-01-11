@@ -2,7 +2,7 @@ import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Display as SevenSegmentDisplay } from "react-7-segment-display";
+
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -17,6 +17,7 @@ import {
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
 import PlotControl from "./PlotControl";
+import SevenSegmentComponent from "./SevenSegmentComponent";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
@@ -85,6 +86,7 @@ const ControlComponent = ({
     theme,
     ctrlObj,
   });
+
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       setKnobValue(value);
@@ -238,17 +240,11 @@ const ControlComponent = ({
         />
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
-        <div
-          className="seven_segment_container"
-        >
-          <SevenSegmentDisplay
-            color={ctrlObj.segmentColor || "#99F5FF"}
-            count={4}
-            height={200}
-            skew={false}
-            value={plotData.length > 0 && plotData[0].y ? plotData[0].y[0]: '0000'}
-          />
-        </div>
+        <SevenSegmentComponent
+          ctrlObj={ctrlObj}
+          plotData={plotData}
+          nd={nd}
+        />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
