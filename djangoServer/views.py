@@ -18,13 +18,11 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
 REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
-# Connect to our Redis instance
-redis_instance = redis.StrictRedis(host=REDIS_HOST,
-                                   port=REDIS_PORT, db=0)
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
 r = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 q = Queue('flojoy-watch', connection=r)
+print('queue flojoy-watch isEmpty? ', q.is_empty())
 
 
 def test_socket(request):
