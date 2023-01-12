@@ -2,7 +2,7 @@
 
 # Flojoy
 
-Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/CONTRIBUTING.md) for how to add custom Python nodes to your Flojoy apps.
+Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/CONTRIBUTING.md) to add your own custom Python nodes to Flojoy apps.
 
 ***
 
