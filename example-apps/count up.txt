@@ -101,34 +101,6 @@
                 "id": "reactflow__edge-CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081bmain-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846aadd_y"
             },
             {
-                "id": "CONDITIONAL-42893057-37f8-4468-8526-0d51229f061b",
-                "type": "default",
-                "position": {
-                    "x": 1126.8017986116167,
-                    "y": 413.275121806367
-                },
-                "data": {
-                    "id": "CONDITIONAL-42893057-37f8-4468-8526-0d51229f061b",
-                    "label": "loop cond",
-                    "func": "CONDITIONAL",
-                    "type": "COMPARATOR",
-                    "ctrls": {
-                        "CONDITIONAL_CONDITIONAL_operator_type": {
-                            "functionName": "CONDITIONAL",
-                            "param": "operator_type",
-                            "value": "<="
-                        }
-                    }
-                }
-            },
-            {
-                "source": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
-                "sourceHandle": "main",
-                "target": "CONDITIONAL-42893057-37f8-4468-8526-0d51229f061b",
-                "targetHandle": "CONDITIONAL",
-                "id": "reactflow__edge-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846amain-CONDITIONAL-42893057-37f8-4468-8526-0d51229f061bCONDITIONAL"
-            },
-            {
                 "id": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
                 "type": "default",
                 "position": {
@@ -191,6 +163,34 @@
                 "target": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
                 "targetHandle": "ADD",
                 "id": "reactflow__edge-LOOP-c667adde-d2bf-4d28-b97e-7c705baca56dbody-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846aADD"
+            },
+            {
+                "id": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
+                "type": "default",
+                "position": {
+                    "x": 997.0129448956172,
+                    "y": 600.9303460241888
+                },
+                "data": {
+                    "id": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
+                    "label": "lc",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONAL",
+                    "ctrls": {
+                        "CONDITIONAL_lc_operator_type": {
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": "<="
+                        }
+                    }
+                }
+            },
+            {
+                "source": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
+                "sourceHandle": "main",
+                "target": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
+                "targetHandle": "CONDITIONAL",
+                "id": "reactflow__edge-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846amain-CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176CONDITIONAL"
             }
         ],
         "position": [
@@ -220,10 +220,10 @@
             "id": "ctrl-3a86f8b9-2db9-4dd3-90c4-18d1a7b72ff9",
             "hidden": false,
             "param": {
-                "id": "CONDITIONAL_CONDITIONAL_operator_type",
+                "id": "CONDITIONAL_lc_operator_type",
                 "functionName": "CONDITIONAL",
                 "param": "operator_type",
-                "nodeId": "CONDITIONAL-42893057-37f8-4468-8526-0d51229f061b",
+                "nodeId": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
                 "inputId": "ctrl-3a86f8b9-2db9-4dd3-90c4-18d1a7b72ff9"
             },
             "val": "<="
@@ -235,7 +235,7 @@
             "minHeight": 3,
             "id": "ctrl-11775da1-e10d-4b9e-9711-21daa5f3c55d",
             "hidden": false,
-            "param": "CONDITIONAL-42893057-37f8-4468-8526-0d51229f061b",
+            "param": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
             "val": 0
         },
         {
