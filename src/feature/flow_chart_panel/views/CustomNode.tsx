@@ -39,12 +39,12 @@ const CustomNode = ({ data }: CustomNodeProps) => {
   const { programResults } = states!;
 
   useEffect(()=>{
-    if(programResults?.io?.length){
+    if(programResults?.io?.length! > 0){
 
       let programAdditionalInfo = {}
 
-      const results = programResults.io
-      results.forEach(element => {
+      const results = programResults?.io
+      results?.forEach(element => {
           programAdditionalInfo = {...programAdditionalInfo,[element.id]:element['additional_info']}
       });
 
