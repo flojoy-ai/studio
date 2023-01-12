@@ -82,7 +82,7 @@ const NodeComponent = ({
               {
                 params?.length !== 0 ? (
                   <p>
-                    x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
+                    x {data['ctrls'][`CONDITIONAL_${data.label}_operator_type`]['value']} y
                   </p>
                 ) : (
                   <>
@@ -108,20 +108,20 @@ const NodeComponent = ({
         {
           data.func == 'TIMER' && (
             <p>
-              {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
+              {data['ctrls'][`TIMER_${data.label}_sleep_time`]['value']}s
             </p>
           )
         }
         {
           data.func == 'LOOP' && (
             <div>
-              <p>Total Iteration: {data['ctrls']['LOOP_LOOP_iteration_count']['value']}</p>
+              <p>Total Iteration: {data['ctrls'][`LOOP_${data.label}_iteration_count`]['value']}</p>
               <>
                 {
                   Object.keys(additionalInfos).map((value,index)=>{
                     if(value === data.id){
                       if(Object.keys(additionalInfos[data.id]).length > 1){
-                        if (additionalInfos[data.id]['current_iteration'] !== data['ctrls']['LOOP_LOOP_initial_count']['value']){
+                        if (additionalInfos[data.id]['current_iteration'] !== data['ctrls'][`LOOP_${data.label}_initial_count`]['value']){
                           return (
                             <p key={index+1}>
                               Current Iteration: {
