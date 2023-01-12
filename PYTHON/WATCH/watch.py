@@ -1,4 +1,4 @@
-from joyflo import reactflow_to_networkx
+from flojoy import reactflow_to_networkx
 import sys
 import os
 import json
