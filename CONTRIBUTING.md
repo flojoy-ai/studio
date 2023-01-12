@@ -19,10 +19,10 @@ approved.
 
 ### How to create a custom node
 1.  **Node Function** - A python function for the node. Create a new script file and place it in right category folder in `/PYTHON/FUNCTIONS/`  directory. The script file name should be the node name in uppercase.  
-    import `@flojoy` decorator and `DataContainer` class from `joyflo` package : 
+    import `@flojoy` decorator and `DataContainer` class from `flojoy` package : 
 
     ```bash
-        from joyflo import flojoy, DataContainer
+        from flojoy import flojoy, DataContainer
     ```
     Decorate your function with `@flojoy` like below:
     ```bash
@@ -73,6 +73,10 @@ approved.
     
  3. **New Category** - If your node belongs to a category which doesn't have a corresponding folder in `PYTHON/FUNCTIONS` directory. 
     - Create a folder with category name in uppercase inside `PYTHON/FUNCTIONS/` directory.
+    - Import all files containing that folder in `watch.py` file in `PYTHON/WATCH/watch.py` directory like below:
+    ```code
+        from FUNCTIONS.CONDITIONALS import *
+    ```
     - Register that category under proper parent category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
     - In `jsonify_funk.py` file located in root directory add category folder name in `dirs` list variable.
  

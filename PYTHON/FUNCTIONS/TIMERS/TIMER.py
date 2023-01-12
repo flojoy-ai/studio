@@ -1,4 +1,4 @@
-from joyflo import flojoy,DataContainer
+from flojoy import flojoy,DataContainer
 import time
 
 @flojoy
