@@ -509,7 +509,6 @@ def run(**kwargs):
 
         if is_eligible_to_enqueue:
             '''Enqueue'''
-            print(r_obj)
             if len(list(DG.predecessors(node_serial))) == 0:
 
                 q.enqueue(func,
