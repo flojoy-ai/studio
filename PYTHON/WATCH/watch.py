@@ -32,6 +32,7 @@ REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 
 r = Redis(host=REDIS_HOST, port=REDIS_PORT)
 q = Queue('flojoy', connection=r)
+print('queue flojoy isEmpty? ', q.is_empty())
 
 
 def get_port():
