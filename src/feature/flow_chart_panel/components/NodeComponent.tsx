@@ -62,6 +62,15 @@ const NodeComponent = ({
       </Fragment>
     );
   }
+
+  const isLoopInfoExist = () => {
+    const isExist = Object.keys(additionalInfos).find((value,index) => value == data.id)
+    return isExist && data.func === 'LOOP'
+  }
+
+  const current_iteration = isLoopInfoExist() ? additionalInfos[data.id]['current_iteration'] || 0 : 0
+  const total_iteration = isLoopInfoExist() ? data['ctrls'][`LOOP_${data.label}_iteration_count`]['value'] || 0 : 0
+
   return (
     <div
       style={{
@@ -115,26 +124,11 @@ const NodeComponent = ({
         {
           data.func == 'LOOP' && (
             <div>
-              <p>Total Iteration: {data['ctrls'][`LOOP_${data.label}_iteration_count`]['value']}</p>
-              <>
+              <p>
                 {
-                  Object.keys(additionalInfos).map((value,index)=>{
-                    if(value === data.id){
-                      if(Object.keys(additionalInfos[data.id]).length > 1){
-                        if (additionalInfos[data.id]['current_iteration'] !== data['ctrls'][`LOOP_${data.label}_initial_count`]['value']){
-                          return (
-                            <p key={index+1}>
-                              Current Iteration: {
-                                additionalInfos[data.id]['current_iteration']
-                              }
-                            </p>
-                          )
-                        }
-                      }
-                    }
-                  })
+                  `${current_iteration}/${total_iteration}`
                 }
-              </>
+              </p>
             </div>
           )
         }
