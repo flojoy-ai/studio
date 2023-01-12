@@ -2,17 +2,17 @@
     "rfInstance": {
         "elements": [
             {
-                "id": "CONSTANT-32fedf3d-054b-49af-b488-cb8ba560fb70",
+                "id": "CONSTANT-e3c6dee9-ef3d-497a-949d-2d7bde8d7d9e",
                 "type": "default",
                 "position": {
-                    "x": -70.38674241681292,
-                    "y": 311.85488224599027
+                    "x": 116.79439393272409,
+                    "y": 226.59668026423228
                 },
                 "data": {
-                    "id": "CONSTANT-32fedf3d-054b-49af-b488-cb8ba560fb70",
+                    "id": "CONSTANT-e3c6dee9-ef3d-497a-949d-2d7bde8d7d9e",
                     "label": "1",
                     "func": "CONSTANT",
-                    "type": "GENERATOR",
+                    "type": "SIMULATION",
                     "ctrls": {
                         "CONSTANT_1_constant": {
                             "functionName": "CONSTANT",
@@ -23,45 +23,17 @@
                 }
             },
             {
-                "id": "TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34c",
+                "id": "CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269",
                 "type": "default",
                 "position": {
-                    "x": 146.70060484421978,
-                    "y": 315.29299649586494
+                    "x": 643.7366204953761,
+                    "y": 523.395649346457
                 },
                 "data": {
-                    "id": "TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34c",
-                    "label": "timer",
-                    "func": "TIMER",
-                    "type": "TIMER",
-                    "ctrls": {
-                        "TIMER_TIMER_sleep_time": {
-                            "functionName": "TIMER",
-                            "param": "sleep_time",
-                            "value": "0"
-                        }
-                    }
-                }
-            },
-            {
-                "source": "CONSTANT-32fedf3d-054b-49af-b488-cb8ba560fb70",
-                "sourceHandle": "main",
-                "target": "TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34c",
-                "targetHandle": "TIMER",
-                "id": "reactflow__edge-CONSTANT-32fedf3d-054b-49af-b488-cb8ba560fb70main-TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34cTIMER"
-            },
-            {
-                "id": "CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081b",
-                "type": "default",
-                "position": {
-                    "x": 703.3744473536839,
-                    "y": 635.1079964728658
-                },
-                "data": {
-                    "id": "CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081b",
+                    "id": "CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269",
                     "label": "1",
                     "func": "CONSTANT",
-                    "type": "GENERATOR",
+                    "type": "SIMULATION",
                     "ctrls": {
                         "CONSTANT_1_constant": {
                             "functionName": "CONSTANT",
@@ -72,17 +44,17 @@
                 }
             },
             {
-                "id": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
+                "id": "ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4",
                 "type": "default",
                 "position": {
-                    "x": 844.3426356546287,
-                    "y": 525.029069890157
+                    "x": 840.9435731855408,
+                    "y": 438.46780360741246
                 },
                 "data": {
-                    "id": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
+                    "id": "ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4",
                     "label": "add",
                     "func": "ADD",
-                    "type": "TRANSFORMER",
+                    "type": "ARITHMETIC",
                     "ctrls": {},
                     "inputs": [
                         {
@@ -94,21 +66,49 @@
                 }
             },
             {
-                "source": "CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081b",
+                "source": "CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269",
                 "sourceHandle": "main",
-                "target": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
+                "target": "ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4",
                 "targetHandle": "add_y",
-                "id": "reactflow__edge-CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081bmain-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846aadd_y"
+                "id": "reactflow__edge-CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269main-ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4add_y"
             },
             {
-                "id": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
+                "id": "CONDITIONAL-2e565212-13e4-497c-89ca-2440fb98f68c",
                 "type": "default",
                 "position": {
-                    "x": 456.1858989257853,
-                    "y": 331.8501844171679
+                    "x": 1067.492764645475,
+                    "y": 356.7846373391038
                 },
                 "data": {
-                    "id": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
+                    "id": "CONDITIONAL-2e565212-13e4-497c-89ca-2440fb98f68c",
+                    "label": "loop cond",
+                    "func": "CONDITIONAL",
+                    "type": "CONDITIONAL",
+                    "ctrls": {
+                        "CONDITIONAL_CONDITIONAL_operator_type": {
+                            "functionName": "CONDITIONAL",
+                            "param": "operator_type",
+                            "value": "<="
+                        }
+                    }
+                }
+            },
+            {
+                "source": "ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4",
+                "sourceHandle": "main",
+                "target": "CONDITIONAL-2e565212-13e4-497c-89ca-2440fb98f68c",
+                "targetHandle": "CONDITIONAL",
+                "id": "reactflow__edge-ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4main-CONDITIONAL-2e565212-13e4-497c-89ca-2440fb98f68cCONDITIONAL"
+            },
+            {
+                "id": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
+                "type": "default",
+                "position": {
+                    "x": 393.9538837491677,
+                    "y": 197.98610416406578
+                },
+                "data": {
+                    "id": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
                     "label": "loop",
                     "func": "LOOP",
                     "type": "LOOP",
@@ -121,7 +121,7 @@
                         "LOOP_loop_iteration_count": {
                             "functionName": "LOOP",
                             "param": "iteration_count",
-                            "value": 2
+                            "value": "12"
                         },
                         "LOOP_loop_step": {
                             "functionName": "LOOP",
@@ -144,53 +144,25 @@
                 }
             },
             {
-                "source": "TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34c",
+                "source": "CONSTANT-e3c6dee9-ef3d-497a-949d-2d7bde8d7d9e",
                 "sourceHandle": "main",
-                "target": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
+                "target": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
                 "targetHandle": "LOOP",
-                "id": "reactflow__edge-TIMER-3a49177a-8afc-4d75-9c2e-0af29325c34cmain-LOOP-c667adde-d2bf-4d28-b97e-7c705baca56dLOOP"
+                "id": "reactflow__edge-CONSTANT-e3c6dee9-ef3d-497a-949d-2d7bde8d7d9emain-LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fbLOOP"
             },
             {
-                "source": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
+                "source": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
                 "sourceHandle": "body",
-                "target": "CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081b",
+                "target": "CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269",
                 "targetHandle": "CONSTANT",
-                "id": "reactflow__edge-LOOP-c667adde-d2bf-4d28-b97e-7c705baca56dbody-CONSTANT-9eb7b738-1e83-431c-ba33-fb0b2965081bCONSTANT"
+                "id": "reactflow__edge-LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fbbody-CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269CONSTANT"
             },
             {
-                "source": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
+                "source": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
                 "sourceHandle": "body",
-                "target": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
+                "target": "ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4",
                 "targetHandle": "ADD",
-                "id": "reactflow__edge-LOOP-c667adde-d2bf-4d28-b97e-7c705baca56dbody-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846aADD"
-            },
-            {
-                "id": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
-                "type": "default",
-                "position": {
-                    "x": 997.0129448956172,
-                    "y": 600.9303460241888
-                },
-                "data": {
-                    "id": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
-                    "label": "lc",
-                    "func": "CONDITIONAL",
-                    "type": "CONDITIONAL",
-                    "ctrls": {
-                        "CONDITIONAL_lc_operator_type": {
-                            "functionName": "CONDITIONAL",
-                            "param": "operator_type",
-                            "value": "<="
-                        }
-                    }
-                }
-            },
-            {
-                "source": "ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846a",
-                "sourceHandle": "main",
-                "target": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
-                "targetHandle": "CONDITIONAL",
-                "id": "reactflow__edge-ADD-5071477c-cfd4-40b2-b1d7-eaffddb3846amain-CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176CONDITIONAL"
+                "id": "reactflow__edge-LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fbbody-ADD-dbebe813-454a-4202-b1b6-ed1a69e76de4ADD"
             }
         ],
         "position": [
@@ -208,8 +180,38 @@
             "minHeight": 1,
             "minWidth": 2,
             "param": {
-                "id": "CONSTANT_1_constant"
+                "id": "LOOP_LOOP_initial_count",
+                "functionName": "LOOP",
+                "param": "initial_count",
+                "nodeId": "LOOP-e63ffe11-d22d-424e-9183-408e4efdbbd8",
+                "inputId": "INPUT_PLACEHOLDER"
             },
+            "val": "1"
+        },
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-206f296b-ff92-44d8-a454-650166f8f247",
+            "hidden": false,
+            "param": {
+                "id": "CONSTANT_1_constant",
+                "functionName": "CONSTANT",
+                "param": "constant",
+                "nodeId": "CONSTANT-435f4278-e15e-4c4e-acf7-804ffd8e3269",
+                "inputId": "ctrl-206f296b-ff92-44d8-a454-650166f8f247"
+            },
+            "val": "8"
+        },
+        {
+            "type": "output",
+            "name": "Seven Segment Display",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-4b484ce1-533a-4be6-a395-c9b96104d9e9",
+            "hidden": false,
+            "param": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
             "val": 0
         },
         {
@@ -217,84 +219,16 @@
             "name": "Text Input",
             "minWidth": 1,
             "minHeight": 1,
-            "id": "ctrl-3a86f8b9-2db9-4dd3-90c4-18d1a7b72ff9",
+            "id": "ctrl-3280c18b-84d7-4f72-a6ab-5b4721123c92",
             "hidden": false,
             "param": {
-                "id": "CONDITIONAL_lc_operator_type",
+                "id": "CONDITIONAL_CONDITIONAL_operator_type",
                 "functionName": "CONDITIONAL",
                 "param": "operator_type",
-                "nodeId": "CONDITIONAL-06257424-658e-4b98-a794-a18329d6c176",
-                "inputId": "ctrl-3a86f8b9-2db9-4dd3-90c4-18d1a7b72ff9"
+                "nodeId": "CONDITIONAL-2e565212-13e4-497c-89ca-2440fb98f68c",
+                "inputId": "ctrl-3280c18b-84d7-4f72-a6ab-5b4721123c92"
             },
             "val": "<="
-        },
-        {
-            "type": "output",
-            "name": "Seven Segment Display",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-11775da1-e10d-4b9e-9711-21daa5f3c55d",
-            "hidden": false,
-            "param": "LOOP-c667adde-d2bf-4d28-b97e-7c705baca56d",
-            "val": 0
-        },
-        {
-            "type": "output",
-            "name": "Plot",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-22b11f3b-5991-4d90-ba02-2fc1ff3b3342",
-            "hidden": false,
-            "param": "LOOP-08f0c31a-93c2-4e2c-b84f-e6cf3c76f859",
-            "val": 0
-        },
-        {
-            "type": "input",
-            "name": "Numeric Input",
-            "minWidth": 1,
-            "minHeight": 1,
-            "id": "ctrl-40563d76-7055-408f-b0c7-f1b31884ecbf",
-            "hidden": false,
-            "param": {
-                "id": "CONSTANT_1_constant",
-                "functionName": "CONSTANT",
-                "param": "constant",
-                "nodeId": "CONSTANT-32fedf3d-054b-49af-b488-cb8ba560fb70",
-                "inputId": "ctrl-40563d76-7055-408f-b0c7-f1b31884ecbf"
-            },
-            "val": "1"
-        },
-        {
-            "type": "input",
-            "name": "Slider",
-            "minWidth": 2,
-            "minHeight": 1,
-            "id": "ctrl-45e7450a-c38d-4b51-b363-f356023a3dbe",
-            "hidden": false,
-            "param": {
-                "id": "LOOP_LOOP_initial_count",
-                "functionName": "LOOP",
-                "param": "initial_count",
-                "nodeId": "LOOP-08f0c31a-93c2-4e2c-b84f-e6cf3c76f859",
-                "inputId": "ctrl-45e7450a-c38d-4b51-b363-f356023a3dbe"
-            },
-            "val": "1"
-        },
-        {
-            "type": "input",
-            "name": "Slider",
-            "minWidth": 2,
-            "minHeight": 1,
-            "id": "ctrl-ba828543-2bdc-4f04-8e4b-e30124f0c1b4",
-            "hidden": false,
-            "param": {
-                "id": "LOOP_LOOP_iteration_count",
-                "functionName": "LOOP",
-                "param": "iteration_count",
-                "nodeId": "LOOP-08f0c31a-93c2-4e2c-b84f-e6cf3c76f859",
-                "inputId": "ctrl-ba828543-2bdc-4f04-8e4b-e30124f0c1b4"
-            },
-            "val": "9"
         }
     ],
     "gridLayout": [
@@ -312,65 +246,32 @@
         {
             "w": 2,
             "h": 2,
+            "x": 2,
+            "y": 0,
+            "i": "ctrl-206f296b-ff92-44d8-a454-650166f8f247",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 3,
+            "x": 4,
+            "y": 0,
+            "i": "ctrl-4b484ce1-533a-4be6-a395-c9b96104d9e9",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 2,
             "x": 0,
             "y": 2,
-            "i": "ctrl-3a86f8b9-2db9-4dd3-90c4-18d1a7b72ff9",
+            "i": "ctrl-3280c18b-84d7-4f72-a6ab-5b4721123c92",
             "minW": 1,
-            "minH": 1,
-            "moved": false,
-            "static": false
-        },
-        {
-            "w": 2,
-            "h": 3,
-            "x": 2,
-            "y": 0,
-            "i": "ctrl-11775da1-e10d-4b9e-9711-21daa5f3c55d",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": false
-        },
-        {
-            "w": 2,
-            "h": 3,
-            "x": 4,
-            "y": 0,
-            "i": "ctrl-22b11f3b-5991-4d90-ba02-2fc1ff3b3342",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": false
-        },
-        {
-            "w": 2,
-            "h": 2,
-            "x": 0,
-            "y": 4,
-            "i": "ctrl-40563d76-7055-408f-b0c7-f1b31884ecbf",
-            "minW": 1,
-            "minH": 1,
-            "moved": false,
-            "static": false
-        },
-        {
-            "w": 2,
-            "h": 2,
-            "x": 2,
-            "y": 3,
-            "i": "ctrl-45e7450a-c38d-4b51-b363-f356023a3dbe",
-            "minW": 2,
-            "minH": 1,
-            "moved": false,
-            "static": false
-        },
-        {
-            "w": 2,
-            "h": 2,
-            "x": 4,
-            "y": 3,
-            "i": "ctrl-ba828543-2bdc-4f04-8e4b-e30124f0c1b4",
-            "minW": 2,
             "minH": 1,
             "moved": false,
             "static": false
