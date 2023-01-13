@@ -92,13 +92,6 @@
     },
     "extends": null
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:cypress/recommended"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
