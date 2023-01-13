@@ -123,7 +123,6 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      console.log("parsedFileContent:", parsedFileContent);
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
       setGridLayout(parsedFileContent.gridLayout);

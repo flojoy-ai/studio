@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Scatter3D from "./nodes/3d-scatter";
 import Surface3D from "./nodes/3d-surface";
 import BarChart from "./nodes/bar";
@@ -13,9 +13,11 @@ const NodeComponent = ({
   data,
   uiTheme,
   params,
+  additionalInfos
 }: CustomNodeProps & {
   uiTheme: any;
   params: ElementsData['inputs'];
+  additionalInfos:any
 }) => {
 
   if (data.func === "MULTIPLY" || data.func === "ADD") {
@@ -60,6 +62,15 @@ const NodeComponent = ({
       </Fragment>
     );
   }
+
+  const isLoopInfoExist = () => {
+    const isExist = Object.keys(additionalInfos).find((value,index) => value == data.id)
+    return isExist && data.func === 'LOOP'
+  }
+
+  const current_iteration = isLoopInfoExist() ? additionalInfos[data.id]['current_iteration'] || 0 : 0
+  const total_iteration = isLoopInfoExist() ? data['ctrls'][`LOOP_${data.label}_iteration_count`]['value'] || 0 : 0
+
   return (
     <div
       style={{
@@ -75,22 +86,50 @@ const NodeComponent = ({
       </div>
       <div>
         {
-          data.label == 'CONDITIONAL' ? (
-            <p>
-              x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
-            </p>
-          )
-          : (
+          data.func == 'CONDITIONAL' && (
             <>
-
               {
-                data.label == 'TIMER' && (
+                params?.length !== 0 ? (
                   <p>
-                    {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
+                    x {data['ctrls'][`CONDITIONAL_${data.label}_operator_type`]['value']} y
                   </p>
+                ) : (
+                  <>
+                    {
+                      Object.keys(additionalInfos).map((value,index)=>{
+                        if(value === data.id){
+                          return (
+                            <p key={index+1}>
+                              status: {
+                                additionalInfos[data.id]['status']
+                              }
+                            </p>
+                          )
+                        }
+                      })
+                    }
+                  </>
                 )
               }
             </>
+          )
+        }
+        {
+          data.func == 'TIMER' && (
+            <p>
+              {data['ctrls'][`TIMER_${data.label}_sleep_time`]['value']}s
+            </p>
+          )
+        }
+        {
+          data.func == 'LOOP' && (
+            <div>
+              <p>
+                {
+                  `${current_iteration}/${total_iteration}`
+                }
+              </p>
+            </div>
           )
         }
       </div>

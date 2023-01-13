@@ -92,7 +92,6 @@ const HandleComponent = ({
         )
         :
         (
-
           <Handle
             type="target"
             position={Position.Left}
@@ -144,7 +143,7 @@ const HandleComponent = ({
                   style={{
                     gap: "5px",
                     borderRadius: 0,
-                    top: 30 * (i + 1) + 40,
+                    top: 30 * (i + 1) + 90,
                     minHeight: 10,
                     display: "flex",
                     alignItems: "center",
