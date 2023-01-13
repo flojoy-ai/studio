@@ -20,7 +20,6 @@ const useControlComponentEffects = ({
   defaultValue,
   ctrls,
   setSelectOptions,
-  setKnobValue,
   setTextInput,
   setNumberInput,
   setSliderInput,
@@ -49,10 +48,11 @@ const useControlComponentEffects = ({
   ]);
 
   useEffect(() => {
-    setNumberInput("0");
-    setTextInput("");
-    setKnobValue(0);
-    setSliderInput("0");
+    return ()=>{
+      setNumberInput("0");
+      setTextInput("");
+      setSliderInput("0");
+    }
   }, [selectedOption]);
 useEffect(() => {
     if (ctrls) {
@@ -62,7 +62,7 @@ useEffect(() => {
     } else {
       setCurrentInputValue(defaultValue as number);
     }
-  }, [ctrls, ctrlObj, selectedOption]);
+  }, [ctrls, (ctrlObj?.param as CtrlManifestParam)?.id!]);
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {

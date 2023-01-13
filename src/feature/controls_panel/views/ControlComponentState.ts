@@ -1,5 +1,6 @@
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
@@ -33,13 +34,9 @@ const ControlComponentState = ({
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
-  const [knobValue, setKnobValue] = useState<number>();
   const [textInput, setTextInput] = useState("");
   const [numberInput, setNumberInput] = useState("0");
   const [sliderInput, setSliderInput] = useState("0");
-  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState<
-    NodeJS.Timeout | undefined
-  >(undefined);
   const [currentInputValue, setCurrentInputValue] = useState(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
@@ -65,7 +62,7 @@ const ControlComponentState = ({
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = elements.find((e) => e.id === inputNodeId);
-  const ctrls = inputNode?.data?.ctrls;
+  const ctrls: ElementsData['ctrls'] = inputNode?.data?.ctrls;
   const fnParams =
     FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
     {};
@@ -103,16 +100,12 @@ const ControlComponentState = ({
     outputOptions,
     setOutputOptions,
     flowChartObject,
-    knobValue,
-    setKnobValue,
     textInput,
     setTextInput,
     numberInput,
     setNumberInput,
     sliderInput,
     setSliderInput,
-    debouncedTimerForKnobId,
-    setDebouncedTimerForKnobId,
     currentInputValue,
     setCurrentInputValue,
     plotData,

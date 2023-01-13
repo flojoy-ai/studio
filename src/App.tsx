@@ -44,15 +44,15 @@ const App = () => {
       setUiTheme("light");
     }
   };
-const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
+  const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
     ReactFlowProvider;
   useEffect(() => {
-   setRunningNode(runningNode);
+    setRunningNode(runningNode);
     setFailedNode(failedNode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runningNode, failedNode]);
 
-return (
+  return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowChartProvider>
         <GlobalStyles />
@@ -142,9 +142,6 @@ return (
           </div>
         </header>
         <main style={{ minHeight: "85vh" }}>
-          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-            <ResultsTab results={programResults} />
-          </div>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             <FlowChartTab
               elements={elements}
@@ -157,14 +154,17 @@ return (
               setClickedElement={setClickedElement}
             />
           </div>
-          {currentTab === "panel" && (
+          <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
             <ControlsTab
               results={programResults}
               theme={theme}
               openCtrlModal={openCtrlModal}
               setOpenCtrlModal={setOpenCtrlModal}
             />
-          )}
+          </div>
+          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+            <ResultsTab results={programResults} />
+          </div>
         </main>
       </ReactFlowChartProvider>
     </ThemeProvider>

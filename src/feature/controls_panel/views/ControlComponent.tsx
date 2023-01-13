@@ -2,11 +2,9 @@ import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
-import { Silver } from "react-dial-knob";
 import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
 import {
@@ -18,6 +16,7 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
 import PlotControl from "./PlotControl";
 import SevenSegmentComponent from "./SevenSegmentComponent";
+import KnobCtrl from "./KnobCtrl";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
@@ -55,16 +54,12 @@ const ControlComponent = ({
     selectOptions,
     setSelectOptions,
     flowChartObject,
-    knobValue,
-    setKnobValue,
     textInput,
     setTextInput,
     numberInput,
     setNumberInput,
     sliderInput,
     setSliderInput,
-    debouncedTimerForKnobId,
-    setDebouncedTimerForKnobId,
     currentInputValue,
     setCurrentInputValue,
     nd,
@@ -86,25 +81,6 @@ const ControlComponent = ({
     theme,
     ctrlObj,
   });
-
-  const updateCtrlValueFromKnob = useCallback(
-    (value: number) => {
-      setKnobValue(value);
-
-      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        return;
-      }
-      if (debouncedTimerForKnobId) {
-        clearTimeout(debouncedTimerForKnobId);
-      }
-      const timerId = setTimeout(() => {
-        updateCtrlValue(value.toString(), ctrlObj);
-      }, 1000);
-
-      setDebouncedTimerForKnobId(timerId);
-    },
-    [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
-  );
 
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
@@ -144,11 +120,9 @@ const ControlComponent = ({
     ctrls,
     ctrlsManifest,
     currentInputValue,
-    debouncedTimerForKnobId,
     defaultValue,
     flowChartObject,
     isEditMode,
-    knobValue,
     numberInput,
     paramOptions,
     plotData,
@@ -161,9 +135,7 @@ const ControlComponent = ({
     styledLayout,
     textInput,
     setCurrentInputValue,
-    setDebouncedTimerForKnobId,
     setGridLayout,
-    setKnobValue,
     setNumberInput,
     setSelectedOption,
     setSelectedPlotOption,
@@ -177,14 +149,18 @@ const ControlComponent = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: "center",
+        alignItems: "center",
         flex: "1",
         padding: "16px",
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header" data-cy="ctrls-select" style={{width:'100%'}}>
+        <div
+          className="ctrl-header"
+          data-cy="ctrls-select"
+          style={{ width: "100%" }}
+        >
           <Select
             className="select-node"
             isSearchable={true}
@@ -240,11 +216,7 @@ const ControlComponent = ({
         />
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
-        <SevenSegmentComponent
-          ctrlObj={ctrlObj}
-          plotData={plotData}
-          nd={nd}
-        />
+        <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
@@ -294,39 +266,15 @@ const ControlComponent = ({
 
       {ctrlObj.name === ControlNames.Knob && (
         <div className="ctrl-input-body">
-          <div
-            onMouseEnter={makeLayoutStatic}
-            onMouseLeave={() => {
-              if (isEditMode) {
-                setGridLayout((prev) => {
-                  prev[
-                    prev.findIndex((layout) => layout.i === ctrlObj.id)
-                  ].static = false;
-                });
-              }
-            }}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Silver
-              style={{ width: "fit-content", boxShadow: "0" }}
-              // diameter={70}
-              knobStyle={{ boxShadow: "0" }}
-              min={0}
-              max={100}
-              step={1}
-              value={knobValue || currentInputValue || 0}
-              diameter={120}
-              onValueChange={updateCtrlValueFromKnob}
-              ariaLabelledBy={"my-label"}
-            >
-              {/* <label id={'my-label'}>Some label</label> */}
-            </Silver>
-          </div>
+          <KnobCtrl
+            selectedOption={selectedOption}
+            ctrlObj={ctrlObj}
+            isEditMode={isEditMode}
+            makeLayoutStatic={makeLayoutStatic}
+            setGridLayout={setGridLayout}
+            updateCtrlValue={updateCtrlValue}
+            currentInputValue={currentInputValue}
+          />
         </div>
       )}
 
@@ -372,7 +320,9 @@ const ControlComponent = ({
             options={paramOptions}
             styles={customDropdownStyles}
             value={
-              paramOptions.find((opt) => opt.value === currentInputValue.toString()) || ""
+              paramOptions.find(
+                (opt) => opt.value === currentInputValue.toString()
+              ) || ""
             }
           />
         </div>
