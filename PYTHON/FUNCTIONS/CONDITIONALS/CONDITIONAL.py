@@ -18,8 +18,6 @@ def compare_values(first_value,second_value,operator):
 
 @flojoy
 def CONDITIONAL(v,params):
-    print("EXECUTING CONDITIONAL PARAMS")
-
     operator = params['operator_type']
 
     type = params['type']

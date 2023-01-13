@@ -4,8 +4,14 @@ from flojoy import flojoy, DataContainer
 
 @flojoy
 def MULTIPLY(v, params):
-    ''' Takes 2 input vectors, multiplies them, and returns the result '''
-    a = v[0].y
-    b = v[1].y
+    ''' Multiply 2 input vectors and return the result '''
+    a = [0]
+    b = [0]
+
+    if len(v) == 2:
+        a = v[0].y
+        b = v[1]['y']
+
     y = np.multiply(a, b)
-    return DataContainer(x=[a, b], y=y)
+
+    return DataContainer(x={'a': a, 'b': b}, y=y)
