@@ -9,7 +9,6 @@ import {
 
 const CustomEdge: FC<EdgeProps> = (edgeParams) => {
   const [path] = getBezierPath(edgeParams);
-  // const markerEnd = getMarkerEnd(ArrowHeadType.Arrow);
   const markerEnd = getMarkerEnd(MarkerType.Arrow)
   const {uiTheme} = useFlowChartState();
 

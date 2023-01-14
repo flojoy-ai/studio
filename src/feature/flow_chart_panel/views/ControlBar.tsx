@@ -11,7 +11,7 @@ import {
 } from "../../../services/FlowChartServices";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
-import PythonFuncModal from "./PythonFuncModal";
+import PythonFuncModal from "./AddNodeModal";
 import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
@@ -59,10 +59,10 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type, inputs }) => {
+    ({ key, params, type, inputs }) => {
       let functionName: string;
-      const id = `${FUNCTION}-${uuidv4()}`;
-      if (FUNCTION === "CONSTANT") {
+      const id = `${key}-${uuidv4()}`;
+      if (key === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
           constant = "2.0";
@@ -86,11 +86,11 @@ const Controls: FC<ControlsProps> = ({
               param
             ) => ({
               ...prev,
-              [FUNCTION + "_" + functionName + "_" + param]: {
-                functionName: FUNCTION,
+              [key + "_" + functionName + "_" + param]: {
+                functionName: key,
                 param,
                 value:
-                  FUNCTION === "CONSTANT"
+                  key === "CONSTANT"
                     ? +functionName
                     : params![param].default,
               },
@@ -101,10 +101,11 @@ const Controls: FC<ControlsProps> = ({
 
       const newNode = {
         id: id,
+        type,
         data: {
           id: id,
           label: functionName,
-          func: FUNCTION,
+          func: key,
           type,
           ctrls: funcParams,
           inputs,
