@@ -11,10 +11,7 @@ const usePlotControlEffect = ({
   setSelectedKeys,
   nd,
   ctrlObj,
-  results,
-  selectedOption,
   selectedPlotOption,
-  setNd,
   setPlotData,
   inputOptions,
 }: PlotControlStateType) => {
@@ -54,10 +51,7 @@ const usePlotControlEffect = ({
   const updatePlotValue = () => {
     const result: any = {};
 
-
     if (nd?.result && "data" in nd!.result) {
-
-
       result.x = nd?.result?.data![0]?.x;
       result.y = nd?.result?.data![0]?.y;
       result.type = nd?.result?.data![0]?.type;
@@ -125,8 +119,6 @@ const usePlotControlEffect = ({
       setPlotOptions([]);
     };
   }, []);
-
-
 
   // Cleanup selected keys when ctrlobj parameter is updated
   useEffect(() => {

@@ -1,18 +1,19 @@
-import { useEffect } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 import ReactFlow, {
   ReactFlowProvider,
-  removeElements,
   addEdge,
-  Elements,
-  EdgeTypesType,
-  NodeTypesType,
-  Connection,
   ConnectionLineType,
-  Edge,
-  OnLoadParams,
-  OnLoadFunc,
-  FlowElement,
-} from "react-flow-renderer";
+  OnNodesChange,
+  applyNodeChanges,
+  applyEdgeChanges,
+  OnEdgesChange,
+  OnConnect,
+  NodeTypes,
+  EdgeTypes,
+  OnInit,
+  NodeMouseHandler,
+  NodeDragHandler,
+} from "reactflow";
 
 import localforage from "localforage";
 
@@ -30,9 +31,6 @@ localforage.config({
   storeName: "flows",
 });
 
-const edgeTypes: EdgeTypesType = { default: CustomEdge as any };
-const nodeTypes: NodeTypesType = { default: CustomNode as any };
-
 const defaultPythonFnLabel = "PYTHON FUNCTION";
 const defaultPythonFnType = "PYTHON FUNCTION TYPE";
 
@@ -41,29 +39,33 @@ const FlowChartTab = ({
   theme,
   rfInstance,
   setRfInstance,
-  elements,
-  setElements,
   clickedElement,
   setClickedElement,
+  nodes,
+  setNodes,
+  edges,
+  setEdges,
 }: FlowChartProps) => {
   const { windowWidth, modalIsOpen, openModal, afterOpenModal, closeModal } =
     useFlowChartTabState();
+  const edgeTypes: EdgeTypes = useMemo(
+    () => ({ default: CustomEdge as any }),
+    []
+  );
+  const nodeTypes: NodeTypes = useMemo(
+    () => ({ default: CustomNode as any }),
+    []
+  );
 
   const modalStyles = {
     overlay: { zIndex: 99 },
     content: { zIndex: 100 },
   };
 
-  const onClickElement = (evt: any, elem: any) => {
-    setClickedElement(elem);
+  const onNodeClick: NodeMouseHandler = (_, node) => {
+    setClickedElement(node);
     openModal();
   };
-
-  const onElementsRemove = (elementsToRemove: Elements) =>
-    setElements((els: Elements<any>) => removeElements(elementsToRemove, els));
-
-  const onConnect = (params: Connection | Edge) =>
-    setElements((els: Elements<any>) => addEdge(params, els));
 
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
@@ -104,14 +106,12 @@ const FlowChartTab = ({
 
   const defaultLayout = styledPlotLayout(theme);
 
-  const ReactFlowProviderAny: any = ReactFlowProvider;
-  const onLoad: OnLoadFunc = (rfIns: OnLoadParams) => {
-    rfIns.fitView();
-
+  const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
     const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
+    rfIns.fitView();
 
-    rfIns.setTransform({
+    rfIns.setViewport({
       x: xPosition,
       y: 61,
       zoom: 0.7,
@@ -119,27 +119,40 @@ const FlowChartTab = ({
 
     setRfInstance(rfIns.toObject());
   };
-
-  const handleNodeDrag = (e: any, node: FlowElement) => {
-    setElements((elems: Elements) => {
-      const nodeIndex = elems.findIndex((el) => el.id === node.id);
-      elems[nodeIndex] = node;
+  const handleNodeDrag:NodeDragHandler = (_, node) => {
+    setNodes((nodes) => {
+      const nodeIndex = nodes.findIndex((el) => el.id === node.id);
+      nodes[nodeIndex] = node;
     });
   };
+  const onNodesChange: OnNodesChange = useCallback(
+    (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
+    []
+  );
+  const onEdgesChange: OnEdgesChange = useCallback(
+    (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
+    []
+  );
+  const onConnect: OnConnect = useCallback(
+    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    []
+  );
 
   return (
-    <ReactFlowProviderAny>
+    <ReactFlowProvider>
       <div style={{ height: `99vh` }} data-testid="react-flow">
         <ReactFlow
-          elements={elements}
-          edgeTypes={edgeTypes}
+          nodes={nodes}
           nodeTypes={nodeTypes}
+          edges={edges}
+          edgeTypes={edgeTypes}
           connectionLineType={ConnectionLineType.Step}
-          onElementsRemove={onElementsRemove}
+          onInit={onInit}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
           onConnect={onConnect}
+          onNodeClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
-          onLoad={onLoad}
-          onElementClick={(evt, elem) => onClickElement(evt, elem)}
         />
       </div>
 
@@ -156,7 +169,7 @@ const FlowChartTab = ({
         pythonString={pythonString}
         theme={theme}
       />
-    </ReactFlowProviderAny>
+    </ReactFlowProvider>
   );
 };
 
