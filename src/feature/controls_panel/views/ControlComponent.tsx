@@ -82,6 +82,7 @@ const ControlComponent = ({
     defaultValue,
     paramOptions,
     styledLayout,
+    openFileSelector,
   } = ControlComponentState({
     theme,
     ctrlObj,
@@ -171,6 +172,7 @@ const ControlComponent = ({
     setOutputOptions,
     setSliderInput,
     setTextInput,
+    openFileSelector,
   });
   return (
     <div
@@ -238,6 +240,17 @@ const ControlComponent = ({
           theme={theme}
           setSelectedPlotOption={setSelectedPlotOption}
         />
+      )}
+      {ctrlObj.name === ControlNames.LocalFileLoader && (
+        <button
+          className="save__controls_button"
+          style={{
+            color: theme === "dark" ? "#fff" : "#000",
+          }}
+          onClick={openFileSelector}
+        >
+          Load
+        </button>
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <SevenSegmentComponent

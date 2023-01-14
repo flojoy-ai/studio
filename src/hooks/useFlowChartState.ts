@@ -114,8 +114,8 @@ export function useFlowChartState() {
   );
 
   const [openFileSelector, { filesContent }] = useFilePicker({
-    readAs: "Text",
-    accept: ".txt",
+    // readAs: "Text",
+    // accept: ".txt",
     maxFileSize: 50,
   });
 

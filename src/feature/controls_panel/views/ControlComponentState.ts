@@ -27,6 +27,7 @@ const ControlComponentState = ({
     ctrlsManifest,
     setGridLayout,
     isEditMode,
+    openFileSelector,
   } = useFlowChartState();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
@@ -119,6 +120,7 @@ const ControlComponentState = ({
     selectedOption,
     setSelectedOption,
     setSelectedPlotOption,
+    openFileSelector,
   };
 };
 
