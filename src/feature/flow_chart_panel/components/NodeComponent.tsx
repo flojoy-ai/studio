@@ -102,15 +102,15 @@ const NodeComponent = ({
               </p>
             ) : (
               <>
-                {Object.keys(additionalInfos).map((value, index) => {
-                  if (value === data.id) {
+                {Object.keys(additionalInfos)
+                  .filter((value, _) => value === data.id)
+                  .map((_, index) => {
                     return (
                       <p key={index + 1}>
                         status: {additionalInfos[data.id]["status"]}
                       </p>
                     );
-                  }
-                })}
+                  })}
               </>
             )}
           </>
