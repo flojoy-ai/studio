@@ -1,4 +1,4 @@
-from joyflo import flojoy,DataContainer
+from flojoy import flojoy,DataContainer
 
 def compare_values(first_value,second_value,operator):
     bool_ = None

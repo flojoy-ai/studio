@@ -8,7 +8,6 @@ const matchPlotlyOutput = (selector:string, resultFixture: string) => {
                 // ToDo need to find out why resultdata is not set in win.plotlyOutput in github action test
                 throw Error("output is undefined");
             } else {
-                console.log(output)
                 cy.wrap(output[selector].data[0]).snapshot({ name: resultFixture + '_' + selector});
             }
     })

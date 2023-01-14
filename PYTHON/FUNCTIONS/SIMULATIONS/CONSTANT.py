@@ -1,5 +1,5 @@
 import numpy as np
-from joyflo import flojoy, DataContainer
+from flojoy import flojoy, DataContainer
 
 @flojoy
 def CONSTANT(v, params):

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useSocket } from "@src/hooks/useSocket";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import NodeComponent from "../components/NodeComponent";
@@ -27,8 +29,28 @@ const getboxShadow = (data: ElementsData) =>{
 
 
 const CustomNode = ({ data }: CustomNodeProps) => {
+
+  const [additionalInfo,setAdditionalInfo] = useState({})
+
   const { uiTheme, runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
+
+  const { states } = useSocket();
+  const { programResults } = states!;
+
+  useEffect(()=>{
+    if(programResults?.io?.length! > 0){
+
+      let programAdditionalInfo = {}
+
+      const results = programResults?.io
+      results?.forEach(element => {
+          programAdditionalInfo = {...programAdditionalInfo,[element.id]:element['additional_info']}
+      });
+
+      setAdditionalInfo(programAdditionalInfo)
+    }
+  },[programResults])
 
   return (
     <div style={{
@@ -46,7 +68,7 @@ const CustomNode = ({ data }: CustomNodeProps) => {
         ...(params.length > 0 && { padding:'0px 0px 8px 0px' }),
       }}
     >
-      <NodeComponent data={data} uiTheme={uiTheme} params={params} />
+      <NodeComponent data={data} uiTheme={uiTheme} params={params} additionalInfos={additionalInfo}/>
       <div
         style={{
           display: "flex",
