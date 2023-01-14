@@ -5,7 +5,7 @@ import localforage from "localforage";
 
 describe("FlowChartServices",()=>{
 
-    test('render App component', () => {
+    test('getting & setting data from local storage', () => {
       const obj:any = {
         "elements":"fake"
       }
