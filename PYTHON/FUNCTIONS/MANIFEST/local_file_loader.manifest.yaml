@@ -2,7 +2,7 @@ COMMAND:
   - {
       name: Local File,
       key: LOCAL_FILE,
-      type: LOCAL_FILE_SYSTEM,
+      type: LOCAL_FILE,
       parameters:
         {
           file_type: { type: "string", default: "image" },

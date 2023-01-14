@@ -9,7 +9,8 @@ export const NodeStyle = (
       data.func === 'LOOP' ||
       data.func === 'CONDITIONAL' ||
       data.func == 'BREAK' ||
-      data.func == 'TIMER'
+      data.func == 'TIMER' ||
+      data.func == 'LOCAL_FILE'
     ) {
     return {
       padding: 10,

@@ -132,6 +132,11 @@ const NodeComponent = ({
             </div>
           )
         }
+        {
+          data.func == 'LOCAL_FILE' && (
+            <p></p>
+          )
+        }
       </div>
     </div>
   );

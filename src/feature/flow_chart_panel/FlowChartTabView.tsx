@@ -85,7 +85,7 @@ const FlowChartTab = ({
       }
     }
   }
-
+  
   const pythonString =
     nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
       ? "..."
