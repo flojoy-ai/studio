@@ -15,6 +15,7 @@ import {
 } from "reactflow";
 import { ResultsType } from "./types/ResultsType";
 import { useResultsTabEffects } from "./ResultsTabEffects";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 interface ResultsTabProps {
   results: ResultsType;
 }
@@ -22,7 +23,8 @@ const edgeTypes: EdgeTypes = { default: CustomEdge as any };
 const nodeTypes: NodeTypes = { default: CustomResultNode as any };
 
 const ResultsTab = ({ results }: ResultsTabProps) => {
-  const { resultNodes } = useResultsTabState();
+  const { setResultNodes, nodes, resultNodes } = useResultsTabState();
+  const { edges } = useFlowChartState();
 
   const { width: windowWidth } = useWindowSize();
   const onInit: OnInit = (rfIns) => {
@@ -38,17 +40,18 @@ const ResultsTab = ({ results }: ResultsTabProps) => {
     });
   };
   const nodeResults = useMemo(
-    () => (results && "io" in results ? results.io : []),
+    () => (results && "io" in results ? results.io! : []),
     [results]
   );
 
-  useResultsTabEffects(nodeResults);
+  useResultsTabEffects({ nodeResults, setResultNodes, nodes, resultNodes });
 
   return (
     <ReactFlowProvider>
       <div style={{ height: `99vh` }} data-testid="results-flow">
         <ReactFlow
           nodes={resultNodes}
+          edges={edges}
           edgeTypes={edgeTypes}
           nodeTypes={nodeTypes}
           connectionLineType={ConnectionLineType.Step}

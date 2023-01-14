@@ -62,7 +62,9 @@ const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
-const rfInstanceAtom = atomWithImmer<ReactFlowJsonObject | undefined>(undefined);
+const rfInstanceAtom = atomWithImmer<ReactFlowJsonObject | undefined>(
+  undefined
+);
 const nodesAtom = atomWithImmer<Node[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
@@ -91,7 +93,6 @@ export function useFlowChartState() {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
-  const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
@@ -105,13 +106,9 @@ export function useFlowChartState() {
         return;
       }
       setNodes(flow.nodes || []);
-      setRfSpatialInfo({
-        x: flow.position[0] || 0,
-        y: flow.position[1] || 0,
-        zoom: flow.zoom || 0,
-      });
+      setEdges(flow.edges || []);
     },
-    [setNodes, setRfSpatialInfo]
+    [setNodes, setEdges]
   );
 
   const [openFileSelector, { filesContent }] = useFilePicker({
@@ -187,38 +184,19 @@ export function useFlowChartState() {
       }
     });
   };
-  // useEffect(() => {
-  //   if (!rfInstance) {
-  //     localforage
-  //       .getItem(flowKey)
-  //       .then((val) => {
-  //         setRfInstance(
-  //           val as FlowExportObject<{
-  //             label: string;
-  //             func: string;
-  //             nodes: Elements;
-  //             position: [number, number];
-  //             zoom: number;
-  //           }>
-  //         );
-  //       })
-  //       .catch((err) => {
-  //         console.warn(err);
-  //       });
-  //   }
-  // }, [rfInstance]);
+
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
         prev.nodes = nodes;
+        prev.edges = edges;
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes]);
+  }, [nodes, edges]);
   return {
     rfInstance,
     setRfInstance,
-    rfSpatialInfo,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     ctrlsManifest,

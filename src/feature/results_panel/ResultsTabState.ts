@@ -12,3 +12,5 @@ export function useResultsTabState() {
     nodes,
   };
 }
+
+export type ResultTabStateReturnType = ReturnType<typeof useResultsTabState>;

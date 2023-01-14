@@ -1,4 +1,5 @@
-import { FC, useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
@@ -18,21 +19,20 @@ import ReactFlow, {
 import localforage from "localforage";
 
 import CustomEdge from "./views/CustomEdge";
-import CustomNode from "./views/CustomNode";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+
 import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";
 import { useFlowChartTabState } from "./FlowChartTabState";
+import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { nodeConfigs } from "@src/configs/NodeConfigs";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
-
-const defaultPythonFnLabel = "PYTHON FUNCTION";
-const defaultPythonFnType = "PYTHON FUNCTION TYPE";
 
 const FlowChartTab = ({
   results,
@@ -41,21 +41,31 @@ const FlowChartTab = ({
   setRfInstance,
   clickedElement,
   setClickedElement,
-  nodes,
-  setNodes,
-  edges,
-  setEdges,
 }: FlowChartProps) => {
-  const { windowWidth, modalIsOpen, openModal, afterOpenModal, closeModal } =
-    useFlowChartTabState();
+  const {
+    windowWidth,
+    modalIsOpen,
+    openModal,
+    afterOpenModal,
+    closeModal,
+    nd,
+    nodeLabel,
+    nodeType,
+    pythonString,
+    setPythonString,
+    defaultPythonFnLabel,
+    defaultPythonFnType,
+    setIsModalOpen,
+    setNd,
+    setNodeLabel,
+    setNodeType,
+  } = useFlowChartTabState();
+  const { nodes, setNodes, edges, setEdges } = useFlowChartState();
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: CustomEdge as any }),
     []
   );
-  const nodeTypes: NodeTypes = useMemo(
-    () => ({ default: CustomNode as any }),
-    []
-  );
+  const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
     overlay: { zIndex: 99 },
@@ -63,6 +73,11 @@ const FlowChartTab = ({
   };
 
   const onNodeClick: NodeMouseHandler = (_, node) => {
+    setPythonString(
+      nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
+        ? "..."
+        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+    );
     setClickedElement(node);
     openModal();
   };
@@ -70,39 +85,6 @@ const FlowChartTab = ({
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
-
-  let nodeLabel = defaultPythonFnLabel;
-  let nodeType = defaultPythonFnType;
-
-  if (clickedElement) {
-    if ("data" in clickedElement) {
-      if ("label" in clickedElement.data && "type" in clickedElement.data) {
-        if (
-          clickedElement.data.label !== undefined &&
-          clickedElement.data.type !== undefined
-        ) {
-          nodeLabel = clickedElement.data.func;
-          nodeType = clickedElement.data.type;
-        }
-      }
-    }
-  }
-
-  const pythonString =
-    nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
-      ? "..."
-      : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"];
-
-  let nd: any = {};
-
-  if (results && "io" in results) {
-    const runResults = results.io; // JSON.parse(results.io);
-    const filteredResult = runResults.filter(
-      (node: any) => node.id === clickedElement.id
-    )[0];
-
-    nd = filteredResult === undefined ? {} : filteredResult;
-  }
 
   const defaultLayout = styledPlotLayout(theme);
 
@@ -119,7 +101,7 @@ const FlowChartTab = ({
 
     setRfInstance(rfIns.toObject());
   };
-  const handleNodeDrag:NodeDragHandler = (_, node) => {
+  const handleNodeDrag: NodeDragHandler = (_, node) => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
@@ -138,6 +120,26 @@ const FlowChartTab = ({
     []
   );
 
+  useFlowChartTabEffects({
+    clickedElement,
+    results,
+    afterOpenModal,
+    closeModal,
+    defaultPythonFnLabel,
+    defaultPythonFnType,
+    modalIsOpen,
+    nd,
+    nodeLabel,
+    nodeType,
+    openModal,
+    pythonString,
+    setIsModalOpen,
+    setNd,
+    setNodeLabel,
+    setNodeType,
+    setPythonString,
+    windowWidth,
+  });
   return (
     <ReactFlowProvider>
       <div style={{ height: `99vh` }} data-testid="react-flow">

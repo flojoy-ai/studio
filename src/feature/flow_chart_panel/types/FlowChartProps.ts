@@ -1,19 +1,21 @@
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { WritableDraft } from "immer/dist/internal";
-import { Edge, Node } from 'reactflow';
+import React from "react";
+import { Node, ReactFlowJsonObject } from "reactflow";
 
 export interface FlowChartProps {
-  results: any;
+  results: ResultsType;
   theme: "light" | "dark";
-  rfInstance: any;
-  setRfInstance: any;
-  clickedElement: any;
-  setClickedElement: any;
-  nodes: Node[];
-  setNodes: (
-    update: Node<any>[] | ((draft: WritableDraft<Node<any>>[]) => void)
+  rfInstance: ReactFlowJsonObject;
+  setRfInstance: (
+    update?:
+      | ReactFlowJsonObject<any, any>
+      | ((
+          draft: WritableDraft<ReactFlowJsonObject<any, any>> | undefined
+        ) => void)
+      | undefined
   ) => void;
-  edges: Edge[];
-  setEdges: (
-    update: Edge<any>[] | ((draft: WritableDraft<Edge<any>>[]) => void)
-  ) => void;
+
+  clickedElement: Node | undefined;
+  setClickedElement: React.Dispatch<React.SetStateAction<Node | undefined>>;
 }

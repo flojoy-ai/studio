@@ -10,7 +10,7 @@ import { GlobalStyles } from "./feature/common/global";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
-import { ReactFlowProvider, Rect } from "reactflow";
+import { Node, ReactFlowProvider, Rect } from "reactflow";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
@@ -21,17 +21,15 @@ const App = () => {
   const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [clickedElement, setClickedElement] = useState([]);
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
   const {
     rfInstance,
     setRfInstance,
     setUiTheme,
     setRunningNode,
     setFailedNode,
-    edges,
-    setEdges,
-    nodes,
-    setNodes,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
@@ -147,13 +145,9 @@ const App = () => {
         </div>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
           <FlowChartTab
-            nodes={nodes}
-            setNodes={setNodes}
-            edges={edges}
-            setEdges={setEdges}
-            rfInstance={rfInstance}
+            rfInstance={rfInstance!}
             setRfInstance={setRfInstance}
-            results={programResults}
+            results={programResults!}
             theme={theme}
             clickedElement={clickedElement}
             setClickedElement={setClickedElement}

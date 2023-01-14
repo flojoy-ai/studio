@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useResultsTabState } from "./ResultsTabState";
+import { ResultTabStateReturnType } from "./ResultsTabState";
 import { ResultIO } from "./types/ResultsType";
 
-export function useResultsTabEffects(nodeResults: ResultIO[] | undefined) {
-  const { setResultNodes, nodes } = useResultsTabState();
-
+export function useResultsTabEffects({
+  nodeResults,
+  setResultNodes,
+  nodes,
+}: ResultTabStateReturnType & { nodeResults: ResultIO[] }) {
   useEffect(() => {
     if (nodeResults && nodeResults.length > 0 && nodes.length > 0) {
       setResultNodes(
         nodes.map((node) => ({
           ...node,
-          position: node.position, //resultNodePosition[node?.data?.func],
+          position: node.position,
           data: {
             ...node.data,
             resultData: nodeResults?.find((result) => result.id === node.id)

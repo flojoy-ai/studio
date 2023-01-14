@@ -35,7 +35,7 @@ export const NOISY_SINE = {
         id: "MULTIPLY-userGeneratedNode_1646417352715",
         label: "X",
         func: "MULTIPLY",
-        type: "TRANSFORMER",
+        type: "ARITHMETIC",
         ctrls: {},
         inputs: [{ name: "y", id: "multiply_y", type: "source" }],
       },
@@ -60,7 +60,7 @@ export const NOISY_SINE = {
         id: "ADD-userGeneratedNode_1646417428589",
         label: "+",
         func: "ADD",
-        type: "TRANSFORMER",
+        type: "ARITHMETIC",
         ctrls: {},
         inputs: [{ name: "y", id: "add_y", type: "source" }],
       },
@@ -388,7 +388,7 @@ export const LOOP_APP = {
         id: "MULTIPLY-userGeneratedNode_1646417352715",
         label: "MULTIPLY",
         func: "MULTIPLY",
-        type: "TRANSFORMER",
+        type: "ARITHMETIC",
         ctrls: {},
         inputs: [
           {
