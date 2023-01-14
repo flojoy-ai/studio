@@ -1,7 +1,7 @@
 import { PlotTypesManifest } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
 import { PlotControlStateType } from "@src/feature/controls_panel/views/PlotControlState";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { v4 as uuid4 } from "uuid";
 
 const usePlotControlEffect = ({
@@ -21,7 +21,7 @@ const usePlotControlEffect = ({
   /**
    * Updates input options from available inputs in a node
    */
-  const updateInputOptions = () => {
+  const updateInputOptions = useCallback(() => {
     const inputOptions: NodeInputOptions[] = [];
     if (typeof nd!?.result["x"] === "object") {
       if (Array.isArray(nd?.result["x"])) {
@@ -47,11 +47,11 @@ const usePlotControlEffect = ({
 
     inputOptions.push({ label: "y", value: nd!.result["y"]! });
     setInputOptions(inputOptions);
-  };
+  }, [nd, setInputOptions]);
   /**
    * Updates plot value from node result using selected keys
    */
-  const updatePlotValue = () => {
+  const updatePlotValue = useCallback(() => {
     const result: any = {};
 
     if (nd?.result && "data" in nd!.result) {
@@ -74,7 +74,7 @@ const usePlotControlEffect = ({
     }
 
     setPlotData([result]);
-  };
+  }, [nd, selectedKeys, selectedPlotOption, setPlotData]);
 
   // update input options automatically when result is changed
   useEffect(() => {
