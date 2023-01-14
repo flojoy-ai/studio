@@ -9,12 +9,18 @@ def LOCAL_FILE(v, params):
         filePath = v[0].y
         ctrlInput = params.path
         fileType = params.file_type
-        if ctrlInput is not None:
+        opType = params.op_type
+        if ctrlInput is not None and len(ctrlInput.trim()) > 0:
             filePath = ctrlInput
         elif filePath is None:
-            raise Exception('No file path given')
-        y = ''
+            if fileType == 'image' and opType == 'OD':
+                filePath = "../../../public/assets/object_detection.png"
+        print ("File to be loaded: " + filePath)
+        with open(filePath, "rb") as fileToBeLoaded:
+            f = fileToBeLoaded.read()
+            b = bytearray(f)
+        fileToBeLoaded.close()
     except Exception:
         print(traceback.format_exc())
 
-    return DataContainer(x = None, y = y)
+    return DataContainer(x = None, y = b)
