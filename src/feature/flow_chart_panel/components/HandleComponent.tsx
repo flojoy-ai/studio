@@ -24,10 +24,10 @@ const HandleComponent = ({
       }
 
       {params.length > 0 ?
-        data.func == 'CONDITIONAL' ? (
+        data.func === 'CONDITIONAL' ? (
         params.map((param, i) => {
 
-          if (param.type == 'target'){
+          if (param.type === 'target'){
 
             return (
               <Handle
@@ -112,7 +112,7 @@ const HandleComponent = ({
         type="source"
         position={Position.Right}
         style={{
-          display: data.func == 'LOOP' || data.func == 'CONDITIONAL' ? 'none' :'block',
+          display: data.func === 'LOOP' || data.func === 'CONDITIONAL' ? 'none' :'block',
           borderRadius: 0,
           height: 8,
           width: 8,
@@ -133,8 +133,8 @@ const HandleComponent = ({
 
       {params.length > 0 &&
         params.map((param, i) => {
-          if(data.func === 'LOOP' || data.func == 'CONDITIONAL'){
-            if (param.type == 'source'){
+          if(data.func === 'LOOP' || data.func === 'CONDITIONAL'){
+            if (param.type === 'source'){
               return (
                 <Handle
                   key={param.id}
