@@ -25,4 +25,4 @@ def LOCAL_FILE(v, params):
     except Exception:
         print(traceback.format_exc())
 
-    return DataContainer(x = None, y = y)
+    return DataContainer(type = 'file', y = y, file_type = [fileType])

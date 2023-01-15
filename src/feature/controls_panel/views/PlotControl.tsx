@@ -173,7 +173,7 @@ const PlotControl = ({
               mode: selectedPlotOption?.value?.mode,
             },
           ]}
-          layout={styledPlotLayout(theme)}
+          layout={styledPlotLayout(theme, plotData[0] ? 'y' in plotData[0] ? plotData[0].y ? plotData[0].y[0] : undefined : undefined : undefined )}
           style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
         />
       </div>

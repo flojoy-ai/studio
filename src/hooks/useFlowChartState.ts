@@ -1,5 +1,5 @@
 import { Elements, FlowExportObject } from "react-flow-renderer";
-import { NOISY_SINE } from "../data/RECIPES";
+import { EMPTY_CANVAS, NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
 import { saveAs } from "file-saver";
@@ -46,7 +46,8 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialElements: Elements = NOISY_SINE.elements;
+// const initialElements: Elements = NOISY_SINE.elements;
+const initialElements: Elements = EMPTY_CANVAS.elements;
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",

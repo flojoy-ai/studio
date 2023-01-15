@@ -22,7 +22,9 @@ const highlightShadow = {
   'LOOP':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'blue'},
   'CONDITIONAL' : {boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'yellow'},
   'TIMER':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'grey'},
-  'LOCAL_FILE':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'#78640f96'}
+  'LOCAL_FILE':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'#78640f96'},
+  'OBJECT_DETECTION':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'#78640f96'},
+  'IMAGE': {boxShadow: '0 0 50px 15px #48abe0'}
 }
 const getboxShadow = (data: ElementsData) =>{
   return highlightShadow[data.func]
