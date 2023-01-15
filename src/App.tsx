@@ -10,7 +10,7 @@ import { GlobalStyles } from "./feature/common/global";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
-import { Node, ReactFlowProvider, Rect } from "reactflow";
+import { Node } from "reactflow";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
