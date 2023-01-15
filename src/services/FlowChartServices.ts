@@ -12,7 +12,7 @@ export function saveFlowChartToLocalStorage(
   }
 }
 
-export function saveAndRunFlowChartInServer({
+export async function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
 }: {
@@ -27,12 +27,16 @@ export function saveAndRunFlowChartInServer({
   // console.log("saving flowchart to server:", rfInstanceObject);
 
   const fcStr = JSON.stringify(rfInstanceObject);
-  
-  fetch("/wfc", {
+
+  const data = await fetch("/wfc", {
     method: "POST",
     body: JSON.stringify({ fc: fcStr, jobsetId:jobId, cancelExistingJobs: true}),
     headers: { "Content-type": "application/json; charset=UTF-8" },
   })
-    .then((resp) => resp.json())
-    .then((json) => console.log(json));
+  if(data.ok){
+    return await data.json()
+  }
+  else{
+    throw Error("data not found")
+  }
 }
