@@ -1,6 +1,5 @@
 version: "3.9"
 
-
 services:
 
   redis:
@@ -9,15 +8,17 @@ services:
       - 6379:6379
 
   backend:
-    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG}
-    build: 
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG:-latest}
+    build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
+    volumes:
+      - .:/code
     restart: always
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-    expose: 
+    expose:
       - 8000
     ports:
       - 8000:8000
@@ -25,8 +26,8 @@ services:
       - redis
 
   rq-worker:
-    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG}
-    build: 
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG:-latest}
+    build:
       context: .
       dockerfile: ./docker/rq-worker/Dockerfile
     restart: always
@@ -39,8 +40,8 @@ services:
       - backend
 
   flojoy-watch:
-    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG}
-    build: 
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG:-latest}
+    build:
       context: .
       dockerfile: ./docker/flojoy-watch/Dockerfile
     restart: always
@@ -51,5 +52,3 @@ services:
     depends_on:
       - redis
       - backend
-
-

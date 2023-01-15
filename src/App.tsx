@@ -44,15 +44,15 @@ const App = () => {
       setUiTheme("light");
     }
   };
-const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
+  const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
     ReactFlowProvider;
   useEffect(() => {
-   setRunningNode(runningNode);
+    setRunningNode(runningNode);
     setFailedNode(failedNode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runningNode, failedNode]);
 
-return (
+  return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <ReactFlowChartProvider>
         <GlobalStyles />

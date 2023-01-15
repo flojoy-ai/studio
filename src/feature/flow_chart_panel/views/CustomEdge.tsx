@@ -15,7 +15,7 @@ const CustomEdge: FC<EdgeProps> = ({
   targetY,
   sourcePosition,
   targetPosition,
-  label
+  label,
 }) => {
   const edgePath = getBezierPath({
     sourceX,
@@ -27,7 +27,7 @@ const CustomEdge: FC<EdgeProps> = ({
   });
   const markerEnd = getMarkerEnd(ArrowHeadType.Arrow);
 
-  const {uiTheme} = useFlowChartState();
+  const { uiTheme } = useFlowChartState();
 
   return (
     <>
@@ -40,7 +40,10 @@ const CustomEdge: FC<EdgeProps> = ({
       <text>
         <textPath
           href={`#${id}`}
-          style={{ fontSize: '30px',fill: uiTheme == 'dark' ? 'white' : 'black' }}
+          style={{
+            fontSize: "30px",
+            fill: uiTheme === "dark" ? "white" : "black",
+          }}
           startOffset="50%"
           textAnchor="middle"
         >
