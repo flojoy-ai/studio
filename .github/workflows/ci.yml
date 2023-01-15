@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: ["main", "develop"]
+    branches: ["main", "develop", "test-cd"]
   pull_request:
     branches: ["main", "develop"]
 
@@ -28,7 +28,7 @@ jobs:
 
       - name: Npm install
         run: npm install --legacy-peer-deps
-      
+
       - name: Run test
         uses: cypress-io/github-action@v4
         with:
