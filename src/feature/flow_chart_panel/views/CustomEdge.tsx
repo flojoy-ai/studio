@@ -23,7 +23,7 @@ const CustomEdge: FC<EdgeProps> = (edgeParams) => {
       <text>
         <textPath
           href={`#${edgeParams.id}`}
-          style={{ fontSize: '30px',fill: uiTheme == 'dark' ? 'white' : 'black' }}
+          style={{ fontSize: '30px',fill: uiTheme === 'dark' ? 'white' : 'black' }}
           startOffset="50%"
           textAnchor="middle"
         >
