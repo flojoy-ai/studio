@@ -52,7 +52,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "install": "npm install --legacy-peer-deps",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
