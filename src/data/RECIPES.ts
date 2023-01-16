@@ -909,7 +909,7 @@ export const OBJECT_DETECTION = {
               id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
               label: "file",
               func: "LOCAL_FILE",
-              type: "LOCAL_FILE",
+              type: "LOADER",
               ctrls: {
                   LOCAL_FILE_file_file_type: {
                       functionName: "LOCAL_FILE",
