@@ -152,7 +152,7 @@ const PlotControl = ({
               options={inputOptions}
               styles={customDropdownStyles}
               theme={theme as unknown as ThemeConfig}
-              value={selectedKeys && selectedKeys![key] || ''}
+              value={(selectedKeys && selectedKeys![key]) || ""}
             />
           ))}
         </div>

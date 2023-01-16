@@ -104,7 +104,7 @@ const ControlComponent = ({
 
       setDebouncedTimerForKnobId(timerId);
     },
-    [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
+    [ctrlObj, debouncedTimerForKnobId, setDebouncedTimerForKnobId, setKnobValue, updateCtrlValue]
   );
 
   const handleCtrlValueChange = (
@@ -179,14 +179,18 @@ const ControlComponent = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent: "center",
+        alignItems: "center",
         flex: "1",
         padding: "16px",
       }}
     >
       {isEditMode && (
-        <div className="ctrl-header" data-cy="ctrls-select" style={{width:'100%'}}>
+        <div
+          className="ctrl-header"
+          data-cy="ctrls-select"
+          style={{ width: "100%" }}
+        >
           <Select
             className="select-node"
             isSearchable={true}
@@ -253,11 +257,7 @@ const ControlComponent = ({
         </button>
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
-        <SevenSegmentComponent
-          ctrlObj={ctrlObj}
-          plotData={plotData}
-          nd={nd}
-        />
+        <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
@@ -385,7 +385,9 @@ const ControlComponent = ({
             options={paramOptions}
             styles={customDropdownStyles}
             value={
-              paramOptions.find((opt) => opt.value === currentInputValue.toString()) || ""
+              paramOptions.find(
+                (opt) => opt.value === currentInputValue.toString()
+              ) || ""
             }
           />
         </div>

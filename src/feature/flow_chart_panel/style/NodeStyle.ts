@@ -5,13 +5,13 @@ export const NodeStyle = (
   theme: "light" | "dark"
 ): React.CSSProperties | undefined => {
   if (
-      data.func === "LINSPACE" ||
-      data.func === 'LOOP' ||
-      data.func === 'CONDITIONAL' ||
-      data.func == 'BREAK' ||
-      data.func == 'TIMER' ||
-      data.func == 'LOCAL_FILE'
-    ) {
+    data.func === "LINSPACE" ||
+    data.func === "LOOP" ||
+    data.func === "CONDITIONAL" ||
+    data.func === "BREAK" ||
+    data.func === "TIMER" ||
+      data.func === "LOCAL_FILE"
+  ) {
     return {
       padding: 10,
       height: "105px",
@@ -60,7 +60,7 @@ export const NodeStyle = (
       alignItems: "center",
       fontSize: "17px",
       color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
-      background: 'transparent'
+      background: "transparent",
     };
   }
 };

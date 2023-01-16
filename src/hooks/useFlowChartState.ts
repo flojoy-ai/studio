@@ -207,7 +207,7 @@ export function useFlowChartState() {
           console.warn(err);
         });
     }
-  }, [rfInstance]);
+  }, [rfInstance, setRfInstance]);
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
