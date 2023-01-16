@@ -100,7 +100,8 @@ const PlotControl = ({
     setNd,
     setPlotData,
   });
-
+  console.log(selectedPlotOption);
+  
   return (
     <Fragment>
       {!isEditMode && (

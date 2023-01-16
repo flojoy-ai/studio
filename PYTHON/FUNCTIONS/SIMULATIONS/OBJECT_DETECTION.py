@@ -1,7 +1,7 @@
 import traceback
-from joyflo import flojoy, DataContainer
+from flojoy import flojoy, DataContainer
 
-from utils.object_detection import detect_object
+from utils.object_detection.object_detection import detect_object
 
 @flojoy
 def OBJECT_DETECTION(v, params):

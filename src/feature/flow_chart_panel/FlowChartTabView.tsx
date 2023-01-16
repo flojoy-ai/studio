@@ -72,6 +72,8 @@ const FlowChartTab = ({
   let nodeLabel = defaultPythonFnLabel;
   let nodeType = defaultPythonFnType;
 
+  console.log(clickedElement);
+  
   if (clickedElement) {
     if ("data" in clickedElement) {
       if ("label" in clickedElement.data && "type" in clickedElement.data) {
@@ -85,6 +87,8 @@ const FlowChartTab = ({
       }
     }
   }
+  console.log(nodeLabel);
+  console.log(nodeType);
   
   const pythonString =
     nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
