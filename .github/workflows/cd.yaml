@@ -1,36 +1,36 @@
-name: CD
+# name: CD
 
-on:
-  push:
-    tags:
-      # Build on every tag in the form v1.2.3-something.4
-      - 'v*'
+# on:
+#   push:
+#     tags:
+#       # Build on every tag in the form v1.2.3-something.4
+#       - 'v*'
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-jobs:
-   buildElectron:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
-    env:
-      DEBUG: electron-builder
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
+# jobs:
+#    buildElectron:
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os: [macos-latest, ubuntu-latest, windows-latest]
+#     env:
+#       DEBUG: electron-builder
+#     steps:
+#       - name: Check out Git repository
+#         uses: actions/checkout@v3
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+#       - name: Install Node.js, NPM and Yarn
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
 
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1.6.0
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          args: --legacy-peer-deps
-          release: true
+#       - name: Build/release Electron app
+#         uses: samuelmeuli/action-electron-builder@v1.6.0
+#         with:
+#           # GitHub token, automatically provided to the action
+#           # (No need to define this secret in the repo settings)
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           args: --legacy-peer-deps
+#           release: true

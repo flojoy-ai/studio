@@ -59,7 +59,9 @@
     "cypress": "cypress open",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
-    "electron-publish": "electron-builder build --publish always -mwl"
+    "electron-publish": "electron-builder build --publish always -mwl",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
   },
   "build": {
     "appId": "io.flojoy.desktop",
@@ -70,6 +72,45 @@
       "electron/main.js",
       "package.json"
     ],
+    "config": {
+      "forge": {
+        "packagerConfig": {},
+        "makers": [
+          {
+            "name": "@electron-forge/maker-squirrel",
+            "config": {
+              "name": "electron_publish_example"
+            }
+          },
+          {
+            "name": "@electron-forge/maker-zip",
+            "platforms": [
+              "darwin"
+            ]
+          },
+          {
+            "name": "@electron-forge/maker-deb",
+            "config": {}
+          },
+          {
+            "name": "@electron-forge/maker-rpm",
+            "config": {}
+          }
+        ],
+        "publishers": [
+          {
+            "name": "@electron-forge/publisher-github",
+            "config": {
+              "repository": {
+                "owner": "jackparmer",
+                "name": "electron-publish-example",
+                "draft": true
+              }
+            }
+          }
+        ]
+      }
+    },
     "extraResources": [
       {
         "from": "./docker-compose-prod.yml",
@@ -117,6 +158,7 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/publisher-github": "^6.0.4",
     "@types/react-grid-layout": "^1.3.2",
     "@types/react-modal": "^3.13.1",
     "@types/react-plotly.js": "^2.5.2",

@@ -1,0 +1,22 @@
+name: Build-Electron
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build_elctron:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 16
+    - name: install dependencies
+      run: npm install --legacy-peer-deps
+    - name: build
+      run: npm run make
+
