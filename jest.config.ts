@@ -3,7 +3,7 @@ export default async (): Promise<Config.InitialOptions> => {
     return {
         preset: "ts-jest",
         displayName: {
-            name: "jest-template",
+            name: "flojoy unit-testing",
             color: "greenBright",
         },
         moduleNameMapper: {
