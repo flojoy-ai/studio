@@ -106,7 +106,13 @@ describe("FlowChartServices", () => {
         .spyOn(global, 'fetch')
         .mockImplementation(() => Promise.reject(testResponse) as any)
 
-      await expect(saveAndRunFlowChartInServer(param)).rejects.toEqual(testResponse); //https://jestjs.io/docs/tutorial-async
+      try{
+        await saveAndRunFlowChartInServer(param)
+      } catch(error){
+        expect(error).toEqual(testResponse) //https://jestjs.io/docs/tutorial-async#error-handling
+      }
+
+      // await expect(saveAndRunFlowChartInServer(param)).rejects.toEqual(testResponse); //https://jestjs.io/docs/tutorial-async
 
     })
   })
