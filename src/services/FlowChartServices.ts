@@ -28,13 +28,15 @@ export async function saveAndRunFlowChartInServer({
 
   const fcStr = JSON.stringify(rfInstanceObject);
 
-  const data = await fetch("/wfc", {
+  let data = await fetch("/wfc", {
     method: "POST",
     body: JSON.stringify({ fc: fcStr, jobsetId:jobId, cancelExistingJobs: true}),
     headers: { "Content-type": "application/json; charset=UTF-8" },
   })
   if(data.ok){
-    return await data.json()
+    data = await data.json()
+    console.log(data)
+    return data
   }
   else{
     throw Error("data not found")
