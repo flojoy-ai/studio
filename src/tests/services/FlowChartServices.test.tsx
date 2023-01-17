@@ -1,8 +1,11 @@
 import '@testing-library/jest-dom'
 import { expect, jest, test } from '@jest/globals';
 import { saveFlowChartToLocalStorage, saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
-import localforage, { iterate } from "localforage";
+import localforage from "localforage";
 
+/**
+ * Mock function for localforage
+ */
 jest.mock('localforage', () => ({
   setItem: jest.fn(),
   getItem: (cb: any) => {
@@ -10,80 +13,103 @@ jest.mock('localforage', () => ({
   }
 }))
 
+/**
+ * Mock function for fetch method
+ */
+
+global.fetch = jest.fn(url => Promise.resolve({
+  ok: true,
+  status: 200,
+  json: () => Promise.resolve({})
+})) as any;
+
 describe("FlowChartServices", () => {
 
-  it('getting & setting data from local storage', () => {
+  describe("saveFlowChartToLocalStorage",()=>{
 
-    const key = "flow-joy"
+    it("checks the set data is equal to test data",()=>{
 
-    const obj: any = {
-      "elements": "fake"
-    }
+      const key:string = "flow-joy"
 
-    Storage.prototype.setItem = localforage.setItem
+      const value: any = {
+        "elements": "fake"
+      }
 
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+      saveFlowChartToLocalStorage(value)
 
-    saveFlowChartToLocalStorage(obj)
+      expect(localforage.getItem(key)).toEqual("data")
 
-    expect(setItemSpy).toBeCalled();
-    expect(localforage.setItem).toHaveBeenCalledWith(key, obj)
-    expect(localforage.getItem(key)).toEqual("data")
-  });
+    })
 
-  it('calling fetch api with success', async () => {
+    it('checks the setItem function parameter by setting spy on the localforage', () => {
+      const key:string = "flow-joy"
 
-    global.fetch = jest.fn(url => Promise.resolve({
-      ok: true,
-      status: 200,
-      json: () => Promise.resolve({})
-    })) as any;
+      const value: any = {
+        "elements": "fake"
+      }
 
-    const obj: any = {
-      "elements": "fake"
-    }
+      const setItemSpy = jest.spyOn(localforage, 'setItem');
 
-    const jobsetId: string = "random"
+      saveFlowChartToLocalStorage(value)
 
-    const param: any = {
-      rfInstance: obj,
-      jobsetId: jobsetId
-    }
-
-    const fetchParams = {
-      "body": "{\"fc\":\"{\\\"elements\\\":\\\"fake\\\"}\",\"cancelExistingJobs\":true}",
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-      method: "POST",
-    }
-
-    const data = await saveAndRunFlowChartInServer(param)
-
-    const fetchSpy = jest.spyOn(global, "fetch")
-
-    expect(data).toEqual({})
-    expect(fetchSpy).toHaveBeenCalled()
-    expect(fetchSpy).toHaveBeenCalledWith("/wfc", fetchParams)
-  });
-
-  it("calling fetch api with error message", async ()=>{
-
-    const fetchMock = jest
-			.spyOn(global, 'fetch')
-			.mockImplementation(() => Promise.reject({status:false }) as any)
-
-    const obj: any = {
-      "elements": "fake"
-    }
-
-    const jobsetId: string = "random"
-
-    const param: any = {
-      rfInstance: obj,
-      jobsetId: jobsetId
-    }
-
-    expect(fetchMock).toBeCalled()
-    await expect(saveAndRunFlowChartInServer(param)).rejects.toEqual({status:false});
-
+      expect(localforage.setItem).toHaveBeenCalledWith(key, value)
+    });
   })
+
+  describe("saveAndRunFlowChartInServer", ()=>{
+
+    it("calls /wfc api endpoint using fetch successfully & matches the response with test reponse message",async ()=>{
+      const param: any = {
+        rfInstance: {
+          "elements": "test"
+        },
+        jobsetId: "random"
+      }
+
+      const data = await saveAndRunFlowChartInServer(param)
+
+      expect(data).toEqual({})
+    })
+
+    it('checks parameters of the api by setting spy on fetch method', async () => {
+
+      const param: any = {
+        rfInstance: {
+          "elements": "test"
+        },
+        jobsetId: "random"
+      }
+      const fetchParams: any = {
+        "body": "{\"fc\":\"{\\\"elements\\\":\\\"test\\\"}\",\"cancelExistingJobs\":true}",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+        method: "POST",
+      }
+      const api_endPoint: string = "/wfc"
+
+      const fetchSpy = jest.spyOn(global, "fetch")
+      await saveAndRunFlowChartInServer(param)
+
+      expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams)
+    });
+
+    it("checks the response of unsuccessful api calling using fetch method with test response", async ()=>{
+
+      const param: any = {
+        rfInstance: {
+          "elements": "fake"
+        },
+        jobsetId: "random"
+      }
+
+      const testResponse = {ok:false,status:404 }
+
+      jest
+        .spyOn(global, 'fetch')
+        .mockImplementation(() => Promise.reject(testResponse) as any)
+
+      await expect(saveAndRunFlowChartInServer(param)).rejects.toEqual(testResponse); //https://jestjs.io/docs/tutorial-async
+
+    })
+  })
+
 })
