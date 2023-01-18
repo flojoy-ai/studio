@@ -1,5 +1,8 @@
 import { FlowExportObject } from "react-flow-renderer";
 import localforage from "localforage";
+
+import { CustomError } from "../utils/CustomError";
+
 const flowKey = "flow-joy";
 
 export function saveFlowChartToLocalStorage(
@@ -19,26 +22,24 @@ export async function saveAndRunFlowChartInServer({
   rfInstance?: FlowExportObject<any>;
   jobId: string;
 }) {
-  if (!rfInstance) {
-    return;
-  }
+  if (rfInstance) {
+    const rfInstanceObject = rfInstance;
+    // console.log("saving flowchart to server:", rfInstanceObject);
 
-  const rfInstanceObject = rfInstance;
-  // console.log("saving flowchart to server:", rfInstanceObject);
+    const fcStr = JSON.stringify(rfInstanceObject);
 
-  const fcStr = JSON.stringify(rfInstanceObject);
-
-  let data = await fetch("/wfc", {
-    method: "POST",
-    body: JSON.stringify({ fc: fcStr, jobsetId:jobId, cancelExistingJobs: true}),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  })
-  if(data.ok){
-    data = await data.json()
-    console.log(data)
-    return data
-  }
-  else{
-    throw Error("data not found")
+    let data = await fetch("/wfc", {
+      method: "POST",
+      body: JSON.stringify({ fc: fcStr, jobsetId:jobId, cancelExistingJobs: true}),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+    if(data.ok){
+      data = await data.json()
+      console.log(data)
+      return data
+    }
+    else{
+      throw new CustomError({statusCode:data.status,statusMessage:data.statusText})
+    }
   }
 }
