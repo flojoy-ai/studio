@@ -1,115 +1,128 @@
-import '@testing-library/jest-dom'
-import { expect, jest, test } from '@jest/globals';
-import { saveFlowChartToLocalStorage, saveAndRunFlowChartInServer } from '../../services/FlowChartServices';
+import "@testing-library/jest-dom";
+import { expect, jest, it } from "@jest/globals";
 import localforage from "localforage";
+
+import { CustomError } from "../../utils/CustomError";
+import {
+  saveFlowChartToLocalStorage,
+  saveAndRunFlowChartInServer,
+} from "../../services/FlowChartServices";
+
+const key: string = "flow-joy";
+const rfInstance: any = {
+  elements: "fake",
+};
+
+const param: any = {
+  rfInstance: {
+    elements: "test",
+  },
+  jobsetId: "random",
+};
 
 /**
  * Mock function for localforage
  */
-jest.mock('localforage', () => ({
+jest.mock("localforage", () => ({
   setItem: jest.fn(),
   getItem: (cb: any) => {
-    return "data"
-  }
-}))
+    return "data";
+  },
+}));
 
 /**
  * Mock function for fetch method
  */
 
-global.fetch = jest.fn(url => Promise.resolve({
-  ok: true,
-  status: 200,
-  json: () => Promise.resolve({})
-})) as any;
+global.fetch = jest.fn((url) =>
+  Promise.resolve({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve({}),
+  })
+) as any;
 
 describe("FlowChartServices", () => {
+  describe("saveFlowChartToLocalStorage", () => {
+    it("given a flow chart object, stores it in localstorage", () => {
+      // Given
+      const setItemSpy = jest.spyOn(localforage, "setItem");
 
-  describe("saveFlowChartToLocalStorage",()=>{
+      // When
+      saveFlowChartToLocalStorage(rfInstance);
 
-    it("checks the set data is equal to test data",()=>{
-
-      const key:string = "flow-joy"
-
-      callSaveFlowChartToLocalStorageFunc()
-
-      expect(localforage.getItem(key)).toEqual("data")
-
-    })
-
-    it('checks the setItem function parameter by setting spy on the localforage', () => {
-      const key:string = "flow-joy"
-      const value: any = {
-        "elements": "fake"
-      }
-
-      const setItemSpy = jest.spyOn(localforage, 'setItem');
-
-      callSaveFlowChartToLocalStorageFunc()
-
-      expect(localforage.setItem).toHaveBeenCalledWith(key, value)
+      //Then
+      expect(localforage.setItem).toHaveBeenCalledWith(key, rfInstance);
     });
-  })
 
-  describe("saveAndRunFlowChartInServer", ()=>{
+    it.each([[undefined], [null]])(
+      "given an undefined or null flow chart object, doesnot store it in localstorage",
+      (flowChart: undefined | null) => {
+        // Given
+        const setItemSpy = jest.spyOn(localforage, "setItem");
 
-    it("calls /wfc api endpoint using fetch successfully & matches the response with test reponse message",async ()=>{
+        // When
+        saveFlowChartToLocalStorage(flowChart as any);
 
-      const data = await callSaveAndRunFlowChartInServerFunc()
+        //Then
+        expect(setItemSpy).not.toHaveBeenCalled();
+      }
+    );
+  });
 
-      expect(data).toEqual({})
-    })
-
-    it('checks parameters of the api by setting spy on fetch method',async () => {
+  describe("saveAndRunFlowChartInServer", () => {
+    it("given a flow chart and a job id, post the job to /wfc api endpoint", async () => {
+      //Given
       const fetchParams: any = {
-        "body": "{\"fc\":\"{\\\"elements\\\":\\\"test\\\"}\",\"cancelExistingJobs\":true}",
+        body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true}',
         headers: { "Content-type": "application/json; charset=UTF-8" },
         method: "POST",
-      }
-      const api_endPoint: string = "/wfc"
+      };
+      const api_endPoint: string = "/wfc";
 
-      const fetchSpy = jest.spyOn(global, "fetch")
-      callSaveAndRunFlowChartInServerFunc()
+      const fetchSpy = jest.spyOn(global, "fetch");
 
-      expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams)
+      //When
+      await saveAndRunFlowChartInServer(param);
+      //Expect
+      expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams);
     });
 
-    it("checks the response of unsuccessful api calling using fetch method with test response", async()=>{
-      const testResponse = {ok:false,status:404 }
+    it("given /wfc api returns error, throws customized error", async () => {
+      // Given
+      const testResponse = { ok: false, status: 404, statusMessage: "Error" };
+      const expectedCustomError = new CustomError({
+        statusMessage: testResponse.statusMessage,
+        statusCode: testResponse.status,
+      });
 
       jest
-        .spyOn(global, 'fetch')
-        .mockImplementation(() => Promise.reject(testResponse) as any)
-
-      try{
-        await callSaveAndRunFlowChartInServerFunc()
-      } catch(error){
-        expect(error).toEqual(testResponse) //https://jestjs.io/docs/tutorial-async#error-handling
+        .spyOn(global, "fetch")
+        .mockImplementation(() => Promise.resolve(testResponse) as any);
+      try {
+        //When
+        const data = await saveAndRunFlowChartInServer(param);
+      } catch (error) {
+        //Expect
+        expect(error).toBeInstanceOf(CustomError); //https://jestjs.io/docs/tutorial-async#error-handling
       }
+    });
 
-      // await expect(saveAndRunFlowChartInServer(param)).rejects.toEqual(testResponse); //https://jestjs.io/docs/tutorial-async
-
-    })
-  })
-
-})
-
-const callSaveFlowChartToLocalStorageFunc = () =>{
-  const value: any = {
-    "elements": "fake"
-  }
-
-  saveFlowChartToLocalStorage(value)
-}
-
-const callSaveAndRunFlowChartInServerFunc = async ()=>{
-  const param: any = {
-    rfInstance: {
-      "elements": "test"
-    },
-    jobsetId: "random"
-  }
-
-  const data = await saveAndRunFlowChartInServer(param)
-  return data
-}
+    it.each([
+      [{ rfInstance: undefined, jobId: "test" }],
+      [{ rfInstance: null, jobId: "test" }],
+    ])(
+      "given an undefined or null flow chart object, doesnot call the fetch api",
+      async (flowChart: any) => {
+        //Given
+        const fetchSpy = jest
+          .spyOn(global, "fetch")
+          .mockImplementation(() => Promise.resolve({}) as any);
+        //Then
+        const data = saveFlowChartToLocalStorage(flowChart);
+        //Expect
+        expect(fetchSpy).not.toHaveBeenCalled();
+      }
+    );
+  });
+});
