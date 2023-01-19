@@ -23,10 +23,8 @@ export async function saveAndRunFlowChartInServer({
   jobId: string;
 }) {
   if (rfInstance) {
-    const rfInstanceObject = rfInstance;
-    // console.log("saving flowchart to server:", rfInstanceObject);
 
-    const fcStr = JSON.stringify(rfInstanceObject);
+    const fcStr = JSON.stringify(rfInstance);
 
     let data = await fetch("/wfc", {
       method: "POST",
