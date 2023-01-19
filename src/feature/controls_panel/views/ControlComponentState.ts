@@ -49,6 +49,7 @@ const ControlComponentState = ({
       x: [1, 2, 3],
       y: [1, 2, 3],
       z: [1, 2, 3],
+      source: '',
       type: "scatter",
       mode: "lines",
     },

@@ -30,6 +30,7 @@ export interface PlotControlProps {
     x: number[];
     y: number[];
     z: number[];
+    source: string;
     type: string;
     mode: string;
   }[];
@@ -39,6 +40,7 @@ export interface PlotControlProps {
         x: number[];
         y: number[];
         z: number[];
+        source: string;
         type: string;
         mode: string;
       }[]
@@ -51,6 +53,7 @@ const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
   scatter3d: ["x", "y", "z"],
   scatter: ["x", "y"],
   surface: ["x", "y", "z"],
+  image: ["x", "y"],
 };
 const PlotControl = ({
   nd,
@@ -100,8 +103,38 @@ const PlotControl = ({
     setNd,
     setPlotData,
   });
-  console.log(selectedPlotOption);
-  
+  // console.log('plot options: ' + selectedPlotOption);
+  // let imUrl = '';
+  // const imsource = plotData[0] ? 'y' in plotData[0] ? plotData[0].y ? plotData[0].y : undefined : undefined : undefined;
+  // if (imsource && imsource.length > 0) {
+  //   const pixelSize = 20;
+  //   const c = document.createElement("canvas");
+  //   c.height = imsource.length * pixelSize;
+  //   c.width = imsource.length * pixelSize;
+  //   document.body.appendChild(c);
+  //   const ctx = c.getContext("2d");
+  //   ctx?.clearRect(0, 0, c.width, c.height);
+    
+  //   for (let i = 0; i < imsource.length; i++) {
+  //       for (let j = 0; j < imsource.length; j++) {
+  //           if(ctx) {
+  //             ctx.fillStyle = "rgb("+imsource[i][j][0]+","+imsource[i][j][1]+","+imsource[i][j][2]+")";
+  //             ctx?.fillRect(i*pixelSize, j*pixelSize, pixelSize, pixelSize);
+  //           }
+  //       }
+  //   }
+    
+  //   console.log(c.toDataURL("image/png"));
+  //   const png = document.createElement("img");
+  //   png.src = c.toDataURL("image/png");
+  //   c.remove();
+  //   document.body.appendChild(png);
+  //   imUrl = c.toDataURL("image/png");
+  //   console.log("imurl: " + imUrl);
+    
+  // }
+
+
   return (
     <Fragment>
       {!isEditMode && (
@@ -172,9 +205,11 @@ const PlotControl = ({
               ...plotData[0],
               type: selectedPlotOption?.value?.type!,
               mode: selectedPlotOption?.value?.mode,
+              // source: imUrl
             },
           ]}
-          layout={styledPlotLayout(theme, plotData[0] ? 'y' in plotData[0] ? plotData[0].y ? plotData[0].y[0] : undefined : undefined : undefined )}
+          // layout={styledPlotLayout(theme, plotData[0] ? 'y' in plotData[0] ? plotData[0].y ? plotData[0].y[0] : undefined : undefined : undefined )}
+          layout={styledPlotLayout(theme)}
           style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
         />
       </div>

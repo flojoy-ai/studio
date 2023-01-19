@@ -1,8 +1,8 @@
 
+import traceback
 import cv2
 import numpy as np
 import os
-
 
 classes = []
 absolute_path = os.path.dirname(__file__) 
@@ -95,8 +95,17 @@ def detect_object(input_image):
         h = box[3]
         draw_prediction(image, class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
 
-    cv2.imwrite("obj-detection.jpg", image)
-    cv2.destroyAllWindows()    
+    filePath = "obj-detection.jpg"
+    cv2.imwrite(filePath, image)
+    cv2.destroyAllWindows() 
 
-    return image
+    try:
+        with open(filePath, "rb") as fileToBeLoaded:
+            f = fileToBeLoaded.read()
+            y = bytearray(f)
+        fileToBeLoaded.close()
+    except Exception:
+        print(traceback.format_exc())
+    return y
+    # return bytearray(image.tobytes())
 
