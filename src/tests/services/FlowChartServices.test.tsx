@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { expect, jest, it } from "@jest/globals";
 import localforage from "localforage";
 
-import { CustomError } from "../../utils/CustomError";
+import  * as CustomModule from "../../utils/CustomError";
 import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
@@ -56,7 +56,7 @@ describe("FlowChartServices", () => {
     });
 
     it.each([[undefined], [null]])(
-      "given an undefined or null flow chart object, doesnot store it in localstorage",
+      "given an %p flow chart object, doesnot store it in localstorage",
       (flowChart: undefined | null) => {
         // Given
         const setItemSpy = jest.spyOn(localforage, "setItem");
@@ -88,14 +88,9 @@ describe("FlowChartServices", () => {
       expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams);
     });
 
-    it("given /wfc api returns error, throws customized error", async () => {
+    it("given /wfc api returns error, throws custom error", async () => {
       // Given
       const testResponse = { ok: false, status: 404, statusMessage: "Error" };
-      const expectedCustomError = new CustomError({
-        statusMessage: testResponse.statusMessage,
-        statusCode: testResponse.status,
-      });
-
       jest
         .spyOn(global, "fetch")
         .mockImplementation(() => Promise.resolve(testResponse) as any);
@@ -104,15 +99,30 @@ describe("FlowChartServices", () => {
         const data = await saveAndRunFlowChartInServer(param);
       } catch (error) {
         //Expect
-        expect(error).toBeInstanceOf(CustomError); //https://jestjs.io/docs/tutorial-async#error-handling
+        expect(error).toBeInstanceOf(CustomModule.CustomError); //https://jestjs.io/docs/tutorial-async#error-handling
       }
     });
+
+    it("given /wfc api return error, throws custom error with proper parameters",()=>{
+      //Given
+      const expectedParameters = {
+        statusMessage:"test",
+        statusCode:404
+      };
+      const constructorSpy = jest.spyOn(CustomModule,'CustomError');
+
+      //When
+      new CustomModule.CustomError(expectedParameters);
+
+      //Expect
+      expect(constructorSpy).toHaveBeenCalledWith(expectedParameters)
+    })
 
     it.each([
       [{ rfInstance: undefined, jobId: "test" }],
       [{ rfInstance: null, jobId: "test" }],
     ])(
-      "given an undefined or null flow chart object, doesnot call the fetch api",
+      `given an flow chart object (%p), doesnot call the fetch api`,
       async (flowChart: any) => {
         //Given
         const fetchSpy = jest
