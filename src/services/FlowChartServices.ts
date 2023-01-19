@@ -37,7 +37,7 @@ export async function saveAndRunFlowChartInServer({
       return data
     }
     else{
-      throw new CustomError({statusCode:data.status,statusMessage:data.statusText})
+      throw new CustomError({statusCode:data.status,statusText:data.statusText})
     }
   }
 }
