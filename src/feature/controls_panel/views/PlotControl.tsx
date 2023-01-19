@@ -103,38 +103,7 @@ const PlotControl = ({
     setNd,
     setPlotData,
   });
-  // console.log('plot options: ' + selectedPlotOption);
-  // let imUrl = '';
-  // const imsource = plotData[0] ? 'y' in plotData[0] ? plotData[0].y ? plotData[0].y : undefined : undefined : undefined;
-  // if (imsource && imsource.length > 0) {
-  //   const pixelSize = 20;
-  //   const c = document.createElement("canvas");
-  //   c.height = imsource.length * pixelSize;
-  //   c.width = imsource.length * pixelSize;
-  //   document.body.appendChild(c);
-  //   const ctx = c.getContext("2d");
-  //   ctx?.clearRect(0, 0, c.width, c.height);
-    
-  //   for (let i = 0; i < imsource.length; i++) {
-  //       for (let j = 0; j < imsource.length; j++) {
-  //           if(ctx) {
-  //             ctx.fillStyle = "rgb("+imsource[i][j][0]+","+imsource[i][j][1]+","+imsource[i][j][2]+")";
-  //             ctx?.fillRect(i*pixelSize, j*pixelSize, pixelSize, pixelSize);
-  //           }
-  //       }
-  //   }
-    
-  //   console.log(c.toDataURL("image/png"));
-  //   const png = document.createElement("img");
-  //   png.src = c.toDataURL("image/png");
-  //   c.remove();
-  //   document.body.appendChild(png);
-  //   imUrl = c.toDataURL("image/png");
-  //   console.log("imurl: " + imUrl);
-    
-  // }
-
-
+  
   return (
     <Fragment>
       {!isEditMode && (
