@@ -90,7 +90,7 @@ describe("FlowChartServices", () => {
 
     it("given /wfc api returns error, throws custom error", async () => {
       // Given
-      const testResponse = { ok: false, status: 404, statusMessage: "Error" };
+      const testResponse = { ok: false, status: 404, statusText: "Error" };
       jest
         .spyOn(global, "fetch")
         .mockImplementation(() => Promise.resolve(testResponse) as any);
@@ -106,7 +106,7 @@ describe("FlowChartServices", () => {
     it("given /wfc api return error, throws custom error with proper parameters",()=>{
       //Given
       const expectedParameters = {
-        statusMessage:"test",
+        statusText:"test",
         statusCode:404
       };
       const constructorSpy = jest.spyOn(CustomModule,'CustomError');
