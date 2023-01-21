@@ -29,11 +29,10 @@ jobs:
       - name: Npm install
         run: npm install --legacy-peer-deps
 
-      - name: Runt test (unit test)
+      - name: Run Jest
         uses: stefanoeb/jest-action@1.0.3
-        run: npm run test
 
-      - name: Run test (e2e)
+      - name: Run e2e
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
