@@ -1,11 +1,19 @@
-# https://hub.docker.com/r/nikolaik/python-nodejs
-# FROM --platform=linux/amd64 flojoy-app-base-image
 FROM onscene/flojoy-base:latest
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+# Set the working directory in the container
+WORKDIR /code
 
-COPY . .
-WORKDIR '/'
+# Copy the requirements file to the container
+COPY requirements.txt .
 
-CMD [ "rq", "worker", "--url", "redis://redis:6379", "flojoy-watch" ]
+# Install the required packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code to the container
+COPY . /code/
+
+# Expose port 6379 for the redis
+EXPOSE 6379
+
+# Run the command to start the RQ worker
+CMD ["rq", "worker", "flojoy-watch", "--url", "redis://redis:6379"]

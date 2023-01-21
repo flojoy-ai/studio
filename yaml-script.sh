@@ -1,9 +1,11 @@
 #!/bin/bash
 
+
 CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
-if test -f "$FILE"; then
+if test -f "$FILE"; 
+then
    touch $HOME/.flojoy/flojoy.yaml
    echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
    echo "$FILE exists."
