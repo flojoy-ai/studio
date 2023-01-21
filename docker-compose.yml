@@ -9,6 +9,7 @@ services:
       - app_network
 
   backend:
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
@@ -21,6 +22,7 @@ services:
       - app_network
 
   flojoy-watch:
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: ./docker/flojoy-watch/Dockerfile
@@ -35,6 +37,7 @@ services:
       - app_network
       
   rq-worker:
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG:-latest}
     build:
       context: .
       dockerfile: ./docker/rq-worker/Dockerfile

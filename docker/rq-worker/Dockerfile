@@ -6,7 +6,7 @@ WORKDIR /code
 COPY requirements.txt .
 
 # Install the required packages
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY yaml-script.sh .
 
@@ -30,9 +30,6 @@ RUN python3 generate_manifest.py
 
 # # RUN CD PYTHON
 WORKDIR /code/PYTHON
-
-# Expose port 6379 for the redis
-EXPOSE 6379
 
 # Run the command to start the RQ worker
 CMD ["rq", "worker", "flojoy", "--url", "redis://redis:6379"]
