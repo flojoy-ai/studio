@@ -51,14 +51,14 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
+    "e2e": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
     "eject": "react-app-rewired eject",
     "cypress": "cypress open",
     "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
     "electron-publish": "electron-builder build --publish always -mwl",
-    "ut": "jest --coverage",
-    "ut:watch": "jest --watch --coverage"
+    "test": "CI=true jest",
+    "test:watch": "jest --watch --coverage"
   },
   "build": {
     "appId": "io.flojoy.desktop",
