@@ -1,4 +1,4 @@
-name: CI-Unit-Testing
+name: CI
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Run Jest
-        uses: stefanoeb/jest-action@1.0.3
+        run: npm run test
 
       - name: Run e2e
         uses: cypress-io/github-action@v4
