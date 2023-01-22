@@ -1,6 +1,6 @@
 {
   "name": "flojoy-desktop",
-  "version": "0.1.0",
+  "version": "0.7.2",
   "private": true,
   "homepage": "./",
   "main": "electron/main.js",
