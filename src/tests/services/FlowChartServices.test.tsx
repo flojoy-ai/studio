@@ -42,6 +42,16 @@ global.fetch = jest.fn((url) =>
   })
 ) as any;
 
+// Mocking CustomError Function
+
+jest.mock("../../utils/CustomError",()=>{
+  return {
+    CustomError:jest.fn().mockImplementation(param=>{
+      console.log(param);
+    })
+  }
+})
+
 describe("FlowChartServices", () => {
   describe("saveFlowChartToLocalStorage", () => {
     it("given a flow chart object, stores it in localstorage", () => {
