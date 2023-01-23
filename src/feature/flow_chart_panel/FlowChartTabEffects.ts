@@ -3,9 +3,7 @@ import { Node } from "reactflow";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { ResultsType } from "../results_panel/types/ResultsType";
-import {
-  FlowChartTabStateReturnType,
-} from "./FlowChartTabState";
+import { FlowChartTabStateReturnType } from "./FlowChartTabState";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 export function useFlowChartTabEffects({
@@ -34,6 +32,7 @@ export function useFlowChartTabEffects({
 
       setNd(filteredResult === undefined ? {} : filteredResult);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results, clickedElement]);
 
   useEffect(() => {
@@ -50,6 +49,7 @@ export function useFlowChartTabEffects({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedElement]);
 
   useEffect(() => {
@@ -58,6 +58,7 @@ export function useFlowChartTabEffects({
         ? "..."
         : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeLabel, nodeType, clickedElement]);
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);

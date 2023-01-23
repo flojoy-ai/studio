@@ -109,15 +109,15 @@ const FlowChartTab = ({
   };
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
-    []
+    [setNodes]
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
-    []
+    [setEdges]
   );
   const onConnect: OnConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
-    []
+    [setEdges]
   );
 
   useFlowChartTabEffects({
