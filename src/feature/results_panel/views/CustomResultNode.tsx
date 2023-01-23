@@ -13,15 +13,8 @@ const CustomResultNode = ({ data }) => {
         const fileType = data.resultData.file_type[0];
         const fileContent = data.resultData.y[0];
         data.resultData.type = fileType;
-        data.resultData.source = convertToDataUrl(fileContent, fileType);
-        console.log('data: ');
-        console.log(data.resultData);        
-  } else {
-    console.log('else data: ');
-    console.log(data.resultData);
-    
-  }
-              
+        data.resultData.source = convertToDataUrl(fileContent, fileType);       
+  }          
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">

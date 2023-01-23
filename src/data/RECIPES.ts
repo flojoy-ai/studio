@@ -887,12 +887,12 @@ export const OBJECT_DETECTION = {
           id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
           type: "default",
           position: {
-              x: 752.6444964153716,
-              y: 79.0527524900669
+            "x": 1136.6444964153716,
+            "y": 132.0527524900669
           },
           data: {
               id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-              label: "od",
+              label: "Object Detection",
               func: "OBJECT_DETECTION",
               type: "SIMULATION",
               ctrls: {}
@@ -902,12 +902,12 @@ export const OBJECT_DETECTION = {
           id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
           type: "default",
           position: {
-              x: 155.0971088944923,
-              y: 75.01818849474336
+            "x": 228.09710889449232,
+            "y": 129.01818849474336
           },
           data: {
               id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-              label: "file",
+              label: "File Loader",
               func: "LOCAL_FILE",
               type: "LOADER",
               ctrls: {
