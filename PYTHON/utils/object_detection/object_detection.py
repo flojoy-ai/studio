@@ -30,7 +30,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
     color = COLORS[class_id]
 
-    cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 2)
+    cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 1)
 
     cv2.putText(img, label, (x-5,y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 

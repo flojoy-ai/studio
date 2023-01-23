@@ -246,15 +246,27 @@ const ControlComponent = ({
         />
       )}
       {ctrlObj.name === ControlNames.LocalFileLoader && (
-        <button
-          className="save__controls_button"
-          style={{
-            color: theme === "dark" ? "#fff" : "#000",
-          }}
-          onClick={openFileSelector}
-        >
-          Load
-        </button>
+        <div className="ctrl-input-body-file" data-cy="numeric-input">
+          <input
+            type={"text"}
+            placeholder={"Please enter the full file path"}
+            className="ctrl-numeric-input border-color"
+            onChange={(e) => {
+              handleCtrlValueChange(setTextInput, e.target.value);
+            }}
+            value={currentInputValue || textInput || ""}
+            style={{ ...(theme === "dark" && { color: "#fff" }) }}
+          />
+          <button
+            className="cmd-btn-dark "
+            style={{
+              ...{color: theme === "dark" ? "#fff" : "#000"}
+            }}
+            onClick={openFileSelector}
+            >
+            Select Image File
+          </button>
+        </div>
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
