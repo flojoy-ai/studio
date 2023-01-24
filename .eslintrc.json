@@ -1,6 +1,11 @@
 {
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:cypress/recommended"
+  ],
   "rules": {
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-explicit-any": "off",

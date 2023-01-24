@@ -4,8 +4,9 @@ type Commands = {
   name: string;
   type: string;
   key: string;
-  inputs?: { name: string; id: string }[];
+  inputs?: { name: string; id: string; type: string }[];
 }[];
+
 export const COMMANDS: Commands = manifests.commands;
 
 export const SECTIONS = [
@@ -24,7 +25,7 @@ export const SECTIONS = [
       // Conditionals, Timers, & Loops
       { name: "Timers", key: "TIMER" },
       { name: "Loops", key: "LOOP" },
-      { name: "Conditionals", key: "CONDITIONAL" },
+      { name: "Conditionals", key: "CONDITIONAL" }
     ],
   },
   {

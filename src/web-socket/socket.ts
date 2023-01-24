@@ -1,11 +1,12 @@
 interface WebSocketServerProps {
   url: string;
   pingResponse: any;
-  heartbeatResponse: any;
+  onNodeResultsReceived: any;
   runningNode: any;
   failedNode: any;
   failureReason: any;
   socketId: any;
+  onClose?: (ev: CloseEvent) => void;
 }
 
 enum ResponseEnum {
@@ -17,33 +18,36 @@ enum ResponseEnum {
 export class WebSocketServer {
   private server: WebSocket;
   private pingResponse: any;
-  private heartbeatResponse: any;
+  private onNodeResultsReceived: any;
   private runningNode: any;
   private failedNode: any;
   private failureReason: any;
   private socketId: any;
+  private onClose?: (ev: CloseEvent) => void;
   constructor({
     url,
     pingResponse,
-    heartbeatResponse,
+    onNodeResultsReceived,
     runningNode,
     failedNode,
     failureReason,
     socketId,
+    onClose,
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
-    this.heartbeatResponse = heartbeatResponse;
+    this.onNodeResultsReceived = onNodeResultsReceived;
     this.runningNode = runningNode;
     this.failedNode = failedNode;
     this.failureReason = failureReason;
     this.socketId = socketId;
     this.server = new WebSocket(url);
+    this.onClose = onClose;
     this.init();
   }
   init() {
     this.server.onmessage = (ev) => {
       const data = JSON.parse(ev.data);
-      // console.log("data received: ", data.type === "heartbeat_response");
+      console.log('New WebScoket Message:', data);
       switch (data.type) {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {
@@ -56,9 +60,20 @@ export class WebSocketServer {
             }
           }
           if (ResponseEnum.nodeResults in data) {
-            this.heartbeatResponse((prev: any) => ({
-              io: [...prev.io, data[ResponseEnum.nodeResults]],
-            }));
+            this.onNodeResultsReceived((prev: any) => {
+              const isExist = prev.io.find((node)=> node.id === data[ResponseEnum.nodeResults].id)
+              if(isExist){
+                const filterResult = prev.io.filter(node => node.id !== data[ResponseEnum.nodeResults].id)
+                return {
+                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+                }
+              }
+
+              return {
+                io: [...prev.io, data[ResponseEnum.nodeResults]],
+              }
+            }
+            );
           }
           if (ResponseEnum.runningNode in data) {
             this.runningNode(data[ResponseEnum.runningNode]);
@@ -80,9 +95,11 @@ export class WebSocketServer {
           break;
       }
     };
+    this.server.onclose = this.onClose || null;
   }
   disconnect() {
-    this.server.close(0);
+    console.log('Disconnecting WebSocket server');
+    this.server.close();
   }
   emit(data: string) {
     this.server.send(

@@ -2,7 +2,7 @@ import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Display as SevenSegmentDisplay } from "react-7-segment-display";
+
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
@@ -17,6 +17,7 @@ import {
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
 import PlotControl from "./PlotControl";
+import SevenSegmentComponent from "./SevenSegmentComponent";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
@@ -85,6 +86,7 @@ const ControlComponent = ({
     theme,
     ctrlObj,
   });
+
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       setKnobValue(value);
@@ -101,7 +103,13 @@ const ControlComponent = ({
 
       setDebouncedTimerForKnobId(timerId);
     },
-    [ctrlObj, debouncedTimerForKnobId, updateCtrlValue]
+    [
+      ctrlObj,
+      debouncedTimerForKnobId,
+      setDebouncedTimerForKnobId,
+      setKnobValue,
+      updateCtrlValue,
+    ]
   );
 
   const handleCtrlValueChange = (
@@ -175,6 +183,8 @@ const ControlComponent = ({
       style={{
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
         flex: "1",
         padding: "16px",
       }}
@@ -242,15 +252,7 @@ const ControlComponent = ({
         />
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
-        <div className="seven_segment_container">
-          <SevenSegmentDisplay
-            color={ctrlObj.segmentColor || "#99F5FF"}
-            count={4}
-            height={200}
-            skew={false}
-            value={nd?.result ? nd?.result?.y![0] : 0}
-          />
-        </div>
+        <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
@@ -444,5 +446,4 @@ const ControlComponent = ({
     </div>
   );
 };
-
 export default memo(ControlComponent);

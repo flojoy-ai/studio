@@ -70,12 +70,14 @@ const App = () => {
         })
         .catch((err) => console.log("fetch example app err: ", err));
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fileName]
   );
 
   const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
     ReactFlowProvider;
   useEffect(() => {
+    setRunningNode(runningNode);
     setRunningNode(runningNode);
     setFailedNode(failedNode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,6 +86,7 @@ const App = () => {
     if (fileName) {
       fetchExampleApp(fileName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileName]);
 
   return (
