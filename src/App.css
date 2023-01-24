@@ -128,11 +128,12 @@
   /* background-color: #99f5ff4f; */
   /* border: 1px solid #99F5FF; */
   /* color: #99F5FF; */
-  background: transparent;
+  background: transparent!important;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
+  border-color: transparent!important;
 }
 
 .react-flow__edge-path {
