@@ -1,16 +1,12 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
 import { Elements } from "react-flow-renderer";
-import {parameters as PARAMETERS} from '@src/data/manifests.json'
-
-const exampleApps = [
-  { title: "flojoy.txt" },
-  { title: "flojoy_1.txt" },
-];
+import exampleApps from "./config_example_app_test.json";
+import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 describe("Example apps testing.", () => {
   exampleApps.forEach((app) => {
-    describe(`User workflow for ${app.title}`, () => {
+    describe(`User workflow for ${app.title} #${app.test_id}`, () => {
       it("Should load flow chart with all nodes from the app.", () => {
         cy.visit(`"/?test_example_app=${app.title}`, {
           onBeforeLoad(win: any) {
@@ -25,11 +21,10 @@ describe("Example apps testing.", () => {
           const nodes: Elements<ElementsData> = elements.filter(
             (elem: any) => !elem.source
           );
-          nodes.forEach(node=>{
-            cy.get(`[data-id="${node.id}"]`)
-          })
-        })
-        
+          nodes.forEach((node) => {
+            cy.get(`[data-id="${node.id}"]`);
+          });
+        });
       });
       it("Should switch to ctrl panel and add input widgets for each node parameters", () => {
         // Switch to ctrl panel tab
@@ -55,51 +50,11 @@ describe("Example apps testing.", () => {
             (elem: any) => !elem.source
           );
           nodes.forEach((node) => {
-            const param: Record<string, any> = node.data!.ctrls;
+            const nodeParams: Record<string, any> = node.data!.ctrls;
             const nodeLabel = node.data!.label;
-            if (Object.keys(param).length > 0) {
-              Object.entries(param).forEach((entry) => {
-                const [key, value] = entry;
-                // It assumes key is formatted as functionName_nodeLabel_paramName
-                const paramName = key.split("_")[2].toUpperCase();
-                const optionLabel = `${nodeLabel} ▶ ${paramName}`;
-                const defaultValue =
-                  PARAMETERS[node.data!?.func?.toUpperCase()][
-                    paramName.toLowerCase()
-                  ]["default"];
-
-                // if value is numeric
-                if (!isNaN(value.value)) {
-                  // Open add ctrl modal and add numeric input widget
-                  cy.get("[data-cy=add-ctrl]")
-                    .click()
-                    .get("button")
-                    .contains("Numeric Input")
-                    .first()
-                    .click();
-                  // open dropdown list from input widget
-                  cy.get("[id^=select-input-]")
-                    .last()
-                    .click({ force: true, multiple: true });
-                  // Select current node parameter from dropdown list
-                  cy.get("[data-cy=ctrl-grid-item]")
-                    .contains("div", optionLabel)
-                    .click({ force: true, multiple: true });
-                  // change parameter value to its default value
-                  cy.get("div").contains(optionLabel, { timeout: 1000 });
-                  cy.get(`input[type=number]`)
-                    .last()
-                    .click()
-                    .type(`{selectall}${defaultValue}`);
-                } 
-                // else {
-                  // cy.get("[data-cy=add-ctrl]")
-                  //   .click()
-                  //   .get("button")
-                  //   .contains("Text Input")
-                  //   .first()
-                  //   .click();
-                // }
+            if (Object.keys(nodeParams).length > 0) {
+              Object.entries(nodeParams).forEach((param) => {
+                createWidgetForNodeParam(node, nodeLabel, param, app);
               });
             }
           });
@@ -140,3 +95,55 @@ describe("Example apps testing.", () => {
     });
   });
 });
+
+const createInputWidget = (
+  inputName: ControlNames,
+  optionLabel: string,
+  providedValue: string | number
+) => {
+  // Open add ctrl modal and add numeric input widget
+  cy.get("[data-cy=add-ctrl]")
+    .click()
+    .get("button")
+    .contains(inputName)
+    .first()
+    .click();
+  // open dropdown list from input widget
+  cy.get("[id^=select-input-]").last().click({ force: true, multiple: true });
+  // Select current node parameter from dropdown list
+  cy.get("[data-cy=ctrl-grid-item]")
+    .contains("div", optionLabel)
+    .click({ force: true, multiple: true });
+  // change parameter value to its default value
+  cy.get("div").contains(optionLabel, { timeout: 1000 });
+  cy.get(
+    `input[type=${inputName === ControlNames.NumericInput ? "number" : "text"}]`
+  )
+    .last()
+    .click()
+    .type(`{selectall}${providedValue}`);
+};
+
+const createWidgetForNodeParam = (
+  node: any,
+  nodeLabel: string,
+  param: any,
+  app: any
+) => {
+  const [paramKey, paramValue] = param;
+  // It assumes key is formatted as functionName_nodeLabel_paramName
+  const paramName = paramKey.split("_")[2].toUpperCase();
+  const optionLabel = `${nodeLabel} ▶ ${paramName}`;
+  const defaultValue = paramValue.value;
+
+  const providedValue =
+    (app.nodes as any[])?.find((n) => n.id === node.id)?.params[
+      paramName.toLowerCase()
+    ] || defaultValue;
+  // if value is numeric
+  if (!isNaN(paramValue.value)) {
+    createInputWidget(ControlNames.NumericInput, optionLabel, providedValue);
+  } else if (typeof paramValue.value === "string") {
+    createInputWidget(ControlNames.TextInput, optionLabel, providedValue);
+  }
+};

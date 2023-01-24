@@ -1,0 +1,45 @@
+[
+  {
+    "test_id": "withParameter",
+    "title": "flojoy.txt",
+    "nodes": [
+      {
+        "id": "SINE-userGeneratedNode_1646417316016",
+        "params": {
+          "frequency": 12,
+          "offset": 1,
+          "amplitude": 10,
+          "waveform": "sawtooth"
+        }
+      },
+      {
+        "id": "LINSPACE-userGeneratedNode_1646432683694",
+        "params": {
+          "start": 0,
+          "step": 100,
+          "end": 10
+        }
+      }
+    ]
+  },
+  {
+    "test_id": "withDefaultValue",
+    "title": "flojoy.txt"
+  },
+  {
+    "title": "flojoy_1.txt",
+    "test_id": "withDefaultValue"
+  },
+  {
+    "title": "flojoy_1.txt",
+    "test_id": "withParameterChange",
+    "nodes": [
+      {
+        "id": "CONSTANT-d7d37e07-d580-4456-96fd-1c11e3a570d1",
+        "params": {
+          "constant": 45
+        }
+      }
+    ]
+  }
+]

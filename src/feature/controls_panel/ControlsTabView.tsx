@@ -117,10 +117,10 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     );
     cacheManifest(filterChilds);
 
-    if (ctrl.param) {
-      removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
-      saveAndRunFlowChart();
-    }
+    // if (ctrl.param) {
+    //   removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
+    //   saveAndRunFlowChart();
+    // }
   };
 
 const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
