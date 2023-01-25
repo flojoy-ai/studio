@@ -99,9 +99,9 @@ export function useFlowChartState() {
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
 
   const loadFlowExportObject = useCallback(
-    (flow: FlowExportObject) => {
+    (flow?: FlowExportObject<any>) => {
       if (!flow) {
-        return;
+        return 0;
       }
       setElements(flow.elements || []);
       setRfSpatialInfo({
@@ -131,6 +131,7 @@ export function useFlowChartState() {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
   const saveFile = async () => {
+    console.log(rfInstance);
     if (rfInstance) {
       const fileContent = {
         rfInstance,
@@ -239,5 +240,6 @@ export function useFlowChartState() {
     setRunningNode,
     failedNode,
     setFailedNode,
+    filesContent,
   };
 }
