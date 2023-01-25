@@ -258,7 +258,7 @@ const ControlComponent = ({
             value={currentInputValue || textInput || ""}
             style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
-          <button
+          {/* <button
             className="cmd-btn-dark "
             style={{
               ...{color: theme === "dark" ? "#fff" : "#000"}
@@ -266,7 +266,7 @@ const ControlComponent = ({
             onClick={openFileSelector}
             >
             Select File
-          </button>
+          </button> */}
         </div>
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
