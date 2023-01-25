@@ -16,33 +16,33 @@ let socketMock:any;
 
 global.WebSocket = jest.fn().mockImplementation(function (url) {
     socketMock = {
-            url: url,
-            readyState: 0,
-            CONNECTING: 0,
-            OPEN: 1,
-            CLOSING: 2,
-            CLOSED: 3,
-            send: jest.fn().mockImplementation(function(data){}),
-            close: jest.fn().mockImplementation(function () {
-                socketMock.readyState = 2;
-            }),
-            // methods to mock the internal behaviour of the real WebSocket
-            _open: function () {
-                socketMock.readyState = 1;
-                socketMock.onopen && socketMock.onopen();
-            },
-            _message: function (msg) {
-                socketMock.onmessage && socketMock.onmessage({ data: msg });
-            },
-            _error: function () {
-                socketMock.readyState = 3;
-                socketMock.onerror && socketMock.onerror();
-            },
-            _close: function () {
-                socketMock.readyState = 3;
-                socketMock.onclose && socketMock.onclose();
-            },
-        };
+        url: url,
+        readyState: 0,
+        CONNECTING: 0,
+        OPEN: 1,
+        CLOSING: 2,
+        CLOSED: 3,
+        send: jest.fn().mockImplementation(function(data){}),
+        close: jest.fn().mockImplementation(function () {
+            socketMock.readyState = 2;
+        }),
+        // methods to mock the internal behaviour of the real WebSocket
+        _open: function () {
+            socketMock.readyState = 1;
+            socketMock.onopen && socketMock.onopen();
+        },
+        _message: function (msg) {
+            socketMock.onmessage && socketMock.onmessage({ data: msg });
+        },
+        _error: function () {
+            socketMock.readyState = 3;
+            socketMock.onerror && socketMock.onerror();
+        },
+        _close: function () {
+            socketMock.readyState = 3;
+            socketMock.onclose && socketMock.onclose();
+        },
+    };
     return socketMock
 }) as any;
 

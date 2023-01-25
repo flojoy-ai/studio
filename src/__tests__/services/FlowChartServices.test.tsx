@@ -21,16 +21,6 @@ const param: any = {
 };
 
 /**
- * Mock function for localforage
- */
-jest.mock("localforage", () => ({
-  setItem: jest.fn(),
-  getItem: (cb: any) => {
-    return "data";
-  },
-}));
-
-/**
  * Mock function for fetch method
  */
 
