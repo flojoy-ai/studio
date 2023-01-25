@@ -1,10 +1,9 @@
 import { jest } from "@jest/globals";
 
 const mock = {
+  config: jest.fn(),
   setItem: jest.fn(),
-  getItem: (cb: any) => {
-    return "data";
-  },
+  getItem: jest.fn().mockImplementation(() => Promise.resolve()),
 };
 
 export default mock;
