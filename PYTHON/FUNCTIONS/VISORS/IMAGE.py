@@ -1,4 +1,4 @@
-from joyflo import flojoy
+from flojoy import flojoy
 from ..VISORS.template import init_template
 
 @flojoy

@@ -105,11 +105,13 @@ const PlotControl = ({
   });
 
   if (plotData && plotData.length > 0 && plotData[0]
-     && plotData[0].type === "image" && plotData[0].y && plotData[0].y.length > 0) {
-    const dataUrl = convertToDataUrl(plotData[0].y[0], "image");
-    plotData[0]["source"] = dataUrl;
-  }
-  
+     && plotData[0].type === "image") {
+      if (plotData[0].y && plotData[0].y.length > 0) {
+        const dataUrl = convertToDataUrl(plotData[0].y[0], "image");
+        plotData[0]["source"] = dataUrl;
+      }
+  }  
+
   return (
     <Fragment>
       {!isEditMode && (
@@ -180,7 +182,6 @@ const PlotControl = ({
               ...plotData[0],
               type: selectedPlotOption?.value?.type!,
               mode: selectedPlotOption?.value?.mode,
-              // source: imUrl
             },
           ]}
           layout={styledPlotLayout(theme)}

@@ -84,6 +84,7 @@ const ControlComponent = ({
     styledLayout,
     openFileSelector,
   } = ControlComponentState({
+    updateCtrlValue,
     theme,
     ctrlObj,
   });
@@ -264,7 +265,7 @@ const ControlComponent = ({
             }}
             onClick={openFileSelector}
             >
-            Select Image File
+            Select File
           </button>
         </div>
       )}

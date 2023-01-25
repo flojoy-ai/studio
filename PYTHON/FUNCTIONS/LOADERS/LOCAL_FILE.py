@@ -1,5 +1,5 @@
 import traceback
-from joyflo import flojoy,DataContainer
+from flojoy import flojoy,DataContainer
 
 @flojoy
 def LOCAL_FILE(v, params):
