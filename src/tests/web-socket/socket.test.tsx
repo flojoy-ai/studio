@@ -22,14 +22,9 @@ global.WebSocket = jest.fn().mockImplementation(function (url) {
             OPEN: 1,
             CLOSING: 2,
             CLOSED: 3,
-            send: jest.fn().mockImplementation(function(data){
-                socketMock.onmessage({data:data})
-            }),
+            send: jest.fn().mockImplementation(function(data){}),
             close: jest.fn().mockImplementation(function () {
                 socketMock.readyState = 2;
-            }),
-            onmessage:jest.fn().mockImplementation(function(data){
-                console.log(data);
             }),
             // methods to mock the internal behaviour of the real WebSocket
             _open: function () {
