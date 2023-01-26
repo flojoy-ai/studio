@@ -31,6 +31,7 @@ const HandleComponent = ({
                   type={"target"}
                   position={Position.Left}
                   style={{
+                    left: "-9px",
                     gap: "5px",
                     borderRadius: 0,
                     top: 30 * (i + 1) + 40,
@@ -52,8 +53,9 @@ const HandleComponent = ({
                   >
                     <div
                       style={{
-                        height: 8,
-                        width: 8,
+                        height: 15,
+                        left: "-9px",
+                        width: 15,
                         backgroundColor: "#000",
                         border: "1px solid #fff",
                       }}
@@ -76,8 +78,9 @@ const HandleComponent = ({
             position={Position.Left}
             style={{
               borderRadius: 0,
-              height: 8,
-              width: 8,
+              height: 15,
+              width: 15,
+              left: "-9px",
               ...(params.length > 0 && { top: 15 }),
             }}
             id={data.func}
@@ -89,8 +92,9 @@ const HandleComponent = ({
           position={Position.Left}
           style={{
             borderRadius: 0,
-            height: 8,
-            width: 8,
+            height: 15,
+            width: 15,
+            left: "-9px",
             ...(params.length > 0 && { top: 15 }),
           }}
           id={data.func}
@@ -106,8 +110,8 @@ const HandleComponent = ({
               ? "none"
               : "block",
           borderRadius: 0,
-          height: 8,
-          width: 8,
+          height: 15,
+          width: 15,
         }}
         id="main"
       />
@@ -151,8 +155,8 @@ const HandleComponent = ({
                   >
                     <div
                       style={{
-                        height: 8,
-                        width: 8,
+                        height: 15,
+                        width: 15,
                         backgroundColor: "#000",
                         border: "1px solid #fff",
                       }}
@@ -177,6 +181,7 @@ const HandleComponent = ({
                 type="target"
                 position={Position.Left}
                 style={{
+                  left: "-9px",
                   gap: "5px",
                   borderRadius: 0,
                   top: 30 * (i + 1) + 40,
@@ -197,8 +202,8 @@ const HandleComponent = ({
                 >
                   <div
                     style={{
-                      height: 8,
-                      width: 8,
+                      height: 15,
+                      width: 15,
                       backgroundColor: "#000",
                       border: "1px solid #fff",
                     }}
