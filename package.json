@@ -1,6 +1,6 @@
 {
   "name": "flojoy-desktop",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "homepage": "./",
   "author": "Jack Parmer <jack.parmer@proton.me>",
@@ -57,6 +57,7 @@
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
     "electron-package:win": "electron-builder build --win --publish always",
     "electron-package:linux": "electron-builder build --linux --publish always",
+    "electron-package:mac": "electron-builder build --mac --publish always",
     "electron-publish": "electron-builder build --publish always -mwl"
   },
   "build": {

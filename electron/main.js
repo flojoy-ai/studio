@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { app, BrowserWindow, dialog, Menu } = require("electron");
+const { app, BrowserWindow, dialog, Menu, ipcMain } = require("electron");
 const isProd = app.isPackaged;
 const path = require("upath");
 const child_process = require("child_process");
-
+const envPath = process.env.PATH;
+if (!(envPath?.split(":").includes("usr/local/bin"))) {
+  process.env.PATH = [...envPath.split(':'), "usr/local/bin"].join(":")
+}
 const getReleativePath = (pathStr) =>
   path.toUnix(path.join(__dirname, pathStr));
 const APP_ICON =
@@ -66,6 +69,7 @@ const createMainWindow = () => {
   });
   let isClosing = false;
   let shouldLoad = true;
+
   const command = `docker compose -f ${composeFile} up`;
   executeCommand(command, mainWindow, (response) => {
     const possibleResponseStr = ["WatchingforfilechangeswithStatReloader"];
@@ -98,9 +102,10 @@ const createMainWindow = () => {
       .then(() =>
         mainWindow.webContents.send("app_status", "Closing Flojoy...")
       );
+    const composeDownCommand = `docker compose -f ${composeFile} down`;
     isClosing = true;
     executeCommand(
-      `docker compose -f ${composeFile} down`,
+      composeDownCommand,
       mainWindow,
       (response) => {
         if (response === "EXITED_COMMAND") {
