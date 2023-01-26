@@ -1,4 +1,4 @@
-import { expect, jest, it } from "@jest/globals";
+import { expect, jest, it, beforeEach } from "@jest/globals";
 import { act, renderHook, Renderer } from "@testing-library/react-hooks";
 
 import { useFlowChartState } from "../../hooks/useFlowChartState";
@@ -161,4 +161,90 @@ describe("useFlowChartState", () => {
       expect(spy).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe("updateCtrlInputDataForNode", () => {
+    it("given a set of parameters, calls the setElement function", () => {
+      const spy = jest.spyOn(hookResult, "setElements");
+      const testData = {
+        nodeId: "2.0-userGeneratedNode_1646435677928",
+        paramId: "CONSTANT_2.0_constant",
+        inputData: {
+          functionName: "CONSTANT",
+          param: "constant",
+          value: 10,
+        },
+      };
+      act(() => {
+        hookResult.setElements(NOISY_SINE.elements);
+        hookResult.updateCtrlInputDataForNode(
+          testData.nodeId,
+          testData.paramId,
+          testData.inputData
+        );
+      });
+      expect(spy).toHaveBeenCalled();
+    });
+    it("given a node and ctrl parameter,sets value to its ctrls parameter", () => {
+      const testData = {
+        nodeId: "LINSPACE-userGeneratedNode_1646432683694",
+        paramId: "LINSPACE_Linspace_start",
+        inputData: {
+          functionName: "LINSPACE",
+          param: "start",
+          value: 20,
+        },
+      };
+
+      const expectedElements = getExpectedData(
+        "LINSPACE-userGeneratedNode_1646432683694"
+      );
+
+      act(() => {
+        hookResult.setElements(NOISY_SINE.elements);
+        hookResult.updateCtrlInputDataForNode(
+          testData.nodeId,
+          testData.paramId,
+          testData.inputData
+        );
+      });
+
+      rerender();
+
+      expect(result.current.elements).toEqual(expectedElements);
+    });
+  });
+
+  describe("removeCtrlInputDataForNode", () => {
+    const spy = jest.spyOn(hookResult, "setElements");
+    act(() => {
+      hookResult.setElements(NOISY_SINE.elements);
+      hookResult.removeCtrlInputDataForNode(
+        "LINSPACE-userGeneratedNode_1646432683694",
+        "LINSPACE_Linspace_start"
+      );
+    });
+    expect(spy).toHaveBeenCalled();
+  });
 });
+
+const getExpectedData = (id) => {
+  const returnElement = NOISY_SINE.elements;
+  return returnElement.map((element) =>
+    element.id === id
+      ? {
+          ...element,
+          data: {
+            ...element.data,
+            ctrls: {
+              ...element.data?.ctrls,
+              LINSPACE_Linspace_start: {
+                functionName: "LINSPACE",
+                param: "start",
+                value: 20,
+              },
+            },
+          },
+        }
+      : element
+  );
+};

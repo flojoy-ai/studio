@@ -131,7 +131,6 @@ export function useFlowChartState() {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
   const saveFile = async () => {
-    console.log(rfInstance);
     if (rfInstance) {
       const fileContent = {
         rfInstance,
