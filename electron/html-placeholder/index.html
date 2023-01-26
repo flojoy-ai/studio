@@ -32,8 +32,8 @@
     }
 
     .log_container {
-      height: 60px;
-      width: 60%;
+      height: 70px;
+      width: 70%;
       padding: 5px;
       background-color: black;
       color: white;
@@ -41,6 +41,7 @@
 
     .log_output {
       overflow: hidden;
+      overflow-y: scroll;
       height: 100%;
     }
 
@@ -66,7 +67,7 @@
     <h1 style="text-align: center;">Flojoy Desktop</h1>
     <div class="logo_container">
       <img src="../assets/favicon.png" height="125px" width="125px" alt="Flojoy">
-      <p>Initializing Flojoy...</p>
+      <p id="app-status"></p>
     </div>
     <div class="log_container">
       <div class="log_output">

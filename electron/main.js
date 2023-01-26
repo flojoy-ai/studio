@@ -7,9 +7,9 @@ const child_process = require("child_process");
 const getReleativePath = (pathStr) =>
   path.toUnix(path.join(__dirname, pathStr));
 const APP_ICON =
-  process.platform === "darwin"
-    ? getReleativePath("../electron/assets/favicon.icns")
-    : getReleativePath("../electron/assets/favicon.ico");
+  process.platform === "win32"
+    ? getReleativePath("../electron/assets/favicon.ico")
+    : getReleativePath("../electron/assets/favicon.icns");
 
 const executeCommand = (command, mainWindow, cb) => {
   const script = child_process.exec(command);
@@ -22,20 +22,23 @@ const executeCommand = (command, mainWindow, cb) => {
     if (cb) cb(data);
   });
   script.addListener("exit", () => {
-    dialog.showMessageBoxSync(mainWindow, {
-      message: "Something Went Wrong!",
-      detail:
-        "Something went wrong while trying to pull docker images and \n create docker containers. \n Please Re-run the app.",
-      title: " Image build Failed",
-      type: "warning",
-      icon: APP_ICON,
-    });
+    if (cb) cb("EXITED_COMMAND");
   });
 };
 
-const composeFile = isProd
-  ? "./resources/docker-compose-prod.yml"
-  : "./docker-compose.yml";
+const getComposeFilePath = () => {
+  if (!isProd) {
+    return "docker-compose.yml";
+  }
+  const fileName = "docker-compose-prod.yml";
+  if (process.platform === "win32") {
+    return `./resources/${fileName}`;
+  }
+  return getReleativePath(`../../${fileName}`);
+};
+
+const composeFile = getComposeFilePath();
+
 const createMainWindow = () => {
   Menu.setApplicationMenu(null);
   const mainWindow = new BrowserWindow({
@@ -49,37 +52,67 @@ const createMainWindow = () => {
       devTools: !isProd,
     },
   });
+  const loadingPageURL = `file://${getReleativePath(
+    "./html-placeholder/index.html"
+  )}`;
 
-  const startURL = getReleativePath("./html-placeholder/index.html");
-
-  mainWindow.loadURL(startURL);
-
+  mainWindow
+    .loadURL(loadingPageURL)
+    .then(() =>
+      mainWindow.webContents.send("app_status", "Initializing Flojoy...")
+    );
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
   });
+  let isClosing = false;
   let shouldLoad = true;
-  executeCommand(
-    `docker compose -f ${composeFile} up`,
-    mainWindow,
-    (response) => {
-      const possibleResponseStr = [
-        "***Listeningonflojoy",
-        "***Listeningonflojoy-watch",
-        "WatchingforfilechangeswithStatReloader",
-      ];
-      const textFoundInResponse = possibleResponseStr.find((str) =>
-        response.split(" ").join("").includes(str)
-      );
-      if (textFoundInResponse) {
-        if (shouldLoad) {
-          mainWindow.loadURL(
-            `file://${getReleativePath("../build/index.html")}`
-          );
-          shouldLoad = false;
-        }
+  const command = `docker compose -f ${composeFile} up`;
+  executeCommand(command, mainWindow, (response) => {
+    const possibleResponseStr = ["WatchingforfilechangeswithStatReloader"];
+    const textFoundInResponse = possibleResponseStr.find((str) =>
+      response.split(" ").join("").includes(str)
+    );
+    if (textFoundInResponse) {
+      if (shouldLoad) {
+        mainWindow.loadURL(`file://${getReleativePath("../build/index.html")}`);
+        shouldLoad = false;
       }
     }
-  );
+    if (response === "EXITED_COMMAND") {
+      if (!isClosing) {
+        dialog.showMessageBoxSync(mainWindow, {
+          message: "Failed To Run Docker Containers!",
+          detail:
+            "Something went wrong while trying to composing docker images and run docker containers. \n Closing and Reopening app may solve this problem.",
+          title: "Docker Composing Failed",
+          type: "warning",
+          icon: APP_ICON,
+        });
+      }
+    }
+  });
+
+  const composeDownAndClose = () => {
+    mainWindow
+      .loadURL(loadingPageURL)
+      .then(() =>
+        mainWindow.webContents.send("app_status", "Closing Flojoy...")
+      );
+    isClosing = true;
+    executeCommand(
+      `docker compose -f ${composeFile} down`,
+      mainWindow,
+      (response) => {
+        if (response === "EXITED_COMMAND") {
+          mainWindow.destroy();
+          if (process.platform !== "darwin") {
+            app.quit();
+          }
+          process.exit();
+        }
+      }
+    );
+  };
 
   mainWindow.on("close", async (e) => {
     e.preventDefault();
@@ -92,23 +125,14 @@ const createMainWindow = () => {
     };
     const { response } = await dialog.showMessageBox(mainWindow, options);
     if (response === 0) {
-      child_process.exec(`docker compose -f ${composeFile} down`);
-      mainWindow.destroy();
-      if (process.platform !== "darwin") {
-        app.quit();
-      }
-      process.exit();
+      composeDownAndClose();
     }
   });
 
   mainWindow.on("closed", () => {
-    mainWindow.destroy();
-    child_process.exec(`docker compose -f ${composeFile} down`);
-    if (process.platform !== "darwin") {
-      app.quit();
-    }
-    process.exit();
+    composeDownAndClose();
   });
+
   mainWindow.webContents.setWindowOpenHandler((details) => {
     const { url } = details;
     mainWindow.loadURL(url);

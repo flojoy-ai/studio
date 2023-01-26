@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "private": true,
   "homepage": "./",
+  "author":"Jack Parmer <jack.parmer@proton.me>",
   "main": "electron/main.js",
   "dependencies": {
     "@types/jest": "^28.1.4",
@@ -55,11 +56,12 @@
     "electron-dev": "electron .",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
     "electron-package:win": "electron-builder build --win --publish always",
+    "electron-package:linux": "electron-builder build --linux --publish always",
     "electron-publish": "electron-builder build --publish always -mwl"
   },
   "build": {
     "appId": "io.flojoy.desktop",
-    "productName": "Flojoy Desktop",
+    "productName": "Flojoy-Desktop",
     "asar": true,
     "icon": "electron/assets/favicon.ico",
     "files": [
@@ -81,8 +83,9 @@
       "darkModeSupport": true
     },
     "linux": {
-      "icon": "electron/assets/favicon.ico",
+      "icon": "electron/assets/favicon.icns",
       "target": [
+        "deb",
         "tar.gz"
       ]
     },
