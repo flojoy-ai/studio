@@ -8,8 +8,29 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 # Flojoy Quickstart
 
+- [Run Flojoy with Docker](#run-flojoy-on-docker)
 - [Run Flojoy without Docker (Mac/Linux only)](#run-flojoy-without-docker-maclinux-only)
-- [Run Flojoy with Docker](#run-flojoy-on-docker-windows)
+
+## Run Flojoy on Docker
+
+1. Install Docker if you haven't already (https://docs.docker.com/get-docker/).
+2. Clone this project and `cd` into the project root in your CLI (such as Terminal for Mac or PowerShell for Windows).
+3. Run `docker compose up` on the CLI to build, create and run the containers, networks and volumes. The first time, it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
+4. Run `npm start`
+5. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
+
+Run `docker compose down` to stop and remove the containers, networks and volumes.
+
+Note: You can develop in Docker as the volumes have been mapped to the containers.
+
+### View logs of any service
+
+Currently there are four Docker services.
+**redis**, **rq-worker**, **backend**, **frontend**
+
+To follow realtime log of any of them, open up a terminal and run:
+`docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
+You can also use the docker-desktop to control and check logs for the services.
 
 ## Run Flojoy without Docker (Mac/Linux only)
 
@@ -26,31 +47,12 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
    - If you have not installed python packages manually, provide `-p` argument to install required python packages. 
    - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
 
-## Run Flojoy on Docker (Windows)
-
-1. Install Docker if you haven't already (https://docs.docker.com/get-docker/).
-2. Clone this project and `cd` into the project root in your CLI (such as Terminal for Mac or PowerShell for Windows).
-3. Run `docker compose up` on the CLI to build, create and run the containers, networks and volumes. The first time, it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
-4. Run `npm start`
-5. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
-
-Run `docker compose down` to stop and remove the containers, networks and volumes.
-
-### View logs of any service
-
-Currently there are four services.
-**redis**, **rq-worker**, **backend**, **frontend**
-
-To follow realtime log of any of them, open up a terminal and run:
-`docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
-You can also use the docker-desktop to control and check logs for the services.
-
 # Running ElectronJS locally
 
 If you'd like to run Flojoy as an Electron app:
 
-1. Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
-Put any specific tag value if you need, or use the latest.
+1. (Optional) Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
+Put any specific tag value if you need, otherwise Docker will use the latest by default.
 ```
 BACKEND_IMAGE_TAG=latest
 RQ_WORKER_IMAGE_TAG=latest
@@ -66,7 +68,7 @@ Currently there are two CD workflows.
 1. [Base image CD](.github/workflows/cd_image.yaml): Builds and pushes the base image used in [the docker files](./docker).
 2. [CD](.github/workflows/cd.yaml): Runsi if a version tag is added. It builds packages, creates executables and creates github release with those artifacts.
 
-#### Using CD to build executables
+## Using CD to build executables
 
 The CD workflow is triggered when any change is pushed to any tag. So, to trigger it,
 
