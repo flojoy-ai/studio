@@ -1,9 +1,9 @@
 {
   "name": "flojoy-desktop",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "private": true,
   "homepage": "./",
-  "author":"Jack Parmer <jack.parmer@proton.me>",
+  "author": "Jack Parmer <jack.parmer@proton.me>",
   "main": "electron/main.js",
   "dependencies": {
     "@types/jest": "^28.1.4",
