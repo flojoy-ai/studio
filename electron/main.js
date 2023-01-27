@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { app, BrowserWindow, dialog, Menu, ipcMain } = require("electron");
+const { app, BrowserWindow, dialog, Menu } = require("electron");
 const isProd = app.isPackaged;
 const path = require("upath");
 const child_process = require("child_process");
+const { getErrorDetail } = require("./error-helper");
 const envPath = process.env.PATH;
-if (!(envPath?.split(":").includes("usr/local/bin"))) {
-  process.env.PATH = [...envPath.split(':'), "usr/local/bin"].join(":")
+if (!envPath?.split(":").includes("usr/local/bin")) {
+  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
 }
 const getReleativePath = (pathStr) =>
   path.toUnix(path.join(__dirname, pathStr));
@@ -69,8 +70,9 @@ const createMainWindow = () => {
   });
   let isClosing = false;
   let shouldLoad = true;
+  let lastResponse = "";
 
-  const command = `docker compose -f ${composeFile} up`;
+  const command = `docker-compose -f ${composeFile} up`;
   executeCommand(command, mainWindow, (response) => {
     const possibleResponseStr = ["WatchingforfilechangeswithStatReloader"];
     const textFoundInResponse = possibleResponseStr.find((str) =>
@@ -84,15 +86,17 @@ const createMainWindow = () => {
     }
     if (response === "EXITED_COMMAND") {
       if (!isClosing) {
+        const { message, detail } = getErrorDetail(lastResponse);
         dialog.showMessageBoxSync(mainWindow, {
-          message: "Failed To Run Docker Containers!",
-          detail:
-            "Something went wrong while trying to composing docker images and run docker containers. \n Closing and Reopening app may solve this problem.",
-          title: "Docker Composing Failed",
-          type: "warning",
+          title: "  Failed To Run Docker Containers",
+          message,
+          detail,
+          type: "error",
           icon: APP_ICON,
         });
       }
+    } else {
+      lastResponse = response;
     }
   });
 
@@ -102,21 +106,17 @@ const createMainWindow = () => {
       .then(() =>
         mainWindow.webContents.send("app_status", "Closing Flojoy...")
       );
-    const composeDownCommand = `docker compose -f ${composeFile} down`;
+    const composeDownCommand = `docker-compose -f ${composeFile} down`;
     isClosing = true;
-    executeCommand(
-      composeDownCommand,
-      mainWindow,
-      (response) => {
-        if (response === "EXITED_COMMAND") {
-          mainWindow.destroy();
-          if (process.platform !== "darwin") {
-            app.quit();
-          }
-          process.exit();
+    executeCommand(composeDownCommand, mainWindow, (response) => {
+      if (response === "EXITED_COMMAND") {
+        mainWindow.destroy();
+        if (process.platform !== "darwin") {
+          app.quit();
         }
+        process.exit();
       }
-    );
+    });
   };
 
   mainWindow.on("close", async (e) => {
