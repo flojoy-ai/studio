@@ -1,1 +1,1 @@
-__all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE"]
+__all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]

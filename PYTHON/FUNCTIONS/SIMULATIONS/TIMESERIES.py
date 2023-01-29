@@ -1,4 +1,4 @@
-import numpy as np, to_numpy
+import numpy as np
 from flojoy import flojoy, DataContainer
 import pandas.util.testing as testing
 import traceback
