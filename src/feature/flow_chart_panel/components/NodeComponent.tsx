@@ -5,7 +5,7 @@ import BarChart from "./nodes/bar";
 import Histogram from "./nodes/Histogram";
 import LineChart from "./nodes/line-chart";
 import Scatter from "./nodes/Scatter";
-import { AddBGTemplate, AddSvg, MultiplySvg } from "../svgs/add-multiply-svg";
+import { AddBGTemplate, AddSvg, MultiplySvg, AtSvg} from "../svgs/add-multiply-svg";
 import { BGTemplate } from "../svgs/histo-scatter-svg";
 import { CustomNodeProps, ElementsData } from "../types/CustomNodeProps";
 
@@ -19,7 +19,7 @@ const NodeComponent = ({
   params: ElementsData["inputs"];
   additionalInfos: any;
 }) => {
-  if (data.func === "MULTIPLY" || data.func === "ADD") {
+  if (data.func === "MULTIPLY" || data.func === "ADD" || data.func === "MATMUL") {
     return (
       <Fragment>
         <AddBGTemplate />
@@ -36,6 +36,17 @@ const NodeComponent = ({
         )}
         {data.func === "ADD" && (
           <AddSvg
+            style={{
+              position: "absolute",
+              top: "47px",
+              left: "29px",
+              height: "19px",
+              width: "18px",
+            }}
+          />
+        )}
+        {data.func === "MATMUL" && (
+          <AtSvg
             style={{
               position: "absolute",
               top: "47px",
