@@ -88,7 +88,11 @@ export const NOISY_SINE = {
             param: "frequency",
             value: 1,
           },
-          SINE_SINE_offset: { functionName: "SINE", param: "offset", value: 0 },
+          SINE_SINE_offset: {
+            functionName: "SINE",
+            param: "offset",
+            value: 0,
+          },
           SINE_SINE_amplitude: {
             functionName: "SINE",
             param: "amplitude",
@@ -101,93 +105,61 @@ export const NOISY_SINE = {
           },
         },
       },
-      position: nodePosition.sine,
-      type: "default",
-    },
-    {
-      id: "MULTIPLY-userGeneratedNode_1646417352715",
-      data: {
-        id: "MULTIPLY-userGeneratedNode_1646417352715",
-
-        label: "X",
-        func: "MULTIPLY",
-        type: "TRANSFORMER",
-        ctrls: {},
-        inputs: [
-          {
-            name: "y",
-            id: "multiply_y",
-            type:"source"
-          },
-        ],
+      position: {
+        x: 291,
+        y: 105,
       },
-      position: nodePosition.multiply,
       type: "default",
     },
     {
       id: "RAND-userGeneratedNode_1646417371398",
       data: {
         id: "RAND-userGeneratedNode_1646417371398",
-
         label: "RAND",
         func: "RAND",
         type: "SIMULATION",
         ctrls: {},
       },
-      position: nodePosition.rand,
-      type: "default",
-    },
-    {
-      id: "ADD-userGeneratedNode_1646417428589",
-      data: {
-        id: "ADD-userGeneratedNode_1646417428589",
-
-        label: "+",
-        func: "ADD",
-        type: "TRANSFORMER",
-        ctrls: {},
-        inputs: [
-          {
-            name: "y",
-            id: "add_y",
-            type:"source"
-          },
-        ],
+      position: {
+        x: 291,
+        y: 322,
       },
-      position: nodePosition.add,
       type: "default",
     },
     {
       id: "SCATTER-userGeneratedNode_1646417560399",
+      type: "default",
+      position: {
+        x: 1079,
+        y: 491,
+      },
       data: {
         id: "SCATTER-userGeneratedNode_1646417560399",
-
         label: "SCATTER",
         func: "SCATTER",
         type: "VISOR",
         ctrls: {},
       },
-      position: nodePosition.scatter,
-      type: "default",
     },
     {
       id: "HISTOGRAM-userGeneratedNode_1646417604301",
+      type: "default",
+      position: {
+        x: 1048,
+        y: 126,
+      },
       data: {
         id: "HISTOGRAM-userGeneratedNode_1646417604301",
-
         label: "HISTOGRAM",
         func: "HISTOGRAM",
         type: "VISOR",
         ctrls: {},
       },
-      position: nodePosition.histogram,
-      type: "default",
     },
     {
       id: "LINSPACE-userGeneratedNode_1646432683694",
       data: {
         id: "LINSPACE-userGeneratedNode_1646432683694",
-
         label: "Linspace",
         func: "LINSPACE",
         type: "SIMULATION",
@@ -209,14 +181,16 @@ export const NOISY_SINE = {
           },
         },
       },
-      position: nodePosition.linspace,
+      position: {
+        x: 0,
+        y: 322,
+      },
       type: "default",
     },
     {
       id: "2.0-userGeneratedNode_1646435677928",
       data: {
         id: "2.0-userGeneratedNode_1646435677928",
-
         label: "2.0",
         func: "CONSTANT",
         type: "SIMULATION",
@@ -228,57 +202,11 @@ export const NOISY_SINE = {
           },
         },
       },
-      position: nodePosition[2],
+      position: {
+        x: 291,
+        y: 479,
+      },
       type: "default",
-    },
-    {
-      id: "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
-      data: {
-        id: "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
-
-        label: "3D Scatter",
-        func: "SCATTER3D",
-        type: "VISOR",
-        ctrls: {},
-        inputs: [],
-      },
-      position: nodePosition.scatter3d,
-    },
-    {
-      id: "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
-      data: {
-        id: "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
-
-        label: "3D Surface",
-        func: "SURFACE3D",
-        type: "VISOR",
-        ctrls: {},
-      },
-      position: nodePosition.surface3d,
-    },
-    {
-      id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      data: {
-        id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-
-        label: "Line",
-        func: "LINE",
-        type: "VISOR",
-        ctrls: {},
-      },
-      position: nodePosition.line,
-    },
-    {
-      id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      data: {
-        id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-
-        label: "Bar",
-        func: "BAR",
-        type: "VISOR",
-        ctrls: {},
-      },
-      position: nodePosition.bar,
     },
     {
       source: "LINSPACE-userGeneratedNode_1646432683694",
@@ -305,92 +233,90 @@ export const NOISY_SINE = {
       id: "reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-CONSTANT-b4d8b0a2-09a6-4104-bbf8-3fee98cf7cb7CONSTANT",
     },
     {
-      source: "SINE-userGeneratedNode_1646417316016",
-      sourceHandle: null,
-      target: "MULTIPLY-userGeneratedNode_1646417352715",
-      targetHandle: null,
-      id: "reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
+      id: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536",
+      type: "default",
+      position: {
+        x: 564.1552215762865,
+        y: 207.5827650839198,
+      },
+      data: {
+        id: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536",
+        label: "x",
+        func: "MULTIPLY",
+        type: "ARITHMETIC",
+        ctrls: {},
+        inputs: [
+          {
+            name: "y",
+            id: "multiply_y",
+            type: "target",
+          },
+        ],
+      },
     },
-    // {
-    //   source: "RAND-userGeneratedNode_1646417371398",
-    //   sourceHandle: null,
-    //   target: "MULTIPLY-userGeneratedNode_1646417352715",
-    //   targetHandle: "MULTIPLY",
-    //   id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY",
-    // },
+    {
+      source: "SINE-userGeneratedNode_1646417316016",
+      sourceHandle: "main",
+      target: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536",
+      targetHandle: "MULTIPLY",
+      id: "reactflow__edge-SINE-userGeneratedNode_1646417316016main-MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536MULTIPLY",
+    },
     {
       source: "RAND-userGeneratedNode_1646417371398",
-      sourceHandle: null,
-      target: "MULTIPLY-userGeneratedNode_1646417352715",
+      sourceHandle: "main",
+      target: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536",
       targetHandle: "multiply_y",
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715multiply_y",
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398main-MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536multiply_y",
     },
     {
-      source: "MULTIPLY-userGeneratedNode_1646417352715",
-      sourceHandle: null,
-      target: "ADD-userGeneratedNode_1646417428589",
-      targetHandle: "ADD",
-      id: "reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589ADD",
+      id: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
+      type: "default",
+      position: {
+        x: 743.2679305266961,
+        y: 365.8735862543305,
+      },
+      data: {
+        id: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
+        label: "+",
+        func: "ADD",
+        type: "ARITHMETIC",
+        ctrls: {},
+        inputs: [
+          {
+            name: "y",
+            id: "add_y",
+            type: "target",
+          },
+        ],
+      },
     },
-    // {
-    //   source: "2.0-userGeneratedNode_1646435677928",
-    //   sourceHandle: null,
-    //   target: "ADD-userGeneratedNode_1646417428589",
-    //   targetHandle: "ADD",
-    //   id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589ADD",
-    // },
+    {
+      source: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536",
+      sourceHandle: "main",
+      target: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
+      targetHandle: "ADD",
+      id: "reactflow__edge-MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536main-ADD-9aa284e5-315b-4861-bbfe-571edeebd18eADD",
+    },
     {
       source: "2.0-userGeneratedNode_1646435677928",
-      sourceHandle: null,
-      target: "ADD-userGeneratedNode_1646417428589",
+      sourceHandle: "main",
+      target: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
       targetHandle: "add_y",
-      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589add_y",
+      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928main-ADD-9aa284e5-315b-4861-bbfe-571edeebd18eadd_y",
     },
     {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
+      source: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
+      sourceHandle: "main",
       target: "SCATTER-userGeneratedNode_1646417560399",
       targetHandle: "SCATTER",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER-userGeneratedNode_1646417560399SCATTER",
+      id: "reactflow__edge-ADD-9aa284e5-315b-4861-bbfe-571edeebd18emain-SCATTER-userGeneratedNode_1646417560399SCATTER",
     },
     {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
+      source: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e",
+      sourceHandle: "main",
       target: "HISTOGRAM-userGeneratedNode_1646417604301",
       targetHandle: "HISTOGRAM",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-HISTOGRAM-userGeneratedNode_1646417604301HISTOGRAM",
-    },
-
-    {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
-      target: "SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484",
-      targetHandle: "SCATTER3D",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SCATTER3D-b63b2090-56f0-41c4-8048-1b34aa59c484SCATTER3D",
-    },
-
-    {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
-      target: "SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480d",
-      targetHandle: "SURFACE3D",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-SURFACE3D-5da867c0-be71-4f76-9f7c-5e53c0b7480dSURFACE3D",
-    },
-
-    {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
-      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      targetHandle: "LINE",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bLINE",
-    },
-
-    {
-      source: "ADD-userGeneratedNode_1646417428589",
-      sourceHandle: null,
-      target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      targetHandle: "BAR",
-      id: "reactflow__edge-ADD-userGeneratedNode_1646417428589null-BAR-6106326f-ff85-4940-9f5b-018381e2e2ceBAR",
+      id: "reactflow__edge-ADD-9aa284e5-315b-4861-bbfe-571edeebd18emain-HISTOGRAM-userGeneratedNode_1646417604301HISTOGRAM",
     },
   ],
   position: [0, 0],
@@ -400,118 +326,112 @@ export const NOISY_SINE = {
 export const LOOP_APP = {
   elements: [
     {
-      "id": "LINSPACE-userGeneratedNode_1646432683694",
-      "data": {
-        "id": "LINSPACE-userGeneratedNode_1646432683694",
-        "label": "LINSPACE",
-        "func": "LINSPACE",
-        "type": "SIMULATION",
-        "ctrls": {
-          "LINSPACE_LINSPACE_start": {
-            "functionName": "LINSPACE",
-            "param": "start",
-            "value": 1
+      id: "LINSPACE-userGeneratedNode_1646432683694",
+      data: {
+        id: "LINSPACE-userGeneratedNode_1646432683694",
+        label: "LINSPACE",
+        func: "LINSPACE",
+        type: "SIMULATION",
+        ctrls: {
+          LINSPACE_LINSPACE_start: {
+            functionName: "LINSPACE",
+            param: "start",
+            value: 1,
           },
-          "LINSPACE_LINSPACE_end": {
-            "functionName": "LINSPACE",
-            "param": "end",
-            "value": 14
+          LINSPACE_LINSPACE_end: {
+            functionName: "LINSPACE",
+            param: "end",
+            value: 14,
           },
-          "LINSPACE_LINSPACE_step": {
-            "functionName": "LINSPACE",
-            "param": "step",
-            "value": 3
-          }
-        }
+          LINSPACE_LINSPACE_step: {
+            functionName: "LINSPACE",
+            param: "step",
+            value: 3,
+          },
+        },
       },
-      "position": {
-        "x": -61,
-        "y": 268
+      position: {
+        x: -61,
+        y: 268,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "LOOP-userGeneratedNode_1646417604301",
-      "data": {
-        "id": "LOOP-userGeneratedNode_1646417604301",
-        "label": "LOOP",
-        "func": "LOOP",
-        "type": "LOOP",
-        "ctrls": {
-          "LOOP_LOOP_initial_count": {
-            "value": 0,
-            "param": "initial_count"
+      id: "LOOP-userGeneratedNode_1646417604301",
+      data: {
+        id: "LOOP-userGeneratedNode_1646417604301",
+        label: "LOOP",
+        func: "LOOP",
+        type: "LOOP",
+        ctrls: {
+          LOOP_LOOP_initial_count: {
+            value: 0,
+            param: "initial_count",
           },
-          "LOOP_LOOP_iteration_count": {
-            "value": 2,
-            "param": "iteration_count"
+          LOOP_LOOP_iteration_count: {
+            value: 2,
+            param: "iteration_count",
           },
-          "LOOP_LOOP_step":{
-            "value":1,
-            "param":"step"
-          }
+          LOOP_LOOP_step: {
+            value: 1,
+            param: "step",
+          },
         },
         inputs: [
           {
             name: "end",
-            id: "end"
+            id: "end",
           },
           {
             name: "body",
             id: "body",
-          }
-        ]
+          },
+        ],
       },
-      "position": {
-        "x": 265,
-        "y": 281
+      position: {
+        x: 265,
+        y: 281,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "RAND-userGeneratedNode_1646417371398",
-      "data": {
-        "id": "RAND-userGeneratedNode_1646417371398",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATION",
-        "ctrls": {
-
-        }
+      id: "RAND-userGeneratedNode_1646417371398",
+      data: {
+        id: "RAND-userGeneratedNode_1646417371398",
+        label: "RAND",
+        func: "RAND",
+        type: "SIMULATION",
+        ctrls: {},
       },
-      "position": {
-        "x": 550,
-        "y": 619
+      position: {
+        x: 550,
+        y: 619,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "RAND-userGeneratedNode_1646417371399",
-      "data": {
-        "id": "RAND-userGeneratedNode_1646417371399",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATION",
-        "ctrls": {
-
-        }
+      id: "RAND-userGeneratedNode_1646417371399",
+      data: {
+        id: "RAND-userGeneratedNode_1646417371399",
+        label: "RAND",
+        func: "RAND",
+        type: "SIMULATION",
+        ctrls: {},
       },
-      "position": {
-        "x": 550,
-        "y": 619
+      position: {
+        x: 550,
+        y: 619,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "MULTIPLY-userGeneratedNode_1646417352715",
-      "data": {
-        "id": "MULTIPLY-userGeneratedNode_1646417352715",
-        "label": "MULTIPLY",
-        "func": "MULTIPLY",
-        "type": "TRANSFORMER",
-        "ctrls": {
-
-        },
+      id: "MULTIPLY-userGeneratedNode_1646417352715",
+      data: {
+        id: "MULTIPLY-userGeneratedNode_1646417352715",
+        label: "MULTIPLY",
+        func: "MULTIPLY",
+        type: "TRANSFORMER",
+        ctrls: {},
         inputs: [
           {
             name: "y",
@@ -519,41 +439,41 @@ export const LOOP_APP = {
           },
         ],
       },
-      "position": {
-        "x": 715,
-        "y": 495
+      position: {
+        x: 715,
+        y: 495,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "CONDITIONAL-userGeneratedNode_1646435677929",
-      "data": {
-        "id": "CONDITIONAL-userGeneratedNode_1646435677929",
-        "label": "CONDITIONAL",
-        "func": "CONDITIONAL",
-        "type": "COMPARATOR",
-        "ctrls": {
-          "CONDITIONAL_CONDITIONAL_operator_type": {
-            "param": "operator_type",
-            "value": ">"
-          }
+      id: "CONDITIONAL-userGeneratedNode_1646435677929",
+      data: {
+        id: "CONDITIONAL-userGeneratedNode_1646435677929",
+        label: "CONDITIONAL",
+        func: "CONDITIONAL",
+        type: "COMPARATOR",
+        ctrls: {
+          CONDITIONAL_CONDITIONAL_operator_type: {
+            param: "operator_type",
+            value: ">",
+          },
         },
         inputs: [
           {
             name: "x",
-            id: "first"
+            id: "first",
           },
           {
             name: "y",
             id: "second",
-          }
-        ]
+          },
+        ],
       },
-      "position": {
-        "x": 900,
-        "y": 426
+      position: {
+        x: 900,
+        y: 426,
       },
-      "type": "default"
+      type: "default",
     },
     {
       id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
@@ -566,7 +486,7 @@ export const LOOP_APP = {
       },
       position: {
         x: 901,
-        y: 212
+        y: 212,
       },
     },
     {
@@ -580,88 +500,85 @@ export const LOOP_APP = {
       },
       position: {
         x: 907,
-        y: -16
+        y: -16,
       },
     },
     {
-      "source": "LINSPACE-userGeneratedNode_1646432683694",
-      "sourceHandle": null,
-      "target": "LOOP-userGeneratedNode_1646417604301",
-      "targetHandle": null,
-      "id": "LINSPACE-userGeneratedNode_1646432683694null-LOOP-userGeneratedNode_1646417604301null",
-      "type": "default",
+      source: "LINSPACE-userGeneratedNode_1646432683694",
+      sourceHandle: null,
+      target: "LOOP-userGeneratedNode_1646417604301",
+      targetHandle: null,
+      id: "LINSPACE-userGeneratedNode_1646432683694null-LOOP-userGeneratedNode_1646417604301null",
+      type: "default",
     },
     {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "targetHandle": null,
-      "target": "RAND-userGeneratedNode_1646417371398",
-      "sourceHandle": "body",
-      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-RAND-userGeneratedNode_1646417371398null",
-      "type": "default",
+      source: "LOOP-userGeneratedNode_1646417604301",
+      targetHandle: null,
+      target: "RAND-userGeneratedNode_1646417371398",
+      sourceHandle: "body",
+      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-RAND-userGeneratedNode_1646417371398null",
+      type: "default",
     },
     {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": "body",
-      "target": "MULTIPLY-userGeneratedNode_1646417352715",
-      "targetHandle": null,
-      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-MULTIPLY-userGeneratedNode_1646417352715null",
-      "type": "default",
+      source: "LOOP-userGeneratedNode_1646417604301",
+      sourceHandle: "body",
+      target: "MULTIPLY-userGeneratedNode_1646417352715",
+      targetHandle: null,
+      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-MULTIPLY-userGeneratedNode_1646417352715null",
+      type: "default",
     },
     {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": "body",
-      "target": "CONDITIONAL-userGeneratedNode_1646435677929",
-      "targetHandle": null,
-      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-CONDITIONAL-userGeneratedNode_1646435677929null",
-      "type": "default",
+      source: "LOOP-userGeneratedNode_1646417604301",
+      sourceHandle: "body",
+      target: "CONDITIONAL-userGeneratedNode_1646435677929",
+      targetHandle: null,
+      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      type: "default",
     },
     {
-      "source": "RAND-userGeneratedNode_1646417371398",
-      "sourceHandle": null,
-      "target": "MULTIPLY-userGeneratedNode_1646417352715",
-      "targetHandle": "multiply_y",
-      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
-      "type": "default",
+      source: "RAND-userGeneratedNode_1646417371398",
+      sourceHandle: null,
+      target: "MULTIPLY-userGeneratedNode_1646417352715",
+      targetHandle: "multiply_y",
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
+      type: "default",
     },
     {
-      "source": "MULTIPLY-userGeneratedNode_1646417352715",
-      "sourceHandle": null,
-      "target": "RAND-userGeneratedNode_1646417371399",
-      "targetHandle": null,
-      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371399null-RAND-userGeneratedNode_1646417371399null",
-      "type": "default",
+      source: "MULTIPLY-userGeneratedNode_1646417352715",
+      sourceHandle: null,
+      target: "RAND-userGeneratedNode_1646417371399",
+      targetHandle: null,
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-RAND-userGeneratedNode_1646417371399null",
+      type: "default",
     },
     {
-      "source": "RAND-userGeneratedNode_1646417371399",
-      "sourceHandle": null,
-      "target": "CONDITIONAL-userGeneratedNode_1646435677929",
-      "targetHandle": null,
-      "id": "reactflow__edge-RAND-userGeneratedNode_1646417371399null-CONDITIONAL-userGeneratedNode_1646435677929null",
-      "type": "default",
+      source: "RAND-userGeneratedNode_1646417371399",
+      sourceHandle: null,
+      target: "CONDITIONAL-userGeneratedNode_1646435677929",
+      targetHandle: null,
+      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-CONDITIONAL-userGeneratedNode_1646435677929null",
+      type: "default",
     },
     {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": "end",
-      "target": "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      "targetHandle": null,
-      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
-      "type": "default",
+      source: "LOOP-userGeneratedNode_1646417604301",
+      sourceHandle: "end",
+      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      targetHandle: null,
+      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
+      type: "default",
     },
     {
-      "source": "LOOP-userGeneratedNode_1646417604301",
-      "sourceHandle": "end",
-      "target": "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      "targetHandle": null,
-      "id": "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
-      "type": "default",
+      source: "LOOP-userGeneratedNode_1646417604301",
+      sourceHandle: "end",
+      target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
+      targetHandle: null,
+      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
+      type: "default",
     },
   ],
-  "position": [
-    0,
-    0
-  ],
-  "zoom": 1
-}
+  position: [0, 0],
+  zoom: 1,
+};
 
 export const CONDITIONAL = {
   elements: [
@@ -681,8 +598,8 @@ export const CONDITIONAL = {
         },
       },
       position: {
-        x:96,
-        y:46
+        x: 96,
+        y: 46,
       },
       type: "default",
     },
@@ -702,40 +619,40 @@ export const CONDITIONAL = {
         },
       },
       position: {
-        x:145,
-        y:400
+        x: 145,
+        y: 400,
       },
       type: "default",
     },
     {
-      "id": "CONDITIONAL-userGeneratedNode_1646435677929",
-      "data": {
-        "id": "CONDITIONAL-userGeneratedNode_1646435677929",
-        "label": "CONDITIONAL",
-        "func": "CONDITIONAL",
-        "type": "COMPARATOR",
-        "ctrls": {
-          "CONDITIONAL_CONDITIONAL_operator_type": {
-            "param": "operator_type",
-            "value": ">"
-          }
+      id: "CONDITIONAL-userGeneratedNode_1646435677929",
+      data: {
+        id: "CONDITIONAL-userGeneratedNode_1646435677929",
+        label: "CONDITIONAL",
+        func: "CONDITIONAL",
+        type: "COMPARATOR",
+        ctrls: {
+          CONDITIONAL_CONDITIONAL_operator_type: {
+            param: "operator_type",
+            value: ">",
+          },
         },
         inputs: [
           {
             name: "x",
-            id: "first"
+            id: "first",
           },
           {
             name: "y",
             id: "second",
-          }
+          },
         ],
       },
-      "position": {
-        "x": 500,
-        "y": 218
+      position: {
+        x: 500,
+        y: 218,
       },
-      "type": "default"
+      type: "default",
     },
     {
       id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
@@ -747,8 +664,8 @@ export const CONDITIONAL = {
         ctrls: {},
       },
       position: {
-        x:1203,
-        y:308
+        x: 1203,
+        y: 308,
       },
     },
     {
@@ -761,62 +678,58 @@ export const CONDITIONAL = {
         ctrls: {},
       },
       position: {
-        x:1157,
-        y:-48
+        x: 1157,
+        y: -48,
       },
     },
     {
-      id:"TIMER-userGeneratedNode_1646435677929",
-      data:{
-        id:"TIMER-userGeneratedNode_1646435677929",
-        label:'TIMER',
-        func:'TIMER',
-        type:'TIMER',
-        ctrls :{
-          "TIMER_TIMER_sleep_time":{
-            "param":'sleep_time',
-            "value":3
-          }
+      id: "TIMER-userGeneratedNode_1646435677929",
+      data: {
+        id: "TIMER-userGeneratedNode_1646435677929",
+        label: "TIMER",
+        func: "TIMER",
+        type: "TIMER",
+        ctrls: {
+          TIMER_TIMER_sleep_time: {
+            param: "sleep_time",
+            value: 3,
+          },
         },
       },
-      "position": {
-        x:256,
-        y:146
+      position: {
+        x: 256,
+        y: 146,
       },
     },
     {
-      "id": "RAND-userGeneratedNode_1646417371398",
-      "data": {
-        "id": "RAND-userGeneratedNode_1646417371398",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATION",
-        "ctrls": {
-
-        }
+      id: "RAND-userGeneratedNode_1646417371398",
+      data: {
+        id: "RAND-userGeneratedNode_1646417371398",
+        label: "RAND",
+        func: "RAND",
+        type: "SIMULATION",
+        ctrls: {},
       },
-      "position": {
-        "x": 887,
-        "y": 393
+      position: {
+        x: 887,
+        y: 393,
       },
-      "type": "default"
+      type: "default",
     },
     {
-      "id": "RAND-userGeneratedNode_1646417371399",
-      "data": {
-        "id": "RAND-userGeneratedNode_1646417371399",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATION",
-        "ctrls": {
-
-        }
+      id: "RAND-userGeneratedNode_1646417371399",
+      data: {
+        id: "RAND-userGeneratedNode_1646417371399",
+        label: "RAND",
+        func: "RAND",
+        type: "SIMULATION",
+        ctrls: {},
       },
-      "position": {
-        "x": 897,
-        "y": 59
+      position: {
+        x: 897,
+        y: 59,
       },
-      "type": "default"
+      type: "default",
     },
     {
       source: "2.0-userGeneratedNode_1646435677928",
@@ -848,7 +761,7 @@ export const CONDITIONAL = {
       source: "CONDITIONAL-userGeneratedNode_1646435677929",
       targetHandle: null,
       animated: false,
-      label:'True',
+      label: "True",
       id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371398null",
     },
     {
@@ -857,7 +770,7 @@ export const CONDITIONAL = {
       source: "CONDITIONAL-userGeneratedNode_1646435677929",
       targetHandle: null,
       animated: false,
-      label:'False',
+      label: "False",
       id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371399null",
     },
     {
@@ -875,14 +788,14 @@ export const CONDITIONAL = {
       targetHandle: null,
       animated: false,
       id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
-    }
+    },
   ],
   position: [0, 0],
   zoom: 0.8,
 };
 
 export const EMPTY_CANVAS = {
-  elements:[],
+  elements: [],
   position: [0, 0],
   zoom: 0.8,
-}
+};

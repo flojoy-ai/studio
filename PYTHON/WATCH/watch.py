@@ -18,7 +18,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from FUNCTIONS.VISORS import *
-from FUNCTIONS.TRANSFORMERS import *
+from FUNCTIONS.ARITHMETICS import *
 from FUNCTIONS.SIMULATIONS import *
 from FUNCTIONS.LOOPS import *
 from FUNCTIONS.CONDITIONALS import *

@@ -6,8 +6,8 @@ const nodes = [
   { selector: "SINE-userGeneratedNode_1646417316016", name: "sine" },
   { selector: "RAND-userGeneratedNode_1646417371398", name: "rand" },
   { selector: "2.0-userGeneratedNode_1646435677928", name: "constant" },
-  { selector: "MULTIPLY-userGeneratedNode_1646417352715", name: "multiply" },
-  { selector: "ADD-userGeneratedNode_1646417428589", name: "add" },
+  { selector: "MULTIPLY-d62fd384-308c-445e-b6e6-20245a51a536", name: "multiply" },
+  { selector: "ADD-9aa284e5-315b-4861-bbfe-571edeebd18e", name: "add" },
   { selector: "SCATTER-userGeneratedNode_1646417560399", name: "scatter" },
   { selector: "HISTOGRAM-userGeneratedNode_1646417604301", name: "histogram" },
 ];
@@ -106,8 +106,6 @@ describe("user workflow", () => {
       .contains("🐢 awaiting a new job", { timeout: 600000 });
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
-
-    cy.wait(30000);
 
     cy.get(`[data-cy="script-btn"]`).click();
 
