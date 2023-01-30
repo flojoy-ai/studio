@@ -1,10 +1,18 @@
 COMMAND:
-  - { name: Sine Wave, key: SINE, type: SIMULATION, 
+  - {
+      name: Sine Wave,
+      key: SINE,
+      type: SIMULATION,
       parameters:
-        {frequency: {type: float, default: 1},
-        offset: {type: float, default: 0},
-        amplitude: {type: float, default: 1},
-        waveform: {type: select, options: [sine, square, triangle, sawtooth], default: sine}}
+        {
+          frequency: { type: float, default: 1 },
+          offset: { type: float, default: 0 },
+          amplitude: { type: float, default: 1 },
+          waveform:
+            {
+              type: select,
+              options: [sine, square, triangle, sawtooth],
+              default: sine,
+            },
+        },
     }
-  - {name: Square Wave, key: SQUARE, type: SIMULATION}
-  - {name: Sawtooth, key: SAW, type: SIMULATION}
