@@ -65,7 +65,7 @@ approved.
 
     `name:` Name of the node.  
     `key:` A string to identify the node uniquely among all nodes.   
-    `type:` A sub-category from `COMMAND_MANIFEST.ts` in `src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`.    
+    `type:` A sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)    
     `parameters:` Parameters which the node expects in it's function's parameter `params`. Ctrl panel uses this manifest to populate UI where users can modify these parameter values. It's an Object, where each key is a parameter name and value is an object of:
     - `type:` Type of parameter value should be se to one of `number`, `string`. If you want to add a new type discuss it with the team.
     - `default:` Default value of the parameter.    
