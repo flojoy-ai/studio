@@ -2,7 +2,7 @@ import json
 from os import listdir
 from os.path import isfile, join
 
-dirs = ['SIMULATIONS', 'TRANSFORMERS', 'VISORS','CONDITIONALS','LOOPS','TIMERS','ARRAY_MATRIX']
+dirs = ['SIMULATIONS', 'TRANSFORMERS', 'VISORS','CONDITIONALS','LOOPS','TIMERS','ARRAY_AND_MATRIX']
 
 path = 'PYTHON/FUNCTIONS'
 
