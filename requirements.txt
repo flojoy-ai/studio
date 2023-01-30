@@ -18,6 +18,4 @@ schedule
 djangorestframework==3.14.0
 python-dotenv==0.21.0
 requests==2.28.1
-
-# Testing
 pytest==7.1.3
