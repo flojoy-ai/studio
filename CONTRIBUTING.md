@@ -84,8 +84,11 @@ approved.
 ```py
 __all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]
 ```
-Each Simulation function must be listed.
- ---
+Each category function must be listed in their respective `__init__.py` file.
+
+5. Run `write_python_metadata.py` in the root folder. 
+
+---
  
 ### How to run automated test in local
 
