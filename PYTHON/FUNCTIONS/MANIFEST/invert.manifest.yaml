@@ -1,0 +1,8 @@
+COMMAND:
+    - {
+        name: "Invert",
+        key: "INVERT",
+        type: "ARRAY_AND_MATRIX",
+        inputs: [{ name: "y", id: "pinv_rcond", type: "target" }],
+      }
+  
