@@ -1,7 +1,6 @@
 import numpy as np
 from flojoy import flojoy, DataContainer
 
-
 @flojoy
 def MATMUL(v, params):
     ''' Takes 2 input matrices, multiplies them, and returns the result '''
