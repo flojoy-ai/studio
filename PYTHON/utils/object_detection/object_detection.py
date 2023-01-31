@@ -104,6 +104,7 @@ def detect_object(input_image):
             f = fileToBeLoaded.read()
             y = bytearray(f)
         fileToBeLoaded.close()
+        os.remove(filePath)
     except Exception:
         print(traceback.format_exc())
     return y
