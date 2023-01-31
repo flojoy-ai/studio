@@ -81,7 +81,7 @@ else
 fi
 
 echo 'closing all existing rq workers (if any)'
-python close-all-rq-workers.py
+python3 close-all-rq-workers.py
 echo 'rq info after closing:'
 rq info
 

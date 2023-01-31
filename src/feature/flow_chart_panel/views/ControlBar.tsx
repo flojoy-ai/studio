@@ -1,5 +1,5 @@
 import { memo, useCallback, FC, useState, useEffect } from "react";
-import { useZoomPanHelper } from "react-flow-renderer";
+// import { useZoomPanHelper } from 'reactflow';
 import localforage from "localforage";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,7 +11,7 @@ import {
 } from "../../../services/FlowChartServices";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
-import PythonFuncModal from "./PythonFuncModal";
+import PythonFuncModal from "./AddNodeModal";
 import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
@@ -34,23 +34,20 @@ const Controls: FC<ControlsProps> = ({
   activeTab,
   setOpenCtrlModal,
 }) => {
-
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
-  const { transform } = useZoomPanHelper();
+
   const {
     isEditMode,
     setIsEditMode,
     rfInstance,
-    setElements,
-    rfSpatialInfo,
     openFileSelector,
     saveFile,
+    setNodes,
   } = useFlowChartState();
-
   const onSave = async () => {
-    if (rfInstance && rfInstance.elements.length > 0) {
+    if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
@@ -62,10 +59,10 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ FUNCTION, params, type, inputs }) => {
+    ({ key, params, type, inputs }) => {
       let functionName: string;
-      const id = `${FUNCTION}-${uuidv4()}`
-      if (FUNCTION === "CONSTANT") {
+      const id = `${key}-${uuidv4()}`;
+      if (key === "CONSTANT") {
         let constant = prompt("Please enter a numerical constant", "2.0");
         if (constant == null) {
           constant = "2.0";
@@ -89,11 +86,11 @@ const Controls: FC<ControlsProps> = ({
               param
             ) => ({
               ...prev,
-              [FUNCTION + "_" + functionName + "_" + param]: {
-                functionName: FUNCTION,
+              [key + "_" + functionName + "_" + param]: {
+                functionName: key,
                 param,
                 value:
-                  FUNCTION === "CONSTANT"
+                  key === "CONSTANT"
                     ? +functionName
                     : params![param].default,
               },
@@ -104,20 +101,21 @@ const Controls: FC<ControlsProps> = ({
 
       const newNode = {
         id: id,
+        type,
         data: {
-          id:id,
+          id: id,
           label: functionName,
-          func: FUNCTION,
+          func: key,
           type,
           ctrls: funcParams,
           inputs,
         },
         position: getNodePosition(),
       };
-      setElements((els) => els.concat(newNode));
+      setNodes((els) => els.concat(newNode));
       closeModal();
     },
-    [setElements]
+    [setNodes]
   );
 
   const openModal = () => {
@@ -127,14 +125,6 @@ const Controls: FC<ControlsProps> = ({
   const closeModal = () => {
     setIsOpen(false);
   };
-
-  useEffect(() => {
-    transform({
-      x: rfSpatialInfo.x,
-      y: rfSpatialInfo.y,
-      zoom: rfSpatialInfo.zoom,
-    });
-  }, [rfSpatialInfo, transform]);
 
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);

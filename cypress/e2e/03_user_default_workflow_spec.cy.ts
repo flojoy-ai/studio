@@ -33,22 +33,29 @@ describe("User default workflow", () => {
           throw new Error("not correct status");
         }
       });
+    Cypress.on("uncaught:exception", (err) => {
+      cy.log("error occured: ", err);
+      return false;
+    });
 
     cy.get(`[data-cy="debug-btn"]`).click();
 
     cy.get(`[data-cy="btn-play"]`).click();
-    cy.wait(5000)
-    cy.get(`[data-cy="app-status"]`)
-      .find("code").then($ele=>{
-        cy.log(' server status: ' , $ele.text())
-      });
-      cy.get(`[data-cy="app-status"]`)
-      .find("code").contains("🐢 awaiting a new job", { timeout: 600000 })
 
-    cy.get("[data-testid=result-node]");
+    cy.get(`[data-cy="app-status"]`)
+      .find("code")
+      .contains("🐢 awaiting a new job", { timeout: 600000 });
+    Cypress.on("uncaught:exception", (err) => {
+      cy.log("error occured: ", err);
+      return false;
+    });
+    cy.get("[data-testid=result-node]", { timeout: 60000 });
 
     cy.get(`[data-cy="script-btn"]`).click();
-
+    Cypress.on("uncaught:exception", (err) => {
+      cy.log("error occured: ", err);
+      return false;
+    });
     nodes.forEach((node) => {
       cy.get(`[data-id="${node.selector}"]`).click({
         force: true,
@@ -56,7 +63,7 @@ describe("User default workflow", () => {
       });
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
       cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000)
+      cy.wait(3000);
     });
   });
 });

@@ -11,10 +11,7 @@ const usePlotControlEffect = ({
   setSelectedKeys,
   nd,
   ctrlObj,
-  results,
-  selectedOption,
   selectedPlotOption,
-  setNd,
   setPlotData,
   inputOptions,
 }: PlotControlStateType) => {
