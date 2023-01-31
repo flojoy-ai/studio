@@ -1,4 +1,4 @@
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Position } from "reactflow";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import styledPlotLayout from "../../common/defaultPlotLayout";
 import PlotlyComponent from "../../common/PlotlyComponent";

@@ -32,6 +32,8 @@ export const NodeStyle = (
     };
   } else if (
     data.func === "SINE" ||
+    data.func === "SQUARE" ||
+    data.func === "SAW" ||
     data.func === "RAND" ||
     data.func === "CONSTANT"
   ) {
