@@ -8,7 +8,7 @@ const styledPlotLayout = (theme: "light" | "dark") => {
     autosize: true,
     font: { color: plotFeatureColor },
     margin: { t: 40, r: 40, b: 40, l: 40 },
-    xaxis: {zeroline: false, type: "linear"},
+    xaxis: {zeroline: false},
     // yaxis: {zeroline: false, color: plotFeatureColor}
   };
 
