@@ -32,8 +32,20 @@ approved.
     - `v`: This will receive the output of all the incoming nodes and this will be in `list` format.
     - `params:` A node can have some parameters that can change its behavior. These parameters can be modified in CTRL panel. You have to declare them in manifest file (see below). This will be in `dict` format.  
 
-    Your node function should return an object of `DataContainer` class.   
-    **DataContainer:**  A python class that can represent different types of data objects such as: `image`, `ordered_pair`, `matrix` etc. Here is an example of how to return `DataContainer` object:    
+    Your node function should return an object of `DataContainer` class.
+    
+    **DataContainer:**  A python class that can represent these different types of data objects: 
+    - 'grayscale'
+    - 'matrix'
+    - 'dataframe'
+    - 'image'
+    - 'ordered_pair'
+    - 'ordered_triple'
+    - 'scalar'
+    - (see https://github.com/flojoy-io/flojoy-python/blob/develop/flojoy/flojoy_python.py#L51)
+
+
+    Here is an example of how to return `DataContainer` object:    
     ```code
         x = 10
         y = 15
@@ -67,7 +79,7 @@ approved.
     `key:` A string to identify the node uniquely among all nodes.   
     `type:` A sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)    
     `parameters:` Parameters which the node expects in it's function's parameter `params`. Ctrl panel uses this manifest to populate UI where users can modify these parameter values. It's an Object, where each key is a parameter name and value is an object of:
-    - `type:` Type of parameter value should be se to one of `number`, `string`. If you want to add a new type discuss it with the team.
+    - `type:` Type of parameter value should be set to one of `number`, `string`. If you want to add a new type discuss it with the team.
     - `default:` Default value of the parameter.    
     - `options:` Array of options, each option should be of the same type as declared.
     
