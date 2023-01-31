@@ -1,0 +1,287 @@
+{
+    "rfInstance": {
+        "elements": [
+            {
+                "id": "LINSPACE-7e774018-c194-4878-96da-471774e3e144",
+                "type": "default",
+                "position": {
+                    "x": 286.809567610616,
+                    "y": 302.8888743213485
+                },
+                "data": {
+                    "id": "LINSPACE-7e774018-c194-4878-96da-471774e3e144",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "LINSPACE_LINSPACE_start": {
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": "10"
+                        },
+                        "LINSPACE_LINSPACE_end": {
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "0"
+                        },
+                        "LINSPACE_LINSPACE_step": {
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "1000"
+                        }
+                    }
+                }
+            },
+            {
+                "id": "SINE-05c4fb8e-a968-4855-b871-b61edb1de120",
+                "type": "default",
+                "position": {
+                    "x": 550.8382644365993,
+                    "y": 196.75538107289327
+                },
+                "data": {
+                    "id": "SINE-05c4fb8e-a968-4855-b871-b61edb1de120",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "SINE_SINE_frequency": {
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": "56"
+                        },
+                        "SINE_SINE_offset": {
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "SINE_SINE_amplitude": {
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "SINE_SINE_waveform": {
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    }
+                }
+            },
+            {
+                "id": "SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ff",
+                "type": "default",
+                "position": {
+                    "x": 553.599773236759,
+                    "y": 397.428533108754
+                },
+                "data": {
+                    "id": "SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ff",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "SINE_SINE_frequency": {
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": "70"
+                        },
+                        "SINE_SINE_offset": {
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "SINE_SINE_amplitude": {
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "SINE_SINE_waveform": {
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    }
+                }
+            },
+            {
+                "source": "LINSPACE-7e774018-c194-4878-96da-471774e3e144",
+                "sourceHandle": "main",
+                "target": "SINE-05c4fb8e-a968-4855-b871-b61edb1de120",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-7e774018-c194-4878-96da-471774e3e144main-SINE-05c4fb8e-a968-4855-b871-b61edb1de120SINE"
+            },
+            {
+                "source": "LINSPACE-7e774018-c194-4878-96da-471774e3e144",
+                "sourceHandle": "main",
+                "target": "SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ff",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-7e774018-c194-4878-96da-471774e3e144main-SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ffSINE"
+            },
+            {
+                "id": "ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9",
+                "type": "default",
+                "position": {
+                    "x": 741.3128820299319,
+                    "y": 308.3589939570213
+                },
+                "data": {
+                    "id": "ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "add_y",
+                            "type": "target"
+                        }
+                    ]
+                }
+            },
+            {
+                "source": "SINE-05c4fb8e-a968-4855-b871-b61edb1de120",
+                "sourceHandle": "main",
+                "target": "ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9",
+                "targetHandle": "ADD",
+                "id": "reactflow__edge-SINE-05c4fb8e-a968-4855-b871-b61edb1de120main-ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9ADD"
+            },
+            {
+                "source": "SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ff",
+                "sourceHandle": "main",
+                "target": "ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ffmain-ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9add_y"
+            },
+            {
+                "id": "BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640",
+                "type": "default",
+                "position": {
+                    "x": 909.6717496798602,
+                    "y": 308.058647877065
+                },
+                "data": {
+                    "id": "BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640",
+                    "label": "BUTTER",
+                    "func": "BUTTER",
+                    "type": "SIGNAL_PROCESSING",
+                    "ctrls": {}
+                }
+            },
+            {
+                "source": "ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9",
+                "sourceHandle": "main",
+                "target": "BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640",
+                "targetHandle": "BUTTER",
+                "id": "reactflow__edge-ADD-d411629f-fd0e-4c87-a8bb-53dd0e785be9main-BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640BUTTER"
+            },
+            {
+                "id": "LINE-c4a82be1-169b-4621-8770-32f5d7ff6de7",
+                "type": "default",
+                "position": {
+                    "x": 1199.3432290094217,
+                    "y": 284.7381902404821
+                },
+                "data": {
+                    "id": "LINE-c4a82be1-169b-4621-8770-32f5d7ff6de7",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "VISOR",
+                    "ctrls": {}
+                }
+            },
+            {
+                "source": "BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640",
+                "sourceHandle": "main",
+                "target": "LINE-c4a82be1-169b-4621-8770-32f5d7ff6de7",
+                "targetHandle": "LINE",
+                "id": "reactflow__edge-BUTTER-63a86ac7-98cc-46e8-9a7b-70efa93c0640main-LINE-c4a82be1-169b-4621-8770-32f5d7ff6de7LINE"
+            }
+        ],
+        "position": [
+            0,
+            0
+        ],
+        "zoom": 1
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-96cd8cf9-0cbb-479b-b4eb-cea3f52c6214",
+            "hidden": false,
+            "param": {
+                "id": "SINE_SINE_frequency",
+                "functionName": "SINE",
+                "param": "frequency",
+                "nodeId": "SINE-05c4fb8e-a968-4855-b871-b61edb1de120",
+                "inputId": "ctrl-96cd8cf9-0cbb-479b-b4eb-cea3f52c6214"
+            },
+            "val": "56"
+        },
+        {
+            "type": "input",
+            "name": "Slider",
+            "minWidth": 2,
+            "minHeight": 1,
+            "id": "ctrl-efcb4895-5a45-4408-94ec-8e175ba07b21",
+            "hidden": false,
+            "param": {
+                "id": "SINE_SINE_frequency",
+                "functionName": "SINE",
+                "param": "frequency",
+                "nodeId": "SINE-aa4ed1cc-3359-4c0d-9259-d6b480f699ff",
+                "inputId": "ctrl-efcb4895-5a45-4408-94ec-8e175ba07b21"
+            },
+            "val": "70"
+        },
+        {
+            "type": "output",
+            "name": "Plot",
+            "minWidth": 2,
+            "minHeight": 3,
+            "id": "ctrl-59a9fd43-0ff2-400c-bcf4-3446797017b0",
+            "hidden": false,
+            "param": "LINE-c4a82be1-169b-4621-8770-32f5d7ff6de7",
+            "val": 0
+        }
+    ],
+    "gridLayout": [
+        {
+            "w": 2,
+            "h": 1,
+            "x": 0,
+            "y": 0,
+            "i": "ctrl-96cd8cf9-0cbb-479b-b4eb-cea3f52c6214",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 2,
+            "h": 1,
+            "x": 0,
+            "y": 1,
+            "i": "ctrl-efcb4895-5a45-4408-94ec-8e175ba07b21",
+            "minW": 2,
+            "minH": 1,
+            "moved": false,
+            "static": false
+        },
+        {
+            "w": 5,
+            "h": 3,
+            "x": 2,
+            "y": 0,
+            "i": "ctrl-59a9fd43-0ff2-400c-bcf4-3446797017b0",
+            "minW": 2,
+            "minH": 3,
+            "moved": false,
+            "static": false
+        }
+    ]
+}

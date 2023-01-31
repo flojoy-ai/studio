@@ -1,6 +1,2 @@
 COMMAND:
-  - { 
-      name: "Butterworth Filter", 
-      key: "BUTTERWORTH", 
-      type: "SIGNAL_PROCESSING" 
-    }
+  - { name: "Butterworth Filter", key: "BUTTER", type: "SIGNAL_PROCESSING" }

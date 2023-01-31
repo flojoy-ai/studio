@@ -11,8 +11,8 @@ def BUTTER(v, params):
 
     x = v[0].x
     sig = v[0].y
-    
+
     sos = signal.butter(10, 15, 'hp', fs=1000, output='sos')
-    filtered = signal.sosfilt(sig, sig)
+    filtered = signal.sosfilt(sos, sig)
 
     return DataContainer(x = x, y = filtered)
