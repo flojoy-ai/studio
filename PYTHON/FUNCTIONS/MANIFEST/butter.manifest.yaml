@@ -1,2 +1,6 @@
 COMMAND:
-  - { name: Butterworth Filter, key: BUTTERWORTH, type: TRANSFORMATION }
+  - { 
+      name: "Butterworth Filter", 
+      key: "BUTTERWORTH", 
+      type: "TRANSFORMATION" 
+    }
