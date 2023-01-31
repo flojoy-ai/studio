@@ -12,6 +12,7 @@ export function useResultsTabEffects({
       setResultNodes(
         nodes.map((node) => ({
           ...node,
+          type:'default',
           position: node.position,
           data: {
             ...node.data,

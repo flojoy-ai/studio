@@ -93,7 +93,10 @@ const AddNodeModal = ({
                                 key: cmd.key,
                                 type: cmd.type,
                                 params: FUNCTION_PARAMETERS[cmd.key],
-                                inputs: cmd.inputs
+                                inputs: cmd.inputs,
+                                ...(cmd.custom_node_id && {
+                                  customNodeId: cmd.custom_node_id,
+                                }),
                               });
                             }}
                             key={cmd.name}

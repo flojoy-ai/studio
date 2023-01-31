@@ -42,7 +42,7 @@ if [ $initNodePackages ]
 then 
    echo '-n flag provided'
    echo 'Node packages will be installed from package.json!'
-   npm install
+   npm install --legacy-peer-deps
 fi
 
 

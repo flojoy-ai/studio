@@ -11,4 +11,5 @@ export type NodeOnAddFunc = (props: {
   type: string;
   params: ParamTypes | undefined;
   inputs?: Array<{ name: string, id: string }> | undefined;
+  customNodeId?: string;
 }) => void;
