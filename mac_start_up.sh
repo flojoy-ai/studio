@@ -86,23 +86,7 @@ echo 'rq info after closing:'
 rq info
 
 echo "CHECKING NPM PACKAGES"
-i=0
-command=$(jq -r ".dependencies" package.json | jq "keys[$i]")
-npm_list=$(npm list)
-
-while [ "$command" != "null" ]
-do
-    package_name=$(echo "$command" | sed -e 's/^"//' -e 's/"$//')
-    echo "checking $package_name"
-    if [[ "$(echo $npm_list | grep $package_name)" =~ "empty" ]]; then
-        echo "Installing $package_name ..."
-        npm install $package_name --legacy-peer-deps
-    else
-        echo "$package_name is already installed"
-    fi
-    i=$i+1
-    command=$(jq -r ".dependencies" package.json | jq "keys[$i]")
-done
+npm install --legacy-peer-deps
 
 echo "installing python packages"
 source ${venv}/bin/activate
