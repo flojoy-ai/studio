@@ -12,10 +12,10 @@ def INVERT(v, params):
     if v.__len__ >0:
         a = v[0].y
         b = float(params['rcond'])
-    if ((type(a)==float) or (type(a)==int)):
+    if (v[0].type == 'ordered_pair'): # v[0] is a DataContainer object with type attribute
         print('Performing simple inversion')
         return DataContainer(x=a, y=1/a)
-    elif (type(a) == np.ndarray):
+    elif (v[0].type == 'matrix'):
         if (not a.shape[0] == a.shape[1]):
             print('Not square matrix! Using pseudoinversion...')
             assert type(b)==float, "Need scalar value to compare SVDs for pseudoinversion"
