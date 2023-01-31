@@ -5,7 +5,7 @@ type Commands = {
   type: string;
   key: string;
   inputs?: { name: string; id: string; type: string }[];
-  custom_node_id?: string;
+  ui_component_id?: string;
 }[];
 
 export const COMMANDS: Commands = manifests.commands;

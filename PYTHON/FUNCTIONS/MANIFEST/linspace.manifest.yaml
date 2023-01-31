@@ -3,7 +3,7 @@ COMMAND:
       name: Linspace,
       key: LINSPACE,
       type: SIMULATION,
-      custom_node_id: default,
+      ui_component_id: default,
       parameters:
         {
           start: { type: "float", default: "10" },
