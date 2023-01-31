@@ -9,10 +9,9 @@ def BUTTER(v, params):
 
     print('Butterworth inputs:', v)
 
-    x = v[0].x
     sig = v[0].y
 
     sos = signal.butter(10, 15, 'hp', fs=1000, output='sos')
     filtered = signal.sosfilt(sos, sig)
 
-    return DataContainer(x = x, y = filtered)
+    return DataContainer(x = sig, y = filtered)
