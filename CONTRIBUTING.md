@@ -98,7 +98,7 @@ __all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]
 ```
 Each category function must be listed in their respective `__init__.py` file.
 
-5. Run `write_python_metadata.py` in the root folder. 
+5. Run `python3 write_python_metadata.py` in the root folder. 
 
 ---
  
