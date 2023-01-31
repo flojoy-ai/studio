@@ -4,7 +4,7 @@ const styledPlotLayout = (theme: "light" | "dark") => {
   const plotFeatureColor = theme === "light" ? "#282c34" : "#fff";
   const plotBackgroundColor = theme === "light" ? "#fff" : "#282c34";
 
-  const dfltLayout:Partial<Layout> = { = {
+  const dfltLayout:Partial<Layout> = {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: plotBackgroundColor,
     autosize: true,
