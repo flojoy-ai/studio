@@ -14,7 +14,7 @@ def INVERT(v, params):
         b = float(params['rcond'])
     if ((type(a)==float) or (type(a)==int)):
         print('Performing simple inversion')
-        retval = 1/a
+        return DataContainer(x=a, y=1/a)
     elif (type(a) == np.ndarray):
         if (not a.shape[0] == a.shape[1]):
             print('Not square matrix! Using pseudoinversion...')
