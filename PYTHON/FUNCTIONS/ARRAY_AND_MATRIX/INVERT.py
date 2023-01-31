@@ -9,22 +9,26 @@ def INVERT(v, params):
     inverse 1/x '''
     print(f'INVERT params: {params}')
     a = np.eye(3)
+    b = float(params['rcond'])
+
     if v.__len__ >0:
-        a = v[0].y
-        b = float(params['rcond'])
-    if (v[0].type == 'ordered_pair'): # v[0] is a DataContainer object with type attribute
-        print('Performing simple inversion')
-        return DataContainer(x=a, y=1/a)
-    elif (v[0].type == 'matrix'):
-        if (not a.shape[0] == a.shape[1]):
-            print('Not square matrix! Using pseudoinversion...')
-            assert type(b)==float, "Need scalar value to compare SVDs for pseudoinversion"
-            retval = np.linalg.pinv(a, rcond=b, hermitian=False)
+        if (v[0].type == 'ordered_pair'): # v[0] is a DataContainer object with type attribute
+            print('Performing simple inversion')
+            a = v[0].y #scalar valued
+            return DataContainer(x=a, y=1/a)
+        elif (v[0].type == 'matrix'):
+            a = v[0].m
+            if (not a.shape[0] == a.shape[1]):
+                print('Not square matrix! Using pseudoinversion...')
+                assert type(b)==float, "Need scalar value to compare SVDs for pseudoinversion"
+                retval = np.linalg.pinv(a, rcond=b, hermitian=False)
+            else:
+                try:
+                    retval = np.linalg.inv(a)
+                except np.linalg.LinAlgError:
+                    raise ValueError('Inversion failed! Singular matrix returned...')
+            return DataContainer(type='matrix',m=retval)
         else:
-            try:
-                retval = np.linalg.inv(a)
-            except np.linalg.LinAlgError:
-                raise ValueError('Inversion failed! Singular matrix returned...')
+            raise ValueError('Incorrect input DataContainer type.')
     else:
-        raise ValueError('Incorrect input type.')
-    return DataContainer(type='matrix',m=retval)
+        return DataContainer(type='matrix',m=np.eye(3))
