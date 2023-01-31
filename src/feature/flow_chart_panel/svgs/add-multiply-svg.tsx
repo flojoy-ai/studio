@@ -101,3 +101,20 @@ export const AtSvg = ({ style }: SVGProps) => {
   );
 };
 
+export const SubSvg = ({ style }: SVGProps) => {
+  return (
+    <svg
+      style={style}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.24222 6.58536H15.1016V9.19278H6.6348V9.19278H0.79007V6.58536"
+        fill="#FFC93F"
+      />
+    </svg>
+  );
+};
