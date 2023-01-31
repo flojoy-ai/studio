@@ -1,33 +1,12 @@
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useSocket } from "@src/hooks/useSocket";
-import { useEffect, useState } from "react";
+import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
-import "../style/defaultNode.css";
-const DeafultNode = ({ data }) => {
-  const [additionalInfo, setAdditionalInfo] = useState({});
+import { CustomNodeProps } from "../types/CustomNodeProps";
+import "@feature/flow_chart_panel/style/defaultNode.css"
 
-  const { uiTheme, runningNode, failedNode, nodes } = useFlowChartState();
-  console.log('nodes: ', nodes)
+const DefaultNode = ({ data }: CustomNodeProps) => {
+  const { uiTheme, runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  const { states } = useSocket();
-  const { programResults } = states!;
-
-  useEffect(() => {
-    if (programResults?.io?.length! > 0) {
-      let programAdditionalInfo = {};
-
-      const results = programResults?.io;
-      results?.forEach((element) => {
-        programAdditionalInfo = {
-          ...programAdditionalInfo,
-          [element.id]: element["additional_info"],
-        };
-      });
-
-      setAdditionalInfo(programAdditionalInfo);
-    }
-  }, [programResults]);
   return (
     <div
       style={{
@@ -38,19 +17,15 @@ const DeafultNode = ({ data }) => {
       }}
     >
       <div
-        className="default_node"
+        className="default_node_container"
         style={{
-          position: "relative",
-          color: uiTheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
           backgroundColor:
             uiTheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
           border:
             uiTheme === "light"
               ? "1px solid rgba(123, 97, 255, 1)"
               : "1px solid #99F5FF",
-          height: "fit-content",
-          minHeight: 115,
-          minWidth:115,
+          color: uiTheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
           ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
         }}
       >
@@ -61,6 +36,7 @@ const DeafultNode = ({ data }) => {
             padding: "5px",
             width: "100%",
             flexDirection: "column",
+            textAlign: "center",
           }}
         >
           <div>{data.label}</div>
@@ -80,4 +56,4 @@ const DeafultNode = ({ data }) => {
   );
 };
 
-export default DeafultNode;
+export default DefaultNode;

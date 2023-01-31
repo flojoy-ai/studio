@@ -59,7 +59,7 @@ const Controls: FC<ControlsProps> = ({
   };
 
   const onAdd: NodeOnAddFunc = useCallback(
-    ({ key, params, type, inputs }) => {
+    ({ key, params, type, inputs, customNodeId }) => {
       let functionName: string;
       const id = `${key}-${uuidv4()}`;
       if (key === "CONSTANT") {
@@ -101,7 +101,7 @@ const Controls: FC<ControlsProps> = ({
 
       const newNode = {
         id: id,
-        type,
+        type: customNodeId || type,
         data: {
           id: id,
           label: functionName,

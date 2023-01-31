@@ -43,6 +43,7 @@
       "name": "Linspace",
       "key": "LINSPACE",
       "type": "SIMULATION",
+      "ui_component_id": "default",
       "end": { "type": "float", "default": "0" },
       "step": { "type": "float", "default": "1000" }
     },
