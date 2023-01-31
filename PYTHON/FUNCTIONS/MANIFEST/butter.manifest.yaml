@@ -2,5 +2,5 @@ COMMAND:
   - { 
       name: "Butterworth Filter", 
       key: "BUTTERWORTH", 
-      type: "TRANSFORMATION" 
+      type: "SIGNAL_PROCESSING" 
     }
