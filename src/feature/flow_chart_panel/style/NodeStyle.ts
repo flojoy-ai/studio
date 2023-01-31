@@ -8,9 +8,9 @@ export const NodeStyle = (
     data.func === "LINSPACE" ||
     data.func === "LOOP" ||
     data.func === "CONDITIONAL" ||
-    data.func == "BREAK" ||
-    data.func == "TIMER" ||
-    data.func == "BUTTER"
+    data.func === "BREAK" ||
+    data.func === "TIMER" ||
+    data.func === "BUTTER"
   ) {
     return {
       padding: 10,
