@@ -79,7 +79,7 @@ approved.
     ```
     - Register that category under proper parent category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
     - In `jsonify_funk.py` file located in root directory add category folder name in `dirs` list variable.
- 
+ 4. **Node Styling** - To be added. 
  ---
  
 ### How to run automated test in local
