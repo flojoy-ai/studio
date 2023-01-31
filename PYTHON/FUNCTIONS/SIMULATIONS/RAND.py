@@ -2,15 +2,16 @@ import numpy as np
 from flojoy import flojoy, DataContainer
 import traceback
 
-
 @flojoy
 def RAND(v, params):
-    try:
+    x = None
+    if len(v) > 0:
         x = v[0].y
-        # y = x
-        y = x if x is not None else np.full(
-            2, 2)  # np.random.normal(size=len(x))
-    except Exception:
-        print(traceback.format_exc())
+        # For now return fixed value for y key
+        # Later on, A env variable will be used to return fixed value for testing
+        y = x
+        # y = np.random.normal(size=len(x))
+    else:
+        y = np.full(1000, 1000)
 
     return DataContainer(x=x, y=y)
