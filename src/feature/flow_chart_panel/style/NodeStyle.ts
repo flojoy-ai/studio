@@ -33,7 +33,8 @@ export const NodeStyle = (
   } else if (
     data.func === "SINE" ||
     data.func === "RAND" ||
-    data.func === "CONSTANT"
+    data.func === "CONSTANT" ||
+    data.func === "INVERT"
   ) {
     return {
       height: "115px",

@@ -15,6 +15,8 @@ const highlightShadow = {
   'BAR': {boxShadow: '0 0 50px 15px #48abe0'},
   'LINE': {boxShadow: '0 0 50px 15px #48abe0'},
   'SINE': {boxShadow: 'rgb(116 24 181 / 97%) 0px 0px 50px 15px'},
+  'INVERT': {boxShadow: 'rgb(116 24 181 / 97%) 0px 0px 50px 15px'},
+
   'RAND': {boxShadow: 'rgb(116 24 181 / 97%) 0px 0px 50px 15px'},
   'CONSTANT': {boxShadow: 'rgb(116 24 181 / 97%) 0px 0px 50px 15px'},
   'MULTIPLY': {boxShadow: 'rgb(112 96 13) 0px 0px 50px 15px', background: '#78640f96'},

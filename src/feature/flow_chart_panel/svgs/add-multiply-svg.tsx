@@ -86,7 +86,7 @@ export const AtSvg = ({ style }: SVGProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_13_586)">
+      <g >
         <path
           d="M1.12264 2.46631L9.61248 11.7301L10.8253 13.0468C11.9573 14.2828 13.7939 12.4462 12.6619 11.2103L4.1605 1.94652L2.95922 0.618183C1.82724 -0.617753 -0.0093348 1.23038 1.12264 2.46631Z"
           fill="#FFC93F"
@@ -97,16 +97,7 @@ export const AtSvg = ({ style }: SVGProps) => {
         />
         <circle cx="7" cy="7" r="7" stroke="#FFC93F" stroke-width="2" fill="none"></circle>
       </g>
-      <defs>
-        <clipPath id="clip0_13_586">
-          <rect
-            width="12.2438"
-            height="13.2372"
-            fill="white"
-            transform="translate(0.764648 0.213867)"
-          />
-        </clipPath>
-      </defs>
     </svg>
   );
 };
+
