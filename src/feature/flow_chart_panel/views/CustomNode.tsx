@@ -71,12 +71,6 @@ const CustomNode = ({ data }: CustomNodeProps) => {
         }),
       }}
     >
-      <NodeComponent
-        data={data}
-        uiTheme={uiTheme}
-        params={params}
-        additionalInfos={additionalInfo}
-      />
       <div
         style={{
           position: "relative",
@@ -86,7 +80,12 @@ const CustomNode = ({ data }: CustomNodeProps) => {
           ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
         }}
       >
-        <NodeComponent data={data} uiTheme={uiTheme} params={params} />
+        <NodeComponent
+          data={data}
+          uiTheme={uiTheme}
+          params={params}
+          additionalInfos={additionalInfo}
+        />
         <div
           style={{
             display: "flex",
