@@ -42,7 +42,7 @@ if [ $initNodePackages ]
 then 
    echo '-n flag provided'
    echo 'Node packages will be installed from package.json!'
-   npm install
+   npm install --legacy-peer-deps
 fi
 
 
@@ -81,7 +81,7 @@ else
 fi
 
 echo 'closing all existing rq workers (if any)'
-python close-all-rq-workers.py
+python3 close-all-rq-workers.py
 echo 'rq info after closing:'
 rq info
 

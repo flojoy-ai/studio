@@ -88,7 +88,7 @@
        "data": {
          "label": "MULTIPLY",
          "func": "MULTIPLY",
-         "type": "TRANSFORMER",
+         "type": "ARITHMETIC",
          "ctrls": {
 
          },

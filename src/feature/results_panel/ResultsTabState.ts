@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { Node } from "reactflow";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 
 export function useResultsTabState() {
-  const [resultElements, setResultElements] = useState<any[]>([]);
-  const { elements } = useFlowChartState();
+  const [resultNodes, setResultNodes] = useState<Node[]>([]);
+  const { nodes } = useFlowChartState();
 
   return {
-    resultElements,
-    setResultElements,
-    elements,
+    resultNodes,
+    setResultNodes,
+    nodes,
   };
 }
+
+export type ResultTabStateReturnType = ReturnType<typeof useResultsTabState>;

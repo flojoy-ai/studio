@@ -83,7 +83,8 @@ const NodeComponent = ({
         justifyContent: "center",
         padding: "5px",
         width: "100%",
-        flexDirection: "column",
+        flexDirection:'column',
+        textAlign:'center'
       }}
     >
       <div>{data.label}</div>

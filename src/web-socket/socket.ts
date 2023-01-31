@@ -47,7 +47,6 @@ export class WebSocketServer {
   init() {
     this.server.onmessage = (ev) => {
       const data = JSON.parse(ev.data);
-      console.log('New WebScoket Message:', data);
       switch (data.type) {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {

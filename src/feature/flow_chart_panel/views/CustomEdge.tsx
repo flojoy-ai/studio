@@ -4,50 +4,30 @@ import {
   EdgeProps,
   getBezierPath,
   getMarkerEnd,
-  ArrowHeadType,
-} from "react-flow-renderer";
+  MarkerType,
+} from 'reactflow';
 
-const CustomEdge: FC<EdgeProps> = ({
-  id,
-  sourceX,
-  sourceY,
-  targetX,
-  targetY,
-  sourcePosition,
-  targetPosition,
-  label,
-}) => {
-  const edgePath = getBezierPath({
-    sourceX,
-    sourceY,
-    sourcePosition,
-    targetX,
-    targetY,
-    targetPosition,
-  });
-  const markerEnd = getMarkerEnd(ArrowHeadType.Arrow);
-
-  const { uiTheme } = useFlowChartState();
-
+const CustomEdge: FC<EdgeProps> = (edgeParams) => {
+  const [path] = getBezierPath(edgeParams);
+  const markerEnd = getMarkerEnd(MarkerType.Arrow)
+  const {uiTheme} = useFlowChartState();
+  
   return (
     <>
       <path
-        id={id}
+        id={edgeParams.id}
         className="react-flow__edge-path"
-        d={edgePath}
+        d={path}
         markerEnd={markerEnd}
       />
       <text>
         <textPath
-          href={`#${id}`}
-          style={{
-            fontSize: "30px",
-            fill: uiTheme === "dark" ? "white" : "black",
-          }}
+          href={`#${edgeParams.id}`}
+          style={{ fontSize: '30px',fill: uiTheme === 'dark' ? 'white' : 'black' }}
           startOffset="50%"
           textAnchor="middle"
         >
-          {label}
+          {edgeParams.label}
         </textPath>
       </text>
     </>

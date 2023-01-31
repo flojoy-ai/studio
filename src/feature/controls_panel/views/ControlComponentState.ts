@@ -23,7 +23,7 @@ const ControlComponentState = ({
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
-    elements,
+    nodes,
     ctrlsManifest,
     setGridLayout,
     isEditMode,
@@ -64,7 +64,7 @@ const ControlComponentState = ({
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
-  const inputNode = elements.find((e) => e.id === inputNodeId);
+  const inputNode = nodes.find((e) => e.id === inputNodeId);
   const ctrls = inputNode?.data?.ctrls;
   const fnParams =
     FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
