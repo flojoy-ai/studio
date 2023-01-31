@@ -39,7 +39,7 @@ echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
 if [ $initNodePackages ]
-then 
+then
    echo '-n flag provided'
    echo 'Node packages will be installed from package.json!'
    npm install
@@ -56,7 +56,7 @@ then
 
     echo 'spining up a fresh redis server...'
     npx ttab -t 'REDIS' redis-server
-    sleep 2 
+    sleep 2
 fi
 
 venvCmd=""
@@ -85,6 +85,40 @@ python close-all-rq-workers.py
 echo 'rq info after closing:'
 rq info
 
+echo "CHECKING NPM PACKAGES"
+i=0
+command=$(jq -r ".dependencies" package.json | jq "keys[$i]")
+npm_list=$(npm list)
+
+while [ "$command" != "null" ]
+do
+    package_name=$(echo "$command" | sed -e 's/^"//' -e 's/"$//')
+    echo "checking $package_name"
+    if [[ "$(echo $npm_list | grep $package_name)" =~ "empty" ]]; then
+        echo "Installing $package_name ..."
+        npm install $package_name --legacy-peer-deps
+    else
+        echo "$package_name is already installed"
+    fi
+    i=$i+1
+    command=$(jq -r ".dependencies" package.json | jq "keys[$i]")
+done
+
+echo "installing python packages"
+source ${venv}/bin/activate
+while read requirement
+do
+    arrIN=(${requirement//==/ })
+    package=${arrIN[0]}
+    echo "checking $package"
+    if python3 -c "import $package" &> /dev/null; then
+        echo 'all good'
+    else
+        echo "installing"
+        pip install $package
+    fi
+done < requirements.txt
+
 echo 'starting redis worker for flojoy-watch'
 npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
@@ -94,7 +128,7 @@ npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_
 if [ $initPythonPackages ]
 then
    echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!' 
+   echo 'Python packages will be installed from requirements.txt file!'
    if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
       echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
