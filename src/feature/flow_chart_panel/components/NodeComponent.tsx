@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Scatter3D from "./nodes/3d-scatter";
 import Surface3D from "./nodes/3d-surface";
 import BarChart from "./nodes/bar";
@@ -13,11 +13,12 @@ const NodeComponent = ({
   data,
   uiTheme,
   params,
+  additionalInfos,
 }: CustomNodeProps & {
   uiTheme: any;
-  params: ElementsData['inputs'];
+  params: ElementsData["inputs"];
+  additionalInfos: any;
 }) => {
-
   if (data.func === "MULTIPLY" || data.func === "ADD") {
     return (
       <Fragment>
@@ -60,6 +61,21 @@ const NodeComponent = ({
       </Fragment>
     );
   }
+
+  const isLoopInfoExist = () => {
+    const isExist = Object.keys(additionalInfos).find(
+      (value, _) => value === data.id
+    );
+    return isExist && data.func === "LOOP";
+  };
+
+  const current_iteration = isLoopInfoExist()
+    ? additionalInfos[data.id]["current_iteration"] || 0
+    : 0;
+  const total_iteration = isLoopInfoExist()
+    ? data["ctrls"][`LOOP_${data.label}_iteration_count`]["value"] || 0
+    : 0;
+
   return (
     <div
       style={{
@@ -67,32 +83,47 @@ const NodeComponent = ({
         justifyContent: "center",
         padding: "5px",
         width: "100%",
-        flexDirection:'column'
+        flexDirection:'column',
+        textAlign:'center'
       }}
     >
+      <div>{data.label}</div>
       <div>
-        {data.label}
-      </div>
-      <div>
-        {
-          data.label == 'CONDITIONAL' ? (
-            <p>
-              x {data['ctrls']['CONDITIONAL_CONDITIONAL_operator_type']['value']} y
-            </p>
-          )
-          : (
-            <>
-
-              {
-                data.label == 'TIMER' && (
-                  <p>
-                    {data['ctrls']['TIMER_TIMER_sleep_time']['value']}s
-                  </p>
-                )
-              }
-            </>
-          )
-        }
+        {data.func === "CONDITIONAL" && (
+          <>
+            {params?.length !== 0 ? (
+              <p>
+                x{" "}
+                {
+                  data["ctrls"][`CONDITIONAL_${data.label}_operator_type`][
+                    "value"
+                  ]
+                }{" "}
+                y
+              </p>
+            ) : (
+              <>
+                {Object.keys(additionalInfos)
+                  .filter((value, _) => value === data.id)
+                  .map((_, index) => {
+                    return (
+                      <p key={index + 1}>
+                        status: {additionalInfos[data.id]["status"]}
+                      </p>
+                    );
+                  })}
+              </>
+            )}
+          </>
+        )}
+        {data.func === "TIMER" && (
+          <p>{data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s</p>
+        )}
+        {data.func === "LOOP" && (
+          <div>
+            <p>{`${current_iteration}/${total_iteration}`}</p>
+          </div>
+        )}
       </div>
     </div>
   );
