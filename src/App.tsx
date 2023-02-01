@@ -105,19 +105,43 @@ const App = () => {
             }}
             data-cy="ctrls-btn"
           >
-            <Controls
-              theme={theme}
-              activeTab={currentTab}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-            <button onClick={toggleTheme} className="App-theme-toggle">
-              {theme === "light" ? <LightIcon /> : <DarkIcon />}
-            </button>
-          </div>
-        </header>
-        <main style={{ minHeight: "85vh" }}>
-          <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-             <FlowChartTab
+            CTRLS
+          </button>
+          <button
+            className={currentTab === "debug" ? "active-" + theme : ""}
+            onClick={() => setCurrentTab("debug")}
+            style={{
+              color: theme === "dark" ? "#fff" : "#000",
+            }}
+            data-cy="debug-btn"
+          >
+            DEBUG
+          </button>
+        </div>
+        <div
+          className="flex App-control-buttons"
+          style={{
+            width:
+              windowWidth >= 1080
+                ? "750px"
+                : windowWidth <= 700
+                ? "100%"
+                : "420px",
+          }}
+        >
+          <Controls
+            theme={theme}
+            activeTab={currentTab}
+            setOpenCtrlModal={setOpenCtrlModal}
+          />
+          <button onClick={toggleTheme} className="App-theme-toggle">
+            {theme === "light" ? <LightIcon /> : <DarkIcon />}
+          </button>
+        </div>
+      </header>
+      <main style={{ minHeight: "85vh" }}>
+        <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
+          <FlowChartTab
             rfInstance={rfInstance!}
             setRfInstance={setRfInstance}
             results={programResults!}
@@ -125,19 +149,19 @@ const App = () => {
             clickedElement={clickedElement}
             setClickedElement={setClickedElement}
           />
-          </div>
-          <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-            <ControlsTab
-              results={programResults}
-              theme={theme}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-          </div>
-          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-            <ResultsTab results={programResults} />
-          </div>
-        </main>
+        </div>
+        <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+          <ControlsTab
+            results={programResults}
+            theme={theme}
+            openCtrlModal={openCtrlModal}
+            setOpenCtrlModal={setOpenCtrlModal}
+          />
+        </div>
+        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+          <ResultsTab results={programResults!} />
+        </div>
+      </main>
     </ThemeProvider>
   );
 };
