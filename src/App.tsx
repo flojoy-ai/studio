@@ -10,7 +10,7 @@ import { GlobalStyles } from "./feature/common/global";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
-import { ReactFlowProvider } from "react-flow-renderer";
+import { Node } from "reactflow";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
@@ -21,10 +21,10 @@ const App = () => {
   const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [clickedElement, setClickedElement] = useState([]);
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
   const {
-    elements,
-    setElements,
     rfInstance,
     setRfInstance,
     setUiTheme,
@@ -44,8 +44,7 @@ const App = () => {
       setUiTheme("light");
     }
   };
-  const ReactFlowChartProvider: FC<{ children: JSX.Element[] }> =
-    ReactFlowProvider;
+
   useEffect(() => {
     setRunningNode(runningNode);
     setFailedNode(failedNode);
@@ -54,82 +53,57 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <ReactFlowChartProvider>
-        <GlobalStyles />
-        <p
-          className="App-status"
-          data-cy="app-status"
+      <GlobalStyles />
+      <p
+        className="App-status"
+        data-cy="app-status"
+        style={{
+          backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
+        }}
+      >
+        <code>{serverStatus}</code>
+      </p>
+      <header
+        className={`flex App-header border-color  ${
+          theme === "dark" && "dark"
+        }`}
+        style={{
+          ...(windowWidth <= 700 && {
+            flexDirection: "column",
+            height: "fit-content",
+          }),
+        }}
+      >
+        <div
+          className="App-tabs flex"
           style={{
-            backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
+            width: windowWidth <= 700 ? "100%" : "750px",
           }}
         >
-          <code>{serverStatus}</code>
-        </p>
-        <header
-          className={`flex App-header border-color  ${
-            theme === "dark" && "dark"
-          }`}
-          style={{
-            ...(windowWidth <= 700 && {
-              flexDirection: "column",
-              height: "fit-content",
-            }),
-          }}
-        >
-          <div
-            className="App-tabs flex"
+          <h1 className="App-brand">FLOJOY</h1>
+          <button
+            onClick={() => setCurrentTab("visual")}
+            className={currentTab === "visual" ? "active-" + theme : ""}
             style={{
-              width: windowWidth <= 700 ? "100%" : "750px",
+              ...(windowWidth <= 700 && {
+                minHeight: "55px",
+              }),
+              color: theme === "dark" ? "#fff" : "#000",
             }}
+            data-cy="script-btn"
           >
-            <h1 className="App-brand">FLOJOY</h1>
-            <button
-              onClick={() => setCurrentTab("visual")}
-              className={currentTab === "visual" ? "active-" + theme : ""}
-              style={{
-                ...(windowWidth <= 700 && {
-                  minHeight: "55px",
-                }),
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="script-btn"
-            >
-              SCRIPT
-            </button>
-            <button
-              onClick={() => setCurrentTab("panel")}
-              className={currentTab === "panel" ? "active-" + theme : ""}
-              style={{
-                ...(windowWidth <= 700 && {
-                  minHeight: "55px",
-                }),
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="ctrls-btn"
-            >
-              CTRLS
-            </button>
-            <button
-              className={currentTab === "debug" ? "active-" + theme : ""}
-              onClick={() => setCurrentTab("debug")}
-              style={{
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="debug-btn"
-            >
-              DEBUG
-            </button>
-          </div>
-          <div
-            className="flex App-control-buttons"
+            SCRIPT
+          </button>
+          <button
+            onClick={() => setCurrentTab("panel")}
+            className={currentTab === "panel" ? "active-" + theme : ""}
             style={{
-              width:
-                windowWidth >= 1080
-                  ? "750px"
-                  : windowWidth <= 700
-                  ? "100%"
-                  : "420px",
+              ...(windowWidth <= 700 && {
+                minHeight: "55px",
+              }),
+              color: theme === "dark" ? "#fff" : "#000",
             }}
+            data-cy="ctrls-btn"
           >
             <Controls
               theme={theme}
@@ -143,16 +117,14 @@ const App = () => {
         </header>
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-            <FlowChartTab
-              elements={elements}
-              setElements={setElements}
-              rfInstance={rfInstance}
-              setRfInstance={setRfInstance}
-              results={programResults}
-              theme={theme}
-              clickedElement={clickedElement}
-              setClickedElement={setClickedElement}
-            />
+             <FlowChartTab
+            rfInstance={rfInstance!}
+            setRfInstance={setRfInstance}
+            results={programResults!}
+            theme={theme}
+            clickedElement={clickedElement}
+            setClickedElement={setClickedElement}
+          />
           </div>
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
             <ControlsTab
@@ -166,7 +138,6 @@ const App = () => {
             <ResultsTab results={programResults} />
           </div>
         </main>
-      </ReactFlowChartProvider>
     </ThemeProvider>
   );
 };

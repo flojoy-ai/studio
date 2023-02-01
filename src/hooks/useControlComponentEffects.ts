@@ -1,13 +1,9 @@
-import {
-  CtrlOptionValue,
-} from "@src/feature/controls_panel/types/ControlOptions";
+import { CtrlOptionValue } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/ControlComponentState";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
-import {
-  ControlTypes,
-} from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { ControlTypes } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { CtlManifestType, CtrlManifestParam } from "./useFlowChartState";
 
 const useControlComponentEffects = ({
@@ -24,12 +20,11 @@ const useControlComponentEffects = ({
   setNumberInput,
   setSliderInput,
   setNd,
-  results
+  results,
 }: ControlComponentStateType & {
   ctrlObj: CtlManifestType;
   results: ResultsType;
 }) => {
-
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
@@ -40,12 +35,7 @@ const useControlComponentEffects = ({
               (ctrlObj?.param as CtrlManifestParam)?.id
           )!
     );
-  }, [
-    ctrlObj?.param,
-    (ctrlObj?.param as CtrlManifestParam)?.id,
-    selectOptions,
-    ctrlObj?.type,
-  ]);
+  }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 
   useEffect(() => {
     return ()=>{
@@ -53,8 +43,9 @@ const useControlComponentEffects = ({
       setTextInput("");
       setSliderInput("0");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
-useEffect(() => {
+  useEffect(() => {
     if (ctrls) {
       setCurrentInputValue(
         ctrls[(ctrlObj?.param as CtrlManifestParam)?.id!]?.value
@@ -62,12 +53,14 @@ useEffect(() => {
     } else {
       setCurrentInputValue(defaultValue as number);
     }
-  }, [ctrls, (ctrlObj?.param as CtrlManifestParam)?.id!]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrls, ctrlObj, selectedOption]);
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
-      if (flowChartObject!?.elements !== undefined) {
-        flowChartObject!.elements.forEach((node) => {
+      if (flowChartObject!?.nodes !== undefined) {
+        flowChartObject!.nodes.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
             const nodeLabel = node.data!.label;
@@ -100,8 +93,8 @@ useEffect(() => {
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!?.elements !== undefined) {
-        flowChartObject!.elements.forEach((node) => {
+      if (flowChartObject!?.nodes !== undefined) {
+        flowChartObject!.nodes.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
             const label =
@@ -121,7 +114,8 @@ useEffect(() => {
     return () => {
       setSelectOptions([]);
     };
-  }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrlObj, flowChartObject?.nodes, ctrlObj?.type]);
 
   // Filter attached node result from all node results
   useEffect(() => {
@@ -140,8 +134,8 @@ useEffect(() => {
     } catch (e) {
       console.error(e);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj.param, results.io, selectedOption]);
-
 };
 
 export default useControlComponentEffects;

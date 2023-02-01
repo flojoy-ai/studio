@@ -1,4 +1,4 @@
-export const PythonFuncModalStyles: ReactModal.Styles = {
+export const AddNodeModalStyles: ReactModal.Styles = {
   overlay: { zIndex: 99 },
   content: {
     border: "1px solid rgba(41, 41, 41, 1)",
