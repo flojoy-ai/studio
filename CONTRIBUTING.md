@@ -103,7 +103,7 @@ approved.
     ```
 
     - Register that category under proper parent category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
-    - In `jsonify_funk.py` file located in root directory add category folder name in `dirs` list variable.
+    - In `write_python_metadata.py` file located in root directory add category folder name in `dirs` list variable.
 
 4.  Add function to `__init__.py` within category folder. For example, here is `__init__.py` in the Simulations folder:
 

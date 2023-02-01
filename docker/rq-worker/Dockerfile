@@ -22,8 +22,8 @@ RUN bash yaml-script.sh
 # Copy the rest of the application code to the container
 COPY . /code/
 
-# Run jsonify_funk.py file
-RUN python3 jsonify_funk.py
+# Run write_python_metadata.py file
+RUN python3 write_python_metadata.py
 
 # Run generate_manifest.py file
 RUN python3 generate_manifest.py
