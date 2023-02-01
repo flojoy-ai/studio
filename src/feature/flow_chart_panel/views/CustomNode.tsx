@@ -30,9 +30,15 @@ const highlightShadow = {
     boxShadow: "0 0 50px 15px #48abe0",
     backgroundColor: "yellow",
   },
-  TIMER: { boxShadow: "0 0 50px 15px #48abe0", backgroundColor: "grey" },,
-  'LOCAL_FILE':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'#78640f96'},
-  'OBJECT_DETECTION':{boxShadow: '0 0 50px 15px #48abe0', backgroundColor:'#78640f96'}
+  TIMER: { boxShadow: "0 0 50px 15px #48abe0", backgroundColor: "grey" },
+  LOCAL_FILE: {
+    boxShadow: "0 0 50px 15px #48abe0",
+    backgroundColor: "#78640f96",
+  },
+  OBJECT_DETECTION: {
+    boxShadow: "0 0 50px 15px #48abe0",
+    backgroundColor: "#78640f96",
+  },
   BUTTER: { boxShadow: "0 0 50px 15px #48abe0", backgroundColor: "grey" },
 };
 const getboxShadow = (data: ElementsData) => {
@@ -52,13 +58,14 @@ const CustomNode = ({ data }: CustomNodeProps) => {
     if (programResults?.io?.length! > 0) {
       let programAdditionalInfo = {};
 
-      let programAdditionalInfo = {}
-
-      const results = programResults?.io
-      results?.forEach(element => {
-          programAdditionalInfo = {...programAdditionalInfo,[element.id]:element['additional_info']}
+      const results = programResults?.io;
+      results?.forEach((element) => {
+        programAdditionalInfo = {
+          ...programAdditionalInfo,
+          [element.id]: element["additional_info"],
+        };
       });
-      setAdditionalInfo(programAdditionalInfo)
+      setAdditionalInfo(programAdditionalInfo);
     }
   }, [programResults]);
 
