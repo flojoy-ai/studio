@@ -18,11 +18,12 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from FUNCTIONS.VISORS import *
-from FUNCTIONS.TRANSFORMERS import *
+from FUNCTIONS.ARITHMETIC import *
 from FUNCTIONS.SIMULATIONS import *
 from FUNCTIONS.LOOPS import *
 from FUNCTIONS.CONDITIONALS import *
 from FUNCTIONS.TIMERS import *
+from FUNCTIONS.SIGNAL_PROCESSING import *
 from FUNCTIONS.LOADERS import *
 
 stream = open('STATUS_CODES.yml', 'r')
@@ -240,10 +241,10 @@ def delete_all_running_jobs(all_jobs):
 
 
 def run(**kwargs):
+    jobset_id = kwargs['jobsetId']
     try:
         fc = kwargs['fc']
         my_job_id = kwargs['my_job_id']
-        jobset_id = kwargs['jobsetId']
         print('running flojoy for jobset id: ', jobset_id)
         all_jobs_key = "{}_ALL_JOBS".format(jobset_id)
         r_obj = get_redis_obj(jobset_id)
@@ -253,10 +254,11 @@ def run(**kwargs):
         if (cancel_existing_jobs):
             delete_all_running_jobs(all_jobs)
             r.delete(all_jobs_key)
-        elems = fc['elements']
+        elems = fc['nodes']
+        edges = fc['edges']
 
         # Replicate the React Flow chart in Python's networkx
-        convert_reactflow_to_networkx = reactflow_to_networkx(elems)
+        convert_reactflow_to_networkx = reactflow_to_networkx(elems, edges)
 
         # get topological sorting from reactflow_to_networx function imported from flojoy package
         topological_sorting = list(
@@ -285,7 +287,7 @@ def run(**kwargs):
         print('\n')
         for node_serial in topological_sorting:
             print(node_serial, nodes_by_id[node_serial]
-                ['cmd'], nodes_by_id[node_serial]['id'])
+                  ['cmd'], nodes_by_id[node_serial]['id'])
 
         while len(topological_sorting) != 0:
             node_serial = topological_sorting.pop(0)
@@ -363,8 +365,8 @@ def run(**kwargs):
                     direction = special_type_jobs['CONDITIONAL']['direction']
 
                     status = is_eligible_on_condition(node_serial=node_serial, direction=direction,
-                                                    DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
-                                                    current_conditional = current_conditional)
+                                                      DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
+                                                      current_conditional = current_conditional)
 
                     if not status:
                         continue
@@ -514,14 +516,14 @@ def run(**kwargs):
                 if len(list(DG.predecessors(node_serial))) == 0:
 
                     q.enqueue(func,
-                            # TODO: have to understand why the SINE node is failing for few times then succeeds
-                            #   retry=Retry(max=3),
-                            job_timeout='3m',
-                            on_failure=report_failure,
-                            job_id=job_id,
-                            kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,
-                                    'node_id': nodes_by_id[node_serial]['id']},
-                            result_ttl=500)
+                              # TODO: have to understand why the SINE node is failing for few times then succeeds
+                              #   retry=Retry(max=3),
+                              job_timeout='3m',
+                              on_failure=report_failure,
+                              job_id=job_id,
+                              kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,
+                                      'node_id': nodes_by_id[node_serial]['id']},
+                              result_ttl=500)
                     enqued_job_list.append(node_serial)
 
                 else:
@@ -530,15 +532,15 @@ def run(**kwargs):
                                                             r_obj=r_obj, all_jobs_key=all_jobs_key)
 
                     q.enqueue(func,
-                            #   retry=Retry(max=3),
-                            job_timeout='3m',
-                            on_failure=report_failure,
-                            job_id=job_id,
-                            kwargs={'ctrls': ctrls,
-                                    'previous_job_ids': previous_job_ids,
-                                    'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
-                            depends_on=previous_job_ids,
-                            result_ttl=500)
+                              #   retry=Retry(max=3),
+                              job_timeout='3m',
+                              on_failure=report_failure,
+                              job_id=job_id,
+                              kwargs={'ctrls': ctrls,
+                                      'previous_job_ids': previous_job_ids,
+                                      'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
+                              depends_on=previous_job_ids,
+                              result_ttl=500)
                     enqued_job_list.append(node_serial)
 
                     if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
@@ -568,5 +570,8 @@ def run(**kwargs):
         r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
         return
     except Exception:
-        print('Run failed: ', Exception, traceback.format_exc())
-        raise Exception
+        send_to_socket({
+            'jobsetId': jobset_id,
+            'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
+        })
+        print('Watch.py run error: ', Exception, traceback.format_exc())

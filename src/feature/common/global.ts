@@ -79,5 +79,8 @@ export const GlobalStyles: GlobalStyleComponent<
   }
   .ctrl-close-btn {
     color: ${({ theme }) => theme.text};
+    cursor: pointer;
+    background: transparent;
+    float:right
   }
 `;
