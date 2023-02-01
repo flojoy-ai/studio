@@ -17,16 +17,6 @@ const ctrlParameters = [
     // { title: "SINE ▶ WAVEFORM", value: "sine" },
     { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
-  // [
-  //   { title: "LINSPACE ▶ START", value: "5" },
-  //   { title: "LINSPACE ▶ END", value: "20" },
-  //   { title: "LINSPACE ▶ STEP", value: "2" },
-  //   { title: "SINE ▶ FREQUENCY", value: "5" },
-  //   { title: "SINE ▶ OFFSET", value: "2" },
-  //   { title: "SINE ▶ AMPLITUDE", value: "5" },
-  //   { title: "SINE ▶ WAVEFORM", value: "square" },
-  //   { title: "8 ▶ CONSTANT", value: "5" },
-  // ],
 ];
 
 describe("user workflow", () => {
@@ -100,8 +90,6 @@ describe("user workflow", () => {
       .contains("🐢 awaiting a new job", { timeout: 600000 });
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
-
-    cy.wait(30000);
 
     cy.get(`[data-cy="script-btn"]`).click();
 
