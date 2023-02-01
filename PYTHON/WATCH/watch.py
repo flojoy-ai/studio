@@ -24,6 +24,7 @@ from FUNCTIONS.LOOPS import *
 from FUNCTIONS.CONDITIONALS import *
 from FUNCTIONS.TIMERS import *
 from FUNCTIONS.SIGNAL_PROCESSING import *
+from FUNCTIONS.LOADERS import *
 
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)

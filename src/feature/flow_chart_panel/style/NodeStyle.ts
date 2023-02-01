@@ -10,7 +10,8 @@ export const NodeStyle = (
     data.func === "CONDITIONAL" ||
     data.func === "BREAK" ||
     data.func === "TIMER" ||
-    data.func === "BUTTER"
+    data.func === "BUTTER" ||
+    data.func === "LOCAL_FILE"
   ) {
     return {
       padding: 10,
@@ -36,7 +37,8 @@ export const NodeStyle = (
     data.func === "SQUARE" ||
     data.func === "SAW" ||
     data.func === "RAND" ||
-    data.func === "CONSTANT"
+    data.func === "CONSTANT" ||
+    data.func == "OBJECT_DETECTION"
   ) {
     return {
       height: "115px",

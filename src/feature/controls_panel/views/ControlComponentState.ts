@@ -7,18 +7,21 @@ import {
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { useFilePicker } from "use-file-picker";
 import {
   ControlOptions,
   NodeInputOptions,
   PlotControlOptions,
 } from "../types/ControlOptions";
 type ControlComponentStateProps = {
+  updateCtrlValue: any;
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
 };
 
 const ControlComponentState = ({
+  updateCtrlValue,
   ctrlObj,
   theme,
 }: ControlComponentStateProps) => {
@@ -45,6 +48,7 @@ const ControlComponentState = ({
       x: [1, 2, 3],
       y: [1, 2, 3],
       z: [1, 2, 3],
+      source: '',
       type: "scatter",
       mode: "lines",
     },
@@ -83,6 +87,27 @@ const ControlComponentState = ({
       };
     }) || [];
 
+
+
+    const [openFileSelector, { plainFiles }] = useFilePicker({
+      // accept: ".txt",
+      maxFileSize: 5,
+      readFilesContent: false,
+      multiple: false
+    });
+  
+    useEffect(() => {
+      // there will be only single file in the filesContent, for each will loop only once
+      plainFiles.forEach((file) => {
+        setTextInput(file.name);
+        if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+          return;
+        }
+        updateCtrlValue(file.name, ctrlObj);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [plainFiles]);
+
   return {
     nd,
     setNd,
@@ -113,6 +138,7 @@ const ControlComponentState = ({
     selectedOption,
     setSelectedOption,
     setSelectedPlotOption,
+    openFileSelector,
   };
 };
 
