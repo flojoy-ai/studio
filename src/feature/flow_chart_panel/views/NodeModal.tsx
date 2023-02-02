@@ -51,7 +51,8 @@ const NodeModal = ({
               data={
                 "data" in nd?.result
                 ? nd.result.data
-                : [{ x: nd.result["x"], y: nd.result["y"] }]
+                : [{ x: nd.result["x"], y: nd.result["y"], 
+                source: nd.result["source"], type: nd.result["type"] }]
               }
               layout={
                 "layout" in nd.result

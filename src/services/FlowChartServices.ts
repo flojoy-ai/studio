@@ -1,13 +1,11 @@
-import { FlowExportObject } from "react-flow-renderer";
 import localforage from "localforage";
+import { ReactFlowJsonObject } from "reactflow";
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
 const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT! || 8000;
 const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
-export function saveFlowChartToLocalStorage(
-  rfInstance?: FlowExportObject<any>
-) {
+export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
     const flowObj = rfInstance;
@@ -19,7 +17,7 @@ export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
 }: {
-  rfInstance?: FlowExportObject<any>;
+  rfInstance?: ReactFlowJsonObject;
   jobId: string;
 }) {
   if (!rfInstance) {
@@ -28,7 +26,6 @@ export function saveAndRunFlowChartInServer({
 
   const rfInstanceObject = rfInstance;
   // console.log("saving flowchart to server:", rfInstanceObject);
-
   const fcStr = JSON.stringify(rfInstanceObject);
 
   fetch(`${API_URI}/wfc`, {

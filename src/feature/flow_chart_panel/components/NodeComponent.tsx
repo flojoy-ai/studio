@@ -83,7 +83,8 @@ const NodeComponent = ({
         justifyContent: "center",
         padding: "5px",
         width: "100%",
-        flexDirection: "column",
+        flexDirection:'column',
+        textAlign:'center'
       }}
     >
       <div>{data.label}</div>
@@ -123,6 +124,11 @@ const NodeComponent = ({
             <p>{`${current_iteration}/${total_iteration}`}</p>
           </div>
         )}
+        {
+          data.func === 'LOCAL_FILE' && (
+            <p></p>
+          )
+        }
       </div>
     </div>
   );

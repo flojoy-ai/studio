@@ -1,29 +1,33 @@
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { useFilePicker } from "use-file-picker";
 import {
   ControlOptions,
   NodeInputOptions,
   PlotControlOptions,
 } from "../types/ControlOptions";
 type ControlComponentStateProps = {
+  updateCtrlValue: any;
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
 };
 
 const ControlComponentState = ({
+  updateCtrlValue,
   ctrlObj,
   theme,
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
-    elements,
+    nodes,
     ctrlsManifest,
     setGridLayout,
     isEditMode,
@@ -33,13 +37,9 @@ const ControlComponentState = ({
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
-  const [knobValue, setKnobValue] = useState<number>();
   const [textInput, setTextInput] = useState("");
   const [numberInput, setNumberInput] = useState("0");
   const [sliderInput, setSliderInput] = useState("0");
-  const [debouncedTimerForKnobId, setDebouncedTimerForKnobId] = useState<
-    NodeJS.Timeout | undefined
-  >(undefined);
   const [currentInputValue, setCurrentInputValue] = useState(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
@@ -48,6 +48,7 @@ const ControlComponentState = ({
       x: [1, 2, 3],
       y: [1, 2, 3],
       z: [1, 2, 3],
+      source: '',
       type: "scatter",
       mode: "lines",
     },
@@ -64,8 +65,9 @@ const ControlComponentState = ({
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
-  const inputNode = elements.find((e) => e.id === inputNodeId);
-  const ctrls = inputNode?.data?.ctrls;
+  const inputNode = nodes.find((e) => e.id === inputNodeId);
+  const ctrls: ElementsData['ctrls'] = inputNode?.data?.ctrls;
+
   const fnParams =
     FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
     {};
@@ -85,6 +87,27 @@ const ControlComponentState = ({
       };
     }) || [];
 
+
+
+    const [openFileSelector, { plainFiles }] = useFilePicker({
+      // accept: ".txt",
+      maxFileSize: 5,
+      readFilesContent: false,
+      multiple: false
+    });
+  
+    useEffect(() => {
+      // there will be only single file in the filesContent, for each will loop only once
+      plainFiles.forEach((file) => {
+        setTextInput(file.name);
+        if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+          return;
+        }
+        updateCtrlValue(file.name, ctrlObj);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [plainFiles]);
+
   return {
     nd,
     setNd,
@@ -103,22 +126,19 @@ const ControlComponentState = ({
     outputOptions,
     setOutputOptions,
     flowChartObject,
-    knobValue,
-    setKnobValue,
     textInput,
     setTextInput,
     numberInput,
     setNumberInput,
     sliderInput,
     setSliderInput,
-    debouncedTimerForKnobId,
-    setDebouncedTimerForKnobId,
     currentInputValue,
     setCurrentInputValue,
     plotData,
     selectedOption,
     setSelectedOption,
     setSelectedPlotOption,
+    openFileSelector,
   };
 };
 

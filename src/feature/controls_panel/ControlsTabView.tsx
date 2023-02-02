@@ -42,7 +42,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
 
   const {
     rfInstance,
-    elements,
+    nodes,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     ctrlsManifest,
@@ -146,8 +146,8 @@ const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     param: CtrlOptionValue,
     ctrl: CtlManifestType
   ) => {
-    // grab the current value for this param if it already exists in the flowchart elements
-    const inputNode = elements.find((e) => e.id === param.nodeId);
+    // grab the current value for this param if it already exists in the flowchart nodes
+    const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
 

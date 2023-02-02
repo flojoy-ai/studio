@@ -1,16 +1,10 @@
-
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
+import { NOISY_SINE } from "@src/data/RECIPES";
 
-const nodes = [
-  { selector: "LINSPACE-userGeneratedNode_1646432683694", name: "linspace" },
-  { selector: "SINE-userGeneratedNode_1646417316016", name: "sine" },
-  { selector: "RAND-userGeneratedNode_1646417371398", name: "rand" },
-  { selector: "2.0-userGeneratedNode_1646435677928", name: "constant" },
-  { selector: "MULTIPLY-userGeneratedNode_1646417352715", name: "multiply" },
-  { selector: "ADD-userGeneratedNode_1646417428589", name: "add" },
-  { selector: "SCATTER-userGeneratedNode_1646417560399", name: "scatter" },
-  { selector: "HISTOGRAM-userGeneratedNode_1646417604301", name: "histogram" },
-];
+const nodes = NOISY_SINE.nodes.map((node) => ({
+  selector: node.id,
+  name: node.data.label.toLowerCase(),
+}));
 
 const ctrlParameters = [
   [
@@ -23,16 +17,6 @@ const ctrlParameters = [
     // { title: "SINE ▶ WAVEFORM", value: "sine" },
     { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
-  // [
-  //   { title: "LINSPACE ▶ START", value: "5" },
-  //   { title: "LINSPACE ▶ END", value: "20" },
-  //   { title: "LINSPACE ▶ STEP", value: "2" },
-  //   { title: "SINE ▶ FREQUENCY", value: "5" },
-  //   { title: "SINE ▶ OFFSET", value: "2" },
-  //   { title: "SINE ▶ AMPLITUDE", value: "5" },
-  //   { title: "SINE ▶ WAVEFORM", value: "square" },
-  //   { title: "8 ▶ CONSTANT", value: "5" },
-  // ],
 ];
 
 describe("user workflow", () => {
@@ -107,8 +91,6 @@ describe("user workflow", () => {
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
 
-    cy.wait(30000);
-
     cy.get(`[data-cy="script-btn"]`).click();
 
     nodes.forEach((node) => {
@@ -118,7 +100,7 @@ describe("user workflow", () => {
       });
       matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
       cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000)
+      cy.wait(3000);
     });
   });
 });
