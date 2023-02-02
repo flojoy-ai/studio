@@ -28,6 +28,12 @@ RUN python3 write_python_metadata.py
 # Run generate_manifest.py file
 RUN python3 generate_manifest.py
 
+# Make od-script.sh executable
+RUN chmod +x od-script.sh
+
+# Run the od-script.sh file
+RUN bash od-script.sh
+
 # # RUN CD PYTHON
 WORKDIR /code/PYTHON
 
