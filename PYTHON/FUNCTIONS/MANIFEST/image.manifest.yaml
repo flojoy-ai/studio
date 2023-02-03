@@ -1,0 +1,6 @@
+COMMAND:
+  - {
+      name: 'Image Viewer',
+      key: 'IMAGE',
+      type: 'VISOR'
+    }

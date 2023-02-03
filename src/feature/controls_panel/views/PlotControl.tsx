@@ -30,6 +30,7 @@ export interface PlotControlProps {
     x: number[];
     y: number[];
     z: number[];
+    source: string;
     type: string;
     mode: string;
   }[];
@@ -39,6 +40,7 @@ export interface PlotControlProps {
         x: number[];
         y: number[];
         z: number[];
+        source: string;
         type: string;
         mode: string;
       }[]
@@ -51,6 +53,7 @@ const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
   scatter3d: ["x", "y", "z"],
   scatter: ["x", "y"],
   surface: ["x", "y", "z"],
+  image: ["y"],
 };
 const PlotControl = ({
   nd,
@@ -100,6 +103,14 @@ const PlotControl = ({
     setNd,
     setPlotData,
   });
+
+  if (plotData && plotData.length > 0 && plotData[0]
+     && plotData[0].type === "image") {
+      if (plotData[0].y && plotData[0].y.length > 0) {
+        const dataUrl = convertToDataUrl(plotData[0].y[0], "image");
+        plotData[0]["source"] = dataUrl;
+      }
+  }  
 
   return (
     <Fragment>
@@ -174,11 +185,7 @@ const PlotControl = ({
             },
           ]}
           layout={styledPlotLayout(theme)}
-          style={{
-            width: "100%",
-            height: "100%",
-            transform: isEditMode ? "scale(0.8) translateY(-60px)" : "scale(1)",
-          }}
+          style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
         />
       </div>
     </Fragment>
@@ -186,3 +193,27 @@ const PlotControl = ({
 };
 
 export default PlotControl;
+
+
+function convertToDataUrl(fileContent: any, fileType: string): string {
+  let dataUrl = '';
+  switch (fileType) {
+    case 'image':
+      dataUrl = "data:image/jpeg;base64," + convertToBase64(fileContent)
+      break;
+    default:
+      break;
+  }
+  return dataUrl;
+}
+
+function convertToBase64(content: any): string {
+  let binary = ''
+  const bytes = new Uint8Array(content);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+
+}

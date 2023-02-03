@@ -5,6 +5,7 @@ type Commands = {
   type: string;
   key: string;
   inputs?: { name: string; id: string; type: string }[];
+  ui_component_id?: string;
 }[];
 
 export const COMMANDS: Commands = manifests.commands;
@@ -47,7 +48,7 @@ export const SECTIONS = [
       // Loaders tab
       { name: "Cloud Databases", key: "CLOUD_DATABASE" },
       { name: "Cloud File Systems", key: "CLOUD_FILE_SYSTEM" },
-      { name: "Local File System", key: "LOCAL_FILE_SYSTEM" },
+      { name: "Local File System", key: "LOADER" },
     ],
   },
 
