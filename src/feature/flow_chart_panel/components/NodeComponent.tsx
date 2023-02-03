@@ -146,6 +146,11 @@ const NodeComponent = ({
             <p>{`${current_iteration}/${total_iteration}`}</p>
           </div>
         )}
+        {
+          data.func === 'LOCAL_FILE' && (
+            <p></p>
+          )
+        }
       </div>
     </div>
   );

@@ -9,16 +9,6 @@ const ctrlParameters = [
       // { title: "SINE ▶ WAVEFORM", value: "sine" },
       { title: "2.0 ▶ CONSTANT", value: 8 },
     ],
-    // [
-    //   { title: "LINSPACE ▶ START", value: "5" },
-    //   { title: "LINSPACE ▶ END", value: "20" },
-    //   { title: "LINSPACE ▶ STEP", value: "2" },
-    //   { title: "SINE ▶ FREQUENCY", value: "5" },
-    //   { title: "SINE ▶ OFFSET", value: "2" },
-    //   { title: "SINE ▶ AMPLITUDE", value: "5" },
-    //   { title: "SINE ▶ WAVEFORM", value: "square" },
-    //   { title: "8 ▶ CONSTANT", value: "5" },
-    // ],
   ];
 
 describe('Ctrl Tab management', () => {
@@ -26,9 +16,6 @@ describe('Ctrl Tab management', () => {
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.visit("/").wait(1000);
         cy.get("[data-testid=react-flow]", { timeout: 20000 });;
-
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(10000);
         cy.get(`[data-cy="app-status"]`)
         .find('code')
         .then( ($ele) => {
