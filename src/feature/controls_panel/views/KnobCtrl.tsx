@@ -4,10 +4,9 @@ import {
 } from "@src/hooks/useFlowChartState";
 import { WritableDraft } from "immer/dist/internal";
 import React, { useCallback, useEffect, useState } from "react";
-import { Silver } from "react-dial-knob";
+import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
-
 interface KnobCtrlProps {
   makeLayoutStatic: () => void;
   isEditMode: boolean;
@@ -40,7 +39,7 @@ const KnobCtrl = ({
       }
       updateCtrlValue(value.toString(), ctrlObj);
     },
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ctrlObj]
   );
 
@@ -48,7 +47,7 @@ const KnobCtrl = ({
     return () => {
       setKnobValue(0);
     };
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
 
   return (
@@ -70,20 +69,24 @@ const KnobCtrl = ({
       }}
     >
       <Silver
-        style={{ width: "fit-content", boxShadow: "0" }}
+        style={{
+          width: "fit-content",
+          boxShadow: "0",
+          zIndex: 1,
+        }}
         // diameter={70}
-        knobStyle={{ boxShadow: "0" }}
+        knobStyle={{ boxShadow: "0", background: "none" }}
         min={0}
         max={100}
         step={1}
         value={knobValue || currentInputValue}
-        diameter={120}
+        diameter={180}
         onValueChange={(val) => {
           console.log(" onValueChange: ", val);
           updateCtrlValueFromKnob(val);
         }}
         ariaLabelledBy={"my-label"}
-      />
+      ></Silver>
     </div>
   );
 };
