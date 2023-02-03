@@ -140,9 +140,6 @@ const App = () => {
         </div>
       </header>
       <main style={{ minHeight: "85vh" }}>
-        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-          <ResultsTab results={programResults!} />
-        </div>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
           <FlowChartTab
             rfInstance={rfInstance!}
@@ -153,14 +150,17 @@ const App = () => {
             setClickedElement={setClickedElement}
           />
         </div>
-        {currentTab === "panel" && (
+        <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
           <ControlsTab
             results={programResults}
             theme={theme}
             openCtrlModal={openCtrlModal}
             setOpenCtrlModal={setOpenCtrlModal}
           />
-        )}
+        </div>
+        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+          <ResultsTab results={programResults!} />
+        </div>
       </main>
     </ThemeProvider>
   );

@@ -33,7 +33,7 @@ ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
 echo 'jsonify python functions and write to JS-readable directory'
-python3 jsonify_funk.py
+python3 write_python_metadata.py
 
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
@@ -42,7 +42,7 @@ if [ $initNodePackages ]
 then 
    echo '-n flag provided'
    echo 'Node packages will be installed from package.json!'
-   npm install
+   npm install --legacy-peer-deps
 fi
 
 

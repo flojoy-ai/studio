@@ -1,9 +1,6 @@
-.default_node_container {
+.simulation__node__container {
   position: relative;
-  padding: 10px;
-  /* height: 105px; */
-  width: 190px;
-  font-weight: 600;
+  width: 115px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;

@@ -16,7 +16,6 @@ const useControlComponentEffects = ({
   defaultValue,
   ctrls,
   setSelectOptions,
-  setKnobValue,
   setTextInput,
   setNumberInput,
   setSliderInput,
@@ -39,10 +38,11 @@ const useControlComponentEffects = ({
   }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 
   useEffect(() => {
-    setNumberInput("0");
-    setTextInput("");
-    setKnobValue(0);
-    setSliderInput("0");
+    return ()=>{
+      setNumberInput("0");
+      setTextInput("");
+      setSliderInput("0");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
   useEffect(() => {
@@ -53,6 +53,7 @@ const useControlComponentEffects = ({
     } else {
       setCurrentInputValue(defaultValue as number);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrls, ctrlObj, selectedOption]);
 
