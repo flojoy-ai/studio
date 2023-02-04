@@ -60,6 +60,13 @@ const FlowChartTab = ({
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
+
+  console.log("Results is: ", results);
+  console.log("theme is: ", theme);
+  console.log("rfinstance is: ", rfInstance);
+  console.log("clickedElement: ", clickedElement);
+  console.log("setClickedElement: ", setClickedElement);
+
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: CustomEdge as any }),

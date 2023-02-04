@@ -140,6 +140,7 @@ export function useFlowChartState() {
       const blob = new Blob([fileContentJsonString], {
         type: "text/plain;charset=utf-8",
       });
+
       saveAs(blob, "flojoy.txt");
     }
   };
