@@ -180,6 +180,10 @@ export function useFlowChartState() {
     setNodes((nodes) => {
       return nodes.filter((node) => node.id !== id);
     });
+    setEdges((edges) => {
+      const finalEdges = edges.filter((edge) => edge.source !== id);
+      return finalEdges.filter((edge) => edge.target !== id);
+    });
   };
 
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
