@@ -19,8 +19,12 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, deleteNode } = useFlowChartState();
   const params = data.inputs || [];
+
+  const handleDelete = () => {
+    deleteNode(data.id);
+  };
 
   return (
     <div
@@ -66,6 +70,17 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
               params.length > 0 ? (params.length + 1) * 40 : "fit-content",
           }}
         >
+          <button
+            style={{
+              position: "fixed",
+              top: 10,
+              right: 10,
+              cursor: "pointer",
+            }}
+            onClick={handleDelete}
+          >
+            X
+          </button>
           <HandleComponent data={data} inputs={params} />
         </div>
       </div>

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, deleteNode } = useFlowChartState();
   const params = data.inputs || [];
   const { states } = useSocket();
   const { programResults } = states!;
@@ -18,6 +18,10 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
       (value, _) => value === data.id
     );
     return isExist && data.func === "LOOP";
+  };
+
+  const handleDelete = () => {
+    deleteNode(data.id);
   };
 
   const current_iteration = isLoopInfoExist()
@@ -123,6 +127,17 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
               params.length > 0 ? (params.length + 1) * 40 : "fit-content",
           }}
         >
+          <button
+            style={{
+              position: "fixed",
+              top: 10,
+              right: 10,
+              cursor: "pointer",
+            }}
+            onClick={handleDelete}
+          >
+            X
+          </button>
           <HandleComponent data={data} inputs={params} />
         </div>
       </div>

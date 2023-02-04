@@ -17,8 +17,13 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, deleteNode } = useFlowChartState();
   const params = data.inputs || [];
+
+  const handleDelete = () => {
+    deleteNode(data.id);
+  };
+
   return (
     <div
       style={{
@@ -28,6 +33,18 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         }),
       }}
     >
+      <button
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          cursor: "pointer",
+          zIndex: 999,
+        }}
+        onClick={handleDelete}
+      >
+        X
+      </button>
       <div
         style={{
           position: "relative",

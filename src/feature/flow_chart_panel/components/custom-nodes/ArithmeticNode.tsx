@@ -15,8 +15,12 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, deleteNode } = useFlowChartState();
   const params = data.inputs || [];
+
+  const handleDelete = () => {
+    deleteNode(data.id);
+  };
 
   return (
     <div
@@ -63,7 +67,17 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
             }}
           />
         )}
-
+        <button
+          style={{
+            position: "fixed",
+            left: 10,
+            top: 20,
+            cursor: "pointer",
+          }}
+          onClick={handleDelete}
+        >
+          X
+        </button>
         <div
           style={{
             display: "flex",

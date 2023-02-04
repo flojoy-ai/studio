@@ -1,11 +1,17 @@
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import "@feature/flow_chart_panel/style/defaultNode.css"
+import "@feature/flow_chart_panel/style/defaultNode.css";
+import { useFlowChartTabState } from "../FlowChartTabState";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, deleteNode } = useFlowChartState();
+
   const params = data.inputs || [];
+
+  const handleClick = () => {
+    deleteNode(data.id);
+  };
 
   return (
     <div
@@ -41,6 +47,18 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
         >
           <div>{data.label}</div>
         </div>
+        <button
+          style={{
+            position: "fixed",
+            top: "22px",
+            right: 0,
+            cursor: "pointer",
+            zIndex: 999,
+          }}
+          onClick={handleClick}
+        >
+          X
+        </button>
         <div
           style={{
             display: "flex",

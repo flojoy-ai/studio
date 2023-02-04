@@ -175,6 +175,13 @@ export function useFlowChartState() {
       }
     });
   };
+
+  const deleteNode = (id: string) => {
+    setNodes((nodes) => {
+      return nodes.filter((node) => node.id !== id);
+    });
+  };
+
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setNodes((nodes) => {
       const node = nodes.find((e) => e.id === nodeId);
@@ -220,5 +227,6 @@ export function useFlowChartState() {
     setEdges,
     nodes,
     setNodes,
+    deleteNode,
   };
 }
