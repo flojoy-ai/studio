@@ -34,6 +34,7 @@ export default function ControlGrid({
         ...ctrl.layout,
       }))
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlsManifest]);
 
   return (
