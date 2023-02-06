@@ -1,0 +1,7 @@
+COMMAND:
+  - {
+      name: "Feedback",
+      key: "FEEDBACK",
+      type: "SIMULATION",
+      parameters: {},
+    }

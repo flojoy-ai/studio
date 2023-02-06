@@ -245,8 +245,11 @@ def run(**kwargs):
     jobset_id = kwargs['jobsetId']
     try:
         fc = kwargs['fc']
+        #job id of running node
         my_job_id = kwargs['my_job_id']
         print('running flojoy for jobset id: ', jobset_id)
+        
+        # key to store all jobs in redis
         all_jobs_key = "{}_ALL_JOBS".format(jobset_id)
         r_obj = get_redis_obj(jobset_id)
         r.delete('{}_ALL_NODES'.format(jobset_id))
@@ -257,6 +260,8 @@ def run(**kwargs):
             r.delete(all_jobs_key)
         elems = fc['nodes']
         edges = fc['edges']
+        
+        r.set('{}_edges'.format(jobset_id), dump({'edge': edges}))
 
         # Replicate the React Flow chart in Python's networkx
         convert_reactflow_to_networkx = reactflow_to_networkx(elems, edges)
