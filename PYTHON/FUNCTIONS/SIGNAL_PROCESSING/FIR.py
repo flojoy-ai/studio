@@ -25,7 +25,7 @@ def FIR(v, params):
         x = v[0].y
     except IndexError: #nothing input
         x = test_x
-
+    print(x)
     # first we need to define the nyquist rate ...
     nyq_rate = sample_rate / 2.0
     # ... then the transition width relative to this
