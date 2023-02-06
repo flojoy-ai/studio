@@ -10,16 +10,10 @@ def FIR(v, params):
     transition to the stop band and the corresponding attentuation, and
     lastly the cutoff frequency. '''
     print('Savgol inputs:', v)
-    sample_rate = 100 #Hz
-    transition_width = 5.0 #Hz
-    stop_band_attenuation = 60 # dB
-    cutoff_freq = 10.0 # Hz
-    if len(v) > 0:
-        sample_rate = v[1].y if v[1].y is not None else sample_rate
-        transition_width = v[2].y if v[2].y is not None else transition_width
-        stop_band_attenuation = v[3].y if v[3].y is not None else stop_band_attenuation
-        cutoff_freq = v[4].y if v[4].y is not None else cutoff_freq
-
+    sample_rate = params['sample_rate'] #Hz
+    transition_width = params['transition_width'] #Hz
+    stop_band_attenuation = params['stop_band_attenuation'] # dB
+    cutoff_freq = params['cutoff_freq'] # Hz
     print(f'FIR params: {[sample_rate,transition_width,stop_band_attenuation,cutoff_freq]}')
     # lets create some default behaviour for testing
     nsamples = 400
