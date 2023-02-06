@@ -1,0 +1,59 @@
+from scipy import signal
+from flojoy import flojoy, DataContainer
+import numpy as np
+
+@flojoy
+def FIR(v, params):
+    ''' Apply a low-pass FIR filter to an input vector. This
+    filter takes a few inputs: the sample_rate (will be passed as a parameter
+    if the target node is not connected), the desired width of the 
+    transition to the stop band and the corresponding attentuation, and
+    lastly the cutoff frequency. '''
+    print('Savgol inputs:', v)
+    sample_rate = 100 #Hz
+    transition_width = 5.0 #Hz
+    stop_band_attenuation = 60 # dB
+    cutoff_freq = 10.0 # Hz
+    if len(v) > 0:
+        sample_rate = v[1].y if v[1].y is not None else sample_rate
+        transition_width = v[2].y if v[2].y is not None else transition_width
+        stop_band_attenuation = v[3].y if v[3].y is not None else stop_band_attenuation
+        cutoff_freq = v[4].y if v[4].y is not None else cutoff_freq
+
+    print(f'FIR params: {[sample_rate,transition_width,stop_band_attenuation,cutoff_freq]}')
+    # lets create some default behaviour for testing
+    nsamples = 400
+    t = np.arange(nsamples) / sample_rate
+    test_x = np.cos(2*np.pi*0.5*t) + 0.2*np.sin(2*np.pi*2.5*t+0.1) + \
+            0.2*np.sin(2*np.pi*15.3*t) + 0.1*np.sin(2*np.pi*16.7*t + 0.1) + \
+                0.1*np.sin(2*np.pi*23.45*t+.8)
+    try:
+        x = v[0].y
+    except IndexError: #nothing input
+        x = test_x
+
+    # first we need to define the nyquist rate ...
+    nyq_rate = sample_rate / 2.0
+    # ... then the transition width relative to this
+    transition_width /= nyq_rate
+
+    # Now compute order and Kaiser param for the fitler
+    N, beta = signal.kaiserord(stop_band_attenuation,transition_width)
+
+    # Now we create the filter with the Kaiser window ...
+    taps = signal.firwin(N, cutoff_freq/nyq_rate, window = ('kaiser', beta))
+
+    # ... and then apply it to the signal
+    filtered_x = signal.lfilter(taps, 1.0, x)
+
+    # Now, there are two considerations to be had. Firstly, 
+    # there is a phase delay in the signal since we have applied finite
+    # taps ...
+    phase_delay = 0.5 * (N-1) / sample_rate
+    # ... and furthermore, the first N-1 samples are 'corrupted' in 
+    # the sense that the filter 'sacrifies' them by the imposition 
+    # of the initial conditions.
+    times = x[N-1:] - phase_delay
+    filtered_x = filtered_x[N-1:]
+    
+    return DataContainer(x = times, y = filtered_x)

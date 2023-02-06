@@ -1,0 +1,6 @@
+COMMAND:
+    - { 
+      name: "Low-pass FIR Filter", 
+      key: "FIR", 
+      type: "SIGNAL_PROCESSING",
+    }
