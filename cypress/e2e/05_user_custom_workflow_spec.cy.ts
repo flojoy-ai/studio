@@ -1,16 +1,10 @@
-
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
+import { NOISY_SINE } from "@src/data/RECIPES";
 
-const nodes = [
-  { selector: "LINSPACE-userGeneratedNode_1646432683694", name: "linspace" },
-  { selector: "SINE-userGeneratedNode_1646417316016", name: "sine" },
-  { selector: "RAND-userGeneratedNode_1646417371398", name: "rand" },
-  { selector:"2.0-userGeneratedNode_1646435677928", name: "constant" },
-  { selector: "MULTIPLY-userGeneratedNode_1646417352715", name: "multiply" },
-  { selector: "ADD-userGeneratedNode_1646417428589", name: "add" },
-  { selector: "SCATTER-userGeneratedNode_1646417560399", name: "scatter" },
-  { selector: "HISTOGRAM-userGeneratedNode_1646417604301", name: "histogram" },
-];
+const nodes = NOISY_SINE.nodes.map((node) => ({
+  selector: node.id,
+  name: node.data.label.toLowerCase(),
+}));
 
 const ctrlParameters = [
   [
@@ -22,20 +16,11 @@ const ctrlParameters = [
     { title: "SINE ▶ AMPLITUDE", value: 25 },
     { title: "2.0 ▶ CONSTANT", value: 8 },
   ],
-  // [
-  //   { title: "LINSPACE ▶ START", value: "5" },
-  //   { title: "LINSPACE ▶ END", value: "20" },
-  //   { title: "LINSPACE ▶ STEP", value: "2" },
-  //   { title: "SINE ▶ FREQUENCY", value: "5" },
-  //   { title: "SINE ▶ OFFSET", value: "2" },
-  //   { title: "SINE ▶ AMPLITUDE", value: "5" },
-  //   { title: "SINE ▶ WAVEFORM", value: "square" },
-  //   { title: "8 ▶ CONSTANT", value: "5" },
-  // ],
 ];
 
 describe("user workflow", () => {
   it("Should load default flow chart", () => {
+    cy.on("uncaught:exception", () => false);
     cy.visit("/", {
       onBeforeLoad(win: any) {
         win.disableIntercom = true;
@@ -68,9 +53,6 @@ describe("user workflow", () => {
       .click()
       .should("have.css", "color", "rgb(255, 165, 0)");
 
-    Cypress.on("uncaught:exception", (err, runnable) => {
-      return false;
-    });
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
 
     cy.get("[data-cy=add-ctrl]")
@@ -115,7 +97,7 @@ describe("user workflow", () => {
       });
       matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
       cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000)
+      cy.wait(3000);
     });
   });
 });

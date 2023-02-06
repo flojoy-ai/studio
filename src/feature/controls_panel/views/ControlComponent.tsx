@@ -2,11 +2,9 @@ import { Dispatch, memo, SetStateAction, useCallback } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-
 import customDropdownStyles from "../style/CustomDropdownStyles";
 
 import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
-import { Silver } from "react-dial-knob";
 import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
 import {
@@ -18,6 +16,7 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../types/ControlOptions";
 import PlotControl from "./PlotControl";
 import SevenSegmentComponent from "./SevenSegmentComponent";
+import KnobCtrl from "./KnobCtrl";
 
 type ControlComponentProps = {
   ctrlObj: CtlManifestType;
@@ -55,16 +54,12 @@ const ControlComponent = ({
     selectOptions,
     setSelectOptions,
     flowChartObject,
-    knobValue,
-    setKnobValue,
     textInput,
     setTextInput,
     numberInput,
     setNumberInput,
     sliderInput,
     setSliderInput,
-    debouncedTimerForKnobId,
-    setDebouncedTimerForKnobId,
     currentInputValue,
     setCurrentInputValue,
     nd,
@@ -82,35 +77,13 @@ const ControlComponent = ({
     defaultValue,
     paramOptions,
     styledLayout,
+    openFileSelector,
   } = ControlComponentState({
+    updateCtrlValue,
     theme,
     ctrlObj,
   });
 
-  const updateCtrlValueFromKnob = useCallback(
-    (value: number) => {
-      setKnobValue(value);
-
-      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        return;
-      }
-      if (debouncedTimerForKnobId) {
-        clearTimeout(debouncedTimerForKnobId);
-      }
-      const timerId = setTimeout(() => {
-        updateCtrlValue(value.toString(), ctrlObj);
-      }, 1000);
-
-      setDebouncedTimerForKnobId(timerId);
-    },
-    [
-      ctrlObj,
-      debouncedTimerForKnobId,
-      setDebouncedTimerForKnobId,
-      setKnobValue,
-      updateCtrlValue,
-    ]
-  );
 
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
@@ -150,11 +123,9 @@ const ControlComponent = ({
     ctrls,
     ctrlsManifest,
     currentInputValue,
-    debouncedTimerForKnobId,
     defaultValue,
     flowChartObject,
     isEditMode,
-    knobValue,
     numberInput,
     paramOptions,
     plotData,
@@ -167,9 +138,7 @@ const ControlComponent = ({
     styledLayout,
     textInput,
     setCurrentInputValue,
-    setDebouncedTimerForKnobId,
     setGridLayout,
-    setKnobValue,
     setNumberInput,
     setSelectedOption,
     setSelectedPlotOption,
@@ -177,6 +146,7 @@ const ControlComponent = ({
     setOutputOptions,
     setSliderInput,
     setTextInput,
+    openFileSelector,
   });
   return (
     <div
@@ -251,6 +221,29 @@ const ControlComponent = ({
           setSelectedPlotOption={setSelectedPlotOption}
         />
       )}
+      {ctrlObj.name === ControlNames.LocalFileLoader && (
+        <div className="ctrl-input-body-file" data-cy="numeric-input">
+          <input
+            type={"text"}
+            placeholder={"Please enter the full file path"}
+            className="ctrl-numeric-input border-color"
+            onChange={(e) => {
+              handleCtrlValueChange(setTextInput, e.target.value);
+            }}
+            value={currentInputValue || textInput || ""}
+            style={{ ...(theme === "dark" && { color: "#fff" }) }}
+          />
+          {/* <button
+            className="cmd-btn-dark "
+            style={{
+              ...{color: theme === "dark" ? "#fff" : "#000"}
+            }}
+            onClick={openFileSelector}
+            >
+            Select File
+          </button> */}
+        </div>
+      )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
       )}
@@ -302,39 +295,15 @@ const ControlComponent = ({
 
       {ctrlObj.name === ControlNames.Knob && (
         <div className="ctrl-input-body">
-          <div
-            onMouseEnter={makeLayoutStatic}
-            onMouseLeave={() => {
-              if (isEditMode) {
-                setGridLayout((prev) => {
-                  prev[
-                    prev.findIndex((layout) => layout.i === ctrlObj.id)
-                  ].static = false;
-                });
-              }
-            }}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Silver
-              style={{ width: "fit-content", boxShadow: "0" }}
-              // diameter={70}
-              knobStyle={{ boxShadow: "0" }}
-              min={0}
-              max={100}
-              step={1}
-              value={knobValue || currentInputValue || 0}
-              diameter={120}
-              onValueChange={updateCtrlValueFromKnob}
-              ariaLabelledBy={"my-label"}
-            >
-              {/* <label id={'my-label'}>Some label</label> */}
-            </Silver>
-          </div>
+          <KnobCtrl
+            selectedOption={selectedOption}
+            ctrlObj={ctrlObj}
+            isEditMode={isEditMode}
+            makeLayoutStatic={makeLayoutStatic}
+            setGridLayout={setGridLayout}
+            updateCtrlValue={updateCtrlValue}
+            currentInputValue={currentInputValue}
+          />
         </div>
       )}
 

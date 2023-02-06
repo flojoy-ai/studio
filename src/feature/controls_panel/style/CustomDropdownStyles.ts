@@ -3,6 +3,7 @@ import { lightTheme, darkTheme } from "../../common/theme";
 const customDropdownStyles = {
   menu: (provided, state) => ({
     ...provided,
+    zIndex: 2,
     opacity: 1,
     backgroundColor:
       state.selectProps.theme === "dark" ? darkTheme.body : lightTheme.body,

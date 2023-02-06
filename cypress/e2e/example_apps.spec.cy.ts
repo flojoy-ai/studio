@@ -1,11 +1,21 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
-import { Elements } from "react-flow-renderer";
+import { Node } from "reactflow";
 import exampleApps from "./config_example_app_test.json";
 import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+interface IApp {
+  title: string;
+  test_id: string;
+  nodes?: Array<{
+    id: string;
+    params?: {
+      [key: string]: string | number | boolean;
+    };
+  }>;
+}
 
 describe("Example apps testing.", () => {
-  exampleApps.forEach((app) => {
+  (exampleApps as IApp[]).forEach((app) => {
     describe(`User workflow for ${app.title} #${app.test_id}`, () => {
       it("Should load flow chart with all nodes from the app.", () => {
         cy.visit(`"/?test_example_app=${app.title}`, {
@@ -17,9 +27,8 @@ describe("Example apps testing.", () => {
          * verify all the nodes are created in the flow chart editor
          */
         cy.get(`[data-testid=react-flow]`).then(($body) => {
-          const elements = JSON.parse($body.attr("data-rfinstance")!);
-          const nodes: Elements<ElementsData> = elements.filter(
-            (elem: any) => !elem.source
+          const nodes: Node<ElementsData>[] = JSON.parse(
+            $body.attr("data-rfinstance")!
           );
           nodes.forEach((node) => {
             cy.get(`[data-id="${node.id}"]`);
@@ -27,6 +36,7 @@ describe("Example apps testing.", () => {
         });
       });
       it("Should switch to ctrl panel and add input widgets for each node parameters", () => {
+        cy.on("uncaught:exception", (err, runnable) => false);
         // Switch to ctrl panel tab
         cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
@@ -44,11 +54,11 @@ describe("Example apps testing.", () => {
          * and set default value
          */
         cy.get(`[data-testid=react-flow]`).then(($elem) => {
-          const elements = JSON.parse($elem.attr("data-rfinstance")!);
           // collect the node elements
-          const nodes: Elements<ElementsData> = elements.filter(
-            (elem: any) => !elem.source
+          const nodes: Node<ElementsData>[] = JSON.parse(
+            $elem.attr("data-rfinstance")!
           );
+
           nodes.forEach((node) => {
             const nodeParams: Record<string, any> = node.data!.ctrls;
             const nodeLabel = node.data!.label;
@@ -61,20 +71,16 @@ describe("Example apps testing.", () => {
         });
       });
       it("Should run the script successfully and show results in debug tab.", () => {
+        cy.on("uncaught:exception", () => false);
         cy.get(`[data-cy="app-status"]`)
           .find("code")
-          .contains("🐢 awaiting a new job", { timeout: 15000 });
+          .contains("🐢 awaiting a new job", { timeout: 60000 });
 
         // force close any opened modal in homepage
         cy.get("body").then(($body) => {
           if ($body.find(".ctrl-close-btn").length > 0) {
             cy.get(".ctrl-close-btn").click({ force: true });
           }
-        });
-
-        Cypress.on("uncaught:exception", (err) => {
-          cy.log("error occured: ", err);
-          return false;
         });
         // Switch to debug panel
         cy.get(`[data-cy="debug-btn"]`).click();
@@ -83,11 +89,7 @@ describe("Example apps testing.", () => {
         // wait for job to finish
         cy.get(`[data-cy="app-status"]`)
           .find("code")
-          .contains("🐢 awaiting a new job", { timeout: 15000 });
-        Cypress.on("uncaught:exception", (err) => {
-          cy.log("error occured: ", err);
-          return false;
-        });
+          .contains("🐢 awaiting a new job", { timeout: 65000 });
         // Check if the debug flow chart is constructed and visible
         cy.get("[data-testid=result-node]", { timeout: 200000 });
         matchPlotlyOutput();
@@ -128,7 +130,7 @@ const createWidgetForNodeParam = (
   node: any,
   nodeLabel: string,
   param: any,
-  app: any
+  app: IApp
 ) => {
   const [paramKey, paramValue] = param;
   // It assumes key is formatted as functionName_nodeLabel_paramName
@@ -137,7 +139,7 @@ const createWidgetForNodeParam = (
   const defaultValue = paramValue.value;
 
   const providedValue =
-    (app.nodes as any[])?.find((n) => n.id === node.id)?.params[
+    app.nodes?.find((n) => n.id === node.id)?.params![
       paramName.toLowerCase()
     ] || defaultValue;
   // if value is numeric

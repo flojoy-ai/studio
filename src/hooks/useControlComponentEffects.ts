@@ -16,7 +16,6 @@ const useControlComponentEffects = ({
   defaultValue,
   ctrls,
   setSelectOptions,
-  setKnobValue,
   setTextInput,
   setNumberInput,
   setSliderInput,
@@ -39,10 +38,11 @@ const useControlComponentEffects = ({
   }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 
   useEffect(() => {
-    setNumberInput("0");
-    setTextInput("");
-    setKnobValue(0);
-    setSliderInput("0");
+    return ()=>{
+      setNumberInput("0");
+      setTextInput("");
+      setSliderInput("0");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
   useEffect(() => {
@@ -53,6 +53,7 @@ const useControlComponentEffects = ({
     } else {
       setCurrentInputValue(defaultValue as number);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrls, ctrlObj, selectedOption]);
   // Filter attached node result from all node results
@@ -76,8 +77,8 @@ const useControlComponentEffects = ({
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
-      if (flowChartObject!?.elements !== undefined) {
-        flowChartObject!.elements.forEach((node) => {
+      if (flowChartObject!?.nodes !== undefined) {
+        flowChartObject!.nodes.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
             const nodeLabel = node.data!.label;
@@ -110,8 +111,8 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!?.elements !== undefined) {
-        flowChartObject!.elements.forEach((node) => {
+      if (flowChartObject!?.nodes !== undefined) {
+        flowChartObject!.nodes.forEach((node) => {
           if (!("source" in node)) {
             // Object is a node, not an edge
             const label =
@@ -132,7 +133,7 @@ const useControlComponentEffects = ({
       setSelectOptions([]);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctrlObj, flowChartObject?.elements, ctrlObj?.type]);
+  }, [ctrlObj, flowChartObject?.nodes, ctrlObj?.type]);
 
   // Filter attached node result from all node results
   useEffect(() => {

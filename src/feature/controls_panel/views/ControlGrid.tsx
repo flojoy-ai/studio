@@ -28,6 +28,13 @@ export default function ControlGrid({
       );
     }
   }, [isEditMode, setGridLayout]);
+  useEffect(() => {
+    setGridLayout(
+      ctrlsManifest.map((ctrl) => ({
+        ...ctrl.layout,
+      }))
+    );
+  }, [ctrlsManifest]);
 
   return (
     <ResponsiveGridLayout
@@ -44,7 +51,7 @@ export default function ControlGrid({
             <div
               key={ctrl.id}
               data-grid={{
-                ...gridLayout.find((l) => l.i === ctrl.id),
+                ...ctrl.layout,
               }}
               style={{
                 display: "none",
@@ -57,7 +64,7 @@ export default function ControlGrid({
           <div
             key={ctrl.id}
             data-grid={{
-              ...gridLayout.find((l) => l.i === ctrl.id),
+              ...ctrl.layout,
               static: !isEditMode,
             }}
             style={{

@@ -118,7 +118,10 @@
   display: flex;
   width: 100%;
 }
-
+.react-flow__node{
+  background: transparent!important;
+  border: none!important;
+}
 .react-flow__node-default {
   width: fit-content;
   padding: 0px;

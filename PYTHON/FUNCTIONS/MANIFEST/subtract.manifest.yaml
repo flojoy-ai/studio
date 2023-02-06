@@ -1,0 +1,8 @@
+COMMAND:
+  - {
+      name: "Sub",
+      key: "SUBTRACT",
+      type: "ARITHMETIC",
+      inputs: [{ name: "y", id: "sub_y", type: "target" }],
+    }
+  
