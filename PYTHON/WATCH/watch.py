@@ -272,11 +272,7 @@ def run(**kwargs):
 
         edge_info = convert_reactflow_to_networkx['edgeInfo']
 
-        '''
-            TODO Fixing the child children node, whether they are eligible to enqueue or not
-        '''
-
-        loop_nodes = defaultdict({})
+        loop_nodes = defaultdict()
         enqued_job_list = []
         current_loop = ""
         redis_env = ""
@@ -297,14 +293,10 @@ def run(**kwargs):
             func = getattr(globals()[cmd], cmd)
             ctrls = nodes_by_id[node_serial]['ctrls']
             node_id = nodes_by_id[node_serial]['id']
-            job_id = node_id  # 'JOB_' + cmd + '_' + uuid.uuid1().__str__()
+            job_id = node_id
             s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
             r_obj = get_redis_obj(jobset_id)
             prev_jobs = get_redis_obj(all_jobs_key)
-
-            '''
-                Check for if there's a speical type JOBS
-            '''
 
             special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {
             }
@@ -312,8 +304,6 @@ def run(**kwargs):
             is_eligible_to_enqueue = False
 
             if len(special_type_jobs):
-
-                # check for if its a LOOP JOBS & CURRENTLY ONGOING
 
                 if 'LOOP' in special_type_jobs:
 
@@ -393,12 +383,12 @@ def run(**kwargs):
                         redis_env = dump({
                             **r_obj, 'SYSTEM_STATUS': s,
                             'SPECIAL_TYPE_JOBS': {
-                                # **special_type_jobs,
                                 'LOOP': loop_jobs
                             }
                         })
 
                         current_loop = node_id
+                        loop_nodes[node_id] = []
                         topological_sorting.append(node_serial)
 
                     elif cmd =='CONDITIONAL':
@@ -511,16 +501,12 @@ def run(**kwargs):
                     loop_nodes[current_loop].append(
                         node_serial) if node_serial not in loop_nodes[current_loop] else node_serial
 
-            # if(node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):
-            #     break
-
             if is_eligible_to_enqueue:
+
                 '''Enqueue'''
                 if len(list(DG.predecessors(node_serial))) == 0:
 
                     q.enqueue(func,
-                              # TODO: have to understand why the SINE node is failing for few times then succeeds
-                              #   retry=Retry(max=3),
                               job_timeout='3m',
                               on_failure=report_failure,
                               job_id=job_id,
@@ -530,12 +516,12 @@ def run(**kwargs):
                     enqued_job_list.append(node_serial)
 
                 else:
-                    previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_nodes[current_loop],
+                    loop_node_list = [] if loop_nodes == defaultdict() else loop_nodes[current_loop]
+                    previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_node_list,
                                                             node_id=node_id, node_serial=node_serial, nodes_by_id=nodes_by_id,
                                                             r_obj=r_obj, all_jobs_key=all_jobs_key)
 
                     q.enqueue(func,
-                              #   retry=Retry(max=3),
                               job_timeout='3m',
                               on_failure=report_failure,
                               job_id=job_id,
@@ -547,11 +533,7 @@ def run(**kwargs):
                     enqued_job_list.append(node_serial)
 
                     if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
-                        loop_nodes[current_loop] = []
-                    # time.sleep(3)
-
-                    # if (node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):
-                    #     break
+                        del loop_nodes[current_loop]
 
                 r.set(jobset_id, redis_env)
                 r.set(all_jobs_key, dump({
