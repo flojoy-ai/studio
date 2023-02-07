@@ -2,37 +2,76 @@
     "rfInstance": {
         "nodes": [
             {
+                "width": 150,
+                "height": 135,
+                "id": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
+                "type": "default",
+                "data": {
+                    "id": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
+                    "label": "TIMES",
+                    "func": "LINSPACE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "LINSPACE_TIMES_start": {
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": "0"
+                        },
+                        "LINSPACE_TIMES_end": {
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "3.99"
+                        },
+                        "LINSPACE_TIMES_step": {
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "400"
+                        }
+                    }
+                },
+                "position": {
+                    "x": 104.34023721215434,
+                    "y": 0.0017998240538759092
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 104.34023721215434,
+                    "y": 0.0017998240538759092
+                },
+                "dragging": true
+            },
+            {
                 "width": 115,
                 "height": 115,
-                "id": "SINE-587861ec-dc77-4377-9a98-f88a59be96fe",
+                "id": "SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272",
                 "type": "SIMULATION",
                 "data": {
-                    "id": "SINE-587861ec-dc77-4377-9a98-f88a59be96fe",
+                    "id": "SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272",
                     "label": "INPUT",
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_INPUT_1_frequency": {
+                        "SINE_INPUT_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 3.1415
                         },
-                        "SINE_INPUT_1_offset": {
+                        "SINE_INPUT_offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_INPUT_1_amplitude": {
+                        "SINE_INPUT_amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 1
                         },
-                        "SINE_INPUT_1_phase": {
+                        "SINE_INPUT_phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 1.57075
                         },
-                        "SINE_INPUT_1_waveform": {
+                        "SINE_INPUT_waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -40,23 +79,23 @@
                     }
                 },
                 "position": {
-                    "x": -140.55041961587605,
-                    "y": 54.157709174012325
+                    "x": 540.2711508850433,
+                    "y": -15.565313444274352
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -140.55041961587605,
-                    "y": 54.157709174012325
+                    "x": 540.2711508850433,
+                    "y": -15.565313444274352
                 },
                 "dragging": true
             },
             {
                 "width": 115,
                 "height": 115,
-                "id": "SINE-8e781510-4593-48b1-b588-d063987fb7c0",
+                "id": "SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272",
                 "type": "SIMULATION",
                 "data": {
-                    "id": "SINE-8e781510-4593-48b1-b588-d063987fb7c0",
+                    "id": "SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272",
                     "label": "OSC_1",
                     "func": "SINE",
                     "type": "SIMULATION",
@@ -89,23 +128,23 @@
                     }
                 },
                 "position": {
-                    "x": -65.80578818049128,
-                    "y": 265.0645047902745
+                    "x": 537.2462292022237,
+                    "y": 167.88565546683003
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -65.80578818049128,
-                    "y": 265.0645047902745
+                    "x": 537.2462292022237,
+                    "y": 167.88565546683003
                 },
                 "dragging": true
             },
             {
                 "width": 99,
                 "height": 115,
-                "id": "ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051",
+                "id": "ADD-c6f501c7-e17a-4657-bc30-bb79da43b0da",
                 "type": "ARITHMETIC",
                 "data": {
-                    "id": "ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051",
+                    "id": "ADD-c6f501c7-e17a-4657-bc30-bb79da43b0da",
                     "label": "add1",
                     "func": "ADD",
                     "type": "ARITHMETIC",
@@ -119,23 +158,23 @@
                     ]
                 },
                 "position": {
-                    "x": 189.6996888468583,
-                    "y": 128.51740530548625
+                    "x": 820.534078604333,
+                    "y": 74.83876337321726
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 189.6996888468583,
-                    "y": 128.51740530548625
+                    "x": 820.534078604333,
+                    "y": 74.83876337321726
                 },
                 "dragging": true
             },
             {
                 "width": 115,
                 "height": 115,
-                "id": "SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61a",
+                "id": "SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1e",
                 "type": "SIMULATION",
                 "data": {
-                    "id": "SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61a",
+                    "id": "SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1e",
                     "label": "OSC_2",
                     "func": "SINE",
                     "type": "SIMULATION",
@@ -168,24 +207,24 @@
                     }
                 },
                 "position": {
-                    "x": 69.73605037215555,
-                    "y": 393.46239726307545
+                    "x": 536.1763309072428,
+                    "y": 387.64865448430766
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 69.73605037215555,
-                    "y": 393.46239726307545
+                    "x": 536.1763309072428,
+                    "y": 387.64865448430766
                 },
                 "dragging": true
             },
             {
                 "width": 99,
                 "height": 115,
-                "id": "ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8",
+                "id": "ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fb",
                 "type": "ARITHMETIC",
                 "data": {
-                    "id": "ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8",
-                    "label": "ad2",
+                    "id": "ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fb",
+                    "label": "add2",
                     "func": "ADD",
                     "type": "ARITHMETIC",
                     "ctrls": {},
@@ -198,23 +237,23 @@
                     ]
                 },
                 "position": {
-                    "x": 596.8452787588177,
-                    "y": 356.39004781616256
+                    "x": 1126.8582694182483,
+                    "y": 191.3032177573741
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 596.8452787588177,
-                    "y": 356.39004781616256
+                    "x": 1126.8582694182483,
+                    "y": 191.3032177573741
                 },
                 "dragging": true
             },
             {
                 "width": 115,
                 "height": 115,
-                "id": "SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782",
+                "id": "SINE-0ff677e5-4bb0-418d-b521-257f960f4d61",
                 "type": "SIMULATION",
                 "data": {
-                    "id": "SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782",
+                    "id": "SINE-0ff677e5-4bb0-418d-b521-257f960f4d61",
                     "label": "OSC_3",
                     "func": "SINE",
                     "type": "SIMULATION",
@@ -247,23 +286,23 @@
                     }
                 },
                 "position": {
-                    "x": 93.66445187437921,
-                    "y": 664.8701751249945
+                    "x": 530.6915634783484,
+                    "y": 618.8098326584803
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 93.66445187437921,
-                    "y": 664.8701751249945
+                    "x": 530.6915634783484,
+                    "y": 618.8098326584803
                 },
                 "dragging": true
             },
             {
                 "width": 99,
                 "height": 115,
-                "id": "ADD-408e988c-e471-4460-8394-5994f7d62f42",
+                "id": "ADD-13294349-3310-478c-8b98-0a5f586b339a",
                 "type": "ARITHMETIC",
                 "data": {
-                    "id": "ADD-408e988c-e471-4460-8394-5994f7d62f42",
+                    "id": "ADD-13294349-3310-478c-8b98-0a5f586b339a",
                     "label": "add3",
                     "func": "ADD",
                     "type": "ARITHMETIC",
@@ -277,53 +316,23 @@
                     ]
                 },
                 "position": {
-                    "x": 334.20683534348973,
-                    "y": 537.3256850379702
+                    "x": 1442.3572136034272,
+                    "y": 406.41340918829394
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 334.20683534348973,
-                    "y": 537.3256850379702
-                },
-                "dragging": true
-            },
-            {
-                "width": 99,
-                "height": 115,
-                "id": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
-                "type": "ARITHMETIC",
-                "data": {
-                    "id": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
-                    "label": "add4",
-                    "func": "ADD",
-                    "type": "ARITHMETIC",
-                    "ctrls": {},
-                    "inputs": [
-                        {
-                            "name": "y",
-                            "id": "add_y",
-                            "type": "target"
-                        }
-                    ]
-                },
-                "position": {
-                    "x": 867.1635003892909,
-                    "y": 493.2140744813633
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 867.1635003892909,
-                    "y": 493.2140744813633
+                    "x": 1442.3572136034272,
+                    "y": 406.41340918829394
                 },
                 "dragging": true
             },
             {
                 "width": 115,
                 "height": 115,
-                "id": "SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7",
+                "id": "SINE-87b52624-11b8-479a-8177-543f4fb2d3ae",
                 "type": "SIMULATION",
                 "data": {
-                    "id": "SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7",
+                    "id": "SINE-87b52624-11b8-479a-8177-543f4fb2d3ae",
                     "label": "OSC_4",
                     "func": "SINE",
                     "type": "SIMULATION",
@@ -356,85 +365,53 @@
                     }
                 },
                 "position": {
-                    "x": 585.8699772296053,
-                    "y": 521.7169513549445
+                    "x": 530.125441176316,
+                    "y": 823.9513367080441
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 585.8699772296053,
-                    "y": 521.7169513549445
+                    "x": 530.125441176316,
+                    "y": 823.9513367080441
                 },
                 "dragging": true
             },
             {
-                "width": 150,
-                "height": 135,
-                "id": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "type": "default",
+                "width": 99,
+                "height": 115,
+                "id": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
+                "type": "ARITHMETIC",
                 "data": {
-                    "id": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                    "label": "TIMES",
-                    "func": "LINSPACE",
-                    "type": "SIMULATION",
-                    "ctrls": {
-                        "LINSPACE_TIMES_start": {
-                            "functionName": "LINSPACE",
-                            "param": "start",
-                            "value": "0"
-                        },
-                        "LINSPACE_TIMES_end": {
-                            "functionName": "LINSPACE",
-                            "param": "end",
-                            "value": "3.99"
-                        },
-                        "LINSPACE_TIMES_step": {
-                            "functionName": "LINSPACE",
-                            "param": "step",
-                            "value": "40"
+                    "id": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
+                    "label": "add4",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "add_y",
+                            "type": "target"
                         }
-                    }
+                    ]
                 },
                 "position": {
-                    "x": -439.5219585355793,
-                    "y": 431.59297577337725
+                    "x": 1770.665501818018,
+                    "y": 605.7484445233009
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": -439.5219585355793,
-                    "y": 431.59297577337725
-                },
-                "dragging": true
-            },
-            {
-                "width": 250,
-                "height": 159,
-                "id": "LINE-19792fb2-8f91-4bf2-b943-685fcc30b569",
-                "type": "VISOR",
-                "data": {
-                    "id": "LINE-19792fb2-8f91-4bf2-b943-685fcc30b569",
-                    "label": "VISUAL",
-                    "func": "LINE",
-                    "type": "VISOR",
-                    "ctrls": {}
-                },
-                "position": {
-                    "x": 1254.4282546716593,
-                    "y": 474.10201773752556
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1254.4282546716593,
-                    "y": 474.10201773752556
+                    "x": 1770.665501818018,
+                    "y": 605.7484445233009
                 },
                 "dragging": true
             },
             {
                 "width": 150,
                 "height": 135,
-                "id": "FIR-a2c672b6-4026-4c27-88f9-42cc1df72d21",
+                "id": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
                 "type": "SIGNAL_PROCESSING",
                 "data": {
-                    "id": "FIR-a2c672b6-4026-4c27-88f9-42cc1df72d21",
+                    "id": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
                     "label": "FIR",
                     "func": "FIR",
                     "type": "SIGNAL_PROCESSING",
@@ -462,122 +439,115 @@
                     }
                 },
                 "position": {
-                    "x": 1065.3866146219048,
-                    "y": 200.66615095693447
+                    "x": 2082.5781582814343,
+                    "y": 583.9676270930212
                 },
                 "selected": true,
                 "positionAbsolute": {
-                    "x": 1065.3866146219048,
-                    "y": 200.66615095693447
+                    "x": 2082.5781582814343,
+                    "y": 583.9676270930212
                 },
                 "dragging": true
             }
         ],
         "edges": [
             {
-                "source": "SINE-587861ec-dc77-4377-9a98-f88a59be96fe",
+                "source": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
                 "sourceHandle": "main",
-                "target": "ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051",
+                "target": "SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272SINE"
+            },
+            {
+                "source": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
+                "sourceHandle": "main",
+                "target": "SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272SINE"
+            },
+            {
+                "source": "SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272",
+                "sourceHandle": "main",
+                "target": "ADD-c6f501c7-e17a-4657-bc30-bb79da43b0da",
                 "targetHandle": "ADD",
-                "id": "reactflow__edge-SINE-587861ec-dc77-4377-9a98-f88a59be96femain-ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051ADD"
+                "id": "reactflow__edge-SINE-dc70c4b5-9116-4bdd-988c-9e3726ebf272main-ADD-c6f501c7-e17a-4657-bc30-bb79da43b0daADD"
             },
             {
-                "source": "SINE-8e781510-4593-48b1-b588-d063987fb7c0",
+                "source": "SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272",
                 "sourceHandle": "main",
-                "target": "ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051",
+                "target": "ADD-c6f501c7-e17a-4657-bc30-bb79da43b0da",
                 "targetHandle": "add_y",
-                "id": "reactflow__edge-SINE-8e781510-4593-48b1-b588-d063987fb7c0main-ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051add_y"
+                "id": "reactflow__edge-SINE-dad2f58e-9dfc-4ec2-add4-2988f67cd272main-ADD-c6f501c7-e17a-4657-bc30-bb79da43b0daadd_y"
             },
             {
-                "source": "ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051",
+                "source": "ADD-c6f501c7-e17a-4657-bc30-bb79da43b0da",
                 "sourceHandle": "main",
-                "target": "ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8",
+                "target": "ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fb",
                 "targetHandle": "ADD",
-                "id": "reactflow__edge-ADD-6e94fd5f-5de8-4143-8aad-8fed55ffa051main-ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8ADD"
+                "id": "reactflow__edge-ADD-c6f501c7-e17a-4657-bc30-bb79da43b0damain-ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fbADD"
             },
             {
-                "source": "SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61a",
+                "source": "SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1e",
                 "sourceHandle": "main",
-                "target": "ADD-408e988c-e471-4460-8394-5994f7d62f42",
+                "target": "ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fb",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1emain-ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fbadd_y"
+            },
+            {
+                "source": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
+                "sourceHandle": "main",
+                "target": "SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1e",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-SINE-eb0dce31-56d6-4327-8c8e-3ac251e9ea1eSINE"
+            },
+            {
+                "source": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
+                "sourceHandle": "main",
+                "target": "SINE-0ff677e5-4bb0-418d-b521-257f960f4d61",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-SINE-0ff677e5-4bb0-418d-b521-257f960f4d61SINE"
+            },
+            {
+                "source": "SINE-0ff677e5-4bb0-418d-b521-257f960f4d61",
+                "sourceHandle": "main",
+                "target": "ADD-13294349-3310-478c-8b98-0a5f586b339a",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-SINE-0ff677e5-4bb0-418d-b521-257f960f4d61main-ADD-13294349-3310-478c-8b98-0a5f586b339aadd_y"
+            },
+            {
+                "source": "ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fb",
+                "sourceHandle": "main",
+                "target": "ADD-13294349-3310-478c-8b98-0a5f586b339a",
                 "targetHandle": "ADD",
-                "id": "reactflow__edge-SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61amain-ADD-408e988c-e471-4460-8394-5994f7d62f42ADD"
+                "id": "reactflow__edge-ADD-897ef5a2-e7b7-44b4-bedb-147c880e83fbmain-ADD-13294349-3310-478c-8b98-0a5f586b339aADD"
             },
             {
-                "source": "SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782",
+                "source": "LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5",
                 "sourceHandle": "main",
-                "target": "ADD-408e988c-e471-4460-8394-5994f7d62f42",
+                "target": "SINE-87b52624-11b8-479a-8177-543f4fb2d3ae",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-SINE-87b52624-11b8-479a-8177-543f4fb2d3aeSINE"
+            },
+            {
+                "source": "SINE-87b52624-11b8-479a-8177-543f4fb2d3ae",
+                "sourceHandle": "main",
+                "target": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
                 "targetHandle": "add_y",
-                "id": "reactflow__edge-SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782main-ADD-408e988c-e471-4460-8394-5994f7d62f42add_y"
+                "id": "reactflow__edge-SINE-87b52624-11b8-479a-8177-543f4fb2d3aemain-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249eadd_y"
             },
             {
-                "source": "ADD-408e988c-e471-4460-8394-5994f7d62f42",
+                "source": "ADD-13294349-3310-478c-8b98-0a5f586b339a",
                 "sourceHandle": "main",
-                "target": "ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8",
-                "targetHandle": "add_y",
-                "id": "reactflow__edge-ADD-408e988c-e471-4460-8394-5994f7d62f42main-ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8add_y"
-            },
-            {
-                "source": "ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8",
-                "sourceHandle": "main",
-                "target": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
+                "target": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
                 "targetHandle": "ADD",
-                "id": "reactflow__edge-ADD-7dded3d1-74f5-4b9c-bee5-46a05cefe9d8main-ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3ADD"
+                "id": "reactflow__edge-ADD-13294349-3310-478c-8b98-0a5f586b339amain-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249eADD"
             },
             {
-                "source": "SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7",
+                "source": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
                 "sourceHandle": "main",
-                "target": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
-                "targetHandle": "add_y",
-                "id": "reactflow__edge-SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7main-ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3add_y"
-            },
-            {
-                "source": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "sourceHandle": "main",
-                "target": "SINE-587861ec-dc77-4377-9a98-f88a59be96fe",
-                "targetHandle": "SINE",
-                "id": "reactflow__edge-LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464main-SINE-587861ec-dc77-4377-9a98-f88a59be96feSINE"
-            },
-            {
-                "source": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "sourceHandle": "main",
-                "target": "SINE-8e781510-4593-48b1-b588-d063987fb7c0",
-                "targetHandle": "SINE",
-                "id": "reactflow__edge-LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464main-SINE-8e781510-4593-48b1-b588-d063987fb7c0SINE"
-            },
-            {
-                "source": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "sourceHandle": "main",
-                "target": "SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61a",
-                "targetHandle": "SINE",
-                "id": "reactflow__edge-LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464main-SINE-3818d2dd-63ef-4553-b8e4-7d5d5bf1b61aSINE"
-            },
-            {
-                "source": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "sourceHandle": "main",
-                "target": "SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782",
-                "targetHandle": "SINE",
-                "id": "reactflow__edge-LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464main-SINE-6d307de9-ca0c-4b1d-a7a7-c2e93a0d1782SINE"
-            },
-            {
-                "source": "LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464",
-                "sourceHandle": "main",
-                "target": "SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7",
-                "targetHandle": "SINE",
-                "id": "reactflow__edge-LINSPACE-55193afd-36c2-4c96-b9cc-61bffbf54464main-SINE-24ee3a6a-caf6-424e-83d7-6a01d40485e7SINE"
-            },
-            {
-                "source": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
-                "sourceHandle": "main",
-                "target": "LINE-19792fb2-8f91-4bf2-b943-685fcc30b569",
-                "targetHandle": "LINE",
-                "id": "reactflow__edge-ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3main-LINE-19792fb2-8f91-4bf2-b943-685fcc30b569LINE"
-            },
-            {
-                "source": "ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3",
-                "sourceHandle": "main",
-                "target": "FIR-a2c672b6-4026-4c27-88f9-42cc1df72d21",
+                "target": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
                 "targetHandle": "FIR",
-                "id": "reactflow__edge-ADD-6a81e52a-8ba0-4aae-a2fa-3e2f72729ce3main-FIR-a2c672b6-4026-4c27-88f9-42cc1df72d21FIR"
+                "id": "reactflow__edge-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249emain-FIR-60e54115-8eee-4217-b9b7-5d7554d14118FIR"
             }
         ],
         "viewport": {

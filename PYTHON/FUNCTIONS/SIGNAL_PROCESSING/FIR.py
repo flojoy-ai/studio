@@ -9,23 +9,24 @@ def FIR(v, params):
     if the target node is not connected), the desired width of the 
     transition to the stop band and the corresponding attentuation, and
     lastly the cutoff frequency. '''
-    print('Savgol inputs:', v)
+
     sample_rate = params['sample_rate'] #Hz
     transition_width = params['transition_width'] #Hz
     stop_band_attenuation = params['stop_band_attenuation'] # dB
     cutoff_freq = params['cutoff_freq'] # Hz
     print(f'FIR params: {[sample_rate,transition_width,stop_band_attenuation,cutoff_freq]}')
-    # lets create some default behaviour for testing
-    nsamples = 400
-    t = np.arange(nsamples) / sample_rate
-    test_x = np.cos(2*np.pi*0.5*t) + 0.2*np.sin(2*np.pi*2.5*t+0.1) + \
-            0.2*np.sin(2*np.pi*15.3*t) + 0.1*np.sin(2*np.pi*16.7*t + 0.1) + \
-                0.1*np.sin(2*np.pi*23.45*t+.8)
+
     try:
-        x = v[0].y
+        x = v[0].y #this is the value of the signal
     except IndexError: #nothing input
+        # lets create some default behaviour for testing
+        nsamples = 400
+        t = np.arange(nsamples) / sample_rate
+        test_x = np.cos(2*np.pi*0.5*t) + 0.2*np.sin(2*np.pi*2.5*t+0.1) + \
+                0.2*np.sin(2*np.pi*15.3*t) + 0.1*np.sin(2*np.pi*16.7*t + 0.1) + \
+                    0.1*np.sin(2*np.pi*23.45*t+.8)
         x = test_x
-    print(x)
+
     # first we need to define the nyquist rate ...
     nyq_rate = sample_rate / 2.0
     # ... then the transition width relative to this
