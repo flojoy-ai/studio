@@ -34,14 +34,18 @@ export const SECTIONS = [
     child: [
       // Transformers tab
       {name: 'Arithmetic', key: 'ARITHMETIC'},
-      { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
       { name: "Signal processing", key: "SIGNAL_PROCESSING" },
       { name: "Regressions", key: "REGRESSIONS" },
       { name: "Image processing", key: "IMAGE_PROCESSING" },
       { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
     ],
   },
-
+  {
+    title: "Arrays and Matrices",
+    child: [
+      { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
+    ]
+  },
   {
     title: "Loaders",
     child: [
