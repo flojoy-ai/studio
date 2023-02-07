@@ -270,6 +270,18 @@ def run(**kwargs):
 
         DG = convert_reactflow_to_networkx['DG']
 
+        ''' TODO:
+            1. using dfs it will find, for each node which loops it is part of. ignore the tree rooted at end node.
+            output: {
+                node_id: [
+                    loop_id_1,
+                    loop_id_3
+                ]
+            }
+
+            2.
+        '''
+
         edge_info = convert_reactflow_to_networkx['edgeInfo']
 
         loop_nodes = defaultdict()
@@ -302,6 +314,20 @@ def run(**kwargs):
             }
 
             is_eligible_to_enqueue = False
+
+            '''TODO
+                1. if current node id is a loop node,
+                2. create a new list for it, if it doesnt exist already.
+                3.
+
+            '''
+
+            ''' TODO:
+                1. for each loop that is running,
+                2. check if the node id, is part of this loop
+                3. if yes, add it to the loops list, only if it doesn't exist there already.
+
+            '''
 
             if len(special_type_jobs):
 
