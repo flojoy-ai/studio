@@ -17,7 +17,7 @@ def FIR(v, params):
     print(f'FIR params: {[sample_rate,transition_width,stop_band_attenuation,cutoff_freq]}')
 
     try:
-        times = v[0].x
+        times = v[1].y#v[0].x['i']
         x = v[0].y #this is the value of the signal
     except IndexError: #nothing input
         # lets create some default behaviour for testing
