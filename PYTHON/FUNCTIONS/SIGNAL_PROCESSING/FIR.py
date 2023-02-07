@@ -17,14 +17,15 @@ def FIR(v, params):
     print(f'FIR params: {[sample_rate,transition_width,stop_band_attenuation,cutoff_freq]}')
 
     try:
+        times = v[0].x
         x = v[0].y #this is the value of the signal
     except IndexError: #nothing input
         # lets create some default behaviour for testing
         nsamples = 400
-        t = np.arange(nsamples) / sample_rate
-        test_x = np.cos(2*np.pi*0.5*t) + 0.2*np.sin(2*np.pi*2.5*t+0.1) + \
-                0.2*np.sin(2*np.pi*15.3*t) + 0.1*np.sin(2*np.pi*16.7*t + 0.1) + \
-                    0.1*np.sin(2*np.pi*23.45*t+.8)
+        times = np.arange(nsamples) / sample_rate
+        test_x = np.cos(2*np.pi*0.5*times) + 0.2*np.sin(2*np.pi*2.5*times+0.1) + \
+                0.2*np.sin(2*np.pi*15.3*times) + 0.1*np.sin(2*np.pi*16.7*times + 0.1) + \
+                    0.1*np.sin(2*np.pi*23.45*times+.8)
         x = test_x
 
     # first we need to define the nyquist rate ...
@@ -48,7 +49,7 @@ def FIR(v, params):
     # ... and furthermore, the first N-1 samples are 'corrupted' in 
     # the sense that the filter 'sacrifies' them by the imposition 
     # of the initial conditions.
-    times = x[N-1:] - phase_delay
+    times = times[N-1:] - phase_delay
     filtered_x = filtered_x[N-1:]
     
     return DataContainer(x = times, y = filtered_x)

@@ -54,7 +54,7 @@
                         "SINE_INPUT_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 3.1415
+                            "value": 28.648
                         },
                         "SINE_INPUT_offset": {
                             "functionName": "SINE",
@@ -69,7 +69,7 @@
                         "SINE_INPUT_phase": {
                             "functionName": "SINE",
                             "param": "phase",
-                            "value": 1.57075
+                            "value": 90
                         },
                         "SINE_INPUT_waveform": {
                             "functionName": "SINE",
@@ -80,12 +80,12 @@
                 },
                 "position": {
                     "x": 540.2711508850433,
-                    "y": -15.565313444274352
+                    "y": -17.565313444274352
                 },
                 "selected": false,
                 "positionAbsolute": {
                     "x": 540.2711508850433,
-                    "y": -15.565313444274352
+                    "y": -17.565313444274352
                 },
                 "dragging": true
             },
@@ -103,7 +103,7 @@
                         "SINE_OSC_1_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 15.7075
+                            "value": 143.243
                         },
                         "SINE_OSC_1_offset": {
                             "functionName": "SINE",
@@ -118,7 +118,7 @@
                         "SINE_OSC_1_phase": {
                             "functionName": "SINE",
                             "param": "phase",
-                            "value": 0.1
+                            "value": 5.729
                         },
                         "SINE_OSC_1_waveform": {
                             "functionName": "SINE",
@@ -182,7 +182,7 @@
                         "SINE_OSC_2_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 96.1299
+                            "value": 876.6288
                         },
                         "SINE_OSC_2_offset": {
                             "functionName": "SINE",
@@ -261,7 +261,7 @@
                         "SINE_OSC_3_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 104.9261
+                            "value": 956.8432
                         },
                         "SINE_OSC_3_offset": {
                             "functionName": "SINE",
@@ -276,7 +276,7 @@
                         "SINE_OSC_3_phase": {
                             "functionName": "SINE",
                             "param": "phase",
-                            "value": 0.1
+                            "value": 5.729
                         },
                         "SINE_OSC_3_waveform": {
                             "functionName": "SINE",
@@ -340,7 +340,7 @@
                         "SINE_OSC_4_frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
-                            "value": 147.33635
+                            "value": 1343.5912
                         },
                         "SINE_OSC_4_offset": {
                             "functionName": "SINE",
@@ -355,7 +355,7 @@
                         "SINE_OSC_4_phase": {
                             "functionName": "SINE",
                             "param": "phase",
-                            "value": 0.8
+                            "value": 45.83
                         },
                         "SINE_OSC_4_waveform": {
                             "functionName": "SINE",
@@ -408,10 +408,10 @@
             {
                 "width": 150,
                 "height": 135,
-                "id": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
+                "id": "FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2",
                 "type": "SIGNAL_PROCESSING",
                 "data": {
-                    "id": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
+                    "id": "FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2",
                     "label": "FIR",
                     "func": "FIR",
                     "type": "SIGNAL_PROCESSING",
@@ -439,13 +439,59 @@
                     }
                 },
                 "position": {
-                    "x": 2082.5781582814343,
-                    "y": 583.9676270930212
+                    "x": 2140.1536570045673,
+                    "y": 599.8337171975915
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2140.1536570045673,
+                    "y": 599.8337171975915
+                },
+                "dragging": true
+            },
+            {
+                "width": 250,
+                "height": 159,
+                "id": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
+                "type": "VISOR",
+                "data": {
+                    "id": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
+                    "label": "VIS",
+                    "func": "LINE",
+                    "type": "VISOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 2613.437908871714,
+                    "y": 599.3004348379696
                 },
                 "selected": true,
                 "positionAbsolute": {
-                    "x": 2082.5781582814343,
-                    "y": 583.9676270930212
+                    "x": 2613.437908871714,
+                    "y": 599.3004348379696
+                },
+                "dragging": true
+            },
+            {
+                "width": 250,
+                "height": 159,
+                "id": "LINE-e706825d-ea45-4228-a1e3-89c0b7a5191d",
+                "type": "VISOR",
+                "data": {
+                    "id": "LINE-e706825d-ea45-4228-a1e3-89c0b7a5191d",
+                    "label": "RAW",
+                    "func": "LINE",
+                    "type": "VISOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 2006.7575567674671,
+                    "y": 255.2918085111712
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2006.7575567674671,
+                    "y": 255.2918085111712
                 },
                 "dragging": true
             }
@@ -543,11 +589,25 @@
                 "id": "reactflow__edge-ADD-13294349-3310-478c-8b98-0a5f586b339amain-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249eADD"
             },
             {
+                "source": "FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2",
+                "sourceHandle": "main",
+                "target": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
+                "targetHandle": "LINE",
+                "id": "reactflow__edge-FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2main-LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1eLINE"
+            },
+            {
                 "source": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
                 "sourceHandle": "main",
-                "target": "FIR-60e54115-8eee-4217-b9b7-5d7554d14118",
+                "target": "LINE-e706825d-ea45-4228-a1e3-89c0b7a5191d",
+                "targetHandle": "LINE",
+                "id": "reactflow__edge-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249emain-LINE-e706825d-ea45-4228-a1e3-89c0b7a5191dLINE"
+            },
+            {
+                "source": "ADD-9334e8e4-7d3d-4179-829d-44e07a9c249e",
+                "sourceHandle": "main",
+                "target": "FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2",
                 "targetHandle": "FIR",
-                "id": "reactflow__edge-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249emain-FIR-60e54115-8eee-4217-b9b7-5d7554d14118FIR"
+                "id": "reactflow__edge-ADD-9334e8e4-7d3d-4179-829d-44e07a9c249emain-FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2FIR"
             }
         ],
         "viewport": {
