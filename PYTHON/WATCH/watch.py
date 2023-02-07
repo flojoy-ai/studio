@@ -12,6 +12,8 @@ import matplotlib.cbook
 import requests
 from dotenv import dotenv_values
 
+from collections import defaultdict
+
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -274,7 +276,7 @@ def run(**kwargs):
             TODO Fixing the child children node, whether they are eligible to enqueue or not
         '''
 
-        loop_nodes = []
+        loop_nodes = defaultdict({})
         enqued_job_list = []
         current_loop = ""
         redis_env = ""
@@ -353,8 +355,8 @@ def run(**kwargs):
                     if len(special_type_jobs['LOOP']) and special_type_jobs['LOOP']['status'] == 'ongoing':
 
                         if cmd == 'LOOP':
-                            topological_sorting = loop_nodes[1:] + \
-                                [loop_nodes[0]] + topological_sorting
+                            topological_sorting = loop_nodes[current_loop][1:] + \
+                                [loop_nodes[current_loop][0]] + topological_sorting
                     else:
                         redis_env = dump({
                             **r_obj, 'SYSTEM_STATUS': s,
@@ -456,6 +458,7 @@ def run(**kwargs):
                     })
 
                     current_loop = node_id
+                    loop_nodes[node_id] = []
                     topological_sorting.append(node_serial)
 
                 elif cmd == 'CONDITIONAL':
@@ -487,26 +490,26 @@ def run(**kwargs):
                 if is_part_of_loop_body:
                     is_eligible_to_enqueue = True
 
-                    loop_nodes.append(
-                        node_serial) if node_serial not in loop_nodes and is_part_of_loop_body else node_serial
+                    loop_nodes[current_loop].append(
+                        node_serial) if node_serial not in loop_nodes[current_loop] and is_part_of_loop_body else node_serial
 
                 elif is_part_of_loop_end:
 
                     if cmd == 'LOOP' and ('LOOP' not in special_type_jobs):
                         is_eligible_to_enqueue = True
-                        loop_nodes = []
+                        loop_nodes[current_loop] = []
 
                     elif len(special_type_jobs) == 0:
                         is_eligible_to_enqueue = True
-                        loop_nodes = []
+                        loop_nodes[current_loop] = []
 
             else:
                 is_loop_ongoing, is_eligible_to_enqueue = check_if_default_node_part_of_loop(
                     node_serial, enqued_job_list, r_obj, DG)
 
                 if is_loop_ongoing and is_eligible_to_enqueue:
-                    loop_nodes.append(
-                        node_serial) if node_serial not in loop_nodes else node_serial
+                    loop_nodes[current_loop].append(
+                        node_serial) if node_serial not in loop_nodes[current_loop] else node_serial
 
             # if(node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):
             #     break
@@ -527,7 +530,7 @@ def run(**kwargs):
                     enqued_job_list.append(node_serial)
 
                 else:
-                    previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_nodes,
+                    previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_nodes[current_loop],
                                                             node_id=node_id, node_serial=node_serial, nodes_by_id=nodes_by_id,
                                                             r_obj=r_obj, all_jobs_key=all_jobs_key)
 
@@ -544,7 +547,7 @@ def run(**kwargs):
                     enqued_job_list.append(node_serial)
 
                     if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
-                        loop_nodes = []
+                        loop_nodes[current_loop] = []
                     # time.sleep(3)
 
                     # if (node_id == 'LOOP-605473d1-492e-47e4-a4de-13be789a79dc'):
