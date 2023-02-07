@@ -274,7 +274,7 @@ def run(**kwargs):
 
         loop_nodes = defaultdict()
         enqued_job_list = []
-        current_loop = ""
+        loop_ongioing_list = []
         redis_env = ""
         current_conditional = ""
 
@@ -306,8 +306,8 @@ def run(**kwargs):
             if len(special_type_jobs):
 
                 if 'LOOP' in special_type_jobs:
-
-                    if cmd == 'LOOP' and node_id != current_loop:
+                    current_loop = loop_ongioing_list[len(loop_ongioing_list)-1]
+                    if cmd == 'LOOP' and node_id != current_loop: # integrating nested loop feature
                         topological_sorting.append(node_serial)
                         continue
 
@@ -387,7 +387,7 @@ def run(**kwargs):
                             }
                         })
 
-                        current_loop = node_id
+                        loop_ongioing_list.append(node_id)
                         loop_nodes[node_id] = []
                         topological_sorting.append(node_serial)
 
@@ -447,7 +447,7 @@ def run(**kwargs):
                         }
                     })
 
-                    current_loop = node_id
+                    loop_ongioing_list.append(node_id)
                     loop_nodes[node_id] = []
                     topological_sorting.append(node_serial)
 
@@ -472,6 +472,8 @@ def run(**kwargs):
                         }
                     })
 
+            current_loop = loop_ongioing_list[len(loop_ongioing_list)-1] if len(loop_ongioing_list) > 0 else ""
+
             is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end = check_loop_type(
                 node_serial, cmd, node_id, current_loop, edge_info, DG)
 
@@ -479,7 +481,6 @@ def run(**kwargs):
 
                 if is_part_of_loop_body:
                     is_eligible_to_enqueue = True
-
                     loop_nodes[current_loop].append(
                         node_serial) if node_serial not in loop_nodes[current_loop] and is_part_of_loop_body else node_serial
 
@@ -534,6 +535,7 @@ def run(**kwargs):
 
                     if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
                         del loop_nodes[current_loop]
+                        loop_ongioing_list.pop()
 
                 r.set(jobset_id, redis_env)
                 r.set(all_jobs_key, dump({
