@@ -10,11 +10,12 @@ REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 @flojoy
 def FEEDBACK(v, params):
     referred_node = params['node_id']
+    jobset_id = params['jobset_id']
 
     x = v[0].y
 
     try:
-        job = Job.fetch(referred_node, connection=Redis(
+        job = Job.fetch("{}_{}".format(jobset_id, referred_node), connection=Redis(
             host=REDIS_HOST, port=REDIS_PORT))
         y = job.result.y
     except (Exception, NoSuchJobError):

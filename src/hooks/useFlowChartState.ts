@@ -7,12 +7,14 @@ import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";
 import localforage from "localforage";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
 export interface CtrlManifestParam {
   functionName: string;
   param: string;
   nodeId: string;
   id: string;
+  type?: string;
 }
 export interface PlotManifestParam {
   node: string;
@@ -62,7 +64,7 @@ const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
-const rfInstanceAtom = atomWithImmer<ReactFlowJsonObject | undefined>(
+const rfInstanceAtom = atomWithImmer<ReactFlowJsonObject<ElementsData> | undefined>(
   undefined
 );
 const nodesAtom = atomWithImmer<Node[]>(initialNodes);
@@ -150,7 +152,7 @@ export function useFlowChartState() {
     inputData: {
       functionName: string;
       param: string;
-      value: string | number;
+      value: number | string;
     }
   ) => {
     setNodes((element) => {

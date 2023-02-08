@@ -301,7 +301,7 @@ def run(**kwargs):
             func = getattr(globals()[cmd], cmd)
             ctrls = nodes_by_id[node_serial]['ctrls']
             node_id = nodes_by_id[node_serial]['id']
-            job_id = node_id  # 'JOB_' + cmd + '_' + uuid.uuid1().__str__()
+            job_id = "{}_{}".format(jobset_id, node_id)
             s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
             r_obj = get_redis_obj(jobset_id)
             prev_jobs = get_redis_obj(all_jobs_key)
