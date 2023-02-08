@@ -11,6 +11,7 @@ import warnings
 import matplotlib.cbook
 import requests
 from dotenv import dotenv_values
+import networkx as nx
 
 from collections import defaultdict
 
@@ -243,6 +244,91 @@ def delete_all_running_jobs(all_jobs):
         print("JOB DELETE OK")
 
 
+def depth_first_search(DG):
+    pos = nx.get_node_attributes(DG,'pos')
+    nx.draw(DG,pos=pos,with_labels=True)
+
+class Graph:
+    def __init__(self,DG,edge_label_dict):
+        self.DG = DG
+        self.edges = DG.edges
+        self.nodes = DG.nodes
+        self.edge_label_dict = edge_label_dict
+        self.adjList = {}
+        self.make_adjancency_list()
+
+    def get_node_data_by_id(self):
+        nodes_by_id = dict()
+        for n, nd in self.DG.nodes().items():
+            nodes_by_id[n] = nd
+        return nodes_by_id
+
+    def make_adjancency_list(self):
+        for (src,dest) in self.edges:
+
+            if src not in self.adjList.keys():
+                self.adjList[src] = []
+
+            for value in self.edge_label_dict[self.get_node_data_by_id()[dest]['id']]:
+
+                if value['source'] == self.get_node_data_by_id()[src]['id']:
+                    sourceHandle = value['sourceHandle']
+
+            self.adjList[src].append({
+                'target_node_id': self.get_node_data_by_id()[dest]['id'],
+                'src_node_id':self.get_node_data_by_id()[src]['id'],
+                'target_node':dest,
+                'handle':sourceHandle
+            })
+
+def DFS(graph,source,discovered,current_loop_nodes,hashmap):
+
+    cmd = get_node_data_by_id()[source]['cmd']
+    id = get_node_data_by_id()[source]['id']
+
+    # print(cmd)
+
+    if source not in graph.adjList.keys():
+        hashmap[id] = current_loop_nodes.copy()
+        discovered[source-1] = True
+        return
+
+    body = []
+    end = []
+
+    # checking if the source is LOOP type
+    if cmd == 'LOOP':
+
+        current_loop_nodes.append(id)
+
+        # find the end & body source Handle
+        for value in graph.adjList[source]:
+            if value['handle'] == 'body':
+                body.append(value['target_node'])
+            if value['handle'] == 'end':
+                end.append(value['target_node'])
+
+        # traversing the body node first
+        for value in body:
+            if not discovered[value-1]:
+                DFS(graph=graph,source=value,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap)
+
+        hashmap[id] = current_loop_nodes.copy()
+        current_loop_nodes.pop()
+
+        for value in end:
+            if not discovered[value-1]:
+                DFS(graph=graph,source=value,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap)
+
+        discovered[source-1] = True
+    else:
+        for value in graph.adjList[source]:
+            if not discovered[value['target_node']-1]:
+                DFS(graph=graph,source=value['target_node'],discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap)
+        hashmap[id] = current_loop_nodes.copy()
+        discovered[source-1] = True
+
+
 def run(**kwargs):
     jobset_id = kwargs['jobsetId']
     try:
@@ -270,7 +356,7 @@ def run(**kwargs):
         nodes_by_id = convert_reactflow_to_networkx['getNode']()
 
         DG = convert_reactflow_to_networkx['DG']
-
+        depth_first_search(DG)
         ''' TODO:
             1. using dfs it will find, for each node which loops it is part of. ignore the tree rooted at end node.
             output: {
@@ -282,6 +368,23 @@ def run(**kwargs):
 
             2.
         '''
+
+        graph = Graph(DG,edge_label_dict)
+        discovered = [False] * len(list(DG.nodes))
+
+        # finding the source of dfs tree
+        dfs_source = []
+        for node in DG.nodes:
+            if len(list(DG.predecessors(node))) == 0:
+                dfs_source.append(node)
+
+        hash_map = {}
+        current_loop_nodes = []
+        DFS(graph=graph,source=dfs_source[0],discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap = hash_map)
+
+        hash_map
+
+        print("DG: ",DG)
 
         edge_info = convert_reactflow_to_networkx['edgeInfo']
 
@@ -300,288 +403,288 @@ def run(**kwargs):
             print(node_serial, nodes_by_id[node_serial]
                   ['cmd'], nodes_by_id[node_serial]['id'])
 
-        while len(topological_sorting) != 0:
-            node_serial = topological_sorting.pop(0)
-            cmd = nodes_by_id[node_serial]['cmd']
-            func = getattr(globals()[cmd], cmd)
-            ctrls = nodes_by_id[node_serial]['ctrls']
-            node_id = nodes_by_id[node_serial]['id']
-            job_id = node_id
-            s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
-            r_obj = get_redis_obj(jobset_id)
-            prev_jobs = get_redis_obj(all_jobs_key)
+        # while len(topological_sorting) != 0:
+        #     node_serial = topological_sorting.pop(0)
+        #     cmd = nodes_by_id[node_serial]['cmd']
+        #     func = getattr(globals()[cmd], cmd)
+        #     ctrls = nodes_by_id[node_serial]['ctrls']
+        #     node_id = nodes_by_id[node_serial]['id']
+        #     job_id = node_id
+        #     s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
+        #     r_obj = get_redis_obj(jobset_id)
+        #     prev_jobs = get_redis_obj(all_jobs_key)
 
-            special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {
-            }
+        #     special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {
+        #     }
 
-            is_eligible_to_enqueue = False
+        #     is_eligible_to_enqueue = False
 
-            '''TODO
-                1. if current node id is a loop node,
-                2. create a new list for it, if it doesnt exist already.
-                3.
+        #     '''TODO
+        #         1. if current node id is a loop node,
+        #         2. create a new list for it, if it doesnt exist already.
+        #         3.
 
-            '''
+        #     '''
 
-            ''' TODO:
-                1. for each loop that is running,
-                2. check if the node id, is part of this loop
-                3. if yes, add it to the loops list, only if it doesn't exist there already.
+        #     ''' TODO:
+        #         1. for each loop that is running,
+        #         2. check if the node id, is part of this loop
+        #         3. if yes, add it to the loops list, only if it doesn't exist there already.
 
-            '''
+        #     '''
 
-            if len(special_type_jobs):
+        #     if len(special_type_jobs):
 
-                if 'LOOP' in special_type_jobs:
-                    current_loop = loop_ongioing_list[len(loop_ongioing_list)-1]
-                    if cmd == 'LOOP' and node_id != current_loop: # integrating nested loop feature
-                        topological_sorting.append(node_serial)
-                        continue
+        #         if 'LOOP' in special_type_jobs:
+        #             current_loop = loop_ongioing_list[len(loop_ongioing_list)-1]
+        #             if cmd == 'LOOP' and node_id != current_loop: # integrating nested loop feature
+        #                 topological_sorting.append(node_serial)
+        #                 continue
 
-                    if cmd != 'CONDITIONAL':
+        #             if cmd != 'CONDITIONAL':
 
-                        redis_env = dump({
-                            **r_obj, 'SYSTEM_STATUS': s,
-                            'SPECIAL_TYPE_JOBS': {
-                                **special_type_jobs,
-                            }
-                        })
-                    else:
-                        check_inputs = True if len(
-                            nodes_by_id[node_serial]['inputs']) else False
+        #                 redis_env = dump({
+        #                     **r_obj, 'SYSTEM_STATUS': s,
+        #                     'SPECIAL_TYPE_JOBS': {
+        #                         **special_type_jobs,
+        #                     }
+        #                 })
+        #             else:
+        #                 check_inputs = True if len(
+        #                     nodes_by_id[node_serial]['inputs']) else False
 
-                        if check_inputs:
-                            redis_env = dump({
-                                **r_obj, 'SYSTEM_STATUS': s,
-                                'SPECIAL_TYPE_JOBS': {
-                                    **special_type_jobs,
-                                    'CONDITIONAL': {
-                                        "direction": True
-                                    }
-                                }
-                            })
-                            current_conditional = node_id
-                        else:
-                            redis_env = dump({
-                                **r_obj, 'SYSTEM_STATUS': s,
-                                'SPECIAL_TYPE_JOBS': {
-                                    **special_type_jobs,
-                                }
-                            })
+        #                 if check_inputs:
+        #                     redis_env = dump({
+        #                         **r_obj, 'SYSTEM_STATUS': s,
+        #                         'SPECIAL_TYPE_JOBS': {
+        #                             **special_type_jobs,
+        #                             'CONDITIONAL': {
+        #                                 "direction": True
+        #                             }
+        #                         }
+        #                     })
+        #                     current_conditional = node_id
+        #                 else:
+        #                     redis_env = dump({
+        #                         **r_obj, 'SYSTEM_STATUS': s,
+        #                         'SPECIAL_TYPE_JOBS': {
+        #                             **special_type_jobs,
+        #                         }
+        #                     })
 
-                    if len(special_type_jobs['LOOP']) and special_type_jobs['LOOP']['status'] == 'ongoing':
+        #             if len(special_type_jobs['LOOP']) and special_type_jobs['LOOP']['status'] == 'ongoing':
 
-                        if cmd == 'LOOP':
-                            topological_sorting = loop_nodes[current_loop][1:] + \
-                                [loop_nodes[current_loop][0]] + topological_sorting
-                    else:
-                        redis_env = dump({
-                            **r_obj, 'SYSTEM_STATUS': s,
-                            'SPECIAL_TYPE_JOBS': {}
-                        })
+        #                 if cmd == 'LOOP':
+        #                     topological_sorting = loop_nodes[current_loop][1:] + \
+        #                         [loop_nodes[current_loop][0]] + topological_sorting
+        #             else:
+        #                 redis_env = dump({
+        #                     **r_obj, 'SYSTEM_STATUS': s,
+        #                     'SPECIAL_TYPE_JOBS': {}
+        #                 })
 
-                if 'CONDITIONAL' in special_type_jobs:
-                    direction = special_type_jobs['CONDITIONAL']['direction']
+        #         if 'CONDITIONAL' in special_type_jobs:
+        #             direction = special_type_jobs['CONDITIONAL']['direction']
 
-                    status = is_eligible_on_condition(node_serial=node_serial, direction=direction,
-                                                      DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
-                                                      current_conditional = current_conditional)
+        #             status = is_eligible_on_condition(node_serial=node_serial, direction=direction,
+        #                                               DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
+        #                                               current_conditional = current_conditional)
 
-                    if not status:
-                        continue
+        #             if not status:
+        #                 continue
 
-                    if cmd == 'LOOP':
+        #             if cmd == 'LOOP':
 
-                        intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
-                        total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
-                        step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
+        #                 intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
+        #                 total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
+        #                 step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
 
-                        loop_jobs = {
-                            "status": "ongoing",
-                            "is_loop_body_execution_finished": False,
-                            "params": {
-                                "initial_value": int(ctrls[intial_value]['value']),
-                                "total_iterations": int(ctrls[total_iteration]["value"]),
-                                "current_iteration": int(ctrls[intial_value]['value']),
-                                "step": int(ctrls[step]['value'])
-                            }
-                        }
+        #                 loop_jobs = {
+        #                     "status": "ongoing",
+        #                     "is_loop_body_execution_finished": False,
+        #                     "params": {
+        #                         "initial_value": int(ctrls[intial_value]['value']),
+        #                         "total_iterations": int(ctrls[total_iteration]["value"]),
+        #                         "current_iteration": int(ctrls[intial_value]['value']),
+        #                         "step": int(ctrls[step]['value'])
+        #                     }
+        #                 }
 
-                        redis_env = dump({
-                            **r_obj, 'SYSTEM_STATUS': s,
-                            'SPECIAL_TYPE_JOBS': {
-                                'LOOP': loop_jobs
-                            }
-                        })
+        #                 redis_env = dump({
+        #                     **r_obj, 'SYSTEM_STATUS': s,
+        #                     'SPECIAL_TYPE_JOBS': {
+        #                         'LOOP': loop_jobs
+        #                     }
+        #                 })
 
-                        loop_ongioing_list.append(node_id)
-                        loop_nodes[node_id] = []
-                        topological_sorting.append(node_serial)
+        #                 loop_ongioing_list.append(node_id)
+        #                 loop_nodes[node_id] = []
+        #                 topological_sorting.append(node_serial)
 
-                    elif cmd =='CONDITIONAL':
-                        check_inputs = True if len(
-                            nodes_by_id[node_serial]['inputs']) else False
+        #             elif cmd =='CONDITIONAL':
+        #                 check_inputs = True if len(
+        #                     nodes_by_id[node_serial]['inputs']) else False
 
-                        if check_inputs:
-                            redis_env = dump({
-                                **r_obj, 'SYSTEM_STATUS': s,
-                                'SPECIAL_TYPE_JOBS': {
-                                    **special_type_jobs,
-                                    'CONDITIONAL': {
-                                        "direction": True
-                                    }
-                                }
-                            })
-                            current_conditional = node_id
-                        else:
-                            redis_env = dump({
-                                **r_obj, 'SYSTEM_STATUS': s,
-                                'SPECIAL_TYPE_JOBS': {
-                                    **special_type_jobs,
-                                }
-                            })
-                    else:
-                        redis_env = dump({
-                            **r_obj, 'SYSTEM_STATUS': s,
-                            'SPECIAL_TYPE_JOBS': {
-                                **special_type_jobs
-                            }
-                        })
+        #                 if check_inputs:
+        #                     redis_env = dump({
+        #                         **r_obj, 'SYSTEM_STATUS': s,
+        #                         'SPECIAL_TYPE_JOBS': {
+        #                             **special_type_jobs,
+        #                             'CONDITIONAL': {
+        #                                 "direction": True
+        #                             }
+        #                         }
+        #                     })
+        #                     current_conditional = node_id
+        #                 else:
+        #                     redis_env = dump({
+        #                         **r_obj, 'SYSTEM_STATUS': s,
+        #                         'SPECIAL_TYPE_JOBS': {
+        #                             **special_type_jobs,
+        #                         }
+        #                     })
+        #             else:
+        #                 redis_env = dump({
+        #                     **r_obj, 'SYSTEM_STATUS': s,
+        #                     'SPECIAL_TYPE_JOBS': {
+        #                         **special_type_jobs
+        #                     }
+        #                 })
 
-            else:
-                if cmd == 'LOOP':
+        #     else:
+        #         if cmd == 'LOOP':
 
-                    intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
-                    total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
-                    step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
+        #             intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
+        #             total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
+        #             step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
 
-                    loop_jobs = {
-                        "status": "ongoing",
-                        "is_loop_body_execution_finished": False,
-                        "params": {
-                            "initial_value": int(ctrls[intial_value]['value']),
-                            "total_iterations": int(ctrls[total_iteration]["value"]),
-                            "current_iteration": int(ctrls[intial_value]['value']),
-                            "step": int(ctrls[step]['value'])
-                        }
-                    }
+        #             loop_jobs = {
+        #                 "status": "ongoing",
+        #                 "is_loop_body_execution_finished": False,
+        #                 "params": {
+        #                     "initial_value": int(ctrls[intial_value]['value']),
+        #                     "total_iterations": int(ctrls[total_iteration]["value"]),
+        #                     "current_iteration": int(ctrls[intial_value]['value']),
+        #                     "step": int(ctrls[step]['value'])
+        #                 }
+        #             }
 
-                    redis_env = dump({
-                        **r_obj, 'SYSTEM_STATUS': s,
-                        'SPECIAL_TYPE_JOBS': {
-                            **special_type_jobs,
-                            'LOOP': loop_jobs
-                        }
-                    })
+        #             redis_env = dump({
+        #                 **r_obj, 'SYSTEM_STATUS': s,
+        #                 'SPECIAL_TYPE_JOBS': {
+        #                     **special_type_jobs,
+        #                     'LOOP': loop_jobs
+        #                 }
+        #             })
 
-                    loop_ongioing_list.append(node_id)
-                    loop_nodes[node_id] = []
-                    topological_sorting.append(node_serial)
+        #             loop_ongioing_list.append(node_id)
+        #             loop_nodes[node_id] = []
+        #             topological_sorting.append(node_serial)
 
-                elif cmd == 'CONDITIONAL':
-                    conditional_jobs = {
-                        "direction": True
-                    }
+        #         elif cmd == 'CONDITIONAL':
+        #             conditional_jobs = {
+        #                 "direction": True
+        #             }
 
-                    redis_env = dump({
-                        **r_obj, 'SYSTEM_STATUS': s,
-                        'SPECIAL_TYPE_JOBS': {
-                            **special_type_jobs,
-                            'CONDITIONAL': conditional_jobs
-                        }
-                    })
-                    current_conditional = node_id
-                else:
-                    redis_env = dump({
-                        **r_obj, 'SYSTEM_STATUS': s,
-                        "SPECIAL_TYPE_JOBS": {
-                            **special_type_jobs
-                        }
-                    })
+        #             redis_env = dump({
+        #                 **r_obj, 'SYSTEM_STATUS': s,
+        #                 'SPECIAL_TYPE_JOBS': {
+        #                     **special_type_jobs,
+        #                     'CONDITIONAL': conditional_jobs
+        #                 }
+        #             })
+        #             current_conditional = node_id
+        #         else:
+        #             redis_env = dump({
+        #                 **r_obj, 'SYSTEM_STATUS': s,
+        #                 "SPECIAL_TYPE_JOBS": {
+        #                     **special_type_jobs
+        #                 }
+        #             })
 
-            current_loop = loop_ongioing_list[len(loop_ongioing_list)-1] if len(loop_ongioing_list) > 0 else ""
+        #     current_loop = loop_ongioing_list[len(loop_ongioing_list)-1] if len(loop_ongioing_list) > 0 else ""
 
-            is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end = check_loop_type(
-                node_serial, cmd, node_id, current_loop, edge_info, DG)
+        #     is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end = check_loop_type(
+        #         node_serial, cmd, node_id, current_loop, edge_info, DG)
 
-            if is_part_of_loop:
+        #     if is_part_of_loop:
 
-                if is_part_of_loop_body:
-                    is_eligible_to_enqueue = True
-                    loop_nodes[current_loop].append(
-                        node_serial) if node_serial not in loop_nodes[current_loop] and is_part_of_loop_body else node_serial
+        #         if is_part_of_loop_body:
+        #             is_eligible_to_enqueue = True
+        #             loop_nodes[current_loop].append(
+        #                 node_serial) if node_serial not in loop_nodes[current_loop] and is_part_of_loop_body else node_serial
 
-                elif is_part_of_loop_end:
+        #         elif is_part_of_loop_end:
 
-                    if cmd == 'LOOP' and ('LOOP' not in special_type_jobs):
-                        is_eligible_to_enqueue = True
-                        loop_nodes[current_loop] = []
+        #             if cmd == 'LOOP' and ('LOOP' not in special_type_jobs):
+        #                 is_eligible_to_enqueue = True
+        #                 loop_nodes[current_loop] = []
 
-                    elif len(special_type_jobs) == 0:
-                        is_eligible_to_enqueue = True
-                        loop_nodes[current_loop] = []
+        #             elif len(special_type_jobs) == 0:
+        #                 is_eligible_to_enqueue = True
+        #                 loop_nodes[current_loop] = []
 
-            else:
-                is_loop_ongoing, is_eligible_to_enqueue = check_if_default_node_part_of_loop(
-                    node_serial, enqued_job_list, r_obj, DG)
+        #     else:
+        #         is_loop_ongoing, is_eligible_to_enqueue = check_if_default_node_part_of_loop(
+        #             node_serial, enqued_job_list, r_obj, DG)
 
-                if is_loop_ongoing and is_eligible_to_enqueue:
-                    loop_nodes[current_loop].append(
-                        node_serial) if node_serial not in loop_nodes[current_loop] else node_serial
+        #         if is_loop_ongoing and is_eligible_to_enqueue:
+        #             loop_nodes[current_loop].append(
+        #                 node_serial) if node_serial not in loop_nodes[current_loop] else node_serial
 
-            if is_eligible_to_enqueue:
+        #     if is_eligible_to_enqueue:
 
-                '''Enqueue'''
-                if len(list(DG.predecessors(node_serial))) == 0:
+        #         '''Enqueue'''
+        #         if len(list(DG.predecessors(node_serial))) == 0:
 
-                    q.enqueue(func,
-                              job_timeout='3m',
-                              on_failure=report_failure,
-                              job_id=job_id,
-                              kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,
-                                      'node_id': nodes_by_id[node_serial]['id']},
-                              result_ttl=500)
-                    enqued_job_list.append(node_serial)
+        #             q.enqueue(func,
+        #                       job_timeout='3m',
+        #                       on_failure=report_failure,
+        #                       job_id=job_id,
+        #                       kwargs={'ctrls': ctrls, 'jobset_id': jobset_id,
+        #                               'node_id': nodes_by_id[node_serial]['id']},
+        #                       result_ttl=500)
+        #             enqued_job_list.append(node_serial)
 
-                else:
-                    loop_node_list = [] if loop_nodes == defaultdict() else loop_nodes[current_loop]
-                    previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_node_list,
-                                                            node_id=node_id, node_serial=node_serial, nodes_by_id=nodes_by_id,
-                                                            r_obj=r_obj, all_jobs_key=all_jobs_key)
+        #         else:
+        #             loop_node_list = [] if loop_nodes == defaultdict() else loop_nodes[current_loop]
+        #             previous_job_ids = get_previous_job_ids(cmd=cmd, DG=DG, get_job_id=get_job_id, loop_nodes=loop_node_list,
+        #                                                     node_id=node_id, node_serial=node_serial, nodes_by_id=nodes_by_id,
+        #                                                     r_obj=r_obj, all_jobs_key=all_jobs_key)
 
-                    q.enqueue(func,
-                              job_timeout='3m',
-                              on_failure=report_failure,
-                              job_id=job_id,
-                              kwargs={'ctrls': ctrls,
-                                      'previous_job_ids': previous_job_ids,
-                                      'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
-                              depends_on=previous_job_ids,
-                              result_ttl=500)
-                    enqued_job_list.append(node_serial)
+        #             q.enqueue(func,
+        #                       job_timeout='3m',
+        #                       on_failure=report_failure,
+        #                       job_id=job_id,
+        #                       kwargs={'ctrls': ctrls,
+        #                               'previous_job_ids': previous_job_ids,
+        #                               'jobset_id': jobset_id, 'node_id': nodes_by_id[node_serial]['id']},
+        #                       depends_on=previous_job_ids,
+        #                       result_ttl=500)
+        #             enqued_job_list.append(node_serial)
 
-                    if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
-                        del loop_nodes[current_loop]
-                        loop_ongioing_list.pop()
+        #             if cmd == 'LOOP' and current_loop == node_id and json.loads(redis_env)['SPECIAL_TYPE_JOBS'] == {}:
+        #                 del loop_nodes[current_loop]
+        #                 loop_ongioing_list.pop()
 
-                r.set(jobset_id, redis_env)
-                r.set(all_jobs_key, dump({
-                    **prev_jobs, str(cmd)+str(node_id): job_id
-                }))
-                r.lpush('{}_ALL_NODES'.format(jobset_id), node_id)
-                if cmd == 'CONDITIONAL':
-                    # if is_part_of_loop:
-                    while True:
-                        job = Job.fetch(job_id, connection=r)
-                        if job.get_status() == 'finished':
-                            break
-            else:
-                check = check_pred_exist_in_current_queue(
-                    topological_sorting, enqued_job_list, node_serial, DG)
+        #         r.set(jobset_id, redis_env)
+        #         r.set(all_jobs_key, dump({
+        #             **prev_jobs, str(cmd)+str(node_id): job_id
+        #         }))
+        #         r.lpush('{}_ALL_NODES'.format(jobset_id), node_id)
+        #         if cmd == 'CONDITIONAL':
+        #             # if is_part_of_loop:
+        #             while True:
+        #                 job = Job.fetch(job_id, connection=r)
+        #                 if job.get_status() == 'finished':
+        #                     break
+        #     else:
+        #         check = check_pred_exist_in_current_queue(
+        #             topological_sorting, enqued_job_list, node_serial, DG)
 
-                if check:
-                    topological_sorting.append(node_serial)
-        r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
+        #         if check:
+        #             topological_sorting.append(node_serial)
+        # r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
         return
     except Exception:
         send_to_socket({
