@@ -11,8 +11,12 @@ import {
 } from "../../svgs/add-multiply-svg";
 
 const getboxShadow = (data: ElementsData) => {
-  return highlightShadow[data.func];
+  if (data.func in highlightShadow){
+    return highlightShadow[data.func];
+  }
+  return highlightShadow['default']
 };
+
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode } = useFlowChartState();

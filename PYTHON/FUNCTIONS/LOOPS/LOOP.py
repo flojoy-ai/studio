@@ -1,12 +1,11 @@
 import numpy as np
-from flojoy import flojoy,DataContainer
+from flojoy import flojoy, DataContainer
+
 
 @flojoy
-def LOOP(v,params):
+def LOOP(v, params):
 
     print("EXECUTING LOOP")
-
-    print(v)
 
     if len(v) == 0 or np.any(v[0].y) == None:
         x = list()
@@ -14,14 +13,12 @@ def LOOP(v,params):
             x.append(i)
         y = np.full(1000, 1)
 
-        return DataContainer(x=x,y=y)
+        return DataContainer(x=x, y=y)
 
     x = v[0].x
     y = v[0].y
 
-
-
     if x is None:
-        x = np.full(len(y),1)
+        x = np.full(len(y), 1)
 
-    return DataContainer(x=x,y=y)
+    return DataContainer(x=x, y=y)
