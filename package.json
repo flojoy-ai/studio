@@ -5,6 +5,7 @@
   "homepage": "./",
   "main": "electron/main.js",
   "dependencies": {
+    "@tisoap/react-flow-smart-edge": "^3.0.0",
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
