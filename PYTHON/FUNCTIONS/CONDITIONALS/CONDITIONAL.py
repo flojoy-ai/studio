@@ -20,6 +20,9 @@ def compare_values(first_value,second_value,operator):
 def CONDITIONAL(v,params):
     print("EXECUTING CONDITIONAL PARAMS")
 
+    print(v)
+    print(params)
+
     operator = params['operator_type']
 
     type = params['type']
