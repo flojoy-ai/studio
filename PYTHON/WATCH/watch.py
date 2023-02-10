@@ -3,7 +3,6 @@ import sys
 import os
 import json
 import yaml
-from rq import Queue
 from rq.job import Job
 import traceback
 import warnings
@@ -19,26 +18,26 @@ warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-from FUNCTIONS.VISORS import *
-from FUNCTIONS.ARITHMETIC import *
-from FUNCTIONS.SIMULATIONS import *
-from FUNCTIONS.LOOPS import *
-from FUNCTIONS.CONDITIONALS import *
-from FUNCTIONS.TIMERS import *
-from FUNCTIONS.ARRAY_AND_MATRIX import *
-from FUNCTIONS.SIGNAL_PROCESSING import *
+from services.job_service import JobService
 from FUNCTIONS.LOADERS import *
-from utils.redis_utils import RedisService
+from FUNCTIONS.SIGNAL_PROCESSING import *
+from FUNCTIONS.ARRAY_AND_MATRIX import *
+from FUNCTIONS.TIMERS import *
+from FUNCTIONS.CONDITIONALS import *
+from FUNCTIONS.LOOPS import *
+from FUNCTIONS.SIMULATIONS import *
+from FUNCTIONS.ARITHMETIC import *
+from FUNCTIONS.VISORS import *
 
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
 
-
-r = RedisService.get_instance().r
-q = Queue('flojoy', connection=r)
+job_service = JobService('flojoy')
+q = job_service.queue
 print('queue flojoy isEmpty? ', q.is_empty())
 
 conditional_nodes = {}
+
 
 def get_port():
     try:
@@ -80,27 +79,29 @@ def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
 
-def get_loop_status(r_obj,node_id =None, loop_info=False):
+def get_loop_status(r_obj, node_id=None, loop_info=False):
     special_type_jobs = r_obj['SPECIAL_TYPE_JOBS'] if 'SPECIAL_TYPE_JOBS' in r_obj else {
     }
 
-    print("special_type_jobs: ",special_type_jobs)
-    print("node id: ",node_id)
+    print("special_type_jobs: ", special_type_jobs)
+    print("node id: ", node_id)
 
     if len(special_type_jobs) == 0:
         if loop_info:
-            return False,0,0
+            return False, 0, 0
         return False
 
-    print(special_type_jobs['LOOP'][node_id] if node_id in special_type_jobs['LOOP'] else 'False')
+    print(special_type_jobs['LOOP'][node_id]
+          if node_id in special_type_jobs['LOOP'] else 'False')
 
     loop_status = len(special_type_jobs) and \
         len(special_type_jobs['LOOP']
             ) if 'LOOP' in special_type_jobs else False
 
-    loop_status = loop_status and len(special_type_jobs['LOOP'][node_id]) if node_id in special_type_jobs['LOOP'] else False
+    loop_status = loop_status and len(
+        special_type_jobs['LOOP'][node_id]) if node_id in special_type_jobs['LOOP'] else False
 
-    print('Loop Status: ',loop_status)
+    print('Loop Status: ', loop_status)
 
     current_iteration = 0
     initial_value = 0
@@ -119,15 +120,15 @@ def get_loop_status(r_obj,node_id =None, loop_info=False):
     return loop_status, current_iteration, initial_value
 
 
-def check_loop_type(node_serial, cmd, node_id, edge_info, DG,r_obj):
-    is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end,is_eligible = False, False, False,None
+def check_loop_type(node_serial, cmd, node_id, edge_info, DG, r_obj):
+    is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end, is_eligible = False, False, False, None
     loop_id = ""
 
     if len(list(DG.predecessors(node_serial))) == 0:
-        return is_part_of_loop, not is_part_of_loop_body, is_part_of_loop_end,is_eligible
+        return is_part_of_loop, not is_part_of_loop_body, is_part_of_loop_end, is_eligible
 
     if cmd == "LOOP":
-        return True, True, False,is_eligible
+        return True, True, False, is_eligible
 
     for value in edge_info[node_id]:
 
@@ -143,15 +144,15 @@ def check_loop_type(node_serial, cmd, node_id, edge_info, DG,r_obj):
                     is_part_of_loop_end = True
     if is_part_of_loop_end:
 
-        status = get_loop_status(r_obj,node_id=loop_id)
+        status = get_loop_status(r_obj, node_id=loop_id)
 
-        print("status: ",status)
+        print("status: ", status)
 
         if status:
             is_eligible = False
         else:
             is_eligible = True
-    return is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end,is_eligible
+    return is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end, is_eligible
 
 
 def check_if_default_node_part_of_loop(node_serial, enqued_job_list, DG):
@@ -163,7 +164,7 @@ def check_if_default_node_part_of_loop(node_serial, enqued_job_list, DG):
     return is_eligible_to_enqueue
 
 
-def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, all_job_key,current_conditional):
+def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, all_job_key, current_conditional):
     id = DG.nodes[node_serial]['id']
     if len(list(DG.predecessors(node_serial))) == 1:
         p = list(DG.predecessors(node_serial))[0]
@@ -208,7 +209,7 @@ def get_previous_job_ids(cmd, node_serial, loop_nodes, node_id, r_obj, nodes_by_
     if cmd == 'LOOP':
 
         loop_status, current_iteration, initial_value = get_loop_status(
-        r_obj, node_id=node_id,loop_info=True)
+            r_obj, node_id=node_id, loop_info=True)
 
         if loop_status and current_iteration != initial_value:
 
@@ -252,10 +253,8 @@ def check_pred_exist_in_current_queue(current_queue, enqued_job_list, node_seria
     return True
 
 
-
-
 class Graph:
-    def __init__(self,DG,edge_label_dict):
+    def __init__(self, DG, edge_label_dict):
         self.DG = DG
         self.edges = DG.edges
         self.nodes = DG.nodes
@@ -270,7 +269,7 @@ class Graph:
         return nodes_by_id
 
     def make_adjancency_list(self):
-        for (src,dest) in self.edges:
+        for (src, dest) in self.edges:
 
             if src not in self.adjList.keys():
                 self.adjList[src] = []
@@ -282,12 +281,13 @@ class Graph:
 
             self.adjList[src].append({
                 'target_node_id': self.get_node_data_by_id()[dest]['id'],
-                'src_node_id':self.get_node_data_by_id()[src]['id'],
-                'target_node':dest,
-                'handle':sourceHandle
+                'src_node_id': self.get_node_data_by_id()[src]['id'],
+                'target_node': dest,
+                'handle': sourceHandle
             })
 
-def DFS(graph,source,discovered,current_loop_nodes,hashmap,get_node_data_by_id):
+
+def DFS(graph, source, discovered, current_loop_nodes, hashmap, get_node_data_by_id):
     childs = []
     cmd = get_node_data_by_id[source]['cmd']
     id = get_node_data_by_id[source]['id']
@@ -317,7 +317,8 @@ def DFS(graph,source,discovered,current_loop_nodes,hashmap,get_node_data_by_id):
         # traversing the body node first
         for value in body:
             if not discovered[value-1]:
-                child_node_ids = DFS(graph=graph,source=value,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap,get_node_data_by_id=get_node_data_by_id)
+                child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+                                     current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
                 childs = childs + child_node_ids
 
         current_loop_nodes.pop()
@@ -325,50 +326,58 @@ def DFS(graph,source,discovered,current_loop_nodes,hashmap,get_node_data_by_id):
 
         for value in end:
             if not discovered[value-1]:
-                child_node_ids = DFS(graph=graph,source=value,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap,get_node_data_by_id=get_node_data_by_id)
+                child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+                                     current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
                 childs = childs + child_node_ids
 
         discovered[source-1] = True
     elif cmd == "CONDITIONAL":
-                # find the end & body source Handle
+        # find the end & body source Handle
         for value in graph.adjList[source]:
             output_name = value['handle']
-            child_node_ids = DFS(graph=graph,source=value,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap,get_node_data_by_id=get_node_data_by_id)
+            child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+                                 current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
             childs = childs + child_node_ids
             conditional_nodes[output_name] = child_node_ids
-            
+
     else:
         for value in graph.adjList[source]:
             if not discovered[value['target_node']-1]:
-                child_node_ids = DFS(graph=graph,source=value['target_node'],discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap=hashmap,get_node_data_by_id=get_node_data_by_id)
+                child_node_ids = DFS(graph=graph, source=value['target_node'], discovered=discovered,
+                                     current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
                 childs = childs + child_node_ids
         hashmap[id] = current_loop_nodes.copy()
         discovered[source-1] = True
     return [id] + childs
 
-def get_hash_loop(hash_map,get_node_data_by_id,DG):
+
+def get_hash_loop(hash_map, get_node_data_by_id, DG):
     hash_map_loop = {}
 
-    for key,value in hash_map.items():
+    for key, value in hash_map.items():
         if len(value) > 0:
             for loop_id in value:
                 if loop_id not in hash_map_loop.keys():
                     hash_map_loop[loop_id] = []
                 hash_map_loop[loop_id].append(key)
 
-    topological_sorting_list = [get_node_data_by_id[node]['id'] for node in list(nx.topological_sort(DG))]
+    topological_sorting_list = [get_node_data_by_id[node]['id']
+                                for node in list(nx.topological_sort(DG))]
 
     sorting_order_loopnodes = {}
 
-    for key,nodes in hash_map_loop.items():
-        sorting_order = [topological_sorting_list.index(node) for node in nodes]
+    for key, nodes in hash_map_loop.items():
+        sorting_order = [topological_sorting_list.index(
+            node) for node in nodes]
         sorting_order.sort()
-        sorting_order_loopnodes[key] = [topological_sorting_list[node_id] for node_id in sorting_order]
+        sorting_order_loopnodes[key] = [
+            topological_sorting_list[node_id] for node_id in sorting_order]
     return sorting_order_loopnodes
 
-def get_loop_body_nodes(hash_map,loop_nodes):
+
+def get_loop_body_nodes(hash_map, loop_nodes):
     sorting_order_loopnodes = loop_nodes
-    for key,parents in hash_map.items():
+    for key, parents in hash_map.items():
         if 'LOOP' in key and len(parents) > 0:
 
             for parent in parents:
@@ -377,41 +386,46 @@ def get_loop_body_nodes(hash_map,loop_nodes):
                 child_loop_nodes = loop_nodes[key].copy()
 
                 for node in child_loop_nodes:
-                    parent_loop_nodes.remove(node) if node in parent_loop_nodes else ''
+                    parent_loop_nodes.remove(
+                        node) if node in parent_loop_nodes else ''
 
                 sorting_order_loopnodes[parent] = parent_loop_nodes
 
     return sorting_order_loopnodes
 
-def get_conditional_node_id(node_id,loop_body_nodes):
+
+def get_conditional_node_id(node_id, loop_body_nodes):
     if node_id not in loop_body_nodes.keys():
         return None
     else:
         loop_body_nodes = loop_body_nodes[node_id]
         return loop_body_nodes[len(loop_body_nodes)-1]
 
-def find_loop_serial_id(node_id,loop_body_nodes,hash_map_topological_sorting):
-    for key,nodes in loop_body_nodes.items():
+
+def find_loop_serial_id(node_id, loop_body_nodes, hash_map_topological_sorting):
+    for key, nodes in loop_body_nodes.items():
         if node_id in nodes:
             return hash_map_topological_sorting[key]
 
-def get_loop_nodes(node_id,loop_nodes,hash_map_topologicalsorting):
+
+def get_loop_nodes(node_id, loop_nodes, hash_map_topologicalsorting):
     node_list = []
     for node in loop_nodes[node_id]:
         node_list.append(hash_map_topologicalsorting[node])
     return node_list
 
-def run(**kwargs):
+
+def run_old(**kwargs):
     jobset_id = kwargs['jobsetId']
     try:
         fc = kwargs['fc']
-        #job id of running node
+        # job id of running node
         my_job_id = kwargs['my_job_id']
         print('running flojoy for jobset id: ', jobset_id)
 
         jobset_data = get_redis_obj(jobset_id)
         r.delete('{}_ALL_NODES'.format(jobset_id))
-   
+
         elems = fc['nodes']
         edges = fc['edges']
 
@@ -430,7 +444,7 @@ def run(**kwargs):
 
         edge_info = convert_reactflow_to_networkx['edgeInfo']
 
-        graph = Graph(DG,edge_info)
+        graph = Graph(DG, edge_info)
         discovered = [False] * len(list(DG.nodes))
 
         # finding the source of dfs tree
@@ -442,10 +456,12 @@ def run(**kwargs):
         hash_map = {}
         current_loop_nodes = []
         for source in dfs_source:
-            DFS(graph=graph,source=source,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap = hash_map,get_node_data_by_id=nodes_by_id)
+            DFS(graph=graph, source=source, discovered=discovered,
+                current_loop_nodes=current_loop_nodes, hashmap=hash_map, get_node_data_by_id=nodes_by_id)
 
-        hash_map_by_loop = get_hash_loop(hash_map,nodes_by_id,DG)
-        loop_body_nodes = get_loop_body_nodes(hash_map,hash_map_by_loop.copy())
+        hash_map_by_loop = get_hash_loop(hash_map, nodes_by_id, DG)
+        loop_body_nodes = get_loop_body_nodes(
+            hash_map, hash_map_by_loop.copy())
 
         loop_nodes = defaultdict()
         enqued_job_list = []
@@ -467,30 +483,30 @@ def run(**kwargs):
                   ['cmd'], id)
 
         while len(topological_sorting) != 0:
-            print("Topological Order: ",topological_sorting)
+            print("Topological Order: ", topological_sorting)
             node_serial = topological_sorting.pop(0)
             cmd = nodes_by_id[node_serial]['cmd']
             func = getattr(globals()[cmd], cmd)
             ctrls = nodes_by_id[node_serial]['ctrls']
             node_id = nodes_by_id[node_serial]['id']
 
-
-            print("Node ID: ",node_id)
+            print("Node ID: ", node_id)
             print("\n")
 
             job_id = node_id
             s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
             jobset_data = get_redis_obj(jobset_id)
             prev_jobs = get_redis_obj(all_jobs_key)
-            
-            special_type_jobs = jobset_data.get('SPECIAL_TYPE_JOBS',{}) # TODO: rename SPECIAL_TYPE_JOBS
 
-            is_eligible_to_enqueue = False # TODO: Check if it is necessary
+            special_type_jobs = jobset_data.get(
+                'SPECIAL_TYPE_JOBS', {})  # TODO: rename SPECIAL_TYPE_JOBS
+
+            is_eligible_to_enqueue = False  # TODO: Check if it is necessary
 
             # current_loop = loop_ongioing_list[len(loop_ongioing_list)-1] if len(loop_ongioing_list) > 0 else ""
 
-            is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end,is_eligible = check_loop_type(
-                node_serial, cmd, node_id, edge_info, DG,jobset_data)
+            is_part_of_loop, is_part_of_loop_body, is_part_of_loop_end, is_eligible = check_loop_type(
+                node_serial, cmd, node_id, edge_info, DG, jobset_data)
 
             if is_part_of_loop:
 
@@ -520,7 +536,7 @@ def run(**kwargs):
                     #     node_serial) if node_serial not in loop_nodes[current_loop] else node_serial
                     pass
             if is_eligible_to_enqueue != True:
-                print("Skipping: ",node_id)
+                print("Skipping: ", node_id)
 
             if len(special_type_jobs):
 
@@ -599,14 +615,15 @@ def run(**kwargs):
                         print(jobset_data)
 
                         if len(special_type_jobs['LOOP']) and special_type_jobs['LOOP'][node_id]['status'] == 'ongoing':
-                            loop_nodes = get_loop_nodes(node_id,hash_map_by_loop,topological_sorting_by_node_id)
+                            loop_nodes = get_loop_nodes(
+                                node_id, hash_map_by_loop, topological_sorting_by_node_id)
                             topological_sorting = loop_nodes + topological_sorting
                         else:
                             del loop_jobs[node_id]
 
                             redis_env = dump({
                                 **jobset_data, 'SYSTEM_STATUS': s,
-                                'SPECIAL_TYPE_JOBS': {} if len(loop_jobs) == 0 else {'LOOP':loop_jobs}
+                                'SPECIAL_TYPE_JOBS': {} if len(loop_jobs) == 0 else {'LOOP': loop_jobs}
                             })
 
                 if 'CONDITIONAL' in special_type_jobs:
@@ -614,7 +631,7 @@ def run(**kwargs):
 
                     status = is_eligible_on_condition(node_serial=node_serial, direction=direction,
                                                       DG=DG, edge_info=edge_info, get_job_id=get_job_id, all_job_key=all_jobs_key,
-                                                      current_conditional = current_conditional)
+                                                      current_conditional=current_conditional)
 
                     if not status:
                         continue
@@ -649,7 +666,7 @@ def run(**kwargs):
                     #     loop_nodes[node_id] = []
                     #     # topological_sorting.append(node_serial)
 
-                    if cmd =='CONDITIONAL':
+                    if cmd == 'CONDITIONAL':
                         check_inputs = True if len(
                             nodes_by_id[node_serial]['inputs']) else False
 
@@ -681,11 +698,15 @@ def run(**kwargs):
 
             else:
                 if cmd == 'LOOP':
-                    conditional_node_id = get_conditional_node_id(node_id,loop_body_nodes)
+                    conditional_node_id = get_conditional_node_id(
+                        node_id, loop_body_nodes)
 
-                    intial_value = cmd+"_"+nodes_by_id[node_serial]['label']+"_initial_count"
-                    total_iteration = cmd + "_"+nodes_by_id[node_serial]['label']+"_iteration_count"
-                    step = cmd + "_"+ nodes_by_id[node_serial]['label']+"_step"
+                    intial_value = cmd+"_" + \
+                        nodes_by_id[node_serial]['label']+"_initial_count"
+                    total_iteration = cmd + "_" + \
+                        nodes_by_id[node_serial]['label']+"_iteration_count"
+                    step = cmd + "_" + \
+                        nodes_by_id[node_serial]['label']+"_step"
 
                     loop_jobs = {
                         node_id: {
@@ -697,7 +718,7 @@ def run(**kwargs):
                                 "current_iteration": int(ctrls[intial_value]['value']),
                                 "step": int(ctrls[step]['value'])
                             },
-                            "conditional_node":conditional_node_id
+                            "conditional_node": conditional_node_id
                         }
                     }
 
@@ -754,7 +775,7 @@ def run(**kwargs):
                                                             node_id=node_id, node_serial=node_serial, nodes_by_id=nodes_by_id,
                                                             r_obj=jobset_data, all_jobs_key=all_jobs_key)
 
-                    print("previous Jobs Ids: ",previous_job_ids)
+                    print("previous Jobs Ids: ", previous_job_ids)
 
                     q.enqueue(func,
                               job_timeout='3m',
@@ -798,87 +819,56 @@ def run(**kwargs):
         print('Watch.py run error: ', Exception, traceback.format_exc())
 
 
-# def run(**kwargs):
-#     jobset_id = kwargs['jobsetId']
-#     try:
-#         fc = kwargs['fc']
-#         #job id of running jobset
-#         my_job_id = kwargs['my_job_id']
-#         print('running flojoy for jobset id: ', jobset_id)
+def run(**kwargs):
+    jobset_id = kwargs['jobsetId']
+    print('running flojoy for jobset id: ', jobset_id)
+    try:
+        fc = kwargs['fc']
+        flojoy_watch_job_id = kwargs['flojoy_watch_job_id']
 
-#         # key to store all jobs in redis
-#         all_jobs_key = "{}_ALL_JOBS".format(jobset_id)
-#         r_obj = get_redis_obj(jobset_id)
-#         r.delete('{}_ALL_NODES'.format(jobset_id))
-#         all_jobs = get_redis_obj(all_jobs_key)
-#         cancel_existing_jobs = kwargs['cancel_existing_jobs']
-#         if (cancel_existing_jobs):
-#             delete_all_running_jobs(all_jobs)
-#             r.delete(all_jobs_key)
-#         elems = fc['nodes']
-#         edges = fc['edges']
+        elems = fc['nodes']
+        edges = fc['edges']
 
-#         r.set('{}_edges'.format(jobset_id), dump({'edge': edges}))
+        # r.set('{}_edges'.format(jobset_id), dump({'edge': edges}))
 
-#         # Replicate the React Flow chart in Python's networkx
-#         convert_reactflow_to_networkx = reactflow_to_networkx(elems, edges)
-
-#         # get topological sorting from reactflow_to_networx function imported from flojoy package
-#         topological_sorting = list(
-#             convert_reactflow_to_networkx['topological_sort'])
-
-#         nodes_by_id = convert_reactflow_to_networkx['getNode']()
-
-#         DG = convert_reactflow_to_networkx['DG']
-
-#         edge_info = convert_reactflow_to_networkx['edgeInfo']
-
-#         graph = Graph(DG,edge_info)
-#         discovered = [False] * len(list(DG.nodes))
-
-#         # finding the source of dfs tree
-#         dfs_source = []
-#         for node in DG.nodes:
-#             if len(list(DG.predecessors(node))) == 0:
-#                 dfs_source.append(node)
-
-#         hash_map = {}
-#         current_loop_nodes = []
-#         for source in dfs_source:
-#             DFS(graph=graph,source=source,discovered=discovered,current_loop_nodes=current_loop_nodes,hashmap = hash_map,get_node_data_by_id=nodes_by_id)
-
-#         hash_map_by_loop = get_hash_loop(hash_map,nodes_by_id,DG)
-#         loop_body_nodes = get_loop_body_nodes(hash_map,hash_map_by_loop.copy())
-
-#         loop_nodes = defaultdict()
-#         enqued_job_list = []
-#         loop_ongioing_list = []
-#         redis_env = ""
-#         current_conditional = ""
-
-#         r.set(jobset_id, dump({}))
-
-#         print('\n')
-#         print('All Nodes in topological sorting:')
-#         print('\n')
-#         topological_sorting_by_node_id = {}
-#         for node_serial in topological_sorting:
-#             id = nodes_by_id[node_serial]['id']
-#             if node_serial not in topological_sorting_by_node_id:
-#                 topological_sorting_by_node_id[id] = node_serial
-#             print(node_serial, nodes_by_id[node_serial]
-#                   ['cmd'], id)
-            
-            
-#         notify_jobset_finished(r, jobset_id, my_job_id)
-#         return
-#     except Exception:
-#         send_to_socket({
-#             'jobsetId': jobset_id,
-#             'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
-#         })
-#         print('Watch.py run error: ', Exception, traceback.format_exc())
+        # Replicate the React Flow chart in Python's networkx
+        networkx_obj = reactflow_to_networkx(elems, edges)
+        topological_sorting = list(networkx_obj['topological_sort'])
+        node_dict = networkx_obj['getNode']()
+        DG = networkx_obj['DG']
+        edge_info = networkx_obj['edgeInfo']
         
-        
-# def notify_jobset_finished(r, jobset_id, my_job_id):
-#     r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
+        preprocess_graph(DG=DG, edge_info=edge_info, node_dict=node_dict)
+
+        notify_jobset_finished(r, jobset_id, flojoy_watch_job_id)
+        return
+    except Exception:
+        send_to_socket({
+            'jobsetId': jobset_id,
+            'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
+        })
+        print('Watch.py run error: ', Exception, traceback.format_exc())
+
+
+def notify_jobset_finished(r, jobset_id, my_job_id):
+    r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
+
+def preprocess_graph(DG, edge_info, node_dict):
+    graph = Graph(DG, edge_info)
+    discovered = [False] * len(list(DG.nodes))
+
+    # finding the source of dfs tree
+    dfs_source = []
+    for node in DG.nodes:
+        if len(list(DG.predecessors(node))) == 0:
+            dfs_source.append(node)
+
+    hash_map = {}
+    current_loop_nodes = []
+    for source in dfs_source:
+        DFS(graph=graph, source=source, discovered=discovered,
+            current_loop_nodes=current_loop_nodes, hashmap=hash_map, get_node_data_by_id=node_dict)
+
+    hash_map_by_loop = get_hash_loop(hash_map, node_dict, DG)
+    loop_body_nodes = get_loop_body_nodes(
+        hash_map, hash_map_by_loop.copy())

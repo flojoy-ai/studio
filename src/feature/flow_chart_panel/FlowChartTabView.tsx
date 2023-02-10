@@ -65,6 +65,7 @@ const FlowChartTab = ({
     () => ({ default: CustomEdge as any }),
     []
   );
+  console.log('rfinstanc: ', rfInstance )
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
