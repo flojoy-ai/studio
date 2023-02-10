@@ -1,7 +1,16 @@
 COMMAND:
   - {
       name: loop-conditional,
-      key: CONDITIONAL,
-      type: CONDITIONAL,
-      parameters: { operator_type: { type: "string", default: ">=" } },
+      key: LOOP_CONDITIONAL,
+      type: LOOP,
+      parameters:
+        {
+          operator_type:
+            {
+              type: select,
+              options: ["==", "!=", ">", "<", ">=", <=],
+              default: "==",
+            },
+          loop_node: { type: node_reference, default: "" },
+        },
     }
