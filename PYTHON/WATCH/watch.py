@@ -28,6 +28,7 @@ from FUNCTIONS.LOOPS import *
 from FUNCTIONS.SIMULATIONS import *
 from FUNCTIONS.ARITHMETIC import *
 from FUNCTIONS.VISORS import *
+from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
@@ -36,7 +37,7 @@ job_service = JobService('flojoy')
 q = job_service.queue
 print('queue flojoy isEmpty? ', q.is_empty())
 
-conditional_nodes = {}
+conditional_nodes = defaultdict(lambda: {})
 
 
 def get_port():
@@ -59,15 +60,9 @@ def dump(data):
     return json.dumps(data)
 
 
-def get_redis_obj(id):
-    get_obj = r.get(id)
-    parse_obj = json.loads(get_obj) if get_obj is not None else {}
-    return parse_obj
-
-
 def get_job_id(job_key: str, redis_key: str) -> str | None:
     try:
-        all_jobs = get_redis_obj(redis_key)
+        all_jobs = job_service.get_redis_obj(redis_key)
         job_id = all_jobs[job_key]
     except Exception:
         print("Job Id doesn't exist", Exception, traceback.format_exc())
@@ -202,46 +197,11 @@ def is_eligible_on_condition(node_serial, direction, DG, edge_info, get_job_id, 
     return True
 
 
-def get_previous_job_ids(cmd, node_serial, loop_nodes, node_id, r_obj, nodes_by_id, DG, get_job_id, all_jobs_key):
-
+def get_previous_job_ids(DG, node_serial):
     previous_job_ids = []
-
-    if cmd == 'LOOP':
-
-        loop_status, current_iteration, initial_value = get_loop_status(
-            r_obj, node_id=node_id, loop_info=True)
-
-        if loop_status and current_iteration != initial_value:
-
-            '''
-                Remove all predecessors and enqueue only conditional node job_id
-            '''
-            for node in loop_nodes[node_id]:
-                if 'CONDITIONAL' in node:
-                    # prev_cmd = DG.nodes[node_id]['cmd']
-                    # prev_job_id = get_job_id(
-                    #     job_key=prev_cmd+id, redis_key=all_jobs_key)
-                    previous_job_ids.append(node)
-                    return previous_job_ids
-
-    # if cmd == 'CONDITIONAL' and len(loop_nodes) > 0:
-    #     for p in DG.predecessors(node_serial):
-    #         id = nodes_by_id[p]['id']
-    #         prev_cmd = DG.nodes[p]['cmd']
-    #         if prev_cmd == 'LOOP':
-    #             continue
-    #         prev_job_id = get_job_id(
-    #             job_key=prev_cmd+id, redis_key=all_jobs_key)
-
-    #         previous_job_ids.append(prev_job_id)
-    #     return previous_job_ids
-
     for p in DG.predecessors(node_serial):
-        prev_cmd = DG.nodes[p]['cmd']
         id = DG.nodes[p]['id']
-        prev_job_id = get_job_id(
-            job_key=prev_cmd+id, redis_key=all_jobs_key)
-        previous_job_ids.append(prev_job_id)
+        previous_job_ids.append(id)
     return previous_job_ids
 
 
@@ -287,17 +247,17 @@ class Graph:
             })
 
 
-def DFS(graph, source, discovered, current_loop_nodes, hashmap, get_node_data_by_id):
+def DFS(graph, source, visited, current_loop_nodes, hashmap, get_node_data_by_id):
+    # print("source: ", source)
     childs = []
+    # print(" get_node_by_id: ", get_node_data_by_id.get(source, "NOt found"))
     cmd = get_node_data_by_id[source]['cmd']
     id = get_node_data_by_id[source]['id']
 
-    # print(cmd)
 
     if source not in graph.adjList.keys():
-        hashmap[id] = current_loop_nodes.copy()
-        discovered[source-1] = True
-        return
+        visited[source-1] = True
+        return [id]
 
     body = []
     end = []
@@ -316,38 +276,39 @@ def DFS(graph, source, discovered, current_loop_nodes, hashmap, get_node_data_by
 
         # traversing the body node first
         for value in body:
-            if not discovered[value-1]:
-                child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+            child_node_ids = DFS(graph=graph, source=value, visited=visited,
                                      current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
-                childs = childs + child_node_ids
+            childs = childs + child_node_ids
 
-        current_loop_nodes.pop()
-        hashmap[id] = current_loop_nodes.copy()
+        # current_loop_nodes.pop()
+        # hashmap[id] = current_loop_nodes.copy()
 
         for value in end:
-            if not discovered[value-1]:
-                child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+            if not visited[value-1]:
+                child_node_ids = DFS(graph=graph, source=value, visited=visited,
                                      current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
                 childs = childs + child_node_ids
 
-        discovered[source-1] = True
+        visited[source-1] = True
     elif cmd == "CONDITIONAL":
         # find the end & body source Handle
+        print(" adjlist: ", graph.adjList[source])
         for value in graph.adjList[source]:
+            print(" value: ", value)
             output_name = value['handle']
-            child_node_ids = DFS(graph=graph, source=value, discovered=discovered,
+            child_node_ids = DFS(graph=graph, source=value['target_node'], visited=visited,
                                  current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
             childs = childs + child_node_ids
-            conditional_nodes[output_name] = child_node_ids
+            conditional_nodes[id][output_name] = child_node_ids
 
     else:
         for value in graph.adjList[source]:
-            if not discovered[value['target_node']-1]:
-                child_node_ids = DFS(graph=graph, source=value['target_node'], discovered=discovered,
+           
+            child_node_ids = DFS(graph=graph, source=value['target_node'], visited=visited,
                                      current_loop_nodes=current_loop_nodes, hashmap=hashmap, get_node_data_by_id=get_node_data_by_id)
-                childs = childs + child_node_ids
-        hashmap[id] = current_loop_nodes.copy()
-        discovered[source-1] = True
+            childs = childs + child_node_ids
+        # hashmap[id] = current_loop_nodes.copy()
+        # visited[source-1] = True
     return [id] + childs
 
 
@@ -423,7 +384,7 @@ def run_old(**kwargs):
         my_job_id = kwargs['my_job_id']
         print('running flojoy for jobset id: ', jobset_id)
 
-        jobset_data = get_redis_obj(jobset_id)
+        jobset_data = job_service.get_redis_obj(jobset_id)
         r.delete('{}_ALL_NODES'.format(jobset_id))
 
         elems = fc['nodes']
@@ -445,7 +406,7 @@ def run_old(**kwargs):
         edge_info = convert_reactflow_to_networkx['edgeInfo']
 
         graph = Graph(DG, edge_info)
-        discovered = [False] * len(list(DG.nodes))
+        visited = [False] * len(list(DG.nodes))
 
         # finding the source of dfs tree
         dfs_source = []
@@ -456,7 +417,7 @@ def run_old(**kwargs):
         hash_map = {}
         current_loop_nodes = []
         for source in dfs_source:
-            DFS(graph=graph, source=source, discovered=discovered,
+            DFS(graph=graph, source=source, visited=visited,
                 current_loop_nodes=current_loop_nodes, hashmap=hash_map, get_node_data_by_id=nodes_by_id)
 
         hash_map_by_loop = get_hash_loop(hash_map, nodes_by_id, DG)
@@ -495,8 +456,8 @@ def run_old(**kwargs):
 
             job_id = node_id
             s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
-            jobset_data = get_redis_obj(jobset_id)
-            prev_jobs = get_redis_obj(all_jobs_key)
+            jobset_data = job_service.get_redis_obj(jobset_id)
+            prev_jobs = job_service.get_redis_obj(all_jobs_key)
 
             special_type_jobs = jobset_data.get(
                 'SPECIAL_TYPE_JOBS', {})  # TODO: rename SPECIAL_TYPE_JOBS
@@ -829,7 +790,7 @@ def run(**kwargs):
         elems = fc['nodes']
         edges = fc['edges']
 
-        # r.set('{}_edges'.format(jobset_id), dump({'edge': edges}))
+        job_service.add_to_redis_obj(f'{jobset_id}_edges', {'edge': edges})
 
         # Replicate the React Flow chart in Python's networkx
         networkx_obj = reactflow_to_networkx(elems, edges)
@@ -839,8 +800,51 @@ def run(**kwargs):
         edge_info = networkx_obj['edgeInfo']
         
         preprocess_graph(DG=DG, edge_info=edge_info, node_dict=node_dict)
+        print(" conditional output nodes: ", conditional_nodes)
+        
+        for node in conditional_nodes.items():
+            for child_ids in node.items():
+                for child_id in child_ids:
+                    try:
+                        topological_sorting.remove(child_id)
+                    except Exception:
+                        pass
+            
+        
+        while len(topological_sorting) != 0:
+            print("Topological Order: ", topological_sorting)
+            node_serial = topological_sorting.pop(0)
+            cmd = node_dict[node_serial]['cmd']
+            func = getattr(globals()[cmd], cmd)
+            ctrls = node_dict[node_serial]['ctrls']
+            job_id = node_id = node_dict[node_serial]['id']
+            # s = ' '.join([STATUS_CODES['JOB_IN_RQ'], cmd.upper()])
+            # jobset_data = job_service.get_jobset_data(jobset_id)
+            # prev_jobs = job_service.get_redis_obj(KEY_ALL_JOBEST_IDS)
+            previous_job_ids = get_previous_job_ids(DG=DG, node_serial=node_serial)
+            
+            job_service.enqueue_job(
+                func=func,
+                jobset_id=jobset_id,
+                job_id=job_id,
+                previous_job_ids=previous_job_ids,
+                ctrls=ctrls
+            )
+            job_service.add_job(job_id=job_id, jobset_id=jobset_id)
+            if cmd == 'CONDITIONAL':
+                job_result={}
+                while True:
+                    job = job_service.fetch_job(job_id=job_id)
+                    if job.get_status() == 'finished':
+                        job_result = job.result
+                        break
+                print(" conditional result: ", job_result)
+                direction = job_result.get("direction")
+                nodes_to_enqueue = conditional_nodes[node_id][direction]
+                topological_sorting = nodes_to_enqueue + topological_sorting
+                
 
-        notify_jobset_finished(r, jobset_id, flojoy_watch_job_id)
+        notify_jobset_finished(jobset_id, flojoy_watch_job_id)
         return
     except Exception:
         send_to_socket({
@@ -850,12 +854,12 @@ def run(**kwargs):
         print('Watch.py run error: ', Exception, traceback.format_exc())
 
 
-def notify_jobset_finished(r, jobset_id, my_job_id):
-    r.lrem('{}_watch'.format(jobset_id), 1, my_job_id)
+def notify_jobset_finished(jobset_id, my_job_id):
+    job_service.redis_dao.remove_item_from_list('{}_watch'.format(jobset_id), my_job_id)
 
 def preprocess_graph(DG, edge_info, node_dict):
     graph = Graph(DG, edge_info)
-    discovered = [False] * len(list(DG.nodes))
+    visited = [False] * len(list(DG.nodes))
 
     # finding the source of dfs tree
     dfs_source = []
@@ -866,9 +870,12 @@ def preprocess_graph(DG, edge_info, node_dict):
     hash_map = {}
     current_loop_nodes = []
     for source in dfs_source:
-        DFS(graph=graph, source=source, discovered=discovered,
+        DFS(graph=graph, source=source, visited=visited,
             current_loop_nodes=current_loop_nodes, hashmap=hash_map, get_node_data_by_id=node_dict)
 
     hash_map_by_loop = get_hash_loop(hash_map, node_dict, DG)
     loop_body_nodes = get_loop_body_nodes(
         hash_map, hash_map_by_loop.copy())
+
+
+   

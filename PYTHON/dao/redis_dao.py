@@ -21,10 +21,14 @@ class RedisDao:
             RedisDao._instance = RedisDao()
             return RedisDao._instance
 
-    def get_redis_obj(self, key):
+    def get_redis_obj(self, key:str):
         get_obj = self.r.get(key)
         parse_obj = json.loads(get_obj) if get_obj is not None else {}
         return parse_obj
+
+    def set_redis_obj(self, key: str, value: dict):
+        dump = json.dumps(value)
+        self.r.set(key, dump)
 
     def delete_redis_object(self, key):
         self.r.delete(key)
@@ -34,5 +38,6 @@ class RedisDao:
 
     def add_to_list(self, key, value):
         self.r.lpush(key, value)
+
     def remove_item_from_list(self, key, item):
-        self.r.lrem(key,1,item)
+        self.r.lrem(key, 1, item)

@@ -1,14 +1,14 @@
-from datetime import datetime
-from PYTHON.WATCH import *
-import yaml
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-import json
-import sys
-from django.shortcuts import render
 import os
-from channels.layers import get_channel_layer
+import sys
+import json
+import yaml
+from PYTHON.WATCH import *
+from datetime import datetime
+from django.shortcuts import render
 from asgiref.sync import async_to_sync
+from rest_framework.response import Response
+from channels.layers import get_channel_layer
+from rest_framework.decorators import api_view
 from PYTHON.services.job_service import JobService
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -80,8 +80,8 @@ def wfc(request):
 
 @api_view(['POST'])
 def worker_response(request):
-    jsonify_data = json.loads(request.data)
-    send_msg_to_socket(jsonify_data)
+    parse_data = json.loads(request.data)
+    send_msg_to_socket(parse_data)
     response = {
         'success': True,
     }
