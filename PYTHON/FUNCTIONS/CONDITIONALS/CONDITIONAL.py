@@ -38,8 +38,10 @@ def CONDITIONAL(v, params):
             data = DataContainer(x=v[0].x, y=v[0].y)
         else:
             data = DataContainer(x=v[1].x, y=v[1].y)
-    return {
+    result = {
+        "__result__field__": "data",
         "data": data,
         "type": "CONDITIONAL",
         "direction": bool_
     }
+    return result

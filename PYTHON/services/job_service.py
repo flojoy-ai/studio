@@ -9,6 +9,7 @@ from rq.exceptions import InvalidJobOperation, NoSuchJobError
 
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
+
 class JobService():
     def __init__(self, queue_name):
         self.redis_dao = RedisDao()
@@ -69,6 +70,7 @@ class JobService():
 
     def get_jobset_data(self, key: str):
         return self.redis_dao.get_redis_obj(key)
+
     def enqueue_job(self, func,jobset_id, job_id, ctrls, previous_job_ids):
         self.queue.enqueue(func,
                   job_timeout='3m',
@@ -84,4 +86,3 @@ class JobService():
     
     def fetch_job(self, job_id):
        return Job.fetch(job_id, connection=self.redis_dao.r)
-    
