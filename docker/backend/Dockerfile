@@ -4,10 +4,10 @@ FROM onscene/flojoy-base:latest
 WORKDIR /code
 
 # Copy the requirements file to the container
-COPY requirements.txt .
+COPY requirements-docker.txt .
 
 # Install the required packages
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements-docker.txt
 
 # Copy the rest of the application code to the container
 COPY . /code/

@@ -3,10 +3,10 @@ FROM onscene/flojoy-base:latest
 WORKDIR /code
 
 # Copy the requirements file to the container
-COPY requirements.txt .
+COPY requirements-docker.txt .
 
 # Install the required packages
-RUN pip install -r requirements.txt
+RUN pip install -r requirements-docker.txt
 
 COPY yaml-script.sh .
 

@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
 #Install the requirements
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+COPY requirements-docker.txt /code/
+RUN pip install -r requirements-docker.txt
 
 COPY . /code/
