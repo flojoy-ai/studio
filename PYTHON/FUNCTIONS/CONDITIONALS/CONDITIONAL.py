@@ -1,4 +1,4 @@
-from flojoy import flojoy, DataContainer
+from flojoy import flojoy, DataContainer, JobResultBuilder
 
 
 def compare_values(first_value, second_value, operator):
@@ -20,7 +20,7 @@ def compare_values(first_value, second_value, operator):
 
 @flojoy
 def CONDITIONAL(v, params):
-    print("EXECUTING CONDITIONAL, PARMAS: ", params, " v: ", v)
+    # print("EXECUTING CONDITIONAL, PARMAS: ", params, " v: ", v)
 
     operator = params['operator_type']
 
@@ -38,10 +38,7 @@ def CONDITIONAL(v, params):
             data = DataContainer(x=v[0].x, y=v[0].y)
         else:
             data = DataContainer(x=v[1].x, y=v[1].y)
-    result = {
-        "__result__field__": "data",
-        "data": data,
-        "type": "CONDITIONAL",
-        "direction": bool_
-    }
-    return result
+
+    next_direction = str(bool_).lower()
+
+    return JobResultBuilder().from_data(data).flow_to_directions([next_direction]).build()

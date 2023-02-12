@@ -72,6 +72,7 @@ class JobService():
         return self.redis_dao.get_redis_obj(key)
 
     def enqueue_job(self, func,jobset_id, job_id, ctrls, previous_job_ids):
+        print('enqueue_job', job_id, previous_job_ids)
         self.queue.enqueue(func,
                   job_timeout='3m',
                   on_failure=report_failure,
@@ -85,4 +86,4 @@ class JobService():
         self.redis_dao.add_to_list(f"{jobset_id}_ALL_NODES", job_id) 
     
     def fetch_job(self, job_id):
-       return Job.fetch(job_id, connection=self.redis_dao.r)
+        return Job.fetch(job_id, connection=self.redis_dao.r)

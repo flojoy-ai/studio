@@ -1,5 +1,6 @@
 from flojoy import flojoy, DataContainer
 import os
+from flojoy import JobResultBuilder
 from redis import Redis
 import json
 
@@ -38,46 +39,54 @@ def get_loop_params(r_obj, loop_node_id, key):
 
 @flojoy
 def LOOP_CONDITIONAL(v, params):
-    print("EXECUTING LOOP CONDITIONAL, PARMAS: ", params, " v: ", v)
+    loop_node = params.get('loop_node')
+    next_nodes = None if loop_node is None else [loop_node]
+    return JobResultBuilder().from_params(v).flow_to_nodes(next_nodes).build()
 
-    loop_node_id = params['loop_node']
-    jobset_id = params['jobset_id']
-    operator = params['operator_type']
+# @flojoy
+# def LOOP_CONDITIONAL(v, params):
+#     print("EXECUTING LOOP CONDITIONAL, PARMAS: ", params, " v: ", v)
 
-    r_obj = get_redis_obj(jobset_id)
+#     loop_node_id = params['loop_node']
+#     jobset_id = params['jobset_id']
+#     operator = params['operator_type']
 
-    initial_value = get_loop_params(
-        r_obj, loop_node_id, 'initial_value')
-    total_iterations = get_loop_params(
-        r_obj, loop_node_id, 'total_iterations')
-    step = get_loop_params(r_obj, loop_node_id, 'step')
-    current_iteration = get_loop_params(
-        r_obj, loop_node_id, 'current_iteration')
+#     r_obj = get_redis_obj(jobset_id)
 
-    is_loop_finished = compare_values(
-        current_iteration+step, total_iterations, operator)
-    
-    if not is_loop_finished:
-        return {
-            "data": DataContainer(x=v[0].x, y=v[0].y),
-            "type": 'LOOP',
-            "params": {
-                "initial_value": initial_value,
-                "total_iterations": total_iterations,
-                "current_iteration": current_iteration,
-                "step": step
-            },
-            "verdict": 'finished'
-        }
-    else:
-        return {
-            "data": DataContainer(x=v[0].x, y=v[0].y),
-            "type": 'LOOP',
-            "params": {
-                "initial_value": initial_value,
-                "total_iterations": total_iterations,
-                "current_iteration": current_iteration + step,
-                "step": step
-            },
-            "verdict": 'ongoing'
-        }
+#     initial_value = get_loop_params(
+#         r_obj, loop_node_id, 'initial_value')
+#     total_iterations = get_loop_params(
+#         r_obj, loop_node_id, 'total_iterations')
+#     step = get_loop_params(r_obj, loop_node_id, 'step')
+#     current_iteration = get_loop_params(
+#         r_obj, loop_node_id, 'current_iteration')
+
+#     is_loop_finished = compare_values(
+#         current_iteration+step, total_iterations, operator)
+
+#     params = {
+#         "initial_value": initial_value,
+#         "total_iterations": total_iterations,
+#         "current_iteration": current_iteration,
+#         "step": step
+#     }
+
+#     result = {
+#         "__result__field__": "data",
+#         "data": DataContainer(x=v[0].x, y=v[0].y),
+#         "type": 'LOOP',
+#         "params": params,
+#         "verdict": 'finished'
+#     }
+
+#     if is_loop_finished:
+#         return result
+#     else:
+#         return {
+#             **result,
+#             "params": {
+#                 **params,
+#                 "current_iteration": current_iteration + step,
+#             },
+#             "verdict": 'ongoing'
+#         }
