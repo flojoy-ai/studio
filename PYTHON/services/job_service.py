@@ -72,7 +72,6 @@ class JobService():
         return self.redis_dao.get_redis_obj(key)
 
     def enqueue_job(self, func,jobset_id, job_id, ctrls, previous_job_ids):
-        print('enqueue_job', job_id, previous_job_ids)
         self.queue.enqueue(func,
                   job_timeout='3m',
                   on_failure=report_failure,
