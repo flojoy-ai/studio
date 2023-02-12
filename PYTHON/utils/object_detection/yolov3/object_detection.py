@@ -8,6 +8,7 @@ classes = []
 absolute_path = os.path.dirname(__file__) 
 with open(os.path.join(absolute_path, 'yolov3.txt'), 'r') as f:
     classes = [line.strip() for line in f.readlines()]
+f.close()
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 

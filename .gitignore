@@ -37,7 +37,8 @@ dump.rdb
 .ipynb_checkpoints
 PYTHON/WATCH/fc.json
 PYTHON/obj-detection.jpg
-PYTHON/utils/object_detection/yolov3.weights
+PYTHON/utils/object_detection/yolov3/yolov3.weights
+PYTHON/utils/object_detection/yolov8/yolov8n.pt
 src/feature/flow_chart_panel/pythonFunctions.json
 venv2
 .env

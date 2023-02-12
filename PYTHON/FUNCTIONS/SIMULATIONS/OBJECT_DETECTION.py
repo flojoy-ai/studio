@@ -1,7 +1,7 @@
 import traceback
 from flojoy import flojoy, DataContainer
 
-from utils.object_detection.object_detection import detect_object
+from utils.object_detection.yolov8.object_detection import detect_object
 
 
 @flojoy
