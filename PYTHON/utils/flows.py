@@ -18,7 +18,7 @@ class Flows:
     def set_node_data(self, node_id: str, node_flows):
         self.all_node_data[node_id] = node_flows
 
-    def get_flow(self, node_id: str, direction: str):
+    def get_flow(self, node_id: str, direction: str) -> list[str]:
         node_data = self.get_node_data(node_id)
         if direction not in node_data:
             node_data[direction] = []
@@ -29,11 +29,18 @@ class Flows:
         node_data = self.get_node_data(node_id)
         node_data[direction] = new_direction_nodes
 
-    def extend_flow(self, node_id: str, direction: str, direction_nodes):
+    def extend_flow(self, node_id: str, direction: str, direction_nodes: list[str]):
         current_direction_nodes = self.get_flow(node_id, direction)
+
+        # remove duplicates
+        for node_serial in current_direction_nodes:
+            if node_serial in direction_nodes:
+                direction_nodes.remove(node_serial)
+
         current_direction_nodes.extend(direction_nodes)
-        new_direction_nodes = list(set(current_direction_nodes)) # remove duplicates
+
+        # store the updated data
         node_data = self.get_node_data(node_id)
-        node_data[direction] = new_direction_nodes
+        node_data[direction] = current_direction_nodes
 
     

@@ -1,3 +1,4 @@
+import json
 from .flows import Flows
 from .graph import Graph
 
@@ -22,12 +23,11 @@ def find_flows(graph: Graph, node_by_serial, cmds: list[str]):
             child_source = value['target_node']
             if cmd in cmds:
                 child_node_ids = dfs(source=child_source)
-                childs = childs + child_node_ids
+                # childs = childs + child_node_ids
 
                 # record the childs for the direction
                 direction = value['handle'].lower()
-                flows.extend_flow(
-                    node_id, direction, child_node_ids)
+                flows.extend_flow(node_id, direction, child_node_ids)
 
                 print(
                     'source:', source,
@@ -55,19 +55,19 @@ def find_flows(graph: Graph, node_by_serial, cmds: list[str]):
 
 
 def apply_topology(flows: Flows, topology: list[int]):
+    print('apply topology, before state:', topology)
     new_flows = Flows()
     for serial in topology:
-        for node_id, node_data in flows.all_node_data:
-            for direction, _ in node_data:
+        for node_id, node_data in flows.all_node_data.items():
+            for direction, _ in node_data.items():
                 if serial in flows.get_flow(node_id, direction):
                     new_flows.extend_flow(node_id, direction, [serial])
-
     flows.from_flows(new_flows)
-
+    print('apply topology, after state:', topology)
 
 def remove_flows_from_topology(flows: Flows, topology):
     print('removing flows from topology, topology before state:', topology)
-    for node_id, node_data in flows.all_node_data:
+    for node_id, node_data in flows.all_node_data.items():
         for direction, child_ids in node_data.items():
             for child_id in child_ids:
                 try:

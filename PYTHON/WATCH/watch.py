@@ -89,7 +89,7 @@ def get_previous_job_ids(DG, node_serial):
     return previous_job_ids
 
 def run(**kwargs):
-    global flows, graph
+    global flows, graph, topology
     jobset_id = kwargs['jobsetId']
     print('\nrunning flojoy for jobset id: ', jobset_id)
     try:
@@ -112,6 +112,8 @@ def run(**kwargs):
         node_serial_by_id = networkx_obj['get_node_serial_by_id']() # node dictionary { node_id --> node }
         DG = networkx_obj['DG'] # networkx representation of the graph
         edge_info = networkx_obj['edgeInfo']
+
+        print('topology:', topology)
 
         print('\nnode serial --> node id')
         print('-----------------------')
@@ -137,7 +139,7 @@ def run(**kwargs):
             job_id = node_id = node['id']
             previous_job_ids = get_previous_job_ids(DG=DG, node_serial=node_serial)
 
-            print('enqueuing', node_serial, 'previous job ids', previous_job_ids, "topology: ", topology)
+            print('enqueuing ', node_serial, 'previous job ids', previous_job_ids, "new topology: ", topology)
             
             job_service.enqueue_job(
                 func=func,
@@ -197,9 +199,12 @@ def notify_jobset_finished(jobset_id, my_job_id):
 
 def preprocess_graph(DG, edge_info, node_by_serial):
     print('\npre-processing the graph')
-    global flows, graph
+    global flows, graph, topology
     graph = Graph(DG, edge_info)
     flows = find_flows(graph, node_by_serial, ["CONDITIONAL", "LOOP"])
     apply_topology(flows, topology)
+
+
+    
 
    
