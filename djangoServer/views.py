@@ -58,6 +58,7 @@ def wfc(request):
     send_msg_to_socket(msg=msg)
 
     func = getattr(globals()['watch'], 'run')
+    print('func:', func)
     flojoy_watch_job_id = f'{jobset_id}_{datetime.now()}'
     job_service.add_flojoy_watch_job_id(flojoy_watch_job_id)
 
