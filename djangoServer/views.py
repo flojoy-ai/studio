@@ -46,19 +46,19 @@ def wfc(request):
     job_service.delete_all_rq_worker_jobs()
     job_service.delete_all_jobset_data()
 
-    jobsetId = request.data['jobsetId']
-    job_service.add_jobset_id(jobsetId)
+    jobset_id = request.data['jobsetId']
+    job_service.add_jobset_id(jobset_id)
 
     msg = {
         'SYSTEM_STATUS': STATUS_CODES['RQ_RUN_IN_PROCESS'],
-        'jobsetId': jobsetId,
+        'jobsetId': jobset_id,
         'FAILED_NODES': '',
         'RUNNING_NODES': ''
     }
     send_msg_to_socket(msg=msg)
 
     func = getattr(globals()['watch'], 'run')
-    flojoy_watch_job_id = f'{jobsetId}_{datetime.now()}'
+    flojoy_watch_job_id = f'{jobset_id}_{datetime.now()}'
     job_service.add_flojoy_watch_job_id(flojoy_watch_job_id)
 
     q.enqueue(func,
@@ -66,7 +66,7 @@ def wfc(request):
               on_failure=report_failure,
               job_id=flojoy_watch_job_id,
               kwargs={'fc': fc,
-                      'jobsetId': jobsetId,
+                      'jobsetId': jobset_id,
                       'flojoy_watch_job_id': flojoy_watch_job_id
                       },
               result_ttl=500

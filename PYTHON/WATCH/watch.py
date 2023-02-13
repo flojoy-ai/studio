@@ -20,6 +20,10 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from services.job_service import JobService
+from utils.flow_utils import find_flows, apply_topology, remove_flows_from_topology
+from utils.flows import Flows
+from utils.graph import Graph
+
 from FUNCTIONS.LOADERS import *
 from FUNCTIONS.SIGNAL_PROCESSING import *
 from FUNCTIONS.ARRAY_AND_MATRIX import *
@@ -39,7 +43,9 @@ q = job_service.queue
 print('queue flojoy isEmpty? ', q.is_empty())
 
 topology_order_by_node_serial = {}
-conditional_nodes = defaultdict(lambda: {})
+topology = []
+graph: Graph = None
+flows: Flows = None
 
 
 def get_port():
@@ -82,73 +88,8 @@ def get_previous_job_ids(DG, node_serial):
         previous_job_ids.append(id)
     return previous_job_ids
 
-class Graph:
-    def __init__(self, DG, edge_label_dict):
-        self.DG = DG
-        self.edges = DG.edges
-        self.nodes = DG.nodes
-        self.edge_label_dict = edge_label_dict
-
-        self.nodes_by_id = dict()
-        for n, nd in self.DG.nodes().items():
-            self.nodes_by_id[n] = nd
-
-        self.adj_list = defaultdict(list)
-        self.make_adjancency_list()
-
-
-    def make_adjancency_list(self):
-        for (src, dest) in self.edges:
-            for value in self.edge_label_dict[self.nodes_by_id[dest]['id']]:
-                if value['source'] == self.nodes_by_id[src]['id']:
-                    source_handle = value['sourceHandle']
-            self.adj_list[src].append({
-                'target_node_id': self.nodes_by_id[dest]['id'],
-                'src_node_id': self.nodes_by_id[src]['id'],
-                'target_node': dest,
-                'handle': source_handle
-            })
-def filter_child_exists_in_direction(node_id, direction):
-    conditional_node_childs = conditional_nodes[node_id].get(direction, [])
-    def filter(child_id):
-        return child_id not in conditional_node_childs
-    return filter
-
-def DFS(graph, source, node_dict):
-    childs = []
-    cmd = node_dict[source]['cmd']
-    node_id = node_dict[source]['id']
-
-    # if node doesn't have any child, return itself as the only child in this branch
-    if source not in graph.adj_list.keys():
-        # ignoring as source does not have any child
-        return [source]
-
-    for value in graph.adj_list[source]:
-        child_source = value['target_node']
-        if cmd in ["CONDITIONAL", "LOOP"]:
-            child_node_ids = DFS(graph=graph, source=child_source, node_dict=node_dict)
-            childs = childs + child_node_ids
-            
-            # record the childs for the direction
-            direction = value['handle'].lower()
-            conditional_node_childs = conditional_nodes[node_id].get(direction, [])
-            conditional_nodes[node_id][direction] = list(set(conditional_node_childs + child_node_ids))
-            
-            print(
-                'source:', source,
-                'childs', child_node_ids,
-                'were added for direction:', direction,
-                '| all childs:', conditional_nodes[node_id][direction],
-                '| node_id:', node_id
-            )
-        else:
-            # ignoring as its not a special command
-            child_node_ids = DFS(graph=graph, source=child_source, node_dict=node_dict)
-            childs = childs + child_node_ids
-    return [source] + childs
-
 def run(**kwargs):
+    global flows, graph
     jobset_id = kwargs['jobsetId']
     print('\nrunning flojoy for jobset id: ', jobset_id)
     try:
@@ -177,9 +118,9 @@ def run(**kwargs):
         for id, serial in node_serial_by_id.items():
             print(serial, ' -->', id)
 
-        preprocess_graph(DG=DG, edge_info=edge_info, node_dict=node_by_serial)
-        print('conditional_nodes:', json.dumps(conditional_nodes, indent=2))
-        remove_all_conditional_nodes(topology)
+        preprocess_graph(DG=DG, edge_info=edge_info, node_by_serial=node_by_serial)
+        print('special cmd flows:', json.dumps(flows.all_node_data, indent=2))
+        remove_flows_from_topology(flows, topology)
 
         print("preprocessing complete")
         print("\nstarting topological enqueuing")
@@ -213,7 +154,7 @@ def run(**kwargs):
 
                 for direction_ in get_next_directions(job_result):
                     direction = direction_.lower()
-                    nodes_to_enqueue = conditional_nodes[node_id].get(direction, [])
+                    nodes_to_enqueue = flows.get_flow(node_id, direction)
                     topology = nodes_to_enqueue + topology
 
                     print(
@@ -250,32 +191,15 @@ def wait_for_job(job_id):
             break
     return job_result
 
-def remove_all_conditional_nodes(topological_sorting):
-    print('removing all conditional nodes from topology, before state:', topological_sorting)
-    for node_id, node in conditional_nodes.items():
-        for direction, child_ids in node.items():
-            for child_id in child_ids:
-                try:
-                    topological_sorting.remove(child_id)
-                except Exception:
-                    pass
-    print('removing all conditional nodes from topology, after state:', topological_sorting)
-
 
 def notify_jobset_finished(jobset_id, my_job_id):
     job_service.redis_dao.remove_item_from_list('{}_watch'.format(jobset_id), my_job_id)
 
-def preprocess_graph(DG, edge_info, node_dict):
+def preprocess_graph(DG, edge_info, node_by_serial):
     print('\npre-processing the graph')
+    global flows, graph
     graph = Graph(DG, edge_info)
-
-    # finding the source of dfs tree which are nodes without any incoming edge
-    dfs_sources = []
-    for node in DG.nodes:
-        if len(list(DG.predecessors(node))) == 0:
-            dfs_sources.append(node)
-
-    for source in dfs_sources:
-        DFS(graph=graph, source=source, node_dict=node_dict)
+    flows = find_flows(graph, node_by_serial, ["CONDITIONAL", "LOOP"])
+    apply_topology(flows, topology)
 
    
