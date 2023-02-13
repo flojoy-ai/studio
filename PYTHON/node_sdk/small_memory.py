@@ -28,7 +28,7 @@ class SmallMemory:
         obj = RedisDao.get_instance().get_redis_obj(memory_key)
         return obj
 
-    def remove_object(self, job_id, key):
+    def delete_object(self, job_id, key):
         '''
         Removes object stored in internal DB by the given key. The memory is job specific.
         '''

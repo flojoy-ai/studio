@@ -72,18 +72,47 @@ class JobService():
         return self.redis_dao.get_redis_obj(key)
 
     def enqueue_job(self, func,jobset_id, job_id, ctrls, previous_job_ids):
-        self.queue.enqueue(func,
-                  job_timeout='3m',
-                  on_failure=report_failure,
-                  job_id=job_id,
-                  kwargs={'ctrls': ctrls,
-                          'previous_job_ids': previous_job_ids,
-                          'jobset_id': jobset_id, 'node_id': job_id},
-                  depends_on=previous_job_ids,
-                  result_ttl=500)
-                  
+        next_run = 0
+        original_job = None
+        if Job.exists(job_id):
+            original_job = self.fetch_job(job_id)
+            job_meta_data = original_job.get_meta()
+            next_run = job_meta_data.get('run', 0)
+
+        next_run += 1
+        next_job_id = job_id + '___' + str(next_run)
+
+        job = self.queue.enqueue(func,
+                job_timeout='3m',
+                on_failure=report_failure,
+                job_id=next_job_id,
+                kwargs={'ctrls': ctrls,
+                        'previous_job_ids': previous_job_ids,
+                        'jobset_id': jobset_id, 'node_id': job_id, 'job_id': next_job_id},
+                depends_on=previous_job_ids,
+                result_ttl=500)
+
+        if original_job:
+            original_job.meta['run'] = next_run
+            original_job.save_meta()
+
+        return next_job_id, job
+
     def add_job(self, job_id, jobset_id):
         self.redis_dao.add_to_list(f"{jobset_id}_ALL_NODES", job_id) 
     
     def fetch_job(self, job_id):
-        return Job.fetch(job_id, connection=self.redis_dao.r)
+        try:
+            return Job.fetch(job_id, connection=self.redis_dao.r)
+        except Exception:
+            return None
+    
+    def get_next_job_id(job_id) -> str:
+        '''
+        given a node id, tracks the number of times it was run
+        
+        returns: a unique index for the next run
+        '''
+        global job_run_count
+        job_run_count[job_id] = job_run_count.get(job_id, 0) + 1
+        return F'{job_id}___{str(job_run_count.get(job_id))}'

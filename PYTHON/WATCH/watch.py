@@ -47,7 +47,7 @@ topology = []
 node_serial_by_id = {}
 graph: Graph = None
 flows: Flows = None
-
+job_run_count = {}
 
 def get_port():
     try:
@@ -59,18 +59,21 @@ def get_port():
 
 port = get_port()
 
-
 def send_to_socket(data):
     requests.post('http://localhost:'+port +
                   '/worker_response', json=json.dumps(data))
 
 def run(**kwargs):
-    global flows, graph, topology, node_serial_by_id
+    
+    global flows, graph, topology, node_serial_by_id,job_run_count
+
     jobset_id = kwargs['jobsetId']
     print('\nrunning flojoy for jobset id: ', jobset_id)
+    
     try:
         flow_chart = kwargs['fc']
         flojoy_watch_job_id = kwargs['flojoy_watch_job_id']
+        print('flojoy_watch_job_id:', flojoy_watch_job_id)
 
         nodes = flow_chart['nodes']
         edges = flow_chart['edges']
@@ -102,7 +105,9 @@ def run(**kwargs):
 
         print("preprocessing complete")
         print("\nstarting topological enqueuing")
+
         
+
         while len(topology) != 0:
             # time.sleep(1)
             node_serial = topology.pop(0)
@@ -111,20 +116,21 @@ def run(**kwargs):
             func = getattr(globals()[cmd], cmd)
             ctrls = node['ctrls']
             job_id = node_id = node['id']
-            previous_job_ids = graph.get_previous_job_ids(node_serial=node_serial)
+            previous_job_ids = get_previous_job_ids(node_serial)
 
             print('enqueuing ', node_serial, 'previous job ids', previous_job_ids, "new topology: ", topology)
             
-            job_service.enqueue_job(
+            next_job_id, _ = job_service.enqueue_job(
                 func=func,
                 jobset_id=jobset_id,
                 job_id=job_id,
                 previous_job_ids=previous_job_ids,
                 ctrls=ctrls
             )
-            job_service.add_job(job_id=job_id, jobset_id=jobset_id)
+            print('next_job_id:', next_job_id)
+            job_service.add_job(job_id=next_job_id, jobset_id=jobset_id)
 
-            job_result = wait_for_job(job_id)
+            job_result = wait_for_job(next_job_id)
 
             process_special_instructions(node_id, job_result)      
 
@@ -136,6 +142,21 @@ def run(**kwargs):
             'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
         })
         print('Watch.py run error: ', Exception, traceback.format_exc())
+
+def get_previous_job_ids(node_serial):
+    previous_job_ids = graph.get_previous_job_ids(node_serial=node_serial)
+    pids = []
+
+    # find the latest runs of these jobs
+    for pid in previous_job_ids:
+        job = job_service.fetch_job(pid)
+        if job is None:
+            pids.append(pid + '___1')
+            continue
+        meta = job.get_meta()
+        pids.append(pid + '___' + str(meta.get('run', 1)))
+
+    return pids
 
 def process_special_instructions(node_id, job_result):
     '''
@@ -169,6 +190,7 @@ def wait_for_job(job_id):
         time.sleep(.01)
         job = job_service.fetch_job(job_id=job_id)
         job_status = job.get_status()
+        # print('wait for job:', job_id, 'job_status:', job_status)
         if job_status == 'finished' or job_status == 'failed':
             job_result = job.result
             break
