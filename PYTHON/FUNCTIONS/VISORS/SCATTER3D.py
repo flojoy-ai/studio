@@ -3,4 +3,4 @@ from .template import init_template
 
 @flojoy
 def SCATTER3D(v, params):
-    return JobResultBuilder().from_params(v).build()
+    return JobResultBuilder().from_inputs(v).build()

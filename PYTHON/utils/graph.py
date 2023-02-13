@@ -32,4 +32,12 @@ class Graph:
                 'target_node': dest,
                 'handle': source_handle
             })
+
+    # TODO prev job ids can be precalculated
+    def get_previous_job_ids(self, node_serial):
+        previous_job_ids = []
+        for p in self.DG.predecessors(node_serial):
+            job_id = self.DG.nodes[p]['id']
+            previous_job_ids.append(job_id)
+        return previous_job_ids
         

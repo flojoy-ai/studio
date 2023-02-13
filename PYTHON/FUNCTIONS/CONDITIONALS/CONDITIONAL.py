@@ -1,32 +1,15 @@
 from flojoy import flojoy, DataContainer, JobResultBuilder
-
-
-def compare_values(first_value, second_value, operator):
-    bool_ = None
-    if operator == "<=":
-        bool_ = first_value <= second_value
-    elif operator == ">":
-        bool_ = first_value > second_value
-    elif operator == "<":
-        bool_ = first_value < second_value
-    elif operator == ">=":
-        bool_ = first_value >= second_value
-    elif operator == "!=":
-        bool_ = first_value != second_value
-    else:
-        bool_ = first_value == second_value
-    return bool_
+from utils.utils import compare_values
 
 
 @flojoy
 def CONDITIONAL(v, params):
-    # print("EXECUTING CONDITIONAL, PARMAS: ", params, " v: ", v)
-
     operator = params['operator_type']
 
     y1 = v[0].y
     y2 = v[1].y
     bool_ = compare_values(y1[0], y2[0], operator)
+    
     data = None
     if operator in ["<=", "<"]:
         if not bool_:

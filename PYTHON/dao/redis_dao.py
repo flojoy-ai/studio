@@ -19,7 +19,7 @@ class RedisDao:
     def get_instance():
         if RedisDao._instance is None:
             RedisDao._instance = RedisDao()
-            return RedisDao._instance
+        return RedisDao._instance
 
     def get_redis_obj(self, key:str):
         get_obj = self.r.get(key)

@@ -81,6 +81,7 @@ class JobService():
                           'jobset_id': jobset_id, 'node_id': job_id},
                   depends_on=previous_job_ids,
                   result_ttl=500)
+                  
     def add_job(self, job_id, jobset_id):
         self.redis_dao.add_to_list(f"{jobset_id}_ALL_NODES", job_id) 
     

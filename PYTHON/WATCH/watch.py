@@ -44,6 +44,7 @@ print('queue flojoy isEmpty? ', q.is_empty())
 
 topology_order_by_node_serial = {}
 topology = []
+node_serial_by_id = {}
 graph: Graph = None
 flows: Flows = None
 
@@ -63,33 +64,8 @@ def send_to_socket(data):
     requests.post('http://localhost:'+port +
                   '/worker_response', json=json.dumps(data))
 
-
-def dump(data):
-    return json.dumps(data)
-
-
-def get_job_id(job_key: str, redis_key: str) -> str | None:
-    try:
-        all_jobs = job_service.get_redis_obj(redis_key)
-        job_id = all_jobs[job_key]
-    except Exception:
-        print("Job Id doesn't exist", Exception, traceback.format_exc())
-        return None
-    return job_id
-
-def report_failure(job, connection, type, value, traceback):
-    print(job, connection, type, value, traceback)
-
-# TODO this can be precalculated
-def get_previous_job_ids(DG, node_serial):
-    previous_job_ids = []
-    for p in DG.predecessors(node_serial):
-        id = DG.nodes[p]['id']
-        previous_job_ids.append(id)
-    return previous_job_ids
-
 def run(**kwargs):
-    global flows, graph, topology
+    global flows, graph, topology, node_serial_by_id
     jobset_id = kwargs['jobsetId']
     print('\nrunning flojoy for jobset id: ', jobset_id)
     try:
@@ -128,16 +104,14 @@ def run(**kwargs):
         print("\nstarting topological enqueuing")
         
         while len(topology) != 0:
-            time.sleep(1)
-            # print("\n\nScheduling next node\nTopological Order: ", topological_sorting)
+            # time.sleep(1)
             node_serial = topology.pop(0)
             node = node_by_serial[node_serial]
-            # print('node:', node)
             cmd = node['cmd']
             func = getattr(globals()[cmd], cmd)
             ctrls = node['ctrls']
             job_id = node_id = node['id']
-            previous_job_ids = get_previous_job_ids(DG=DG, node_serial=node_serial)
+            previous_job_ids = graph.get_previous_job_ids(node_serial=node_serial)
 
             print('enqueuing ', node_serial, 'previous job ids', previous_job_ids, "new topology: ", topology)
             
@@ -150,29 +124,9 @@ def run(**kwargs):
             )
             job_service.add_job(job_id=job_id, jobset_id=jobset_id)
 
-            ## TODO this should check if a node has multiple output directions
-            if cmd in ['CONDITIONAL', 'LOOP', 'LOOP_CONDITIONAL']:
-                job_result = wait_for_job(job_id)
+            job_result = wait_for_job(job_id)
 
-                for direction_ in get_next_directions(job_result):
-                    direction = direction_.lower()
-                    nodes_to_enqueue = flows.get_flow(node_id, direction)
-                    topology = nodes_to_enqueue + topology
-
-                    print(
-                        F" adding direction({direction}) nodes", nodes_to_enqueue,
-                        'to topology, after state:', topology
-                        )
-
-                for next_node_id in get_next_nodes(job_result):
-                    next_node_serial = node_serial_by_id[next_node_id]
-                    nodes_to_enqueue = [next_node_serial] 
-                    topology = nodes_to_enqueue + topology
-
-                    print(
-                        F" adding node", nodes_to_enqueue,
-                        'to topology, after state:', topology
-                        )      
+            process_special_instructions(node_id, job_result)      
 
         notify_jobset_finished(jobset_id, flojoy_watch_job_id)
         return
@@ -182,6 +136,33 @@ def run(**kwargs):
             'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
         })
         print('Watch.py run error: ', Exception, traceback.format_exc())
+
+def process_special_instructions(node_id, job_result):
+    '''
+    process special instructions to scheduler
+    '''
+    
+    global topology, flows, node_serial_by_id
+    
+    for direction_ in get_next_directions(job_result):
+        direction = direction_.lower()
+        nodes_to_enqueue = flows.get_flow(node_id, direction)
+        topology = nodes_to_enqueue + topology
+
+        print(
+            F" adding direction({direction}) nodes", nodes_to_enqueue,
+            'to topology, after state:', topology
+        )
+
+    for next_node_id in get_next_nodes(job_result):
+        next_node_serial = node_serial_by_id[next_node_id]
+        nodes_to_enqueue = [next_node_serial] 
+        topology = nodes_to_enqueue + topology
+
+        print(
+            F" adding node", nodes_to_enqueue,
+            'to topology, after state:', topology
+        )
 
 def wait_for_job(job_id):
     while True:

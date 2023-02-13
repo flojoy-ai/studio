@@ -5,12 +5,6 @@ COMMAND:
       type: LOOP,
       parameters:
         {
-          operator_type:
-            {
-              type: select,
-              options: ["==", "!=", ">", "<", ">=", <=],
-              default: "==",
-            },
           loop_node: { type: node_reference, default: "" },
         },
     }
