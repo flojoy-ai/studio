@@ -59,16 +59,16 @@ def wfc(request):
 
     func = getattr(globals()['watch'], 'run')
     print('func:', func)
-    flojoy_watch_job_id = f'{jobset_id}_{datetime.now()}'
-    job_service.add_flojoy_watch_job_id(flojoy_watch_job_id)
+    scheduler_job_id = f'{jobset_id}_{datetime.now()}'
+    job_service.add_flojoy_watch_job_id(scheduler_job_id)
 
     q.enqueue(func,
               job_timeout='3m',
               on_failure=report_failure,
-              job_id=flojoy_watch_job_id,
+              job_id=scheduler_job_id,
               kwargs={'fc': fc,
                       'jobsetId': jobset_id,
-                      'flojoy_watch_job_id': flojoy_watch_job_id
+                      'scheduler_job_id': scheduler_job_id
                       },
               result_ttl=500
               )

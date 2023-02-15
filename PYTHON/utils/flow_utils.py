@@ -17,7 +17,7 @@ def find_flows(graph: Graph, node_by_serial, cmds: list[str]):
         # if node doesn't have any child, return itself as the only child in this branch
         if source not in graph.adj_list.keys():
             # ignoring as source does not have any child
-            return [source]
+            return [node_id]
 
         for value in graph.adj_list[source]:
             child_source = value['target_node']
@@ -40,7 +40,7 @@ def find_flows(graph: Graph, node_by_serial, cmds: list[str]):
                 # ignoring as its not a special command
                 child_node_ids = dfs(source=child_source)
                 childs = childs + child_node_ids
-        return [source] + childs
+        return [node_id] + childs
 
     # finding the source of dfs tree which are nodes without any incoming edge
     dfs_sources = []
@@ -55,7 +55,11 @@ def find_flows(graph: Graph, node_by_serial, cmds: list[str]):
 
 
 def apply_topology(flows: Flows, topology: list[int]):
-    print('apply topology, before state:', topology)
+    '''
+    Fixes the ordering of nodes in the given flows according to the provided topology
+    '''
+    print('apply topology, for flows:', json.dumps(flows.all_node_data, indent=2), '\nbefore state:', topology)
+    
     new_flows = Flows()
     for serial in topology:
         for node_id, node_data in flows.all_node_data.items():
@@ -65,13 +69,14 @@ def apply_topology(flows: Flows, topology: list[int]):
     flows.from_flows(new_flows)
     print('apply topology, after state:', topology)
 
-def remove_flows_from_topology(flows: Flows, topology):
-    print('removing flows from topology, topology before state:', topology)
+
+def gather_all_flow_nodes(flows: Flows):
+    node_serials = []
     for node_id, node_data in flows.all_node_data.items():
         for direction, child_ids in node_data.items():
             for child_id in child_ids:
                 try:
-                    topology.remove(child_id)
+                    node_serials += [child_id]
                 except Exception:
                     pass
-    print('removing flows from topology, topology after state:', topology)
+    return node_serials

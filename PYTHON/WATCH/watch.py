@@ -4,15 +4,12 @@ import sys
 import os
 import json
 import yaml
-from rq.job import Job
 import traceback
 import warnings
 import matplotlib.cbook
 import requests
 from dotenv import dotenv_values
-import networkx as nx
 
-from collections import defaultdict
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
@@ -20,9 +17,11 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from services.job_service import JobService
-from utils.flow_utils import find_flows, apply_topology, remove_flows_from_topology
+from utils.flow_utils import find_flows, apply_topology, gather_all_flow_nodes
 from utils.flows import Flows
 from utils.graph import Graph
+from utils.jobqueue import JobQueue
+
 
 from FUNCTIONS.LOADERS import *
 from FUNCTIONS.SIGNAL_PROCESSING import *
@@ -53,166 +52,187 @@ def send_to_socket(data):
 
 
 class FlowScheduler:
-    def __init__(self) -> None:
-        self.job_service = JobService('flojoy')
-        self.topology_order_by_node_serial = {}
-        self.topology = []
-        self.node_serial_by_id = {}
+    def __init__(self, **kwargs) -> None:
+        self.scheduler_job_id = kwargs['scheduler_job_id']
+        self.jobset_id = kwargs.get('jobsetId', None)
+        self.flow_chart = kwargs['fc']
+
+        self.jobq = JobQueue(self.jobset_id)
         self.graph: Graph = None
         self.flows: Flows = None
-        self.job_run_count = {}
-        print('track')
 
-    def run(self, **kwargs):
-        print('track 2')
+        self.job_service = JobService('flojoy')
 
-        jobset_id = kwargs.get('jobsetId', None)
-        print('\nrunning flojoy for jobset id: ', jobset_id)
+    def run_topological_sorting(self):
+        self.networkx_obj = reactflow_to_networkx(
+            self.flow_chart['nodes'], self.flow_chart['edges'])
+
+        # networkx representation of the self.graph
+        self.DG = self.networkx_obj['DG']
+        self.edge_info = self.networkx_obj['edgeInfo']
+
+        # # node_serial --> node
+        self.node_by_serial = self.networkx_obj['node_by_serial']
+        # # node_id --> node
+        self.node_by_id = self.networkx_obj['node_by_id']
+        # # node_id --> node_serial
+        self.node_id_by_serial = self.networkx_obj['node_id_by_serial']
+        # # node_serial --> node_id
+        self.node_serial_by_id = self.networkx_obj['node_serial_by_id']
+        
+
+        # topological ordering of the nodes
+        self.sorted_job_ids = list(self.networkx_obj['sorted_job_ids'])
+        
+        print('\nnode serial --> node id')
+        print('-----------------------')
+        for serial, id in self.node_id_by_serial.items():
+            print(serial, ' -->', id)
+
+    def run(self):        
+        print('\nrunning flojoy for jobset id: ', self.jobset_id,
+              'scheduler_job_id:', self.scheduler_job_id)
 
         try:
-            flow_chart = kwargs['fc']
-            flojoy_watch_job_id = kwargs['flojoy_watch_job_id']
-            print('flojoy_watch_job_id:', flojoy_watch_job_id)
+            self.preprocess_graph()
 
-            nodes = flow_chart['nodes']
-            edges = flow_chart['edges']
-
-            networkx_obj = reactflow_to_networkx(nodes, edges)
-            # topological ordering of the nodes
-            self.topology = list(networkx_obj['topological_sort'])
-
-            # save the topological order of each node
-            self.topology_order_by_node_serial = {}
-            for order in range(len(self.topology)):
-                serial = self.topology[order]
-                self.topology_order_by_node_serial[serial] = order
-
-            # node dictionary { node_serial --> node }
-            node_by_serial = networkx_obj['get_node_by_serial']()
-            # node dictionary { node_id --> node }
-            self.node_serial_by_id = networkx_obj['get_node_serial_by_id']()
-            # networkx representation of the self.graph
-            DG = networkx_obj['DG']
-            edge_info = networkx_obj['edgeInfo']
-
-            print('self.topology:', self.topology)
-
-            print('\nnode serial --> node id')
-            print('-----------------------')
-            for id, serial in self.node_serial_by_id.items():
-                print(serial, ' -->', id)
-
-            self.preprocess_graph(DG=DG, edge_info=edge_info,
-                                  node_by_serial=node_by_serial)
-            print('special cmd flows:', json.dumps(
-                self.flows.all_node_data, indent=2))
-            remove_flows_from_topology(self.flows, self.topology)
-
-            print("preprocessing complete")
             print("\nstarting topological enqueuing")
+            while self.jobq.has_next():
+                job = self.jobq.pop_job()
+                func, ctrls = self.get_job_data(job.job_id)
 
-            while len(self.topology) != 0:
-                # time.sleep(1)
-                node_serial = self.topology.pop(0)
-                node = node_by_serial[node_serial]
-                cmd = node['cmd']
-                func = getattr(globals()[cmd], cmd)
-                ctrls = node['ctrls']
-                job_id = node_id = node['id']
-                previous_job_ids = self.get_previous_job_ids(node_serial)
+                print(
+                    '\nenqueuing ', job.iteration_id,
+                    'dependency job ids', job.dependency_iteration_ids,
+                    "\ntopology after state: "
+                 )
 
-                print('enqueuing ', node_serial, 'previous job ids',
-                      previous_job_ids, "new self.topology: ", self.topology)
+                self.jobq.log_state()
 
-                next_job_id, _ = self.job_service.enqueue_job(
+                self.job_service.enqueue_job(
                     func=func,
-                    jobset_id=jobset_id,
-                    job_id=job_id,
-                    previous_job_ids=previous_job_ids,
+                    jobset_id=self.jobset_id,
+                    job_id=job.job_id,
+                    iteration_id=job.iteration_id,
+                    previous_job_ids=job.dependency_iteration_ids,
                     ctrls=ctrls
                 )
-                print('next_job_id:', next_job_id)
-                self.job_service.add_job(
-                    job_id=next_job_id, jobset_id=jobset_id)
 
-                job_result = self.wait_for_job(next_job_id)
+                job_result = self.wait_for_job(job.iteration_id)
 
-                self.process_special_instructions(node_id, job_result)
+                self.process_special_instructions(job.job_id, job_result)
 
-            self.notify_jobset_finished(jobset_id, flojoy_watch_job_id)
+            self.notify_jobset_finished()
+            print('jobset', self.jobset_id, 'finished successfully')
             return
         except Exception:
+            print('Watch.py run error: ', Exception, traceback.format_exc())
             self.send_to_socket({
-                'jobsetId': jobset_id,
+                'jobsetId': self.jobset_id,
                 'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
             })
-            print('Watch.py run error: ', Exception, traceback.format_exc())
 
-    def get_previous_job_ids(self, node_serial):
-        previous_job_ids = self.graph.get_previous_job_ids(
-            node_serial=node_serial)
-        pids = []
+    def preprocess_graph(self):
+        print('\npre-processing the flow chart')
+        
+        # run topological sorting
+        self.run_topological_sorting()
+        self.graph = Graph(self.DG, self.edge_info)
+        
+        # add the nodes to jobq in their topological order
+        self.add_node_ids_to_jobq(self.sorted_job_ids)
 
-        # find the latest runs of these jobs
-        for pid in previous_job_ids:
-            job = self.job_service.fetch_job(pid)
-            if job is None:
-                pids.append(pid + '___1')
-                continue
-            meta = job.get_meta()
-            pids.append(pid + '___' + str(meta.get('run', 1)))
+        print('topology:', self.jobq.get_job_ids())
+        
 
-        return pids
+        # find the conditional flows/nodes to remove from jobq
+        self.flows = find_flows(
+            self.graph,
+            self.node_by_serial,
+            ["CONDITIONAL", "LOOP"]
+        )
+        apply_topology(self.flows, self.jobq.get_job_ids())
+
+        print('special cmd flows:', json.dumps(
+            self.flows.all_node_data, indent=2))
+
+        # remove all flows that will be conditionally executed
+        print('removing flows from jobq, before state:', self.jobq.get_job_ids())
+        conditional_node_ids = gather_all_flow_nodes(self.flows)
+        print('conditional node ids:', conditional_node_ids)
+        for node_id in conditional_node_ids:
+            self.jobq.remove(node_id)
+        print('removing flows from jobq, after state:', self.jobq.get_job_ids())
+
+
+        print("preprocessing complete")
+
+    def get_job_data(self, job_id):
+        node = self.node_by_id[job_id]
+        cmd = node['cmd']
+        func = getattr(globals()[cmd], cmd)
+        ctrls = node['ctrls']
+        return func, ctrls
+
 
     def process_special_instructions(self, node_id, job_result):
         '''
         process special instructions to scheduler
         '''
 
+        node_ids_to_add = []
+        
+        # process instruction to flow through specified directions
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
-            nodes_to_enqueue = self.flows.get_flow(node_id, direction)
-            self.topology = nodes_to_enqueue + self.topology
-
+            node_ids_to_add += self.flows.get_flow(node_id, direction)
             print(
-                F" adding direction({direction}) nodes", nodes_to_enqueue,
-                'to self.topology, after state:', self.topology
+                F" adding direction({direction}) nodes", node_ids_to_add,
+                'to job queue'
             )
 
-        for next_node_id in get_next_nodes(job_result):
-            next_node_serial = self.node_serial_by_id[next_node_id]
-            nodes_to_enqueue = [next_node_serial]
-            self.topology = nodes_to_enqueue + self.topology
+        # process instruction to flow to specified nodes
+        next_nodes = get_next_nodes(job_result)
+        if next_nodes is not None and len(next_nodes) > 0:
+            print(F" adding nodes", next_nodes, 'to job queue')
+            node_ids_to_add += next_nodes
 
-            print(
-                F" adding node", nodes_to_enqueue,
-                'to self.topology, after state:', self.topology
-            )
+        print('node_ids_to_add:', node_ids_to_add)
+
+        if len(node_ids_to_add) > 0:
+            self.add_node_ids_to_jobq(node_ids_to_add)
+        
+
+    def add_node_ids_to_jobq(self, node_ids):
+        nodes_to_enqueue = list(map(lambda node_id: (node_id, self.node_serial_by_id[node_id]), node_ids))
+        for job_id, node_serial in nodes_to_enqueue:
+            self.add_job_to_jobq(node_serial, job_id)
+
+    def add_job_to_jobq(self, node_serial, job_id):
+        prev_job_ids = self.graph.get_previous_job_ids(node_serial)
+        self.jobq.add_job(job_id, prev_job_ids)
+
 
     def wait_for_job(self, job_id):
+        print('waiting for job to complete:', job_id)
         while True:
             time.sleep(.01)
             job = self.job_service.fetch_job(job_id=job_id)
             job_status = job.get_status()
             # print('wait for job:', job_id, 'job_status:', job_status)
             if job_status == 'finished' or job_status == 'failed':
+                print('finished waiting for job:', job_id, 'status:', job_status)
+                time.sleep(.7)
                 job_result = job.result
                 break
         return job_result
 
-    def notify_jobset_finished(self, jobset_id, my_job_id):
+    def notify_jobset_finished(self):
         self.job_service.redis_dao.remove_item_from_list(
-            '{}_watch'.format(jobset_id), my_job_id)
-
-    def preprocess_graph(self, DG, edge_info, node_by_serial):
-        print('\npre-processing the self.graph')
-        self.flows, self.graph, self.topology
-        self.graph = Graph(DG, edge_info)
-        self.flows = find_flows(self.graph, node_by_serial, [
-                                "CONDITIONAL", "LOOP"])
-        apply_topology(self.flows, self.topology)
+            F'{self.jobset_id}_watch', self.scheduler_job_id
+        )
 
 
 def run(**kwargs):
     print('in run')
-    FlowScheduler().run(**kwargs)
+    FlowScheduler(**kwargs).run()

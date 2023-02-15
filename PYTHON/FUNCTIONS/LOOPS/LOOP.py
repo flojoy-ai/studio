@@ -44,7 +44,7 @@ class LoopData:
         return loop_data
 
     def print(self):
-        print(self.get_data())
+        print('loop Data:', self.get_data())
 
 
 @flojoy

@@ -1,6 +1,6 @@
 class Flows:
     '''
-    Represents execution flows originating from a node. 
+    Represents execution flows originating from multiple nodes. 
     A node can have multiple flows.
     '''
 
