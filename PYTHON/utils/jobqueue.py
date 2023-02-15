@@ -34,9 +34,8 @@ class JobQueue:
 
         new_jobs = self.jobs
 
-        # filter out any job that has to have a single instance at anytime
         if 'LOOP_CONDITIONAL' in job.job_id:
-            new_jobs = [job for job in self.jobs if 'LOOP_CONDITIONAL' not in job.job_id]
+            new_jobs = [j for j in self.jobs if j.job_id != job.job_id]
 
         self.jobs = new_jobs + [job]
 

@@ -59,7 +59,7 @@ def apply_topology(flows: Flows, topology: list[int]):
     Fixes the ordering of nodes in the given flows according to the provided topology
     '''
     print('apply topology, for flows:', json.dumps(flows.all_node_data, indent=2), '\nbefore state:', topology)
-    
+
     new_flows = Flows()
     for serial in topology:
         for node_id, node_data in flows.all_node_data.items():
@@ -67,7 +67,7 @@ def apply_topology(flows: Flows, topology: list[int]):
                 if serial in flows.get_flow(node_id, direction):
                     new_flows.extend_flow(node_id, direction, [serial])
     flows.from_flows(new_flows)
-    print('apply topology, after state:', topology)
+    # print('apply topology, after state:', topology)
 
 
 def gather_all_flow_nodes(flows: Flows):

@@ -79,17 +79,17 @@ class FlowScheduler:
         self.node_id_by_serial = self.networkx_obj['node_id_by_serial']
         # # node_serial --> node_id
         self.node_serial_by_id = self.networkx_obj['node_serial_by_id']
-        
+
 
         # topological ordering of the nodes
         self.sorted_job_ids = list(self.networkx_obj['sorted_job_ids'])
-        
+
         print('\nnode serial --> node id')
         print('-----------------------')
         for serial, id in self.node_id_by_serial.items():
             print(serial, ' -->', id)
 
-    def run(self):        
+    def run(self):
         print('\nrunning flojoy for jobset id: ', self.jobset_id,
               'scheduler_job_id:', self.scheduler_job_id)
 
@@ -134,16 +134,16 @@ class FlowScheduler:
 
     def preprocess_graph(self):
         print('\npre-processing the flow chart')
-        
+
         # run topological sorting
         self.run_topological_sorting()
         self.graph = Graph(self.DG, self.edge_info)
-        
+
         # add the nodes to jobq in their topological order
         self.add_node_ids_to_jobq(self.sorted_job_ids)
 
         print('topology:', self.jobq.get_job_ids())
-        
+
 
         # find the conditional flows/nodes to remove from jobq
         self.flows = find_flows(
@@ -151,7 +151,7 @@ class FlowScheduler:
             self.node_by_serial,
             ["CONDITIONAL", "LOOP"]
         )
-        # apply_topology(self.flows, self.jobq.get_job_ids())
+        apply_topology(self.flows, self.jobq.get_job_ids())
 
         print('special cmd flows:', json.dumps(
             self.flows.all_node_data, indent=2))
@@ -174,6 +174,8 @@ class FlowScheduler:
         ctrls = node['ctrls']
         return func, ctrls
 
+    def get_signal_job_id(self,node_id,direction):
+        return node_id + "__"+ direction
 
     def process_special_instructions(self, node_id, job_result):
         '''
@@ -181,11 +183,12 @@ class FlowScheduler:
         '''
 
         node_ids_to_add = []
-        
+
         # process instruction to flow through specified directions
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
             node_ids_to_add += self.flows.get_flow(node_id, direction)
+            node_ids_to_add = [(node_id, [self.get_signal_job_id(node_id, direction)]) for node_id in node_ids_to_add]
             print(
                 F" adding direction({direction}) nodes", node_ids_to_add,
                 'to job queue'
@@ -195,21 +198,23 @@ class FlowScheduler:
         next_nodes = get_next_nodes(job_result)
         if next_nodes is not None and len(next_nodes) > 0:
             print(F" adding nodes", next_nodes, 'to job queue')
-            node_ids_to_add += next_nodes
+            # node_ids_to_add += next_nodes
+            node_ids_to_add = [(node_id, []) for node_id in next_nodes]
 
         print('node_ids_to_add:', node_ids_to_add)
 
         if len(node_ids_to_add) > 0:
             self.add_node_ids_to_jobq(node_ids_to_add)
-        
+
 
     def add_node_ids_to_jobq(self, node_ids):
-        nodes_to_enqueue = list(map(lambda node_id: (node_id, self.node_serial_by_id[node_id]), node_ids))
-        for job_id, node_serial in nodes_to_enqueue:
-            self.add_job_to_jobq(node_serial, job_id)
+        nodes_to_enqueue = list(map(lambda node_id: (node_id[0], self.node_serial_by_id[node_id[0]],node_id[1]), node_ids))
+        for job_id, node_serial, extra_dependecies in nodes_to_enqueue:
+            self.add_job_to_jobq(node_serial, job_id, extra_dependecies)
 
-    def add_job_to_jobq(self, node_serial, job_id):
+    def add_job_to_jobq(self, node_serial, job_id, extra_dependencies):
         prev_job_ids = self.graph.get_previous_job_ids(node_serial)
+        prev_job_ids = extra_dependencies + prev_job_ids
         self.jobq.add_job(job_id, prev_job_ids)
 
 
