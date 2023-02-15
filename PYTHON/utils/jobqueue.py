@@ -32,7 +32,13 @@ class JobQueue:
             iteration_count=self._get_current_iteration_count(job_id)
         )
 
-        self.jobs = self.jobs + [job]
+        new_jobs = self.jobs
+
+        # filter out any job that has to have a single instance at anytime
+        if 'LOOP_CONDITIONAL' in job.job_id:
+            new_jobs = [job for job in self.jobs if 'LOOP_CONDITIONAL' not in job.job_id]
+
+        self.jobs = new_jobs + [job]
 
     def pop_job(self):
         return self.jobs.pop(0)

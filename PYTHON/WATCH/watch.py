@@ -151,7 +151,7 @@ class FlowScheduler:
             self.node_by_serial,
             ["CONDITIONAL", "LOOP"]
         )
-        apply_topology(self.flows, self.jobq.get_job_ids())
+        # apply_topology(self.flows, self.jobq.get_job_ids())
 
         print('special cmd flows:', json.dumps(
             self.flows.all_node_data, indent=2))
