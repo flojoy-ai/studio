@@ -6,6 +6,12 @@ type PlotProps = {
   id: string;
 } & PlotParams;
 
+const config = {
+  showLink: true,
+  plotlyServerURL: "https://chart-studio.plotly.com",
+  linkText: 'Export chart'
+};
+
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
   useEffect(() => {
@@ -24,6 +30,7 @@ const PlotlyComponent = (props: PlotProps) => {
       layout={layout}
       useResizeHandler={useResizeHandler}
       style={style}
+      config={config}
     />
   );
 };

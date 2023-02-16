@@ -5,7 +5,7 @@ import BarChart from "./nodes/bar";
 import Histogram from "./nodes/Histogram";
 import LineChart from "./nodes/line-chart";
 import Scatter from "./nodes/Scatter";
-import { AddBGTemplate, AddSvg, MultiplySvg } from "../svgs/add-multiply-svg";
+import { AddBGTemplate, AddSvg, MultiplySvg, AtSvg, SubSvg} from "../svgs/add-multiply-svg";
 import { BGTemplate } from "../svgs/histo-scatter-svg";
 import { CustomNodeProps, ElementsData } from "../types/CustomNodeProps";
 
@@ -19,7 +19,7 @@ const NodeComponent = ({
   params: ElementsData["inputs"];
   additionalInfos: any;
 }) => {
-  if (data.func === "MULTIPLY" || data.func === "ADD") {
+  if (data.func === "MULTIPLY" || data.func === "ADD" || data.func === "MATMUL" || data.func === "SUBTRACT") {
     return (
       <Fragment>
         <AddBGTemplate />
@@ -36,6 +36,28 @@ const NodeComponent = ({
         )}
         {data.func === "ADD" && (
           <AddSvg
+            style={{
+              position: "absolute",
+              top: "47px",
+              left: "29px",
+              height: "19px",
+              width: "18px",
+            }}
+          />
+        )}
+        {data.func === "MATMUL" && (
+          <AtSvg
+            style={{
+              position: "absolute",
+              top: "47px",
+              left: "29px",
+              height: "19px",
+              width: "18px",
+            }}
+          />
+        )}
+        {data.func === "SUBTRACT" && (
+          <SubSvg
             style={{
               position: "absolute",
               top: "47px",
@@ -83,7 +105,8 @@ const NodeComponent = ({
         justifyContent: "center",
         padding: "5px",
         width: "100%",
-        flexDirection: "column",
+        flexDirection:'column',
+        textAlign:'center'
       }}
     >
       <div>{data.label}</div>
@@ -123,6 +146,11 @@ const NodeComponent = ({
             <p>{`${current_iteration}/${total_iteration}`}</p>
           </div>
         )}
+        {
+          data.func === 'LOCAL_FILE' && (
+            <p></p>
+          )
+        }
       </div>
     </div>
   );

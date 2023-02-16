@@ -1,17 +1,35 @@
-# https://hub.docker.com/r/nikolaik/python-nodejs
-# FROM --platform=linux/amd64 flojoy-app-base-image
 FROM onscene/flojoy-base:latest
+# Set the working directory in the container
+WORKDIR /code
 
-COPY requirements.txt requirements.txt
+# Copy the requirements file to the container
+COPY requirements.txt .
+
+# Install the required packages
 RUN pip install -r requirements.txt
 
+COPY yaml-script.sh .
 
-COPY . .
+# Make yaml-script.sh executable
+RUN chmod +x yaml-script.sh
 
-RUN sh yaml-script.sh
+# Run the yaml-script.sh file
+RUN bash yaml-script.sh
 
-RUN cd PYTHON
-WORKDIR /PYTHON
+# # # Run the yaml-script.sh file
+# RUN sh yaml-script.sh
 
-CMD [ "rq", "worker", "--url", "redis://redis:6379", "flojoy" ]
-# CMD [ "rq", "worker", "flojoy" ]
+# Copy the rest of the application code to the container
+COPY . /code/
+
+# Run write_python_metadata.py file
+RUN python3 write_python_metadata.py
+
+# Run generate_manifest.py file
+RUN python3 generate_manifest.py
+
+# # RUN CD PYTHON
+WORKDIR /code/PYTHON
+
+# Run the command to start the RQ worker
+CMD ["rq", "worker", "flojoy", "--url", "redis://redis:6379"]

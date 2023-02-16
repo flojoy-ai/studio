@@ -5,6 +5,7 @@ type Commands = {
   type: string;
   key: string;
   inputs?: { name: string; id: string; type: string }[];
+  ui_component_id?: string;
 }[];
 
 export const COMMANDS: Commands = manifests.commands;
@@ -33,21 +34,25 @@ export const SECTIONS = [
     child: [
       // Transformers tab
       {name: 'Arithmetic', key: 'ARITHMETIC'},
-      { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
       { name: "Signal processing", key: "SIGNAL_PROCESSING" },
       { name: "Regressions", key: "REGRESSIONS" },
       { name: "Image processing", key: "IMAGE_PROCESSING" },
       { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
     ],
   },
-
+  {
+    title: "Arrays and Matrices",
+    child: [
+      { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
+    ]
+  },
   {
     title: "Loaders",
     child: [
       // Loaders tab
       { name: "Cloud Databases", key: "CLOUD_DATABASE" },
       { name: "Cloud File Systems", key: "CLOUD_FILE_SYSTEM" },
-      { name: "Local File System", key: "LOCAL_FILE_SYSTEM" },
+      { name: "Local File System", key: "LOADER" },
     ],
   },
 

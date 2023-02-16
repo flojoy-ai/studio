@@ -2,17 +2,17 @@ import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
 import ModalCloseSvg from "../../../utils/ModalCloseSvg";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
-import { PythonFuncModalProps } from "../types/PythonFuncModalProps";
+import { AddNodeModalProps } from "../types/AddNodeModalProps";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
-import { PythonFuncModalStyles } from "../style/PythonModalStyle";
+import { AddNodeModalStyles } from "../style/AddNodeModalStyle";
 
-const PythonFuncModal = ({
+const AddNodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
   onAdd,
   theme,
-}: PythonFuncModalProps) => {
+}: AddNodeModalProps) => {
   const [activeTab, setActiveTab] = useState(SECTIONS[0].title);
 
   const activeBtnStyle = {
@@ -28,7 +28,7 @@ const PythonFuncModal = ({
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      style={PythonFuncModalStyles}
+      style={AddNodeModalStyles}
       ariaHideApp={false}
       contentLabel="Choose a Python function"
     >
@@ -90,10 +90,13 @@ const PythonFuncModal = ({
                             }
                             onClick={() => {
                               onAdd({
-                                FUNCTION: cmd.key,
+                                key: cmd.key,
                                 type: cmd.type,
                                 params: FUNCTION_PARAMETERS[cmd.key],
-                                inputs: cmd.inputs
+                                inputs: cmd.inputs,
+                                ...(cmd.ui_component_id && {
+                                  customNodeId: cmd.ui_component_id,
+                                }),
                               });
                             }}
                             key={cmd.name}
@@ -113,4 +116,4 @@ const PythonFuncModal = ({
   );
 };
 
-export default PythonFuncModal;
+export default AddNodeModal;

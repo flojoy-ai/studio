@@ -7,27 +7,11 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
-
-  rq-worker:
-    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG}
-    restart: always
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
-
-  flojoy-watch:
-    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG}
-    restart: always
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - redis
+    networks:
+      - app_network
 
   backend:
-    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG}
+    image: onscene/flojoy-backend:${BACKEND_IMAGE_TAG:-latest}
     restart: always
     environment:
       - REDIS_HOST=redis
@@ -37,4 +21,35 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - rq-worker
+      - redis
+    networks:
+      - app_network
+
+  rq-worker:
+    image: onscene/flojoy-rq-worker:${RQ_WORKER_IMAGE_TAG:-latest}
+    restart: always
+    environment:
+      - BACKEND_HOST=backend
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - backend
+    networks:
+      - app_network
+
+  flojoy-watch:
+    image: onscene/flojoy-watch:${WATCH_IMAGE_TAG:-latest}
+    restart: always
+    environment:
+      - BACKEND_HOST=backend
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+      - backend
+    networks:
+      - app_network
+
+networks:
+  app_network:
