@@ -2,18 +2,20 @@ import json
 
 
 class Job:
-    def __init__(self, iteration_id, dependency_iteration_ids, job_id, iteration_count ) -> None:
-        self.iteration_id = iteration_id
-        self.dependency_iteration_ids = dependency_iteration_ids
-        self.job_id = job_id
-        self.iteration_count = iteration_count
+    def __init__(self, iteration_id, dependency_iteration_ids, signals, job_id, iteration_count ) -> None:
+        self.iteration_id: str = iteration_id
+        self.dependency_iteration_ids: list[str] = dependency_iteration_ids
+        self.signals: list[str] = signals
+        self.job_id: str = job_id
+        self.iteration_count: int = iteration_count
 
 class JobQueue:
 
     def __init__(self, jobset_id) -> None:
-        self.jobset_id = jobset_id
-        self.job_iteration_counts = {}
+        self.jobset_id: str = jobset_id
         self.jobs: list[Job] = []
+        self.job_iteration_counts = {}
+        self.job_id_to_job = {}
 
     def get_job_ids(self):
         return [job.job_id for job in self.jobs]
@@ -21,26 +23,34 @@ class JobQueue:
     def has_next(self):
         return len(self.jobs) > 0
 
-    def add_job(self, job_id, dependency_job_ids):
+    def update_signal(self, job_id, old_signal, new_signal):
+        job: Job = self.job_id_to_job[job_id]
+        job.signals = [signal for signal in job.signals if signal != old_signal] + [new_signal]
+
+    def add_job(self, job_id, dependency_job_ids, signal_ids):
         next_iteration_id = self._get_next_iteration_id(job_id)
         dependency_iteration_ids = [self._build_iteration_id(pid) for pid in dependency_job_ids]
 
         job = Job(
             iteration_id=next_iteration_id,
             dependency_iteration_ids=dependency_iteration_ids,
+            signals=signal_ids,
             job_id=job_id,
             iteration_count=self._get_current_iteration_count(job_id)
         )
 
         new_jobs = self.jobs
 
-        if 'LOOP_CONDITIONAL' in job.job_id:
-            new_jobs = [j for j in self.jobs if j.job_id != job.job_id]
+        # if 'LOOP_CONDITIONAL' in job.job_id:
+        #     new_jobs = [j for j in self.jobs if j.job_id != job.job_id]
 
         self.jobs = new_jobs + [job]
+        self.job_id_to_job[job.job_id] = job
 
     def pop_job(self):
-        return self.jobs.pop(0)
+        job = self.jobs.pop(0)
+        self.job_id_to_job.pop(job.job_id, None)
+        return job
 
     def remove(self, job_id):
         print('removing job_id:', job_id)
