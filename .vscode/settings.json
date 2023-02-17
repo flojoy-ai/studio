@@ -3,5 +3,10 @@
     "git.ignoreLimitWarning": true,
     "python.analysis.extraPaths": [
         "./PYTHON/utils"
-    ]
+    ],
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }
