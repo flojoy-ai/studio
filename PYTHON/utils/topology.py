@@ -14,7 +14,7 @@ class Topology:
 
     def restart(self, node_id):
         graph = self.original_graph
-        sub_graph = graph.subgraph(nx.descendants(graph, node_id))
+        sub_graph = graph.subgraph({node_id} | nx.descendants(graph, node_id))
         original_edges = sub_graph.edges
         self.working_graph.add_edges_from(original_edges)
 
@@ -45,6 +45,6 @@ class Topology:
     def clear_jobq(self):
         self.jobq.clear()
 
-    def print_working_graph(self):
-        print('nodes:', self.get_working_graph().nodes, 'edges:', self.get_working_graph().edges)
+    def print_working_graph(self, prefix=''):
+        print(prefix, 'nodes:', self.get_working_graph().nodes, 'edges:', self.get_working_graph().edges)
         

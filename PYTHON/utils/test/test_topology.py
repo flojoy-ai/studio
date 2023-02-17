@@ -9,13 +9,10 @@ class TestTopologyBase:
         self.graph = graph if graph is not None else nx.DiGraph(
             [(1, 2), (2, 3), (3, 1)])
         self.topology = Topology(self.graph)
+        self.topology.print_working_graph('topology -')
 
     def get_working_graph(self):
         return self.topology.get_working_graph()
-
-    def print_working_graph(self):
-        print('nodes:', self.get_working_graph().nodes,
-              'edges:', self.get_working_graph().edges)
 
     def assert_jobs_in_queue(self, jobs):
         for job in jobs:
@@ -76,7 +73,11 @@ class Test_restart(TestTopologyBase):
 
         # act
         self.topology.mark_job_done(2)
+        self.topology.print_working_graph('before restart:')
         self.topology.restart(2)
+        self.topology.print_working_graph('after restart:')
 
         # assert
-        assert self.get_working_graph().has_edge(2, 3) is False
+        assert self.get_working_graph().has_edge(2, 3) is True
+        assert self.get_working_graph().has_node(2) is True
+        assert self.get_working_graph().has_node(3) is True
