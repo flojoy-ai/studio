@@ -90,9 +90,7 @@ const Controls: FC<ControlsProps> = ({
                 functionName: key,
                 param,
                 value:
-                  key === "CONSTANT"
-                    ? +functionName
-                    : params![param].default,
+                  key === "CONSTANT" ? +functionName : params![param].default,
               },
             }),
             {}

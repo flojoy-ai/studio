@@ -15,9 +15,12 @@ import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
-import { NavbarNested } from "./feature/flow_chart_panel/SideBar/SIdeBar";
+import SideBar from "./feature/flow_chart_panel/SideBar/SIdeBar";
+// import { NavbarNested } from "./feature/flow_chart_panel/SideBar/SIdeBar";
 
 const App = () => {
+  const [isSideBarClicked, setIsSideBarClicked] = useState(false);
+
   const { states } = useSocket();
   const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
@@ -142,23 +145,22 @@ const App = () => {
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          <div
-            style={
-              {
-                // display: "flex",
-              }
-            }
-          >
-            {/* <NavbarNested /> */}
-            <FlowChartTab
-              rfInstance={rfInstance!}
-              setRfInstance={setRfInstance}
-              results={programResults!}
-              theme={theme}
-              clickedElement={clickedElement}
-              setClickedElement={setClickedElement}
-            />
-          </div>
+          {/* {isSideBarClicked ? (
+            <SideBar />
+          ) : (
+            <button onClick={() => setIsSideBarClicked(!isSideBarClicked)}>
+              Click Me
+            </button>
+          )} */}
+          <SideBar theme={theme} />
+          <FlowChartTab
+            rfInstance={rfInstance!}
+            setRfInstance={setRfInstance}
+            results={programResults!}
+            theme={theme}
+            clickedElement={clickedElement}
+            setClickedElement={setClickedElement}
+          />
         </div>
         <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
           <ControlsTab

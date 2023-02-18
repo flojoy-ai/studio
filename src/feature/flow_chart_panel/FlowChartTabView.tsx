@@ -15,7 +15,7 @@ import ReactFlow, {
   NodeMouseHandler,
   NodeDragHandler,
 } from "reactflow";
-import { NavbarNested } from "./SideBar/SIdeBar";
+// import { NavbarNested } from "./SideBar/SIdeBar";
 
 import localforage from "localforage";
 
@@ -163,10 +163,7 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
-        >
-          <NavbarNested />
-          {/* <button>HELLO WORLD</button> */}
-        </ReactFlow>
+        />
       </div>
       {/* <NavbarNested /> */}
       <NodeModal
