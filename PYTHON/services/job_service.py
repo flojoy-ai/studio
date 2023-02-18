@@ -1,9 +1,9 @@
-from PYTHON.dao.redis_dao import RedisDao
+from dao.redis_dao import RedisDao
 from rq import Queue
 from rq.job import Job
 from rq.exceptions import NoSuchJobError
 import traceback
-from PYTHON.common.CONSTANTS import KEY_FLOJOY_WATCH_JOBS, KEY_RQ_WORKER_JOBS, KEY_ALL_JOBEST_IDS
+from common.CONSTANTS import KEY_FLOJOY_WATCH_JOBS, KEY_RQ_WORKER_JOBS, KEY_ALL_JOBEST_IDS
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
 
@@ -71,13 +71,14 @@ class JobService():
     def get_jobset_data(self, key: str):
         return self.redis_dao.get_redis_obj(key)
 
-    def enqueue_job(self, func, jobset_id, job_id, iteration_id, ctrls, previous_job_ids):
+    def enqueue_job(self, func, jobset_id, job_id, iteration_id, ctrls, previous_job_ids, input_job_ids=None):
+        input_job_ids = input_job_ids if input_job_ids is not None else previous_job_ids
         job = self.queue.enqueue(func,
                 job_timeout='3m',
                 on_failure=report_failure,
                 job_id=iteration_id,
                 kwargs={'ctrls': ctrls,
-                        'previous_job_ids': previous_job_ids,
+                        'previous_job_ids': input_job_ids,
                         'jobset_id': jobset_id, 'node_id': job_id, 'job_id': iteration_id},
                 depends_on=previous_job_ids
                 # result_ttl=500
