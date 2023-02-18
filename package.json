@@ -5,6 +5,10 @@
   "homepage": "./",
   "main": "electron/main.js",
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/core": "^5.10.4",
+    "@mantine/hooks": "^5.10.4",
+    "@tabler/icons": "^1.71.0",
     "@tisoap/react-flow-smart-edge": "^3.0.0",
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.0",

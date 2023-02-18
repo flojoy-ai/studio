@@ -15,6 +15,7 @@ import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
+import { NavbarNested } from "./feature/flow_chart_panel/SideBar/SIdeBar";
 
 const App = () => {
   const { states } = useSocket();
@@ -141,14 +142,23 @@ const App = () => {
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          <FlowChartTab
-            rfInstance={rfInstance!}
-            setRfInstance={setRfInstance}
-            results={programResults!}
-            theme={theme}
-            clickedElement={clickedElement}
-            setClickedElement={setClickedElement}
-          />
+          <div
+            style={
+              {
+                // display: "flex",
+              }
+            }
+          >
+            {/* <NavbarNested /> */}
+            <FlowChartTab
+              rfInstance={rfInstance!}
+              setRfInstance={setRfInstance}
+              results={programResults!}
+              theme={theme}
+              clickedElement={clickedElement}
+              setClickedElement={setClickedElement}
+            />
+          </div>
         </div>
         <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
           <ControlsTab

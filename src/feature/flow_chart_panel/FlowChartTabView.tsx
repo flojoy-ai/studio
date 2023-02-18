@@ -15,6 +15,7 @@ import ReactFlow, {
   NodeMouseHandler,
   NodeDragHandler,
 } from "reactflow";
+import { NavbarNested } from "./SideBar/SIdeBar";
 
 import localforage from "localforage";
 
@@ -28,7 +29,7 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {  SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
@@ -64,7 +65,7 @@ const FlowChartTab = ({
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
   const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default:SmartBezierEdge}),
+    () => ({ default: SmartBezierEdge }),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
@@ -144,8 +145,13 @@ const FlowChartTab = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `99vh` }} data-testid="react-flow">
+      <div style={{ height: `90vh` }} data-testid="react-flow">
         <ReactFlow
+          style={{
+            position: "fixed",
+            height: "100%",
+            width: "50%",
+          }}
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}
@@ -157,9 +163,12 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
-        />
+        >
+          <NavbarNested />
+          {/* <button>HELLO WORLD</button> */}
+        </ReactFlow>
       </div>
-
+      {/* <NavbarNested /> */}
       <NodeModal
         afterOpenModal={afterOpenModal}
         clickedElement={clickedElement}
