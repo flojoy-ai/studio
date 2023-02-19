@@ -20,11 +20,11 @@ const getNodePosition = () => {
 const SidebarNav = styled.nav<{ isOpen?: boolean }>`
   background: #707070;
   width: 250px;
-  height: 800px;
+  height: 1000px;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 13.5%;
+  top: 11.5%;
   left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
   transition: 0.5s;
   z-index: 10;
@@ -34,18 +34,23 @@ const SidebarWrap = styled.div`
   width: 100%;
 `;
 
+const ButtonWrap = styled.button<{ theme?: string }>`
+  border: none;
+  color: ${({ theme }) => (theme === "black" ? "white" : "black")};
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+`;
+
 const SideBar = ({ theme }) => {
   const [sidebarOpen, isSideBarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(SECTIONS[0].title);
 
-  const {
-    isEditMode,
-    setIsEditMode,
-    rfInstance,
-    openFileSelector,
-    saveFile,
-    setNodes,
-  } = useFlowChartState();
+  const { setNodes } = useFlowChartState();
 
   const activeBtnStyle = {
     height: "100%",
@@ -118,17 +123,10 @@ const SideBar = ({ theme }) => {
 
   return (
     <div>
-      <img
-        src={navbar_icon}
-        style={{ height: "43px", marginTop: "1px", cursor: "pointer" }}
-        onClick={handleSidebar}
-      />
-      {/* <div
-        style={{ height: "43px", marginTop: "1px", cursor: "pointer" }}
-        onClick={handleSidebar}
-      >
-        X
-      </div> */}
+      <ButtonWrap theme={theme} onClick={handleSidebar}>
+        + Add Node
+      </ButtonWrap>
+
       <SidebarNav isOpen={sidebarOpen}>
         <SidebarWrap>
           <img

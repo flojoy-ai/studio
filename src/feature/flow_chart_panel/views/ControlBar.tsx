@@ -140,7 +140,7 @@ const Controls: FC<ControlsProps> = ({
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
       </button>
-      {activeTab !== "debug" && activeTab === "visual" ? (
+      {isEditMode && activeTab === "panel" && (
         <button
           className="save__controls_button"
           style={{
@@ -150,7 +150,7 @@ const Controls: FC<ControlsProps> = ({
             gap: "4px",
           }}
           onClick={() => {
-            openModal();
+            setOpenCtrlModal((prev) => !prev);
           }}
         >
           {" "}
@@ -166,45 +166,11 @@ const Controls: FC<ControlsProps> = ({
             style={{
               color: theme === "dark" ? "#fff" : "#000",
             }}
-            data-cy={`add-node`}
+            data-cy={`add-ctrl`}
           >
             Add
           </div>
         </button>
-      ) : (
-        isEditMode &&
-        activeTab === "panel" && (
-          <button
-            className="save__controls_button"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "4px",
-            }}
-            onClick={() => {
-              setOpenCtrlModal((prev) => !prev);
-            }}
-          >
-            {" "}
-            <div
-              style={{
-                color: theme === "dark" ? "#99F5FF" : "blue",
-                fontSize: "20px",
-              }}
-            >
-              +
-            </div>
-            <div
-              style={{
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy={`add-ctrl`}
-            >
-              Add
-            </div>
-          </button>
-        )
       )}
 
       {activeTab !== "debug" && (

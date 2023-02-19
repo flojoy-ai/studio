@@ -79,7 +79,7 @@ const SubMenu = ({ item, activeTab, style, setActiveTab, onAdd, theme }) => {
                                     >
                                         {COMMANDS.map((cmd, cmdIndex) => (
                                             <Fragment key={cmdIndex}>
-                                                {section.key === cmd.type ? (
+                                                {section.key === cmd.type && (
                                                     <button
                                                         className={
                                                             theme === "dark" ? "cmd-btn-dark" : "cmd-btn"
@@ -99,16 +99,12 @@ const SubMenu = ({ item, activeTab, style, setActiveTab, onAdd, theme }) => {
                                                     >
                                                         {cmd.name}
                                                     </button>
-                                                ) : null}
+                                                )}
                                             </Fragment>
                                         ))}
                                     </div>
                                 </div>
                             </Fragment>
-                            {/* {item.title === activeTab &&
-                                item.child.map((section) => (
-
-                                ))} */}
                         </DropdownLink>
                     );
                 })}

@@ -145,13 +145,6 @@ const App = () => {
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          {/* {isSideBarClicked ? (
-            <SideBar />
-          ) : (
-            <button onClick={() => setIsSideBarClicked(!isSideBarClicked)}>
-              Click Me
-            </button>
-          )} */}
           <SideBar theme={theme} />
           <FlowChartTab
             rfInstance={rfInstance!}
