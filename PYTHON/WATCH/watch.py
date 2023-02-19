@@ -50,23 +50,32 @@ class FlowScheduler:
         print('\nrun jobset:', self.jobset_id)
         self.nx_graph = reactflow_to_networkx(self.flow_chart['nodes'], self.flow_chart['edges'])
         self.topology = Topology(graph=self.nx_graph)
-        self.topology.print_working_graph()
+        self.topology.print_id_to_label_mapping()
+        self.topology.print_graph()
         self.topology.collect_ready_jobs()
 
         print('\nstart enqueing..')
         
-        while self.topology.has_next():
+        while not self.topology.finished():
+
+            # print('next wave')
+            # self.topology.print_graph()
 
             try:
                 
                 next_jobs = self.topology.next_jobs()
-                self.topology.print_jobq('enqueuing ready ')
+                
+                if len(next_jobs) == 0:
+                    print('no new jobs to execute, sleeping for awhile')
+                    time.sleep(.1)
+                    continue
 
+                self.topology.print_jobq('enqueuing ready ')
                 for job_id in next_jobs:                    
                     self.run_job(job_id)
-
+                    
                 print('\nwaiting on jobs enqueued')
-                for job_id in next_jobs:                    
+                for job_id in next_jobs:
                     job_result = self.wait_for_job(job_id)
                     self.process_job_result(job_id, job_result)
 
@@ -75,12 +84,12 @@ class FlowScheduler:
 
             except Exception as e:
 
-                self.topology.print_working_graph('exception occurred in scheduler, current working graph:')
+                self.topology.print_graph('exception occurred in scheduler, current working graph:')
                 print(traceback.format_exc())
                 raise e
 
         # jobset finished 
-        self.topology.print_working_graph()
+        self.topology.print_graph()
         self.notify_jobset_finished()
         print('finished proceessing jobset', self.jobset_id, '\n')
 
@@ -90,21 +99,21 @@ class FlowScheduler:
         process special instructions to scheduler
         '''
 
-        nodes_to_add = []
-
         # process instruction to flow through specified directions
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
             self.topology.mark_job_done(job_id, direction)
 
         # process instruction to flow to specified nodes
+        nodes_to_add = []
         next_nodes = get_next_nodes(job_result)
-        if next_nodes is not None and len(next_nodes) > 0:
-            print(F" adding nodes to job queue:", json.dumps(next_nodes, indent=2))
-            nodes_to_add += [
-                (node_id, [])
-                for node_id in next_nodes
-            ]
+        if next_nodes is not None:
+            nodes_to_add += [node_id for node_id in next_nodes]
+
+        if len(nodes_to_add) > 0:
+            print(F" adding nodes to graph:", json.dumps([self.topology.get_label(n_id, original=True) for n_id in nodes_to_add], indent=2))
+        for node_id in nodes_to_add:
+            self.topology.restart(node_id)
 
         print('node_ids_to_add:', nodes_to_add)
 
@@ -119,10 +128,10 @@ class FlowScheduler:
         dependencies = self.topology.get_job_dependencies(job_id, original=True)
         
         print(
-            '\nenqueue job:',
+            'enqueue job:',
             self.topology.get_label(job_id),
             'dependencies:',
-            [self.topology.get_label(dep_id) for dep_id in dependencies]
+            [self.topology.get_label(dep_id, original=True) for dep_id in dependencies]
         )
         
         self.job_service.enqueue_job(
@@ -144,8 +153,8 @@ class FlowScheduler:
             # print('wait for job:', job_id, 'job_status:', job_status)
             if job_status == 'finished' or job_status == 'failed':
                 print('finished waiting for job:',
-                      job_id, 'status:', job_status)
-                time.sleep(.7)
+                      self.topology.get_label(job_id), 'status:', job_status)
+                # time.sleep(.7)
                 job_result = job.result
                 break
         return job_result

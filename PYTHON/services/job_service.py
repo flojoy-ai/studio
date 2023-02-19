@@ -73,6 +73,10 @@ class JobService():
 
     def enqueue_job(self, func, jobset_id, job_id, iteration_id, ctrls, previous_job_ids, input_job_ids=None):
         input_job_ids = input_job_ids if input_job_ids is not None else previous_job_ids
+        if Job.exists(job_id, self.redis_dao.r):
+            print('deleting previous run of job:', job_id)
+            job = Job.fetch(job_id)
+            job.delete()
         job = self.queue.enqueue(func,
                 job_timeout='3m',
                 on_failure=report_failure,
@@ -85,7 +89,6 @@ class JobService():
             )
         self.add_job(iteration_id, jobset_id)
 
-        print('enqueued job successfully')
         return job
 
     def add_job(self, job_id, jobset_id):

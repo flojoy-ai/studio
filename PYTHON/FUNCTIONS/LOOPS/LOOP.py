@@ -54,6 +54,7 @@ def LOOP(v, params):
 
     # infinite loop
     if num_loops == -1:
+        print('infinite loop')
         return build_result(inputs=v, is_loop_finished=False)
 
     loop_data: LoopData = load_loop_data(node_id, num_loops)
@@ -64,7 +65,6 @@ def LOOP(v, params):
         loop_data.restart()
     else:
         loop_data.step()
-
         if loop_data.is_finished:
             delete_loop_data(node_id)
 
