@@ -15,12 +15,12 @@ class Topology:
         return self.working_graph
 
     def collect_ready_jobs(self):
-        print('\ncollect ready jobs')
+        print('collect ready jobs')
         for job_id in list(self.working_graph.nodes):
             self.add_to_jobq_if_ready(job_id)
 
     def restart(self, job_id):
-        print('restarting job:', self.get_label(job_id, original=True))
+        print('  *** restarting job:', self.get_label(job_id, original=True))
 
         graph = self.original_graph
         sub_graph = graph.subgraph(
@@ -28,19 +28,6 @@ class Topology:
         original_edges = sub_graph.edges
         original_edges = [(s, t, self.original_graph.get_edge_data(s, t))
                           for (s, t) in original_edges]
-        print('original edges:', json.dumps(original_edges, indent=2))
-
-        # for s, t, d in original_edges:
-        #     print('original s:', self.original_graph.nodes[s])
-        #     print('original t:', self.original_graph.nodes[t])
-        #     self.copy_node_from_original([s, t])
-
-        #     print('after re-constructing nodes')
-        #     print('working s:', self.original_graph.nodes[s])
-        #     print('working t:', self.original_graph.nodes[t])
-
-        #     # self.working_graph.add_nodes_from(self.original_graph.nodes[s])
-        #     # self.working_graph.add_nodes_from(self.original_graph.nodes[t])
 
         self.working_graph.add_edges_from(original_edges)
 
@@ -49,11 +36,11 @@ class Topology:
         for d_id in nx.descendants(self.working_graph, job_id):
             try:
                 self.finished_jobs.remove(d_id)
-            except:
+            except Exception:
                 pass
 
         print(
-            'after reconstruction, all descendents for job id:',
+            '   after reconstruction, all descendents for job id:',
             self.get_label(job_id), 'are:',
             [self.get_label(d_id)
              for d_id in nx.descendants(self.working_graph, job_id)]
@@ -65,7 +52,7 @@ class Topology:
             self.working_graph.add_node(node_data['id'], **node_data)
 
     def mark_job_done(self, job_id, label='main'):
-        print(F'job finished: {self.get_label(job_id)}, label:', label)
+        print(F'  job finished: {self.get_label(job_id)}, label:', label)
         self.remove_dependencies(job_id, label)
         self.finished_jobs.add(job_id)
         # self.working_graph.remove_node(job_id)
@@ -86,7 +73,7 @@ class Topology:
     def remove_dependency(self, job_id, succ_id):
         if self.working_graph.has_edge(job_id, succ_id):
             print(
-                F' - remove dependency: {self.get_edge_label_string(job_id, succ_id)}')
+                F'  - remove dependency: {self.get_edge_label_string(job_id, succ_id)}')
             self.working_graph.remove_edge(job_id, succ_id)
 
     def add_to_jobq_if_ready(self, job_id):
@@ -117,13 +104,14 @@ class Topology:
 
     def finished(self):
         graph = self.get_graph(original=True)
+        is_finished = graph.number_of_nodes() == len(self.finished_jobs)
         print(
-            'checking if jobset is finished, num of nodes in graph:',
+            F'jobset finished: {is_finished}, num of nodes in graph:',
             graph.number_of_nodes(),
             'num of finished_jobs:',
             len(self.finished_jobs)
         )
-        return graph.number_of_nodes() == len(self.finished_jobs)
+        
 
     def next_jobs(self):
         return self.jobq.copy()
@@ -181,7 +169,7 @@ class Topology:
 
     def print_jobq(self, prefix=''):
         jobq_str = [self.get_label(job_id) for job_id in self.jobq]
-        print(F'\n{prefix}jobq:', jobq_str)
+        print(F'{prefix}jobq:', jobq_str)
 
     def print_id_to_label_mapping(self, original=False):
         graph = self.get_graph(original=original)
