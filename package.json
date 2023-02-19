@@ -5,9 +5,8 @@
   "homepage": "./",
   "main": "electron/main.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^12.1.3",
-    "@testing-library/user-event": "^13.5.0",
+    "@tisoap/react-flow-smart-edge": "^3.0.0",
+    "@types/jest": "^28.1.4",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",

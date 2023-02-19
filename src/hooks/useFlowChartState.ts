@@ -221,6 +221,5 @@ export function useFlowChartState() {
     setEdges,
     nodes,
     setNodes,
-    filesContent,
   };
 }
