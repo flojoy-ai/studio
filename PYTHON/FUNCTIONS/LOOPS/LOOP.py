@@ -1,3 +1,4 @@
+import json
 from flojoy import flojoy, JobResultBuilder
 
 
@@ -43,14 +44,17 @@ class LoopData:
         )
         return loop_data
 
-    def print(self):
-        print('loop Data:', self.get_data())
+    def print(self, prefix=''):
+        print(F'{prefix}loop Data:', json.dumps(self.get_data(), indent=2))
 
 
 @flojoy
 def LOOP(v, params):
     num_loops = params.get('num_loops', 0)
     node_id = params.get('node_id', 0)
+    
+    print('\n\nstart loop:', node_id)
+
 
     # infinite loop
     if num_loops == -1:
@@ -58,19 +62,24 @@ def LOOP(v, params):
         return build_result(inputs=v, is_loop_finished=False)
 
     loop_data: LoopData = load_loop_data(node_id, num_loops)
-    loop_data.print()
+    loop_data.print('at start ')
 
     # loop was previously finished, but now re-executing, so restart
     if loop_data.is_finished:
         loop_data.restart()
     else:
         loop_data.step()
-        if loop_data.is_finished:
-            delete_loop_data(node_id)
 
-    store_loop_data(node_id, loop_data)
+    if not loop_data.is_finished:
+        store_loop_data(node_id, loop_data)
+    else:
+        print('finished loop')
+        delete_loop_data(node_id)
+
+    print('end loop\n\n')
 
     return build_result(v, loop_data.is_finished)
+    
 
 
 def load_loop_data(node_id, default_num_loops) -> LoopData:
@@ -84,9 +93,11 @@ def load_loop_data(node_id, default_num_loops) -> LoopData:
 
 def store_loop_data(node_id, loop_data: LoopData):
     SmallMemory().write_object(node_id, memory_key, loop_data.get_data())
+    loop_data.print('store ')
 
 def delete_loop_data(node_id):
     SmallMemory().delete_object(node_id, memory_key)
+    print('delete loop data')
 
 
 def build_result(inputs, is_loop_finished):

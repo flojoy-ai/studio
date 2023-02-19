@@ -38,7 +38,7 @@ class Test_mark_job_done(TestTopologyBase):
         self.topology.collect_ready_jobs()
 
         # act
-        self.topology.mark_job_done(test_job_id)
+        self.topology.mark_job_success(test_job_id)
 
         # assert
         assert self.get_working_graph().has_edge(2, 3) is False
@@ -49,7 +49,7 @@ class Test_mark_job_done(TestTopologyBase):
         self.topology.collect_ready_jobs()
 
         # act
-        self.topology.mark_job_done(test_job_id)
+        self.topology.mark_job_success(test_job_id)
 
         # assert
         assert self.get_working_graph().has_node(test_job_id) is False
@@ -77,7 +77,7 @@ class Test_mark_job_done(TestTopologyBase):
         self.topology.collect_ready_jobs()
 
         # act
-        self.topology.mark_job_done(job_id_to_mark_as_done)
+        self.topology.mark_job_success(job_id_to_mark_as_done)
 
         # assert
         self.assert_jobq(expected_new_jobs)
@@ -86,7 +86,7 @@ class Test_mark_job_done(TestTopologyBase):
         self.set_topology()
         self.topology.collect_ready_jobs()
 
-        self.topology.mark_job_done(test_job_id)
+        self.topology.mark_job_success(test_job_id)
 
         self.assert_jobs_not_in_queue([2])
 
@@ -98,7 +98,7 @@ class Test_restart(TestTopologyBase):
         self.set_topology()
 
         # act
-        self.topology.mark_job_done(test_job_id)
+        self.topology.mark_job_success(test_job_id)
         self.topology.print_graph('before restart:')
         self.topology.restart(test_job_id)
         self.topology.print_graph('after restart:')

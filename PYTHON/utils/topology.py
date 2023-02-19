@@ -51,11 +51,16 @@ class Topology:
             node_data = self.original_graph.nodes[node_id]
             self.working_graph.add_node(node_data['id'], **node_data)
 
-    def mark_job_done(self, job_id, label='main'):
+    def mark_job_success(self, job_id, label='main'):
         print(F'  job finished: {self.get_label(job_id)}, label:', label)
         self.remove_dependencies(job_id, label)
         self.finished_jobs.add(job_id)
         # self.working_graph.remove_node(job_id)
+
+    def mark_job_failure(self, job_id):
+        self.finished_jobs.add(job_id)
+        print(F'  job {self.get_label(job_id)} failed')
+
 
     def remove_dependencies(self, job_id, label='main'):
         edges = self.get_edges_by_label(job_id, label)

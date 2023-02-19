@@ -110,13 +110,13 @@ class FlowScheduler:
         '''
 
         if not success:
-            print(F'  job {self.topology.get_label(job_id)} failed')
+            self.topology.mark_job_failure(job_id)
             return
 
         # process instruction to flow through specified directions
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
-            self.topology.mark_job_done(job_id, direction)
+            self.topology.mark_job_success(job_id, direction)
 
         # process instruction to flow to specified nodes
         nodes_to_add = []
