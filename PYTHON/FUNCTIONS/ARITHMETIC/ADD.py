@@ -13,5 +13,5 @@ def ADD(v, params):
         b = v[1]['y']
 
     y = np.add(a, b)
-    
-    return DataContainer(x={'a':a, 'b':b}, y=y)
+
+    return DataContainer(x = {'a': a, 'b': b}, y = y)
