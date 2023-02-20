@@ -1,11 +1,8 @@
 import json
-from flojoy import flojoy, JobResultBuilder
 
-
-from flojoy import flojoy
-from flojoy import JobResultBuilder
 from node_sdk.small_memory import SmallMemory
 
+from flojoy import JobResultBuilder, flojoy
 
 memory_key = 'loop-info'
 

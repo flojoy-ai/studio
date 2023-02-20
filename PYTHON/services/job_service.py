@@ -1,11 +1,14 @@
+import traceback
+
+from common.CONSTANTS import (KEY_ALL_JOBEST_IDS, KEY_FLOJOY_WATCH_JOBS,
+                              KEY_RQ_WORKER_JOBS)
 from dao.redis_dao import RedisDao
 from rq import Queue
-from rq.job import Job
-from rq.exceptions import NoSuchJobError
-import traceback
-from common.CONSTANTS import KEY_FLOJOY_WATCH_JOBS, KEY_RQ_WORKER_JOBS, KEY_ALL_JOBEST_IDS
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
+from rq.job import Job
+from node_sdk.small_memory import SmallMemory
+
 
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
@@ -19,21 +22,17 @@ class JobService():
         all_jobs = self.redis_dao.get_redis_obj(KEY_RQ_WORKER_JOBS)
         return all_jobs
 
-    def delete_all_rq_worker_jobs(self):
-        all_jobs = self.get_all_jobs()
-        if all_jobs:
-            for key in all_jobs.keys():
-                try:
-                    job = Job.fetch(
-                        all_jobs[key], connection=self.redis_dao.r)
-                except (Exception, NoSuchJobError):
-                    print(' Failed to cancel job: ', all_jobs[key])
-                    print(Exception, traceback.format_exc())
-                    return True
-                if job is not None:
-                    print('Deleting job: ', job.get_id())
-                    job.delete()
-            print("JOB DELETE OK")
+    def delete_all_rq_worker_jobs(self, nodes):
+        for node in nodes:
+            try:
+                job = Job.fetch(
+                    node.get('id', ''), connection=self.redis_dao.r)
+            except (Exception, NoSuchJobError):
+                print(' Failed to cancel job: ', node.get('id', ''))
+                continue
+            if job is not None:
+                print('Deleting job: ', job.get_id())
+                job.delete()
         self.redis_dao.delete_redis_object(KEY_RQ_WORKER_JOBS)
 
     def add_flojoy_watch_job_id(self, flojoy_watch_job_id):
@@ -101,3 +100,9 @@ class JobService():
             return Job.fetch(job_id, connection=self.redis_dao.r)
         except Exception:
             return None
+        
+    def reset(self, nodes):
+        self.stop_flojoy_watch_jobs()
+        self.delete_all_rq_worker_jobs(nodes)
+        self.delete_all_jobset_data()
+        SmallMemory().clear_memory()

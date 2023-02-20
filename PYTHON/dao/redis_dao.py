@@ -41,3 +41,7 @@ class RedisDao:
 
     def remove_item_from_list(self, key, item):
         self.r.lrem(key, 1, item)
+    def add_to_set(self, key, value):
+        self.r.sadd(key, value)
+    def get_set_list(self, key):
+       return self.r.smembers(key)

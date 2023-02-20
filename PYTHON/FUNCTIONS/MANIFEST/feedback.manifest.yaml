@@ -3,5 +3,5 @@ COMMAND:
       name: "Feedback",
       key: "FEEDBACK",
       type: "SIMULATION",
-      parameters: { node_id: { type: node_reference, default: ''}},
+      parameters: { referred_node: { type: node_reference, default: ''}},
     }

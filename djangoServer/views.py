@@ -42,9 +42,7 @@ def wfc(request):
     fc = json.loads(request.data['fc'])
 
     # cleanup all previous jobs and the related data
-    job_service.stop_flojoy_watch_jobs()
-    job_service.delete_all_rq_worker_jobs()
-    job_service.delete_all_jobset_data()
+    job_service.reset(fc.get('nodes', []))
 
     jobset_id = request.data['jobsetId']
     job_service.add_jobset_id(jobset_id)
