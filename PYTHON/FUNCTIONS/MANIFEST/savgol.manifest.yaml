@@ -1,0 +1,10 @@
+COMMAND:
+    - { 
+      name: "Savitzky-Golay Filter", 
+      key: "SAVGOL", 
+      type: "SIGNAL_PROCESSING",
+      parameters:
+        {wlen: {type: int, default: 3},
+        porder: {type: int, default: 1}, }
+    }
+  

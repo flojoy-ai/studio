@@ -1,0 +1,13 @@
+COMMAND:
+    - { 
+      name: "Low-pass FIR Filter", 
+      key: "FIR", 
+      type: "SIGNAL_PROCESSING",
+      parameters:
+        {
+          sample_rate: {type: float, default: 100}, 
+          transition_width: {type: float, default: 5.0},
+          stop_band_attenuation: {type: float, default: 60},
+          cutoff_freq: {type: float, default: 10.0}
+        }
+    }
