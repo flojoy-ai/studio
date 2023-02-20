@@ -47,11 +47,10 @@ describe("User default workflow", () => {
 
     cy.get(`[data-cy="script-btn"]`).click();
     Cypress.on("uncaught:exception", (err) => {
-      // cy.log("error occured: ", JSON.stringify(err));
       return false;
     });
     nodes.forEach((node) => {
-      cy.get(`[data-id="${node.selector}"]`).click({
+      cy.get(`[data-id="${node.selector}"]`).dblclick({
         force: true,
         multiple: true,
       });

@@ -94,7 +94,7 @@ describe("user workflow", () => {
     cy.get(`[data-cy="script-btn"]`).click();
 
     nodes.forEach((node) => {
-      cy.get(`[data-id="${node.selector}"]`).click({
+      cy.get(`[data-id="${node.selector}"]`).dblclick({
         force: true,
         multiple: true,
       });
