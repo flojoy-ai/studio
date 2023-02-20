@@ -79,7 +79,7 @@ class JobService():
             job.delete()
         
         job = self.queue.enqueue(func,
-                job_timeout='3m',
+                job_timeout='15m',
                 on_failure=report_failure,
                 job_id=iteration_id,
                 kwargs={'ctrls': ctrls,

@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from rest_framework.decorators import api_view
 from PYTHON.services.job_service import JobService
+import time
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
@@ -35,10 +36,25 @@ def send_msg_to_socket(msg: dict):
         'type': 'worker_response',
         **msg
     })
+@api_view(['POST'])
+def cancel_flow_chart(request):
+    fc = json.loads(request.data['fc'])
+    jobset_id = request.data['jobsetId']
+    
+    job_service.reset(fc.get('nodes',[]))
+    time.sleep(2)
+    msg = {
+        'SYSTEM_STATUS': STATUS_CODES['STANDBY'],
+        'jobsetId': jobset_id,
+        'FAILED_NODES': '',
+        'RUNNING_NODES': ''
+    }
+    send_msg_to_socket(msg=msg)
+    return Response(msg, status=200)
 
 
 @api_view(['POST'])
-def wfc(request):
+def run_flow_chart(request):
     fc = json.loads(request.data['fc'])
 
     # cleanup all previous jobs and the related data
@@ -61,14 +77,12 @@ def wfc(request):
     job_service.add_flojoy_watch_job_id(scheduler_job_id)
 
     q.enqueue(func,
-              job_timeout='3m',
               on_failure=report_failure,
               job_id=scheduler_job_id,
               kwargs={'fc': fc,
                       'jobsetId': jobset_id,
                       'scheduler_job_id': scheduler_job_id
                       },
-              result_ttl=500
               )
 
     response = {

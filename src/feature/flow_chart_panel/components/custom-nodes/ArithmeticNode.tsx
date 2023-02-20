@@ -7,16 +7,17 @@ import {
 import {
   AddBGTemplate,
   AddSvg,
+  AtSvg,
   MultiplySvg,
+  SubSvg,
 } from "../../svgs/add-multiply-svg";
 
 const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow){
+  if (data.func in highlightShadow) {
     return highlightShadow[data.func];
   }
-  return highlightShadow['default']
+  return highlightShadow["default"];
 };
-
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode } = useFlowChartState();
@@ -67,7 +68,29 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
             }}
           />
         )}
+        {data.func === "SUBTRACT" && (
+          <SubSvg
+            style={{
+              position: "absolute",
+              top: "47px",
+              left: "29px",
+              height: "19px",
+              width: "18px",
+            }}
+          />
+        )}
 
+        {data.func === "MATMUL" && (
+          <AtSvg
+            style={{
+              position: "absolute",
+              top: "47px",
+              left: "29px",
+              height: "19px",
+              width: "18px",
+            }}
+          />
+        )}
         <div
           style={{
             display: "flex",
@@ -86,6 +109,10 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
 export default ArithmeticNode;
 
 const highlightShadow = {
+  default: {
+    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    background: "#78640f96",
+  },
   MULTIPLY: {
     boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
     background: "#78640f96",

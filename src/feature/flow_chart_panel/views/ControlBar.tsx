@@ -8,6 +8,7 @@ import "react-tabs/style/react-tabs.css";
 import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
+  cancelFlowChartRun,
 } from "../../../services/FlowChartServices";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
@@ -16,6 +17,7 @@ import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { useSocket } from "../../../hooks/useSocket";
+import CancelIconSvg from "@src/utils/cancel_icon";
 
 localforage.config({
   name: "react-flow",
@@ -57,6 +59,17 @@ const Controls: FC<ControlsProps> = ({
       );
     }
   };
+
+  const cancelFC = () => {
+    if (rfInstance && rfInstance.nodes.length > 0) {
+      cancelFlowChartRun({ rfInstance, jobId: socketId });
+    } else {
+      alert(
+        "There is no running job on server."
+      );
+    }
+  }
+
 
   const onAdd: NodeOnAddFunc = useCallback(
     ({ key, params, type, inputs, customNodeId }) => {
@@ -141,6 +154,22 @@ const Controls: FC<ControlsProps> = ({
         data-cy="btn-play"
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
+      </button>
+      <button
+        className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
+        style={{
+          color: 'red',
+          display: 'flex',
+          justifyContent:'center',
+          alignItems:'center',
+          gap:'3px',
+          border: '1px solid rgb(255 153 177)',
+          backgroundColor: 'rgb(255 158 153 / 20%)',
+        }}
+        onClick={cancelFC}
+        data-cy="btn-cancel"
+      >
+        <CancelIconSvg style={{ marginRight: "6px" }} theme={theme} /> Cancel
       </button>
       {activeTab !== "debug" && activeTab === "visual" ? (
         <button
