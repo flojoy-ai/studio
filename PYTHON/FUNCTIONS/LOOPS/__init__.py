@@ -1,1 +1,1 @@
-__all__= ["LOOP", "LOOP_CONDITIONAL"]
+__all__= ["LOOP", "GOTO"]
