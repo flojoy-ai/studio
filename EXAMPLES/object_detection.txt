@@ -62,6 +62,29 @@
                     "y": 187.7976330882526
                 },
                 "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
+                "type": "TERMINATOR",
+                "data": {
+                    "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
+                    "label": "Terminate",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 1002.9112708314901,
+                    "y": 193.09986313255396
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1002.9112708314901,
+                    "y": 193.09986313255396
+                },
+                "dragging": true
             }
         ],
         "edges": [
@@ -71,12 +94,19 @@
                 "target": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
                 "targetHandle": "OBJECT_DETECTION",
                 "id": "reactflow__edge-LOCAL_FILE-b6953411-4f5e-4f22-aaba-bdc923e56b86main-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdOBJECT_DETECTION"
+            },
+            {
+                "source": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
+                "sourceHandle": "main",
+                "target": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
+                "targetHandle": "END",
+                "id": "reactflow__edge-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdmain-END-5e6d94ed-1f79-4c57-8b2f-753a22405f55END"
             }
         ],
         "viewport": {
-            "x": 104.0574338280212,
-            "y": -56.671826192055676,
-            "zoom": 1.2502711672421218
+            "x": 100.78251993386277,
+            "y": 34.10874204470315,
+            "zoom": 1.015849582027344
         }
     },
     "ctrlsManifest": [

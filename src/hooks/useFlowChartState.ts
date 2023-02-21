@@ -1,7 +1,6 @@
 import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai/immer";
-import { saveAs } from "file-saver";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";
@@ -64,17 +63,12 @@ const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
-const rfInstanceAtom = atomWithImmer<ReactFlowJsonObject<ElementsData> | undefined>(
-  undefined
-);
+const rfInstanceAtom = atomWithImmer<
+  ReactFlowJsonObject<ElementsData> | undefined
+>(undefined);
 const nodesAtom = atomWithImmer<Node[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
-const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
-  x: 0,
-  y: 0,
-  zoom: 1,
-});
 const editModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
   initialManifests.map((ctrl, i) => ({
@@ -142,7 +136,18 @@ export function useFlowChartState() {
       const blob = new Blob([fileContentJsonString], {
         type: "text/plain;charset=utf-8",
       });
-      saveAs(blob, "flojoy.txt");
+      const handle = await (window as any).showSaveFilePicker({
+        suggestedName: "flojoy.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+      await writableStream.write(blob);
+      await writableStream.close();
     }
   };
 

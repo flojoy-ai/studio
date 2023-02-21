@@ -442,7 +442,7 @@
                     "x": 2146.1536570045673,
                     "y": 641.8337171975915
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 2146.1536570045673,
                     "y": 641.8337171975915
@@ -492,6 +492,29 @@
                 "positionAbsolute": {
                     "x": 2006.7575567674671,
                     "y": 255.2918085111712
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "END-a1ca5e46-b598-414a-bbe8-e74512cb32f8",
+                "type": "TERMINATOR",
+                "data": {
+                    "id": "END-a1ca5e46-b598-414a-bbe8-e74512cb32f8",
+                    "label": "Terminate",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 2966.0861135386967,
+                    "y": 579.8031925311714
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 2966.0861135386967,
+                    "y": 579.8031925311714
                 },
                 "dragging": true
             }
@@ -615,12 +638,19 @@
                 "target": "FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2",
                 "targetHandle": "FIR",
                 "id": "reactflow__edge-LINSPACE-ff2d20b1-d9bd-481c-a245-a8135fd82df5main-FIR-cfd328d3-f109-4745-9936-a5d7271c4ba2FIR"
+            },
+            {
+                "source": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
+                "sourceHandle": "main",
+                "target": "END-a1ca5e46-b598-414a-bbe8-e74512cb32f8",
+                "targetHandle": "END",
+                "id": "reactflow__edge-LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1emain-END-a1ca5e46-b598-414a-bbe8-e74512cb32f8END"
             }
         ],
         "viewport": {
-            "x": 56.26202458942879,
-            "y": 631.2168078856603,
-            "zoom": 0.6759996337319608
+            "x": 100.78251993386277,
+            "y": 34.10874204470315,
+            "zoom": 1.015849582027344
         }
     },
     "ctrlsManifest": [],
