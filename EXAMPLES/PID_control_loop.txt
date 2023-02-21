@@ -332,74 +332,6 @@
                 "dragging": true
             },
             {
-                "width": 150,
-                "height": 135,
-                "id": "LOOP_CONDITIONAL-14ac02e2-1ad0-43e1-9be4-0c6d8b189a4f",
-                "type": "LOOP",
-                "data": {
-                    "id": "LOOP_CONDITIONAL-14ac02e2-1ad0-43e1-9be4-0c6d8b189a4f",
-                    "label": "Go to M",
-                    "func": "LOOP_CONDITIONAL",
-                    "type": "LOOP",
-                    "ctrls": {
-                        "LOOP_CONDITIONAL_Go to M_loop_node": {
-                            "functionName": "LOOP_CONDITIONAL",
-                            "param": "loop_node",
-                            "value": ""
-                        },
-                        "LOOP_CONDITIONAL_GotoM_loop_node": {
-                            "functionName": "LOOP_CONDITIONAL",
-                            "param": "loop_node",
-                            "value": "LINSPACE-b21b79d7-357b-41c8-9cec-3710ba9fcf54"
-                        }
-                    }
-                },
-                "position": {
-                    "x": 1906.3474277437654,
-                    "y": 294.2109103434105
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1906.3474277437654,
-                    "y": 294.2109103434105
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 135,
-                "id": "LOOP_CONDITIONAL-8c30716a-0f41-4c04-8a3d-59957ec0ee26",
-                "type": "LOOP",
-                "data": {
-                    "id": "LOOP_CONDITIONAL-8c30716a-0f41-4c04-8a3d-59957ec0ee26",
-                    "label": "Go to Feedback",
-                    "func": "LOOP_CONDITIONAL",
-                    "type": "LOOP",
-                    "ctrls": {
-                        "LOOP_CONDITIONAL_Go to Feedback_loop_node": {
-                            "functionName": "LOOP_CONDITIONAL",
-                            "param": "loop_node",
-                            "value": ""
-                        },
-                        "LOOP_CONDITIONAL_GotoFeedback_loop_node": {
-                            "functionName": "LOOP_CONDITIONAL",
-                            "param": "loop_node",
-                            "value": "FEEDBACK-33772a63-f1f9-4c66-a12c-97b4304664e9"
-                        }
-                    }
-                },
-                "position": {
-                    "x": 1973.521262754756,
-                    "y": 566.6359749934514
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1973.521262754756,
-                    "y": 566.6359749934514
-                },
-                "dragging": true
-            },
-            {
                 "width": 115,
                 "height": 115,
                 "id": "CONSTANT-8d307e9c-a2d9-4449-8bbd-513191ccef85",
@@ -444,10 +376,78 @@
                     "x": 1316.1655392335797,
                     "y": 211.03753402079587
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 1316.1655392335797,
                     "y": 211.03753402079587
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "GOTO-db6e3b7a-aad2-4042-81cd-5ece9e5955c8",
+                "type": "LOOP",
+                "data": {
+                    "id": "GOTO-db6e3b7a-aad2-4042-81cd-5ece9e5955c8",
+                    "label": "Go to F",
+                    "func": "GOTO",
+                    "type": "LOOP",
+                    "ctrls": {
+                        "GOTO_Go to F_goto_node_id": {
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": ""
+                        },
+                        "GOTO_GotoF_goto_node_id": {
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": "FEEDBACK-33772a63-f1f9-4c66-a12c-97b4304664e9"
+                        }
+                    }
+                },
+                "position": {
+                    "x": 2007.3974843805395,
+                    "y": 603.2272068095947
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 2007.3974843805395,
+                    "y": 603.2272068095947
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "GOTO-8d246e9d-d666-452d-a859-6559beffd0de",
+                "type": "LOOP",
+                "data": {
+                    "id": "GOTO-8d246e9d-d666-452d-a859-6559beffd0de",
+                    "label": "Go To M",
+                    "func": "GOTO",
+                    "type": "LOOP",
+                    "ctrls": {
+                        "GOTO_Go To M_goto_node_id": {
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": ""
+                        },
+                        "GOTO_GoToM_goto_node_id": {
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": "LINSPACE-b21b79d7-357b-41c8-9cec-3710ba9fcf54"
+                        }
+                    }
+                },
+                "position": {
+                    "x": 1945.8732733312338,
+                    "y": 267.1302642576144
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1945.8732733312338,
+                    "y": 267.1302642576144
                 },
                 "dragging": true
             }
@@ -510,20 +510,6 @@
                 "id": "reactflow__edge-FEEDBACK-33772a63-f1f9-4c66-a12c-97b4304664e9main-SUBTRACT-6d61d233-91dc-45b7-a05c-e95233dfbf12sub_y"
             },
             {
-                "source": "CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3",
-                "sourceHandle": "true",
-                "target": "LOOP_CONDITIONAL-14ac02e2-1ad0-43e1-9be4-0c6d8b189a4f",
-                "targetHandle": "LOOP_CONDITIONAL",
-                "id": "reactflow__edge-CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3true-LOOP_CONDITIONAL-14ac02e2-1ad0-43e1-9be4-0c6d8b189a4fLOOP_CONDITIONAL"
-            },
-            {
-                "source": "CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3",
-                "sourceHandle": "false",
-                "target": "LOOP_CONDITIONAL-8c30716a-0f41-4c04-8a3d-59957ec0ee26",
-                "targetHandle": "LOOP_CONDITIONAL",
-                "id": "reactflow__edge-CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3false-LOOP_CONDITIONAL-8c30716a-0f41-4c04-8a3d-59957ec0ee26LOOP_CONDITIONAL"
-            },
-            {
                 "source": "CONSTANT-8d307e9c-a2d9-4449-8bbd-513191ccef85",
                 "sourceHandle": "main",
                 "target": "FEEDBACK-33772a63-f1f9-4c66-a12c-97b4304664e9",
@@ -543,12 +529,26 @@
                 "target": "CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3",
                 "targetHandle": "first",
                 "id": "reactflow__edge-RAND-97c0d768-d673-4890-991a-867ebb7e1b19main-CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3first"
+            },
+            {
+                "source": "CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3",
+                "sourceHandle": "true",
+                "target": "GOTO-8d246e9d-d666-452d-a859-6559beffd0de",
+                "targetHandle": "GOTO",
+                "id": "reactflow__edge-CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3true-GOTO-8d246e9d-d666-452d-a859-6559beffd0deGOTO"
+            },
+            {
+                "source": "CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3",
+                "sourceHandle": "false",
+                "target": "GOTO-db6e3b7a-aad2-4042-81cd-5ece9e5955c8",
+                "targetHandle": "GOTO",
+                "id": "reactflow__edge-CONDITIONAL-73bfb822-4a15-49b9-9ffd-c112a21d32d3false-GOTO-db6e3b7a-aad2-4042-81cd-5ece9e5955c8GOTO"
             }
         ],
         "viewport": {
-            "x": 109.29400687191082,
-            "y": -86.18352594082307,
-            "zoom": 1.2425545149276676
+            "x": 100.78251993386277,
+            "y": 34.10874204470315,
+            "zoom": 1.015849582027344
         }
     },
     "ctrlsManifest": [
@@ -560,14 +560,14 @@
             "id": "ctrl-95755dd6-54c5-49ac-87da-7d95a9d4c625",
             "hidden": false,
             "param": {
-                "id": "FEEDBACK_Feedback(F)_referred_node",
-                "functionName": "FEEDBACK",
-                "param": "referred_node",
-                "nodeId": "FEEDBACK-33772a63-f1f9-4c66-a12c-97b4304664e9",
+                "id": "GOTO_GoToM_goto_node_id",
+                "functionName": "GOTO",
+                "param": "goto_node_id",
+                "nodeId": "GOTO-8d246e9d-d666-452d-a859-6559beffd0de",
                 "inputId": "ctrl-95755dd6-54c5-49ac-87da-7d95a9d4c625",
                 "type": "node_reference"
             },
-            "val": "RAND-97c0d768-d673-4890-991a-867ebb7e1b19"
+            "val": "LINSPACE-b21b79d7-357b-41c8-9cec-3710ba9fcf54"
         },
         {
             "type": "input",
