@@ -50,13 +50,7 @@ describe("User default workflow", () => {
       return false;
     });
     nodes.forEach((node) => {
-      cy.get(`[data-id="${node.selector}"]`).dblclick({
-        force: true,
-        multiple: true,
-      });
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-      cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000);
     });
   });
 });

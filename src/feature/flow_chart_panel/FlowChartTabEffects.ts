@@ -53,7 +53,6 @@ export function useFlowChartTabEffects({
   }, [clickedElement]);
 
   useEffect(() => {
-    console.log('PYTHON_FUNCTIONS:', PYTHON_FUNCTIONS)
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."

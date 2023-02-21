@@ -10,6 +10,7 @@ class Topology:
         self.working_graph = copy.deepcopy(graph)
         self.finished_jobs = set()
         self.jobq = []
+        self.is_finished = False
 
     def get_working_graph(self):
         return self.working_graph
@@ -55,6 +56,8 @@ class Topology:
         print(F'  job finished: {self.get_label(job_id)}, label:', label)
         self.remove_dependencies(job_id, label)
         self.finished_jobs.add(job_id)
+        if self.get_cmd(job_id) == 'END':
+            self.is_finished = True
         # self.working_graph.remove_node(job_id)
 
     def mark_job_failure(self, job_id):
@@ -108,16 +111,12 @@ class Topology:
             return []
 
     def finished(self):
-        graph = self.get_graph(original=True)
-        is_finished = graph.number_of_nodes() == len(self.finished_jobs)
         print(
-            F'jobset finished: {is_finished}, num of nodes in graph:',
-            graph.number_of_nodes(),
-            'num of finished_jobs:',
-            len(self.finished_jobs)
+            F'jobset finished: {self.is_finished}, num of nodes in graph:',
+           self.finished_jobs
         )
+        return self.is_finished
         
-
     def next_jobs(self):
         return self.jobq.copy()
 
@@ -131,6 +130,15 @@ class Topology:
         graph = self.get_graph(original)
         if graph.has_node(job_id):
             return graph.nodes[job_id].get('label', job_id)
+        else:
+            print('get_label: job_id', job_id,
+                  'not found in original:', original)
+        return job_id
+
+    def get_cmd(self, job_id, original=False):
+        graph = self.get_graph(original)
+        if graph.has_node(job_id):
+            return graph.nodes[job_id].get('cmd', job_id)
         else:
             print('get_label: job_id', job_id,
                   'not found in original:', original)

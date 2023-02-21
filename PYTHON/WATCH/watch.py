@@ -10,7 +10,7 @@ import matplotlib.cbook
 import networkx as nx
 import yaml
 
-from flojoy import get_next_directions, get_next_nodes, reactflow_to_networkx
+from flojoy import get_next_directions, get_next_nodes
 
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
@@ -28,6 +28,7 @@ from FUNCTIONS.SIGNAL_PROCESSING import *
 from FUNCTIONS.SIMULATIONS import *
 from FUNCTIONS.TIMERS import *
 from FUNCTIONS.VISORS import *
+from FUNCTIONS.TERMINATORS import *
 from services.job_service import JobService
 from utils.topology import Topology
 
@@ -101,6 +102,7 @@ class FlowScheduler:
         # jobset finished 
         self.topology.print_graph()
         self.notify_jobset_finished()
+        self.job_service.reset(self.flow_chart.get('nodes',[]))
         print('finished proceessing jobset', self.jobset_id, '\n')
 
 
