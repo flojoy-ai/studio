@@ -94,13 +94,7 @@ describe("user workflow", () => {
     cy.get(`[data-cy="script-btn"]`).click();
 
     nodes.forEach((node) => {
-      cy.get(`[data-id="${node.selector}"]`).click({
-        force: true,
-        multiple: true,
-      });
       matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
-      cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000);
     });
   });
 });

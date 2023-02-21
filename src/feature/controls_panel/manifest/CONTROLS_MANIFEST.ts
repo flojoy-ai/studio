@@ -17,7 +17,8 @@ export enum ControlNames {
   TextInput = "Text Input",
   SevenSegmentDisplay = "Seven Segment Display",
   LocalFileLoader = "Local File Loader",
-  MediaViewer = "Media Viewer"
+  MediaViewer = "Media Viewer",
+  NodeReference = "Node Reference"
 }
 
 export enum PlotTypeNames {
@@ -147,4 +148,10 @@ export const InputControlsManifest = [
     minHeight: 3,
     minWidth: 2,
   },
+  {
+    name: ControlNames.NodeReference,
+    type: ControlTypes.Input,
+    minHeight: 2,
+    minWidth: 2
+  }
 ];

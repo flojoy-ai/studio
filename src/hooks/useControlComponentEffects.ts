@@ -84,6 +84,7 @@ const useControlComponentEffects = ({
                       param,
                       nodeId: node.id,
                       inputId: ctrlObj.id,
+                      type: params[param].type as string
                     },
                   },
                 ]);

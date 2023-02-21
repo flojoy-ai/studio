@@ -8,14 +8,13 @@ import "@feature/flow_chart_panel/components/custom-nodes/css/simulationNode.css
 
 const highlightShadow = {
   LINSPACE: { boxShadow: "0 0 50px 15px #48abe0" },
-  SINE: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  SQUARE: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  SAW: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  RAND: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  CONSTANT: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
+  default: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
 };
 const getboxShadow = (data: ElementsData) => {
-  return highlightShadow[data.func];
+  if (data.func in highlightShadow){
+    return highlightShadow[data.func];
+  }
+  return highlightShadow['default']
 };
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
