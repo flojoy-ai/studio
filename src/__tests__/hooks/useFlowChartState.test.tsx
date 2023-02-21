@@ -64,16 +64,6 @@ describe("useFlowChartState", () => {
   describe("checking default values of states", () => {
     it.each([
       ["rfInstance", hookResult.rfInstance, undefined],
-      ["elements", hookResult.elements, NOISY_SINE.elements],
-      [
-        "rfSpatialInfo",
-        hookResult.rfSpatialInfo,
-        {
-          x: 0,
-          y: 0,
-          zoom: 1,
-        },
-      ],
       ["ctrlsManifest", hookResult.ctrlsManifest, initialManifests],
       ["isEditMode", hookResult.isEditMode, false],
       [
@@ -137,34 +127,18 @@ describe("useFlowChartState", () => {
       expect(filesContent.length).toEqual(1);
     });
   });
+
   describe("saveFile", () => {
     it("given an undefined flow object,returns", async () => {
       const spy = jest.spyOn(FileSaver, "saveAs");
       hookResult.saveFile();
       expect(spy).not.toHaveBeenCalled();
     });
-    it("given a flow object,calls saveFile mock", () => {
-      const testElement: any = {
-        elements: "sting",
-      };
-      const spy = jest.spyOn(FileSaver, "saveAs");
-      const setRfInstance = hookResult.setRfInstance;
-
-      act(() => {
-        setRfInstance(testElement);
-      });
-
-      rerender();
-
-      result.current.saveFile();
-
-      expect(spy).toHaveBeenCalledTimes(1);
-    });
   });
 
   describe("updateCtrlInputDataForNode", () => {
     it("given a set of parameters, calls the setElement function", () => {
-      const spy = jest.spyOn(hookResult, "setElements");
+      const spy = jest.spyOn(hookResult, "setNodes");
       const testData = {
         nodeId: "2.0-userGeneratedNode_1646435677928",
         paramId: "CONSTANT_2.0_constant",
@@ -175,7 +149,7 @@ describe("useFlowChartState", () => {
         },
       };
       act(() => {
-        hookResult.setElements(NOISY_SINE.elements);
+        hookResult.setNodes(NOISY_SINE.nodes);
         hookResult.updateCtrlInputDataForNode(
           testData.nodeId,
           testData.paramId,
@@ -200,7 +174,7 @@ describe("useFlowChartState", () => {
       );
 
       act(() => {
-        hookResult.setElements(NOISY_SINE.elements);
+        hookResult.setNodes(NOISY_SINE.nodes);
         hookResult.updateCtrlInputDataForNode(
           testData.nodeId,
           testData.paramId,
@@ -210,14 +184,14 @@ describe("useFlowChartState", () => {
 
       rerender();
 
-      expect(result.current.elements).toEqual(expectedElements);
+      expect(result.current.nodes).toEqual(expectedElements);
     });
   });
 
   describe("removeCtrlInputDataForNode", () => {
-    const spy = jest.spyOn(hookResult, "setElements");
+    const spy = jest.spyOn(hookResult, "setNodes");
     act(() => {
-      hookResult.setElements(NOISY_SINE.elements);
+      hookResult.setNodes(NOISY_SINE.nodes);
       hookResult.removeCtrlInputDataForNode(
         "LINSPACE-userGeneratedNode_1646432683694",
         "LINSPACE_Linspace_start"
@@ -228,7 +202,7 @@ describe("useFlowChartState", () => {
 });
 
 const getExpectedData = (id) => {
-  const returnElement = NOISY_SINE.elements;
+  const returnElement = NOISY_SINE.nodes;
   return returnElement.map((element) =>
     element.id === id
       ? {

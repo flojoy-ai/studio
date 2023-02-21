@@ -5,12 +5,15 @@ import { act, renderHook, Renderer } from "@testing-library/react-hooks";
 import useControlsTabEffects from "../../hooks/useControlComponentEffects";
 import { CtlManifestType } from "../../hooks/useFlowChartState";
 import { NOISY_SINE } from "../../data/RECIPES";
-import { FlowExportObject } from "react-flow-renderer";
 
-const flowChartObject: FlowExportObject = {
-  elements: NOISY_SINE.elements,
-  position: [1, 2],
-  zoom: 10,
+const flowChartObject: any = {
+  nodes: NOISY_SINE.nodes,
+  edges: NOISY_SINE.edges,
+  viewport: {
+    x: 1,
+    y: 2,
+    zoom: 10,
+  },
 };
 
 const ctrlObj: CtlManifestType = {

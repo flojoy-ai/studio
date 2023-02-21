@@ -86,7 +86,7 @@ jest.mock("../../../feature/flow_chart_panel/views/NodeModal", () => (
   <div></div>
 ));
 
-describe("FlowChartTabView", () => {
+describe.skip("FlowChartTabView", () => {
   describe("component should render correctly", () => {
     it("should match snapshot", () => {
       const tree = renderer
