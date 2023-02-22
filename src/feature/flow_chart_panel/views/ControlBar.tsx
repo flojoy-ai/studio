@@ -37,7 +37,7 @@ const Controls: FC<ControlsProps> = ({
   setOpenCtrlModal,
 }) => {
   const { states } = useSocket();
-  const { socketId, setProgramResults } = states!;
+  const { socketId, setProgramResults, serverStatus } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const {
@@ -103,9 +103,7 @@ const Controls: FC<ControlsProps> = ({
                 functionName: key,
                 param,
                 value:
-                  key === "CONSTANT"
-                    ? +functionName
-                    : params![param].default,
+                  key === "CONSTANT" ? +functionName : params![param].default,
               },
             }),
             {}
@@ -143,15 +141,21 @@ const Controls: FC<ControlsProps> = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
+  const isServerOffline = () =>
+    serverStatus === "🛑 server offline" ||
+    serverStatus === "Connecting to server...";
+
   return (
     <div className="save__controls">
       <button
         className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
         style={{
           color: theme === "dark" ? "#fff" : "#000",
+          cursor: isServerOffline() ? "none" : "pointer",
         }}
         onClick={onSave}
         data-cy="btn-play"
+        disabled={isServerOffline()}
       >
         <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
       </button>
