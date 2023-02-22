@@ -13,6 +13,14 @@ module.exports = function (app) {
       logLevel: "debug",
     })
   );
+  app.use(
+    "/cancel_fc",
+    createProxyMiddleware({
+      target: target,
+      changeOrigin: true,
+      logLevel: "debug",
+    })
+  );
 
   app.use(
     "/io",

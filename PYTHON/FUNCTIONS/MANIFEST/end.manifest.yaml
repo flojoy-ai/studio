@@ -1,0 +1,2 @@
+COMMAND:
+  - { name: "The End", key: "END", type: "TERMINATOR", parameters: {} }

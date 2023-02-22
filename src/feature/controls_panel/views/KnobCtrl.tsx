@@ -3,8 +3,8 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { WritableDraft } from "immer/dist/internal";
-import React, { useCallback, useEffect, useState } from "react";
-import { Silver } from "react-dial-knob";
+import { useCallback, useEffect, useState, memo } from "react";
+import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
 
@@ -34,21 +34,20 @@ const KnobCtrl = ({
   const [knobValue, setKnobValue] = useState(0);
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
-      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        setKnobValue(value);
-        return;
+      if ((ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+        updateCtrlValue(value.toString(), ctrlObj);
       }
-      updateCtrlValue(value.toString(), ctrlObj);
+      setKnobValue(value);
     },
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ctrlObj]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [(ctrlObj?.param as CtrlManifestParam)?.nodeId]
   );
 
   useEffect(() => {
     return () => {
       setKnobValue(0);
     };
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
 
   return (
@@ -70,22 +69,23 @@ const KnobCtrl = ({
       }}
     >
       <Silver
-        style={{ width: "fit-content", boxShadow: "0" }}
+        style={{
+          width: "fit-content",
+          boxShadow: "0",
+          zIndex: 1,
+        }}
         // diameter={70}
-        knobStyle={{ boxShadow: "0" }}
+        knobStyle={{ boxShadow: "0", background: "none" }}
         min={0}
         max={100}
         step={1}
         value={knobValue || currentInputValue}
-        diameter={120}
-        onValueChange={(val) => {
-          console.log(" onValueChange: ", val);
-          updateCtrlValueFromKnob(val);
-        }}
+        diameter={180}
+        onValueChange={updateCtrlValueFromKnob}
         ariaLabelledBy={"my-label"}
-      />
+      ></Silver>
     </div>
   );
 };
 
-export default KnobCtrl;
+export default memo(KnobCtrl);

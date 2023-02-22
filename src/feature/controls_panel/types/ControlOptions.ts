@@ -6,7 +6,7 @@ export interface CtrlOptionValue {
   param: string;
   nodeId: string;
   inputId: string;
-  type?: PlotType;
+  type?: PlotType | string;
   mode?: PlotData["mode"];
 }
 export interface ControlOptions {

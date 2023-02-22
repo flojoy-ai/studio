@@ -1,0 +1,10 @@
+COMMAND:
+  - {
+      name: GoTo,
+      key: GOTO,
+      type: LOOP,
+      parameters:
+        {
+          goto_node_id: { type: node_reference, default: "" },
+        },
+    }

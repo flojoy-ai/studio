@@ -151,7 +151,7 @@
                     "x": 850.1724190081337,
                     "y": 243.3122842318272
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 850.1724190081337,
                     "y": 243.3122842318272
@@ -203,6 +203,29 @@
                     "y": 276.34296871904206
                 },
                 "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "END-e08c94fa-d47e-476b-93fe-50aaced663f1",
+                "type": "TERMINATOR",
+                "data": {
+                    "id": "END-e08c94fa-d47e-476b-93fe-50aaced663f1",
+                    "label": "Terminate",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 1736.6617002489606,
+                    "y": 277.1512485848482
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 1736.6617002489606,
+                    "y": 277.1512485848482
+                },
+                "dragging": true
             }
         ],
         "edges": [
@@ -247,12 +270,19 @@
                 "target": "LINE-b371dd3f-c16d-480c-b43a-d9078d196147",
                 "targetHandle": "LINE",
                 "id": "reactflow__edge-BUTTER-fa77b937-fda8-44c1-9c32-0ce1651e51e1main-LINE-b371dd3f-c16d-480c-b43a-d9078d196147LINE"
+            },
+            {
+                "source": "LINE-b371dd3f-c16d-480c-b43a-d9078d196147",
+                "sourceHandle": "main",
+                "target": "END-e08c94fa-d47e-476b-93fe-50aaced663f1",
+                "targetHandle": "END",
+                "id": "reactflow__edge-LINE-b371dd3f-c16d-480c-b43a-d9078d196147main-END-e08c94fa-d47e-476b-93fe-50aaced663f1END"
             }
         ],
         "viewport": {
-            "x": 100.01530778955737,
-            "y": 4.135898289945487,
-            "zoom": 1.2017042032652625
+            "x": 100.78251993386277,
+            "y": 34.10874204470315,
+            "zoom": 1.015849582027344
         }
     },
     "ctrlsManifest": [
