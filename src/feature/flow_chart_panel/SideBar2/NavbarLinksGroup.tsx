@@ -64,31 +64,23 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface LinksGroupProps {
-  icon: TablerIcon;
-  label: string;
-  initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
+  title: string;
+  child?: { name: string; key: string }[];
 }
 
-export function LinksGroup({
-  icon: Icon,
-  label,
-  initiallyOpened,
-  links,
-}: LinksGroupProps) {
+export function LinksGroup({ title, child }: LinksGroupProps) {
   const { classes, theme } = useStyles();
-  const hasLinks = Array.isArray(links);
-  const [opened, setOpened] = useState(initiallyOpened || false);
+  const hasLinks = Array.isArray(child);
+  const [opened, setOpened] = useState(false);
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<"a">
-      component="a"
+  const items = (hasLinks ? child : []).map((link) => (
+    <Text<"span">
+      component="span"
       className={classes.link}
-      href={link.link}
-      key={link.label}
+      key={link.name}
       onClick={(event) => event.preventDefault()}
     >
-      {link.label}
+      {link.name}
     </Text>
   ));
 
@@ -100,10 +92,7 @@ export function LinksGroup({
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ThemeIcon variant="light" size={30}>
-              <Icon size={18} />
-            </ThemeIcon>
-            <Box ml="md">{label}</Box>
+            <Box ml="md">{title}</Box>
           </Box>
           {hasLinks && (
             <ChevronIcon

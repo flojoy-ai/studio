@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 
 import { LinksGroup } from "./NavbarLinksGroup";
+import { SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 
 const mockdata = [
   { label: "Dashboard", icon: IconGauge },
@@ -88,8 +89,8 @@ const useStyles = createStyles((theme) => ({
 export function NavbarNested({ theme }) {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const { classes } = useStyles();
-  const links = mockdata.map((item) => (
-    <LinksGroup {...item} key={item.label} />
+  const links = SECTIONS.map((item) => (
+    <LinksGroup {...item} key={item.title} />
   ));
 
   const handleSidebar = () => setSideBarStatus(!isSideBarOpen);
@@ -128,6 +129,22 @@ export function NavbarNested({ theme }) {
             p="md"
             className={classes.navbar}
           >
+            <Navbar.Section
+              style={{
+                right: 10,
+                position: "absolute",
+                top: 5,
+              }}
+            >
+              <button
+                onClick={handleSidebar}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                <i className="fa-sharp fa-solid fa-xmark"></i>
+              </button>
+            </Navbar.Section>
             <Navbar.Section
               grow
               className={classes.links}
