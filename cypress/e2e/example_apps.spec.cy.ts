@@ -45,10 +45,6 @@ describe("Example apps testing.", () => {
           .contains("Edit")
           .click()
           .should("have.css", "color", "rgb(255, 165, 0)");
-
-        // Force close if any default widgets are there
-        cy.get("button").contains("x").click({ force: true, multiple: true });
-
         /**
          * For each parameter of every nodes create input widget
          * and set default value
@@ -92,6 +88,7 @@ describe("Example apps testing.", () => {
           .contains("🐢 awaiting a new job", { timeout: 65000 });
         // Check if the debug flow chart is constructed and visible
         cy.get("[data-testid=result-node]", { timeout: 200000 });
+        cy.wait(5000);
         matchPlotlyOutput();
       });
     });
@@ -127,14 +124,15 @@ const createInputWidget = (
 };
 
 const createWidgetForNodeParam = (
-  node: any,
+  node: Node<ElementsData>,
   nodeLabel: string,
-  param: any,
+  param: [string, any],
   app: IApp
 ) => {
   const [paramKey, paramValue] = param;
   // It assumes key is formatted as functionName_nodeLabel_paramName
-  const paramName = paramKey.split("_")[2].toUpperCase();
+  const trimAllSpaceFromLabel = nodeLabel.split(' ').join('');
+  const paramName = paramKey.replace(`${node.data.func}_`,'').replace(`${trimAllSpaceFromLabel}_`, '').toUpperCase();
   const optionLabel = `${nodeLabel} ▶ ${paramName}`;
   const defaultValue = paramValue.value;
 

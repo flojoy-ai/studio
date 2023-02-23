@@ -234,10 +234,33 @@ export const NOISY_SINE = {
         x: 1121.1838695461784,
         y: 496.85976596421335,
       },
-      selected: true,
+      selected: false,
       positionAbsolute: {
         x: 1121.1838695461784,
         y: 496.85976596421335,
+      },
+      dragging: true,
+    },
+    {
+      width: 150,
+      height: 135,
+      id: "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+      type: "TERMINATOR",
+      data: {
+        id: "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+        label: "The End",
+        func: "END",
+        type: "TERMINATOR",
+        ctrls: {},
+      },
+      position: {
+        x: 1540.8276592951277,
+        y: 318.01851507818225,
+      },
+      selected: true,
+      positionAbsolute: {
+        x: 1540.8276592951277,
+        y: 318.01851507818225,
       },
       dragging: true,
     },
@@ -306,11 +329,25 @@ export const NOISY_SINE = {
       targetHandle: "SCATTER",
       id: "reactflow__edge-ADD-498040ea-e438-43c9-91eb-469170b77f84main-SCATTER-42385345-8d75-4260-88c5-0ea3ea72670fSCATTER",
     },
+    {
+      source: "HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965",
+      sourceHandle: "main",
+      target: "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+      targetHandle: "END",
+      id: "reactflow__edge-HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965main-END-151fc182-1da7-4924-982f-bbf4a35d8084END",
+    },
+    {
+      source: "SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f",
+      sourceHandle: "main",
+      target: "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+      targetHandle: "END",
+      id: "reactflow__edge-SCATTER-42385345-8d75-4260-88c5-0ea3ea72670fmain-END-151fc182-1da7-4924-982f-bbf4a35d8084END",
+    },
   ],
   viewport: {
-    x: 434.72943722943717,
-    y: 85.74675324675326,
-    zoom: 0.8225108225108225,
+    x: 104.0574338280212,
+    y: -56.671826192055676,
+    zoom: 1.2502711672421218,
   },
 };
 
@@ -787,66 +824,63 @@ export const CONDITIONAL = {
 
 export const OBJECT_DETECTION = {
   elements: [
-      {
-          id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-          type: "default",
-          position: {
-            "x": 1136.6444964153716,
-            "y": 132.0527524900669
-          },
-          data: {
-              id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-              label: "Object Detection",
-              func: "OBJECT_DETECTION",
-              type: "SIMULATION",
-              ctrls: {}
-          }
+    {
+      id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
+      type: "default",
+      position: {
+        x: 1136.6444964153716,
+        y: 132.0527524900669,
       },
-      {
-          id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-          type: "default",
-          position: {
-            "x": 228.09710889449232,
-            "y": 129.01818849474336
-          },
-          data: {
-              id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-              label: "File Loader",
-              func: "LOCAL_FILE",
-              type: "LOADER",
-              ctrls: {
-                  LOCAL_FILE_file_file_type: {
-                      functionName: "LOCAL_FILE",
-                      param: "file_type",
-                      value: "image"
-                  },
-                  LOCAL_FILE_file_op_type: {
-                      functionName: "LOCAL_FILE",
-                      param: "op_type",
-                      value: "OD"
-                  },
-                  LOCAL_FILE_file_path: {
-                      functionName: "LOCAL_FILE",
-                      param: "path",
-                      value: ""
-                  }
-              }
-          }
+      data: {
+        id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
+        label: "Object Detection",
+        func: "OBJECT_DETECTION",
+        type: "SIMULATION",
+        ctrls: {},
       },
-      {
-          source: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-          sourceHandle: "main",
-          target: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-          targetHandle: "OBJECT_DETECTION",
-          id: "reactflow__edge-LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68cmain-OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1adOBJECT_DETECTION"
-      }
+    },
+    {
+      id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
+      type: "default",
+      position: {
+        x: 228.09710889449232,
+        y: 129.01818849474336,
+      },
+      data: {
+        id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
+        label: "File Loader",
+        func: "LOCAL_FILE",
+        type: "LOADER",
+        ctrls: {
+          LOCAL_FILE_file_file_type: {
+            functionName: "LOCAL_FILE",
+            param: "file_type",
+            value: "image",
+          },
+          LOCAL_FILE_file_op_type: {
+            functionName: "LOCAL_FILE",
+            param: "op_type",
+            value: "OD",
+          },
+          LOCAL_FILE_file_path: {
+            functionName: "LOCAL_FILE",
+            param: "path",
+            value: "",
+          },
+        },
+      },
+    },
+    {
+      source: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
+      sourceHandle: "main",
+      target: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
+      targetHandle: "OBJECT_DETECTION",
+      id: "reactflow__edge-LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68cmain-OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1adOBJECT_DETECTION",
+    },
   ],
-  position: [
-      0,
-      0
-  ],
-  zoom: 1
-}
+  position: [0, 0],
+  zoom: 1,
+};
 
 export const EMPTY_CANVAS = {
   elements: [],

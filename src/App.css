@@ -185,9 +185,11 @@
   color: #fff;
   height: 24;
   cursor: pointer;
+  min-width: fit-content
 }
 .tab-panel {
-  height: 50px;
+  height: 70px;
+  width: auto;
 }
 .tab-panel button {
   color: rgba(140, 150, 153, 1);

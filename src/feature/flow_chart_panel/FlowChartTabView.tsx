@@ -28,6 +28,7 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import {  SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
 
 localforage.config({
   name: "react-flow",
@@ -61,8 +62,9 @@ const FlowChartTab = ({
     setNodeType,
   } = useFlowChartTabState();
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
+
   const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default: CustomEdge as any }),
+    () => ({ default:SmartBezierEdge}),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
@@ -153,7 +155,7 @@ const FlowChartTab = ({
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          onNodeClick={onNodeClick}
+          onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
         />
       </div>

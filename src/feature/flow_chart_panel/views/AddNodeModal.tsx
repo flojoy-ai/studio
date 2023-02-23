@@ -49,6 +49,7 @@ const AddNodeModal = ({
               : "1px solid rgba(217, 217, 217, 1)",
           alignItems: "center",
           gap: "8px",
+          overflowX:'scroll'
         }}
       >
         {SECTIONS.map((section) => (
@@ -58,6 +59,7 @@ const AddNodeModal = ({
             key={section.title}
             style={{
               ...(activeTab === section.title && activeBtnStyle),
+              width:'fit-content'
             }}
           >
             {section.title}

@@ -17,8 +17,9 @@ import { CtrlOptionValue } from "../types/ControlOptions";
 import PlotControl from "./PlotControl";
 import SevenSegmentComponent from "./SevenSegmentComponent";
 import KnobCtrl from "./KnobCtrl";
+import NodeReference from "./NodeReference";
 
-type ControlComponentProps = {
+export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
   results: ResultsType;
@@ -333,7 +334,9 @@ const ControlComponent = ({
           </div>
         </div>
       )}
-
+      {ctrlObj.name === ControlNames.NodeReference && (
+        <NodeReference ctrlObj={ctrlObj} updateCtrlValue={updateCtrlValue} theme={theme}/>
+      )}
       {ctrlObj.name === ControlNames.Dropdown && (
         <div className="ctrl-input-body">
           <Select

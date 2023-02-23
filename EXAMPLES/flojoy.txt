@@ -1,1 +1,384 @@
-{"rfInstance":{"nodes":[{"id":"SINE-userGeneratedNode_1646417316016","data":{"id":"SINE-userGeneratedNode_1646417316016","label":"SINE","func":"SINE","type":"GENERATOR","ctrls":{"SINE_SINE_frequency":{"functionName":"SINE","param":"frequency","value":"98"},"SINE_SINE_offset":{"functionName":"SINE","param":"offset","value":"94"},"SINE_SINE_amplitude":{"functionName":"SINE","param":"amplitude","value":1},"SINE_SINE_waveform":{"functionName":"SINE","param":"waveform","value":"sawtooth"}}},"position":{"x":291,"y":105},"type":"default"},{"id":"MULTIPLY-userGeneratedNode_1646417352715","data":{"id":"MULTIPLY-userGeneratedNode_1646417352715","label":"X","func":"MULTIPLY","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"multiply_y"}]},"position":{"x":523,"y":135},"type":"default"},{"id":"RAND-userGeneratedNode_1646417371398","data":{"id":"RAND-userGeneratedNode_1646417371398","label":"RAND","func":"RAND","type":"GENERATOR","ctrls":{}},"position":{"x":291,"y":322},"type":"default"},{"id":"ADD-userGeneratedNode_1646417428589","data":{"id":"ADD-userGeneratedNode_1646417428589","label":"+","func":"ADD","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"add_y"}]},"position":{"x":783,"y":322},"type":"default"},{"id":"LINSPACE-userGeneratedNode_1646432683694","data":{"id":"LINSPACE-userGeneratedNode_1646432683694","label":"Linspace","func":"LINSPACE","type":"GENERATOR","ctrls":{"LINSPACE_Linspace_start":{"functionName":"LINSPACE","param":"start","value":"10"},"LINSPACE_Linspace_end":{"functionName":"LINSPACE","param":"end","value":"0"},"LINSPACE_Linspace_step":{"functionName":"LINSPACE","param":"step","value":"1000"}}},"position":{"x":0,"y":322},"type":"default"},{"id":"2.0-userGeneratedNode_1646435677928","data":{"id":"2.0-userGeneratedNode_1646435677928","label":"2.0","func":"CONSTANT","type":"GENERATOR","ctrls":{"CONSTANT_2.0_constant":{"functionName":"CONSTANT","param":"constant","value":"3"}}},"position":{"x":291,"y":479},"type":"default"}],"edges":[{"source":"LINSPACE-userGeneratedNode_1646432683694","sourceHandle":null,"target":"SINE-userGeneratedNode_1646417316016","targetHandle":"SINE","animated":false,"id":"reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-SINE-3c918322-f469-4971-aee3-ab2603fe0885SINE"},{"source":"LINSPACE-userGeneratedNode_1646432683694","sourceHandle":null,"target":"RAND-userGeneratedNode_1646417371398","targetHandle":"RAND","animated":false,"id":"reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-RAND-31ba3a7f-f33c-4811-aa24-8df85d590a20RAND"},{"source":"LINSPACE-userGeneratedNode_1646432683694","sourceHandle":null,"target":"2.0-userGeneratedNode_1646435677928","targetHandle":"CONSTANT","animated":false,"id":"reactflow__edge-LINSPACE-397f5e11-7559-457c-878f-4b6029cfbfb8null-CONSTANT-b4d8b0a2-09a6-4104-bbf8-3fee98cf7cb7CONSTANT"},{"source":"SINE-userGeneratedNode_1646417316016","sourceHandle":null,"target":"MULTIPLY-userGeneratedNode_1646417352715","targetHandle":"MULTIPLY","id":"reactflow__edge-SINE-userGeneratedNode_1646417316016null-MULTIPLY-userGeneratedNode_1646417352715MULTIPLY"},{"source":"RAND-userGeneratedNode_1646417371398","sourceHandle":null,"target":"MULTIPLY-userGeneratedNode_1646417352715","targetHandle":"multiply_y","id":"reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715multiply_y"},{"source":"MULTIPLY-userGeneratedNode_1646417352715","sourceHandle":null,"target":"ADD-userGeneratedNode_1646417428589","targetHandle":"ADD","id":"reactflow__edge-MULTIPLY-userGeneratedNode_1646417352715null-ADD-userGeneratedNode_1646417428589ADD"},{"source":"2.0-userGeneratedNode_1646435677928","sourceHandle":null,"target":"ADD-userGeneratedNode_1646417428589","targetHandle":"add_y","id":"reactflow__edge-2.0-userGeneratedNode_1646435677928null-ADD-userGeneratedNode_1646417428589add_y"}],"viewPort":{"x":0,"y":0,"zoom":1}},"ctrlsManifest":[{"type":"input","name":"Slider","id":"INPUT_PLACEHOLDER","hidden":false,"minHeight":1,"minWidth":2,"param":{"id":"SINE_SINE_frequency","functionName":"SINE","param":"frequency","nodeId":"SINE-userGeneratedNode_1646417316016","inputId":"INPUT_PLACEHOLDER"},"val":"98","layout":{"x":0,"y":0,"h":2,"w":2,"minH":1,"minW":2,"i":"INPUT_PLACEHOLDER"}},{"type":"output","name":"Plot","minWidth":2,"minHeight":3,"id":"ctrl-23197849-8f46-45f5-a9ac-86f00e8b2cf5","hidden":false,"param":"MULTIPLY-userGeneratedNode_1646417352715","val":0,"layout":{"x":5,"y":0,"h":4,"w":3,"minH":3,"minW":2,"i":"ctrl-23197849-8f46-45f5-a9ac-86f00e8b2cf5"}},{"type":"output","name":"Plot","minWidth":2,"minHeight":3,"id":"ctrl-1d5694d7-423d-4305-96cf-bd7727c5d4dc","hidden":false,"param":"SINE-userGeneratedNode_1646417316016","val":0,"layout":{"x":2,"y":0,"h":4,"w":3,"minH":3,"minW":2,"i":"ctrl-1d5694d7-423d-4305-96cf-bd7727c5d4dc"}},{"type":"input","name":"Slider","minWidth":2,"minHeight":1,"id":"ctrl-c723e5b3-74ae-4edd-86bf-11acfccdbdc6","hidden":false,"param":{"id":"SINE_SINE_offset","functionName":"SINE","param":"offset","nodeId":"SINE-userGeneratedNode_1646417316016","inputId":"ctrl-c723e5b3-74ae-4edd-86bf-11acfccdbdc6"},"val":"94","layout":{"x":0,"y":2,"h":2,"w":2,"minH":1,"minW":2,"i":"ctrl-c723e5b3-74ae-4edd-86bf-11acfccdbdc6"}},{"type":"input","name":"Radio Button Group","minWidth":2,"minHeight":1,"id":"ctrl-ba8ac27e-485b-4886-83d6-d2de3ab891b2","hidden":false,"param":{"id":"SINE_SINE_waveform","functionName":"SINE","param":"waveform","nodeId":"SINE-userGeneratedNode_1646417316016","inputId":"ctrl-ba8ac27e-485b-4886-83d6-d2de3ab891b2"},"val":"sawtooth","layout":{"x":0,"y":4,"h":2,"w":2,"minH":1,"minW":2,"i":"ctrl-ba8ac27e-485b-4886-83d6-d2de3ab891b2"}},{"type":"input","name":"Dropdown","minWidth":2,"minHeight":2,"id":"ctrl-d5acf0e5-2473-4153-953e-c67a3960e14d","hidden":false,"param":{"id":"SINE_SINE_waveform","functionName":"SINE","param":"waveform","nodeId":"SINE-userGeneratedNode_1646417316016","inputId":"ctrl-d5acf0e5-2473-4153-953e-c67a3960e14d"},"val":"sine","layout":{"x":2,"y":4,"h":2,"w":2,"minH":2,"minW":2,"i":"ctrl-d5acf0e5-2473-4153-953e-c67a3960e14d"}},{"type":"input","name":"Checkbox Button Group","minWidth":2,"minHeight":1,"id":"ctrl-07cf70d8-f501-4228-b31d-e0ff728cda6f","hidden":false,"param":{"id":"SINE_SINE_waveform","functionName":"SINE","param":"waveform","nodeId":"SINE-userGeneratedNode_1646417316016","inputId":"ctrl-07cf70d8-f501-4228-b31d-e0ff728cda6f"},"val":"triangle","layout":{"x":4,"y":4,"h":2,"w":2,"minH":1,"minW":2,"i":"ctrl-07cf70d8-f501-4228-b31d-e0ff728cda6f"}}]}
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 135,
+                "id": "LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a",
+                "type": "default",
+                "data": {
+                    "id": "LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a",
+                    "label": "Linspace",
+                    "func": "LINSPACE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "LINSPACE_Linspace_start": {
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": "10"
+                        },
+                        "LINSPACE_Linspace_end": {
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": "0"
+                        },
+                        "LINSPACE_Linspace_step": {
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": "1000"
+                        }
+                    }
+                },
+                "position": {
+                    "x": -13.97018918355137,
+                    "y": 329.3798744949378
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -13.97018918355137,
+                    "y": 329.3798744949378
+                },
+                "dragging": true
+            },
+            {
+                "width": 115,
+                "height": 115,
+                "id": "SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "SINE_SINE_frequency": {
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "SINE_SINE_offset": {
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "SINE_SINE_amplitude": {
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "SINE_SINE_waveform": {
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    }
+                },
+                "position": {
+                    "x": 371.3390740788672,
+                    "y": 98.25936438452473
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 371.3390740788672,
+                    "y": 98.25936438452473
+                },
+                "dragging": true
+            },
+            {
+                "width": 115,
+                "height": 115,
+                "id": "RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71",
+                    "label": "RAND",
+                    "func": "RAND",
+                    "type": "SIMULATION",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 370.2054732681884,
+                    "y": 333.3052378946138
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 370.2054732681884,
+                    "y": 333.3052378946138
+                },
+                "dragging": true
+            },
+            {
+                "width": 115,
+                "height": 115,
+                "id": "CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f",
+                    "label": "2.0",
+                    "func": "CONSTANT",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "CONSTANT_2.0_constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": 2
+                        }
+                    }
+                },
+                "position": {
+                    "x": 360.7021391443721,
+                    "y": 561.2475408015774
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 360.7021391443721,
+                    "y": 561.2475408015774
+                },
+                "dragging": true
+            },
+            {
+                "width": 99,
+                "height": 115,
+                "id": "MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2",
+                    "label": "X",
+                    "func": "MULTIPLY",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "multiply_y",
+                            "type": "target"
+                        }
+                    ]
+                },
+                "position": {
+                    "x": 644.2196760701734,
+                    "y": 194.90429392401762
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 644.2196760701734,
+                    "y": 194.90429392401762
+                },
+                "dragging": true
+            },
+            {
+                "width": 99,
+                "height": 115,
+                "id": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                    "label": "+",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "y",
+                            "id": "add_y",
+                            "type": "target"
+                        }
+                    ]
+                },
+                "position": {
+                    "x": 842.4967707292867,
+                    "y": 356.6784397726623
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 842.4967707292867,
+                    "y": 356.6784397726623
+                },
+                "dragging": true
+            },
+            {
+                "width": 250,
+                "height": 159,
+                "id": "HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965",
+                "type": "VISOR",
+                "data": {
+                    "id": "HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965",
+                    "label": "HISTOGRAM",
+                    "func": "HISTOGRAM",
+                    "type": "VISOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 1104.8609541509745,
+                    "y": 125.69279746964207
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1104.8609541509745,
+                    "y": 125.69279746964207
+                },
+                "dragging": true
+            },
+            {
+                "width": 250,
+                "height": 159,
+                "id": "SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f",
+                "type": "VISOR",
+                "data": {
+                    "id": "SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "VISOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 1121.1838695461784,
+                    "y": 496.85976596421335
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1121.1838695461784,
+                    "y": 496.85976596421335
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+                "type": "TERMINATOR",
+                "data": {
+                    "id": "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+                    "label": "The End",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {}
+                },
+                "position": {
+                    "x": 1540.8276592951277,
+                    "y": 318.01851507818225
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 1540.8276592951277,
+                    "y": 318.01851507818225
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a",
+                "sourceHandle": "main",
+                "target": "SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071",
+                "targetHandle": "SINE",
+                "id": "reactflow__edge-LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8amain-SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071SINE"
+            },
+            {
+                "source": "LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a",
+                "sourceHandle": "main",
+                "target": "RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71",
+                "targetHandle": "RAND",
+                "id": "reactflow__edge-LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8amain-RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71RAND"
+            },
+            {
+                "source": "LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a",
+                "sourceHandle": "main",
+                "target": "CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f",
+                "targetHandle": "CONSTANT",
+                "id": "reactflow__edge-LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8amain-CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413fCONSTANT"
+            },
+            {
+                "source": "RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71",
+                "sourceHandle": "main",
+                "target": "MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2",
+                "targetHandle": "multiply_y",
+                "id": "reactflow__edge-RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71main-MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2multiply_y"
+            },
+            {
+                "source": "SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071",
+                "sourceHandle": "main",
+                "target": "MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2",
+                "targetHandle": "MULTIPLY",
+                "id": "reactflow__edge-SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071main-MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2MULTIPLY"
+            },
+            {
+                "source": "CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f",
+                "sourceHandle": "main",
+                "target": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                "targetHandle": "add_y",
+                "id": "reactflow__edge-CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413fmain-ADD-498040ea-e438-43c9-91eb-469170b77f84add_y"
+            },
+            {
+                "source": "MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2",
+                "sourceHandle": "main",
+                "target": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                "targetHandle": "ADD",
+                "id": "reactflow__edge-MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2main-ADD-498040ea-e438-43c9-91eb-469170b77f84ADD"
+            },
+            {
+                "source": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                "sourceHandle": "main",
+                "target": "HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965",
+                "targetHandle": "HISTOGRAM",
+                "id": "reactflow__edge-ADD-498040ea-e438-43c9-91eb-469170b77f84main-HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965HISTOGRAM"
+            },
+            {
+                "source": "ADD-498040ea-e438-43c9-91eb-469170b77f84",
+                "sourceHandle": "main",
+                "target": "SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f",
+                "targetHandle": "SCATTER",
+                "id": "reactflow__edge-ADD-498040ea-e438-43c9-91eb-469170b77f84main-SCATTER-42385345-8d75-4260-88c5-0ea3ea72670fSCATTER"
+            },
+            {
+                "source": "HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965",
+                "sourceHandle": "main",
+                "target": "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+                "targetHandle": "END",
+                "id": "reactflow__edge-HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965main-END-151fc182-1da7-4924-982f-bbf4a35d8084END"
+            },
+            {
+                "source": "SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f",
+                "sourceHandle": "main",
+                "target": "END-151fc182-1da7-4924-982f-bbf4a35d8084",
+                "targetHandle": "END",
+                "id": "reactflow__edge-SCATTER-42385345-8d75-4260-88c5-0ea3ea72670fmain-END-151fc182-1da7-4924-982f-bbf4a35d8084END"
+            }
+        ],
+        "viewport": {
+            "x": 100.78251993386277,
+            "y": 34.10874204470315,
+            "zoom": 1.015849582027344
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ],
+    "gridLayout": [
+        {
+            "x": 0,
+            "y": 0,
+            "h": 2,
+            "w": 2,
+            "minH": 1,
+            "minW": 2,
+            "i": "INPUT_PLACEHOLDER"
+        }
+    ]
+}

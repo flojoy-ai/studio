@@ -1,6 +1,7 @@
 [
-  { "title": "butterworth.txt", "test_id": "withdefaultParam" },
-  { "title": "count down.txt", "test_id": "withdefaultParam" },
-  { "title": "count up.txt", "test_id": "withdefaultParam" },
-  { "title": "flojoy.txt", "test_id": "withdefaultParam" }
+  { "title": "flojoy.txt", "test_id": "withdefaultParam" },
+  { "title": "FIR.txt", "test_id": "withdefaultParam" },
+  { "title": "Feedback_node.txt", "test_id": "withdefaultParam" },
+  { "title": "flojoy.txt", "test_id": "withdefaultParam" },
+  { "title": "nested_loop.txt", "test_id": "withdefaultParam" }
 ]

@@ -3,10 +3,11 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { WritableDraft } from "immer/dist/internal";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, memo } from "react";
 import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
+
 interface KnobCtrlProps {
   makeLayoutStatic: () => void;
   isEditMode: boolean;
@@ -33,14 +34,13 @@ const KnobCtrl = ({
   const [knobValue, setKnobValue] = useState(0);
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
-      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        setKnobValue(value);
-        return;
+      if ((ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+        updateCtrlValue(value.toString(), ctrlObj);
       }
-      updateCtrlValue(value.toString(), ctrlObj);
+      setKnobValue(value);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ctrlObj]
+    [(ctrlObj?.param as CtrlManifestParam)?.nodeId]
   );
 
   useEffect(() => {
@@ -81,14 +81,11 @@ const KnobCtrl = ({
         step={1}
         value={knobValue || currentInputValue}
         diameter={180}
-        onValueChange={(val) => {
-          console.log(" onValueChange: ", val);
-          updateCtrlValueFromKnob(val);
-        }}
+        onValueChange={updateCtrlValueFromKnob}
         ariaLabelledBy={"my-label"}
       ></Silver>
     </div>
   );
 };
 
-export default KnobCtrl;
+export default memo(KnobCtrl);

@@ -1,7 +1,0 @@
-COMMAND:
-  - {
-      name: loop-conditional,
-      key: CONDITIONAL,
-      type: CONDITIONAL,
-      parameters: { operator_type: { type: "string", default: ">=" } },
-    }
