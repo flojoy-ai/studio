@@ -2,8 +2,7 @@
 import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
 import { NOISY_SINE } from "@src/data/RECIPES";
 
-const nodes =
-NOISY_SINE.nodes.map(node=>({
+const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,
   name: node.data.label.toLowerCase(),
 }));
@@ -39,7 +38,7 @@ describe("User default workflow", () => {
     });
 
     cy.get("[data-testid=result-node]", { timeout: 60000 });
-
+    cy.wait(5000);
     cy.get(`[data-cy="script-btn"]`).click();
     nodes.forEach((node) => {
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");

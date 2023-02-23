@@ -87,9 +87,8 @@ describe("user workflow", () => {
       .contains("🐢 awaiting a new job", { timeout: 600000 });
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
-
+    cy.wait(5000);
     cy.get(`[data-cy="script-btn"]`).click();
-
     nodes.forEach((node) => {
       matchPlotlyOutput(`${node.selector}`, "plotlyCustomOutput");
     });
