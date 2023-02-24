@@ -17,7 +17,7 @@ import {
 } from "@tabler/icons";
 import { useState } from "react";
 
-import { LinksGroup } from "./NavbarLinksGroup";
+import { SidebarSection } from "./SidebarSection";
 import { SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 
 const mockdata = [
@@ -86,11 +86,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function NavbarNested({ theme }) {
+export function Sidebar({ theme }) {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const { classes } = useStyles();
   const links = SECTIONS.map((item) => (
-    <LinksGroup {...item} key={item.title} />
+    <SidebarSection {...item} key={item.title} />
   ));
 
   const handleSidebar = () => setSideBarStatus(!isSideBarOpen);

@@ -17,7 +17,7 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 import SideBar from "./feature/flow_chart_panel/SideBar/SIdeBar";
 // import { NavbarNested } from "./feature/flow_chart_panel/SideBar/SIdeBar";
-import { NavbarNested } from "./feature/flow_chart_panel/SideBar2/NavbarNested";
+import { Sidebar } from "./feature/flow_chart_panel/SideBar2/Sidebar";
 
 const App = () => {
   const [isSideBarClicked, setIsSideBarClicked] = useState(false);
@@ -147,7 +147,7 @@ const App = () => {
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
           {/* <SideBar theme={theme} /> */}
-          <NavbarNested theme={theme} />
+          <Sidebar theme={theme} />
           <FlowChartTab
             rfInstance={rfInstance!}
             setRfInstance={setRfInstance}
