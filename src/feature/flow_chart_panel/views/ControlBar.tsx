@@ -1,23 +1,21 @@
-import { memo, useCallback, FC, useState, useEffect } from "react";
-// import { useZoomPanHelper } from 'reactflow';
+import { memo, useCallback, FC, useState, useEffect, useRef } from "react";
 import localforage from "localforage";
 import { v4 as uuidv4 } from "uuid";
-
 import "react-tabs/style/react-tabs.css";
-
 import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
-} from "../../../services/FlowChartServices";
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
+} from "@src/services/FlowChartServices";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
 import PythonFuncModal from "./AddNodeModal";
-import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
-import { useSocket } from "../../../hooks/useSocket";
+import { useSocket } from "@src/hooks/useSocket";
 import CancelIconSvg from "@src/utils/cancel_icon";
+import PlayBtn from "../components/play-btn/PlayBtn";
+import { IServerStatus } from "@src/context/socket.context";
 
 localforage.config({
   name: "react-flow",
@@ -39,6 +37,7 @@ const Controls: FC<ControlsProps> = ({
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
+  const DropDownElem = useRef<HTMLDivElement>(null);
 
   const {
     isEditMode,
@@ -64,12 +63,9 @@ const Controls: FC<ControlsProps> = ({
     if (rfInstance && rfInstance.nodes.length > 0) {
       cancelFlowChartRun({ rfInstance, jobId: socketId });
     } else {
-      alert(
-        "There is no running job on server."
-      );
+      alert("There is no running job on server.");
     }
-  }
-
+  };
 
   const onAdd: NodeOnAddFunc = useCallback(
     ({ key, params, type, inputs, customNodeId }) => {
@@ -141,129 +137,112 @@ const Controls: FC<ControlsProps> = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
+  const openDropDown = () => {
+    if (DropDownElem.current) {
+      DropDownElem.current.style.opacity = "1";
+      DropDownElem.current.style.zIndex = "50";
+      DropDownElem.current.style.transform = "translateY(0)";
+    }
+  };
+
+  const closeDropDown = () => {
+    if (DropDownElem.current) {
+      DropDownElem.current.style.opacity = "0";
+      DropDownElem.current.style.zIndex = "-1";
+      DropDownElem.current.style.transform = "translateY(-10%)";
+    }
+  };
+
   const isServerOffline = () =>
-    serverStatus === "🛑 server offline" ||
-    serverStatus === "Connecting to server...";
+    serverStatus === IServerStatus.CONNECTING ||
+    serverStatus === IServerStatus.OFFLINE;
 
   return (
     <div className="save__controls">
-      <button
-        className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
+      <PlayBtn
         style={{
-          color: theme === "dark" ? "#fff" : "#000",
-          cursor: isServerOffline() ? "none" : "pointer",
+          ...(isServerOffline() && {
+            cursor: "none",
+          }),
         }}
         onClick={onSave}
-        data-cy="btn-play"
         disabled={isServerOffline()}
-      >
-        <PlayIconSvg style={{ marginRight: "6px" }} theme={theme} /> Play
-      </button>
+        theme={theme}
+      />
       <button
-        className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
-        style={{
-          color: 'red',
-          display: 'flex',
-          justifyContent:'center',
-          alignItems:'center',
-          gap:'3px',
-          border: '1px solid rgb(255 153 177)',
-          backgroundColor: 'rgb(255 158 153 / 20%)',
-        }}
+        className={`btn__cancel ${theme === "dark" ? "dark" : "light"}`}
         onClick={cancelFC}
         data-cy="btn-cancel"
       >
-        <CancelIconSvg style={{ marginRight: "6px" }} theme={theme} /> Cancel
+        <CancelIconSvg theme={theme} />
+        <span>Cancel</span>
       </button>
       {activeTab !== "debug" && activeTab === "visual" ? (
-        <button
-          className="save__controls_button"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "4px",
-          }}
-          onClick={() => {
+        <AddBtn
+          closeDropDown={closeDropDown}
+          handleClick={() => {
             openModal();
           }}
-        >
-          {" "}
-          <div
-            style={{
-              color: theme === "dark" ? "#99F5FF" : "blue",
-              fontSize: "20px",
-            }}
-          >
-            +
-          </div>
-          <div
-            style={{
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-            data-cy={`add-node`}
-          >
-            Add
-          </div>
-        </button>
+          theme={theme}
+          dataCY={"add-node"}
+        />
       ) : (
         isEditMode &&
         activeTab === "panel" && (
-          <button
-            className="save__controls_button"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "4px",
-            }}
-            onClick={() => {
+          <AddBtn
+            closeDropDown={closeDropDown}
+            dataCY={"add-ctrl"}
+            theme={theme}
+            handleClick={() => {
               setOpenCtrlModal((prev) => !prev);
             }}
-          >
-            {" "}
-            <div
-              style={{
-                color: theme === "dark" ? "#99F5FF" : "blue",
-                fontSize: "20px",
-              }}
-            >
-              +
-            </div>
-            <div
-              style={{
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy={`add-ctrl`}
-            >
-              Add
-            </div>
-          </button>
+          />
         )
       )}
-
       {activeTab !== "debug" && (
-        <button
-          className="save__controls_button"
-          style={{
-            color: theme === "dark" ? "#fff" : "#000",
-          }}
-          onClick={openFileSelector}
-        >
-          Load
-        </button>
-      )}
+        <div className="file__dropdown__wrapper" onMouseEnter={openDropDown}>
+          <button
+            className="save__controls_button btn__file"
+            style={{
+              color: theme === "dark" ? "#fff" : "#000",
+            }}
+          >
+            <span>File</span>
+            <svg
+              width="10"
+              height="7"
+              viewBox="0 0 10 7"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0L5 6.74101L10 0H0Z"
+                fill={theme === "dark" ? "#fff" : "#000"}
+              />
+            </svg>
+          </button>
+          <div
+            className="file__dropdown"
+            ref={DropDownElem}
+            onMouseLeave={closeDropDown}
+          >
+            <button onClick={openFileSelector}>Load</button>
 
-      {activeTab !== "debug" && (
-        <button
-          className="save__controls_button"
-          style={{
-            color: theme === "dark" ? "#fff" : "#000",
-          }}
-          onClick={saveFile}
-        >
-          Save
-        </button>
+            <button onClick={saveFile}>Save</button>
+            <button
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+              onClick={saveFile}
+            >
+              <span>Save As</span>
+              <small>Ctrl + s</small>
+            </button>
+
+            <button onClick={saveFile}>Keyboard Shortcut</button>
+          </div>
+        </div>
       )}
       {activeTab !== "visual" && activeTab !== "debug" && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
@@ -280,12 +259,13 @@ const Controls: FC<ControlsProps> = ({
           </span>
           <ReactSwitch
             checked={isEditMode}
-            onChange={(nextChecked) => setIsEditMode(!isEditMode)}
+            onChange={() => setIsEditMode(!isEditMode)}
             height={22}
             width={50}
           />
         </div>
       )}
+
       <PythonFuncModal
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
@@ -298,3 +278,31 @@ const Controls: FC<ControlsProps> = ({
 };
 
 export default memo(Controls);
+
+const AddBtn = ({ closeDropDown, handleClick, theme, dataCY }) => {
+  return (
+    <button
+      className="save__controls_button btn__add"
+      onMouseEnter={closeDropDown}
+      onClick={handleClick}
+    >
+      {" "}
+      <div
+        style={{
+          color: theme === "dark" ? "#99F5FF" : "blue",
+          fontSize: "20px",
+        }}
+      >
+        +
+      </div>
+      <div
+        style={{
+          color: theme === "dark" ? "#fff" : "#000",
+        }}
+        data-cy={dataCY}
+      >
+        Add
+      </div>
+    </button>
+  );
+};

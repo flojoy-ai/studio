@@ -100,6 +100,87 @@
   color: white;
   border: none;
 }
+
+.btn__add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.btn__cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: 33px;
+  width: 85px;
+  cursor: pointer;
+  color: red;
+  border: 1px solid rgb(255 153 177);
+  background-color: rgb(255 158 153 / 20%);
+  transition: transform ease-in 0.1s;
+}
+.btn__cancel:hover {
+  background-color: rgba(245, 33, 33, 0.697);
+  color: #e6e6e6;
+}
+.btn__cancel:hover > svg > g {
+  fill: white;
+}
+.btn__cancel:active {
+  transform: scale(0.8);
+}
+
+/* Vector */
+.btn__file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.file__dropdown__wrapper {
+  position: relative;
+}
+.file__dropdown__wrapper:hover .file__dropdown {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 50;
+}
+.file__dropdown {
+  transition: all ease 0.7s;
+  flex-direction: column;
+  position: absolute;
+  top: 52px;
+  right: 0;
+  padding: 8px 0;
+  width: fit-content;
+  background: #243438;
+  align-items: flex-start;
+  z-index: -1;
+  transform: translateY(-10%);
+  opacity: 0;
+}
+.file__dropdown > button {
+  padding: 8px 12px;
+  color: #94f4fc;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 2;
+  font-size: 14px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: start;
+  white-space: nowrap;
+}
+.file__dropdown > button:hover {
+  background-color: #94f4fc;
+  color: black;
+}
+
 /* .ReactModal__Content button {
   margin-right: 10px;
   padding: 5px;
@@ -118,9 +199,9 @@
   display: flex;
   width: 100%;
 }
-.react-flow__node{
-  background: transparent!important;
-  border: none!important;
+.react-flow__node {
+  background: transparent !important;
+  border: none !important;
 }
 .react-flow__node-default {
   width: fit-content;
@@ -131,12 +212,12 @@
   /* background-color: #99f5ff4f; */
   /* border: 1px solid #99F5FF; */
   /* color: #99F5FF; */
-  background: transparent!important;
+  background: transparent !important;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-color: transparent!important;
+  border-color: transparent !important;
 }
 
 .react-flow__edge-path {
@@ -160,24 +241,7 @@
   border-radius: 0;
   border-bottom: 2px solid rgb(153, 245, 255) !important;
 }
-.cmd-btn-dark {
-  outline: 0;
-  border: 1px solid rgba(153, 245, 255, 1);
-  background-color: rgba(153, 245, 255, 0.2);
-  color: rgba(153, 245, 255, 1);
-  padding: 8px 12px 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.cmd-btn {
-  outline: 0;
-  border: 1px solid rgba(123, 97, 255, 1);
-  background-color: rgba(123, 97, 255, 0.17);
-  color: rgba(123, 97, 255, 1);
-  padding: 8px 12px 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+
 .btn-tab {
   outline: 0;
   border: 0;
@@ -185,12 +249,51 @@
   color: #fff;
   height: 24;
   cursor: pointer;
-  min-width: fit-content
+  min-width: fit-content;
 }
 .tab-panel {
   height: 70px;
   width: auto;
 }
+.tab-panel:hover::-webkit-scrollbar{
+  display: block;
+}
+
+.tab-panel::-webkit-scrollbar {
+  width: 1em;
+  height: 8px;
+  display: none;
+}
+ 
+.tab-panel::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.tab-panel::-webkit-scrollbar-thumb {
+  background-color: #94f4fc;
+  outline: 1px solid slategrey;
+  cursor: pointer;
+}
+
+.ReactModal__Content:hover::-webkit-scrollbar{
+  display: block;
+}
+
+.ReactModal__Content::-webkit-scrollbar {
+  width: 5px;
+  display: none;
+}
+ 
+.ReactModal__Content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.ReactModal__Content::-webkit-scrollbar-thumb {
+  background-color: #94f4fc;
+  outline: 1px solid slategrey;
+  cursor: pointer;
+}
+
 .tab-panel button {
   color: rgba(140, 150, 153, 1);
 }
