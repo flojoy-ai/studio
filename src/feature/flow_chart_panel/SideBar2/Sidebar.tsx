@@ -10,12 +10,35 @@ import { useState } from "react";
 import { SidebarSection } from "./SidebarSection";
 import { SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 
-const useStyles = createStyles((theme) => ({
-  navbar: {
-    backgroundColor: theme.colorScheme,
+interface ThemeProps {
+  appTheme: "dark" | "light";
+}
+
+const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
+  navbarView: {
     paddingBottom: 0,
-    position: "fixed",
+    position: "absolute",
+    left: "0%",
+    right: "0%",
     top: "110px",
+    bottom: "0%",
+    backgroundColor: appTheme === "dark" ? "#243438" : appTheme,
+    boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
+    height: "100%",
+    transition: "500ms",
+  },
+
+  navbarHidden: {
+    paddingBottom: 0,
+    position: "absolute",
+    left: "-25%",
+    right: "0%",
+    top: "110px",
+    bottom: "0%",
+    backgroundColor: appTheme === "dark" ? "#243438" : appTheme,
+    boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
+    height: "100%",
+    transition: "300ms",
   },
 
   header: {
@@ -40,9 +63,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function Sidebar({ theme }) {
+export function Sidebar({ appTheme }) {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles({ appTheme });
   const sections = SECTIONS.map((item) => (
     <SidebarSection {...item} key={item.title} />
   ));
@@ -53,9 +76,7 @@ export function Sidebar({ theme }) {
     <MantineProvider
       withGlobalStyles
       withNormalizeCSS
-      theme={{
-        colorScheme: theme,
-      }}
+      theme={{ ...theme, colorScheme: appTheme }}
     >
       <div>
         <button
@@ -76,38 +97,36 @@ export function Sidebar({ theme }) {
         >
           + Add Node
         </button>
-        {isSideBarOpen && (
-          <Navbar
-            height={800}
-            width={{ sm: 387 }}
-            p="md"
-            className={classes.navbar}
+        <Navbar
+          height={800}
+          width={{ sm: 387 }}
+          p="md"
+          className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+        >
+          <Navbar.Section
+            style={{
+              right: 10,
+              position: "absolute",
+              top: 5,
+            }}
           >
-            <Navbar.Section
+            <button
+              onClick={handleSidebar}
               style={{
-                right: 10,
-                position: "absolute",
-                top: 5,
+                cursor: "pointer",
               }}
             >
-              <button
-                onClick={handleSidebar}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                <i className="fa-sharp fa-solid fa-xmark"></i>
-              </button>
-            </Navbar.Section>
-            <Navbar.Section
-              grow
-              className={classes.sections}
-              component={ScrollArea}
-            >
-              <div className={classes.sectionsInner}>{sections}</div>
-            </Navbar.Section>
-          </Navbar>
-        )}
+              X
+            </button>
+          </Navbar.Section>
+          <Navbar.Section
+            grow
+            className={classes.sections}
+            component={ScrollArea}
+          >
+            <div className={classes.sectionsInner}>{sections}</div>
+          </Navbar.Section>
+        </Navbar>
       </div>
     </MantineProvider>
   );

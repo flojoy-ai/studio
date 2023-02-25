@@ -17,18 +17,12 @@ const useStyles = createStyles((theme) => ({
   control: {
     fontWeight: 500,
     display: "block",
-    width: "100%",
+    width: "90%",
     padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
-    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
+    color: "black",
     fontSize: theme.fontSizes.sm,
-
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    },
+    margin: "10px 20px 10px 20px",
+    backgroundColor: theme.colorScheme === "dark" ? "#94F4FC" : "#E1E4E7",
   },
 
   subSection: {
@@ -47,13 +41,13 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
 
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    },
+    // "&:hover": {
+    //   backgroundColor:
+    //     theme.colorScheme === "dark"
+    //       ? theme.colors.dark[7]
+    //       : theme.colors.gray[0],
+    //   color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    // },
   },
 
   chevron: {

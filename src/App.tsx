@@ -146,8 +146,7 @@ const App = () => {
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          {/* <SideBar theme={theme} /> */}
-          <Sidebar theme={theme} />
+          <Sidebar appTheme={theme} />
           <FlowChartTab
             rfInstance={rfInstance!}
             setRfInstance={setRfInstance}

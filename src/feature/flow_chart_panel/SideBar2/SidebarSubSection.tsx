@@ -15,21 +15,14 @@ const useStyles = createStyles((theme) => ({
   control: {
     fontWeight: 500,
     display: "block",
-    width: "100%",
-    // padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    width: "90%",
     padding: "10px 16px",
     paddingLeft: "31px",
-    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
     fontSize: theme.fontSizes.sm,
     borderLeft: "1px solid #dee2e6",
-
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    },
+    backgroundColor: theme.colorScheme === "dark" ? "#94F4FC" : "#E1E4E7",
+    height: "100%",
+    color: "black",
   },
 
   link: {
@@ -47,14 +40,6 @@ const useStyles = createStyles((theme) => ({
     borderLeft: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
-
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    },
   },
 
   chevron: {
@@ -75,14 +60,24 @@ const useStyles = createStyles((theme) => ({
     borderLeft: `1px solid ${
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
-
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    },
+  },
+  buttonDark: {
+    outline: "0",
+    border: "1px solid rgba(153, 245, 255, 1)",
+    backgroundColor: "rgba(153, 245, 255, 0.2)",
+    color: "rgba(153, 245, 255, 1)",
+    padding: "8px 12px 8px 12px",
+    cursor: "pointer",
+    margin: "5px 5px",
+  },
+  buttonLight: {
+    outline: 0,
+    border: "1px solid rgba(123, 97, 255, 1)",
+    backgroundColor: "rgba(123, 97, 255, 0.17)",
+    color: "rgba(123, 97, 255, 1)",
+    padding: "8px 12px 8px 12px",
+    cursor: "pointer",
+    margin: "5px 5px",
   },
 }));
 
@@ -107,7 +102,9 @@ export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
           {subSection.key === cmd.type && (
             <button
               className={
-                theme.colorScheme === "dark" ? "cmd-btn-dark" : "cmd-btn"
+                theme.colorScheme === "dark"
+                  ? classes.buttonDark
+                  : classes.buttonLight
               }
               onClick={() => {
                 onAdd({
