@@ -1,60 +1,14 @@
 import {
   Navbar,
-  Group,
-  Code,
   ScrollArea,
   createStyles,
   MantineProvider,
 } from "@mantine/core";
-import {
-  IconNotes,
-  IconCalendarStats,
-  IconGauge,
-  IconPresentationAnalytics,
-  IconFileAnalytics,
-  IconAdjustments,
-  IconLock,
-} from "@tabler/icons";
+
 import { useState } from "react";
 
 import { SidebarSection } from "./SidebarSection";
 import { SECTIONS } from "../manifest/COMMANDS_MANIFEST";
-
-const mockdata = [
-  { label: "Dashboard", icon: IconGauge },
-  {
-    label: "Market news",
-    icon: IconNotes,
-    initiallyOpened: true,
-    links: [
-      { label: "Overview", link: "/" },
-      { label: "Forecasts", link: "/" },
-      { label: "Outlook", link: "/" },
-      { label: "Real time", link: "/" },
-    ],
-  },
-  {
-    label: "Releases",
-    icon: IconCalendarStats,
-    links: [
-      { label: "Upcoming releases", link: "/" },
-      { label: "Previous releases", link: "/" },
-      { label: "Releases schedule", link: "/" },
-    ],
-  },
-  { label: "Analytics", icon: IconPresentationAnalytics },
-  { label: "Contracts", icon: IconFileAnalytics },
-  { label: "Settings", icon: IconAdjustments },
-  {
-    label: "Security",
-    icon: IconLock,
-    links: [
-      { label: "Enable 2FA", link: "/" },
-      { label: "Change password", link: "/" },
-      { label: "Recovery codes", link: "/" },
-    ],
-  },
-];
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -125,7 +79,7 @@ export function Sidebar({ theme }) {
         {isSideBarOpen && (
           <Navbar
             height={800}
-            width={{ sm: 300 }}
+            width={{ sm: 387 }}
             p="md"
             className={classes.navbar}
           >
@@ -158,3 +112,6 @@ export function Sidebar({ theme }) {
     </MantineProvider>
   );
 }
+
+// + ADD NODE: Move in,ease out, 500ms
+// Close Button: Smart Animate, ease out, 300ms

@@ -60,6 +60,30 @@ const useStyles = createStyles((theme) => ({
   chevron: {
     transition: "transform 200ms ease",
   },
+
+  subSection: {
+    fontWeight: 500,
+    display: "block",
+    textDecoration: "none",
+    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    paddingLeft: 31,
+    fontSize: theme.fontSizes.sm,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    borderLeft: `1px solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0],
+      color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    },
+  },
 }));
 
 interface SubSectionProps {
@@ -73,14 +97,10 @@ export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
 
   const items = (
-    <div
-      className="flex"
-      style={{
-        gap: "8px",
-        alignItems: "center",
-        width: "fit-content",
-        flexWrap: "wrap",
-      }}
+    <Text<"div">
+      component="div"
+      className={classes.subSection}
+      key={`${subSection}`}
     >
       {COMMANDS.map((cmd, cmdIndex) => (
         <Fragment key={cmdIndex}>
@@ -107,7 +127,7 @@ export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
           )}
         </Fragment>
       ))}
-    </div>
+    </Text>
   );
 
   return (
