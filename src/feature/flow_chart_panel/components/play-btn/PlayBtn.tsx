@@ -32,7 +32,7 @@ const PlayBtn = ({ theme, onClick, style, disabled = false }: PlayBtnProps) => {
       onClick={handleClick}
       data-cy="btn-play"
       disabled={disabled}
-      title="Run Script"
+      title={disabled ? "Server is offline" : "Run Script"}
     >
       <svg
         width="9"

@@ -139,47 +139,6 @@
   align-items: center;
   gap: 8px;
 }
-.file__dropdown__wrapper {
-  position: relative;
-}
-.file__dropdown__wrapper:hover .file__dropdown {
-  display: flex;
-  transform: translateY(0);
-  opacity: 1;
-  z-index: 50;
-}
-.file__dropdown {
-  transition: all ease 0.7s;
-  flex-direction: column;
-  position: absolute;
-  top: 52px;
-  right: 0;
-  padding: 8px 0;
-  width: fit-content;
-  background: #243438;
-  align-items: flex-start;
-  z-index: -1;
-  transform: translateY(-10%);
-  opacity: 0;
-}
-.file__dropdown > button {
-  padding: 8px 12px;
-  color: #94f4fc;
-  margin-right: 10px;
-  cursor: pointer;
-  border-radius: 2;
-  font-size: 14px;
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  width: 100%;
-  text-align: start;
-  white-space: nowrap;
-}
-.file__dropdown > button:hover {
-  background-color: #94f4fc;
-  color: black;
-}
 
 /* .ReactModal__Content button {
   margin-right: 10px;

@@ -16,6 +16,7 @@ import { useSocket } from "@src/hooks/useSocket";
 import CancelIconSvg from "@src/utils/cancel_icon";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { IServerStatus } from "@src/context/socket.context";
+import DropDown from "@src/feature/common/dropdown/DropDown";
 
 localforage.config({
   name: "react-flow",
@@ -37,7 +38,6 @@ const Controls: FC<ControlsProps> = ({
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
-  const DropDownElem = useRef<HTMLDivElement>(null);
 
   const {
     isEditMode,
@@ -137,49 +137,31 @@ const Controls: FC<ControlsProps> = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const openDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "1";
-      DropDownElem.current.style.zIndex = "50";
-      DropDownElem.current.style.transform = "translateY(0)";
-    }
-  };
-
-  const closeDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "0";
-      DropDownElem.current.style.zIndex = "-1";
-      DropDownElem.current.style.transform = "translateY(-10%)";
-    }
-  };
-
-  const isServerOffline = () =>
+  const isPlayBtnDisabled = () =>
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
 
   return (
     <div className="save__controls">
-      <PlayBtn
-        style={{
-          ...(isServerOffline() && {
-            cursor: "none",
-          }),
-        }}
-        onClick={onSave}
-        disabled={isServerOffline()}
-        theme={theme}
-      />
-      <button
-        className={`btn__cancel ${theme === "dark" ? "dark" : "light"}`}
-        onClick={cancelFC}
-        data-cy="btn-cancel"
-      >
-        <CancelIconSvg theme={theme} />
-        <span>Cancel</span>
-      </button>
+      {isPlayBtnDisabled() || serverStatus === IServerStatus.STANDBY ? (
+        <PlayBtn
+          onClick={onSave}
+          disabled={isPlayBtnDisabled()}
+          theme={theme}
+        />
+      ) : (
+        <button
+          className={`btn__cancel ${theme === "dark" ? "dark" : "light"}`}
+          onClick={cancelFC}
+          data-cy="btn-cancel"
+          title="Cancel Run"
+        >
+          <CancelIconSvg theme={theme} />
+          <span>Cancel</span>
+        </button>
+      )}
       {activeTab !== "debug" && activeTab === "visual" ? (
         <AddBtn
-          closeDropDown={closeDropDown}
           handleClick={() => {
             openModal();
           }}
@@ -190,7 +172,6 @@ const Controls: FC<ControlsProps> = ({
         isEditMode &&
         activeTab === "panel" && (
           <AddBtn
-            closeDropDown={closeDropDown}
             dataCY={"add-ctrl"}
             theme={theme}
             handleClick={() => {
@@ -200,49 +181,46 @@ const Controls: FC<ControlsProps> = ({
         )
       )}
       {activeTab !== "debug" && (
-        <div className="file__dropdown__wrapper" onMouseEnter={openDropDown}>
-          <button
-            className="save__controls_button btn__file"
-            style={{
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-          >
-            <span>File</span>
-            <svg
-              width="10"
-              height="7"
-              viewBox="0 0 10 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 0L5 6.74101L10 0H0Z"
-                fill={theme === "dark" ? "#fff" : "#000"}
-              />
-            </svg>
-          </button>
-          <div
-            className="file__dropdown"
-            ref={DropDownElem}
-            onMouseLeave={closeDropDown}
-          >
-            <button onClick={openFileSelector}>Load</button>
-
-            <button onClick={saveFile}>Save</button>
+        <DropDown
+          theme={theme}
+          DropDownBtn={
             <button
+              className="save__controls_button btn__file"
               style={{
-                display: "flex",
-                justifyContent: "space-between",
+                color: theme === "dark" ? "#fff" : "#000",
               }}
-              onClick={saveFile}
             >
-              <span>Save As</span>
-              <small>Ctrl + s</small>
+              <span>File</span>
+              <svg
+                width="10"
+                height="7"
+                viewBox="0 0 10 7"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 0L5 6.74101L10 0H0Z"
+                  fill={theme === "dark" ? "#fff" : "#000"}
+                />
+              </svg>
             </button>
-
-            <button onClick={saveFile}>Keyboard Shortcut</button>
-          </div>
-        </div>
+          }
+        >
+          <button onClick={openFileSelector}>Load</button>
+          <button onClick={saveFile}>Save</button>
+          <button
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+            onClick={saveFile}
+          >
+            <span>Save As</span>
+            <small>Ctrl + s</small>
+          </button>
+          <button >History</button>
+          <button >Keyboard Shortcut</button>
+        </DropDown>
       )}
       {activeTab !== "visual" && activeTab !== "debug" && (
         <div className="switch_container" style={{ paddingRight: "4px" }}>
@@ -279,13 +257,9 @@ const Controls: FC<ControlsProps> = ({
 
 export default memo(Controls);
 
-const AddBtn = ({ closeDropDown, handleClick, theme, dataCY }) => {
+const AddBtn = ({ handleClick, theme, dataCY }) => {
   return (
-    <button
-      className="save__controls_button btn__add"
-      onMouseEnter={closeDropDown}
-      onClick={handleClick}
-    >
+    <button className="save__controls_button btn__add" onClick={handleClick}>
       {" "}
       <div
         style={{

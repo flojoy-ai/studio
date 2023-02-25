@@ -24,11 +24,30 @@
   background-color: rgba(123, 97, 255, 0.17);
   color: rgba(123, 97, 255, 1);
 }
-.btn__play:hover{
-    background-color: #82e9f258;
-    color: white;
+.btn__play.light:hover{
+    background-color: #9700ff73;
 }
-
+.btn__play.dark:hover{
+  background-color: #82e9f258;
+}
+.btn__play.light:disabled, .btn__play.light:disabled:hover{
+  color:#B5B5B5;
+  background-color: #E9ECEF;
+  border:0;
+  cursor: not-allowed;
+}
+.btn__play.dark:disabled, .btn__play.dark:disabled:hover{
+  color:#cfc9c980;
+  background-color: grey;
+  border:0;
+  cursor: not-allowed;
+}
+.btn__play.light:disabled > svg > path {
+  fill: #B5B5B5;
+}
+.btn__play.dark:disabled > svg > path {
+  fill: #cfc9c980;
+}
 .btn__play:focus {
   outline: 0;
 }

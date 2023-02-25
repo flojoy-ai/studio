@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitAny": false,
-    "types": ["node", "cypress"],
+    "types": ["node", "cypress","jest", "@testing-library/jest-dom", "@types/testing-library__jest-dom"],
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],

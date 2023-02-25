@@ -135,7 +135,7 @@ const App = () => {
             setOpenCtrlModal={setOpenCtrlModal}
           />
           <button onClick={toggleTheme} className="App-theme-toggle">
-            {theme === "light" ? <LightIcon /> : <DarkIcon />}
+            {theme === "dark" ? <LightIcon /> : <DarkIcon />}
           </button>
         </div>
       </header>
