@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  link: {
+  subSection: {
     fontWeight: 500,
     display: "block",
     textDecoration: "none",
@@ -139,17 +139,7 @@ export function SidebarSection({ title, child }: LinksGroupProps) {
   );
 
   const items = (hasChilds ? child : []).map((c) => (
-    // <div>
-    //   <Text<"span">
-    //     component="span"
-    //     className={classes.link}
-    //     key={c.name}
-    //     onClick={(event) => event.preventDefault()}
-    //   >
-    //     {c.name}
-    //   </Text>
-    // </div>
-    <Text<"div"> component="div" className={classes.link} key={c.name}>
+    <Text<"div"> component="div" className={classes.subSection} key={c.name}>
       <SidebarSubSection subSection={c} onAdd={onAdd} />
     </Text>
   ));

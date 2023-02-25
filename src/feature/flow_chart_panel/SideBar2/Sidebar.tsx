@@ -29,12 +29,12 @@ const useStyles = createStyles((theme) => ({
     }`,
   },
 
-  links: {
+  sections: {
     marginLeft: -theme.spacing.md,
     marginRight: -theme.spacing.md,
   },
 
-  linksInner: {
+  sectionsInner: {
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
   },
@@ -43,7 +43,7 @@ const useStyles = createStyles((theme) => ({
 export function Sidebar({ theme }) {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const { classes } = useStyles();
-  const links = SECTIONS.map((item) => (
+  const sections = SECTIONS.map((item) => (
     <SidebarSection {...item} key={item.title} />
   ));
 
@@ -101,10 +101,10 @@ export function Sidebar({ theme }) {
             </Navbar.Section>
             <Navbar.Section
               grow
-              className={classes.links}
+              className={classes.sections}
               component={ScrollArea}
             >
-              <div className={classes.linksInner}>{links}</div>
+              <div className={classes.sectionsInner}>{sections}</div>
             </Navbar.Section>
           </Navbar>
         )}
