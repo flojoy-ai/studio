@@ -15,8 +15,6 @@ import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
-import SideBar from "./feature/flow_chart_panel/SideBar/SIdeBar";
-// import { NavbarNested } from "./feature/flow_chart_panel/SideBar/SIdeBar";
 import { Sidebar } from "./feature/flow_chart_panel/SideBar2/Sidebar";
 
 const App = () => {
