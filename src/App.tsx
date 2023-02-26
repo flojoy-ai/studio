@@ -15,7 +15,7 @@ import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
-import { Sidebar } from "./feature/flow_chart_panel/SideBar2/Sidebar";
+import { Sidebar } from "./feature/flow_chart_panel/SideBar/Sidebar";
 
 const App = () => {
   const [isSideBarClicked, setIsSideBarClicked] = useState(false);
