@@ -4,40 +4,19 @@ exports[`DropDown should render correctly 1`] = `
 <div>
   <div
     class="dropdown__wrapper"
+    data-testid="dropdown-wrapper"
   >
     <button>
       Dropdown Button
     </button>
     <div
       class="dropdown__container light"
+      data-testid="dropdown-container"
     >
       <div>
         Dropdown Children
       </div>
     </div>
-  </div>
-</div>
-`;
-
-exports[`DropDown.tsx component should render correctly should match snapshot 1`] = `
-<div
-  className="dropdown__wrapper"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
->
-  <button>
-    Drop Down
-  </button>
-  <div
-    className="dropdown__container dark"
-    onMouseLeave={[Function]}
-  >
-    <button>
-      First Item
-    </button>
-    <button>
-      Second Item
-    </button>
   </div>
 </div>
 `;

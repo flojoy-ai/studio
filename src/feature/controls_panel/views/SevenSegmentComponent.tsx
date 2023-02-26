@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Display as SevenSegmentDisplay } from "react-7-segment-display";
+// import { Display as SevenSegmentDisplay } from "react-7-segment-display";
 
 
 const SevenSegmentComponent = ({
@@ -34,13 +34,13 @@ const SevenSegmentComponent = ({
     <div
           className="seven_segment_container"
         >
-          <SevenSegmentDisplay
+          {/* <SevenSegmentDisplay
             color={ctrlObj.segmentColor || "#99F5FF"}
             count={4}
             height={200}
             skew={false}
             value={data}
-          />
+          /> */}
         </div>
   )
 }

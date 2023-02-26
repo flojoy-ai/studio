@@ -17,6 +17,7 @@ import CancelIconSvg from "@src/utils/cancel_icon";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/dropdown/DropDown";
+import KeyboardShortcutModal from "./KeyboardShortcutModal";
 
 localforage.config({
   name: "react-flow",
@@ -38,6 +39,7 @@ const Controls: FC<ControlsProps> = ({
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
 
   const {
     isEditMode,
@@ -218,8 +220,10 @@ const Controls: FC<ControlsProps> = ({
             <span>Save As</span>
             <small>Ctrl + s</small>
           </button>
-          <button >History</button>
-          <button >Keyboard Shortcut</button>
+          <button>History</button>
+          <button onClick={() => setIskeyboardShortcutOpen(true)}>
+            Keyboard Shortcut
+          </button>
         </DropDown>
       )}
       {activeTab !== "visual" && activeTab !== "debug" && (
@@ -229,7 +233,11 @@ const Controls: FC<ControlsProps> = ({
             style={{
               cursor: "pointer",
               fontSize: "14px",
-              ...(isEditMode && { color: "orange" }),
+              ...(isEditMode
+                ? { color: "orange" }
+                : {
+                    color: theme === "dark" ? "#fff" : "#000",
+                  }),
             }}
             onClick={() => setIsEditMode(true)}
           >
@@ -243,6 +251,12 @@ const Controls: FC<ControlsProps> = ({
           />
         </div>
       )}
+
+      <KeyboardShortcutModal
+        isOpen={isKeyboardShortcutOpen}
+        onClose={() => setIskeyboardShortcutOpen(false)}
+        theme={theme}
+      />
 
       <PythonFuncModal
         afterOpenModal={afterOpenModal}

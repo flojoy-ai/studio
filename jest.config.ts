@@ -23,7 +23,7 @@ export default async (): Promise<Config.InitialOptions> => {
       },
     },
     roots: ["<rootDir>"],
-    modulePaths: [compilerOptions.baseUrl],
+    modulePaths: ["."],
     moduleNameMapper: {
       "\\.(css|less)$": "<rootDir>/src/__tests__/config/CSSStub.js",
       ...pathsToModuleNameMapper(compilerOptions.paths),

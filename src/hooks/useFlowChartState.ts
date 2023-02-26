@@ -1,6 +1,6 @@
 import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
-import { atomWithImmer } from "jotai/immer";
+import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect } from "react";
 import { Layout } from "react-grid-layout";

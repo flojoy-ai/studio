@@ -26,7 +26,7 @@ const PlayBtn = ({ theme, onClick, style, disabled = false }: PlayBtnProps) => {
 
   return (
     <button
-      className={`btn__play ${theme === "dark" ? "dark" : "light"}`}
+      className={`btn__play ${theme}`}
       ref={ButtonElem}
       style={style}
       onClick={handleClick}

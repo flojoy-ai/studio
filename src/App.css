@@ -214,7 +214,7 @@
   height: 70px;
   width: auto;
 }
-.tab-panel:hover::-webkit-scrollbar{
+.tab-panel:hover::-webkit-scrollbar {
   display: block;
 }
 
@@ -223,31 +223,33 @@
   height: 8px;
   display: none;
 }
- 
+
 .tab-panel::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 .tab-panel::-webkit-scrollbar-thumb {
   background-color: #94f4fc;
   outline: 1px solid slategrey;
   cursor: pointer;
 }
 
-.ReactModal__Content:hover::-webkit-scrollbar{
-  display: block;
-}
-
 .ReactModal__Content::-webkit-scrollbar {
   width: 5px;
-  display: none;
 }
- 
-.ReactModal__Content::-webkit-scrollbar-track {
+.ReactModal__Content:hover::-webkit-scrollbar-track {
+  box-shadow: 0;
+}
+.ReactModal__Content:hover::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
 .ReactModal__Content::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  outline: 0;
+  cursor: pointer;
+}
+
+.ReactModal__Content:hover::-webkit-scrollbar-thumb {
   background-color: #94f4fc;
   outline: 1px solid slategrey;
   cursor: pointer;
