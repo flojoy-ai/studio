@@ -10,7 +10,7 @@ import { IconSearch } from "@tabler/icons";
 
 import { useState } from "react";
 
-import { SidebarSection } from "./SidebarSection";
+import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 
@@ -85,13 +85,14 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
   },
 }));
 
-export function Sidebar({ appTheme }) {
+const Sidebar = ({ appTheme }) => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
   const { classes, theme } = useStyles({ appTheme });
 
   const renderSections = () => {
     if (textInput !== "") {
+      console.log(COMMANDS);
       const childSectionList: string[] = [];
 
       // Getiing the command type from COMMANDS list.
@@ -102,6 +103,7 @@ export function Sidebar({ appTheme }) {
         ) {
           childSectionList.push(cmd.type);
         }
+        return null;
       });
 
       // getting the sections from the commands type, by iterating the SECTIONS list
@@ -119,9 +121,14 @@ export function Sidebar({ appTheme }) {
       return toBeRenderedComponents;
     }
 
-    return SECTIONS.map((item) => (
-      <SidebarSection {...item} key={item.title} />
+    const sections = SECTIONS.map((item) => (
+      <SidebarSection
+        data-testid="sidebar-section"
+        {...item}
+        key={item.title}
+      />
     ));
+    return sections;
   };
 
   const handleSidebar = () => setSideBarStatus(!isSideBarOpen);
@@ -133,10 +140,15 @@ export function Sidebar({ appTheme }) {
       theme={{ ...theme, colorScheme: appTheme }}
     >
       <div>
-        <button className={classes.addButton} onClick={handleSidebar}>
+        <button
+          data-testid="add-node-button"
+          className={classes.addButton}
+          onClick={handleSidebar}
+        >
           + Add Node
         </button>
         <Navbar
+          data-testid="sidebar"
           height={800}
           width={{ sm: 387 }}
           p="md"
@@ -160,6 +172,8 @@ export function Sidebar({ appTheme }) {
           </Navbar.Section>
           <Navbar.Section>
             <Input
+              data-testid="sidebar-input"
+              name="sidebar-input"
               placeholder="Search"
               icon={<IconSearch size={18} />}
               radius="sm"
@@ -183,4 +197,6 @@ export function Sidebar({ appTheme }) {
       </div>
     </MantineProvider>
   );
-}
+};
+
+export default Sidebar;

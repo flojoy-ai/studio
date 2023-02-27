@@ -59,7 +59,7 @@ const getNodePosition = () => {
   };
 };
 
-export function SidebarSection({ title, child }: LinksGroupProps) {
+const SidebarSection = ({ title, child }: LinksGroupProps) => {
   const { classes, theme } = useStyles();
   const hasChilds = Array.isArray(child);
   const [opened, setOpened] = useState(false);
@@ -157,4 +157,6 @@ export function SidebarSection({ title, child }: LinksGroupProps) {
       {hasChilds ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
   );
-}
+};
+
+export default SidebarSection;
