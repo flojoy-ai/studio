@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
   navbarHidden: {
     paddingBottom: 0,
     position: "absolute",
-    left: "-25%",
+    left: "-100%",
     right: "0%",
     top: "110px",
     bottom: "0%",
@@ -94,7 +94,6 @@ const Sidebar = ({ appTheme }) => {
 
   const renderSections = () => {
     if (textInput !== "") {
-      console.log(COMMANDS);
       const childSectionList: string[] = [];
 
       // Getiing the command type from COMMANDS list.

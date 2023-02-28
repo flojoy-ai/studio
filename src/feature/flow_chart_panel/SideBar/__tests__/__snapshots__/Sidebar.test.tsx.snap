@@ -4,13 +4,13 @@ exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-1wka8f2"
+      class="mantine-hsevc6"
       data-testid="add-node-button"
     >
       + Add Node
     </button>
     <nav
-      class="mantine-Navbar-root mantine-z9y89m"
+      class="mantine-Navbar-root mantine-1mg8l1t"
       data-testid="sidebar"
     >
       <div

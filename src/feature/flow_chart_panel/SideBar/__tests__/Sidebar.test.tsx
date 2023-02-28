@@ -48,7 +48,7 @@ describe("Sidebar", () => {
     const addButton = getByTestId("add-node-button");
 
     const sidebar = getByTestId("sidebar");
-    expect(sidebar).toHaveStyle("left:-25%");
+    expect(sidebar).toHaveStyle("left:-100%");
 
     fireEvent.click(addButton);
 

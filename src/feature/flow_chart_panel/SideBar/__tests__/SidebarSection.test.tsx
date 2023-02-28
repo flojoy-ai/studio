@@ -59,7 +59,7 @@ describe("SidebarSection", () => {
     const { getByTestId } = render(
       <SidebarSection title={items.title} child={items.child} />
     );
-    const button = getByTestId("sidebar-section-button");
+    const button = getByTestId("sidebar-subsection-button");
     expect(button).toBeInTheDocument();
   });
   it("checks if the collapse tab is open when the button is clicked", () => {

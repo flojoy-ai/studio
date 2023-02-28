@@ -55,7 +55,7 @@ exports[`SidebarSection matches snapshot 1`] = `
       >
         <button
           class="mantine-UnstyledButton-root mantine-1pv9c1o"
-          data-testid="sidebar-section-button"
+          data-testid="sidebar-subsection-button"
           type="button"
         >
           <div
@@ -97,7 +97,7 @@ exports[`SidebarSection matches snapshot 1`] = `
         <div
           aria-hidden="true"
           class="mantine-1avyp1d"
-          data-testid="sidebar-section-collapse"
+          data-testid="sidebar-subsection-collapse"
           style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
         >
           <div
