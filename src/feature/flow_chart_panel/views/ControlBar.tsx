@@ -12,10 +12,8 @@ import {
 } from "../../../services/FlowChartServices";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
-import PythonFuncModal from "./AddNodeModal";
 import PlayIconSvg from "../../../utils/PlayIconSvg";
 import { ControlsProps } from "../types/ControlsProps";
-import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { useSocket } from "../../../hooks/useSocket";
 import CancelIconSvg from "@src/utils/cancel_icon";
 
@@ -38,16 +36,9 @@ const Controls: FC<ControlsProps> = ({
 }) => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
-  const [modalIsOpen, setIsOpen] = useState(false);
 
-  const {
-    isEditMode,
-    setIsEditMode,
-    rfInstance,
-    openFileSelector,
-    saveFile,
-    setNodes,
-  } = useFlowChartState();
+  const { isEditMode, setIsEditMode, rfInstance, openFileSelector, saveFile } =
+    useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
@@ -64,86 +55,20 @@ const Controls: FC<ControlsProps> = ({
     if (rfInstance && rfInstance.nodes.length > 0) {
       cancelFlowChartRun({ rfInstance, jobId: socketId });
     } else {
-      alert(
-        "There is no running job on server."
-      );
+      alert("There is no running job on server.");
     }
-  }
-
-
-  const onAdd: NodeOnAddFunc = useCallback(
-    ({ key, params, type, inputs, customNodeId }) => {
-      let functionName: string;
-      const id = `${key}-${uuidv4()}`;
-      if (key === "CONSTANT") {
-        let constant = prompt("Please enter a numerical constant", "2.0");
-        if (constant == null) {
-          constant = "2.0";
-        }
-        functionName = constant;
-      } else {
-        functionName = prompt("Please enter a name for this node")!;
-      }
-      if (!functionName) return;
-      const funcParams = params
-        ? Object.keys(params).reduce(
-            (
-              prev: Record<
-                string,
-                {
-                  functionName: string;
-                  param: keyof ParamTypes;
-                  value: string | number;
-                }
-              >,
-              param
-            ) => ({
-              ...prev,
-              [key + "_" + functionName + "_" + param]: {
-                functionName: key,
-                param,
-                value:
-                  key === "CONSTANT" ? +functionName : params![param].default,
-              },
-            }),
-            {}
-          )
-        : {};
-
-      const newNode = {
-        id: id,
-        type: customNodeId || type,
-        data: {
-          id: id,
-          label: functionName,
-          func: key,
-          type,
-          ctrls: funcParams,
-          inputs,
-        },
-        position: getNodePosition(),
-      };
-      setNodes((els) => els.concat(newNode));
-      closeModal();
-    },
-    [setNodes]
-  );
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-  const afterOpenModal = () => null;
-  const closeModal = () => {
-    setIsOpen(false);
   };
 
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const isServerOffline = () =>
-    serverStatus === "🛑 server offline" ||
-    serverStatus === "Connecting to server...";
+  const isServerOffline = () => {
+    return (
+      serverStatus === "🛑 server offline" ||
+      serverStatus === "Connecting to server..."
+    );
+  };
 
   return (
     <div className="save__controls">
@@ -162,20 +87,20 @@ const Controls: FC<ControlsProps> = ({
       <button
         className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn run-btn"}
         style={{
-          color: 'red',
-          display: 'flex',
-          justifyContent:'center',
-          alignItems:'center',
-          gap:'3px',
-          border: '1px solid rgb(255 153 177)',
-          backgroundColor: 'rgb(255 158 153 / 20%)',
+          color: "red",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "3px",
+          border: "1px solid rgb(255 153 177)",
+          backgroundColor: "rgb(255 158 153 / 20%)",
         }}
         onClick={cancelFC}
         data-cy="btn-cancel"
       >
         <CancelIconSvg style={{ marginRight: "6px" }} theme={theme} /> Cancel
       </button>
-      {activeTab !== "debug" && activeTab === "visual" ? (
+      {isEditMode && activeTab === "panel" && (
         <button
           className="save__controls_button"
           style={{
@@ -207,7 +132,6 @@ const Controls: FC<ControlsProps> = ({
           </div>
         </button>
       )}
-
       {activeTab !== "debug" && (
         <button
           className="save__controls_button"

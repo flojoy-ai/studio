@@ -35,6 +35,7 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "100%",
     transition: "500ms",
+    zIndex: 1,
   },
 
   navbarHidden: {
@@ -48,6 +49,7 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "100%",
     transition: "300ms",
+    zIndex: 1,
   },
 
   header: {
@@ -81,7 +83,7 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     background: appTheme === "dark" ? "#243438" : "#F6F7F8",
     border: appTheme === "dark" ? "1px solid #94F4FC" : "1px solid #E1E4E7",
     cursor: "pointer",
-    zIndex: 999,
+    zIndex: 1,
   },
 }));
 
