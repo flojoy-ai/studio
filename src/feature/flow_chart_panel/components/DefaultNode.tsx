@@ -1,21 +1,15 @@
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import "@feature/flow_chart_panel/style/defaultNode.css"
+import "@feature/flow_chart_panel/style/defaultNode.css";
+import NodeWrapper from "./wrapper/NodeWrapper";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme } = useFlowChartState();
   const params = data.inputs || [];
 
   return (
-    <div
-      style={{
-        ...(runningNode === data.id && { boxShadow: "0 0 50px 15px #48abe0" }),
-        ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
-        }),
-      }}
-    >
+    <NodeWrapper data={data}>
       <div
         className="default_node_container"
         style={{
@@ -29,6 +23,22 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
           ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
         }}
       >
+        <div
+          style={{
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "flex-end",
+            padding: "5px",
+            width: "100%",
+            textAlign: "center",
+            top: "0",
+            position: "absolute",
+            right: 0,
+          }}
+        >
+          <button>DETAILS</button>
+          <button>CLOSE</button>
+        </div>
         <div
           style={{
             display: "flex",
@@ -52,7 +62,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
           <HandleComponent data={data} inputs={params} />
         </div>
       </div>
-    </div>
+    </NodeWrapper>
   );
 };
 
