@@ -1,5 +1,4 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import React, { Dispatch } from "react";
 import Sidebar from "../Sidebar";
 
 const theme = "dark";

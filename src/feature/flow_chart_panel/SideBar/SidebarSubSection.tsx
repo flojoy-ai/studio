@@ -86,7 +86,7 @@ interface SubSectionProps {
   onAdd: any;
 }
 
-export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
+const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
   const { classes, theme } = useStyles();
   const [opened, setOpened] = useState(false);
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
@@ -130,6 +130,7 @@ export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
   return (
     <>
       <UnstyledButton
+        data-testid="sidebar-subsection-button"
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
       >
@@ -149,7 +150,11 @@ export function SidebarSubSection({ subSection, onAdd }: SubSectionProps) {
           />
         </Group>
       </UnstyledButton>
-      <Collapse in={opened}>{items}</Collapse>
+      <Collapse data-testid="sidebar-subsection-collapse" in={opened}>
+        {items}
+      </Collapse>
     </>
   );
-}
+};
+
+export default SidebarSubSection;

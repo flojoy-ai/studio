@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarSection matches snapshot 1`] = `
+<div>
+  <button
+    class="mantine-UnstyledButton-root mantine-mp73ef"
+    type="button"
+  >
+    <div
+      class="mantine-Group-root mantine-18amkhr"
+    >
+      <div
+        class="mantine-1a78l0v"
+      >
+        <div
+          class="mantine-1l4yfk"
+        >
+          test
+        </div>
+      </div>
+      <svg
+        class="mantine-q42rgi"
+        fill="none"
+        height="14"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        style="transform: none;"
+        viewBox="0 0 24 24"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+          stroke="none"
+        />
+        <polyline
+          points="9 6 15 12 9 18"
+        />
+      </svg>
+    </div>
+  </button>
+  <div
+    aria-hidden="true"
+    class="mantine-1avyp1d"
+    style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
+  >
+    <div
+      style="opacity: 0; transition: opacity 200ms ease;"
+    >
+      <div
+        class="mantine-Text-root mantine-1jjayxu"
+      >
+        <button
+          class="mantine-UnstyledButton-root mantine-1pv9c1o"
+          data-testid="sidebar-section-button"
+          type="button"
+        >
+          <div
+            class="mantine-Group-root mantine-18amkhr"
+          >
+            <div
+              class="mantine-1a78l0v"
+            >
+              <div
+                class="mantine-1l4yfk"
+              >
+                test
+              </div>
+            </div>
+            <svg
+              class="mantine-q42rgi"
+              fill="none"
+              height="14"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              style="transform: none;"
+              viewBox="0 0 24 24"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+                stroke="none"
+              />
+              <polyline
+                points="9 6 15 12 9 18"
+              />
+            </svg>
+          </div>
+        </button>
+        <div
+          aria-hidden="true"
+          class="mantine-1avyp1d"
+          data-testid="sidebar-section-collapse"
+          style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
+        >
+          <div
+            style="opacity: 0; transition: opacity 200ms ease;"
+          >
+            <div
+              class="mantine-Text-root mantine-58236w"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

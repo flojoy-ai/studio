@@ -8,7 +8,7 @@ import {
   createStyles,
 } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
-import { SidebarSubSection } from "./SidebarSubSection";
+import SidebarSubSection from "./SidebarSubSection";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { v4 as uuidv4 } from "uuid";
