@@ -160,13 +160,13 @@ const Controls: FC<ControlsProps> = ({
             openModal();
           }}
           theme={theme}
-          dataCY={"add-node"}
+          testId={"add-node"}
         />
       ) : (
         isEditMode &&
         activeTab === "panel" && (
           <AddBtn
-            dataCY={"add-ctrl"}
+            testId={"add-ctrl"}
             theme={theme}
             handleClick={() => {
               setOpenCtrlModal((prev) => !prev);
@@ -222,6 +222,7 @@ const Controls: FC<ControlsProps> = ({
         <div className="switch_container" style={{ paddingRight: "4px" }}>
           <span
             data-cy="operation-switch"
+            data-testid="operation-switch"
             style={{
               cursor: "pointer",
               fontSize: "14px",
@@ -231,7 +232,7 @@ const Controls: FC<ControlsProps> = ({
                     color: theme === "dark" ? "#fff" : "#000",
                   }),
             }}
-            onClick={() => setIsEditMode(true)}
+            onClick={() => setIsEditMode(!isEditMode)}
           >
             Edit
           </span>
@@ -263,9 +264,12 @@ const Controls: FC<ControlsProps> = ({
 
 export default memo(Controls);
 
-const AddBtn = ({ handleClick, theme, dataCY }) => {
+const AddBtn = ({ handleClick, theme, testId, }) => {
   return (
-    <button className="save__controls_button btn__add" onClick={handleClick}>
+    <button
+    data-cy={testId}
+    data-testid={testId}
+    className="save__controls_button btn__add" onClick={handleClick}>
       {" "}
       <div
         style={{
@@ -279,7 +283,7 @@ const AddBtn = ({ handleClick, theme, dataCY }) => {
         style={{
           color: theme === "dark" ? "#fff" : "#000",
         }}
-        data-cy={dataCY}
+
       >
         Add
       </div>
