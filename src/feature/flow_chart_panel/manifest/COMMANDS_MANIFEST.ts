@@ -70,4 +70,10 @@ export const SECTIONS = [
       { name: "Visualization", key: "VISOR" },
     ],
   },
+  {
+    title: "Terminators",
+    child: [
+      {name: "Terminator", key:'TERMINATOR'}
+    ]
+  }
 ];

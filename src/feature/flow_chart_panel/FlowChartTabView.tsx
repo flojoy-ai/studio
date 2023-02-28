@@ -161,7 +161,7 @@ const FlowChartTab = ({
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          onNodeClick={onNodeClick}
+          onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
         />
       </div>

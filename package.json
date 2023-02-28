@@ -12,7 +12,6 @@
     "@tisoap/react-flow-smart-edge": "^3.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.6",
     "immer": "^9.0.15",
     "ioredis": "^4.28.5",

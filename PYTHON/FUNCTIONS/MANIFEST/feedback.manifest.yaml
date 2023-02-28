@@ -1,0 +1,7 @@
+COMMAND:
+  - {
+      name: "Feedback",
+      key: "FEEDBACK",
+      type: "SIMULATION",
+      parameters: { referred_node: { type: node_reference, default: ''}},
+    }

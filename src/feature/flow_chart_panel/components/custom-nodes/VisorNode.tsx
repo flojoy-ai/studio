@@ -13,8 +13,12 @@ import Scatter3D from "../nodes/3d-scatter";
 import BarChart from "../nodes/bar";
 
 const getboxShadow = (data: ElementsData) => {
-  return highlightShadow[data.func];
+  if (data.func in highlightShadow){
+    return highlightShadow[data.func];
+  }
+  return highlightShadow['default']
 };
+
 
 const VisorNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode } = useFlowChartState();
@@ -66,6 +70,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
 export default VisorNode;
 
 const highlightShadow = {
+  default: { boxShadow: "0 0 50px 15px #48abe0" },
   HISTOGRAM: { boxShadow: "0 0 50px 15px #48abe0" },
   SCATTER: { boxShadow: "0 0 50px 15px #48abe0" },
   SURFACE3D: { boxShadow: "0 0 50px 15px #48abe0" },

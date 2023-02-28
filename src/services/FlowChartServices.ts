@@ -37,3 +37,29 @@ export function saveAndRunFlowChartInServer({
     .then((resp) => resp.json())
     .then((json) => console.log(json));
 }
+
+export function cancelFlowChartRun({
+  rfInstance,
+  jobId,
+}: {
+  rfInstance: ReactFlowJsonObject;
+  jobId: string;
+}) {
+  if (!rfInstance) {
+    return;
+  }
+
+  const rfInstanceObject = rfInstance;
+  const fcStr = JSON.stringify(rfInstanceObject);
+
+  fetch("/cancel_fc", {
+    method: "POST",
+    body: JSON.stringify({
+      fc: fcStr,
+      jobsetId: jobId,
+    }),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  })
+    .then((resp) => resp.json())
+    .then((json) => console.log(json));
+}

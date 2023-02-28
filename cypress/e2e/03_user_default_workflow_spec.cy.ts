@@ -47,17 +47,10 @@ describe("User default workflow", () => {
 
     cy.get(`[data-cy="script-btn"]`).click();
     Cypress.on("uncaught:exception", (err) => {
-      // cy.log("error occured: ", JSON.stringify(err));
       return false;
     });
     nodes.forEach((node) => {
-      cy.get(`[data-id="${node.selector}"]`).click({
-        force: true,
-        multiple: true,
-      });
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
-      cy.get(".ctrl-close-btn").click({ force: true });
-      cy.wait(3000);
     });
   });
 });

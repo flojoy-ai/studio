@@ -60,19 +60,22 @@ export class WebSocketServer {
           }
           if (ResponseEnum.nodeResults in data) {
             this.onNodeResultsReceived((prev: any) => {
-              const isExist = prev.io.find((node)=> node.id === data[ResponseEnum.nodeResults].id)
-              if(isExist){
-                const filterResult = prev.io.filter(node => node.id !== data[ResponseEnum.nodeResults].id)
+              const isExist = prev.io.find(
+                (node) => node.id === data[ResponseEnum.nodeResults].id
+              );
+              if (isExist) {
+                const filterResult = prev.io.filter(
+                  (node) => node.id !== data[ResponseEnum.nodeResults].id
+                );
                 return {
                   io: [...filterResult, data[ResponseEnum.nodeResults]],
-                }
+                };
               }
 
               return {
                 io: [...prev.io, data[ResponseEnum.nodeResults]],
-              }
-            }
-            );
+              };
+            });
           }
           if (ResponseEnum.runningNode in data) {
             this.runningNode(data[ResponseEnum.runningNode]);
@@ -95,9 +98,13 @@ export class WebSocketServer {
       }
     };
     this.server.onclose = this.onClose || null;
+    this.server.onerror = (event) => {
+      console.log("Error Event: ", event);
+      this.pingResponse("🛑 server offline");
+    };
   }
   disconnect() {
-    console.log('Disconnecting WebSocket server');
+    console.log("Disconnecting WebSocket server");
     this.server.close();
   }
   emit(data: string) {

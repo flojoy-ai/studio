@@ -5,9 +5,7 @@ COMMAND:
       type: LOOP,
       parameters:
         {
-          initial_count: { type: "int", default: 0 },
-          iteration_count: { type: "int", default: 2 },
-          step: { type: "int", default: 1 },
+          num_loops: { type: "int", default: -1 },
         },
       inputs:
         [
