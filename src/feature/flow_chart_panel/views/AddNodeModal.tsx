@@ -5,6 +5,7 @@ import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import { AddNodeModalProps } from "../types/AddNodeModalProps";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { AddNodeModalStyles } from "../style/AddNodeModalStyle";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const AddNodeModal = ({
   modalIsOpen,
@@ -49,7 +50,7 @@ const AddNodeModal = ({
               : "1px solid rgba(217, 217, 217, 1)",
           alignItems: "center",
           gap: "8px",
-          overflowX:'scroll'
+          overflowX: "scroll",
         }}
       >
         {SECTIONS.map((section) => (
@@ -59,7 +60,7 @@ const AddNodeModal = ({
             key={section.title}
             style={{
               ...(activeTab === section.title && activeBtnStyle),
-              width:'fit-content'
+              width: "fit-content",
             }}
           >
             {section.title}
@@ -92,12 +93,12 @@ const AddNodeModal = ({
                             }
                             onClick={() => {
                               onAdd({
-                                key: cmd.key,
+                                funcName: cmd.key,
                                 type: cmd.type,
                                 params: FUNCTION_PARAMETERS[cmd.key],
                                 inputs: cmd.inputs,
                                 ...(cmd.ui_component_id && {
-                                  customNodeId: cmd.ui_component_id,
+                                  uiComponentId: cmd.ui_component_id,
                                 }),
                               });
                             }}

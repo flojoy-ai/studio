@@ -9,7 +9,7 @@ import {
 } from "@src/services/FlowChartServices";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import ReactSwitch from "react-switch";
-import PythonFuncModal from "./AddNodeModal";
+import AddNodeModal from "./AddNodeModal";
 import { ControlsProps } from "../types/ControlsProps";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { useSocket } from "@src/hooks/useSocket";
@@ -18,6 +18,7 @@ import PlayBtn from "../components/play-btn/PlayBtn";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/dropdown/DropDown";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import { ElementsData } from "../types/CustomNodeProps";
 
 localforage.config({
   name: "react-flow",
@@ -47,6 +48,7 @@ const Controls: FC<ControlsProps> = ({
     rfInstance,
     openFileSelector,
     saveFile,
+    nodes,
     setNodes,
   } = useFlowChartState();
   const onSave = async () => {
@@ -69,39 +71,29 @@ const Controls: FC<ControlsProps> = ({
     }
   };
 
-  const onAdd: NodeOnAddFunc = useCallback(
-    ({ key, params, type, inputs, customNodeId }) => {
-      let functionName: string;
-      const id = `${key}-${uuidv4()}`;
-      if (key === "CONSTANT") {
-        let constant = prompt("Please enter a numerical constant", "2.0");
-        if (constant == null) {
-          constant = "2.0";
-        }
-        functionName = constant;
+  const addNewNode: NodeOnAddFunc = useCallback(
+    ({ funcName, params, type, inputs, uiComponentId }) => {
+      let nodeLabel: string;
+      const nodeId = `${funcName}-${uuidv4()}`;
+      if (funcName === "CONSTANT") {
+        nodeLabel = "2.0";
       } else {
-        functionName = prompt("Please enter a name for this node")!;
+        const numOfThisNodesOnChart = nodes.filter(
+          (node) => node.data.func === funcName
+        ).length;
+        nodeLabel = numOfThisNodesOnChart > 0 ? `${funcName}_${numOfThisNodesOnChart}` : funcName;
       }
-      if (!functionName) return;
-      const funcParams = params
+      const nodeParams = params
         ? Object.keys(params).reduce(
-            (
-              prev: Record<
-                string,
-                {
-                  functionName: string;
-                  param: keyof ParamTypes;
-                  value: string | number;
-                }
-              >,
-              param
-            ) => ({
+            (prev: ElementsData["ctrls"], param) => ({
               ...prev,
-              [key + "_" + functionName + "_" + param]: {
-                functionName: key,
+              [param]: {
+                functionName: funcName,
                 param,
                 value:
-                  key === "CONSTANT" ? +functionName : params![param].default,
+                  funcName === "CONSTANT"
+                    ? nodeLabel
+                    : params![param].default?.toString(),
               },
             }),
             {}
@@ -109,14 +101,14 @@ const Controls: FC<ControlsProps> = ({
         : {};
 
       const newNode = {
-        id: id,
-        type: customNodeId || type,
+        id: nodeId,
+        type: uiComponentId || type,
         data: {
-          id: id,
-          label: functionName,
-          func: key,
+          id: nodeId,
+          label: nodeLabel,
+          func: funcName,
           type,
-          ctrls: funcParams,
+          ctrls: nodeParams,
           inputs,
         },
         position: getNodePosition(),
@@ -124,7 +116,7 @@ const Controls: FC<ControlsProps> = ({
       setNodes((els) => els.concat(newNode));
       closeModal();
     },
-    [setNodes]
+    [nodes,setNodes]
   );
 
   const openModal = () => {
@@ -258,11 +250,11 @@ const Controls: FC<ControlsProps> = ({
         theme={theme}
       />
 
-      <PythonFuncModal
+      <AddNodeModal
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
         modalIsOpen={modalIsOpen}
-        onAdd={onAdd}
+        onAdd={addNewNode}
         theme={theme}
       />
     </div>

@@ -47,7 +47,10 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialNodes: Node[] = NOISY_SINE.nodes;
+const initialNodes: Node<ElementsData, string>[] = NOISY_SINE.nodes as Node<
+  ElementsData,
+  string
+>[];
 const initialEdges: Edge[] = NOISY_SINE.edges;
 const initialManifests: CtlManifestType[] = [
   {
@@ -66,7 +69,7 @@ const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
-const nodesAtom = atomWithImmer<Node[]>(initialNodes);
+const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
@@ -154,28 +157,16 @@ export function useFlowChartState() {
   const updateCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
-    inputData: {
-      functionName: string;
-      param: string;
-      value: number | string;
-    }
+    inputData: ElementsData["ctrls"][""]
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.func === "CONSTANT") {
-          const nodeCtrls = node.data.ctrls;
-          const splitNodeCtrlKey = Object.keys(nodeCtrls)[0].split("_");
-          const ctrlKey =
-            splitNodeCtrlKey[0] +
-            "_" +
-            inputData.value +
-            "_" +
-            splitNodeCtrlKey[2].toLowerCase();
           node.data.ctrls = {
-            [ctrlKey]: inputData,
+            [paramId]: inputData,
           };
-          node.data.label = inputData.value;
+          node.data.label = inputData.value.toString();
         } else {
           node.data.ctrls[paramId] = inputData;
         }

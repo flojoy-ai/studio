@@ -14,6 +14,7 @@ import ReactFlow, {
   OnInit,
   NodeMouseHandler,
   NodeDragHandler,
+  OnNodesDelete,
 } from "reactflow";
 
 import localforage from "localforage";
@@ -28,7 +29,7 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {  SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
@@ -64,7 +65,7 @@ const FlowChartTab = ({
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
   const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default:SmartBezierEdge}),
+    () => ({ default: SmartBezierEdge }),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
@@ -121,7 +122,10 @@ const FlowChartTab = ({
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
-
+  const handleNodesDelete: OnNodesDelete = useCallback(
+    (_) => setNodes([]),
+    [setNodes]
+  );
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -157,6 +161,7 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
+          onNodesDelete={handleNodesDelete}
         />
       </div>
 
