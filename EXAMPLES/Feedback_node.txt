@@ -16,7 +16,7 @@
                     "func": "CONSTANT",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "CONSTANT_43_constant": {
+                        "constant": {
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": 43
@@ -45,7 +45,7 @@
                     "func": "CONSTANT",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "CONSTANT_-1_constant": {
+                        "constant": {
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": -1
@@ -74,22 +74,22 @@
                     "func": "LOOP",
                     "type": "LOOP",
                     "ctrls": {
-                        "LOOP_loop_initial_count": {
+                        "initial_count": {
                             "functionName": "LOOP",
                             "param": "initial_count",
                             "value": 0
                         },
-                        "LOOP_loop_iteration_count": {
+                        "iteration_count": {
                             "functionName": "LOOP",
                             "param": "iteration_count",
                             "value": "12"
                         },
-                        "LOOP_loop_step": {
+                        "step": {
                             "functionName": "LOOP",
                             "param": "step",
                             "value": 1
                         },
-                        "LOOP_loop_num_loops": {
+                        "num_loops": {
                             "functionName": "LOOP",
                             "param": "num_loops",
                             "value": "3"
@@ -126,7 +126,7 @@
                     "func": "CONSTANT",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "CONSTANT_12_constant": {
+                        "constant": {
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": 12
@@ -185,12 +185,12 @@
                     "func": "GOTO",
                     "type": "LOOP",
                     "ctrls": {
-                        "GOTO_Goto Loop_goto_node_id": {
+                        "node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": ""
                         },
-                        "GOTO_GotoLoop_goto_node_id": {
+                        "node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb"
@@ -242,7 +242,7 @@
                     "func": "FEEDBACK",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "FEEDBACK_FeedBack_referred_node": {
+                        "referred_node": {
                             "functionName": "FEEDBACK",
                             "param": "referred_node",
                             "value": "ADD-0758c6a8-52b4-4b5b-9c46-2a83bdef2a04"
@@ -377,7 +377,7 @@
             "id": "ctrl-528f60c6-3795-4f10-ab34-2e22914d632f",
             "hidden": false,
             "param": {
-                "id": "LOOP_loop_num_loops",
+                "id": "num_loops",
                 "functionName": "LOOP",
                 "param": "num_loops",
                 "nodeId": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
