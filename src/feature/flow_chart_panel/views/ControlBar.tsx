@@ -36,7 +36,6 @@ const Controls: FC<ControlsProps> = ({
 }) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
-  const [modalIsOpen, setIsOpen] = useState(false);
 
   const {
     isEditMode,
@@ -56,72 +55,6 @@ const Controls: FC<ControlsProps> = ({
         "There is no program to send to server. \n Please add at least one node first."
       );
     }
-  };
-
-  const onAdd: NodeOnAddFunc = useCallback(
-    ({ key, params, type, inputs, customNodeId }) => {
-      let functionName: string;
-      const id = `${key}-${uuidv4()}`;
-      if (key === "CONSTANT") {
-        let constant = prompt("Please enter a numerical constant", "2.0");
-        if (constant == null) {
-          constant = "2.0";
-        }
-        functionName = constant;
-      } else {
-        functionName = prompt("Please enter a name for this node")!;
-      }
-      if (!functionName) return;
-      const funcParams = params
-        ? Object.keys(params).reduce(
-            (
-              prev: Record<
-                string,
-                {
-                  functionName: string;
-                  param: keyof ParamTypes;
-                  value: string | number;
-                }
-              >,
-              param
-            ) => ({
-              ...prev,
-              [key + "_" + functionName + "_" + param]: {
-                functionName: key,
-                param,
-                value:
-                  key === "CONSTANT" ? +functionName : params![param].default,
-              },
-            }),
-            {}
-          )
-        : {};
-
-      const newNode = {
-        id: id,
-        type: customNodeId || type,
-        data: {
-          id: id,
-          label: functionName,
-          func: key,
-          type,
-          ctrls: funcParams,
-          inputs,
-        },
-        position: getNodePosition(),
-      };
-      setNodes((els) => els.concat(newNode));
-      closeModal();
-    },
-    [setNodes]
-  );
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-  const afterOpenModal = () => null;
-  const closeModal = () => {
-    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -217,13 +150,6 @@ const Controls: FC<ControlsProps> = ({
           />
         </div>
       )}
-      <PythonFuncModal
-        afterOpenModal={afterOpenModal}
-        closeModal={closeModal}
-        modalIsOpen={modalIsOpen}
-        onAdd={onAdd}
-        theme={theme}
-      />
     </div>
   );
 };
