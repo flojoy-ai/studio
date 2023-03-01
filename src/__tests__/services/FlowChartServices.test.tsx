@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import { expect, jest, it } from "@jest/globals";
 import localforage from "localforage";
 
-import  * as CustomModule from "../../utils/CustomError";
+import * as CustomModule from "../../utils/CustomError";
 import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
@@ -23,6 +23,8 @@ const param: any = {
 /**
  * Mock function for fetch method
  */
+// const mockFetch = Promise.resolve({ json: () => Promise.resolve({}) });
+// global.fetch = jest.fn().mockImplementation(() => mockFetch) as any;
 
 global.fetch = jest.fn((url) =>
   Promise.resolve({
@@ -34,13 +36,13 @@ global.fetch = jest.fn((url) =>
 
 // Mocking CustomError Function
 
-jest.mock("../../utils/CustomError",()=>{
+jest.mock("../../utils/CustomError", () => {
   return {
-    CustomError:jest.fn().mockImplementation(param=>{
+    CustomError: jest.fn().mockImplementation((param) => {
       console.log(param);
-    })
-  }
-})
+    }),
+  };
+});
 
 describe("FlowChartServices", () => {
   describe("saveFlowChartToLocalStorage", () => {
@@ -90,7 +92,12 @@ describe("FlowChartServices", () => {
 
     it("given /wfc api returns error, throws custom error", async () => {
       // Given
-      const testResponse = { ok: false, status: 404, statusText: "Error" };
+      const testResponse = {
+        ok: false,
+        status: 404,
+        statusText: "Error",
+        json: () => Promise.resolve({}),
+      };
       jest
         .spyOn(global, "fetch")
         .mockImplementation(() => Promise.resolve(testResponse) as any);
@@ -103,20 +110,20 @@ describe("FlowChartServices", () => {
       }
     });
 
-    it("given /wfc api return error, throws custom error with proper parameters",()=>{
+    it("given /wfc api return error, throws custom error with proper parameters", () => {
       //Given
       const expectedParameters = {
-        statusText:"test",
-        statusCode:404
+        statusText: "test",
+        statusCode: 404,
       };
-      const constructorSpy = jest.spyOn(CustomModule,'CustomError');
+      const constructorSpy = jest.spyOn(CustomModule, "CustomError");
 
       //When
       new CustomModule.CustomError(expectedParameters);
 
       //Expect
-      expect(constructorSpy).toHaveBeenCalledWith(expectedParameters)
-    })
+      expect(constructorSpy).toHaveBeenCalledWith(expectedParameters);
+    });
 
     it.each([
       [{ rfInstance: undefined, jobId: "test" }],

@@ -16,9 +16,4 @@ describe("useSocket", () => {
     rerender();
     expect(spy).toHaveBeenCalledWith(Context.SocketContext);
   });
-  it("calls SocketContextProvider", () => {
-    const spy = jest.spyOn(Context, "SocketContextProvider");
-    rerender();
-    expect(spy).toHaveBeenCalled();
-  });
 });

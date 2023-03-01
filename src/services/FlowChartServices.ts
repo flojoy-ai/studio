@@ -46,21 +46,19 @@ export function cancelFlowChartRun({
   rfInstance: ReactFlowJsonObject;
   jobId: string;
 }) {
-  if (!rfInstance) {
-    return;
+  if (rfInstance) {
+    const rfInstanceObject = rfInstance;
+    const fcStr = JSON.stringify(rfInstanceObject);
+
+    fetch("/cancel_fc", {
+      method: "POST",
+      body: JSON.stringify({
+        fc: fcStr,
+        jobsetId: jobId,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((resp) => resp.json())
+      .then((json) => console.log(json));
   }
-
-  const rfInstanceObject = rfInstance;
-  const fcStr = JSON.stringify(rfInstanceObject);
-
-  fetch("/cancel_fc", {
-    method: "POST",
-    body: JSON.stringify({
-      fc: fcStr,
-      jobsetId: jobId,
-    }),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  })
-    .then((resp) => resp.json())
-    .then((json) => console.log(json));
 }

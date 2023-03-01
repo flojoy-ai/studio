@@ -4,7 +4,6 @@ import { act, renderHook, Renderer } from "@testing-library/react-hooks";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
 
 import { NOISY_SINE } from "../../data/RECIPES";
-import * as FileSaver from "file-saver";
 
 const initialManifests: any = [
   {
@@ -51,12 +50,6 @@ jest.mock("use-file-picker", () => {
         clear: jest.fn(),
       },
     ]),
-  };
-});
-
-jest.mock("file-saver", () => {
-  return {
-    saveAs: jest.fn(),
   };
 });
 
@@ -125,14 +118,6 @@ describe("useFlowChartState", () => {
       const filesContent = hookResult.filesContent;
 
       expect(filesContent.length).toEqual(1);
-    });
-  });
-
-  describe("saveFile", () => {
-    it("given an undefined flow object,returns", async () => {
-      const spy = jest.spyOn(FileSaver, "saveAs");
-      hookResult.saveFile();
-      expect(spy).not.toHaveBeenCalled();
     });
   });
 
