@@ -60,7 +60,7 @@ const BarChartTitle = ({ style }: SvgProps) => (
 const BarChart = ({ theme }: SvgProps) => {
   return (
     <Fragment>
-      <BarChartTitle
+      {/* <BarChartTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -68,7 +68,7 @@ const BarChart = ({ theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <BarChartIcon
         theme={theme}
         style={{

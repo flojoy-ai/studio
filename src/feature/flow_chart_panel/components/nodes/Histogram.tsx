@@ -142,7 +142,7 @@ const HistoLabels = ({ style, theme }: SvgProps) => {
 const Histogram = ({ style, theme }: SvgProps) => {
   return (
     <Fragment>
-      <HistoTitle
+      {/* <HistoTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -150,7 +150,7 @@ const Histogram = ({ style, theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <HistoLabels
         theme={theme}
         style={{

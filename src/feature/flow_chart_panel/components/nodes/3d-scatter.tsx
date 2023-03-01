@@ -222,7 +222,7 @@ const Scatter3DTitle = ({ style }: SvgProps) => (
 const Scatter3D = ({ theme }: SvgProps) => {
   return (
     <Fragment>
-      <Scatter3DTitle
+      {/* <Scatter3DTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -230,7 +230,7 @@ const Scatter3D = ({ theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <Scatter3DIcon
         style={{
           position: "absolute",

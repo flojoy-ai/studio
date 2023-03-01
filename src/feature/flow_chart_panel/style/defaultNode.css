@@ -2,9 +2,9 @@
   position: relative;
   padding: 10px;
   /* height: 105px; */
-  width: 190px;
+  width: 222px;
   font-weight: 600;
-  border-radius: 6px;
+  /* border-radius: 6px; */
   display: flex;
   flex-direction: column;
   justify-content: center;

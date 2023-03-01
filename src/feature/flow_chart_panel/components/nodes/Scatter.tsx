@@ -415,7 +415,7 @@ const ScatterBubbles = ({ style, theme }: SvgProps) => {
 const Scatter = ({ theme }: SvgProps) => {
   return (
     <Fragment>
-      <ScatterTitle
+      {/* <ScatterTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -423,7 +423,7 @@ const Scatter = ({ theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <ScatterBubbles
         theme={theme}
         style={{

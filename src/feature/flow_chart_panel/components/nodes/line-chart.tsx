@@ -104,7 +104,7 @@ const LineChartTitle = ({ style }: SvgProps) => (
 const LineChart = ({ theme }: SvgProps) => {
   return (
     <Fragment>
-      <LineChartTitle
+      {/* <LineChartTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -112,7 +112,7 @@ const LineChart = ({ theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <LineChartIcon
         theme={theme}
         style={{

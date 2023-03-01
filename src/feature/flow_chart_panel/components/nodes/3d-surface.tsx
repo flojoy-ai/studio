@@ -59,7 +59,7 @@ const Surface3DTitle = ({ style }: SvgProps) => (
 const Surface3D = ({ theme }: SvgProps) => {
   return (
     <Fragment>
-      <Surface3DTitle
+      {/* <Surface3DTitle
         theme={theme}
         style={{
           position: "absolute",
@@ -67,7 +67,7 @@ const Surface3D = ({ theme }: SvgProps) => {
           left: "50%",
           transform: "translateX(-50%)",
         }}
-      />
+      /> */}
       <Surface3DIcon
         style={{
           position: "absolute",
