@@ -19,19 +19,12 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme } = useFlowChartState();
   const params = data.inputs || [];
 
   return (
     <NodeWrapper
-      rootStyle={{
-        ...(runningNode === data.id && getboxShadow(data)),
-        ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
-        }),
-      }}
-      childClassName={"default_node_container"}
-      childStyle={{
+      backGroundStyle={{
         border:
           uiTheme === "light"
             ? "1px solid #2E83FF"
@@ -43,7 +36,6 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
         color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
         ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
       }}
-      uiTheme={uiTheme}
       data={data}
     >
       <div
