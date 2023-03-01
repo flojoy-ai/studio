@@ -135,7 +135,7 @@ const HandleComponent = ({
                   style={{
                     gap: "5px",
                     borderRadius: 0,
-                    top: 30 * (i + 1) + 90,
+                    top: 30 * (i + 1) + 30,
                     minHeight: 10,
                     display: "flex",
                     alignItems: "center",
@@ -183,7 +183,7 @@ const HandleComponent = ({
                   left: "-9px",
                   gap: "5px",
                   borderRadius: 0,
-                  top: 30 * (i + 1) + 80,
+                  top: 30 * (i + 1) + 70,
                   minHeight: 10,
                   display: "flex",
                   alignItems: "center",
