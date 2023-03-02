@@ -8,10 +8,10 @@ export function useControlsTabState() {
 
     return {
         openEditModal,
-        currentInput,
-        debouncedTimerId,
         setOpenEditModal,
+        currentInput,
         setCurrentInput,
+        debouncedTimerId,
         setDebouncedTimerId,
     };
 }
