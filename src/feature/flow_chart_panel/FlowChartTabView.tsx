@@ -15,11 +15,8 @@ import ReactFlow, {
   NodeMouseHandler,
   NodeDragHandler,
 } from "reactflow";
-// import { NavbarNested } from "./SideBar/SIdeBar";
 
 import localforage from "localforage";
-
-import CustomEdge from "./views/CustomEdge";
 
 import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
@@ -165,7 +162,7 @@ const FlowChartTab = ({
           onNodeDragStop={handleNodeDrag}
         />
       </div>
-      {/* <NavbarNested /> */}
+
       <NodeModal
         afterOpenModal={afterOpenModal}
         clickedElement={clickedElement}

@@ -4,13 +4,13 @@ exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-hsevc6"
+      class="mantine-s45vq9"
       data-testid="add-node-button"
     >
       + Add Node
     </button>
     <nav
-      class="mantine-Navbar-root mantine-1mg8l1t"
+      class="mantine-Navbar-root mantine-1xwlfk5"
       data-testid="sidebar"
     >
       <div
@@ -44,7 +44,7 @@ exports[`Sidebar should render the component correctly 1`] = `
           style="margin-top: 30px;"
         >
           <div
-            class="mantine-7aycx2 mantine-Input-icon"
+            class="mantine-yxyjyg mantine-Input-icon"
           >
             <svg
               class="icon icon-tabler icon-tabler-search"
@@ -77,7 +77,7 @@ exports[`Sidebar should render the component correctly 1`] = `
             </svg>
           </div>
           <input
-            class="mantine-Input-input mantine-Input-withIcon mantine-owhdof"
+            class="mantine-Input-input mantine-Input-withIcon mantine-rnw0l"
             data-testid="sidebar-input"
             name="sidebar-input"
             placeholder="Search"

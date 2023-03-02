@@ -1,6 +1,5 @@
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
 import { NOISY_SINE } from "@src/data/RECIPES";
-import { createYargs } from "electron-builder/out/builder";
 
 const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,

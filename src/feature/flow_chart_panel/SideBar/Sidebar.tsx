@@ -14,16 +14,7 @@ import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 
-type SectionType = {
-  title: string;
-  child: { name: string; key: string }[];
-}[];
-
-interface ThemeProps {
-  appTheme: "dark" | "light";
-}
-
-const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
+const useStyles = createStyles((theme) => ({
   navbarView: {
     paddingBottom: 0,
     position: "absolute",
@@ -31,7 +22,8 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     right: "0%",
     top: "110px",
     bottom: "0%",
-    backgroundColor: appTheme === "dark" ? "#243438" : appTheme,
+    backgroundColor:
+      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "100%",
     transition: "500ms",
@@ -45,7 +37,8 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     right: "0%",
     top: "110px",
     bottom: "0%",
-    backgroundColor: appTheme === "dark" ? "#243438" : appTheme,
+    backgroundColor:
+      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "100%",
     transition: "300ms",
@@ -80,17 +73,18 @@ const useStyles = createStyles((theme, { appTheme }: ThemeProps) => ({
     height: "43px",
     left: "0px",
     top: "110px",
-    background: appTheme === "dark" ? "#243438" : "#F6F7F8",
-    border: appTheme === "dark" ? "1px solid #94F4FC" : "1px solid #E1E4E7",
+    background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
+    border:
+      theme.colorScheme === "dark" ? "1px solid #94F4FC" : "1px solid #E1E4E7",
     cursor: "pointer",
     zIndex: 1,
   },
 }));
 
-const Sidebar = ({ appTheme }) => {
+const Sidebar = () => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
-  const { classes, theme } = useStyles({ appTheme });
+  const { classes } = useStyles();
 
   const renderSections = () => {
     if (textInput !== "") {
@@ -135,68 +129,62 @@ const Sidebar = ({ appTheme }) => {
   const handleSidebar = () => setSideBarStatus(!isSideBarOpen);
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{ ...theme, colorScheme: appTheme }}
-    >
-      <div>
-        <button
-          data-testid="add-node-button"
-          className={classes.addButton}
-          onClick={handleSidebar}
+    <div>
+      <button
+        data-testid="add-node-button"
+        className={classes.addButton}
+        onClick={handleSidebar}
+      >
+        + Add Node
+      </button>
+      <Navbar
+        data-testid="sidebar"
+        height={800}
+        width={{ sm: 387 }}
+        p="md"
+        className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+      >
+        <Navbar.Section
+          style={{
+            right: 10,
+            position: "absolute",
+            top: 5,
+          }}
         >
-          + Add Node
-        </button>
-        <Navbar
-          data-testid="sidebar"
-          height={800}
-          width={{ sm: 387 }}
-          p="md"
-          className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
-        >
-          <Navbar.Section
+          <button
+            onClick={handleSidebar}
             style={{
-              right: 10,
-              position: "absolute",
-              top: 5,
+              cursor: "pointer",
             }}
           >
-            <button
-              onClick={handleSidebar}
-              style={{
-                cursor: "pointer",
-              }}
-            >
-              <CloseIconSvg />
-            </button>
-          </Navbar.Section>
-          <Navbar.Section>
-            <Input
-              data-testid="sidebar-input"
-              name="sidebar-input"
-              placeholder="Search"
-              icon={<IconSearch size={18} />}
-              radius="sm"
-              type="search"
-              style={{
-                marginTop: "30px",
-                background: "inherit",
-              }}
-              value={textInput}
-              onChange={(e) => handleChangeInput(e.target.value)}
-            />
-          </Navbar.Section>
-          <Navbar.Section
-            grow
-            className={classes.sections}
-            component={ScrollArea}
-          >
-            <div className={classes.sectionsInner}>{renderSections()}</div>
-          </Navbar.Section>
-        </Navbar>
-      </div>
-    </MantineProvider>
+            <CloseIconSvg />
+          </button>
+        </Navbar.Section>
+        <Navbar.Section>
+          <Input
+            data-testid="sidebar-input"
+            name="sidebar-input"
+            placeholder="Search"
+            icon={<IconSearch size={18} />}
+            radius="sm"
+            type="search"
+            style={{
+              marginTop: "30px",
+              background: "inherit",
+            }}
+            value={textInput}
+            onChange={(e) => handleChangeInput(e.target.value)}
+          />
+        </Navbar.Section>
+        <Navbar.Section
+          grow
+          className={classes.sections}
+          component={ScrollArea}
+        >
+          <div className={classes.sectionsInner}>{renderSections()}</div>
+        </Navbar.Section>
+      </Navbar>
+    </div>
   );
 };
 

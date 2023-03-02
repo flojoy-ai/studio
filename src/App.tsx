@@ -16,10 +16,9 @@ import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
+import { MantineProvider } from "@mantine/core";
 
 const App = () => {
-  const [isSideBarClicked, setIsSideBarClicked] = useState(false);
-
   const { states } = useSocket();
   const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
@@ -144,7 +143,16 @@ const App = () => {
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          <Sidebar appTheme={theme} />
+          <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            theme={{
+              colorScheme: theme,
+            }}
+          >
+            <Sidebar />
+          </MantineProvider>
+
           <FlowChartTab
             rfInstance={rfInstance!}
             setRfInstance={setRfInstance}

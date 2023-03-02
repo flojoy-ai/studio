@@ -1,8 +1,6 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import Sidebar from "../Sidebar";
 
-const theme = "dark";
-
 class ResizeObserver {
   observe() {}
   unobserve() {}
@@ -31,19 +29,19 @@ window.ResizeObserver = ResizeObserver as any;
 
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
-    const { container } = render(<Sidebar appTheme={theme} />);
+    const { container } = render(<Sidebar />);
     expect(container).toMatchSnapshot();
   });
 
   it("checks the add button to be in the document", () => {
-    const { container, getByTestId } = render(<Sidebar appTheme={theme} />);
-    const addButton: any = getByTestId("add-node-button");
+    const { container, getByTestId } = render(<Sidebar />);
+    const addButton = getByTestId("add-node-button");
 
     expect(addButton).toBeInTheDocument();
   });
 
   it("fires The click event in add node, and checks if the classname of the navbar changes or not", () => {
-    const { container, getByTestId } = render(<Sidebar appTheme={theme} />);
+    const { container, getByTestId } = render(<Sidebar />);
 
     const addButton = getByTestId("add-node-button");
 
@@ -57,7 +55,7 @@ describe("Sidebar", () => {
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
     const { container, getByTestId, getByDisplayValue, getByRole, getByText } =
-      render(<Sidebar appTheme={theme} />);
+      render(<Sidebar />);
     const input: any = getByTestId("sidebar-input");
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");
