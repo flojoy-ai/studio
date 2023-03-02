@@ -84,7 +84,7 @@ const useStyles = createStyles((theme) => ({
 const Sidebar = () => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
-  const { classes } = useStyles();
+  const { classes, theme } = useStyles();
 
   const renderSections = () => {
     if (textInput !== "") {
@@ -157,7 +157,7 @@ const Sidebar = () => {
               cursor: "pointer",
             }}
           >
-            <CloseIconSvg />
+            <CloseIconSvg theme={theme.colorScheme} />
           </button>
         </Navbar.Section>
         <Navbar.Section>
