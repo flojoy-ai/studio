@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Handle, Position } from 'reactflow';
+import { Handle, Position } from "reactflow";
 import { CustomNodeProps, ElementsData } from "../types/CustomNodeProps";
 
 const HandleComponent = ({
@@ -95,7 +95,7 @@ const HandleComponent = ({
             height: 15,
             width: 15,
             left: "-9px",
-            ...(params.length > 0 && { top: 15 }),
+            ...(params.length > 0 && { top: 0 }),
           }}
           id={data.func}
         />
