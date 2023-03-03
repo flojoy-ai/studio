@@ -11,20 +11,20 @@ const items = {
   child: [{ name: "test", key: "test" }],
 };
 
-jest.mock("../../manifest/COMMANDS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
   return {
     COMMANDS: [],
     SECTIONS: [],
   };
 });
 
-jest.mock("../../manifest/PARAMETERS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   return {
     FUNCTION_PARAMETERS: {},
   };
 });
 
-jest.mock("../../../../hooks/useFlowChartState", () => {
+jest.mock("@src/hooks/useFlowChartState", () => {
   return {
     useFlowChartState: () => {
       return {
