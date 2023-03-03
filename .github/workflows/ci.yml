@@ -29,10 +29,10 @@ jobs:
       - name: Npm install
         run: npm install --legacy-peer-deps
 
-      - name: Run Jest
+      - name: Run unit tests
         run: npm run test
 
-      - name: Run e2e
+      - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
           build: npm run build

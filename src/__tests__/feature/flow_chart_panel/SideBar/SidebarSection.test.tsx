@@ -1,10 +1,5 @@
-import {
-  render,
-  fireEvent,
-  waitFor,
-  getAllByTestId,
-} from "@testing-library/react";
-import SidebarSection from "../SidebarSection";
+import { render, fireEvent } from "@testing-library/react";
+import SidebarSection from "@src/feature/flow_chart_panel/SideBar/SidebarSection";
 
 class ResizeObserver {
   observe() {}
@@ -16,22 +11,20 @@ const items = {
   child: [{ name: "test", key: "test" }],
 };
 
-const onAdd = jest.fn();
-
-jest.mock("../../manifest/COMMANDS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
   return {
     COMMANDS: [],
     SECTIONS: [],
   };
 });
 
-jest.mock("../../manifest/PARAMETERS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   return {
     FUNCTION_PARAMETERS: {},
   };
 });
 
-jest.mock("../../../../hooks/useFlowChartState", () => {
+jest.mock("@src/hooks/useFlowChartState", () => {
   return {
     useFlowChartState: () => {
       return {

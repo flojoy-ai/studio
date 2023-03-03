@@ -2,7 +2,7 @@
 
 describe('Load default page and switch between tabs', () => {
   it("Landing page should behave normally", () => {
-    cy.visit("/").wait(10000);
+    cy.visit("/").wait(1000);
     cy.get("[data-testid=react-flow]", { timeout: 20000 });;
 
     cy.get('[data-cy=ctrls-btn]').click()

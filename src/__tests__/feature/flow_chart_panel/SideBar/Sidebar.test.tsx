@@ -1,26 +1,26 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import Sidebar from "../Sidebar";
+import Sidebar from "@src/feature/flow_chart_panel/SideBar/Sidebar";
 
 class ResizeObserver {
   observe() {}
   unobserve() {}
 }
 
-jest.mock("../../manifest/COMMANDS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
   return {
     COMMANDS: [],
     SECTIONS: [],
   };
 });
 
-jest.mock("../../manifest/PARAMETERS_MANIFEST", () => {
+jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   return {
     FUNCTION_PARAMETERS: {},
   };
 });
 
 const mockChildComponent = jest.fn();
-jest.mock("../SidebarSection", () => (props) => {
+jest.mock('@src/feature/flow_chart_panel/SideBar/SidebarSection', () => (props) => {
   mockChildComponent(props);
   return <div />;
 });
@@ -34,14 +34,14 @@ describe("Sidebar", () => {
   });
 
   it("checks the add button to be in the document", () => {
-    const { container, getByTestId } = render(<Sidebar />);
+    const { getByTestId } = render(<Sidebar />);
     const addButton = getByTestId("add-node-button");
 
     expect(addButton).toBeInTheDocument();
   });
 
   it("fires The click event in add node, and checks if the classname of the navbar changes or not", () => {
-    const { container, getByTestId } = render(<Sidebar />);
+    const { getByTestId } = render(<Sidebar />);
 
     const addButton = getByTestId("add-node-button");
 
@@ -54,7 +54,7 @@ describe("Sidebar", () => {
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
-    const { container, getByTestId, getByDisplayValue, getByRole, getByText } =
+    const { getByTestId } =
       render(<Sidebar />);
     const input: any = getByTestId("sidebar-input");
     fireEvent.change(input, { target: { value: "sine" } });
