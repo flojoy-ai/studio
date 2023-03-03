@@ -4,7 +4,7 @@ import { compilerOptions } from "./tsconfig.json";
 export default async (): Promise<Config.InitialOptions> => {
   return {
     preset: "ts-jest",
-    setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
+    setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
     displayName: {
       name: "flojoy unit-testing",
       color: "greenBright",

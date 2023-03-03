@@ -79,6 +79,7 @@ describe("user workflow", () => {
             .click()
             .type(`{selectall}${item.value.toString()}`);
         });
+        cy.wait(100);
       });
     });
 
