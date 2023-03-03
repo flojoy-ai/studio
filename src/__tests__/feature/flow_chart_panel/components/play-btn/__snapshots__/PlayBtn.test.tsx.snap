@@ -4,6 +4,7 @@ exports[`PlayBtn component renders correctly with default props 1`] = `
 <button
   class="btn__play light"
   data-cy="btn-play"
+  data-testid="btn-play"
   title="Run Script"
 >
   <svg

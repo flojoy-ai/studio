@@ -100,9 +100,9 @@ const ControlComponent = ({
       attachParamsToCtrl(
         {
           ...(selectedOption?.value as CtrlOptionValue),
-          id: "CONSTANT_" + value + "_constant",
+          id: `CONSTANT_${value.toString().split(" ").join('')}_constant`,
         },
-        ctrlObj
+        {...ctrlObj, val: value}
       );
     }
   };
@@ -352,7 +352,7 @@ const ControlComponent = ({
             value={
               paramOptions.find(
                 (opt) => opt.value === currentInputValue.toString()
-              ) || ""
+              ) || {label:"", value:''}
             }
           />
         </div>

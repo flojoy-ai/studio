@@ -35,17 +35,17 @@
                     "func": "LOCAL_FILE",
                     "type": "LOADER",
                     "ctrls": {
-                        "LOCAL_FILE_LOCAL FILE_file_type": {
+                        "file_type": {
                             "functionName": "LOCAL_FILE",
                             "param": "file_type",
                             "value": "image"
                         },
-                        "LOCAL_FILE_LOCAL FILE_op_type": {
+                        "op_type": {
                             "functionName": "LOCAL_FILE",
                             "param": "op_type",
                             "value": "OD"
                         },
-                        "LOCAL_FILE_LOCAL FILE_path": {
+                        "path": {
                             "functionName": "LOCAL_FILE",
                             "param": "path",
                             "value": ""

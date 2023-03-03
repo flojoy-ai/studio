@@ -10,6 +10,7 @@ import {
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import { COMMANDS } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
+import { NodeOnAddFunc } from "../types/NodeAddFunc";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -83,7 +84,7 @@ const useStyles = createStyles((theme) => ({
 
 interface SubSectionProps {
   subSection: { name: string; key: string };
-  onAdd: any;
+  onAdd: NodeOnAddFunc;
 }
 
 const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
@@ -108,12 +109,12 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
               }
               onClick={() => {
                 onAdd({
-                  key: cmd.key,
+                  funcName: cmd.key,
                   type: cmd.type,
                   params: FUNCTION_PARAMETERS[cmd.key],
                   inputs: cmd.inputs,
                   ...(cmd.ui_component_id && {
-                    customNodeId: cmd.ui_component_id,
+                    uiComponentId: cmd.ui_component_id,
                   }),
                 });
               }}

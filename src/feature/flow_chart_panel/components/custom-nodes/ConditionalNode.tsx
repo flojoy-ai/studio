@@ -80,15 +80,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
             {data.func === "CONDITIONAL" && (
               <>
                 {params?.length !== 0 ? (
-                  <p>
-                    x{" "}
-                    {
-                      data["ctrls"][`CONDITIONAL_${data.label}_operator_type`][
-                        "value"
-                      ]
-                    }{" "}
-                    y
-                  </p>
+                  <p>x {data["ctrls"]["operator_type"]["value"]} y</p>
                 ) : (
                   <>
                     {Object.keys(additionalInfo)

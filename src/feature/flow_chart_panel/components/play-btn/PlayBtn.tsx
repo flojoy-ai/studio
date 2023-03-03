@@ -31,6 +31,7 @@ const PlayBtn = ({ theme, onClick, style, disabled = false }: PlayBtnProps) => {
       style={style}
       onClick={handleClick}
       data-cy="btn-play"
+      data-testid="btn-play"
       disabled={disabled}
       title={disabled ? "Server is offline" : "Run Script"}
     >

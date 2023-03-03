@@ -14,6 +14,7 @@ import ReactFlow, {
   OnInit,
   NodeMouseHandler,
   NodeDragHandler,
+  OnNodesDelete,
 } from "reactflow";
 
 import localforage from "localforage";
@@ -119,7 +120,10 @@ const FlowChartTab = ({
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
-
+  const handleNodesDelete: OnNodesDelete = useCallback(
+    (_) => setNodes([]),
+    [setNodes]
+  );
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -160,6 +164,7 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
+          onNodesDelete={handleNodesDelete}
         />
       </div>
 

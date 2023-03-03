@@ -12,6 +12,7 @@ import SidebarSubSection from "./SidebarSubSection";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { v4 as uuidv4 } from "uuid";
+import { ElementsData } from "../types/CustomNodeProps";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -65,41 +66,34 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
   const [opened, setOpened] = useState(false);
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
 
-  const { setNodes } = useFlowChartState();
+  const { nodes, setNodes } = useFlowChartState();
 
-  const onAdd: NodeOnAddFunc = useCallback(
-    ({ key, params, type, inputs, customNodeId }) => {
-      let functionName: string;
-      const id = `${key}-${uuidv4()}`;
-      if (key === "CONSTANT") {
-        let constant = prompt("Please enter a numerical constant", "2.0");
-        if (constant == null) {
-          constant = "2.0";
-        }
-        functionName = constant;
+  const addNewNode: NodeOnAddFunc = useCallback(
+    ({ funcName, params, type, inputs, uiComponentId }) => {
+      let nodeLabel: string;
+      const nodeId = `${funcName}-${uuidv4()}`;
+      if (funcName === "CONSTANT") {
+        nodeLabel = "2.0";
       } else {
-        functionName = prompt("Please enter a name for this node")!;
+        const numOfThisNodesOnChart = nodes.filter(
+          (node) => node.data.func === funcName
+        ).length;
+        nodeLabel =
+          numOfThisNodesOnChart > 0
+            ? `${funcName}_${numOfThisNodesOnChart}`
+            : funcName;
       }
-      if (!functionName) return;
-      const funcParams = params
+      const nodeParams = params
         ? Object.keys(params).reduce(
-            (
-              prev: Record<
-                string,
-                {
-                  functionName: string;
-                  param: keyof ParamTypes;
-                  value: string | number;
-                }
-              >,
-              param
-            ) => ({
+            (prev: ElementsData["ctrls"], param) => ({
               ...prev,
-              [key + "_" + functionName + "_" + param]: {
-                functionName: key,
+              [param]: {
+                functionName: funcName,
                 param,
                 value:
-                  key === "CONSTANT" ? +functionName : params![param].default,
+                  funcName === "CONSTANT"
+                    ? nodeLabel
+                    : params![param].default?.toString(),
               },
             }),
             {}
@@ -107,26 +101,26 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
         : {};
 
       const newNode = {
-        id: id,
-        type: customNodeId || type,
+        id: nodeId,
+        type: uiComponentId || type,
         data: {
-          id: id,
-          label: functionName,
-          func: key,
+          id: nodeId,
+          label: nodeLabel,
+          func: funcName,
           type,
-          ctrls: funcParams,
+          ctrls: nodeParams,
           inputs,
         },
         position: getNodePosition(),
       };
       setNodes((els) => els.concat(newNode));
     },
-    [setNodes]
+    [nodes, setNodes]
   );
 
   const items = (hasChilds ? child : []).map((c) => (
     <Text<"div"> component="div" className={classes.subSection} key={c.name}>
-      <SidebarSubSection subSection={c} onAdd={onAdd} />
+      <SidebarSubSection subSection={c} onAdd={addNewNode} />
     </Text>
   ));
 

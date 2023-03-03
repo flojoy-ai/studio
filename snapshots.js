@@ -2,7 +2,7 @@ module.exports = {
   "__version": "10.11.0",
   "User default workflow": {
     "Should complete default workflow": {
-      "plotlyDefaultOutput_LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a": {
+      "plotlyDefaultOutput_LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce": {
         "x": null,
         "y": [
           10,
@@ -1008,7 +1008,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071": {
+      "plotlyDefaultOutput_SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd": {
         "x": [
           10,
           9.98998998998999,
@@ -3015,7 +3015,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71": {
+      "plotlyDefaultOutput_RAND-434f7314-f239-4e7d-a9c6-629529db1d82": {
         "x": [
           10,
           9.98998998998999,
@@ -5022,7 +5022,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f": {
+      "plotlyDefaultOutput_CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6": {
         "x": [
           10,
           9.98998998998999,
@@ -7029,7 +7029,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2": {
+      "plotlyDefaultOutput_MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766": {
         "x": {
           "a": [
             10,
@@ -10040,7 +10040,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_ADD-498040ea-e438-43c9-91eb-469170b77f84": {
+      "plotlyDefaultOutput_ADD-a586b5d7-4343-430d-89ce-3c2a3d156695": {
         "x": {
           "a": [
             2,
@@ -13051,7 +13051,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965": {
+      "plotlyDefaultOutput_SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6": {
         "x": {
           "a": [
             2,
@@ -16062,7 +16062,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f": {
+      "plotlyDefaultOutput_HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f": {
         "x": {
           "a": [
             2,
@@ -19073,7 +19073,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyDefaultOutput_END-151fc182-1da7-4924-982f-bbf4a35d8084": {
+      "plotlyDefaultOutput_END-06a4da40-a0ae-44ad-873b-9b65d096880a": {
         "x": {
           "a": [
             2,
@@ -22088,7 +22088,7 @@ module.exports = {
   },
   "user workflow": {
     "Should load default flow chart": {
-      "plotlyCustomOutput_LINSPACE-a41853d0-3c5c-4742-b850-e9df4bc77a8a": {
+      "plotlyCustomOutput_LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce": {
         "x": null,
         "y": [
           10,
@@ -25094,7 +25094,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_SINE-01fd90c6-f1b8-4e15-8bba-bb061f88e071": {
+      "plotlyCustomOutput_SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd": {
         "x": [
           10,
           10.008002667555852,
@@ -31101,7 +31101,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_RAND-4c462ed8-ad5c-453b-a194-3cfcb70d4c71": {
+      "plotlyCustomOutput_RAND-434f7314-f239-4e7d-a9c6-629529db1d82": {
         "x": [
           10,
           10.008002667555852,
@@ -37108,7 +37108,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_CONSTANT-56cf2a89-5e0b-4d24-8ce1-7cf1f2b6413f": {
+      "plotlyCustomOutput_CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6": {
         "x": [
           10,
           10.008002667555852,
@@ -43115,7 +43115,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_MULTIPLY-2a3b3354-90e3-4bc0-b61d-ed9b225a96a2": {
+      "plotlyCustomOutput_MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766": {
         "x": {
           "a": [
             10,
@@ -52126,7 +52126,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_ADD-498040ea-e438-43c9-91eb-469170b77f84": {
+      "plotlyCustomOutput_ADD-a586b5d7-4343-430d-89ce-3c2a3d156695": {
         "x": {
           "a": [
             8,
@@ -61137,7 +61137,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_HISTOGRAM-64d7baa1-fe3a-4dd8-83bd-a6612fe96965": {
+      "plotlyCustomOutput_SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6": {
         "x": {
           "a": [
             8,
@@ -70148,7 +70148,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_SCATTER-42385345-8d75-4260-88c5-0ea3ea72670f": {
+      "plotlyCustomOutput_HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f": {
         "x": {
           "a": [
             8,
@@ -79159,7 +79159,7 @@ module.exports = {
         ],
         "type": "ordered_pair"
       },
-      "plotlyCustomOutput_END-151fc182-1da7-4924-982f-bbf4a35d8084": {
+      "plotlyCustomOutput_END-06a4da40-a0ae-44ad-873b-9b65d096880a": {
         "x": {
           "a": [
             8,
