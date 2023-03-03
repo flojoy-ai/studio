@@ -19,8 +19,6 @@ import ReactFlow, {
 
 import localforage from "localforage";
 
-import CustomEdge from "./views/CustomEdge";
-
 import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
@@ -148,8 +146,13 @@ const FlowChartTab = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `99vh` }} data-testid="react-flow">
+      <div style={{ height: `90vh` }} data-testid="react-flow">
         <ReactFlow
+          style={{
+            position: "fixed",
+            height: "100%",
+            width: "50%",
+          }}
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}

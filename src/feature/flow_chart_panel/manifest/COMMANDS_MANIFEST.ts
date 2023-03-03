@@ -26,14 +26,14 @@ export const SECTIONS = [
       // Conditionals, Timers, & Loops
       { name: "Timers", key: "TIMER" },
       { name: "Loops", key: "LOOP" },
-      { name: "Conditionals", key: "CONDITIONAL" }
+      { name: "Conditionals", key: "CONDITIONAL" },
     ],
   },
   {
     title: "Transformers",
     child: [
       // Transformers tab
-      {name: 'Arithmetic', key: 'ARITHMETIC'},
+      { name: "Arithmetic", key: "ARITHMETIC" },
       { name: "Signal processing", key: "SIGNAL_PROCESSING" },
       { name: "Regressions", key: "REGRESSIONS" },
       { name: "Image processing", key: "IMAGE_PROCESSING" },
@@ -42,9 +42,7 @@ export const SECTIONS = [
   },
   {
     title: "Arrays and Matrices",
-    child: [
-      { name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" },
-    ]
+    child: [{ name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" }],
   },
   {
     title: "Loaders",
