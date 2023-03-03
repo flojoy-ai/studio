@@ -11,7 +11,9 @@ describe("Script Tab Functionalities", () => {
     cy.visit("/").wait(1000);
     cy.get("[data-testid=react-flow]", { timeout: 20000 });
     nodes.forEach((node) => {
-      cy.get(`[data-id=${node.selector}]`).dblclick({multiple:true});
+      cy.get(`[data-id=${node.selector}]`).dblclick({
+        multiple: true,
+      });
       cy.contains("h1", node.funcName, { matchCase: false });
       cy.get(".ctrl-close-btn").click({ force: true });
     });
