@@ -37,12 +37,6 @@ jest.mock("@src/services/FlowChartServices", () => ({
   cancelFlowChartRun: jest.fn(),
 }));
 
-// Mock AddNodeModal component
-jest.mock("@src/feature/flow_chart_panel/views/AddNodeModal", () => ({
-  __esModule: true,
-  default: jest.fn(() => <div>AddNodeModal</div>),
-}));
-
 // Mock KeyboardShortcutModal component
 jest.mock("@src/feature/flow_chart_panel/views/KeyboardShortcutModal", () => ({
   __esModule: true,
@@ -63,32 +57,20 @@ describe("Controls", () => {
     expect(screen.getByTestId("btn-play")).toBeInTheDocument();
     expect(screen.getByTestId("btn-play")).toBeDisabled();
     expect(screen.queryByTitle("Cancel Run")).not.toBeInTheDocument();
-    expect(screen.getByTestId("add-node")).toBeInTheDocument();
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
-    expect(screen.getByText("AddNodeModal")).toBeInTheDocument();
     expect(container).toMatchSnapshot("__main__");
   });
-  it("should show the Add node button when active tab is 'visual'", () => {
-    render(
-      <Controls theme="dark" activeTab="visual" setOpenCtrlModal={jest.fn()} />
-    );
-    expect(screen.getByTestId("add-node")).toBeInTheDocument();
-    expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
-  });
-
   it("should show the Edit button when active tab is 'panel'", () => {
     render(
       <Controls theme="dark" activeTab="panel" setOpenCtrlModal={jest.fn()} />
     );
-    expect(screen.queryByTestId("add-node")).not.toBeInTheDocument();
     expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
     render(
       <Controls theme="dark" activeTab="debug" setOpenCtrlModal={jest.fn()} />
     );
-    expect(screen.queryByTestId("add-node")).not.toBeInTheDocument();
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
   });
 });
