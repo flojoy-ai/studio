@@ -3,6 +3,7 @@ module.exports = {
   "User default workflow": {
     "Should complete default workflow": {
       "plotlyDefaultOutput_LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce": {
+        "type": "ordered_pair",
         "x": null,
         "y": [
           10,
@@ -1005,10 +1006,10 @@ module.exports = {
           0.020020020020020013,
           0.010010010010010006,
           0
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd": {
+        "type": "ordered_pair",
         "x": [
           10,
           9.98998998998999,
@@ -3012,10 +3013,10 @@ module.exports = {
           0.0021954390996716494,
           0.0010977202112067773,
           0
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_RAND-434f7314-f239-4e7d-a9c6-629529db1d82": {
+        "type": "ordered_pair",
         "x": [
           10,
           9.98998998998999,
@@ -5019,10 +5020,10 @@ module.exports = {
           0.020020020020020013,
           0.010010010010010006,
           0
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6": {
+        "type": "ordered_pair",
         "x": [
           10,
           9.98998998998999,
@@ -7026,10 +7027,10 @@ module.exports = {
           2,
           2,
           2
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             10,
@@ -10037,10 +10038,10 @@ module.exports = {
           0.00004395273472816113,
           0.000010988190302370139,
           0
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_ADD-a586b5d7-4343-430d-89ce-3c2a3d156695": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             2,
@@ -13048,10 +13049,10 @@ module.exports = {
           2.0000439527347282,
           2.0000109881903025,
           2
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             2,
@@ -16059,10 +16060,10 @@ module.exports = {
           2.0000439527347282,
           2.0000109881903025,
           2
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             2,
@@ -19070,10 +19071,10 @@ module.exports = {
           2.0000439527347282,
           2.0000109881903025,
           2
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyDefaultOutput_END-06a4da40-a0ae-44ad-873b-9b65d096880a": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             2,
@@ -22081,14 +22082,14 @@ module.exports = {
           2.0000439527347282,
           2.0000109881903025,
           2
-        ],
-        "type": "ordered_pair"
+        ]
       }
     }
   },
   "user workflow": {
     "Should load default flow chart": {
       "plotlyCustomOutput_LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce": {
+        "type": "ordered_pair",
         "x": null,
         "y": [
           10,
@@ -25091,10 +25092,10 @@ module.exports = {
           33.9839946648883,
           33.99199733244415,
           34
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd": {
+        "type": "ordered_pair",
         "x": [
           10,
           10.008002667555852,
@@ -31098,10 +31099,10 @@ module.exports = {
           12.553787169860357,
           10.907660633733167,
           9.20086715629787
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_RAND-434f7314-f239-4e7d-a9c6-629529db1d82": {
+        "type": "ordered_pair",
         "x": [
           10,
           10.008002667555852,
@@ -37105,10 +37106,10 @@ module.exports = {
           33.9839946648883,
           33.99199733244415,
           34
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6": {
+        "type": "ordered_pair",
         "x": [
           10,
           10.008002667555852,
@@ -43112,10 +43113,10 @@ module.exports = {
           8,
           8,
           8
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             10,
@@ -52123,10 +52124,10 @@ module.exports = {
           426.6278362046776,
           370.7731711650639,
           312.8294833141276
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_ADD-a586b5d7-4343-430d-89ce-3c2a3d156695": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             8,
@@ -61134,10 +61135,10 @@ module.exports = {
           434.6278362046776,
           378.7731711650639,
           320.8294833141276
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             8,
@@ -70145,10 +70146,10 @@ module.exports = {
           434.6278362046776,
           378.7731711650639,
           320.8294833141276
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             8,
@@ -79156,10 +79157,10 @@ module.exports = {
           434.6278362046776,
           378.7731711650639,
           320.8294833141276
-        ],
-        "type": "ordered_pair"
+        ]
       },
       "plotlyCustomOutput_END-06a4da40-a0ae-44ad-873b-9b65d096880a": {
+        "type": "ordered_pair",
         "x": {
           "a": [
             8,
@@ -88167,8 +88168,7 @@ module.exports = {
           434.6278362046776,
           378.7731711650639,
           320.8294833141276
-        ],
-        "type": "ordered_pair"
+        ]
       }
     }
   }

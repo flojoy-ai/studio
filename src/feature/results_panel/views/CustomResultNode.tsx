@@ -1,7 +1,7 @@
 import { Handle, Position } from "reactflow";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import styledPlotLayout from "../../common/defaultPlotLayout";
-import PlotlyComponent from "../../common/PlotlyComponent";
+import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { ResultNodeData } from "../types/ResultsType";
 import { Buffer } from "buffer";
 interface CustomResultNodeProp {

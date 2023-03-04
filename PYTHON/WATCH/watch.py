@@ -102,9 +102,8 @@ class FlowScheduler:
         # jobset finished 
         self.topology.print_graph()
         self.notify_jobset_finished()
-        self.job_service.reset(self.flow_chart.get('nodes',[]))
         print('finished proceessing jobset', self.jobset_id, '\n')
-
+        return
 
     def process_job_result(self, job_id, job_result, success):
         '''
@@ -219,7 +218,7 @@ def reactflow_to_networkx(elems, edges):
 
 def run(**kwargs):
     try:
-        FlowScheduler(**kwargs).run()
+        return FlowScheduler(**kwargs).run()
     except Exception:
         print('exception occured whilte running the flowchart')
         print(traceback.format_exc())

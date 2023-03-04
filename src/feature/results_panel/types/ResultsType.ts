@@ -9,7 +9,7 @@ export type ResultIO = {
     file_type?:string[];
     source?:string;
     x?: number[] | undefined;
-    y?: number[] | undefined;
+    y?: number[] | Array<number[]> | undefined;
     z?: number[] | undefined;
     layout?: Record<string, string>;
     data?: {
@@ -25,5 +25,5 @@ export interface ResultsType {
   io?: ResultIO[];
 }
 export type ResultNodeData = ElementsData & {
-  resultData: ResultIO["result"];
+  resultData?: ResultIO["result"];
 };

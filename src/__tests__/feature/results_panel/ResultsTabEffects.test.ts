@@ -20,7 +20,7 @@ describe("useResultsTabEffects", () => {
     },
   ];
   const nodes: ResultTabStateReturnType["nodes"] = (
-    NOISY_SINE.nodes as Node<ElementsData, string>[]
+    NOISY_SINE.nodes as Node<ElementsData>[]
   ).map((node) => ({
     ...node,
     type: "default",
