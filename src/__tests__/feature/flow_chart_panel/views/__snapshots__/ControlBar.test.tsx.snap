@@ -28,31 +28,11 @@ exports[`Controls should render correctly: __main__ 1`] = `
         Play
       </span>
     </button>
-    <button
-      class="save__controls_button btn__add"
-      data-cy="add-node"
-      data-testid="add-node"
-    >
-       
-      <div
-        style="color: rgb(153, 245, 255); font-size: 20px;"
-      >
-        +
-      </div>
-      <div
-        style="color: rgb(255, 255, 255);"
-      >
-        Add
-      </div>
-    </button>
     <div>
       Dropdown
     </div>
     <div>
       KeyboardShortcutModal
-    </div>
-    <div>
-      AddNodeModal
     </div>
   </div>
 </div>

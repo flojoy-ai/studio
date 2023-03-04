@@ -47,10 +47,8 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialNodes: Node<ElementsData, string>[] = NOISY_SINE.nodes as Node<
-  ElementsData,
-  string
->[];
+const initialNodes: Node<ElementsData>[] =
+  NOISY_SINE.nodes as Node<ElementsData>[];
 const initialEdges: Edge[] = NOISY_SINE.edges;
 const initialManifests: CtlManifestType[] = [
   {
@@ -87,7 +85,6 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
-  const flowKey = "flow-joy";
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
