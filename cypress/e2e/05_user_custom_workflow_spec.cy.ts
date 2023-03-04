@@ -21,6 +21,7 @@ const ctrlParameters = [
 
 describe("user workflow", () => {
   it("Should load default flow chart", () => {
+    Cypress.on("uncaught:exception", () => false);
     cy.visit("/", {
       onBeforeLoad(win: any) {
         win.disableIntercom = true;
@@ -53,9 +54,6 @@ describe("user workflow", () => {
       .click()
       .should("have.css", "color", "rgb(255, 165, 0)");
 
-    Cypress.on("uncaught:exception", (err, runnable) => {
-      return false;
-    });
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
 
     cy.get("[data-cy=add-ctrl]")
@@ -86,6 +84,7 @@ describe("user workflow", () => {
     cy.get(`[data-cy="debug-btn"]`).click();
 
     cy.get(`[data-cy="btn-play"]`).contains("Play").click();
+    cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
     cy.get(`[data-cy="app-status"]`)
       .find("code")
       .contains("🐢 awaiting a new job", { timeout: 600000 });

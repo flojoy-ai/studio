@@ -65,17 +65,25 @@ export class WebSocketServer {
               const isExist = prev.io.find(
                 (node) => node.id === data[ResponseEnum.nodeResults].id
               );
+              const resultIo = data[ResponseEnum.nodeResults];
+              const resultData = {
+                ...resultIo,
+                result:{
+                  ...resultIo.result,
+                  type: resultIo.result.type === 'file' ? "image" : resultIo.result.type
+                }
+              }
               if (isExist) {
                 const filterResult = prev.io.filter(
-                  (node) => node.id !== data[ResponseEnum.nodeResults].id
+                  (node) => node.id !== resultIo.id
                 );
                 return {
-                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+                  io: [...filterResult, resultData],
                 };
               }
 
               return {
-                io: [...prev.io, data[ResponseEnum.nodeResults]],
+                io: [...prev.io, resultData],
               };
             });
           }

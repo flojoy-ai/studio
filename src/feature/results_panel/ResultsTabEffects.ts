@@ -10,16 +10,17 @@ export function useResultsTabEffects({
   useEffect(() => {
     if (nodeResults && nodeResults.length > 0 && nodes.length > 0) {
       setResultNodes(
-        nodes.map((node) => ({
+        nodes.map((node) => {
+          const nodeResult = nodeResults?.find((result) => result.id === node.id);
+          return({
           ...node,
           type:'default',
           position: node.position,
           data: {
             ...node.data,
-            resultData: nodeResults?.find((result) => result.id === node.id)
-              ?.result,
+            resultData: nodeResult?.result
           },
-        }))
+        })})
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

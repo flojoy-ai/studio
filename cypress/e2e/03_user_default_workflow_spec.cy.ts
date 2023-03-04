@@ -9,6 +9,7 @@ const nodes = NOISY_SINE.nodes.map((node) => ({
 
 describe("User default workflow", () => {
   it("Should complete default workflow", () => {
+    Cypress.on("uncaught:exception", () => false);
     cy.visit("/", {
       onBeforeLoad(win: any) {
         win.disableIntercom = true;
@@ -28,28 +29,18 @@ describe("User default workflow", () => {
           throw new Error("not correct status");
         }
       });
-    Cypress.on("uncaught:exception", (err) => {
-      return false;
-    });
 
     cy.get(`[data-cy="debug-btn"]`).click();
 
     cy.get(`[data-cy="btn-play"]`).click();
-    Cypress.on("uncaught:exception", (err) => {
-      return false;
-    });
+    cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
     cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
       timeout: 60000,
-    });
-    Cypress.on("uncaught:exception", (err) => {
-      return false;
     });
     cy.get("[data-testid=result-node]", { timeout: 60000 });
 
     cy.get(`[data-cy="script-btn"]`).click();
-    Cypress.on("uncaught:exception", (err) => {
-      return false;
-    });
+
     nodes.forEach((node) => {
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
     });
