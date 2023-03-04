@@ -6,14 +6,26 @@ type States = {
   programResults: ResultsType | null;
   setProgramResults: Dispatch<SetStateAction<ResultsType>>;
   runningNode: string;
-  serverStatus: string;
+  serverStatus: IServerStatus;
   failedNode: string;
   failureReason: string[];
   socketId: string;
 };
+export enum IServerStatus {
+  OFFLINE = "🛑 server offline",
+  CONNECTING = "Connecting to server...",
+  RQ_RUN_IN_PROCESS= "🏃‍♀️ running script...",
+  RQ_RUN_COMPLETE= "🤙 python script run successful",
+  MISSING_RQ_RESULTS= '👽 no result found',
+  JOB_IN_RQ= '🎠 queuing python job= ',
+  RQ_RESULTS_RETURNED= '🔔 new results - check LOGS',
+  STANDBY= '🐢 awaiting a new job',
+  SERVER_ONLINE= '🏁 node server online',
+  NO_RUNS_YET= '⛷️ No runs yet'
+}
 const DEFAULT_STATES = {
   runningNode: "",
-  serverStatus: "Connecting to server...",
+  serverStatus: IServerStatus.CONNECTING,
   failedNode: "",
   failureReason: [],
   socketId: "",

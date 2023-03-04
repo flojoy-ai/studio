@@ -1,3 +1,5 @@
+import { IServerStatus } from "@src/context/socket.context";
+
 interface WebSocketServerProps {
   url: string;
   pingResponse: any;
@@ -53,9 +55,9 @@ export class WebSocketServer {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
               data[ResponseEnum.systemStatus] ===
-              "🤙 python script run successful"
+              IServerStatus.RQ_RUN_COMPLETE
             ) {
-              this.pingResponse("🐢 awaiting a new job");
+              this.pingResponse(IServerStatus.STANDBY);
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -100,7 +102,7 @@ export class WebSocketServer {
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
       console.log("Error Event: ", event);
-      this.pingResponse("🛑 server offline");
+      this.pingResponse(IServerStatus.OFFLINE);
     };
   }
   disconnect() {

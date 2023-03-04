@@ -9,7 +9,7 @@ export type ElementsData = {
     [key: string]: {
       functionName: string;
       param: string;
-      value: number;
+      value: string;
     };
   };
   inputs?: Array<{ name: string; id: string; type:string }>

@@ -2,11 +2,10 @@
 import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
 import { NOISY_SINE } from "@src/data/RECIPES";
 
-const nodes =
-NOISY_SINE.nodes.map(node=>({
+const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,
-  name: node.data.label.toLowerCase()
-}))
+  name: node.data.label.toLowerCase(),
+}));
 
 describe("User default workflow", () => {
   it("Should complete default workflow", () => {
@@ -39,7 +38,9 @@ describe("User default workflow", () => {
     Cypress.on("uncaught:exception", (err) => {
       return false;
     });
-    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {timeout: 60000})
+    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+      timeout: 60000,
+    });
     Cypress.on("uncaught:exception", (err) => {
       return false;
     });

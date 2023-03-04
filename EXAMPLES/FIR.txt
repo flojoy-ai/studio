@@ -12,17 +12,17 @@
                     "func": "LINSPACE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "LINSPACE_TIMES_start": {
+                        "start": {
                             "functionName": "LINSPACE",
                             "param": "start",
                             "value": "0"
                         },
-                        "LINSPACE_TIMES_end": {
+                        "end": {
                             "functionName": "LINSPACE",
                             "param": "end",
                             "value": "3.99"
                         },
-                        "LINSPACE_TIMES_step": {
+                        "step": {
                             "functionName": "LINSPACE",
                             "param": "step",
                             "value": "400"
@@ -51,27 +51,27 @@
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_INPUT_frequency": {
+                        "frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 28.648
                         },
-                        "SINE_INPUT_offset": {
+                        "offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_INPUT_amplitude": {
+                        "amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 1
                         },
-                        "SINE_INPUT_phase": {
+                        "phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 90
                         },
-                        "SINE_INPUT_waveform": {
+                        "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -100,27 +100,27 @@
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_OSC_1_frequency": {
+                        "frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 143.243
                         },
-                        "SINE_OSC_1_offset": {
+                        "offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_OSC_1_amplitude": {
+                        "amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 0.2
                         },
-                        "SINE_OSC_1_phase": {
+                        "phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 5.729
                         },
-                        "SINE_OSC_1_waveform": {
+                        "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -179,27 +179,27 @@
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_OSC_2_frequency": {
+                        "frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 876.6288
                         },
-                        "SINE_OSC_2_offset": {
+                        "offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_OSC_2_amplitude": {
+                        "amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 0.2
                         },
-                        "SINE_OSC_2_phase": {
+                        "phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 0
                         },
-                        "SINE_OSC_2_waveform": {
+                        "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -258,27 +258,27 @@
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_OSC_3_frequency": {
+                        "frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 956.8432
                         },
-                        "SINE_OSC_3_offset": {
+                        "offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_OSC_3_amplitude": {
+                        "amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 0.1
                         },
-                        "SINE_OSC_3_phase": {
+                        "phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 5.729
                         },
-                        "SINE_OSC_3_waveform": {
+                        "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -337,27 +337,27 @@
                     "func": "SINE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "SINE_OSC_4_frequency": {
+                        "frequency": {
                             "functionName": "SINE",
                             "param": "frequency",
                             "value": 1343.5912
                         },
-                        "SINE_OSC_4_offset": {
+                        "offset": {
                             "functionName": "SINE",
                             "param": "offset",
                             "value": 0
                         },
-                        "SINE_OSC_4_amplitude": {
+                        "amplitude": {
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 0.1
                         },
-                        "SINE_OSC_4_phase": {
+                        "phase": {
                             "functionName": "SINE",
                             "param": "phase",
                             "value": 45.83
                         },
-                        "SINE_OSC_4_waveform": {
+                        "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
                             "value": "sine"
@@ -416,22 +416,22 @@
                     "func": "FIR",
                     "type": "SIGNAL_PROCESSING",
                     "ctrls": {
-                        "FIR_FIR_sample_rate": {
+                        "sample_rate": {
                             "functionName": "FIR",
                             "param": "sample_rate",
                             "value": 100
                         },
-                        "FIR_FIR_transition_width": {
+                        "transition_width": {
                             "functionName": "FIR",
                             "param": "transition_width",
                             "value": 5
                         },
-                        "FIR_FIR_stop_band_attenuation": {
+                        "stop_band_attenuation": {
                             "functionName": "FIR",
                             "param": "stop_band_attenuation",
                             "value": 60
                         },
-                        "FIR_FIR_cutoff_freq": {
+                        "cutoff_freq": {
                             "functionName": "FIR",
                             "param": "cutoff_freq",
                             "value": 10
