@@ -1,11 +1,22 @@
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import "@feature/flow_chart_panel/style/defaultNode.css"
+import "@feature/flow_chart_panel/style/defaultNode.css";
+import { useEffect } from "react";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, setNodes, nodes } =
+    useFlowChartState();
   const params = data.inputs || [];
+
+  useEffect(() => {
+    setNodes((prev) => {
+      const selectedNode = prev.find((n) => n.id === data.id);
+      if (selectedNode) {
+        selectedNode.data.selected = selectedNode.selected;
+      }
+    });
+  }, [data, nodes]);
 
   return (
     <div
@@ -13,6 +24,9 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
         ...(runningNode === data.id && { boxShadow: "0 0 50px 15px #48abe0" }),
         ...(failedNode === data.id && {
           boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+        }),
+        ...(data.selected && {
+          boxShadow: "rgb(133 197 231) 0px 0px 27px 3px",
         }),
       }}
     >

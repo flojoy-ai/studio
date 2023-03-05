@@ -124,6 +124,7 @@ const FlowChartTab = ({
     (_) => setNodes([]),
     [setNodes]
   );
+
   useFlowChartTabEffects({
     clickedElement,
     results,
