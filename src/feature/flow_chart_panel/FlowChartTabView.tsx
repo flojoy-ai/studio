@@ -121,7 +121,7 @@ const FlowChartTab = ({
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
-    (_) => setNodes([]),
+    (nodes) => setNodes(nodes.filter((n) => !n.selected)),
     [setNodes]
   );
 

@@ -16,17 +16,16 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
         selectedNode.data.selected = selectedNode.selected;
       }
     });
-  }, [data, nodes]);
+  }, [data, nodes, setNodes]);
 
   return (
     <div
       style={{
-        ...(runningNode === data.id && { boxShadow: "0 0 50px 15px #48abe0" }),
-        ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
-        }),
-        ...(data.selected && {
+        ...((runningNode === data.id || data.selected) && {
           boxShadow: "rgb(133 197 231) 0px 0px 27px 3px",
+        }),
+        ...(failedNode === data.id && {
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >

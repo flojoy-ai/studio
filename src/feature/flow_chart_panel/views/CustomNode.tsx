@@ -14,15 +14,15 @@ const highlightShadow = {
   SCATTER3D: { boxShadow: "0 0 50px 15px #48abe0" },
   BAR: { boxShadow: "0 0 50px 15px #48abe0" },
   LINE: { boxShadow: "0 0 50px 15px #48abe0" },
-  SINE: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  RAND: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
-  CONSTANT: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
+  SINE: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 27px 3px" },
+  RAND: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 27px 3px" },
+  CONSTANT: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 27px 3px" },
   MULTIPLY: {
-    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
     background: "#78640f96",
   },
   ADD: {
-    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
     background: "#78640f96",
   },
   LOOP: { boxShadow: "0 0 50px 15px #48abe0", backgroundColor: "blue" },
@@ -74,7 +74,7 @@ const CustomNode = ({ data }: CustomNodeProps) => {
       style={{
         ...(runningNode === data.id && getboxShadow(data)),
         ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >
