@@ -1,58 +1,18 @@
-import * as React from "react";
 import { act, renderHook, Renderer } from "@testing-library/react-hooks";
-import { useFlowChartTabEffects } from "@src/feature/flow_chart_panel/FlowChartTabEffects";
+import { useFlowChartTabState } from "@src/feature/flow_chart_panel/FlowChartTabState";
 
-const params: any = {
-  results: {
-    io: [],
-  },
-  clickedElement: {
-    data: {
-      label: "test",
-      type: "test",
-      func: "test",
-    },
-  },
-  setNodeLabel: jest.fn(),
-  setNodeType: jest.fn(),
-  setPythonString: jest.fn(),
-  setNd: jest.fn(),
-  defaultPythonFnLabel: "",
-  defaultPythonFnType: "",
-  nodeLabel: "",
-  nodeType: "",
-};
-
-jest.mock("@src/hooks/useFlowChartState", () => {
-  return {
-    useFlowChartState: () => {
-      return {
-        rfInstance: {},
-      };
-    },
-  };
-});
-
-jest.mock("@src/services/FlowChartServices", () => {
-  return {
-    saveFlowChartToLocalStorage: () => jest.fn(),
-  };
-});
-
-const { result, rerender } = renderHook(() => useFlowChartTabEffects(params));
+const { result, rerender } = renderHook(() => useFlowChartTabState());
 
 describe("FlowChartTabState", () => {
-  it("should call useEffect 4 times", () => {
-    const spy = jest.spyOn(React, "useEffect");
-    rerender();
-    expect(spy).toHaveBeenCalledTimes(4);
-  });
-  it("checks if the function is called", () => {
-    rerender();
-    expect(params.setNd).toHaveBeenCalled();
-  });
-  it("checks if the hook returns anything", () => {
-    rerender();
-    expect(result.current).toBe(undefined);
+  it.each([
+    [result.current.modalIsOpen, false],
+    [result.current.nd, {}],
+    [result.current.nodeLabel, "PYTHON FUNCTION"],
+    [result.current.nodeType, "PYTHON FUNCTION TYPE"],
+    [result.current.pythonString, "..."],
+    [result.current.defaultPythonFnLabel, "PYTHON FUNCTION"],
+    [result.current.defaultPythonFnType, "PYTHON FUNCTION TYPE"],
+  ])("checks %p to %p", (checkValue, expectValue) => {
+    expect(checkValue).toEqual(expectValue);
   });
 });
