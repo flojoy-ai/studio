@@ -43,6 +43,7 @@ export function useFlowChartTabEffects({
             clickedElement.data.label !== undefined &&
             clickedElement.data.type !== undefined
           ) {
+            console.log("Clicked Element: ", clickedElement);
             setNodeLabel(clickedElement.data.func);
             setNodeType(clickedElement.data.type);
           }
@@ -60,6 +61,7 @@ export function useFlowChartTabEffects({
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeLabel, nodeType, clickedElement]);
+
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
