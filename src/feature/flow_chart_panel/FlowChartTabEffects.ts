@@ -43,7 +43,6 @@ export function useFlowChartTabEffects({
             clickedElement.data.label !== undefined &&
             clickedElement.data.type !== undefined
           ) {
-            console.log("Clicked Element: ", clickedElement);
             setNodeLabel(clickedElement.data.func);
             setNodeType(clickedElement.data.type);
           }

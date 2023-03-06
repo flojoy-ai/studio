@@ -51,4 +51,8 @@ describe("FlowChartTabState", () => {
     rerender();
     expect(params.setNd).toHaveBeenCalled();
   });
+  it("checks if the hook returns anything", () => {
+    rerender();
+    expect(result.current).toBe(undefined);
+  });
 });
