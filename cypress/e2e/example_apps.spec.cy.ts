@@ -17,7 +17,8 @@ interface IApp {
 describe("Example apps testing.", () => {
   (exampleApps as IApp[]).forEach((app) => {
     describe(`User workflow for ${app.title} #${app.test_id}`, () => {
-      it("Should load flow chart with all nodes from the app.", () => {
+      it("Should load all nodes from the app and run successfully.", () => {
+        cy.on("uncaught:exception", (err, runnable) => false);
         cy.visit(`"/?test_example_app=${app.title}`, {
           onBeforeLoad(win: any) {
             win.disableIntercom = true;
@@ -34,9 +35,6 @@ describe("Example apps testing.", () => {
             cy.get(`[data-id="${node.id}"]`);
           });
         });
-      });
-      it("Should switch to ctrl panel and add input widgets for each node parameters", () => {
-        cy.on("uncaught:exception", (err, runnable) => false);
         // Switch to ctrl panel tab
         cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
@@ -65,9 +63,6 @@ describe("Example apps testing.", () => {
             }
           });
         });
-      });
-      it("Should run the script successfully and show results in debug tab.", () => {
-        cy.on("uncaught:exception", () => false);
         cy.get(`[data-cy="app-status"]`)
           .find("code")
           .contains("🐢 awaiting a new job", { timeout: 60000 });
