@@ -29,27 +29,29 @@ const useControlComponentEffects = ({
     setSelectedOption(
       ctrlObj.type === "output"
         ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
-        : selectOptions?.find(
-            (option) =>
+        : selectOptions?.find((option) => {
+            return (
               (option.value as CtrlOptionValue).id ===
-              (ctrlObj?.param as CtrlManifestParam)?.id
-          )!
+                (ctrlObj?.param as CtrlManifestParam)?.id &&
+              (option.value as CtrlOptionValue).nodeId ===
+                (ctrlObj?.param as CtrlManifestParam)?.nodeId
+            );
+          })!
     );
   }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 
   useEffect(() => {
-    return ()=>{
+    return () => {
       setNumberInput("0");
       setTextInput("");
       setSliderInput("0");
-    }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
   useEffect(() => {
     if (ctrls) {
-      setCurrentInputValue(
-        ctrls[(ctrlObj?.param as CtrlManifestParam)?.id!]?.value
-      );
+      const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
+      setCurrentInputValue(isNaN(+value) ? value : +value);
     } else {
       setCurrentInputValue(defaultValue as number);
     }
@@ -79,54 +81,43 @@ const useControlComponentEffects = ({
     if (ctrlObj.type === ControlTypes.Input) {
       if (flowChartObject!?.nodes !== undefined) {
         flowChartObject!.nodes.forEach((node) => {
-          if (!("source" in node)) {
-            // Object is a node, not an edge
-            const nodeLabel = node.data!.label;
-            const nodeFunctionName = node.data!.func;
-            const params = FUNCTION_PARAMETERS[nodeFunctionName];
-            const sep = " ▶ ";
-            if (params) {
-              Object.keys(params).forEach((param) => {
-                setSelectOptions((prev) => [
-                  ...prev,
-                  {
-                    label: nodeLabel + sep + param.toUpperCase(),
-                    value: {
-                      id:
-                        nodeFunctionName +
-                        "_" +
-                        nodeLabel.toString().split(" ").join("") +
-                        "_" +
-                        param,
-                      functionName: nodeFunctionName,
-                      param,
-                      nodeId: node.id,
-                      inputId: ctrlObj.id,
-                      type: params[param].type as string
-                    },
+          const nodeLabel = node.data!.label;
+          const nodeFunctionName = node.data!.func;
+          const params = FUNCTION_PARAMETERS[nodeFunctionName];
+          const sep = " ▶ ";
+          if (params) {
+            Object.keys(params).forEach((param) => {
+              setSelectOptions((prev) => [
+                ...prev,
+                {
+                  label: nodeLabel + sep + param.toUpperCase(),
+                  value: {
+                    id: `${nodeFunctionName}_${nodeLabel
+                      .toString()
+                      .split(" ")
+                      .join("")}_${param}`,
+                    functionName: nodeFunctionName,
+                    param,
+                    nodeId: node.id,
+                    inputId: ctrlObj.id,
+                    type: params[param].type as string,
                   },
-                ]);
-              });
-            }
+                },
+              ]);
+            });
           }
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
       if (flowChartObject!?.nodes !== undefined) {
         flowChartObject!.nodes.forEach((node) => {
-          if (!("source" in node)) {
-            // Object is a node, not an edge
-            const label =
-              "Visualize node: " +
-              node.data!.label +
-              " (#" +
-              node.id.slice(-5) +
-              ")";
-            setSelectOptions((prev) => [
-              ...prev,
-              { label: label, value: node.id },
-            ]);
-          }
+          const label = `Visualize node: ${node.data!.label} (#${node.id.slice(
+            -5
+          )})`;
+          setSelectOptions((prev) => [
+            ...prev,
+            { label: label, value: node.id },
+          ]);
         });
       }
     }

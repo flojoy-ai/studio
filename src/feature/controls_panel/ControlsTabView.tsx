@@ -120,13 +120,13 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
-        manClone[i].val = val;
+        manClone[i].val = isNaN(+val) ? val : +val;
       }
     });
     cacheManifest(manClone);
     updateCtrlInputDataForNode(
       (ctrl.param! as CtrlManifestParam).nodeId,
-      (ctrl.param! as CtrlManifestParam).id,
+      (ctrl.param! as CtrlManifestParam).param,
       {
         functionName: (ctrl.param! as CtrlManifestParam).functionName,
         param: (ctrl.param! as CtrlManifestParam).param,
@@ -152,8 +152,11 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
         : fnParam?.default
         ? fnParam.default
         : 0;
-    const ctrlData = ctrls && ctrls[param?.id];
-    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const ctrlData = ctrls && ctrls[param.param];
+    const inputValue = isNaN(+ctrlData?.value!)
+      ? ctrlData?.value
+      : +ctrlData?.value!;
+    const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {

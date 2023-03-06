@@ -12,7 +12,7 @@
                     "func": "CONSTANT",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "CONSTANT_2.0_constant": {
+                        "constant": {
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": 2
@@ -41,7 +41,7 @@
                     "func": "TIMER",
                     "type": "TIMER",
                     "ctrls": {
-                        "TIMER_Timer_sleep_time": {
+                        "sleep_time": {
                             "functionName": "TIMER",
                             "param": "sleep_time",
                             "value": "1"
@@ -70,7 +70,7 @@
                     "func": "LOOP",
                     "type": "LOOP",
                     "ctrls": {
-                        "LOOP_Loop-1_num_loops": {
+                        "num_loops": {
                             "functionName": "LOOP",
                             "param": "num_loops",
                             "value": "1"
@@ -111,7 +111,7 @@
                     "func": "CONDITIONAL",
                     "type": "CONDITIONAL",
                     "ctrls": {
-                        "CONDITIONAL_Conditional_operator_type": {
+                        "operator_type": {
                             "functionName": "CONDITIONAL",
                             "param": "operator_type",
                             "value": "<="
@@ -185,7 +185,7 @@
                     "func": "LOOP",
                     "type": "LOOP",
                     "ctrls": {
-                        "LOOP_LOOP-2_num_loops": {
+                        "num_loops": {
                             "functionName": "LOOP",
                             "param": "num_loops",
                             "value": "1"
@@ -302,7 +302,12 @@
                     "func": "GOTO",
                     "type": "LOOP",
                     "ctrls": {
-                        "GOTO_GotoLOOP-2_goto_node_id": {
+                        "goto_node_id": {
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": ""
+                        },
+                        "goto_node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": "LOOP-57f1df51-6739-4e80-b08e-88842fc77174"
@@ -361,7 +366,7 @@
                     "func": "CONSTANT",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "CONSTANT_3_constant": {
+                        "constant": {
                             "functionName": "CONSTANT",
                             "param": "constant",
                             "value": 3
@@ -390,7 +395,7 @@
                     "func": "TIMER",
                     "type": "TIMER",
                     "ctrls": {
-                        "TIMER_Timer-2_sleep_time": {
+                        "sleep_time": {
                             "functionName": "TIMER",
                             "param": "sleep_time",
                             "value": "1"
@@ -419,7 +424,7 @@
                     "func": "LOOP",
                     "type": "LOOP",
                     "ctrls": {
-                        "LOOP_LOOP-3_num_loops": {
+                        "num_loops": {
                             "functionName": "LOOP",
                             "param": "num_loops",
                             "value": "1"
@@ -460,17 +465,17 @@
                     "func": "LINSPACE",
                     "type": "SIMULATION",
                     "ctrls": {
-                        "LINSPACE_Linspace_start": {
+                        "start": {
                             "functionName": "LINSPACE",
                             "param": "start",
                             "value": "10"
                         },
-                        "LINSPACE_Linspace_end": {
+                        "end": {
                             "functionName": "LINSPACE",
                             "param": "end",
                             "value": "0"
                         },
-                        "LINSPACE_Linspace_step": {
+                        "step": {
                             "functionName": "LINSPACE",
                             "param": "step",
                             "value": "1000"
@@ -529,7 +534,7 @@
                     "func": "GOTO",
                     "type": "LOOP",
                     "ctrls": {
-                        "GOTO_GotoLOOP-3_goto_node_id": {
+                        "goto_node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": "LOOP-f11cd101-1fc4-451d-86fb-9ecd2e35abf0"
@@ -558,7 +563,8 @@
                     "func": "GOTO",
                     "type": "LOOP",
                     "ctrls": {
-                        "GOTO_GotoLOOP-1_goto_node_id": {
+                       
+                        "goto_node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": "LOOP-cb806510-c945-4999-94d7-c163e2f9e486"

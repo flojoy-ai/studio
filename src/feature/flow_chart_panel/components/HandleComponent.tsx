@@ -1,6 +1,7 @@
 import { Fragment } from "react";
-import { Handle, Position } from 'reactflow';
+import { Handle, Position } from "reactflow";
 import { CustomNodeProps, ElementsData } from "../types/CustomNodeProps";
+import { v4 as uuidV4 } from "uuid";
 
 const HandleComponent = ({
   data,
@@ -27,7 +28,7 @@ const HandleComponent = ({
             .map((param, i) => {
               return (
                 <Handle
-                  key={param.id}
+                  key={`${param.id}_${uuidV4()}`}
                   type={"target"}
                   position={Position.Left}
                   style={{
@@ -130,7 +131,7 @@ const HandleComponent = ({
             if (param.type === "source") {
               return (
                 <Handle
-                  key={param.id}
+                  key={`${param.id}_${uuidV4()}`}
                   type={param.type}
                   position={Position.Right}
                   style={{
@@ -173,11 +174,11 @@ const HandleComponent = ({
                 </Handle>
               );
             }
-            return <></>;
+            return <Fragment key={`${param.id}_${uuidV4()}`}></Fragment>;
           } else {
             return (
               <Handle
-                key={param.id}
+                key={`${param.id}_${uuidV4()}`}
                 type="target"
                 position={Position.Left}
                 style={{

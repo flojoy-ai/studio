@@ -8,7 +8,7 @@ interface IApp {
   test_id: string;
   nodes?: Array<{
     id: string;
-    params?: {
+    params: {
       [key: string]: string | number | boolean;
     };
   }>;
@@ -82,6 +82,7 @@ describe("Example apps testing.", () => {
         cy.get(`[data-cy="debug-btn"]`).click();
         // Run the script
         cy.get(`[data-cy="btn-play"]`).click();
+        cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
         // wait for job to finish
         cy.get(`[data-cy="app-status"]`)
           .find("code")
@@ -110,9 +111,11 @@ const createInputWidget = (
   // open dropdown list from input widget
   cy.get("[id^=select-input-]").last().click({ force: true, multiple: true });
   // Select current node parameter from dropdown list
-  cy.get("[data-cy=ctrl-grid-item]")
+  cy.get('[id^="react-select-"][id$="-listbox"]')
+    .last()
     .contains("div", optionLabel)
     .click({ force: true, multiple: true });
+
   // change parameter value to its default value
   cy.get("div").contains(optionLabel, { timeout: 1000 });
   cy.get(
@@ -129,17 +132,20 @@ const createWidgetForNodeParam = (
   param: [string, any],
   app: IApp
 ) => {
-  const [paramKey, paramValue] = param;
+  const [paramName, paramValue] = param;
   // It assumes key is formatted as functionName_nodeLabel_paramName
-  const trimAllSpaceFromLabel = nodeLabel.split(' ').join('');
-  const paramName = paramKey.replace(`${node.data.func}_`,'').replace(`${trimAllSpaceFromLabel}_`, '').toUpperCase();
-  const optionLabel = `${nodeLabel} ▶ ${paramName}`;
+  const optionLabel = `${nodeLabel} ▶ ${paramName.toUpperCase()}`;
   const defaultValue = paramValue.value;
-
-  const providedValue =
-    app.nodes?.find((n) => n.id === node.id)?.params![
-      paramName.toLowerCase()
-    ] || defaultValue;
+  let pValue: any = "";
+  if (app.nodes) {
+    const getNode = app.nodes.find((n) => n.id === node.id);
+    pValue = getNode
+      ? paramName.toLowerCase() in getNode.params
+        ? getNode.params[paramName.toLowerCase()]
+        : 0
+      : 0;
+  }
+  const providedValue = pValue || defaultValue;
   // if value is numeric
   if (!isNaN(paramValue.value)) {
     createInputWidget(ControlNames.NumericInput, optionLabel, providedValue);

@@ -43,8 +43,11 @@ describe("Ctrl Tab management", () => {
     ctrlParameters.forEach((singleIter, index) => {
       singleIter.forEach((item) => {
         cy.get("[data-cy=ctrls-select]").click();
-        cy.contains("[data-cy=ctrl-grid-item]", item.title).within(($ele) => {
-          cy.contains(`${item.title}`).click({ force: true });
+        cy.contains(
+          "[data-cy=ctrl-grid-item]",
+          item.title.toUpperCase()
+        ).within(($ele) => {
+          cy.contains(`${item.title.toUpperCase()}`).click({ force: true });
           if (item.title === "SINE ▶ WAVEFORM") {
             return cy
               .get(`input[value="${item.value}"]`)

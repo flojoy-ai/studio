@@ -14,11 +14,10 @@ import ReactFlow, {
   OnInit,
   NodeMouseHandler,
   NodeDragHandler,
+  OnNodesDelete,
 } from "reactflow";
 
 import localforage from "localforage";
-
-import CustomEdge from "./views/CustomEdge";
 
 import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
@@ -28,7 +27,7 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {  SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
@@ -64,7 +63,7 @@ const FlowChartTab = ({
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
   const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default:SmartBezierEdge}),
+    () => ({ default: SmartBezierEdge }),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
@@ -121,7 +120,10 @@ const FlowChartTab = ({
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
-
+  const handleNodesDelete: OnNodesDelete = useCallback(
+    (_) => setNodes([]),
+    [setNodes]
+  );
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -146,6 +148,11 @@ const FlowChartTab = ({
     <ReactFlowProvider>
       <div style={{ height: `99vh` }} data-testid="react-flow" data-rfinstance={JSON.stringify(nodes)}>
         <ReactFlow
+          style={{
+            position: "fixed",
+            height: "100%",
+            width: "50%",
+          }}
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}
@@ -157,6 +164,7 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
+          onNodesDelete={handleNodesDelete}
         />
       </div>
 

@@ -7,7 +7,13 @@ import {
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useFilePicker } from "use-file-picker";
 import {
   ControlOptions,
@@ -40,7 +46,7 @@ const ControlComponentState = ({
   const [textInput, setTextInput] = useState("");
   const [numberInput, setNumberInput] = useState("0");
   const [sliderInput, setSliderInput] = useState("0");
-  const [currentInputValue, setCurrentInputValue] = useState(0);
+  const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
   const [plotData, setPlotData] = useState([
@@ -48,7 +54,7 @@ const ControlComponentState = ({
       x: [1, 2, 3],
       y: [1, 2, 3],
       z: [1, 2, 3],
-      source: '',
+      source: "",
       type: "scatter",
       mode: "lines",
     },
@@ -59,14 +65,11 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const [selectedKeys, setSelectedKeys] = useState<Record<string, any> | null>(
-    null
-  );
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);
-  const ctrls: ElementsData['ctrls'] = inputNode?.data?.ctrls;
+  const ctrls: ElementsData["ctrls"] = inputNode?.data?.ctrls!;
 
   const fnParams =
     FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
@@ -75,9 +78,7 @@ const ControlComponentState = ({
   const defaultValue =
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val
-      : fnParam?.default
-      ? fnParam.default
-      : 0;
+      : fnParam?.default || 0;
 
   const paramOptions =
     fnParam?.options?.map((option) => {
@@ -87,26 +88,24 @@ const ControlComponentState = ({
       };
     }) || [];
 
+  const [openFileSelector, { plainFiles }] = useFilePicker({
+    // accept: ".txt",
+    maxFileSize: 5,
+    readFilesContent: false,
+    multiple: false,
+  });
 
-
-    const [openFileSelector, { plainFiles }] = useFilePicker({
-      // accept: ".txt",
-      maxFileSize: 5,
-      readFilesContent: false,
-      multiple: false
+  useEffect(() => {
+    // there will be only single file in the filesContent, for each will loop only once
+    plainFiles.forEach((file) => {
+      setTextInput(file.name);
+      if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
+        return;
+      }
+      updateCtrlValue(file.name, ctrlObj);
     });
-  
-    useEffect(() => {
-      // there will be only single file in the filesContent, for each will loop only once
-      plainFiles.forEach((file) => {
-        setTextInput(file.name);
-        if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-          return;
-        }
-        updateCtrlValue(file.name, ctrlObj);
-      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [plainFiles]);
+  }, [plainFiles]);
 
   return {
     nd,

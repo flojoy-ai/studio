@@ -15,6 +15,8 @@ import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
+import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
+import { MantineProvider } from "@mantine/core";
 
 const App = () => {
   const { states } = useSocket();
@@ -170,12 +172,22 @@ const App = () => {
             setOpenCtrlModal={setOpenCtrlModal}
           />
           <button onClick={toggleTheme} className="App-theme-toggle">
-            {theme === "light" ? <LightIcon /> : <DarkIcon />}
+            {theme === "dark" ? <LightIcon /> : <DarkIcon />}
           </button>
         </div>
       </header>
       <main style={{ minHeight: "85vh" }}>
         <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
+          <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            theme={{
+              colorScheme: theme,
+            }}
+          >
+            <Sidebar />
+          </MantineProvider>
+
           <FlowChartTab
             rfInstance={rfInstance!}
             setRfInstance={setRfInstance}

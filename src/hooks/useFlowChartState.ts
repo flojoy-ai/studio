@@ -1,6 +1,6 @@
 import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
-import { atomWithImmer } from "jotai/immer";
+import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect, useMemo } from "react";
 import { Layout } from "react-grid-layout";
@@ -48,7 +48,8 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialNodes: Node[] = NOISY_SINE.nodes;
+const initialNodes: Node<ElementsData>[] =
+  NOISY_SINE.nodes as Node<ElementsData>[];
 const initialEdges: Edge[] = NOISY_SINE.edges;
 const initialManifests: CtlManifestType[] = [
   {
@@ -76,7 +77,7 @@ const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
-const nodesAtom = atomWithImmer<Node[]>(initialNodes);
+const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
@@ -88,7 +89,6 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
-  const flowKey = "flow-joy";
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
@@ -158,28 +158,16 @@ export function useFlowChartState() {
   const updateCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
-    inputData: {
-      functionName: string;
-      param: string;
-      value: number | string;
-    }
+    inputData: ElementsData["ctrls"][""]
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.func === "CONSTANT") {
-          const nodeCtrls = node.data.ctrls;
-          const splitNodeCtrlKey = Object.keys(nodeCtrls)[0].split("_");
-          const ctrlKey =
-            splitNodeCtrlKey[0] +
-            "_" +
-            inputData.value +
-            "_" +
-            splitNodeCtrlKey[2].toLowerCase();
           node.data.ctrls = {
-            [ctrlKey]: inputData,
+            [paramId]: inputData,
           };
-          node.data.label = inputData.value;
+          node.data.label = inputData.value.toString();
         } else {
           node.data.ctrls[paramId] = inputData;
         }
