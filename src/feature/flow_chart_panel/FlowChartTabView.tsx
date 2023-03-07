@@ -34,7 +34,7 @@ localforage.config({
   storeName: "flows",
 });
 
-const FlowChartTab = ({
+const FlowChartTab: React.FC<FlowChartProps> = ({
   results,
   theme,
   rfInstance,
@@ -184,5 +184,4 @@ const FlowChartTab = ({
     </ReactFlowProvider>
   );
 };
-
 export default FlowChartTab;
