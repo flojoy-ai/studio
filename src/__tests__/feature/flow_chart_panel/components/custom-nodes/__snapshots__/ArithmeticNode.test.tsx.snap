@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArithmeticNode checks if the snapshot 1`] = `
+<div>
+  <div>
+    <div
+      style="position: relative; display: flex; align-items: center; font-size: 17px; color: rgb(123, 97, 255); background: transparent; min-height: 115px;"
+    >
+      <svg
+        data-testid="default-svg"
+        fill="none"
+        height="100"
+        viewBox="0 0 72 81"
+        width="99"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M69.7184 43.874L6.41934 79.9997C4.08605 81.3313 1.18449 79.6464 1.18449 76.9599V4.70849C1.18449 2.02195 4.08604 0.337065 6.41933 1.66871L69.7184 37.7944C72.072 39.1376 72.072 42.5308 69.7184 43.874Z"
+          fill="#FFC93F"
+          fill-opacity="0.2"
+          stroke="#FFC93F"
+        />
+      </svg>
+      <div
+        style="display: flex; flex-direction: column;"
+      >
+        <div
+          data-testid="handle-component"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

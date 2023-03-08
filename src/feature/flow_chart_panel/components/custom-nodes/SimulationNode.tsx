@@ -11,10 +11,10 @@ const highlightShadow = {
   default: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
 };
 const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow){
+  if (data.func in highlightShadow) {
     return highlightShadow[data.func];
   }
-  return highlightShadow['default']
+  return highlightShadow["default"];
 };
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
@@ -54,6 +54,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
             flexDirection: "column",
             textAlign: "center",
           }}
+          data-testid="data-label-design"
         >
           <div>{data.label}</div>
         </div>
