@@ -6,6 +6,6 @@ COMMAND:
       parameters:
         {
           file_type: { type: "string", default: "image" },
-          camera_ind: { type: "integer", default: 0 },
+          camera_ind: { type: "integer", default: -1 },
         }
     }

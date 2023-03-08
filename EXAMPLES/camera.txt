@@ -17,7 +17,7 @@
                     "x": 695.504070585824,
                     "y": 202.13116038829733
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
                     "x": 695.504070585824,
                     "y": 202.13116038829733
@@ -48,13 +48,13 @@
                     }
                 },
                 "position": {
-                    "x": 226.037267287249,
-                    "y": 187.7976330882526
+                    "x": 60.3229815729633,
+                    "y": 192.0833473739669
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 226.037267287249,
-                    "y": 187.7976330882526
+                    "x": 60.3229815729633,
+                    "y": 192.0833473739669
                 },
                 "dragging": true
             },
@@ -80,28 +80,75 @@
                     "y": 193.09986313255396
                 },
                 "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 135,
+                "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "type": "SIGNAL_PROCESSING",
+                "data": {
+                    "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                    "label": "IMAGE_SMOOTHING",
+                    "func": "IMAGE_SMOOTHING",
+                    "type": "SIGNAL_PROCESSING",
+                    "ctrls": {
+                        "file_type": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "file_type",
+                            "value": "image"
+                        },
+                        "kernal": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "kernal",
+                            "value": "5"
+                        },
+                        "function": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "function",
+                            "value": "average"
+                        }
+                    }
+                },
+                "position": {
+                    "x": 384.00718763913454,
+                    "y": 191.85833659187034
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 384.00718763913454,
+                    "y": 191.85833659187034
+                },
+                "dragging": true
             }
         ],
         "edges": [
-            {
-                "source": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
-                "sourceHandle": "main",
-                "target": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-                "targetHandle": "OBJECT_DETECTION",
-                "id": "reactflow__edge-CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773main-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdOBJECT_DETECTION"
-            },
             {
                 "source": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
                 "sourceHandle": "main",
                 "target": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
                 "targetHandle": "END",
                 "id": "reactflow__edge-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdmain-END-5e6d94ed-1f79-4c57-8b2f-753a22405f55END"
+            },
+            {
+                "source": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
+                "sourceHandle": "main",
+                "target": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "targetHandle": "IMAGE_SMOOTHING",
+                "id": "reactflow__edge-CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773main-IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098dIMAGE_SMOOTHING"
+            },
+            {
+                "source": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "sourceHandle": "main",
+                "target": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
+                "targetHandle": "OBJECT_DETECTION",
+                "id": "reactflow__edge-IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098dmain-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdOBJECT_DETECTION",
+                "selected": false
             }
         ],
         "viewport": {
-            "x": 100.78251993386277,
-            "y": 34.10874204470315,
-            "zoom": 1.015849582027344
+            "x": 401.9078249563761,
+            "y": 155.2388202689295,
+            "zoom": 1.226263386594587
         }
     },
     "ctrlsManifest": [

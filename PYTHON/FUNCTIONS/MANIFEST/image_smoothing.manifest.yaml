@@ -1,0 +1,16 @@
+COMMAND:
+  - {
+      name: Image Smoothing,
+      key: IMAGE_SMOOTHING,
+      type: IMAGE_PROCESSING,
+      parameters:
+        {
+          file_type: { type: "string", default: "image" },
+          kernal: { type: "number", default: 5},
+          function: { 
+                        type: "select",
+                        options: [average, gaussian, median, bilateral],
+                        default: average, 
+                      },
+        }
+    }

@@ -24,7 +24,7 @@ def get_output_layers(net):
 
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     if confidence < 0.5:
-        return;
+        return
 
     label = str(classes[class_id])
 
