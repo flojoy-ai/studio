@@ -1,4 +1,10 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  getByTestId,
+  screen,
+} from "@testing-library/react";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
 import { Node, Edge, ReactFlowProvider } from "reactflow";
@@ -119,5 +125,48 @@ describe("FlowChartTabView", () => {
       />
     );
     expect(container).toMatchSnapshot();
+  });
+
+  it.each([
+    ["ReactFlow Provider", "react-flow-provider"],
+    ["react-flow", "react-flow"],
+    ["NodeModal component", "node-modal"],
+  ])("should contain %p component", (msg, testId) => {
+    const { getByTestId, getAllByTestId } = render(
+      <FlowChartTab
+        results={props.results}
+        theme={props.theme}
+        rfInstance={props.rfInstance}
+        setRfInstance={props.setRfInstance}
+        clickedElement={props.clickedElement}
+        setClickedElement={props.setClickedElement}
+      />
+    );
+
+    let component;
+
+    if (testId === "react-flow") {
+      component = getAllByTestId(testId);
+      expect(component).toHaveLength(2);
+    } else {
+      component = getByTestId(testId);
+      expect(component).toBeInTheDocument();
+    }
+  });
+
+  it("checks the reactflow style", () => {
+    const { getAllByTestId } = render(
+      <FlowChartTab
+        results={props.results}
+        theme={props.theme}
+        rfInstance={props.rfInstance}
+        setRfInstance={props.setRfInstance}
+        clickedElement={props.clickedElement}
+        setClickedElement={props.setClickedElement}
+      />
+    );
+
+    const componet = getAllByTestId("react-flow")[0];
+    expect(componet).toHaveStyle("height: 90vh");
   });
 });
