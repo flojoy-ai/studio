@@ -44,43 +44,12 @@ class IntersectionObserver {
   }
 }
 
-// jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => {
-//   return <div></div>,
-
-// });
-const mockChildComponent = jest.fn();
-jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => (props) => {
-  mockChildComponent(props);
-  return <div></div>;
+jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => {
+  const mockChildren = jest
+    .fn()
+    .mockReturnValue(<div data-testid="node-modal" />);
+  return { __esModule: true, default: mockChildren };
 });
-
-// jest.mock('../src/ChildComponent', () => {
-//   return {
-//     'default': 'ChildComponent'
-//   }
-// });
-
-// jest.mock("reactflow", () => {
-//   const ReactFlow = jest.fn().mockReturnValue(<div data-testid="react-flow" />);
-//   const ReactFlowProvider = jest
-//     .fn()
-//     .mockImplementation(({ children }) => (
-//       <div data-testid="react-flow-provider">{children}</div>
-//     ));
-//   const EdgeTypes = { default: jest.fn() };
-//   const NodeTypes = { default: jest.fn() };
-//   const ConnectionLineType = { Step: "step" };
-//   const OnInit = jest.fn();
-
-//   return {
-//     ReactFlow,
-//     ReactFlowProvider,
-//     EdgeTypes,
-//     NodeTypes,
-//     ConnectionLineType,
-//     OnInit,
-//   };
-// });
 
 jest.mock("@src/services/FlowChartServices", () => {
   return {
@@ -133,8 +102,6 @@ jest.mock("@src/hooks/useFlowChartState", () => {
     }),
   };
 });
-
-const observe = jest.fn();
 
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;

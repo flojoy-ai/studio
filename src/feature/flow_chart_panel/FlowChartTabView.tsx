@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   addEdge,
   ConnectionLineType,
