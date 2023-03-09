@@ -3,21 +3,22 @@ import ResultsTab from "@src/feature/results_panel/ResultsTabView";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { Node } from "reactflow";
 
-jest.mock("@src/hooks/useFlowChartState", () => ({
-  useFlowChartState: jest.fn(() => ({ nodes: [], edges: [] })),
-}));
+// jest.mock("@src/hooks/useFlowChartState", () => ({
+//   useFlowChartState: jest.fn(() => ({ nodes: [], edges: [] })),
+// }));
+jest.mock("@src/hooks/useFlowChartState");
 
 jest.mock("@src/feature/results_panel/ResultsTabEffects", () => ({
   useResultsTabEffects: jest.fn(),
 }));
 
-jest.mock("@src/feature/results_panel/ResultsTabState", () => ({
-  useResultsTabState: jest.fn(() => ({
-    setResultNodes: jest.fn(),
-    resultNodes: [] as Node[],
-    nodes: [] as Node[],
-  })),
-}));
+// jest.mock("@src/feature/results_panel/ResultsTabState", () => ({
+//   useResultsTabState: jest.fn(() => ({
+//     setResultNodes: jest.fn(),
+//     resultNodes: [] as Node[],
+//     nodes: [] as Node[],
+//   })),
+// }));
 jest.mock("reactflow", () => {
   const ReactFlow = jest.fn().mockReturnValue(<div data-testid="react-flow" />);
   const ReactFlowProvider = jest

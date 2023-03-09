@@ -1,10 +1,10 @@
-import { Dispatch, memo, SetStateAction, useCallback } from "react";
+import { Dispatch, memo, SetStateAction } from "react";
 import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import customDropdownStyles from "../style/CustomDropdownStyles";
+import customDropdownStyles from "../../style/CustomDropdownStyles";
 
-import { ControlNames } from "../manifest/CONTROLS_MANIFEST";
+import { ControlNames } from "../../manifest/CONTROLS_MANIFEST";
 import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
 import {
@@ -13,11 +13,11 @@ import {
   PlotManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import { CtrlOptionValue } from "../types/ControlOptions";
-import PlotControl from "./PlotControl";
-import SevenSegmentComponent from "./SevenSegmentComponent";
-import KnobCtrl from "./KnobCtrl";
-import NodeReference from "./NodeReference";
+import { CtrlOptionValue } from "../../types/ControlOptions";
+import PlotControl from "../PlotControl";
+import SevenSegmentComponent from "../SevenSegmentComponent";
+import KnobCtrl from "../KnobCtrl";
+import NodeReference from "../NodeReference";
 
 export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
