@@ -39,7 +39,7 @@ echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
 if [ $initNodePackages ]
-then 
+then
    echo '-n flag provided'
    echo 'Node packages will be installed from package.json!'
    npm install --legacy-peer-deps
@@ -56,7 +56,7 @@ then
 
     echo 'spining up a fresh redis server...'
     npx ttab -t 'REDIS' redis-server
-    sleep 2 
+    sleep 2
 fi
 
 venvCmd=""
@@ -94,7 +94,7 @@ npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_
 if [ $initPythonPackages ]
 then
    echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!' 
+   echo 'Python packages will be installed from requirements.txt file!'
    if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
       echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
@@ -122,9 +122,16 @@ if test -f "$FILE"; then
 else
    touch $PWD/PYTHON/utils/object_detection/yolov3.weights
    wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
-fi 
+fi
 
 sleep 1
 
 echo 'starting react server...'
 npx ttab -t 'REACT' "${venvCmd} npm start"
+
+echo "Cloning apps Repository"
+git clone https://github.com/flojoy-io/apps.git
+
+echo "Cloning Nodes Repository"
+cd $PWD/PYTHON/FUNCTIONS
+git clone https://github.com/flojoy-io/nodes.git
