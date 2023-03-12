@@ -4,6 +4,7 @@ from os.path import isfile, join
 import yaml
 
 full_path = 'PYTHON/FUNCTIONS/MANIFEST'
+new_full_path = 'nodes/'
 
 manifest = {
     '_v': 0,
