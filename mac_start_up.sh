@@ -32,11 +32,25 @@ echo 'create symlinks...'
 ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
-echo "Cloning APPS Repository"
-git clone https://github.com/flojoy-io/apps.git
+APPS_DIR=$PWD/apps
 
-echo "Cloning NODES Repository"
-git clone https://github.com/flojoy-io/nodes.git
+if test -d "$APPS_DIR";then
+   echo "apps dir exists & pulling the latest commits"
+   cd apps && git pull origin main
+else
+   echo "Cloning APPS Repository"
+   git clone https://github.com/flojoy-io/apps.git
+fi
+
+NODES_DIR=$PWD/nodes
+
+if test -d "$NODES_DIR";then
+   echo "nodes dir exists & pulling the latest commits"
+   cd nodes && git pull origin main
+else
+   echo "Cloning NODES Repository"
+   git clone https://github.com/flojoy-io/nodes.git
+fi
 
 echo 'jsonify python functions and write to JS-readable directory'
 python3 write_python_metadata.py
