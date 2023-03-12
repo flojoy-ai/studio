@@ -32,6 +32,12 @@ echo 'create symlinks...'
 ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
+echo "Cloning APPS Repository"
+git clone https://github.com/flojoy-io/apps.git
+
+echo "Cloning NODES Repository"
+git clone https://github.com/flojoy-io/nodes.git
+
 echo 'jsonify python functions and write to JS-readable directory'
 python3 write_python_metadata.py
 
@@ -128,10 +134,3 @@ sleep 1
 
 echo 'starting react server...'
 npx ttab -t 'REACT' "${venvCmd} npm start"
-
-echo "Cloning apps Repository"
-git clone https://github.com/flojoy-io/apps.git
-
-echo "Cloning Nodes Repository"
-cd $PWD/PYTHON/FUNCTIONS
-git clone https://github.com/flojoy-io/nodes.git

@@ -42,5 +42,5 @@ src/feature/flow_chart_panel/pythonFunctions.json
 venv2
 .env
 dist
-EXAMPLES/
-PYTHON/FUNCTIONS/MANIFEST/
+apps/
+nodes/
