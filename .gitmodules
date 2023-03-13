@@ -1,0 +1,6 @@
+[submodule "apps"]
+	path = apps
+	url = git@github.com:flojoy-io/apps.git
+[submodule "nodes"]
+	path = nodes
+	url = git@github.com:flojoy-io/nodes.git
