@@ -42,9 +42,9 @@ class RedisDao:
         read_json = pd.read_json(decode)
         return read_json.head()
 
-    def get_np_array(self, memo_key: str):
+    def get_np_array(self, memo_key: str, np_meta_data:dict):
         encoded = self.r.get(memo_key)
-        decode = self.desirialize_np(encoded, memo_key)
+        decode = self.desirialize_np(encoded, np_meta_data)
         return decode
 
     def get_str(self, key: str):
@@ -81,24 +81,10 @@ class RedisDao:
     def serialize_np(self, np_array: np.ndarray):
         return np_array.ravel().tostring()
 
-    def desirialize_np(self, encoded: str, memo_key: str):
+    def desirialize_np(self, encoded: str, np_meta_data: dict):
         if encoded is None:
             return []
-        split_key = memo_key.split('|')[1].split('#')
-        d_len = len(split_key)
-        if d_len == 0:
-            return []
-        d_type = split_key[0]
-        nd_array = np.fromstring(encoded, dtype=d_type)
-        if d_len == 6:
-            return nd_array.reshape(int(split_key[1]), int(split_key[2]), int(split_key[3]), int(split_key[4]), int(split_key[5]))
-        if d_len == 5:
-            return nd_array.reshape(int(split_key[1]), int(split_key[2]), int(split_key[3]), int(split_key[4]))
-        if d_len == 4:
-            return nd_array.reshape(int(split_key[1]), int(split_key[2]), int(split_key[3]))
-        if d_len == 3:
-            return nd_array.reshape(int(split_key[1]), int(split_key[2]))
-        if d_len == 2:
-            return nd_array.reshape(int(split_key[1]))
-        raise ValueError(
-            "Currently RedisDao only supports up to 5d numpy arrays!")
+        d_type = np_meta_data.get("d_type", "")
+        dimensions = np_meta_data.get("dimensions", [])
+        shapes_in_int = [int(shape) for shape in dimensions]
+        return np.fromstring(encoded, dtype=d_type).reshape(*shapes_in_int)

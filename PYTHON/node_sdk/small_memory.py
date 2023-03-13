@@ -33,29 +33,36 @@ class SmallMemory:
 
         # for thread safety, we'll have to implement Global Locking feature of Redis
         memory_key = F'{job_id}-{key}'
+        value_type_key = f"{memory_key}_value_type_key"
+        meta_data = {}
         s = str(type(value))
         v_type = s.split("'")[1]
         match v_type:
             case "numpy.ndarray":
-                np_memo_key = f"{memory_key}_np_memo_key"
                 array_dtype = str(value.dtype)
-                memo_key = f'{key}|{array_dtype}'
-                for d in value.shape:
-                    memo_key += f"#{d}"
-                RedisDao.get_instance().set_str(np_memo_key, memo_key)
-                self.add_to_tracing_list(np_memo_key)
-                RedisDao.get_instance().set_np_array(memo_key, value)
-                self.add_to_tracing_list(memo_key)
+                meta_data['type'] = 'np_array'
+                meta_data['d_type'] = array_dtype
+                meta_data['dimensions'] = value.shape
+                RedisDao.get_instance().set_redis_obj(value_type_key, meta_data)
+                self.add_to_tracing_list(value_type_key)
+                RedisDao.get_instance().set_np_array(memory_key, value)
+                self.add_to_tracing_list(memory_key)
             case 'pandas.core.frame.DataFrame':
-                pd_memo_key = f"{memory_key}_pd_memo_key"
-                RedisDao.get_instance().set_str(pd_memo_key, "df_stored")
-                self.add_to_tracing_list(pd_memo_key)
+                meta_data['type'] = 'pd_dframe'
+                RedisDao.get_instance().set_redis_obj(value_type_key, meta_data)
+                self.add_to_tracing_list(value_type_key)
                 RedisDao.get_instance().set_pandas_dataframe(memory_key, value)
                 self.add_to_tracing_list(memory_key)
             case 'str':
+                meta_data['type'] = 'string'
+                RedisDao.get_instance().set_redis_obj(value_type_key, meta_data)
+                self.add_to_tracing_list(value_type_key)
                 RedisDao.get_instance().set_str(memory_key, value)
                 self.add_to_tracing_list(memory_key)
             case 'dict':
+                meta_data['type'] = 'dict'
+                RedisDao.get_instance().set_redis_obj(value_type_key, meta_data)
+                self.add_to_tracing_list(value_type_key)
                 RedisDao.get_instance().set_redis_obj(memory_key, value)
                 self.add_to_tracing_list(memory_key)
             case _:
@@ -67,20 +74,20 @@ class SmallMemory:
         Reads object stored in internal DB by the given key. The memory is job specific.
         '''
         memory_key = F'{job_id}-{key}'
-        get_str = RedisDao.get_instance().get_str(memory_key)
-        if get_str:
-            return get_str
-        np_memo_key = RedisDao.get_instance().get_str(
-            f"{memory_key}_np_memo_key")
-        if np_memo_key:
-            np_array = RedisDao.get_instance().get_np_array(np_memo_key)
-            return np_array
-        pd_memo_key = f"{memory_key}_pd_memo_key"
-        if pd_memo_key:
-            pd_dframe = RedisDao.get_instance().get_pd_dataframe(memory_key)
-            return pd_dframe
-        obj = RedisDao.get_instance().get_redis_obj(memory_key)
-        return obj
+        value_type_key = f"{memory_key}_value_type_key"
+        meta_data = RedisDao.get_instance().get_redis_obj(value_type_key)
+        meta_type = meta_data.get('type')
+        match meta_type:
+            case 'string':
+                return RedisDao.get_instance().get_str(memory_key)
+            case 'dict':
+                return RedisDao.get_instance().get_redis_obj(memory_key)
+            case 'np_array':
+                return RedisDao.get_instance().get_np_array(memory_key, meta_data)
+            case 'pd_dframe':
+                return RedisDao.get_instance().get_pd_dataframe(memory_key)
+            case _:
+                return None
 
     def delete_object(self, job_id, key):
         '''
