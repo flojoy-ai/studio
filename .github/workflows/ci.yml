@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 16
       - name: Open Web Client Directory
-        working-directory: nodes/
+        working-directory: apps/
         run: |
           ls -la
 
