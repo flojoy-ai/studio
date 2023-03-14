@@ -92,18 +92,18 @@
                     "func": "IMAGE_SMOOTHING",
                     "type": "SIGNAL_PROCESSING",
                     "ctrls": {
-                        "file_type": {
-                            "functionName": "IMAGE_SMOOTHING",
+                        "IMAGE_SMOOTHING_file_type": {
+                            "functionName": "file_type",
                             "param": "file_type",
                             "value": "image"
                         },
-                        "kernal": {
-                            "functionName": "IMAGE_SMOOTHING",
+                        "IMAGE_SMOOTHING_kernal": {
+                            "functionName": "kernal",
                             "param": "kernal",
                             "value": "5"
                         },
-                        "function": {
-                            "functionName": "IMAGE_SMOOTHING",
+                        "IMAGE_SMOOTHING_function": {
+                            "functionName": "function",
                             "param": "function",
                             "value": "average"
                         }

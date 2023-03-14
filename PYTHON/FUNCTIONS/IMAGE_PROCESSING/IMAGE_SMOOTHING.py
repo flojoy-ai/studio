@@ -16,7 +16,7 @@ def IMAGE_SMOOTHING(v, params):
     try:
         test = np.fromstring(data, np.uint8)
         image = cv2.imdecode(test, cv2.IMREAD_COLOR) 
-        print(image.shape)
+        # print(image.shape)
 
         # Select the type of image smoothing to use.
         kernal = params['kernal']
@@ -29,19 +29,8 @@ def IMAGE_SMOOTHING(v, params):
         elif params['function'] == 'bilateral':  # Add another param for bilateral?
             image = cv2.bilateralFilter(image, kernal, kernal * 5, kernal * 5)
 
-        filePath = "image.png"
-        cv2.imwrite(filePath, image)
-
-        # Load the file then delete if it's the file from the camera.
-        print ("File to be loaded: " + filePath)
-        y = {}
-        with open(filePath, "rb") as fileToBeLoaded:
-            f = fileToBeLoaded.read()
-            print(type(cv2.imread(filePath)))
-            y = [bytearray(f)]
-        fileToBeLoaded.close()
-
-        os.remove(filePath)
+        f = cv2.imencode('.png', image)[1]  # encode image to pass to next node.
+        y = [bytearray(f)]
 
         return DataContainer(type='file', y=y, file_type=['image'])
 

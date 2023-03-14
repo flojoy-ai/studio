@@ -32,13 +32,11 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
     cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 1)
 
-    cv2.putText(img, label, (x-5,y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+    cv2.putText(img, label, (x+7,y+30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
 
 
 def detect_object(input_image):
-       
-
     nparr = np.fromstring(input_image, np.uint8)
     img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR) 
 
