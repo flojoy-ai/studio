@@ -19,12 +19,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Add SubModules
-        run: |
-          git submodule update --init --recursive
       - name: Open Web Client Directory
         working-directory: apps/
         run: |
