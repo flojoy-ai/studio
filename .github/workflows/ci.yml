@@ -24,11 +24,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Open Web Client Directory
-        working-directory: apps/
-        run: |
-          ls -la
-
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
 
