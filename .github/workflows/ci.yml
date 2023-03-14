@@ -22,6 +22,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Open Web Client Directory
+        working-directory: .
+        run: |
+          ls -la
 
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
@@ -51,5 +55,5 @@ jobs:
       - run: pip install -r requirements.txt
       - name: pytest
         run: |
-          cd PYTHON
+          cd nodes
           python -m pytest
