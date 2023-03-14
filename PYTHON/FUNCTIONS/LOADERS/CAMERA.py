@@ -14,15 +14,9 @@ def CAMERA(v, params):
     camera_test = False  # Value to test if image is the default image.
 
     try:
-        camera = cv2.VideoCapture(0)  # Camera indicator for selection of specific camera
-        print('\n')
-        print('camera 0: ' + camera)
-        camera = cv2.VideoCapture(-1)
-        print('camera -1: ' + camera)
-        camera = cv2.VideoCapture(1)  # params['camera_ind']
-        print('camera 1: ' + camera)
+        camera = cv2.VideoCapture(params['camera_ind'])  # Camera indicator for selection of specific camera
         test = camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-        print(test)  # Print to check if setting the resolution worked.
+        # print('\n', test, '\n')  # Print to check if setting the resolution worked.
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
         return_value, image = camera.read()  # Read camera. Return value can be useful for testing.
