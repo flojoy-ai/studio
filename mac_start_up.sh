@@ -29,28 +29,8 @@ echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
 echo 'create symlinks...'
-ln STATUS_CODES.yml PYTHON/WATCH/
+ln STATUS_CODES.yml nodes/WATCH/
 ln STATUS_CODES.yml src
-
-APPS_DIR=$PWD/apps
-
-if test -d "$APPS_DIR";then
-   echo "apps dir exists & pulling the latest commits"
-   cd apps && git pull origin main
-else
-   echo "Cloning APPS Repository"
-   git clone https://github.com/flojoy-io/apps.git
-fi
-
-NODES_DIR=$PWD/nodes
-
-if test -d "$NODES_DIR";then
-   echo "nodes dir exists & pulling the latest commits"
-   cd nodes && git pull origin main
-else
-   echo "Cloning NODES Repository"
-   git clone https://github.com/flojoy-io/nodes.git
-fi
 
 echo 'jsonify python functions and write to JS-readable directory'
 python3 write_python_metadata.py
@@ -109,7 +89,7 @@ echo 'starting redis worker for flojoy-watch'
 npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
 echo 'starting redis worker for nodes...'
-npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "${venvCmd} cd nodes && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 if [ $initPythonPackages ]
 then
@@ -136,12 +116,12 @@ fi
 
 CWD="$PWD"
 
-FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+FILE=$PWD/nodes/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
    echo "$FILE exists."
 else
-   touch $PWD/PYTHON/utils/object_detection/yolov3.weights
-   wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+   touch $PWD/nodes/utils/object_detection/yolov3.weights
+   wget -O $PWD/nodes/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
 fi
 
 sleep 1

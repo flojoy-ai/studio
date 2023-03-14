@@ -3,8 +3,7 @@ from os import listdir
 from os.path import isfile, join
 import yaml
 
-full_path = 'PYTHON/FUNCTIONS/MANIFEST'
-new_full_path = 'nodes/'
+full_path = 'nodes/FUNCTIONS/MANIFEST'
 
 manifest = {
     '_v': 0,
