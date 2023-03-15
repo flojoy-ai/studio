@@ -40,6 +40,9 @@ jobs:
           start: npm start
           browser: chrome
           install: false
+      - name: Dump docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v2
 
   testPython:
     runs-on: ubuntu-latest
