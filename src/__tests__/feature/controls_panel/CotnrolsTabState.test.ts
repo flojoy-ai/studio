@@ -1,4 +1,4 @@
-import { expect, jest, it, beforeEach } from "@jest/globals";
+import { expect, it } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { useControlsTabState } from "../../../feature/controls_panel/ControlsTabState";
@@ -13,23 +13,7 @@ const currentInputTestParams = {
   index: 0,
 };
 
-// OpenEditModal State Test
-// describe("openEditModal State Test", () => {
-//   it("checks if the openEditModal  hook renders 'false'", () => {
-//     const { result } = renderHook(useControlsTabState);
-//     expect(result.current.openEditModal).toBe(false);
-//   });
-
-//   it("checks if the openEditModal hook fires", () => {
-//     const { result } = renderHook(useControlsTabState);
-//     act(() => result.current.setOpenEditModal(true));
-//     expect(result.current.openEditModal).toBe(true);
-//   });
-// });
-
-// OpenEditModal State Test
 describe("openEditModal State Test", () => {
-  // Initial Value Test (It Can't be checked inside the .each() function)
   it("checks if the openEditModal  hook renders 'false'", () => {
     const { result } = renderHook(useControlsTabState);
     expect(result.current.openEditModal).toBe(false);
@@ -40,17 +24,15 @@ describe("openEditModal State Test", () => {
     [true, true],
   ])(
     "checks if the openEditModal hook renders/fires with '%p'",
-    (a, expected) => {
+    (setOpenEditModalValue, updatedSetOpenEditModalValue) => {
       const { result } = renderHook(useControlsTabState);
-      act(() => result.current.setOpenEditModal(a));
-      expect(result.current.openEditModal).toBe(expected);
+      act(() => result.current.setOpenEditModal(setOpenEditModalValue));
+      expect(result.current.openEditModal).toBe(updatedSetOpenEditModalValue);
     }
   );
 });
 
-// CurrentInput State Test
 describe("CurrentInput State Test", () => {
-  // Initial Value Test (It Can't be checked inside the .each() function)
   it("checks if the openEditModal  hook renders 'false'", () => {
     const { result } = renderHook(useControlsTabState);
     expect(result.current.currentInput).toBe(undefined);
@@ -58,17 +40,15 @@ describe("CurrentInput State Test", () => {
 
   test.each([[currentInputTestParams, currentInputTestParams]])(
     "checks if the openEditModal hook renders/fires with '%p'",
-    (a, expected) => {
+    (setCurrentInputValue, updatedSetCurrentInputValue) => {
       const { result } = renderHook(useControlsTabState);
-      act(() => result.current.setCurrentInput(a));
-      expect(result.current.currentInput).toBe(expected);
+      act(() => result.current.setCurrentInput(setCurrentInputValue));
+      expect(result.current.currentInput).toBe(updatedSetCurrentInputValue);
     }
   );
 });
 
-// debouncedTimerId State Test
 describe("debouncedTimerId State Test", () => {
-  // Initial Value Test (It Can't be checked inside the .each() function)
   it("checks if the debouncedTimerId hook renders with 'undefined'", () => {
     const { result } = renderHook(useControlsTabState);
     expect(result.current.debouncedTimerId).toBe(undefined);
@@ -79,11 +59,12 @@ describe("debouncedTimerId State Test", () => {
     [setTimeout(() => "timer fired!", 3000), 3],
   ])(
     "checks if the openEditModal hook renders/fires with '%p'",
-    (a, expected) => {
+    (debouncedTimerIdValue, updatedDebouncedTimerIdValue) => {
       const { result } = renderHook(useControlsTabState);
-      act(() => result.current.setDebouncedTimerId(a));
-      // console.log(result.current.debouncedTimerId);
-      expect(result.current.debouncedTimerId).toBe(expected);
+      act(() => result.current.setDebouncedTimerId(debouncedTimerIdValue));
+      expect(result.current.debouncedTimerId).toBe(
+        updatedDebouncedTimerIdValue
+      );
     }
   );
 });
