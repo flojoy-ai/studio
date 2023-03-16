@@ -43,7 +43,7 @@
                         "CAMERA_CAMERA_camera_ind": {
                             "functionName": "CAMERA",
                             "param": "camera_ind",
-                            "value": 0
+                            "value": -1
                         }
                     }
                 },
@@ -85,26 +85,26 @@
                 "width": 150,
                 "height": 135,
                 "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
-                "type": "SIGNAL_PROCESSING",
+                "type": "IMAGE_PROCESSING",
                 "data": {
                     "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
                     "label": "IMAGE_SMOOTHING",
                     "func": "IMAGE_SMOOTHING",
-                    "type": "SIGNAL_PROCESSING",
+                    "type": "IMAGE_PROCESSING",
                     "ctrls": {
-                        "IMAGE_SMOOTHING_file_type": {
-                            "functionName": "file_type",
+                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_file_type": {
+                            "functionName": "IMAGE_SMOOTHING",
                             "param": "file_type",
                             "value": "image"
                         },
-                        "IMAGE_SMOOTHING_kernal": {
-                            "functionName": "kernal",
-                            "param": "kernal",
-                            "value": "5"
+                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_kernel": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "kernel",
+                            "value": 5
                         },
-                        "IMAGE_SMOOTHING_function": {
-                            "functionName": "function",
-                            "param": "function",
+                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_function": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "smoothing_type",
                             "value": "average"
                         }
                     }
@@ -147,7 +147,7 @@
         ],
         "viewport": {
             "x": 401.9078249563761,
-            "y": 155.2388202689295,
+            "y": 141.2388202689295,
             "zoom": 1.226263386594587
         }
     },

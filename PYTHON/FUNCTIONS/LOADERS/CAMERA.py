@@ -14,7 +14,8 @@ def CAMERA(v, params):
     camera_test = False  # Value to test if image is the default image.
 
     try:
-        camera = cv2.VideoCapture(params['camera_ind'])  # Camera indicator for selection of specific camera
+        camera_index = params.get('camera_ind', -1)
+        camera = cv2.VideoCapture(camera_index)  # Camera indicator for selection of specific camera
         test = camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         # print('\n', test, '\n')  # Print to check if setting the resolution worked.
         camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -41,8 +42,8 @@ def CAMERA(v, params):
             f = fileToBeLoaded.read()
             # print(type(cv2.imread(filePath)))
             y = [bytearray(f)]
-            print(type(f))
-            print(type(bytearray(f)))
+            # print(type(f))
+            # print(type(bytearray(f)))
         fileToBeLoaded.close()
 
     else:

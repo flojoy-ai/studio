@@ -6,7 +6,7 @@ COMMAND:
       parameters:
         {
           file_type: { type: "string", default: "image" },
-          kernal: { type: "integer", default: 5},
-          smoothing_type: { type: "select", options: [average, gaussian, median, bilateral], default: average },
+          kernel: { type: "integer", default: 5 },
+          smoothing_type: { type: "select", options: ["average", "gaussian", "median", "bilateral"], default: "average" },
         }
     }
