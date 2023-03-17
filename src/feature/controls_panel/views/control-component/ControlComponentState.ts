@@ -19,7 +19,7 @@ import {
   ControlOptions,
   NodeInputOptions,
   PlotControlOptions,
-} from "../types/ControlOptions";
+} from "../../types/ControlOptions";
 type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;

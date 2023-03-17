@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlowChartTabView should render the component correcty 1`] = `
+<div>
+  <div
+    data-testid="react-flow-provider"
+  >
+    <div
+      data-testid="react-flow"
+      style="height: 90vh;"
+    >
+      <div
+        data-testid="react-flow"
+      />
+    </div>
+    <div
+      data-testid="node-modal"
+    />
+  </div>
+</div>
+`;

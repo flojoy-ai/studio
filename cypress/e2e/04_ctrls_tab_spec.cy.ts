@@ -37,7 +37,7 @@ describe("Ctrl Tab management", () => {
 
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
 
-    ctrlParameters.forEach((singleIter, index) => {
+    ctrlParameters.forEach((singleIter) => {
       singleIter.forEach((item) => {
         cy.get("[data-cy=add-ctrl]")
           .click()
@@ -67,22 +67,6 @@ describe("Ctrl Tab management", () => {
           .last()
           .click()
           .type(`{selectall}${item.value.toString()}`);
-        // cy.get("[data-cy=ctrls-select]").click();
-        // cy.contains(
-        //   "[data-cy=ctrl-grid-item]",
-        //   item.title.toUpperCase()
-        // ).within(($ele) => {
-        //   cy.contains(`${item.title.toUpperCase()}`).click();
-        //   if (item.title === "SINE ▶ WAVEFORM") {
-        //     return cy
-        //       .get(`input[value="${item.value}"]`)
-        //       .check(item.value.toString());
-        //   }
-        //   return cy
-        //     .get(`input[type=number]`)
-        //     .click()
-        //     .type(`{selectall}${item.value.toString()}`);
-        // });
       });
     });
   });

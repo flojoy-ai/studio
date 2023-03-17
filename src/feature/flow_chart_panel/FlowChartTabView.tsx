@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   addEdge,
   ConnectionLineType,
@@ -34,7 +35,7 @@ localforage.config({
   storeName: "flows",
 });
 
-const FlowChartTab = ({
+const FlowChartTab: React.FC<FlowChartProps> = ({
   results,
   theme,
   rfInstance,
@@ -121,9 +122,10 @@ const FlowChartTab = ({
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
-    (_) => setNodes([]),
+    (nodes) => setNodes(nodes.filter((n) => !n.selected)),
     [setNodes]
   );
+
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -184,5 +186,4 @@ const FlowChartTab = ({
     </ReactFlowProvider>
   );
 };
-
 export default FlowChartTab;

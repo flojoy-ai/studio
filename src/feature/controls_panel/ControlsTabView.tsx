@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,12 +8,12 @@ import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
-import "../../App.css";
+import "@src/App.css";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
-} from "../../hooks/useFlowChartState";
+} from "@src/hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
@@ -24,10 +24,22 @@ import ControlGrid from "./views/ControlGrid";
 import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
+interface ControlsTabProps {
+  results: ResultsType;
+  theme: "light" | "dark";
+  setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
+  openCtrlModal: boolean;
+}
 
-const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
+const ControlsTab = ({
+  results,
+  theme,
+  setOpenCtrlModal,
+  openCtrlModal,
+}: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
 

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
-import "../../../App.css";
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
+import "@src/App.css";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import Control from "./Control";
@@ -75,12 +75,7 @@ export default function ControlGrid({
               borderRadius: "16px",
             }}
           >
-            <Control
-              key={ctrl.id}
-              controlProps={controlProps}
-              ctrl={ctrl}
-              ctrlIndex={i}
-            />
+            <Control key={ctrl.id} controlProps={controlProps} ctrl={ctrl} />
           </div>
         );
       })}

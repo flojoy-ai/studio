@@ -1,3 +1,4 @@
+/** @type {import("ts-jest").JestConfigWithTsJest} */
 import type { Config } from "@jest/types";
 import { pathsToModuleNameMapper } from "ts-jest";
 import { compilerOptions } from "./tsconfig.json";
@@ -28,5 +29,8 @@ export default async (): Promise<Config.InitialOptions> => {
       "\\.(css|less)$": "<rootDir>/src/__tests__/config/CSSStub.js",
       ...pathsToModuleNameMapper(compilerOptions.paths),
     },
+    transform: {
+      "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }]
+    }
   };
 };

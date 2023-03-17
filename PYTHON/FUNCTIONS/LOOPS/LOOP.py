@@ -80,7 +80,7 @@ def LOOP(v, params):
 
 
 def load_loop_data(node_id, default_num_loops) -> LoopData:
-    data = SmallMemory().read_object(node_id, memory_key)
+    data = SmallMemory().read_memory(node_id, memory_key)
     loop_data = LoopData.from_data(
         node_id=node_id,
         data={'num_loops': default_num_loops, **data}
@@ -89,7 +89,7 @@ def load_loop_data(node_id, default_num_loops) -> LoopData:
 
 
 def store_loop_data(node_id, loop_data: LoopData):
-    SmallMemory().write_object(node_id, memory_key, loop_data.get_data())
+    SmallMemory().write_to_memory(node_id, memory_key, loop_data.get_data())
     loop_data.print('store ')
 
 def delete_loop_data(node_id):

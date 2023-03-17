@@ -84,7 +84,7 @@ describe("user workflow", () => {
           .contains("div", item.title.toUpperCase())
           .click({ force: true, multiple: true });
 
-        // change parameter value to its default value
+        // change parameter value
         cy.get("div").contains(item.title.toUpperCase(), { timeout: 1000 });
         cy.get(
           `input[type=${typeof item.value === "string" ? "text" : "number"}]`

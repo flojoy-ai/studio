@@ -6,7 +6,7 @@ from dao.redis_dao import RedisDao
 from rq import Queue
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
-from rq.job import Job
+from rq.job import Job, NoSuchJobError
 from node_sdk.small_memory import SmallMemory
 
 
@@ -98,7 +98,8 @@ class JobService():
     def fetch_job(self, job_id):
         try:
             return Job.fetch(job_id, connection=self.redis_dao.r)
-        except Exception:
+        except (Exception, NoSuchJobError) as err:
+            print("Error in job fetching for job id: ", job_id)
             return None
         
     def reset(self, nodes):

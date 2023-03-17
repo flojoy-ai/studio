@@ -5,7 +5,7 @@ import {
 import { useEffect, useState } from "react";
 import Select, { ThemeConfig } from "react-select";
 import customDropdownStyles from "../style/CustomDropdownStyles";
-import { ControlComponentProps } from "./ControlComponent";
+import { ControlComponentProps } from "./control-component/ControlComponent";
 
 interface NodeReferenceProps {
   theme: "light" | "dark";
