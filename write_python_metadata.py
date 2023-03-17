@@ -17,7 +17,7 @@ for dir in dirs:
     python_files = [f for f in listdir(full_path) if (isfile(join(full_path, f)) and f not in badbadnotgood)]
     for pf in python_files:
         with open(join(full_path, pf)) as f:
-            function_dict[dir.rstrip('S')][pf] = f.read()
+            function_dict[pf] = f.read()
 
 s = json.dumps(function_dict)
 result = open('src/feature/flow_chart_panel/manifest/pythonFunctions.json', 'w')

@@ -148,7 +148,7 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `90vh` }} data-testid="react-flow">
+      <div style={{ height: `99vh` }} data-testid="react-flow" data-rfinstance={JSON.stringify(nodes)}>
         <ReactFlow
           style={{
             position: "fixed",

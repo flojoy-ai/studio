@@ -50,15 +50,32 @@ const useControlComponentEffects = ({
   }, [selectedOption]);
   useEffect(() => {
     if (ctrls) {
-      setCurrentInputValue(
-        +ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value
-      );
+      const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
+      setCurrentInputValue(isNaN(+value) ? value : +value);
     } else {
       setCurrentInputValue(defaultValue as number);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrls, ctrlObj, selectedOption]);
+  // Filter attached node result from all node results
+  useEffect(() => {
+    try {
+      // figure out what we're visualizing
+      const nodeIdToPlot = ctrlObj?.param;
+      if (nodeIdToPlot) {
+        if (results && "io" in results) {
+          const runResults = results.io!.reverse();
+          const filteredResult = runResults.filter(
+            (node) => nodeIdToPlot === node.id
+          )[0];
+          setNd(filteredResult === undefined ? null : filteredResult);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [ctrlObj?.param, results, results.io, selectedOption, setNd]);
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {

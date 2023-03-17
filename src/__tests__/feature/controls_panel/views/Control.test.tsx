@@ -21,6 +21,13 @@ const ctrl: CtlManifestType = {
   name: "Test ctrl",
   type: "input",
   hidden: false,
+  layout: {
+    h:12,
+    w:12,
+    i:'test-id',
+    x:10,
+    y: 10,
+  },
 };
 
 // mock `ControlComponent`

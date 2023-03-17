@@ -74,21 +74,6 @@
                     "func": "LOOP",
                     "type": "LOOP",
                     "ctrls": {
-                        "initial_count": {
-                            "functionName": "LOOP",
-                            "param": "initial_count",
-                            "value": 0
-                        },
-                        "iteration_count": {
-                            "functionName": "LOOP",
-                            "param": "iteration_count",
-                            "value": "12"
-                        },
-                        "step": {
-                            "functionName": "LOOP",
-                            "param": "step",
-                            "value": 1
-                        },
                         "num_loops": {
                             "functionName": "LOOP",
                             "param": "num_loops",
@@ -185,12 +170,7 @@
                     "func": "GOTO",
                     "type": "LOOP",
                     "ctrls": {
-                        "node_id": {
-                            "functionName": "GOTO",
-                            "param": "goto_node_id",
-                            "value": ""
-                        },
-                        "node_id": {
+                        "goto_node_id": {
                             "functionName": "GOTO",
                             "param": "goto_node_id",
                             "value": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb"

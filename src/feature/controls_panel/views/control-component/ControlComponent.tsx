@@ -85,7 +85,6 @@ const ControlComponent = ({
     ctrlObj,
   });
 
-
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
     value: string
@@ -100,9 +99,9 @@ const ControlComponent = ({
       attachParamsToCtrl(
         {
           ...(selectedOption?.value as CtrlOptionValue),
-          id: `CONSTANT_${value.toString().split(" ").join('')}_constant`,
+          id: `CONSTANT_${value.toString().split(" ").join("")}_constant`,
         },
-        {...ctrlObj, val: value}
+        { ...ctrlObj, val: value }
       );
     }
   };
@@ -159,6 +158,7 @@ const ControlComponent = ({
         flex: "1",
         padding: "16px",
       }}
+      data-cy={ctrlObj.id}
     >
       {isEditMode && (
         <div
@@ -177,6 +177,7 @@ const ControlComponent = ({
             options={selectOptions}
             styles={customDropdownStyles}
             value={selectedOption}
+            inputId={`select-input-${ctrlObj.id}`}
           />
           <button
             className="ctrl-edit-btn"
@@ -301,7 +302,7 @@ const ControlComponent = ({
             makeLayoutStatic={makeLayoutStatic}
             setGridLayout={setGridLayout}
             updateCtrlValue={updateCtrlValue}
-            currentInputValue={currentInputValue}
+            currentInputValue={+currentInputValue}
           />
         </div>
       )}
@@ -326,14 +327,18 @@ const ControlComponent = ({
               onChange={(val) => {
                 handleCtrlValueChange(setSliderInput, val.toString());
               }}
-              value={currentInputValue || +sliderInput || 0}
+              value={+currentInputValue || +sliderInput || 0}
             />
             <label>{currentInputValue ? currentInputValue : sliderInput}</label>
           </div>
         </div>
       )}
       {ctrlObj.name === ControlNames.NodeReference && (
-        <NodeReference ctrlObj={ctrlObj} updateCtrlValue={updateCtrlValue} theme={theme}/>
+        <NodeReference
+          ctrlObj={ctrlObj}
+          updateCtrlValue={updateCtrlValue}
+          theme={theme}
+        />
       )}
       {ctrlObj.name === ControlNames.Dropdown && (
         <div className="ctrl-input-body">
@@ -352,7 +357,7 @@ const ControlComponent = ({
             value={
               paramOptions.find(
                 (opt) => opt.value === currentInputValue.toString()
-              ) || {label:"", value:''}
+              ) || { label: "", value: "" }
             }
           />
         </div>
@@ -416,5 +421,4 @@ const ControlComponent = ({
     </div>
   );
 };
-
 export default memo(ControlComponent);

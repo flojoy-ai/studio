@@ -38,9 +38,7 @@ describe("User default workflow", () => {
       timeout: 60000,
     });
     cy.get("[data-testid=result-node]", { timeout: 60000 });
-
     cy.get(`[data-cy="script-btn"]`).click();
-
     nodes.forEach((node) => {
       matchPlotlyOutput(`${node.selector}`, "plotlyDefaultOutput");
     });

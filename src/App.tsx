@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
@@ -32,11 +32,17 @@ const App = () => {
     setUiTheme,
     setRunningNode,
     setFailedNode,
+    setCtrlsManifest,
+    setGridLayout,
+    loadFlowExportObject,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
   );
   const { width: windowWidth } = useWindowSize();
+  const queryString = window?.location?.search;
+  const fileName =
+    queryString.startsWith("?test_example_app") && queryString.split("=")[1];
   const toggleTheme = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -47,11 +53,40 @@ const App = () => {
     }
   };
 
+  const fetchExampleApp = useCallback(
+    (fileName: string) => {
+      fetch("/example-apps/" + fileName, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          setCtrlsManifest(data.ctrlsManifest);
+          const flow = data.rfInstance;
+          loadFlowExportObject(flow);
+        })
+        .catch((err) => console.log("fetch example app err: ", err));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fileName]
+  );
+
   useEffect(() => {
+    setRunningNode(runningNode);
     setRunningNode(runningNode);
     setFailedNode(failedNode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runningNode, failedNode]);
+  useEffect(() => {
+    if (fileName) {
+      fetchExampleApp(fileName);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fileName]);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

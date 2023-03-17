@@ -46,7 +46,7 @@ const ControlComponentState = ({
   const [textInput, setTextInput] = useState("");
   const [numberInput, setNumberInput] = useState("0");
   const [sliderInput, setSliderInput] = useState("0");
-  const [currentInputValue, setCurrentInputValue] = useState(0);
+  const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
   const [plotData, setPlotData] = useState([
