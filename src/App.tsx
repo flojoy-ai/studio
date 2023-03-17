@@ -164,7 +164,7 @@ const App = () => {
         </div>
         <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
           <ControlsTab
-            results={programResults}
+            results={programResults!}
             theme={theme}
             openCtrlModal={openCtrlModal}
             setOpenCtrlModal={setOpenCtrlModal}

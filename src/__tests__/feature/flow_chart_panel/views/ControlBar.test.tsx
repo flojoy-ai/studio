@@ -1,35 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import Controls from "@src/feature/flow_chart_panel/views/ControlBar";
-import { IServerStatus } from "@src/context/socket.context";
-
-// Mock uuid
-jest.mock("uuid", () => ({
-  v4: () => "randomId",
-}));
 
 // Mock useFlowChartState hook
-jest.mock("@src/hooks/useFlowChartState", () => ({
-  useFlowChartState: () => ({
-    isEditMode: false,
-    setIsEditMode: jest.fn(),
-    rfInstance: null,
-    openFileSelector: jest.fn(),
-    saveFile: jest.fn(),
-    nodes: [],
-    setNodes: jest.fn(),
-  }),
-}));
+jest.mock("@src/hooks/useFlowChartState");
 // Mock useSocket hook
-jest.mock("@src/hooks/useSocket", () => ({
-  useSocket: () => ({
-    states: {
-      socketId: "socketId",
-      setProgramResults: jest.fn(),
-      serverStatus: IServerStatus.CONNECTING,
-    },
-  }),
+jest.mock("@src/hooks/useSocket");
+jest.mock("react-switch", () => ({
+  __esModule: true,
+  default: jest.fn(() => {
+    return <div data-testid='react-switch' />;
+  },)
 }));
-
+jest.mock("react-modal")
 // Mock saveFlowChartToLocalStorage, saveAndRunFlowChartInServer, and cancelFlowChartRun functions
 jest.mock("@src/services/FlowChartServices", () => ({
   saveFlowChartToLocalStorage: jest.fn(),
@@ -62,10 +44,12 @@ describe("Controls", () => {
     expect(container).toMatchSnapshot("__main__");
   });
   it("should show the Edit button when active tab is 'panel'", () => {
-    render(
+   const {container} = render(
       <Controls theme="dark" activeTab="panel" setOpenCtrlModal={jest.fn()} />
     );
     expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
+    expect(screen.getByTestId("react-switch")).toBeInTheDocument();
+    expect(container).toMatchSnapshot("__switch_btn__")
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
     render(

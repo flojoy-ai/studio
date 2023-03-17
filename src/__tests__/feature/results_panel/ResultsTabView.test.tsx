@@ -1,11 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import ResultsTab from "@src/feature/results_panel/ResultsTabView";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import { Node } from "reactflow";
 
-jest.mock("@src/hooks/useFlowChartState", () => ({
-  useFlowChartState: jest.fn(() => ({ nodes: [], edges: [] })),
-}));
+jest.mock("@src/hooks/useFlowChartState");
 
 jest.mock("@src/feature/results_panel/ResultsTabEffects", () => ({
   useResultsTabEffects: jest.fn(),
