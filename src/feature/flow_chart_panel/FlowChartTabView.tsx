@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   addEdge,
   ConnectionLineType,
@@ -34,7 +35,7 @@ localforage.config({
   storeName: "flows",
 });
 
-const FlowChartTab = ({
+const FlowChartTab: React.FC<FlowChartProps> = ({
   results,
   theme,
   rfInstance,
@@ -184,5 +185,4 @@ const FlowChartTab = ({
     </ReactFlowProvider>
   );
 };
-
 export default FlowChartTab;

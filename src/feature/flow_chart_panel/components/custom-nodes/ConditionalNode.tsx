@@ -80,7 +80,9 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
             {data.func === "CONDITIONAL" && (
               <>
                 {params?.length !== 0 ? (
-                  <p>x {data["ctrls"]["operator_type"]["value"]} y</p>
+                  <p data-testid="conditional-operator-type">
+                    x {data["ctrls"]["operator_type"]["value"]} y
+                  </p>
                 ) : (
                   <>
                     {Object.keys(additionalInfo)
@@ -97,10 +99,12 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
               </>
             )}
             {data.func === "TIMER" && (
-              <p>{data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s</p>
+              <p data-testid="timer-value">
+                {data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s
+              </p>
             )}
             {data.func === "LOOP" && (
-              <div>
+              <div data-testid="loop-info">
                 <p>{`${current_iteration}/${total_iteration}`}</p>
               </div>
             )}

@@ -221,7 +221,7 @@ const Scatter3DTitle = ({ style }: SvgProps) => (
 
 const Scatter3D = ({ theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="scatter-svg">
       <Scatter3DTitle
         theme={theme}
         style={{
@@ -240,7 +240,7 @@ const Scatter3D = ({ theme }: SvgProps) => {
           height: 105,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 

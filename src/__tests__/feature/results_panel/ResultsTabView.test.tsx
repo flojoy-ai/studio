@@ -8,27 +8,13 @@ jest.mock("@src/feature/results_panel/ResultsTabEffects", () => ({
   useResultsTabEffects: jest.fn(),
 }));
 
-jest.mock("reactflow", () => {
-  const ReactFlow = jest.fn().mockReturnValue(<div data-testid="react-flow" />);
-  const ReactFlowProvider = jest
-    .fn()
-    .mockImplementation(({ children }) => (
-      <div data-testid="react-flow-provider">{children}</div>
-    ));
-  const EdgeTypes = { default: jest.fn() };
-  const NodeTypes = { default: jest.fn() };
-  const ConnectionLineType = { Step: "step" };
-  const OnInit = jest.fn();
-
-  return {
-    ReactFlow,
-    ReactFlowProvider,
-    EdgeTypes,
-    NodeTypes,
-    ConnectionLineType,
-    OnInit,
-  };
-});
+jest.mock("@src/feature/results_panel/ResultsTabState", () => ({
+  useResultsTabState: jest.fn(() => ({
+    setResultNodes: jest.fn(),
+    resultNodes: [] as Node[],
+    nodes: [] as Node[],
+  })),
+}));
 
 jest.mock("@src/feature/results_panel/views/CustomResultNode", () => {
   return <div></div>;
