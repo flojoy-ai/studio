@@ -122,9 +122,10 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
-    (_) => setNodes([]),
+    (nodes) => setNodes(nodes.filter((n) => !n.selected)),
     [setNodes]
   );
+
   useFlowChartTabEffects({
     clickedElement,
     results,

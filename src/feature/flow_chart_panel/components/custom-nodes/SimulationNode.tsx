@@ -5,10 +5,11 @@ import {
   ElementsData,
 } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import "@feature/flow_chart_panel/components/custom-nodes/css/simulationNode.css";
+import { useEffect } from "react";
 
 const highlightShadow = {
-  LINSPACE: { boxShadow: "0 0 50px 15px #48abe0" },
-  default: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 50px 15px" },
+  LINSPACE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  default: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 27px 3px" },
 };
 const getboxShadow = (data: ElementsData) => {
   if (data.func in highlightShadow) {
@@ -18,15 +19,24 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
+    useFlowChartState();
   const params = data.inputs || [];
 
+  useEffect(() => {
+    setNodes((prev) => {
+      const selectedNode = prev.find((n) => n.id === data.id);
+      if (selectedNode) {
+        selectedNode.data.selected = selectedNode.selected;
+      }
+    });
+  }, [data, nodes, setNodes]);
   return (
     <div
       style={{
-        ...(runningNode === data.id && getboxShadow(data)),
+        ...((runningNode === data.id || data.selected) && getboxShadow(data)),
         ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >

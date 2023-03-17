@@ -11,24 +11,35 @@ import LineChart from "../nodes/line-chart";
 import Surface3D from "../nodes/3d-surface";
 import Scatter3D from "../nodes/3d-scatter";
 import BarChart from "../nodes/bar";
+import { useEffect } from "react";
 
 const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow){
+  if (data.func in highlightShadow) {
     return highlightShadow[data.func];
   }
-  return highlightShadow['default']
+  return highlightShadow["default"];
 };
 
-
 const VisorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
+    useFlowChartState();
   const params = data.inputs || [];
+
+  useEffect(() => {
+    setNodes((prev) => {
+      const selectedNode = prev.find((n) => n.id === data.id);
+      if (selectedNode) {
+        selectedNode.data.selected = selectedNode.selected;
+      }
+      return prev;
+    });
+  }, [data, nodes, setNodes]);
   return (
     <div
       style={{
-        ...(runningNode === data.id && getboxShadow(data)),
+        ...((runningNode === data.id || data.selected) && getboxShadow(data)),
         ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >
@@ -70,11 +81,11 @@ const VisorNode = ({ data }: CustomNodeProps) => {
 export default VisorNode;
 
 const highlightShadow = {
-  default: { boxShadow: "0 0 50px 15px #48abe0" },
-  HISTOGRAM: { boxShadow: "0 0 50px 15px #48abe0" },
-  SCATTER: { boxShadow: "0 0 50px 15px #48abe0" },
-  SURFACE3D: { boxShadow: "0 0 50px 15px #48abe0" },
-  SCATTER3D: { boxShadow: "0 0 50px 15px #48abe0" },
-  BAR: { boxShadow: "0 0 50px 15px #48abe0" },
-  LINE: { boxShadow: "0 0 50px 15px #48abe0" },
+  default: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  HISTOGRAM: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  SCATTER: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  SURFACE3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  SCATTER3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  BAR: { boxShadow: "#48abe0 0px 0px 27px 3px" },
+  LINE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
 };

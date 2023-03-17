@@ -18,15 +18,7 @@ const props: CustomNodeProps = {
   },
 };
 
-jest.mock("@hooks/useFlowChartState", () => {
-  return {
-    useFlowChartState: () => ({
-      uiTheme: "dark",
-      runningNode: "data-id",
-      failedNode: "data-id",
-    }),
-  };
-});
+jest.mock("@hooks/useFlowChartState");
 
 jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   const mockChildren = jest

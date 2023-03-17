@@ -8,8 +8,18 @@ import { useEffect, useState } from "react";
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
+    useFlowChartState();
   const params = data.inputs || [];
+
+  useEffect(() => {
+    setNodes((prev) => {
+      const selectedNode = prev.find((n) => n.id === data.id);
+      if (selectedNode) {
+        selectedNode.data.selected = selectedNode.selected;
+      }
+    });
+  }, [data, nodes, setNodes]);
   const { states } = useSocket();
   const { programResults } = states!;
 
@@ -46,9 +56,11 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   return (
     <div
       style={{
-        ...(runningNode === data.id && { boxShadow: "0 0 50px 15px #48abe0" }),
+        ...((runningNode === data.id || data.selected) && {
+          boxShadow: "#48abe0 0px 0px 27px 3px",
+        }),
         ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >
