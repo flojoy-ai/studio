@@ -9,6 +9,7 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
   if (theme === "light") {
     return (
       <svg
+        data-testid="default-svg"
         style={style}
         width="249"
         height="158"
@@ -27,6 +28,7 @@ export const BGTemplate = ({ style, theme }: SvgProps) => {
   }
   return (
     <svg
+      data-testid="default-svg"
       style={style}
       width="250"
       height="159"

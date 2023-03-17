@@ -59,7 +59,7 @@ const BarChartTitle = ({ style }: SvgProps) => (
 );
 const BarChart = ({ theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="barchart-svg">
       <BarChartTitle
         theme={theme}
         style={{
@@ -79,7 +79,7 @@ const BarChart = ({ theme }: SvgProps) => {
           height: 105,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 
