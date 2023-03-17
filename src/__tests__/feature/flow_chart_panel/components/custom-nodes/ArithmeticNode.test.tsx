@@ -24,7 +24,7 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
 });
 
 describe("ArithmeticNode", () => {
-  it("checks if the snapshot", () => {
+  it("checks the snapshot", () => {
     const { container } = render(<ArithmeticNode {...props} />);
     expect(container).toMatchSnapshot();
   });
@@ -44,7 +44,7 @@ describe("ArithmeticNode", () => {
       );
       component = getByTestId(testId);
     } else {
-      const { container, getByTestId } = render(<ArithmeticNode {...props} />);
+      const { getByTestId } = render(<ArithmeticNode {...props} />);
       component = getByTestId(testId);
     }
 
