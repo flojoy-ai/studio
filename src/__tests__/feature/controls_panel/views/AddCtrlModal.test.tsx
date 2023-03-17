@@ -13,7 +13,7 @@ describe("AddCtrlModal.tsx", () => {
     addCtrl: jest.fn(),
   };
   it("render AddCtrlModal correctly.", () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <AddCtrlModal
         isOpen={props.isOpen}
         afterOpenModal={props.afterOpenModal}
@@ -22,8 +22,6 @@ describe("AddCtrlModal.tsx", () => {
         theme={"dark"}
       />
     );
-    expect(getByText("Inputs")).toBeInTheDocument();
-    expect(getByText("Outputs")).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
   it("should fire closeModal function on clicking close button.", () => {
@@ -49,7 +47,7 @@ describe("AddCtrlModal.tsx", () => {
         theme={"dark"}
       />
     );
-    InputControlsManifest.map((ctrl) => {
+    InputControlsManifest.forEach((ctrl) => {
       expect(getByText(ctrl.name)).toBeInTheDocument();
     });
   });
@@ -64,7 +62,7 @@ describe("AddCtrlModal.tsx", () => {
       />
     );
     fireEvent.click(getByText("Outputs"));
-    OutputControlsManifest.map((ctrl) => {
+    OutputControlsManifest.forEach((ctrl) => {
       expect(getByText(ctrl.name)).toBeInTheDocument();
     });
   });

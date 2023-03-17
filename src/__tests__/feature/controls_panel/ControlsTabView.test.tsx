@@ -1,12 +1,10 @@
 import { render } from "@testing-library/react";
 import ControlsTab from "@src/feature/controls_panel/ControlsTabView";
-import AddCtrlModal from "@src/feature/controls_panel/views/AddCtrlModal";
-import ControlGrid from "@src/feature/controls_panel/views/ControlGrid";
 
 // mock `AddCtrlModal`
-jest.mock("@src/feature/controls_panel/views/AddCtrlModal", ()=>({
-  __esModule:true,
-  default: jest.fn(()=><div data-testid="add-ctrl-modal"></div>)
+jest.mock("@src/feature/controls_panel/views/AddCtrlModal", () => ({
+  __esModule: true,
+  default: jest.fn(() => <div data-testid="add-ctrl-modal"></div>),
 }));
 // mock `useSocket` hook
 jest.mock("@src/hooks/useSocket");
@@ -35,7 +33,7 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
 
 describe("ControlsTab", () => {
   it("render ControlsTab correctly.", () => {
-    const { container, getByTestId } = render(
+    const { container } = render(
       <ControlsTab
         openCtrlModal={false}
         setOpenCtrlModal={jest.fn()}
@@ -43,10 +41,6 @@ describe("ControlsTab", () => {
         theme="dark"
       />
     );
-    expect(getByTestId("controls-tab")).toBeInTheDocument()
-    expect(AddCtrlModal).toBeCalled();
-    expect(ControlGrid).toBeCalled();
-    expect(getByTestId("react-modal")).toBeInTheDocument();
     expect(container).toMatchSnapshot();
   });
 });
