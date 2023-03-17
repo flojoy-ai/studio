@@ -6,8 +6,9 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
     data-testid="react-flow-provider"
   >
     <div
+      data-rfinstance="[]"
       data-testid="react-flow"
-      style="height: 90vh;"
+      style="height: 99vh;"
     >
       <div
         data-testid="react-flow"

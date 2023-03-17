@@ -98,16 +98,7 @@ jest.mock("@src/configs/NodeConfigs", () => {
   };
 });
 
-jest.mock("@src/hooks/useFlowChartState", () => {
-  return {
-    useFlowChartState: jest.fn().mockReturnValue({
-      nodes: [],
-      setNodes: jest.fn(),
-      edges: [],
-      setEdges: jest.fn(),
-    }),
-  };
-});
+jest.mock("@src/hooks/useFlowChartState");
 
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
@@ -167,6 +158,6 @@ describe("FlowChartTabView", () => {
     );
 
     const componet = getAllByTestId("react-flow")[0];
-    expect(componet).toHaveStyle("height: 90vh");
+    expect(componet).toHaveStyle("height: 99vh");
   });
 });

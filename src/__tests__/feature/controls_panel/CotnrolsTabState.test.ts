@@ -1,16 +1,24 @@
 import { expect, it } from "@jest/globals";
+import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { useControlsTabState } from "../../../feature/controls_panel/ControlsTabState";
 
-const currentInputTestParams = {
+const currentInputTestParams:CtlManifestType & {index:number} = {
   type: "input",
   name: "Slider",
   id: "INPUT_PLACEHOLDER",
   hidden: false,
   minHeight: 1,
   minWidth: 2,
-  index: 0,
+  layout: {
+    h:12,
+    w:12,
+    i:'test-id',
+    x:10,
+    y: 10,
+  },
+  index:0
 };
 
 describe("openEditModal State Test", () => {
