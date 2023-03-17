@@ -64,6 +64,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
             flexDirection: "column",
             textAlign: "center",
           }}
+          data-testid="data-label-design"
         >
           <div>{data.label}</div>
         </div>

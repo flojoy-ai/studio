@@ -1,0 +1,11 @@
+COMMAND:
+  - {
+      name: Camera,
+      key: CAMERA,
+      type: LOADER,
+      parameters:
+        {
+          file_type: { type: "string", default: "image" },
+          camera_ind: { type: "integer", default: 0 },
+        }
+    }
