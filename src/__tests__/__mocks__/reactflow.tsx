@@ -1,5 +1,3 @@
-import React from "react";
-
 const ReactFlow = jest.fn().mockReturnValue(<div data-testid="react-flow" />);
 const ReactFlowProvider = jest
   .fn()
