@@ -2,14 +2,14 @@ import os
 import sys
 import json
 import yaml
-from nodes.WATCH import *
+from PYTHON.WATCH import *
 from datetime import datetime
 from django.shortcuts import render
 from asgiref.sync import async_to_sync
 from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from rest_framework.decorators import api_view
-from nodes.services.job_service import JobService
+from PYTHON.services.job_service import JobService
 import time
 
 dir_path = os.path.dirname(os.path.realpath(__file__))

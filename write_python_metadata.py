@@ -5,7 +5,7 @@ from os.path import isfile, join
 dirs = ['SIMULATIONS', 'ARITHMETIC', 'VISORS','CONDITIONALS','LOOPS','TIMERS', 'SIGNAL_PROCESSING','LOADERS', 'ARRAY_AND_MATRIX',
         "TERMINATORS"]
 
-path = 'nodes/FUNCTIONS'
+path = 'PYTHON/nodes'
 
 badbadnotgood = ['VCTR.py', '__init__.py', '.DS_Store']
 

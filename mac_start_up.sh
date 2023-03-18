@@ -29,7 +29,7 @@ echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
 echo 'create symlinks...'
-ln STATUS_CODES.yml nodes/WATCH/
+ln STATUS_CODES.yml PYTHON/WATCH/
 ln STATUS_CODES.yml src
 
 echo 'jsonify python functions and write to JS-readable directory'
@@ -89,7 +89,7 @@ echo 'starting redis worker for flojoy-watch'
 npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
 echo 'starting redis worker for nodes...'
-npx ttab -t 'RQ WORKER' "${venvCmd} cd nodes && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 if [ $initPythonPackages ]
 then
@@ -116,12 +116,12 @@ fi
 
 CWD="$PWD"
 
-FILE=$PWD/nodes/utils/object_detection/yolov3.weights
+FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
    echo "$FILE exists."
 else
-   touch $PWD/nodes/utils/object_detection/yolov3.weights
-   wget -O $PWD/nodes/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+   touch $PWD/PYTHON/utils/object_detection/yolov3.weights
+   wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
 fi
 
 sleep 1

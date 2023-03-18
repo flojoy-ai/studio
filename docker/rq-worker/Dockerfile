@@ -28,8 +28,8 @@ RUN python3 write_python_metadata.py
 # Run generate_manifest.py file
 RUN python3 generate_manifest.py
 
-# # RUN CD NODES
-WORKDIR /code/nodes
+# # RUN CD PYTHON
+WORKDIR /code/PYTHON
 
 # Run the command to start the RQ worker
 CMD ["rq", "worker", "flojoy", "--url", "redis://redis:6379"]
