@@ -36,18 +36,9 @@ export function useFlowChartTabEffects({
   }, [results, clickedElement]);
 
   useEffect(() => {
-    if (clickedElement) {
-      if ("data" in clickedElement) {
-        if ("label" in clickedElement.data && "type" in clickedElement.data) {
-          if (
-            clickedElement.data.label !== undefined &&
-            clickedElement.data.type !== undefined
-          ) {
-            setNodeLabel(clickedElement.data.func);
-            setNodeType(clickedElement.data.type);
-          }
-        }
-      }
+    if (clickedElement?.data?.label && clickedElement?.data?.type) {
+      setNodeLabel(clickedElement.data.func);
+      setNodeType(clickedElement.data.type);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickedElement]);

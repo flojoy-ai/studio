@@ -36,12 +36,14 @@ def send_msg_to_socket(msg: dict):
         'type': 'worker_response',
         **msg
     })
+
+
 @api_view(['POST'])
 def cancel_flow_chart(request):
     fc = json.loads(request.data['fc'])
     jobset_id = request.data['jobsetId']
-    
-    job_service.reset(fc.get('nodes',[]))
+
+    job_service.reset(fc.get('nodes', []))
     time.sleep(2)
     msg = {
         'SYSTEM_STATUS': STATUS_CODES['STANDBY'],
