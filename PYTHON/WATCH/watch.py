@@ -35,6 +35,7 @@ from utils.topology import Topology
 from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
 
+ENV_CI = 'CI'
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
 
@@ -49,11 +50,14 @@ class FlowScheduler:
 
     def run(self):
         print('\nrun jobset:', self.jobset_id)
+        self.is_ci = os.getenv(key=ENV_CI, default=False);
+        print('is running in CI?', self.is_ci)
         self.nx_graph = reactflow_to_networkx(self.flow_chart['nodes'], self.flow_chart['edges'])
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
         self.topology.collect_ready_jobs()
+
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
@@ -103,7 +107,6 @@ class FlowScheduler:
         self.topology.print_graph()
         self.notify_jobset_finished()
         print('finished proceessing jobset', self.jobset_id, '\n')
-        return
 
     def process_job_result(self, job_id, job_result, success):
         '''
@@ -135,7 +138,17 @@ class FlowScheduler:
 
         node = self.nx_graph.nodes[job_id]
         cmd = node['cmd']
+        cmd_mock = node['cmd'] + '_MOCK'        
         func = getattr(globals()[cmd], cmd)
+
+        # when running in CI environment use the mock function instead if its defined
+        if self.is_ci:
+            try:
+                func = getattr(globals()[cmd], cmd_mock)
+                print( ' running the mock version:', cmd_mock)
+            except:
+                pass
+
         dependencies = self.topology.get_job_dependencies(job_id, original=True)
 
         print(

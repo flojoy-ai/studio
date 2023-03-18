@@ -40,8 +40,20 @@ class SmallMemory:
         Reads object stored in internal DB by the given key. The memory is job specific.
         '''
         memory_key = F'{job_id}-{key}'
-        obj = RedisDao.get_instance().get_redis_obj(memory_key)
-        return obj
+        value_type_key = f"{memory_key}_value_type_key"
+        meta_data = RedisDao.get_instance().get_redis_obj(value_type_key)
+        meta_type = meta_data.get('type')
+        match meta_type:
+            case 'string':
+                return RedisDao.get_instance().get_str(memory_key)
+            case 'dict':
+                return RedisDao.get_instance().get_redis_obj(memory_key)
+            case 'np_array':
+                return RedisDao.get_instance().get_np_array(memory_key, meta_data)
+            case 'pd_dframe':
+                return RedisDao.get_instance().get_pd_dataframe(memory_key)
+            case _:
+                return {}
 
     def delete_object(self, job_id, key):
         '''

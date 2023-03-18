@@ -103,7 +103,7 @@ const LineChartTitle = ({ style }: SvgProps) => (
 );
 const LineChart = ({ theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="line-svg">
       <LineChartTitle
         theme={theme}
         style={{
@@ -123,7 +123,7 @@ const LineChart = ({ theme }: SvgProps) => {
           height: 105,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 

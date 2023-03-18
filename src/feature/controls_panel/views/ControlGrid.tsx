@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
-import "../../../App.css";
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
+import "@src/App.css";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import Control from "./Control";
@@ -28,6 +28,14 @@ export default function ControlGrid({
       );
     }
   }, [isEditMode, setGridLayout]);
+  useEffect(() => {
+    setGridLayout(
+      ctrlsManifest.map((ctrl) => ({
+        ...ctrl.layout,
+      }))
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctrlsManifest]);
 
   return (
     <ResponsiveGridLayout
@@ -44,7 +52,7 @@ export default function ControlGrid({
             <div
               key={ctrl.id}
               data-grid={{
-                ...gridLayout.find((l) => l.i === ctrl.id),
+                ...ctrl.layout,
               }}
               style={{
                 display: "none",
@@ -57,7 +65,7 @@ export default function ControlGrid({
           <div
             key={ctrl.id}
             data-grid={{
-              ...gridLayout.find((l) => l.i === ctrl.id),
+              ...ctrl.layout,
               static: !isEditMode,
             }}
             style={{
@@ -67,12 +75,7 @@ export default function ControlGrid({
               borderRadius: "16px",
             }}
           >
-            <Control
-              key={ctrl.id}
-              controlProps={controlProps}
-              ctrl={ctrl}
-              ctrlIndex={i}
-            />
+            <Control key={ctrl.id} controlProps={controlProps} ctrl={ctrl} />
           </div>
         );
       })}
