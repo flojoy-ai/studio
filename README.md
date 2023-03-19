@@ -35,17 +35,17 @@ You can also use the docker-desktop to control and check logs for the services.
 ## Run Flojoy without Docker (Mac/Linux only)
 
 1. Clone this repo
-2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 3.
+2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 
 3. `cd` into the project root
-4. Install the required python packages: `python3 -m pip install -U -r requirements.txt`
-5. Install npm packages: `npm install`
-6. Run `$ sh mac_startup.sh`
+4. Run `$ sh mac_start_up.sh`
 
    - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
    - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
-   - If you have not installed npm packages manually, provide `-n` argument to install packages.
-   - If you have not installed python packages manually, provide `-p` argument to install required python packages. 
+   - You can provide `-n` argument to skip installing Javascript packages.
+   - You can provide `-p` argument to skip installing python packages. 
    - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
+   - You can provide a branch name for [APPS](https://github.com/flojoy-io/apps) submodule to pull latest changes from that branch by providing branch name followed by `--apps_branch` argument. i.e `sh mac_start_up.sh --apps_branch main`
+   - You can provide a branch name for [NODES](https://github.com/flojoy-io/nodes) submodule to pull latest changes from that branch by providing branch name followed by `--nodes_branch` argument. i.e `sh mac_start_up.sh --nodes_branch main`
 
 # Running ElectronJS locally
 
