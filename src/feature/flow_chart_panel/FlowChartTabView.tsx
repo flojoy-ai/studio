@@ -110,7 +110,9 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
-    (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
+    (changes) => {
+      setNodes((ns) => applyNodeChanges(changes, ns));
+    },
     [setNodes]
   );
   const onEdgesChange: OnEdgesChange = useCallback(
@@ -122,7 +124,12 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
-    (nodes) => setNodes(nodes.filter((n) => !n.selected)),
+    (nodes) => {
+      const selectedNodeIds = nodes.map((node) => node.id);
+      setNodes((prev) =>
+        prev.filter((node) => !selectedNodeIds.includes(node.id))
+      );
+    },
     [setNodes]
   );
 
@@ -148,7 +155,11 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `99vh` }} data-testid="react-flow" data-rfinstance={JSON.stringify(nodes)}>
+      <div
+        style={{ height: `99vh` }}
+        data-testid="react-flow"
+        data-rfinstance={JSON.stringify(nodes)}
+      >
         <ReactFlow
           style={{
             position: "fixed",
