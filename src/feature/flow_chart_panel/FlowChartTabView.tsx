@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   addEdge,
   ConnectionLineType,
@@ -34,7 +35,7 @@ localforage.config({
   storeName: "flows",
 });
 
-const FlowChartTab = ({
+const FlowChartTab: React.FC<FlowChartProps> = ({
   results,
   theme,
   rfInstance,
@@ -109,7 +110,9 @@ const FlowChartTab = ({
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
-    (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
+    (changes) => {
+      setNodes((ns) => applyNodeChanges(changes, ns));
+    },
     [setNodes]
   );
   const onEdgesChange: OnEdgesChange = useCallback(
@@ -121,9 +124,15 @@ const FlowChartTab = ({
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
-    (_) => setNodes([]),
+    (nodes) => {
+      const selectedNodeIds = nodes.map((node) => node.id);
+      setNodes((prev) =>
+        prev.filter((node) => !selectedNodeIds.includes(node.id))
+      );
+    },
     [setNodes]
   );
+
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -146,7 +155,11 @@ const FlowChartTab = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `90vh` }} data-testid="react-flow">
+      <div
+        style={{ height: `99vh` }}
+        data-testid="react-flow"
+        data-rfinstance={JSON.stringify(nodes)}
+      >
         <ReactFlow
           style={{
             position: "fixed",
@@ -184,5 +197,4 @@ const FlowChartTab = ({
     </ReactFlowProvider>
   );
 };
-
 export default FlowChartTab;

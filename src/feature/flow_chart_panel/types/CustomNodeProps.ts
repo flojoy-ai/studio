@@ -14,6 +14,7 @@ export type ElementsData = {
   };
   inputs?: Array<{ name: string; id: string; type:string }>
   selects?: any;
+  selected?:boolean;
 }
 
 export interface CustomNodeProps {

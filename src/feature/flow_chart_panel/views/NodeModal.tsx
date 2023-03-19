@@ -1,10 +1,11 @@
 import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
+// import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { NodeModalProps } from "../types/NodeModalProps";
 
-const NodeModal = ({
+function NodeModal({
   modalIsOpen,
   afterOpenModal,
   closeModal,
@@ -16,7 +17,7 @@ const NodeModal = ({
   defaultLayout,
   theme,
   clickedElement,
-}: NodeModalProps) => {
+}: NodeModalProps) {
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -50,14 +51,20 @@ const NodeModal = ({
               id={nd.id}
               data={
                 "data" in nd?.result
-                ? nd.result.data
-                : [{ x: nd.result["x"], y: nd.result["y"], 
-                source: nd.result["source"], type: nd.result["type"] }]
+                  ? nd.result.data
+                  : [
+                      {
+                        x: nd.result["x"],
+                        y: nd.result["y"],
+                        source: nd.result["source"],
+                        type: nd.result["type"],
+                      },
+                    ]
               }
               layout={
                 "layout" in nd.result
-                ? Object.assign({}, nd.result.layout, defaultLayout)
-                : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
+                  ? Object.assign({}, nd.result.layout, defaultLayout)
+                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
               style={{
@@ -86,6 +93,6 @@ const NodeModal = ({
       </SyntaxHighlighter>
     </ReactModal>
   );
-};
+}
 
 export default NodeModal;

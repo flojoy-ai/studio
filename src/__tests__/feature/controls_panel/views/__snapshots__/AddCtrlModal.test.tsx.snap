@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddCtrlModal.tsx render AddCtrlModal correctly. 1`] = `
+<div>
+  <div
+    data-testid="react-modal"
+  >
+    <button
+      class="close-modal"
+      data-testid="add-ctrl-modal-close"
+    >
+      <svg
+        fill="none"
+        height="16"
+        style="height: 23px; width: 23px;"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.1835 11.4905C12.1835 11.6885 12.0845 11.8865 11.8794 12.0915C11.5824 12.3885 10.9814 12.3956 10.6774 12.0915L3.98812 5.2043C3.69114 4.90732 3.68407 4.30628 3.98812 4.00222C4.29218 3.69816 4.88615 3.69816 5.1902 4.00222L11.8794 10.8894C12.0774 11.0874 12.1764 11.2854 12.1835 11.4905Z"
+          fill="#BCC2C4"
+        />
+        <path
+          d="M12.1834 4.50427C12.1834 4.70226 12.0844 4.90025 11.9854 5.09824L5.29616 12.0845C4.90018 12.3814 4.39813 12.3885 4.09408 12.0845C3.79002 11.7804 3.79002 11.1864 4.09408 10.8824L10.7833 3.99515C11.0803 3.69816 11.6813 3.69109 11.9854 3.99515C12.0844 4.09414 12.1834 4.29213 12.1834 4.49012L12.1834 4.50427Z"
+          fill="#BCC2C4"
+        />
+      </svg>
+    </button>
+    <div
+      class="flex tab-panel"
+      style="border-bottom: 1px solid rgb(47, 46, 46); align-items: center; gap: 8px;"
+    >
+      <button
+        class="btn-tab"
+        style="height: 100%; border-bottom: 2px solid rgb(153, 245, 255);"
+      >
+        Inputs
+      </button>
+      <button
+        class="btn-tab"
+      >
+        Outputs
+      </button>
+    </div>
+    <div
+      class="flex"
+      style="gap: 16px; align-items: center; flex-wrap: wrap; padding-top: 12px;"
+    >
+      <button
+        class="cmd-btn dark"
+      >
+        Text Input
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Numeric Input
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Slider
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Knob
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Static Numeric Input
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Dropdown
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Radio Button Group
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Checkbox Button Group
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Local File Loader
+      </button>
+      <button
+        class="cmd-btn dark"
+      >
+        Node Reference
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,4 +1,4 @@
-.btn__play, .cmd-btn-dark {
+.btn__play, .cmd-btn {
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -14,12 +14,12 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.btn__play.dark, .cmd-btn-dark {
+.btn__play.dark, .cmd-btn.dark {
   background-color: #243438;
   color: #94f4fc;
   border: 1px solid #00eaff;
 }
-.btn__play.light {
+.btn__play.light, .cmd-btn.light {
   border: 1px solid rgba(123, 97, 255, 1);
   background-color: rgba(123, 97, 255, 0.17);
   color: rgba(123, 97, 255, 1);

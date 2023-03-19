@@ -7,6 +7,7 @@ interface SVGProps {
 export const AddBGTemplate = ({ style }: SVGProps) => {
   return (
     <svg
+      data-testid="default-svg"
       style={style}
       width="99"
       height="100"
@@ -27,6 +28,7 @@ export const AddBGTemplate = ({ style }: SVGProps) => {
 export const MultiplySvg = ({ style }: SVGProps) => {
   return (
     <svg
+      data-testid="multiply-svg"
       style={style}
       width="14"
       height="14"
@@ -61,6 +63,7 @@ export const MultiplySvg = ({ style }: SVGProps) => {
 export const AddSvg = ({ style }: SVGProps) => {
   return (
     <svg
+      data-testid="add-svg"
       style={style}
       width="16"
       height="16"
@@ -79,6 +82,7 @@ export const AddSvg = ({ style }: SVGProps) => {
 export const AtSvg = ({ style }: SVGProps) => {
   return (
     <svg
+      data-testid="matmul-svg"
       style={style}
       width="14"
       height="14"
@@ -86,7 +90,7 @@ export const AtSvg = ({ style }: SVGProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g >
+      <g>
         <path
           d="M1.12264 2.46631L9.61248 11.7301L10.8253 13.0468C11.9573 14.2828 13.7939 12.4462 12.6619 11.2103L4.1605 1.94652L2.95922 0.618183C1.82724 -0.617753 -0.0093348 1.23038 1.12264 2.46631Z"
           fill="#FFC93F"
@@ -95,7 +99,14 @@ export const AtSvg = ({ style }: SVGProps) => {
           d="M10.8254 0.618143L2.324 9.89344L1.11117 11.2102C-0.0208093 12.4462 1.81577 14.2827 2.94775 13.0468L11.4491 3.78306L12.662 2.46627C13.7939 1.23034 11.9574 -0.606241 10.8254 0.629694V0.618143Z"
           fill="#FFC93F"
         />
-        <circle cx="7" cy="7" r="7" stroke="#FFC93F" stroke-width="2" fill="none"></circle>
+        <circle
+          cx="7"
+          cy="7"
+          r="7"
+          stroke="#FFC93F"
+          strokeWidth="2"
+          fill="none"
+        ></circle>
       </g>
     </svg>
   );
@@ -104,6 +115,7 @@ export const AtSvg = ({ style }: SVGProps) => {
 export const SubSvg = ({ style }: SVGProps) => {
   return (
     <svg
+      data-testid="sub-svg"
       style={style}
       width="16"
       height="16"

@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,12 +8,12 @@ import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
-import "../../App.css";
+import "@src/App.css";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
-} from "../../hooks/useFlowChartState";
+} from "@src/hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
@@ -24,10 +24,22 @@ import ControlGrid from "./views/ControlGrid";
 import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
+interface ControlsTabProps {
+  results: ResultsType;
+  theme: "light" | "dark";
+  setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
+  openCtrlModal: boolean;
+}
 
-const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
+const ControlsTab = ({
+  results,
+  theme,
+  setOpenCtrlModal,
+  openCtrlModal,
+}: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
 
@@ -77,50 +89,43 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   useControlsTabEffects(saveAndRunFlowChart);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      id: `ctrl-${uuidv4()}`,
-      hidden: false,
-    } as CtlManifestType;
-
-    setOpenCtrlModal(false);
-
+    const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
       if (yAxis < el.y) {
         yAxis = el.y;
       }
     }
-
-    setGridLayout([
-      ...gridLayout,
-      {
-        x: 0,
-        y: yAxis + 1,
-        h: ctrl.minHeight > 2 ? ctrl.minHeight : 2,
-        w: 2,
-        i: ctrl.id,
-        minH: ctrl.minHeight,
-        minW: ctrl.minWidth,
-        static: !isEditMode,
-      },
-    ]);
-
+    const ctrlLayout = {
+      x: 0,
+      y: yAxis + 1,
+      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
+      w: 2,
+      i: id,
+      minH: ctrlObj.minHeight,
+      minW: ctrlObj.minWidth,
+      static: !isEditMode,
+    };
+    const ctrl: CtlManifestType = {
+      ...ctrlObj,
+      hidden: false,
+      id,
+      layout: ctrlLayout,
+    } as CtlManifestType;
+    setOpenCtrlModal(false);
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    const filterChilds: any[] = ctrlsManifest.filter(
-      (ctrl) => ctrl.id !== ctrlId
-    );
+    const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
 
-    if (ctrl.param) {
-      removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
-      saveAndRunFlowChart();
-    }
+    // if (ctrl.param) {
+    //   removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
+    //   saveAndRunFlowChart();
+    // }
   };
 
   const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {

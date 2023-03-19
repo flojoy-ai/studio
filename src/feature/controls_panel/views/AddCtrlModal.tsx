@@ -1,11 +1,20 @@
+import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import { Fragment, useState } from "react";
 import ReactModal from "react-modal";
-import ModalCloseSvg from "../../../utils/ModalCloseSvg";
+import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import {
   InputControlsManifest,
   OutputControlsManifest,
-} from "../manifest/CONTROLS_MANIFEST";
-import { modalStyles } from "../style/ControlModalStyles"
+} from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { modalStyles } from "@src/feature/controls_panel/style/ControlModalStyles";
+
+interface AddCtrlModalProps {
+  isOpen: boolean;
+  afterOpenModal: () => void;
+  closeModal: () => void;
+  addCtrl: (ctrlObj: Partial<CtlManifestType>) => void;
+  theme: "dark" | "light";
+}
 
 const AddCtrlModal = ({
   isOpen,
@@ -13,7 +22,7 @@ const AddCtrlModal = ({
   closeModal,
   addCtrl,
   theme,
-}) => {
+}: AddCtrlModalProps) => {
   const [activeTab, setActiveTab] = useState("input");
   const activeBtnStyle = {
     height: "100%",
@@ -32,7 +41,7 @@ const AddCtrlModal = ({
       ariaHideApp={false}
       contentLabel="Choose a Ctrl..."
     >
-      <button onClick={closeModal} className="close-modal">
+      <button onClick={closeModal} data-testid={'add-ctrl-modal-close'} className="close-modal">
         <ModalCloseSvg
           style={{
             height: 23,
@@ -84,7 +93,7 @@ const AddCtrlModal = ({
           {InputControlsManifest.map((ctrl, ctrlIndex) => (
             <Fragment key={ctrlIndex}>
               <button
-                className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn"}
+                className={`cmd-btn ${theme}`}
                 onClick={() =>
                   addCtrl({
                     type: ctrl.type,
@@ -114,7 +123,7 @@ const AddCtrlModal = ({
           {OutputControlsManifest.map((ctrl, ctrlIndex) => (
             <Fragment key={ctrlIndex}>
               <button
-                className={theme === "dark" ? "cmd-btn-dark" : "cmd-btn"}
+                className={`cmd-btn ${theme}`}
                 onClick={() =>
                   addCtrl({
                     type: ctrl.type,
