@@ -2,205 +2,271 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 115,
-                "height": 115,
-                "id": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-                "type": "SIMULATION",
+                "width": 150,
+                "height": 135,
+                "id": "END-e3bacc69-e497-43d8-a960-db214aea8132",
+                "type": "TERMINATOR",
                 "data": {
-                    "id": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-                    "label": "OBJECT DETECTION",
-                    "func": "OBJECT_DETECTION",
-                    "type": "SIMULATION",
-                    "ctrls": {}
+                    "id": "END-e3bacc69-e497-43d8-a960-db214aea8132",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {},
+                    "selected": false
                 },
                 "position": {
-                    "x": 695.504070585824,
-                    "y": 202.13116038829733
+                    "x": 1424.8975360606846,
+                    "y": 521.914638475153
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 695.504070585824,
-                    "y": 202.13116038829733
+                    "x": 1424.8975360606846,
+                    "y": 521.914638475153
                 },
                 "dragging": true
             },
             {
                 "width": 150,
                 "height": 135,
-                "id": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
+                "id": "CAMERA-7abade63-cef7-44ee-acb0-8f1dde70e0f9",
                 "type": "LOADER",
                 "data": {
-                    "id": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
+                    "id": "CAMERA-7abade63-cef7-44ee-acb0-8f1dde70e0f9",
                     "label": "CAMERA",
                     "func": "CAMERA",
                     "type": "LOADER",
                     "ctrls": {
-                        "CAMERA_CAMERA_file_type": {
+                        "file_type": {
                             "functionName": "CAMERA",
                             "param": "file_type",
                             "value": "image"
                         },
-                        "CAMERA_CAMERA_camera_ind": {
+                        "camera_ind": {
                             "functionName": "CAMERA",
                             "param": "camera_ind",
-                            "value": -1
+                            "value": "-1"
                         }
-                    }
+                    },
+                    "selected": false
                 },
                 "position": {
-                    "x": 60.3229815729633,
-                    "y": 192.0833473739669
+                    "x": 412.77307381958275,
+                    "y": 519.0858631880646
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 60.3229815729633,
-                    "y": 192.0833473739669
+                    "x": 412.77307381958275,
+                    "y": 519.0858631880646
                 },
                 "dragging": true
             },
             {
                 "width": 150,
                 "height": 135,
-                "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
-                "type": "TERMINATOR",
-                "data": {
-                    "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
-                    "label": "Terminate",
-                    "func": "END",
-                    "type": "TERMINATOR",
-                    "ctrls": {}
-                },
-                "position": {
-                    "x": 1002.9112708314901,
-                    "y": 193.09986313255396
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 1002.9112708314901,
-                    "y": 193.09986313255396
-                },
-                "dragging": true
-            },
-            {
-                "width": 150,
-                "height": 135,
-                "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "id": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
                 "type": "IMAGE_PROCESSING",
                 "data": {
-                    "id": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                    "id": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
                     "label": "IMAGE_SMOOTHING",
                     "func": "IMAGE_SMOOTHING",
                     "type": "IMAGE_PROCESSING",
                     "ctrls": {
-                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_file_type": {
+                        "file_type": {
                             "functionName": "IMAGE_SMOOTHING",
                             "param": "file_type",
                             "value": "image"
                         },
-                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_kernel": {
+                        "kernel": {
                             "functionName": "IMAGE_SMOOTHING",
                             "param": "kernel",
-                            "value": 5
+                            "value": "5"
                         },
-                        "IMAGE_SMOOTHING_IMAGE_SMOOTHING_function": {
+                        "smoothing_type": {
                             "functionName": "IMAGE_SMOOTHING",
                             "param": "smoothing_type",
-                            "value": "average"
+                            "value": "gaussian"
                         }
-                    }
+                    },
+                    "selected": false
                 },
                 "position": {
-                    "x": 384.00718763913454,
-                    "y": 191.85833659187034
+                    "x": 752.3253874439304,
+                    "y": 521.8807538704394
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 384.00718763913454,
-                    "y": 191.85833659187034
+                    "x": 752.3253874439304,
+                    "y": 521.8807538704394
+                },
+                "dragging": true
+            },
+            {
+                "width": 115,
+                "height": 115,
+                "id": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                    "label": "OBJECT_DETECTION",
+                    "func": "OBJECT_DETECTION",
+                    "type": "SIMULATION",
+                    "ctrls": {},
+                    "selected": false
+                },
+                "position": {
+                    "x": 1099.2041371041787,
+                    "y": 528.1180495920097
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1099.2041371041787,
+                    "y": 528.1180495920097
                 },
                 "dragging": true
             }
         ],
         "edges": [
             {
-                "source": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
+                "source": "CAMERA-7abade63-cef7-44ee-acb0-8f1dde70e0f9",
                 "sourceHandle": "main",
-                "target": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
-                "targetHandle": "END",
-                "id": "reactflow__edge-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdmain-END-5e6d94ed-1f79-4c57-8b2f-753a22405f55END"
-            },
-            {
-                "source": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
-                "sourceHandle": "main",
-                "target": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "target": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
                 "targetHandle": "IMAGE_SMOOTHING",
-                "id": "reactflow__edge-CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773main-IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098dIMAGE_SMOOTHING"
+                "id": "reactflow__edge-CAMERA-7abade63-cef7-44ee-acb0-8f1dde70e0f9main-IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763IMAGE_SMOOTHING"
             },
             {
-                "source": "IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098d",
+                "source": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
                 "sourceHandle": "main",
-                "target": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
+                "target": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
                 "targetHandle": "OBJECT_DETECTION",
-                "id": "reactflow__edge-IMAGE_SMOOTHING-c20d73e4-9052-4a15-89c6-9adbe1dd098dmain-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdOBJECT_DETECTION",
-                "selected": false
+                "id": "reactflow__edge-IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763main-OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9OBJECT_DETECTION"
+            },
+            {
+                "source": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                "sourceHandle": "main",
+                "target": "END-e3bacc69-e497-43d8-a960-db214aea8132",
+                "targetHandle": "END",
+                "id": "reactflow__edge-OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9main-END-e3bacc69-e497-43d8-a960-db214aea8132END"
             }
         ],
         "viewport": {
-            "x": 401.9078249563761,
-            "y": 141.2388202689295,
-            "zoom": 1.226263386594587
+            "x": 399.5528962945224,
+            "y": 203.9327334314163,
+            "zoom": 1.219078249563759
         }
     },
     "ctrlsManifest": [
         {
-            "type": "output",
-            "name": "Plot",
-            "minWidth": 2,
-            "minHeight": 3,
-            "id": "ctrl-d81b57c0-dda4-4160-894c-8307b5df7ef7",
-            "hidden": false,
-            "param": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-            "val": 0
-        },
-        {
             "type": "input",
-            "name": "Text Input",
+            "name": "Numeric Input",
             "minWidth": 1,
             "minHeight": 1,
-            "id": "ctrl-e813ad6f-6717-4242-b705-2ef72861fe45",
             "hidden": false,
+            "id": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+            "layout": {
+                "x": 0,
+                "y": 1,
+                "h": 2,
+                "w": 2,
+                "i": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+                "minH": 1,
+                "minW": 1,
+                "static": false
+            },
             "param": {
                 "id": "CAMERA_CAMERA_camera_ind",
                 "functionName": "CAMERA",
-                "param": "path",
-                "nodeId": "CAMERA-f6317d08-e158-4e8e-97c7-0bef527f3773",
-                "inputId": "ctrl-e813ad6f-6717-4242-b705-2ef72861fe45"
+                "param": "camera_ind",
+                "nodeId": "CAMERA-7abade63-cef7-44ee-acb0-8f1dde70e0f9",
+                "inputId": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+                "type": "integer"
             },
-            "val": 0
+            "val": -1
+        },
+        {
+            "type": "input",
+            "name": "Checkbox Button Group",
+            "minWidth": 2,
+            "minHeight": 1,
+            "hidden": false,
+            "id": "ctrl-e4867e53-3c61-47dd-b5b4-1bf2612df5d9",
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "h": 2,
+                "w": 2,
+                "i": "ctrl-e4867e53-3c61-47dd-b5b4-1bf2612df5d9",
+                "minH": 1,
+                "minW": 2,
+                "static": false
+            },
+            "param": {
+                "id": "IMAGE_SMOOTHING_IMAGE_SMOOTHING_smoothing_type",
+                "functionName": "IMAGE_SMOOTHING",
+                "param": "smoothing_type",
+                "nodeId": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
+                "inputId": "ctrl-e4867e53-3c61-47dd-b5b4-1bf2612df5d9",
+                "type": "select"
+            },
+            "val": "gaussian"
+        },
+        {
+            "type": "input",
+            "name": "Numeric Input",
+            "minWidth": 1,
+            "minHeight": 1,
+            "hidden": false,
+            "id": "ctrl-f3963cd5-38f0-489b-bc25-ed4d92dd59bf",
+            "layout": {
+                "x": 0,
+                "y": 3,
+                "h": 2,
+                "w": 2,
+                "i": "ctrl-f3963cd5-38f0-489b-bc25-ed4d92dd59bf",
+                "minH": 1,
+                "minW": 1,
+                "static": false
+            },
+            "param": {
+                "id": "IMAGE_SMOOTHING_IMAGE_SMOOTHING_kernel",
+                "functionName": "IMAGE_SMOOTHING",
+                "param": "kernel",
+                "nodeId": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
+                "inputId": "ctrl-f3963cd5-38f0-489b-bc25-ed4d92dd59bf",
+                "type": "integer"
+            },
+            "val": 5
         }
     ],
     "gridLayout": [
         {
-            "w": 4,
-            "h": 4,
-            "x": 2,
-            "y": 0,
-            "i": "ctrl-d81b57c0-dda4-4160-894c-8307b5df7ef7",
-            "minW": 2,
-            "minH": 3,
-            "moved": false,
-            "static": true
+            "x": 0,
+            "y": 1,
+            "h": 2,
+            "w": 2,
+            "i": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+            "minH": 1,
+            "minW": 1,
+            "static": false
         },
         {
-            "w": 2,
-            "h": 2,
             "x": 0,
-            "y": 0,
-            "i": "ctrl-e813ad6f-6717-4242-b705-2ef72861fe45",
-            "minW": 1,
+            "y": 2,
+            "h": 2,
+            "w": 2,
+            "i": "ctrl-e4867e53-3c61-47dd-b5b4-1bf2612df5d9",
             "minH": 1,
-            "moved": false,
-            "static": true
+            "minW": 2,
+            "static": false
+        },
+        {
+            "x": 0,
+            "y": 3,
+            "h": 2,
+            "w": 2,
+            "i": "ctrl-f3963cd5-38f0-489b-bc25-ed4d92dd59bf",
+            "minH": 1,
+            "minW": 1,
+            "static": false
         }
     ]
 }

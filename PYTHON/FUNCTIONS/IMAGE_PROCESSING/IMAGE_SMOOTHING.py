@@ -19,7 +19,7 @@ def IMAGE_SMOOTHING(v, params):
         # print(image.shape)
 
         # Select the type of image smoothing to use.
-        kernel = params.get('kernel', 5)
+        kernel = int(params.get('kernel', 5))
         smoothing_type = params.get('smoothing_type', 'average')
         if smoothing_type == 'average':
             image = cv2.blur(image, (kernel, kernel))
