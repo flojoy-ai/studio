@@ -138,7 +138,7 @@ class FlowScheduler:
 
         node = self.nx_graph.nodes[job_id]
         cmd = node['cmd']
-        cmd_mock = node['cmd'] + '_MOCK'        
+        cmd_mock = node['cmd'] + '_MOCK'
         func = getattr(globals()[cmd], cmd)
 
         # when running in CI environment use the mock function instead if its defined
