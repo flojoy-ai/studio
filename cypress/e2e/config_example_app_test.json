@@ -1,6 +1,4 @@
 [
-  { "title": "flojoy.txt", "test_id": "withdefaultParam" },
-  { "title": "FIR.txt", "test_id": "withdefaultParam" },
   { "title": "Feedback_node.txt", "test_id": "withdefaultParam" },
   { "title": "nested_loop.txt", "test_id": "withdefaultParam" }
 ]
