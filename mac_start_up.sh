@@ -64,7 +64,7 @@ do
     esac
 done
 
-sh pull_submodules.sh $apps_branch $nodes_branch
+sh add_submodules.sh $apps_branch $nodes_branch
 
 echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
@@ -79,7 +79,7 @@ python3 write_python_metadata.py
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
-if [ $initNodePackages -eq true ]
+if [ $initNodePackages = true ]
 then
    echo '-n flag is not provided'
    echo 'Node packages will be installed from package.json!'
@@ -132,7 +132,7 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-if [ $initPythonPackages -eq true ]
+if [ $initPythonPackages = true ]
 then
    echo '-p flag is not provided'
    echo 'Python packages will be installed from requirements.txt file!'
