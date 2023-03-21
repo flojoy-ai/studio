@@ -2,10 +2,10 @@ import json
 from os import listdir
 from os.path import isfile, join
 
-dirs = ['SIMULATIONS', 'ARITHMETIC', 'VISORS','CONDITIONALS','LOOPS','TIMERS', 'SIGNAL_PROCESSING','LOADERS', 'ARRAY_AND_MATRIX', 
+dirs = ['SIMULATIONS', 'ARITHMETIC', 'VISORS','CONDITIONALS','LOOPS','TIMERS', 'SIGNAL_PROCESSING','LOADERS', 'ARRAY_AND_MATRIX',
         "TERMINATORS"]
 
-path = 'PYTHON/FUNCTIONS'
+path = 'PYTHON/nodes'
 
 badbadnotgood = ['VCTR.py', '__init__.py', '.DS_Store']
 

@@ -1,2 +1,0 @@
-COMMAND:
-  - { name: "Butterworth Filter", key: "BUTTER", type: "SIGNAL_PROCESSING" }

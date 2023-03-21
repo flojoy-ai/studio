@@ -1,6 +1,6 @@
 [
-  { "title": "flojoy.txt", "test_id": "withdefaultParam" },
-  { "title": "FIR.txt", "test_id": "withdefaultParam" },
-  { "title": "Feedback_node.txt", "test_id": "withdefaultParam" },
-  { "title": "nested_loop.txt", "test_id": "withdefaultParam" }
+  { "title": "butterworth/butterworth.txt", "test_id": "withdefaultParam" },
+  { "title": "FIR/FIR.txt", "test_id": "withdefaultParam" },
+  { "title": "feedback/Feedback_node.txt", "test_id": "withdefaultParam" },
+  { "title": "sample-example/function_generator.txt", "test_id": "withdefaultParam" }
 ]

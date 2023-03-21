@@ -19,10 +19,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
 
@@ -39,11 +40,16 @@ jobs:
           start: npm start
           browser: chrome
           install: false
+      - name: Dump docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v2
 
   testPython:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"

@@ -55,7 +55,7 @@ const App = () => {
 
   const fetchExampleApp = useCallback(
     (fileName: string) => {
-      fetch("/example-apps/" + fileName, {
+      fetch(`/example-apps/${fileName}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
