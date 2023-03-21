@@ -20,7 +20,7 @@ approved.
 
 ### How to create a custom node
 
-1.  **Node Function** - A python function for the node. Create a new script file and place it in right category folder in `/PYTHON/FUNCTIONS/` directory. The script file name should be the node name in uppercase.
+1.  **Node Function** - A python function for the node. Create a new script file and place it in right category folder in `/PYTHON/nodes/` directory. The script file name should be the node name in uppercase.
     import `@flojoy` decorator and `DataContainer` class from `flojoy` package :
 
     ```bash
@@ -28,12 +28,10 @@ approved.
     ```
 
     Decorate your function with `@flojoy` like below:
-
     ```bash
         @flojoy
-        def FUNCTION_NAME(v, params):
+        def NODE_NAME(v, params): // use Node name as function name in uppercase
     ```
-
     - `v`: This will receive the output of all the incoming nodes and this will be in `list` format.
     - `params:` A node can have some parameters that can change its behavior. These parameters can be modified in CTRL panel. You have to declare them in manifest file (see below). This will be in `dict` format.
 
@@ -48,7 +46,7 @@ approved.
     - 'ordered_pair'
     - 'ordered_triple'
     - 'scalar'
-    - (see https://github.com/flojoy-io/flojoy-python/blob/develop/flojoy/flojoy_python.py#L51)
+    - (see [https://github.com/flojoy-io/flojoy-python/blob/develop/flojoy/flojoy_python.py#L51](https://github.com/flojoy-io/python/blob/feature/nested-loop/flojoy/flojoy_python.py#L44))
 
     Here is an example of how to return `DataContainer` object:
 
@@ -56,10 +54,10 @@ approved.
         x = 10
         y = 15
         return DataContainer(type='ordered_pair', x=x, y=y)
-        # {'type': 'ordered_pair', 'x': [10], 'y':[15] }
+        # {'type': 'ordered_pair', 'x': [10], 'y':[15] } // DataContainer output
     ```
 
-2.  **Manifest File** - Write a manifest file for the node in yaml format in `/PYTHON/FUNCTIONS/MANIFEST` folder. The name of the file should contain `.manifest.yaml` suffix following the node name. Here is an example of manifest file of `SINE WAVE` node `sine.manifest.yaml`.
+2.  **Manifest File** - Write a manifest file for the node in yaml format in `/PYTHON/nodes/MANIFEST` folder. The name of the file should contain `.manifest.yaml` suffix following the node name. Here is an example of manifest file of `SINE WAVE` node `sine.manifest.yaml`.
 
     ```yaml
     COMMAND:
@@ -83,39 +81,42 @@ approved.
     ```
 
     **COMMAND:** `COMMAND` is a list of object. Where each object contains:
-
+    
     `name:` Name of the node.
+    
     `key:` A string to identify the node uniquely among all nodes.
-    `type:` A sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)
+    
+    `type:` A key of sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)
+    
     `parameters:` Parameters which the node expects in it's function's parameter `params`. Ctrl panel uses this manifest to populate UI where users can modify these parameter values. It's an Object, where each key is a parameter name and value is an object of:
-
-    - `type:` Type of parameter value should be set to one of `number`, `string`. If you want to add a new type discuss it with the team.
+    - `type:` Type of parameter value should be set to one of `number`, `string`, `float` or `select`. If you want to add a new type discuss it with the team.
     - `default:` Default value of the parameter.
     - `options:` Array of options, each option should be of the same type as declared.
 
-3.  **New Category** - If your node belongs to a category which doesn't have a corresponding folder in `PYTHON/FUNCTIONS` directory.
+3.  **New Category** - If your node belongs to a category which doesn't have a corresponding folder in `PYTHON/nodes` directory.
 
-    - Create a folder with category name in uppercase inside `PYTHON/FUNCTIONS/` directory.
+    - Create a folder with category name in uppercase inside `PYTHON/nodes/` directory.
     - Import all files containing that folder in `watch.py` file in `PYTHON/WATCH/watch.py` directory like below:
 
     ```code
-        from FUNCTIONS.CONDITIONALS import *
+        from nodes.CONDITIONALS import *
     ```
 
     - Register that category under proper parent category in `src/feature/flow_chart_panel/manifest/COMMANT_MANIFEST.ts` file in `section` array variable with category name and key.
-    - In `write_python_metadata.py` file located in root directory add category folder name in `dirs` list variable.
+    - In `write_python_metadata.py` file located in root directory, add category folder name in `dirs` list variable.
 
 4.  Add function to `__init__.py` within category folder. For example, here is `__init__.py` in the Simulations folder:
 
-```py
-__all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]
-```
-
-Each category function must be listed in their respective `__init__.py` file.
+    ```py
+        __all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]
+    ```
+    Each category function must be listed in their respective `__init__.py` file.
 
 5. Run `python3 write_python_metadata.py` in the root folder.
 
-6. **Node Styling** - To be added.
+6. Run `python3 generate_manifest.py` in the root folder.
+
+7. **Node Styling** - To be added.
 
 ---
 
@@ -128,3 +129,15 @@ Run cypress e2e tests:
 ```bash
     npm run test
 ```
+
+You can also create an example app with your custom node and generate e2e test for it. To do so:
+1. Save your example app in `public/example-apps` folder.
+2. Add your app to cypress e2e config file in `cypress/e2e/config_example_app_test.json` with file location from `public/example-apps` and a test key as follows:
+    ```json
+        [
+          { "title": "butterworth/butterworth.txt", "test_id": "withdefaultParam" },
+          { "title": "FIR/FIR.txt", "test_id": "withdefaultParam" },
+          // add your example app here
+        ]
+    ```
+
