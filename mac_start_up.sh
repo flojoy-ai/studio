@@ -1,21 +1,17 @@
 #!/bin/sh
 alias venv="source $HOME/venv/bin/activate"
 djangoPort=8000
-nodes_branch="main"
-apps_branch="main"
 initNodePackages=true
 initPythonPackages=true
 
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -n -p -r -v venv-path --nodes_branch <branch name for nodes> --apps_branch <branch name for apps>"
+   echo "Usage: $0 -n -p -r -v venv-path"
    echo  "-r: shuts down existing redis server and spins up a fresh one"
    echo  "-v: path to a virtualenv"
    echo  "-n: To not install npm packages"
    echo  "-p: To not install python packages"
-   echo  "--apps_branch: pulls the latest changes in the given branch from APPS submodule"
-   echo  "--nodes_branch: pulls the latest changes in the given branch from NODES submodule"
    exit 1 # Exit script after printing help
 }
 
@@ -24,16 +20,6 @@ while [ $# -gt 0 ]
 do
     key="$1"
     case $key in
-        --apps_branch)
-        apps_branch="$2"
-        shift 
-        shift
-        ;;
-        --nodes_branch)
-        nodes_branch="$2"
-        shift
-        shift
-        ;;
         -n)
         initNodePackages=false
         shift
@@ -63,8 +49,6 @@ do
         ;;
     esac
 done
-
-sh add_submodules.sh $apps_branch $nodes_branch
 
 echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
