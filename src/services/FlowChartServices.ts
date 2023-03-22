@@ -16,7 +16,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export async function saveAndRunFlowChartInServer({
+export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
 }: {

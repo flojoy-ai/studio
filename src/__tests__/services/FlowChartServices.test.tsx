@@ -21,8 +21,6 @@ const param: any = {
 /**
  * Mock function for fetch method
  */
-// const mockFetch = Promise.resolve({ json: () => Promise.resolve({}) });
-// global.fetch = jest.fn().mockImplementation(() => mockFetch) as any;
 
 global.fetch = jest.fn((url) =>
   Promise.resolve({
@@ -69,7 +67,7 @@ describe("FlowChartServices", () => {
   });
 
   describe("saveAndRunFlowChartInServer", () => {
-    it("given a flow chart and a job id, post the job to /wfc api endpoint", async () => {
+    it("given a flow chart and a job id, post the job to /wfc api endpoint", () => {
       //Given
       const fetchParams: any = {
         body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true}',
@@ -81,7 +79,7 @@ describe("FlowChartServices", () => {
       const fetchSpy = jest.spyOn(global, "fetch");
 
       //When
-      await saveAndRunFlowChartInServer(param);
+      saveAndRunFlowChartInServer(param);
       //Expect
       expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams);
     });

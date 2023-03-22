@@ -84,11 +84,6 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
 });
 
 describe("useControlsTabEffects", () => {
-  // it("checks if the hook renders properly", () => {
-  //   const spy = jest.spyOn(React, "useEffect");
-  //   rerender();
-  //   expect(spy).toHaveBeenCalledTimes(5);
-  // });
   it("given ctrlsobj type is output, maps ctrls object param with selected item value", () => {
     const testCtrlObj = { ...ctrlObj, type: "output" };
     const testHookParams = { ...hookParams, ctrlObj: testCtrlObj };
