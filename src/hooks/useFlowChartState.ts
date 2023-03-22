@@ -103,7 +103,7 @@ export function useFlowChartState() {
   const loadFlowExportObject = useCallback(
     (flow: any) => {
       if (!flow) {
-        return;
+        return 0;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
@@ -217,5 +217,6 @@ export function useFlowChartState() {
     setEdges,
     nodes,
     setNodes,
+    filesContent,
   };
 }
