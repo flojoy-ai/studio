@@ -40,7 +40,7 @@ for mf in all_files:
 
 if prev_manifest != False:
     if len(manifest['commands']) != len(prev_manifest['commands']):
-        jsonify_prev_manifest = json.dumps(prev_manifest)
+        jsonify_prev_manifest = json.dumps(obj=prev_manifest, indent=4)
         prev_file = open('src/data/manifests_v.' +
                          str(prev_manifest['_v']) + '.json', 'w')
         prev_file.write(jsonify_prev_manifest)
@@ -49,7 +49,7 @@ if prev_manifest != False:
     else:
         manifest['_v'] = prev_manifest['_v']
 
-jsonify = json.dumps(manifest)
+jsonify = json.dumps(obj=manifest, indent=4)
 result = open('src/data/manifests-latest.json', 'w')
 result.write(jsonify)
 result.close()
