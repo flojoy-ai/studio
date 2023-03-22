@@ -22,7 +22,10 @@
       "@feature/*": ["src/feature/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "rootDir": ".",
+    "outDir": "fe-dist"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "build"]
 }

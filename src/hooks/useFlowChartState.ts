@@ -2,7 +2,7 @@ import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Layout } from "react-grid-layout";
 import localforage from "localforage";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -39,6 +39,7 @@ export interface CtlManifestType {
   label?: string;
   minHeight: number;
   minWidth: number;
+  layout: ReactGridLayout.Layout;
 }
 
 export interface RfSpatialInfoType {
@@ -58,6 +59,15 @@ const initialManifests: CtlManifestType[] = [
     hidden: false,
     minHeight: 1,
     minWidth: 2,
+    layout: {
+      x: 0,
+      y: 0,
+      h: 2,
+      w: 2,
+      minH: 1,
+      minW: 2,
+      i: "INPUT_PLACEHOLDER",
+    },
   },
 ];
 const failedNodeAtom = atomWithImmer<string>("");
@@ -73,13 +83,7 @@ const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
   initialManifests.map((ctrl, i) => ({
-    x: 0,
-    y: 0,
-    h: 2,
-    w: 2,
-    minH: ctrl.minHeight,
-    minW: ctrl.minWidth,
-    i: ctrl.id,
+    ...ctrl.layout,
   }))
 );
 localforage.config({ name: "react-flow", storeName: "flows" });
@@ -117,9 +121,8 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
-      setGridLayout(parsedFileContent.gridLayout);
+      setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       loadFlowExportObject(flow);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
@@ -128,8 +131,7 @@ export function useFlowChartState() {
     if (rfInstance) {
       const fileContent = {
         rfInstance,
-        ctrlsManifest,
-        gridLayout,
+        ctrlsManifest
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 

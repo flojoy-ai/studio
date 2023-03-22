@@ -87,7 +87,7 @@ class SmallMemory:
             case 'pd_dframe':
                 return RedisDao.get_instance().get_pd_dataframe(memory_key)
             case _:
-                return None
+                return {}
 
     def delete_object(self, job_id, key):
         '''

@@ -414,7 +414,7 @@ const ScatterBubbles = ({ style, theme }: SvgProps) => {
 
 const Scatter = ({ theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="scatter-svg">
       <ScatterTitle
         theme={theme}
         style={{
@@ -434,7 +434,7 @@ const Scatter = ({ theme }: SvgProps) => {
           height: 105,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 
