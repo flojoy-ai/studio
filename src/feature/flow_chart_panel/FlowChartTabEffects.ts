@@ -47,7 +47,7 @@ export function useFlowChartTabEffects({
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeLabel, nodeType, clickedElement]);

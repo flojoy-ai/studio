@@ -78,7 +78,7 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
     );
     setClickedElement(node);
     openModal();
