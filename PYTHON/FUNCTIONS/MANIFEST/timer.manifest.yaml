@@ -1,7 +1,0 @@
-COMMAND:
-  - {
-      name: timer,
-      key: TIMER,
-      type: TIMER,
-      parameters: { sleep_time: { type: "int", default: 0 } },
-    }

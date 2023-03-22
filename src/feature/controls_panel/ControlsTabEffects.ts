@@ -5,12 +5,12 @@ export function useControlsTabEffects(saveAndRunFlowChart) {
   const { setCtrlsManifest, rfInstance } = useFlowChartState();
 
   useEffect(() => {
-    if (rfInstance?.elements.length === 0) {
+    if (rfInstance?.nodes.length === 0) {
       setCtrlsManifest([]);
     }
-      // } else {
+    // } else {
     //   saveAndRunFlowChart();
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rfInstance]);
+  }, [rfInstance?.nodes]);
 }

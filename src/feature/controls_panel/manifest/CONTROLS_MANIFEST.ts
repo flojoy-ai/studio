@@ -15,7 +15,10 @@ export enum ControlNames {
   CheckboxButtonGroup = "Checkbox Button Group",
   Plot = "Plot",
   TextInput = "Text Input",
-  SevenSegmentDisplay = "Seven Segment Display"
+  SevenSegmentDisplay = "Seven Segment Display",
+  LocalFileLoader = "Local File Loader",
+  MediaViewer = "Media Viewer",
+  NodeReference = "Node Reference"
 }
 
 export enum PlotTypeNames {
@@ -25,6 +28,7 @@ export enum PlotTypeNames {
   SurfacePlot3D = "3D Surface Plot",
   Line = "Line",
   BarChart = "Bar Chart",
+  Image = "Image"
 }
 
 export const OutputControlsManifest = [
@@ -37,6 +41,12 @@ export const OutputControlsManifest = [
   },
   {
     name: ControlNames.SevenSegmentDisplay,
+    type: ControlTypes.Output,
+    minHeight: 3,
+    minWidth: 2,
+  },
+  {
+    name: ControlNames.MediaViewer,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
@@ -75,6 +85,10 @@ export const PlotTypesManifest: IPlotTypesManifest[] = [
   {
     name: PlotTypeNames.BarChart,
     type: "bar",
+  },
+  {
+    name: PlotTypeNames.Image,
+    type: "image",
   },
 ];
 
@@ -128,4 +142,16 @@ export const InputControlsManifest = [
     minHeight: 1,
     minWidth: 2,
   },
+  {
+    name: ControlNames.LocalFileLoader,
+    type: ControlTypes.Input,
+    minHeight: 3,
+    minWidth: 2,
+  },
+  {
+    name: ControlNames.NodeReference,
+    type: ControlTypes.Input,
+    minHeight: 2,
+    minWidth: 2
+  }
 ];

@@ -1,18 +1,19 @@
-import { Elements, FlowExportObject } from "react-flow-renderer";
 import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
-import { atomWithImmer } from "jotai/immer";
-import { saveAs } from "file-saver";
+import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Layout } from "react-grid-layout";
 import localforage from "localforage";
+import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
 export interface CtrlManifestParam {
   functionName: string;
   param: string;
   nodeId: string;
   id: string;
+  type?: string;
 }
 export interface PlotManifestParam {
   node: string;
@@ -38,6 +39,7 @@ export interface CtlManifestType {
   label?: string;
   minHeight: number;
   minWidth: number;
+  layout: ReactGridLayout.Layout;
 }
 
 export interface RfSpatialInfoType {
@@ -46,7 +48,9 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialElements: Elements = NOISY_SINE.elements;
+const initialNodes: Node<ElementsData>[] =
+  NOISY_SINE.nodes as Node<ElementsData>[];
+const initialEdges: Edge[] = NOISY_SINE.edges;
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",
@@ -55,42 +59,40 @@ const initialManifests: CtlManifestType[] = [
     hidden: false,
     minHeight: 1,
     minWidth: 2,
+    layout: {
+      x: 0,
+      y: 0,
+      h: 2,
+      w: 2,
+      minH: 1,
+      minW: 2,
+      i: "INPUT_PLACEHOLDER",
+    },
   },
 ];
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
-const rfInstanceAtom = atomWithImmer<FlowExportObject<any> | undefined>(
-  undefined
-);
-const elementsAtom = atomWithImmer<Elements>(initialElements);
+const rfInstanceAtom = atomWithImmer<
+  ReactFlowJsonObject<ElementsData> | undefined
+>(undefined);
+const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
+const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
-const rfSpatialInfoAtom = atomWithImmer<RfSpatialInfoType>({
-  x: 0,
-  y: 0,
-  zoom: 1,
-});
 const editModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
   initialManifests.map((ctrl, i) => ({
-    x: 0,
-    y: 0,
-    h: 2,
-    w: 2,
-    minH: ctrl.minHeight,
-    minW: ctrl.minWidth,
-    i: ctrl.id,
+    ...ctrl.layout,
   }))
 );
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
-  const flowKey = "flow-joy";
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
-  const [elements, setElements] = useAtom(elementsAtom);
+  const [nodes, setNodes] = useAtom(nodesAtom);
+  const [edges, setEdges] = useAtom(edgesAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
-  const [rfSpatialInfo, setRfSpatialInfo] = useAtom(rfSpatialInfoAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
@@ -99,18 +101,14 @@ export function useFlowChartState() {
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
 
   const loadFlowExportObject = useCallback(
-    (flow: FlowExportObject) => {
+    (flow: any) => {
       if (!flow) {
         return;
       }
-      setElements(flow.elements || []);
-      setRfSpatialInfo({
-        x: flow.position[0] || 0,
-        y: flow.position[1] || 0,
-        zoom: flow.zoom || 0,
-      });
+      setNodes(flow.nodes || []);
+      setEdges(flow.edges || []);
     },
-    [setElements, setRfSpatialInfo]
+    [setNodes, setEdges]
   );
 
   const [openFileSelector, { filesContent }] = useFilePicker({
@@ -123,10 +121,8 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      console.log("parsedFileContent:", parsedFileContent);
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       const flow = parsedFileContent.rfInstance;
-      setGridLayout(parsedFileContent.gridLayout);
+      setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       loadFlowExportObject(flow);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
@@ -135,43 +131,41 @@ export function useFlowChartState() {
     if (rfInstance) {
       const fileContent = {
         rfInstance,
-        ctrlsManifest,
-        gridLayout,
+        ctrlsManifest
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
       const blob = new Blob([fileContentJsonString], {
         type: "text/plain;charset=utf-8",
       });
-      saveAs(blob, "flojoy.txt");
+      const handle = await (window as any).showSaveFilePicker({
+        suggestedName: "flojoy.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+      await writableStream.write(blob);
+      await writableStream.close();
     }
   };
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
     paramId: string,
-    inputData: {
-      functionName: string;
-      param: string;
-      value: string | number;
-    }
+    inputData: ElementsData["ctrls"][""]
   ) => {
-    setElements((element) => {
+    setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.func === "CONSTANT") {
-          const nodeCtrls = node.data.ctrls;
-          const splitNodeCtrlKey = Object.keys(nodeCtrls)[0].split("_");
-          const ctrlKey =
-            splitNodeCtrlKey[0] +
-            "_" +
-            inputData.value +
-            "_" +
-            splitNodeCtrlKey[2].toLowerCase();
           node.data.ctrls = {
-            [ctrlKey]: inputData,
+            [paramId]: inputData,
           };
-          node.data.label = inputData.value;
+          node.data.label = inputData.value.toString();
         } else {
           node.data.ctrls[paramId] = inputData;
         }
@@ -179,48 +173,27 @@ export function useFlowChartState() {
     });
   };
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
-    setElements((elements) => {
-      const node = elements.find((e) => e.id === nodeId);
+    setNodes((nodes) => {
+      const node = nodes.find((e) => e.id === nodeId);
       if (node) {
         node.data.ctrls = node.data.ctrls || {};
         delete node.data.ctrls[paramId];
       }
     });
   };
-  useEffect(() => {
-    if (!rfInstance) {
-      localforage
-        .getItem(flowKey)
-        .then((val) => {
-          setRfInstance(
-            val as FlowExportObject<{
-              label: string;
-              func: string;
-              elements: Elements;
-              position: [number, number];
-              zoom: number;
-            }>
-          );
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-    }
-  }, [rfInstance]);
+
   useEffect(() => {
     setRfInstance((prev) => {
       if (prev) {
-        prev.elements = elements;
+        prev.nodes = nodes;
+        prev.edges = edges;
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elements]);
+  }, [nodes, edges]);
   return {
     rfInstance,
     setRfInstance,
-    elements,
-    setElements,
-    rfSpatialInfo,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     ctrlsManifest,
@@ -240,5 +213,9 @@ export function useFlowChartState() {
     setRunningNode,
     failedNode,
     setFailedNode,
+    edges,
+    setEdges,
+    nodes,
+    setNodes,
   };
 }

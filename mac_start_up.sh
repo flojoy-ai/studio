@@ -1,28 +1,53 @@
-#!/bin/bash
+#!/bin/sh
 alias venv="source $HOME/venv/bin/activate"
 djangoPort=8000
+initNodePackages=true
+initPythonPackages=true
 
 helpFunction()
 {
    echo ""
    echo "Usage: $0 -n -p -r -v venv-path"
-   echo -r "shuts down existing redis server and spins up a fresh one"
-   echo -v "path to a virtualenv"
-   echo -n "installs npm packages"
-   echo -p "installs python packages"
+   echo  "-r: shuts down existing redis server and spins up a fresh one"
+   echo  "-v: path to a virtualenv"
+   echo  "-n: To not install npm packages"
+   echo  "-p: To not install python packages"
    exit 1 # Exit script after printing help
 }
 
-while getopts "rv:npP:" opt
+# Parse command-line arguments
+while [ $# -gt 0 ]
 do
-   case "$opt" in
-      P) djangoPort="$OPTARG";;
-      p) initPythonPackages=true;;
-      n) initNodePackages=true;;
-      r) initRedis=true ;;
-      v) venv="$OPTARG" ;;
-      ?) helpFunction ;; # Print helpFunction in case parameter is non-existent
-   esac
+    key="$1"
+    case $key in
+        -n)
+        initNodePackages=false
+        shift
+        ;;
+        -p)
+        initPythonPackages=false
+        shift 
+        ;;
+        -r)
+        initRedis=true
+        shift 
+        ;;
+        -v)
+        venv="$2"
+        shift
+        shift
+        ;;
+        -P)
+        djangoPort="$2"
+        shift
+        shift
+        ;;
+        *) # unknown option
+        echo "Unknown option: $1"
+        helpFunction
+        exit 1
+        ;;
+    esac
 done
 
 echo 'update ES6 status codes file...'
@@ -38,11 +63,11 @@ python3 write_python_metadata.py
 echo 'generate manifest for python nodes to frontend'
 python3 generate_manifest.py
 
-if [ $initNodePackages ]
-then 
-   echo '-n flag provided'
+if [ $initNodePackages = true ]
+then
+   echo '-n flag is not provided'
    echo 'Node packages will be installed from package.json!'
-   npm install
+   npm install --legacy-peer-deps
 fi
 
 
@@ -56,7 +81,7 @@ then
 
     echo 'spining up a fresh redis server...'
     npx ttab -t 'REDIS' redis-server
-    sleep 2 
+    sleep 2
 fi
 
 venvCmd=""
@@ -81,7 +106,7 @@ else
 fi
 
 echo 'closing all existing rq workers (if any)'
-python close-all-rq-workers.py
+python3 close-all-rq-workers.py
 echo 'rq info after closing:'
 rq info
 
@@ -91,10 +116,10 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-if [ $initPythonPackages ]
+if [ $initPythonPackages = true ]
 then
-   echo '-p flag provided'
-   echo 'Python packages will be installed from requirements.txt file!' 
+   echo '-p flag is not provided'
+   echo 'Python packages will be installed from requirements.txt file!'
    if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
       echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
@@ -114,6 +139,15 @@ else
    fi
 fi
 
+CWD="$PWD"
+
+FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+if test -f "$FILE"; then
+   echo "$FILE exists."
+else
+   touch $PWD/PYTHON/utils/object_detection/yolov3.weights
+   wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+fi
 
 sleep 1
 

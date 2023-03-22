@@ -1,24 +1,16 @@
-import yaml
-import redis
-from django.conf import settings
-from channels.generic.websocket import WebsocketConsumer
-import uuid
 import json
-import os
-from asgiref.sync import async_to_sync
+import uuid
 
-REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
-REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
-# Connect to our Redis instance
-redis_instance = redis.StrictRedis(host=REDIS_HOST,
-                                   port=REDIS_PORT, db=0, decode_responses=True)
+import yaml
+from asgiref.sync import async_to_sync
+from channels.generic.websocket import WebsocketConsumer
 
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
-lastSysStatus = ""
 
 
 class FlojoyConsumer(WebsocketConsumer):
     socketId = ''
+    all_sockets = []
 
     def connect(self):
         self.accept()
@@ -27,10 +19,11 @@ class FlojoyConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
-        id = uuid.uuid1().__str__()
-        while redis_instance.get(id) is not None:
-            id = uuid.uuid1().__str__()
-        self.socketId = id
+        _id = uuid.uuid1().__str__()
+        while _id in self.all_sockets:
+            _id = uuid.uuid1().__str__()
+        self.socketId = _id
+        self.all_sockets.append(_id)
         self.send(json.dumps({
             'type': 'connection_established',
             'msg': 'You are now connected to flojoy servers',
@@ -38,6 +31,11 @@ class FlojoyConsumer(WebsocketConsumer):
             'SYSTEM_STATUS': STATUS_CODES['STANDBY']
         }))
 
+    def disconnect(self, code):
+        if self.socketId in self.all_sockets:
+            self.all_sockets.remove(self.socketId)
+        return super().disconnect(code)
+
     def worker_response(self, event):
-        if(event['jobsetId'] == self.socketId):
+        if (event['jobsetId'] == self.socketId):
             self.send(json.dumps(event))

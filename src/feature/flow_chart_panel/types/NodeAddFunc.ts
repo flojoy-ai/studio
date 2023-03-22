@@ -7,8 +7,9 @@ export type ParamTypes = {
 };
 
 export type NodeOnAddFunc = (props: {
-  FUNCTION: string;
+  funcName: string;
   type: string;
   params: ParamTypes | undefined;
-  inputs?: Array<{ name: string, id: string }> | undefined;
+  inputs?: Array<{ name: string, id: string, type:string }> | undefined;
+  uiComponentId?: string;
 }) => void;

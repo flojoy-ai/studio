@@ -1,3 +1,5 @@
+import { IServerStatus } from "@src/context/socket.context";
+
 interface WebSocketServerProps {
   url: string;
   pingResponse: any;
@@ -47,33 +49,43 @@ export class WebSocketServer {
   init() {
     this.server.onmessage = (ev) => {
       const data = JSON.parse(ev.data);
-      console.log('New WebScoket Message:', data);
       switch (data.type) {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
               data[ResponseEnum.systemStatus] ===
-              "🤙 python script run successful"
+              IServerStatus.RQ_RUN_COMPLETE
             ) {
-              this.pingResponse("🐢 awaiting a new job");
+              this.pingResponse(IServerStatus.STANDBY);
             }
           }
           if (ResponseEnum.nodeResults in data) {
             this.onNodeResultsReceived((prev: any) => {
-              const isExist = prev.io.find((node)=> node.id === data[ResponseEnum.nodeResults].id)
-              if(isExist){
-                const filterResult = prev.io.filter(node => node.id !== data[ResponseEnum.nodeResults].id)
-                return {
-                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+              const isExist = prev.io.find(
+                (node) => node.id === data[ResponseEnum.nodeResults].id
+              );
+              const resultIo = data[ResponseEnum.nodeResults];
+              const resultData = {
+                ...resultIo,
+                result:{
+                  ...resultIo.result,
+                  type: resultIo.result.type === 'file' ? "image" : resultIo.result.type
                 }
+              }
+              if (isExist) {
+                const filterResult = prev.io.filter(
+                  (node) => node.id !== resultIo.id
+                );
+                return {
+                  io: [...filterResult, resultData],
+                };
               }
 
               return {
-                io: [...prev.io, data[ResponseEnum.nodeResults]],
-              }
-            }
-            );
+                io: [...prev.io, resultData],
+              };
+            });
           }
           if (ResponseEnum.runningNode in data) {
             this.runningNode(data[ResponseEnum.runningNode]);
@@ -96,9 +108,13 @@ export class WebSocketServer {
       }
     };
     this.server.onclose = this.onClose || null;
+    this.server.onerror = (event) => {
+      console.log("Error Event: ", event);
+      this.pingResponse(IServerStatus.OFFLINE);
+    };
   }
   disconnect() {
-    console.log('Disconnecting WebSocket server');
+    console.log("Disconnecting WebSocket server");
     this.server.close();
   }
   emit(data: string) {

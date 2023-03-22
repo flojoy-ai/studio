@@ -8,25 +8,10 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 # Flojoy Quickstart
 
+- [Run Flojoy with Docker](#run-flojoy-on-docker)
 - [Run Flojoy without Docker (Mac/Linux only)](#run-flojoy-without-docker-maclinux-only)
-- [Run Flojoy with Docker](#run-flojoy-on-docker-windows)
 
-## Run Flojoy without Docker (Mac/Linux only)
-
-1. Clone this repo
-2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 3.
-3. `cd` into the project root
-4. Install the required python packages: `python3 -m pip install -U -r requirements.txt`
-5. Install npm packages: `npm install`
-6. Run `$ sh mac_startup.sh`
-
-   - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
-   - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
-   - If you have not installed npm packages manually, provide `-n` argument to install packages.
-   - If you have not installed python packages manually, provide `-p` argument to install required python packages. 
-   - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
-
-## Run Flojoy on Docker (Windows)
+## Run Flojoy on Docker
 
 1. Install Docker if you haven't already (https://docs.docker.com/get-docker/).
 2. Clone this project and `cd` into the project root in your CLI (such as Terminal for Mac or PowerShell for Windows).
@@ -36,21 +21,36 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 Run `docker compose down` to stop and remove the containers, networks and volumes.
 
+Note: You can develop in Docker as the volumes have been mapped to the containers.
+
 ### View logs of any service
 
-Currently there are four services.
+Currently there are four Docker services.
 **redis**, **rq-worker**, **backend**, **frontend**
 
 To follow realtime log of any of them, open up a terminal and run:
 `docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
 You can also use the docker-desktop to control and check logs for the services.
 
+## Run Flojoy without Docker (Mac/Linux only)
+
+1. Clone this repo with `--recursive` argument as follows: `git clone --recursive https://github.com/flojoy-io/studio.git`
+2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 
+3. `cd` into the project root
+4. Run `$ sh mac_start_up.sh`
+
+   - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
+   - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
+   - You can provide `-n` argument to skip installing Javascript packages.
+   - You can provide `-p` argument to skip installing python packages. 
+   - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
+
 # Running ElectronJS locally
 
 If you'd like to run Flojoy as an Electron app:
 
-1. Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
-Put any specific tag value if you need, or use the latest.
+1. (Optional) Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
+Put any specific tag value if you need, otherwise Docker will use the latest by default.
 ```
 BACKEND_IMAGE_TAG=latest
 RQ_WORKER_IMAGE_TAG=latest
@@ -66,7 +66,7 @@ Currently there are two CD workflows.
 1. [Base image CD](.github/workflows/cd_image.yaml): Builds and pushes the base image used in [the docker files](./docker).
 2. [CD](.github/workflows/cd.yaml): Runsi if a version tag is added. It builds packages, creates executables and creates github release with those artifacts.
 
-#### Using CD to build executables
+## Using CD to build executables
 
 The CD workflow is triggered when any change is pushed to any tag. So, to trigger it,
 

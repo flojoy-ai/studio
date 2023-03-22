@@ -1,9 +1,9 @@
 import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import "react-grid-layout/css/styles.css";
-import "../../../App.css";
+import "@src/App.css";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
-import ControlComponent from "./ControlComponent";
+import ControlComponent from "./control-component/ControlComponent";
 
 export default function Control({
   controlProps,
@@ -11,7 +11,6 @@ export default function Control({
 }: {
   controlProps: ControlProps;
   ctrl: CtlManifestType;
-  ctrlIndex: number;
 }) {
   const {
     isEditMode,
@@ -28,6 +27,7 @@ export default function Control({
     <div
       className={isEditMode ? "ctrl-input" : ""}
       data-cy="ctrl-grid-item"
+      data-testid="ctrl-grid-item"
       style={{
         width: "100%",
         height: "100%",

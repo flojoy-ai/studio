@@ -75,6 +75,17 @@
   width: 100%;
 }
 
+.ctrl-input-body-file {
+  /* padding: 20px; */
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height:90%;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+
 .ctrl-param {
   margin: 0;
   font-size: 15px;
@@ -146,7 +157,6 @@
 
 .select-node {
   font-size: 12px;
-  position: absolute;
   top: 0;
   left: 0;
   border: 0;
