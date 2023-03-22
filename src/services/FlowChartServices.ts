@@ -28,17 +28,18 @@ export async function saveAndRunFlowChartInServer({
     // console.log("saving flowchart to server:", rfInstanceObject);
     const fcStr = JSON.stringify(rfInstanceObject);
 
-  fetch(`${API_URI}/wfc`, {
-    method: "POST",
-    body: JSON.stringify({
-      fc: fcStr,
-      jobsetId: jobId,
-      cancelExistingJobs: true,
-    }),
-    headers: { "Content-type": "application/json; charset=UTF-8" },
-  })
-    .then((resp) => resp.json())
-    .then((json) => console.log(json));
+    fetch(`${API_URI}/wfc`, {
+      method: "POST",
+      body: JSON.stringify({
+        fc: fcStr,
+        jobsetId: jobId,
+        cancelExistingJobs: true,
+      }),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((resp) => resp.json())
+      .then((json) => console.log(json));
+  }
 }
 
 export function cancelFlowChartRun({

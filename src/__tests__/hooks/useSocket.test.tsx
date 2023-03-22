@@ -2,7 +2,7 @@ import { expect, jest, it, beforeEach } from "@jest/globals";
 import { renderHook } from "@testing-library/react-hooks";
 import { useSocket } from "../../hooks/useSocket";
 import * as Context from "../../context/socket.context";
-import React from "react";
+import * as React from "react";
 
 const wrapper = ({ children }) => (
   <Context.SocketContextProvider>{children}</Context.SocketContextProvider>
