@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Display as SevenSegmentDisplay } from "react-7-segment-display";
+// import { Display as SevenSegmentDisplay } from "react-7-segment-display";
+
 
 const SevenSegmentComponent = ({ ctrlObj, plotData, nd }) => {
   const [data, setData] = useState(0);
@@ -24,13 +25,13 @@ const SevenSegmentComponent = ({ ctrlObj, plotData, nd }) => {
 
   return (
     <div className="seven_segment_container">
-      <SevenSegmentDisplay
-        color={ctrlObj.segmentColor || "#99F5FF"}
-        count={4}
-        height={200}
-        skew={false}
-        value={data}
-      />
+      {/* <SevenSegmentDisplay
+            color={ctrlObj.segmentColor || "#99F5FF"}
+            count={4}
+            height={200}
+            skew={false}
+            value={data}
+          /> */}
     </div>
   );
 };
