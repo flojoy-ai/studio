@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - run: echo "image_name=onscene/flojoy-base" >> $GITHUB_ENV
       - run: echo "commit_id_short=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Build Base Image
@@ -31,6 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - run: echo "image_name=onscene/flojoy-rq-worker" >> $GITHUB_ENV
       - run: echo "commit_id_short=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Build RQ Worker
@@ -50,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - run: echo "image_name=onscene/flojoy-watch" >> $GITHUB_ENV
       - run: echo "commit_id_short=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Build Flojoy Watch
@@ -69,6 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - run: echo "image_name=onscene/flojoy-backend" >> $GITHUB_ENV
       - run: echo "commit_id_short=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Build Flojoy Backend
