@@ -61,7 +61,6 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
-
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
   const edgeTypes: EdgeTypes = useMemo(

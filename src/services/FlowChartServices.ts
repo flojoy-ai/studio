@@ -1,8 +1,5 @@
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
-
-import { CustomError } from "../utils/CustomError";
-
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
 const BACKEND_PORT = +process.env.REACT_APP_BACKEND_PORT! || 8000;
@@ -23,22 +20,25 @@ export function saveAndRunFlowChartInServer({
   rfInstance?: ReactFlowJsonObject;
   jobId: string;
 }) {
-  if (rfInstance) {
-    const rfInstanceObject = rfInstance;
-    const fcStr = JSON.stringify(rfInstanceObject);
-
-    fetch(`${API_URI}/wfc`, {
-      method: "POST",
-      body: JSON.stringify({
-        fc: fcStr,
-        jobsetId: jobId,
-        cancelExistingJobs: true,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((resp) => resp.json())
-      .then((json) => console.log(json));
+  if (!rfInstance) {
+    return;
   }
+
+  const rfInstanceObject = rfInstance;
+  // console.log("saving flowchart to server:", rfInstanceObject);
+  const fcStr = JSON.stringify(rfInstanceObject);
+
+  fetch(`${API_URI}/wfc`, {
+    method: "POST",
+    body: JSON.stringify({
+      fc: fcStr,
+      jobsetId: jobId,
+      cancelExistingJobs: true,
+    }),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  })
+    .then((resp) => resp.json())
+    .then((json) => console.log(json));
 }
 
 export function cancelFlowChartRun({
@@ -48,19 +48,21 @@ export function cancelFlowChartRun({
   rfInstance: ReactFlowJsonObject;
   jobId: string;
 }) {
-  if (rfInstance) {
-    const rfInstanceObject = rfInstance;
-    const fcStr = JSON.stringify(rfInstanceObject);
-
-    fetch("/cancel_fc", {
-      method: "POST",
-      body: JSON.stringify({
-        fc: fcStr,
-        jobsetId: jobId,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((resp) => resp.json())
-      .then((json) => console.log(json));
+  if (!rfInstance) {
+    return;
   }
+
+  const rfInstanceObject = rfInstance;
+  const fcStr = JSON.stringify(rfInstanceObject);
+
+  fetch("/cancel_fc", {
+    method: "POST",
+    body: JSON.stringify({
+      fc: fcStr,
+      jobsetId: jobId,
+    }),
+    headers: { "Content-type": "application/json; charset=UTF-8" },
+  })
+    .then((resp) => resp.json())
+    .then((json) => console.log(json));
 }
