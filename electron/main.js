@@ -1,15 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { app, BrowserWindow, dialog, Menu } = require("electron");
-const isProd = app.isPackaged;
 const path = require("upath");
 const child_process = require("child_process");
 const { getErrorDetail } = require("./error-helper");
+
+
+const isProd = app.isPackaged;
 const envPath = process.env.PATH;
+
 if (!envPath?.split(":").includes("usr/local/bin")) {
   process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
 }
+
 const getReleativePath = (pathStr) =>
   path.toUnix(path.join(__dirname, pathStr));
+
 const APP_ICON =
   process.platform === "win32"
     ? getReleativePath("../electron/assets/favicon.ico")
