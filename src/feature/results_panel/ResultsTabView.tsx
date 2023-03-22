@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { useWindowSize } from "react-use";
 import CustomEdge from "../flow_chart_panel/views/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
@@ -62,4 +62,4 @@ const ResultsTab = ({ results }: ResultsTabProps) => {
   );
 };
 
-export default memo(ResultsTab);
+export default ResultsTab;

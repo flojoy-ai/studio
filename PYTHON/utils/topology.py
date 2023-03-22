@@ -64,7 +64,6 @@ class Topology:
         self.finished_jobs.add(job_id)
         print(F'  job {self.get_label(job_id)} failed')
 
-
     def remove_dependencies(self, job_id, label='main'):
         edges = self.get_edges_by_label(job_id, label)
         for edge in edges:
@@ -113,10 +112,10 @@ class Topology:
     def finished(self):
         print(
             F'jobset finished: {self.is_finished}, num of nodes in graph:',
-           self.finished_jobs
+            len(self.finished_jobs)
         )
         return self.is_finished
-        
+
     def next_jobs(self):
         return self.jobq.copy()
 

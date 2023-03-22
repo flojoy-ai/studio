@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsTab component renders the ResultsTab component 1`] = `
+<div
+  data-testid="results-flow"
+  style="height: 99vh;"
+>
+  <div
+    data-testid="react-flow"
+  />
+</div>
+`;

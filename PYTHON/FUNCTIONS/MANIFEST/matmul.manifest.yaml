@@ -1,8 +1,0 @@
-COMMAND:
-    - {
-        name: "Matmul",
-        key: "MATMUL",
-        type: "ARRAY_AND_MATRIX",
-        inputs: [{ name: "y", id: "matmul_y", type: "target" }],
-      }
-  

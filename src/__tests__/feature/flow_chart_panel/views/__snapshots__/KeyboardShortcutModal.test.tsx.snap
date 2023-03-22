@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
+<div
+  data-testid="keyboard_shortcut_modal"
+>
+  <button
+    class="kbs__close__btn"
+  >
+    <svg
+      fill="none"
+      height="16"
+      style="height: 23px; width: 23px;"
+      viewBox="0 0 16 16"
+      width="16"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.1835 11.4905C12.1835 11.6885 12.0845 11.8865 11.8794 12.0915C11.5824 12.3885 10.9814 12.3956 10.6774 12.0915L3.98812 5.2043C3.69114 4.90732 3.68407 4.30628 3.98812 4.00222C4.29218 3.69816 4.88615 3.69816 5.1902 4.00222L11.8794 10.8894C12.0774 11.0874 12.1764 11.2854 12.1835 11.4905Z"
+        fill="#BCC2C4"
+      />
+      <path
+        d="M12.1834 4.50427C12.1834 4.70226 12.0844 4.90025 11.9854 5.09824L5.29616 12.0845C4.90018 12.3814 4.39813 12.3885 4.09408 12.0845C3.79002 11.7804 3.79002 11.1864 4.09408 10.8824L10.7833 3.99515C11.0803 3.69816 11.6813 3.69109 11.9854 3.99515C12.0844 4.09414 12.1834 4.29213 12.1834 4.49012L12.1834 4.50427Z"
+        fill="#BCC2C4"
+      />
+    </svg>
+  </button>
+  <div
+    class="kbs__container light"
+  >
+    <div
+      class="kbs__col light"
+    >
+      <div
+        class="kbs__title"
+      >
+        For
+         
+        <span
+          class="kbs__platform__name"
+        >
+          Windows
+        </span>
+      </div>
+      <div
+        class="kbs__list light"
+      >
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Show/hide UI
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl \\
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Play
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl P
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Open Side Bar Panel
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl T
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Fit View
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl 1
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Zoom In
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl +
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Zoom Out
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl -
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Layout Node
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl L
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Select All
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl A
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Deselect
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Alt C
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Close Node
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl W
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            File Name
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl R
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Save
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl S
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Delete
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Ctrl D
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="kbs__col light"
+    >
+      <div
+        class="kbs__title"
+      >
+        For
+         
+        <span
+          class="kbs__platform__name"
+        >
+          MacOs
+        </span>
+      </div>
+      <div
+        class="kbs__list light"
+      >
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Show/hide UI
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ z
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Play
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ P
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Open Side Bar Panel
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ T
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Fit View
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ 1
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Zoom In
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ +
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Zoom Out
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ -
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Layout Node
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ L
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Select All
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ A
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Deselect
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            Option C
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Close Node
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ W
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            File Name
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ R
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Save
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ S
+          </span>
+        </div>
+        <div
+          class="kbs__list__item light"
+        >
+          <span>
+            Delete
+          </span>
+          <span
+            class="kbs__cmd__key"
+          >
+            ⌘ D
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

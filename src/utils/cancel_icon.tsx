@@ -11,8 +11,8 @@ const CancelIconSvg = ({
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0,0,256,256"
-      width="24px"
-      height="24px"
+      width="34px"
+      height="34px"
       fillRule="nonzero"
     >
       <g

@@ -19,28 +19,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
       - name: Docker Compose Action
         uses: isbang/compose-action@v1.3.2
 
       - name: Npm install
         run: npm install --legacy-peer-deps
 
-      - name: Run test
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
           start: npm start
           browser: chrome
           install: false
+      - name: Dump docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v2
 
   testPython:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"

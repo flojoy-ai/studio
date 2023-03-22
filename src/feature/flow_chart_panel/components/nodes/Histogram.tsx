@@ -141,7 +141,7 @@ const HistoLabels = ({ style, theme }: SvgProps) => {
 
 const Histogram = ({ style, theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="histogram-svg">
       <HistoTitle
         theme={theme}
         style={{
@@ -161,7 +161,7 @@ const Histogram = ({ style, theme }: SvgProps) => {
           width: 109,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 

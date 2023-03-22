@@ -97,7 +97,6 @@ def detect_object(input_image):
 
     filePath = "obj-detection.jpg"
     cv2.imwrite(filePath, image)
-    cv2.destroyAllWindows() 
 
     try:
         with open(filePath, "rb") as fileToBeLoaded:
