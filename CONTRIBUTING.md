@@ -1,5 +1,15 @@
 # Contributing guidelines
 
+## Git Notes
+**1. Cloning** - Use `--recursive` argument when cloning the repository to add all the submodules to the project. For example: `git clone --recursive https://github.com/flojoy-io/studio.git`
+
+**2. Branch Switching** - When switching from one branch to another run following git command to update all the submodules following `git checkout <branch name>` command:
+    ```
+        git submodule update --init --recursive
+    ```
+    
+ **3. Commiting & Pushing** - Before pushing your changes to [Flojoy Studio](https://github.com/flojoy-io/studio) repo, make sure to CD into all the submodule directories and make PR's to these repo by creating branch and pushing new changes.
+
 ## How to contribute code
 
 ### Pull Request Workflow
