@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-import ReactFlow, {
+import {
+  ReactFlow,
   ReactFlowProvider,
   addEdge,
   ConnectionLineType,
@@ -14,11 +15,10 @@ import ReactFlow, {
   OnInit,
   NodeMouseHandler,
   NodeDragHandler,
+  OnNodesDelete,
 } from "reactflow";
 
 import localforage from "localforage";
-
-import CustomEdge from "./views/CustomEdge";
 
 import styledPlotLayout from "../common/defaultPlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
@@ -28,14 +28,14 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {  SmartBezierEdge } from '@tisoap/react-flow-smart-edge'
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab = ({
+const FlowChartTab: React.FC<FlowChartProps> = ({
   results,
   theme,
   rfInstance,
@@ -71,7 +71,7 @@ const FlowChartTab = ({
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
   const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default:SmartBezierEdge}),
+    () => ({ default: SmartBezierEdge }),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
@@ -85,7 +85,7 @@ const FlowChartTab = ({
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
     );
     setClickedElement(node);
     openModal();
@@ -117,7 +117,9 @@ const FlowChartTab = ({
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
-    (changes) => setNodes((ns) => applyNodeChanges(changes, ns)),
+    (changes) => {
+      setNodes((ns) => applyNodeChanges(changes, ns));
+    },
     [setNodes]
   );
   const onEdgesChange: OnEdgesChange = useCallback(
@@ -127,6 +129,15 @@ const FlowChartTab = ({
   const onConnect: OnConnect = useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
+  );
+  const handleNodesDelete: OnNodesDelete = useCallback(
+    (nodes) => {
+      const selectedNodeIds = nodes.map((node) => node.id);
+      setNodes((prev) =>
+        prev.filter((node) => !selectedNodeIds.includes(node.id))
+      );
+    },
+    [setNodes]
   );
 
   useFlowChartTabEffects({
@@ -151,8 +162,17 @@ const FlowChartTab = ({
   });
   return (
     <ReactFlowProvider>
-      <div style={{ height: `99vh` }} data-testid="react-flow">
+      <div
+        style={{ height: `99vh` }}
+        data-testid="react-flow"
+        data-rfinstance={JSON.stringify(nodes)}
+      >
         <ReactFlow
+          style={{
+            position: "fixed",
+            height: "100%",
+            width: "50%",
+          }}
           nodes={nodes}
           nodeTypes={nodeTypes}
           edges={edges}
@@ -164,6 +184,7 @@ const FlowChartTab = ({
           onConnect={onConnect}
           onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
+          onNodesDelete={handleNodesDelete}
         />
       </div>
 
@@ -183,5 +204,4 @@ const FlowChartTab = ({
     </ReactFlowProvider>
   );
 };
-
 export default FlowChartTab;

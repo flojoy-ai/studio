@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropDown should render correctly 1`] = `
+<div>
+  <div
+    class="dropdown__wrapper"
+    data-testid="dropdown-wrapper"
+  >
+    <button>
+      Dropdown Button
+    </button>
+    <div
+      class="dropdown__container light"
+      data-testid="dropdown-container"
+    >
+      <div>
+        Dropdown Children
+      </div>
+    </div>
+  </div>
+</div>
+`;

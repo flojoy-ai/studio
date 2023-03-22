@@ -1,9 +1,11 @@
+/** @type {import("ts-jest").JestConfigWithTsJest} */
 import type { Config } from "@jest/types";
 import { pathsToModuleNameMapper } from "ts-jest";
 import { compilerOptions } from "./tsconfig.json";
 export default async (): Promise<Config.InitialOptions> => {
   return {
     preset: "ts-jest",
+    setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
     displayName: {
       name: "flojoy unit-testing",
       color: "greenBright",
@@ -22,7 +24,13 @@ export default async (): Promise<Config.InitialOptions> => {
       },
     },
     roots: ["<rootDir>"],
-    modulePaths: [compilerOptions.baseUrl],
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+    modulePaths: ["."],
+    moduleNameMapper: {
+      "\\.(css|less)$": "<rootDir>/src/__tests__/config/CSSStub.js",
+      ...pathsToModuleNameMapper(compilerOptions.paths),
+    },
+    transform: {
+      "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }]
+    }
   };
 };

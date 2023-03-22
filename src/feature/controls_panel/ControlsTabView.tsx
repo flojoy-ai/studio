@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import Modal from "react-modal";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,26 +8,38 @@ import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
 
 import ReactSwitch from "react-switch";
-import "../../App.css";
+import "@src/App.css";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
-} from "../../hooks/useFlowChartState";
+} from "@src/hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
-import { FUNCTION_PARAMETERS } from"@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
 import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
+interface ControlsTabProps {
+  results: ResultsType;
+  theme: "light" | "dark";
+  setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
+  openCtrlModal: boolean;
+}
 
-const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
+const ControlsTab = ({
+  results,
+  theme,
+  setOpenCtrlModal,
+  openCtrlModal,
+}: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
 
@@ -57,7 +69,7 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
     setOpenCtrlModal(false);
   };
 
- function cacheManifest(manifest: CtlManifestType[]) {
+  function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
@@ -77,63 +89,56 @@ const ControlsTab = ({ results, theme, setOpenCtrlModal, openCtrlModal }) => {
   useControlsTabEffects(saveAndRunFlowChart);
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      id: `ctrl-${uuidv4()}`,
-      hidden: false,
-    } as CtlManifestType;
-
-    setOpenCtrlModal(false);
-
+    const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
       if (yAxis < el.y) {
         yAxis = el.y;
       }
     }
-
-    setGridLayout([
-      ...gridLayout,
-      {
-        x: 0,
-        y: yAxis + 1,
-        h: ctrl.minHeight > 2 ? ctrl.minHeight : 2,
-        w: 2,
-        i: ctrl.id,
-        minH: ctrl.minHeight,
-        minW: ctrl.minWidth,
-        static: !isEditMode,
-      },
-    ]);
-
+    const ctrlLayout = {
+      x: 0,
+      y: yAxis + 1,
+      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
+      w: 2,
+      i: id,
+      minH: ctrlObj.minHeight,
+      minW: ctrlObj.minWidth,
+      static: !isEditMode,
+    };
+    const ctrl: CtlManifestType = {
+      ...ctrlObj,
+      hidden: false,
+      id,
+      layout: ctrlLayout,
+    } as CtlManifestType;
+    setOpenCtrlModal(false);
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
     console.warn("Removing", ctrlId, ctrl);
-    const filterChilds: any[] = ctrlsManifest.filter(
-      (ctrl) => ctrl.id !== ctrlId
-    );
+    const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
 
-    if (ctrl.param) {
-      removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
-      saveAndRunFlowChart();
-    }
+    // if (ctrl.param) {
+    //   removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
+    //   saveAndRunFlowChart();
+    // }
   };
 
-const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
-        manClone[i].val = val;
+        manClone[i].val = isNaN(+val) ? val : +val;
       }
     });
     cacheManifest(manClone);
     updateCtrlInputDataForNode(
       (ctrl.param! as CtrlManifestParam).nodeId,
-      (ctrl.param! as CtrlManifestParam).id,
+      (ctrl.param! as CtrlManifestParam).param,
       {
         functionName: (ctrl.param! as CtrlManifestParam).functionName,
         param: (ctrl.param! as CtrlManifestParam).param,
@@ -159,8 +164,11 @@ const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
         : fnParam?.default
         ? fnParam.default
         : 0;
-    const ctrlData = ctrls && ctrls[param?.id];
-    const currentInputValue = ctrlData ? ctrlData.value : defaultValue;
+    const ctrlData = ctrls && ctrls[param.param];
+    const inputValue = isNaN(+ctrlData?.value!)
+      ? ctrlData?.value
+      : +ctrlData?.value!;
+    const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       if (c.id === ctrl.id) {
@@ -209,48 +217,62 @@ const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
             }}
           />
         </button>
-        {currentInput && <div>
-          <p>Ctrl properties</p>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "5px",
-            }}
-          >
+        {currentInput && (
+          <div>
+            <p>Ctrl properties</p>
             <div
               style={{
                 display: "flex",
-                gap: "8px",
-                alignItems: "center",
+                flexDirection: "column",
+                gap: "5px",
               }}
             >
-              <p>Hidden</p>
-              <ReactSwitch
-                checked={ctrlsManifest[currentInput?.index!]!?.hidden! || false}
-                onChange={(nextChecked) => {
-                  setCtrlsManifest((prev) => {
-                    prev[currentInput?.index!].hidden = nextChecked;
-                  });
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  alignItems: "center",
                 }}
-              />
+              >
+                <p>Hidden</p>
+                <ReactSwitch
+                  checked={
+                    ctrlsManifest[currentInput?.index!]!?.hidden! || false
+                  }
+                  onChange={(nextChecked) => {
+                    setCtrlsManifest((prev) => {
+                      prev[currentInput?.index!].hidden = nextChecked;
+                    });
+                  }}
+                />
+              </div>
+              {ctrlsManifest[currentInput?.index!]?.name ===
+                ControlNames.SevenSegmentDisplay && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    alignItems: "center",
+                  }}
+                >
+                  <p>Segment Color </p>
+                  <input
+                    type="color"
+                    name="seven_segment_color"
+                    id="seven_segment_color"
+                    value={ctrlsManifest[currentInput.index].segmentColor || ""}
+                    onChange={(e) => {
+                      setCtrlsManifest((prev) => {
+                        prev[currentInput?.index!].segmentColor =
+                          e.target.value;
+                      });
+                    }}
+                  />
+                </div>
+              )}
             </div>
-            {ctrlsManifest[currentInput?.index!]?.name === ControlNames.SevenSegmentDisplay && (<div
-              style={{
-                display: "flex",
-                gap: "8px",
-                alignItems: "center",
-              }}
-            >
-              <p>Segment Color </p>
-              <input type="color" name="seven_segment_color" id="seven_segment_color" value={ctrlsManifest[currentInput.index].segmentColor || ''} onChange={e=> {
-                setCtrlsManifest((prev) => {
-                  prev[currentInput?.index!].segmentColor = e.target.value;
-                });
-                }} />
-            </div>)}
           </div>
-        </div>}
+        )}
       </Modal>
     </div>
   );

@@ -1,3 +1,5 @@
+import { IServerStatus } from "@src/context/socket.context";
+
 interface WebSocketServerProps {
   url: string;
   pingResponse: any;
@@ -53,9 +55,9 @@ export class WebSocketServer {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
               data[ResponseEnum.systemStatus] ===
-              "🤙 python script run successful"
+              IServerStatus.RQ_RUN_COMPLETE
             ) {
-              this.pingResponse("🐢 awaiting a new job");
+              this.pingResponse(IServerStatus.STANDBY);
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -63,17 +65,25 @@ export class WebSocketServer {
               const isExist = prev.io.find(
                 (node) => node.id === data[ResponseEnum.nodeResults].id
               );
+              const resultIo = data[ResponseEnum.nodeResults];
+              const resultData = {
+                ...resultIo,
+                result:{
+                  ...resultIo.result,
+                  type: resultIo.result.type === 'file' ? "image" : resultIo.result.type
+                }
+              }
               if (isExist) {
                 const filterResult = prev.io.filter(
-                  (node) => node.id !== data[ResponseEnum.nodeResults].id
+                  (node) => node.id !== resultIo.id
                 );
                 return {
-                  io: [...filterResult, data[ResponseEnum.nodeResults]],
+                  io: [...filterResult, resultData],
                 };
               }
 
               return {
-                io: [...prev.io, data[ResponseEnum.nodeResults]],
+                io: [...prev.io, resultData],
               };
             });
           }
@@ -100,7 +110,7 @@ export class WebSocketServer {
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
       console.log("Error Event: ", event);
-      this.pingResponse("🛑 server offline");
+      this.pingResponse(IServerStatus.OFFLINE);
     };
   }
   disconnect() {

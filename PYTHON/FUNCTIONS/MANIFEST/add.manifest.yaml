@@ -1,7 +1,0 @@
-COMMAND:
-  - {
-      name: "Add",
-      key: "ADD",
-      type: "ARITHMETIC",
-      inputs: [{ name: "y", id: "add_y", type: "target" }],
-    }

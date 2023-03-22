@@ -19,22 +19,23 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 
-from FUNCTIONS.ARITHMETIC import *
-from FUNCTIONS.ARRAY_AND_MATRIX import *
-from FUNCTIONS.CONDITIONALS import *
-from FUNCTIONS.LOADERS import *
-from FUNCTIONS.LOOPS import *
-from FUNCTIONS.SIGNAL_PROCESSING import *
-from FUNCTIONS.SIMULATIONS import *
-from FUNCTIONS.TIMERS import *
-from FUNCTIONS.VISORS import *
-from FUNCTIONS.TERMINATORS import *
+from nodes.ARITHMETIC import *
+from nodes.ARRAY_AND_MATRIX import *
+from nodes.CONDITIONALS import *
+from nodes.LOADERS import *
+from nodes.LOOPS import *
+from nodes.SIGNAL_PROCESSING import *
+from nodes.SIMULATIONS import *
+from nodes.TIMERS import *
+from nodes.VISORS import *
+from nodes.TERMINATORS import *
 from services.job_service import JobService
 from utils.topology import Topology
 
 from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
 
+ENV_CI = 'CI'
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
 
@@ -49,11 +50,14 @@ class FlowScheduler:
 
     def run(self):
         print('\nrun jobset:', self.jobset_id)
+        self.is_ci = os.getenv(key=ENV_CI, default=False);
+        print('is running in CI?', self.is_ci)
         self.nx_graph = reactflow_to_networkx(self.flow_chart['nodes'], self.flow_chart['edges'])
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
         self.topology.collect_ready_jobs()
+
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
@@ -66,10 +70,10 @@ class FlowScheduler:
             # self.topology.print_graph()
 
             try:
-                
+
                 self.topology.collect_ready_jobs()
                 next_jobs = self.topology.next_jobs()
-                
+
                 if len(next_jobs) == 0:
                     wait_time_for_new_jobs = wait_time_for_new_jobs * pow(wait_time_multiplier, num_times_waited_for_new_jobs)
                     wait_time_for_new_jobs = min(wait_time_for_new_jobs, max_wait_time)
@@ -83,9 +87,9 @@ class FlowScheduler:
 
                 self.topology.print_jobq('ready ')
 
-                for job_id in next_jobs:                    
+                for job_id in next_jobs:
                     self.run_job(job_id)
-                    
+
                 print('waiting on jobs enqueued')
                 for job_id in next_jobs:
                     job_result, success = self.wait_for_job(job_id)
@@ -99,12 +103,10 @@ class FlowScheduler:
                 print(traceback.format_exc())
                 raise e
 
-        # jobset finished 
+        # jobset finished
         self.topology.print_graph()
         self.notify_jobset_finished()
-        self.job_service.reset(self.flow_chart.get('nodes',[]))
         print('finished proceessing jobset', self.jobset_id, '\n')
-
 
     def process_job_result(self, job_id, job_result, success):
         '''
@@ -136,16 +138,26 @@ class FlowScheduler:
 
         node = self.nx_graph.nodes[job_id]
         cmd = node['cmd']
+        cmd_mock = node['cmd'] + '_MOCK'
         func = getattr(globals()[cmd], cmd)
+
+        # when running in CI environment use the mock function instead if its defined
+        if self.is_ci:
+            try:
+                func = getattr(globals()[cmd], cmd_mock)
+                print( ' running the mock version:', cmd_mock)
+            except:
+                pass
+
         dependencies = self.topology.get_job_dependencies(job_id, original=True)
-        
+
         print(
             ' enqueue job:',
             self.topology.get_label(job_id),
             'dependencies:',
             [self.topology.get_label(dep_id, original=True) for dep_id in dependencies]
         )
-        
+
         self.job_service.enqueue_job(
             func=func,
             jobset_id=self.jobset_id,
@@ -155,25 +167,25 @@ class FlowScheduler:
             previous_job_ids=[],
             input_job_ids=dependencies
         )
-    
+
     def wait_for_job(self, job_id):
         print(' waiting for job:', self.topology.get_label(job_id))
-        
+
         while True:
             time.sleep(.01)
-    
+
             job = self.job_service.fetch_job(job_id=job_id)
             job_status = job.get_status()
-    
+
             if job_status in ['finished', 'failed']:
                 job_result = job.result
                 success = True if job_status == 'finished' else False
                 print('  job:', self.topology.get_label(job_id), 'status:', job_status)
                 break
-        
+
         return job_result, success
 
-    
+
     def notify_jobset_finished(self):
         self.job_service.redis_dao.remove_item_from_list(
             F'{self.jobset_id}_watch', self.scheduler_job_id
@@ -183,7 +195,7 @@ class FlowScheduler:
         print("nodes from FE:", json.dumps(self.flow_chart['nodes'], indent=2),
               "\nedges from FE:", json.dumps(self.flow_chart['edges'], indent=2))
 
-        
+
 
 def reactflow_to_networkx(elems, edges):
     nx_graph: nx.DiGraph = nx.DiGraph()
@@ -219,7 +231,7 @@ def reactflow_to_networkx(elems, edges):
 
 def run(**kwargs):
     try:
-        FlowScheduler(**kwargs).run()
+        return FlowScheduler(**kwargs).run()
     except Exception:
         print('exception occured whilte running the flowchart')
         print(traceback.format_exc())

@@ -11,6 +11,7 @@ import {
   MultiplySvg,
   SubSvg,
 } from "../../svgs/add-multiply-svg";
+import { useEffect } from "react";
 
 const getboxShadow = (data: ElementsData) => {
   if (data.func in highlightShadow) {
@@ -20,15 +21,24 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode } = useFlowChartState();
+  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
+    useFlowChartState();
   const params = data.inputs || [];
 
+  useEffect(() => {
+    setNodes((prev) => {
+      const selectedNode = prev.find((n) => n.id === data.id);
+      if (selectedNode) {
+        selectedNode.data.selected = selectedNode.selected;
+      }
+    });
+  }, [data, nodes, setNodes]);
   return (
     <div
       style={{
-        ...(runningNode === data.id && getboxShadow(data)),
+        ...((runningNode === data.id || data.selected) && getboxShadow(data)),
         ...(failedNode === data.id && {
-          boxShadow: "rgb(183 0 0) 0px 0px 50px 15px",
+          boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
         }),
       }}
     >
@@ -110,15 +120,15 @@ export default ArithmeticNode;
 
 const highlightShadow = {
   default: {
-    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
     background: "#78640f96",
   },
   MULTIPLY: {
-    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
     background: "#78640f96",
   },
   ADD: {
-    boxShadow: "rgb(112 96 13) 0px 0px 50px 15px",
+    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
     background: "#78640f96",
   },
 };

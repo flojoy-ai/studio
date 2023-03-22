@@ -58,7 +58,7 @@ const Surface3DTitle = ({ style }: SvgProps) => (
 
 const Surface3D = ({ theme }: SvgProps) => {
   return (
-    <Fragment>
+    <div data-testid="surface3D-svg">
       <Surface3DTitle
         theme={theme}
         style={{
@@ -77,7 +77,7 @@ const Surface3D = ({ theme }: SvgProps) => {
           height: 105,
         }}
       />
-    </Fragment>
+    </div>
   );
 };
 
