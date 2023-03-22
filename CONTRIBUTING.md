@@ -140,4 +140,21 @@ You can also create an example app with your custom node and generate e2e test f
           // add your example app here
         ]
     ```
+3. You can also test your app with your desired parameter value for each node. To do so, You have to add another field in the object named `nodes` which will be an array of object. Here is an example for [`butterworth.txt`](./public/example-apps/butterworth/butterworth.txt):
+    ```json
+         [
+            {
+              "title": "butterworth/butterworth.txt",
+              "test_id": "withcustomParam",
+              "nodes": [
+                {
+                  "id": "LINSPACE-bdd46aa2-4485-4c36-be42-a1746599a92d", // id of the node to use custom parameter value
+                  "params": {
+                    "start": 300
+                  }
+                }
+              ]
+            }
+          ]
+      ```
 
