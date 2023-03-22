@@ -36,9 +36,7 @@ global.fetch = jest.fn((url) =>
 
 jest.mock("../../utils/CustomError", () => {
   return {
-    CustomError: jest.fn().mockImplementation((param) => {
-      console.log(param);
-    }),
+    CustomError: jest.fn().mockImplementation((param) => {}),
   };
 });
 
