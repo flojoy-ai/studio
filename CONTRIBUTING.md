@@ -89,7 +89,7 @@ approved.
     `type:` A key of sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)
     
     `parameters:` Parameters which the node expects in it's function's parameter `params`. Ctrl panel uses this manifest to populate UI where users can modify these parameter values. It's an Object, where each key is a parameter name and value is an object of:
-    - `type:` Type of parameter value should be set to one of `number`, `string`, `float` or `select`. If you want to add a new type discuss it with the team.
+    - `type:` Type of parameter value should be set to one of `integer`, `string`, `float` or `select`. If you want to add a new type discuss it with the team.
     - `default:` Default value of the parameter.
     - `options:` Array of options, each option should be of the same type as declared.
 
@@ -140,12 +140,15 @@ You can also create an example app with your custom node and generate e2e test f
           // add your example app here
         ]
     ```
-3. You can also test your app with your desired parameter value for each node. To do so, You have to add another field in the object named `nodes` which will be an array of object. Here is an example for [`butterworth.txt`](./public/example-apps/butterworth/butterworth.txt):
+    *note: There can be multiple tests for one example app, in that case their test id must be different for one another.*
+3. You can also test your app with your desired parameter values for each node. To do so, you have to add another field called `nodes` which will be an array of object. Here is an example for [`butterworth.txt`](./public/example-apps/butterworth/butterworth.txt):
     ```json
          [
+            { "title": "butterworth/butterworth.txt", "test_id": "with_default_param" },
+            { "title": "FIR/FIR.txt", "test_id": "with_default_param" },
             {
               "title": "butterworth/butterworth.txt",
-              "test_id": "withcustomParam",
+              "test_id": "with_custom_param",
               "nodes": [
                 {
                   "id": "LINSPACE-bdd46aa2-4485-4c36-be42-a1746599a92d", // id of the node to use custom parameter value
