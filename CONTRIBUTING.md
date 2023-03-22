@@ -150,7 +150,7 @@ You can also create an example app with your custom node and generate e2e test f
           // add your example app here
         ]
     ```
-    *note: There can be multiple tests for one example app, in that case their test id must be different for one another.*
+    *note: There can be multiple tests for one example app, in that case their test id must be different from one another.*
 3. You can also test your app with your desired parameter values for each node. To do so, you have to add another field called `nodes` which will be an array of object. Here is an example for [`butterworth.txt`](./public/example-apps/butterworth/butterworth.txt):
     ```json
          [
