@@ -53,10 +53,6 @@ done
 echo 'update ES6 status codes file...'
 python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
-echo 'create symlinks...'
-ln STATUS_CODES.yml PYTHON/WATCH/
-ln STATUS_CODES.yml src
-
 echo 'jsonify python functions and write to JS-readable directory'
 python3 write_python_metadata.py
 
@@ -89,7 +85,6 @@ if [ ! -z "$venv" ]
 then
    echo "virtualenv path is provided, will use: ${venv}";
    venvCmd="source ${venv}/bin/activate &&"
-   echo "venv cmd: ${venvCmd}"
 fi
 
 CWD="$PWD"

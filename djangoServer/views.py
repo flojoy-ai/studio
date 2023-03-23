@@ -11,6 +11,7 @@ from channels.layers import get_channel_layer
 from rest_framework.decorators import api_view
 from PYTHON.services.job_service import JobService
 import time
+import requests
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
@@ -56,6 +57,27 @@ def cancel_flow_chart(request):
 
 
 @api_view(['POST'])
+def run_pre_job_op(request):
+    jobset_id = request.data.get('jobsetId', '')
+    data = {
+        **request.data,
+        'running_os' : sys.platform
+    }
+    requests.post('http://localhost:5000/prepare-jobs', data=data)
+    sys_status = STATUS_CODES['RUN_PRE_JOB_OP']
+    msg = {
+        'SYSTEM_STATUS': sys_status,
+        'jobsetId': jobset_id,
+        'RUNNING_NODES': ''
+    }
+    send_msg_to_socket(msg=msg)
+    response = {
+        'msg': sys_status,
+    }
+    return Response(response, status=200)
+
+
+@api_view(['POST'])
 def run_flow_chart(request):
     fc = json.loads(request.data['fc'])
 
@@ -74,7 +96,6 @@ def run_flow_chart(request):
     send_msg_to_socket(msg=msg)
 
     func = getattr(globals()['watch'], 'run')
-    print('func:', func)
     scheduler_job_id = f'{jobset_id}_{datetime.now()}'
     job_service.add_flojoy_watch_job_id(scheduler_job_id)
 

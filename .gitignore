@@ -43,3 +43,4 @@ venv2
 .env
 dist
 update_apps.js
+*.ipynb

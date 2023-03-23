@@ -1,28 +1,20 @@
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { SetStateAction } from "jotai";
-import { createContext, Dispatch, useEffect, useRef, useState } from "react";
+import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+import serverStatusObj from "@src/STATUS_CODES.json"
+
+
 type States = {
   programResults: ResultsType | null;
   setProgramResults: Dispatch<SetStateAction<ResultsType>>;
   runningNode: string;
-  serverStatus: IServerStatus;
+  serverStatus: string;
   failedNode: string;
   failureReason: string[];
   socketId: string;
 };
-export enum IServerStatus {
-  OFFLINE = "🛑 server offline",
-  CONNECTING = "Connecting to server...",
-  RQ_RUN_IN_PROCESS= "🏃‍♀️ running script...",
-  RQ_RUN_COMPLETE= "🤙 python script run successful",
-  MISSING_RQ_RESULTS= '👽 no result found',
-  JOB_IN_RQ= '🎠 queuing python job= ',
-  RQ_RESULTS_RETURNED= '🔔 new results - check LOGS',
-  STANDBY= '🐢 awaiting a new job',
-  SERVER_ONLINE= '🏁 node server online',
-  NO_RUNS_YET= '⛷️ No runs yet'
-}
+export const IServerStatus = serverStatusObj;
 const DEFAULT_STATES = {
   runningNode: "",
   serverStatus: IServerStatus.CONNECTING,

@@ -81,7 +81,8 @@
         {
             "name": "Camera",
             "key": "CAMERA",
-            "type": "LOADER"
+            "type": "LOADER",
+            "docker": "camera-compose.yaml"
         },
         {
             "name": "Feedback",

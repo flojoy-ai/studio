@@ -9,6 +9,8 @@ import warnings
 import matplotlib.cbook
 import networkx as nx
 import yaml
+import requests
+from dotenv import dotenv_values
 
 from flojoy import get_next_directions, get_next_nodes
 
@@ -38,8 +40,12 @@ from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 ENV_CI = 'CI'
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
+port = dotenv_values().get('REACT_APP_BACKEND_PORT', '8000')
+BACKEND_HOST = os.environ.get('BACKEND_HOST', 'localhost')
 
-
+def send_to_socket(data):
+    requests.post(
+        f'http://{BACKEND_HOST}:{port}/worker_response', json=data)
 class FlowScheduler:
     def __init__(self, **kwargs) -> None:
         self.scheduler_job_id = kwargs['scheduler_job_id']
@@ -157,6 +163,12 @@ class FlowScheduler:
             'dependencies:',
             [self.topology.get_label(dep_id, original=True) for dep_id in dependencies]
         )
+        socket_msg = {
+                    'SYSTEM_STATUS': f"{STATUS_CODES['JOB_IN_RQ']}{self.topology.get_label(job_id)}",
+                    'RUNNING_NODE': '',
+                    'jobsetId': self.jobset_id
+                }
+        send_to_socket(json.dumps(socket_msg))
 
         self.job_service.enqueue_job(
             func=func,
