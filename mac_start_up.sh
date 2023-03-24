@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 alias venv="source $HOME/venv/bin/activate"
 djangoPort=8000
 initNodePackages=true
@@ -89,7 +89,6 @@ if [ ! -z "$venv" ]
 then
    echo "virtualenv path is provided, will use: ${venv}";
    venvCmd="source ${venv}/bin/activate &&"
-   echo "venv cmd: ${venvCmd}"
 fi
 
 CWD="$PWD"
@@ -105,6 +104,20 @@ else
    echo "directory ~/.flojoy/flojoy.yaml does not exists. Creating new directory with yaml file."
 fi
 
+if [ $initPythonPackages = true ]
+then
+   if [ ! -z "$venv" ]
+   then
+      echo "-p flag is not provided"
+      echo 'Python packages will be installed from requirements.txt file!'
+      source $venv/bin/activate && pip install -r requirements.txt
+   else
+      echo "-p flag is not provided"
+      echo 'Python packages will be installed from requirements.txt file!'
+      pip install -r requirements.txt
+   fi      
+fi
+
 echo 'closing all existing rq workers (if any)'
 python3 close-all-rq-workers.py
 echo 'rq info after closing:'
@@ -116,27 +129,14 @@ npx ttab -t 'Flojoy-watch RQ Worker' "${venvCmd} export OBJC_DISABLE_INITIALIZE_
 echo 'starting redis worker for nodes...'
 npx ttab -t 'RQ WORKER' "${venvCmd} cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-if [ $initPythonPackages = true ]
-then
-   echo '-p flag is not provided'
-   echo 'Python packages will be installed from requirements.txt file!'
-   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
-      djangoPort=$((djangoPort + 1))
-      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-   else
-      echo "starting django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-   fi
+
+if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+   djangoPort=$((djangoPort + 1))
+   echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 else
-   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
-      djangoPort=$((djangoPort + 1))
-      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-   else
-      echo "starting django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-   fi
+   echo "starting django server on port ${djangoPort}..."
+   npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 fi
 
 CWD="$PWD"
