@@ -1,11 +1,17 @@
 import manifests from "../../../data/manifests-latest.json";
 
-type Commands = {
+export type Commands = {
   name: string;
   type: string;
   key: string;
   inputs?: { name: string; id: string; type: string }[];
   ui_component_id?: string;
+  docker?: {
+    folder_name: string;
+    arguments?:{
+      [key:string]: string[]
+    }
+  }
 }[];
 
 export const COMMANDS: Commands = manifests.commands;

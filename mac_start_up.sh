@@ -146,5 +146,10 @@ fi
 
 sleep 1
 
+echo "starting worker-manager server..."
+npx ttab -t 'Worker Manager' "npm run worker-manager"
+
+sleep 1
+
 echo 'starting react server...'
 npx ttab -t 'REACT' "${venvCmd} npm start"

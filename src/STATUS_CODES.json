@@ -7,7 +7,9 @@
     "RQ_RESULTS_RETURNED": "\ud83d\udd14 new results - check RUN REPORT tab",
     "STANDBY": "\ud83d\udc22 awaiting a new job",
     "SERVER_ONLINE": "\ud83c\udfc1 node server online",
-    "OFFLINE": "\ud83d\uded1 server offline, ",
+    "OFFLINE": "\ud83d\uded1 server offline",
+    "WORKER_MANAGER_OFFLINE": "\ud83d\uded1 worker manager is not running - RUN `npm run worker-manager` from terminal",
     "NO_RUNS_YET": "\u26f7\ufe0f No runs yet",
-    "CONNECTING": "\ud83d\udd04 connecting to server..."
+    "CONNECTING": "\ud83d\udd04 connecting to the server...",
+    "PR_JOB_FAILED": "\u274c pre-job operation failed - Re-run script.."
 }

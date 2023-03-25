@@ -116,6 +116,9 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
                   ...(cmd.ui_component_id && {
                     uiComponentId: cmd.ui_component_id,
                   }),
+                  ...(cmd.docker && {
+                    dockerInfo: cmd.docker
+                  })
                 });
               }}
               key={cmd.name}

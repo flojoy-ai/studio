@@ -19,6 +19,8 @@ sys.path.insert(0, dir_path)
 job_service = JobService('flojoy-watch')
 q = job_service.queue
 STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
+WORKER_MANAGER_HOST = 'localhost'
+WORKER_MANAGER_PORT = 5000
 
 print('queue flojoy-watch isEmpty? ', q.is_empty())
 
@@ -61,20 +63,30 @@ def run_pre_job_op(request):
     jobset_id = request.data.get('jobsetId', '')
     data = {
         **request.data,
-        'running_os' : sys.platform
+        'is_running_on_docker': True
     }
-    requests.post('http://localhost:5000/prepare-jobs', data=data)
     sys_status = STATUS_CODES['RUN_PRE_JOB_OP']
     msg = {
         'SYSTEM_STATUS': sys_status,
         'jobsetId': jobset_id,
         'RUNNING_NODES': ''
     }
-    send_msg_to_socket(msg=msg)
-    response = {
-        'msg': sys_status,
-    }
-    return Response(response, status=200)
+    try:
+        requests.post(f'http://{WORKER_MANAGER_HOST}:{WORKER_MANAGER_PORT}/prepare-jobs', json=data)
+        send_msg_to_socket(msg=msg)
+        response = {
+            'msg': sys_status,
+        }
+        return Response(response, status=200)
+    except Exception as err:
+        sys_status = STATUS_CODES['WORKER_MANAGER_OFFLINE']
+        msg['SYSTEM_STATUS'] = sys_status
+        send_msg_to_socket(msg=msg)
+        response = {
+            'msg': sys_status,
+            'err': err.__str__()
+        }
+        return Response(response, status=400)
 
 
 @api_view(['POST'])

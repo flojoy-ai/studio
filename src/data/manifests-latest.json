@@ -82,7 +82,21 @@
             "name": "Camera",
             "key": "CAMERA",
             "type": "LOADER",
-            "docker": "camera-compose.yaml"
+            "docker": {
+                "folder_name": "CAMERA",
+                "arguments": {
+                    "linux": [
+                        "--rm",
+                        "--privileged",
+                        "--env='DISPLAY'",
+                        "--volume='/tmp/.X11-unix:/tmp/.X11-unix:rw'",
+                        "--device='/dev/video0:/dev/video0'"
+                    ],
+                    "darwin": [
+                        "-it"
+                    ]
+                }
+            }
         },
         {
             "name": "Feedback",
