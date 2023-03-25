@@ -147,7 +147,7 @@ fi
 sleep 1
 
 echo "starting worker-manager server..."
-npx ttab -t 'Worker Manager' "npm run worker-manager"
+npx ttab -t 'Worker Manager' "npm run worker-manager:dev"
 
 sleep 1
 

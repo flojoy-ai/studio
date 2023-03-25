@@ -61,10 +61,6 @@ def cancel_flow_chart(request):
 @api_view(['POST'])
 def run_pre_job_op(request):
     jobset_id = request.data.get('jobsetId', '')
-    data = {
-        **request.data,
-        'is_running_on_docker': True
-    }
     sys_status = STATUS_CODES['RUN_PRE_JOB_OP']
     msg = {
         'SYSTEM_STATUS': sys_status,
@@ -72,7 +68,7 @@ def run_pre_job_op(request):
         'RUNNING_NODES': ''
     }
     try:
-        requests.post(f'http://{WORKER_MANAGER_HOST}:{WORKER_MANAGER_PORT}/prepare-jobs', json=data)
+        requests.post(f'http://{WORKER_MANAGER_HOST}:{WORKER_MANAGER_PORT}/prepare-jobs', json=request.data)
         send_msg_to_socket(msg=msg)
         response = {
             'msg': sys_status,
