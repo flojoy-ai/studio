@@ -1,5 +1,5 @@
 {
-    "_v": 14,
+    "_v": 13,
     "commands": [
         {
             "name": "Add",
@@ -157,7 +157,7 @@
         {
             "name": "PID",
             "key": "PID",
-            "type": "SIGNAL_PROCESSING"
+            "type": "ACTIVE_FEEDBACK"
         },
         {
             "name": "Constant",
@@ -200,11 +200,6 @@
             "name": "Line",
             "key": "LINE",
             "type": "VISOR"
-        },
-        {
-            "name": "Absolute",
-            "key": "ABS",
-            "type": "ARITHMETIC"
         },
         {
             "name": "Scatter Plot",
@@ -357,15 +352,15 @@
         "PID": {
             "Kp": {
                 "type": "float",
-                "default": "5"
+                "default": "1"
             },
             "Ki": {
                 "type": "float",
-                "default": "0.0143"
+                "default": "0"
             },
             "Kd": {
                 "type": "float",
-                "default": "356.25"
+                "default": "0"
             }
         },
         "CONSTANT": {
