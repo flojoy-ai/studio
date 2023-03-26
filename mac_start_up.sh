@@ -1,4 +1,9 @@
 #!/bin/sh
+success_color=71
+warning_color=145
+error_color=92
+message_color=61
+
 gum style \
 	--foreground 212 --border-foreground 212 --border double \
 	--align center --width 60 --margin "1 2" --padding "2 4" \
@@ -11,13 +16,13 @@ initPythonPackages=true
 
 helpFunction()
 {
-   gum style --foreground 57 ""
-   gum style --foreground 57 "Usage: $0 -n -p -r -v venv-path"
-   gum style --foreground 57  " -r: shuts down existing redis server and spins up a fresh one"
-   gum style --foreground 57  " -v: path to a virtualenv"
-   gum style --foreground 57  " -n: To not install npm packages"
-   gum style --foreground 57  " -p: To not install python packages"
-   gum style --foreground 57 1 # Exit script after printing help
+   gum style --foreground $message_color ""
+   gum style --foreground $message_color "Usage: $0 -n -p -r -v venv-path"
+   gum style --foreground $message_color  " -r: shuts down existing redis server and spins up a fresh one"
+   gum style --foreground $message_color  " -v: path to a virtualenv"
+   gum style --foreground $message_color  " -n: To not install npm packages"
+   gum style --foreground $message_color  " -p: To not install python packages"
+   gum style --foreground $message_color 1 # Exit script after printing help
 }
 
 # Parse command-line arguments
@@ -48,7 +53,7 @@ do
         shift
         ;;
         *) # unknown option
-        gum style --foreground 57 "Unknown option: $1"
+        gum style --foreground $message_color "Unknown option: $1"
         helpFunction
         exit 1
         ;;
@@ -56,35 +61,35 @@ do
 done
 
 gum spin --spinner dot --title 'update ES6 status codes file...' -- python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
-gum style --foreground 212 ':heavy_check_mark: update update ES6 status codes file ...' | gum format -t emoji
+gum style --foreground $success_color ':heavy_check_mark: update update ES6 status codes file ...' | gum format -t emoji
 
 gum spin --spinner dot --title 'create symlinks...' -- sleep 1
 FILE=$PWD/PYTHON/WATCH/STATUS_CODES.yml
 if test -f "$FILE"; then
-   gum style --foreground 57 ":point_right: $FILE exists." | gum format -t emoji
+   gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
 else
    ln STATUS_CODES.yml PYTHON/WATCH/
 fi
 
 FILE=$PWD/src/STATUS_CODES.yml
 if test -f "$FILE"; then
-   gum style --foreground 57 ":point_right: $FILE exists." | gum format -t emoji
+   gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
 else
    ln STATUS_CODES.yml src
 fi
-gum style --foreground 212 ':heavy_check_mark: create symlinks...' | gum format -t emoji
+gum style --foreground $success_color ':heavy_check_mark: create symlinks...' | gum format -t emoji
 
 gum spin --spinner dot --title 'jsonify python functions and write to JS-readable directory' -- python3 write_python_metadata.py
-gum style --foreground 212 ':heavy_check_mark: jsonify python functions and write to JS-readable directory' | gum format -t emoji
+gum style --foreground $success_color ':heavy_check_mark: jsonify python functions and write to JS-readable directory' | gum format -t emoji
 
 gum spin --spinner dot --title 'generate manifest for python nodes to frontend' -- python3 generate_manifest.py
-gum style --foreground 212 ':heavy_check_mark: generate manifest for python nodes to frontend' | gum format -t emoji
+gum style --foreground $success_color ':heavy_check_mark: generate manifest for python nodes to frontend' | gum format -t emoji
 
 if [ $initNodePackages = true ]
 then
-   gum style --foreground 86 ' -n flag is not provided'
+   gum style --foreground $message_color ' -n flag is not provided'
    gum spin --spinner dot --title 'Node packages will be installed from package.json!' -- npm install --legacy-peer-deps
-   gum style --foreground 212 ':heavy_check_mark: Node packages will be installed from package.json!' | gum format -t emoji
+   gum style --foreground $success_color ':heavy_check_mark: Node packages will be installed from package.json!' | gum format -t emoji
 fi
 
 
