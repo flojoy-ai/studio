@@ -203,34 +203,38 @@ then
    if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
 
-      gum spin --spinner dot --title 'A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "${venvCmd} && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title 'A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor the backend LOGS of the Jobs, queued By Flojoy-Watch Worker' '' | gum format -t emoji;${venvCmd} && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+
 
    else
 
       gum spin --spinner dot --title 'starting django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "${venvCmd} && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 
    fi
+
 else
    if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
-      echo "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+
+      gum spin --spinner dot --title 'A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
    else
-      echo "starting django server on port ${djangoPort}..."
-      npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title 'starting django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "${venvCmd} python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
    fi
 fi
-# CWD="$PWD"
 
-# FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
-# if test -f "$FILE"; then
-#    echo "$FILE exists."
-# else
-#    touch $PWD/PYTHON/utils/object_detection/yolov3.weights
-#    wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
-# fi
+feedback $? "starting django server on port $djangoPort..." 'check if django is installed in your local machine'
 
-# sleep 1
+CWD="$PWD"
 
-# echo 'starting react server...'
-# npx ttab -t 'REACT' "${venvCmd} npm start"
+FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+if test -f "$FILE"; then
+   gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
+else
+   touch $PWD/PYTHON/utils/object_detection/yolov3.weights
+   wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+fi
+
+sleep 1
+
+echo 'starting react server...'
+npx ttab -t 'REACT' "${venvCmd} npm start"
