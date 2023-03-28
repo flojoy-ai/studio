@@ -17,7 +17,7 @@
 /build
 
 # gitpod config to prevent unwanted installations
-.gitpod.yml 
+# .gitpod.yml 
 
 # misc
 .DS_Store
