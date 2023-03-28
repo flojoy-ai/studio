@@ -1,11 +1,12 @@
 #!/bin/sh
+#
+# Run all services required by Flojoy Studio
+
 success_color=71
 warning_color=3
 error_color=52
 message_color=61
 general_color=212
-ok_emoji=':heavy_check_mark:'
-not_ok_emoji=':x:'
 
 is_command_successful=0
 
@@ -23,12 +24,14 @@ djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 
+# Gives Feedback if the command run is successful or failed, if failed it exits the execution.
+
 feedback()
 {
    is_successful=$1
    message=$2
    help_message=$3
-   if [ $is_successful -eq 0 ]; then
+   if [ "$is_successful" -eq 0 ]; then
       gum style --foreground $success_color ":heavy_check_mark: $message" | gum format -t emoji
    else
       gum style --foreground $error_color ":x: $message : $help_message" | gum format -t emoji
@@ -36,6 +39,7 @@ feedback()
    fi
 }
 
+# creating system links
 
 createSystemLinks()
 {
@@ -59,11 +63,13 @@ createSystemLinks()
    fi
 }
 
+# Help function
+
 helpFunction()
 {
    gum style --foreground $message_color ""
    gum style --foreground $message_color "Usage: $0 -n -p -r -v venv-path"
-   gum style --foreground $message_color  " -r: shuts down existing redis server and spins up a fresh one"
+   gum style --foreground $message_color  " -r: shuts down existing REDIS server and spins up a fresh one"
    gum style --foreground $message_color  " -v: path to a virtualenv"
    gum style --foreground $message_color  " -n: To not install npm packages"
    gum style --foreground $message_color  " -p: To not install python packages"
@@ -111,18 +117,18 @@ CWD="$PWD"
 
 FILE=$HOME/.flojoy/flojoy.yaml
 if test -f "$FILE"; then
-   touch $HOME/.flojoy/flojoy.yaml
-   echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
+   touch "$HOME"/.flojoy/flojoy.yaml
+   echo "PATH: $CWD" > "$HOME"/.flojoy/flojoy.yaml
    gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
 
 else
    gum style --foreground $warning_color ":point_right: directory ~/.flojoy/flojoy.yaml does not exists. Creating new directory with yaml file." | gum format -t emoji
 
-   mkdir $HOME/.flojoy && touch $HOME/.flojoy/flojoy.yaml
+   mkdir "$HOME"/.flojoy && touch "$HOME"/.flojoy/flojoy.yaml
 
    is_command_successful=$?
 
-   echo "PATH: $CWD" > $HOME/.flojoy/flojoy.yaml
+   echo "PATH: $CWD" > "$HOME"/.flojoy/flojoy.yaml
 
    is_command_successful=$(($is_command_successful+$?))
 
@@ -133,7 +139,7 @@ fi
 
 venvCmd=""
 
-if [ ! -z "$venv" ]
+if [ -n "$venv" ]
 then
    gum style --foreground $warning_color ":point_right: virtualenv path is provided, will use: ${venv}" | gum format -t emoji
    venvCmd="$CWD/${venv}bin/activate"
@@ -146,7 +152,7 @@ else
    else
       gum style --foreground $warning_color ":point_right: $venv_dir does not exists." | gum format -t emoji
 
-      gum spin --spinner dot --title 'creating virtual environment...' --title.foreground="$general_color" -- sleep 2 && cd $HOME/.flojoy && mkdir venv && python3 -m venv venv/
+      gum spin --spinner dot --title 'creating virtual environment...' --title.foreground="$general_color" -- sleep 2 && cd "$HOME"/.flojoy && mkdir venv && python3 -m venv venv/
 
       feedback $? 'virtual environment creation successful' 'failed to create virtual environment, check if if python is installed in your local machine'
 
@@ -160,40 +166,40 @@ if [ $initNodePackages = true ]
 then
    gum style --foreground $message_color ' -n flag is not provided, Node packages will be installed from package.json'
 
-   gum spin --spinner dot --title 'Installing Node packages...' --title.foreground="$general_color" -- sleep 2 && cd $CWD && npm install --legacy-peer-deps
+   gum spin --spinner dot --title 'Installing Node packages...' --title.foreground="$general_color" -- sleep 2 && cd "$CWD" && npm install --legacy-peer-deps
 
    feedback $? 'Installing Node packages...' 'check if npm is installed in your local machine'
 fi
 
-#installing python packages & starting the django server
+#installing python packages & starting the DJANGO server
 
 if [ $initPythonPackages = true ]
 then
    gum style --foreground $warning_color ":point_right: -p flag is not provided, python packages will be installed from requirements.txt file" | gum format -t emoji
 
-   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
 
-      gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor the backend LOGS of the Jobs, queued By Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && pip install -q -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 
 
    else
 
-      gum spin --spinner dot --title "starting django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "source $venvCmd && pip install -q -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "starting DJANGO server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 
    fi
 
 else
-   if lsof -Pi :$djangoPort -sTCP:LISTEN -t >/dev/null ; then
+   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
 
-      gum spin --spinner dot --title 'A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port ${djangoPort}..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
    else
-      gum spin --spinner dot --title 'starting django server on port ${djangoPort}...' --title.foreground="$general_color" -- npx ttab -t 'Django' "source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "starting DJANGO server on port ${djangoPort}..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
    fi
 fi
 
-feedback $? "starting django server on port $djangoPort..." 'check if django is installed in your local machine'
+feedback $? "starting DJANGO server on port $djangoPort..." 'check if DJANGO is installed in your local machine'
 
 # update ES6 status codes file
 
@@ -211,26 +217,26 @@ feedback $is_command_successful 'create symlinks...' 'check your PYTHON/WATCH or
 
 gum spin --spinner dot --title 'jsonify python functions and write to JS-readable directory' --title.foreground="$general_color" -- python3 write_python_metadata.py
 
-feedback $? 'jsonify python functions and write to JS-readable directory' 'check write_python_metadata.py file, maybe the folders mentioned in the file, one of is missing or check your python version, we use 3.10 or later version in our project'
+feedback $? 'jsonify python functions and write to JS-readable directory' 'check write_python_metadata.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
 
 # Generating Manifest
 
 gum spin --spinner dot --title 'generate manifest for python nodes to frontend' --title.foreground="$general_color" -- python3 generate_manifest.py
 
-feedback $? 'generate manifest for python nodes to frontend' 'check generate_manifest.py file, maybe the folders mentioned in the file, one of is missing or check your python version, we use 3.10 or later version in our project'
+feedback $? 'generate manifest for python nodes to frontend' 'check generate_manifest.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
 
 # initializing new Redis Instance
 
-if [ $initRedis ]
+if [ "$initRedis" ]
 then
 
-   gum spin --spinner dot --title 'shutting down any existing redis server and clearing redis memory...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
+   gum spin --spinner dot --title 'shutting down any existing REDIS server and clearing REDIS memory...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
 
-   feedback 'shutting down any existing redis server and clearing redis memory...' 'redis-cli error: check if redis-cli is running or redis is installed in your local machine'
+   feedback 'shutting down any existing REDIS server and clearing REDIS memory...' 'redis-cli error: check if redis-cli is running or REDIS is installed in your local machine'
 
-   gum spin --spinner dot --title 'spining up a fresh redis server...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-server;sleep 2;exit"
+   gum spin --spinner dot --title 'spining up a fresh REDIS server...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-server;sleep 2;exit"
 
-   feedback 'spining up a fresh redis server...' 'try closing and restarting the redis server'
+   feedback 'spinning up a fresh REDIS server...' 'try closing and restarting the REDIS server'
 fi
 
 # Closing All RQ Workers
@@ -246,13 +252,13 @@ rq info
 
 # Initializing FLOJOY-WATCH RQ Worker
 
-gum spin --spinner dot --title 'starting redis worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color 'Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobsets, queued by our scheduler' '' | gum format -t emoji;source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
+gum spin --spinner dot --title 'starting REDIS worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color ''Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here, you can monitor LOGS from Flojoy-Watch while it orchestrates each Python job (AKA node) in your Flojoy program.' | gum format -t emoji;source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
-feedback $? 'starting redis worker for flojoy-watch' 'check if ttab is installed ( npx ttab) or check if rq worker is installed in your python package'
+feedback $? 'starting REDIS worker for flojoy-watch' 'check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 # Initializing FLOJOY RQ Worker
 
-gum spin --spinner dot --title 'starting redis worker for nodes...' --title.foreground="$general_color" -- npx ttab -t 'RQ WORKER' "gum style --foreground $general_color 'Welcome to Flojoy RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobs, queued By Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+gum spin --spinner dot --title 'starting REDIS worker for nodes...' --title.foreground="$general_color" -- npx ttab -t 'RQ WORKER' "gum style --foreground $general_color 'Welcome to Flojoy RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobs (AKA Nodes), queued by Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 
 # Checking for YOLOV3 Weights
@@ -264,8 +270,8 @@ FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
    gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
 else
-   touch $PWD/PYTHON/utils/object_detection/yolov3.weights
-   wget -O $PWD/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+   touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
+   wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
 fi
 
 sleep 1
