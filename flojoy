@@ -180,12 +180,12 @@ then
    if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
       djangoPort=$((djangoPort + 1))
 
-      gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "source $venvCmd && pip install -r requirements.txt;gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 
 
    else
 
-      gum spin --spinner dot --title "starting DJANGO server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji;source $venvCmd && pip install -r requirements.txt && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+      gum spin --spinner dot --title "starting DJANGO server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "source $venvCmd && pip install -r requirements.txt;gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 
    fi
 
@@ -251,14 +251,18 @@ gum style --foreground $warning_color 'rq info after closing:'
 rq info
 
 # Initializing FLOJOY-WATCH RQ Worker
+cd $CWD
 
-gum spin --spinner dot --title 'starting REDIS worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color ''Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here, you can monitor LOGS from Flojoy-Watch while it orchestrates each Python job (AKA node) in your Flojoy program.' | gum format -t emoji;source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
+gum spin --spinner dot --title 'starting REDIS worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color 'Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here, you can monitor LOGS from Flojoy-Watch while it orchestrates each Python job (AKA node) in your Flojoy program.' | gum format -t emoji && source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
+
 
 feedback $? 'starting REDIS worker for flojoy-watch' 'check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 # Initializing FLOJOY RQ Worker
 
 gum spin --spinner dot --title 'starting REDIS worker for nodes...' --title.foreground="$general_color" -- npx ttab -t 'RQ WORKER' "gum style --foreground $general_color 'Welcome to Flojoy RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobs (AKA Nodes), queued by Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+
+feedback $? 'starting REDIS worker for nodes...' 'check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
 # Checking for YOLOV3 Weights
