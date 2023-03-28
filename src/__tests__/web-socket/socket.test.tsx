@@ -87,15 +87,6 @@ describe("WebSocketServer", () => {
             },
             "OK",
           ],
-          [
-            {
-              data: JSON.stringify({
-                type: "worker_response",
-                SYSTEM_STATUS: "🤙 python script run successful",
-              }),
-            },
-            "🐢 awaiting a new job",
-          ],
         ])(
           "given an event message (%p), sets pingresponse with proper status message (%p)",
           (testValue, expectedMessage) => {

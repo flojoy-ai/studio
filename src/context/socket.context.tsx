@@ -17,7 +17,7 @@ type States = {
 export const IServerStatus = serverStatusObj;
 const DEFAULT_STATES = {
   runningNode: "",
-  serverStatus: IServerStatus.CONNECTING,
+  serverStatus: IServerStatus?.CONNECTING,
   failedNode: "",
   failureReason: [],
   socketId: "",
