@@ -1,4 +1,5 @@
 RUN_PRE_JOB_OP: '⏳ running pre-job operation...'
+RUN_POST_JOB_OP: '⏳ running post-job operation...'
 RQ_RUN_IN_PROCESS: '🏃 running script...'
 RQ_RUN_COMPLETE: '🤙 python script run successful'
 MISSING_RQ_RESULTS: '👽 no result found'
@@ -11,3 +12,5 @@ WORKER_MANAGER_OFFLINE: '🛑 worker manager is not running - RUN `npm run worke
 NO_RUNS_YET: '⛷️ No runs yet'
 CONNECTING: '🔄 connecting to the server...'
 PR_JOB_FAILED: '❌ pre-job operation failed - Re-run script..'
+RM_DOCKER_CONTAINER: '🗑 removing docker container: '
+BUILD_DOCKER_CONTAINER: '⏳ building docker image for: '

@@ -16,19 +16,10 @@ RUN chmod +x yaml-script.sh
 # Run the yaml-script.sh file
 RUN bash yaml-script.sh
 
-# # # Run the yaml-script.sh file
-# RUN sh yaml-script.sh
-
 # Copy the rest of the application code to the container
 COPY . /code/
 
-# Run write_python_metadata.py file
-RUN python3 write_python_metadata.py
-
-# Run generate_manifest.py file
-RUN python3 generate_manifest.py
-
-# # RUN CD PYTHON
+# # Set workdir /PYTHON
 WORKDIR /code/PYTHON
 
 # Run the command to start the RQ worker

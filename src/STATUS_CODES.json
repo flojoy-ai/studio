@@ -11,5 +11,7 @@
     "WORKER_MANAGER_OFFLINE": "\ud83d\uded1 worker manager is not running - RUN `npm run worker-manager` from terminal",
     "NO_RUNS_YET": "\u26f7\ufe0f No runs yet",
     "CONNECTING": "\ud83d\udd04 connecting to the server...",
-    "PR_JOB_FAILED": "\u274c pre-job operation failed - Re-run script.."
+    "PR_JOB_FAILED": "\u274c pre-job operation failed - Re-run script..",
+    "RM_DOCKER_CONTAINER": "\ud83d\uddd1 removing docker container: ",
+    "BUILD_DOCKER_CONTAINER": "\u23f3 building docker image for: "
 }

@@ -1,4 +1,3 @@
-
 import json
 import os
 import sys
@@ -20,28 +19,25 @@ warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-
-from nodes.ARITHMETIC import *
-from nodes.ARRAY_AND_MATRIX import *
-from nodes.CONDITIONALS import *
-from nodes.LOADERS import *
-from nodes.LOOPS import *
-from nodes.SIGNAL_PROCESSING import *
-from nodes.SIMULATIONS import *
-from nodes.TIMERS import *
-from nodes.VISORS import *
 from nodes.TERMINATORS import *
-from services.job_service import JobService
+from nodes.VISORS import *
+from nodes.TIMERS import *
+from nodes.SIMULATIONS import *
+from nodes.SIGNAL_PROCESSING import *
+from nodes.LOOPS import *
+from nodes.LOADERS import *
+from nodes.CONDITIONALS import *
+from nodes.ARRAY_AND_MATRIX import *
+from nodes.ARITHMETIC import *
 from utils.topology import Topology
-
-from common.CONSTANTS import KEY_ALL_JOBEST_IDS
-
+from services.job_service import JobService
 
 ENV_CI = 'CI'
 stream = open('STATUS_CODES.yml', 'r')
 STATUS_CODES = yaml.safe_load(stream)
 port = dotenv_values().get('REACT_APP_BACKEND_PORT', '8000')
 BACKEND_HOST = os.environ.get('BACKEND_HOST', 'localhost')
+
 
 def send_to_socket(data):
     requests.post(
@@ -51,19 +47,20 @@ class FlowScheduler:
         self.scheduler_job_id = kwargs['scheduler_job_id']
         self.jobset_id = kwargs.get('jobsetId', None)
         self.flow_chart = kwargs['fc']
+        self.use_custom_rq = kwargs.get('use_custom_rq', False)
 
         self.job_service = JobService('flojoy')
 
     def run(self):
         print('\nrun jobset:', self.jobset_id)
-        self.is_ci = os.getenv(key=ENV_CI, default=False);
+        self.is_ci = os.getenv(key=ENV_CI, default=False)
         print('is running in CI?', self.is_ci)
-        self.nx_graph = reactflow_to_networkx(self.flow_chart['nodes'], self.flow_chart['edges'])
+        self.nx_graph = reactflow_to_networkx(
+            self.flow_chart['nodes'], self.flow_chart['edges'])
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
         self.topology.collect_ready_jobs()
-
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
@@ -81,9 +78,12 @@ class FlowScheduler:
                 next_jobs = self.topology.next_jobs()
 
                 if len(next_jobs) == 0:
-                    wait_time_for_new_jobs = wait_time_for_new_jobs * pow(wait_time_multiplier, num_times_waited_for_new_jobs)
-                    wait_time_for_new_jobs = min(wait_time_for_new_jobs, max_wait_time)
-                    print(F'no new jobs to execute, sleeping for {wait_time_for_new_jobs} sec')
+                    wait_time_for_new_jobs = wait_time_for_new_jobs * \
+                        pow(wait_time_multiplier, num_times_waited_for_new_jobs)
+                    wait_time_for_new_jobs = min(
+                        wait_time_for_new_jobs, max_wait_time)
+                    print(
+                        F'no new jobs to execute, sleeping for {wait_time_for_new_jobs} sec')
                     time.sleep(wait_time_for_new_jobs)
                     num_times_waited_for_new_jobs += 1
                     continue
@@ -104,8 +104,8 @@ class FlowScheduler:
                 self.topology.clear_jobq()
 
             except Exception as e:
-
-                self.topology.print_graph('exception occurred in scheduler, current working graph:')
+                self.topology.print_graph(
+                    'exception occurred in scheduler, current working graph:')
                 print(traceback.format_exc())
                 raise e
 
@@ -135,7 +135,8 @@ class FlowScheduler:
             nodes_to_add += [node_id for node_id in next_nodes]
 
         if len(nodes_to_add) > 0:
-            print(F"  + adding nodes to graph:", [self.topology.get_label(n_id, original=True) for n_id in nodes_to_add])
+            print("  + adding nodes to graph:",
+                  [self.topology.get_label(n_id, original=True) for n_id in nodes_to_add])
 
         for node_id in nodes_to_add:
             self.topology.restart(node_id)
@@ -151,34 +152,51 @@ class FlowScheduler:
         if self.is_ci:
             try:
                 func = getattr(globals()[cmd], cmd_mock)
-                print( ' running the mock version:', cmd_mock)
-            except:
+                print(' running the mock version:', cmd_mock)
+            except Exception:
                 pass
 
-        dependencies = self.topology.get_job_dependencies(job_id, original=True)
+        dependencies = self.topology.get_job_dependencies(
+            job_id, original=True)
 
         print(
             ' enqueue job:',
             self.topology.get_label(job_id),
             'dependencies:',
-            [self.topology.get_label(dep_id, original=True) for dep_id in dependencies]
+            [self.topology.get_label(dep_id, original=True)
+             for dep_id in dependencies]
         )
         socket_msg = {
-                    'SYSTEM_STATUS': f"{STATUS_CODES['JOB_IN_RQ']}{self.topology.get_label(job_id)}",
-                    'RUNNING_NODE': '',
-                    'jobsetId': self.jobset_id
-                }
+            'SYSTEM_STATUS': f"{STATUS_CODES['JOB_IN_RQ']}{self.topology.get_label(job_id)}",
+            'RUNNING_NODE': '',
+            'jobsetId': self.jobset_id
+        }
         send_to_socket(json.dumps(socket_msg))
 
-        self.job_service.enqueue_job(
-            func=func,
-            jobset_id=self.jobset_id,
-            job_id=job_id,
-            iteration_id=job_id,
-            ctrls=node['ctrls'],
-            previous_job_ids=[],
-            input_job_ids=dependencies
-        )
+        if node['docker_info'] is not None and self.use_custom_rq:
+            rq_name = node['docker_info']['rq_name']
+            custom_job_service = JobService(rq_name);
+            print("enquing:", cmd, " to custom rq worker: ", rq_name)
+            custom_job_service.enqueue_job(
+                func=func,
+                jobset_id=self.jobset_id,
+                job_id=job_id,
+                iteration_id=job_id,
+                ctrls=node['ctrls'],
+                previous_job_ids=[],
+                input_job_ids=dependencies
+            )
+        else:
+            print("enqueuing to normal rq: ", cmd)
+            self.job_service.enqueue_job(
+                func=func,
+                jobset_id=self.jobset_id,
+                job_id=job_id,
+                iteration_id=job_id,
+                ctrls=node['ctrls'],
+                previous_job_ids=[],
+                input_job_ids=dependencies
+            )
 
     def wait_for_job(self, job_id):
         print(' waiting for job:', self.topology.get_label(job_id))
@@ -192,7 +210,8 @@ class FlowScheduler:
             if job_status in ['finished', 'failed']:
                 job_result = job.result
                 success = True if job_status == 'finished' else False
-                print('  job:', self.topology.get_label(job_id), 'status:', job_status)
+                print('  job:', self.topology.get_label(
+                    job_id), 'status:', job_status)
                 break
 
         return job_result, success
@@ -202,11 +221,14 @@ class FlowScheduler:
         self.job_service.redis_dao.remove_item_from_list(
             F'{self.jobset_id}_watch', self.scheduler_job_id
         )
+        requests.post(
+            f'http://{BACKEND_HOST}:{port}/job_finished', json={
+                'jobsetId': self.jobset_id
+            })
 
     def print_flow_chart(self):
         print("nodes from FE:", json.dumps(self.flow_chart['nodes'], indent=2),
               "\nedges from FE:", json.dumps(self.flow_chart['edges'], indent=2))
-
 
 
 def reactflow_to_networkx(elems, edges):
@@ -219,6 +241,7 @@ def reactflow_to_networkx(elems, edges):
         ctrls = data['ctrls'] if 'ctrls' in data else {}
         inputs = data['inputs'] if 'inputs' in data else {}
         label = data['label'] if 'label' in data else {}
+        docker_info = data.get('docker', None)
         nx_graph.add_node(
             node_id,
             pos=(el['position']['x'], el['position']['y']),
@@ -226,16 +249,17 @@ def reactflow_to_networkx(elems, edges):
             ctrls=ctrls,
             inputs=inputs,
             label=label,
-            cmd=cmd
+            cmd=cmd,
+            docker_info=docker_info
         )
 
     for i in range(len(edges)):
         e = edges[i]
-        id = e['id']
+        _id = e['id']
         u = e['source']
         v = e['target']
         label = e['sourceHandle']
-        nx_graph.add_edge(u, v, label=label, id=id)
+        nx_graph.add_edge(u, v, label=label, id=_id)
 
     nx.draw(nx_graph, with_labels=True)
 

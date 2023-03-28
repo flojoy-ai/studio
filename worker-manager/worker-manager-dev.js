@@ -2,10 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const systemStatus = require("../src/STATUS_CODES.json");
-const { createAndRunDockerContainers } = require("./pre-job-operations");
-const { removeAllContainers } = require("./post-job-operations");
 const { sendMessageToSocket } = require("./send-msg-to-socket");
+const statusCodes = require("../src/STATUS_CODES.json")
 
 const PORT = process.env.WORKER_MANAGER_PORT || 5000;
 const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
@@ -26,19 +24,6 @@ app.get("/", (_, res) => {
   res.send("Worker-manager is up and running...");
 });
 
-
-/**
- *
- * sends pre-job operation failed status to BACKEND_AP/worker_response
- * which eventually sends that to Frontend
- * @param {string} jobsetId
- */
-const sendErrorResponse = (jobsetId) => {
-  sendMessageToSocket({
-    jobsetId,
-    SYSTEM_STATUS: systemStatus.PR_JOB_FAILED,
-  });
-};
 
 /**
  *
@@ -67,25 +52,6 @@ const runJobs = (data) => {
  * @returns
  */
 const processPreJobOperation = (data) => {
-  const jobsetId = data.jobsetId;
-  const parsedFc = JSON.parse(data.fc);
-  const nodesRequireCustomDocker = parsedFc.nodes
-    .filter((node) => node.data.docker)
-    .filter(
-      (obj, index, self) => index === self.findIndex((o) => o.id === obj.id)
-    );
-  if (nodesRequireCustomDocker.length > 0) {
-    return createAndRunDockerContainers(
-      { nodes: nodesRequireCustomDocker, jobsetId },
-      (isCompleted) => {
-        if (isCompleted) {
-          runJobs({...data, runOnCustomRQ: true});
-        } else {
-          sendErrorResponse(data.jobsetId);
-        }
-      }
-    );
-  }
   return runJobs(data);
 };
 
@@ -99,15 +65,11 @@ app.post("/prepare-jobs", (req, res) => {
     .end();
 });
 app.post("/post-job-run", (req, res) => {
-  removeAllContainers(req.body.jobsetId, (isDone) => {
-    if (isDone) {
-      sendMessageToSocket({
-        jobsetId: req.body.jobsetId,
-        SYSTEM_STATUS: systemStatus.STANDBY,
-      });
-    }
-  });
+  
+  sendMessageToSocket({
+    jobsetId: req.body.jobsetId,
+    SYSTEM_STATUS: statusCodes.STANDBY
+  })
   res.send("Run successfully!");
-  res.end();
+  res.end()
 });
-

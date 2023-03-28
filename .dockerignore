@@ -1,0 +1,8 @@
+node_modules
+public
+build
+cypress
+dist
+electron
+worker-manager
+.pytest_cache

@@ -51,8 +51,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "worker-manager": "DOCKER=true node worker-manager/worker-manager.js",
-    "worker-manager:dev": "DOCKER=false node worker-manager/worker-manager.js",
+    "worker-manager": "node worker-manager/worker-manager.js",
+    "worker-manager:dev": "node worker-manager/worker-manager-dev.js",
     "e2e": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
     "eject": "react-app-rewired eject",
     "cypress": "cypress open",

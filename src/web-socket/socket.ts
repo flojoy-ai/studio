@@ -53,12 +53,6 @@ export class WebSocketServer {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
-            if (
-              data[ResponseEnum.systemStatus] ===
-              IServerStatus.RQ_RUN_COMPLETE
-            ) {
-              this.pingResponse(IServerStatus.STANDBY);
-            }
           }
           if (ResponseEnum.nodeResults in data) {
             this.onNodeResultsReceived((prev: any) => {
