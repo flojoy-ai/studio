@@ -186,8 +186,9 @@ const Sidebar = () => {
         >
           <button
             style={{
-              border: "2px solid #6cdde7",
+              border: "2px solid #30d5c8",
               background: "transparent",
+              borderRadius: "2px",
             }}
           >
             <Anchor
@@ -199,7 +200,8 @@ const Sidebar = () => {
             >
               <span
                 style={{
-                  backgroundColor: "#93f4fc00",
+                  // backgroundColor: "#93f4fc00",
+                  color: "#30d5c8",
                 }}
               >
                 Request a Node

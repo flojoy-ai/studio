@@ -93,7 +93,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         style="padding-top: 20px; padding-left: 100px;"
       >
         <button
-          style="border: 2px solid #6cdde7; background: transparent;"
+          style="border: 2px solid #30d5c8; background: transparent; border-radius: 2px;"
         >
           <a
             class="mantine-Text-root mantine-Anchor-root mantine-1ut1du9"
@@ -102,7 +102,7 @@ exports[`Sidebar should render the component correctly 1`] = `
             target="_blank"
           >
             <span
-              style="background-color: rgba(147, 244, 252, 0);"
+              style="color: rgb(48, 213, 200);"
             >
               Request a Node
             </span>
