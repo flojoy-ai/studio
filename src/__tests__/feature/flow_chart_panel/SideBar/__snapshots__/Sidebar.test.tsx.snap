@@ -40,6 +40,19 @@ exports[`Sidebar should render the component correctly 1`] = `
       </div>
       <div
         class="mantine-khtkeg"
+        style="left: 10px; position: absolute; top: 0px;"
+      >
+        <a
+          class="mantine-Text-root mantine-Anchor-root mantine-1ut1du9"
+          href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+          style="text-decoration: none;"
+          target="_blank"
+        >
+          Request a Node
+        </a>
+      </div>
+      <div
+        class="mantine-khtkeg"
       >
         <div
           class="mantine-Input-wrapper mantine-12sbrde"
