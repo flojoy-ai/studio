@@ -5,6 +5,7 @@ import {
   MantineProvider,
   Flex,
   Input,
+  Anchor,
 } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 
@@ -159,6 +160,23 @@ const Sidebar = () => {
           >
             <CloseIconSvg theme={theme.colorScheme} />
           </button>
+        </Navbar.Section>
+        <Navbar.Section
+          style={{
+            left: 10,
+            position: "absolute",
+            top: 0,
+          }}
+        >
+          <Anchor
+            style={{
+              textDecoration: "none",
+            }}
+            href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+            target="_blank"
+          >
+            Request a Node
+          </Anchor>
         </Navbar.Section>
         <Navbar.Section>
           <Input
