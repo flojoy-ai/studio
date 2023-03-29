@@ -90,16 +90,22 @@ exports[`Sidebar should render the component correctly 1`] = `
       </div>
       <div
         class="mantine-khtkeg"
-        style="padding-top: 10px;"
+        style="padding-top: 20px; padding-left: 100px;"
       >
-        <button>
+        <button
+          style="border: 2px solid #6cdde7; background: transparent;"
+        >
           <a
             class="mantine-Text-root mantine-Anchor-root mantine-1ut1du9"
             href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
             style="text-decoration: none;"
             target="_blank"
           >
-            Request a Node
+            <span
+              style="background-color: rgba(147, 244, 252, 0);"
+            >
+              Request a Node
+            </span>
           </a>
         </button>
       </div>

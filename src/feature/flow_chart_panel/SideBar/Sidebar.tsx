@@ -180,10 +180,16 @@ const Sidebar = () => {
         </Navbar.Section>
         <Navbar.Section
           style={{
-            paddingTop: "10px",
+            paddingTop: "20px",
+            paddingLeft: "100px",
           }}
         >
-          <button>
+          <button
+            style={{
+              border: "2px solid #6cdde7",
+              background: "transparent",
+            }}
+          >
             <Anchor
               style={{
                 textDecoration: "none",
@@ -191,7 +197,13 @@ const Sidebar = () => {
               href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
               target="_blank"
             >
-              Request a Node
+              <span
+                style={{
+                  backgroundColor: "#93f4fc00",
+                }}
+              >
+                Request a Node
+              </span>
             </Anchor>
           </button>
         </Navbar.Section>
