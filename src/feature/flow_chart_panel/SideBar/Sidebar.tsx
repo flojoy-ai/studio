@@ -161,23 +161,7 @@ const Sidebar = () => {
             <CloseIconSvg theme={theme.colorScheme} />
           </button>
         </Navbar.Section>
-        <Navbar.Section
-          style={{
-            left: 10,
-            position: "absolute",
-            top: 0,
-          }}
-        >
-          <Anchor
-            style={{
-              textDecoration: "none",
-            }}
-            href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
-            target="_blank"
-          >
-            Request a Node
-          </Anchor>
-        </Navbar.Section>
+
         <Navbar.Section>
           <Input
             data-testid="sidebar-input"
@@ -193,6 +177,23 @@ const Sidebar = () => {
             value={textInput}
             onChange={(e) => handleChangeInput(e.target.value)}
           />
+        </Navbar.Section>
+        <Navbar.Section
+          style={{
+            paddingTop: "10px",
+          }}
+        >
+          <button>
+            <Anchor
+              style={{
+                textDecoration: "none",
+              }}
+              href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+              target="_blank"
+            >
+              Request a Node
+            </Anchor>
+          </button>
         </Navbar.Section>
         <Navbar.Section
           grow
