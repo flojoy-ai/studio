@@ -51,7 +51,7 @@ do
 done
 
 echo 'update ES6 status codes file...'
-python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
+python3 write_status_code_to_project.py
 
 echo 'jsonify python functions and write to JS-readable directory'
 python3 write_python_metadata.py
@@ -147,7 +147,7 @@ fi
 sleep 1
 
 echo "starting worker-manager server..."
-npx ttab -t 'Worker Manager' "npm run worker-manager:dev"
+npx ttab -t 'Worker Manager' "cd worker-manager && npm install && npm start:dev"
 
 sleep 1
 

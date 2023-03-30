@@ -1,54 +1,29 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { app, BrowserWindow, dialog, Menu } = require("electron");
-const path = require("upath");
-const child_process = require("child_process");
 const { getErrorDetail } = require("./error-helper");
-
+const { runWorkerManager } = require("./worker-manager-server");
+const { killProcess } = require("./kill-task");
+const {
+  getReleativePath,
+  execCmdWithBroadcasting: executeCommand,
+  getComposeFilePath,
+  sendMsgToIpcRenderer,
+} = require("./utils");
 
 const isProd = app.isPackaged;
 const envPath = process.env.PATH;
-
-if (!envPath?.split(":").includes("usr/local/bin")) {
-  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
-}
-
-const getReleativePath = (pathStr) =>
-  path.toUnix(path.join(__dirname, pathStr));
-
+const runningProcesses = [];
+const composeFile = getComposeFilePath(isProd);
 const APP_ICON =
   process.platform === "win32"
     ? getReleativePath("../electron/assets/favicon.ico")
     : getReleativePath("../electron/assets/favicon.icns");
 
-const executeCommand = (command, mainWindow, cb) => {
-  const script = child_process.exec(command);
-  script.stdout.on("data", function (data) {
-    mainWindow.webContents.send("msg", data.toString());
-    if (cb) cb(data);
-  });
-  script.stderr.on("data", function (data) {
-    mainWindow.webContents.send("err", data);
-    if (cb) cb(data);
-  });
-  script.addListener("exit", () => {
-    if (cb) cb("EXITED_COMMAND");
-  });
-};
+if (!envPath?.split(":").includes("usr/local/bin")) {
+  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
+}
 
-const getComposeFilePath = () => {
-  if (!isProd) {
-    return "docker-compose.yml";
-  }
-  const fileName = "docker-compose-prod.yml";
-  if (process.platform === "win32") {
-    return `./resources/${fileName}`;
-  }
-  return getReleativePath(`../../${fileName}`);
-};
-
-const composeFile = getComposeFilePath();
-
-const createMainWindow = () => {
+const createMainWindow = async () => {
   Menu.setApplicationMenu(null);
   const mainWindow = new BrowserWindow({
     width: 1280,
@@ -68,17 +43,35 @@ const createMainWindow = () => {
   mainWindow
     .loadURL(loadingPageURL)
     .then(() =>
-      mainWindow.webContents.send("app_status", "Initializing Flojoy...")
+      sendMsgToIpcRenderer("app_status", "Initializing Flojoy...", mainWindow)
     );
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
   });
+
   let isClosing = false;
   let shouldLoad = true;
   let lastResponse = "";
 
-  const command = `docker-compose -f ${composeFile} up`;
-  executeCommand(command, mainWindow, (response) => {
+  try {
+    sendMsgToIpcRenderer(
+      "msg",
+      "starting worker-manager server...",
+      mainWindow
+    );
+    const workerPID = await runWorkerManager(mainWindow);
+    runningProcesses.push(workerPID);
+    sendMsgToIpcRenderer("msg", "worker-manager is running...", mainWindow);
+  } catch (error) {
+    sendMsgToIpcRenderer(
+      "msg",
+      "worker-manager server failed to start...",
+      mainWindow
+    );
+  }
+  const composeCmd = `docker-compose -f ${composeFile} up`;
+  executeCommand(composeCmd, mainWindow, (response, pid) => {
+    runningProcesses.push(pid);
     const possibleResponseStr = ["WatchingforfilechangeswithStatReloader"];
     const textFoundInResponse = possibleResponseStr.find((str) =>
       response.split(" ").join("").includes(str)
@@ -105,23 +98,21 @@ const createMainWindow = () => {
     }
   });
 
-  const composeDownAndClose = () => {
+  const closeApp = async () => {
     mainWindow
       .loadURL(loadingPageURL)
       .then(() =>
-        mainWindow.webContents.send("app_status", "Closing Flojoy...")
+        sendMsgToIpcRenderer("app_status", "Closing Flojoy...", mainWindow)
       );
-    const composeDownCommand = `docker-compose -f ${composeFile} down`;
-    isClosing = true;
-    executeCommand(composeDownCommand, mainWindow, (response) => {
-      if (response === "EXITED_COMMAND") {
-        mainWindow.destroy();
-        if (process.platform !== "darwin") {
-          app.quit();
-        }
-        process.exit();
-      }
+    runningProcesses.forEach(async (pid) => {
+      console.log("killing pid: ", pid);
+      await killProcess(pid);
     });
+    mainWindow.destroy();
+    if (process.platform !== "darwin") {
+      app.quit();
+    }
+    process.exit();
   };
 
   mainWindow.on("close", async (e) => {
@@ -135,12 +126,12 @@ const createMainWindow = () => {
     };
     const { response } = await dialog.showMessageBox(mainWindow, options);
     if (response === 0) {
-      composeDownAndClose();
+      closeApp();
     }
   });
 
   mainWindow.on("closed", () => {
-    composeDownAndClose();
+    closeApp();
   });
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

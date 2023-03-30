@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const systemStatus = require("../src/STATUS_CODES.json");
+const systemStatus = require("./STATUS_CODES.json");
 const { createAndRunDockerContainers } = require("./pre-job-operations");
 const { removeAllContainers } = require("./post-job-operations");
 const { sendMessageToSocket } = require("./send-msg-to-socket");
@@ -72,7 +72,7 @@ const processPreJobOperation = (data) => {
   const nodesRequireCustomDocker = parsedFc.nodes
     .filter((node) => node.data.docker)
     .filter(
-      (obj, index, self) => index === self.findIndex((o) => o.id === obj.id)
+      (obj, index, self) => index === self.findIndex((o) => o.data.func === obj.data.func)
     );
   if (nodesRequireCustomDocker.length > 0) {
     return createAndRunDockerContainers(

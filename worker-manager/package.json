@@ -1,0 +1,19 @@
+{
+  "name": "worker-manager",
+  "version": "1.0.0",
+  "description": "worker manager for flojoy",
+  "main": "worker-manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node worker-manager.js",
+    "start:dev":"node worker-manager-dev.js"
+  },
+  "author": "Jack Parmer <jack.parmer@proton.me>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.9",
+    "tree-kill": "^1.2.2"
+  }
+}

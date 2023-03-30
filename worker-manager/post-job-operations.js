@@ -2,7 +2,7 @@
 const { executeCommand } = require("./pre-job-operations");
 const { sendMessageToSocket } = require("./send-msg-to-socket");
 const { getAllImages, eraseMemoryData } = require("./write-to-memory");
-const statusCodes = require("../src/STATUS_CODES.json");
+const statusCodes = require("./STATUS_CODES.json");
 
 async function getContainerId(image) {
   try {

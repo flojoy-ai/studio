@@ -22,7 +22,6 @@
     "just-clone": "^6.0.1",
     "localforage": "^1.10.0",
     "module": "^1.2.5",
-    "node-fetch": "^2.6.9",
     "plotly.js": "^2.17.0",
     "rc-slider": "^9.7.5",
     "react": "^17.0.2",
@@ -51,8 +50,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "worker-manager": "node worker-manager/worker-manager.js",
-    "worker-manager:dev": "node worker-manager/worker-manager-dev.js",
+    "worker-manager": "cd worker-manager && npm start",
+    "worker-manager:dev": "cd worker-manager && npm start:dev",
     "e2e": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
     "eject": "react-app-rewired eject",
     "cypress": "cypress open",
@@ -79,6 +78,15 @@
       {
         "from": "docker-compose-prod.yml",
         "to": "docker-compose-prod.yml"
+      },
+      {
+        "from": "worker-manager",
+        "to": "worker-manager",
+        "filter": [
+          "**/*",
+          "!**/node_modules",
+          "!**/node_modules/**"
+        ]
       }
     ],
     "mac": {

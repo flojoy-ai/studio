@@ -32,6 +32,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
+      
+      - name: Run worker-manager server
+        run: cd worker-manager && npm install && npm start
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4

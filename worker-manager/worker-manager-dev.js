@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { sendMessageToSocket } = require("./send-msg-to-socket");
-const statusCodes = require("../src/STATUS_CODES.json")
+const statusCodes = require("./STATUS_CODES.json")
 
 const PORT = process.env.WORKER_MANAGER_PORT || 5000;
 const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
