@@ -142,7 +142,7 @@ venvCmd=""
 if [ -n "$venv" ]
 then
    gum style --foreground $warning_color ":point_right: virtualenv path is provided, will use: ${venv}" | gum format -t emoji
-   venvCmd="$CWD/${venv}bin/activate"
+   venvCmd="$CWD/${venv}/bin/activate"
    gum style --foreground $warning_color ":point_right: venv cmd: ${venvCmd}" | gum format -t emoji
 else
    venv_dir=$HOME/.flojoy/venv
