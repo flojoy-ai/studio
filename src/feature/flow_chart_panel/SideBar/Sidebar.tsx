@@ -5,6 +5,7 @@ import {
   MantineProvider,
   Flex,
   Input,
+  Anchor,
 } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 
@@ -160,6 +161,7 @@ const Sidebar = () => {
             <CloseIconSvg theme={theme.colorScheme} />
           </button>
         </Navbar.Section>
+
         <Navbar.Section>
           <Input
             data-testid="sidebar-input"
@@ -175,6 +177,37 @@ const Sidebar = () => {
             value={textInput}
             onChange={(e) => handleChangeInput(e.target.value)}
           />
+        </Navbar.Section>
+        <Navbar.Section
+          style={{
+            paddingTop: "20px",
+            paddingLeft: "100px",
+          }}
+        >
+          <button
+            style={{
+              border: "2px solid #30d5c8",
+              background: "transparent",
+              borderRadius: "2px",
+            }}
+          >
+            <Anchor
+              style={{
+                textDecoration: "none",
+              }}
+              href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+              target="_blank"
+            >
+              <span
+                style={{
+                  // backgroundColor: "#93f4fc00",
+                  color: "#30d5c8",
+                }}
+              >
+                Request a Node
+              </span>
+            </Anchor>
+          </button>
         </Navbar.Section>
         <Navbar.Section
           grow
