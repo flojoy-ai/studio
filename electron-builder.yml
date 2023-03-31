@@ -1,0 +1,71 @@
+directories:
+  output: dist
+  buildResources: build
+appId: io.flojoy.desktop
+productName: Flojoy-Desktop
+icon: electron/assets/favicon.ico
+asar: true
+files:
+  - "**/**/*"
+  - '!**/worker-manager'
+  - '!**/src'
+  - '!**/cypress'
+  - '!**/dist'
+  - '!.github'
+  - '!**/apps'
+  - '!package.json'
+  - '!package-lock.json'
+  - '!**/app'
+  - '!**/cli-installer'
+  - '!**/.git'
+  - '!**/.pytest_cache'
+  - '!**/coverage'
+  - '!**/templates'
+  - '!**/djangoServer'
+  - '!**/PYTHON'
+  - '!**/public'
+  - '!**/docker'
+  - '!*.*'
+  - build/**/*
+extraResources:
+  - '!**/node_modules'
+  - '!**/worker-manager/node_modules'
+  - '!**/src'
+  - '!**/build'
+  - '!**/electron'
+  - '!**/cypress'
+  - '!**/dist'
+  - '!.github'
+  - '!**/apps'
+  - '!package.json'
+  - '!package-lock.json'
+  - '!**/app'
+  - '!**/cli-installer'
+  - '!**/.git'
+  - '!**/.pytest_cache'
+  - '!**/coverage'
+  - '!**/templates'
+  - '!.gitmodules'
+  - '!snapshot.js'
+  - '!electron-builder.yml'
+  - '!docker-compose-base.yml'
+  - '!docker-compose.yml'
+
+mac:
+  icon: electron/assets/favicon.icns
+  target:
+    - dmg
+  darkModeSupport: true
+linux:
+  icon: electron/assets/favicon.icns
+  target:
+    - deb
+    - tar.gz
+win:
+  icon: electron/assets/favicon.ico
+  target:
+    - portable
+extraMetadata:
+  main: electron/main.js
+extends: null
+electronVersion: 21.3.0

@@ -59,9 +59,20 @@ const sendMsgToIpcRenderer = (channel, data, mainWindow) => {
   return mainWindow.webContents.send(channel, data);
 };
 
+/**
+ * 
+ * @param {string} str 
+ * @param {string[]} texts 
+ */
+const checkIfStrIncludes = (str, texts) => {
+  const filterArr=  texts.filter(i=> str.includes(i))
+   return filterArr.length === texts.length
+ }
+
 module.exports = {
   getReleativePath,
   execCmdWithBroadcasting,
   getComposeFilePath,
   sendMsgToIpcRenderer,
+  checkIfStrIncludes
 };

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "author": "Jack Parmer <jack.parmer@proton.me>",
+  "description": "Joyful visual programming for Python.",
   "main": "electron/main.js",
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -55,7 +56,7 @@
     "e2e": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
     "eject": "react-app-rewired eject",
     "cypress": "cypress open",
-    "electron-dev": "electron .",
+    "electron-dev": "electron --trace-warnings .",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
     "electron-package:win": "electron-builder build --win --publish always",
     "electron-package:linux": "electron-builder build --linux --publish always",
@@ -63,56 +64,6 @@
     "electron-publish": "electron-builder build --publish always -mwl",
     "test": "CI=true node_modules/.bin/jest",
     "test:watch": "jest --watch --coverage"
-  },
-  "build": {
-    "appId": "io.flojoy.desktop",
-    "productName": "Flojoy-Desktop",
-    "asar": true,
-    "icon": "electron/assets/favicon.ico",
-    "files": [
-      "build/**/*",
-      "electron/**/*",
-      "package.json"
-    ],
-    "extraResources": [
-      {
-        "from": "docker-compose-prod.yml",
-        "to": "docker-compose-prod.yml"
-      },
-      {
-        "from": "worker-manager",
-        "to": "worker-manager",
-        "filter": [
-          "**/*",
-          "!**/node_modules",
-          "!**/node_modules/**"
-        ]
-      }
-    ],
-    "mac": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "dmg"
-      ],
-      "darkModeSupport": true
-    },
-    "linux": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "deb",
-        "tar.gz"
-      ]
-    },
-    "win": {
-      "icon": "electron/assets/favicon.ico",
-      "target": [
-        "portable"
-      ]
-    },
-    "extraMetadata": {
-      "main": "electron/main.js"
-    },
-    "extends": null
   },
   "browserslist": {
     "production": [

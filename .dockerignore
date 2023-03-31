@@ -6,3 +6,4 @@ dist
 electron
 worker-manager
 .pytest_cache
+app.asar

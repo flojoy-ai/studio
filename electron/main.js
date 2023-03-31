@@ -8,11 +8,13 @@ const {
   execCmdWithBroadcasting: executeCommand,
   getComposeFilePath,
   sendMsgToIpcRenderer,
+  checkIfStrIncludes,
 } = require("./utils");
 
+let isClosing = false;
 const isProd = app.isPackaged;
 const envPath = process.env.PATH;
-const runningProcesses = [];
+let runningProcesses = [];
 const composeFile = getComposeFilePath(isProd);
 const APP_ICON =
   process.platform === "win32"
@@ -49,7 +51,6 @@ const createMainWindow = async () => {
     mainWindow.show();
   });
 
-  let isClosing = false;
   let shouldLoad = true;
   let lastResponse = "";
 
@@ -59,8 +60,10 @@ const createMainWindow = async () => {
       "starting worker-manager server...",
       mainWindow
     );
-    const workerPID = await runWorkerManager(mainWindow);
-    runningProcesses.push(workerPID);
+    const workerPID = await runWorkerManager(isProd);
+    if (!runningProcesses.includes(workerPID)) {
+      runningProcesses.push(workerPID);
+    }
     sendMsgToIpcRenderer("msg", "worker-manager is running...", mainWindow);
   } catch (error) {
     sendMsgToIpcRenderer(
@@ -71,11 +74,14 @@ const createMainWindow = async () => {
   }
   const composeCmd = `docker-compose -f ${composeFile} up`;
   executeCommand(composeCmd, mainWindow, (response, pid) => {
-    runningProcesses.push(pid);
-    const possibleResponseStr = ["WatchingforfilechangeswithStatReloader"];
-    const textFoundInResponse = possibleResponseStr.find((str) =>
-      response.split(" ").join("").includes(str)
-    );
+    if (!runningProcesses.includes(pid)) {
+      runningProcesses.push(pid);
+    }
+    const djangoReadyStatus = ["System check identified no issues"];
+    const containersRunning = ["Container", "Running"];
+    const textFoundInResponse =
+      checkIfStrIncludes(response, djangoReadyStatus) ||
+      checkIfStrIncludes(response, containersRunning);
     if (textFoundInResponse) {
       if (shouldLoad) {
         mainWindow.loadURL(`file://${getReleativePath("../build/index.html")}`);
@@ -86,7 +92,7 @@ const createMainWindow = async () => {
       if (!isClosing) {
         const { message, detail } = getErrorDetail(lastResponse);
         dialog.showMessageBoxSync(mainWindow, {
-          title: "  Failed To Run Docker Containers",
+          title: " Failed To Run Docker Containers",
           message,
           detail,
           type: "error",
@@ -101,18 +107,40 @@ const createMainWindow = async () => {
   const closeApp = async () => {
     mainWindow
       .loadURL(loadingPageURL)
-      .then(() =>
-        sendMsgToIpcRenderer("app_status", "Closing Flojoy...", mainWindow)
-      );
-    runningProcesses.forEach(async (pid) => {
-      console.log("killing pid: ", pid);
-      await killProcess(pid);
-    });
-    mainWindow.destroy();
-    if (process.platform !== "darwin") {
-      app.quit();
-    }
-    process.exit();
+      .then(() => {
+        sendMsgToIpcRenderer("app_status", "Closing Flojoy...", mainWindow);
+        isClosing = true;
+        Promise.all(
+          runningProcesses.map(async (pidNum) => {
+            await killProcess(pidNum);
+            runningProcesses = runningProcesses.filter((i) => i !== pidNum);
+          })
+        )
+          .then(() => {
+            executeCommand(
+              `docker compose -f ${composeFile} down`,
+              mainWindow,
+              (data) => {
+                if (data === "EXITED_COMMAND") {
+                  if (process.platform !== "darwin") {
+                    app.quit();
+                  }
+                  mainWindow.destroy();
+                  process.exit();
+                }
+              }
+            );
+          })
+          .catch((err) => {
+            console.log("err in task kill: ", err);
+            if (process.platform !== "darwin") {
+              app.quit();
+            }
+            mainWindow.destroy();
+            process.exit();
+          });
+      })
+      .catch((err) => console.log("error loading placeholder html: ", err));
   };
 
   mainWindow.on("close", async (e) => {
