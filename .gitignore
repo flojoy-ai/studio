@@ -45,4 +45,4 @@ dist
 update_apps.js
 *.ipynb
 worker-manager/docker-compose-custom-nodes.yml
-/worker-manager/node_modules
+worker-manager/node_modules
