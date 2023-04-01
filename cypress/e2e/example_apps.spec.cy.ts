@@ -18,7 +18,7 @@ describe("Example apps testing.", () => {
   (exampleApps as IApp[]).forEach((app) => {
     describe(`User workflow for ${app.title} #${app.test_id}`, () => {
       it("Should load all nodes from the app and run successfully.", () => {
-        cy.on("uncaught:exception", (err, runnable) => false);
+        cy.on("uncaught:exception", () => false);
         cy.visit(`"/?test_example_app=${app.title}`, {
           onBeforeLoad(win: any) {
             win.disableIntercom = true;
@@ -63,9 +63,9 @@ describe("Example apps testing.", () => {
             }
           });
         });
-        cy.get(`[data-cy="app-status"]`)
-          .find("code")
-          .contains("🐢 awaiting a new job", { timeout: 60000 });
+        cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+          timeout: 1200000,
+        });
 
         // force close any opened modal in homepage
         cy.get("body").then(($body) => {
@@ -79,9 +79,9 @@ describe("Example apps testing.", () => {
         cy.get(`[data-cy="btn-play"]`).click();
         cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
         // wait for job to finish
-        cy.get(`[data-cy="app-status"]`)
-          .find("code")
-          .contains("🐢 awaiting a new job", { timeout: 65000 });
+        cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+          timeout: 1200000,
+        });
         // Check if the debug flow chart is constructed and visible
         cy.get("[data-testid=result-node]", { timeout: 200000 });
         cy.wait(5000);

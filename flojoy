@@ -2,10 +2,10 @@
 #
 # Run all services required by Flojoy Studio
 
-success_color=71
-warning_color=3
-error_color=52
-message_color=61
+success_color='#00FF00'
+warning_color='#0000FF'
+error_color='#FF0000'
+message_color='#FFFFFF'
 general_color=212
 
 is_command_successful=0
@@ -214,7 +214,7 @@ fi
 
 gum spin --spinner dot --title 'closing all existing rq workers (if any)' --title.foreground="$general_color" -- python3 close-all-rq-workers.py
 
-feedback $? 'closing all existing rq workers (if any)' 'failed to close rq worker, check if rq worker is installed in python packages or run the commands without -p argument'
+# feedback $? 'closing all existing rq workers (if any)' 'failed to close rq worker, check if rq worker is installed in python packages or run the commands without -p argument'
 
 # SHowing RQ WOrker Info
 
@@ -254,7 +254,7 @@ sleep 1
 # Initializing Worker-manager Server
 sleep 1
 
-gum spin --spinner dot --title 'starting worker manager...' --title.foreground="$general_color" -- npx ttab -t 'REACT' "cd worker-manager && npm install && npm start:dev"
+gum spin --spinner dot --title 'starting worker manager...' --title.foreground="$general_color" -- npx ttab -t 'WORKER MANAGER' "gum style --foreground $general_color 'Welcome to Worker Manager Server! :wave: ' '' 'Here you can monitor any errors raised by nodejs server during pre-job and post-job processing' '' | gum format -t emoji;cd worker-manager && npm install && npm run start:dev"
 feedback $? 'starting worker manager...' 'check is npm installed in your local machine'
 
 

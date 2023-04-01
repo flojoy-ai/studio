@@ -43,7 +43,12 @@ jobs:
           start: npm start
           browser: chrome
           install: false
+
       - name: Stop worker-manager server
+        run: pm2 stop workerManager
+      
+      - name: Stop worker-manager on failure
+        if: failure()
         run: pm2 stop workerManager
 
       - name: Dump docker logs on failure

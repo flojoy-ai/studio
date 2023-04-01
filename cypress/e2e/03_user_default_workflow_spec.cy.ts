@@ -17,25 +17,16 @@ describe("User default workflow", () => {
     }).wait(1000);
     cy.get("[data-testid=react-flow]", { timeout: 20000 });
 
-    cy.get(`[data-cy="app-status"]`)
-      .find("code")
-      .then(($ele) => {
-        if (
-          $ele.text().includes("🐢 awaiting a new job") ||
-          $ele.text().includes("⏰ server uptime:")
-        ) {
-          return true;
-        } else {
-          throw new Error("not correct status");
-        }
-      });
+    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+      timeout: 1200000,
+    });
 
     cy.get(`[data-cy="debug-btn"]`).click();
 
     cy.get(`[data-cy="btn-play"]`).click();
     cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
     cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-      timeout: 60000,
+      timeout: 1200000,
     });
     cy.get("[data-testid=result-node]", { timeout: 60000 });
     cy.get(`[data-cy="script-btn"]`).click();

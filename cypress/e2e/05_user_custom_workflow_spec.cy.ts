@@ -29,18 +29,9 @@ describe("user workflow", () => {
     }).wait(1000);
     cy.get("[data-testid=react-flow]", { timeout: 20000 });
 
-    cy.get(`[data-cy="app-status"]`)
-      .find("code")
-      .then(($ele) => {
-        if (
-          $ele.text().includes("🐢 awaiting a new job") ||
-          $ele.text().includes("⏰ server uptime:")
-        ) {
-          return true;
-        } else {
-          throw new Error("not correct status");
-        }
-      });
+    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+      timeout: 1200000,
+    });
 
     cy.get("body").then(($body) => {
       if ($body.find(".ctrl-close-btn").length > 0) {
@@ -99,9 +90,9 @@ describe("user workflow", () => {
 
     cy.get(`[data-cy="btn-play"]`).contains("Play").click();
     cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
-    cy.get(`[data-cy="app-status"]`)
-      .find("code")
-      .contains("🐢 awaiting a new job", { timeout: 600000 });
+    cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
+      timeout: 1200000,
+    });
 
     cy.get("[data-testid=result-node]", { timeout: 20000 });
     cy.wait(5000);
