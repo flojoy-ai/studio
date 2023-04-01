@@ -32,7 +32,7 @@ jobs:
           python-version: '3.10'
           cache: 'pip' 
       - name: Install Python Packages
-        run: pip install json yaml
+        run: pip install PyYAML==6.0
 
       - name: copy status codes
         run: python write_status_codes_to_project.py
