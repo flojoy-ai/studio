@@ -26,10 +26,8 @@ jobs:
         with:
           node-version: 16
       - name: Install dmg-license on MacOs
-        run: |
-          if [ "${{ matrix.os }}" = "macos-latest" ]; then
-            npm i dmg-license
-          fi
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: npm i dmg-license
 
       - name: Setup Python
         uses: actions/setup-python@v4
