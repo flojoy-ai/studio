@@ -20,6 +20,8 @@ services:
       - REDIS_PORT=6379 
     networks:
       - app_network
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
 
   flojoy-watch:
     image: onscene/flojoy-watch:${WATCH_IMAGE_TAG:-latest}
