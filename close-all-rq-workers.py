@@ -16,4 +16,8 @@ print('queue flojoy isEmpty? ', q.is_empty())
 q.empty();
 
 for w in Worker.all(connection=r):
-    os.kill(w.pid, signal.SIGINT)
+    try:
+        os.kill(w.pid, signal.SIGTERM) 
+    except OSError:
+        print("No rq workers running")
+        pass

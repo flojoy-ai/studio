@@ -32,7 +32,7 @@ feedback()
    message=$2
    help_message=$3
    if [ "$is_successful" -eq 0 ]; then
-      gum style --foreground $success_color ":heavy_check_mark: $message" | gum format -t emoji
+      gum style --foreground $success_color ":heavy_check_mark:  $message" | gum format -t emoji
    else
       gum style --foreground $error_color ":x: $message : $help_message" | gum format -t emoji
       exit
@@ -142,7 +142,7 @@ venvCmd=""
 if [ -n "$venv" ]
 then
    gum style --foreground $warning_color ":point_right: virtualenv path is provided, will use: ${venv}" | gum format -t emoji
-   venvCmd="$CWD/${venv}bin/activate"
+   venvCmd="$CWD/${venv}/bin/activate"
    gum style --foreground $warning_color ":point_right: venv cmd: ${venvCmd}" | gum format -t emoji
 else
    venv_dir=$HOME/.flojoy/venv
@@ -243,7 +243,7 @@ fi
 
 gum spin --spinner dot --title 'closing all existing rq workers (if any)' --title.foreground="$general_color" -- python3 close-all-rq-workers.py
 
-feedback $? 'closing all existing rq workers (if any)' 'failed to close rq worker, check if rq worker is installed in python packages or run the commands without -p argument'
+feedback $? 'closing all existing rq workers(if any)' 'Seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
 
 # SHowing RQ WOrker Info
 
