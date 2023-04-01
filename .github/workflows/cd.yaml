@@ -25,6 +25,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install dmg-license on MacOs
+        run: |
+          if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            npm i dmg-license
+          fi
 
       - name: Setup Python
         uses: actions/setup-python@v4
