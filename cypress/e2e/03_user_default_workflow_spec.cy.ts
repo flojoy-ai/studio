@@ -18,7 +18,7 @@ describe("User default workflow", () => {
     cy.get("[data-testid=react-flow]", { timeout: 20000 });
 
     cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-      timeout: 1200000,
+      timeout: 120000,
     });
 
     cy.get(`[data-cy="debug-btn"]`).click();
@@ -26,7 +26,7 @@ describe("User default workflow", () => {
     cy.get(`[data-cy="btn-play"]`).click();
     cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
     cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-      timeout: 1200000,
+      timeout: 300000, // wait maximum 5 minute to complete the run
     });
     cy.get("[data-testid=result-node]", { timeout: 60000 });
     cy.get(`[data-cy="script-btn"]`).click();

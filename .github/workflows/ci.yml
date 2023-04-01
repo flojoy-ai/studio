@@ -28,28 +28,19 @@ jobs:
         uses: isbang/compose-action@v1.3.2
 
       - name: Npm install
-        run: npm install --legacy-peer-deps && npm install -g pm2
+        run: npm install --legacy-peer-deps && cd worker-manager && npm install
 
       - name: Run unit tests
         run: npm run test
       
-      - name: Run worker-manager server
-        run: cd worker-manager && npm install && pm2 start worker-manager-dev.js --name workerManager
-
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
-          start: npm start
+          start: npm start, npm run worker-manager:dev
           browser: chrome
           install: false
-
-      - name: Stop worker-manager server
-        run: pm2 stop workerManager
-      
-      - name: Stop worker-manager on failure
-        if: failure()
-        run: pm2 stop workerManager
+          auto-cancel-after-failures: 1
 
       - name: Dump docker logs on failure
         if: failure()

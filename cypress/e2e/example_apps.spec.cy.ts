@@ -64,7 +64,7 @@ describe("Example apps testing.", () => {
           });
         });
         cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-          timeout: 1200000,
+          timeout: 120000,
         });
 
         // force close any opened modal in homepage
@@ -80,7 +80,7 @@ describe("Example apps testing.", () => {
         cy.get(`[data-cy="btn-cancel"]`, { timeout: 15000 });
         // wait for job to finish
         cy.get(`[data-cy="app-status"]`).contains("🐢 awaiting a new job", {
-          timeout: 1200000,
+          timeout: 300000, // wait maximum 5 minute to complete the run
         });
         // Check if the debug flow chart is constructed and visible
         cy.get("[data-testid=result-node]", { timeout: 200000 });
