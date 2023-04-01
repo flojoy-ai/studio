@@ -31,6 +31,7 @@ jobs:
         with:
           python-version: '3.10'
           cache: 'pip' 
+      - name: Install Python Packages
         run: pip install json yaml
 
       - name: copy status codes
