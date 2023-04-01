@@ -4,7 +4,7 @@
 
 success_color=71
 warning_color=3
-error_color=52
+error_color=9
 message_color=61
 general_color=212
 
@@ -142,7 +142,13 @@ venvCmd=""
 if [ -n "$venv" ]
 then
    gum style --foreground $warning_color ":point_right: virtualenv path is provided, will use: ${venv}" | gum format -t emoji
-   venvCmd="$CWD/${venv}/bin/activate"
+
+   venvCmd="${venv}/bin/activate"
+
+   if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
+      venvCmd="${venv}bin/activate"
+   fi
+
    gum style --foreground $warning_color ":point_right: venv cmd: ${venvCmd}" | gum format -t emoji
 else
    venv_dir=$HOME/.flojoy/venv
@@ -160,7 +166,7 @@ else
    fi
 fi
 
-# installing node packages
+#installing node packages
 
 if [ $initNodePackages = true ]
 then
