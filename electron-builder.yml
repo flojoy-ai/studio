@@ -50,6 +50,7 @@ extraResources:
   - '!electron-builder.yml'
   - '!docker-compose-base.yml'
   - '!docker-compose.yml'
+  - '!**/PYTHON/WATCH/redis-stable'
 
 mac:
   icon: electron/assets/favicon.icns

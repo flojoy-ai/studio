@@ -114,9 +114,9 @@ fi
 
 # update ES6 status codes file
 
-gum spin --spinner dot --title 'update ES6 status codes file...' --title.foreground="$general_color" -- python3 write_status_code_to_project.py
+gum spin --spinner dot --title 'update ES6 status codes file...' --title.foreground="$general_color" -- python3 write_status_codes_to_project.py
 
-feedback $? 'update ES6 status codes file...' 'check your python version, we use python3.10 in our project'
+feedback $? 'update ES6 status codes file...' 'Failed to write status codes to project, Check if all required python packages are installed. You can run this script without -p argument to install required python packages automatically.'
 
 # jsonify python functions
 
