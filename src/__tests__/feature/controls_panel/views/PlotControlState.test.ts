@@ -66,18 +66,16 @@ const testPlotControlProps: PlotControlProps = {
       mode: "lines",
     },
   ],
-  // setPlotData: (prevPlotData) => [
-  //   ...prevPlotData,
-  //   {
-  //     x: [10, 11, 12],
-  //     y: [13, 14, 15],
-  //     z: [16, 17, 18],
-  //     source: "example",
-  //     type: "scatter3d",
-  //     mode: "lines",
-  //   },
-  // ],
-  setPlotData: jest.fn(),
+  setPlotData: () => [
+    {
+      x: [10, 11, 12],
+      y: [13, 14, 15],
+      z: [16, 17, 18],
+      source: "example",
+      type: "scatter3d",
+      mode: "lines",
+    },
+  ],
 };
 
 describe("Testing PlotControl States", () => {
@@ -165,48 +163,23 @@ describe("Testing PlotControl States", () => {
     });
   });
 
-  describe("Testing PlotControlState's ctrlObj Return Values from Passed Arguments of the Rendered Hook", () => {
-    const { result } = renderHook(() => PlotControlState(testPlotControlProps));
-    it("CtrlObj should Return Id value from the passed Arguments of the Rendered Hook", () => {
-      expect(result.current.ctrlObj.id).toBe(testPlotControlProps.ctrlObj.id);
-    });
-    it("CtrlObj should Return Name value from the passed Arguments of the Rendered Hook", () => {
-      expect(result.current.ctrlObj.name).toBe(
-        testPlotControlProps.ctrlObj.name
-      );
-    });
-    it("CtrlObj should Return Type value from the passed Arguments of the Rendered Hook", () => {
-      expect(result.current.ctrlObj.type).toBe(
-        testPlotControlProps.ctrlObj.type
-      );
-    });
-    it("CtrlObj should Return MinHeight value from the passed Arguments of the Rendered Hook", () => {
-      expect(result.current.ctrlObj.minHeight).toBe(
-        testPlotControlProps.ctrlObj.minHeight
-      );
-    });
-    it("CtrlObj should Return MinWidth value from the passed Arguments of the Rendered Hook", () => {
-      expect(result.current.ctrlObj.minWidth).toBe(
-        testPlotControlProps.ctrlObj.minWidth
-      );
-    });
-    describe("CtrlObj.layout should Return value from the passed Arguments of the Rendered Hook", () => {
-      let layout = result.current.ctrlObj.layout;
-      it("Should check that CtrlObj.layout.i Returns value from the passed Arguments of the Rendered Hook", () => {
-        expect(layout.i).toBe(testPlotControlProps.ctrlObj.layout.i);
-      });
-      it("Should check that CtrlObj.layout.x Returns value from the passed Arguments of the Rendered Hook", () => {
-        expect(layout.x).toBe(testPlotControlProps.ctrlObj.layout.x);
-      });
-      it("Should check that CtrlObj.layout.y Returns value from the passed Arguments of the Rendered Hook", () => {
-        expect(layout.y).toBe(testPlotControlProps.ctrlObj.layout.y);
-      });
-      it("Should check that CtrlObj.layout.w Returns value from the passed Arguments of the Rendered Hook", () => {
-        expect(layout.w).toBe(testPlotControlProps.ctrlObj.layout.w);
-      });
-      it("Should check that CtrlObj.layout.h Returns value from the passed Arguments of the Rendered Hook", () => {
-        expect(layout.h).toBe(testPlotControlProps.ctrlObj.layout.h);
-      });
-    });
+  describe("Should Render PlotControlState with Passed Arguments and Return Them ", () => {
+    const {
+      result: { current },
+    } = renderHook(() => PlotControlState(testPlotControlProps));
+    it.each([
+      [current.ctrlObj, testPlotControlProps.ctrlObj],
+      [current.nd, testPlotControlProps.nd],
+      [current.setNd, testPlotControlProps.setNd],
+      [current.results, testPlotControlProps.results],
+      [current.selectedOption, testPlotControlProps.selectedOption],
+      [current.selectedPlotOption, testPlotControlProps.selectedPlotOption],
+      [current.setPlotData, testPlotControlProps.setPlotData],
+    ])(
+      "%o should should Return %o from the passed Arguments of the Rendered Hook",
+      (inputTest, expectedReturnValue) => {
+        expect(inputTest).toBe(expectedReturnValue);
+      }
+    );
   });
 });
