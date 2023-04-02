@@ -238,11 +238,11 @@ then
 
    gum spin --spinner dot --title 'shutting down any existing REDIS server and clearing REDIS memory...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
 
-   feedback 'shutting down any existing REDIS server and clearing REDIS memory...' 'redis-cli error: check if redis-cli is running or REDIS is installed in your local machine'
+   feedback $? 'shutting down any existing REDIS server and clearing REDIS memory...' 'redis-cli error: check if redis-cli is running or REDIS is installed in your local machine'
 
    gum spin --spinner dot --title 'spining up a fresh REDIS server...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-server;sleep 2;exit"
 
-   feedback 'spinning up a fresh REDIS server...' 'try closing and restarting the REDIS server'
+   feedback $? 'spinning up a fresh REDIS server...' 'try closing and restarting the REDIS server'
 fi
 
 # Closing All RQ Workers
