@@ -8,4 +8,4 @@ type FunctionParametersType = {
     };
   };
 };
-export const FUNCTION_PARAMETERS: FunctionParametersType = manifests.parameters;
+export const FUNCTION_PARAMETERS: FunctionParametersType = manifests?.parameters ?? {};
