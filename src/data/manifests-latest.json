@@ -81,7 +81,20 @@
         {
             "name": "Camera",
             "key": "CAMERA",
-            "type": "LOADER"
+            "type": "LOADER",
+            "docker": {
+                "folder_name": "CAMERA",
+                "rq_name": "camera",
+                "arguments": {
+                    "linux": [
+                        "--rm",
+                        "--privileged",
+                        "--env='DISPLAY'",
+                        "--volume='/tmp/.X11-unix:/tmp/.X11-unix:rw'",
+                        "--device='/dev/video0:/dev/video0'"
+                    ]
+                }
+            }
         },
         {
             "name": "Feedback",

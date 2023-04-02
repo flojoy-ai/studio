@@ -40,6 +40,10 @@ exports.getErrorDetail = (msg) => {
       detail:
         "This is because a wrong entry in ~/.docker/config.json was created. Namely credsStore instead of credStore. Changing the entry in ~/.docker/config.json may solve the problem.",
     },
+    "/bin/sh:1:docker-compose:notfound":{
+      message: "Docker Compose not found!",
+      detail: "Docker compose was not found in your machine. You can install it from https://docs.docker.com/engine/install "
+    }
   };
   const errTextObjKeys = Object.keys(errTextsObject);
   const errorIndex = errTextObjKeys.findIndex((key) =>
