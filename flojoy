@@ -4,7 +4,7 @@
 
 success_color=71
 warning_color=3
-error_color=52
+error_color=9
 message_color=61
 general_color=212
 
@@ -32,7 +32,7 @@ feedback()
    message=$2
    help_message=$3
    if [ "$is_successful" -eq 0 ]; then
-      gum style --foreground $success_color ":heavy_check_mark: $message" | gum format -t emoji
+      gum style --foreground $success_color ":heavy_check_mark:  $message" | gum format -t emoji
    else
       gum style --foreground $error_color ":x: $message : $help_message" | gum format -t emoji
       exit
@@ -142,7 +142,13 @@ venvCmd=""
 if [ -n "$venv" ]
 then
    gum style --foreground $warning_color ":point_right: virtualenv path is provided, will use: ${venv}" | gum format -t emoji
-   venvCmd="$CWD/${venv}/bin/activate"
+
+   venvCmd="${venv}/bin/activate"
+
+   if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
+      venvCmd="${venv}bin/activate"
+   fi
+
    gum style --foreground $warning_color ":point_right: venv cmd: ${venvCmd}" | gum format -t emoji
 else
    venv_dir=$HOME/.flojoy/venv
@@ -160,7 +166,7 @@ else
    fi
 fi
 
-# installing node packages
+#installing node packages
 
 if [ $initNodePackages = true ]
 then
@@ -232,18 +238,18 @@ then
 
    gum spin --spinner dot --title 'shutting down any existing REDIS server and clearing REDIS memory...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
 
-   feedback 'shutting down any existing REDIS server and clearing REDIS memory...' 'redis-cli error: check if redis-cli is running or REDIS is installed in your local machine'
+   feedback $? 'shutting down any existing REDIS server and clearing REDIS memory...' 'redis-cli error: check if redis-cli is running or REDIS is installed in your local machine'
 
    gum spin --spinner dot --title 'spining up a fresh REDIS server...' --title.foreground="$general_color" -- npx ttab -t 'REDIS-CLI' "redis-server;sleep 2;exit"
 
-   feedback 'spinning up a fresh REDIS server...' 'try closing and restarting the REDIS server'
+   feedback $? 'spinning up a fresh REDIS server...' 'try closing and restarting the REDIS server'
 fi
 
 # Closing All RQ Workers
 
 gum spin --spinner dot --title 'closing all existing rq workers (if any)' --title.foreground="$general_color" -- python3 close-all-rq-workers.py
 
-feedback $? 'closing all existing rq workers (if any)' 'failed to close rq worker, check if rq worker is installed in python packages or run the commands without -p argument'
+feedback $? 'closing all existing rq workers(if any)' 'Seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
 
 # SHowing RQ WOrker Info
 
