@@ -216,9 +216,9 @@ feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Fail
 
 if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
    djangoPort=$((djangoPort + 1))
-   gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 else
-   gum spin --spinner dot --title "Starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   gum spin --spinner dot --title "Starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 fi
 
 feedback $? "Started Django server on port $djangoPort successfully!" 'Failed while starting Django server, check if Django is installed in your local machine or run this script without -p argument to install it.'
