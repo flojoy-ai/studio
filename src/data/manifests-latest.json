@@ -381,6 +381,12 @@
                 "default": ">="
             }
         },
+        "LINE": {
+            "referred_node": {
+                "type": "node_reference",
+                "default": ""
+            }
+        },
         "CAMERA": {
             "file_type": {
                 "type": "string",
