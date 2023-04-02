@@ -2,6 +2,42 @@
 #
 # Run all services required by Flojoy Studio
 
+platform=$(uname)
+
+if [[ "$platform" == "Linux" ]]; then
+   if dpkg-query -W -f='${Status}' gum 2>/dev/null | grep -q "ok installed"; then
+      :
+   else
+      echo "Gum is not installed on your $platform"
+      echo "Installing Gum... This will require sudo command!"
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+      sudo apt update && sudo apt install gum
+      is_successful=$?
+      if [ ! "$is_successful" -eq 0 ]; then
+         echo "Failed to install Gum.. Try to install it manually from here: https://github.com/charmbracelet/gum "
+         exit
+      fi
+   fi
+elif [[ "$platform" == "Darwin" ]]; then
+   if brew list | grep -q 'gum'; then
+      :
+   else
+      echo "Gum is not installed on your $platform"
+      echo "Installing Gum... This may require root permission!"
+      brew install gum
+      is_successful=$?
+      if [ ! "$is_successful" -eq 0 ]; then
+         echo "Failed to install Gum.. Try install it manually from here: https://github.com/charmbracelet/gum "
+         exit
+      fi
+   fi
+fi
+
+
+
+
 success_color=71
 warning_color=3
 error_color=9
