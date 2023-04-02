@@ -43,9 +43,9 @@ const ControlComponentState = ({
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
-  const [textInput, setTextInput] = useState<string>("");
-  const [numberInput, setNumberInput] = useState<string>("0");
-  const [sliderInput, setSliderInput] = useState<string>("0");
+  const [textInput, setTextInput] = useState<string | unknown>("");
+  const [numberInput, setNumberInput] = useState<string | unknown>("0");
+  const [sliderInput, setSliderInput] = useState<string | unknown>("0");
   const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
