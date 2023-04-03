@@ -138,10 +138,6 @@ const ControlComponentState = ({
     setSelectedOption,
     setSelectedPlotOption,
     openFileSelector,
-
-    plotOptions,
-    setPlotOptions,
-    setInputOptions,
   };
 };
 
