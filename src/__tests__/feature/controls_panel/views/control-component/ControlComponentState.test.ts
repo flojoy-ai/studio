@@ -2,24 +2,38 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import ControlComponentState, {
   ControlComponentStateProps,
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { ControlOptions, NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
+import { ControlOptions, PlotControlOptions, NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { CtrlManifestParam } from "@src/hooks/useFlowChartState";
+
+
+const testCtrlObj = {
+  id: "plot-control",
+  name: "Plot Control",
+  type: "plot",
+  minHeight: 10,
+  minWidth: 10,
+  layout: { i: "asd", x: 34, y: 34, w: 23, h: 3 },
+  param: {
+    functionName: "CONSTANT"
+  }
+}
 
 const testControlComponentProps: ControlComponentStateProps = {
   updateCtrlValue: "myUpdatedValue",
   theme: "dark",
-  ctrlObj: {
+  ctrlObj: { 
     id: "plot-control",
     name: "Plot Control",
     type: "plot",
     minHeight: 10,
     minWidth: 10,
     layout: { i: "asd", x: 34, y: 34, w: 23, h: 3 },
-  },
+    val: 30,
+  }
 };
 
-const testSelectOptions: ControlOptions[] = [
-  {
+const testSelectOptions: ControlOptions = {
     label: "string",
     value: {
       id: "string",
@@ -32,8 +46,17 @@ const testSelectOptions: ControlOptions[] = [
     },
     type: "bar",
     mode: "lines",
+  };
+
+const testSelectedPlotOption : PlotControlOptions = {
+  label: "string",
+  value: {
+    id: "string",
+    type: "bar",
+    mode: "lines",
   },
-];
+}
+
 
 describe("Testing ControlComponentState State's", () => {
   describe("Testing ControlComponentState SelectOptions State", () => {
@@ -48,8 +71,8 @@ describe("Testing ControlComponentState State's", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      act(() => result.current.setSelectOptions(testSelectOptions));
-      expect(result.current.selectOptions).toBe(testSelectOptions);
+      act(() => result.current.setSelectOptions([testSelectOptions]));
+      expect(result.current.selectOptions).toEqual([testSelectOptions]);
     });
   });
 
@@ -61,8 +84,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.inputOptions).toEqual([]);
     });
   });
-
-  // 
+ 
   describe("Testing ControlComponentState OutputOptions State", () => {
     it("Checks if the OutputOptions State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -74,13 +96,12 @@ describe("Testing ControlComponentState State's", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      act(() => result.current.setOutputOptions(testSelectOptions));
-      expect(result.current.outputOptions).toBe(testSelectOptions);
+      act(() => result.current.setOutputOptions([testSelectOptions]));
+      expect(result.current.outputOptions).toEqual([testSelectOptions]);
     });
   });
 
-
-  // 
+ 
   describe("Testing ControlComponentState TextInput State", () => {
     it("Checks if the TextInput State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -98,8 +119,7 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-
-  // 
+ 
   describe("Testing ControlComponentState NumberInput State", () => {
     it("Checks if the NumberInput State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -117,7 +137,7 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-   // 
+ 
    describe("Testing ControlComponentState SliderInput State", () => {
     it("Checks if the SliderInput State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -134,8 +154,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.sliderInput).toBe(expectedString);
     });
   });
-
-  // 
+ 
   describe("Testing ControlComponentState CurrentInputValue State", () => {
     it("Checks if the CurrentInputValue State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -155,8 +174,7 @@ describe("Testing ControlComponentState State's", () => {
     })
   });
 
-
-  // 
+ 
   describe("Testing ControlComponentState Nd State", () => {
     it("Checks if the Nd State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -195,8 +213,7 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-
-  // 
+ 
   describe("Testing ControlComponentState PlotData State", () => {
     it("Checks if the PlotData State renders with default State", () => {
       const testPlotData = [
@@ -230,6 +247,70 @@ describe("Testing ControlComponentState State's", () => {
       );
       act(() => result.current.setPlotData(updatedTestPlotData));
       expect(result.current.plotData).toBe(updatedTestPlotData);
+    });
+  });
+
+
+ 
+   describe("Testing ControlComponentState SelectedOption State", () => {
+    it("Checks if the SelectedOption State renders with default State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      expect(result.current.selectedOption).toBe(undefined);
+    });
+    it("Checks if the SelectedOption's State renders/fires with Updated State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      act(() => result.current.setSelectedOption(testSelectOptions));
+      expect(result.current.selectedOption).toBe(testSelectOptions);
+    });
+  });
+
+  
+ 
+   describe("Testing ControlComponentState SelectedPlotOption State", () => {
+    it("Checks if the SelectedPlotOption State renders with default State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      expect(result.current.selectedPlotOption).toBe(undefined);
+    });
+    it("Checks if the selectedPlotOption's State renders/fires with Updated State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      act(() => result.current.setSelectedPlotOption(testSelectedPlotOption));
+      expect(result.current.selectedPlotOption).toBe(testSelectedPlotOption);
+    });
+  });
+
+ 
+  describe("Testing ControlComponentState StyledLayout State", () => {
+    it("Checks if the StyledLayout State renders with default State", () => {
+      const testStyledLayout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: '#282c34',
+        autosize: true,
+        font: { color: '#fff' },
+        margin: { t: 40, r: 40, b: 40, l: 40 },
+        xaxis: { zeroline: false, type: 'linear' }
+      }
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      expect(result.current.styledLayout).toEqual(testStyledLayout);
+    });
+  });
+
+ 
+  describe("Testing ControlComponentState defaultValue State", () => {
+    it("Checks if the defaultValue State renders with default State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      expect(result.current.defaultValue).toBe(0);
     });
   });
 
