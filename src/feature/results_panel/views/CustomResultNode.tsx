@@ -42,17 +42,8 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
       ) : (
         <PlotlyComponent
           id={data.id}
-          data={[data.resultData]}
-          layout={
-            !data.resultData?.layout
-              ? Object.assign({}, { title: `${data.func}` }, styledLayout)
-              : Object.assign(
-                  {},
-                  { title: `${data.func}` },
-                  data.resultData.layout,
-                  styledLayout
-                )
-          }
+          data={data?.resultData.data!}
+          layout={Object.assign({},{title:data.label}, styledLayout)}
           useResizeHandler
           style={{
             height: 190,
