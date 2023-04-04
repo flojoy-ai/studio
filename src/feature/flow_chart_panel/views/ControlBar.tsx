@@ -119,6 +119,7 @@ const Controls: FC<ControlsProps> = ({
             Save
           </button>
           <button
+            data-cy="btn-saveas"
             style={{
               display: "flex",
               justifyContent: "space-between",
