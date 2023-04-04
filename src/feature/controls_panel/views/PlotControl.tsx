@@ -6,7 +6,7 @@ import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { SetStateAction } from "jotai";
-import { PlotData } from "plotly.js";
+import { Data, PlotData } from "plotly.js";
 import {
   ResultIO,
   ResultsType,
@@ -26,24 +26,10 @@ export interface PlotControlProps {
   setSelectedPlotOption: Dispatch<
     SetStateAction<PlotControlOptions | undefined>
   >;
-  plotData: {
-    x: number[];
-    y: number[];
-    z: number[];
-    source: string;
-    type: string;
-    mode: string;
-  }[];
+  plotData: Data[];
   setPlotData: React.Dispatch<
     React.SetStateAction<
-      {
-        x: number[];
-        y: number[];
-        z: number[];
-        source: string;
-        type: string;
-        mode: string;
-      }[]
+    Data[]
     >
   >;
 }
@@ -53,7 +39,7 @@ const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
   scatter3d: ["x", "y", "z"],
   scatter: ["x", "y"],
   surface: ["x", "y", "z"],
-  image: ["y"],
+  image: [],
 };
 const PlotControl = ({
   nd,
@@ -103,14 +89,6 @@ const PlotControl = ({
     setNd,
     setPlotData,
   });
-
-  if (plotData && plotData.length > 0 && plotData[0]
-     && plotData[0].type === "image") {
-      if (plotData[0].y && plotData[0].y.length > 0) {
-        const dataUrl = convertToDataUrl(plotData[0].y[0], "image");
-        plotData[0]["source"] = dataUrl;
-      }
-  }  
 
   return (
     <Fragment>
@@ -177,14 +155,8 @@ const PlotControl = ({
         }}
       >
         <Plot
-          data={[
-            {
-              ...plotData[0],
-              type: selectedPlotOption?.value?.type!,
-              mode: selectedPlotOption?.value?.mode,
-            },
-          ]}
-          layout={styledPlotLayout(theme)}
+          data={plotData}
+          layout={Object.assign( {}, styledPlotLayout(theme))}
           style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
         />
       </div>
@@ -193,27 +165,3 @@ const PlotControl = ({
 };
 
 export default PlotControl;
-
-
-function convertToDataUrl(fileContent: any, fileType: string): string {
-  let dataUrl = '';
-  switch (fileType) {
-    case 'image':
-      dataUrl = "data:image/jpeg;base64," + convertToBase64(fileContent)
-      break;
-    default:
-      break;
-  }
-  return dataUrl;
-}
-
-function convertToBase64(content: any): string {
-  let binary = ''
-  const bytes = new Uint8Array(content);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary);
-
-}

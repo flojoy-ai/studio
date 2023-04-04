@@ -20,6 +20,7 @@ import {
   NodeInputOptions,
   PlotControlOptions,
 } from "../../types/ControlOptions";
+import { Data } from "plotly.js";
 type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;
@@ -49,16 +50,7 @@ const ControlComponentState = ({
   const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
-  const [plotData, setPlotData] = useState([
-    {
-      x: [1, 2, 3],
-      y: [1, 2, 3],
-      z: [1, 2, 3],
-      source: "",
-      type: "scatter",
-      mode: "lines",
-    },
-  ]);
+  const [plotData, setPlotData] = useState<Data[]>([])
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined
   >(undefined);
