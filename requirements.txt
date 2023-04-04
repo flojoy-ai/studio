@@ -2,7 +2,7 @@ channels==4.0.0
 daphne==4.0.0
 Django==4.1.2
 django-cors-headers==3.13.0
-flojoy==0.2.2.dev1
+flojoy==0.2.2.dev2
 matplotlib==3.5.2
 networkx==2.8.4
 numpy==1.23.0
