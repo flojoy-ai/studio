@@ -35,11 +35,11 @@ You can also use the docker-desktop to control and check logs for the services.
 ## Run Flojoy without Docker (Mac/Linux only)
 
 1. Clone this repo with `--recursive` argument as follows: `git clone --recursive https://github.com/flojoy-io/studio.git`
-2. Make sure that you have Python 3, Redis, and Node already installed. Please note that this project requires Python 
+2. Make sure that you have Python 3.10, Redis, and Node already installed. Please note that this project requires Python 
 3. `cd` into the project root
-4. Run `$ sh mac_start_up.sh`
+4. Run `$ bash mac_start_up.sh`
 
-   - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `sh mac_start_up.sh -v venv2`
+   - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `bash mac_start_up.sh -v venv2`
    - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
    - You can provide `-n` argument to skip installing Javascript packages.
    - You can provide `-p` argument to skip installing python packages. 
