@@ -16,6 +16,9 @@
 # production
 /build
 
+# Gitpod config file
+# .gitpod.yml
+
 # misc
 .DS_Store
 .env.local
