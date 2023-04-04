@@ -263,6 +263,7 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.NumericInput && (
         <div className="ctrl-input-body" data-cy="numeric-input">
           <input
+            type='number'
             placeholder="Enter a number"
             className="ctrl-numeric-input border-color"
             onChange={(e) => {
