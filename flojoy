@@ -158,17 +158,17 @@ createFlojoyDirectoryWithYmlFile()
    if test -d "$FOLDER"; then
       if test -f "$FILE"; then
          gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
-         gum spin --spinner dot --title "Updating file path in flojoy.yaml file..." --title.foreground="$general_color" echo "PATH: $CWD" > $FILE
+         gum spin --spinner dot --title "Updating file path in flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && echo "PATH: $CWD" > $FILE
          feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
 
       else
          gum style --foreground $warning_color ":point_right: file flojoy.yaml in directory $FOLDER does not exists. " | gum format -t emoji
-         gum spin --spinner dot --title "Creating new flojoy.yaml file..." --title.foreground="$general_color" touch $FILE && echo "PATH: $CWD" > $FILE
+         gum spin --spinner dot --title "Creating new flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && touch $FILE && echo "PATH: $CWD" > $FILE
          feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
       fi
    else
       gum style --foreground $warning_color ":point_right: directory ~/.flojoy/flojoy.yaml does not exists. " | gum format -t emoji
-      gum spin --spinner dot --title "Creating new directory with yaml file..." --title.foreground="$general_color" mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
+      gum spin --spinner dot --title "Creating new directory with yaml file..." --title.foreground="$general_color" -- sleep 1 && mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
       feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
    fi
 }
