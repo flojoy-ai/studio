@@ -2,27 +2,16 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import ControlComponentState, {
   ControlComponentStateProps,
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { ControlOptions, PlotControlOptions, NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
+import {
+  ControlOptions,
+  PlotControlOptions
+} from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import { CtrlManifestParam } from "@src/hooks/useFlowChartState";
-
-
-const testCtrlObj = {
-  id: "plot-control",
-  name: "Plot Control",
-  type: "plot",
-  minHeight: 10,
-  minWidth: 10,
-  layout: { i: "asd", x: 34, y: 34, w: 23, h: 3 },
-  param: {
-    functionName: "CONSTANT"
-  }
-}
 
 const testControlComponentProps: ControlComponentStateProps = {
   updateCtrlValue: "myUpdatedValue",
   theme: "dark",
-  ctrlObj: { 
+  ctrlObj: {
     id: "plot-control",
     name: "Plot Control",
     type: "plot",
@@ -30,33 +19,32 @@ const testControlComponentProps: ControlComponentStateProps = {
     minWidth: 10,
     layout: { i: "asd", x: 34, y: 34, w: 23, h: 3 },
     val: 30,
-  }
+  },
 };
 
 const testSelectOptions: ControlOptions = {
-    label: "string",
-    value: {
-      id: "string",
-      functionName: "string",
-      param: "string",
-      nodeId: "string",
-      inputId: "string",
-      type: "bar",
-      mode: "lines",
-    },
+  label: "string",
+  value: {
+    id: "string",
+    functionName: "string",
+    param: "string",
+    nodeId: "string",
+    inputId: "string",
     type: "bar",
     mode: "lines",
-  };
+  },
+  type: "bar",
+  mode: "lines",
+};
 
-const testSelectedPlotOption : PlotControlOptions = {
+const testSelectedPlotOption: PlotControlOptions = {
   label: "string",
   value: {
     id: "string",
     type: "bar",
     mode: "lines",
   },
-}
-
+};
 
 describe("Testing ControlComponentState State's", () => {
   describe("Testing ControlComponentState SelectOptions State", () => {
@@ -84,7 +72,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.inputOptions).toEqual([]);
     });
   });
- 
+
   describe("Testing ControlComponentState OutputOptions State", () => {
     it("Checks if the OutputOptions State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -101,7 +89,6 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
- 
   describe("Testing ControlComponentState TextInput State", () => {
     it("Checks if the TextInput State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -113,13 +100,12 @@ describe("Testing ControlComponentState State's", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      const expectedString = "I got Updated"
+      const expectedString = "I got Updated";
       act(() => result.current.setTextInput(expectedString));
       expect(result.current.textInput).toBe(expectedString);
     });
   });
 
- 
   describe("Testing ControlComponentState NumberInput State", () => {
     it("Checks if the NumberInput State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -131,14 +117,13 @@ describe("Testing ControlComponentState State's", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      const expectedString = "10"
+      const expectedString = "10";
       act(() => result.current.setNumberInput(expectedString));
       expect(result.current.numberInput).toBe(expectedString);
     });
   });
 
- 
-   describe("Testing ControlComponentState SliderInput State", () => {
+  describe("Testing ControlComponentState SliderInput State", () => {
     it("Checks if the SliderInput State renders with default State", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
@@ -149,12 +134,12 @@ describe("Testing ControlComponentState State's", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      const expectedString = "10"
+      const expectedString = "10";
       act(() => result.current.setSliderInput(expectedString));
       expect(result.current.sliderInput).toBe(expectedString);
     });
   });
- 
+
   describe("Testing ControlComponentState CurrentInputValue State", () => {
     it("Checks if the CurrentInputValue State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -162,19 +147,22 @@ describe("Testing ControlComponentState State's", () => {
       );
       expect(result.current.currentInputValue).toBe(0);
     });
-   
+
     it.each([
-      [10, 10], ["30", "30"]
-    ]) ("Checks if the CurrentInputValue's State renders/fires with Updated State %p",(inputValue, expectedValue) => {
-      const { result } = renderHook(() =>
-      ControlComponentState(testControlComponentProps)
+      [10, 10],
+      ["30", "30"],
+    ])(
+      "Checks if the CurrentInputValue's State renders/fires with Updated State %p",
+      (inputValue, expectedValue) => {
+        const { result } = renderHook(() =>
+          ControlComponentState(testControlComponentProps)
+        );
+        act(() => result.current.setCurrentInputValue(inputValue));
+        expect(result.current.currentInputValue).toBe(expectedValue);
+      }
     );
-      act(() => result.current.setCurrentInputValue(inputValue));
-      expect(result.current.currentInputValue).toBe(expectedValue);
-    })
   });
 
- 
   describe("Testing ControlComponentState Nd State", () => {
     it("Checks if the Nd State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -204,7 +192,7 @@ describe("Testing ControlComponentState State's", () => {
             },
           ],
         },
-      }
+      };
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
@@ -213,7 +201,6 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
- 
   describe("Testing ControlComponentState PlotData State", () => {
     it("Checks if the PlotData State renders with default State", () => {
       const testPlotData = [
@@ -225,7 +212,7 @@ describe("Testing ControlComponentState State's", () => {
           type: "scatter",
           mode: "lines",
         },
-      ]
+      ];
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
@@ -235,13 +222,13 @@ describe("Testing ControlComponentState State's", () => {
       const updatedTestPlotData = [
         {
           x: [5, 3, 2],
-          y: [4,2, 6],
+          y: [4, 2, 6],
           z: [2, 3, 5],
           source: "",
           type: "scatter",
           mode: "bar",
         },
-      ]
+      ];
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
@@ -250,9 +237,7 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-
- 
-   describe("Testing ControlComponentState SelectedOption State", () => {
+  describe("Testing ControlComponentState SelectedOption State", () => {
     it("Checks if the SelectedOption State renders with default State", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
@@ -268,9 +253,7 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-  
- 
-   describe("Testing ControlComponentState SelectedPlotOption State", () => {
+  describe("Testing ControlComponentState SelectedPlotOption State", () => {
     it("Checks if the SelectedPlotOption State renders with default State", () => {
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
@@ -286,17 +269,16 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
- 
   describe("Testing ControlComponentState StyledLayout State", () => {
     it("Checks if the StyledLayout State renders with default State", () => {
       const testStyledLayout = {
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: '#282c34',
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "#282c34",
         autosize: true,
-        font: { color: '#fff' },
+        font: { color: "#fff" },
         margin: { t: 40, r: 40, b: 40, l: 40 },
-        xaxis: { zeroline: false, type: 'linear' }
-      }
+        xaxis: { zeroline: false, type: "linear" },
+      };
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
@@ -304,7 +286,6 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
- 
   describe("Testing ControlComponentState defaultValue State", () => {
     it("Checks if the defaultValue State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -314,4 +295,35 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
+
+  describe("Testing ControlComponentState ParamOptions State", () => {
+    it("Checks if the ParamOptions State renders with default State", () => {
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      expect(result.current.paramOptions).toEqual([]);
+    });
+  });
+
+  //
+  describe("Testing ControlComponentState openFileSelector State", () => {
+    it("Checks if the openFileSelector State renders with default State", () => {
+      jest.mock("@src/feature/controls_panel/views/control-component/ControlComponentState")
+      const { result } = renderHook(() =>
+        ControlComponentState(testControlComponentProps)
+      );
+      const openFileSelector = jest.fn();
+
+      const testPlainFilesValue = {
+        accept: ".txt",
+        maxFileSize: 5,
+        readFilesContent: false,
+        multiple: false,
+      };
+      openFileSelector.mockReturnValue(testPlainFilesValue);
+
+      expect(result.current.openFileSelector()).toBe(undefined)
+      expect(openFileSelector()).toEqual(testPlainFilesValue);
+    });
+  });
 });
