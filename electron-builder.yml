@@ -28,7 +28,7 @@ files:
   - '!*.*'
   - build/**/*
 extraResources:
-  - '!**/node_modules'
+  - '!node_modules'
   - '!**/src'
   - '!**/build'
   - '!**/electron'
@@ -50,6 +50,7 @@ extraResources:
   - '!docker-compose-base.yml'
   - '!docker-compose.yml'
   - '!**/PYTHON/WATCH/redis-stable'
+
 
 mac:
   icon: electron/assets/favicon.icns
