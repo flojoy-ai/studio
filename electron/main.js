@@ -60,7 +60,7 @@ const createMainWindow = async () => {
       "starting worker-manager server...",
       mainWindow
     );
-    const workerPID = await runWorkerManager(isProd);
+    const workerPID = await runWorkerManager(isProd, mainWindow);
     if (!runningProcesses.includes(workerPID)) {
       runningProcesses.push(workerPID);
     }
