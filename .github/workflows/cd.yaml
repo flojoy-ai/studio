@@ -46,5 +46,6 @@ jobs:
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
+          build_script_name: "pre-electron-build"
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release: true

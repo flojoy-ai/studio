@@ -51,6 +51,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "pre-electron-build":"npm run build && cd worker-manager && npm install",
     "worker-manager": "cd worker-manager && npm start",
     "worker-manager:dev": "cd worker-manager && npm run start:dev",
     "e2e": "CI=true node_modules/.bin/cypress run --headed --browser chrome",
