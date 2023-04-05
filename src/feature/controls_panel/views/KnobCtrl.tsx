@@ -8,7 +8,7 @@ import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
 
-interface KnobCtrlProps {
+export interface KnobCtrlProps {
   makeLayoutStatic: () => void;
   isEditMode: boolean;
   ctrlObj: CtlManifestType;
@@ -67,6 +67,7 @@ const KnobCtrl = ({
         justifyContent: "center",
         alignItems: "center",
       }}
+      data-testid={"KnobCtrlDiv"}
     >
       <Silver
         style={{
