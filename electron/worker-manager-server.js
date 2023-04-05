@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const child_process = require("child_process");
-const { getReleativePath } = require("./utils");
+const { getReleativePath, sendMsgToIpcRenderer } = require("./utils");
 
 const executeCommand = (command, cb) => {
   const script = child_process.exec(command);
@@ -19,7 +19,7 @@ const executeCommand = (command, cb) => {
  * @param {boolean} isProd 
  * @returns 
  */
-const runWorkerManager = async (isProd) => {
+const runWorkerManager = async (isProd, mainWindow) => {
   return new Promise((resolve, reject) => {
     const folderName = "worker-manager";
     const prodFilePath =
@@ -28,8 +28,9 @@ const runWorkerManager = async (isProd) => {
         : getReleativePath(`../../${folderName}`);
     const filePath = isProd ? prodFilePath : folderName;
     executeCommand(
-      `cd ${filePath} && npm install && npm run start`,
+      `cd ${filePath} && npm run start`,
       (data, pid) => {
+        sendMsgToIpcRenderer('msg', data, mainWindow)
         console.log("worker-manager:: ", data);
         if (data.includes("Running worker-manager on port")) {
           resolve(pid);

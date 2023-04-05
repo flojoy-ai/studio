@@ -29,7 +29,6 @@ files:
   - build/**/*
 extraResources:
   - '!**/node_modules'
-  - '!**/worker-manager/node_modules'
   - '!**/src'
   - '!**/build'
   - '!**/electron'

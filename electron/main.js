@@ -132,6 +132,8 @@ const createMainWindow = async () => {
             );
           })
           .catch((err) => {
+            sendMsgToIpcRenderer('msg', JSON.stringify(err), mainWindow)
+            sendMsgToIpcRenderer('msg', "Closing anyway...", mainWindow)
             console.log("err in task kill: ", err);
             if (process.platform !== "darwin") {
               app.quit();
