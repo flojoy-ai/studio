@@ -20,7 +20,7 @@ import {
   NodeInputOptions,
   PlotControlOptions,
 } from "../../types/ControlOptions";
-type ControlComponentStateProps = {
+export type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;
   theme: "light" | "dark";
@@ -43,9 +43,9 @@ const ControlComponentState = ({
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
-  const [textInput, setTextInput] = useState("");
-  const [numberInput, setNumberInput] = useState("0");
-  const [sliderInput, setSliderInput] = useState("0");
+  const [textInput, setTextInput] = useState<string>("");
+  const [numberInput, setNumberInput] = useState<string>("0");
+  const [sliderInput, setSliderInput] = useState<string>("0");
   const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 

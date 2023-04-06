@@ -24,6 +24,7 @@ const DropDown = ({ children, DropDownBtn, theme }: DropDownProps) => {
   };
   return (
     <div
+      data-cy="dropdown-wrapper"
       data-testid="dropdown-wrapper"
       className="dropdown__wrapper"
       onMouseEnter={openDropDown}

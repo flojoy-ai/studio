@@ -63,8 +63,9 @@
     "electron-package:linux": "electron-builder build --linux --publish always",
     "electron-package:mac": "electron-builder build --mac --publish always",
     "electron-publish": "electron-builder build --publish always -mwl",
-    "test": "node_modules/.bin/jest",
-    "test:watch": "jest --watch --coverage"
+    "test": "CI=true node_modules/.bin/jest",
+    "test:watch": "jest --watch --coverage",
+    "test:dev": "node_modules/.bin/jest"
   },
   "browserslist": {
     "production": [
