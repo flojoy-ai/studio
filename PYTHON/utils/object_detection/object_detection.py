@@ -22,14 +22,31 @@ def get_output_layers(net):
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     if confidence < 0.5:
         return;
-
     label = str(classes[class_id])
+    
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 1
+    thickness = 2
 
-    color = COLORS[class_id]
+    # Draw a rectangle that covers the detected object
+    cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), COLORS[class_id], thickness)
+    # Get the size of the label text
+    text_size, _ = cv2.getTextSize(label, font, font_scale, thickness)
+    text_width, text_height = text_size[0], text_size[1]
 
-    cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 2)
+    # Set the size of the background rectangle
+    rect_width = int(text_width * 1.5)
+    rect_height = int(text_height * 1.5)
 
-    cv2.putText(img, label, (x-5,y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+    # Calculate the coordinates of the background rectangle
+    rect_x = x
+    rect_y = y - rect_height - 5
+
+    # Draw the background rectangle
+    cv2.rectangle(img, (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), (0,0,0), cv2.FILLED)
+    # Draw the label text on top of the background rectangle
+    cv2.putText(img, label, (x, y - int(text_height * 0.5) - 5), font, font_scale, (255,255,255), thickness)
+
 
 
 
