@@ -75,5 +75,12 @@ export const SECTIONS = [
     child: [
       {name: "Terminator", key:'TERMINATOR'}
     ]
+  },
+    {
+    title: "Instruments",
+    child: [
+      {name: "Keithley2400", key:'KEYTHLEY2400'},
+      {name: "LabJacku3", key:'LABJACKU3'},
+    ]
   }
 ];

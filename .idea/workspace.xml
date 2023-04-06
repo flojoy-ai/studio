@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1887e776-b220-4a83-9b5c-da8997165477" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/exodriver-master/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/90-labjack.rules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/INSTALL.Linux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/INSTALL.MacOSX" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/modbus.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/modbus.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/readModbusExample.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/testModbusFunctions.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/Modbus/writeModbusExample.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U12/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U12/u12AISample.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3BasicConfigU3.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3EFunctions.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3Feedback.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3LJTDAC.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3Stream.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U3/u3allio.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6BasicConfigU6.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6ConfigU6.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6EFunctions.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6Feedback.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6LJTDAC.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6Stream.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/U6/u6allio.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9BasicCommConfig.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9ControlConfig.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9EFunctions.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9EthernetExample.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9Feedback.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9LJTDAC.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9SingleIO.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9Stream.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9TimerCounter.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/examples/UE9/ue9allio.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/install.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/liblabjackusb/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/liblabjackusb/add_ldconfig_path.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/liblabjackusb/labjackusb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exodriver-master/liblabjackusb/labjackusb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.github/cifuzz.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.github/workflows/linux.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.github/workflows/macos.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.github/workflows/msys2.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/appveyor_build.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/bm.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/ci-build.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/ci-container-build.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/post-rewrite.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/pre-commit.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.private/wbs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/.travis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/AUTHORS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/COPYING" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/ChangeLog" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/INSTALL_WIN.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/NEWS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/PORTING" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/README.git" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/TODO" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/common.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/config.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/debug.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/libusb.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/libusb.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/libusb_debug.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/libusb_release.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/Xcode/release.xcconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/config.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/examples/unrooted_android.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/examples/unrooted_android.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/jni/Android.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/jni/Application.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/jni/examples.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/jni/libusb.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/android/jni/tests.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/appveyor.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/autogen.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/bootstrap.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/configure.ac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/doc/Makefile.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/doc/doxygen.cfg.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/doc/libusb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/dpfp.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/ezusb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/ezusb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/fxload.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/hotplugtest.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/listdevs.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/sam3u_benchmark.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/testlibusb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/examples/xusb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb-1.0.pc.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/Makefile.am.extra" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/core.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/descriptor.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/hotplug.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/io.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/libusb-1.0.def" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/libusb-1.0.rc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/libusb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/libusbi.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/darwin_usb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/darwin_usb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/events_posix.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/events_posix.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/events_windows.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/events_windows.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/haiku_pollfs.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/haiku_usb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/haiku_usb_backend.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/haiku_usb_raw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/haiku_usb_raw.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/linux_netlink.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/linux_udev.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/linux_usbfs.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/linux_usbfs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/netbsd_usb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/null_usb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/openbsd_usb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/sunos_usb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/sunos_usb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/threads_posix.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/threads_posix.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/threads_windows.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/threads_windows.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_common.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_common.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_usbdk.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_usbdk.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_winusb.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/os/windows_winusb.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/strerror.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/sync.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/version.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/libusb/version_nano.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/config.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/dpfp_threaded_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/fxload_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt/getopt.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt/getopt.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt/getopt1.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/getopt_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/hotplugtest_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_2013.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_2015.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_2017.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_2019.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_dll_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/libusb_static_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/listdevs_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/sam3u_benchmark_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/stress_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/testlibusb_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2013.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2013.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2015.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2015.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2017.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2017.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2019.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/msvc/xusb_2019.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/tests/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/tests/libusb_testlib.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/tests/stress.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/tests/testlib.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libusb-1.0.26/tests/umockdev.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PYTHON/WATCH/watch.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/WATCH/watch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PYTHON/nodes" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/LABJACKU3.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/LABJACKU3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps" beforeDir="false" afterPath="$PROJECT_DIR$/apps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/manifests-latest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/manifests-latest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/manifests_v.12.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/manifests_v.12.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/pythonFunctions.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/pythonFunctions.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Keithley2400" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NNaCQCNcu5l6VfL6Gu0iGym3Da" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/home/angelchauffray/studio"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1887e776-b220-4a83-9b5c-da8997165477" name="Changes" comment="" />
+      <created>1679506865971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679506865971</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

@@ -29,6 +29,7 @@ from nodes.SIMULATIONS import *
 from nodes.TIMERS import *
 from nodes.VISORS import *
 from nodes.TERMINATORS import *
+from nodes.INSTRUMENTS import *
 from services.job_service import JobService
 from utils.topology import Topology
 
