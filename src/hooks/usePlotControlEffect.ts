@@ -1,5 +1,6 @@
 import { PlotTypesManifest } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
+import { PlotControlProps } from "@src/feature/controls_panel/views/PlotControl";
 import { PlotControlStateType } from "@src/feature/controls_panel/views/PlotControlState";
 import { useCallback, useEffect } from "react";
 import { v4 as uuid4 } from "uuid";
@@ -9,12 +10,18 @@ const usePlotControlEffect = ({
   setInputOptions,
   setPlotOptions,
   setSelectedKeys,
+  inputOptions,
   nd,
   ctrlObj,
   selectedPlotOption,
-  setPlotData,
-  inputOptions,
-}: PlotControlStateType) => {
+  setPlotData
+}: PlotControlStateType & {
+  nd: PlotControlProps['nd'],
+  ctrlObj: PlotControlProps['ctrlObj'],
+  selectedPlotOption:PlotControlProps['selectedPlotOption'],
+  setPlotData: PlotControlProps['setPlotData'],
+  
+}) => {
   /**
    * Updates input options from available inputs in a node
    */

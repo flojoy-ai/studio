@@ -1,7 +1,7 @@
 import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import Select, { ThemeConfig } from "react-select";
 import { Dispatch, Fragment } from "react";
-import { ControlOptions, PlotControlOptions } from "../types/ControlOptions";
+import { PlotControlOptions } from "../types/ControlOptions";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
@@ -9,18 +9,14 @@ import { SetStateAction } from "jotai";
 import { Data, PlotData } from "plotly.js";
 import {
   ResultIO,
-  ResultsType,
 } from "@src/feature/results_panel/types/ResultsType";
 import PlotControlState from "./PlotControlState";
 import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
 
 export interface PlotControlProps {
   nd: ResultIO | null;
-  setNd: Dispatch<React.SetStateAction<ResultIO | null>>;
   ctrlObj: CtlManifestType;
-  results: ResultsType;
   isEditMode: boolean;
-  selectedOption: ControlOptions | undefined;
   theme: "light" | "dark";
   selectedPlotOption: PlotControlOptions | undefined;
   setSelectedPlotOption: Dispatch<
@@ -43,11 +39,8 @@ const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
 };
 const PlotControl = ({
   nd,
-  setNd,
   ctrlObj,
-  results,
   isEditMode,
-  selectedOption,
   theme,
   setPlotData,
   selectedPlotOption,
@@ -61,19 +54,7 @@ const PlotControl = ({
     setInputOptions,
     setPlotOptions,
     setSelectedKeys,
-  } = PlotControlState({
-    nd,
-    setNd,
-    ctrlObj,
-    results,
-    isEditMode,
-    selectedOption,
-    theme,
-    setPlotData,
-    selectedPlotOption,
-    plotData,
-    setSelectedPlotOption,
-  });
+  } = PlotControlState();
   usePlotControlEffect({
     inputOptions,
     plotOptions,
@@ -83,10 +64,7 @@ const PlotControl = ({
     setSelectedKeys,
     ctrlObj,
     nd,
-    results,
-    selectedOption,
     selectedPlotOption,
-    setNd,
     setPlotData,
   });
 
