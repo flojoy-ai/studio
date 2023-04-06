@@ -86,7 +86,7 @@ const ControlsTab = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
 
-  useControlsTabEffects(saveAndRunFlowChart);
+  useControlsTabEffects();
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const id = `ctrl-${uuidv4()}`;
