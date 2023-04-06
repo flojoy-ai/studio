@@ -4,9 +4,20 @@ import ControlComponentState, {
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
 import {
   ControlOptions,
-  PlotControlOptions
+  PlotControlOptions,
 } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+
+jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/data/manifests-latest.json", () => {
+  return {
+    __esModule: true,
+    default: {
+      commands: [],
+      parameters: {},
+    },
+  };
+});
 
 const testControlComponentProps: ControlComponentStateProps = {
   updateCtrlValue: "myUpdatedValue",
@@ -295,7 +306,6 @@ describe("Testing ControlComponentState State's", () => {
     });
   });
 
-
   describe("Testing ControlComponentState ParamOptions State", () => {
     it("Checks if the ParamOptions State renders with default State", () => {
       const { result } = renderHook(() =>
@@ -308,7 +318,6 @@ describe("Testing ControlComponentState State's", () => {
   //
   describe("Testing ControlComponentState openFileSelector State", () => {
     it("Checks if the openFileSelector State renders with default State", () => {
-      jest.mock("@src/feature/controls_panel/views/control-component/ControlComponentState")
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
@@ -322,7 +331,7 @@ describe("Testing ControlComponentState State's", () => {
       };
       openFileSelector.mockReturnValue(testPlainFilesValue);
 
-      expect(result.current.openFileSelector()).toBe(undefined)
+      expect(result.current.openFileSelector()).toBe(undefined);
       expect(openFileSelector()).toEqual(testPlainFilesValue);
     });
   });

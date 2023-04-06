@@ -5,7 +5,6 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 jest.mock("@src/hooks/useFlowChartState");
 
 describe("UseControlsTabEffects", () => {
-  const saveAndRun = jest.fn().mockReturnValue(undefined);
   const setCtrlsManifest = jest.fn();
   const rfInstance = {
     nodes: [],
@@ -23,12 +22,12 @@ describe("UseControlsTabEffects", () => {
   });
 
   it("ControlsTabEffects should render with Undefined", () => {
-    const { result } = renderHook(() => useControlsTabEffects(saveAndRun));
-    expect(result.current).toBe(saveAndRun());
+    const { result } = renderHook(() => useControlsTabEffects());
+    expect(result.current).toBe(undefined);
   });
 
   it("setCtrlManifest should be empty if rfInstance has no nodes", () => {
-    renderHook(() => useControlsTabEffects(saveAndRun));
+    renderHook(() => useControlsTabEffects());
     expect(setCtrlsManifest).toHaveBeenCalledWith([]);
   });
 
@@ -36,9 +35,9 @@ describe("UseControlsTabEffects", () => {
     const rfInstanceWithNode = [{ id: 1, type: "start" }];
     (useFlowChartState as jest.Mock).mockReturnValue({
       setCtrlsManifest: setCtrlsManifest,
-      rfInstance: rfInstanceWithNode,
+      rfInstance: { nodes: rfInstanceWithNode },
     });
-    renderHook(() => useControlsTabEffects(saveAndRun));
+    renderHook(() => useControlsTabEffects());
     expect(setCtrlsManifest).not.toHaveBeenCalled();
   });
 });
