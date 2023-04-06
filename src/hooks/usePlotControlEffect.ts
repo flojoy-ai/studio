@@ -1,5 +1,6 @@
 import { PlotTypesManifest } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { NodeInputOptions } from "@src/feature/controls_panel/types/ControlOptions";
+import { PlotControlProps } from "@src/feature/controls_panel/views/PlotControl";
 import { PlotControlStateType } from "@src/feature/controls_panel/views/PlotControlState";
 import { useCallback, useEffect } from "react";
 import { v4 as uuid4 } from "uuid";
@@ -9,40 +10,31 @@ const usePlotControlEffect = ({
   setInputOptions,
   setPlotOptions,
   setSelectedKeys,
+  inputOptions,
   nd,
   ctrlObj,
   selectedPlotOption,
-  setPlotData,
-  inputOptions,
-}: PlotControlStateType) => {
+  setPlotData
+}: PlotControlStateType & {
+  nd: PlotControlProps['nd'],
+  ctrlObj: PlotControlProps['ctrlObj'],
+  selectedPlotOption:PlotControlProps['selectedPlotOption'],
+  setPlotData: PlotControlProps['setPlotData'],
+  
+}) => {
   /**
    * Updates input options from available inputs in a node
    */
   const updateInputOptions = useCallback(() => {
     const inputOptions: NodeInputOptions[] = [];
-    if (typeof nd!?.result["x"] === "object") {
-      if (Array.isArray(nd?.result["x"])) {
-        const consistArray = nd?.result.x.find((e) => Array.isArray(e));
-        if (consistArray) {
-          for (const [key, value] of Object.entries(nd!?.result["x"]!)) {
-            inputOptions.push({ label: key, value: value });
-          }
-        } else {
-          inputOptions.push({
-            label: "x",
-            value: nd!.result["x"]!,
-          });
+    const possibleKeys = ["x","y", "z"];
+    if(nd?.result.data?.length){
+      Object.keys(nd.result.data[0]).forEach(key=>{
+        if(possibleKeys.includes(key)){
+            inputOptions.push({ label: key, value: nd.result.data![0][key] });
         }
-      } else {
-        for (const [key, value] of Object.entries(nd!?.result["x"]! || {})) {
-          inputOptions.push({ label: key, value: value });
-        }
-      }
-    } else {
-      inputOptions.push({ label: "x", value: nd!.result["x"]! });
+      })
     }
-
-    inputOptions.push({ label: "y", value: nd!.result["y"]! });
     setInputOptions(inputOptions);
   }, [nd, setInputOptions]);
   /**
@@ -51,11 +43,10 @@ const usePlotControlEffect = ({
   const updatePlotValue = useCallback(() => {
     const result: any = {};
 
-    if (nd?.result && "data" in nd!.result) {
-      result.x = nd?.result?.data![0]?.x;
-      result.y = nd?.result?.data![0]?.y;
-      result.type = nd?.result?.data![0]?.type;
-      result.mode = nd?.result?.data![0]?.mode;
+    if (nd?.result && "data" in nd!.result && nd.result.data?.length) {
+      Object.keys(nd.result.data[0]).forEach(key=>{
+        result[key] = nd.result.data![0][key]
+      })
     }
 
     if (selectedKeys) {

@@ -7,19 +7,16 @@ import {
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { useFilePicker } from "use-file-picker";
 import {
   ControlOptions,
   NodeInputOptions,
   PlotControlOptions,
 } from "../../types/ControlOptions";
+
+import { Data } from "plotly.js";
+
 export type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;
@@ -40,25 +37,17 @@ const ControlComponentState = ({
   } = useFlowChartState();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
-  const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [outputOptions, setOutputOptions] = useState<ControlOptions[]>([]);
   const [textInput, setTextInput] = useState<string>("");
   const [numberInput, setNumberInput] = useState<string>("0");
   const [sliderInput, setSliderInput] = useState<string>("0");
-  const [currentInputValue, setCurrentInputValue] = useState<string| number>(0);
+  const [currentInputValue, setCurrentInputValue] = useState<string | number>(
+    0
+  );
   const [nd, setNd] = useState<ResultIO | null>(null);
 
-  const [plotData, setPlotData] = useState([
-    {
-      x: [1, 2, 3],
-      y: [1, 2, 3],
-      z: [1, 2, 3],
-      source: "",
-      type: "scatter",
-      mode: "lines",
-    },
-  ]);
+  const [plotData, setPlotData] = useState<Data[]>([]);
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined
   >(undefined);
