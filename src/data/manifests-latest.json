@@ -1,5 +1,5 @@
 {
-    "_v": 12,
+    "_v": 13,
     "commands": [
         {
             "name": "conditional",
@@ -81,7 +81,7 @@
         {
             "name": "Camera",
             "key": "CAMERA",
-            "type": "LOADER"
+            "type": "LOCAL_FILE_SYSTEM"
         },
         {
             "name": "Feedback",
@@ -106,7 +106,7 @@
         {
             "name": "Local File",
             "key": "LOCAL_FILE",
-            "type": "LOADER"
+            "type": "LOCAL_FILE_SYSTEM"
         },
         {
             "name": "Object Detection",
@@ -153,6 +153,11 @@
             "name": "Histogram",
             "key": "HISTOGRAM",
             "type": "VISOR"
+        },
+        {
+            "name": "Loader",
+            "key": "LOADER",
+            "type": "CLOUD_DATABASE"
         },
         {
             "name": "Low-pass FIR Filter",
@@ -315,6 +320,12 @@
             "step": {
                 "type": "float",
                 "default": "1000"
+            }
+        },
+        "LOADER": {
+            "measurement_uuid": {
+                "type": "string",
+                "default": ""
             }
         },
         "FIR": {
