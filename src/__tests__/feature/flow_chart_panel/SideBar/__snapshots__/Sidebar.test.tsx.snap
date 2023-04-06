@@ -89,6 +89,27 @@ exports[`Sidebar should render the component correctly 1`] = `
         </div>
       </div>
       <div
+        class="mantine-khtkeg"
+        style="padding-top: 20px; padding-left: 100px;"
+      >
+        <button
+          style="border: 2px solid #30d5c8; background: transparent; border-radius: 2px;"
+        >
+          <a
+            class="mantine-Text-root mantine-Anchor-root mantine-1ut1du9"
+            href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+            style="text-decoration: none;"
+            target="_blank"
+          >
+            <span
+              style="color: rgb(48, 213, 200);"
+            >
+              Request a Node
+            </span>
+          </a>
+        </button>
+      </div>
+      <div
         class="mantine-ScrollArea-root mantine-xpd069"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
