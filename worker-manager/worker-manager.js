@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require("express");
 const cors = require("cors");
-const fetch = require("node-fetch");
+const fetch = require("node-fetch").default;
 const systemStatus = require("./STATUS_CODES.json");
 const { createAndRunDockerContainers } = require("./pre-job-operations");
 const { removeAllContainers } = require("./post-job-operations");
@@ -54,7 +54,8 @@ const runJobs = (data) => {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
+    .then((res) =>{
+      return res.json()})
     .then((jsonData) => console.log("return json data; ", jsonData))
     .catch((err) => console.log("Api call to backend failed! ", err));
 };
@@ -69,12 +70,15 @@ const runJobs = (data) => {
 const processPreJobOperation = (data) => {
   const jobsetId = data.jobsetId;
   const parsedFc = JSON.parse(data.fc);
+
   const nodesRequireCustomDocker = parsedFc.nodes
     .filter((node) => node.data.docker)
     .filter(
       (obj, index, self) => index === self.findIndex((o) => o.data.func === obj.data.func)
     );
+
   if (nodesRequireCustomDocker.length > 0) {
+
     return createAndRunDockerContainers(
       { nodes: nodesRequireCustomDocker, jobsetId },
       (isCompleted) => {

@@ -127,13 +127,16 @@ const buildAndRunContainer = async (
     await runDockerImage(imageName, args);
     cb(true);
   } catch (error) {
+    sendMessageToSocket({
+      jobsetId,
+      SYSTEM_STATUS: `${statusCodes.IMAGE_BUILD_FAILED}${imageName}`,
+    });
     console.log(
       "error in buildAndRunContainer: ",
       error,
       " msg: ",
       error.message
     );
-    cb(false);
   }
 };
 
@@ -168,8 +171,6 @@ const createAndRunDockerContainers = ({ nodes, jobsetId }, cb) => {
       (completed) => {
         if (completed && index === nodes.length - 1) {
           cb(true);
-        } else {
-          cb(false);
         }
       }
     );

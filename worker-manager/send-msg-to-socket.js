@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const fetch = require("node-fetch");
+const fetch = require("node-fetch").default;
 
 
 const BACKEND_HOST = process.env.REACT_APP_BACKEND_HOST || "localhost";
