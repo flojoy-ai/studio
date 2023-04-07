@@ -7,6 +7,7 @@ import {
   PlotControlOptions,
 } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { Data } from "plotly.js";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/data/manifests-latest.json", () => {
@@ -214,30 +215,19 @@ describe("Testing ControlComponentState State's", () => {
 
   describe("Testing ControlComponentState PlotData State", () => {
     it("Checks if the PlotData State renders with default State", () => {
-      const testPlotData = [
-        {
-          x: [1, 2, 3],
-          y: [1, 2, 3],
-          z: [1, 2, 3],
-          source: "",
-          type: "scatter",
-          mode: "lines",
-        },
-      ];
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)
       );
-      expect(result.current.plotData).toEqual(testPlotData);
+      expect(result.current.plotData).toEqual([]);
     });
     it("Checks if the PlotData's State renders/fires with Updated State", () => {
-      const updatedTestPlotData = [
+      const updatedTestPlotData: Data[]= [
         {
           x: [5, 3, 2],
           y: [4, 2, 6],
           z: [2, 3, 5],
-          source: "",
           type: "scatter",
-          mode: "bar",
+          mode: "lines",
         },
       ];
       const { result } = renderHook(() =>
