@@ -28,7 +28,7 @@ files:
   - '!*.*'
   - build/**/*
 extraResources:
-  - '!node_modules'
+  - '!**/node_modules'
   - '!**/src'
   - '!**/build'
   - '!**/electron'

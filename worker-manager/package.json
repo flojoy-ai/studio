@@ -5,8 +5,9 @@
   "main": "worker-manager.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node worker-manager.js",
-    "start:dev": "node worker-manager-dev.js"
+    "start": "node worker-manager-bundle.js",
+    "start:dev": "node worker-manager-dev.js",
+    "build": "webpack"
   },
   "author": "Jack Parmer <jack.parmer@proton.me>",
   "license": "MIT",
@@ -16,5 +17,12 @@
     "node-fetch": "^2.6.9",
     "tree-kill": "^1.2.2",
     "upath": "^2.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.78.0",
+    "webpack-cli": "^5.0.1"
   }
 }

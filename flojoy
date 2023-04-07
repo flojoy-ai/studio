@@ -225,7 +225,7 @@ else
    gum spin --spinner dot --title "Starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
 fi
 
-feedback $? "Started Django server on port $djangoPort successfully!" 'Failed while starting Django server, check if Django is installed in your local machine or run this script without -p argument to install it.'
+feedback $? "Starting Django server on port $djangoPort..." 'Failed while starting Django server, check if Django is installed in your local machine or run this script without -p argument to install it.'
 
 
 # initializing new Redis Instance
@@ -257,14 +257,14 @@ cd $CWD
 
 gum spin --spinner dot --title 'Starting RQ worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color 'Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here, you can monitor LOGS from Flojoy-Watch while it orchestrates each Python job (AKA node) in your Flojoy program.' | gum format -t emoji; source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
 
-feedback $? 'Started RQ worker for flojoy-watch' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+feedback $? 'Starting RQ worker for flojoy-watch...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
 # Initializing FLOJOY RQ Worker
 
 gum spin --spinner dot --title 'Starting RQ worker for nodes...' --title.foreground="$general_color" -- npx ttab -t 'RQ WORKER' "gum style --foreground $general_color 'Welcome to Flojoy RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobs (AKA Nodes), queued by Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
-feedback $? 'Started RQ worker for nodes...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+feedback $? 'Starting RQ worker for nodes...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
 # Checking for YOLOV3 Weights
@@ -286,10 +286,10 @@ sleep 1
 sleep 1
 
 gum spin --spinner dot --title 'starting worker manager...' --title.foreground="$general_color" -- npx ttab -t 'WORKER MANAGER' "gum style --foreground $general_color 'Welcome to Worker Manager Server! :wave: ' '' 'Here you can monitor any errors raised by nodejs server during pre-job and post-job processing' '' | gum format -t emoji;cd worker-manager && npm install && npm run start:dev"
-feedback $? 'starting worker manager...' 'check is npm installed in your local machine'
+feedback $? 'Starting worker manager...' 'check is npm installed in your local machine'
 
 
 # Initializing React Server
 
 gum spin --spinner dot --title 'Starting React server...' --title.foreground="$general_color" -- npx ttab -t 'REACT' "source $venvCmd && npm start"
-feedback $? 'React server started on port 3000' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
+feedback $? 'Starting React server on port 3000' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'

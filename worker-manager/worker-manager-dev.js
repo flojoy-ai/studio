@@ -12,7 +12,7 @@ const BACKEND_API = `http://${BACKEND_HOST}:${BACKEND_PORT}`;
 const app = express();
 
 app.use(cors());
-app.listen(PORT, () => console.log(`Running worker-manager on port: ${PORT}`));
+app.listen(PORT, () => console.log(`Running worker-manager dev on port: ${PORT}`));
 app.use(
   express.urlencoded({
     extended: true,
