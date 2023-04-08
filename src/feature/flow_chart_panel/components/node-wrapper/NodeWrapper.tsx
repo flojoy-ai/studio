@@ -11,9 +11,8 @@ const NodeWrapper = ({
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
-  const { failedNode, setNodes, nodes } = useFlowChartState();
+  const { failedNode } = useFlowChartState();
   const { states } = useSocket();
-  const { failureReason } = states!;
   const [runError, setRunError] = useState<{
     message: string;
     show: boolean;
@@ -33,17 +32,21 @@ const NodeWrapper = ({
   useEffect(() => {
     if (failedNode === data.id) {
       setRunError({
-        message: failureReason,
+        message: states?.failureReason!,
         show: false,
       });
     }
     return () => {
       setRunError(null);
     };
-  }, [failedNode, data]);
+  }, [failedNode, data, states?.failureReason]);
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {runError?.show && <ErrorPopup message={failureReason} />}
+    <div
+      data-testid="node-wrapper"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {runError?.show && <ErrorPopup message={runError.message} />}
       {children}
     </div>
   );
@@ -53,7 +56,11 @@ export default NodeWrapper;
 
 const ErrorPopup = ({ message }: { message: string }) => {
   return (
-    <div className="error__popup__container" style={{ top: "-50px" }}>
+    <div
+      className="error__popup__container"
+      data-testid="node-error-popup"
+      style={{ top: "-50px" }}
+    >
       <div className="message">{message}</div>
       <div className="error__popup__arrow"></div>
     </div>
