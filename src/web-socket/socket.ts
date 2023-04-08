@@ -16,6 +16,7 @@ enum ResponseEnum {
   nodeResults = "NODE_RESULTS",
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
+  failureReason = 'FAILURE_REASON'
 }
 export class WebSocketServer {
   private server: WebSocket;
@@ -92,6 +93,9 @@ export class WebSocketServer {
           }
           if (ResponseEnum.failedNodes in data) {
             this.failedNode(data[ResponseEnum.failedNodes]);
+            if(ResponseEnum.failureReason in data){
+              this.failureReason(data[ResponseEnum.failureReason])
+            }
           }
           break;
         case "connection_established":
