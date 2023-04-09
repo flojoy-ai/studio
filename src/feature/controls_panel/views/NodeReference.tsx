@@ -7,7 +7,7 @@ import Select, { ThemeConfig } from "react-select";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 import { ControlComponentProps } from "./control-component/ControlComponent";
 
-interface NodeReferenceProps {
+export interface NodeReferenceProps {
   theme: "light" | "dark";
   updateCtrlValue: ControlComponentProps["updateCtrlValue"];
   ctrlObj: ControlComponentProps["ctrlObj"];
