@@ -16,7 +16,7 @@ def report_failure(job, connection, type, value, traceback):
 class JobService():
     def __init__(self, queue_name):
         self.redis_dao = RedisDao()
-        self.queue = Queue(queue_name, connection=self.redis_dao.r)
+        self.queue = Queue(queue_name, connection=self.redis_dao.r, default_timeout=3000)
 
     def get_all_jobs(self):
         all_jobs = self.redis_dao.get_redis_obj(KEY_RQ_WORKER_JOBS)
@@ -80,6 +80,7 @@ class JobService():
         
         job = self.queue.enqueue(func,
                 job_timeout='15m',
+                # timeout='300s',
                 on_failure=report_failure,
                 job_id=iteration_id,
                 kwargs={'ctrls': ctrls,

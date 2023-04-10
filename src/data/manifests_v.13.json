@@ -1,5 +1,5 @@
 {
-    "_v": 12,
+    "_v": 13,
     "commands": [
         {
             "name": "Add",
@@ -44,6 +44,11 @@
                     "type": "target"
                 }
             ]
+        },
+        {
+            "name": "SecondOrderSystem",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
         },
         {
             "name": "Image Viewer",
@@ -150,6 +155,11 @@
             "type": "VISOR"
         },
         {
+            "name": "PID",
+            "key": "PID",
+            "type": "ACTIVE_FEEDBACK"
+        },
+        {
             "name": "Constant",
             "key": "CONSTANT",
             "type": "SIMULATION"
@@ -246,6 +256,16 @@
                 "default": ""
             }
         },
+        "SECOND_ORDER_SYSTEM": {
+            "d1": {
+                "type": "float",
+                "default": "250"
+            },
+            "d2": {
+                "type": "float",
+                "default": "100"
+            }
+        },
         "LINSPACE": {
             "start": {
                 "type": "float",
@@ -327,6 +347,20 @@
                     "sawtooth"
                 ],
                 "default": "sine"
+            }
+        },
+        "PID": {
+            "Kp": {
+                "type": "float",
+                "default": "1"
+            },
+            "Ki": {
+                "type": "float",
+                "default": "0"
+            },
+            "Kd": {
+                "type": "float",
+                "default": "0"
             }
         },
         "CONSTANT": {
