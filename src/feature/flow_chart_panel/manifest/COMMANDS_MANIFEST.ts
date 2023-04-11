@@ -79,7 +79,7 @@ export const SECTIONS = [
     {
     title: "Instruments",
     child: [
-      {name: "Keithley2400", key:'KEYTHLEY2400'},
+      {name: "Keithley2400", key:'KEITHLEY2400'},
       {name: "LabJacku3", key:'LABJACKU3'},
     ]
   }

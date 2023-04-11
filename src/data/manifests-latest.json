@@ -91,7 +91,7 @@
             "type": "SIMULATION"
         },
         {
-            "name": "KEITHLEY2400test",
+            "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
             "type": "KEITHLEY2400"
         },
