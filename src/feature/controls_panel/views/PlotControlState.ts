@@ -1,16 +1,7 @@
 import { useState } from "react";
 import { NodeInputOptions, PlotControlOptions } from "../types/ControlOptions";
-import { PlotControlProps } from "./PlotControl";
 
-const PlotControlState = ({
-  ctrlObj,
-  nd,
-  results,
-  selectedOption,
-  selectedPlotOption,
-  setNd,
-  setPlotData,
-}: PlotControlProps) => {
+const PlotControlState = () => {
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<Record<string, any> | null>(
@@ -22,13 +13,6 @@ const PlotControlState = ({
     setPlotOptions,
     selectedKeys,
     setSelectedKeys,
-    ctrlObj,
-    nd,
-    results,
-    selectedOption,
-    selectedPlotOption,
-    setNd,
-    setPlotData,
     inputOptions,
     plotOptions,
   };

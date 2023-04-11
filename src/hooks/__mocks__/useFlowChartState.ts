@@ -1,5 +1,7 @@
 export const useFlowChartState = jest.fn(() => ({
-  rfInstance: {},
+  rfInstance: {
+    nodes: [],
+  },
   nodes: [],
   edges: [],
   updateCtrlInputDataForNode: jest.fn(),

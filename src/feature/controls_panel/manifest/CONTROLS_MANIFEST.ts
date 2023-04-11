@@ -72,6 +72,7 @@ export const PlotTypesManifest: IPlotTypesManifest[] = [
   {
     name: PlotTypeNames.Histogram,
     type: "histogram",
+    mode:'lines'
   },
   {
     name: PlotTypeNames.SurfacePlot3D,

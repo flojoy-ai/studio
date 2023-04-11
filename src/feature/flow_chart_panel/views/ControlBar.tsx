@@ -115,8 +115,11 @@ const Controls: FC<ControlsProps> = ({
           }
         >
           <button onClick={openFileSelector}>Load</button>
-          <button onClick={saveFile}>Save</button>
+          <button data-cy="btn-save" onClick={saveFile}>
+            Save
+          </button>
           <button
+            data-cy="btn-saveas"
             style={{
               display: "flex",
               justifyContent: "space-between",

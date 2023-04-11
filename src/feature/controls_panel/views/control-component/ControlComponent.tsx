@@ -209,13 +209,10 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.Plot && (
         <PlotControl
           nd={nd}
-          results={results}
-          setNd={setNd}
           setPlotData={setPlotData}
           ctrlObj={ctrlObj}
           isEditMode={isEditMode}
           plotData={plotData}
-          selectedOption={selectedOption}
           selectedPlotOption={selectedPlotOption}
           theme={theme}
           setSelectedPlotOption={setSelectedPlotOption}
@@ -266,7 +263,7 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.NumericInput && (
         <div className="ctrl-input-body" data-cy="numeric-input">
           <input
-            type="number"
+            type='number'
             placeholder="Enter a number"
             className="ctrl-numeric-input border-color"
             onChange={(e) => {

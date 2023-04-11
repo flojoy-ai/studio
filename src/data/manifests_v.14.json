@@ -1,9 +1,7 @@
 {
-    "_v": 12,
+    "_v": 14,
     "commands": [
         {
-<<<<<<< HEAD
-=======
             "name": "Add",
             "key": "ADD",
             "type": "ARITHMETIC",
@@ -46,6 +44,11 @@
                     "type": "target"
                 }
             ]
+        },
+        {
+            "name": "SecondOrderSystem",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
         },
         {
             "name": "Image Viewer",
@@ -152,6 +155,11 @@
             "type": "VISOR"
         },
         {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
             "name": "Constant",
             "key": "CONSTANT",
             "type": "SIMULATION"
@@ -162,7 +170,6 @@
             "type": "SIMULATION"
         },
         {
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
@@ -190,7 +197,6 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name": "Invert",
             "key": "INVERT",
             "type": "ARRAY_AND_MATRIX"
@@ -254,11 +260,6 @@
             "name": "Time Series",
             "key": "TIMESERIES",
             "type": "SIMULATION"
-=======
-            "name": "Line",
-            "key": "LINE",
-            "type": "VISOR"
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         },
         {
             "name": "Scatter Plot",
@@ -266,7 +267,6 @@
             "type": "VISOR"
         },
         {
-<<<<<<< HEAD
             "name": "Image Viewer",
             "key": "IMAGE",
             "type": "VISOR"
@@ -343,13 +343,6 @@
             "type": "VISOR"
         },
         {
-=======
-            "name": "Camera",
-            "key": "CAMERA",
-            "type": "LOADER"
-        },
-        {
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "Sub",
             "key": "SUBTRACT",
             "type": "ARITHMETIC",
@@ -362,45 +355,18 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name": "Matmul",
             "key": "MATMUL",
             "type": "ARRAY_AND_MATRIX",
             "inputs": [
                 {
                     "name": "y",
-                    "id": "matmul_y",
+                    "id": "sub_y",
                     "type": "target"
                 }
             ]
         },
         {
-            "name": "Bar Chart",
-            "key": "BAR",
-            "type": "VISOR"
-        },
-        {
-            "name": "Savitzky-Golay Filter",
-            "key": "SAVGOL",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "The End",
-            "key": "END",
-            "type": "TERMINATOR"
-        }
-    ],
-    "parameters": {
-        "CONDITIONAL": {
-            "operator_type": {
-                "type": "string",
-                "default": ">="
-=======
             "name": "timer",
             "key": "TIMER",
             "type": "TIMER"
@@ -419,7 +385,6 @@
             "path": {
                 "type": "string",
                 "default": ""
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             }
         },
         "INVERT": {
@@ -428,12 +393,20 @@
                 "default": 1.0
             }
         },
-<<<<<<< HEAD
-=======
         "GOTO": {
             "goto_node_id": {
                 "type": "node_reference",
                 "default": ""
+            }
+        },
+        "SECOND_ORDER_SYSTEM": {
+            "d1": {
+                "type": "float",
+                "default": "250"
+            },
+            "d2": {
+                "type": "float",
+                "default": "100"
             }
         },
         "LINSPACE": {
@@ -485,22 +458,18 @@
             }
         },
         "END": {},
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "LOOP": {
             "num_loops": {
                 "type": "int",
                 "default": -1
             }
         },
-<<<<<<< HEAD
         "TIMER": {
             "sleep_time": {
                 "type": "int",
                 "default": 0
             }
         },
-=======
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "SINE": {
             "frequency": {
                 "type": "float",
@@ -529,22 +498,6 @@
                 "default": "sine"
             }
         },
-<<<<<<< HEAD
-=======
-        "CONSTANT": {
-            "constant": {
-                "type": "float",
-                "default": "3"
-            }
-        },
-        "TIMESERIES": {},
-        "CONDITIONAL": {
-            "operator_type": {
-                "type": "string",
-                "default": ">="
-            }
-        },
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "CAMERA": {
             "file_type": {
                 "type": "string",
@@ -555,90 +508,12 @@
                 "default": 0
             }
         },
-<<<<<<< HEAD
-        "FEEDBACK": {
-            "referred_node": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
         "TIMESERIES": {},
-        "LOCAL_FILE": {
-            "file_type": {
-                "type": "string",
-                "default": "image"
-            },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
-            },
-            "path": {
-                "type": "string",
-                "default": ""
-            }
-        },
-        "LINSPACE": {
-            "start": {
-                "type": "float",
-                "default": "10"
-            },
-            "end": {
-                "type": "float",
-                "default": "0"
-            },
-            "step": {
-                "type": "float",
-                "default": "1000"
-            }
-        },
-        "FIR": {
-            "sample_rate": {
-                "type": "float",
-                "default": 100
-            },
-            "transition_width": {
-                "type": "float",
-                "default": 5.0
-            },
-            "stop_band_attenuation": {
-                "type": "float",
-                "default": 60
-            },
-            "cutoff_freq": {
-                "type": "float",
-                "default": 10.0
-            }
-        },
-        "GOTO": {
-            "goto_node_id": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
-        "SAVGOL": {
-            "wlen": {
-                "type": "int",
-                "default": 3
-            },
-            "porder": {
-                "type": "int",
-                "default": 1
-            }
-        },
         "CONSTANT": {
             "constant": {
                 "type": "float",
                 "default": "3"
             }
-        },
-        "END": {}
-=======
-        "TIMER": {
-            "sleep_time": {
-                "type": "int",
-                "default": 0
-            }
         }
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
     }
 }
