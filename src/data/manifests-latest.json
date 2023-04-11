@@ -1,95 +1,9 @@
 {
-<<<<<<< HEAD
-    "_v": 13,
+    "_v": 0,
     "commands": [
         {
             "name": "Sine",
             "key": "SINE",
-=======
-    "_v": 15,
-    "commands": [
-        {
-            "name": "Add",
-            "key": "ADD",
-            "type": "ARITHMETIC",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "add_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "Local File",
-            "key": "LOCAL_FILE",
-            "type": "LOADER"
-        },
-        {
-            "name": "Butterworth Filter",
-            "key": "BUTTER",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Invert",
-            "key": "INVERT",
-            "type": "ARRAY_AND_MATRIX"
-        },
-        {
-            "name": "GoTo",
-            "key": "GOTO",
-            "type": "LOOP"
-        },
-        {
-            "name": "Matmul",
-            "key": "MATMUL",
-            "type": "ARRAY_AND_MATRIX",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "matmul_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "SecondOrderSystem",
-            "key": "SECOND_ORDER_SYSTEM",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Image Viewer",
-            "key": "IMAGE",
-            "type": "VISOR"
-        },
-        {
-            "name": "Object Detection",
-            "key": "OBJECT_DETECTION",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "3D Surface Plot",
-            "key": "SURFACE3D",
-            "type": "VISOR"
-        },
-        {
-            "name": "Linspace",
-            "key": "LINSPACE",
-            "type": "SIMULATION",
-            "ui_component_id": "default",
-            "end": {
-                "type": "float",
-                "default": "0"
-            },
-            "step": {
-                "type": "float",
-                "default": "1000"
-            }
-        },
-        {
-            "name": "Feedback",
-            "key": "FEEDBACK",
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "type": "SIMULATION"
         },
         {
@@ -99,7 +13,6 @@
             "inputs": []
         },
         {
-<<<<<<< HEAD
             "name": "The End",
             "key": "END",
             "type": "TERMINATOR"
@@ -125,16 +38,6 @@
             "name": "GoTo",
             "key": "GOTO",
             "type": "LOOP"
-=======
-            "name": "Savitzky-Golay Filter",
-            "key": "SAVGOL",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Random (Uniform)",
-            "key": "RAND",
-            "type": "SIMULATION"
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         },
         {
             "name": "Low-pass FIR Filter",
@@ -142,31 +45,6 @@
             "type": "SIGNAL_PROCESSING"
         },
         {
-<<<<<<< HEAD
-=======
-            "name": "Multiply",
-            "key": "MULTIPLY",
-            "type": "ARITHMETIC",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "multiply_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "Bar Chart",
-            "key": "BAR",
-            "type": "VISOR"
-        },
-        {
-            "name": "The End",
-            "key": "END",
-            "type": "TERMINATOR"
-        },
-        {
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "loop",
             "key": "LOOP",
             "type": "LOOP",
@@ -184,7 +62,6 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name": "Line",
             "key": "LINE",
             "type": "VISOR"
@@ -261,19 +138,11 @@
             "type": "TIMER"
         },
         {
-=======
-            "name": "Sine",
-            "key": "SINE",
-            "type": "SIMULATION"
-        },
-        {
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "Histogram",
             "key": "HISTOGRAM",
             "type": "VISOR"
         },
         {
-<<<<<<< HEAD
             "name": "Multiply",
             "key": "MULTIPLY",
             "type": "ARITHMETIC",
@@ -284,16 +153,6 @@
                     "type": "target"
                 }
             ]
-=======
-            "name": "PID",
-            "key": "PID",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         },
         {
             "name": "Time Series",
@@ -301,7 +160,6 @@
             "type": "SIMULATION"
         },
         {
-<<<<<<< HEAD
             "name": "Scatter Plot",
             "key": "SCATTER",
             "type": "VISOR"
@@ -317,8 +175,6 @@
             "type": "VISOR"
         },
         {
-=======
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
@@ -346,7 +202,6 @@
             ]
         },
         {
-<<<<<<< HEAD
             "name": "Add",
             "key": "ADD",
             "type": "ARITHMETIC",
@@ -362,21 +217,6 @@
             "name": "Feedback",
             "key": "FEEDBACK",
             "type": "SIMULATION"
-=======
-            "name": "Line",
-            "key": "LINE",
-            "type": "VISOR"
-        },
-        {
-            "name": "Absolute",
-            "key": "ABS",
-            "type": "ARITHMETIC"
-        },
-        {
-            "name": "Scatter Plot",
-            "key": "SCATTER",
-            "type": "VISOR"
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         },
         {
             "name": "Camera",
@@ -384,124 +224,12 @@
             "type": "LOADER"
         },
         {
-<<<<<<< HEAD
             "name": "Bar Chart",
             "key": "BAR",
             "type": "VISOR"
         }
     ],
     "parameters": {
-=======
-            "name": "Sub",
-            "key": "SUBTRACT",
-            "type": "ARITHMETIC",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "sub_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "timer",
-            "key": "TIMER",
-            "type": "TIMER"
-        }
-    ],
-    "parameters": {
-        "LOCAL_FILE": {
-            "file_type": {
-                "type": "string",
-                "default": "image"
-            },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
-            },
-            "path": {
-                "type": "string",
-                "default": ""
-            }
-        },
-        "INVERT": {
-            "rcond": {
-                "type": "float",
-                "default": 1.0
-            }
-        },
-        "GOTO": {
-            "goto_node_id": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
-        "SECOND_ORDER_SYSTEM": {
-            "d1": {
-                "type": "float",
-                "default": "250"
-            },
-            "d2": {
-                "type": "float",
-                "default": "100"
-            }
-        },
-        "LINSPACE": {
-            "start": {
-                "type": "float",
-                "default": "10"
-            },
-            "end": {
-                "type": "float",
-                "default": "0"
-            },
-            "step": {
-                "type": "float",
-                "default": "1000"
-            }
-        },
-        "FEEDBACK": {
-            "referred_node": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
-        "SAVGOL": {
-            "wlen": {
-                "type": "int",
-                "default": 3
-            },
-            "porder": {
-                "type": "int",
-                "default": 1
-            }
-        },
-        "FIR": {
-            "sample_rate": {
-                "type": "float",
-                "default": 100
-            },
-            "transition_width": {
-                "type": "float",
-                "default": 5.0
-            },
-            "stop_band_attenuation": {
-                "type": "float",
-                "default": 60
-            },
-            "cutoff_freq": {
-                "type": "float",
-                "default": 10.0
-            }
-        },
-        "END": {},
-        "LOOP": {
-            "num_loops": {
-                "type": "int",
-                "default": -1
-            }
-        },
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "SINE": {
             "frequency": {
                 "type": "float",
@@ -530,7 +258,6 @@
                 "default": "sine"
             }
         },
-<<<<<<< HEAD
         "END": {},
         "GOTO": {
             "goto_node_id": {
@@ -584,20 +311,6 @@
             "baudrate": {
                 "type": "float",
                 "default": 9600
-=======
-        "PID": {
-            "Kp": {
-                "type": "float",
-                "default": "5"
-            },
-            "Ki": {
-                "type": "float",
-                "default": "0.0143"
-            },
-            "Kd": {
-                "type": "float",
-                "default": "356.25"
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             }
         },
         "CONSTANT": {
@@ -606,7 +319,6 @@
                 "default": "3"
             }
         },
-<<<<<<< HEAD
         "LABJACKU3": {
             "numbers": {
                 "type": "int",
@@ -615,37 +327,13 @@
         },
         "SAVGOL": {
             "wlen": {
-=======
-        "TIMESERIES": {},
-        "CONDITIONAL": {
-            "operator_type": {
-                "type": "string",
-                "default": ">="
-            }
-        },
-        "LINE": {
-            "referred_node": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
-        "CAMERA": {
-            "file_type": {
-                "type": "string",
-                "default": "image"
-            },
-            "camera_ind": {
-                "type": "integer",
-                "default": 0
-            }
-        },
-        "TIMER": {
-            "sleep_time": {
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
                 "type": "int",
-                "default": 0
+                "default": 3
+            },
+            "porder": {
+                "type": "int",
+                "default": 1
             }
-<<<<<<< HEAD
         },
         "LOCAL_FILE": {
             "file_type": {
@@ -695,8 +383,6 @@
                 "type": "integer",
                 "default": 0
             }
-=======
->>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         }
     }
 }
