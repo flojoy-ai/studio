@@ -4,11 +4,10 @@
 
 platform=$(uname)
 
-if [[ "$platform" == "Linux" ]]; then
-   if dpkg-query -W -f='${Status}' gum 2>/dev/null | grep -q "ok installed"; then
-      :
-   else
-      echo "Gum is not installed on your $platform"
+install_gum()
+{
+   install_err_text="Failed to install Gum.. Try to install it manually from here: https://github.com/charmbracelet/gum, or run the script again and skip Gum installation."
+   if [[ "$platform" == "Linux" ]]; then
       echo "Installing Gum... This will require sudo command!"
       sudo mkdir -p /etc/apt/keyrings
       curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
@@ -16,22 +15,43 @@ if [[ "$platform" == "Linux" ]]; then
       sudo apt update && sudo apt install gum
       is_successful=$?
       if [ ! "$is_successful" -eq 0 ]; then
-         echo "Failed to install Gum.. Try to install it manually from here: https://github.com/charmbracelet/gum "
+         echo "$install_err_text"
          exit
       fi
-   fi
-elif [[ "$platform" == "Darwin" ]]; then
-   if brew list | grep -q 'gum'; then
-      :
-   else
-      echo "Gum is not installed on your $platform"
+   elif [[ "$platform" == "Darwin" ]]; then
       echo "Installing Gum... This may require root permission!"
       brew install gum
       is_successful=$?
       if [ ! "$is_successful" -eq 0 ]; then
-         echo "Failed to install Gum.. Try install it manually from here: https://github.com/charmbracelet/gum "
+         echo "$install_err_text"
          exit
       fi
+   fi
+}
+pckg_info_msg="Flojoy uses an external package 'GUM' for better Terminal interface, which is not installed on your machine."
+if [[ "$platform" == "Linux" ]]; then
+   if ! dpkg-query -W -f='${Status}' gum 2>/dev/null | grep -q "ok installed"; then
+      echo "$pckg_info_msg"
+      while true; do
+         read -p "Do you wish to install this package? (y/n): " yn
+         case $yn in
+               [Yy]* ) install_gum; break;;
+               [Nn]* ) bash start_up "$@"; exit;;
+               * ) echo "Please answer yes or no.";;
+         esac
+      done
+   fi
+elif [[ "$platform" == "Darwin" ]]; then
+   if ! brew list | grep -q 'gum'; then
+      echo "$pckg_info_msg"
+      while true; do
+         read -p "Do you wish to install this package? (y/n): " yn
+         case $yn in
+               [Yy]* ) install_gum; break;;
+               [Nn]* ) bash start_up "$@"; exit;;
+               * ) echo "Please answer yes or no.";;
+         esac
+      done
    fi
 fi
 
@@ -173,6 +193,10 @@ createFlojoyDirectoryWithYmlFile()
    fi
 }
 createFlojoyDirectoryWithYmlFile
+
+# update submodules
+gum spin --spinner dot --title 'Updating submodules' --title.foreground="$general_color" -- sleep 2 && git submodule update --init --recursive >/dev/null 2>&1
+feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 
 
 # checking virtual environment
