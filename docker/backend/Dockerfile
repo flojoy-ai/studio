@@ -12,10 +12,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the container
 COPY . /code/
 
-RUN python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
-RUN python3 write_python_metadata.py
-RUN python3 generate_manifest.py
-
 # Expose port 8000 for the Django application
 EXPOSE 8000
 
