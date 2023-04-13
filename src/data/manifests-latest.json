@@ -380,12 +380,7 @@
                 "default": ""
             }
         },
-        "LINE": {
-            "referred_node": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
+        "LINE": {},
         "SAVGOL": {
             "wlen": {
                 "type": "int",
