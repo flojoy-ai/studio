@@ -83,7 +83,11 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface SubSectionProps {
-  subSection: { name: string; key: string };
+  subSection: {
+    name: string;
+    key: string;
+    child?: { name: string; key: string }[];
+  };
   onAdd: NodeOnAddFunc;
 }
 
@@ -137,7 +141,7 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box ml="md">{subSection?.key}</Box>
+            <Box ml="md">{subSection?.name}</Box>
           </Box>
           <ChevronIcon
             className={classes.chevron}
@@ -152,7 +156,14 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
         </Group>
       </UnstyledButton>
       <Collapse data-testid="sidebar-subsection-collapse" in={opened}>
-        {items}
+        {subSection.child
+          ? subSection.child.map((child) => (
+            <div style={{padding:"10px 10px 0 10px"}}>
+
+              <SidebarSubSection onAdd={onAdd} subSection={child} />
+            </div>
+            ))
+          : items}
       </Collapse>
     </>
   );

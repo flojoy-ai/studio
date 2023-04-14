@@ -12,25 +12,15 @@ import yaml
 
 from flojoy import get_next_directions, get_next_nodes
 
-
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-
-from nodes.ARITHMETIC import *
-from nodes.ARRAY_AND_MATRIX import *
-from nodes.CONDITIONALS import *
-from nodes.LOADERS import *
-from nodes.LOOPS import *
-from nodes.SIGNAL_PROCESSING import *
-from nodes.SIMULATIONS import *
-from nodes.TIMERS import *
-from nodes.VISORS import *
-from nodes.TERMINATORS import *
+from nodes import *
 from services.job_service import JobService
 from utils.topology import Topology
+
 
 from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
