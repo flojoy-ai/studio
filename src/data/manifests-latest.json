@@ -31,7 +31,7 @@
         {
             "name": "Invert",
             "key": "INVERT",
-            "type": "ARRAY_AND_MATRIX"
+            "type": "MATRIX_MANIPULATION"
         },
         {
             "name": "Loop",
@@ -204,7 +204,7 @@
         {
             "name": "Matmul",
             "key": "MATMUL",
-            "type": "ARRAY_AND_MATRIX",
+            "type": "MATRIX_MANIPULATION",
             "inputs": [
                 {
                     "name": "y",

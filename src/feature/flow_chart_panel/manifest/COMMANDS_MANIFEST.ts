@@ -8,9 +8,18 @@ type Commands = {
   ui_component_id?: string;
 }[];
 
+type Sections = {
+  title: string;
+  child: {
+    name: string;
+    key: string;
+    child?: Sections[0]['child']
+  }[]
+}[]
+
 export const COMMANDS: Commands = manifests.commands;
 
-export const SECTIONS = [
+export const SECTIONS:Sections = [
   {
     title: "AI and Machine learning",
     child: [
@@ -79,12 +88,6 @@ export const SECTIONS = [
       {
         name: "Matrix manipulation",
         key: "MATRIX_MANIPULATION",
-        child: [
-          {
-            name: "Array & matrix",
-            key: "ARRAY_AND_MATRIX",
-          },
-        ],
       },
     ],
   },

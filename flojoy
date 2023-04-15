@@ -262,9 +262,9 @@ feedback $is_command_successful 'Created symlinks successfully!' 'Creating symli
 
 # jsonify python functions
 
-# gum spin --spinner dot --title 'Jsonifying Python functions and writing to JS-readable directory' --title.foreground="$general_color" -- python3 write_python_metadata.py
+gum spin --spinner dot --title 'Jsonifying Python functions and writing to JS-readable directory' --title.foreground="$general_color" -- python3 write_python_metadata.py
 
-# feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions, check write_python_metadata.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
+feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions, check write_python_metadata.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
 
 # Generate Manifest
 
