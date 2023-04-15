@@ -8,6 +8,7 @@ import {
 } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { Data } from "plotly.js";
+import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/data/manifests-latest.json", () => {
@@ -182,27 +183,28 @@ describe("Testing ControlComponentState State's", () => {
       );
       expect(result.current.nd).toBeNull();
     });
-    it("Checks if the Nd's State renders/fires with Updated State", () => {
+    it("Checks if the Nd's State renders/fires with updated State", () => {
       const testNdState: ResultIO = {
         cmd: "string",
         id: "string",
         result: {
-          type: "bar",
-          file_type: ["string[]"],
-          source: "string",
-          x: undefined,
-          y: undefined,
-          z: undefined,
-          layout: undefined,
-          data: [
-            {
+          default_fig: {
+            data: [{
+              x: [2, 4, 5, 6],
+              y: [2, 4, 5, 6],
+              z: [2, 4, 5, 6],
+              type: "box",
+              mode: "lines",
+            }],
+            layout: styledPlotLayout('light')
+          },
+          data: {
               x: [2, 4, 5, 6],
               y: [2, 4, 5, 6],
               z: [2, 4, 5, 6],
               type: "box",
               mode: "lines",
             },
-          ],
         },
       };
       const { result } = renderHook(() =>

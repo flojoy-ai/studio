@@ -7,7 +7,7 @@ export type ResultIO = {
   result: {
     default_fig: {
       data: Data[],
-      layout: Layout
+      layout: Partial<Layout>
     },
     data: {
       type: string;
