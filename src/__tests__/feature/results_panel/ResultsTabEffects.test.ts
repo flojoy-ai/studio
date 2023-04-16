@@ -5,6 +5,7 @@ import { NOISY_SINE } from "@src/data/RECIPES";
 import { Node } from "reactflow";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 
 describe("useResultsTabEffects", () => {
   const setResultNodes = jest.fn();
@@ -13,9 +14,21 @@ describe("useResultsTabEffects", () => {
       cmd: "SINE",
       id: "TEST_ID",
       result: {
-        type: "bar",
-        x: [1, 2, 3],
-        y: [1, 2, 3],
+        default_fig:{
+          data: [
+            {
+              type: "bar",
+              x: [1, 2, 3],
+              y: [1, 2, 3],
+            }
+          ],
+          layout: styledPlotLayout("dark")
+        },
+        data:{
+          type: "ordered_pair",
+          x: [1, 2, 3],
+          y: [1, 2, 3],
+        }
       },
     },
   ];
