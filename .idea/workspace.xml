@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1887e776-b220-4a83-9b5c-da8997165477" name="Changes" comment="last pull from develop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PYTHON/nodes" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/KEITHLEY2400.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/KEITHLEY2400.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/LABJACKU3.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/LABJACKU3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/manifests-latest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/manifests-latest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/pythonFunctions.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/pythonFunctions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +26,7 @@
         <entry key="$PROJECT_DIR$" value="Keithley2400" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/PYTHON/nodes" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
