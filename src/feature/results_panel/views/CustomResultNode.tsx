@@ -30,7 +30,7 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
       ) : (
         <PlotlyComponent
           id={data.id}
-          data={data?.resultData.data!}
+          data={data?.resultData?.default_fig?.data!}
           layout={Object.assign({},{title:data.label}, styledLayout)}
           useResizeHandler
           style={{

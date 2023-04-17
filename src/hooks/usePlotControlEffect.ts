@@ -28,10 +28,10 @@ const usePlotControlEffect = ({
   const updateInputOptions = useCallback(() => {
     const inputOptions: NodeInputOptions[] = [];
     const possibleKeys = ["x","y", "z"];
-    if(nd?.result.data?.length){
-      Object.keys(nd.result.data[0]).forEach(key=>{
+    if(nd?.result.data){
+      Object.keys(nd.result.data).forEach(key=>{
         if(possibleKeys.includes(key)){
-            inputOptions.push({ label: key, value: nd.result.data![0][key] });
+            inputOptions.push({ label: key, value: nd.result.data[key] });
         }
       })
     }

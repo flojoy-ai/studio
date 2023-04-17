@@ -1,24 +1,30 @@
+import fnmatch
 import json
-from os import listdir
-from os.path import isfile, join
+import os
 
-dirs = ['SIMULATIONS', 'ARITHMETIC', 'VISORS', 'CONDITIONALS', 'LOOPS', 'TIMERS', 'SIGNAL_PROCESSING', 'LOADERS', 'ARRAY_AND_MATRIX',
-        "TERMINATORS", "INSTRUMENTS"]
+rootdir = "PYTHON/nodes"
 
-path = 'PYTHON/nodes'
+# The pattern to match for Python files
+pattern = "*.py"
 
+# List to store the file paths
+file_paths = []
 badbadnotgood = ['VCTR.py', '__init__.py', '.DS_Store']
 
-function_dict = dict()
+# Walk through all the directories and subdirectories
+for subdir, dirs, files in os.walk(rootdir):
+    for file in files:
+        # Check if the file matches the pattern
+        if fnmatch.fnmatch(file, pattern):
+            # If it matches, add the full path to the list
+            if file not in badbadnotgood:
+                file_paths.append(os.path.join(subdir, file))
 
-for dir in dirs:
-    full_path = path + '/' + dir
-    python_files = [f for f in listdir(full_path) if (
-        isfile(join(full_path, f)) and f not in badbadnotgood)]
-    for pf in python_files:
-        if pf.endswith(".py"):
-            with open(join(full_path, pf)) as f:
-                function_dict[pf] = f.read()
+# Print the list of file paths
+function_dict = dict()
+for single_file in file_paths:
+    with open(single_file) as f:
+        function_dict[os.path.basename(single_file)] = f.read()
 
 s = json.dumps(obj=function_dict, indent=2)
 result = open(
