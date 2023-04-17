@@ -1,5 +1,5 @@
 {
-    "_v": 12,
+    "_v": 14,
     "commands": [
         {
             "name": "Add",
@@ -44,6 +44,11 @@
                     "type": "target"
                 }
             ]
+        },
+        {
+            "name": "SecondOrderSystem",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
         },
         {
             "name": "Image Viewer",
@@ -150,6 +155,11 @@
             "type": "VISOR"
         },
         {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
             "name": "Constant",
             "key": "CONSTANT",
             "type": "SIMULATION"
@@ -187,14 +197,54 @@
             ]
         },
         {
-            "name": "Line",
-            "key": "LINE",
-            "type": "VISOR"
+            "name": "Invert",
+            "key": "INVERT",
+            "type": "ARRAY_AND_MATRIX"
         },
         {
-            "name": "Scatter Plot",
-            "key": "SCATTER",
-            "type": "VISOR"
+            "name": "loop",
+            "key": "LOOP",
+            "type": "LOOP",
+            "inputs": [
+                {
+                    "name": "end",
+                    "id": "end",
+                    "type": "source"
+                },
+                {
+                    "name": "body",
+                    "id": "body",
+                    "type": "source"
+                }
+            ]
+        },
+        {
+            "name": "timer",
+            "key": "TIMER",
+            "type": "TIMER"
+        },
+        {
+            "name": "Sine",
+            "key": "SINE",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "3D Scatter Plot",
+            "key": "SCATTER3D",
+            "type": "VISOR",
+            "inputs": []
+        },
+        {
+            "name": "Multiply",
+            "key": "MULTIPLY",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "multiply_y",
+                    "type": "target"
+                }
+            ]
         },
         {
             "name": "Camera",
@@ -202,9 +252,112 @@
             "type": "LOADER"
         },
         {
+            "name": "Feedback",
+            "key": "FEEDBACK",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "VISOR"
+        },
+        {
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "VISOR"
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOADER"
+        },
+        {
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Add",
+            "key": "ADD",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "add_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Histogram",
+            "key": "HISTOGRAM",
+            "type": "VISOR"
+        },
+        {
+            "name": "Low-pass FIR Filter",
+            "key": "FIR",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "3D Surface Plot",
+            "key": "SURFACE3D",
+            "type": "VISOR"
+        },
+        {
+            "name": "GoTo",
+            "key": "GOTO",
+            "type": "LOOP"
+        },
+        {
+            "name": "Line",
+            "key": "LINE",
+            "type": "VISOR"
+        },
+        {
             "name": "Sub",
             "key": "SUBTRACT",
             "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "sub_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Matmul",
+            "key": "MATMUL",
+            "type": "ARRAY_AND_MATRIX",
             "inputs": [
                 {
                     "name": "y",
@@ -244,6 +397,16 @@
             "goto_node_id": {
                 "type": "node_reference",
                 "default": ""
+            }
+        },
+        "SECOND_ORDER_SYSTEM": {
+            "d1": {
+                "type": "float",
+                "default": "250"
+            },
+            "d2": {
+                "type": "float",
+                "default": "100"
             }
         },
         "LINSPACE": {
@@ -301,6 +464,12 @@
                 "default": -1
             }
         },
+        "TIMER": {
+            "sleep_time": {
+                "type": "int",
+                "default": 0
+            }
+        },
         "SINE": {
             "frequency": {
                 "type": "float",
@@ -329,19 +498,6 @@
                 "default": "sine"
             }
         },
-        "CONSTANT": {
-            "constant": {
-                "type": "float",
-                "default": "3"
-            }
-        },
-        "TIMESERIES": {},
-        "CONDITIONAL": {
-            "operator_type": {
-                "type": "string",
-                "default": ">="
-            }
-        },
         "CAMERA": {
             "file_type": {
                 "type": "string",
@@ -352,10 +508,11 @@
                 "default": 0
             }
         },
-        "TIMER": {
-            "sleep_time": {
-                "type": "int",
-                "default": 0
+        "TIMESERIES": {},
+        "CONSTANT": {
+            "constant": {
+                "type": "float",
+                "default": "3"
             }
         }
     }

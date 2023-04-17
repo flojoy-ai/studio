@@ -16,10 +16,7 @@ jest.mock("reactflow", () => {
 jest.mock("@src/feature/common/PlotlyComponent", () => ({
   __esModule: true,
   default: jest.fn((props) => (
-    <div
-      id={props.id}
-      style={props.style}
-    >
+    <div id={props.id} style={props.style}>
       PlotlyComponent
     </div>
   )),
@@ -32,11 +29,22 @@ describe("CustomResultNode", () => {
     label: "node-label",
     type: "SINE",
     resultData: {
-      type: "bar",
-      x: [1, 2, 3],
-      y: [4, 5, 6],
-      layout: {
-        title: "some title",
+      default_fig: {
+        data: [
+          {
+            type: "bar",
+            x: [1, 2, 3],
+            y: [4, 5, 6],
+          },
+        ],
+        layout: {
+          title: "some title",
+        },
+      },
+      data: {
+        type: "ordered_pair",
+        x: [1, 2, 3],
+        y: [4, 5, 6],
       },
     },
   };

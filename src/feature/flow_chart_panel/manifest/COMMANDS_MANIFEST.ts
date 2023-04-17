@@ -8,49 +8,25 @@ type Commands = {
   ui_component_id?: string;
 }[];
 
+type Sections = {
+  title: string;
+  child: {
+    name: string;
+    key: string;
+    child?: Sections[0]['child']
+  }[]
+}[]
+
 export const COMMANDS: Commands = manifests.commands;
 
-export const SECTIONS = [
+export const SECTIONS:Sections = [
   {
-    title: "Generators",
+    title: "AI and Machine learning",
     child: [
-      // Generators tab
-      { name: "Simulations", key: "SIMULATION" },
-      { name: "Sample Datasets", key: "SAMPLE_DATASET" },
-      { name: "Sample Images", key: "SAMPLE_IMAGE" },
-    ],
-  },
-  {
-    title: "Conditionals, Timers, & Loops",
-    child: [
-      // Conditionals, Timers, & Loops
-      { name: "Timers", key: "TIMER" },
-      { name: "Loops", key: "LOOP" },
-      { name: "Conditionals", key: "CONDITIONAL" },
-    ],
-  },
-  {
-    title: "Transformers",
-    child: [
-      // Transformers tab
-      { name: "Arithmetic", key: "ARITHMETIC" },
-      { name: "Signal processing", key: "SIGNAL_PROCESSING" },
-      { name: "Regressions", key: "REGRESSIONS" },
-      { name: "Image processing", key: "IMAGE_PROCESSING" },
-      { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
-    ],
-  },
-  {
-    title: "Arrays and Matrices",
-    child: [{ name: "Array & matrix manipulation", key: "ARRAY_AND_MATRIX" }],
-  },
-  {
-    title: "Loaders",
-    child: [
-      // Loaders tab
-      { name: "Cloud Databases", key: "CLOUD_DATABASE" },
-      { name: "Cloud File Systems", key: "CLOUD_FILE_SYSTEM" },
-      { name: "Local File System", key: "LOCAL_FILE_SYSTEM" },
+      {
+        name: "Object detection",
+        key: "AI_OBJECT_DETECTION",
+      },
     ],
   },
 
@@ -62,18 +38,65 @@ export const SECTIONS = [
       { name: "DAQ", key: "DAQ" },
     ],
   },
-
   {
-    title: "Visualizations",
+    title: "Generators",
     child: [
-      // Visualization tab
-      { name: "Visualization", key: "VISOR" },
+      // Generators tab
+      { name: "Simulations", key: "SIMULATION" },
+      { name: "Sample datasets", key: "SAMPLE_DATASET" },
+      { name: "Sample images", key: "SAMPLE_IMAGE" },
     ],
   },
   {
-    title: "Terminators",
+    title: "Instruments",
     child: [
-      {name: "Terminator", key:'TERMINATOR'}
-    ]
-  }
+      {
+        name: "Web cam",
+        key: "WEB_CAM",
+      },
+    ],
+  },
+  {
+    title: "Loaders",
+    child: [
+      // Loaders tab
+      { name: "Cloud databases", key: "CLOUD_DATABASE" },
+      { name: "Cloud file systems", key: "CLOUD_FILE_SYSTEM" },
+      { name: "Local file system", key: "LOCAL_FILE_SYSTEM" },
+    ],
+  },
+  {
+    title: "Logic gates",
+    child: [
+      // Conditionals, Timers, & Loops
+      { name: "Timers", key: "TIMER" },
+      { name: "Loops", key: "LOOP" },
+      { name: "Conditionals", key: "CONDITIONAL" },
+      { name: "Terminators", key: "TERMINATOR" },
+    ],
+  },
+
+  {
+    title: "Transformers",
+    child: [
+      // Transformers tab
+      { name: "Arithmetic", key: "ARITHMETIC" },
+      { name: "Signal processing", key: "SIGNAL_PROCESSING" },
+      { name: "Regressions", key: "REGRESSIONS" },
+      { name: "Image processing", key: "IMAGE_PROCESSING" },
+      { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
+      {
+        name: "Matrix manipulation",
+        key: "MATRIX_MANIPULATION",
+      },
+    ],
+  },
+
+  {
+    title: "Visualizers",
+    child: [
+      // Visualization tab
+      { name: "Plotly", key: "PLOTLY_VISOR" },
+    ],
+  },
 ];

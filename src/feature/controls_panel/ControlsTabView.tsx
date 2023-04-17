@@ -131,9 +131,9 @@ const ControlsTab = ({
   const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
-      if (c.id === ctrl.id) {
-        manClone[i].val = isNaN(+val) ? val : +val;
-      }
+      // if (c.id === ctrl.id) {
+      //   manClone[i].val = isNaN(+val) ? val : +val;
+      // }
     });
     cacheManifest(manClone);
     updateCtrlInputDataForNode(

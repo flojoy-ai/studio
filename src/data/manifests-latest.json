@@ -1,8 +1,8 @@
 {
-    "_v": 13,
+    "_v": 15,
     "commands": [
         {
-            "name": "conditional",
+            "name": "Conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
             "inputs": [
@@ -31,10 +31,10 @@
         {
             "name": "Invert",
             "key": "INVERT",
-            "type": "ARRAY_AND_MATRIX"
+            "type": "MATRIX_MANIPULATION"
         },
         {
-            "name": "loop",
+            "name": "Loop",
             "key": "LOOP",
             "type": "LOOP",
             "inputs": [
@@ -51,7 +51,7 @@
             ]
         },
         {
-            "name": "timer",
+            "name": "Timer",
             "key": "TIMER",
             "type": "TIMER"
         },
@@ -63,7 +63,7 @@
         {
             "name": "3D Scatter Plot",
             "key": "SCATTER3D",
-            "type": "VISOR",
+            "type": "PLOTLY_VISOR",
             "inputs": []
         },
         {
@@ -81,7 +81,12 @@
         {
             "name": "Camera",
             "key": "CAMERA",
-            "type": "LOCAL_FILE_SYSTEM"
+            "type": "WEB_CAM"
+        },
+        {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
         },
         {
             "name": "Feedback",
@@ -94,14 +99,19 @@
             "type": "SIMULATION"
         },
         {
+            "name": "Absolute",
+            "key": "ABS",
+            "type": "ARITHMETIC"
+        },
+        {
             "name": "Scatter Plot",
             "key": "SCATTER",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Image Viewer",
             "key": "IMAGE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Local File",
@@ -111,7 +121,7 @@
         {
             "name": "Object Detection",
             "key": "OBJECT_DETECTION",
-            "type": "SIMULATION"
+            "type": "AI_OBJECT_DETECTION"
         },
         {
             "name": "Butterworth Filter",
@@ -152,7 +162,12 @@
         {
             "name": "Histogram",
             "key": "HISTOGRAM",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Second Order System",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
         },
         {
             "name": "Loader",
@@ -167,7 +182,7 @@
         {
             "name": "3D Surface Plot",
             "key": "SURFACE3D",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "GoTo",
@@ -177,10 +192,10 @@
         {
             "name": "Line",
             "key": "LINE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
-            "name": "Sub",
+            "name": "Subtract",
             "key": "SUBTRACT",
             "type": "ARITHMETIC",
             "inputs": [
@@ -194,7 +209,7 @@
         {
             "name": "Matmul",
             "key": "MATMUL",
-            "type": "ARRAY_AND_MATRIX",
+            "type": "MATRIX_MANIPULATION",
             "inputs": [
                 {
                     "name": "y",
@@ -206,7 +221,7 @@
         {
             "name": "Bar Chart",
             "key": "BAR",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Savitzky-Golay Filter",
@@ -287,6 +302,20 @@
                 "default": 0
             }
         },
+        "PID": {
+            "Kp": {
+                "type": "float",
+                "default": "5"
+            },
+            "Ki": {
+                "type": "float",
+                "default": "0.0143"
+            },
+            "Kd": {
+                "type": "float",
+                "default": "356.25"
+            }
+        },
         "FEEDBACK": {
             "referred_node": {
                 "type": "node_reference",
@@ -322,10 +351,14 @@
                 "default": "1000"
             }
         },
-        "LOADER": {
-            "measurement_uuid": {
-                "type": "string",
-                "default": ""
+        "SECOND_ORDER_SYSTEM": {
+            "d1": {
+                "type": "float",
+                "default": "250"
+            },
+            "d2": {
+                "type": "float",
+                "default": "100"
             }
         },
         "FIR": {
@@ -352,6 +385,7 @@
                 "default": ""
             }
         },
+        "LINE": {},
         "SAVGOL": {
             "wlen": {
                 "type": "int",
