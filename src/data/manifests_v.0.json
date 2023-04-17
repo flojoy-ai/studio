@@ -1,5 +1,5 @@
 {
-    "_v": 1,
+    "_v": 0,
     "commands": [
         {
             "name": "Sine",
@@ -94,11 +94,6 @@
             "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
             "type": "KEITHLEY2400"
-        },
-        {
-            "name": "PHIDGET22",
-            "key": "PHIDGET22",
-            "type": "PHIDGET22"
         },
         {
             "name": "Constant",
@@ -316,12 +311,6 @@
             "baudrate": {
                 "type": "float",
                 "default": 9600
-            }
-        },
-        "PHIDGET22": {
-            "numbers": {
-                "type": "int",
-                "default": 1
             }
         },
         "CONSTANT": {

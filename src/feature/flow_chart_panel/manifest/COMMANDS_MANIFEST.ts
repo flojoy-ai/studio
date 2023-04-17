@@ -81,6 +81,7 @@ export const SECTIONS = [
     child: [
       {name: "Keithley2400", key:'KEITHLEY2400'},
       {name: "LabJacku3", key:'LABJACKU3'},
+      {name: "Phidget22", key:'PHIDGET22'}
     ]
   }
 ];
