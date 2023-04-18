@@ -54,9 +54,9 @@ export const SECTIONS:Sections = [
         name: "Web cam",
         key: "WEB_CAM",
       },
-      { name: "Keithley", key: "KEITHLEY2400" },
-      { name: "Labjack", key: "LABJACKU3" },
-      { name: "Phidget", key: "PHIDGET22" }
+      { name: "Keithley", key: "KEITHLEY" },
+      { name: "Labjack", key: "LABJACK" },
+      { name: "Phidget", key: "PHIDGET" }
     ],
   },
   {

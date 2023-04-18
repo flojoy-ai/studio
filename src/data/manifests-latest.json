@@ -97,13 +97,13 @@
         },
         {
             "name": "KEITHLEY2400",
-            "key": "KEITHLEY",
-            "type": "KEITHLEY2400"
+            "key": "KEITHLEY2400",
+            "type": "KEITHLEY"
         },
         {
             "name": "PHIDGET22",
-            "key": "PHIDGET",
-            "type": "PHIDGET22"
+            "key": "PHIDGET22",
+            "type": "PHIDGET"
         },
         {
             "name": "Constant",
@@ -124,8 +124,8 @@
         },
         {
             "name": "LABJACKU3",
-            "key": "LABJACK",
-            "type": "LABJACKU3"
+            "key": "LABJACKU3",
+            "type": "LABJACK"
         },
         {
             "name": "Savitzky-Golay Filter",
@@ -324,7 +324,7 @@
                 "default": "1000"
             }
         },
-        "KEITHLEY": {
+        "KEITHLEY2400": {
             "comport": {
                 "type": "string",
                 "default": "/dev/ttyUSB0"
@@ -334,7 +334,7 @@
                 "default": 9600
             }
         },
-        "PHIDGET": {
+        "PHIDGET22": {
             "n_sensors": {
                 "type": "int",
                 "default": 3
@@ -346,7 +346,7 @@
                 "default": "3"
             }
         },
-        "LABJACK": {
+        "LABJACKU3": {
             "numbers": {
                 "type": "int",
                 "default": 1
