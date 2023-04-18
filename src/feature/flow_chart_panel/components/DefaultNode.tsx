@@ -3,6 +3,7 @@ import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useEffect } from "react";
+import NodeWrapper from "./node-wrapper/NodeWrapper";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode, setNodes, nodes } =
@@ -19,6 +20,8 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   }, [data, nodes, setNodes]);
 
   return (
+    <NodeWrapper data={data}>
+
     <div
       style={{
         ...((runningNode === data.id || data.selected) && {
@@ -66,6 +69,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
         </div>
       </div>
     </div>
+    </NodeWrapper>
   );
 };
 

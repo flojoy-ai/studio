@@ -2,25 +2,29 @@
 
 exports[`ConditionalNode checks the snapshot 1`] = `
 <div>
-  <div>
-    <div
-      class="default_node_container"
-      style="background-color: rgba(153, 245, 255, 0.31); border: 1px solid #99f5ff; color: rgb(153, 245, 255); padding: 0px 0px 8px 0px;"
-    >
+  <div
+    data-testid="node-wrapper"
+  >
+    <div>
       <div
-        style="display: flex; justify-content: center; padding: 5px; width: 100%; flex-direction: column; text-align: center;"
-      >
-        <div>
-          test
-        </div>
-        <div />
-      </div>
-      <div
-        style="display: flex; flex-direction: column; height: 80px;"
+        class="default_node_container"
+        style="background-color: rgba(153, 245, 255, 0.31); border: 1px solid #99f5ff; color: rgb(153, 245, 255); padding: 0px 0px 8px 0px;"
       >
         <div
-          data-testid="handle-component"
-        />
+          style="display: flex; justify-content: center; padding: 5px; width: 100%; flex-direction: column; text-align: center;"
+        >
+          <div>
+            test
+          </div>
+          <div />
+        </div>
+        <div
+          style="display: flex; flex-direction: column; height: 80px;"
+        >
+          <div
+            data-testid="handle-component"
+          />
+        </div>
       </div>
     </div>
   </div>

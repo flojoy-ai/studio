@@ -52,7 +52,7 @@ export function cancelFlowChartRun({
     const rfInstanceObject = rfInstance;
     const fcStr = JSON.stringify(rfInstanceObject);
 
-    fetch("/cancel_fc", {
+    fetch(`${API_URI}/cancel_fc`, {
       method: "POST",
       body: JSON.stringify({
         fc: fcStr,
