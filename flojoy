@@ -59,10 +59,14 @@ fi
 
 
 success_color=71
-warning_color=3
-error_color=9
-message_color=61
+warning_color='#FFA500'
+error_color='#FF0000'
+message_color='#4169E1'
 general_color=212
+info_mark=👉
+check_mark=✔
+alert_mark=⚠️
+error_mark=❌
 
 is_command_successful=0
 
@@ -88,7 +92,8 @@ feedback()
    message=$2
    help_message=$3
    if [ "$is_successful" -eq 0 ]; then
-      gum style --foreground $success_color ":heavy_check_mark:  $message" | gum format -t emoji
+      gum style --foreground $success_color "$check_mark  $message"
+      echo ''
    else
       gum style --foreground $error_color ":x: $help_message" | gum format -t emoji
       exit
@@ -102,7 +107,7 @@ createSystemLinks()
 
    FILE=$PWD/PYTHON/WATCH/STATUS_CODES.yml
    if test -f "$FILE"; then
-      gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
+      gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
       is_command_successful=$(($is_command_successful+$?))
    else
       ln STATUS_CODES.yml PYTHON/WATCH/
@@ -111,7 +116,7 @@ createSystemLinks()
 
    FILE=$PWD/src/STATUS_CODES.yml
    if test -f "$FILE"; then
-      gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
+      gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
       is_command_successful=$(($is_command_successful+$?))
    else
       ln STATUS_CODES.yml src
@@ -177,20 +182,31 @@ createFlojoyDirectoryWithYmlFile()
    FILE=$HOME/.flojoy/flojoy.yaml
    if test -d "$FOLDER"; then
       if test -f "$FILE"; then
-         gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
+         gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
          gum spin --spinner dot --title "Updating file path in flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && echo "PATH: $CWD" > $FILE
          feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
 
       else
-         gum style --foreground $warning_color ":point_right: file flojoy.yaml in directory $FOLDER does not exists. " | gum format -t emoji
+         gum style --foreground $message_color ":point_right: file flojoy.yaml in directory $FOLDER does not exists. " | gum format -t emoji
          gum spin --spinner dot --title "Creating new flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && touch $FILE && echo "PATH: $CWD" > $FILE
          feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
       fi
    else
-      gum style --foreground $warning_color ":point_right: directory ~/.flojoy/flojoy.yaml does not exists. " | gum format -t emoji
+      gum style --foreground $message_color ":point_right: directory ~/.flojoy/flojoy.yaml does not exists. " | gum format -t emoji
       gum spin --spinner dot --title "Creating new directory with yaml file..." --title.foreground="$general_color" -- sleep 1 && mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
       feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
    fi
+   CREDENTIALS_FILE=$FOLDER/credentials
+   if ! test -f "$CREDENTIALS_FILE"; then
+      gum style --foreground $warning_color "$alert_mark  Warning: Credetials are not set for your project!"
+      echo ''
+   else
+      if ! grep -q 'FRONTIER_API_KEY' "$CREDENTIALS_FILE" >/dev/null 2>&1; then
+         gum style --foreground $warning_color "$alert_mark  Warning: FRONTIER_API_KEY not set for your project!"
+         echo ''
+      fi
+   fi
+
 }
 createFlojoyDirectoryWithYmlFile
 
@@ -199,14 +215,14 @@ gum spin --spinner dot --title 'Updating submodules' --title.foreground="$genera
 feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 
 
-# checking virtual environment
+ # checking virtual environment
 
 venvCmd=""
 
 if [ -n "$venv" ]
 then
-   gum style --foreground $warning_color ":point_right: Virtual env path is provided, will use: ${venv}" | gum format -t emoji
-
+   gum style --foreground $message_color ":point_right: Virtual env path is provided, will use: ${venv}" | gum format -t emoji
+   echo ''
    venvCmd="${venv}/bin/activate"
 
    if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
@@ -215,10 +231,10 @@ then
 else
    venv_dir=$HOME/.flojoy/venv
    if test -d "$venv_dir";then
-      gum style --foreground $warning_color ":point_right: No virtual env provided. Will use virtual env from $venv_dir directory" | gum format -t emoji
+      gum style --foreground $message_color ":point_right: No virtual env provided. Will use virtual env from $venv_dir directory" | gum format -t emoji
       venvCmd="$venv_dir/bin/activate"
    else
-      gum style --foreground $warning_color ":point_right: No virtual env provided. Will create one in $venv_dir directory." | gum format -t emoji
+      gum style --foreground $message_color ":point_right: No virtual env provided. Will create one in $venv_dir directory." | gum format -t emoji
 
       gum spin --spinner dot --title "creating virtual environment in $venv_dir..." --title.foreground="$general_color" -- sleep 2 && cd "$HOME"/.flojoy && mkdir venv && python3 -m venv venv/
 
@@ -233,7 +249,8 @@ fi
 if [ $initPythonPackages = true ]
 then
    cd $CWD
-   gum style --foreground $warning_color ":point_right: Flag -p is not provided, Python packages will be installed from requirements.txt file" | gum format -t emoji
+   gum style --foreground $message_color ":point_right: Flag -p is not provided, Python packages will be installed from requirements.txt file" | gum format -t emoji
+   echo ''
    gum spin --spinner dot --title 'Installing Python packages...' --title.foreground="$general_color" -- sleep 2 && source "$venvCmd" && pip install -r requirements.txt >/dev/null 2>&1
    feedback $? 'Python packages installed successfully!' 'Failed to install Python packages, check if pip and Python not lower than v3.10 is installed in your local machine or Try running this script again.'
 fi
@@ -242,7 +259,7 @@ fi
 
 if [ $initNodePackages = true ]
 then
-   gum style --foreground $warning_color ":point_right: Argument -n is not provided, Node packages will be installed from package.json" | gum format -t emoji
+   gum style --foreground $message_color ":point_right: Argument -n is not provided, Node packages will be installed from package.json" | gum format -t emoji
    gum spin --spinner dot --title 'Installing Node packages...' --title.foreground="$general_color" -- sleep 2 && cd "$CWD" && npm install --legacy-peer-deps >/dev/null 2>&1
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed, check if npm is installed in your local machine'
 fi
@@ -305,7 +322,7 @@ feedback $? 'Closed all existing rq workers (if any).' 'Error occured while clos
 
 # SHowing RQ WOrker Info
 
-gum style --foreground $warning_color 'Rq info after closing:'
+gum style --foreground $message_color 'Rq info after closing:'
 rq info
 
 # Initializing FLOJOY-WATCH RQ Worker
@@ -330,7 +347,7 @@ CWD="$PWD"
 
 FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
-   gum style --foreground $warning_color ":point_right: $FILE exists." | gum format -t emoji
+   gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
 else
    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights

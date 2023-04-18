@@ -8,7 +8,7 @@ type States = {
   runningNode: string;
   serverStatus: IServerStatus;
   failedNode: string;
-  failureReason: string[];
+  failureReason: string;
   socketId: string;
 };
 export enum IServerStatus {
@@ -27,7 +27,7 @@ const DEFAULT_STATES = {
   runningNode: "",
   serverStatus: IServerStatus.CONNECTING,
   failedNode: "",
-  failureReason: [],
+  failureReason: '',
   socketId: "",
 };
 export const SocketContext = createContext<{ states: States } | null>(null);

@@ -17,7 +17,7 @@ sys.path.insert(0, dir_path)
 
 job_service = JobService('flojoy-watch')
 q = job_service.queue
-STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
+STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r', encoding='utf-8'), Loader=yaml.Loader)
 
 print('queue flojoy-watch isEmpty? ', q.is_empty())
 

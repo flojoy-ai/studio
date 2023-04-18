@@ -22,11 +22,8 @@ from services.job_service import JobService
 from utils.topology import Topology
 
 
-from common.CONSTANTS import KEY_ALL_JOBEST_IDS
-
-
 ENV_CI = 'CI'
-stream = open('STATUS_CODES.yml', 'r')
+stream = open('STATUS_CODES.yml', 'r', encoding='utf-8')
 STATUS_CODES = yaml.safe_load(stream)
 
 
