@@ -35,7 +35,7 @@ from FUNCTIONS.ARITHMETIC import *
 from FUNCTIONS.VISORS import *
 from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
-stream = open('STATUS_CODES.yml', 'r')
+stream = open('STATUS_CODES.yml', 'r', encoding='utf-8')
 STATUS_CODES = yaml.safe_load(stream)
 
 

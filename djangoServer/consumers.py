@@ -5,7 +5,7 @@ import yaml
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
-STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r'), Loader=yaml.Loader)
+STATUS_CODES = yaml.load(open('STATUS_CODES.yml', 'r', encoding='utf-8'), Loader=yaml.Loader)
 
 
 class FlojoyConsumer(WebsocketConsumer):
