@@ -1,5 +1,5 @@
 {
-    "_v": 16,
+    "_v": 0,
     "commands": [
         {
             "name": "Sine",
@@ -9,7 +9,7 @@
         {
             "name": "3D Scatter Plot",
             "key": "SCATTER3D",
-            "type": "PLOTLY_VISOR",
+            "type": "VISOR",
             "inputs": []
         },
         {
@@ -18,7 +18,7 @@
             "type": "TERMINATOR"
         },
         {
-            "name": "Subtract",
+            "name": "Sub",
             "key": "SUBTRACT",
             "type": "ARITHMETIC",
             "inputs": [
@@ -30,14 +30,9 @@
             ]
         },
         {
-            "name": "Absolute",
-            "key": "ABS",
-            "type": "ARITHMETIC"
-        },
-        {
             "name": "3D Surface Plot",
             "key": "SURFACE3D",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         },
         {
             "name": "GoTo",
@@ -50,7 +45,7 @@
             "type": "SIGNAL_PROCESSING"
         },
         {
-            "name": "Loop",
+            "name": "loop",
             "key": "LOOP",
             "type": "LOOP",
             "inputs": [
@@ -69,12 +64,12 @@
         {
             "name": "Line",
             "key": "LINE",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         },
         {
             "name": "Object Detection",
             "key": "OBJECT_DETECTION",
-            "type": "AI_OBJECT_DETECTION"
+            "type": "SIMULATION"
         },
         {
             "name": "Linspace",
@@ -98,12 +93,7 @@
         {
             "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
-            "type": "KEITHLEY"
-        },
-        {
-            "name": "PHIDGET22",
-            "key": "PHIDGET22",
-            "type": "PHIDGET"
+            "type": "KEITHLEY2400"
         },
         {
             "name": "Constant",
@@ -113,7 +103,7 @@
         {
             "name": "Matmul",
             "key": "MATMUL",
-            "type": "MATRIX_MANIPULATION",
+            "type": "ARRAY_AND_MATRIX",
             "inputs": [
                 {
                     "name": "y",
@@ -125,7 +115,7 @@
         {
             "name": "LABJACKU3",
             "key": "LABJACKU3",
-            "type": "LABJACK"
+            "type": "LABJACKU3"
         },
         {
             "name": "Savitzky-Golay Filter",
@@ -140,17 +130,17 @@
         {
             "name": "Local File",
             "key": "LOCAL_FILE",
-            "type": "LOCAL_FILE_SYSTEM"
+            "type": "LOADER"
         },
         {
-            "name": "Timer",
+            "name": "timer",
             "key": "TIMER",
             "type": "TIMER"
         },
         {
             "name": "Histogram",
             "key": "HISTOGRAM",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         },
         {
             "name": "Multiply",
@@ -170,32 +160,22 @@
             "type": "SIMULATION"
         },
         {
-            "name": "PID",
-            "key": "PID",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
             "name": "Scatter Plot",
             "key": "SCATTER",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         },
         {
             "name": "Invert",
             "key": "INVERT",
-            "type": "MATRIX_MANIPULATION"
+            "type": "ARRAY_AND_MATRIX"
         },
         {
             "name": "Image Viewer",
             "key": "IMAGE",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         },
         {
-            "name": "Second Order System",
-            "key": "SECOND_ORDER_SYSTEM",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Conditional",
+            "name": "conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
             "inputs": [
@@ -241,12 +221,12 @@
         {
             "name": "Camera",
             "key": "CAMERA",
-            "type": "WEB_CAM"
+            "type": "LOADER"
         },
         {
             "name": "Bar Chart",
             "key": "BAR",
-            "type": "PLOTLY_VISOR"
+            "type": "VISOR"
         }
     ],
     "parameters": {
@@ -309,7 +289,6 @@
                 "default": -1
             }
         },
-        "LINE": {},
         "LINSPACE": {
             "start": {
                 "type": "float",
@@ -332,12 +311,6 @@
             "baudrate": {
                 "type": "float",
                 "default": 9600
-            }
-        },
-        "PHIDGET22": {
-            "n_sensors": {
-                "type": "int",
-                "default": 3
             }
         },
         "CONSTANT": {
@@ -383,34 +356,10 @@
             }
         },
         "TIMESERIES": {},
-        "PID": {
-            "Kp": {
-                "type": "float",
-                "default": "5"
-            },
-            "Ki": {
-                "type": "float",
-                "default": "0.0143"
-            },
-            "Kd": {
-                "type": "float",
-                "default": "356.25"
-            }
-        },
         "INVERT": {
             "rcond": {
                 "type": "float",
                 "default": 1.0
-            }
-        },
-        "SECOND_ORDER_SYSTEM": {
-            "d1": {
-                "type": "float",
-                "default": "250"
-            },
-            "d2": {
-                "type": "float",
-                "default": "100"
             }
         },
         "CONDITIONAL": {

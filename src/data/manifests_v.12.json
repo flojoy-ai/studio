@@ -2,6 +2,8 @@
     "_v": 12,
     "commands": [
         {
+<<<<<<< HEAD
+=======
             "name": "Add",
             "key": "ADD",
             "type": "ARITHMETIC",
@@ -160,6 +162,7 @@
             "type": "SIMULATION"
         },
         {
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
@@ -187,14 +190,55 @@
             ]
         },
         {
-            "name": "Line",
-            "key": "LINE",
-            "type": "VISOR"
+<<<<<<< HEAD
+            "name": "Invert",
+            "key": "INVERT",
+            "type": "ARRAY_AND_MATRIX"
         },
         {
-            "name": "Scatter Plot",
-            "key": "SCATTER",
-            "type": "VISOR"
+            "name": "loop",
+            "key": "LOOP",
+            "type": "LOOP",
+            "inputs": [
+                {
+                    "name": "end",
+                    "id": "end",
+                    "type": "source"
+                },
+                {
+                    "name": "body",
+                    "id": "body",
+                    "type": "source"
+                }
+            ]
+        },
+        {
+            "name": "timer",
+            "key": "TIMER",
+            "type": "TIMER"
+        },
+        {
+            "name": "Sine",
+            "key": "SINE",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "3D Scatter Plot",
+            "key": "SCATTER3D",
+            "type": "VISOR",
+            "inputs": []
+        },
+        {
+            "name": "Multiply",
+            "key": "MULTIPLY",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "multiply_y",
+                    "type": "target"
+                }
+            ]
         },
         {
             "name": "Camera",
@@ -202,6 +246,110 @@
             "type": "LOADER"
         },
         {
+            "name": "Feedback",
+            "key": "FEEDBACK",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+=======
+            "name": "Line",
+            "key": "LINE",
+            "type": "VISOR"
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "VISOR"
+        },
+        {
+<<<<<<< HEAD
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "VISOR"
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOADER"
+        },
+        {
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Add",
+            "key": "ADD",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "add_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Histogram",
+            "key": "HISTOGRAM",
+            "type": "VISOR"
+        },
+        {
+            "name": "Low-pass FIR Filter",
+            "key": "FIR",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "3D Surface Plot",
+            "key": "SURFACE3D",
+            "type": "VISOR"
+        },
+        {
+            "name": "GoTo",
+            "key": "GOTO",
+            "type": "LOOP"
+        },
+        {
+            "name": "Line",
+            "key": "LINE",
+            "type": "VISOR"
+        },
+        {
+=======
+            "name": "Camera",
+            "key": "CAMERA",
+            "type": "LOADER"
+        },
+        {
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             "name": "Sub",
             "key": "SUBTRACT",
             "type": "ARITHMETIC",
@@ -214,6 +362,45 @@
             ]
         },
         {
+<<<<<<< HEAD
+            "name": "Matmul",
+            "key": "MATMUL",
+            "type": "ARRAY_AND_MATRIX",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "matmul_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Bar Chart",
+            "key": "BAR",
+            "type": "VISOR"
+        },
+        {
+            "name": "Savitzky-Golay Filter",
+            "key": "SAVGOL",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Constant",
+            "key": "CONSTANT",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "The End",
+            "key": "END",
+            "type": "TERMINATOR"
+        }
+    ],
+    "parameters": {
+        "CONDITIONAL": {
+            "operator_type": {
+                "type": "string",
+                "default": ">="
+=======
             "name": "timer",
             "key": "TIMER",
             "type": "TIMER"
@@ -232,6 +419,7 @@
             "path": {
                 "type": "string",
                 "default": ""
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
             }
         },
         "INVERT": {
@@ -240,6 +428,8 @@
                 "default": 1.0
             }
         },
+<<<<<<< HEAD
+=======
         "GOTO": {
             "goto_node_id": {
                 "type": "node_reference",
@@ -295,12 +485,22 @@
             }
         },
         "END": {},
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "LOOP": {
             "num_loops": {
                 "type": "int",
                 "default": -1
             }
         },
+<<<<<<< HEAD
+        "TIMER": {
+            "sleep_time": {
+                "type": "int",
+                "default": 0
+            }
+        },
+=======
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "SINE": {
             "frequency": {
                 "type": "float",
@@ -329,6 +529,8 @@
                 "default": "sine"
             }
         },
+<<<<<<< HEAD
+=======
         "CONSTANT": {
             "constant": {
                 "type": "float",
@@ -342,6 +544,7 @@
                 "default": ">="
             }
         },
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
         "CAMERA": {
             "file_type": {
                 "type": "string",
@@ -352,11 +555,90 @@
                 "default": 0
             }
         },
+<<<<<<< HEAD
+        "FEEDBACK": {
+            "referred_node": {
+                "type": "node_reference",
+                "default": ""
+            }
+        },
+        "TIMESERIES": {},
+        "LOCAL_FILE": {
+            "file_type": {
+                "type": "string",
+                "default": "image"
+            },
+            "op_type": {
+                "type": "string",
+                "default": "OD"
+            },
+            "path": {
+                "type": "string",
+                "default": ""
+            }
+        },
+        "LINSPACE": {
+            "start": {
+                "type": "float",
+                "default": "10"
+            },
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        "FIR": {
+            "sample_rate": {
+                "type": "float",
+                "default": 100
+            },
+            "transition_width": {
+                "type": "float",
+                "default": 5.0
+            },
+            "stop_band_attenuation": {
+                "type": "float",
+                "default": 60
+            },
+            "cutoff_freq": {
+                "type": "float",
+                "default": 10.0
+            }
+        },
+        "GOTO": {
+            "goto_node_id": {
+                "type": "node_reference",
+                "default": ""
+            }
+        },
+        "SAVGOL": {
+            "wlen": {
+                "type": "int",
+                "default": 3
+            },
+            "porder": {
+                "type": "int",
+                "default": 1
+            }
+        },
+        "CONSTANT": {
+            "constant": {
+                "type": "float",
+                "default": "3"
+            }
+        },
+        "END": {}
+=======
         "TIMER": {
             "sleep_time": {
                 "type": "int",
                 "default": 0
             }
         }
+>>>>>>> 85e33400cb77cece2b9b58dc29bac7c5d535e1fe
     }
 }
