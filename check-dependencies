@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function check_dependencies {
+  missing=""
+    py_missing="Python version 3.10 or higher was not found on your system. Please install it and rerun this script. You can download the latest version from the official website: https://www.python.org/downloads/"
+    pip_missing="Pip was not found. Pip version 21.0 or higher is required for this project. Please install it before running this script."
+    npm_missing="Node.js/npm was not found. Please make sure you have installed Node.js version 16.0 or higher along with npm correctly."
+
+ if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"*  ]]; then
+    if ! command -v python3 &> /dev/null; then
+        if ! python3 -c "import sys; exit(0) if sys.version_info >= (3,10) else exit(1)" &>/dev/null; then
+            missing=$py_missing
+        fi
+
+    fi
+
+    if ! command -v pip &> /dev/null; then
+      missing=$pip_missing
+    fi
+
+    if ! command -v npm &> /dev/null; then
+      missing=$npm_missing
+    fi
+
+  elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "win32" ]]; then
+    #Windows
+    if ! where python3 &> /dev/null; then
+        if ! python3 -c "import sys; exit(0) if sys.version_info >= (3,10) else exit(1)" &>/dev/null; then
+            missing=$py_missing
+        fi
+    fi
+
+    if ! where pip &> /dev/null; then
+     missing=$pip_missing
+    fi
+
+    if ! where -v npm &> /dev/null; then
+      missing=$npm_missing
+    fi
+  else
+    echo "Unsupported platform: $OSTYPE. Aborting..."
+    exit 1
+  fi
+
+  if [ -n "$missing" ]; then
+    echo "${missing}"
+  fi
+}
+
