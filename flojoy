@@ -18,7 +18,7 @@ is_command_successful=0
 success_msg()
 {
     message=$1
-    echo -e "$success_color $check_mark $message $default_color"
+    echo -e "$success_color$check_mark $message $default_color"
     echo ''
 }
 info_msg()
@@ -41,6 +41,8 @@ error_msg()
     echo ''
 }
 
+echo ''
+echo ''
 echo '      ============================================================'
 echo '     ||                  Welcome to Flojoy!                      ||'
 echo '     ||                                                          ||'
@@ -219,8 +221,20 @@ if [ $initPythonPackages = true ]
 then
    cd $CWD
    info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
-   $venvCmd && pip install -r requirements.txt | awk -F"in" '{print $1}' 2>/dev/null
-   feedback $? 'Python packages installed successfully!' ''
+   set -o pipefail
+   # output=$($venvCmd && pip install -r requirements.txt | awk -F"in" '{print $1}' 2>/dev/null)
+   output=$($venvCmd && pip install -r requirements.txt 2>&1)
+   exit_code=$?
+   while IFS= read -r line; do
+   if [[ $line == Requirement* ]]; then
+      echo "$line" | awk -F'in' '{print $1}'
+   elif [[ $line == WARNING* ]]; then
+      echo ''
+   else
+      echo "$line"
+   fi
+   done < <(echo "$output")
+   feedback $exit_code 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
 fi
 
 # Install node packages
@@ -228,8 +242,11 @@ fi
 if [ $initNodePackages = true ]
 then
    info_msg "Argument -n is not provided, Node packages will be installed from package.json"
-   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'
-   feedback $? 'Installed Node packages successfully.' ''
+   set -o pipefail
+   output=$(cd "$CWD" && npm install  2>&1 | grep -v 'WARN')
+   exit_code=$?
+   echo "$output"   
+   feedback $exit_code 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
 
