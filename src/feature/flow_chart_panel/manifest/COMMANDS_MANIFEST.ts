@@ -56,7 +56,8 @@ export const SECTIONS:Sections = [
       },
       { name: "Keithley", key: "KEITHLEY" },
       { name: "Labjack", key: "LABJACK" },
-      { name: "Phidget", key: "PHIDGET" }
+      { name: "Phidget", key: "PHIDGET" },
+      {name:"Stepper Motor", key: "STEPPER"}
     ],
   },
   {

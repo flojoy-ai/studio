@@ -1,5 +1,5 @@
 {
-    "_v": 17,
+    "_v": 16,
     "commands": [
         {
             "name": "Sine",
@@ -109,11 +109,6 @@
             "name": "Constant",
             "key": "CONSTANT",
             "type": "SIMULATION"
-        },
-        {
-            "name": "STEPPERMOTOR",
-            "key": "STEPPERMOTOR",
-            "type": "STEPPER"
         },
         {
             "name": "Matmul",
@@ -244,11 +239,6 @@
             "type": "SIMULATION"
         },
         {
-            "name": "Loader",
-            "key": "LOADER",
-            "type": "CLOUD_DATABASE"
-        },
-        {
             "name": "Camera",
             "key": "CAMERA",
             "type": "WEB_CAM"
@@ -356,12 +346,6 @@
                 "default": "3"
             }
         },
-        "STEPPERMOTOR": {
-            "numbers_motor": {
-                "type": "int",
-                "default": 0
-            }
-        },
         "LABJACKU3": {
             "numbers": {
                 "type": "int",
@@ -438,12 +422,6 @@
         "FEEDBACK": {
             "referred_node": {
                 "type": "node_reference",
-                "default": ""
-            }
-        },
-        "LOADER": {
-            "measurement_uuid": {
-                "type": "string",
                 "default": ""
             }
         },
