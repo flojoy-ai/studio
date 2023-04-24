@@ -7,6 +7,7 @@ warning_color='\033[38;5;208m'
 error_color='\033[0;31m'
 info_color='\033[0;34m'
 general_color='\033[38;5;212m'
+default_color='\033[0m'
 info_mark=👉
 check_mark=✔
 alert_mark=⚠️
@@ -17,25 +18,25 @@ is_command_successful=0
 success_msg()
 {
     message=$1
-    echo -e ''"$success_color"''"$check_mark"'  '"$message"' \e[0m'
+    echo -e "$success_color $check_mark $message $default_color"
     echo ''
 }
 info_msg()
 {
     message=$1
-    echo -e ''"$info_color$info_mark"' '"$message"' \e[0m'
+    echo -e "$info_color$info_mark $message $default_color"
     echo ''
 }
 warning_msg()
 {
     message=$1
-    echo -e ''"$warning_color$alert_mark"' '"$message"' \e[0m'
+    echo -e "$warning_color$alert_mark $message $default_color"
     echo ''
 }
 error_msg()
 {
     message=$1
-    echo -e ''"$error_color$error_mark"' '"$message"' \e[0m'
+    echo -e "$error_color$error_mark $message $default_color"
     echo ''
     echo ''
 }
@@ -218,7 +219,7 @@ if [ $initPythonPackages = true ]
 then
    cd $CWD
    info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
-   $venvCmd && pip install -r requirements.txt 
+   $venvCmd && pip install -r requirements.txt | awk -F"in" '{print $1}' 2>/dev/null
    feedback $? 'Python packages installed successfully!' ''
 fi
 
@@ -227,7 +228,7 @@ fi
 if [ $initNodePackages = true ]
 then
    info_msg "Argument -n is not provided, Node packages will be installed from package.json"
-   cd "$CWD" && npm install --legacy-peer-deps 
+   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'
    feedback $? 'Installed Node packages successfully.' ''
 fi
 
