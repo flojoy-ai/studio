@@ -221,20 +221,22 @@ if [ $initPythonPackages = true ]
 then
    cd $CWD
    info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
-   set -o pipefail
-   # output=$($venvCmd && pip install -r requirements.txt | awk -F"in" '{print $1}' 2>/dev/null)
-   output=$($venvCmd && pip install -r requirements.txt 2>&1)
-   exit_code=$?
-   while IFS= read -r line; do
-   if [[ $line == Requirement* ]]; then
-      echo "$line" | awk -F'in' '{print $1}'
-   elif [[ $line == WARNING* ]]; then
-      echo ''
+   if [ -n "$venv" ];then
+      pip_cmd="pip install -r requirements.txt"
    else
-      echo "$line"
+      pip_cmd="python3 -m pip install -r requirements.txt"
    fi
-   done < <(echo "$output")
-   feedback $exit_code 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
+   set -o pipefail
+   $venvCmd && $pip_cmd 2>&1 | while IFS= read -r line; do
+      if [[ $line == Requirement* ]]; then
+         echo "$line" | awk -F'in' '{print $1}'
+      elif [[ $line == WARNING* ]]; then
+         echo ''
+      else
+         echo "$line"
+      fi
+   done
+   feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
 fi
 
 # Install node packages
@@ -243,16 +245,14 @@ if [ $initNodePackages = true ]
 then
    info_msg "Argument -n is not provided, Node packages will be installed from package.json"
    set -o pipefail
-   output=$(cd "$CWD" && npm install  2>&1 | grep -v 'WARN')
-   exit_code=$?
-   echo "$output"   
-   feedback $exit_code 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
+   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
+   feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
 
 # update ES6 status codes file
 
-python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
+$venvCmd && python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
 feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
 
@@ -264,26 +264,15 @@ feedback $is_command_successful 'Created symlinks successfully!' 'Creating symli
 
 # jsonify python functions
 
-python3 write_python_metadata.py
+$venvCmd && python3 write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-python3 generate_manifest.py
+$venvCmd && python3 generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
-
-# Start the Django server
-
-if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
-   djangoPort=$((djangoPort + 1))
-    npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-else
-   npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-fi
-
-feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
 
 
 # initializing new Redis Instance
@@ -297,18 +286,41 @@ then
    npx ttab -t 'Redis-CLI' "redis-server;sleep 2;exit"
 
    feedback $? 'Spinned up a fresh Redis server...' 'Failed to spin up a fresh Redis server, try closing and restarting the Redis server'
+   info_msg "Waiting for Redis server to start..."
+   ATTEMPTS=0
+   while [ $ATTEMPTS -lt 5 ]; do
+     REDIS_STATUS=$(redis-cli ping)
+     if [ "$REDIS_STATUS" == "PONG" ]; then
+         feedback 0 'Redis server started succesfully...' ''
+       break
+     else
+       sleep 5s
+       ATTEMPTS=$((ATTEMPTS+1))
+     fi
+   done
+
+   if [ $ATTEMPTS -eq 5 ]; then
+     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
+   fi
+else
+   REDIS_STATUS=$(redis-cli ping)
+
+   if ! [ "$REDIS_STATUS" == "PONG" ]; then
+      error_msg "Redis is not running. This project requires Redis to run. Run this script with -r argument to spin a fresh Redis server automatically or start Redis manually."
+      exit 1
+   fi
 fi
 
 # Closing All RQ Workers
 
-python3 close-all-rq-workers.py >/dev/null 2>&1
+$venvCmd && python3 close-all-rq-workers.py >/dev/null
 
 feedback $? 'Closed all existing rq workers (if any).' 'Error occured while closing all existing rq workers (if any): seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
 
 # SHowing RQ WOrker Info
 
 info_msg 'Rq info after closing:'
-rq info
+$venvCmd && rq info
 echo ''
 
 # Initializing FLOJOY-WATCH RQ Worker
@@ -324,6 +336,18 @@ feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ w
 npx ttab -t 'RQ WORKER' "$venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
 
 feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+# Start the Django server
+
+if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
+   djangoPort=$((djangoPort + 1))
+    npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+else
+   npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+fi
+
+feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
+
 
 
 # Checking for YOLOV3 Weights
