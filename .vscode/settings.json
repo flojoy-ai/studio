@@ -1,5 +1,4 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/venv3",
     "git.ignoreLimitWarning": true,
     "python.analysis.extraPaths": [
         "./PYTHON/utils"

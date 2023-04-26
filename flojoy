@@ -279,29 +279,30 @@ feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Fail
 
 if [ "$initRedis" ]
 then
-   npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
+   npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
 
    feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
 
-   npx ttab -t 'Redis-CLI' "redis-server;sleep 2;exit"
+   npx ttab -t 'Redis-CLI' "redis-server"
 
    feedback $? 'Spinned up a fresh Redis server...' 'Failed to spin up a fresh Redis server, try closing and restarting the Redis server'
-   info_msg "Waiting for Redis server to start..."
-   ATTEMPTS=0
-   while [ $ATTEMPTS -lt 5 ]; do
-     REDIS_STATUS=$(redis-cli ping)
-     if [ "$REDIS_STATUS" == "PONG" ]; then
-         feedback 0 'Redis server started succesfully...' ''
-       break
-     else
-       sleep 5s
-       ATTEMPTS=$((ATTEMPTS+1))
-     fi
-   done
+   # info_msg "Waiting for Redis server to start..."
+   # ATTEMPTS=0
+   # MAX_ATTEMPTS=10000
+   # while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+   #   REDIS_STATUS=$(redis-cli ping)
+   #   if [ "$REDIS_STATUS" == "PONG" ]; then
+   #       feedback 0 'Redis server started succesfully...' ''
+   #     break
+   #   else
+   #    #  sleep 1s
+   #     ATTEMPTS=$((ATTEMPTS+1))
+   #   fi
+   # done
 
-   if [ $ATTEMPTS -eq 5 ]; then
-     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
-   fi
+   # if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
+   #   feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
+   # fi
 else
    REDIS_STATUS=$(redis-cli ping)
 
@@ -326,14 +327,14 @@ echo ''
 # Initializing FLOJOY-WATCH RQ Worker
 cd $CWD
 
-npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
+npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
 
 feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
 # Initializing FLOJOY RQ Worker
 
-npx ttab -t 'RQ WORKER' "$venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "$venvCmd; cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
 
 feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
@@ -341,9 +342,9 @@ feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker f
 
 if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
    djangoPort=$((djangoPort + 1))
-    npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+    npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
 else
-   npx ttab -t 'Django' "$venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
+   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
 fi
 
 feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
@@ -368,5 +369,5 @@ sleep 1
 
 # Initializing React Server
 
-npx ttab -t 'REACT' "$venvCmd && npm start"
+npx ttab -t 'REACT' "$venvCmd; npm start"
 feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
