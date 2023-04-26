@@ -5,7 +5,6 @@ $warning_color = 'Yellow'
 $error_color = 'Red'
 $info_color = 'Cyan'
 $general_color = 'Magenta'
-$default_color = 'White'
 $info_mark = '👉'
 $check_mark = '✔'
 $alert_mark = '⚠️'
@@ -56,7 +55,6 @@ Write-Host "     ||       https://docs.flojoy.io/getting-started/install/    ||"
 Write-Host "     ||                                                          ||" -ForegroundColor $general_color
 Write-Host "      ============================================================" -ForegroundColor $general_color
 Write-Host ""
-$venv = ""
 
 $djangoPort = 8000
 $initNodePackages = $true
@@ -107,9 +105,7 @@ function feedback {
 
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -r -v venv-path"
-  Write-Host " -r: shuts down existing Redis server and spins up a fresh one"
-  Write-Host " -v: path to a virtualenv"
+  Write-Host "Usage: $0 -n -p"
   Write-Host " -n: To not install npm packages"
   Write-Host " -p: To not install python packages"
   return 1 # Exit script after printing help
@@ -131,16 +127,6 @@ while ($arguments) {
     "-p" {
       $initPythonPackages = $false
       $index = $index + 1
-      continue
-    }
-    "-r" {
-      $initRedis = $true
-      $index = $index + 1
-      continue
-    }
-    "-v" {
-      $venv = $arguments[$index + 1]
-      $index = $index + 2
       continue
     }
     "-P" {
@@ -204,21 +190,7 @@ createFlojoyDirectoryWithYmlFile
 & git submodule update --init --recursive > $null
 feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 
-# Checking virtual environment
-$venvCmd = ""
 
-if ($venv) {
-  info_msg "Virtual env path is provided, will use: $venv"
-  $venvCmd = Join-Path $venv "Scripts\activate"
-
-  if ($venv[-1] -eq '/') {
-    $venvCmd = Join-Path $venv "Scripts\activate"
-  }
-  . $venvCmd
-}
-else {
-  info_msg "No virtual env provided"
-}
 # Check if Python, Pip, or npm is missing.
 . ./check-dependencies.ps1
 
@@ -233,13 +205,11 @@ if ($missing_dependencies) {
 
 
 # Install Python packages
+
 if ($initPythonPackages) {
   info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
   Set-Location $CWD
-  $pip_cmd = "python3 -m pip install -r requirements.txt"
-  if ($venv -ne "") {
-    $pip_cmd = "pip install -r requirements.txt"
-  }
+  $pip_cmd = "python -m pip install -r requirements.txt"
   Invoke-Expression $pip_cmd
   feedback $? 'Python packages installed successfully!' "Python package installation failed! check error details printed above."
 }
@@ -255,7 +225,7 @@ if ($initNodePackages) {
 
 # update ES6 status codes file
 
-& python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml", encoding="utf-8").read()), indent=4)); f.close();'
+& python -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml", encoding="utf-8").read()), indent=4)); f.close();'
 
 feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
 
@@ -267,44 +237,81 @@ feedback $? 'Created symlinks successfully!' 'Creating symlinks failed, check yo
 
 # jsonify python functions
 
-& python3 write_python_metadata.py
+& python write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-& python3 generate_manifest.py
+& python generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+
+info_msg 'Checking if Memurai is running...'
+& memurai-cli.exe ping 2>$1 > $null
+$is_running = $LastExitCode
+
+if ($is_running -eq 0) {
+  success_msg 'Memurai is up and running...'
+}
+else {
+  info_msg "Memurai is not running, trying to start Memurai service..."
+  & memurai.exe --service-start > $null
+  feedback $? 'Started Memurai successfully...' 'Failed to start Memurai. Please try running following command to start Memurai: "memurai.exe --service-start"'
+}
+
 
 
 # Start the Django server
 $dir = $CWD
 $wt_path = "wt.exe"
 $cmd = "python write_port_to_env.py $djangoPort && python manage.py runserver $djangoPort"
-if($venvCmd -ne ''){
-  $cmd = "`"$venvCmd`" && python write_port_to_env.py $djangoPort && python manage.py runserver $djangoPort"
-}
 $tab_args = "-d `"$dir`" cmd /c $cmd"
 Start-Process -FilePath $wt_path -ArgumentList $tab_args
 feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
 
-
-$python_scripts_path = & python3 -c 'import os;import sys;print(os.path.dirname(sys.executable))'
-$rq_path = Join-Path $python_scripts_path "rqworke.exe"
-if ($venvCmd -ne '') {
-  $rq_path = Join-Path $venv "Scripts\rqworker.exe"
+# Check for rq-win package
+& pip show rq-win 2>$1 > $null
+$is_installed = $LastExitCode
+if ($is_installed -ne 0) {
+  info_msg 'Installing rq-win package to run RQ Worker on Windows...'
+  $install_cmd = 'pip install git+https://github.com/michaelbrooks/rq-win.git#egg=rq-win'
+  Invoke-Expression $install_cmd 2>$1 | Out-Null
+  if ($LastExitCode -eq 0) {
+    feedback $true 'Installed rq-win package successfully!' ''
+  }
+  else {
+    feedback $false '' 'Failed to install rq-win package try running following command to install it manually: "pip install git+https://github.com/michaelbrooks/rq-win.git#egg=rq-win"'
+  }
 }
-$rq_script = "$rq_path  -w rq_win.WindowsWorker"
-# Write-Host "rq path: $rq_script"
 
-# # Initializing FLOJOY-WATCH RQ Worker
+
+# Get RQ Worker script path
+
+$python_scripts_path = & python .\get_script_dir.py
+feedback $? 'Script path found for Python...' "Couldn't find script path for Python site-packages. Make sure you installed all required Python packages or run this script without -p argument to install packages automatically."
+$rq_path = Join-Path $python_scripts_path "rqworker.exe"
+$rq_script = "$rq_path -w rq_win.WindowsWorker"
+
+
+# Initializing FLOJOY-WATCH RQ Worker
 $dir = $CWD
 $wt_path = "wt.exe"
 $cmd = "$rq_script flojoy-watch"
 $tab_args = "-d `"$dir`" cmd /c $cmd"
 Start-Process -FilePath $wt_path -ArgumentList $tab_args
 feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+
+# Initializing Flojoy RQ Worker for nodes
+$dir = Join-Path $CWD 'PYTHON'
+$wt_path = "wt.exe"
+$cmd = "$rq_script flojoy"
+$tab_args = "-d `"$dir`" cmd /c $cmd"
+Start-Process -FilePath $wt_path -ArgumentList $tab_args
+feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+
 
 # Initializing React Server
 
@@ -313,12 +320,3 @@ $wt_path = "wt.exe"
 $tab_args = "-d `"$dir`" cmd /c npm start"
 Start-Process -FilePath $wt_path -ArgumentList $tab_args
 feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
-
-# # Initializing FLOJOY RQ Worker
-# info_msg "Starting RQ worker for nodes..."
-# Set-Location "PYTHON"
-# $rq_script = "..\$rq_script"
-# $cmd = "$rq_script flojoy"
-# Write-Host "cdm: $cmd"
-# Invoke-Expression $cmd
-# feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
