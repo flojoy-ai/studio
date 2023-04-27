@@ -285,9 +285,10 @@ then
 
    feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
 
+   info_msg $? 'Spinning up a fresh Redis server...'
+
    npx ttab -t 'Redis-CLI' "redis-server"
 
-   feedback $? 'Spinned up a fresh Redis server...' 'Failed to spin up a fresh Redis server, try closing and restarting the Redis server'
    info_msg "Waiting for Redis server to start..."
    ATTEMPTS=0
    MAX_ATTEMPTS=20
@@ -306,11 +307,26 @@ then
      feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
    fi
 else
-   REDIS_STATUS=$(redis-cli ping)
-
-   if ! [ "$REDIS_STATUS" == "PONG" ]; then
-      error_msg "Redis is not running. This project requires Redis to run. Run this script with -r argument to spin a fresh Redis server automatically or start Redis manually."
-      exit 1
+   redis-cli ping >> /dev/null 2>&1
+   if ! [ $? != 0 ]; then
+      info_msg "Redis is not running, trying to start Redis server..."
+      npx ttab -t 'Redis' "redis-server"
+      info_msg "Checking if Redis server is started..."
+      ATTEMPTS=0
+      MAX_ATTEMPTS=20
+      while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+         redis-cli ping >> /dev/null 2>&1
+         if [ $? == 0 ]; then
+            feedback 0 'Redis server started succesfully...' ''
+            break
+         else
+            sleep 1
+            ATTEMPTS=$((ATTEMPTS+1))
+         fi
+      done
+      if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
+         feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
+      fi
    fi
 fi
 
