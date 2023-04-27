@@ -3,11 +3,19 @@ import sys;
 
 script_path = ''
 
+def get_parent_with_scripts(path):
+    while path != os.path.dirname(path):  # stop at root directory
+        if "Scripts" in os.listdir(path):
+            return os.path.join(path, 'Scripts')
+        path = os.path.dirname(path)
+    return None
+      
+      
 for path in sys.path:
     if 'site-packages' in path:
-        parent_dir = os.path.dirname(path)
-        if os.path.isdir(os.path.join(parent_dir, 'Scripts')):
-            script_path = os.path.join(parent_dir, 'Scripts')
+        has_script = get_parent_with_scripts(path)
+        if has_script:
+          script_path = has_script
 
 if script_path:
   print(script_path)
