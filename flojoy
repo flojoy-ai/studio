@@ -145,6 +145,8 @@ do
     esac
 done
 
+echo "django port: $djangoPort"
+
 # checking if flojoy.yaml file exists
 
 CWD="$PWD"
@@ -286,23 +288,23 @@ then
    npx ttab -t 'Redis-CLI' "redis-server"
 
    feedback $? 'Spinned up a fresh Redis server...' 'Failed to spin up a fresh Redis server, try closing and restarting the Redis server'
-   # info_msg "Waiting for Redis server to start..."
-   # ATTEMPTS=0
-   # MAX_ATTEMPTS=10000
-   # while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
-   #   REDIS_STATUS=$(redis-cli ping)
-   #   if [ "$REDIS_STATUS" == "PONG" ]; then
-   #       feedback 0 'Redis server started succesfully...' ''
-   #     break
-   #   else
-   #    #  sleep 1s
-   #     ATTEMPTS=$((ATTEMPTS+1))
-   #   fi
-   # done
+   info_msg "Waiting for Redis server to start..."
+   ATTEMPTS=0
+   MAX_ATTEMPTS=20
+   while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+     redis-cli ping >> /dev/null 2>&1
+     if [ $? == 0 ]; then
+         feedback 0 'Redis server started succesfully...' ''
+       break
+     else
+       sleep 1
+       ATTEMPTS=$((ATTEMPTS+1))
+     fi
+   done
 
-   # if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
-   #   feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
-   # fi
+   if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
+     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
+   fi
 else
    REDIS_STATUS=$(redis-cli ping)
 
@@ -341,8 +343,9 @@ feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker f
 # Start the Django server
 
 if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
+   echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
    djangoPort=$((djangoPort + 1))
-    npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
 else
    npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
 fi
