@@ -4,7 +4,7 @@ import sys;
 script_path = ''
 
 def get_parent_with_scripts(path):
-    while path != os.path.dirname(path):  # stop at root directory
+    while path != os.path.dirname(path): 
         if "Scripts" in os.listdir(path):
             return os.path.join(path, 'Scripts')
         path = os.path.dirname(path)
