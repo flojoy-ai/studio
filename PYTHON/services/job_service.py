@@ -27,8 +27,10 @@ class JobService():
             try:
                 job = Job.fetch(
                     node.get('id', ''), connection=self.redis_dao.r)
-            except (Exception, NoSuchJobError):
-                print(' Failed to cancel job: ', node.get('id', ''))
+            except (NoSuchJobError):
+                continue
+            except (Exception):
+                print(' Failed to cancel job: ', node.get('id', '') + ", ignoring..")
                 continue
             if job is not None:
                 print('Deleting job: ', job.get_id())
