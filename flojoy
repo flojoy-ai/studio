@@ -232,20 +232,16 @@ else
 fi
 
 # Check if Python, Pip, or npm is missing.
-if [ $is_ci = true];then
-   source check-dependencies -c
-else
+if [ $is_ci = false ];then
    source check-dependencies
+   # Call the function to check for dependencies
+   missing_dependencies=$(check_dependencies)
+   # If there are missing dependencies, print the list of them
+   if [ -n "$missing_dependencies" ]; then
+   error_msg "$missing_dependencies"
+   exit 1
+   fi
 fi
-# Call the function to check for dependencies
-missing_dependencies=$(check_dependencies)
-
-# If there are missing dependencies, print the list of them
-if [ -n "$missing_dependencies" ]; then
-  error_msg "$missing_dependencies"
-  exit 1
-fi
-
 
 # Install python packages
 
@@ -316,7 +312,7 @@ then
    npx ttab -t 'Redis-CLI' "redis-server"
    wait_for_redis
 else
-   if [ $is_ci = false]; then
+   if [ $is_ci = false ]; then
       redis-cli ping >> /dev/null 2>&1
       if [ $? != 0 ]; then
          info_msg "Redis is not running, trying to start Redis server..."
