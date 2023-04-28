@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-        run: npm install -g pm2
+      - run: npm install -g pm2
 
       - uses: actions/setup-python@v4
         with:
