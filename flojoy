@@ -57,6 +57,7 @@ venv=""
 djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
+is_ci=false
 
 
 # creating system links
@@ -159,6 +160,10 @@ do
         shift
         shift
         ;;
+        -c)
+        is_ci=true
+        shift
+        ;;
         *) # unknown option
         echo "Unknown option: $1"
         helpFunction
@@ -227,8 +232,11 @@ else
 fi
 
 # Check if Python, Pip, or npm is missing.
-source check-dependencies
-
+if [ $is_ci = true];then
+   source check-dependencies -c
+else
+   source check-dependencies
+fi
 # Call the function to check for dependencies
 missing_dependencies=$(check_dependencies)
 
@@ -308,11 +316,13 @@ then
    npx ttab -t 'Redis-CLI' "redis-server"
    wait_for_redis
 else
-   redis-cli ping >> /dev/null 2>&1
-   if [ $? != 0 ]; then
-      info_msg "Redis is not running, trying to start Redis server..."
-      npx ttab -t 'Redis' "redis-server"
-      wait_for_redis
+   if [ $is_ci = false]; then
+      redis-cli ping >> /dev/null 2>&1
+      if [ $? != 0 ]; then
+         info_msg "Redis is not running, trying to start Redis server..."
+         npx ttab -t 'Redis' "redis-server"
+         wait_for_redis
+      fi
    fi
 fi
 

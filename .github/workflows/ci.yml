@@ -36,7 +36,7 @@ jobs:
           redis-port: 6379
 
       - name: Create .flojoy directory
-        run: bash flojoy
+        run: bash flojoy -c
 
       - name: Run unit tests
         run: npm run test
