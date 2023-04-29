@@ -332,6 +332,10 @@ info_msg 'Rq info after closing:'
 $venvCmd && rq info
 echo ''
 
+if [ $is_ci = true ];then
+   exit 0
+fi
+
 # Initializing FLOJOY-WATCH RQ Worker
 cd $CWD
 
