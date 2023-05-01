@@ -380,3 +380,4 @@ if [ -n "$venvCmd" ]; then
    $venvCmd && npm run start-project
 else
    npm run start-project
+fi
