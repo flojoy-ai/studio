@@ -5,9 +5,10 @@ import VisorNode from "@src/feature/flow_chart_panel/components/custom-nodes/Vis
 import DefaultNode from "@src/feature/flow_chart_panel/components/DefaultNode";
 
 export const nodeConfigs = {
-    default: DefaultNode,
-    ARITHMETIC: ArithmeticNode,
-    SIMULATION: SimulationNode,
-    VISOR: VisorNode,
-    CONDITIONAL: ConditionalNode,
-}
+  default: DefaultNode,
+  ARITHMETIC: ArithmeticNode,
+  SIMULATION: SimulationNode,
+  VISOR: VisorNode,
+  CONDITIONAL: ConditionalNode,
+  TERMINATOR: DefaultNode,
+};
