@@ -7,7 +7,7 @@ import {
   Input,
   Anchor,
 } from "@mantine/core";
-import { IconSearch } from "@tabler/icons";
+import { IconSearch } from "@tabler/icons-react";
 
 import { useState } from "react";
 
