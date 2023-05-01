@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1887e776-b220-4a83-9b5c-da8997165477" name="Changes" comment="last pull from develop">
-      <change afterPath="$PROJECT_DIR$/PYTHON/nodes/MANIFEST/steppermotor.manifest.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/Stepper_Motor/STEPPERDRIVER_TIC.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/Stepper_Motor/STEPPERMOTOR.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/Stepper_Motor/STEPPERMOTOR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/Stepper_Motor/STEPPERMOTOR.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/INSTRUMENTS/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PYTHON/nodes/MANIFEST/steppermotor.manifest.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/PYTHON/nodes/MANIFEST/steppermotor.manifest.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +31,7 @@
         <entry key="$PROJECT_DIR$" value="Keithley2400" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/PYTHON/nodes" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
