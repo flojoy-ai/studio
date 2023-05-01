@@ -8,42 +8,7 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 # Flojoy Quickstart
 
-- [Run Flojoy with Docker](#run-flojoy-on-docker)
-- [Run Flojoy without Docker (Mac/Linux only)](#run-flojoy-without-docker-maclinux-only)
-
-## Run Flojoy on Docker
-
-1. Install Docker if you haven't already (https://docs.docker.com/get-docker/).
-2. Clone this project and `cd` into the project root in your CLI (such as Terminal for Mac or PowerShell for Windows).
-3. Run `docker compose up` on the CLI to build, create and run the containers, networks and volumes. The first time, it will take a while as it will pull the base images and build the containers. But after that it will be quite fast to run.
-4. Run `npm start`
-5. Go to [localhost:3000](http://localhost:3000) and start using flojoy.
-
-Run `docker compose down` to stop and remove the containers, networks and volumes.
-
-Note: You can develop in Docker as the volumes have been mapped to the containers.
-
-### View logs of any service
-
-Currently there are four Docker services.
-**redis**, **rq-worker**, **backend**, **frontend**
-
-To follow realtime log of any of them, open up a terminal and run:
-`docker logs --follow --tail="all" flojoy-desktop-{service-name}-1`
-You can also use the docker-desktop to control and check logs for the services.
-
-## Run Flojoy without Docker (Mac/Linux only)
-
-1. Clone this repo with `--recursive` argument as follows: `git clone --recursive https://github.com/flojoy-io/studio.git`
-2. Make sure that you have Python 3.10, Redis, and Node already installed. Please note that this project requires Python 
-3. `cd` into the project root
-4. Run `$ bash mac_start_up.sh`
-
-   - If you have `virtualenv` installed you can provide the path to the virtualenv folder as follows `bash mac_start_up.sh -v venv2`
-   - You can provide optional argument `-r` which will shut down the existing redis server and spin up a fresh one
-   - You can provide `-n` argument to skip installing Javascript packages.
-   - You can provide `-p` argument to skip installing python packages. 
-   - Optionally you can provide port number followed by `-P` argument to run backend server on specific port.
+Please refer to the following link for installation guidelines: https://docs.flojoy.io/getting-started/install/
 
 # Running ElectronJS locally
 

@@ -61,6 +61,7 @@ def run_flow_chart(request):
 
     # cleanup all previous jobs and the related data
     job_service.reset(fc.get('nodes', []))
+    print('cancelled previous jobs')
 
     jobset_id = request.data['jobsetId']
     job_service.add_jobset_id(jobset_id)

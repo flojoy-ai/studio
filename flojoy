@@ -2,67 +2,12 @@
 #
 # Run all services required by Flojoy Studio
 
-platform=$(uname)
-
-install_gum()
-{
-   install_err_text="Failed to install Gum.. Try to install it manually from here: https://github.com/charmbracelet/gum, or run the script again and skip Gum installation."
-   if [[ "$platform" == "Linux" ]]; then
-      echo "Installing Gum... This will require sudo command!"
-      sudo mkdir -p /etc/apt/keyrings
-      curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-      echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-      sudo apt update && sudo apt install gum
-      is_successful=$?
-      if [ ! "$is_successful" -eq 0 ]; then
-         echo "$install_err_text"
-         exit
-      fi
-   elif [[ "$platform" == "Darwin" ]]; then
-      echo "Installing Gum... This may require root permission!"
-      brew install gum
-      is_successful=$?
-      if [ ! "$is_successful" -eq 0 ]; then
-         echo "$install_err_text"
-         exit
-      fi
-   fi
-}
-pckg_info_msg="Flojoy uses an external package 'GUM' for better Terminal interface, which is not installed on your machine."
-if [[ "$platform" == "Linux" ]]; then
-   if ! dpkg-query -W -f='${Status}' gum 2>/dev/null | grep -q "ok installed"; then
-      echo "$pckg_info_msg"
-      while true; do
-         read -p "Do you wish to install this package? (y/n): " yn
-         case $yn in
-               [Yy]* ) install_gum; break;;
-               [Nn]* ) bash start_up "$@"; exit;;
-               * ) echo "Please answer yes or no.";;
-         esac
-      done
-   fi
-elif [[ "$platform" == "Darwin" ]]; then
-   if ! brew list | grep -q 'gum'; then
-      echo "$pckg_info_msg"
-      while true; do
-         read -p "Do you wish to install this package? (y/n): " yn
-         case $yn in
-               [Yy]* ) install_gum; break;;
-               [Nn]* ) bash start_up "$@"; exit;;
-               * ) echo "Please answer yes or no.";;
-         esac
-      done
-   fi
-fi
-
-
-
-
-success_color=71
-warning_color='#FFA500'
-error_color='#FF0000'
-message_color='#4169E1'
-general_color=212
+success_color='\033[38;5;71m'
+warning_color='\033[38;5;208m'
+error_color='\033[0;31m'
+info_color='\033[0;34m'
+general_color='\033[38;5;212m'
+default_color='\033[0m'
 info_mark=👉
 check_mark=✔
 alert_mark=⚠️
@@ -70,35 +15,49 @@ error_mark=❌
 
 is_command_successful=0
 
-gum style \
-	--foreground $general_color --border-foreground 212 --border double \
-	--align center --width 60 --margin "1 2" --padding "2 4" \
-	'Welcome to Flojoy!' 'For Installation, Follow the Link Below' 'https://docs.flojoy.io/getting-started/install/'
+success_msg()
+{
+    message=$1
+    echo -e "$success_color$check_mark $message $default_color"
+    echo ''
+}
+info_msg()
+{
+    message=$1
+    echo -e "$info_color$info_mark $message $default_color"
+    echo ''
+}
+warning_msg()
+{
+    message=$1
+    echo -e "$warning_color$alert_mark $message $default_color"
+    echo ''
+}
+error_msg()
+{
+    message=$1
+    echo -e "$error_color$error_mark $message $default_color"
+    echo ''
+    echo ''
+}
 
-
+echo ''
+echo ''
+echo '      ============================================================'
+echo '     ||                  Welcome to Flojoy!                      ||'
+echo '     ||                                                          ||'
+echo '     ||         For Installation, Follow the Link Below          ||' 
+echo '     ||       https://docs.flojoy.io/getting-started/install/    ||'
+echo '     ||                                                          ||'
+echo '      ============================================================'
+echo ''
 venv=""
 
-# gum spin --spinner dot --title 'test' -- npx ttab -t 'test' "source $venv && pip install -r requirements.txt;exit"
 
 djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 
-# Gives Feedback if the command run is successful or failed, if failed it exits the execution.
-
-feedback()
-{
-   is_successful=$1
-   message=$2
-   help_message=$3
-   if [ "$is_successful" -eq 0 ]; then
-      gum style --foreground $success_color "$check_mark  $message"
-      echo ''
-   else
-      gum style --foreground $error_color ":x: $help_message" | gum format -t emoji
-      exit
-   fi
-}
 
 # creating system links
 
@@ -107,7 +66,7 @@ createSystemLinks()
 
    FILE=$PWD/PYTHON/WATCH/STATUS_CODES.yml
    if test -f "$FILE"; then
-      gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
+      info_msg "$FILE exists."
       is_command_successful=$(($is_command_successful+$?))
    else
       ln STATUS_CODES.yml PYTHON/WATCH/
@@ -116,11 +75,47 @@ createSystemLinks()
 
    FILE=$PWD/src/STATUS_CODES.yml
    if test -f "$FILE"; then
-      gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
+      info_msg "$FILE exists."
       is_command_successful=$(($is_command_successful+$?))
    else
       ln STATUS_CODES.yml src
       is_command_successful=$(($is_command_successful+$?))
+   fi
+}
+# Gives Feedback if the command run is successful or failed, if failed it exits the execution.
+
+feedback()
+{
+   is_successful=$1
+   message=$2
+   help_message=$3
+   if [ "$is_successful" -eq 0 ]; then
+      success_msg "$message"
+   else
+      error_msg "$help_message"
+      exit
+   fi
+}
+
+wait_for_redis()
+{
+   info_msg "Waiting for Redis server to start..."
+
+   ATTEMPTS=0
+   MAX_ATTEMPTS=20
+   while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+     redis-cli ping >> /dev/null 2>&1
+     if [ $? == 0 ]; then
+         feedback 0 'Redis server started succesfully...' ''
+       break
+     else
+       sleep 1
+       ATTEMPTS=$((ATTEMPTS+1))
+     fi
+   done
+
+   if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
+     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
    fi
 }
 
@@ -128,13 +123,13 @@ createSystemLinks()
 
 helpFunction()
 {
-   gum style --foreground $message_color ""
-   gum style --foreground $message_color "Usage: $0 -n -p -r -v venv-path"
-   gum style --foreground $message_color  " -r: shuts down existing Redis server and spins up a fresh one"
-   gum style --foreground $message_color  " -v: path to a virtualenv"
-   gum style --foreground $message_color  " -n: To not install npm packages"
-   gum style --foreground $message_color  " -p: To not install python packages"
-   gum style --foreground $message_color 1 # Exit script after printing help
+   echo ""
+   echo "Usage: $0 -n -p -r -v venv-path"
+   echo  " -r: shuts down existing Redis server and spins up a fresh one"
+   echo  " -v: path to a virtualenv"
+   echo  " -n: To not install npm packages"
+   echo  " -p: To not install python packages"
+   echo 1 # Exit script after printing help
 }
 
 # Parse command-line arguments
@@ -165,12 +160,14 @@ do
         shift
         ;;
         *) # unknown option
-        gum style --foreground $message_color "Unknown option: $1"
+        echo "Unknown option: $1"
         helpFunction
         exit 1
         ;;
     esac
 done
+
+echo "django port: $djangoPort"
 
 # checking if flojoy.yaml file exists
 
@@ -182,28 +179,27 @@ createFlojoyDirectoryWithYmlFile()
    FILE=$HOME/.flojoy/flojoy.yaml
    if test -d "$FOLDER"; then
       if test -f "$FILE"; then
-         gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
-         gum spin --spinner dot --title "Updating file path in flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && echo "PATH: $CWD" > $FILE
+         info_msg "$FILE exists."
+         echo "PATH: $CWD" > $FILE
          feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
 
       else
-         gum style --foreground $message_color ":point_right: file flojoy.yaml in directory $FOLDER does not exists. " | gum format -t emoji
-         gum spin --spinner dot --title "Creating new flojoy.yaml file..." --title.foreground="$general_color" -- sleep 1 && touch $FILE && echo "PATH: $CWD" > $FILE
+         info_msg "file flojoy.yaml in directory $FOLDER does not exists. "
+         touch $FILE && echo "PATH: $CWD" > $FILE
          feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
       fi
    else
-      gum style --foreground $message_color ":point_right: directory ~/.flojoy/flojoy.yaml does not exists. " | gum format -t emoji
-      gum spin --spinner dot --title "Creating new directory with yaml file..." --title.foreground="$general_color" -- sleep 1 && mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
+      info_msg "directory ~/.flojoy/flojoy.yaml does not exists. "
+      mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
       feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
    fi
    CREDENTIALS_FILE=$FOLDER/credentials
    if ! test -f "$CREDENTIALS_FILE"; then
-      gum style --foreground $warning_color "$alert_mark  Warning: Credetials are not set for your project!"
-      echo ''
+      warning_msg " Warning: Credentials are not set for your project! You can set credentials by creating a file named 'credentials' in the directory '~/.flojoy' and adding your credentials to the file."
+
    else
       if ! grep -q 'FRONTIER_API_KEY' "$CREDENTIALS_FILE" >/dev/null 2>&1; then
-         gum style --foreground $warning_color "$alert_mark  Warning: FRONTIER_API_KEY not set for your project!"
-         echo ''
+         warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials' file: FRONTIER_API_KEY:<your key>"   
       fi
    fi
 
@@ -211,9 +207,8 @@ createFlojoyDirectoryWithYmlFile()
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
-gum spin --spinner dot --title 'Updating submodules' --title.foreground="$general_color" -- sleep 2 && git submodule update --init --recursive >/dev/null 2>&1
+git submodule update --init --recursive >/dev/null 2>&1
 feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
-
 
  # checking virtual environment
 
@@ -221,123 +216,142 @@ venvCmd=""
 
 if [ -n "$venv" ]
 then
-   gum style --foreground $message_color ":point_right: Virtual env path is provided, will use: ${venv}" | gum format -t emoji
-   echo ''
-   venvCmd="${venv}/bin/activate"
+   info_msg "Virtual env path is provided, will use: ${venv}"
+   venvCmd="source ${venv}/bin/activate"
 
    if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
-      venvCmd="${venv}bin/activate"
+      venvCmd="source ${venv}bin/activate"
    fi
 else
-   venv_dir=$HOME/.flojoy/venv
-   if test -d "$venv_dir";then
-      gum style --foreground $message_color ":point_right: No virtual env provided. Will use virtual env from $venv_dir directory" | gum format -t emoji
-      venvCmd="$venv_dir/bin/activate"
-   else
-      gum style --foreground $message_color ":point_right: No virtual env provided. Will create one in $venv_dir directory." | gum format -t emoji
-
-      gum spin --spinner dot --title "creating virtual environment in $venv_dir..." --title.foreground="$general_color" -- sleep 2 && cd "$HOME"/.flojoy && mkdir venv && python3 -m venv venv/
-
-      feedback $? 'Virtual environment creation successful' 'Failed to create virtual environment, check if Python at least v.3.10 is installed in your local machine'
-
-      venvCmd="$venv_dir/bin/activate"
-   fi
+   info_msg "No virtual env provided"
 fi
+
+# Check if Python, Pip, or npm is missing.
+source check-dependencies
+
+# Call the function to check for dependencies
+missing_dependencies=$(check_dependencies)
+
+# If there are missing dependencies, print the list of them
+if [ -n "$missing_dependencies" ]; then
+  error_msg "$missing_dependencies"
+  exit 1
+fi
+
 
 # Install python packages
 
 if [ $initPythonPackages = true ]
 then
    cd $CWD
-   gum style --foreground $message_color ":point_right: Flag -p is not provided, Python packages will be installed from requirements.txt file" | gum format -t emoji
-   echo ''
-   gum spin --spinner dot --title 'Installing Python packages...' --title.foreground="$general_color" -- sleep 2 && source "$venvCmd" && pip install -r requirements.txt >/dev/null 2>&1
-   feedback $? 'Python packages installed successfully!' 'Failed to install Python packages, check if pip and Python not lower than v3.10 is installed in your local machine or Try running this script again.'
+   info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
+   if [ -n "$venv" ];then
+      pip_cmd="pip install -r requirements.txt"
+   else
+      pip_cmd="python3 -m pip install -r requirements.txt"
+   fi
+   set -o pipefail
+   $venvCmd && $pip_cmd 2>&1 | while IFS= read -r line; do
+      if [[ $line == Requirement* ]]; then
+         echo "$line" | awk -F'in' '{print $1}'
+      elif [[ $line == WARNING* ]]; then
+         echo ''
+      else
+         echo "$line"
+      fi
+   done
+   feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
 fi
 
 # Install node packages
 
 if [ $initNodePackages = true ]
 then
-   gum style --foreground $message_color ":point_right: Argument -n is not provided, Node packages will be installed from package.json" | gum format -t emoji
-   gum spin --spinner dot --title 'Installing Node packages...' --title.foreground="$general_color" -- sleep 2 && cd "$CWD" && npm install --legacy-peer-deps >/dev/null 2>&1
-   feedback $? 'Installed Node packages successfully.' 'Node package installation failed, check if npm is installed in your local machine'
+   info_msg "Argument -n is not provided, Node packages will be installed from package.json"
+   set -o pipefail
+   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
+   feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
 
 # update ES6 status codes file
 
-gum spin --spinner dot --title 'Updating ES6 status codes file...' --title.foreground="$general_color" -- python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
+$venvCmd && python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=4)); f.close();'
 
-feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. Try running this script without -p argument to install required Python packages automatically. or check if your python version is not lower than 3.10'
+feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
 
 # creating system links
 
-gum spin --spinner dot --title 'Creating symlinks...' --title.foreground="$general_color" -- sleep 2 && createSystemLinks
+createSystemLinks
 
 feedback $is_command_successful 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
 
 # jsonify python functions
 
-gum spin --spinner dot --title 'Jsonifying Python functions and writing to JS-readable directory' --title.foreground="$general_color" -- python3 write_python_metadata.py
+$venvCmd && python3 write_python_metadata.py
 
-feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions, check write_python_metadata.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
+feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-gum spin --spinner dot --title 'Generating manifest for Python nodes to frontend' --title.foreground="$general_color" -- python3 generate_manifest.py
+$venvCmd && python3 generate_manifest.py
 
-feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes, check generate_manifest.py file, maybe the folders mentioned in the file, one of them is missing or check your python version, we use 3.10 or later version in our project'
-
-# Start the Django server
-
-if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
-   djangoPort=$((djangoPort + 1))
-   gum spin --spinner dot --title "A server is already running on $((djangoPort - 1)), starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-else
-   gum spin --spinner dot --title "Starting Django server on port $djangoPort..." --title.foreground="$general_color" -- npx ttab -t 'Django' "gum style --foreground $general_color 'Welcome to Django Server! :wave: ' '' 'Here you can monitor Python tracebacks raised by the Django webserver' '' | gum format -t emoji; source $venvCmd && python3 write_port_to_env.py $djangoPort && python3 manage.py runserver ${djangoPort}"
-fi
-
-feedback $? "Started Django server on port $djangoPort successfully!" 'Failed while starting Django server, check if Django is installed in your local machine or run this script without -p argument to install it.'
+feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
 
 # initializing new Redis Instance
-
 if [ "$initRedis" ]
 then
-   gum spin --spinner dot --title 'Shutting down any existing Redis server and clearing Redis memory...' --title.foreground="$general_color" -- npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN;sleep 2;redis-cli FLUSHALL;exit"
-
+   npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
    feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
-
-   gum spin --spinner dot --title 'Spining up a fresh Redis server...' --title.foreground="$general_color" -- npx ttab -t 'Redis-CLI' "redis-server;sleep 2;exit"
-
-   feedback $? 'Spinned up a fresh Redis server...' 'Failed to spin up a fresh Redis server, try closing and restarting the Redis server'
+   info_msg 'Spinning up a fresh Redis server...'
+   npx ttab -t 'Redis-CLI' "redis-server"
+   wait_for_redis
+else
+   redis-cli ping >> /dev/null 2>&1
+   if [ $? != 0 ]; then
+      info_msg "Redis is not running, trying to start Redis server..."
+      npx ttab -t 'Redis' "redis-server"
+      wait_for_redis
+   fi
 fi
 
 # Closing All RQ Workers
-
-gum spin --spinner dot --title 'Closing all existing rq workers (if any)' --title.foreground="$general_color" -- python3 close-all-rq-workers.py
-
+$venvCmd && python3 close-all-rq-workers.py >/dev/null
 feedback $? 'Closed all existing rq workers (if any).' 'Error occured while closing all existing rq workers (if any): seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
 
 # SHowing RQ WOrker Info
 
-gum style --foreground $message_color 'Rq info after closing:'
-rq info
+info_msg 'Rq info after closing:'
+$venvCmd && rq info
+echo ''
 
 # Initializing FLOJOY-WATCH RQ Worker
 cd $CWD
 
-gum spin --spinner dot --title 'Starting RQ worker for flojoy-watch' --title.foreground="$general_color" -- npx ttab -t 'Flojoy-watch RQ Worker' "gum style --foreground $general_color 'Welcome to Flojoy-Watch, RQ WORKER QUEUE! :wave: ' '' 'Here, you can monitor LOGS from Flojoy-Watch while it orchestrates each Python job (AKA node) in your Flojoy program.' | gum format -t emoji; source $venvCmd && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy-watch"
+npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
 
-feedback $? 'Started RQ worker for flojoy-watch' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
 # Initializing FLOJOY RQ Worker
 
-gum spin --spinner dot --title 'Starting RQ worker for nodes...' --title.foreground="$general_color" -- npx ttab -t 'RQ WORKER' "gum style --foreground $general_color 'Welcome to Flojoy RQ WORKER QUEUE! :wave: ' '' 'Here you can monitor LOGS of the Jobs (AKA Nodes), queued by Flojoy-Watch Worker' '' | gum format -t emoji;source $venvCmd && cd PYTHON && export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES && rq worker flojoy"
+npx ttab -t 'RQ WORKER' "$venvCmd; cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
 
-feedback $? 'Started RQ worker for nodes...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+# Start the Django server
+
+if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
+   echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
+   djangoPort=$((djangoPort + 1))
+   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+else
+   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+fi
+
+feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
+
 
 
 # Checking for YOLOV3 Weights
@@ -347,15 +361,16 @@ CWD="$PWD"
 
 FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
-   gum style --foreground $message_color ":point_right: $FILE exists." | gum format -t emoji
+   info_msg "$FILE exists."
 else
    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+   echo ''
 fi
 
 sleep 1
 
 # Initializing React Server
 
-gum spin --spinner dot --title 'Starting React server...' --title.foreground="$general_color" -- npx ttab -t 'REACT' "source $venvCmd && npm start"
-feedback $? 'React server started on port 3000' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
+npx ttab -t 'REACT' "$venvCmd; npm start"
+feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
