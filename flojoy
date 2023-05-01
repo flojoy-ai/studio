@@ -302,16 +302,16 @@ feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Fail
 # initializing new Redis Instance
 if [ "$initRedis" ]
 then
-   npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
    feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
    info_msg 'Spinning up a fresh Redis server...'
-   npx ttab -t 'Redis-CLI' "redis-server"
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-server"
    wait_for_redis
 else
    redis-cli ping >> /dev/null 2>&1
    if [ $? != 0 ]; then
       info_msg "Redis is not running, trying to start Redis server..."
-      npx ttab -t 'Redis' "redis-server"
+      npx ttab -a iTerm2 -t 'Redis' "redis-server"
       wait_for_redis
    fi
 fi
