@@ -16,6 +16,7 @@ import {
   NodeMouseHandler,
   NodeDragHandler,
   OnNodesDelete,
+  BezierEdge,
 } from "reactflow";
 
 import localforage from "localforage";
@@ -64,10 +65,7 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
 
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
-  const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default: SmartBezierEdge }),
-    []
-  );
+  const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
