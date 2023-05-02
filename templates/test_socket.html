@@ -15,16 +15,16 @@
       const jobSocket = new WebSocket(url);
       jobSocket.onmessage = function (e) {
         let data = JSON.parse(e.data);
-        console.log('data received: ', data)
+        console.log("data received: ", data);
 
         if (data.type === "ping_response") {
-        //   console.log("You have been responsed for ping");
+          //   console.log("You have been responsed for ping");
           console.log(data);
-        //   jobSocket.send(
-        //     JSON.stringify({
-        //       type: "ping",
-        //     })
-        //   );
+          //   jobSocket.send(
+          //     JSON.stringify({
+          //       type: "ping",
+          //     })
+          //   );
         } else if (data.type === "heartbeat_response") {
           console.log("You have been responsed for heartbeat");
           console.log(data);

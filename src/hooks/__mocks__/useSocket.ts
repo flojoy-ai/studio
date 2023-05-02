@@ -5,8 +5,8 @@ module.exports = {
       socketId: "socket-1234",
       serverStatus: IServerStatus.CONNECTING,
       setProgramResults: jest.fn(),
-      failureReason: 'test error',
-      failedNode: 'node-123'
+      failureReason: "test error",
+      failedNode: "node-123",
     },
   })),
 };

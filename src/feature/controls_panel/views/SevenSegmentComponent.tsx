@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { Display as SevenSegmentDisplay } from "react-7-segment-display";
 
-
 const SevenSegmentComponent = ({ ctrlObj, plotData, nd }) => {
   const [data, setData] = useState(0);
 

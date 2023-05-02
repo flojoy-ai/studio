@@ -5,7 +5,7 @@ interface CustomErrorProps {
 
 export class CustomError extends Error {
   private data: CustomErrorProps;
-  constructor(data: CustomErrorProps, ...params:any) {
+  constructor(data: CustomErrorProps, ...params: any) {
     super(...params);
 
     if (Error.captureStackTrace) {

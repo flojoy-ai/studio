@@ -4,7 +4,7 @@ export type ElementsData = {
   func: string;
   type: string;
   running?: boolean;
-  failed?:boolean;
+  failed?: boolean;
   ctrls: {
     [key: string]: {
       functionName: string;
@@ -12,10 +12,10 @@ export type ElementsData = {
       value: string;
     };
   };
-  inputs?: Array<{ name: string; id: string; type:string }>
+  inputs?: Array<{ name: string; id: string; type: string }>;
   selects?: any;
-  selected?:boolean;
-}
+  selected?: boolean;
+};
 
 export interface CustomNodeProps {
   data: ElementsData;

@@ -14,21 +14,21 @@ describe("useResultsTabEffects", () => {
       cmd: "SINE",
       id: "TEST_ID",
       result: {
-        default_fig:{
+        default_fig: {
           data: [
             {
               type: "bar",
               x: [1, 2, 3],
               y: [1, 2, 3],
-            }
+            },
           ],
-          layout: styledPlotLayout("dark")
+          layout: styledPlotLayout("dark"),
         },
-        data:{
+        data: {
           type: "ordered_pair",
           x: [1, 2, 3],
           y: [1, 2, 3],
-        }
+        },
       },
     },
   ];

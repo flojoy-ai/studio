@@ -30,7 +30,7 @@ export default async (): Promise<Config.InitialOptions> => {
       ...pathsToModuleNameMapper(compilerOptions.paths),
     },
     transform: {
-      "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }]
-    }
+      "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }],
+    },
   };
 };

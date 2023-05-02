@@ -4,7 +4,6 @@ const path = require("upath");
 const child_process = require("child_process");
 const { getErrorDetail } = require("./error-helper");
 
-
 const isProd = app.isPackaged;
 const envPath = process.env.PATH;
 

@@ -158,10 +158,9 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
       <Collapse data-testid="sidebar-subsection-collapse" in={opened}>
         {subSection.child
           ? subSection.child.map((child) => (
-            <div style={{padding:"10px 10px 0 10px"}}>
-
-              <SidebarSubSection onAdd={onAdd} subSection={child} />
-            </div>
+              <div style={{ padding: "10px 10px 0 10px" }}>
+                <SidebarSubSection onAdd={onAdd} subSection={child} />
+              </div>
             ))
           : items}
       </Collapse>

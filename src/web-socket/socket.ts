@@ -16,7 +16,7 @@ enum ResponseEnum {
   nodeResults = "NODE_RESULTS",
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
-  failureReason = 'FAILURE_REASON'
+  failureReason = "FAILURE_REASON",
 }
 export class WebSocketServer {
   private server: WebSocket;
@@ -55,8 +55,7 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
-              data[ResponseEnum.systemStatus] ===
-              IServerStatus.RQ_RUN_COMPLETE
+              data[ResponseEnum.systemStatus] === IServerStatus.RQ_RUN_COMPLETE
             ) {
               this.pingResponse(IServerStatus.STANDBY);
             }
@@ -69,11 +68,14 @@ export class WebSocketServer {
               const resultIo = data[ResponseEnum.nodeResults];
               const resultData = {
                 ...resultIo,
-                result:{
+                result: {
                   ...resultIo.result,
-                  type: resultIo.result.type === 'file' ? "image" : resultIo.result.type
-                }
-              }
+                  type:
+                    resultIo.result.type === "file"
+                      ? "image"
+                      : resultIo.result.type,
+                },
+              };
               if (isExist) {
                 const filterResult = prev.io.filter(
                   (node) => node.id !== resultIo.id
@@ -93,8 +95,8 @@ export class WebSocketServer {
           }
           if (ResponseEnum.failedNodes in data) {
             this.failedNode(data[ResponseEnum.failedNodes]);
-            if(ResponseEnum.failureReason in data){
-              this.failureReason(data[ResponseEnum.failureReason])
+            if (ResponseEnum.failureReason in data) {
+              this.failureReason(data[ResponseEnum.failureReason]);
             }
           }
           break;
