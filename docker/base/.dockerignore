@@ -1,8 +1,0 @@
-**/node_modules
-**/npm-debug.log
-**/build
-**/cypress
-**/dist
-**/electron
-**/src
-**/templates
