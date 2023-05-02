@@ -25,7 +25,6 @@ import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import KnobCtrl from "./views/KnobCtrl";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
@@ -194,24 +193,6 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
-      <KnobCtrl
-        isEditMode={false}
-        selectedOption={undefined}
-        makeLayoutStatic={() => console.log("makeLayoutStatic")}
-        ctrlObj={{
-          id: "plot-control",
-          name: "Plot Control",
-          type: "plot",
-          minHeight: 10,
-          minWidth: 10,
-          layout: { i: "asd", x: 34, y: 34, w: 23, h: 3 },
-          val: 30,
-        }}
-        currentInputValue={10}
-        setGridLayout={() => console.log("setGridLayout")}
-        updateCtrlValue={() => console.log("updateCtrlValue")}
-      />
-
       <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}
