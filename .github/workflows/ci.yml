@@ -40,6 +40,9 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
+      - name: Run formatting check
+        run: npm run check
+
       - name: Start backend server
         run: pm2 start "python manage.py runserver 8000" --name backend
 
