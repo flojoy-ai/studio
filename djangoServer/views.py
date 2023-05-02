@@ -1,19 +1,21 @@
+import json
 import os
 import sys
-import json
-import yaml
-from PYTHON.WATCH import *
-from datetime import datetime
-from django.shortcuts import render
-from asgiref.sync import async_to_sync
-from rest_framework.response import Response
-from channels.layers import get_channel_layer
-from rest_framework.decorators import api_view
-from PYTHON.services.job_service import JobService
 import time
+from datetime import datetime
+
+import yaml
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(0, dir_path)
+
+from PYTHON.WATCH.watch import run
+from PYTHON.services.job_service import JobService
 
 job_service = JobService('flojoy-watch')
 q = job_service.queue
@@ -74,12 +76,10 @@ def run_flow_chart(request):
     }
     send_msg_to_socket(msg=msg)
 
-    func = getattr(globals()['watch'], 'run')
-    print('func:', func)
     scheduler_job_id = f'{jobset_id}_{datetime.now()}'
     job_service.add_flojoy_watch_job_id(scheduler_job_id)
 
-    q.enqueue(func,
+    q.enqueue(run,
               on_failure=report_failure,
               job_id=scheduler_job_id,
               kwargs={'fc': fc,
