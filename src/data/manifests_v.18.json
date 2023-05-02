@@ -1,5 +1,5 @@
 {
-    "_v": 19,
+    "_v": 18,
     "commands": [
         {
             "name": "Sine",
@@ -89,11 +89,6 @@
                 "type": "float",
                 "default": "1000"
             }
-        },
-        {
-            "name": "STEPPERDRIVER_TIC_KNOB",
-            "key": "STEPPERDRIVER_TIC_KNOB",
-            "type": "STEPPER2"
         },
         {
             "name": "Random (Uniform)",
@@ -339,12 +334,6 @@
                 "default": "1000"
             }
         },
-        "STEPPERDRIVER_TIC_KNOB": {
-            "knob_value": {
-                "type": "int",
-                "default": 0
-            }
-        },
         "KEITHLEY2400": {
             "comport": {
                 "type": "string",
@@ -386,7 +375,7 @@
             },
             "position3": {
                 "type": "int",
-                "default": 100
+                "default": -100
             },
             "position4": {
                 "type": "int",
