@@ -304,10 +304,10 @@ feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Fail
 # initializing new Redis Instance
 if [ "$initRedis" ]
 then
-   npx ttab -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
    feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
    info_msg 'Spinning up a fresh Redis server...'
-   npx ttab -t 'Redis-CLI' "redis-server"
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-server"
    wait_for_redis
 else
    if [ $is_ci = false ]; then
@@ -336,69 +336,6 @@ fi
 
 cd $CWD
 
-if [ -n "$venvCmd" ]; then
-   # Initializing FLOJOY-WATCH RQ Worker
-
-   npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
-
-   feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-
-   # Initializing FLOJOY RQ Worker
-
-   npx ttab -t 'RQ WORKER' "$venvCmd; cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
-
-   feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-   # Start the Django server
-
-   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
-      echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
-      djangoPort=$((djangoPort + 1))
-      npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
-   else
-      npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
-   fi
-
-   feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
-
-   # Initializing React Server
-
-   npx ttab -t 'REACT' "$venvCmd; npm start"
-   feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
-else
-   # Initializing FLOJOY-WATCH RQ Worker
-
-   npx ttab -t 'Flojoy-watch RQ Worker' "export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
-
-   feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-
-   # Initializing FLOJOY RQ Worker
-
-   npx ttab -t 'RQ WORKER' "cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
-
-   feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-   # Start the Django server
-
-   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
-      echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
-      djangoPort=$((djangoPort + 1))
-      npx ttab -t 'Django' "python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
-   else
-      npx ttab -t 'Django' "python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
-   fi
-
-   feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
-
-
-   # Initializing React Server
-
-   npx ttab -t 'REACT' "npm start"
-   feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
-fi
-
 # Checking for YOLOV3 Weights
 CWD="$PWD"
 FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
@@ -408,5 +345,14 @@ else
    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
    echo ''
+fi
+
+sleep 1
+
+# start project services
+if [ -n "$venvCmd" ]; then
+   $venvCmd && npm run start-project
+else
+   npm run start-project
 fi
 sleep 1
