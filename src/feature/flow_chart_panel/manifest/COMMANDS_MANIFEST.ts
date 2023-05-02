@@ -50,13 +50,11 @@ export const SECTIONS:Sections = [
   {
     title: "Instruments",
     child: [
-      {
-        name: "Web cam",
-        key: "WEB_CAM",
-      },
+      { name: "Web cam", key: "WEB_CAM" },
       { name: "Keithley", key: "KEITHLEY" },
       { name: "Labjack", key: "LABJACK" },
-      { name: "Phidget", key: "PHIDGET" }
+      { name: "Phidget", key: "PHIDGET" },
+      { name: "Serial", key: "SERIAL" }
     ],
   },
   {
@@ -88,10 +86,8 @@ export const SECTIONS:Sections = [
       { name: "Regressions", key: "REGRESSIONS" },
       { name: "Image processing", key: "IMAGE_PROCESSING" },
       { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
-      {
-        name: "Matrix manipulation",
-        key: "MATRIX_MANIPULATION",
-      },
+      { name: "Matrix manipulation", key: "MATRIX_MANIPULATION" },
+      { name: "Array selection", key: "SELECT_ARRAY" },
     ],
   },
 
