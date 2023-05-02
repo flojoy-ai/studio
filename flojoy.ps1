@@ -205,19 +205,26 @@ if ($missing_dependencies) {
   exit 1
 }
 
+function check_and_install_py_pckg(){
+  param (
+    $pckg_name,
+    $pip_cmd
+  )
+  & pip show $pckg_name 2>$1 > $null
+  $is_installed = $LastExitCode
+  if ($is_installed -ne 0) {
+    $install_cmd = "python -m $pip_cmd install $pckg_name"
+    Invoke-Expression $install_cmd 2>$1 | Out-Null
+  }
+}
 
 # Install Python packages
 
 if ($initPythonPackages) {
   info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
   Set-Location $CWD
-  & pip show pipwin 2>$1 > $null
-  $is_installed = $LastExitCode
-  if ($is_installed -ne 0) {
-    $install_cmd = 'python -m pip install pipwin'
-    Invoke-Expression $install_cmd 2>$1 | Out-Null
-  }
-  & python -m pipwin install matplotlib==3.5.2
+  check_and_install_py_pckg "pipwin" "pip"
+  check_and_install_py_pckg "matplotlib==3.5.2" "pipwin" 
   $pip_cmd = "python -m pip install -r requirements.txt"
   Invoke-Expression $pip_cmd
   feedback $? 'Python packages installed successfully!' "Python package installation failed! check error details printed above."

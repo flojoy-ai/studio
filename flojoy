@@ -172,8 +172,6 @@ do
     esac
 done
 
-echo "django port: $djangoPort"
-
 # checking if flojoy.yaml file exists
 
 CWD="$PWD"
@@ -336,39 +334,73 @@ if [ $is_ci = true ];then
    exit 0
 fi
 
-# Initializing FLOJOY-WATCH RQ Worker
 cd $CWD
 
-npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
+if [ -n "$venvCmd" ]; then
+   # Initializing FLOJOY-WATCH RQ Worker
 
-feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+   npx ttab -t 'Flojoy-watch RQ Worker' "$venvCmd; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
+
+   feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
 
-# Initializing FLOJOY RQ Worker
+   # Initializing FLOJOY RQ Worker
 
-npx ttab -t 'RQ WORKER' "$venvCmd; cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
+   npx ttab -t 'RQ WORKER' "$venvCmd; cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
 
-feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+   feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
 
-# Start the Django server
+   # Start the Django server
 
-if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
-   echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
-   djangoPort=$((djangoPort + 1))
-   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
+      echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
+      djangoPort=$((djangoPort + 1))
+      npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   else
+      npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   fi
+
+   feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
+
+   # Initializing React Server
+
+   npx ttab -t 'REACT' "$venvCmd; npm start"
+   feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
 else
-   npx ttab -t 'Django' "$venvCmd; python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   # Initializing FLOJOY-WATCH RQ Worker
+
+   npx ttab -t 'Flojoy-watch RQ Worker' "export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy-watch"
+
+   feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+
+   # Initializing FLOJOY RQ Worker
+
+   npx ttab -t 'RQ WORKER' "cd PYTHON; export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES; rq worker flojoy"
+
+   feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
+
+   # Start the Django server
+
+   if lsof -Pi :"$djangoPort" -sTCP:LISTEN -t >/dev/null ; then
+      echo "port $djangoPort is busy, trying with $((djangoPort + 1))"
+      djangoPort=$((djangoPort + 1))
+      npx ttab -t 'Django' "python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   else
+      npx ttab -t 'Django' "python3 write_port_to_env.py $djangoPort; python3 manage.py runserver ${djangoPort}"
+   fi
+
+   feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
+
+
+   # Initializing React Server
+
+   npx ttab -t 'REACT' "npm start"
+   feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
 fi
 
-feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
-
-
-
 # Checking for YOLOV3 Weights
-
-
 CWD="$PWD"
-
 FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
    info_msg "$FILE exists."
@@ -377,10 +409,4 @@ else
    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
    echo ''
 fi
-
 sleep 1
-
-# Initializing React Server
-
-npx ttab -t 'REACT' "$venvCmd; npm start"
-feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
