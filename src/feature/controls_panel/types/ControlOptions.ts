@@ -27,5 +27,5 @@ export interface PlotControlOptions {
 
 export interface NodeInputOptions {
   label: string;
-  value: any // ResultIO['result']
+  value: any; // ResultIO['result']
 }

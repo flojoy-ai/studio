@@ -21,7 +21,6 @@ const props: CustomNodeProps = {
 
 jest.mock("@hooks/useFlowChartState");
 
-
 jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   const mockChildren = jest
     .fn()

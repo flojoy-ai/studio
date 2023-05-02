@@ -1,5 +1,5 @@
 .App-controls-panel {
-    height: 100vh; 
+  height: 100vh;
 }
 
 .App-controls-header {
@@ -8,14 +8,15 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: auto;
-  align-content: flex-start; 
+  align-content: flex-start;
 }
 
 .ctrl-output {
   flex: 0 0 auto;
 }
 
-.ctrl-output, .ctrl-input {
+.ctrl-output,
+.ctrl-input {
   padding: 0;
   border: 0.5px solid #ccc;
   border-radius: 3px;
@@ -36,20 +37,19 @@
 .ctrl-input {
   min-height: 150px;
   width: 100%;
- 
 }
-.ctrl-header{
+.ctrl-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 5px;
 }
 .ctrl-input-group {
-  display:flex;
-  gap:5px;
-  flex-direction:column;
-  padding-left:5px;
-  padding-right:5px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 .ctrl-edit-btn {
   cursor: pointer;
@@ -69,8 +69,8 @@
   padding: 20px;
   display: flex;
   justify-content: center;
-  align-items:center;
-  height:90%;
+  align-items: center;
+  height: 90%;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -80,18 +80,17 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  height:90%;
+  height: 90%;
   flex-wrap: wrap;
   width: 100%;
 }
-
 
 .ctrl-param {
   margin: 0;
   font-size: 15px;
 }
 
-.ctrl-close-btn:hover{
+.ctrl-close-btn:hover {
   color: red !important;
 }
 
@@ -103,15 +102,18 @@
   left: 15px;
 }
 
-.input-header, .output-header {
+.input-header,
+.output-header {
   padding: 10px;
   display: inline-block;
 }
 
-.ctrl-inputs-sidebar, .input-header {
+.ctrl-inputs-sidebar,
+.input-header {
   min-width: 200px;
   max-width: 400px;
-  width: 25%;  border-right: 1px solid #ccc;
+  width: 25%;
+  border-right: 1px solid #ccc;
   display: inline-block;
 }
 
@@ -122,7 +124,7 @@
 
 .ctrl-outputs-canvas {
   display: flex;
-  background-size: .75em .75em;  
+  background-size: 0.75em 0.75em;
   background-position: 0 -0.5em;
   flex-wrap: wrap;
   flex-direction: row;
@@ -132,7 +134,8 @@
   min-height: 800px;
 }
 
-.ctrl-outputs-container, .output-header {
+.ctrl-outputs-container,
+.output-header {
   display: inline-block;
   width: 75%;
 }
@@ -151,8 +154,8 @@
   margin: 0 10px;
   background-color: transparent;
   outline: none;
-  border:'1px solid'
-  ; border-radius: 10px;
+  border: "1px solid";
+  border-radius: 10px;
 }
 
 .select-node {
@@ -180,7 +183,6 @@
 
 .ctrl-input label {
   margin-left: 10px;
-
 }
 .seven_segment_container {
   display: flex;
@@ -190,36 +192,36 @@
   width: 100%;
   padding-bottom: 10px;
   min-width: 480;
-  transform:scale(0.6)
+  transform: scale(0.6);
 }
 
- /* Extra small devices (phones, 600px and down) */
- @media only screen and (max-width: 600px) {
-  .seven_segment_container{
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .seven_segment_container {
     transform: scale(0.5);
   }
- }
+}
 
- /* Small devices (portrait tablets and large phones, 600px and up) */
- @media only screen and (min-width: 600px) {
-  .seven_segment_container{
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .seven_segment_container {
     transform: scale(0.6);
   }
- }
- 
- /* Medium devices (landscape tablets, 768px and up) */
- @media only screen and (min-width: 768px) {
-  .seven_segment_container{
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .seven_segment_container {
     transform: scale(0.5);
   }
- }
- 
- /* Large devices (laptops/desktops, 992px and up) */
- /* @media only screen and (min-width: 992px) {...} */
- 
- /* Extra large devices (large laptops and desktops, 1200px and up) */
- @media only screen and (min-width: 1200px) {
-  .seven_segment_container{
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {...} */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .seven_segment_container {
     transform: scale(0.6);
   }
- } 
+}

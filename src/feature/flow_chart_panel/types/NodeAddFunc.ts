@@ -10,6 +10,6 @@ export type NodeOnAddFunc = (props: {
   funcName: string;
   type: string;
   params: ParamTypes | undefined;
-  inputs?: Array<{ name: string, id: string, type:string }> | undefined;
+  inputs?: Array<{ name: string; id: string; type: string }> | undefined;
   uiComponentId?: string;
 }) => void;

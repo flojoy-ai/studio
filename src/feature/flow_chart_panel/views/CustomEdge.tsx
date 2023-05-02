@@ -1,17 +1,12 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { FC } from "react";
-import {
-  EdgeProps,
-  getBezierPath,
-  getMarkerEnd,
-  MarkerType,
-} from 'reactflow';
+import { EdgeProps, getBezierPath, getMarkerEnd, MarkerType } from "reactflow";
 
 const CustomEdge: FC<EdgeProps> = (edgeParams) => {
   const [path] = getBezierPath(edgeParams);
-  const markerEnd = getMarkerEnd(MarkerType.Arrow)
-  const {uiTheme} = useFlowChartState();
-  
+  const markerEnd = getMarkerEnd(MarkerType.Arrow);
+  const { uiTheme } = useFlowChartState();
+
   return (
     <>
       <path
@@ -23,7 +18,10 @@ const CustomEdge: FC<EdgeProps> = (edgeParams) => {
       <text>
         <textPath
           href={`#${edgeParams.id}`}
-          style={{ fontSize: '30px',fill: uiTheme === 'dark' ? 'white' : 'black' }}
+          style={{
+            fontSize: "30px",
+            fill: uiTheme === "dark" ? "white" : "black",
+          }}
           startOffset="50%"
           textAnchor="middle"
         >

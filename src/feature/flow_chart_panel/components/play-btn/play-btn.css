@@ -1,4 +1,5 @@
-.btn__play, .cmd-btn {
+.btn__play,
+.cmd-btn {
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -14,36 +15,40 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.btn__play.dark, .cmd-btn.dark {
+.btn__play.dark,
+.cmd-btn.dark {
   background-color: #243438;
   color: #94f4fc;
   border: 1px solid #00eaff;
 }
-.btn__play.light, .cmd-btn.light {
+.btn__play.light,
+.cmd-btn.light {
   border: 1px solid rgba(123, 97, 255, 1);
   background-color: rgba(123, 97, 255, 0.17);
   color: rgba(123, 97, 255, 1);
 }
-.btn__play.light:hover{
-    background-color: #9700ff73;
+.btn__play.light:hover {
+  background-color: #9700ff73;
 }
-.btn__play.dark:hover{
+.btn__play.dark:hover {
   background-color: #82e9f258;
 }
-.btn__play.light:disabled, .btn__play.light:disabled:hover{
-  color:#B5B5B5;
-  background-color: #E9ECEF;
-  border:0;
+.btn__play.light:disabled,
+.btn__play.light:disabled:hover {
+  color: #b5b5b5;
+  background-color: #e9ecef;
+  border: 0;
   cursor: not-allowed;
 }
-.btn__play.dark:disabled, .btn__play.dark:disabled:hover{
-  color:#cfc9c980;
+.btn__play.dark:disabled,
+.btn__play.dark:disabled:hover {
+  color: #cfc9c980;
   background-color: grey;
-  border:0;
+  border: 0;
   cursor: not-allowed;
 }
 .btn__play.light:disabled > svg > path {
-  fill: #B5B5B5;
+  fill: #b5b5b5;
 }
 .btn__play.dark:disabled > svg > path {
   fill: #cfc9c980;

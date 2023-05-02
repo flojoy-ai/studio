@@ -18,7 +18,7 @@ export enum ControlNames {
   SevenSegmentDisplay = "Seven Segment Display",
   LocalFileLoader = "Local File Loader",
   MediaViewer = "Media Viewer",
-  NodeReference = "Node Reference"
+  NodeReference = "Node Reference",
 }
 
 export enum PlotTypeNames {
@@ -28,7 +28,7 @@ export enum PlotTypeNames {
   SurfacePlot3D = "3D Surface Plot",
   Line = "Line",
   BarChart = "Bar Chart",
-  Image = "Image"
+  Image = "Image",
 }
 
 export const OutputControlsManifest = [
@@ -52,27 +52,27 @@ export const OutputControlsManifest = [
     minWidth: 2,
   },
 ];
-type IPlotTypesManifest ={
-  name: PlotTypeNames,
-  type: PlotData['type'],
-  mode?: PlotData['mode']
-}
+type IPlotTypesManifest = {
+  name: PlotTypeNames;
+  type: PlotData["type"];
+  mode?: PlotData["mode"];
+};
 export const PlotTypesManifest: IPlotTypesManifest[] = [
   // Plot types
   {
     name: PlotTypeNames.ScatterPlot3D,
     type: "scatter3d",
-    mode: "markers"
+    mode: "markers",
   },
   {
     name: PlotTypeNames.ScatterPlot,
     type: "scatter",
-    mode: "markers"
+    mode: "markers",
   },
   {
     name: PlotTypeNames.Histogram,
     type: "histogram",
-    mode:'lines'
+    mode: "lines",
   },
   {
     name: PlotTypeNames.SurfacePlot3D,
@@ -81,7 +81,7 @@ export const PlotTypesManifest: IPlotTypesManifest[] = [
   {
     name: PlotTypeNames.Line,
     type: "scatter",
-    mode: "lines"
+    mode: "lines",
   },
   {
     name: PlotTypeNames.BarChart,
@@ -153,6 +153,6 @@ export const InputControlsManifest = [
     name: ControlNames.NodeReference,
     type: ControlTypes.Input,
     minHeight: 2,
-    minWidth: 2
-  }
+    minWidth: 2,
+  },
 ];

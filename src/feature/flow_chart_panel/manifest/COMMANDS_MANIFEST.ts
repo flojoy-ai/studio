@@ -13,13 +13,13 @@ type Sections = {
   child: {
     name: string;
     key: string;
-    child?: Sections[0]['child']
-  }[]
-}[]
+    child?: Sections[0]["child"];
+  }[];
+}[];
 
 export const COMMANDS: Commands = manifests.commands;
 
-export const SECTIONS:Sections = [
+export const SECTIONS: Sections = [
   {
     title: "AI and Machine learning",
     child: [
@@ -56,7 +56,7 @@ export const SECTIONS:Sections = [
       },
       { name: "Keithley", key: "KEITHLEY" },
       { name: "Labjack", key: "LABJACK" },
-      { name: "Phidget", key: "PHIDGET" }
+      { name: "Phidget", key: "PHIDGET" },
     ],
   },
   {

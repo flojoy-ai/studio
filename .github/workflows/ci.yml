@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
-      
+
       - name: Start Redis
         uses: supercharge/redis-github-action@1.5.0
         with:
@@ -39,10 +39,10 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
-      
+
       - name: Start backend server
         run: pm2 start "python manage.py runserver 8000" --name backend
-      
+
       - name: Start flojoy-watch rq worker
         run: pm2 start "rq worker flojoy-watch" --name rq-watch
 

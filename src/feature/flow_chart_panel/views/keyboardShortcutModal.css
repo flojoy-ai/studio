@@ -8,14 +8,14 @@
   padding: 24px;
 }
 .kbs__close__btn {
-    position: absolute;
-    right: 10px;
-    color: rgb(153, 245, 255);
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    top:15px
+  position: absolute;
+  right: 10px;
+  color: rgb(153, 245, 255);
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  top: 15px;
 }
 .kbs__container.dark {
   background-color: #18191a;
