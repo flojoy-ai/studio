@@ -33,7 +33,7 @@ const DEFAULT_STATES = {
 export const SocketContext = createContext<{ states: States } | null>(null);
 
 const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "localhost";
-const BACKEND_PORT = process.env.VITE_BACKEND_PORT! || 8000;
+const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
 
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState<WebSocketServer>();
