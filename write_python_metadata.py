@@ -9,7 +9,7 @@ pattern = "*.py"
 
 # List to store the file paths
 file_paths = []
-badbadnotgood = ['VCTR.py', '__init__.py', '.DS_Store']
+badbadnotgood = ["VCTR.py", "__init__.py", ".DS_Store"]
 
 # Walk through all the directories and subdirectories
 for subdir, dirs, files in os.walk(rootdir):
@@ -27,7 +27,6 @@ for single_file in file_paths:
         function_dict[os.path.basename(single_file)] = f.read()
 
 s = json.dumps(obj=function_dict, indent=2)
-result = open(
-    'src/feature/flow_chart_panel/manifest/pythonFunctions.json', 'w')
+result = open("src/feature/flow_chart_panel/manifest/pythonFunctions.json", "w")
 result.write(s)
 result.close()
