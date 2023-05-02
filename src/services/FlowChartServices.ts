@@ -4,8 +4,8 @@ import { ReactFlowJsonObject } from "reactflow";
 import { CustomError } from "../utils/CustomError";
 
 const flowKey = "flow-joy";
-const BACKEND_HOST = import.meta.env.REACT_APP_BACKEND_HOST || "localhost";
-const BACKEND_PORT = import.meta.env.REACT_APP_BACKEND_PORT! || 8000;
+const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "localhost";
+const BACKEND_PORT = process.env.VITE_BACKEND_PORT! || 8000;
 const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
