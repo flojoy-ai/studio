@@ -37,11 +37,11 @@ jobs:
       - name: Run Flojoy startup script
         run: bash flojoy -c
 
-      - name: Run unit tests
-        run: npm run test
-
       - name: Run formatting check
         run: npm run check
+
+      - name: Run unit tests
+        run: npm run test
 
       - name: Start backend server
         run: pm2 start "python manage.py runserver 8000" --name backend
