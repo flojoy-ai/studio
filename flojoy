@@ -167,8 +167,6 @@ do
     esac
 done
 
-echo "django port: $djangoPort"
-
 # checking if flojoy.yaml file exists
 
 CWD="$PWD"
@@ -326,14 +324,10 @@ info_msg 'Rq info after closing:'
 $venvCmd && rq info
 echo ''
 
-# Initializing FLOJOY-WATCH RQ Worker
 cd $CWD
 
 # Checking for YOLOV3 Weights
-
-
 CWD="$PWD"
-
 FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
 if test -f "$FILE"; then
    info_msg "$FILE exists."
@@ -351,3 +345,4 @@ if [ -n "$venvCmd" ]; then
 else
    npm run start-project
 fi
+sleep 1
