@@ -1,5 +1,5 @@
 import * as React from "react";
-import { act, renderHook, Renderer } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useFlowChartTabEffects } from "@src/feature/flow_chart_panel/FlowChartTabEffects";
 
 const params: any = {

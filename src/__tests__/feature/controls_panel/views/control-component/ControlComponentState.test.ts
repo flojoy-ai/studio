@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 import ControlComponentState, {
   ControlComponentStateProps,
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
@@ -189,22 +189,24 @@ describe("Testing ControlComponentState State's", () => {
         id: "string",
         result: {
           default_fig: {
-            data: [{
-              x: [2, 4, 5, 6],
-              y: [2, 4, 5, 6],
-              z: [2, 4, 5, 6],
-              type: "box",
-              mode: "lines",
-            }],
-            layout: styledPlotLayout('light')
+            data: [
+              {
+                x: [2, 4, 5, 6],
+                y: [2, 4, 5, 6],
+                z: [2, 4, 5, 6],
+                type: "box",
+                mode: "lines",
+              },
+            ],
+            layout: styledPlotLayout("light"),
           },
           data: {
-              x: [2, 4, 5, 6],
-              y: [2, 4, 5, 6],
-              z: [2, 4, 5, 6],
-              type: "box",
-              mode: "lines",
-            },
+            x: [2, 4, 5, 6],
+            y: [2, 4, 5, 6],
+            z: [2, 4, 5, 6],
+            type: "box",
+            mode: "lines",
+          },
         },
       };
       const { result } = renderHook(() =>
@@ -223,7 +225,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.plotData).toEqual([]);
     });
     it("Checks if the PlotData's State renders/fires with Updated State", () => {
-      const updatedTestPlotData: Data[]= [
+      const updatedTestPlotData: Data[] = [
         {
           x: [5, 3, 2],
           y: [4, 2, 6],

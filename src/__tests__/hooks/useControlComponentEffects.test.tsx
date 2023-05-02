@@ -1,4 +1,4 @@
-import { act, renderHook, Renderer } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 
 import useControlsTabEffects from "../../hooks/useControlComponentEffects";
 import { CtlManifestType } from "../../hooks/useFlowChartState";
