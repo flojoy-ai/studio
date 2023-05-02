@@ -16,7 +16,7 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtrlOptionValue } from "../../types/ControlOptions";
 import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
-// import KnobCtrl from "../KnobCtrl";
+import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
 
 export type ControlComponentProps = {
@@ -290,7 +290,7 @@ const ControlComponent = ({
         </div>
       )}
 
-      {/* {ctrlObj.name === ControlNames.Knob && (
+      {ctrlObj.name === ControlNames.Knob && (
         <div className="ctrl-input-body">
           <KnobCtrl
             selectedOption={selectedOption}
@@ -302,7 +302,7 @@ const ControlComponent = ({
             currentInputValue={+currentInputValue}
           />
         </div>
-      )} */}
+      )}
 
       {ctrlObj.name === ControlNames.Slider && (
         <div className="ctrl-input-body">
