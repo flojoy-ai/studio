@@ -7,11 +7,11 @@ import styled from "styled-components";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
-type NodeEditMenuProps = {
-  nodes: Node<ElementsData>[];
+type NodeEditModalProps = {
+  node: Node<ElementsData>;
 };
 
-const StyledMenu = styled.div`
+const StyledModal = styled.div`
   position: absolute;
   top: 20px;
   right: 20px;
@@ -51,45 +51,43 @@ const StyledCloseButton = styled.div`
   cursor: pointer;
 `;
 
-const NodeEditMenu = ({ nodes }: NodeEditMenuProps) => {
+const NodeEditModal = ({ node }: NodeEditModalProps) => {
   const theme = useMantineTheme();
   const { setIsEditMode } = useFlowChartState();
 
   return (
-    <StyledMenu theme={theme.colorScheme}>
+    <StyledModal theme={theme.colorScheme}>
       <StyledCloseButton onClick={() => setIsEditMode(false)}>
         <IconX size={18} />
       </StyledCloseButton>
       <div style={{ padding: "0px 16px 24px 16px" }}>
-        {nodes.map((node) => (
-          <div>
-            <StyledTitleContainer>
-              <StyledTitle>{node.data.func.toUpperCase()}</StyledTitle>
-              <IconPencil
-                size={18}
-                style={{ marginLeft: "1rem", marginBottom: "4px" }}
-              />
-            </StyledTitleContainer>
-            {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
-              ([name, param]) => (
-                <div key={node.id + name}>
-                  <StyledParamName>{`${name.toUpperCase()}:`}</StyledParamName>
-                  <ParamField
-                    nodeId={node.id}
-                    paramId={name}
-                    functionName={node.data.func}
-                    type={param.type as ParamType}
-                    value={node.data.ctrls[name].value}
-                    options={param.options}
-                  />
-                </div>
-              )
-            )}
-          </div>
-        ))}
+        <div key={node.id}>
+          <StyledTitleContainer>
+            <StyledTitle>{node.data.func.toUpperCase()}</StyledTitle>
+            <IconPencil
+              size={18}
+              style={{ marginLeft: "1rem", marginBottom: "4px" }}
+            />
+          </StyledTitleContainer>
+          {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
+            ([name, param]) => (
+              <div key={node.id + name}>
+                <StyledParamName>{`${name.toUpperCase()}:`}</StyledParamName>
+                <ParamField
+                  nodeId={node.id}
+                  paramId={name}
+                  functionName={node.data.func}
+                  type={param.type as ParamType}
+                  value={node.data.ctrls[name].value}
+                  options={param.options}
+                />
+              </div>
+            )
+          )}
+        </div>
       </div>
-    </StyledMenu>
+    </StyledModal>
   );
 };
 
-export default NodeEditMenu;
+export default NodeEditModal;

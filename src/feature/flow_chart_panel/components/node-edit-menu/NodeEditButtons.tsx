@@ -1,6 +1,5 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { IconPencil, IconX } from "@tabler/icons-react";
-import { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -12,10 +11,6 @@ const StyledContainer = styled.div`
 
 const NodeEditButtons = () => {
   const { setIsEditMode } = useFlowChartState();
-
-  useEffect(() => {
-    return () => setIsEditMode(false);
-  }, [setIsEditMode]);
 
   return (
     <StyledContainer>
