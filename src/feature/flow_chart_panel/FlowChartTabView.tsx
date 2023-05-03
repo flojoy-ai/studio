@@ -17,6 +17,7 @@ import {
   NodeDragHandler,
   OnNodesDelete,
   BezierEdge,
+  useStore,
 } from "reactflow";
 
 import localforage from "localforage";
@@ -30,6 +31,7 @@ import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import NodeEditMenu from "./components/node-edit-menu/NodeEditMenu";
 
 localforage.config({
   name: "react-flow",
@@ -63,7 +65,8 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const selectedNodes = nodes.filter((n) => n.selected);
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
@@ -158,10 +161,13 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   return (
     <ReactFlowProvider>
       <div
-        style={{ height: `99vh` }}
+        style={{ height: `99vh`, position: "relative" }}
         data-testid="react-flow"
         data-rfinstance={JSON.stringify(nodes)}
       >
+        {selectedNodes.length > 0 && isEditMode && (
+          <NodeEditMenu nodes={selectedNodes} />
+        )}
         <ReactFlow
           style={{
             position: "fixed",

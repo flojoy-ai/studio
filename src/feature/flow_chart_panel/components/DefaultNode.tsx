@@ -4,6 +4,7 @@ import { CustomNodeProps } from "../types/CustomNodeProps";
 import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useEffect } from "react";
 import NodeWrapper from "./node-wrapper/NodeWrapper";
+import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode, setNodes, nodes } =
