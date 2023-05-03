@@ -65,7 +65,10 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
 
   const { nodes, setNodes, edges, setEdges } = useFlowChartState();
 
-  const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
+  const edgeTypes: EdgeTypes = useMemo(
+    () => ({ default: SmartBezierEdge }),
+    []
+  );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
