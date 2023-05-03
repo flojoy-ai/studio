@@ -25,6 +25,8 @@ import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { useAddButtonStyle } from "../../styles/useAddButtonStyle";
+
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
@@ -42,7 +44,6 @@ const ControlsTab = ({
 }: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
-
   const {
     openEditModal,
     setOpenEditModal,
@@ -60,6 +61,7 @@ const ControlsTab = ({
     ctrlsManifest,
     setCtrlsManifest,
     isEditMode,
+    setIsEditMode,
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
@@ -181,6 +183,13 @@ const ControlsTab = ({
 
   return (
     <div data-testid="controls-tab">
+      <AddBtn
+        testId={"add-ctrl"}
+        handleClick={() => {
+          setOpenCtrlModal((prev) => !prev);
+          setIsEditMode(true);
+        }}
+      />
       <ControlGrid
         controlProps={{
           theme,
@@ -275,6 +284,26 @@ const ControlsTab = ({
         )}
       </Modal>
     </div>
+  );
+};
+
+const AddBtn = ({ handleClick, testId }) => {
+  const { classes } = useAddButtonStyle();
+  return (
+    <button
+      data-cy={testId}
+      data-testid={testId}
+      className={classes.addButton}
+      onClick={handleClick}
+      style={{
+        position: "relative",
+        width: "104px",
+        height: "43px",
+        margin: "10px"
+      }}
+    >
+      + Add
+    </button>
   );
 };
 

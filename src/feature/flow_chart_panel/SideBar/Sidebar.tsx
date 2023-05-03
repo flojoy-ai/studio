@@ -14,6 +14,7 @@ import { useState } from "react";
 import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
+import { useAddButtonStyle } from "@src/styles/useAddButtonStyle";
 
 const useStyles = createStyles((theme) => ({
   navbarView: {
@@ -66,26 +67,13 @@ const useStyles = createStyles((theme) => ({
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.xl,
   },
-
-  addButton: {
-    boxSizing: "border-box",
-    position: "absolute",
-    width: "104px",
-    height: "43px",
-    left: "0px",
-    top: "110px",
-    background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
-    border:
-      theme.colorScheme === "dark" ? "1px solid #94F4FC" : "1px solid #E1E4E7",
-    cursor: "pointer",
-    zIndex: 1,
-  },
 }));
 
 const Sidebar = () => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
   const { classes, theme } = useStyles();
+  const addButtonClass = useAddButtonStyle();
 
   const renderSections = () => {
     if (textInput !== "") {
@@ -133,8 +121,16 @@ const Sidebar = () => {
     <div>
       <button
         data-testid="add-node-button"
-        className={classes.addButton}
+        className={addButtonClass.classes.addButton}
         onClick={handleSidebar}
+        style={{
+          position: "absolute",
+          width: "104px",
+          height: "43px",
+          left: "0px",
+          top: "110px",
+          zIndex: 1,
+        }}
       >
         + Add Node
       </button>

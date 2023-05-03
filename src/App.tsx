@@ -90,125 +90,132 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <GlobalStyles />
-      <p
-        className="App-status"
-        data-cy="app-status"
-        style={{
-          backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          colorScheme: theme,
         }}
       >
-        <code>{serverStatus}</code>
-      </p>
-      <header
-        className={`flex App-header border-color  ${
-          theme === "dark" && "dark"
-        }`}
-        style={{
-          ...(windowWidth <= 700 && {
-            flexDirection: "column",
-            height: "fit-content",
-          }),
-        }}
-      >
-        <div
-          className="App-tabs flex"
+        <GlobalStyles />
+        <p
+          className="App-status"
+          data-cy="app-status"
           style={{
-            width: windowWidth <= 700 ? "100%" : "750px",
+            backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
           }}
         >
-          <h1 className="App-brand">FLOJOY</h1>
-          <button
-            onClick={() => setCurrentTab("visual")}
-            className={currentTab === "visual" ? "active-" + theme : ""}
-            style={{
-              ...(windowWidth <= 700 && {
-                minHeight: "55px",
-              }),
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-            data-cy="script-btn"
-          >
-            SCRIPT
-          </button>
-          <button
-            onClick={() => setCurrentTab("panel")}
-            className={currentTab === "panel" ? "active-" + theme : ""}
-            style={{
-              ...(windowWidth <= 700 && {
-                minHeight: "55px",
-              }),
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-            data-cy="ctrls-btn"
-          >
-            CTRLS
-          </button>
-          <button
-            className={currentTab === "debug" ? "active-" + theme : ""}
-            onClick={() => setCurrentTab("debug")}
-            style={{
-              color: theme === "dark" ? "#fff" : "#000",
-            }}
-            data-cy="debug-btn"
-          >
-            DEBUG
-          </button>
-        </div>
-        <div
-          className="flex App-control-buttons"
+          <code>{serverStatus}</code>
+        </p>
+        <header
+          className={`flex App-header border-color  ${
+            theme === "dark" && "dark"
+          }`}
           style={{
-            width:
-              windowWidth >= 1080
-                ? "750px"
-                : windowWidth <= 700
-                ? "100%"
-                : "420px",
+            ...(windowWidth <= 700 && {
+              flexDirection: "column",
+              height: "fit-content",
+            }),
           }}
         >
-          <Controls
-            theme={theme}
-            activeTab={currentTab}
-            setOpenCtrlModal={setOpenCtrlModal}
-          />
-          <button onClick={toggleTheme} className="App-theme-toggle">
-            {theme === "dark" ? <LightIcon /> : <DarkIcon />}
-          </button>
-        </div>
-      </header>
-      <main style={{ minHeight: "85vh" }}>
-        <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-          <MantineProvider
-            withGlobalStyles
-            withNormalizeCSS
-            theme={{
-              colorScheme: theme,
+          <div
+            className="App-tabs flex"
+            style={{
+              width: windowWidth <= 700 ? "100%" : "750px",
             }}
           >
-            <Sidebar />
-          </MantineProvider>
+            <h1 className="App-brand">FLOJOY</h1>
+            <button
+              onClick={() => setCurrentTab("visual")}
+              className={currentTab === "visual" ? "active-" + theme : ""}
+              style={{
+                ...(windowWidth <= 700 && {
+                  minHeight: "55px",
+                }),
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
+              data-cy="script-btn"
+            >
+              SCRIPT
+            </button>
+            <button
+              onClick={() => setCurrentTab("panel")}
+              className={currentTab === "panel" ? "active-" + theme : ""}
+              style={{
+                ...(windowWidth <= 700 && {
+                  minHeight: "55px",
+                }),
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
+              data-cy="ctrls-btn"
+            >
+              CTRLS
+            </button>
+            <button
+              className={currentTab === "debug" ? "active-" + theme : ""}
+              onClick={() => setCurrentTab("debug")}
+              style={{
+                color: theme === "dark" ? "#fff" : "#000",
+              }}
+              data-cy="debug-btn"
+            >
+              DEBUG
+            </button>
+          </div>
+          <div
+            className="flex App-control-buttons"
+            style={{
+              width:
+                windowWidth >= 1080
+                  ? "750px"
+                  : windowWidth <= 700
+                  ? "100%"
+                  : "420px",
+            }}
+          >
+            <Controls
+              theme={theme}
+              activeTab={currentTab}
+              setOpenCtrlModal={setOpenCtrlModal}
+            />
+            <button onClick={toggleTheme} className="App-theme-toggle">
+              {theme === "dark" ? <LightIcon /> : <DarkIcon />}
+            </button>
+          </div>
+        </header>
 
-          <FlowChartTab
-            rfInstance={rfInstance!}
-            setRfInstance={setRfInstance}
-            results={programResults!}
-            theme={theme}
-            clickedElement={clickedElement}
-            setClickedElement={setClickedElement}
-          />
-        </div>
-        <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-          <ControlsTab
-            results={programResults!}
-            theme={theme}
-            openCtrlModal={openCtrlModal}
-            setOpenCtrlModal={setOpenCtrlModal}
-          />
-        </div>
-        <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-          <ResultsTab results={programResults!} />
-        </div>
-      </main>
+        {/* Tab views rendered below in main */}
+        <main style={{ minHeight: "85vh" }}>
+          {/* Tab view containing flowchart */}
+          <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
+            <Sidebar />
+
+            <FlowChartTab
+              rfInstance={rfInstance!}
+              setRfInstance={setRfInstance}
+              results={programResults!}
+              theme={theme}
+              clickedElement={clickedElement}
+              setClickedElement={setClickedElement}
+            />
+          </div>
+
+          {/* Tab view containing controls */}
+          <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+            <ControlsTab
+              results={programResults!}
+              theme={theme}
+              openCtrlModal={openCtrlModal}
+              setOpenCtrlModal={setOpenCtrlModal}
+            />
+          </div>
+
+          {/*  */}
+          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+            <ResultsTab results={programResults!} />
+          </div>
+        </main>
+      </MantineProvider>
     </ThemeProvider>
   );
 };

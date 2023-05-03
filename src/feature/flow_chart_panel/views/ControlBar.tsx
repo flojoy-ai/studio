@@ -79,15 +79,7 @@ const Controls: FC<ControlsProps> = ({
           <span>Cancel</span>
         </button>
       )}
-      {isEditMode && activeTab === "panel" && (
-        <AddBtn
-          testId={"add-ctrl"}
-          theme={theme}
-          handleClick={() => {
-            setOpenCtrlModal((prev) => !prev);
-          }}
-        />
-      )}
+      
       {activeTab !== "debug" && (
         <DropDown
           theme={theme}
@@ -173,30 +165,4 @@ const Controls: FC<ControlsProps> = ({
 
 export default memo(Controls);
 
-const AddBtn = ({ handleClick, theme, testId }) => {
-  return (
-    <button
-      data-cy={testId}
-      data-testid={testId}
-      className="save__controls_button btn__add"
-      onClick={handleClick}
-    >
-      {" "}
-      <div
-        style={{
-          color: theme === "dark" ? "#99F5FF" : "blue",
-          fontSize: "20px",
-        }}
-      >
-        +
-      </div>
-      <div
-        style={{
-          color: theme === "dark" ? "#fff" : "#000",
-        }}
-      >
-        Add
-      </div>
-    </button>
-  );
-};
+
