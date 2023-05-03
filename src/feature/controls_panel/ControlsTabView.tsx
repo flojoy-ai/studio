@@ -86,7 +86,7 @@ const ControlsTab = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
 
-  useControlsTabEffects(saveAndRunFlowChart);
+  useControlsTabEffects();
 
   const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
     const id = `ctrl-${uuidv4()}`;
@@ -131,9 +131,9 @@ const ControlsTab = ({
   const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
-      if (c.id === ctrl.id) {
-        manClone[i].val = isNaN(+val) ? val : +val;
-      }
+      // if (c.id === ctrl.id) {
+      //   manClone[i].val = isNaN(+val) ? val : +val;
+      // }
     });
     cacheManifest(manClone);
     updateCtrlInputDataForNode(
@@ -193,7 +193,6 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
-
       <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}

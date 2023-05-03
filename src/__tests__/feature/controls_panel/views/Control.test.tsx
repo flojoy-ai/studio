@@ -4,6 +4,8 @@ import { ControlProps } from "@src/feature/controls_panel/types/ControlProps";
 import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import ControlComponent from "@src/feature/controls_panel/views/control-component/ControlComponent";
 
+jest.mock("@src/hooks/useFlowChartState");
+
 const controlProps: ControlProps = {
   isEditMode: true,
   theme: "dark",
@@ -22,10 +24,10 @@ const ctrl: CtlManifestType = {
   type: "input",
   hidden: false,
   layout: {
-    h:12,
-    w:12,
-    i:'test-id',
-    x:10,
+    h: 12,
+    w: 12,
+    i: "test-id",
+    x: 10,
     y: 10,
   },
 };

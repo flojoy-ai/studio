@@ -8,37 +8,18 @@ import warnings
 
 import matplotlib.cbook
 import networkx as nx
-import yaml
-
 from flojoy import get_next_directions, get_next_nodes
-
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-
-from nodes.ARITHMETIC import *
-from nodes.ARRAY_AND_MATRIX import *
-from nodes.CONDITIONALS import *
-from nodes.LOADERS import *
-from nodes.LOOPS import *
-from nodes.SIGNAL_PROCESSING import *
-from nodes.SIMULATIONS import *
-from nodes.TIMERS import *
-from nodes.VISORS import *
-from nodes.TERMINATORS import *
 from services.job_service import JobService
+from utils.dynamic_module_import import get_module_func
 from utils.topology import Topology
 
-from common.CONSTANTS import KEY_ALL_JOBEST_IDS
-
-
 ENV_CI = 'CI'
-stream = open('STATUS_CODES.yml', 'r')
-STATUS_CODES = yaml.safe_load(stream)
-
 
 class FlowScheduler:
     def __init__(self, **kwargs) -> None:
@@ -129,7 +110,7 @@ class FlowScheduler:
             nodes_to_add += [node_id for node_id in next_nodes]
 
         if len(nodes_to_add) > 0:
-            print(F"  + adding nodes to graph:", [self.topology.get_label(n_id, original=True) for n_id in nodes_to_add])
+            print("  + adding nodes to graph:", [self.topology.get_label(n_id, original=True) for n_id in nodes_to_add])
 
         for node_id in nodes_to_add:
             self.topology.restart(node_id)
@@ -139,14 +120,11 @@ class FlowScheduler:
         node = self.nx_graph.nodes[job_id]
         cmd = node['cmd']
         cmd_mock = node['cmd'] + '_MOCK'
-        func = getattr(globals()[cmd], cmd)
-
-        # when running in CI environment use the mock function instead if its defined
+        func = get_module_func(cmd, cmd)
         if self.is_ci:
             try:
-                func = getattr(globals()[cmd], cmd_mock)
-                print( ' running the mock version:', cmd_mock)
-            except:
+                func = get_module_func(cmd, cmd_mock)
+            except Exception:
                 pass
 
         dependencies = self.topology.get_job_dependencies(job_id, original=True)
@@ -219,11 +197,11 @@ def reactflow_to_networkx(elems, edges):
 
     for i in range(len(edges)):
         e = edges[i]
-        id = e['id']
+        _id = e['id']
         u = e['source']
         v = e['target']
         label = e['sourceHandle']
-        nx_graph.add_edge(u, v, label=label, id=id)
+        nx_graph.add_edge(u, v, label=label, id=_id)
 
     nx.draw(nx_graph, with_labels=True)
 

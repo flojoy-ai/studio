@@ -16,13 +16,7 @@ jest.mock("reactflow", () => {
 jest.mock("@src/feature/common/PlotlyComponent", () => ({
   __esModule: true,
   default: jest.fn((props) => (
-    <div
-      id={props.id}
-      style={props.style}
-      data-imgsource={
-        props.data.length > 0 && props.data[0].source && props.data[0].source
-      }
-    >
+    <div id={props.id} style={props.style}>
       PlotlyComponent
     </div>
   )),
@@ -35,11 +29,22 @@ describe("CustomResultNode", () => {
     label: "node-label",
     type: "SINE",
     resultData: {
-      type: "bar",
-      x: [1, 2, 3],
-      y: [4, 5, 6],
-      layout: {
-        title: "some title",
+      default_fig: {
+        data: [
+          {
+            type: "bar",
+            x: [1, 2, 3],
+            y: [4, 5, 6],
+          },
+        ],
+        layout: {
+          title: "some title",
+        },
+      },
+      data: {
+        type: "ordered_pair",
+        x: [1, 2, 3],
+        y: [4, 5, 6],
       },
     },
   };
@@ -58,30 +63,5 @@ describe("CustomResultNode", () => {
       <CustomResultNode data={{ ...data, resultData: undefined }} />
     );
     expect(getByText("NO Result")).toBeInTheDocument();
-  });
-
-  it("converts image result data to a data URL", () => {
-    const modifiedData: ResultNodeData = {
-      ...data,
-      resultData: {
-        type: "image",
-        y: [[1, 2, 3]],
-        file_type: ["image"],
-      },
-    };
-    const { container, getByTestId } = render(
-      <CustomResultNode data={modifiedData} />
-    );
-    const resultNode = getByTestId("result-node");
-    const plotlyComponent = resultNode.querySelector(`#${modifiedData.id}`);
-    expect(plotlyComponent).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__image_type_file__");
-    expect(plotlyComponent).toHaveAttribute(
-      "data-imgsource",
-      "data:image/jpeg;base64," +
-        Buffer.from(
-          (modifiedData.resultData?.y![0] as number[]) || []
-        ).toString("base64")
-    );
   });
 });

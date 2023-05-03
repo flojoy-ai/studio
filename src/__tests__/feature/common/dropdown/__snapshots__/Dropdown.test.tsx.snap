@@ -4,6 +4,7 @@ exports[`DropDown should render correctly 1`] = `
 <div>
   <div
     class="dropdown__wrapper"
+    data-cy="dropdown-wrapper"
     data-testid="dropdown-wrapper"
   >
     <button>

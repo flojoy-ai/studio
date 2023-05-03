@@ -1,13 +1,11 @@
-import traceback
-
 from common.CONSTANTS import (KEY_ALL_JOBEST_IDS, KEY_FLOJOY_WATCH_JOBS,
                               KEY_RQ_WORKER_JOBS)
 from dao.redis_dao import RedisDao
+from node_sdk.small_memory import SmallMemory
 from rq import Queue
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
 from rq.job import Job, NoSuchJobError
-from node_sdk.small_memory import SmallMemory
 
 
 def report_failure(job, connection, type, value, traceback):
@@ -16,7 +14,7 @@ def report_failure(job, connection, type, value, traceback):
 class JobService():
     def __init__(self, queue_name):
         self.redis_dao = RedisDao()
-        self.queue = Queue(queue_name, connection=self.redis_dao.r)
+        self.queue = Queue(queue_name, connection=self.redis_dao.r, default_timeout=3000)
 
     def get_all_jobs(self):
         all_jobs = self.redis_dao.get_redis_obj(KEY_RQ_WORKER_JOBS)
@@ -27,8 +25,10 @@ class JobService():
             try:
                 job = Job.fetch(
                     node.get('id', ''), connection=self.redis_dao.r)
-            except (Exception, NoSuchJobError):
-                print(' Failed to cancel job: ', node.get('id', ''))
+            except (NoSuchJobError):
+                continue
+            except (Exception):
+                print(' Failed to cancel job: ', node.get('id', '') + ", ignoring..")
                 continue
             if job is not None:
                 print('Deleting job: ', job.get_id())
@@ -86,7 +86,6 @@ class JobService():
                         'previous_job_ids': input_job_ids,
                         'jobset_id': jobset_id, 'node_id': job_id, 'job_id': iteration_id},
                 depends_on=previous_job_ids
-                # result_ttl=500
             )
         self.add_job(iteration_id, jobset_id)
 

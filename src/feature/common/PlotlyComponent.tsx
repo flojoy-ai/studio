@@ -6,12 +6,6 @@ type PlotProps = {
   id: string;
 } & PlotParams;
 
-const config = {
-  showLink: true,
-  plotlyServerURL: "https://chart-studio.plotly.com",
-  linkText: 'Export chart'
-};
-
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
   useEffect(() => {
@@ -20,7 +14,7 @@ const PlotlyComponent = (props: PlotProps) => {
     }
     (window as any).plotlyOutput = {
       ...(window as any).plotlyOutput,
-      [id]: {data},
+      [id]: { data },
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
@@ -30,7 +24,6 @@ const PlotlyComponent = (props: PlotProps) => {
       layout={layout}
       useResizeHandler={useResizeHandler}
       style={style}
-      config={config}
     />
   );
 };

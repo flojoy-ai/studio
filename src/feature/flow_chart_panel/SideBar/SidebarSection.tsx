@@ -7,7 +7,7 @@ import {
   UnstyledButton,
   createStyles,
 } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import SidebarSubSection from "./SidebarSubSection";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
@@ -50,7 +50,11 @@ const useStyles = createStyles((theme) => ({
 
 interface LinksGroupProps {
   title: string;
-  child?: { name: string; key: string }[];
+  child?: {
+    name: string;
+    key: string;
+    child?: { name: string; key: string }[];
+  }[];
 }
 
 const getNodePosition = () => {

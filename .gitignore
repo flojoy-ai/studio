@@ -16,13 +16,15 @@
 # production
 /build
 
+# gitpod config to prevent unwanted installations
+.gitpod.yml 
+
 # misc
 .DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
 dump.rdb
 
 *~
@@ -43,3 +45,7 @@ venv2
 .env
 dist
 update_apps.js
+worker-manager/node_modules
+
+.idea/*
+.vscode/*
