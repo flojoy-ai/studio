@@ -3,23 +3,23 @@
 exports[`SidebarSection matches snapshot 1`] = `
 <div>
   <button
-    class="mantine-UnstyledButton-root mantine-mp73ef"
+    class="mantine-UnstyledButton-root mantine-151rr0c"
     type="button"
   >
     <div
-      class="mantine-Group-root mantine-18amkhr"
+      class="mantine-Group-root mantine-pr1x6c"
     >
       <div
         class="mantine-1a78l0v"
       >
         <div
-          class="mantine-1l4yfk"
+          class="mantine-ajwi11"
         >
           test
         </div>
       </div>
       <svg
-        class="mantine-q42rgi"
+        class="mantine-sggls6"
         fill="none"
         height="14"
         stroke="currentColor"
@@ -32,12 +32,7 @@ exports[`SidebarSection matches snapshot 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M0 0h24v24H0z"
-          fill="none"
-          stroke="none"
-        />
-        <polyline
-          points="9 6 15 12 9 18"
+          d="M9 6l6 6l-6 6"
         />
       </svg>
     </div>
@@ -51,27 +46,27 @@ exports[`SidebarSection matches snapshot 1`] = `
       style="opacity: 0; transition: opacity 200ms ease;"
     >
       <div
-        class="mantine-Text-root mantine-1jjayxu"
+        class="mantine-Text-root mantine-zplq2y"
       >
         <button
-          class="mantine-UnstyledButton-root mantine-1pv9c1o"
+          class="mantine-UnstyledButton-root mantine-7nikpj"
           data-testid="sidebar-subsection-button"
           type="button"
         >
           <div
-            class="mantine-Group-root mantine-18amkhr"
+            class="mantine-Group-root mantine-pr1x6c"
           >
             <div
               class="mantine-1a78l0v"
             >
               <div
-                class="mantine-1l4yfk"
+                class="mantine-ajwi11"
               >
                 test
               </div>
             </div>
             <svg
-              class="mantine-q42rgi"
+              class="mantine-sggls6"
               fill="none"
               height="14"
               stroke="currentColor"
@@ -84,12 +79,7 @@ exports[`SidebarSection matches snapshot 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M0 0h24v24H0z"
-                fill="none"
-                stroke="none"
-              />
-              <polyline
-                points="9 6 15 12 9 18"
+                d="M9 6l6 6l-6 6"
               />
             </svg>
           </div>
@@ -104,7 +94,7 @@ exports[`SidebarSection matches snapshot 1`] = `
             style="opacity: 0; transition: opacity 200ms ease;"
           >
             <div
-              class="mantine-Text-root mantine-58236w"
+              class="mantine-Text-root mantine-1be3ryo"
             />
           </div>
         </div>
