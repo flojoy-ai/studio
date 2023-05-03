@@ -30,11 +30,19 @@ const ParamField = ({
   };
   switch (type) {
     case "float":
-    case "int":
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseFloat(value) : value}
+          precision={7}
+          removeTrailingZeros
+        />
+      );
+    case "int":
+      return (
+        <NumberInput
+          onChange={(x) => handleChange(x.toString())}
+          value={value !== "" ? parseInt(value) : value}
         />
       );
     case "string":
