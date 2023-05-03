@@ -47,12 +47,10 @@ class FlowScheduler:
         max_wait_time = 10
 
         while not self.topology.finished():
-
             print("\nnext wave")
             # self.topology.print_graph()
 
             try:
-
                 self.topology.collect_ready_jobs()
                 next_jobs = self.topology.next_jobs()
 
@@ -84,7 +82,6 @@ class FlowScheduler:
                 self.topology.clear_jobq()
 
             except Exception as e:
-
                 self.topology.print_graph(
                     "exception occurred in scheduler, current working graph:"
                 )
@@ -126,7 +123,6 @@ class FlowScheduler:
             self.topology.restart(node_id)
 
     def run_job(self, job_id):
-
         node = self.nx_graph.nodes[job_id]
         cmd = node["cmd"]
         cmd_mock = node["cmd"] + "_MOCK"

@@ -21,7 +21,7 @@ class Graph:
         self.make_adjancency_list()
 
     def make_adjancency_list(self):
-        for (src, dest) in self.edges:
+        for src, dest in self.edges:
             for value in self.edge_label_dict[self.nodes_by_id[dest]["id"]]:
                 if value["source"] == self.nodes_by_id[src]["id"]:
                     source_handle = value["sourceHandle"]

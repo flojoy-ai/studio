@@ -45,7 +45,6 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         try:
             new_o = _json.loads(encoded_o, parse_constant=self.coerce_to_strict)
         except ValueError:
-
             # invalid separators will fail here. raise a helpful exception
             raise ValueError(
                 "Encoding into strict JSON failed. Did you set the separators "

@@ -30,9 +30,9 @@ class JobService:
         for node in nodes:
             try:
                 job = Job.fetch(node.get("id", ""), connection=self.redis_dao.r)
-            except (NoSuchJobError):
+            except NoSuchJobError:
                 continue
-            except (Exception):
+            except Exception:
                 print(" Failed to cancel job: ", node.get("id", "") + ", ignoring..")
                 continue
             if job is not None:
@@ -85,7 +85,6 @@ class JobService:
         previous_job_ids,
         input_job_ids=None,
     ):
-
         input_job_ids = input_job_ids if input_job_ids is not None else previous_job_ids
 
         if Job.exists(job_id, self.redis_dao.r):
