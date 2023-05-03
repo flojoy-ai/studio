@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 module.exports = {
-    v4: jest.fn(() => "randomId"),
-  };
+  v4: jest.fn(() => "randomId"),
+};

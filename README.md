@@ -4,7 +4,7 @@
 
 Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/CONTRIBUTING.md) to add your own custom Python nodes to Flojoy apps.
 
-***
+---
 
 # Flojoy Quickstart
 
@@ -15,12 +15,14 @@ Please refer to the following link for installation guidelines: https://docs.flo
 If you'd like to run Flojoy as an Electron app:
 
 1. (Optional) Set the following env variables. These variables are used in the [docker-compose.yml file](docker-compose.yml) to set the image tags.
-Put any specific tag value if you need, otherwise Docker will use the latest by default.
+   Put any specific tag value if you need, otherwise Docker will use the latest by default.
+
 ```
 BACKEND_IMAGE_TAG=latest
 RQ_WORKER_IMAGE_TAG=latest
 WATCH_IMAGE_TAG=latest
 ```
+
 2. Run `npm run electron-dev` to start Electron app locally. It will start the Docker containers to run the necessary backend parts.
 
 To package the Electron app, run `npm run electron-package`. The `dist` folder will hold the generated artifacts.
@@ -28,6 +30,7 @@ To package the Electron app, run `npm run electron-package`. The `dist` folder w
 # CD
 
 Currently there are two CD workflows.
+
 1. [Base image CD](.github/workflows/cd_image.yaml): Builds and pushes the base image used in [the docker files](./docker).
 2. [CD](.github/workflows/cd.yaml): Runsi if a version tag is added. It builds packages, creates executables and creates github release with those artifacts.
 
@@ -35,7 +38,7 @@ Currently there are two CD workflows.
 
 The CD workflow is triggered when any change is pushed to any tag. So, to trigger it,
 
-1. Tag a commit with v*.. pattern. For example : `git tag v0.1.1`
+1. Tag a commit with v\*.. pattern. For example : `git tag v0.1.1`
 2. push the commit and tag : `git push && git push --tags`
 3. The CD workflow will then run, generate artifacts and create draft release with those artifacts.
 4. Go to `https://github.com/flojoy-io/flojoy-desktop/releases` to check the new draft release.

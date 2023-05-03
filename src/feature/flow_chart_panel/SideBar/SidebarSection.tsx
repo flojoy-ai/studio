@@ -50,7 +50,11 @@ const useStyles = createStyles((theme) => ({
 
 interface LinksGroupProps {
   title: string;
-  child?: { name: string; key: string, child?: {name: string; key:string}[] }[];
+  child?: {
+    name: string;
+    key: string;
+    child?: { name: string; key: string }[];
+  }[];
 }
 
 const getNodePosition = () => {

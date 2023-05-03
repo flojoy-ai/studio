@@ -4,13 +4,13 @@ on:
   push:
     tags:
       # Build on every tag in the form v1.2.3-something.4
-      - 'v*'
+      - "v*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-   buildElectron:
+  buildElectron:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

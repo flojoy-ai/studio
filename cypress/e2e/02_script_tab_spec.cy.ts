@@ -21,6 +21,4 @@ describe("Script Tab Functionalities", () => {
   });
 });
 
-
-
-export {}
+export {};

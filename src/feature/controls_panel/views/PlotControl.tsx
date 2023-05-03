@@ -7,9 +7,7 @@ import Plot from "react-plotly.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { SetStateAction } from "jotai";
 import { Data, PlotData } from "plotly.js";
-import {
-  ResultIO,
-} from "@src/feature/results_panel/types/ResultsType";
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import PlotControlState from "./PlotControlState";
 import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
 
@@ -23,11 +21,7 @@ export interface PlotControlProps {
     SetStateAction<PlotControlOptions | undefined>
   >;
   plotData: Data[];
-  setPlotData: React.Dispatch<
-    React.SetStateAction<
-    Data[]
-    >
-  >;
+  setPlotData: React.Dispatch<React.SetStateAction<Data[]>>;
 }
 const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
   histogram: ["x"],
@@ -134,8 +128,12 @@ const PlotControl = ({
       >
         <Plot
           data={plotData}
-          layout={Object.assign( {}, styledPlotLayout(theme))}
-          style={{ width: "100%", height: "100%", transform: isEditMode ? 'scale(0.8) translateY(-60px)' : 'scale(1)' }}
+          layout={Object.assign({}, styledPlotLayout(theme))}
+          style={{
+            width: "100%",
+            height: "100%",
+            transform: isEditMode ? "scale(0.8) translateY(-60px)" : "scale(1)",
+          }}
         />
       </div>
     </Fragment>
