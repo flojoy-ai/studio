@@ -1,5 +1,5 @@
 import { CtlManifestType } from "@src/hooks/useFlowChartState";
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 
 import { useControlsTabState } from "../../../feature/controls_panel/ControlsTabState";
 

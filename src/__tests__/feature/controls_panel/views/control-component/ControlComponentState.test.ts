@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-hooks";
+import { act, renderHook } from "@testing-library/react";
 import ControlComponentState, {
   ControlComponentStateProps,
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";

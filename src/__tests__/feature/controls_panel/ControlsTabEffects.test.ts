@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useControlsTabEffects } from "@src/feature/controls_panel/ControlsTabEffects";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 

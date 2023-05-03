@@ -4,13 +4,13 @@ exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-s45vq9"
+      class="mantine-m8c4si"
       data-testid="add-node-button"
     >
       + Add Node
     </button>
     <nav
-      class="mantine-Navbar-root mantine-1xwlfk5"
+      class="mantine-Navbar-root mantine-1myvjvk"
       data-testid="sidebar"
     >
       <div
@@ -42,14 +42,14 @@ exports[`Sidebar should render the component correctly 1`] = `
         class="mantine-khtkeg"
       >
         <div
-          class="mantine-Input-wrapper mantine-12sbrde"
+          class="mantine-Input-wrapper mantine-7c7vou"
           style="margin-top: 30px;"
         >
           <div
-            class="mantine-yxyjyg mantine-Input-icon"
+            class="mantine-16k3d8y mantine-Input-icon"
           >
             <svg
-              class="icon icon-tabler icon-tabler-search"
+              class="tabler-icon tabler-icon-search"
               fill="none"
               height="18"
               stroke="currentColor"
@@ -61,26 +61,18 @@ exports[`Sidebar should render the component correctly 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M0 0h24v24H0z"
-                fill="none"
-                stroke="none"
+                d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"
               />
-              <circle
-                cx="10"
-                cy="10"
-                r="7"
-              />
-              <line
-                x1="21"
-                x2="15"
-                y1="21"
-                y2="15"
+              <path
+                d="M21 21l-6 -6"
               />
             </svg>
           </div>
           <input
-            class="mantine-Input-input mantine-Input-withIcon mantine-rnw0l"
+            aria-invalid="false"
+            class="mantine-Input-input mantine-g9emdi"
             data-testid="sidebar-input"
+            data-with-icon="true"
             name="sidebar-input"
             placeholder="Search"
             type="search"
@@ -96,7 +88,7 @@ exports[`Sidebar should render the component correctly 1`] = `
           style="border: 2px solid #30d5c8; background: transparent; border-radius: 2px;"
         >
           <a
-            class="mantine-Text-root mantine-Anchor-root mantine-1ut1du9"
+            class="mantine-Text-root mantine-Anchor-root mantine-qdotc7"
             href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
             style="text-decoration: none;"
             target="_blank"
@@ -110,7 +102,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         </button>
       </div>
       <div
-        class="mantine-ScrollArea-root mantine-xpd069"
+        class="mantine-ScrollArea-root mantine-64qz2l"
         dir="ltr"
         style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
       >
@@ -118,7 +110,7 @@ exports[`Sidebar should render the component correctly 1`] = `
           [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
         </style>
         <div
-          class="mantine-xlwgkm mantine-ScrollArea-viewport"
+          class="mantine-b6zkvl mantine-ScrollArea-viewport"
           data-radix-scroll-area-viewport=""
           style="overflow-x: scroll; overflow-y: scroll;"
         >
@@ -126,7 +118,7 @@ exports[`Sidebar should render the component correctly 1`] = `
             style="min-width: 100%; display: table;"
           >
             <div
-              class="mantine-1krc9de"
+              class="mantine-6km1t0"
             />
           </div>
         </div>

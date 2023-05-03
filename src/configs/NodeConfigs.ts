@@ -10,4 +10,5 @@ export const nodeConfigs = {
   SIMULATION: SimulationNode,
   VISOR: VisorNode,
   CONDITIONAL: ConditionalNode,
+  TERMINATOR: DefaultNode,
 };

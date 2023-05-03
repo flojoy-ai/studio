@@ -16,6 +16,7 @@ import {
   NodeMouseHandler,
   NodeDragHandler,
   OnNodesDelete,
+  BezierEdge,
 } from "reactflow";
 
 import localforage from "localforage";
