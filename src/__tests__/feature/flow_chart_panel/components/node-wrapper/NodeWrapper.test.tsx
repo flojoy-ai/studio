@@ -27,7 +27,7 @@ describe("NodeWrapper component", () => {
         <div></div>
       </NodeWrapper>
     );
-    fireEvent.mouseEnter(container)
+    fireEvent.mouseEnter(container);
     expect(container).toMatchSnapshot();
   });
   it("Given failedNode equals to node id and failureReason, should render error popup on hover.", () => {
@@ -38,17 +38,17 @@ describe("NodeWrapper component", () => {
       },
     });
     (useFlowChartState as jest.Mock).mockReturnValue({
-        failedNode: 'test-123'
-    })
+      failedNode: "test-123",
+    });
     const { getByTestId } = render(
       <NodeWrapper data={elementData}>
         <div></div>
       </NodeWrapper>
     );
-    const nodeWrapper = getByTestId('node-wrapper')
-    fireEvent.mouseEnter(nodeWrapper)
+    const nodeWrapper = getByTestId("node-wrapper");
+    fireEvent.mouseEnter(nodeWrapper);
     const errorPopupElem = getByTestId("node-error-popup");
     expect(errorPopupElem).toBeInTheDocument();
-    expect(errorPopupElem).toHaveTextContent(errorMessage)
+    expect(errorPopupElem).toHaveTextContent(errorMessage);
   });
 });

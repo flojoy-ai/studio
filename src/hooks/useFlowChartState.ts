@@ -131,7 +131,7 @@ export function useFlowChartState() {
     if (rfInstance) {
       const fileContent = {
         rfInstance,
-        ctrlsManifest
+        ctrlsManifest,
       };
       const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 

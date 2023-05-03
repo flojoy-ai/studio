@@ -1,5 +1,5 @@
 import React from "react";
-import 'react-grid-layout/css/styles.css';
+import "react-grid-layout/css/styles.css";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
 
@@ -12,24 +12,24 @@ export default class SampleRGL extends React.PureComponent {
   static defaultProps = {
     className: "layout",
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-    rowHeight: 100
+    rowHeight: 100,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [0, 1, 2, 3, 4].map(function(i, key, list) {
+      items: [0, 1, 2, 3, 4].map(function (i, key, list) {
         return {
           i: i.toString(),
           x: i * 2,
           y: 0,
           w: 2,
           h: 2,
-          add: i === (list.length - 1)
+          add: i === list.length - 1,
         };
       }),
-      newCounter: 0
+      newCounter: 0,
     };
 
     this.onAddItem = this.onAddItem.bind(this);
@@ -42,11 +42,11 @@ export default class SampleRGL extends React.PureComponent {
       position: "absolute",
       right: "2px",
       top: 0,
-      cursor: "pointer"
+      cursor: "pointer",
     };
     const i = el.add ? "+" : el.i;
     return (
-      <div key={i} data-grid={el} style={{border: '1px solid'}}>
+      <div key={i} data-grid={el} style={{ border: "1px solid" }}>
         {el.add ? (
           <span
             className="add text"
@@ -79,10 +79,10 @@ export default class SampleRGL extends React.PureComponent {
         x: (this.state.items.length * 2) % (this.state.cols || 12),
         y: Infinity, // puts it at the bottom
         w: 2,
-        h: 2
+        h: 2,
       }),
       // Increment the counter to ensure key is always unique.
-      newCounter: this.state.newCounter + 1
+      newCounter: this.state.newCounter + 1,
     });
   }
 
@@ -90,7 +90,7 @@ export default class SampleRGL extends React.PureComponent {
   onBreakpointChange(breakpoint, cols) {
     this.setState({
       breakpoint: breakpoint,
-      cols: cols
+      cols: cols,
     });
   }
 
@@ -113,7 +113,7 @@ export default class SampleRGL extends React.PureComponent {
           onBreakpointChange={this.onBreakpointChange}
           {...this.props}
         >
-          {_.map(this.state.items, el => this.createElement(el))}
+          {_.map(this.state.items, (el) => this.createElement(el))}
         </ResponsiveReactGridLayout>
       </div>
     );

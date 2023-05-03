@@ -14,26 +14,25 @@ const usePlotControlEffect = ({
   nd,
   ctrlObj,
   selectedPlotOption,
-  setPlotData
+  setPlotData,
 }: PlotControlStateType & {
-  nd: PlotControlProps['nd'],
-  ctrlObj: PlotControlProps['ctrlObj'],
-  selectedPlotOption:PlotControlProps['selectedPlotOption'],
-  setPlotData: PlotControlProps['setPlotData'],
-  
+  nd: PlotControlProps["nd"];
+  ctrlObj: PlotControlProps["ctrlObj"];
+  selectedPlotOption: PlotControlProps["selectedPlotOption"];
+  setPlotData: PlotControlProps["setPlotData"];
 }) => {
   /**
    * Updates input options from available inputs in a node
    */
   const updateInputOptions = useCallback(() => {
     const inputOptions: NodeInputOptions[] = [];
-    const possibleKeys = ["x","y", "z"];
-    if(nd?.result.data){
-      Object.keys(nd.result.data).forEach(key=>{
-        if(possibleKeys.includes(key)){
-            inputOptions.push({ label: key, value: nd.result.data[key] });
+    const possibleKeys = ["x", "y", "z"];
+    if (nd?.result.data) {
+      Object.keys(nd.result.data).forEach((key) => {
+        if (possibleKeys.includes(key)) {
+          inputOptions.push({ label: key, value: nd.result.data[key] });
         }
-      })
+      });
     }
     setInputOptions(inputOptions);
   }, [nd, setInputOptions]);
@@ -44,9 +43,9 @@ const usePlotControlEffect = ({
     const result: any = {};
 
     if (nd?.result && "data" in nd!.result && nd.result.data?.length) {
-      Object.keys(nd.result.data[0]).forEach(key=>{
-        result[key] = nd.result.data![0][key]
-      })
+      Object.keys(nd.result.data[0]).forEach((key) => {
+        result[key] = nd.result.data![0][key];
+      });
     }
 
     if (selectedKeys) {

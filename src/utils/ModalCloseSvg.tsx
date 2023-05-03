@@ -1,7 +1,7 @@
-const ModalCloseSvg = ({style}:{style?:Record<string, any>}) => {
+const ModalCloseSvg = ({ style }: { style?: Record<string, any> }) => {
   return (
     <svg
-    style={style}
+      style={style}
       width="16"
       height="16"
       viewBox="0 0 16 16"

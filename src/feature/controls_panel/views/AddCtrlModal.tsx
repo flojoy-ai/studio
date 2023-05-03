@@ -41,7 +41,11 @@ const AddCtrlModal = ({
       ariaHideApp={false}
       contentLabel="Choose a Ctrl..."
     >
-      <button onClick={closeModal} data-testid={'add-ctrl-modal-close'} className="close-modal">
+      <button
+        onClick={closeModal}
+        data-testid={"add-ctrl-modal-close"}
+        className="close-modal"
+      >
         <ModalCloseSvg
           style={{
             height: 23,
