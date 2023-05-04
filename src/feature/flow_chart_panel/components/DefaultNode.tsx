@@ -4,6 +4,7 @@ import { CustomNodeProps } from "../types/CustomNodeProps";
 import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useEffect } from "react";
 import NodeWrapper from "./node-wrapper/NodeWrapper";
+import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode, setNodes, nodes } =
@@ -44,6 +45,9 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
+            <NodeEditButtons />
+          )}
           <div
             style={{
               display: "flex",
