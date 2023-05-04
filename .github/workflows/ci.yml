@@ -36,6 +36,9 @@ jobs:
       - name: Run Flojoy startup script
         run: bash flojoy -c
 
+      - name: Run formatting check
+        run: npm run check
+
       - name: Run unit tests
         run: npm run test
 

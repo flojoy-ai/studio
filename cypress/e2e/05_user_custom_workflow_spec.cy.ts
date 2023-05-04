@@ -1,6 +1,6 @@
 import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
 import { NOISY_SINE } from "@src/data/RECIPES";
-import { ControlNames } from "@feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,

@@ -1,4 +1,4 @@
-import { ControlNames } from "@feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 const ctrlParameters = [
   [

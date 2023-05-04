@@ -24,8 +24,7 @@
       "@utils/*": ["src/utils/*"]
     },
     "rootDir": ".",
-    "outDir": "fe-dist",
-    "types": ["cypress"]
+    "outDir": "fe-dist"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
