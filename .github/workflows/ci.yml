@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm install -g pm2
 
       - uses: actions/setup-python@v4
         with:
@@ -43,15 +42,6 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
-      - name: Start backend server
-        run: pm2 start "python manage.py runserver 8000" --name backend
-
-      - name: Start flojoy-watch rq worker
-        run: pm2 start "rq worker flojoy-watch" --name rq-watch
-
-      - name: Start flojoy rq worker
-        run: cd PYTHON && pm2 start "rq worker flojoy" --name rq-flojoy
-
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
@@ -59,8 +49,6 @@ jobs:
           start: npm start
           browser: chrome
           install: false
-      - name: Post test cleanup
-        run: pm2 stop backend rq-watch rq-flojoy
 
   testPython:
     runs-on: ubuntu-latest
