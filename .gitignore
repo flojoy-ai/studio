@@ -41,7 +41,6 @@ PYTHON/WATCH/fc.json
 PYTHON/obj-detection.jpg
 PYTHON/utils/object_detection/yolov3.weights
 src/feature/flow_chart_panel/pythonFunctions.json
-venv2
 .env
 dist
 update_apps.js
