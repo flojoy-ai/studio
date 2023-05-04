@@ -30,8 +30,14 @@ const Controls: FC<ControlsProps> = ({
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
 
-  const { isEditMode, setIsEditMode, rfInstance, openFileSelector, saveFile } =
-    useFlowChartState();
+  const {
+    isEditMode,
+    setIsEditMode,
+    rfInstance,
+    openFileSelector,
+    saveFile,
+    saveFileAs,
+  } = useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
@@ -59,6 +65,8 @@ const Controls: FC<ControlsProps> = ({
   const isPlayBtnDisabled = () =>
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
+
+  const saveAsDisabled = !("showSaveFilePicker" in window);
 
   return (
     <div className="save__controls">
@@ -123,8 +131,20 @@ const Controls: FC<ControlsProps> = ({
             style={{
               display: "flex",
               justifyContent: "space-between",
+              ...(saveAsDisabled && {
+                cursor: "not-allowed",
+                opacity: 0.5,
+              }),
             }}
-            onClick={saveFile}
+            className={saveAsDisabled ? "disabled" : ""}
+            disabled={saveAsDisabled}
+            aria-label="Save As"
+            title={
+              saveAsDisabled
+                ? "Save As is not supported in this browser, sorry!"
+                : ""
+            }
+            onClick={saveFileAs}
           >
             <span>Save As</span>
             <small>Ctrl + s</small>
