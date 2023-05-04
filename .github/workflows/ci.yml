@@ -46,7 +46,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
-          start: npm start-project
+          start: npm run start-project
           browser: chrome
           install: false
 
