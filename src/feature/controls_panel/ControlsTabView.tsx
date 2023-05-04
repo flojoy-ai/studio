@@ -302,7 +302,7 @@ const AddBtn = ({ handleClick, testId }) => {
         margin: "10px"
       }}
     >
-      + Add
+      + Add CTRL
     </button>
   );
 };

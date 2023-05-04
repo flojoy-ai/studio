@@ -15,64 +15,12 @@ import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import { useAddButtonStyle } from "@src/styles/useAddButtonStyle";
-
-const useStyles = createStyles((theme) => ({
-  navbarView: {
-    paddingBottom: 0,
-    position: "absolute",
-    left: "0%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
-    backgroundColor:
-      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
-    boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
-    transition: "500ms",
-    zIndex: 1,
-  },
-
-  navbarHidden: {
-    paddingBottom: 0,
-    position: "absolute",
-    left: "-100%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
-    backgroundColor:
-      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
-    boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
-    transition: "300ms",
-    zIndex: 1,
-  },
-
-  header: {
-    padding: theme.spacing.md,
-    paddingTop: 0,
-    marginLeft: -theme.spacing.md,
-    marginRight: -theme.spacing.md,
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
-  },
-
-  sections: {
-    marginLeft: -theme.spacing.md,
-    marginRight: -theme.spacing.md,
-  },
-
-  sectionsInner: {
-    paddingTop: theme.spacing.xl,
-    paddingBottom: theme.spacing.xl,
-  },
-}));
+import { useSidebarStyles } from "@src/styles/useSidebarStyles";
 
 const Sidebar = () => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
-  const { classes, theme } = useStyles();
+  const { classes, theme } = useSidebarStyles();
   const addButtonClass = useAddButtonStyle();
 
   const renderSections = () => {
@@ -129,6 +77,7 @@ const Sidebar = () => {
           height: "43px",
           left: "0px",
           top: "110px",
+          margin: "10px",
           zIndex: 1,
         }}
       >
