@@ -1,4 +1,4 @@
-import * as manifests from "@src/data/manifests-latest.json";
+import manifests from "@src/data/manifests-latest.json";
 type FunctionParametersType = {
   [key: string]: {
     [key: string]: {

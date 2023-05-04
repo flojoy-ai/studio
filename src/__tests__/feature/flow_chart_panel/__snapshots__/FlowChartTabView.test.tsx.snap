@@ -11,6 +11,9 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       style="height: 99vh;"
     >
       <div
+        style="position: relative;"
+      />
+      <div
         data-testid="react-flow"
       />
     </div>
