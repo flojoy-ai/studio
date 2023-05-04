@@ -27,9 +27,9 @@ import { FlowChartProps } from "./types/FlowChartProps";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { NodeEditMenu } from "./components/node-edit-menu/NodeEditMenu";
+import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 
 localforage.config({
   name: "react-flow",
