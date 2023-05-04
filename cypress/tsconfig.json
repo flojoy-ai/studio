@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "baseUrl": "..",
-    "rootDir": "..",
+    "rootDir": ".."
   },
   "include": ["**/*.ts"]
 }
