@@ -49,3 +49,4 @@ worker-manager/node_modules
 
 .idea/*
 .vscode/*
+cypress/downloads

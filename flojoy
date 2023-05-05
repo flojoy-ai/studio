@@ -58,6 +58,7 @@ djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 is_ci=false
+is_dev=false
 
 
 # creating system links
@@ -130,6 +131,7 @@ helpFunction()
    echo  " -v: path to a virtualenv"
    echo  " -n: To not install npm packages"
    echo  " -p: To not install python packages"
+   echo  " -d: To start project in dev mode with CI=true"
    echo 1 # Exit script after printing help
 }
 
@@ -162,6 +164,10 @@ do
         ;;
         -c)
         is_ci=true
+        shift
+        ;;
+        -d)
+        is_dev=true
         shift
         ;;
         *) # unknown option
@@ -350,9 +356,15 @@ fi
 sleep 1
 
 # start project services
-if [ -n "$venvCmd" ]; then
-   $venvCmd && npm run start-project
+if [ $is_dev = true ]; then
+   run_project_script="npm run start-project:dev"
 else
-   npm run start-project
+   run_project_script="npm run start-project"
+fi
+
+if [ -n "$venvCmd" ]; then
+   $venvCmd && $run_project_script
+else
+   $run_project_script
 fi
 sleep 1

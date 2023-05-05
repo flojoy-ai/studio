@@ -47,7 +47,7 @@ jobs:
         run: pm2 start "python manage.py runserver 8000" --name backend
 
       - name: Start flojoy-watch rq worker
-        run: pm2 start "rq worker flojoy-watch" --name rq-watch
+        run: pm2 start "CI=true rq worker flojoy-watch" --name rq-watch
 
       - name: Start flojoy rq worker
         run: cd PYTHON && pm2 start "rq worker flojoy" --name rq-flojoy
