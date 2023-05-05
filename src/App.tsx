@@ -17,7 +17,7 @@ import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, useMantineTheme } from "@mantine/core";
 import SidebarCustom from "./feature/common/Sidebar/Sidebar";
 import {
   CTRL_MANIFEST,
@@ -53,6 +53,7 @@ const App = () => {
     "visual"
   );
   const { width: windowWidth } = useWindowSize();
+  const mantineTheme = useMantineTheme()
   const queryString = window?.location?.search;
   const fileName =
     queryString.startsWith("?test_example_app") && queryString.split("=")[1];
@@ -250,7 +251,7 @@ const App = () => {
 
           {/* Tab view containing controls */}
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-            
+            {console.log(mantineTheme)}
             <button
               data-testid="add-node-button"
               className={classes.addButton}
