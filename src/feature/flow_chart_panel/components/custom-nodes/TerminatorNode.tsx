@@ -1,12 +1,11 @@
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import HandleComponent from "../components/HandleComponent";
-import { CustomNodeProps } from "../types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
+import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useEffect } from "react";
-import NodeWrapper from "./node-wrapper/NodeWrapper";
-import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
+import NodeWrapper from "@src/feature/flow_chart_panel/components/node-wrapper/NodeWrapper";
 
-const DefaultNode = ({ data }: CustomNodeProps) => {
+const TerminatorNode = ({ data }: CustomNodeProps) => {
   const { uiTheme, runningNode, failedNode, setNodes, nodes } =
     useFlowChartState();
   const params = data.inputs || [];
@@ -36,7 +35,9 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
           className="default_node_container"
           style={{
             backgroundColor:
-              uiTheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
+              uiTheme === "light"
+                ? "rgb(170 30 30 / 15%)"
+                : "rgb(170 30 30 / 45%)",
             border:
               uiTheme === "light"
                 ? "1px solid rgba(123, 97, 255, 1)"
@@ -45,9 +46,6 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
-            <NodeEditButtons />
-          )}
           <div
             style={{
               display: "flex",
@@ -76,4 +74,4 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default DefaultNode;
+export default TerminatorNode;

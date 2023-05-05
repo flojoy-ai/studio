@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 MAX_LIST_SIZE = 1000
-REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
-REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 
 
 class RedisDao:
@@ -38,11 +38,11 @@ class RedisDao:
 
     def get_pd_dataframe(self, key: str):
         encoded = self.r.get(key)
-        decode = encoded.decode("utf-8") if encoded is not None else ''
+        decode = encoded.decode("utf-8") if encoded is not None else ""
         read_json = pd.read_json(decode)
         return read_json.head()
 
-    def get_np_array(self, memo_key: str, np_meta_data:dict):
+    def get_np_array(self, memo_key: str, np_meta_data: dict):
         encoded = self.r.get(memo_key)
         decode = self.desirialize_np(encoded, np_meta_data)
         return decode

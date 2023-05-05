@@ -7,6 +7,7 @@ const ReactFlowProvider = jest
 const EdgeTypes = { default: jest.fn() };
 const NodeTypes = { default: jest.fn() };
 const OnInit = jest.fn();
+const useOnSelectionChange = jest.fn();
 
 const returnValues = {
   ReactFlowProvider,
@@ -20,6 +21,7 @@ const returnValues = {
     SimpleBezier: "simplebezier",
   },
   OnInit,
+  useOnSelectionChange,
   ReactFlow,
 };
 

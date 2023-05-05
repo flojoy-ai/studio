@@ -5,6 +5,7 @@ import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useSocket } from "@src/hooks/useSocket";
 import { useEffect, useState } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const [additionalInfo, setAdditionalInfo] = useState({});
@@ -79,6 +80,9 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
+            <NodeEditButtons />
+          )}
           <div
             style={{
               display: "flex",
@@ -89,7 +93,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
               textAlign: "center",
             }}
           >
-            <div>{data.label}</div>
+            <div style={{ marginTop: "20px" }}>{data.label}</div>
             <div>
               {data.func === "CONDITIONAL" && (
                 <>
@@ -130,7 +134,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
               display: "flex",
               flexDirection: "column",
               height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
+                params.length > 0 ? (params.length + 1) * 32 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
