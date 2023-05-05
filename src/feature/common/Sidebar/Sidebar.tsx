@@ -19,29 +19,33 @@ interface LeafNode extends Node {
   key: string;
 }
 
+type leafClickHandler = (key: string) => void;
+
 const SidebarCustom = ({
+  isSideBarOpen,
+  setSideBarStatus,
   sections,
-  //   leafNodeTemplate,
+  leafNodeClickHandler,
   manifestMap,
 }: {
+  isSideBarOpen: boolean;
+  setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
   sections: Node;
-  //   leafNodeTemplate: LeafNode;
+  leafNodeClickHandler: leafClickHandler;
   manifestMap: any; //Key value pair object
 }) => {
-  const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
   const { classes, theme } = useSidebarStyles();
   const addButtonClass = useAddButtonStyle();
 
   //this function will create the sections to be rendered according to the search input
   const renderSection = (textInput: string, node: Node, depth: number) => {
-
     //if we are at the root
-    if (node.title === 'ROOT') {
-        if (!node.child) return null
-        return node.child.map(
-            (c) => renderSection(textInput, c, depth) //render all the content of the children
-        );
+    if (node.title === "ROOT") {
+      if (!node.child) return null;
+      return node.child.map(
+        (c) => renderSection(textInput, c, depth) //render all the content of the children
+      );
     }
 
     var content;
@@ -56,6 +60,7 @@ const SidebarCustom = ({
           );
           return (
             <SidebarSection
+              data-testid="sidebar-section"
               key={node.title}
               title={node.title}
               content={content}
@@ -67,8 +72,9 @@ const SidebarCustom = ({
         } else if (node["child"] == null && "key" in node) {
           return (
             <SidebarNode
+              data-testid="sidebar-node"
               key={(node as LeafNode).key}
-              onClickHandle={() => console.log("clicked")}
+              onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
               keyNode={(node as LeafNode).key}
               manifestMap={manifestMap}
               depth={depth}
@@ -83,10 +89,12 @@ const SidebarCustom = ({
           content = node.child.map(
             (c) => renderSection(textInput, c, depth + 1) //render all the content of the children
           );
+
           //if the content is not empty, then the section is not empty
-          if (content) {
+          if (!content.every((value) => value === null)) {
             return (
               <SidebarSection
+                data-testid="sidebar-section"
                 key={node.title}
                 title={node.title}
                 content={content}
@@ -96,7 +104,6 @@ const SidebarCustom = ({
           }
         }
       }
-      return null;
 
       //case 3: no search input
     } else {
@@ -107,6 +114,7 @@ const SidebarCustom = ({
         );
         return (
           <SidebarSection
+            data-testid="sidebar-section"
             key={node.title}
             title={node.title}
             content={content}
@@ -118,36 +126,22 @@ const SidebarCustom = ({
       } else if (node["child"] == null && "key" in node) {
         return (
           <SidebarNode
+            data-testid="sidebar-node"
             depth={depth}
             key={(node as LeafNode).key}
-            onClickHandle={() => console.log("clicked")}
+            onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
             keyNode={(node as LeafNode).key}
             manifestMap={manifestMap}
           />
         );
       }
     }
+    return null;
   };
-
-  const handleSidebar = () => setSideBarStatus(!isSideBarOpen);
 
   return (
     <div>
-      <button
-        data-testid="add-node-button"
-        className={addButtonClass.classes.addButton}
-        onClick={handleSidebar}
-        style={{
-          position: "absolute",
-          width: "104px",
-          height: "43px",
-          left: "0px",
-          top: "110px",
-          zIndex: 1,
-        }}
-      >
-        + Add Node
-      </button>
+      
       <Navbar
         data-testid="sidebar"
         height={800}
@@ -163,7 +157,7 @@ const SidebarCustom = ({
           }}
         >
           <button
-            onClick={handleSidebar}
+            onClick={() => setSideBarStatus(false)}
             style={{
               cursor: "pointer",
             }}
@@ -225,7 +219,7 @@ const SidebarCustom = ({
           component={ScrollArea}
         >
           <div className={classes.sectionsInner}>
-              {renderSection(textInput, sections, 0)}
+            {renderSection(textInput, sections, 0)}
           </div>
         </Navbar.Section>
       </Navbar>

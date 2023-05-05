@@ -94,7 +94,7 @@ const AddCtrlModal = ({
             paddingTop: "12px",
           }}
         >
-          {InputControlsManifest.map((ctrl, ctrlIndex) => (
+          {/* {InputControlsManifest.map((ctrl, ctrlIndex) => (
             <Fragment key={ctrlIndex}>
               <button
                 className={`cmd-btn ${theme}`}
@@ -110,7 +110,7 @@ const AddCtrlModal = ({
                 {ctrl.name}
               </button>
             </Fragment>
-          ))}
+          ))} */}
         </div>
       )}
       {activeTab === "output" && (
@@ -124,7 +124,7 @@ const AddCtrlModal = ({
             paddingTop: "12px",
           }}
         >
-          {OutputControlsManifest.map((ctrl, ctrlIndex) => (
+          {/* {OutputControlsManifest.map((ctrl, ctrlIndex) => (
             <Fragment key={ctrlIndex}>
               <button
                 className={`cmd-btn ${theme}`}
@@ -140,7 +140,7 @@ const AddCtrlModal = ({
                 {ctrl.name}
               </button>
             </Fragment>
-          ))}
+          ))} */}
         </div>
       )}
     </ReactModal>

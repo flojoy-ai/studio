@@ -1,7 +1,6 @@
 import { createStyles } from "@mantine/core";
 
 export const useAddButtonStyle = createStyles((theme) => {
-  console.log(theme);
   return {
     addButton: {
       boxSizing: "border-box",

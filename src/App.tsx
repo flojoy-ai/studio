@@ -9,7 +9,7 @@ import { lightTheme, darkTheme } from "./feature/common/theme";
 import { GlobalStyles } from "./feature/common/global";
 
 import "./App.css";
-import { useFlowChartState } from "./hooks/useFlowChartState";
+import { CtlManifestType, useFlowChartState } from "./hooks/useFlowChartState";
 import { Node } from "reactflow";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
@@ -17,12 +17,20 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import { MantineProvider } from "@mantine/core";
+import SidebarCustom from "./feature/common/Sidebar/Sidebar";
+import {
+  CTRL_MANIFEST,
+  CTRL_TREE,
+} from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { useAddButtonStyle } from "./styles/useAddButtonStyle";
 
 const App = () => {
   const { states } = useSocket();
   const { serverStatus, programResults, runningNode, failedNode } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
+  const { classes } = useAddButtonStyle();
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
@@ -33,8 +41,11 @@ const App = () => {
     setRunningNode,
     setFailedNode,
     setCtrlsManifest,
+    gridLayout,
     setGridLayout,
     loadFlowExportObject,
+    isEditMode,
+    setIsEditMode,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
@@ -74,6 +85,36 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [fileName]
   );
+
+  //function for handling a CTRL add (assume that input is key from manifest)
+  const addCtrl = (ctrlKey: string) => {
+    let ctrlObj = CTRL_MANIFEST[ctrlKey];
+    const id = `ctrl-${uuidv4()}`;
+    let yAxis = 0;
+    for (const el of gridLayout) {
+      if (yAxis < el.y) {
+        yAxis = el.y;
+      }
+    }
+    const ctrlLayout = {
+      x: 0,
+      y: yAxis + 1,
+      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
+      w: 2,
+      i: id,
+      minH: ctrlObj.minHeight,
+      minW: ctrlObj.minWidth,
+      static: !isEditMode,
+    };
+    const ctrl: CtlManifestType = {
+      ...ctrlObj,
+      hidden: false,
+      id,
+      layout: ctrlLayout,
+    } as CtlManifestType;
+    setOpenCtrlModal(false);
+    // cacheManifest([...CTRL_MANIFEST, ctrl]); not implemented yet
+  };
 
   useEffect(() => {
     setRunningNode(runningNode);
@@ -202,6 +243,33 @@ const App = () => {
 
           {/* Tab view containing controls */}
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+            <button
+              data-testid="add-node-button"
+              className={classes.addButton}
+              onClick={() => {
+                setCTRLSideBarStatus(!isCTRLSideBarOpen);
+                setIsEditMode(true);
+              }}
+              style={{
+                width: "104px",
+                height: "43px",
+                left: "0px",
+                top: "110px",
+                margin: "10px",
+                zIndex: 1,
+              }}
+            >
+              + Add CTRL
+            </button>
+
+            <SidebarCustom
+              sections={CTRL_TREE}
+              manifestMap={CTRL_MANIFEST}
+              leafNodeClickHandler={addCtrl}
+              isSideBarOpen={isCTRLSideBarOpen}
+              setSideBarStatus={setCTRLSideBarStatus}
+            />
+
             <ControlsTab
               results={programResults!}
               theme={theme}
@@ -221,3 +289,10 @@ const App = () => {
 };
 
 export default App;
+function uuidv4() {
+  throw new Error("Function not implemented.");
+}
+
+function cacheManifest(arg0: any[]) {
+  throw new Error("Function not implemented.");
+}

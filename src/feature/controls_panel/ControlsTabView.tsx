@@ -90,33 +90,7 @@ const ControlsTab = ({
 
   useControlsTabEffects();
 
-  const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
-      }
-    }
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
-    setOpenCtrlModal(false);
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
+  
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
@@ -183,13 +157,13 @@ const ControlsTab = ({
 
   return (
     <div data-testid="controls-tab">
-      <AddBtn
+      {/* <AddBtn
         testId={"add-ctrl"}
         handleClick={() => {
           setOpenCtrlModal((prev) => !prev);
           setIsEditMode(true);
         }}
-      />
+      /> */}
       <ControlGrid
         controlProps={{
           theme,
@@ -203,14 +177,14 @@ const ControlsTab = ({
         }}
       />
 
-      <AddCtrlModal
+      {/* <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
         addCtrl={addCtrl}
         theme={theme}
-      />
-      <Modal
+      /> */}
+      {/* <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={() => setOpenEditModal(false)}
@@ -282,7 +256,7 @@ const ControlsTab = ({
             </div>
           </div>
         )}
-      </Modal>
+      </Modal> */}
     </div>
   );
 };

@@ -133,26 +133,26 @@ export const CTRL_TREE = {
   ],
 };
 
-export const OutputControlsManifest = [
-  {
+export const OutputControlsManifest = {
+  PLOT:{
     name: ControlNames.Plot,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
   },
-  {
+  SEVEN_SEGMENT_DISPLAY:{
     name: ControlNames.SevenSegmentDisplay,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
   },
-  {
+  MEDIA_VIEWER: {
     name: ControlNames.MediaViewer,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
   },
-];
+};
 
 export const PlotTypesManifest = {
   // Plot types

@@ -22,7 +22,7 @@ import { useSidebarStyles } from "@src/styles/useSidebarStyles";
 const SidebarNode = ({ onClickHandle, keyNode, manifestMap, depth }) => {
   const { classes } = useSidebarStyles();
   const theme = useMantineTheme();
-  let cmd = manifestMap[keyNode as keyof Object];
+  let cmd = manifestMap[keyNode as keyof Object]; //get corresponding command from key
   if (!cmd) return null
   return (
       <button

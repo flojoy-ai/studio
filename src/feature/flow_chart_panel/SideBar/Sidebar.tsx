@@ -55,8 +55,8 @@ const Sidebar = () => {
 
     const sections = SECTIONS.map((item) => (
       <SidebarSection
-        data-testid="sidebar-section"
-        {...item}
+      data-testid="sidebar-section"
+      {...item}
         key={item.title}
       />
     ));
