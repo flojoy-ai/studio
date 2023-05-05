@@ -11,7 +11,28 @@ export const GlobalStyles = () => {
       styles={(theme) => ({
         "*, *::after, *::before": { boxSizing: "border-box" },
         body: {
-          color: theme.colorScheme === "dark" ? theme.white : theme.black,
+          color: theme.colors.text[0],
+        },
+        main: {
+          color: theme.colors.text[0],
+        },
+        h1: {
+          color: theme.colors.title[0],
+        },
+        h2: {
+          color: theme.colors.title[0],
+        },
+        h3: {
+          color: theme.colors.title[0],
+        },
+        h4: {
+          color: theme.colors.title[0],
+        },
+        h5: {
+          color: theme.colors.title[0],
+        },
+        h6: {
+          color: theme.colors.title[0],
         },
       })}
     />
