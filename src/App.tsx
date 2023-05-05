@@ -1,28 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 
+import ControlsTab from "./feature/controls_panel/ControlsTabView";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
-import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
 import { GlobalStyles } from "./feature/common/Global";
 
-import "./App.css";
-import { useFlowChartState } from "./hooks/useFlowChartState";
-import { Node } from "reactflow";
-import { useSocket } from "./hooks/useSocket";
-import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import {
-  MantineProvider,
-  Text,
   ColorScheme,
   ColorSchemeProvider,
+  MantineProvider,
 } from "@mantine/core";
-import { Script } from "vm";
-import { Logo } from "./Logo";
-import { CustomFonts } from "./feature/common/CustomFonts";
-import { darkTheme, lightTheme } from "./feature/common/theme";
+import { Node } from "reactflow";
+import "./App.css";
 import { AppTab, Header } from "./Header";
 import { ServerStatus } from "./ServerStatus";
+import { CustomFonts } from "./feature/common/CustomFonts";
+import { darkTheme, lightTheme } from "./feature/common/theme";
+import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
+import { useFlowChartState } from "./hooks/useFlowChartState";
+import { useSocket } from "./hooks/useSocket";
 
 const App = () => {
   const { states } = useSocket();
@@ -50,39 +47,31 @@ const App = () => {
   };
 
   const fetchExampleApp = useCallback(
-    (fileName: string) => {
-      fetch(`/example-apps/${fileName}`, {
+    async (fileName: string) => {
+      const res = await fetch(`/example-apps/${fileName}`, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setCtrlsManifest(data.ctrlsManifest);
-          const flow = data.rfInstance;
-          loadFlowExportObject(flow);
-        })
-        .catch((err) => console.log("fetch example app err: ", err));
+      });
+      const data = await res.json();
+      setCtrlsManifest(data.ctrlsManifest);
+      const flow = data.rfInstance;
+      loadFlowExportObject(flow);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fileName]
+    [loadFlowExportObject, setCtrlsManifest]
   );
 
   useEffect(() => {
     setRunningNode(runningNode);
-    setRunningNode(runningNode);
     setFailedNode(failedNode);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runningNode, failedNode]);
+  }, [runningNode, failedNode, setRunningNode, setFailedNode]);
+
   useEffect(() => {
     if (fileName) {
       fetchExampleApp(fileName);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileName]);
+  }, [fileName, fetchExampleApp]);
 
   return (
     <ColorSchemeProvider
