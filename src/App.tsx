@@ -35,11 +35,9 @@ const App = () => {
   const {
     rfInstance,
     setRfInstance,
-    setUiTheme,
     setRunningNode,
     setFailedNode,
     setCtrlsManifest,
-    setGridLayout,
     loadFlowExportObject,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<AppTab>("visual");
@@ -50,16 +48,6 @@ const App = () => {
   const toggleColorScheme = (color?: ColorScheme) => {
     setTheme(color || (theme === "dark" ? "light" : "dark"));
   };
-
-  // const toggleTheme = () => {
-  //   if (theme === "light") {
-  //     setTheme("dark");
-  //     setUiTheme("dark");
-  //   } else {
-  //     setTheme("light");
-  //     setUiTheme("light");
-  //   }
-  // };
 
   const fetchExampleApp = useCallback(
     (fileName: string) => {

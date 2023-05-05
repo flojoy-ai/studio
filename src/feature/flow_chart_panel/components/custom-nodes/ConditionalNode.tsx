@@ -6,12 +6,13 @@ import { useSocket } from "@src/hooks/useSocket";
 import { useEffect, useState } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
+import { useMantineColorScheme } from "@mantine/core";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
+  const { colorScheme } = useMantineColorScheme();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -71,12 +72,13 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
           className="default_node_container"
           style={{
             backgroundColor:
-              uiTheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
+              colorScheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
             border:
-              uiTheme === "light"
+              colorScheme === "light"
                 ? "1px solid rgba(123, 97, 255, 1)"
                 : "1px solid #99F5FF",
-            color: uiTheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
+            color:
+              colorScheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >

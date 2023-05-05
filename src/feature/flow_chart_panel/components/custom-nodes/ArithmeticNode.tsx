@@ -13,6 +13,7 @@ import {
 } from "../../svgs/add-multiply-svg";
 import { useEffect } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
+import { useMantineColorScheme } from "@mantine/core";
 
 const getboxShadow = (data: ElementsData) => {
   if (data.func in highlightShadow) {
@@ -22,8 +23,8 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const { colorScheme } = useMantineColorScheme();
+  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -50,7 +51,8 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
             display: "flex",
             alignItems: "center",
             fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+            color:
+              colorScheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
             background: "transparent",
             height: "fit-content",
             minHeight: 115,

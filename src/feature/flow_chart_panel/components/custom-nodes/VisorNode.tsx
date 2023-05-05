@@ -13,6 +13,7 @@ import Scatter3D from "../nodes/3d-scatter";
 import BarChart from "../nodes/bar";
 import { useEffect } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
+import { useMantineColorScheme } from "@mantine/core";
 
 const getboxShadow = (data: ElementsData) => {
   if (data.func in highlightShadow) {
@@ -22,8 +23,8 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const { colorScheme } = useMantineColorScheme();
+  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -51,20 +52,21 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             display: "flex",
             alignItems: "center",
             fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+            color:
+              colorScheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
             background: "transparent",
             height: "fit-content",
             minHeight: 115,
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.func === "SCATTER" && <Scatter theme={uiTheme} />}
-          {data.func === "HISTOGRAM" && <Histogram theme={uiTheme} />}
-          {data.func === "LINE" && <LineChart theme={uiTheme} />}
-          {data.func === "SURFACE3D" && <Surface3D theme={uiTheme} />}
-          {data.func === "SCATTER3D" && <Scatter3D theme={uiTheme} />}
-          {data.func === "BAR" && <BarChart theme={uiTheme} />}
-          <BGTemplate theme={uiTheme} />
+          {data.func === "SCATTER" && <Scatter theme={colorScheme} />}
+          {data.func === "HISTOGRAM" && <Histogram theme={colorScheme} />}
+          {data.func === "LINE" && <LineChart theme={colorScheme} />}
+          {data.func === "SURFACE3D" && <Surface3D theme={colorScheme} />}
+          {data.func === "SCATTER3D" && <Scatter3D theme={colorScheme} />}
+          {data.func === "BAR" && <BarChart theme={colorScheme} />}
+          <BGTemplate theme={colorScheme} />
           <div
             style={{
               display: "flex",

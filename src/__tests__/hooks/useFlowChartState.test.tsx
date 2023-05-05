@@ -68,7 +68,6 @@ describe("useFlowChartState", () => {
       ["rfInstance", hookResult.rfInstance, undefined],
       ["ctrlsManifest", hookResult.ctrlsManifest, initialManifests],
       ["isEditMode", hookResult.isEditMode, false],
-      ["uiTheme", hookResult.uiTheme, "dark"],
       ["showLogs", hookResult.showLogs, false],
       ["runningNode", hookResult.runningNode, ""],
       ["failedNode", hookResult.failedNode, ""],

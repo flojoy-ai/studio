@@ -4,10 +4,11 @@ import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeP
 import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useEffect } from "react";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/node-wrapper/NodeWrapper";
+import { useMantineColorScheme } from "@mantine/core";
 
 const TerminatorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, setNodes, nodes } =
-    useFlowChartState();
+  const { colorScheme } = useMantineColorScheme();
+  const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -35,14 +36,15 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
           className="default_node_container"
           style={{
             backgroundColor:
-              uiTheme === "light"
+              colorScheme === "light"
                 ? "rgb(170 30 30 / 15%)"
                 : "rgb(170 30 30 / 45%)",
             border:
-              uiTheme === "light"
+              colorScheme === "light"
                 ? "1px solid rgba(123, 97, 255, 1)"
                 : "1px solid #99F5FF",
-            color: uiTheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
+            color:
+              colorScheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >

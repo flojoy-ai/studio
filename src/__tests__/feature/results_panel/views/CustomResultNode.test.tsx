@@ -2,9 +2,6 @@ import { render } from "@testing-library/react";
 import CustomResultNode from "@src/feature/results_panel/views/CustomResultNode";
 import { ResultNodeData } from "@src/feature/results_panel/types/ResultsType";
 
-jest.mock("@src/hooks/useFlowChartState", () => ({
-  useFlowChartState: jest.fn(() => ({ uiTheme: "dark" })),
-}));
 jest.mock("reactflow", () => {
   const Handle = jest.fn().mockReturnValue(<div>Handle Component</div>);
   const Position = { Left: "LEFT", Right: "RIGHT" };
