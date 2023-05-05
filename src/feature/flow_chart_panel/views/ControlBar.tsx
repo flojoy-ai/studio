@@ -1,19 +1,20 @@
-import { memo, FC, useState, useEffect } from "react";
-import localforage from "localforage";
-import "react-tabs/style/react-tabs.css";
-import {
-  saveFlowChartToLocalStorage,
-  saveAndRunFlowChartInServer,
-  cancelFlowChartRun,
-} from "@src/services/FlowChartServices";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import ReactSwitch from "react-switch";
-import { ControlsProps } from "../types/ControlsProps";
-import { useSocket } from "@src/hooks/useSocket";
-import CancelIconSvg from "@src/utils/cancel_icon";
-import PlayBtn from "../components/play-btn/PlayBtn";
+import { useMantineColorScheme } from "@mantine/core";
+import { AppTab } from "@src/Header";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/dropdown/DropDown";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useSocket } from "@src/hooks/useSocket";
+import {
+  cancelFlowChartRun,
+  saveAndRunFlowChartInServer,
+  saveFlowChartToLocalStorage,
+} from "@src/services/FlowChartServices";
+import CancelIconSvg from "@src/utils/cancel_icon";
+import localforage from "localforage";
+import { Dispatch, memo, useEffect, useState } from "react";
+import ReactSwitch from "react-switch";
+import "react-tabs/style/react-tabs.css";
+import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 
 localforage.config({
@@ -21,14 +22,16 @@ localforage.config({
   storeName: "flows",
 });
 
-const Controls: FC<ControlsProps> = ({
-  theme,
-  activeTab,
-  setOpenCtrlModal,
-}) => {
+export type ControlsProps = {
+  activeTab: AppTab;
+  setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const { colorScheme } = useMantineColorScheme();
 
   const {
     isEditMode,
@@ -74,23 +77,23 @@ const Controls: FC<ControlsProps> = ({
         <PlayBtn
           onClick={onSave}
           disabled={isPlayBtnDisabled()}
-          theme={theme}
+          theme={colorScheme}
         />
       ) : (
         <button
-          className={`btn__cancel ${theme === "dark" ? "dark" : "light"}`}
+          className={`btn__cancel ${colorScheme === "dark" ? "dark" : "light"}`}
           onClick={cancelFC}
           data-cy="btn-cancel"
           title="Cancel Run"
         >
-          <CancelIconSvg theme={theme} />
+          <CancelIconSvg theme={colorScheme} />
           <span>Cancel</span>
         </button>
       )}
       {isEditMode && activeTab === "panel" && (
         <AddBtn
           testId={"add-ctrl"}
-          theme={theme}
+          theme={colorScheme}
           handleClick={() => {
             setOpenCtrlModal((prev) => !prev);
           }}
@@ -98,12 +101,12 @@ const Controls: FC<ControlsProps> = ({
       )}
       {activeTab !== "debug" && (
         <DropDown
-          theme={theme}
+          theme={colorScheme}
           DropDownBtn={
             <button
               className="save__controls_button btn__file"
               style={{
-                color: theme === "dark" ? "#fff" : "#000",
+                color: colorScheme === "dark" ? "#fff" : "#000",
               }}
             >
               <span>File</span>
@@ -116,7 +119,7 @@ const Controls: FC<ControlsProps> = ({
               >
                 <path
                   d="M0 0L5 6.74101L10 0H0Z"
-                  fill={theme === "dark" ? "#fff" : "#000"}
+                  fill={colorScheme === "dark" ? "#fff" : "#000"}
                 />
               </svg>
             </button>
@@ -166,7 +169,7 @@ const Controls: FC<ControlsProps> = ({
               ...(isEditMode
                 ? { color: "orange" }
                 : {
-                    color: theme === "dark" ? "#fff" : "#000",
+                    color: colorScheme === "dark" ? "#fff" : "#000",
                   }),
             }}
             onClick={() => setIsEditMode(!isEditMode)}
@@ -185,7 +188,7 @@ const Controls: FC<ControlsProps> = ({
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
-        theme={theme}
+        theme={colorScheme}
       />
     </div>
   );
