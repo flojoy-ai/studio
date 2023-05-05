@@ -28,14 +28,6 @@ export default function ControlGrid({
       );
     }
   }, [isEditMode, setGridLayout]);
-  useEffect(() => {
-    setGridLayout(
-      ctrlsManifest.map((ctrl) => ({
-        ...ctrl.layout,
-      }))
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ctrlsManifest]);
 
   return (
     <ResponsiveGridLayout
