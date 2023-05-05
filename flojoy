@@ -95,7 +95,7 @@ feedback()
       success_msg "$message"
    else
       error_msg "$help_message"
-      exit
+      exit 1
    fi
 }
 
