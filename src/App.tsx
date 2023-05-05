@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
@@ -46,6 +47,7 @@ const App = () => {
     loadFlowExportObject,
     isEditMode,
     setIsEditMode,
+    ctrlsManifest,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
@@ -63,6 +65,10 @@ const App = () => {
       setUiTheme("light");
     }
   };
+
+  function cacheManifest(manifest: CtlManifestType[]) {
+    setCtrlsManifest(manifest);
+  }
 
   const fetchExampleApp = useCallback(
     (fileName: string) => {
@@ -88,6 +94,7 @@ const App = () => {
 
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
+    setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
     let ctrlObj = CTRL_MANIFEST[ctrlKey];
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
@@ -112,8 +119,8 @@ const App = () => {
       id,
       layout: ctrlLayout,
     } as CtlManifestType;
-    setOpenCtrlModal(false);
-    // cacheManifest([...CTRL_MANIFEST, ctrl]); not implemented yet
+
+    cacheManifest([...ctrlsManifest, ctrl]);
   };
 
   useEffect(() => {
@@ -243,6 +250,7 @@ const App = () => {
 
           {/* Tab view containing controls */}
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+            
             <button
               data-testid="add-node-button"
               className={classes.addButton}
@@ -289,10 +297,3 @@ const App = () => {
 };
 
 export default App;
-function uuidv4() {
-  throw new Error("Function not implemented.");
-}
-
-function cacheManifest(arg0: any[]) {
-  throw new Error("Function not implemented.");
-}

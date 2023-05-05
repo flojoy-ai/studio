@@ -38,7 +38,10 @@ const SidebarSection = ({ title, content, depth }) => {
           />
         </Group>
       </UnstyledButton>
-      <Collapse in={opened}>{content}</Collapse>
+      <Collapse in={opened}>
+        {/* padding according to the depth of the section */}
+        <div style={{ paddingLeft: `${10 + depth * 20}px`}}>{content}</div> 
+      </Collapse>
     </>
   );
 };
