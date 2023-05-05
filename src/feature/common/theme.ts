@@ -1,35 +1,38 @@
-import { MantineTheme, MantineThemeOverride } from "@mantine/core";
-
-export const lightTheme: MantineThemeOverride = {
-  colorScheme: "light",
-  colors: {},
-  // body: "#FFF",
-  // text: "#282c34",
-  // overlay: "rgba(255,255,255,0.75)",
-  // underline: "#282c34",
-  // borderColor: "#00000024",
-};
+import { MantineThemeOverride } from "@mantine/core";
 
 export const darkTheme: MantineThemeOverride = {
   colorScheme: "dark",
   colors: {
+    // Mantine uses dark[7] as body background color by default
+    // Likewise it uses dark[0] for text color
+    // Manually use dark[6] for modals
     dark: [
-      "#c1c2c5",
+      "#bcc2c4",
       "#a6a7ab",
       "#909296",
       "#5c5f66",
       "#373a40",
       "#2c2e33",
-      "#25262b",
-      "#000",
+      "#191919",
+      "#111111",
       "#141517",
       "#101113",
     ],
+    modal: ["#191919"],
+    title: ["#ffffff"],
+    text: ["#bcc2c4"],
+    // accent[0] is accent #1 in the style guide, accent[1] is accent #2,
+    // from the style guide, etc.
+    accent: ["#99f5ff", "#7b61ff", "#ffc93f"],
   },
-  // body: "#000000cf",
-  // text: "#FFF",
-  // overlay: "rgba(0,0,0,0.75)",
-  // underline: "black",
-  // borderColor: "#ffffff38",
-  // cyan: "#99f5ff",
+};
+
+export const lightTheme: MantineThemeOverride = {
+  colorScheme: "light",
+  colors: {
+    modal: ["#f4f4f4"],
+    title: ["#111111"],
+    text: ["#8c9699"],
+    accent: ["#2e83ff", "#7b61ff", "#ffa927"],
+  },
 };
