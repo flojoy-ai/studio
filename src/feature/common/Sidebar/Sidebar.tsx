@@ -24,7 +24,7 @@ const SidebarCustom = ({
   //   leafNodeTemplate,
   manifestMap,
 }: {
-  sections: Node[];
+  sections: Node;
   //   leafNodeTemplate: LeafNode;
   manifestMap: any; //Key value pair object
 }) => {
@@ -35,7 +35,17 @@ const SidebarCustom = ({
 
   //this function will create the sections to be rendered according to the search input
   const renderSection = (textInput: string, node: Node, depth: number) => {
+
+    //if we are at the root
+    if (node.title === 'ROOT') {
+        if (!node.child) return null
+        return node.child.map(
+            (c) => renderSection(textInput, c, depth) //render all the content of the children
+        );
+    }
+
     var content;
+
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
       if (node.title.toLowerCase().includes(textInput.toLocaleLowerCase())) {
@@ -215,9 +225,7 @@ const SidebarCustom = ({
           component={ScrollArea}
         >
           <div className={classes.sectionsInner}>
-            {sections.map((section, i) => (
-              <div key={i}>{renderSection(textInput, section, 0)}</div>
-            ))}
+              {renderSection(textInput, sections, 0)}
           </div>
         </Navbar.Section>
       </Navbar>
