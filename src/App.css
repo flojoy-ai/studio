@@ -1,12 +1,3 @@
-.App-theme-toggle {
-  /* position: absolute !important;
-    right: 10px !important; */
-  font-size: 18px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-}
-
 .App-select {
   width: 120px;
   display: inline-block;
@@ -203,36 +194,8 @@
   cursor: pointer;
 }
 
-@font-face {
-  font-family: "PonyMaker";
-  src: url("PonyMaker.woff2") format("woff2"),
-    url("PonyMaker.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* h1 {
-  font-family: "PonyMaker";
-  font-weight: normal;
-  font-style: normal;
-  margin: 0;
-} */
-
-pre {
-  font-size: 14px;
-}
-
 div {
   scrollbar-width: none;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.items-center {
-  align-items: center;
 }
 
 button.knob {

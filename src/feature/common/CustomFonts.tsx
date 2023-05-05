@@ -1,5 +1,6 @@
 import { Global } from "@mantine/core";
-import ponymaker from "../../PonyMaker.woff2";
+import ponymakerWoff2 from "@src/fonts/PonyMaker.woff2";
+import ponymakerWoff from "@src/fonts/PonyMaker.woff";
 
 export const CustomFonts = () => {
   return (
@@ -8,9 +9,10 @@ export const CustomFonts = () => {
         {
           "@font-face": {
             fontFamily: "PonyMaker",
-            src: `url(${ponymaker}) format("woff2")`,
+            src: `url(${ponymakerWoff2}) format("woff2"), url(${ponymakerWoff}) format("woff")`,
             fontWeight: "normal",
             fontStyle: "normal",
+            fontDisplay: "swap",
           },
         },
       ]}
