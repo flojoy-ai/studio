@@ -183,37 +183,6 @@ const SidebarCustom = ({
           />
         </Navbar.Section>
         <Navbar.Section
-          style={{
-            paddingTop: "20px",
-            paddingLeft: "100px",
-          }}
-        >
-          <button
-            style={{
-              border: "2px solid #30d5c8",
-              background: "transparent",
-              borderRadius: "2px",
-            }}
-          >
-            <Anchor
-              style={{
-                textDecoration: "none",
-              }}
-              href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
-              target="_blank"
-            >
-              <span
-                style={{
-                  // backgroundColor: "#93f4fc00",
-                  color: "#30d5c8",
-                }}
-              >
-                Request a Node
-              </span>
-            </Anchor>
-          </button>
-        </Navbar.Section>
-        <Navbar.Section
           grow
           className={classes.sections}
           component={ScrollArea}
