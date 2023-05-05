@@ -193,7 +193,6 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
-
       <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}

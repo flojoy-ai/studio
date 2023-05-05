@@ -46,4 +46,6 @@ venv2
 dist
 update_apps.js
 worker-manager/node_modules
-.idea/
+
+.idea/*
+.vscode/*

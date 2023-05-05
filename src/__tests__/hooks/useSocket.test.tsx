@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useSocket } from "../../hooks/useSocket";
 import * as Context from "../../context/socket.context";
 import * as React from "react";

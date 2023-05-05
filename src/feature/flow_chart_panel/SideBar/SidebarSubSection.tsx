@@ -7,7 +7,7 @@ import {
   UnstyledButton,
   createStyles,
 } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { COMMANDS } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { NodeOnAddFunc } from "../types/NodeAddFunc";

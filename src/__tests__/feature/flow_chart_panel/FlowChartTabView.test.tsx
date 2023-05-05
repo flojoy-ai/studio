@@ -9,6 +9,7 @@ import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
 import { Node, Edge, ReactFlowProvider } from "reactflow";
 import NodeModal from "@src/feature/flow_chart_panel/views/NodeModal";
+import { useOnSelectionChange } from "reactflow";
 
 const props: FlowChartProps = {
   results: {
@@ -99,6 +100,12 @@ jest.mock("@src/configs/NodeConfigs", () => {
 });
 
 jest.mock("@src/hooks/useFlowChartState");
+
+jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
+  return {
+    FUNCTION_PARAMETERS: {},
+  };
+});
 
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;

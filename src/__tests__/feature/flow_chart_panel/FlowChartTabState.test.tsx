@@ -1,4 +1,4 @@
-import { act, renderHook, Renderer } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useFlowChartTabState } from "@src/feature/flow_chart_panel/FlowChartTabState";
 
 const { result, rerender } = renderHook(() => useFlowChartTabState());

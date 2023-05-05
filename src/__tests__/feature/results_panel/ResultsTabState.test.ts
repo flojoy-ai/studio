@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react";
 import { useResultsTabState } from "@src/feature/results_panel/ResultsTabState";
 import { NOISY_SINE } from "@src/data/RECIPES";
 

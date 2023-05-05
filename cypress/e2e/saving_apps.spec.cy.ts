@@ -15,7 +15,7 @@ describe("Saving Default App", () => {
     );
     cy.get(`[data-cy="dropdown-wrapper"]`)
       .click()
-      .get(`[data-cy="btn-save"]`)
+      .get(`[data-cy="btn-saveas"]`)
       .click();
     cy.get("@showSaveFilePicker")
       .should("have.been.calledOnce")

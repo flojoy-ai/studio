@@ -127,17 +127,39 @@ export function useFlowChartState() {
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
+  const getFileBlob = (rf: ReactFlowJsonObject<ElementsData>) => {
+    const fileContent = {
+      rfInstance,
+      ctrlsManifest,
+    };
+    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+
+    return new Blob([fileContentJsonString], {
+      type: "text/plain;charset=utf-8",
+    });
+  };
+
   const saveFile = async () => {
     if (rfInstance) {
-      const fileContent = {
-        rfInstance,
-        ctrlsManifest,
-      };
-      const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+      const blob = getFileBlob(rfInstance);
 
-      const blob = new Blob([fileContentJsonString], {
-        type: "text/plain;charset=utf-8",
-      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "flojoy.txt";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const saveFileAs = async () => {
+    if (rfInstance) {
+      const blob = getFileBlob(rfInstance);
+
       const handle = await (window as any).showSaveFilePicker({
         suggestedName: "flojoy.txt",
         types: [
@@ -201,6 +223,7 @@ export function useFlowChartState() {
     loadFlowExportObject,
     openFileSelector,
     saveFile,
+    saveFileAs,
     isEditMode,
     setIsEditMode,
     gridLayout,

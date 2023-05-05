@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 classes = []
-absolute_path = os.path.dirname(__file__) 
-with open(os.path.join(absolute_path, 'yolov3.txt'), 'r') as f:
+absolute_path = os.path.dirname(__file__)
+with open(os.path.join(absolute_path, "yolov3.txt"), "r") as f:
     classes = [line.strip() for line in f.readlines()]
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
@@ -21,9 +21,9 @@ def get_output_layers(net):
 
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     if confidence < 0.5:
-        return;
+        return
     label = str(classes[class_id])
-    
+
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 1
     thickness = 2
@@ -43,25 +43,40 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
     rect_y = y - rect_height - 5
 
     # Draw the background rectangle
-    cv2.rectangle(img, (rect_x, rect_y), (rect_x + rect_width, rect_y + rect_height), (0,0,0), cv2.FILLED)
+    cv2.rectangle(
+        img,
+        (rect_x, rect_y),
+        (rect_x + rect_width, rect_y + rect_height),
+        (0, 0, 0),
+        cv2.FILLED,
+    )
     # Draw the label text on top of the background rectangle
-    cv2.putText(img, label, (x, y - int(text_height * 0.5) - 5), font, font_scale, (255,255,255), thickness)
-
-
+    cv2.putText(
+        img,
+        label,
+        (x, y - int(text_height * 0.5) - 5),
+        font,
+        font_scale,
+        (255, 255, 255),
+        thickness,
+    )
 
 
 def detect_object(img_np_array):
-    '''
+    """
     parameter img_np_array expects a numpy array
     with RGBA channels
-    '''
+    """
     # Convert the color channels from RGBA to BGR
     bgr_image = cv2.cvtColor(img_np_array, cv2.COLOR_RGBA2BGR)
     image = bgr_image
-    
+
     # Load the pre-trained YOLO model
-    net = cv2.dnn.readNet(os.path.join(absolute_path, 'yolov3.weights'), os.path.join(absolute_path, 'yolov3.cfg'))
-    
+    net = cv2.dnn.readNet(
+        os.path.join(absolute_path, "yolov3.weights"),
+        os.path.join(absolute_path, "yolov3.cfg"),
+    )
+
     # Create a blob from the image
     blob = cv2.dnn.blobFromImage(image, 1 / 255.0, (416, 416), swapRB=True, crop=False)
 
@@ -72,16 +87,16 @@ def detect_object(img_np_array):
     # Set the confidence threshold and non-maximum suppression threshold
     conf_threshold = 0.5
     nms_threshold = 0.4
-    
+
     # Get the dimensions of the image
     (Height, Width) = image.shape[:2]
-    
+
     # List to store detected objects and their bounding boxes
     class_ids = []
     confidences = []
     boxes = []
 
-# Parse the outputs to get the detected objects and their bounding boxes
+    # Parse the outputs to get the detected objects and their bounding boxes
     for output in outs:
         for detection in output:
             scores = detection[5:]
@@ -105,7 +120,7 @@ def detect_object(img_np_array):
 
     # Apply non-maximum suppression to remove overlapping bounding boxes
     indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
-    
+
     # Draw the final bounding boxes on the image
     for i in indices:
         try:
@@ -113,12 +128,20 @@ def detect_object(img_np_array):
         except:
             i = i[0]
             box = boxes[i]
-        
+
         x = box[0]
         y = box[1]
         w = box[2]
         h = box[3]
-        draw_prediction(image, class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
+        draw_prediction(
+            image,
+            class_ids[i],
+            confidences[i],
+            round(x),
+            round(y),
+            round(x + w),
+            round(y + h),
+        )
 
     # Convert BGR image to RGBA format
     rgba_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGBA)

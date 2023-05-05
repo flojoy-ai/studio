@@ -2,10 +2,10 @@ import json
 
 
 class Flows:
-    '''
+    """
     Represents execution flows originating from multiple nodes.
     A node can have multiple flows.
-    '''
+    """
 
     def __init__(self) -> None:
         self.all_node_data = {}  # {node_id -> {direction -> [child_node_id]} }
