@@ -58,7 +58,7 @@
     "start-project": "concurrently \"npm run start\" \"npm run backend\" \"npm run rq-watch\" \"npm run rq-flojoy\"",
     "format": "npx prettier --write . && black . --extend-exclude '/(node_modules)/'",
     "check": "npx prettier --check . && black . --extend-exclude '/(node_modules)/' --check",
-    "e2e": "CI=true node_modules/.bin/cypress run --browser chrome",
+    "e2e": "CI=true node_modules/.bin/cypress run --browser chrome --record --parallel",
     "cypress": "cypress open",
     "electron-dev": "electron .",
     "electron-package": "npm run build && electron-builder build --publish always -mwl",
