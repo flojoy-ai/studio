@@ -17,7 +17,8 @@ const useStyles = createStyles((theme) => ({
     height: 684,
     width: 324,
     padding: "8px 8px",
-    backgroundColor: theme.colorScheme === "dark" ? "#141313ff" : "white",
+    // backgroundColor: theme.colorScheme === "dark" ? "#1" : "white",
+    backgroundColor: theme.colors.modal[0],
     boxShadow:
       theme.colorScheme === "dark"
         ? "none"

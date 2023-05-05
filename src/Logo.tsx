@@ -5,6 +5,7 @@ const useStyles = createStyles((theme) => ({
     fontFamily: "PonyMaker",
     fontWeight: "normal",
     fontStyle: "normal",
+    color: theme.colorScheme === "dark" ? "#fff" : "#000",
   },
 }));
 
