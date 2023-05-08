@@ -32,14 +32,12 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
   return (
     <NodeWrapper data={data}>
       <Box
-        style={{
-          ...((runningNode === data.id || data.selected) && {
-            boxShadow: "rgb(133 197 231) 0px 0px 27px 3px",
-          }),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.defaultShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
         <Box
           className={clsx(
