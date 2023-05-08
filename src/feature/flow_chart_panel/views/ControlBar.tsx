@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { AppTab } from "@src/Header";
 import { IServerStatus } from "@src/context/socket.context";
-import DropDown from "@src/feature/common/dropdown/DropDown";
+import DropDown from "@src/feature/common/DropDown";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
@@ -184,7 +184,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         />
       )}
       {activeTab !== "debug" && (
-        <DropDown theme={colorScheme} DropDownBtn={<FileButton />}>
+        <DropDown dropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
           <button data-cy="btn-save" onClick={saveFile}>
             Save

@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/extend-expect";
 import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
-import DropDown from "@src/feature/common/dropdown/DropDown";
+import DropDown from "@src/feature/common/DropDown";
 
 const theme = "light";
 describe("DropDown", () => {
@@ -9,7 +9,7 @@ describe("DropDown", () => {
   const children = <div>Dropdown Children</div>;
   it("should render correctly", () => {
     const { container, getByText, getByTestId } = render(
-      <DropDown DropDownBtn={DropDownBtn} theme={theme}>
+      <DropDown dropDownBtn={DropDownBtn} theme={theme}>
         {children}
       </DropDown>
     );
@@ -25,7 +25,7 @@ describe("DropDown", () => {
 
   it("should open and close on hover", () => {
     const { getByTestId } = render(
-      <DropDown DropDownBtn={DropDownBtn} theme={theme}>
+      <DropDown dropDownBtn={DropDownBtn} theme={theme}>
         {children}
       </DropDown>
     );
