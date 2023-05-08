@@ -38,7 +38,10 @@ describe("ResultsTab component", () => {
     expect(reactFlowComponent).toBeInTheDocument();
     expect(screen.getByTestId("react-flow")).toBeInTheDocument();
 
-    expect(reactFlowComponent).toHaveAttribute("style", "height: 99vh;");
+    expect(reactFlowComponent).toHaveAttribute(
+      "style",
+      "height: calc(100vh - 110px);"
+    );
     expect(reactFlowComponent).toMatchSnapshot();
   });
 });
