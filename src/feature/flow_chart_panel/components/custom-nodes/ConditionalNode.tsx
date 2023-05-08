@@ -1,15 +1,15 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import "@feature/flow_chart_panel/style/defaultNode.css";
 import { useSocket } from "@src/hooks/useSocket";
 import { useEffect, useState } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
-import { useMantineColorScheme } from "@mantine/core";
+import { Box, clsx, Text } from "@mantine/core";
+import { useNodeStyles } from "../DefaultNode";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
-  const { colorScheme } = useMantineColorScheme();
+  const { classes } = useNodeStyles();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
@@ -58,7 +58,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
 
   return (
     <NodeWrapper data={data}>
-      <div
+      <Box
         style={{
           ...((runningNode === data.id || data.selected) && {
             boxShadow: "#48abe0 0px 0px 27px 3px",
@@ -68,50 +68,37 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
           }),
         }}
       >
-        <div
-          className="default_node_container"
+        <Box
+          className={clsx(classes.nodeContainer, classes.defaultNode)}
           style={{
-            backgroundColor:
-              colorScheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
-            border:
-              colorScheme === "light"
-                ? "1px solid rgba(123, 97, 255, 1)"
-                : "1px solid #99F5FF",
-            color:
-              colorScheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
           {data.selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "5px",
-              width: "100%",
-              flexDirection: "column",
-              textAlign: "center",
-            }}
-          >
-            <div style={{ marginTop: "20px" }}>{data.label}</div>
-            <div>
+          <Box>
+            <Box mt={25}>{data.label}</Box>
+            <Box>
               {data.func === "CONDITIONAL" && (
                 <>
                   {params?.length !== 0 ? (
-                    <p data-testid="conditional-operator-type">
+                    <Text
+                      mt={20}
+                      sx={{ textAlign: "center" }}
+                      data-testid="conditional-operator-type"
+                    >
                       x {data["ctrls"]["operator_type"]["value"]} y
-                    </p>
+                    </Text>
                   ) : (
                     <>
                       {Object.keys(additionalInfo)
-                        .filter((value, _) => value === data.id)
+                        .filter((value) => value === data.id)
                         .map((_, index) => {
                           return (
-                            <p key={index + 1}>
+                            <Text key={index + 1}>
                               status: {additionalInfo[data.id]["status"]}
-                            </p>
+                            </Text>
                           );
                         })}
                     </>
@@ -119,30 +106,29 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
                 </>
               )}
               {data.func === "TIMER" && (
-                <p data-testid="timer-value">
+                <Text data-testid="timer-value">
                   {data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s
-                </p>
+                </Text>
               )}
               {data.func === "LOOP" && (
-                <div data-testid="loop-info">
+                <Box data-testid="loop-info">
                   <p>{`${current_iteration}/${total_iteration}`}</p>
-                </div>
+                </Box>
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div
-            style={{
-              display: "flex",
+          <Box
+            display="flex"
+            h={params.length > 0 ? (params.length + 1) * 32 : "fit-content"}
+            sx={{
               flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 32 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </NodeWrapper>
   );
 };

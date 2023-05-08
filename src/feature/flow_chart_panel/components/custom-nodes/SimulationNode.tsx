@@ -4,25 +4,33 @@ import {
   CustomNodeProps,
   ElementsData,
 } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import "@feature/flow_chart_panel/components/custom-nodes/css/simulationNode.css";
 import { useEffect } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
-import { useMantineColorScheme } from "@mantine/core";
+import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { useNodeStyles } from "../DefaultNode";
 
-const highlightShadow = {
-  LINSPACE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  default: { boxShadow: "rgb(116 24 181 / 97%) 0px 0px 27px 3px" },
-};
-const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow) {
-    return highlightShadow[data.func];
-  }
-  return highlightShadow["default"];
-};
+const useStyles = createStyles((theme) => {
+  const accent =
+    theme.colorScheme === "light"
+      ? theme.colors.accent[0]
+      : theme.colors.accent[1];
+  return {
+    simulationNode: {
+      width: 115,
+      borderRadius: 6,
+      flexDirection: "column",
+      justifyContent: "center",
+      border: `1px solid ${accent}`,
+      color: accent,
+      backgroundColor: accent + "27",
+    },
+  };
+});
 
 const SimulationNode = ({ data }: CustomNodeProps) => {
-  const { colorScheme } = useMantineColorScheme();
+  const nodeClasses = useNodeStyles().classes;
+  const { classes } = useStyles();
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
@@ -34,60 +42,46 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
       }
     });
   }, [data, nodes, setNodes]);
+
+  let selectShadow = "";
+  if (runningNode === data.id || data.selected) {
+    selectShadow =
+      data.func === "LINSPACE"
+        ? nodeClasses.defaultShadow
+        : nodeClasses.simulationShadow;
+  }
+
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          selectShadow,
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
-        <div
-          className="simulation__node__container"
-          style={{
-            border:
-              colorScheme === "light"
-                ? "1px solid #2E83FF"
-                : "1px solid rgba(123, 97, 255, 1)",
-            backgroundColor:
-              colorScheme === "light"
-                ? "rgba(46, 131, 255, 0.2)"
-                : "rgb(123 97 255 / 16%)",
-            color:
-              colorScheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+        <Box
+          className={clsx(nodeClasses.nodeContainer, classes.simulationNode)}
+          sx={{
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
           {data.selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "5px",
-              width: "100%",
+          <Box data-testid="data-label-design">
+            <Box>{data.label}</Box>
+          </Box>
+          <Box
+            display="flex"
+            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+            sx={{
               flexDirection: "column",
-              textAlign: "center",
-            }}
-            data-testid="data-label-design"
-          >
-            <div>{data.label}</div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </NodeWrapper>
   );
 };
