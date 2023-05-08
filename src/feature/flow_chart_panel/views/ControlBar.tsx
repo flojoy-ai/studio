@@ -1,4 +1,11 @@
-import { useMantineColorScheme } from "@mantine/core";
+import {
+  Box,
+  Text,
+  clsx,
+  createStyles,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { AppTab } from "@src/Header";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/dropdown/DropDown";
@@ -10,12 +17,89 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
+import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { Dispatch, memo, useEffect, useState } from "react";
 import ReactSwitch from "react-switch";
 import "react-tabs/style/react-tabs.css";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+
+const useStyles = createStyles((theme) => {
+  return {
+    controls: {
+      display: "flex",
+      alignItems: "center",
+      padding: "10px",
+      gap: "16px",
+    },
+
+    button: {
+      marginRight: "10px",
+      padding: "5px",
+      cursor: "pointer",
+      borderRadius: 2,
+      fontSize: "14px",
+      textDecoration: "none",
+      background: "transparent",
+      color: theme.colors.title[0],
+      border: "none",
+    },
+
+    addButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "4px",
+    },
+
+    addButtonPlus: {
+      fontSize: "20px",
+      color: theme.colors.accent[0],
+    },
+
+    cancelButton: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "5px",
+      height: "33px",
+      width: "85px",
+      cursor: "pointer",
+      color: theme.colors.red[7],
+      border: `1px solid ${theme.colors.red[3]}`,
+      backgroundColor: theme.colors.dark[4],
+      transition: "transform ease-in 0.1s",
+
+      "&:hover": {
+        backgroundColor: theme.colors.red[8],
+        color: theme.white,
+      },
+
+      "&:hover > svg > g": {
+        fill: theme.white,
+      },
+
+      "&:active": {
+        transform: "scale(0.8)",
+      },
+    },
+
+    fileButton: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "8px",
+    },
+
+    editContainer: {
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+      paddingRight: "4px",
+    },
+  };
+});
 
 localforage.config({
   name: "react-flow",
@@ -32,6 +116,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
   const { colorScheme } = useMantineColorScheme();
+  const { classes } = useStyles();
 
   const {
     isEditMode,
@@ -65,66 +150,41 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const isPlayBtnDisabled = () =>
+  const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
 
   return (
-    <div className="save__controls">
-      {isPlayBtnDisabled() || serverStatus === IServerStatus.STANDBY ? (
+    <Box className={classes.controls}>
+      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn
           onClick={onSave}
-          disabled={isPlayBtnDisabled()}
+          disabled={playBtnDisabled}
           theme={colorScheme}
         />
       ) : (
         <button
-          className={`btn__cancel ${colorScheme === "dark" ? "dark" : "light"}`}
+          className={classes.cancelButton}
           onClick={cancelFC}
           data-cy="btn-cancel"
           title="Cancel Run"
         >
-          <CancelIconSvg theme={colorScheme} />
-          <span>Cancel</span>
+          <CancelIconSvg fill="white" />
+          <Text>Cancel</Text>
         </button>
       )}
       {isEditMode && activeTab === "panel" && (
-        <AddBtn
+        <AddButton
           testId={"add-ctrl"}
-          theme={colorScheme}
           handleClick={() => {
             setOpenCtrlModal((prev) => !prev);
           }}
         />
       )}
       {activeTab !== "debug" && (
-        <DropDown
-          theme={colorScheme}
-          DropDownBtn={
-            <button
-              className="save__controls_button btn__file"
-              style={{
-                color: colorScheme === "dark" ? "#fff" : "#000",
-              }}
-            >
-              <span>File</span>
-              <svg
-                width="10"
-                height="7"
-                viewBox="0 0 10 7"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0L5 6.74101L10 0H0Z"
-                  fill={colorScheme === "dark" ? "#fff" : "#000"}
-                />
-              </svg>
-            </button>
-          }
-        >
+        <DropDown theme={colorScheme} DropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
           <button data-cy="btn-save" onClick={saveFile}>
             Save
@@ -149,7 +209,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
             }
             onClick={saveFileAs}
           >
-            <span>Save As</span>
+            <Text>Save As</Text>
             <small>Ctrl + s</small>
           </button>
           <button>History</button>
@@ -159,30 +219,26 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         </DropDown>
       )}
       {activeTab !== "visual" && activeTab !== "debug" && (
-        <div className="switch_container" style={{ paddingRight: "4px" }}>
-          <span
+        <Box className={classes.editContainer}>
+          <Text
             data-cy="operation-switch"
             data-testid="operation-switch"
-            style={{
+            sx={{
               cursor: "pointer",
               fontSize: "14px",
-              ...(isEditMode
-                ? { color: "orange" }
-                : {
-                    color: colorScheme === "dark" ? "#fff" : "#000",
-                  }),
+              ...(isEditMode && { color: "orange" }),
             }}
             onClick={() => setIsEditMode(!isEditMode)}
           >
             Edit
-          </span>
+          </Text>
           <ReactSwitch
             checked={isEditMode}
             onChange={() => setIsEditMode(!isEditMode)}
             height={22}
             width={50}
           />
-        </div>
+        </Box>
       )}
 
       <KeyboardShortcutModal
@@ -190,36 +246,37 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         onClose={() => setIskeyboardShortcutOpen(false)}
         theme={colorScheme}
       />
-    </div>
+    </Box>
   );
 };
 
 export default memo(Controls);
 
-const AddBtn = ({ handleClick, theme, testId }) => {
+const AddButton = ({ handleClick, testId }) => {
+  const { classes } = useStyles();
   return (
     <button
       data-cy={testId}
       data-testid={testId}
-      className="save__controls_button btn__add"
+      className={clsx(classes.button, classes.addButton)}
       onClick={handleClick}
     >
-      {" "}
-      <div
-        style={{
-          color: theme === "dark" ? "#99F5FF" : "blue",
-          fontSize: "20px",
-        }}
-      >
-        +
-      </div>
-      <div
-        style={{
-          color: theme === "dark" ? "#fff" : "#000",
-        }}
-      >
-        Add
-      </div>
+      <div className={classes.addButtonPlus}>+</div>
+      <div>Add</div>
+    </button>
+  );
+};
+
+const FileButton = () => {
+  const theme = useMantineTheme();
+  const { classes } = useStyles();
+  return (
+    <button className={clsx(classes.button, classes.fileButton)}>
+      <Text>File</Text>
+      <IconCaretDown
+        size={14}
+        fill={theme.colorScheme === "dark" ? theme.white : theme.black}
+      />
     </button>
   );
 };

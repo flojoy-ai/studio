@@ -1,9 +1,7 @@
-import { useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
 import { FUNCTION_PARAMETERS } from "../../manifest/PARAMETERS_MANIFEST";
 import ParamField, { ParamType } from "./ParamField";
-import styled from "styled-components";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
@@ -17,12 +15,9 @@ const useStyles = createStyles((theme) => ({
     height: 684,
     width: 324,
     padding: "8px 8px",
-    // backgroundColor: theme.colorScheme === "dark" ? "#1" : "white",
     backgroundColor: theme.colors.modal[0],
     boxShadow:
-      theme.colorScheme === "dark"
-        ? "none"
-        : "0px 0px 16px 0px rgba(0,0,0,0.3)",
+      theme.colorScheme === "dark" ? "none" : "0px 0px 8px 0px rgba(0,0,0,0.3)",
   },
   title: {
     fontWeight: 700,

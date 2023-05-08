@@ -1,6 +1,11 @@
 import { MantineThemeOverride } from "@mantine/core";
 
+const shared: MantineThemeOverride = {
+  fontFamily: "sans-serif",
+};
+
 export const darkTheme: MantineThemeOverride = {
+  ...shared,
   colorScheme: "dark",
   colors: {
     // Mantine uses dark[7] as body background color by default
@@ -28,6 +33,7 @@ export const darkTheme: MantineThemeOverride = {
 };
 
 export const lightTheme: MantineThemeOverride = {
+  ...shared,
   colorScheme: "light",
   colors: {
     modal: ["#f4f4f4"],
