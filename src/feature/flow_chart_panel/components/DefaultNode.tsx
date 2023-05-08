@@ -4,7 +4,7 @@ import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
-import NodeWrapper from "./node-wrapper/NodeWrapper";
+import NodeWrapper from "./NodeWrapper";
 
 export const useNodeStyles = createStyles((theme) => {
   const accent =
@@ -26,8 +26,8 @@ export const useNodeStyles = createStyles((theme) => {
       justifyContent: "center",
       padding: 10,
       width: 190,
-      fontWeight: 600,
       borderRadius: 6,
+      fontWeight: 600,
       border: `1px solid ${accent}`,
       color: accent,
       backgroundColor: accent + "4f",

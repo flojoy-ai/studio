@@ -2,7 +2,7 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { useEffect } from "react";
-import NodeWrapper from "@src/feature/flow_chart_panel/components/node-wrapper/NodeWrapper";
+import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
 

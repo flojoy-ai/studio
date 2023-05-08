@@ -5,7 +5,7 @@ import {
   ElementsData,
 } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";

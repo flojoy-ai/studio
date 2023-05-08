@@ -3,7 +3,7 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useSocket } from "@src/hooks/useSocket";
 import { useEffect, useState } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 import { Box, clsx, Text } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";

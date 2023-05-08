@@ -12,7 +12,7 @@ import {
   SubSvg,
 } from "../../svgs/add-multiply-svg";
 import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeWrapper from "../NodeWrapper";
 import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
 

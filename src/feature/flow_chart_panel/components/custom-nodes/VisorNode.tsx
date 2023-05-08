@@ -5,7 +5,7 @@ import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
 import { useEffect } from "react";
 import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeWrapper from "../NodeWrapper";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
 import Histogram from "../nodes/Histogram";
