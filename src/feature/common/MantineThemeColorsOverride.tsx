@@ -4,7 +4,9 @@ type ExtendedCustomColors =
   | "text"
   | "title"
   | "modal"
-  | "accent"
+  | "accent1"
+  | "accent2"
+  | "accent3"
   | DefaultMantineColor;
 
 declare module "@mantine/core" {

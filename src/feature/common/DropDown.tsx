@@ -32,12 +32,12 @@ const useStyles = createStyles((theme) => {
         textAlign: "start",
         whiteSpace: "nowrap",
         color:
-          theme.colorScheme === "dark" ? theme.colors.accent[0] : theme.black,
+          theme.colorScheme === "dark" ? theme.colors.accent1[0] : theme.black,
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? theme.colors.accent[0]
+            ? theme.colors.accent1[0]
             : theme.colors.gray[3],
         color: theme.black,
       },

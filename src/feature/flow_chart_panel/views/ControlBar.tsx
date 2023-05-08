@@ -55,7 +55,7 @@ const useStyles = createStyles((theme) => {
 
     addButtonPlus: {
       fontSize: "20px",
-      color: theme.colors.accent[0],
+      color: theme.colors.accent1[0],
     },
 
     cancelButton: {

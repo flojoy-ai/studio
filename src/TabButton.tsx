@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "transparent",
   },
   active: {
-    borderBottom: `1px solid ${theme.colors.accent[0]}`,
+    borderBottom: `1px solid ${theme.colors.accent1[0]}`,
   },
 }));
 

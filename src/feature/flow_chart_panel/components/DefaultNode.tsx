@@ -9,8 +9,8 @@ import NodeWrapper from "./node-wrapper/NodeWrapper";
 export const useNodeStyles = createStyles((theme) => {
   const accent =
     theme.colorScheme === "light"
-      ? theme.colors.accent[1]
-      : theme.colors.accent[0];
+      ? theme.colors.accent2[0]
+      : theme.colors.accent1[0];
   return {
     nodeContainer: {
       position: "relative",
@@ -36,21 +36,21 @@ export const useNodeStyles = createStyles((theme) => {
     defaultShadow: {
       boxShadow: `${
         theme.colorScheme === "dark"
-          ? theme.colors.accent[0]
-          : theme.colors.accent[1]
+          ? theme.colors.accent1[1]
+          : theme.colors.accent2[0]
       } 0px 0px 27px 3px`,
     },
 
     simulationShadow: {
       boxShadow: `${
         theme.colorScheme === "dark"
-          ? theme.colors.accent[1]
-          : theme.colors.accent[0]
+          ? theme.colors.accent2[1]
+          : theme.colors.accent1[1]
       } 0px 0px 27px 3px`,
     },
 
-    accent2Shadow: {
-      boxShadow: `${theme.colors.accent[2]} 0px 0px 27px 3px`,
+    arithmeticShadow: {
+      filter: `drop-shadow(0px 0px 20px ${theme.colors.accent3[0]})`,
     },
 
     failShadow: {

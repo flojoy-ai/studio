@@ -13,8 +13,8 @@ import { useNodeStyles } from "../DefaultNode";
 const useStyles = createStyles((theme) => {
   const accent =
     theme.colorScheme === "light"
-      ? theme.colors.accent[0]
-      : theme.colors.accent[1];
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
   return {
     simulationNode: {
       width: 115,

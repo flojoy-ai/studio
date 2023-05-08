@@ -59,14 +59,10 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   return (
     <NodeWrapper data={data}>
       <Box
-        style={{
-          ...((runningNode === data.id || data.selected) && {
-            boxShadow: "#48abe0 0px 0px 27px 3px",
-          }),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+        className={clsx(
+          runningNode === data.id || data.selected ? classes.defaultShadow : "",
+          failedNode === data.id ? classes.failShadow : ""
+        )}
       >
         <Box
           className={clsx(classes.nodeContainer, classes.defaultNode)}

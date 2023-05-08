@@ -21,8 +21,8 @@ const useStyles = createStyles((theme) => {
     arithmeticNode: {
       color:
         theme.colorScheme === "light"
-          ? theme.colors.accent[0]
-          : theme.colors.accent[1],
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
       background: "transparent",
     },
     operatorIcon: {
@@ -44,7 +44,6 @@ const getboxShadow = (data: ElementsData) => {
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { colorScheme } = useMantineColorScheme();
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
@@ -75,12 +74,12 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   return (
     <NodeWrapper data={data}>
       <Box
-        sx={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.arithmeticShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
         <Box
           className={clsx(nodeClasses.nodeContainer, classes.arithmeticNode)}

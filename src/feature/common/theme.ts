@@ -26,9 +26,9 @@ export const darkTheme: MantineThemeOverride = {
     modal: ["#191919"],
     title: ["#ffffff"],
     text: ["#bcc2c4"],
-    // accent[0] is accent #1 in the style guide, accent[1] is accent #2,
-    // from the style guide, etc.
-    accent: ["#99f5ff", "#7b61ff", "#ffc93f"],
+    accent1: ["#99f5ff", "#48abe0"],
+    accent2: ["#7b61ff", "#7418b5"],
+    accent3: ["#ffc93f"],
   },
 };
 
@@ -39,6 +39,8 @@ export const lightTheme: MantineThemeOverride = {
     modal: ["#f4f4f4"],
     title: ["#111111"],
     text: ["#8c9699"],
-    accent: ["#2e83ff", "#7b61ff", "#ffa927"],
+    accent1: ["#2e83ff", "#578bf2"],
+    accent2: ["#7b61ff", "#7418b5"],
+    accent3: ["#ffa927"],
   },
 };
