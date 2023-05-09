@@ -1,12 +1,4 @@
-import {
-  Navbar,
-  ScrollArea,
-  createStyles,
-  MantineProvider,
-  Flex,
-  Input,
-  Anchor,
-} from "@mantine/core";
+import { Navbar, ScrollArea, createStyles, Input, Anchor } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
 import { useState } from "react";
@@ -26,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     backgroundColor:
       theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
+    height: "calc(100vh - 110px)",
     transition: "500ms",
     zIndex: 1,
   },
