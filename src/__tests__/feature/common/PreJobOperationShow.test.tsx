@@ -3,9 +3,7 @@ import PreJobOperationShow from "@src/feature/common/PreJobOperationShow";
 
 jest.mock("@mantine/core", () => ({
   __esModule: true,
-  default: jest.fn(({ children }) => (
-    <div>{children}</div>
-  )),
+  default: jest.fn(({ children }) => <div>{children}</div>),
   Modal: jest.fn(({ children }) => <div>{children}</div>),
 }));
 
