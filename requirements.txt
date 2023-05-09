@@ -26,3 +26,4 @@ pyserial==3.5
 labjackpython
 Phidget22
 black==23.3.0
+ticlib
