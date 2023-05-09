@@ -68,7 +68,10 @@ const useStyles = createStyles((theme) => {
       cursor: "pointer",
       color: theme.colors.red[7],
       border: `1px solid ${theme.colors.red[3]}`,
-      backgroundColor: theme.colors.dark[4],
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[2],
       transition: "transform ease-in 0.1s",
 
       "&:hover": {
@@ -159,11 +162,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn
-          onClick={onSave}
-          disabled={playBtnDisabled}
-          theme={colorScheme}
-        />
+        <PlayBtn onClick={onSave} disabled={playBtnDisabled} />
       ) : (
         <button
           className={classes.cancelButton}

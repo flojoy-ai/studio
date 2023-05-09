@@ -5,5 +5,4 @@ export interface AddNodeModalProps {
   afterOpenModal: () => void;
   closeModal: () => void;
   onAdd: NodeOnAddFunc;
-  theme: "light" | "dark";
 }

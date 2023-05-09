@@ -30,15 +30,15 @@ import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useMantineColorScheme } from "@mantine/styles";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab: React.FC<FlowChartProps> = ({
+const FlowChartTab = ({
   results,
-  theme,
   rfInstance,
   setRfInstance,
   clickedElement,
@@ -66,6 +66,8 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+
+  const theme = useMantineColorScheme().colorScheme;
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),

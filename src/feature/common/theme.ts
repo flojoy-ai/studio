@@ -36,6 +36,18 @@ export const lightTheme: MantineThemeOverride = {
   ...shared,
   colorScheme: "light",
   colors: {
+    gray: [
+      "#f8f9fa",
+      "#f1f3f5",
+      "#e9ecef",
+      "#dee2e6",
+      "#ced4da",
+      "#adb5bd",
+      "#868e96",
+      "#495057",
+      "#343a40",
+      "#212529",
+    ],
     modal: ["#f4f4f4"],
     title: ["#111111"],
     text: ["#8c9699"],

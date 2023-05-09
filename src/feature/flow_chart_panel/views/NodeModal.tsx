@@ -4,6 +4,24 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { NodeModalProps } from "../types/NodeModalProps";
+import { createStyles } from "@mantine/styles";
+
+const useStyles = createStyles((theme) => {
+  return {
+    closeButton: {
+      margin: 5,
+      cursor: "pointer",
+      position: "absolute",
+      top: 0,
+      right: 0,
+      background: "transparent",
+      zIndex: 99,
+      "&:hover": {
+        color: theme.colors.red[7],
+      },
+    },
+  };
+});
 
 function NodeModal({
   modalIsOpen,
@@ -18,6 +36,7 @@ function NodeModal({
   theme,
   clickedElement,
 }: NodeModalProps) {
+  const { classes } = useStyles();
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -27,7 +46,11 @@ function NodeModal({
       ariaHideApp={false}
       contentLabel=""
     >
-      <button onClick={closeModal} className="ctrl-close-btn">
+      <button
+        onClick={closeModal}
+        data-cy="ctrl-close-btn"
+        className={classes.closeButton}
+      >
         x
       </button>
 

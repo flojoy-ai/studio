@@ -5,7 +5,6 @@ import { Node, ReactFlowJsonObject } from "reactflow";
 
 export interface FlowChartProps {
   results: ResultsType;
-  theme: "light" | "dark";
   rfInstance: ReactFlowJsonObject;
   setRfInstance: (
     update?:

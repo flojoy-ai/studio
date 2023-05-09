@@ -7,13 +7,14 @@ import {
   OutputControlsManifest,
 } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { modalStyles } from "@src/feature/controls_panel/style/ControlModalStyles";
+import { useMantineTheme } from "@mantine/styles";
+import { Box } from "@mantine/core";
 
 interface AddCtrlModalProps {
   isOpen: boolean;
   afterOpenModal: () => void;
   closeModal: () => void;
   addCtrl: (ctrlObj: Partial<CtlManifestType>) => void;
-  theme: "dark" | "light";
 }
 
 const AddCtrlModal = ({
@@ -21,15 +22,16 @@ const AddCtrlModal = ({
   afterOpenModal,
   closeModal,
   addCtrl,
-  theme,
 }: AddCtrlModalProps) => {
+  const theme = useMantineTheme();
+  const accent =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
   const [activeTab, setActiveTab] = useState("input");
   const activeBtnStyle = {
     height: "100%",
-    borderBottom:
-      theme === "dark"
-        ? "2px solid rgb(153, 245, 255)"
-        : "2px solid rgba(123, 97, 255, 1)",
+    borderBottom: `2px solid ${accent}`,
   };
 
   return (
@@ -37,7 +39,7 @@ const AddCtrlModal = ({
       isOpen={isOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
-      style={modalStyles}
+      style={modalStyles(theme)}
       ariaHideApp={false}
       contentLabel="Choose a Ctrl..."
     >
@@ -53,11 +55,11 @@ const AddCtrlModal = ({
           }}
         />
       </button>
-      <div
+      <Box
         className="flex tab-panel"
         style={{
           borderBottom:
-            theme === "dark"
+            theme.colorScheme === "dark"
               ? "1px solid rgb(47, 46, 46)"
               : "1px solid rgba(217, 217, 217, 1)",
           alignItems: "center",
@@ -82,9 +84,9 @@ const AddCtrlModal = ({
         >
           Outputs
         </button>
-      </div>
+      </Box>
       {activeTab === "input" && (
-        <div
+        <Box
           className="flex"
           style={{
             gap: "16px",
@@ -111,10 +113,10 @@ const AddCtrlModal = ({
               </button>
             </Fragment>
           ))}
-        </div>
+        </Box>
       )}
       {activeTab === "output" && (
-        <div
+        <Box
           className="flex"
           style={{
             gap: "16px",
@@ -141,7 +143,7 @@ const AddCtrlModal = ({
               </button>
             </Fragment>
           ))}
-        </div>
+        </Box>
       )}
     </ReactModal>
   );

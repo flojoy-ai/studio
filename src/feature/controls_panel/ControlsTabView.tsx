@@ -25,21 +25,21 @@ import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
   results: ResultsType;
-  theme: "light" | "dark";
   setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
   openCtrlModal: boolean;
 }
 
 const ControlsTab = ({
   results,
-  theme,
   setOpenCtrlModal,
   openCtrlModal,
 }: ControlsTabProps) => {
+  const theme = useMantineTheme();
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
 
@@ -197,13 +197,12 @@ const ControlsTab = ({
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
         addCtrl={addCtrl}
-        theme={theme}
       />
       <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={() => setOpenEditModal(false)}
-        style={modalStyles}
+        style={modalStyles(theme)}
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
