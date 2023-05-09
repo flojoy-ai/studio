@@ -4,7 +4,7 @@ import PreJobOperationShow from "@src/feature/common/PreJobOperationShow";
 jest.mock("@mantine/core", () => ({
   __esModule: true,
   default: jest.fn(({ children }) => (
-    <div data-testid="react-modal">{children}</div>
+    <div>{children}</div>
   )),
   Modal: jest.fn(({ children }) => <div>{children}</div>),
 }));
