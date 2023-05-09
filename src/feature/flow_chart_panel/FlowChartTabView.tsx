@@ -30,7 +30,7 @@ import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useMantineColorScheme } from "@mantine/styles";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 
 localforage.config({
   name: "react-flow",
@@ -67,7 +67,7 @@ const FlowChartTab = ({
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
-  const theme = useMantineColorScheme().colorScheme;
+  const theme = useMantineTheme();
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
@@ -76,8 +76,8 @@ const FlowChartTab = ({
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
-    overlay: { zIndex: 99 },
-    content: { zIndex: 100 },
+    overlay: { zIndex: 99, backgroundColor: theme.colors.modal[0] + "7f" },
+    content: { zIndex: 100, backgroundColor: theme.colors.modal[0] },
   };
 
   const onNodeClick: NodeMouseHandler = (_, node) => {
@@ -200,7 +200,6 @@ const FlowChartTab = ({
         nodeLabel={nodeLabel}
         nodeType={nodeType}
         pythonString={pythonString}
-        theme={theme}
       />
     </ReactFlowProvider>
   );

@@ -3,8 +3,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 // import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
-import { NodeModalProps } from "../types/NodeModalProps";
-import { createStyles } from "@mantine/styles";
+import { createStyles, useMantineColorScheme } from "@mantine/styles";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -23,7 +22,20 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-function NodeModal({
+type NodeModalProps = {
+  modalIsOpen: boolean;
+  afterOpenModal: () => void;
+  closeModal: () => void;
+  modalStyles: ReactModal.Styles;
+  nodeLabel: any;
+  nodeType: any;
+  nd: any;
+  defaultLayout: any;
+  clickedElement: any;
+  pythonString: string;
+};
+
+const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
@@ -33,10 +45,10 @@ function NodeModal({
   nd,
   pythonString,
   defaultLayout,
-  theme,
   clickedElement,
-}: NodeModalProps) {
+}: NodeModalProps) => {
   const { classes } = useStyles();
+  const theme = useMantineColorScheme().colorScheme;
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -116,6 +128,6 @@ function NodeModal({
       </SyntaxHighlighter>
     </ReactModal>
   );
-}
+};
 
 export default NodeModal;
