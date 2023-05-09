@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import "./node-wrapper.css";
 import { useSocket } from "@src/hooks/useSocket";
 import { Box, createStyles, Text } from "@mantine/core";
 
