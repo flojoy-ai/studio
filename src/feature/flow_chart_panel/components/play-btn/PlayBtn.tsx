@@ -11,44 +11,43 @@ interface PlayBtnProps {
 
 const useStyles = createStyles((theme) => ({
   btnPlay: {
-    width: '200%',
-    height: '100%',
-    left: '-20%',
+    width: "200%",
+    height: "100%",
+    left: "-20%",
     fontSize: 12,
     fontWeight: 700,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 6,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     outline: 0,
-    padding: 'padding: 8px 12px 8px 12px',
-    cursor: 'pointer',
-    position: 'relative',
-    transition: 'transform ease-in 0.1s, box-shadow ease-in 0.25s',
-    WebkitAppearance: 'none',
-    appearance: 'none',
+    padding: "padding: 8px 12px 8px 12px",
+    cursor: "pointer",
+    position: "relative",
+    transition: "transform ease-in 0.1s, box-shadow ease-in 0.25s",
+    WebkitAppearance: "none",
+    appearance: "none",
     backgroundColor: theme.colors.modal[0],
     color: theme.colors.accent1[0],
     border: `1px solid ${theme.colors.accent1[0]}`,
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.colors.accent1[1],
     },
-    '&:disabled, &:disabled:hover': {
-      color: '#b5b5b5',
-      backgroundColor: '#e9ecef',
+    "&:disabled, &:disabled:hover": {
+      color: "#b5b5b5",
+      backgroundColor: "#e9ecef",
       border: 0,
-      cursor: 'not-allowed',
+      cursor: "not-allowed",
     },
-    '&:disabled > svg > path': {
-      fill: '#b5b5b5',
+    "&:disabled > svg > path": {
+      fill: "#b5b5b5",
     },
-    '&:focus': {
+    "&:focus": {
       outline: 0,
     },
   },
 }));
-
 
 const PlayBtn = ({ theme, onClick, style, disabled = false }: PlayBtnProps) => {
   const ButtonElem = useRef<HTMLButtonElement>(null);
@@ -65,7 +64,7 @@ const PlayBtn = ({ theme, onClick, style, disabled = false }: PlayBtnProps) => {
       onClick(e);
     }
   };
-  const {classes} = useStyles();
+  const { classes } = useStyles();
 
   return (
     <button

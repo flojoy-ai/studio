@@ -1,7 +1,7 @@
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import React from "react";
 import ReactModal from "react-modal";
-import {createStyles, useMantineTheme } from "@mantine/core"
+import { createStyles, useMantineTheme } from "@mantine/core";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     top: 15,
     right: 10,
     padding: 0,
-    color: theme.colors.accent1[0]
+    color: theme.colors.accent1[0],
   },
   container: {
     display: "flex",
@@ -47,57 +47,54 @@ const useStyles = createStyles((theme) => ({
     height: "100%",
     width: "100%",
     padding: 24,
-    backgroundColor: theme.colors.modal[0]
+    backgroundColor: theme.colors.modal[0],
   },
   column: {
     width: "100%",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    fontFamily: 'Inter',
+    fontWeight: "bold",
+    fontFamily: "Inter",
     marginBottom: 10,
   },
   platformName: {
-    color: '#3d7ff2',
+    color: "#3d7ff2",
   },
   list: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
     padding: theme.spacing.md, // 24px
     gap: theme.spacing.xs, // 8px
-    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.15)',
+    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.15)",
     borderRadius: theme.radius.md, // 8px
     backgroundColor: theme.colors.modal[0],
     color: theme.colors.text[0],
     border: `1px solid ${theme.colors.modal[0]}`,
-    width: '100%',
+    width: "100%",
   },
   listItem: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     padding: theme.spacing.xs, // 8px
-    width: '100%',
-    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.1)',
+    width: "100%",
+    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
     borderRadius: theme.radius.xs, // 2px
   },
   commandKey: {
-    color: '#3d7ff2',
+    color: "#3d7ff2",
   },
 }));
-
-
-
 
 const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
   isOpen,
   onClose,
 }) => {
-  const {classes} = useStyles();
-  const themeMantine = useMantineTheme()
+  const { classes } = useStyles();
+  const themeMantine = useMantineTheme();
   const reactModalStyle: ReactModal.Styles = {
     content: {
       borderRadius: "8px",
@@ -106,7 +103,7 @@ const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
       position: "relative",
       inset: 0,
       padding: 0,
-      backgroundColor: themeMantine.colors.modal[0]
+      backgroundColor: themeMantine.colors.modal[0],
     },
     overlay: {
       zIndex: 100,
@@ -118,7 +115,6 @@ const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: themeMantine.colors.modal[0],
-      
     },
   };
   return (
@@ -149,10 +145,7 @@ const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
 
               <div className={classes.list}>
                 {keyboardShortcuts.map((shortcut) => (
-                  <div
-                    className={classes.listItem}
-                    key={shortcut.command}
-                  >
+                  <div className={classes.listItem} key={shortcut.command}>
                     <span>{shortcut.command}</span>
                     <span className={classes.commandKey}>
                       {shortcut.platforms[platform.key]}
