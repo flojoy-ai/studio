@@ -6,6 +6,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import Control from "./Control";
+import { useMantineColorScheme } from "@mantine/styles";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -14,6 +15,7 @@ export default function ControlGrid({
 }: {
   controlProps: ControlProps;
 }) {
+  const theme = useMantineColorScheme().colorScheme;
   const { ctrlsManifest, gridLayout, setGridLayout } = useFlowChartState();
   const { isEditMode } = controlProps;
 
@@ -61,7 +63,7 @@ export default function ControlGrid({
               static: !isEditMode,
             }}
             style={{
-              ...(controlProps.theme === "dark" && {
+              ...(theme === "dark" && {
                 backgroundColor: "#191919",
               }),
               borderRadius: "16px",

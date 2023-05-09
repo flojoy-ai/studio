@@ -4,7 +4,7 @@ import "@src/App.css";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import ControlComponent from "./control-component/ControlComponent";
-import { Box } from "@mantine/core";
+import { Box, useMantineColorScheme } from "@mantine/core";
 
 export default function Control({
   controlProps,
@@ -15,7 +15,6 @@ export default function Control({
 }) {
   const {
     isEditMode,
-    theme,
     results,
     updateCtrlValue,
     attachParamsToCtrl,
@@ -23,6 +22,8 @@ export default function Control({
     setCurrentInput,
     setOpenEditModal,
   } = controlProps;
+
+  const theme = useMantineColorScheme().colorScheme;
 
   return (
     <Box

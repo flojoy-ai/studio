@@ -243,7 +243,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
-        theme={colorScheme}
       />
     </Box>
   );

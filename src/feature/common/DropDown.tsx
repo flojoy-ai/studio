@@ -1,5 +1,5 @@
+import { Box, createStyles } from "@mantine/core";
 import React, { useRef } from "react";
-import { Box, createStyles, useMantineColorScheme } from "@mantine/core";
 
 const useStyles = createStyles((theme) => {
   return {

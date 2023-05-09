@@ -182,7 +182,6 @@ const ControlsTab = ({
     <div data-testid="controls-tab">
       <ControlGrid
         controlProps={{
-          theme,
           isEditMode,
           results,
           updateCtrlValue,

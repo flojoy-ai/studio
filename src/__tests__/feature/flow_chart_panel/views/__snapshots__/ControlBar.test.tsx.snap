@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Controls should render correctly: __main__ 1`] = `
+exports[`Controls should renderWithTheme correctly: __main__ 1`] = `
 <div>
   <div
-    class="save__controls"
+    class="mantine-1mo5lls"
   >
     <button
-      class="btn__play dark"
+      class="mantine-8mgm8e"
       data-cy="btn-play"
       data-testid="btn-play"
       disabled=""
@@ -21,7 +21,7 @@ exports[`Controls should render correctly: __main__ 1`] = `
       >
         <path
           d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
-          fill="#99F5FF"
+          fill="#99f5ff"
         />
       </svg>
       <span>
@@ -35,16 +35,17 @@ exports[`Controls should render correctly: __main__ 1`] = `
       KeyboardShortcutModal
     </div>
   </div>
+  ,
 </div>
 `;
 
 exports[`Controls should show the Edit button when active tab is 'panel': __switch_btn__ 1`] = `
 <div>
   <div
-    class="save__controls"
+    class="mantine-1mo5lls"
   >
     <button
-      class="btn__play dark"
+      class="mantine-8mgm8e"
       data-cy="btn-play"
       data-testid="btn-play"
       disabled=""
@@ -59,7 +60,7 @@ exports[`Controls should show the Edit button when active tab is 'panel': __swit
       >
         <path
           d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
-          fill="#99F5FF"
+          fill="#99f5ff"
         />
       </svg>
       <span>
@@ -70,16 +71,15 @@ exports[`Controls should show the Edit button when active tab is 'panel': __swit
       Dropdown
     </div>
     <div
-      class="switch_container"
-      style="padding-right: 4px;"
+      class="mantine-15fjqzh"
     >
-      <span
+      <div
+        class="mantine-Text-root mantine-1gamrgd"
         data-cy="operation-switch"
         data-testid="operation-switch"
-        style="cursor: pointer; font-size: 14px; color: rgb(255, 255, 255);"
       >
         Edit
-      </span>
+      </div>
       <div
         data-testid="react-switch"
       />
@@ -88,5 +88,6 @@ exports[`Controls should show the Edit button when active tab is 'panel': __swit
       KeyboardShortcutModal
     </div>
   </div>
+  ,
 </div>
 `;

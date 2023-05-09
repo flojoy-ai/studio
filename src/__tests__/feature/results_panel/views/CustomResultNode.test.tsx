@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react";
 import CustomResultNode from "@src/feature/results_panel/views/CustomResultNode";
 import { ResultNodeData } from "@src/feature/results_panel/types/ResultsType";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 jest.mock("reactflow", () => {
   const Handle = jest.fn().mockReturnValue(<div>Handle Component</div>);
@@ -45,8 +45,10 @@ describe("CustomResultNode", () => {
       },
     },
   };
-  it("renders a PlotlyComponent if result data is provided", () => {
-    const { container, getByTestId } = render(<CustomResultNode data={data} />);
+  it("renderWithThemes a PlotlyComponent if result data is provided", () => {
+    const { container, getByTestId } = renderWithTheme(
+      <CustomResultNode data={data} />
+    );
     const resultNode = getByTestId("result-node");
     expect(resultNode).toBeInTheDocument();
     const plotlyComponent = resultNode.querySelector(`#${data.id}`);
@@ -55,8 +57,8 @@ describe("CustomResultNode", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("renders a 'NO Result' message if no result data is provided", () => {
-    const { getByText } = render(
+  it("renderWithThemes a 'NO Result' message if no result data is provided", () => {
+    const { getByText } = renderWithTheme(
       <CustomResultNode data={{ ...data, resultData: undefined }} />
     );
     expect(getByText("NO Result")).toBeInTheDocument();

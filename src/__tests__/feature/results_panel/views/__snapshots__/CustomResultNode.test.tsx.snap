@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1`] = `
+exports[`CustomResultNode renderWithThemes a PlotlyComponent if result data is provided 1`] = `
 <div>
   <div
     data-testid="result-node"
@@ -19,5 +19,6 @@ exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1
       PlotlyComponent
     </div>
   </div>
+  ,
 </div>
 `;

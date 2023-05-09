@@ -37,5 +37,6 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       </button>
     </div>
   </div>
+  ,
 </div>
 `;

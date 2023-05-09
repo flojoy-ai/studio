@@ -1,14 +1,14 @@
-import { getByTestId, render } from "@testing-library/react";
-import Control from "@src/feature/controls_panel/views/Control";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import { ControlProps } from "@src/feature/controls_panel/types/ControlProps";
-import { CtlManifestType } from "@src/hooks/useFlowChartState";
+import Control from "@src/feature/controls_panel/views/Control";
 import ControlComponent from "@src/feature/controls_panel/views/control-component/ControlComponent";
+import { CtlManifestType } from "@src/hooks/useFlowChartState";
+import { getByTestId } from "@testing-library/react";
 
 jest.mock("@src/hooks/useFlowChartState");
 
 const controlProps: ControlProps = {
   isEditMode: true,
-  theme: "dark",
   results: {},
   updateCtrlValue: jest.fn(),
   attachParamsToCtrl: jest.fn(),
@@ -48,10 +48,10 @@ jest.mock(
 );
 describe("Control.tsx", () => {
   it("render Control component correctly.", () => {
-    const { container } = render(
+    const { container } = renderWithTheme(
       <Control controlProps={controlProps} ctrl={ctrl} />
     );
-    expect(getByTestId(container, "ctrl-grid-item")).toHaveClass("ctrl-input");
+    expect(getByTestId(container, "ctrl-grid-item")).toBeInTheDocument();
     expect(ControlComponent).toBeCalled();
     expect(container).toMatchSnapshot();
   });

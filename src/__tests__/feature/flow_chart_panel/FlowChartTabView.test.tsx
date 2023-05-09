@@ -1,12 +1,11 @@
-import { render } from "@testing-library/react";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 const props: FlowChartProps = {
   results: {
     io: [],
   },
-  theme: "dark",
   rfInstance: {
     nodes: [],
     edges: [],
@@ -102,11 +101,10 @@ window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
 
 describe("FlowChartTabView", () => {
-  it("should render the component correcty", () => {
-    const { container } = render(
+  it("should renderWithTheme the component correcty", () => {
+    const { container } = renderWithTheme(
       <FlowChartTab
         results={props.results}
-        theme={props.theme}
         rfInstance={props.rfInstance}
         setRfInstance={props.setRfInstance}
         clickedElement={props.clickedElement}
@@ -121,10 +119,9 @@ describe("FlowChartTabView", () => {
     ["react-flow", "react-flow"],
     ["NodeModal component", "node-modal"],
   ])("should contain %p component", (msg, testId) => {
-    const { getByTestId, getAllByTestId } = render(
+    const { getByTestId, getAllByTestId } = renderWithTheme(
       <FlowChartTab
         results={props.results}
-        theme={props.theme}
         rfInstance={props.rfInstance}
         setRfInstance={props.setRfInstance}
         clickedElement={props.clickedElement}
@@ -144,10 +141,9 @@ describe("FlowChartTabView", () => {
   });
 
   it("checks the reactflow style", () => {
-    const { getAllByTestId } = render(
+    const { getAllByTestId } = renderWithTheme(
       <FlowChartTab
         results={props.results}
-        theme={props.theme}
         rfInstance={props.rfInstance}
         setRfInstance={props.setRfInstance}
         clickedElement={props.clickedElement}

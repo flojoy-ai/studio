@@ -1,9 +1,10 @@
-import { fireEvent, render } from "@testing-library/react";
-import AddCtrlModal from "@src/feature/controls_panel/views/AddCtrlModal";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import {
   InputControlsManifest,
   OutputControlsManifest,
 } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import AddCtrlModal from "@src/feature/controls_panel/views/AddCtrlModal";
+import { fireEvent } from "@testing-library/react";
 
 describe("AddCtrlModal.tsx", () => {
   const props = {
@@ -13,38 +14,35 @@ describe("AddCtrlModal.tsx", () => {
     addCtrl: jest.fn(),
   };
   it("render AddCtrlModal correctly.", () => {
-    const { container } = render(
+    const { container } = renderWithTheme(
       <AddCtrlModal
         isOpen={props.isOpen}
         afterOpenModal={props.afterOpenModal}
         addCtrl={props.addCtrl}
         closeModal={props.closeModal}
-        theme={"dark"}
       />
     );
     expect(container).toMatchSnapshot();
   });
   it("should fire closeModal function on clicking close button.", () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <AddCtrlModal
         isOpen={props.isOpen}
         afterOpenModal={props.afterOpenModal}
         addCtrl={props.addCtrl}
         closeModal={props.closeModal}
-        theme={"dark"}
       />
     );
     fireEvent.click(getByTestId("add-ctrl-modal-close"));
     expect(props.closeModal).toBeCalledTimes(1);
   });
   it("render all input ctrls in modal by default.", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithTheme(
       <AddCtrlModal
         isOpen={props.isOpen}
         afterOpenModal={props.afterOpenModal}
         addCtrl={props.addCtrl}
         closeModal={props.closeModal}
-        theme={"dark"}
       />
     );
     InputControlsManifest.forEach((ctrl) => {
@@ -52,13 +50,12 @@ describe("AddCtrlModal.tsx", () => {
     });
   });
   it("should switch to outputs tab on clicking `outputs` button.", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithTheme(
       <AddCtrlModal
         isOpen={props.isOpen}
         afterOpenModal={props.afterOpenModal}
         addCtrl={props.addCtrl}
         closeModal={props.closeModal}
-        theme={"dark"}
       />
     );
     fireEvent.click(getByText("Outputs"));

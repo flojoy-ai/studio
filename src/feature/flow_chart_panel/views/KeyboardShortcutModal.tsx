@@ -5,7 +5,6 @@ import { createStyles, useMantineTheme } from "@mantine/core";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
-  theme: "dark" | "light";
 }
 
 //all existing styles in this file should be made using createStyles
@@ -89,10 +88,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
-  isOpen,
-  onClose,
-}) => {
+const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
   const { classes } = useStyles();
   const themeMantine = useMantineTheme();
   const reactModalStyle: ReactModal.Styles = {

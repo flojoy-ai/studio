@@ -1,5 +1,6 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 import Sidebar from "@src/feature/flow_chart_panel/SideBar/Sidebar";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 class ResizeObserver {
   observe() {}
@@ -31,20 +32,20 @@ jest.mock(
 window.ResizeObserver = ResizeObserver as any;
 
 describe("Sidebar", () => {
-  it("should render the component correctly", () => {
-    const { container } = render(<Sidebar />);
+  it("should renderWithTheme the component correctly", () => {
+    const { container } = renderWithTheme(<Sidebar />);
     expect(container).toMatchSnapshot();
   });
 
   it("checks the add button to be in the document", () => {
-    const { getByTestId } = render(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar />);
     const addButton = getByTestId("add-node-button");
 
     expect(addButton).toBeInTheDocument();
   });
 
   it("fires The click event in add node, and checks if the classname of the navbar changes or not", () => {
-    const { getByTestId } = render(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar />);
 
     const addButton = getByTestId("add-node-button");
 
@@ -57,7 +58,7 @@ describe("Sidebar", () => {
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
-    const { getByTestId } = render(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar />);
     const input: any = getByTestId("sidebar-input");
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");

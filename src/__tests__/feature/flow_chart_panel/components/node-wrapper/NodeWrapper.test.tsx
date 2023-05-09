@@ -1,7 +1,8 @@
-import NodeWrapper from "@src/feature/flow_chart_panel/components/node-wrapper/NodeWrapper";
+import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useSocket");
@@ -21,8 +22,8 @@ const elementData = {
 };
 
 describe("NodeWrapper component", () => {
-  it("Should render the component and match snapshot.", () => {
-    const { container } = render(
+  it("Should renderWithTheme the component and match snapshot.", () => {
+    const { container } = renderWithTheme(
       <NodeWrapper data={elementData}>
         <div></div>
       </NodeWrapper>
@@ -30,7 +31,7 @@ describe("NodeWrapper component", () => {
     fireEvent.mouseEnter(container);
     expect(container).toMatchSnapshot();
   });
-  it("Given failedNode equals to node id and failureReason, should render error popup on hover.", () => {
+  it("Given failedNode equals to node id and failureReason, should renderWithTheme error popup on hover.", () => {
     const errorMessage = "Unexpected error occured!";
     (useSocket as jest.Mock).mockReturnValue({
       states: {
@@ -40,7 +41,7 @@ describe("NodeWrapper component", () => {
     (useFlowChartState as jest.Mock).mockReturnValue({
       failedNode: "test-123",
     });
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <NodeWrapper data={elementData}>
         <div></div>
       </NodeWrapper>

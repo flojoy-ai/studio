@@ -150,7 +150,7 @@ const Sidebar = () => {
               cursor: "pointer",
             }}
           >
-            <CloseIconSvg theme={theme.colorScheme} />
+            <CloseIconSvg />
           </button>
         </Navbar.Section>
 

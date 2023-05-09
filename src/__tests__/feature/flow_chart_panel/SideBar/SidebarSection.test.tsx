@@ -1,5 +1,6 @@
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import SidebarSection from "@src/feature/flow_chart_panel/SideBar/SidebarSection";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 class ResizeObserver {
   observe() {}
@@ -43,20 +44,20 @@ jest.mock("uuid", () => {
 describe("SidebarSection", () => {
   window.ResizeObserver = ResizeObserver as any;
   it("matches snapshot", () => {
-    const { container } = render(
+    const { container } = renderWithTheme(
       <SidebarSection title={items.title} child={items.child} />
     );
     expect(container).toMatchSnapshot();
   });
   it("checks the section button in document", () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <SidebarSection title={items.title} child={items.child} />
     );
     const button = getByTestId("sidebar-subsection-button");
     expect(button).toBeInTheDocument();
   });
   it("checks if the collapse tab is open when the button is clicked", () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <SidebarSection title={items.title} child={items.child} />
     );
     const sectionButton = getByTestId("sidebar-subsection-button");

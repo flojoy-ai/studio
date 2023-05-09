@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlowChartTabView should render the component correcty 1`] = `
+exports[`FlowChartTabView should renderWithTheme the component correcty 1`] = `
 <div>
   <div
     data-testid="react-flow-provider"
@@ -11,7 +11,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       style="height: calc(100vh - 110px);"
     >
       <div
-        style="position: relative;"
+        class="mantine-n8y7xk"
       />
       <div
         data-testid="react-flow"
@@ -21,5 +21,6 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       data-testid="node-modal"
     />
   </div>
+  ,
 </div>
 `;

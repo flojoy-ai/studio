@@ -53,7 +53,7 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const theme = useMantineColorScheme();
+  const theme = useMantineColorScheme().colorScheme;
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;

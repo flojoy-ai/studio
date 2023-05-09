@@ -1,5 +1,6 @@
-import { fireEvent, getAllByText, render } from "@testing-library/react";
+import { fireEvent, getAllByText } from "@testing-library/react";
 import KeyboardShortcutModal from "@src/feature/flow_chart_panel/views/KeyboardShortcutModal";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 const testId = "keyboard_shortcut_modal";
 // mock ReactModal component
@@ -14,18 +15,13 @@ jest.mock("react-modal", () => {
 
 describe("KeyboardShortcutModal", () => {
   const onCloseMock = jest.fn();
-  const theme = "light";
   beforeEach(() => {
     onCloseMock.mockClear();
   });
 
-  it("renders correctly when isOpen is true", () => {
-    const { getByTestId, getByText } = render(
-      <KeyboardShortcutModal
-        isOpen={true}
-        onClose={onCloseMock}
-        theme={theme}
-      />
+  it("renderWithThemes correctly when isOpen is true", () => {
+    const { getByTestId, getByText } = renderWithTheme(
+      <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
     const modalContent = getByTestId(testId);
     expect(modalContent).toBeInTheDocument();
@@ -35,25 +31,17 @@ describe("KeyboardShortcutModal", () => {
   });
 
   it("calls onClose when the close button is clicked", () => {
-    const { getByRole } = render(
-      <KeyboardShortcutModal
-        isOpen={true}
-        onClose={onCloseMock}
-        theme={theme}
-      />
+    const { getByRole } = renderWithTheme(
+      <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
     const closeButton = getByRole("button");
     fireEvent.click(closeButton);
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 
-  it("renders the correct keyboard shortcuts for each platform", () => {
-    const { getByText, container } = render(
-      <KeyboardShortcutModal
-        isOpen={true}
-        onClose={onCloseMock}
-        theme={theme}
-      />
+  it("renderWithThemes the correct keyboard shortcuts for each platform", () => {
+    const { getByText, container } = renderWithTheme(
+      <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
     const shortcuts = [
       {

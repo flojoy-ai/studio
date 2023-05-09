@@ -9,6 +9,7 @@ import {
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { Data } from "plotly.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { useMantineColorScheme } from "@mantine/styles";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/data/manifests-latest.json", () => {
@@ -21,9 +22,12 @@ jest.mock("@src/data/manifests-latest.json", () => {
   };
 });
 
+jest.mock("@mantine/styles", () => ({
+  useMantineColorScheme: jest.fn(() => ({ colorScheme: "dark" })),
+}));
+
 const testControlComponentProps: ControlComponentStateProps = {
   updateCtrlValue: "myUpdatedValue",
-  theme: "dark",
   ctrlObj: {
     id: "plot-control",
     name: "Plot Control",
