@@ -7,7 +7,7 @@ type Commands = {
   inputs?: { name: string; id: string; type: string }[];
   ui_component_id?: string;
   pip_dependencies?: Array<{
-    package: string;
+    name: string;
     v?: string | number;
   }>;
 }[];
