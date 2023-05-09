@@ -46,11 +46,6 @@ const useStyles = createStyles((theme) => ({
     '&:focus': {
       outline: 0,
     },
-    '&:active': {
-      transform: 'scale(0.8)',
-      backgroundColor: '#00eaff',
-      boxShadow: '0 2px 25px rgba(5, 251, 242, 0.2)',
-    },
   },
 }));
 
