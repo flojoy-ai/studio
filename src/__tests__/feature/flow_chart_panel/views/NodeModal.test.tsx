@@ -12,7 +12,6 @@ const props: NodeModalProps = {
   nd: "test",
   pythonString: "test-python-string",
   defaultLayout: undefined,
-  theme: "dark",
   clickedElement: {},
 };
 
