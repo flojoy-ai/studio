@@ -1,6 +1,5 @@
 import traceback
-
-from dao.redis_dao import RedisDao
+from PYTHON.dao.redis_dao import RedisDao
 
 
 class SmallMemory:

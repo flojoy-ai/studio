@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
@@ -7,6 +7,7 @@ import ControlsTab from "./feature/controls_panel/ControlsTabView";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./feature/common/theme";
 import { GlobalStyles } from "./feature/common/global";
+import { useDisclosure } from "@mantine/hooks";
 
 import "./App.css";
 import { useFlowChartState } from "./hooks/useFlowChartState";
@@ -17,10 +18,17 @@ import { useWindowSize } from "react-use";
 import { useSocket } from "./hooks/useSocket";
 import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import { MantineProvider } from "@mantine/core";
+import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 
 const App = () => {
   const { states } = useSocket();
-  const { serverStatus, programResults, runningNode, failedNode } = states!;
+  const {
+    serverStatus,
+    programResults,
+    runningNode,
+    failedNode,
+    preJobOperation,
+  } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
@@ -33,12 +41,15 @@ const App = () => {
     setRunningNode,
     setFailedNode,
     setCtrlsManifest,
-    setGridLayout,
     loadFlowExportObject,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
     "visual"
   );
+  const [
+    isPrejobModalOpen,
+    { open: openPreJobModal, close: closePreJobModal },
+  ] = useDisclosure(false);
   const { width: windowWidth } = useWindowSize();
   const queryString = window?.location?.search;
   const fileName =
@@ -87,6 +98,14 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileName]);
+  useEffect(() => {
+    if (preJobOperation.isRunning) {
+      openPreJobModal();
+    } else {
+      closePreJobModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preJobOperation]);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -98,6 +117,11 @@ const App = () => {
         }}
       >
         <GlobalStyles />
+        <PreJobOperationShow
+          opened={isPrejobModalOpen}
+          outputs={preJobOperation.output}
+          close={closePreJobModal}
+        />
         <p
           className="App-status"
           data-cy="app-status"

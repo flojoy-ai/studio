@@ -48,6 +48,7 @@ if prev_manifest != False:
         manifest["_v"] = prev_manifest["_v"]
 
 jsonify = json.dumps(obj=manifest, indent=4)
+print("jsonified: ", jsonify)
 result = open("src/data/manifests-latest.json", "w")
 result.write(jsonify)
 result.close()
