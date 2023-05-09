@@ -11,7 +11,7 @@ interface PlayBtnProps {
 
 const useStyles = createStyles((theme) => ({
   btnPlay: {
-    width: 70,
+    width: '200%',
     height: '100%',
     left: '-20%',
     fontSize: 12,
