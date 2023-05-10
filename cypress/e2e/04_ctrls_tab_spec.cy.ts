@@ -49,10 +49,12 @@ describe("Ctrl Tab management", () => {
           )
           .first()
           .click();
+          
         // open dropdown list from input widget
         cy.get("[id^=select-input-]")
           .last()
           .click({ force: true, multiple: true });
+
         // Select current node parameter from dropdown list
         cy.get('[id^="react-select-"][id$="-listbox"]')
           .last()
