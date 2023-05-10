@@ -4,13 +4,14 @@ exports[`Sidebar should renderWithTheme the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-11vjeaa"
+      class="mantine-ux8zbm"
       data-testid="add-node-button"
+      style="position: absolute; width: 104px; height: 43px; left: 0px; top: 110px; margin: 10px; z-index: 1;"
     >
       + Add Node
     </button>
     <nav
-      class="mantine-Navbar-root mantine-1asaphu"
+      class="mantine-Navbar-root mantine-r90bv"
       data-testid="sidebar"
     >
       <div
