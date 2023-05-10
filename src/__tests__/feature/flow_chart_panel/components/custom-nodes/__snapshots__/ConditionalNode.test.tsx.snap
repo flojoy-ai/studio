@@ -13,13 +13,15 @@ exports[`ConditionalNode checks the snapshot 1`] = `
         <div
           style="display: flex; justify-content: center; padding: 5px; width: 100%; flex-direction: column; text-align: center;"
         >
-          <div>
+          <div
+            style="margin-top: 20px;"
+          >
             test
           </div>
           <div />
         </div>
         <div
-          style="display: flex; flex-direction: column; height: 80px;"
+          style="display: flex; flex-direction: column; height: 64px;"
         >
           <div
             data-testid="handle-component"

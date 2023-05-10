@@ -2,7 +2,7 @@ import KnobCtrl, {
   KnobCtrlProps,
 } from "@src/feature/controls_panel/views/KnobCtrl";
 import { render, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 
 const testKnobCtr: KnobCtrlProps = {
   makeLayoutStatic: jest.fn(),
@@ -35,10 +35,11 @@ describe("KnobCtrl Component test", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("KnobCtrl should render with Props", () => {
+  it("KnobCtrl should have hover effect", async () => {
+    const user = userEvent.setup();
     render(<KnobCtrl {...testKnobCtr} />);
-    const outlineDiv = screen.getByTestId("KnobCtrlDiv");
-    user.hover(outlineDiv);
+
+    await user.hover(screen.getByTestId("KnobCtrlDiv"));
     expect(testKnobCtr.makeLayoutStatic).toBeCalled();
   });
 });

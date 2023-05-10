@@ -1,14 +1,6 @@
-import {
-  render,
-  fireEvent,
-  waitFor,
-  getByTestId,
-  screen,
-} from "@testing-library/react";
+import { render } from "@testing-library/react";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
-import { Node, Edge, ReactFlowProvider } from "reactflow";
-import NodeModal from "@src/feature/flow_chart_panel/views/NodeModal";
 
 const props: FlowChartProps = {
   results: {
@@ -100,6 +92,12 @@ jest.mock("@src/configs/NodeConfigs", () => {
 
 jest.mock("@src/hooks/useFlowChartState");
 
+jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
+  return {
+    FUNCTION_PARAMETERS: {},
+  };
+});
+
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
 
@@ -158,6 +156,6 @@ describe("FlowChartTabView", () => {
     );
 
     const componet = getAllByTestId("react-flow")[0];
-    expect(componet).toHaveStyle("height: 99vh");
+    expect(componet).toHaveStyle("height: calc(100vh - 110px)");
   });
 });

@@ -27,5 +27,6 @@
     "outDir": "fe-dist"
   },
   "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules", "dist", "build"]
 }

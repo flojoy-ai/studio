@@ -2,7 +2,7 @@ import {
   CtlManifestType,
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
-import { WritableDraft } from "immer/dist/internal";
+import { Draft } from "immer";
 import { useCallback, useEffect, useState, memo } from "react";
 import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
@@ -16,7 +16,7 @@ export interface KnobCtrlProps {
   setGridLayout: (
     update:
       | ReactGridLayout.Layout[]
-      | ((draft: WritableDraft<ReactGridLayout.Layout>[]) => void)
+      | ((draft: Draft<ReactGridLayout.Layout>[]) => void)
   ) => void;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   currentInputValue: number;

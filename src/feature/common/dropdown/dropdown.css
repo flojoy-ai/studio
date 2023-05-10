@@ -39,10 +39,10 @@
 .dropdown__container.light > button {
   color: #000;
 }
-.dropdown__container.light > button:hover {
+.dropdown__container.light > button:not(.disabled):hover {
   background-color: #d9d9d9;
 }
-.dropdown__container > button:hover {
+.dropdown__container > button:not(.disabled):hover {
   background-color: #94f4fc;
   color: black;
 }

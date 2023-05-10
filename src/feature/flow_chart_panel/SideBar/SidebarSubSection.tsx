@@ -7,7 +7,7 @@ import {
   UnstyledButton,
   createStyles,
 } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { COMMANDS } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { NodeOnAddFunc } from "../types/NodeAddFunc";
@@ -158,10 +158,9 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
       <Collapse data-testid="sidebar-subsection-collapse" in={opened}>
         {subSection.child
           ? subSection.child.map((child) => (
-            <div style={{padding:"10px 10px 0 10px"}}>
-
-              <SidebarSubSection onAdd={onAdd} subSection={child} />
-            </div>
+              <div style={{ padding: "10px 10px 0 10px" }}>
+                <SidebarSubSection onAdd={onAdd} subSection={child} />
+              </div>
             ))
           : items}
       </Collapse>

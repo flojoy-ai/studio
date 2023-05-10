@@ -8,10 +8,10 @@ jest.mock("@src/hooks/useSocket");
 jest.mock("react-switch", () => ({
   __esModule: true,
   default: jest.fn(() => {
-    return <div data-testid='react-switch' />;
-  },)
+    return <div data-testid="react-switch" />;
+  }),
 }));
-jest.mock("react-modal")
+jest.mock("react-modal");
 // Mock saveFlowChartToLocalStorage, saveAndRunFlowChartInServer, and cancelFlowChartRun functions
 jest.mock("@src/services/FlowChartServices", () => ({
   saveFlowChartToLocalStorage: jest.fn(),
@@ -44,12 +44,12 @@ describe("Controls", () => {
     expect(container).toMatchSnapshot("__main__");
   });
   it("should show the Edit button when active tab is 'panel'", () => {
-   const {container} = render(
+    const { container } = render(
       <Controls theme="dark" activeTab="panel" setOpenCtrlModal={jest.fn()} />
     );
     expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
     expect(screen.getByTestId("react-switch")).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__switch_btn__")
+    expect(container).toMatchSnapshot("__switch_btn__");
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
     render(

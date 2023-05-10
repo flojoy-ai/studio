@@ -20,10 +20,13 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
 });
 
 const mockChildComponent = jest.fn();
-jest.mock('@src/feature/flow_chart_panel/SideBar/SidebarSection', () => (props) => {
-  mockChildComponent(props);
-  return <div />;
-});
+jest.mock(
+  "@src/feature/flow_chart_panel/SideBar/SidebarSection",
+  () => (props) => {
+    mockChildComponent(props);
+    return <div />;
+  }
+);
 
 window.ResizeObserver = ResizeObserver as any;
 
@@ -54,8 +57,7 @@ describe("Sidebar", () => {
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
-    const { getByTestId } =
-      render(<Sidebar />);
+    const { getByTestId } = render(<Sidebar />);
     const input: any = getByTestId("sidebar-input");
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");

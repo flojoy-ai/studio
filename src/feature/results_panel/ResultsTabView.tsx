@@ -48,7 +48,7 @@ const ResultsTab = ({ results }: ResultsTabProps) => {
 
   return (
     <ReactFlowProvider>
-      <div style={{ height: `99vh` }} data-testid="results-flow">
+      <div style={{ height: "calc(100vh - 110px)" }} data-testid="results-flow">
         <ReactFlow
           nodes={resultNodes}
           edges={edges}

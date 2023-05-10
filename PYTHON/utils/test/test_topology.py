@@ -1,4 +1,3 @@
-
 # import networkx as nx
 # import pytest
 # from utils.topology import Topology

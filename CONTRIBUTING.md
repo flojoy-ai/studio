@@ -1,14 +1,13 @@
 # Contributing guidelines
 
 ## Git Notes
+
 **1. Cloning** - Use `--recursive` argument when cloning the repository to add all the submodules to the project. For example: `git clone --recursive https://github.com/flojoy-io/studio.git`
 
 **2. Branch Switching** - When switching from one branch to another run following git command to update all the submodules following `git checkout <branch name>` command:
-    ```
-        git submodule update --init --recursive
-    ```
-    
- **3. Commiting & Pushing** - Before pushing your changes to [Flojoy Studio](https://github.com/flojoy-io/studio) repo, make sure to CD into all the submodule directories and make PR's to these repo by creating branch and pushing new changes.
+`    git submodule update --init --recursive`
+
+**3. Commiting & Pushing** - Before pushing your changes to [Flojoy Studio](https://github.com/flojoy-io/studio) repo, make sure to CD into all the submodule directories and make PR's to these repo by creating branch and pushing new changes.
 
 ## How to contribute code
 
@@ -38,10 +37,12 @@ approved.
     ```
 
     Decorate your function with `@flojoy` like below:
+
     ```bash
         @flojoy
         def NODE_NAME(v, params): // use Node name as function name in uppercase
     ```
+
     - `v`: This will receive the output of all the incoming nodes and this will be in `list` format.
     - `params:` A node can have some parameters that can change its behavior. These parameters can be modified in CTRL panel. You have to declare them in manifest file (see below). This will be in `dict` format.
 
@@ -91,14 +92,15 @@ approved.
     ```
 
     **COMMAND:** `COMMAND` is a list of object. Where each object contains:
-    
+
     `name:` Name of the node.
-    
+
     `key:` A string to identify the node uniquely among all nodes.
-    
+
     `type:` A key of sub-category from `COMMAND_MANIFEST.ts` in [`src/feature/flow_chart_panel/manifest/COMMAND_MANIFEST.ts`](https://github.com/flojoy-io/flojoy-desktop/blob/main/src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST.ts)
-    
+
     `parameters:` Parameters which the node expects in it's function's parameter `params`. Ctrl panel uses this manifest to populate UI where users can modify these parameter values. It's an Object, where each key is a parameter name and value is an object of:
+
     - `type:` Type of parameter value should be set to one of `integer`, `string`, `float` or `select`. If you want to add a new type discuss it with the team.
     - `default:` Default value of the parameter.
     - `options:` Array of options, each option should be of the same type as declared.
@@ -120,13 +122,14 @@ approved.
     ```py
         __all__ = ["SINE", "RAND", "CONSTANT", "LINSPACE", "TIMESERIES"]
     ```
+
     Each category function must be listed in their respective `__init__.py` file.
 
-5. Run `python3 write_python_metadata.py` in the root folder.
+5.  Run `python3 write_python_metadata.py` in the root folder.
 
-6. Run `python3 generate_manifest.py` in the root folder.
+6.  Run `python3 generate_manifest.py` in the root folder.
 
-7. **Node Styling** - To be added.
+7.  **Node Styling** - To be added.
 
 ---
 
@@ -141,33 +144,36 @@ Run cypress e2e tests:
 ```
 
 You can also create an example app with your custom node and generate e2e test for it. To do so:
+
 1. Save your example app in `public/example-apps` folder.
 2. Add your app to cypress e2e config file in `cypress/e2e/config_example_app_test.json` with file location from `public/example-apps` and a test key as follows:
-    ```json
-        [
-          { "title": "butterworth/butterworth.txt", "test_id": "withdefaultParam" },
-          { "title": "FIR/FIR.txt", "test_id": "withdefaultParam" },
-          // add your example app here
-        ]
-    ```
-    *note: There can be multiple tests for one example app, in that case their test id must be different from one another.*
+   ```json
+   [
+     { "title": "butterworth/butterworth.txt", "test_id": "withdefaultParam" },
+     { "title": "FIR/FIR.txt", "test_id": "withdefaultParam" }
+     // add your example app here
+   ]
+   ```
+   _note: There can be multiple tests for one example app, in that case their test id must be different from one another._
 3. You can also test your app with your desired parameter values for each node. To do so, you have to add another field called `nodes` which will be an array of object. Here is an example for [`butterworth.txt`](./public/example-apps/butterworth/butterworth.txt):
-    ```json
-         [
-            { "title": "butterworth/butterworth.txt", "test_id": "with_default_param" },
-            { "title": "FIR/FIR.txt", "test_id": "with_default_param" },
-            {
-              "title": "butterworth/butterworth.txt",
-              "test_id": "with_custom_param",
-              "nodes": [
-                {
-                  "id": "LINSPACE-bdd46aa2-4485-4c36-be42-a1746599a92d", // id of the node to use custom parameter value
-                  "params": {
-                    "start": 300
-                  }
-                }
-              ]
-            }
-          ]
-      ```
-
+   ```json
+   [
+     {
+       "title": "butterworth/butterworth.txt",
+       "test_id": "with_default_param"
+     },
+     { "title": "FIR/FIR.txt", "test_id": "with_default_param" },
+     {
+       "title": "butterworth/butterworth.txt",
+       "test_id": "with_custom_param",
+       "nodes": [
+         {
+           "id": "LINSPACE-bdd46aa2-4485-4c36-be42-a1746599a92d", // id of the node to use custom parameter value
+           "params": {
+             "start": 300
+           }
+         }
+       ]
+     }
+   ]
+   ```

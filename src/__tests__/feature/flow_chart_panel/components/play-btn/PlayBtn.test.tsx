@@ -1,7 +1,7 @@
 import { render, fireEvent, screen } from "@testing-library/react";
 import PlayBtn from "@src/feature/flow_chart_panel/components/play-btn/PlayBtn";
 
-const theme = "light"
+const theme = "light";
 
 describe("PlayBtn component", () => {
   it("renders correctly with default props", () => {

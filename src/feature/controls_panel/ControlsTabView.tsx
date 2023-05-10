@@ -155,7 +155,6 @@ const ControlsTab = ({
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
-
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
@@ -193,7 +192,6 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
-
       <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}

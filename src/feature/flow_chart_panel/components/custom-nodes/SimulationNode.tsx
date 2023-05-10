@@ -7,6 +7,7 @@ import {
 import "@feature/flow_chart_panel/components/custom-nodes/css/simulationNode.css";
 import { useEffect } from "react";
 import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 
 const highlightShadow = {
   LINSPACE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
@@ -57,6 +58,9 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
+            <NodeEditButtons />
+          )}
           <div
             style={{
               display: "flex",

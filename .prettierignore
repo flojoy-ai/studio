@@ -1,0 +1,5 @@
+dist/*
+PYTHON/*
+apps/*
+src/data/*
+venv/*
