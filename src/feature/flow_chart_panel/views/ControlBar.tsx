@@ -174,14 +174,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           <Text>Cancel</Text>
         </button>
       )}
-      {isEditMode && activeTab === "panel" && (
-        <AddButton
-          testId={"add-ctrl"}
-          handleClick={() => {
-            setOpenCtrlModal((prev) => !prev);
-          }}
-        />
-      )}
       {activeTab !== "debug" && (
         <DropDown dropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
@@ -249,21 +241,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
 };
 
 export default memo(Controls);
-
-const AddButton = ({ handleClick, testId }) => {
-  const { classes } = useStyles();
-  return (
-    <button
-      data-cy={testId}
-      data-testid={testId}
-      className={clsx(classes.button, classes.addButton)}
-      onClick={handleClick}
-    >
-      <div className={classes.addButtonPlus}>+</div>
-      <div>Add</div>
-    </button>
-  );
-};
 
 const FileButton = () => {
   const theme = useMantineTheme();

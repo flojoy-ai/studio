@@ -7,7 +7,21 @@ import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 
-const useStyles = createStyles((theme) => ({
+export const useAddButtonStyle = createStyles((theme) => {
+  return {
+    addButton: {
+      boxSizing: "border-box",
+      background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
+      border:
+        theme.colorScheme === "dark"
+          ? "1px solid #94F4FC"
+          : "1px solid #E1E4E7",
+      cursor: "pointer",
+    },
+  };
+});
+
+export const useSidebarStyles = createStyles((theme) => ({
   navbarView: {
     paddingBottom: 0,
     position: "absolute",
@@ -15,10 +29,9 @@ const useStyles = createStyles((theme) => ({
     right: "0%",
     top: "110px",
     bottom: "0%",
-    backgroundColor:
-      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
+    backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "calc(100vh - 110px)",
+    height: "100%",
     transition: "500ms",
     zIndex: 1,
   },
@@ -30,23 +43,11 @@ const useStyles = createStyles((theme) => ({
     right: "0%",
     top: "110px",
     bottom: "0%",
-    backgroundColor:
-      theme.colorScheme === "dark" ? "#243438" : theme.colorScheme,
+    backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "100%",
     transition: "300ms",
     zIndex: 1,
-  },
-
-  header: {
-    padding: theme.spacing.md,
-    paddingTop: 0,
-    marginLeft: -theme.spacing.md,
-    marginRight: -theme.spacing.md,
-    color: theme.colorScheme === "dark" ? theme.white : theme.black,
-    borderBottom: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
-    }`,
   },
 
   sections: {
@@ -59,25 +60,22 @@ const useStyles = createStyles((theme) => ({
     paddingBottom: theme.spacing.xl,
   },
 
-  addButton: {
-    boxSizing: "border-box",
-    position: "absolute",
-    width: "104px",
-    height: "43px",
-    left: "0px",
-    top: "110px",
-    background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
-    border:
-      theme.colorScheme === "dark" ? "1px solid #94F4FC" : "1px solid #E1E4E7",
+  button: {
+    outline: "0",
+    border: `1px solid ${theme.colors.accent1[0]}`,
+    backgroundColor: theme.colors.accent1[0],
+    color: theme.colors.accent1[0],
+    padding: "8px 12px 8px 12px",
     cursor: "pointer",
-    zIndex: 1,
+    margin: "5px 5px",
   },
 }));
 
 const Sidebar = () => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
-  const { classes, theme } = useStyles();
+  const { classes, theme } = useSidebarStyles();
+  const addButtonClass = useAddButtonStyle();
 
   const renderSections = () => {
     if (textInput !== "") {
@@ -125,8 +123,17 @@ const Sidebar = () => {
     <div>
       <button
         data-testid="add-node-button"
-        className={classes.addButton}
+        className={addButtonClass.classes.addButton}
         onClick={handleSidebar}
+        style={{
+          position: "absolute",
+          width: "104px",
+          height: "43px",
+          left: "0px",
+          top: "110px",
+          margin: "10px",
+          zIndex: 1,
+        }}
       >
         + Add Node
       </button>
