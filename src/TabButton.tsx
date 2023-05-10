@@ -20,9 +20,15 @@ type TabButtonProps = {
   onClick: () => void;
   active: boolean;
   children?: React.ReactNode;
+  testId?: string;
 };
 
-export const TabButton = ({ onClick, active, children }: TabButtonProps) => {
+export const TabButton = ({
+  onClick,
+  active,
+  children,
+  testId,
+}: TabButtonProps) => {
   const { classes } = useStyles();
 
   return (
@@ -31,7 +37,7 @@ export const TabButton = ({ onClick, active, children }: TabButtonProps) => {
         onClick={onClick}
         className={clsx(classes.button, active && classes.active)}
         color="dark"
-        data-cy="script-btn"
+        data-cy={testId}
       >
         {children}
       </button>

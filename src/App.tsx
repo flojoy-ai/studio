@@ -99,7 +99,6 @@ const App = () => {
               rfInstance={rfInstance!}
               setRfInstance={setRfInstance}
               results={programResults!}
-              theme={theme}
               clickedElement={clickedElement}
               setClickedElement={setClickedElement}
             />
@@ -107,7 +106,6 @@ const App = () => {
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
             <ControlsTab
               results={programResults!}
-              theme={theme}
               openCtrlModal={openCtrlModal}
               setOpenCtrlModal={setOpenCtrlModal}
             />

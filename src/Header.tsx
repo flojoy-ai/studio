@@ -53,21 +53,21 @@ export const Header = ({
         <TabButton
           onClick={() => setCurrentTab("visual")}
           active={currentTab === "visual"}
-          data-cy="script-btn"
+          testId="script-btn"
         >
           SCRIPT
         </TabButton>
         <TabButton
           onClick={() => setCurrentTab("panel")}
           active={currentTab === "panel"}
-          data-cy="ctrls-btn"
+          testId="ctrls-btn"
         >
           CTRLS
         </TabButton>
         <TabButton
           onClick={() => setCurrentTab("debug")}
           active={currentTab === "debug"}
-          data-cy="debug-btn"
+          testId="debug-btn"
         >
           DEBUG
         </TabButton>
