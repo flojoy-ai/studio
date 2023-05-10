@@ -49,9 +49,7 @@ describe("user workflow", () => {
     });
     cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
-    cy.get("[data-cy=operation-switch]")
-      .contains("Edit")
-      .click()
+    cy.get("[data-cy=operation-switch]").contains("Edit").click();
 
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
 
