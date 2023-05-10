@@ -46,7 +46,7 @@
     "backend": "python3 manage.py runserver",
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy-watch",
     "rq-flojoy": "cd PYTHON && OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy",
-    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-flojoy\"",
+    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
     "format": "npx prettier --write . && black . --extend-exclude '/(node_modules)/'",
     "check": "npx prettier --check . && black . --extend-exclude '/(node_modules)/' --check",
     "e2e": "CI=true node_modules/.bin/cypress run --browser chrome",

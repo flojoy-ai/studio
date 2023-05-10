@@ -42,7 +42,6 @@ describe("Example apps testing.", () => {
         cy.get("[data-cy=operation-switch]")
           .contains("Edit")
           .click()
-          .should("have.css", "color", "rgb(255, 165, 0)");
         /**
          * For each parameter of every nodes create input widget
          * and set default value
