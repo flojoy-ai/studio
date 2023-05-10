@@ -1,3 +1,5 @@
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+
 export interface NodeModalProps {
   modalIsOpen: boolean;
   afterOpenModal: () => void;
@@ -5,7 +7,7 @@ export interface NodeModalProps {
   modalStyles: ReactModal.Styles;
   nodeLabel: any;
   nodeType: any;
-  nd: any;
+  nd: ResultIO;
   defaultLayout: any;
   theme: "dark" | "light";
   clickedElement: any;
