@@ -7,10 +7,9 @@ import yaml
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .services.pre_job_service import prepare_jobs
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, dir_path)
+sys.path.insert(0, os.path.abspath("PYTHON"))
+from .services.pre_job_service import prepare_jobs
 
 from PYTHON.services.job_service import JobService
 from .utils.send_to_socket import send_msg_to_socket
@@ -21,10 +20,6 @@ job_service = JobService("flojoy-watch")
 STATUS_CODES = yaml.load(
     open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
 )
-
-
-def test_socket(request):
-    return render(request, "test_socket.html")
 
 
 def report_failure(job, connection, type, value, traceback):

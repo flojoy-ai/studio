@@ -5,6 +5,13 @@ jest.mock("@mantine/core", () => ({
   __esModule: true,
   default: jest.fn(({ children }) => <div>{children}</div>),
   Modal: jest.fn(({ children }) => <div>{children}</div>),
+  useMantineTheme: jest.fn(() => ({
+    colors: {
+      dark: [, , , , , , , , , "#000"],
+      gray: ["gray", , ,],
+      red: [, , , , , , , , "red"],
+    },
+  })),
 }));
 
 describe("PreJobOperationShow", () => {

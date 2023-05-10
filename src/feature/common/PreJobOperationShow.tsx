@@ -1,4 +1,4 @@
-import { Modal } from "@mantine/core";
+import { Modal, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useEffect, useRef } from "react";
@@ -15,6 +15,7 @@ const PreJobOperationShow = ({
 }: PreJobOperationShowProps) => {
   const isMobile = useMediaQuery("(max-width: 50em)");
   const { uiTheme } = useFlowChartState();
+  const theme = useMantineTheme();
   const lastElem = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const PreJobOperationShow = ({
       onClose={close}
       title="Pre job operation"
       overlayProps={{
-        color: uiTheme === "dark" ? "#101113" : "#e9ecef",
+        color: uiTheme === "dark" ? theme.colors.dark[9] : theme.colors.gray[2],
         opacity: 0.55,
         blur: 3,
       }}
@@ -41,8 +42,10 @@ const PreJobOperationShow = ({
           key={`${output}-${i}`}
           ref={i === outputs.length - 1 ? lastElem : null}
           style={{
-            background: "#000",
-            color: output.toLowerCase().includes("error") ? "red" : "#fff",
+            background: theme.colors.dark[9],
+            color: output.toLowerCase().includes("error")
+              ? theme.colors.red[8]
+              : theme.colors.gray[0],
             padding: "10px",
             fontFamily: "monospace",
             whiteSpace: "break-spaces",

@@ -3,13 +3,12 @@ from PYTHON.common.CONSTANTS import (
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
 )
-from PYTHON.dao.redis_dao import RedisDao
-from PYTHON.node_sdk.small_memory import SmallMemory
+from dao.redis_dao import RedisDao
+from node_sdk.small_memory import SmallMemory
 from rq import Queue
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
 from rq.job import Job, NoSuchJobError
-import subprocess
 
 
 def report_failure(job, connection, type, value, traceback):
