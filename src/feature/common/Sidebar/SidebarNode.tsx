@@ -30,11 +30,11 @@ export const useSidebarStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.accent1[0],
   },
 
-  button: {
+  buttonLeafNode: {
     outline: "0",
-    border: `1px solid ${theme.colors.accent1[0]}`,
-    backgroundColor: theme.colors.accent1[0],
-    color: theme.colors.accent1[0],
+    border: `1px solid ${theme.colors.accent4[0]}`,
+    backgroundColor: theme.colors.accent4[1],
+    color: theme.colors.accent4[0],
     padding: "8px 12px 8px 12px",
     cursor: "pointer",
     margin: "5px 5px",
@@ -48,7 +48,7 @@ const SidebarNode = ({ onClickHandle, keyNode, manifestMap, depth }) => {
   if (!cmd) return null;
   return (
     <button
-      className={classes.button}
+      className={classes.buttonLeafNode}
       onClick={() => {
         onClickHandle();
         // onClickHandle({

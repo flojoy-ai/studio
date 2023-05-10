@@ -62,6 +62,15 @@ const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[3]
     }`,
   },
+  button: {
+    outline: "0",
+    border: "1px solid rgba(153, 245, 255, 1)",
+    backgroundColor: "rgba(153, 245, 255, 0.2)",
+    color: "rgba(153, 245, 255, 1)",
+    padding: "8px 12px 8px 12px",
+    cursor: "pointer",
+    margin: "5px 5px",
+  },
   buttonDark: {
     outline: "0",
     border: "1px solid rgba(153, 245, 255, 1)",
