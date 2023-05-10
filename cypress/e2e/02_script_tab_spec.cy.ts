@@ -16,7 +16,7 @@ describe("Script Tab Functionalities", () => {
         force: true,
       });
       cy.contains("h1", node.funcName, { matchCase: false });
-      cy.get(".ctrl-close-btn").click({ force: true });
+      cy.get("[data-cy=ctrl-close-btn]").click({ force: true });
     });
   });
 });
