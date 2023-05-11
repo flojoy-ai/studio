@@ -29,6 +29,7 @@ import {
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { createStyles } from "@mantine/core";
 import { AddCTRLBtn } from "./AddCTRLBtn";
+import { EditSwitch } from "./EditSwitch";
 
 const App = () => {
   const { states } = useSocket();
@@ -144,7 +145,7 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             {/* add node button currently in the sidebar, to be refactored */}
-            <Sidebar /> 
+            <Sidebar />
 
             <FlowChartTab
               rfInstance={rfInstance!}
@@ -157,11 +158,23 @@ const App = () => {
 
           {/* Tab view containing controls */}
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-            <AddCTRLBtn
-              setCTRLSideBarStatus={setCTRLSideBarStatus}
-              setIsEditMode={setIsEditMode}
-              isCTRLSideBarOpen={isCTRLSideBarOpen}
-            />
+            <div
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddCTRLBtn
+                setCTRLSideBarStatus={setCTRLSideBarStatus}
+                setIsEditMode={setIsEditMode}
+                isCTRLSideBarOpen={isCTRLSideBarOpen}
+              />
+              <EditSwitch
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+              />
+            </div>
 
             <SidebarCustom
               sections={CTRL_TREE}
