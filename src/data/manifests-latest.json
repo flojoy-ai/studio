@@ -91,8 +91,8 @@
             }
         },
         {
-            "name": "STEPPERDRIVER_TIC_KNOB",
-            "key": "STEPPERDRIVER_TIC_KNOB",
+            "name": "STEPPER_DRIVER_TIC_KNOB",
+            "key": "STEPPER_DRIVER_TIC_KNOB",
             "type": "STEPPER2"
         },
         {
@@ -116,8 +116,8 @@
             "type": "SIMULATION"
         },
         {
-            "name": "STEPPERDRIVER_TIC",
-            "key": "STEPPERDRIVER_TIC",
+            "name": "STEPPER_DRIVER_TIC",
+            "key": "STEPPER_DRIVER_TIC",
             "type": "STEPPER"
         },
         {
@@ -339,10 +339,22 @@
                 "default": "1000"
             }
         },
-        "STEPPERDRIVER_TIC_KNOB": {
+        "STEPPER_DRIVER_TIC_KNOB": {
             "knob_value": {
                 "type": "int",
                 "default": 0
+            },
+            "current_limit": {
+                "type": "int",
+                "default": 30
+            },
+            "speed": {
+                "type": "int",
+                "default": 200000
+            },
+            "sleep_time": {
+                "type": "int",
+                "default": 2
             }
         },
         "KEITHLEY2400": {
@@ -367,34 +379,18 @@
                 "default": "3"
             }
         },
-        "STEPPERDRIVER_TIC": {
-            "speed1": {
+        "STEPPER_DRIVER_TIC": {
+            "current_limit": {
                 "type": "int",
-                "default": 2000000
+                "default": 30
             },
-            "speed2": {
+            "sleep_time": {
                 "type": "int",
-                "default": 1000000
-            },
-            "position1": {
-                "type": "int",
-                "default": 200
-            },
-            "position2": {
-                "type": "int",
-                "default": -200
-            },
-            "position3": {
-                "type": "int",
-                "default": 100
-            },
-            "position4": {
-                "type": "int",
-                "default": -100
+                "default": 2
             }
         },
         "LABJACKU3": {
-            "numbers": {
+            "sensor_numbers": {
                 "type": "int",
                 "default": 1
             }
