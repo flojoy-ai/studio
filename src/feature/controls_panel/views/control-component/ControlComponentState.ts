@@ -1,4 +1,4 @@
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import plotLayout from "@src/feature/common/plotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
@@ -54,7 +54,7 @@ const ControlComponentState = ({
     PlotControlOptions | undefined
   >(undefined);
   const theme = useMantineColorScheme().colorScheme;
-  const styledLayout = styledPlotLayout(theme);
+  const styledLayout = plotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);

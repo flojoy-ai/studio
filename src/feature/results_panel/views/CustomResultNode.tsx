@@ -1,6 +1,6 @@
 import { Handle, Position } from "reactflow";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import plotLayout from "@src/feature/common/plotLayout";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { ResultNodeData } from "../types/ResultsType";
 import { useMantineColorScheme } from "@mantine/core";
@@ -9,7 +9,7 @@ interface CustomResultNodeProp {
 }
 const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
   const { colorScheme } = useMantineColorScheme();
-  const styledLayout = styledPlotLayout(colorScheme);
+  const styledLayout = plotLayout(colorScheme);
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">

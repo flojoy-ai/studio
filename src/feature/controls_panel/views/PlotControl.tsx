@@ -4,7 +4,7 @@ import { Dispatch, Fragment } from "react";
 import { PlotControlOptions } from "../types/ControlOptions";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import plotLayout from "@src/feature/common/plotLayout";
 import { SetStateAction } from "jotai";
 import { Data, PlotData } from "plotly.js";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
@@ -134,7 +134,7 @@ const PlotControl = ({
       >
         <Plot
           data={plotData}
-          layout={Object.assign({}, styledPlotLayout(theme))}
+          layout={Object.assign({}, plotLayout(theme))}
           style={{
             width: "100%",
             height: "100%",

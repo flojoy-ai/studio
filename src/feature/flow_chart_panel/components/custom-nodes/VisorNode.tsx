@@ -13,7 +13,7 @@ import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import plotLayout from "@src/feature/common/plotLayout";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "plotly.js";
 
@@ -77,6 +77,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     font: {
       color: accentColor,
     },
+    showlegend: false,
   };
 
   return (

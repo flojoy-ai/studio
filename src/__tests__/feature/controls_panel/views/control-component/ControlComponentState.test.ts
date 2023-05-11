@@ -8,7 +8,7 @@ import {
 } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { Data } from "plotly.js";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import plotLayout from "@src/feature/common/plotLayout";
 import { useMantineColorScheme } from "@mantine/styles";
 
 jest.mock("@src/hooks/useFlowChartState");
@@ -202,7 +202,7 @@ describe("Testing ControlComponentState State's", () => {
                 mode: "lines",
               },
             ],
-            layout: styledPlotLayout("light"),
+            layout: plotLayout("light"),
           },
           data: {
             x: [2, 4, 5, 6],
