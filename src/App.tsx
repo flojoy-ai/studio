@@ -143,7 +143,8 @@ const App = () => {
         />
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-            <Sidebar />
+            {/* add node button currently in the sidebar, to be refactored */}
+            <Sidebar /> 
 
             <FlowChartTab
               rfInstance={rfInstance!}
