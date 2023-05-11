@@ -3,11 +3,11 @@ import { createStyles } from "@mantine/core";
 const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
-        boxSizing: "border-box",
-        backgroundColor: theme.colors.accent4[1],
-        color: theme.colors.accent4[0],
-        border: `1px solid ${theme.colors.accent4[0]}`,
-        cursor: "pointer",
+      boxSizing: "border-box",
+      backgroundColor: theme.colors.accent4[1],
+      color: theme.colors.accent4[0],
+      border: `1px solid ${theme.colors.accent4[0]}`,
+      cursor: "pointer",
     },
   };
 });

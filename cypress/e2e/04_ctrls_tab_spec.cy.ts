@@ -49,7 +49,7 @@ describe("Ctrl Tab management", () => {
           )
           .first()
           .click();
-          
+
         // open dropdown list from input widget
         cy.get("[id^=select-input-]")
           .last()
