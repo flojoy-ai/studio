@@ -209,28 +209,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           </button>
         </DropDown>
       )}
-      {activeTab !== "visual" && activeTab !== "debug" && (
-        <Box className={classes.editContainer}>
-          <Text
-            data-cy="operation-switch"
-            data-testid="operation-switch"
-            sx={{
-              cursor: "pointer",
-              fontSize: "14px",
-              ...(isEditMode && { color: "orange" }),
-            }}
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            Edit
-          </Text>
-          <ReactSwitch
-            checked={isEditMode}
-            onChange={() => setIsEditMode(!isEditMode)}
-            height={22}
-            width={50}
-          />
-        </Box>
-      )}
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
