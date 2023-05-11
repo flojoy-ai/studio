@@ -1,7 +1,7 @@
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { useEffect } from "react";
 import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
@@ -12,6 +12,10 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
+import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "plotly.js";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -37,7 +41,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
 const VisorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { colorScheme } = useMantineColorScheme();
+  const theme = useMantineTheme();
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
@@ -51,6 +55,30 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     });
   }, [data, nodes, setNodes]);
 
+  const { states } = useSocket();
+  const { programResults } = states!;
+  const results = programResults?.io;
+  const result = results?.find((r) => r.id === data.id);
+
+  const accentColor =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
+
+  const layout: Partial<Layout> = {
+    paper_bgcolor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    plot_bgcolor: "transparent",
+    title: data.label,
+    margin: { t: 30, r: 0, b: 0, l: 0 },
+    grid: { rows: 0, columns: 0 },
+    xaxis: { visible: false },
+    yaxis: { visible: false },
+    font: {
+      color: accentColor,
+    },
+  };
+
   return (
     <NodeWrapper data={data}>
       <Box
@@ -61,24 +89,55 @@ const VisorNode = ({ data }: CustomNodeProps) => {
           failedNode === data.id ? nodeClasses.failShadow : ""
         )}
       >
-        <Box
-          className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
-          style={{
-            ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-          }}
-        >
-          {chartElemMap[data.func]}
-          <BGTemplate theme={colorScheme} />
+        {result ? (
+          <>
+            {/* This gives a type error but it still works properly... "marker.color" and "marker.line.color" both don't set the color correctly. */}
+            <PlotlyComponent
+              data={result.result.default_fig.data.map((d) => ({
+                ...d,
+                marker: {
+                  color: accentColor,
+                },
+              }))}
+              id={data.id}
+              layout={layout}
+              useResizeHandler
+              style={{
+                height: 190,
+                width: 210,
+              }}
+            />
+
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
+          </>
+        ) : (
           <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-            sx={{
-              flexDirection: "column",
+            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
+            style={{
+              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            {chartElemMap[data.func]}
+            <BGTemplate theme={theme.colorScheme} />
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
     </NodeWrapper>
   );
