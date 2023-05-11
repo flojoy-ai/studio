@@ -1,5 +1,5 @@
 {
-    "_v": 19,
+    "_v": 18,
     "commands": [
         {
             "name": "Conditional",
@@ -67,6 +67,17 @@
             "inputs": []
         },
         {
+            "name": "SK Learn Image",
+            "key": "SKLEARNIMAGE",
+            "type": "SAMPLE_IMAGE",
+            "pip_dependencies": [
+                {
+                    "name": "scikit-learn",
+                    "v": "1.2.2"
+                }
+            ]
+        },
+        {
             "name": "Multiply",
             "key": "MULTIPLY",
             "type": "ARITHMETIC",
@@ -75,17 +86,6 @@
                     "name": "y",
                     "id": "multiply_y",
                     "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "SK Learn Image",
-            "key": "SKLEARNIMAGE",
-            "type": "SAMPLE_IMAGE",
-            "pip_dependencies": [
-                {
-                    "name": "scikit-image",
-                    "v": "0.20.0"
                 }
             ]
         },
@@ -205,6 +205,107 @@
             "type": "CLOUD_DATABASE"
         },
         {
+            "name": "Camera",
+            "key": "CAMERA",
+            "type": "WEB_CAM"
+        },
+        {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Feedback",
+            "key": "FEEDBACK",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Absolute",
+            "key": "ABS",
+            "type": "ARITHMETIC"
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOCAL_FILE_SYSTEM"
+        },
+        {
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "AI_OBJECT_DETECTION"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        {
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK"
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Add",
+            "key": "ADD",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "add_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Histogram",
+            "key": "HISTOGRAM",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Second Order System",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Loader",
+            "key": "LOADER",
+            "type": "CLOUD_DATABASE"
+        },
+        {
             "name": "Low-pass FIR Filter",
             "key": "FIR",
             "type": "SIGNAL_PROCESSING"
@@ -261,13 +362,7 @@
         {
             "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
-            "type": "KEITHLEY",
-            "pip_dependencies": [
-                {
-                    "name": "pyserial",
-                    "v": 3.5
-                }
-            ]
+            "type": "KEITHLEY"
         },
         {
             "name": "Constant",
@@ -393,15 +488,15 @@
         "LINSPACE": {
             "start": {
                 "type": "float",
-                "default": 10
+                "default": "10"
             },
             "end": {
                 "type": "float",
-                "default": 0
+                "default": "0"
             },
             "step": {
                 "type": "float",
-                "default": 1000
+                "default": "1000"
             }
         },
         "LABJACKU3": {

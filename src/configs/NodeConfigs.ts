@@ -12,4 +12,6 @@ export const nodeConfigs = {
   VISOR: VisorNode,
   CONDITIONAL: ConditionalNode,
   TERMINATOR: TerminatorNode,
+  SAMPLE_IMAGE: DefaultNode,
+  AI_OBJECT_DETECTION: DefaultNode,
 };
