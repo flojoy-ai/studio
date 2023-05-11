@@ -1,22 +1,23 @@
-import { MantineTheme } from "@mantine/styles";
+import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { Layout } from "plotly.js";
-import { darkTheme, lightTheme } from "./theme";
 
-const plotLayout = (theme: "dark" | "light") => {
-  const plotFeatureColor = theme === "light" ? "#000" : "#fff";
-  const plotBackgroundColor = theme === "light" ? "#fff" : "#282c34";
+const usePlotLayout = () => {
+  const theme = useMantineTheme();
+  const plotBackgroundColor =
+    theme.colorScheme === "light" ? theme.white : theme.colors.dark[5];
 
   const dfltLayout: Partial<Layout> = {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: plotBackgroundColor,
     autosize: true,
-    font: { color: plotFeatureColor },
+    font: { color: theme.colors.title[0] },
     margin: { t: 40, r: 40, b: 40, l: 40 },
     xaxis: { zeroline: false, type: "linear" },
     showlegend: false,
+
     // yaxis: {zeroline: false, color: plotFeatureColor}
   };
   return dfltLayout;
 };
 
-export default plotLayout;
+export default usePlotLayout;

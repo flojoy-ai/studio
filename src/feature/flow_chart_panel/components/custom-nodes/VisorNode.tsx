@@ -2,6 +2,9 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "plotly.js";
 import { useEffect } from "react";
 import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
@@ -12,10 +15,6 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
-import PlotlyComponent from "@src/feature/common/PlotlyComponent";
-import plotLayout from "@src/feature/common/plotLayout";
-import { useSocket } from "@src/hooks/useSocket";
-import { Layout } from "plotly.js";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -92,11 +91,11 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       >
         {result ? (
           <>
-            {/* This gives a type error but it still works properly... "marker.color" and "marker.line.color" both don't set the color correctly. */}
             <PlotlyComponent
               data={result.result.default_fig.data.map((d) => ({
                 ...d,
                 marker: {
+                  ...d.marker,
                   color: accentColor,
                 },
               }))}

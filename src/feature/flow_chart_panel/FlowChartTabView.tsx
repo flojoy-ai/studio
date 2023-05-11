@@ -20,7 +20,7 @@ import {
 
 import localforage from "localforage";
 
-import plotLayout from "../common/plotLayout";
+import usePlotLayout from "../common/plotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";
@@ -94,7 +94,7 @@ const FlowChartTab = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const defaultLayout = plotLayout(theme);
+  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
