@@ -1,5 +1,5 @@
 {
-    "_v": 20,
+    "_v": 18,
     "commands": [
         {
             "name": "Conditional",
@@ -67,6 +67,17 @@
             "inputs": []
         },
         {
+            "name": "SK Learn Image",
+            "key": "SKLEARNIMAGE",
+            "type": "SAMPLE_IMAGE",
+            "pip_dependencies": [
+                {
+                    "name": "scikit-learn",
+                    "v": "1.2.2"
+                }
+            ]
+        },
+        {
             "name": "Multiply",
             "key": "MULTIPLY",
             "type": "ARITHMETIC",
@@ -75,17 +86,6 @@
                     "name": "y",
                     "id": "multiply_y",
                     "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "SK Learn Image",
-            "key": "SKLEARNIMAGE",
-            "type": "SAMPLE_IMAGE",
-            "pip_dependencies": [
-                {
-                    "name": "scikit-image",
-                    "v": "0.20.0"
                 }
             ]
         },
@@ -103,11 +103,6 @@
             "name": "PID",
             "key": "PID",
             "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "R Dataset",
-            "key": "R_DATASET",
-            "type": "SAMPLE_DATASET"
         },
         {
             "name": "Feedback",
@@ -164,9 +159,9 @@
             }
         },
         {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK"
         },
         {
             "name": "Random (Uniform)",
@@ -180,7 +175,7 @@
             "inputs": [
                 {
                     "name": "y",
-                    "id": "sub_y",
+                    "id": "add_y",
                     "type": "target"
                 }
             ]
@@ -253,11 +248,6 @@
             "name": "Savitzky-Golay Filter",
             "key": "SAVGOL",
             "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Table",
-            "key": "TABLE",
-            "type": "PLOTLY_VISOR"
         },
         {
             "name": "KEITHLEY2400",
@@ -362,12 +352,6 @@
             "Kd": {
                 "type": "float",
                 "default": "356.25"
-            }
-        },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
             }
         },
         "FEEDBACK": {

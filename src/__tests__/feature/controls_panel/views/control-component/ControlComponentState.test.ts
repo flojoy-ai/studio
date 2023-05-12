@@ -284,7 +284,7 @@ describe("Testing ControlComponentState State's", () => {
         paper_bgcolor: "rgba(0,0,0,0)",
         plot_bgcolor: "#282c34",
         autosize: true,
-        font: { color: "#fff" },
+        font: { color: "#282c34" },
         margin: { t: 40, r: 40, b: 40, l: 40 },
         xaxis: { zeroline: false, type: "linear" },
       };

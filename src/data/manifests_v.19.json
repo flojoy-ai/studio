@@ -1,5 +1,5 @@
 {
-    "_v": 20,
+    "_v": 19,
     "commands": [
         {
             "name": "Conditional",
@@ -105,11 +105,6 @@
             "type": "SIGNAL_PROCESSING"
         },
         {
-            "name": "R Dataset",
-            "key": "R_DATASET",
-            "type": "SAMPLE_DATASET"
-        },
-        {
             "name": "Feedback",
             "key": "FEEDBACK",
             "type": "SIMULATION"
@@ -164,9 +159,9 @@
             }
         },
         {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK"
         },
         {
             "name": "Random (Uniform)",
@@ -180,7 +175,7 @@
             "inputs": [
                 {
                     "name": "y",
-                    "id": "sub_y",
+                    "id": "add_y",
                     "type": "target"
                 }
             ]
@@ -362,12 +357,6 @@
             "Kd": {
                 "type": "float",
                 "default": "356.25"
-            }
-        },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
             }
         },
         "FEEDBACK": {
