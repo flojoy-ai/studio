@@ -1,5 +1,5 @@
 {
-    "_v": 20,
+    "_v": 19,
     "commands": [
         {
             "name": "Conditional",
@@ -103,11 +103,6 @@
             "name": "PID",
             "key": "PID",
             "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "R Dataset",
-            "key": "R_DATASET",
-            "type": "SAMPLE_DATASET"
         },
         {
             "name": "Feedback",
@@ -362,12 +357,6 @@
             "Kd": {
                 "type": "float",
                 "default": "356.25"
-            }
-        },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
             }
         },
         "FEEDBACK": {
