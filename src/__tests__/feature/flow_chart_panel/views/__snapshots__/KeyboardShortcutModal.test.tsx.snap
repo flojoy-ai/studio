@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`KeyboardShortcutModal renderWithThemes correctly when isOpen is true 1`] = `
+exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
 <div
   data-testid="keyboard_shortcut_modal"
 >

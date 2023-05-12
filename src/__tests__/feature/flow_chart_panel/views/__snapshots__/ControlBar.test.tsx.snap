@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Controls should renderWithTheme correctly: __main__ 1`] = `
+exports[`Controls should render correctly: __main__ 1`] = `
 <div>
   <div
     class="mantine-1mo5lls"

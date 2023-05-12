@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sidebar should renderWithTheme the component correctly 1`] = `
+exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
