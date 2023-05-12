@@ -1,6 +1,5 @@
 import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
-// import { docco, srcery } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { NodeModalProps } from "../types/NodeModalProps";
@@ -40,7 +39,7 @@ function NodeModal({
         </div>
       )}
 
-      {Object.keys(nd).length === 0 || !nd.result ? (
+      {!nd?.result ? (
         <p>
           <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
         </p>
@@ -49,21 +48,10 @@ function NodeModal({
           {nd?.result && (
             <PlotlyComponent
               id={nd.id}
-              data={
-                "data" in nd?.result
-                  ? nd.result.data
-                  : [
-                      {
-                        x: nd.result["x"],
-                        y: nd.result["y"],
-                        source: nd.result["source"],
-                        type: nd.result["type"],
-                      },
-                    ]
-              }
+              data={nd.result.default_fig.data}
               layout={
-                "layout" in nd.result
-                  ? Object.assign({}, nd.result.layout, defaultLayout)
+                "layout" in nd.result.default_fig
+                  ? Object.assign({}, nd.result.default_fig.layout)
                   : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler

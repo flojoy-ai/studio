@@ -1,5 +1,5 @@
 {
-    "_v": 0,
+    "_v": 19,
     "commands": [
         {
             "name": "Conditional",
@@ -92,12 +92,7 @@
         {
             "name": "PHIDGET22",
             "key": "PHIDGET22",
-            "type": "PHIDGET",
-            "pip_dependencies": [
-                {
-                    "name": "Phidget22"
-                }
-            ]
+            "type": "PHIDGET"
         },
         {
             "name": "Camera",
@@ -105,25 +100,9 @@
             "type": "WEB_CAM"
         },
         {
-            "name": "SELECT_ARRAY",
-            "key": "SELECT_ARRAY",
-            "type": "SELECT_ARRAY"
-        },
-        {
             "name": "PID",
             "key": "PID",
             "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "R Dataset",
-            "key": "R_DATASET",
-            "type": "SAMPLE_DATASET",
-            "pip_dependencies": [
-                {
-                    "name": "rdatasets",
-                    "v": "0.1.0"
-                }
-            ]
         },
         {
             "name": "Feedback",
@@ -158,13 +137,7 @@
         {
             "name": "Object Detection",
             "key": "OBJECT_DETECTION",
-            "type": "AI_OBJECT_DETECTION",
-            "pip_dependencies": [
-                {
-                    "name": "opencv-python-headless",
-                    "v": "4.7.0.72"
-                }
-            ]
+            "type": "AI_OBJECT_DETECTION"
         },
         {
             "name": "Butterworth Filter",
@@ -175,18 +148,20 @@
             "name": "Linspace",
             "key": "LINSPACE",
             "type": "SIMULATION",
-            "ui_component_id": "default"
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
         },
         {
             "name": "LABJACKU3",
             "key": "LABJACKU3",
-            "type": "LABJACK",
-            "pip_dependencies": [
-                {
-                    "name": "labjackpython",
-                    "v": "2.1.0"
-                }
-            ]
+            "type": "LABJACK"
         },
         {
             "name": "Random (Uniform)",
@@ -204,11 +179,6 @@
                     "type": "target"
                 }
             ]
-        },
-        {
-            "name": "SERIAL",
-            "key": "SERIAL",
-            "type": "SERIAL"
         },
         {
             "name": "Histogram",
@@ -287,13 +257,7 @@
         {
             "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
-            "type": "KEITHLEY",
-            "pip_dependencies": [
-                {
-                    "name": "pyserial",
-                    "v": 3.5
-                }
-            ]
+            "type": "KEITHLEY"
         },
         {
             "name": "Constant",
@@ -381,12 +345,6 @@
                 "default": 0
             }
         },
-        "SELECT_ARRAY": {
-            "column": {
-                "type": "float",
-                "default": 0
-            }
-        },
         "PID": {
             "Kp": {
                 "type": "float",
@@ -399,12 +357,6 @@
             "Kd": {
                 "type": "float",
                 "default": "356.25"
-            }
-        },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
             }
         },
         "FEEDBACK": {
@@ -431,38 +383,20 @@
         "LINSPACE": {
             "start": {
                 "type": "float",
-                "default": 10
+                "default": "10"
             },
             "end": {
                 "type": "float",
-                "default": 0
+                "default": "0"
             },
             "step": {
                 "type": "float",
-                "default": 1000
+                "default": "1000"
             }
         },
         "LABJACKU3": {
             "numbers": {
                 "type": "int",
-                "default": 1
-            }
-        },
-        "SERIAL": {
-            "comport": {
-                "type": "string",
-                "default": "/dev/ttyUSB0"
-            },
-            "baudrate": {
-                "type": "float",
-                "default": 9600
-            },
-            "num_readings": {
-                "type": "float",
-                "default": 100
-            },
-            "record_period": {
-                "type": "float",
                 "default": 1
             }
         },

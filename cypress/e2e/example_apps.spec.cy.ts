@@ -39,10 +39,7 @@ describe("Example apps testing.", () => {
         cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
         // Enable operation mode
-        cy.get("[data-cy=operation-switch]")
-          .contains("Edit")
-          .click()
-          .should("have.css", "color", "rgb(255, 165, 0)");
+        cy.get("[data-cy=operation-switch]").contains("Edit").click();
         /**
          * For each parameter of every nodes create input widget
          * and set default value

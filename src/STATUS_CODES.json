@@ -1,4 +1,6 @@
 {
+  "RUN_PRE_JOB_OP": "\u23f3 running pre-job operation...",
+  "PRE_JOB_OP_FAILED": "\u274c pre-job operation failed - Re-run script...",
   "RQ_RUN_IN_PROCESS": "\ud83c\udfc3\u200d\u2640\ufe0f running script...",
   "RQ_RUN_COMPLETE": "\ud83e\udd19 python script run successful",
   "MISSING_RQ_RESULTS": "\ud83d\udc7d no result found",
