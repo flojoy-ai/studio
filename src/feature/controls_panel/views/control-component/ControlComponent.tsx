@@ -18,10 +18,111 @@ import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
 import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
+import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+
+export const useControlStyles = createStyles((theme) => {
+  return {
+    header: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+    },
+    btn: {
+      cursor: "pointer",
+      background: "transparent",
+      border: "none",
+      margin: 0,
+      padding: 5,
+      borderRadius: theme.radius.sm,
+      "&:hover": {
+        backgroundColor:
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[5]
+            : theme.colors.gray[3],
+      },
+    },
+    closeBtn: {
+      "&:hover": {
+        color: theme.colors.red[7],
+      },
+    },
+    inputBody: {
+      padding: 20,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "90%",
+      flexWrap: "wrap",
+      width: "100%",
+    },
+    inputBodyFile: {
+      display: "grid",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "90%",
+      flexWrap: "wrap",
+      width: "100%",
+    },
+    param: {
+      margin: 0,
+      fontSize: 15,
+    },
+    meta: {
+      fontSize: 10,
+      textAlign: "left",
+      position: "absolute",
+      bottom: 10,
+      left: 15,
+    },
+    ctrlNumericInput: {
+      padding: 10,
+      width: "90%",
+      margin: "0 10px",
+      backgroundColor: "transparent",
+      outline: "none",
+      border: `1px solid ${theme.colors.gray[3]}`,
+      borderRadius: 10,
+    },
+    selectNode: {
+      fontSize: 12,
+      top: 0,
+      left: 0,
+      border: 0,
+      width: "100%",
+      borderBottom: `0.5px solid ${theme.colors.gray[3]}`,
+      marginBottom: 10,
+      paddingRight: 20,
+    },
+    selectPlotType: {
+      fontSize: 12,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      border: 0,
+      width: "100%",
+      borderBottom: `0.5px solid ${theme.colors.gray[3]}`,
+      marginBottom: 10,
+      paddingRight: 10,
+    },
+    ctrlInputLabel: {
+      marginLeft: 10,
+    },
+    sevenSegmentContainer: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100%",
+      width: "100%",
+      paddingBottom: 10,
+      minWidth: 480,
+      transform: "scale(0.6)",
+    },
+  };
+});
 
 export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
-  theme: "light" | "dark";
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   attachParamsToCtrl: (
@@ -40,7 +141,6 @@ export type ControlComponentProps = {
 
 const ControlComponent = ({
   ctrlObj,
-  theme,
   results,
   updateCtrlValue,
   attachParamsToCtrl,
@@ -48,6 +148,8 @@ const ControlComponent = ({
   setCurrentInput,
   setOpenEditModal,
 }: ControlComponentProps) => {
+  const { classes } = useControlStyles();
+  const theme = useMantineColorScheme().colorScheme;
   const {
     ctrlsManifest,
     setGridLayout,
@@ -81,7 +183,6 @@ const ControlComponent = ({
     openFileSelector,
   } = ControlComponentState({
     updateCtrlValue,
-    theme,
     ctrlObj,
   });
 
@@ -149,7 +250,7 @@ const ControlComponent = ({
     openFileSelector,
   });
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         flexDirection: "column",
@@ -161,13 +262,9 @@ const ControlComponent = ({
       data-cy={ctrlObj.id}
     >
       {isEditMode && (
-        <div
-          className="ctrl-header"
-          data-cy="ctrls-select"
-          style={{ width: "100%" }}
-        >
+        <Box className={classes.header} data-cy="ctrls-select">
           <Select
-            className="select-node"
+            className={classes.selectNode}
             isSearchable={true}
             onChange={(val) => {
               if (val)
@@ -180,7 +277,7 @@ const ControlComponent = ({
             inputId={`select-input-${ctrlObj.id}`}
           />
           <button
-            className="ctrl-edit-btn"
+            className={classes.btn}
             onClick={() => {
               setCurrentInput({
                 ...ctrlObj,
@@ -197,11 +294,11 @@ const ControlComponent = ({
           <button
             onClick={(e) => removeCtrl(e, ctrlObj)}
             id={ctrlObj.id}
-            className="ctrl-edit-btn"
+            className={clsx(classes.btn, classes.closeBtn)}
           >
             x
           </button>
-        </div>
+        </Box>
       )}
       {!isEditMode && (
         <p className="ctrl-param">Node: {selectedOption?.label}</p>
@@ -214,21 +311,19 @@ const ControlComponent = ({
           isEditMode={isEditMode}
           plotData={plotData}
           selectedPlotOption={selectedPlotOption}
-          theme={theme}
           setSelectedPlotOption={setSelectedPlotOption}
         />
       )}
       {ctrlObj.name === ControlNames.LocalFileLoader && (
-        <div className="ctrl-input-body-file" data-cy="numeric-input">
+        <Box className={classes.inputBodyFile} data-cy="numeric-input">
           <input
             type={"text"}
             placeholder={"Please enter the full file path"}
-            className="ctrl-numeric-input border-color"
+            className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
               handleCtrlValueChange(setTextInput, e.target.value);
             }}
             value={currentInputValue || textInput || ""}
-            style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
           {/* <button
             className="cmd-btn-dark "
@@ -239,59 +334,57 @@ const ControlComponent = ({
             >
             Select File
           </button> */}
-        </div>
+        </Box>
       )}
       {ctrlObj.name === ControlNames.SevenSegmentDisplay && (
         <SevenSegmentComponent ctrlObj={ctrlObj} plotData={plotData} nd={nd} />
       )}
 
       {ctrlObj.name === ControlNames.TextInput && (
-        <div className="ctrl-input-body" data-cy="numeric-input">
+        <Box className={classes.inputBody} data-cy="numeric-input">
           <input
             type="text"
             placeholder="Write your text.."
-            className="ctrl-numeric-input border-color"
+            className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
               handleCtrlValueChange(setTextInput, e.target.value);
             }}
             value={currentInputValue || textInput || ""}
-            style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.NumericInput && (
-        <div className="ctrl-input-body" data-cy="numeric-input">
+        <Box className={classes.inputBody} data-cy="numeric-input">
           <input
             type="number"
             placeholder="Enter a number"
-            className="ctrl-numeric-input border-color"
+            className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
               handleCtrlValueChange(setNumberInput, e.target.value);
             }}
             value={currentInputValue || numberInput || 0}
-            style={{ ...(theme === "dark" && { color: "#fff" }) }}
           />
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.StaticNumericInput && (
-        <div className="ctrl-input-body">
+        <Box className={classes.inputBody}>
           <input
             type="number"
             placeholder="Enter a number"
-            className="ctrl-numeric-input"
+            className={classes.ctrlNumericInput}
             onChange={(e) => {
               handleCtrlValueChange(setNumberInput, e.target.value);
             }}
             disabled
             value={currentInputValue || numberInput || 0}
           />
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.Knob && (
-        <div className="ctrl-input-body">
+        <Box className={classes.inputBody}>
           <KnobCtrl
             selectedOption={selectedOption}
             ctrlObj={ctrlObj}
@@ -301,12 +394,12 @@ const ControlComponent = ({
             updateCtrlValue={updateCtrlValue}
             currentInputValue={+currentInputValue}
           />
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.Slider && (
-        <div className="ctrl-input-body">
-          <div
+        <Box className={classes.inputBody}>
+          <Box
             onMouseEnter={makeLayoutStatic}
             onMouseLeave={() => {
               if (isEditMode) {
@@ -327,20 +420,16 @@ const ControlComponent = ({
               value={+currentInputValue || +sliderInput || 0}
             />
             <label>{currentInputValue ? currentInputValue : sliderInput}</label>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
       {ctrlObj.name === ControlNames.NodeReference && (
-        <NodeReference
-          ctrlObj={ctrlObj}
-          updateCtrlValue={updateCtrlValue}
-          theme={theme}
-        />
+        <NodeReference ctrlObj={ctrlObj} updateCtrlValue={updateCtrlValue} />
       )}
       {ctrlObj.name === ControlNames.Dropdown && (
-        <div className="ctrl-input-body">
+        <Box className={classes.inputBody}>
           <Select
-            className="select-node"
+            className={classes.selectNode}
             isSearchable={true}
             onChange={(val) => {
               updateCtrlValue(
@@ -357,14 +446,14 @@ const ControlComponent = ({
               ) || { label: "", value: "" }
             }
           />
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.CheckboxButtonGroup && (
-        <div className="ctrl-input-body">
+        <Box className={classes.inputBody}>
           {paramOptions.map((option) => {
             return (
-              <div key={option.value}>
+              <Box key={option.value}>
                 <input
                   type="checkbox"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -379,17 +468,17 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </div>
+              </Box>
             );
           })}
-        </div>
+        </Box>
       )}
 
       {ctrlObj.name === ControlNames.RadioButtonGroup && (
-        <div className="ctrl-input-body">
+        <Box className={classes.inputBody}>
           {paramOptions.map((option) => {
             return (
-              <div style={{ width: "max-content" }} key={option.value}>
+              <Box style={{ width: "max-content" }} key={option.value}>
                 <input
                   type="radio"
                   id={`${ctrlObj.id}_${option.value}`}
@@ -404,18 +493,18 @@ const ControlComponent = ({
                   {" "}
                   {option.label}{" "}
                 </label>
-              </div>
+              </Box>
             );
           })}
-        </div>
+        </Box>
       )}
 
-      <details className="ctrl-meta">
+      <details className={classes.meta}>
         {`Name: ${ctrlObj.name}`}
         <br></br>
         {`ID: ${ctrlObj.id}`}
       </details>
-    </div>
+    </Box>
   );
 };
 export default memo(ControlComponent);

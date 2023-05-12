@@ -5,21 +5,24 @@ exports[`ConditionalNode checks the snapshot 1`] = `
   <div
     data-testid="node-wrapper"
   >
-    <div>
+    <div
+      class="mantine-1avyp1d"
+    >
       <div
-        class="simulation__node__container"
-        style="border: 1px solid rgba(123, 97, 255, 1); color: rgb(123, 97, 255); padding: 0px 0px 8px 0px;"
+        class="mantine-1sbmmbj"
       >
         <div
+          class="mantine-1avyp1d"
           data-testid="data-label-design"
-          style="display: flex; justify-content: center; padding: 5px; width: 100%; flex-direction: column; text-align: center;"
         >
-          <div>
+          <div
+            class="mantine-1avyp1d"
+          >
             test
           </div>
         </div>
         <div
-          style="display: flex; flex-direction: column; height: 80px;"
+          class="mantine-1b6b4my"
         >
           <div
             data-testid="handle-component"
@@ -28,5 +31,6 @@ exports[`ConditionalNode checks the snapshot 1`] = `
       </div>
     </div>
   </div>
+  ,
 </div>
 `;

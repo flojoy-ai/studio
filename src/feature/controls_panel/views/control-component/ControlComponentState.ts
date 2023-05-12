@@ -16,17 +16,16 @@ import {
 } from "../../types/ControlOptions";
 
 import { Data } from "plotly.js";
+import { useMantineColorScheme } from "@mantine/styles";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;
-  theme: "light" | "dark";
 };
 
 const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
-  theme,
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
@@ -54,6 +53,7 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
+  const theme = useMantineColorScheme().colorScheme;
   const styledLayout = styledPlotLayout(theme);
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;

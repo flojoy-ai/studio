@@ -73,7 +73,6 @@ const initialManifests: CtlManifestType[] = [
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
@@ -95,7 +94,6 @@ export function useFlowChartState() {
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
@@ -228,8 +226,6 @@ export function useFlowChartState() {
     setIsEditMode,
     gridLayout,
     setGridLayout,
-    uiTheme,
-    setUiTheme,
     showLogs,
     setShowLogs,
     runningNode,

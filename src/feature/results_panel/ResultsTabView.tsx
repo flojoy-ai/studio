@@ -4,7 +4,6 @@ import CustomEdge from "../flow_chart_panel/views/CustomEdge";
 import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
 
-import "./style/Results.css";
 import {
   ConnectionLineType,
   EdgeTypes,

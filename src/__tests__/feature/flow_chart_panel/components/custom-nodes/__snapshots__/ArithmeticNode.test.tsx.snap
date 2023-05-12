@@ -5,9 +5,11 @@ exports[`ArithmeticNode checks the snapshot 1`] = `
   <div
     data-testid="node-wrapper"
   >
-    <div>
+    <div
+      class="mantine-1avyp1d"
+    >
       <div
-        style="position: relative; display: flex; align-items: center; font-size: 17px; color: rgb(123, 97, 255); background: transparent; min-height: 115px;"
+        class="mantine-18dvbbq"
       >
         <svg
           data-testid="default-svg"
@@ -25,7 +27,10 @@ exports[`ArithmeticNode checks the snapshot 1`] = `
           />
         </svg>
         <div
-          style="display: flex; flex-direction: column;"
+          class="mantine-1avyp1d"
+        />
+        <div
+          class="mantine-x06mmk"
         >
           <div
             data-testid="handle-component"
@@ -34,5 +39,6 @@ exports[`ArithmeticNode checks the snapshot 1`] = `
       </div>
     </div>
   </div>
+  ,
 </div>
 `;

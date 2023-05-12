@@ -74,7 +74,7 @@ describe("FlowChartServices", () => {
         headers: { "Content-type": "application/json; charset=UTF-8" },
         method: "POST",
       };
-      const api_endPoint: string = "http://localhost:8000/wfc";
+      const api_endPoint: string = "http://127.0.0.1:8000/wfc";
 
       const fetchSpy = jest.spyOn(global, "fetch");
 

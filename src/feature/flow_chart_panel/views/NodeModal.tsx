@@ -2,9 +2,27 @@ import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
+import { createStyles, useMantineColorScheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 
-function NodeModal({
+const useStyles = createStyles((theme) => {
+  return {
+    closeButton: {
+      margin: 5,
+      cursor: "pointer",
+      position: "absolute",
+      top: 0,
+      right: 0,
+      background: "transparent",
+      zIndex: 99,
+      "&:hover": {
+        color: theme.colors.red[7],
+      },
+    },
+  };
+});
+
+const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
@@ -14,9 +32,10 @@ function NodeModal({
   nd,
   pythonString,
   defaultLayout,
-  theme,
   clickedElement,
-}: NodeModalProps) {
+}: NodeModalProps) => {
+  const { classes } = useStyles();
+  const theme = useMantineColorScheme().colorScheme;
   return (
     <ReactModal
       isOpen={modalIsOpen}
@@ -26,7 +45,11 @@ function NodeModal({
       ariaHideApp={false}
       contentLabel=""
     >
-      <button onClick={closeModal} className="ctrl-close-btn">
+      <button
+        onClick={closeModal}
+        data-cy="ctrl-close-btn"
+        className={classes.closeButton}
+      >
         x
       </button>
 
@@ -81,6 +104,6 @@ function NodeModal({
       </SyntaxHighlighter>
     </ReactModal>
   );
-}
+};
 
 export default NodeModal;

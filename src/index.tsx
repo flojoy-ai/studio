@@ -10,8 +10,7 @@ import { createRoot } from "react-dom/client";
 // or if you just want basic styles
 import "reactflow/dist/base.css";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <SocketContextProvider>

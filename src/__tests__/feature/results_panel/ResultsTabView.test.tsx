@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import ResultsTab from "@src/feature/results_panel/ResultsTabView";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 jest.mock("@src/hooks/useFlowChartState");
 
@@ -32,7 +33,7 @@ describe("ResultsTab component", () => {
   };
 
   it("renders the ResultsTab component", () => {
-    render(<ResultsTab results={results} />);
+    renderWithTheme(<ResultsTab results={results} />);
 
     const reactFlowComponent = screen.getByTestId("results-flow");
     expect(reactFlowComponent).toBeInTheDocument();

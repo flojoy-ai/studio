@@ -1,6 +1,6 @@
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 
-export interface NodeModalProps {
+export type NodeModalProps = {
   modalIsOpen: boolean;
   afterOpenModal: () => void;
   closeModal: () => void;
@@ -9,7 +9,6 @@ export interface NodeModalProps {
   nodeType: any;
   nd: ResultIO;
   defaultLayout: any;
-  theme: "dark" | "light";
   clickedElement: any;
-  pythonString: String;
-}
+  pythonString: string;
+};

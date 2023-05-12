@@ -3,12 +3,13 @@ import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { ResultNodeData } from "../types/ResultsType";
+import { useMantineColorScheme } from "@mantine/core";
 interface CustomResultNodeProp {
   data: ResultNodeData;
 }
 const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
-  const { uiTheme } = useFlowChartState();
-  const styledLayout = styledPlotLayout(uiTheme);
+  const { colorScheme } = useMantineColorScheme();
+  const styledLayout = styledPlotLayout(colorScheme);
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">

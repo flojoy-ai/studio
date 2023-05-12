@@ -1,22 +1,15 @@
+import { Box } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { IconPencil, IconX } from "@tabler/icons-react";
-import styled from "styled-components";
-
-const StyledContainer = styled.div`
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  display: flex;
-`;
 
 const NodeEditButtons = () => {
   const { setIsEditMode } = useFlowChartState();
 
   return (
-    <StyledContainer>
+    <Box pos="absolute" top={3} right={3} display="flex">
       <IconPencil onClick={() => setIsEditMode(true)} />
       <IconX onClick={() => setIsEditMode(false)} />
-    </StyledContainer>
+    </Box>
   );
 };
 

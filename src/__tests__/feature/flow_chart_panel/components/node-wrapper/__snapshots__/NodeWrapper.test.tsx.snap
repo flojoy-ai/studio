@@ -7,5 +7,6 @@ exports[`NodeWrapper component Should render the component and match snapshot. 1
   >
     <div />
   </div>
+  ,
 </div>
 `;

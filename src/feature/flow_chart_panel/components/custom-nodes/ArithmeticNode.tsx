@@ -12,7 +12,27 @@ import {
   SubSvg,
 } from "../../svgs/add-multiply-svg";
 import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import NodeWrapper from "../NodeWrapper";
+import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { useNodeStyles } from "../DefaultNode";
+
+const useStyles = createStyles((theme) => {
+  return {
+    arithmeticNode: {
+      color:
+        theme.colorScheme === "light"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+      background: "transparent",
+    },
+    operatorIcon: {
+      position: "absolute",
+      left: 29,
+      height: 18,
+      width: 18,
+    },
+  };
+});
 
 const getboxShadow = (data: ElementsData) => {
   if (data.func in highlightShadow) {
@@ -22,8 +42,9 @@ const getboxShadow = (data: ElementsData) => {
 };
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const nodeClasses = useNodeStyles().classes;
+  const { classes } = useStyles();
+  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -34,87 +55,51 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
       }
     });
   }, [data, nodes, setNodes]);
+
+  let operatorIcon;
+  switch (data.func) {
+    case "MULTIPLY":
+      operatorIcon = <MultiplySvg className={classes.operatorIcon} />;
+      break;
+    case "ADD":
+      operatorIcon = <AddSvg className={classes.operatorIcon} />;
+      break;
+    case "SUBTRACT":
+      operatorIcon = <SubSvg className={classes.operatorIcon} />;
+      break;
+    default:
+      operatorIcon = <Box />;
+  }
+
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.arithmeticShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
-            background: "transparent",
-            height: "fit-content",
-            minHeight: 115,
+        <Box
+          className={clsx(nodeClasses.nodeContainer, classes.arithmeticNode)}
+          sx={{
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
           <AddBGTemplate />
-          {data.func === "MULTIPLY" && (
-            <MultiplySvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          {data.func === "ADD" && (
-            <AddSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          {data.func === "SUBTRACT" && (
-            <SubSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-
-          {data.func === "MATMUL" && (
-            <AtSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          <div
-            style={{
-              display: "flex",
+          {operatorIcon}
+          <Box
+            display="flex"
+            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+            sx={{
               flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </NodeWrapper>
   );
 };

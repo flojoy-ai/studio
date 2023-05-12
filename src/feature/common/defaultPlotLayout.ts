@@ -1,7 +1,7 @@
 import { Layout } from "plotly.js";
 
 const styledPlotLayout = (theme: "light" | "dark") => {
-  const plotFeatureColor = "#282c34";
+  const plotFeatureColor = theme === "light" ? "#282c34" : "#fff";
   const plotBackgroundColor = theme === "light" ? "#fff" : "#282c34";
 
   const dfltLayout: Partial<Layout> = {
