@@ -354,14 +354,15 @@ fi
 sleep 1
 
 # start project services
+if $test_ci; then
+   start_project_cmd='npm run start-project:ci'
+else 
+   start_project_cmd='npm run start-project'
+fi
+ # start project services
 if [ -n "$venvCmd" ]; then
-   $venvCmd && npm run start-project
-
-elif $test_ci; then
-   echo "launching with CI for testing"
-   npm run start-project:ci
-
+   $venvCmd && $start_project_cmd
 else
-   npm run start-project
+    $start_project_cmd
 fi
 sleep 1
