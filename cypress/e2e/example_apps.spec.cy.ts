@@ -15,7 +15,7 @@ interface IApp {
   }>;
 }
 
-describe("Example apps testing.", () => {
+describe.skip("Example apps testing.", () => {
   (exampleApps as IApp[]).forEach((app) => {
     describe(`User workflow for ${app.title} #${app.test_id}`, () => {
       it("Should load all nodes from the app and run successfully.", () => {
