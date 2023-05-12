@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const AddNodeBtn = ({setSCRIPTSideBarStatus, isSCRIPTSideBarOpen}) => {
+export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
   const { classes } = useStyles();
   return (
     <button
