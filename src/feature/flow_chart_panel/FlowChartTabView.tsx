@@ -94,7 +94,7 @@ const FlowChartTab = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const defaultLayout = styledPlotLayout(theme);
+  const defaultLayout = styledPlotLayout(theme.colorScheme);
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
