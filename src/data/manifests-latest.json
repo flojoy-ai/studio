@@ -382,6 +382,14 @@
             "n_sensors": {
                 "type": "int",
                 "default": 3
+            },
+            "calibration1": {
+                "type": "float",
+                "default": 0.015
+            },
+            "calibration2": {
+                "type": "float",
+                "default": 0.06
             }
         },
         "CONSTANT": {
