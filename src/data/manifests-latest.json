@@ -67,17 +67,6 @@
             "inputs": []
         },
         {
-            "name": "SK Learn Image",
-            "key": "SKLEARNIMAGE",
-            "type": "SAMPLE_IMAGE",
-            "pip_dependencies": [
-                {
-                    "name": "scikit-learn",
-                    "v": "1.2.2"
-                }
-            ]
-        },
-        {
             "name": "Multiply",
             "key": "MULTIPLY",
             "type": "ARITHMETIC",
@@ -86,6 +75,17 @@
                     "name": "y",
                     "id": "multiply_y",
                     "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "SK Learn Image",
+            "key": "SKLEARNIMAGE",
+            "type": "SAMPLE_IMAGE",
+            "pip_dependencies": [
+                {
+                    "name": "scikit-image",
+                    "v": "0.20.0"
                 }
             ]
         },
@@ -148,15 +148,7 @@
             "name": "Linspace",
             "key": "LINSPACE",
             "type": "SIMULATION",
-            "ui_component_id": "default",
-            "end": {
-                "type": "float",
-                "default": "0"
-            },
-            "step": {
-                "type": "float",
-                "default": "1000"
-            }
+            "ui_component_id": "default"
         },
         {
             "name": "LABJACKU3",
@@ -260,7 +252,7 @@
             "type": "SIMULATION"
         },
         {
-            "name": "The End",
+            "name": "The END",
             "key": "END",
             "type": "TERMINATOR"
         }
@@ -343,15 +335,15 @@
         "PID": {
             "Kp": {
                 "type": "float",
-                "default": "5"
+                "default": 5
             },
             "Ki": {
                 "type": "float",
-                "default": "0.0143"
+                "default": 0.0143
             },
             "Kd": {
                 "type": "float",
-                "default": "356.25"
+                "default": 356.25
             }
         },
         "FEEDBACK": {
@@ -366,10 +358,6 @@
                 "type": "string",
                 "default": "image"
             },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
-            },
             "path": {
                 "type": "string",
                 "default": ""
@@ -378,15 +366,15 @@
         "LINSPACE": {
             "start": {
                 "type": "float",
-                "default": "10"
+                "default": 10
             },
             "end": {
                 "type": "float",
-                "default": "0"
+                "default": 0
             },
             "step": {
                 "type": "float",
-                "default": "1000"
+                "default": 1000
             }
         },
         "LABJACKU3": {
@@ -398,11 +386,11 @@
         "SECOND_ORDER_SYSTEM": {
             "d1": {
                 "type": "float",
-                "default": "250"
+                "default": 250
             },
             "d2": {
                 "type": "float",
-                "default": "100"
+                "default": 100
             }
         },
         "LOADER": {
@@ -459,7 +447,7 @@
         "CONSTANT": {
             "constant": {
                 "type": "float",
-                "default": "3"
+                "default": 3
             }
         },
         "END": {}
