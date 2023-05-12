@@ -51,11 +51,7 @@ function NodeModal({
               data={nd.result.default_fig.data}
               layout={
                 "layout" in nd.result.default_fig
-                  ? Object.assign(
-                      {},
-                      nd.result.default_fig.layout,
-                      defaultLayout
-                    )
+                  ? Object.assign({}, nd.result.default_fig.layout)
                   : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
