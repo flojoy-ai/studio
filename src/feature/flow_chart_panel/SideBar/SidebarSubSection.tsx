@@ -120,6 +120,7 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
                   ...(cmd.ui_component_id && {
                     uiComponentId: cmd.ui_component_id,
                   }),
+                  pip_dependencies: cmd.pip_dependencies,
                 });
               }}
               key={cmd.name}

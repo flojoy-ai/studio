@@ -73,7 +73,7 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
   const { nodes, setNodes } = useFlowChartState();
 
   const addNewNode: NodeOnAddFunc = useCallback(
-    ({ funcName, params, type, inputs, uiComponentId }) => {
+    ({ funcName, params, type, inputs, uiComponentId, pip_dependencies }) => {
       let nodeLabel: string;
       const nodeId = `${funcName}-${uuidv4()}`;
       if (funcName === "CONSTANT") {
@@ -114,6 +114,7 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
           type,
           ctrls: nodeParams,
           inputs,
+          pip_dependencies,
         },
         position: getNodePosition(),
       };

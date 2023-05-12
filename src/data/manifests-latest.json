@@ -1,5 +1,5 @@
 {
-    "_v": 20,
+    "_v": 0,
     "commands": [
         {
             "name": "Conditional",
@@ -117,7 +117,13 @@
         {
             "name": "R Dataset",
             "key": "R_DATASET",
-            "type": "SAMPLE_DATASET"
+            "type": "SAMPLE_DATASET",
+            "pip_dependencies": [
+                {
+                    "name": "rdatasets",
+                    "v": "0.1.0"
+                }
+            ]
         },
         {
             "name": "Feedback",
@@ -399,12 +405,6 @@
             "Kd": {
                 "type": "float",
                 "default": 356.25
-            }
-        },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
             }
         },
         "R_DATASET": {
