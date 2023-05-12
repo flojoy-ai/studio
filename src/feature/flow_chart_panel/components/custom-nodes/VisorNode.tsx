@@ -15,6 +15,7 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
+import usePlotLayout from "@src/feature/common/plotLayout";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -59,12 +60,14 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
 
+  const plotLayout = usePlotLayout();
+
   const accentColor =
     theme.colorScheme === "dark"
       ? theme.colors.accent1[0]
       : theme.colors.accent2[0];
 
-  const layout: Partial<Layout> = {
+  const layoutOverride: Partial<Layout> = {
     paper_bgcolor:
       theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     plot_bgcolor: "transparent",
@@ -76,7 +79,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     font: {
       color: accentColor,
     },
-    showlegend: false,
   };
 
   return (
@@ -100,7 +102,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 },
               }))}
               id={data.id}
-              layout={layout}
+              layout={{ ...plotLayout, ...layoutOverride }}
               useResizeHandler
               style={{
                 height: 190,
