@@ -47,32 +47,29 @@ describe("ConditionalNode", () => {
     ["CONDITIONAL", "conditional-operator-type"],
     ["TIMER", "timer-value"],
     ["LOOP", "loop-info"],
-  ])(
-    "checks if the componenet: %p is renderWithThemeed",
-    (componentName, testId) => {
-      let ctrls = {};
-      if (componentName === "CONDITIONAL") {
-        ctrls = {
-          operator_type: {
-            value: ">",
-          },
-        };
-      } else if (componentName === "TIMER") {
-        ctrls = {
-          TIMER_test_sleep_time: {
-            value: 2,
-          },
-        };
-      }
-
-      const { getByTestId } = renderWithTheme(
-        <ConditionalNode
-          data={{ ...props.data, func: componentName, ctrls: ctrls }}
-        />
-      );
-
-      const component = getByTestId(testId);
-      expect(component).toBeInTheDocument();
+  ])("checks if the component: %p is rendered", (componentName, testId) => {
+    let ctrls = {};
+    if (componentName === "CONDITIONAL") {
+      ctrls = {
+        operator_type: {
+          value: ">",
+        },
+      };
+    } else if (componentName === "TIMER") {
+      ctrls = {
+        TIMER_test_sleep_time: {
+          value: 2,
+        },
+      };
     }
-  );
+
+    const { getByTestId } = renderWithTheme(
+      <ConditionalNode
+        data={{ ...props.data, func: componentName, ctrls: ctrls }}
+      />
+    );
+
+    const component = getByTestId(testId);
+    expect(component).toBeInTheDocument();
+  });
 });

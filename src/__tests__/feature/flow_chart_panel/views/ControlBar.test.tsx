@@ -32,7 +32,7 @@ jest.mock("@src/feature/common/DropDown", () => ({
 }));
 
 describe("Controls", () => {
-  it("should renderWithTheme correctly", () => {
+  it("should render correctly", () => {
     const { container } = renderWithTheme(
       <Controls activeTab="visual" setOpenCtrlModal={jest.fn()} />
     );

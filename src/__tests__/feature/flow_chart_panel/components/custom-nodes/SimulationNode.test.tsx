@@ -40,7 +40,7 @@ describe("ConditionalNode", () => {
     const textField = getByText(props.data.label);
     expect(textField).toBeInTheDocument();
   });
-  it("check if the handle component renderWithThemeed", () => {
+  it("check if the handle component rendered", () => {
     const { getByTestId } = renderWithTheme(<SimulationNode {...props} />);
     const component = getByTestId("handle-component");
     expect(component).toBeInTheDocument();

@@ -101,7 +101,7 @@ window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
 
 describe("FlowChartTabView", () => {
-  it("should renderWithTheme the component correcty", () => {
+  it("should render the component correcty", () => {
     const { container } = renderWithTheme(
       <FlowChartTab
         results={props.results}
