@@ -1,5 +1,5 @@
 {
-    "_v": 20,
+    "_v": 0,
     "commands": [
         {
             "name": "Conditional",
@@ -92,12 +92,22 @@
         {
             "name": "PHIDGET22",
             "key": "PHIDGET22",
-            "type": "PHIDGET"
+            "type": "PHIDGET",
+            "pip_dependencies": [
+                {
+                    "name": "Phidget22"
+                }
+            ]
         },
         {
             "name": "Camera",
             "key": "CAMERA",
             "type": "WEB_CAM"
+        },
+        {
+            "name": "SELECT_ARRAY",
+            "key": "SELECT_ARRAY",
+            "type": "SELECT_ARRAY"
         },
         {
             "name": "PID",
@@ -107,7 +117,13 @@
         {
             "name": "R Dataset",
             "key": "R_DATASET",
-            "type": "SAMPLE_DATASET"
+            "type": "SAMPLE_DATASET",
+            "pip_dependencies": [
+                {
+                    "name": "rdatasets",
+                    "v": "0.1.0"
+                }
+            ]
         },
         {
             "name": "Feedback",
@@ -142,7 +158,13 @@
         {
             "name": "Object Detection",
             "key": "OBJECT_DETECTION",
-            "type": "AI_OBJECT_DETECTION"
+            "type": "AI_OBJECT_DETECTION",
+            "pip_dependencies": [
+                {
+                    "name": "opencv-python-headless",
+                    "v": "4.7.0.72"
+                }
+            ]
         },
         {
             "name": "Butterworth Filter",
@@ -153,20 +175,18 @@
             "name": "Linspace",
             "key": "LINSPACE",
             "type": "SIMULATION",
-            "ui_component_id": "default",
-            "end": {
-                "type": "float",
-                "default": "0"
-            },
-            "step": {
-                "type": "float",
-                "default": "1000"
-            }
+            "ui_component_id": "default"
         },
         {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK",
+            "pip_dependencies": [
+                {
+                    "name": "labjackpython",
+                    "v": "2.1.0"
+                }
+            ]
         },
         {
             "name": "Random (Uniform)",
@@ -182,6 +202,17 @@
                     "name": "y",
                     "id": "sub_y",
                     "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "SERIAL",
+            "key": "SERIAL",
+            "type": "SERIAL",
+            "pip_dependencies": [
+                {
+                    "name": "pyserial",
+                    "v": 3.5
                 }
             ]
         },
@@ -262,7 +293,13 @@
         {
             "name": "KEITHLEY2400",
             "key": "KEITHLEY2400",
-            "type": "KEITHLEY"
+            "type": "KEITHLEY",
+            "pip_dependencies": [
+                {
+                    "name": "pyserial",
+                    "v": 3.5
+                }
+            ]
         },
         {
             "name": "Constant",
@@ -270,7 +307,7 @@
             "type": "SIMULATION"
         },
         {
-            "name": "The End",
+            "name": "The END",
             "key": "END",
             "type": "TERMINATOR"
         }
@@ -350,18 +387,24 @@
                 "default": 0
             }
         },
+        "SELECT_ARRAY": {
+            "column": {
+                "type": "float",
+                "default": 0
+            }
+        },
         "PID": {
             "Kp": {
                 "type": "float",
-                "default": "5"
+                "default": 5
             },
             "Ki": {
                 "type": "float",
-                "default": "0.0143"
+                "default": 0.0143
             },
             "Kd": {
                 "type": "float",
-                "default": "356.25"
+                "default": 356.25
             }
         },
         "R_DATASET": {
@@ -382,10 +425,6 @@
                 "type": "string",
                 "default": "image"
             },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
-            },
             "path": {
                 "type": "string",
                 "default": ""
@@ -394,15 +433,15 @@
         "LINSPACE": {
             "start": {
                 "type": "float",
-                "default": "10"
+                "default": 10
             },
             "end": {
                 "type": "float",
-                "default": "0"
+                "default": 0
             },
             "step": {
                 "type": "float",
-                "default": "1000"
+                "default": 1000
             }
         },
         "LABJACKU3": {
@@ -411,14 +450,32 @@
                 "default": 1
             }
         },
+        "SERIAL": {
+            "comport": {
+                "type": "string",
+                "default": "/dev/ttyUSB0"
+            },
+            "baudrate": {
+                "type": "float",
+                "default": 9600
+            },
+            "num_readings": {
+                "type": "float",
+                "default": 100
+            },
+            "record_period": {
+                "type": "float",
+                "default": 1
+            }
+        },
         "SECOND_ORDER_SYSTEM": {
             "d1": {
                 "type": "float",
-                "default": "250"
+                "default": 250
             },
             "d2": {
                 "type": "float",
-                "default": "100"
+                "default": 100
             }
         },
         "LOADER": {
@@ -475,7 +532,7 @@
         "CONSTANT": {
             "constant": {
                 "type": "float",
-                "default": "3"
+                "default": 3
             }
         },
         "END": {}
