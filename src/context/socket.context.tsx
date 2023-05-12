@@ -64,7 +64,7 @@ export const SocketContextProvider = ({ children }) => {
       });
       setSocket(ws);
     }
-  }, [socket]);
+  });
   return (
     <SocketContext.Provider
       value={{ states: { ...states, programResults, setProgramResults } }}

@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "_v": 0,
+=======
+    "_v": 20,
+>>>>>>> origin/develop
     "commands": [
         {
             "name": "Sine",
@@ -243,6 +247,154 @@
             ]
         },
         {
+<<<<<<< HEAD
+=======
+            "name": "Invert",
+            "key": "INVERT",
+            "type": "MATRIX_MANIPULATION"
+        },
+        {
+            "name": "Loop",
+            "key": "LOOP",
+            "type": "LOOP",
+            "inputs": [
+                {
+                    "name": "end",
+                    "id": "end",
+                    "type": "source"
+                },
+                {
+                    "name": "body",
+                    "id": "body",
+                    "type": "source"
+                }
+            ]
+        },
+        {
+            "name": "Timer",
+            "key": "TIMER",
+            "type": "TIMER"
+        },
+        {
+            "name": "Sine",
+            "key": "SINE",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "3D Scatter Plot",
+            "key": "SCATTER3D",
+            "type": "PLOTLY_VISOR",
+            "inputs": []
+        },
+        {
+            "name": "Multiply",
+            "key": "MULTIPLY",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "multiply_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "SK Learn Image",
+            "key": "SKLEARNIMAGE",
+            "type": "SAMPLE_IMAGE",
+            "pip_dependencies": [
+                {
+                    "name": "scikit-image",
+                    "v": "0.20.0"
+                }
+            ]
+        },
+        {
+            "name": "PHIDGET22",
+            "key": "PHIDGET22",
+            "type": "PHIDGET"
+        },
+        {
+            "name": "Camera",
+            "key": "CAMERA",
+            "type": "WEB_CAM"
+        },
+        {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "R Dataset",
+            "key": "R_DATASET",
+            "type": "SAMPLE_DATASET"
+        },
+        {
+            "name": "Feedback",
+            "key": "FEEDBACK",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Absolute",
+            "key": "ABS",
+            "type": "ARITHMETIC"
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOCAL_FILE_SYSTEM"
+        },
+        {
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "AI_OBJECT_DETECTION"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        {
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK"
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+>>>>>>> origin/develop
             "name": "Add",
             "key": "ADD",
             "type": "ARITHMETIC",
@@ -273,6 +425,34 @@
             "name": "Bar Chart",
             "key": "BAR",
             "type": "PLOTLY_VISOR"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "Savitzky-Golay Filter",
+            "key": "SAVGOL",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Table",
+            "key": "TABLE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "KEITHLEY2400",
+            "key": "KEITHLEY2400",
+            "type": "KEITHLEY"
+        },
+        {
+            "name": "Constant",
+            "key": "CONSTANT",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "The End",
+            "key": "END",
+            "type": "TERMINATOR"
+>>>>>>> origin/develop
         }
     ],
     "parameters": {
@@ -304,9 +484,56 @@
                 "default": "sine"
             }
         },
+<<<<<<< HEAD
         "END": {},
         "GOTO": {
             "goto_node_id": {
+=======
+        "SKLEARNIMAGE": {
+            "img_key": {
+                "type": "string",
+                "default": "astronaut"
+            }
+        },
+        "PHIDGET22": {
+            "n_sensors": {
+                "type": "int",
+                "default": 3
+            }
+        },
+        "CAMERA": {
+            "file_type": {
+                "type": "string",
+                "default": "image"
+            },
+            "camera_ind": {
+                "type": "integer",
+                "default": 0
+            }
+        },
+        "PID": {
+            "Kp": {
+                "type": "float",
+                "default": "5"
+            },
+            "Ki": {
+                "type": "float",
+                "default": "0.0143"
+            },
+            "Kd": {
+                "type": "float",
+                "default": "356.25"
+            }
+        },
+        "R_DATASET": {
+            "dataset_key": {
+                "type": "string",
+                "default": "iris"
+            }
+        },
+        "FEEDBACK": {
+            "referred_node": {
+>>>>>>> origin/develop
                 "type": "node_reference",
                 "default": ""
             }
