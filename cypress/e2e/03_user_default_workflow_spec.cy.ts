@@ -1,6 +1,6 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
 import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
-import { NOISY_SINE } from "@src/data/RECIPES";
+import { NOISY_SINE } from "../../src/data/RECIPES";
 
 const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,

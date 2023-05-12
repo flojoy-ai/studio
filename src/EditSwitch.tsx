@@ -22,7 +22,7 @@ export const EditSwitch = ({
 }) => {
   const { classes } = useStyles();
   return (
-    <Box className={classes.editContainer}>
+    <Box className={classes.editContainer} data-cy="edit-switch">
       {isEditMode ? <IconLock /> : <IconLockOpen />}
       <ReactSwitch
         checked={isEditMode}

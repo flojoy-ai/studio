@@ -216,6 +216,7 @@ const SidebarCustom = ({
           }}
         >
           <button
+            data-testid="sidebar-close"
             onClick={() => setSideBarStatus(false)}
             style={{
               cursor: "pointer",
@@ -246,7 +247,7 @@ const SidebarCustom = ({
           className={classes.sections}
           component={ScrollArea}
         >
-          <div className={classes.sectionsInner}>
+          <div className={classes.sectionsInner} data-testid="sidebar-sections">
             {renderSection(textInput, sections, 0)}
           </div>
         </Navbar.Section>

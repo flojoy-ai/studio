@@ -1,8 +1,9 @@
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
+import { ElementsData } from "../../src/feature/flow_chart_panel/types/CustomNodeProps";
+import { matchPlotlyOutput } from "..//utils/matchPlotlyOutput";
 import { Node } from "reactflow";
-import exampleApps from "./config_example_app_test.json";
-import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import * as exampleApps from "./config_example_app_test.json";
+import { ControlNames } from "../../src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+
 interface IApp {
   title: string;
   test_id: string;
@@ -36,13 +37,22 @@ describe("Example apps testing.", () => {
           });
         });
         // Switch to ctrl panel tab
-        cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
+        cy.get(`[data-cy=ctrls-btn]`).click({ timeout: 10000 });
 
         // Enable operation mode
-        cy.get("[data-cy=operation-switch]")
-          .contains("Edit")
-          .click()
-          .should("have.css", "color", "rgb(255, 165, 0)");
+        cy.get("[data-cy=edit-switch]").click();
+
+        // Expand tree to make buttons visible
+        cy.get("[data-cy=add-ctrl]").click();
+        cy.get("[data-testid=sidebar-sections]").find("button").first().click();
+        cy.get("[data-testid=sidebar-sections]")
+          .contains("Continuous Variables")
+          .click();
+        cy.get("[data-testid=sidebar-sections]")
+          .contains("Text & Files")
+          .click();
+        cy.get("[data-testid=sidebar-close").click();
+
         /**
          * For each parameter of every nodes create input widget
          * and set default value
@@ -69,10 +79,11 @@ describe("Example apps testing.", () => {
 
         // force close any opened modal in homepage
         cy.get("body").then(($body) => {
-          if ($body.find(".ctrl-close-btn").length > 0) {
-            cy.get(".ctrl-close-btn").click({ force: true });
+          if ($body.find("[data-cy=ctrl-close-btn]").length > 0) {
+            cy.get("[data-cy=ctrl-close-btn]").click({ force: true });
           }
         });
+
         // Switch to debug panel
         cy.get(`[data-cy="debug-btn"]`).click();
         // Run the script
