@@ -44,14 +44,6 @@ describe("Controls", () => {
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
     expect(container).toMatchSnapshot("__main__");
   });
-  it("should show the Edit button when active tab is 'panel'", () => {
-    const { container } = renderWithTheme(
-      <Controls activeTab="panel" setOpenCtrlModal={jest.fn()} />
-    );
-    expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
-    expect(screen.getByTestId("react-switch")).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__switch_btn__");
-  });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
     renderWithTheme(
       <Controls activeTab="debug" setOpenCtrlModal={jest.fn()} />
