@@ -1,5 +1,5 @@
 {
-    "_v": 0,
+    "_v": 1,
     "commands": [
         {
             "name": "Conditional",
@@ -200,7 +200,7 @@
             "inputs": [
                 {
                     "name": "y",
-                    "id": "sub_y",
+                    "id": "add_y",
                     "type": "target"
                 }
             ]
@@ -215,6 +215,11 @@
                     "v": 3.5
                 }
             ]
+        },
+        {
+            "name": "Plotly Dataset",
+            "key": "PLOTLY_DATASET",
+            "type": "SAMPLE_DATASET"
         },
         {
             "name": "Histogram",
@@ -466,6 +471,24 @@
             "record_period": {
                 "type": "float",
                 "default": 1
+            }
+        },
+        "PLOTLY_DATASET": {
+            "dataset_key": {
+                "type": "select",
+                "options": [
+                    "wind",
+                    "iris",
+                    "carshare",
+                    "tips",
+                    "election",
+                    "experiment",
+                    "gapminder",
+                    "medals_long",
+                    "medals_wide",
+                    "stocks"
+                ],
+                "default": "wind"
             }
         },
         "SECOND_ORDER_SYSTEM": {
