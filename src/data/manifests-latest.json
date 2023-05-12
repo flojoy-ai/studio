@@ -208,7 +208,13 @@
         {
             "name": "SERIAL",
             "key": "SERIAL",
-            "type": "SERIAL"
+            "type": "SERIAL",
+            "pip_dependencies": [
+                {
+                    "name": "pyserial",
+                    "v": 3.5
+                }
+            ]
         },
         {
             "name": "Histogram",
@@ -301,7 +307,7 @@
             "type": "SIMULATION"
         },
         {
-            "name": "The End",
+            "name": "The END",
             "key": "END",
             "type": "TERMINATOR"
         }
@@ -390,15 +396,15 @@
         "PID": {
             "Kp": {
                 "type": "float",
-                "default": "5"
+                "default": 5
             },
             "Ki": {
                 "type": "float",
-                "default": "0.0143"
+                "default": 0.0143
             },
             "Kd": {
                 "type": "float",
-                "default": "356.25"
+                "default": 356.25
             }
         },
         "R_DATASET": {
@@ -418,10 +424,6 @@
             "file_type": {
                 "type": "string",
                 "default": "image"
-            },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
             },
             "path": {
                 "type": "string",
@@ -469,11 +471,11 @@
         "SECOND_ORDER_SYSTEM": {
             "d1": {
                 "type": "float",
-                "default": "250"
+                "default": 250
             },
             "d2": {
                 "type": "float",
-                "default": "100"
+                "default": 100
             }
         },
         "LOADER": {
@@ -530,7 +532,7 @@
         "CONSTANT": {
             "constant": {
                 "type": "float",
-                "default": "3"
+                "default": 3
             }
         },
         "END": {}
