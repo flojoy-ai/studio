@@ -9,6 +9,7 @@ const testParameters = {
   failureReason: jest.fn(),
   socketId: jest.fn(),
   onClose: jest.fn(),
+  onPreJobOpStarted: jest.fn(),
 };
 let socketMock: any;
 
