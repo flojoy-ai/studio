@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
-import { v4 as uuidv4 } from "uuid";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { GlobalStyles } from "./feature/common/Global";
 import { useDisclosure } from "@mantine/hooks";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   ColorScheme,
@@ -20,7 +20,6 @@ import { AppTab, Header } from "./Header";
 import { ServerStatus } from "./ServerStatus";
 import { CustomFonts } from "./feature/common/CustomFonts";
 import { darkTheme, lightTheme } from "./feature/common/theme";
-import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import { CtlManifestType, useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import SidebarCustom from "./feature/common/Sidebar/Sidebar";
@@ -32,8 +31,15 @@ import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
+import { AddNodeBtn } from "./AddNodeBtn";
+import {
+  CMND_MANIFEST,
+  CMND_TREE,
+} from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
 
 const App = () => {
+  const addNewNode = useAddNewNode();
   const { states } = useSocket();
   const {
     serverStatus,
@@ -45,6 +51,7 @@ const App = () => {
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
+  const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false); //for script sidebar
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
@@ -65,7 +72,6 @@ const App = () => {
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
   ] = useDisclosure(false);
-  const mantineTheme = useMantineTheme();
   const queryString = window?.location?.search;
   const fileName =
     queryString.startsWith("?test_example_app") && queryString.split("=")[1];
@@ -170,7 +176,18 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             {/* add node button currently in the sidebar, to be refactored */}
-            <Sidebar />
+            <AddNodeBtn
+              setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
+              isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
+            />
+
+            <SidebarCustom
+              sections={CMND_TREE}
+              manifestMap={CMND_MANIFEST}
+              leafNodeClickHandler={addNewNode}
+              isSideBarOpen={isSCRIPTSideBarOpen}
+              setSideBarStatus={setSCRIPTSideBarStatus}
+            />
 
             <FlowChartTab
               rfInstance={rfInstance!}
