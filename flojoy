@@ -164,6 +164,10 @@ do
         is_ci=true
         shift
         ;;
+        -t)
+        test_ci=true #run with CI=true, allows to properly run tests locally 
+        shift
+        ;;
         *) # unknown option
         echo "Unknown option: $1"
         helpFunction
@@ -350,9 +354,15 @@ fi
 sleep 1
 
 # start project services
+if $test_ci; then
+   start_project_cmd='npm run start-project:ci'
+else 
+   start_project_cmd='npm run start-project'
+fi
+ # start project services
 if [ -n "$venvCmd" ]; then
-   $venvCmd && npm run start-project
+   $venvCmd && $start_project_cmd
 else
-   npm run start-project
+    $start_project_cmd
 fi
 sleep 1
