@@ -34,6 +34,7 @@ const SidebarSection = ({ title, content, depth }) => {
       <UnstyledButton
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
+        data-cy="sidebar-section-btn"
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
