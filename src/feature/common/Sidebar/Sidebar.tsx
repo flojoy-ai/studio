@@ -228,9 +228,7 @@ const SidebarCustom = ({
             <CloseIconSvg />
           </button>
         </Navbar.Section>
-        <Navbar.Section>
-          {customContent}
-        </Navbar.Section>
+        <Navbar.Section>{customContent}</Navbar.Section>
         <Navbar.Section>
           <Input
             data-testid="sidebar-input"
