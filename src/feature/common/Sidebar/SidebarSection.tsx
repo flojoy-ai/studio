@@ -53,7 +53,7 @@ const SidebarSection = ({ title, content, depth }) => {
       </UnstyledButton>
       <Collapse in={opened}>
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + depth * 20}px` }}>{content}</div>
+        <div style={{ paddingLeft: `${10 + (depth+1) * 20}px` }}>{content}</div>
       </Collapse>
     </>
   );

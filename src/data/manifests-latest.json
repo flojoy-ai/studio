@@ -265,7 +265,7 @@
         },
         {
             "name": "Object Detection",
-            "key": "AI_OBJECT_DETECTION",
+            "key": "OBJECT_DETECTION",
             "type": "AI_OBJECT_DETECTION",
             "pip_dependencies": [
                 {

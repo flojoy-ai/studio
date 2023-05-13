@@ -25,7 +25,7 @@ type Sections = {
 }[];
 
 const CMND_MANIFEST: Commands = manifests.commands.reduce((result, element) => {
-  result[element.key] = element;
+  result[element.type] = element;
   result["title"] = result["name"];
   return result;
 }, {});
