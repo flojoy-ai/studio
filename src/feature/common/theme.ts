@@ -30,6 +30,7 @@ export const darkTheme: MantineThemeOverride = {
     accent2: ["#7b61ff", "#7418b5"],
     accent3: ["#ffc93f"],
     accent4: ["rgba(153, 245, 255, 1)", "rgba(153, 245, 255, 0.2)"], //for add buttons and leaf nodes
+    accent5: ["#ff7b61", "#ff3b15"],
   },
 };
 

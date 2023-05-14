@@ -537,7 +537,7 @@
                 "default": 0
             },
             "overwrite_data": {
-                "type": "bool",
+                "type": "logical",
                 "default": false
             }
         },
