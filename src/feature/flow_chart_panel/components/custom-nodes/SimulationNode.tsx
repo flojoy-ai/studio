@@ -24,6 +24,9 @@ const useStyles = createStyles((theme) => {
       border: `1px solid ${accent}`,
       color: accent,
       backgroundColor: accent + "27",
+      textAlign: "center",
+      overflowWrap: "anywhere",
+      inlineSize: 115
     },
   };
 });
