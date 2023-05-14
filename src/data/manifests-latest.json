@@ -437,14 +437,14 @@
         "ARGRELMAX": {
             "axis": {
                 "type": "int",
-                "default": "0"
+                "default": 0
             },
             "order": {
                 "type": "int",
-                "default": "1"
+                "default": 1
             },
             "mode": {
-                "type": "str",
+                "type": "string",
                 "default": "clip"
             }
         },
@@ -461,14 +461,14 @@
         "BINOM_TEST": {
             "n": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "p": {
                 "type": "float",
-                "default": "0.5"
+                "default": 0.5
             },
             "alternative": {
-                "type": "str",
+                "type": "string",
                 "default": "two-sided"
             }
         },
@@ -481,14 +481,14 @@
         "ARGRELMIN": {
             "axis": {
                 "type": "int",
-                "default": "0"
+                "default": 0
             },
             "order": {
                 "type": "int",
-                "default": "1"
+                "default": 1
             },
             "mode": {
-                "type": "str",
+                "type": "string",
                 "default": "clip"
             }
         },
@@ -526,19 +526,19 @@
         "DETREND": {
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             },
             "type": {
-                "type": "str",
+                "type": "string",
                 "default": "linear"
             },
             "bp": {
                 "type": "int",
-                "default": "0"
+                "default": 0
             },
             "overwrite_data": {
                 "type": "bool",
-                "default": "False"
+                "default": false
             }
         },
         "SECOND_ORDER_SYSTEM": {
@@ -554,49 +554,49 @@
         "PERIODOGRAM": {
             "fs": {
                 "type": "float",
-                "default": "1.0"
+                "default": 1.0
             },
             "window": {
-                "type": "str",
+                "type": "string",
                 "default": "boxcar"
             },
             "nfft": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "detrend": {
-                "type": "str",
+                "type": "string",
                 "default": "constant"
             },
             "return_onesided": {
                 "type": "bool",
-                "default": "True"
+                "default": true
             },
             "scaling": {
-                "type": "str",
+                "type": "string",
                 "default": "density"
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             }
         },
         "KSTATVAR": {
             "n": {
                 "type": "int",
-                "default": "2"
+                "default": 2
             },
             "axis": {
                 "type": "int or None",
-                "default": ""
+                "default": null
             },
             "nan_policy": {
-                "type": "str",
+                "type": "string",
                 "default": "propagate"
             },
             "keepdims": {
                 "type": "bool",
-                "default": "False"
+                "default": false
             }
         },
         "SKLEARNIMAGE": {
@@ -609,61 +609,61 @@
         "SAVGOL_FILTER": {
             "window_length": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "polyorder": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "deriv": {
                 "type": "int",
-                "default": "0"
+                "default": 0
             },
             "delta": {
                 "type": "float",
-                "default": "1.0"
+                "default": 1.0
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             },
             "mode": {
-                "type": "str",
+                "type": "string",
                 "default": "interp"
             },
             "cval": {
                 "type": "float",
-                "default": "0.0"
+                "default": 0.0
             }
         },
         "ANDERSON": {
             "dist": {
-                "type": "str",
+                "type": "string",
                 "default": "norm"
             }
         },
         "KSTAT": {
             "n": {
                 "type": "int",
-                "default": "2"
+                "default": 2
             },
             "axis": {
                 "type": "int or None",
-                "default": ""
+                "default": null
             },
             "nan_policy": {
-                "type": "str",
+                "type": "string",
                 "default": "propagate"
             },
             "keepdims": {
                 "type": "bool",
-                "default": "False"
+                "default": false
             }
         },
         "BAYES_MVS": {
             "alpha": {
                 "type": "float",
-                "default": "0.9"
+                "default": 0.9
             }
         },
         "CUBIC": null,
@@ -680,58 +680,58 @@
         "YEOJOHNSON": {
             "lmbda": {
                 "type": "float",
-                "default": ""
+                "default": null
             }
         },
         "GAUSS_SPLINE": {
             "n": {
                 "type": "int",
-                "default": ""
+                "default": null
             }
         },
         "STFT": {
             "fs": {
                 "type": "float",
-                "default": "1.0"
+                "default": 1.0
             },
             "window": {
-                "type": "str",
+                "type": "string",
                 "default": "hann"
             },
             "nperseg": {
                 "type": "int",
-                "default": "256"
+                "default": 256
             },
             "noverlap": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "nfft": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "detrend": {
                 "type": "bool",
-                "default": "False"
+                "default": false
             },
             "return_onesided": {
                 "type": "bool",
-                "default": "True"
+                "default": true
             },
             "boundary": {
-                "type": "str",
+                "type": "string",
                 "default": "zeros"
             },
             "padded": {
                 "type": "bool",
-                "default": "True"
+                "default": true
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             },
             "scaling": {
-                "type": "str",
+                "type": "string",
                 "default": "spectrum"
             }
         },
@@ -758,23 +758,23 @@
         "DECIMATE": {
             "q": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "n": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "ftype": {
-                "type": "str",
+                "type": "string",
                 "default": "iir"
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             },
             "zero_phase": {
                 "type": "bool",
-                "default": "True"
+                "default": true
             }
         },
         "SAVGOL": {
@@ -820,11 +820,11 @@
         "HILBERT": {
             "N": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             }
         },
         "END": {},
@@ -837,42 +837,42 @@
         "WELCH": {
             "fs": {
                 "type": "float",
-                "default": "1.0"
+                "default": 1.0
             },
             "window": {
-                "type": "str",
+                "type": "string",
                 "default": "hann"
             },
             "nperseg": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "noverlap": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "nfft": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "detrend": {
-                "type": "str",
+                "type": "string",
                 "default": "constant"
             },
             "return_onesided": {
                 "type": "bool",
-                "default": "True"
+                "default": true
             },
             "scaling": {
-                "type": "str",
+                "type": "string",
                 "default": "density"
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             },
             "average": {
-                "type": "str",
+                "type": "string",
                 "default": "mean"
             }
         },
@@ -935,17 +935,17 @@
         "BSPLINE": {
             "n": {
                 "type": "int",
-                "default": ""
+                "default": null
             }
         },
         "CZT": {
             "m": {
                 "type": "int",
-                "default": ""
+                "default": null
             },
             "w": {
                 "type": "complex",
-                "default": ""
+                "default": null
             },
             "a": {
                 "type": "complex",
@@ -953,7 +953,7 @@
             },
             "axis": {
                 "type": "int",
-                "default": "-1"
+                "default": -1
             }
         },
         "TIMESERIES": {},
