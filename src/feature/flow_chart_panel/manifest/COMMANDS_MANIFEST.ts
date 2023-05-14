@@ -33,7 +33,22 @@ export const SECTIONS: Sections = [
       },
     ],
   },
-
+  {
+    title: "SCIentific PYthon (SCIPY)",
+    child: [
+      {name: "SciPy Signal",key: "SCIPY_SIGNAL"},
+      {name: "SciPy Stats", key: "SCIPY_STATS"}
+    ],
+  },
+  {
+    title: "NUMeric PYthon (NUMPY)",
+    child: [
+      {
+        name: "NumPy",
+        key: "NUMPY",
+      },
+    ],
+  },
   {
     title: "Extractors",
     child: [
