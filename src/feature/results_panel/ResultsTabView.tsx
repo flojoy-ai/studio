@@ -15,13 +15,18 @@ import {
 import { ResultsType } from "./types/ResultsType";
 import { useResultsTabEffects } from "./ResultsTabEffects";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useSocket } from "@src/hooks/useSocket";
 interface ResultsTabProps {
   results: ResultsType;
 }
 const edgeTypes: EdgeTypes = { default: CustomEdge as any };
 const nodeTypes: NodeTypes = { default: CustomResultNode as any };
 
-const ResultsTab = ({ results }: ResultsTabProps) => {
+const ResultsTab = () => {
+  const { states } = useSocket();
+  const { programResults } = states!;
+  const results = programResults!;
+
   const { setResultNodes, nodes, resultNodes } = useResultsTabState();
   const { edges } = useFlowChartState();
 

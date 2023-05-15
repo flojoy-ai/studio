@@ -24,6 +24,7 @@ import ReactSwitch from "react-switch";
 import "react-tabs/style/react-tabs.css";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import { useLocation } from "react-router-dom";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -109,17 +110,14 @@ localforage.config({
   storeName: "flows",
 });
 
-export type ControlsProps = {
-  activeTab: AppTab;
-  setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
-};
-
-const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
+const Controls = () => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
+
+  const location = useLocation();
 
   const {
     isEditMode,
@@ -175,7 +173,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           <Text>Cancel</Text>
         </button>
       )}
-      {activeTab !== "debug" && (
+      {location.pathname !== "/debug" && (
         <DropDown dropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
           <button data-cy="btn-save" onClick={saveFile}>

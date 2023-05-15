@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 import {
   ReactFlow,
@@ -32,19 +32,22 @@ import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { BezierEdge } from "reactflow";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+import { Node } from "reactflow";
+import { useSocket } from "@src/hooks/useSocket";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab = ({
-  results,
-  rfInstance,
-  setRfInstance,
-  clickedElement,
-  setClickedElement,
-}: FlowChartProps) => {
+const FlowChartTab = () => {
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
+  const { states } = useSocket();
+  const { programResults } = states!;
+  const results = programResults!;
+
   const {
     windowWidth,
     modalIsOpen,
@@ -64,7 +67,8 @@ const FlowChartTab = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const { isEditMode, nodes, setNodes, edges, setEdges, setRfInstance } =
+    useFlowChartState();
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
@@ -88,11 +92,6 @@ const FlowChartTab = ({
     setClickedElement(node);
     openModal();
   };
-
-  // TODO: Delete this
-  // useEffect(() => {
-  //   saveFlowChartToLocalStorage(rfInstance);
-  // }, [rfInstance]);
 
   const defaultLayout = usePlotLayout();
 

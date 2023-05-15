@@ -7,8 +7,9 @@ import {
 import { Dispatch, SetStateAction } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { Logo } from "./Logo";
-import { TabButton } from "./TabButton";
+import { HeaderTab } from "./HeaderTab";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
+import { useLocation } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -33,47 +34,26 @@ const useStyles = createStyles((theme) => ({
 
 export type AppTab = "visual" | "panel" | "debug";
 
-type HeaderProps = {
-  currentTab: AppTab;
-  setCurrentTab: (tab: AppTab) => void;
-  setOpenCtrlModal: Dispatch<SetStateAction<boolean>>;
-};
-
-export const Header = ({
-  currentTab,
-  setCurrentTab,
-  setOpenCtrlModal,
-}: HeaderProps) => {
+export const Header = () => {
   const { classes } = useStyles();
+  const location = useLocation();
 
   return (
     <MantineHeader height="80px" className={classes.header}>
       <Box className={classes.tabs}>
         <Logo />
-        <TabButton
-          onClick={() => setCurrentTab("visual")}
-          active={currentTab === "visual"}
-          testId="script-btn"
-        >
+        <HeaderTab to={"/"} testId="script-btn">
           SCRIPT
-        </TabButton>
-        <TabButton
-          onClick={() => setCurrentTab("panel")}
-          active={currentTab === "panel"}
-          testId="ctrls-btn"
-        >
+        </HeaderTab>
+        <HeaderTab to={"/controls"} testId="ctrls-btn">
           CTRLS
-        </TabButton>
-        <TabButton
-          onClick={() => setCurrentTab("debug")}
-          active={currentTab === "debug"}
-          testId="debug-btn"
-        >
+        </HeaderTab>
+        <HeaderTab to={"/debug"} testId="debug-btn">
           DEBUG
-        </TabButton>
+        </HeaderTab>
       </Box>
       <Box className={classes.controlButtons}>
-        <Controls activeTab={currentTab} setOpenCtrlModal={setOpenCtrlModal} />
+        <Controls />
         <DarkModeToggle />
       </Box>
     </MantineHeader>

@@ -21,6 +21,8 @@ import { createStyles } from "@mantine/styles";
 import { useMantineTheme } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import { EditSwitch } from "@src/EditSwitch";
+import { CTRL_MANIFEST } from "./manifest/CONTROLS_MANIFEST";
+import { v4 as uuidv4 } from "uuid";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -34,20 +36,15 @@ export const useAddButtonStyle = createStyles((theme) => {
 });
 
 localforage.config({ name: "react-flow", storeName: "flows" });
-interface ControlsTabProps {
-  results: ResultsType;
-  setOpenCtrlModal: Dispatch<SetStateAction<boolean>>;
-  openCtrlModal: boolean;
-}
 
-const ControlsTab = ({
-  results,
-  setOpenCtrlModal,
-  openCtrlModal,
-}: ControlsTabProps) => {
+const ControlsTab = () => {
+  const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
+
   const theme = useMantineTheme();
   const { states } = useSocket();
-  const { socketId, setProgramResults } = states!;
+  const { socketId, setProgramResults, programResults } = states!;
+  const results = programResults!;
+
   const {
     openEditModal,
     setOpenEditModal,
@@ -70,11 +67,6 @@ const ControlsTab = ({
     setGridLayout,
   } = useFlowChartState();
 
-  const afterOpenModal = () => null;
-  const closeModal = () => {
-    setOpenCtrlModal(false);
-  };
-
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
@@ -93,6 +85,37 @@ const ControlsTab = ({
   }, [debouncedTimerId, rfInstance]);
 
   useControlsTabEffects();
+
+  //function for handling a CTRL add (assume that input is key from manifest)
+  const addCtrl = (ctrlKey: string) => {
+    setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
+    const ctrlObj = CTRL_MANIFEST[ctrlKey];
+    const id = `ctrl-${uuidv4()}`;
+    let yAxis = 0;
+    for (const el of gridLayout) {
+      if (yAxis < el.y) {
+        yAxis = el.y;
+      }
+    }
+    const ctrlLayout = {
+      x: 0,
+      y: yAxis + 1,
+      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
+      w: 2,
+      i: id,
+      minH: ctrlObj.minHeight,
+      minW: ctrlObj.minWidth,
+      static: !isEditMode,
+    };
+    const ctrl: CtlManifestType = {
+      ...ctrlObj,
+      hidden: false,
+      id,
+      layout: ctrlLayout,
+    } as CtlManifestType;
+
+    cacheManifest([...ctrlsManifest, ctrl]);
+  };
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
@@ -155,7 +178,6 @@ const ControlsTab = ({
     });
     cacheManifest(manClone);
   };
-  const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
 
   return (
     <div data-testid="controls-tab">
@@ -167,19 +189,12 @@ const ControlsTab = ({
         }}
       >
         <AddCTRLBtn
-          setCTRLSideBarStatus={setCTRLSideBarStatus}
+          setCTRLSideBarStatus={setCtrlSidebarOpen}
           setIsEditMode={setIsEditMode}
-          isCTRLSideBarOpen={isCTRLSideBarOpen}
+          isCTRLSideBarOpen={ctrlSidebarOpen}
         />
         <EditSwitch isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
       </div>
-      {/* <AddBtn
-        testId={"add-ctrl"}
-        handleClick={() => {
-          setOpenCtrlModal((prev) => !prev);
-          setIsEditMode(true);
-        }}
-      /> */}
       <ControlGrid
         controlProps={{
           isEditMode,
@@ -191,6 +206,14 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
+      {/* TODO: Add edit sidebar back */}
+      {/* <SidebarCustom
+        sections={CTRL_TREE}
+        manifestMap={CTRL_MANIFEST}
+        leafNodeClickHandler={addCtrl}
+        isSideBarOpen={isCTRLSideBarOpen}
+        setSideBarStatus={setCTRLSideBarStatus}
+      /> */}
 
       {/* <AddCtrlModal
         isOpen={openCtrlModal}

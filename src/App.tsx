@@ -14,7 +14,7 @@ import {
   MantineProvider,
   useMantineTheme,
 } from "@mantine/core";
-import { Node } from "reactflow";
+import { Controls, Node } from "reactflow";
 import "./App.css";
 import { AppTab, Header } from "./Header";
 import { ServerStatus } from "./ServerStatus";
@@ -30,41 +30,55 @@ import {
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
+import { AddCTRLBtn } from "./AddCTRLBtn";
+import { EditSwitch } from "./EditSwitch";
 import { useInterval } from "react-use";
 import { saveFlowChartToLocalStorage } from "./services/FlowChartServices";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Layout } from "./Layout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Layout>
+        <FlowChartTab />
+      </Layout>
+    ), // TODO: Add sidebar back to this tab
+  },
+  {
+    path: "/controls",
+    element: (
+      <Layout>
+        <ControlsTab />
+      </Layout>
+    ),
+  },
+  {
+    path: "/debug",
+    element: (
+      <Layout>
+        <ResultsTab />
+      </Layout>
+    ),
+  },
+]);
 
 const App = () => {
   const { states } = useSocket();
-  const {
-    serverStatus,
-    programResults,
-    runningNode,
-    failedNode,
-    preJobOperation,
-  } = states!;
-  const [openCtrlModal, setOpenCtrlModal] = useState(false);
+  const { serverStatus, runningNode, failedNode, preJobOperation } = states!;
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
   const {
     rfInstance,
-    setRfInstance,
     setRunningNode,
     setFailedNode,
     setCtrlsManifest,
-    gridLayout,
     loadFlowExportObject,
-    isEditMode,
-    setIsEditMode,
-    ctrlsManifest,
   } = useFlowChartState();
-  const [currentTab, setCurrentTab] = useState<AppTab>("visual");
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
   ] = useDisclosure(false);
-  const mantineTheme = useMantineTheme();
   const queryString = window?.location?.search;
   const fileName =
     queryString.startsWith("?test_example_app") && queryString.split("=")[1];
@@ -92,37 +106,6 @@ const App = () => {
     },
     [loadFlowExportObject, setCtrlsManifest]
   );
-
-  //function for handling a CTRL add (assume that input is key from manifest)
-  const addCtrl = (ctrlKey: string) => {
-    setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey];
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
-      }
-    }
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
-
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
 
   useEffect(() => {
     console.log("1");
@@ -166,28 +149,7 @@ const App = () => {
         />
         <CustomFonts />
         <ServerStatus serverStatus={serverStatus} />
-        <Header
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-          setOpenCtrlModal={setOpenCtrlModal}
-        />
-        <main style={{ minHeight: "85vh" }}>
-          {/* TODO: Use React Router? */}
-          {currentTab === "visual" && (
-            // TODO: React router
-                      )}
-
-          {/* Tab view containing controls */}
-          {currentTab === "panel" && (
-            <ControlsTab
-              results={programResults!}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-          )}
-
-          {currentTab === "debug" && <ResultsTab results={programResults!} />}
-        </main>
+        <RouterProvider router={router} />
       </MantineProvider>
     </ColorSchemeProvider>
   );
