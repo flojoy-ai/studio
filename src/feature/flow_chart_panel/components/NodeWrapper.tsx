@@ -17,17 +17,6 @@ const NodeWrapper = ({
     show: boolean;
   } | null>(null);
 
-  const handleMouseEnter = () => {
-    if (runError) {
-      setRunError((p) => ({ ...p!, show: true }));
-    }
-  };
-  const handleMouseLeave = () => {
-    if (runError) {
-      setRunError((p) => ({ ...p!, show: false }));
-    }
-  };
-
   useEffect(() => {
     if (failedNode === data.id) {
       setRunError({
@@ -40,11 +29,7 @@ const NodeWrapper = ({
     };
   }, [failedNode, data, states?.failureReason]);
   return (
-    <div
-      data-testid="node-wrapper"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div data-testid="node-wrapper">
       {runError && <ErrorPopup message={runError.message} />}
       {children}
     </div>

@@ -23,6 +23,12 @@
   border-color: transparent !important;
 }
 
+.react-flow__node-default.selectable:focus,
+.react-flow__node-default.selectable.selected,
+.react-flow__node-default.selectable:hover {
+  box-shadow: 0 0 0 0 #ffffff !important;
+}
+
 .react-flow__edge-path {
   stroke-width: 1.5;
 }
