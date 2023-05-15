@@ -2,7 +2,180 @@
     "_v": 0,
     "commands": [
         {
-            "name": "Conditional",
+            "name": "Sine",
+            "key": "SINE",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "3D Scatter Plot",
+            "key": "SCATTER3D",
+            "type": "PLOTLY_VISOR",
+            "inputs": []
+        },
+        {
+            "name": "The End",
+            "key": "END",
+            "type": "TERMINATOR"
+        },
+        {
+            "name": "Sub",
+            "key": "SUBTRACT",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "sub_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "3D Surface Plot",
+            "key": "SURFACE3D",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "GoTo",
+            "key": "GOTO",
+            "type": "LOOP"
+        },
+        {
+            "name": "Low-pass FIR Filter",
+            "key": "FIR",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "loop",
+            "key": "LOOP",
+            "type": "LOOP",
+            "inputs": [
+                {
+                    "name": "end",
+                    "id": "end",
+                    "type": "source"
+                },
+                {
+                    "name": "body",
+                    "id": "body",
+                    "type": "source"
+                }
+            ]
+        },
+        {
+            "name": "Line",
+            "key": "LINE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default",
+            "end": {
+                "type": "float",
+                "default": "0"
+            },
+            "step": {
+                "type": "float",
+                "default": "1000"
+            }
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "KEITHLEY2400",
+            "key": "KEITHLEY2400",
+            "type": "KEITHLEY2400"
+        },
+        {
+            "name": "Constant",
+            "key": "CONSTANT",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Matmul",
+            "key": "MATMUL",
+            "type": "ARRAY_AND_MATRIX",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "matmul_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACKU3"
+        },
+        {
+            "name": "Savitzky-Golay Filter",
+            "key": "SAVGOL",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOADER"
+        },
+        {
+            "name": "timer",
+            "key": "TIMER",
+            "type": "TIMER"
+        },
+        {
+            "name": "Histogram",
+            "key": "HISTOGRAM",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Multiply",
+            "key": "MULTIPLY",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "multiply_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Invert",
+            "key": "INVERT",
+            "type": "ARRAY_AND_MATRIX"
+        },
+        {
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
             "inputs": [
@@ -279,37 +452,6 @@
             "name": "Bar Chart",
             "key": "BAR",
             "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Savitzky-Golay Filter",
-            "key": "SAVGOL",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Table",
-            "key": "TABLE",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "KEITHLEY2400",
-            "key": "KEITHLEY2400",
-            "type": "KEITHLEY",
-            "pip_dependencies": [
-                {
-                    "name": "pyserial",
-                    "v": 3.5
-                }
-            ]
-        },
-        {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "The END",
-            "key": "END",
-            "type": "TERMINATOR"
         }
     ],
     "parameters": {

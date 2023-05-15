@@ -27,8 +27,8 @@ jobs:
           python-version: "3.10"
           cache: "pip"
 
-      - name: Run Flojoy startup script
-        run: bash flojoy -c
+      - name: Format dependencies
+        run: pip3 install black && npm i
 
       - name: Run formatting check
         run: npm run check
