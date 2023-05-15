@@ -75,15 +75,15 @@ def worker_response(request):
     }
     return Response(response, status=200)
 
+
 @api_view(["POST"])
 def set_user_api_key(request):
     key = request.data
-    api_key = key['key']
+    api_key = key["key"]
     set_api_key(api_key)
-    
+
     response = {
         "success": True,
-        "data" : api_key,
+        "data": api_key,
     }
     return Response(response, status=200)
-    

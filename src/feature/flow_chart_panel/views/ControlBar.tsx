@@ -161,7 +161,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
 
-
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
@@ -210,7 +209,9 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           <button onClick={() => setIskeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
-          <button onClick={() => setIsAPIKeyModelOpen(true)}>Set API key</button>
+          <button onClick={() => setIsAPIKeyModelOpen(true)}>
+            Set API key
+          </button>
         </DropDown>
       )}
 
@@ -220,13 +221,9 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
       />
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
-          onClose={() => setIsAPIKeyModelOpen(false)}
+        onClose={() => setIsAPIKeyModelOpen(false)}
       />
     </Box>
-
-
-
-
   );
 };
 
