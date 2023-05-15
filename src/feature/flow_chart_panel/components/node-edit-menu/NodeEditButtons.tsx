@@ -8,8 +8,8 @@ const useStyles = createStyles((theme) => ({
         right: 3,
         display: "flex",
         cursor: "pointer",
-    }
-}))
+    },
+}));
 
 const NodeEditButtons = () => {
   const { setIsEditMode } = useFlowChartState();
