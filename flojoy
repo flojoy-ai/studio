@@ -58,6 +58,7 @@ djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 is_ci=false
+test_ci=false
 
 
 # creating system links
@@ -354,7 +355,7 @@ fi
 sleep 1
 
 # start project services
-if $test_ci; then
+if [ $test_ci = true ]; then
    start_project_cmd='npm run start-project:ci'
 else 
    start_project_cmd='npm run start-project'
