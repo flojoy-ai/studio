@@ -53,7 +53,7 @@
         {
             "name": "Image Viewer",
             "key": "IMAGE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Object Detection",
@@ -63,7 +63,7 @@
         {
             "name": "3D Surface Plot",
             "key": "SURFACE3D",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Linspace",
@@ -87,7 +87,7 @@
         {
             "name": "3D Scatter Plot",
             "key": "SCATTER3D",
-            "type": "VISOR",
+            "type": "PLOTLY_VISOR",
             "inputs": []
         },
         {
@@ -120,7 +120,7 @@
         {
             "name": "Bar Chart",
             "key": "BAR",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "The End",
@@ -152,7 +152,7 @@
         {
             "name": "Histogram",
             "key": "HISTOGRAM",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "PID",
@@ -199,12 +199,12 @@
         {
             "name": "Line",
             "key": "LINE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Scatter Plot",
             "key": "SCATTER",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Camera",
