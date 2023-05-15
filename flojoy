@@ -95,7 +95,7 @@ feedback()
       success_msg "$message"
    else
       error_msg "$help_message"
-      exit
+      exit 1
    fi
 }
 
@@ -305,6 +305,9 @@ $venvCmd && python3 generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
+if [ $is_ci = true ];then
+   exit 0
+fi
 
 # initializing new Redis Instance
 if [ "$initRedis" ]
@@ -335,9 +338,6 @@ info_msg 'Rq info after closing:'
 $venvCmd && rq info
 echo ''
 
-if [ $is_ci = true ];then
-   exit 0
-fi
 
 cd $CWD
 
