@@ -52,7 +52,7 @@ export function useFlowChartTabEffects({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeLabel, nodeType, clickedElement]);
 
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
+  // useEffect(() => {
+  //   saveFlowChartToLocalStorage(rfInstance);
+  // }, [rfInstance]);
 }

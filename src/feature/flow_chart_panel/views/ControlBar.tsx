@@ -149,9 +149,9 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
     }
   };
 
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
+  // useEffect(() => {
+  //   saveFlowChartToLocalStorage(rfInstance);
+  // }, [rfInstance]);
 
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||

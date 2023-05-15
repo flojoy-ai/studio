@@ -32,6 +32,8 @@ import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
+import { useInterval } from "react-use";
+import { saveFlowChartToLocalStorage } from "./services/FlowChartServices";
 
 const App = () => {
   const { states } = useSocket();
@@ -144,6 +146,8 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preJobOperation]);
 
+  useInterval(() => saveFlowChartToLocalStorage(rfInstance), 5000);
+
   return (
     <ColorSchemeProvider
       colorScheme={theme}
@@ -170,7 +174,7 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             {/* add node button currently in the sidebar, to be refactored */}
-            <Sidebar />
+            {/* <Sidebar /> */}
 
             <FlowChartTab
               rfInstance={rfInstance!}
@@ -201,13 +205,13 @@ const App = () => {
               />
             </div>
 
-            <SidebarCustom
+            {/* <SidebarCustom
               sections={CTRL_TREE}
               manifestMap={CTRL_MANIFEST}
               leafNodeClickHandler={addCtrl}
               isSideBarOpen={isCTRLSideBarOpen}
               setSideBarStatus={setCTRLSideBarStatus}
-            />
+            /> */}
 
             <ControlsTab
               results={programResults!}

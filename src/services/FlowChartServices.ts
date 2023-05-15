@@ -10,6 +10,7 @@ const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   // console.warn("saveFlowChartToLocalStorage:", rfInstance);
+  console.log("saving");
   if (rfInstance) {
     const flowObj = rfInstance;
     localforage.setItem(flowKey, flowObj);

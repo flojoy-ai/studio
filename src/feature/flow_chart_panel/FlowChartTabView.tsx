@@ -29,6 +29,7 @@ import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { BezierEdge } from "reactflow";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 
@@ -69,10 +70,7 @@ const FlowChartTab = ({
 
   const theme = useMantineTheme();
 
-  const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default: SmartBezierEdge }),
-    []
-  );
+  const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
@@ -90,9 +88,9 @@ const FlowChartTab = ({
     openModal();
   };
 
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
+  // useEffect(() => {
+  //   saveFlowChartToLocalStorage(rfInstance);
+  // }, [rfInstance]);
 
   const defaultLayout = usePlotLayout();
 

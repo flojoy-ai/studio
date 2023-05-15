@@ -23,6 +23,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
       }
     });
   }, [data, nodes, setNodes]);
+
   const { states } = useSocket();
   const { programResults } = states!;
 
