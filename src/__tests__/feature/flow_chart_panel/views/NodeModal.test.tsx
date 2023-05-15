@@ -18,7 +18,6 @@ const props: NodeModalProps = {
       },
       default_fig: {
         data: [],
-        layout: {},
       },
     },
   },
