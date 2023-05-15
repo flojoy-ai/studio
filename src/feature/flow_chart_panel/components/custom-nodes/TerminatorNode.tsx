@@ -9,7 +9,7 @@ import { useNodeStyles } from "../DefaultNode";
 const useStyles = createStyles((theme) => {
   return {
     terminatorNode: {
-      backgroundColor: theme.colors.red[7] + "10",
+      backgroundColor: theme.colors.red[7] + "30",
     },
   };
 });

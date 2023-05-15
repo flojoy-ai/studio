@@ -29,7 +29,7 @@
     {
       "name": "3D Scatter Plot",
       "key": "SCATTER3D",
-      "type": "VISOR",
+      "type": "PLOTLY_VISOR",
       "inputs": []
     },
     {
@@ -38,7 +38,7 @@
       "type": "ARITHMETIC",
       "inputs": [{ "name": "y", "id": "multiply_y", "type": "target" }]
     },
-    { "name": "Scatter Plot", "key": "SCATTER", "type": "VISOR" },
+    { "name": "Scatter Plot", "key": "SCATTER", "type": "PLOTLY_VISOR" },
     {
       "name": "Linspace",
       "key": "LINSPACE",
@@ -54,10 +54,10 @@
       "type": "ARITHMETIC",
       "inputs": [{ "name": "y", "id": "add_y", "type": "target" }]
     },
-    { "name": "Histogram", "key": "HISTOGRAM", "type": "VISOR" },
-    { "name": "3D Surface Plot", "key": "SURFACE3D", "type": "VISOR" },
-    { "name": "Line", "key": "LINE", "type": "VISOR" },
-    { "name": "Bar Chart", "key": "BAR", "type": "VISOR" },
+    { "name": "Histogram", "key": "HISTOGRAM", "type": "PLOTLY_VISOR" },
+    { "name": "3D Surface Plot", "key": "SURFACE3D", "type": "PLOTLY_VISOR" },
+    { "name": "Line", "key": "LINE", "type": "PLOTLY_VISOR" },
+    { "name": "Bar Chart", "key": "BAR", "type": "PLOTLY_VISOR" },
     { "name": "Constant", "key": "CONSTANT", "type": "SIMULATION" }
   ],
   "parameters": {

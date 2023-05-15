@@ -35,9 +35,7 @@ export function saveAndRunFlowChartInServer({
         cancelExistingJobs: true,
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((resp) => resp.json())
-      .then((json) => console.log(json));
+    });
   }
 }
 
