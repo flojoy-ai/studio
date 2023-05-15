@@ -15,7 +15,7 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
-import usePlotLayout from "@src/feature/common/plotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 
 const useStyles = createStyles((theme) => {
   return {

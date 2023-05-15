@@ -20,7 +20,7 @@ import {
 
 import localforage from "localforage";
 
-import usePlotLayout from "../common/plotLayout";
+import usePlotLayout from "../common/usePlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";

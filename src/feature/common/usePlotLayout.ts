@@ -1,4 +1,4 @@
-import { MantineTheme, useMantineTheme } from "@mantine/styles";
+import { useMantineTheme } from "@mantine/styles";
 import { Layout } from "plotly.js";
 
 const usePlotLayout = () => {

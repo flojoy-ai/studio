@@ -4,7 +4,7 @@ import { Dispatch, Fragment } from "react";
 import { PlotControlOptions } from "../types/ControlOptions";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
-import usePlotLayout from "@src/feature/common/plotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { SetStateAction } from "jotai";
 import { Data, PlotData } from "plotly.js";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";

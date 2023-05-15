@@ -1,4 +1,4 @@
-import usePlotLayout from "@src/feature/common/plotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
