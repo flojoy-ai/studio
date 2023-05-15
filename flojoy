@@ -58,6 +58,7 @@ djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 is_ci=false
+test_ci=false
 
 
 # creating system links
@@ -94,7 +95,7 @@ feedback()
       success_msg "$message"
    else
       error_msg "$help_message"
-      exit
+      exit 1
    fi
 }
 
@@ -162,6 +163,10 @@ do
         ;;
         -c)
         is_ci=true
+        shift
+        ;;
+        -t)
+        test_ci=true #run with CI=true, allows to properly run tests locally 
         shift
         ;;
         *) # unknown option
@@ -300,6 +305,9 @@ $venvCmd && python3 generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
+if [ $is_ci = true ];then
+   exit 0
+fi
 
 # initializing new Redis Instance
 if [ "$initRedis" ]
@@ -330,9 +338,6 @@ info_msg 'Rq info after closing:'
 $venvCmd && rq info
 echo ''
 
-if [ $is_ci = true ];then
-   exit 0
-fi
 
 cd $CWD
 
@@ -350,9 +355,15 @@ fi
 sleep 1
 
 # start project services
+if [ $test_ci = true ]; then
+   start_project_cmd='npm run start-project:ci'
+else 
+   start_project_cmd='npm run start-project'
+fi
+ # start project services
 if [ -n "$venvCmd" ]; then
-   $venvCmd && npm run start-project
+   $venvCmd && $start_project_cmd
 else
-   npm run start-project
+    $start_project_cmd
 fi
 sleep 1
