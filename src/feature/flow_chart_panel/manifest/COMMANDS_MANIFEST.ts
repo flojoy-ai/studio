@@ -6,6 +6,10 @@ type Commands = {
   key: string;
   inputs?: { name: string; id: string; type: string }[];
   ui_component_id?: string;
+  pip_dependencies?: Array<{
+    name: string;
+    v?: string | number;
+  }>;
 }[];
 
 type Sections = {

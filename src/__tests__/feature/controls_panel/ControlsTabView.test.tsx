@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import ControlsTab from "@src/feature/controls_panel/ControlsTabView";
 
 // mock `AddCtrlModal`
@@ -33,12 +33,11 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
 
 describe("ControlsTab", () => {
   it("render ControlsTab correctly.", () => {
-    const { container } = render(
+    const { container } = renderWithTheme(
       <ControlsTab
         openCtrlModal={false}
         setOpenCtrlModal={jest.fn()}
         results={{}}
-        theme="dark"
       />
     );
     expect(container).toMatchSnapshot();

@@ -1,22 +1,25 @@
-import React, { CSSProperties, Fragment } from "react";
-interface SvgProps {
-  style?: CSSProperties;
-  theme?: "light" | "dark";
-}
-const LineChartIcon = ({ style }: SvgProps) => {
+import { useMantineTheme } from "@mantine/core";
+import { SVGProps } from "react";
+
+const LineChartIcon = ({ ...props }: SVGProps<SVGSVGElement>) => {
+  const theme = useMantineTheme();
+  const accent =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
   return (
     <svg
       width="140"
       height="45"
-      style={style}
       viewBox="0 0 99 45"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clipPath="url(#clip0_5_233)">
         <path
           d="M98.767 12.8638L84.2327 22.7416L70.2441 12.4731L56.2556 26.1248L42.267 11.5529L28.2784 41.6368L14.2898 35.718L0.136417 44.7087"
-          stroke="#99F5FF"
+          stroke={accent}
           strokeMiterlimit="10"
         />
         <path
@@ -86,26 +89,33 @@ const LineChartIcon = ({ style }: SvgProps) => {
     </svg>
   );
 };
-const LineChartTitle = ({ style }: SvgProps) => (
-  <svg
-    width="58"
-    height="21"
-    style={style}
-    viewBox="0 0 33 11"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0.194616 10.0312V0.0370941H2.31376V8.28123H6.36747V10.0312H0.194616ZM9.09063 10.0312V0.0370941H11.2098V10.0312H9.09063ZM23.5716 10.0312H20.8783L16.5306 2.47069H16.4691C16.5557 3.80597 16.599 4.75845 16.599 5.32811V10.0312H14.7054V0.0370941H17.3783L21.7191 7.52245H21.7669C21.6986 6.22362 21.6644 5.30532 21.6644 4.76756V0.0370941H23.5716V10.0312ZM32.8299 10.0312H27.0741V0.0370941H32.8299V1.77342H29.1932V3.96776H32.577V5.70409H29.1932V8.28123H32.8299V10.0312Z"
-      fill="#99F5FF"
-    />
-  </svg>
-);
-const LineChart = ({ theme }: SvgProps) => {
+const LineChartTitle = ({ ...props }: SVGProps<SVGSVGElement>) => {
+  const theme = useMantineTheme();
+  const accent =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
+  return (
+    <svg
+      width="58"
+      height="21"
+      viewBox="0 0 33 11"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M0.194616 10.0312V0.0370941H2.31376V8.28123H6.36747V10.0312H0.194616ZM9.09063 10.0312V0.0370941H11.2098V10.0312H9.09063ZM23.5716 10.0312H20.8783L16.5306 2.47069H16.4691C16.5557 3.80597 16.599 4.75845 16.599 5.32811V10.0312H14.7054V0.0370941H17.3783L21.7191 7.52245H21.7669C21.6986 6.22362 21.6644 5.30532 21.6644 4.76756V0.0370941H23.5716V10.0312ZM32.8299 10.0312H27.0741V0.0370941H32.8299V1.77342H29.1932V3.96776H32.577V5.70409H29.1932V8.28123H32.8299V10.0312Z"
+        fill={accent}
+      />
+    </svg>
+  );
+};
+
+const LineChart = () => {
   return (
     <div data-testid="line-svg">
       <LineChartTitle
-        theme={theme}
         style={{
           position: "absolute",
           top: 21,
@@ -114,7 +124,6 @@ const LineChart = ({ theme }: SvgProps) => {
         }}
       />
       <LineChartIcon
-        theme={theme}
         style={{
           position: "absolute",
           bottom: 5,

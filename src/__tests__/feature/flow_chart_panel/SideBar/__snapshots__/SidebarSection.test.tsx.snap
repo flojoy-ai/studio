@@ -3,7 +3,7 @@
 exports[`SidebarSection matches snapshot 1`] = `
 <div>
   <button
-    class="mantine-UnstyledButton-root mantine-151rr0c"
+    class="mantine-UnstyledButton-root mantine-15gqdy2"
     type="button"
   >
     <div
@@ -46,10 +46,10 @@ exports[`SidebarSection matches snapshot 1`] = `
       style="opacity: 0; transition: opacity 200ms ease;"
     >
       <div
-        class="mantine-Text-root mantine-zplq2y"
+        class="mantine-Text-root mantine-xzk34w"
       >
         <button
-          class="mantine-UnstyledButton-root mantine-7nikpj"
+          class="mantine-UnstyledButton-root mantine-7dibxq"
           data-testid="sidebar-subsection-button"
           type="button"
         >
@@ -94,12 +94,13 @@ exports[`SidebarSection matches snapshot 1`] = `
             style="opacity: 0; transition: opacity 200ms ease;"
           >
             <div
-              class="mantine-Text-root mantine-1be3ryo"
+              class="mantine-Text-root mantine-1qcu6lh"
             />
           </div>
         </div>
       </div>
     </div>
   </div>
+  ,
 </div>
 `;

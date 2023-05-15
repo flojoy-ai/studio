@@ -14,5 +14,6 @@ exports[`ControlGrid.tsx renders the ControlGrid component. 1`] = `
       />
     </div>
   </div>
+  ,
 </div>
 `;

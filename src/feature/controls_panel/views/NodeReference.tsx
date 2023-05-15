@@ -3,26 +3,27 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
-import Select, { ThemeConfig } from "react-select";
+import Select from "react-select";
 import customDropdownStyles from "../style/CustomDropdownStyles";
-import { ControlComponentProps } from "./control-component/ControlComponent";
+import {
+  ControlComponentProps,
+  useControlStyles,
+} from "./control-component/ControlComponent";
+import { Box } from "@mantine/core";
 
 interface NodeReferenceProps {
-  theme: "light" | "dark";
   updateCtrlValue: ControlComponentProps["updateCtrlValue"];
   ctrlObj: ControlComponentProps["ctrlObj"];
 }
 
-const NodeReference = ({
-  theme,
-  updateCtrlValue,
-  ctrlObj,
-}: NodeReferenceProps) => {
+const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
+  const { classes } = useControlStyles();
   const { rfInstance } = useFlowChartState();
   const [selectedOption, setSelectedOption] = useState({
     label: "Select Node",
     value: "",
   });
+
   useEffect(() => {
     setSelectedOption({
       label: rfInstance?.nodes.find((node) => node.id === ctrlObj.val)?.data
@@ -31,10 +32,11 @@ const NodeReference = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj.param, rfInstance?.nodes]);
+
   return (
-    <div className="ctrl-input-body">
+    <Box className={classes.inputBody}>
       <Select
-        className="select-node"
+        className={classes.selectNode}
         isSearchable={true}
         onChange={(val) => {
           updateCtrlValue(
@@ -45,7 +47,6 @@ const NodeReference = ({
         isDisabled={
           (ctrlObj.param as CtrlManifestParam)?.type !== "node_reference"
         }
-        theme={theme as unknown as ThemeConfig}
         options={rfInstance?.nodes.map((n) => ({
           label: `${n.data.label} - ${n.data.func}`,
           value: n.id,
@@ -53,7 +54,7 @@ const NodeReference = ({
         styles={customDropdownStyles}
         value={selectedOption}
       />
-    </div>
+    </Box>
   );
 };
 

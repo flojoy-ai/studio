@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PreJobOperationShow should render correctly 1`] = `
+<div>
+  <div>
+    <div
+      style="background: rgb(0, 0, 0); color: gray; padding: 10px; font-family: monospace; white-space: break-spaces; overflow: hidden;"
+    >
+      Rendered this text!
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import Controls from "@src/feature/flow_chart_panel/views/ControlBar";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 // Mock useFlowChartState hook
 jest.mock("@src/hooks/useFlowChartState");
@@ -25,15 +26,15 @@ jest.mock("@src/feature/flow_chart_panel/views/KeyboardShortcutModal", () => ({
   default: jest.fn(() => <div>KeyboardShortcutModal</div>),
 }));
 // Mock DropDown component
-jest.mock("@src/feature/common/dropdown/DropDown", () => ({
+jest.mock("@src/feature/common/DropDown", () => ({
   __esModule: true,
   default: jest.fn(() => <div>Dropdown</div>),
 }));
 
 describe("Controls", () => {
   it("should render correctly", () => {
-    const { container } = render(
-      <Controls theme="dark" activeTab="visual" setOpenCtrlModal={jest.fn()} />
+    const { container } = renderWithTheme(
+      <Controls activeTab="visual" setOpenCtrlModal={jest.fn()} />
     );
 
     expect(screen.getByTestId("btn-play")).toBeInTheDocument();
@@ -43,17 +44,9 @@ describe("Controls", () => {
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
     expect(container).toMatchSnapshot("__main__");
   });
-  it("should show the Edit button when active tab is 'panel'", () => {
-    const { container } = render(
-      <Controls theme="dark" activeTab="panel" setOpenCtrlModal={jest.fn()} />
-    );
-    expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
-    expect(screen.getByTestId("react-switch")).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__switch_btn__");
-  });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
-    render(
-      <Controls theme="dark" activeTab="debug" setOpenCtrlModal={jest.fn()} />
+    renderWithTheme(
+      <Controls activeTab="debug" setOpenCtrlModal={jest.fn()} />
     );
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
   });

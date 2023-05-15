@@ -1,29 +1,48 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {
-  CustomNodeProps,
-  ElementsData,
-} from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { BGTemplate } from "../../svgs/histo-scatter-svg";
-import Scatter from "../nodes/Scatter";
-import Histogram from "../nodes/Histogram";
-import LineChart from "../nodes/line-chart";
-import Surface3D from "../nodes/3d-surface";
-import Scatter3D from "../nodes/3d-scatter";
-import BarChart from "../nodes/bar";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "plotly.js";
 import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import { BGTemplate } from "../../svgs/histo-scatter-svg";
+import { useNodeStyles } from "../DefaultNode";
+import NodeWrapper from "../NodeWrapper";
+import Scatter3D from "../nodes/3d-scatter";
+import Surface3D from "../nodes/3d-surface";
+import Histogram from "../nodes/Histogram";
+import Scatter from "../nodes/Scatter";
+import BarChart from "../nodes/bar";
+import LineChart from "../nodes/line-chart";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 
-const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow) {
-    return highlightShadow[data.func];
-  }
-  return highlightShadow["default"];
+const useStyles = createStyles((theme) => {
+  return {
+    visorNode: {
+      background: "transparent",
+      color:
+        theme.colorScheme === "light"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+    },
+  };
+});
+
+const chartElemMap: { [func: string]: JSX.Element } = {
+  SCATTER: <Scatter />,
+  HISTOGRAM: <Histogram />,
+  LINE: <LineChart />,
+  SURFACE3D: <Surface3D />,
+  SCATTER3D: <Scatter3D />,
+  BAR: <BarChart />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const nodeClasses = useNodeStyles().classes;
+  const { classes } = useStyles();
+  const theme = useMantineTheme();
+  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
   useEffect(() => {
@@ -35,60 +54,93 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       return prev;
     });
   }, [data, nodes, setNodes]);
+
+  const { states } = useSocket();
+  const { programResults } = states!;
+  const results = programResults?.io;
+  const result = results?.find((r) => r.id === data.id);
+
+  const plotLayout = usePlotLayout();
+
+  const accentColor =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
+
+  const layoutOverride: Partial<Layout> = {
+    plot_bgcolor: "transparent",
+    title: data.label,
+    margin: { t: 30, r: 0, b: 0, l: 0 },
+    grid: { rows: 0, columns: 0 },
+    xaxis: { visible: false },
+    yaxis: { visible: false },
+    font: {
+      color: accentColor,
+    },
+  };
+
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.defaultShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
-            background: "transparent",
-            height: "fit-content",
-            minHeight: 115,
-            ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-          }}
-        >
-          {data.func === "SCATTER" && <Scatter theme={uiTheme} />}
-          {data.func === "HISTOGRAM" && <Histogram theme={uiTheme} />}
-          {data.func === "LINE" && <LineChart theme={uiTheme} />}
-          {data.func === "SURFACE3D" && <Surface3D theme={uiTheme} />}
-          {data.func === "SCATTER3D" && <Scatter3D theme={uiTheme} />}
-          {data.func === "BAR" && <BarChart theme={uiTheme} />}
-          <BGTemplate theme={uiTheme} />
-          <div
+        {result ? (
+          <>
+            <PlotlyComponent
+              data={result.result.default_fig.data.map((d) => ({
+                ...d,
+                marker: {
+                  ...d.marker,
+                  color: accentColor,
+                },
+              }))}
+              id={data.id}
+              layout={{ ...plotLayout, ...layoutOverride }}
+              useResizeHandler
+              style={{
+                height: 190,
+                width: 210,
+              }}
+            />
+
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
+          </>
+        ) : (
+          <Box
+            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
             style={{
-              display: "flex",
-              flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
+              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
             }}
           >
-            <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+            {chartElemMap[data.func]}
+            <BGTemplate theme={theme.colorScheme} />
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
+          </Box>
+        )}
+      </Box>
     </NodeWrapper>
   );
 };
 
 export default VisorNode;
-
-const highlightShadow = {
-  default: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  HISTOGRAM: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SCATTER: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SURFACE3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SCATTER3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  BAR: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  LINE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-};

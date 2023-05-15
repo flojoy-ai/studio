@@ -1,4 +1,4 @@
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
@@ -16,17 +16,16 @@ import {
 } from "../../types/ControlOptions";
 
 import { Data } from "plotly.js";
+import { useMantineColorScheme } from "@mantine/styles";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;
   ctrlObj: CtlManifestType;
-  theme: "light" | "dark";
 };
 
 const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
-  theme,
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
@@ -54,7 +53,8 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const styledLayout = styledPlotLayout(theme);
+  const theme = useMantineColorScheme().colorScheme;
+  const styledLayout = usePlotLayout();
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);

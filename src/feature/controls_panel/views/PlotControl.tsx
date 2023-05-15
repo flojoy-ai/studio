@@ -4,18 +4,20 @@ import { Dispatch, Fragment } from "react";
 import { PlotControlOptions } from "../types/ControlOptions";
 import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { SetStateAction } from "jotai";
 import { Data, PlotData } from "plotly.js";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import PlotControlState from "./PlotControlState";
 import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
+import { useMantineColorScheme } from "@mantine/styles";
+import { Text } from "@mantine/core";
+import { useControlStyles } from "./control-component/ControlComponent";
 
 export interface PlotControlProps {
   nd: ResultIO | null;
   ctrlObj: CtlManifestType;
   isEditMode: boolean;
-  theme: "light" | "dark";
   selectedPlotOption: PlotControlOptions | undefined;
   setSelectedPlotOption: Dispatch<
     SetStateAction<PlotControlOptions | undefined>
@@ -35,7 +37,6 @@ const PlotControl = ({
   nd,
   ctrlObj,
   isEditMode,
-  theme,
   setPlotData,
   selectedPlotOption,
   plotData,
@@ -62,17 +63,23 @@ const PlotControl = ({
     setPlotData,
   });
 
+  const theme = useMantineColorScheme().colorScheme;
+  const { classes } = useControlStyles();
+  const plotLayout = usePlotLayout();
+
   return (
     <Fragment>
       {!isEditMode && (
         <Fragment>
-          <p className="ctrl-param">Plot: {selectedPlotOption?.label}</p>
+          <Text className={classes.param}>
+            Plot: {selectedPlotOption?.label}
+          </Text>
         </Fragment>
       )}
 
       {isEditMode && (
         <Select
-          className="select-plot-type"
+          className={classes.selectPlotType}
           isSearchable={true}
           onChange={(val) => {
             if (val) {
@@ -98,7 +105,7 @@ const PlotControl = ({
           {plotInputKeys[selectedPlotOption?.value.type!]?.map((key) => (
             <Select
               key={key}
-              className="select-plot-type"
+              className={classes.selectPlotType}
               isSearchable={true}
               onChange={(val) => {
                 if (val) {
@@ -128,7 +135,7 @@ const PlotControl = ({
       >
         <Plot
           data={plotData}
-          layout={Object.assign({}, styledPlotLayout(theme))}
+          layout={plotLayout}
           style={{
             width: "100%",
             height: "100%",

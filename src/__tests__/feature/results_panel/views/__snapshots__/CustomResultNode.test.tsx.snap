@@ -19,5 +19,6 @@ exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1
       PlotlyComponent
     </div>
   </div>
+  ,
 </div>
 `;

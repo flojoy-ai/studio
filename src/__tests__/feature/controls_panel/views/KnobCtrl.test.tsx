@@ -1,7 +1,8 @@
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import KnobCtrl, {
   KnobCtrlProps,
 } from "@src/feature/controls_panel/views/KnobCtrl";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const testKnobCtr: KnobCtrlProps = {
@@ -31,13 +32,13 @@ jest.mock("@src/utils/SilverKnob", () => {
 
 describe("KnobCtrl Component test", () => {
   it("KnobCtrl should render with Props", () => {
-    const { container } = render(<KnobCtrl {...testKnobCtr} />);
+    const { container } = renderWithTheme(<KnobCtrl {...testKnobCtr} />);
     expect(container).toMatchSnapshot();
   });
 
   it("KnobCtrl should have hover effect", async () => {
     const user = userEvent.setup();
-    render(<KnobCtrl {...testKnobCtr} />);
+    renderWithTheme(<KnobCtrl {...testKnobCtr} />);
 
     await user.hover(screen.getByTestId("KnobCtrlDiv"));
     expect(testKnobCtr.makeLayoutStatic).toBeCalled();

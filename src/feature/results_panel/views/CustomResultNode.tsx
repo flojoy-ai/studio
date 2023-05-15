@@ -1,14 +1,17 @@
-import { Handle, Position } from "reactflow";
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { Handle, Position } from "reactflow";
 import { ResultNodeData } from "../types/ResultsType";
+
 interface CustomResultNodeProp {
   data: ResultNodeData;
 }
+
 const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
-  const { uiTheme } = useFlowChartState();
-  const styledLayout = styledPlotLayout(uiTheme);
+  const theme = useMantineTheme();
+  const styledLayout = usePlotLayout();
+  const accentColor = theme.colors.accent2[0];
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">
@@ -30,7 +33,17 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
       ) : (
         <PlotlyComponent
           id={data.id}
-          data={data?.resultData?.default_fig?.data!}
+          data={data.resultData.default_fig.data.map((d) => ({
+            ...d,
+            line: {
+              ...d.line,
+              color: accentColor,
+            },
+            marker: {
+              ...d.marker,
+              color: accentColor,
+            },
+          }))}
           layout={Object.assign({}, { title: data.label }, styledLayout)}
           useResizeHandler
           style={{
