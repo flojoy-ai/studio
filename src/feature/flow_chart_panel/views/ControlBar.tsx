@@ -149,6 +149,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
     }
   };
 
+  // TODO: Delete this
   // useEffect(() => {
   //   saveFlowChartToLocalStorage(rfInstance);
   // }, [rfInstance]);
@@ -209,6 +210,8 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           </button>
         </DropDown>
       )}
+
+      {/* TODO: Add this back */}
 
       {/* <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}

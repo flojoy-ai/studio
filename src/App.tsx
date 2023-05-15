@@ -175,11 +175,13 @@ const App = () => {
           setOpenCtrlModal={setOpenCtrlModal}
         />
         <main style={{ minHeight: "85vh" }}>
+          {/* TODO: Use React Router? */}
           {currentTab === "visual" && (
             <div
               style={{ display: currentTab === "visual" ? "block" : "none" }}
             >
               {/* add node button currently in the sidebar, to be refactored */}
+              {/* TODO: Add sidebar back */}
               {/* <Sidebar /> */}
 
               <FlowChartTab
@@ -212,6 +214,8 @@ const App = () => {
                   setIsEditMode={setIsEditMode}
                 />
               </div>
+
+              {/* TODO: Add edit sidebar back */}
 
               {/* <SidebarCustom
               sections={CTRL_TREE}

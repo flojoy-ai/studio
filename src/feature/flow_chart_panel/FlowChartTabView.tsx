@@ -70,6 +70,7 @@ const FlowChartTab = ({
 
   const theme = useMantineTheme();
 
+  // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
@@ -88,6 +89,7 @@ const FlowChartTab = ({
     openModal();
   };
 
+  // TODO: Delete this
   // useEffect(() => {
   //   saveFlowChartToLocalStorage(rfInstance);
   // }, [rfInstance]);

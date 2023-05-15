@@ -47,6 +47,8 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
+  // TODO: Find a better way to keep track of selected state
+
   // useEffect(() => {
   //   console.log("16");
   //   setNodes((prev) => {

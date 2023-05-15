@@ -7,6 +7,7 @@ export function useResultsTabEffects({
   setResultNodes,
   nodes,
 }: ResultTabStateReturnType & { nodeResults: ResultIO[] }) {
+  // TODO: Reimplement this to fix debug tab
   // useEffect(() => {
   //   console.log("22");
   //   if (nodeResults && nodeResults.length > 0 && nodes.length > 0) {

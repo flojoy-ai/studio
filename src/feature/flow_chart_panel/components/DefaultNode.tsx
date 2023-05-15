@@ -64,6 +64,8 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
   const params = data.inputs || [];
 
+  // TODO: Find a better way to keep track of selected state
+
   // useEffect(() => {
   //   console.log("14");
   //   setNodes((prev) => {

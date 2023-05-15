@@ -45,6 +45,8 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
+  // TODO: Find a better way to keep track of selected state
+
   // useEffect(() => {
   //   console.log("21");
   //   setNodes((prev) => {
