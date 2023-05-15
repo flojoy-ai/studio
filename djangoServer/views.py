@@ -1,42 +1,29 @@
+import asyncio
 import json
 import os
 import sys
 import time
-from datetime import datetime
-
 import yaml
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, dir_path)
+sys.path.insert(0, os.path.abspath("PYTHON"))
+from .services.pre_job_service import prepare_jobs
 
-from PYTHON.WATCH.watch import run
 from PYTHON.services.job_service import JobService
+from .utils.send_to_socket import send_msg_to_socket
+
 
 job_service = JobService("flojoy-watch")
-q = job_service.queue
+
 STATUS_CODES = yaml.load(
     open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
 )
 
-print("queue flojoy-watch isEmpty? ", q.is_empty())
-
-
-def test_socket(request):
-    return render(request, "test_socket.html")
-
 
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
-
-
-def send_msg_to_socket(msg: dict):
-    layer = get_channel_layer()
-    async_to_sync(layer.group_send)("flojoy", {"type": "worker_response", **msg})
 
 
 @api_view(["POST"])
@@ -52,7 +39,7 @@ def cancel_flow_chart(request):
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
-    send_msg_to_socket(msg=msg)
+    asyncio.run(send_msg_to_socket(msg=msg))
     return Response(msg, status=200)
 
 
@@ -68,33 +55,20 @@ def run_flow_chart(request):
     job_service.add_jobset_id(jobset_id)
 
     msg = {
-        "SYSTEM_STATUS": STATUS_CODES["RQ_RUN_IN_PROCESS"],
+        "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
         "jobsetId": jobset_id,
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
-    send_msg_to_socket(msg=msg)
-
-    scheduler_job_id = f"{jobset_id}_{datetime.now()}"
-    job_service.add_flojoy_watch_job_id(scheduler_job_id)
-
-    q.enqueue(
-        run,
-        on_failure=report_failure,
-        job_id=scheduler_job_id,
-        kwargs={"fc": fc, "jobsetId": jobset_id, "scheduler_job_id": scheduler_job_id},
-    )
-
-    response = {
-        "msg": STATUS_CODES["RQ_RUN_IN_PROCESS"],
-    }
-    return Response(response, status=200)
+    asyncio.run(send_msg_to_socket(msg=msg))
+    asyncio.run(prepare_jobs(fc, jobset_id))
+    return Response(status=200)
 
 
 @api_view(["POST"])
 def worker_response(request):
     parse_data = json.loads(request.data)
-    send_msg_to_socket(parse_data)
+    asyncio.run(send_msg_to_socket(parse_data))
     response = {
         "success": True,
     }

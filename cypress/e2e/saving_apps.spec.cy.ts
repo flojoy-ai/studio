@@ -1,4 +1,4 @@
-import { NOISY_SINE } from "@src/data/RECIPES";
+import { NOISY_SINE } from "../../src/data/RECIPES";
 
 describe("Saving Default App", () => {
   beforeEach(() => {

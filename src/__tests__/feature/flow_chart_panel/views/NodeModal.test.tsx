@@ -9,7 +9,19 @@ const props: NodeModalProps = {
   modalStyles: {},
   nodeLabel: "test",
   nodeType: "test",
-  nd: "test",
+  nd: {
+    cmd: "test",
+    id: "test-1",
+    result: {
+      data: {
+        type: "test",
+      },
+      default_fig: {
+        data: [],
+        layout: {},
+      },
+    },
+  },
   pythonString: "test-python-string",
   defaultLayout: undefined,
   clickedElement: {},
@@ -36,7 +48,7 @@ describe("NodeModal", () => {
     const { container } = renderWithTheme(<NodeModal {...props} />);
     expect(container).toMatchSnapshot();
   });
-  it("checks if the react modal component is renderWithThemeed", () => {
+  it("checks if the react modal component is rendered", () => {
     const { container, getByTestId } = renderWithTheme(
       <NodeModal {...props} />
     );

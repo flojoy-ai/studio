@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PlayBtn component renderWithThemes correctly with default props 1`] = `
+exports[`PlayBtn component renders correctly with default props 1`] = `
 <button
   class="mantine-8mgm8e"
   data-cy="btn-play"

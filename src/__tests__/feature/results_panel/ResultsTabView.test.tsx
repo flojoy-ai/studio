@@ -32,7 +32,7 @@ describe("ResultsTab component", () => {
     io: [],
   };
 
-  it("renderWithThemes the ResultsTab component", () => {
+  it("renders the ResultsTab component", () => {
     renderWithTheme(<ResultsTab results={results} />);
 
     const reactFlowComponent = screen.getByTestId("results-flow");

@@ -4,11 +4,9 @@ const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
       boxSizing: "border-box",
-      background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
-      border:
-        theme.colorScheme === "dark"
-          ? "1px solid #94F4FC"
-          : "1px solid #E1E4E7",
+      backgroundColor: theme.colors.accent4[1],
+      color: theme.colors.accent4[0],
+      border: `1px solid ${theme.colors.accent4[0]}`,
       cursor: "pointer",
     },
   };
@@ -26,7 +24,8 @@ export const AddCTRLBtn = ({
   const { classes } = useAddButtonStyle();
   return (
     <button
-      data-testid="add-node-button"
+      // data-testid="add-node-button"
+      data-cy="add-ctrl"
       className={classes.addButton}
       onClick={() => {
         setCTRLSideBarStatus(!isCTRLSideBarOpen);

@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sidebar should renderWithTheme the component correctly 1`] = `
+exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-ux8zbm"
+      class="mantine-b33zvb"
       data-testid="add-node-button"
       style="position: absolute; width: 104px; height: 43px; left: 0px; top: 110px; margin: 10px; z-index: 1;"
     >

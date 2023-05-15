@@ -5,7 +5,7 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 const theme = "light";
 
 describe("PlayBtn component", () => {
-  it("renderWithThemes correctly with default props", () => {
+  it("renders correctly with default props", () => {
     renderWithTheme(<PlayBtn />);
     const playBtn = screen.getByRole("button");
     expect(playBtn).toBeInTheDocument();

@@ -32,7 +32,7 @@ jest.mock(
 window.ResizeObserver = ResizeObserver as any;
 
 describe("Sidebar", () => {
-  it("should renderWithTheme the component correctly", () => {
+  it("should render the component correctly", () => {
     const { container } = renderWithTheme(<Sidebar />);
     expect(container).toMatchSnapshot();
   });

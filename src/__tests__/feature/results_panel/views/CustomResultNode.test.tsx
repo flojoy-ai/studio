@@ -45,7 +45,7 @@ describe("CustomResultNode", () => {
       },
     },
   };
-  it("renderWithThemes a PlotlyComponent if result data is provided", () => {
+  it("renders a PlotlyComponent if result data is provided", () => {
     const { container, getByTestId } = renderWithTheme(
       <CustomResultNode data={data} />
     );
@@ -57,7 +57,7 @@ describe("CustomResultNode", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("renderWithThemes a 'NO Result' message if no result data is provided", () => {
+  it("renders a 'NO Result' message if no result data is provided", () => {
     const { getByText } = renderWithTheme(
       <CustomResultNode data={{ ...data, resultData: undefined }} />
     );

@@ -10,6 +10,10 @@ type States = {
   failedNode: string;
   failureReason: string;
   socketId: string;
+  preJobOperation: {
+    isRunning: boolean;
+    output: string[];
+  };
 };
 export enum IServerStatus {
   OFFLINE = "🛑 server offline",
@@ -32,13 +36,19 @@ const DEFAULT_STATES = {
 };
 export const SocketContext = createContext<{ states: States } | null>(null);
 
-const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "localhost";
+const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
 
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<ResultsType>({ io: [] });
+  const [preJobOperation, setPreJobOperation] = useState<
+    States["preJobOperation"]
+  >({
+    isRunning: false,
+    output: [],
+  });
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
       ...prev,
@@ -57,6 +67,7 @@ export const SocketContextProvider = ({ children }) => {
         failedNode: handleStateChange("failedNode"),
         failureReason: handleStateChange("failureReason"),
         socketId: handleStateChange("socketId"),
+        onPreJobOpStarted: setPreJobOperation,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
           setSocket(undefined);
@@ -64,10 +75,17 @@ export const SocketContextProvider = ({ children }) => {
       });
       setSocket(ws);
     }
-  }, [socket]);
+  });
   return (
     <SocketContext.Provider
-      value={{ states: { ...states, programResults, setProgramResults } }}
+      value={{
+        states: {
+          ...states,
+          programResults,
+          setProgramResults,
+          preJobOperation,
+        },
+      }}
     >
       {" "}
       {children}

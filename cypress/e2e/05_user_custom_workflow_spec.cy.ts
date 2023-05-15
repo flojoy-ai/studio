@@ -1,6 +1,6 @@
-import { matchPlotlyOutput } from "cypress/utils/matchPlotlyOutput";
-import { NOISY_SINE } from "@src/data/RECIPES";
-import { ControlNames } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import { matchPlotlyOutput } from "../utils/matchPlotlyOutput";
+import { NOISY_SINE } from "../../src/data/RECIPES";
+import { ControlNames } from "../../src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,
@@ -43,37 +43,36 @@ describe("user workflow", () => {
       });
 
     cy.get("body").then(($body) => {
-      if ($body.find(".ctrl-close-btn").length > 0) {
-        cy.get(".ctrl-close-btn").click({ force: true });
+      if ($body.find("[data-cy=ctrl-close-btn]").length > 0) {
+        cy.get("[data-cy=ctrl-close-btn]").click({ force: true });
       }
     });
     cy.get(`[data-cy="ctrls-btn"]`).click({ timeout: 10000 });
 
-    cy.get("[data-cy=operation-switch]")
-      .contains("Edit")
-      .click()
-      .should("have.css", "color", "rgb(255, 165, 0)");
+    cy.get("[data-cy=edit-switch]").click();
 
     cy.get("button[id=INPUT_PLACEHOLDER]").click();
 
-    cy.get("[data-cy=add-ctrl]")
-      .click()
-      .get("button")
-      .contains("Numeric Input")
-      .first()
+    // Expand sidebar tree first
+    cy.get("[data-cy=add-ctrl]").click();
+    cy.get("[data-testid=sidebar-sections]").find("button").first().click();
+    cy.get("[data-testid=sidebar-sections]")
+      .contains("Continuous Variables")
       .click();
-    ctrlParameters.forEach((singleIter, index) => {
+    cy.get("[data-testid=sidebar-sections]").contains("Text & Files").click();
+    cy.get("[data-testid=sidebar-close").click();
+
+    ctrlParameters.forEach((singleIter) => {
       singleIter.forEach((item) => {
-        cy.get("[data-cy=add-ctrl]")
-          .click()
-          .get("button")
-          .contains(
-            typeof item.value === "string"
-              ? ControlNames.TextInput
-              : ControlNames.NumericInput
-          )
-          .first()
-          .click();
+        cy.get("[data-cy=add-ctrl]").click();
+
+        const itemText =
+          typeof item.value === "string"
+            ? ControlNames.TextInput
+            : ControlNames.NumericInput;
+
+        cy.get("[data-testid=sidebar-sections]").contains(itemText).click();
+
         // open dropdown list from input widget
         cy.get("[id^=select-input-]")
           .last()

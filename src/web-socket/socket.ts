@@ -8,6 +8,7 @@ interface WebSocketServerProps {
   failedNode: any;
   failureReason: any;
   socketId: any;
+  onPreJobOpStarted: any;
   onClose?: (ev: CloseEvent) => void;
 }
 
@@ -17,6 +18,7 @@ enum ResponseEnum {
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
   failureReason = "FAILURE_REASON",
+  preJobOperation = "PRE_JOB_OP",
 }
 export class WebSocketServer {
   private server: WebSocket;
@@ -26,6 +28,7 @@ export class WebSocketServer {
   private failedNode: any;
   private failureReason: any;
   private socketId: any;
+  private onPreJobOpStarted: any;
   private onClose?: (ev: CloseEvent) => void;
   constructor({
     url,
@@ -36,6 +39,7 @@ export class WebSocketServer {
     failureReason,
     socketId,
     onClose,
+    onPreJobOpStarted,
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -45,6 +49,7 @@ export class WebSocketServer {
     this.socketId = socketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
+    this.onPreJobOpStarted = onPreJobOpStarted;
     this.init();
   }
   init() {
@@ -58,6 +63,13 @@ export class WebSocketServer {
               data[ResponseEnum.systemStatus] === IServerStatus.RQ_RUN_COMPLETE
             ) {
               this.pingResponse(IServerStatus.STANDBY);
+            }
+            if (
+              [IServerStatus.RQ_RUN_COMPLETE, IServerStatus.STANDBY].includes(
+                data[ResponseEnum.systemStatus]
+              )
+            ) {
+              this.onPreJobOpStarted({ isRunning: false, output: [] });
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -98,6 +110,14 @@ export class WebSocketServer {
             if (ResponseEnum.failureReason in data) {
               this.failureReason(data[ResponseEnum.failureReason]);
             }
+          }
+          if (ResponseEnum.preJobOperation in data) {
+            this.onPreJobOpStarted((prev) => ({
+              isRunning: data[ResponseEnum.preJobOperation].isRunning,
+              output: data[ResponseEnum.preJobOperation].isRunning
+                ? [...prev.output, data[ResponseEnum.preJobOperation].output]
+                : [],
+            }));
           }
           break;
         case "connection_established":

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsTab component renderWithThemes the ResultsTab component 1`] = `
+exports[`ResultsTab component renders the ResultsTab component 1`] = `
 <div
   data-testid="results-flow"
   style="height: calc(100vh - 110px);"

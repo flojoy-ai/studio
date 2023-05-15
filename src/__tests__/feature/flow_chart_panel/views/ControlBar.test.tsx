@@ -32,7 +32,7 @@ jest.mock("@src/feature/common/DropDown", () => ({
 }));
 
 describe("Controls", () => {
-  it("should renderWithTheme correctly", () => {
+  it("should render correctly", () => {
     const { container } = renderWithTheme(
       <Controls activeTab="visual" setOpenCtrlModal={jest.fn()} />
     );
@@ -43,14 +43,6 @@ describe("Controls", () => {
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
     expect(screen.getByText("Dropdown")).toBeInTheDocument();
     expect(container).toMatchSnapshot("__main__");
-  });
-  it("should show the Edit button when active tab is 'panel'", () => {
-    const { container } = renderWithTheme(
-      <Controls activeTab="panel" setOpenCtrlModal={jest.fn()} />
-    );
-    expect(screen.getByTestId("operation-switch")).toBeInTheDocument();
-    expect(screen.getByTestId("react-switch")).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__switch_btn__");
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
     renderWithTheme(

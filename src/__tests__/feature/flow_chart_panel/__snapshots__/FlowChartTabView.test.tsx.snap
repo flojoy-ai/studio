@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlowChartTabView should renderWithTheme the component correcty 1`] = `
+exports[`FlowChartTabView should render the component correcty 1`] = `
 <div>
   <div
     data-testid="react-flow-provider"

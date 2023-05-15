@@ -1,4 +1,4 @@
-from common.CONSTANTS import (
+from PYTHON.common.CONSTANTS import (
     KEY_ALL_JOBEST_IDS,
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,

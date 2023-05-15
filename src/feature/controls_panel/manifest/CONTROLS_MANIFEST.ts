@@ -1,4 +1,4 @@
-import { PlotData } from "plotly.js";
+import { PlotData, PlotType } from "plotly.js";
 
 export enum ControlTypes {
   Input = "input",
@@ -154,7 +154,13 @@ export const OutputControlsManifest = {
   },
 };
 
-export const PlotTypesManifest = {
+type PlotManifestType = {
+  name: string;
+  type?: PlotData["type"];
+  mode?: PlotData["mode"];
+};
+
+export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
   // Plot types
   SCATTER_PLOT_3D: {
     name: PlotTypeNames.ScatterPlot3D,

@@ -92,7 +92,7 @@ const usePlotControlEffect = ({
 
   // Initialize plot type options on component did mount
   useEffect(() => {
-    PlotTypesManifest.forEach((item) => {
+    Object.values(PlotTypesManifest).forEach((item) => {
       setPlotOptions((prev) => [
         ...prev,
         {

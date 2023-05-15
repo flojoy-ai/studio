@@ -9,7 +9,9 @@ export const nodeConfigs = {
   default: DefaultNode,
   ARITHMETIC: ArithmeticNode,
   SIMULATION: SimulationNode,
-  VISOR: VisorNode,
+  PLOTLY_VISOR: VisorNode,
   CONDITIONAL: ConditionalNode,
   TERMINATOR: TerminatorNode,
+  SAMPLE_IMAGE: DefaultNode,
+  AI_OBJECT_DETECTION: DefaultNode,
 };

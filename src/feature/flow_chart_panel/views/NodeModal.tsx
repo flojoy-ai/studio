@@ -62,7 +62,7 @@ const NodeModal = ({
         </div>
       )}
 
-      {Object.keys(nd).length === 0 || !nd.result ? (
+      {!nd?.result ? (
         <p>
           <code>{nodeLabel}</code> not run yet - click <i>Run Script</i>.
         </p>
@@ -71,21 +71,10 @@ const NodeModal = ({
           {nd?.result && (
             <PlotlyComponent
               id={nd.id}
-              data={
-                "data" in nd?.result
-                  ? nd.result.data
-                  : [
-                      {
-                        x: nd.result["x"],
-                        y: nd.result["y"],
-                        source: nd.result["source"],
-                        type: nd.result["type"],
-                      },
-                    ]
-              }
+              data={nd.result.default_fig.data}
               layout={
-                "layout" in nd.result
-                  ? Object.assign({}, nd.result.layout, defaultLayout)
+                "layout" in nd.result.default_fig
+                  ? Object.assign({}, defaultLayout)
                   : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler

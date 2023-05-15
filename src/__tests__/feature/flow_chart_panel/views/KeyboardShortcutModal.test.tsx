@@ -19,7 +19,7 @@ describe("KeyboardShortcutModal", () => {
     onCloseMock.mockClear();
   });
 
-  it("renderWithThemes correctly when isOpen is true", () => {
+  it("renders correctly when isOpen is true", () => {
     const { getByTestId, getByText } = renderWithTheme(
       <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
@@ -39,7 +39,7 @@ describe("KeyboardShortcutModal", () => {
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 
-  it("renderWithThemes the correct keyboard shortcuts for each platform", () => {
+  it("renders the correct keyboard shortcuts for each platform", () => {
     const { getByText, container } = renderWithTheme(
       <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );

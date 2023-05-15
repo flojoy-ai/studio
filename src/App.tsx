@@ -6,6 +6,7 @@ import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { GlobalStyles } from "./feature/common/Global";
+import { useDisclosure } from "@mantine/hooks";
 
 import {
   ColorScheme,
@@ -28,11 +29,19 @@ import {
   CTRL_TREE,
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { createStyles } from "@mantine/core";
+import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
+import { EditSwitch } from "./EditSwitch";
 
 const App = () => {
   const { states } = useSocket();
-  const { serverStatus, programResults, runningNode, failedNode } = states!;
+  const {
+    serverStatus,
+    programResults,
+    runningNode,
+    failedNode,
+    preJobOperation,
+  } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
@@ -52,6 +61,10 @@ const App = () => {
     ctrlsManifest,
   } = useFlowChartState();
   const [currentTab, setCurrentTab] = useState<AppTab>("visual");
+  const [
+    isPrejobModalOpen,
+    { open: openPreJobModal, close: closePreJobModal },
+  ] = useDisclosure(false);
   const mantineTheme = useMantineTheme();
   const queryString = window?.location?.search;
   const fileName =
@@ -122,6 +135,14 @@ const App = () => {
       fetchExampleApp(fileName);
     }
   }, [fileName, fetchExampleApp]);
+  useEffect(() => {
+    if (preJobOperation.isRunning) {
+      openPreJobModal();
+    } else {
+      closePreJobModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preJobOperation]);
 
   return (
     <ColorSchemeProvider
@@ -134,6 +155,11 @@ const App = () => {
         theme={theme === "dark" ? darkTheme : lightTheme}
       >
         <GlobalStyles />
+        <PreJobOperationShow
+          opened={isPrejobModalOpen}
+          outputs={preJobOperation.output}
+          close={closePreJobModal}
+        />
         <CustomFonts />
         <ServerStatus serverStatus={serverStatus} />
         <Header
@@ -143,6 +169,7 @@ const App = () => {
         />
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
+            {/* add node button currently in the sidebar, to be refactored */}
             <Sidebar />
 
             <FlowChartTab
@@ -156,11 +183,23 @@ const App = () => {
 
           {/* Tab view containing controls */}
           <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-            <AddCTRLBtn
-              setCTRLSideBarStatus={setCTRLSideBarStatus}
-              setIsEditMode={setIsEditMode}
-              isCTRLSideBarOpen={isCTRLSideBarOpen}
-            />
+            <div
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddCTRLBtn
+                setCTRLSideBarStatus={setCTRLSideBarStatus}
+                setIsEditMode={setIsEditMode}
+                isCTRLSideBarOpen={isCTRLSideBarOpen}
+              />
+              <EditSwitch
+                isEditMode={isEditMode}
+                setIsEditMode={setIsEditMode}
+              />
+            </div>
 
             <SidebarCustom
               sections={CTRL_TREE}

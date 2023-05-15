@@ -1,3 +1,5 @@
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+
 export type NodeModalProps = {
   modalIsOpen: boolean;
   afterOpenModal: () => void;
@@ -5,7 +7,7 @@ export type NodeModalProps = {
   modalStyles: ReactModal.Styles;
   nodeLabel: any;
   nodeType: any;
-  nd: any;
+  nd: ResultIO;
   defaultLayout: any;
   clickedElement: any;
   pythonString: string;
