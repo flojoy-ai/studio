@@ -1,13 +1,8 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import React, { useCallback } from "react";
-import Modal from "react-modal";
-import { v4 as uuidv4 } from "uuid";
-
-import { modalStyles } from "./style/ControlModalStyles";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import "./style/Controls.css";
 
-import ReactSwitch from "react-switch";
 import "@src/App.css";
 import {
   CtlManifestType,
@@ -15,17 +10,17 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import ControlGrid from "./views/ControlGrid";
-import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { createStyles } from "@mantine/styles";
-import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+import { useMantineTheme } from "@mantine/styles";
+import { AddCTRLBtn } from "@src/AddCTRLBtn";
+import { EditSwitch } from "@src/EditSwitch";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -41,7 +36,7 @@ export const useAddButtonStyle = createStyles((theme) => {
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
   results: ResultsType;
-  setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCtrlModal: Dispatch<SetStateAction<boolean>>;
   openCtrlModal: boolean;
 }
 
@@ -160,9 +155,24 @@ const ControlsTab = ({
     });
     cacheManifest(manClone);
   };
+  const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
 
   return (
     <div data-testid="controls-tab">
+      <div
+        className="top-row"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <AddCTRLBtn
+          setCTRLSideBarStatus={setCTRLSideBarStatus}
+          setIsEditMode={setIsEditMode}
+          isCTRLSideBarOpen={isCTRLSideBarOpen}
+        />
+        <EditSwitch isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
+      </div>
       {/* <AddBtn
         testId={"add-ctrl"}
         handleClick={() => {

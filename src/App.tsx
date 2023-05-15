@@ -30,8 +30,6 @@ import {
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
 import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
-import { AddCTRLBtn } from "./AddCTRLBtn";
-import { EditSwitch } from "./EditSwitch";
 import { useInterval } from "react-use";
 import { saveFlowChartToLocalStorage } from "./services/FlowChartServices";
 
@@ -46,7 +44,6 @@ const App = () => {
   } = states!;
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
@@ -177,67 +174,19 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           {/* TODO: Use React Router? */}
           {currentTab === "visual" && (
-            <div
-              style={{ display: currentTab === "visual" ? "block" : "none" }}
-            >
-              {/* add node button currently in the sidebar, to be refactored */}
-              {/* TODO: Add sidebar back */}
-              {/* <Sidebar /> */}
-
-              <FlowChartTab
-                rfInstance={rfInstance!}
-                setRfInstance={setRfInstance}
-                results={programResults!}
-                clickedElement={clickedElement}
-                setClickedElement={setClickedElement}
-              />
-            </div>
-          )}
+            // TODO: React router
+                      )}
 
           {/* Tab view containing controls */}
           {currentTab === "panel" && (
-            <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-              <div
-                className="top-row"
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <AddCTRLBtn
-                  setCTRLSideBarStatus={setCTRLSideBarStatus}
-                  setIsEditMode={setIsEditMode}
-                  isCTRLSideBarOpen={isCTRLSideBarOpen}
-                />
-                <EditSwitch
-                  isEditMode={isEditMode}
-                  setIsEditMode={setIsEditMode}
-                />
-              </div>
-
-              {/* TODO: Add edit sidebar back */}
-
-              {/* <SidebarCustom
-              sections={CTRL_TREE}
-              manifestMap={CTRL_MANIFEST}
-              leafNodeClickHandler={addCtrl}
-              isSideBarOpen={isCTRLSideBarOpen}
-              setSideBarStatus={setCTRLSideBarStatus}
-            /> */}
-
-              <ControlsTab
-                results={programResults!}
-                openCtrlModal={openCtrlModal}
-                setOpenCtrlModal={setOpenCtrlModal}
-              />
-            </div>
+            <ControlsTab
+              results={programResults!}
+              openCtrlModal={openCtrlModal}
+              setOpenCtrlModal={setOpenCtrlModal}
+            />
           )}
 
-          {currentTab === "debug" && (
-            <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-              <ResultsTab results={programResults!} />
-            </div>
-          )}
+          {currentTab === "debug" && <ResultsTab results={programResults!} />}
         </main>
       </MantineProvider>
     </ColorSchemeProvider>
