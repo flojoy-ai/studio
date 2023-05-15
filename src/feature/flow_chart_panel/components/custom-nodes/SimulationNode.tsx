@@ -20,7 +20,10 @@ const useStyles = createStyles((theme) => {
       justifyContent: "center",
       border: `1px solid ${accent}`,
       color: accent,
-      backgroundColor: accent + "40",
+      backgroundColor: accent + "27",
+      textAlign: "center",
+      overflowWrap: "anywhere",
+      padding: "16px",
     },
   };
 });

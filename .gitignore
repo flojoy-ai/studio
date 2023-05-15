@@ -49,3 +49,6 @@ worker-manager/node_modules
 
 .idea/*
 .vscode/*
+
+src/data/manifests-latest.json
+src/feature/flow_chart_panel/manifest/pythonFunctions.json
