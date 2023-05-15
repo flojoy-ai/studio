@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => {
       backgroundColor: accent + "27",
       textAlign: "center",
       overflowWrap: "anywhere",
-      inlineSize: 115,
+      padding: "16px",
     },
   };
 });
