@@ -68,8 +68,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       : theme.colors.accent2[0];
 
   const layoutOverride: Partial<Layout> = {
-    paper_bgcolor:
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
     plot_bgcolor: "transparent",
     title: data.label,
     margin: { t: 30, r: 0, b: 0, l: 0 },
