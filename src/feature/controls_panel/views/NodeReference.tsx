@@ -25,6 +25,7 @@ const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
   });
 
   useEffect(() => {
+    console.log("9");
     setSelectedOption({
       label: rfInstance?.nodes.find((node) => node.id === ctrlObj.val)?.data
         .label!,

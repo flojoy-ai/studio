@@ -44,6 +44,7 @@ const KnobCtrl = ({
   );
 
   useEffect(() => {
+    console.log("8");
     return () => {
       setKnobValue(0);
     };

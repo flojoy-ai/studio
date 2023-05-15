@@ -64,14 +64,15 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
+  // useEffect(() => {
+  //   console.log("14");
+  //   setNodes((prev) => {
+  //     const selectedNode = prev.find((n) => n.id === data.id);
+  //     if (selectedNode) {
+  //       selectedNode.data.selected = selectedNode.selected;
+  //     }
+  //   });
+  // }, [data, nodes, setNodes]);
 
   return (
     <NodeWrapper data={data}>

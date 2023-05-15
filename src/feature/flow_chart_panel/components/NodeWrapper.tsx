@@ -29,6 +29,7 @@ const NodeWrapper = ({
   };
 
   useEffect(() => {
+    console.log("15");
     if (failedNode === data.id) {
       setRunError({
         message: states?.failureReason!,

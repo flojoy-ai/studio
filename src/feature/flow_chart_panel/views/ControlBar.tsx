@@ -210,10 +210,10 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         </DropDown>
       )}
 
-      <KeyboardShortcutModal
+      {/* <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
-      />
+      /> */}
     </Box>
   );
 };

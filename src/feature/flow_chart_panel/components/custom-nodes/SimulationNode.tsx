@@ -34,14 +34,15 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
+  // useEffect(() => {
+  //   console.log("19");
+  //   setNodes((prev) => {
+  //     const selectedNode = prev.find((n) => n.id === data.id);
+  //     if (selectedNode) {
+  //       selectedNode.data.selected = selectedNode.selected;
+  //     }
+  //   });
+  // }, [data, nodes, setNodes]);
 
   let selectShadow = "";
   if (runningNode === data.id || data.selected) {

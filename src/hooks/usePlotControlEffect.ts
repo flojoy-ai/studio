@@ -65,6 +65,7 @@ const usePlotControlEffect = ({
 
   // update input options automatically when result is changed
   useEffect(() => {
+    console.log("31");
     if (nd?.result) {
       updateInputOptions();
     }
@@ -72,6 +73,7 @@ const usePlotControlEffect = ({
 
   // update selected keys of nodes for plot when input options updated
   useEffect(() => {
+    console.log("32");
     setSelectedKeys((prev) => {
       const updatedKeys = {};
       if (prev) {
@@ -87,11 +89,13 @@ const usePlotControlEffect = ({
 
   // update plot values when selected keys are updated
   useEffect(() => {
+    console.log("33");
     updatePlotValue();
   }, [selectedKeys, updatePlotValue]);
 
   // Initialize plot type options on component did mount
   useEffect(() => {
+    console.log("34");
     Object.values(PlotTypesManifest).forEach((item) => {
       setPlotOptions((prev) => [
         ...prev,
@@ -112,6 +116,7 @@ const usePlotControlEffect = ({
 
   // Cleanup selected keys when ctrlobj parameter is updated
   useEffect(() => {
+    console.log("35");
     return () => {
       setSelectedKeys(null);
     };

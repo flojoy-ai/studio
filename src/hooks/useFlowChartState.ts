@@ -116,6 +116,7 @@ export function useFlowChartState() {
   });
 
   useEffect(() => {
+    console.log("29");
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
@@ -202,15 +203,17 @@ export function useFlowChartState() {
     });
   };
 
-  useEffect(() => {
-    setRfInstance((prev) => {
-      if (prev) {
-        prev.nodes = nodes;
-        prev.edges = edges;
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes, edges]);
+  // useEffect(() => {
+  //   console.log("30");
+  //   setRfInstance((prev) => {
+  //     if (prev) {
+  //       prev.nodes = nodes;
+  //       prev.edges = edges;
+  //     }
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [nodes, edges]);
+
   return {
     rfInstance,
     setRfInstance,

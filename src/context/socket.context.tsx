@@ -57,6 +57,7 @@ export const SocketContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("4");
     if (!socket) {
       console.log("Creating new WebSocket connection to backend");
       const ws = new WebSocketServer({

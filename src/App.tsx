@@ -128,16 +128,19 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log("1");
     setRunningNode(runningNode);
     setFailedNode(failedNode);
   }, [runningNode, failedNode, setRunningNode, setFailedNode]);
 
   useEffect(() => {
+    console.log("2");
     if (fileName) {
       fetchExampleApp(fileName);
     }
   }, [fileName, fetchExampleApp]);
   useEffect(() => {
+    console.log("3");
     if (preJobOperation.isRunning) {
       openPreJobModal();
     } else {
@@ -172,40 +175,45 @@ const App = () => {
           setOpenCtrlModal={setOpenCtrlModal}
         />
         <main style={{ minHeight: "85vh" }}>
-          <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-            {/* add node button currently in the sidebar, to be refactored */}
-            {/* <Sidebar /> */}
-
-            <FlowChartTab
-              rfInstance={rfInstance!}
-              setRfInstance={setRfInstance}
-              results={programResults!}
-              clickedElement={clickedElement}
-              setClickedElement={setClickedElement}
-            />
-          </div>
-
-          {/* Tab view containing controls */}
-          <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+          {currentTab === "visual" && (
             <div
-              className="top-row"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
+              style={{ display: currentTab === "visual" ? "block" : "none" }}
             >
-              <AddCTRLBtn
-                setCTRLSideBarStatus={setCTRLSideBarStatus}
-                setIsEditMode={setIsEditMode}
-                isCTRLSideBarOpen={isCTRLSideBarOpen}
-              />
-              <EditSwitch
-                isEditMode={isEditMode}
-                setIsEditMode={setIsEditMode}
+              {/* add node button currently in the sidebar, to be refactored */}
+              {/* <Sidebar /> */}
+
+              <FlowChartTab
+                rfInstance={rfInstance!}
+                setRfInstance={setRfInstance}
+                results={programResults!}
+                clickedElement={clickedElement}
+                setClickedElement={setClickedElement}
               />
             </div>
+          )}
 
-            {/* <SidebarCustom
+          {/* Tab view containing controls */}
+          {currentTab === "panel" && (
+            <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
+              <div
+                className="top-row"
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <AddCTRLBtn
+                  setCTRLSideBarStatus={setCTRLSideBarStatus}
+                  setIsEditMode={setIsEditMode}
+                  isCTRLSideBarOpen={isCTRLSideBarOpen}
+                />
+                <EditSwitch
+                  isEditMode={isEditMode}
+                  setIsEditMode={setIsEditMode}
+                />
+              </div>
+
+              {/* <SidebarCustom
               sections={CTRL_TREE}
               manifestMap={CTRL_MANIFEST}
               leafNodeClickHandler={addCtrl}
@@ -213,17 +221,19 @@ const App = () => {
               setSideBarStatus={setCTRLSideBarStatus}
             /> */}
 
-            <ControlsTab
-              results={programResults!}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-          </div>
+              <ControlsTab
+                results={programResults!}
+                openCtrlModal={openCtrlModal}
+                setOpenCtrlModal={setOpenCtrlModal}
+              />
+            </div>
+          )}
 
-          {/*  */}
-          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-            <ResultsTab results={programResults!} />
-          </div>
+          {currentTab === "debug" && (
+            <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
+              <ResultsTab results={programResults!} />
+            </div>
+          )}
         </main>
       </MantineProvider>
     </ColorSchemeProvider>

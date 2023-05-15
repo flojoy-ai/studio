@@ -9,6 +9,7 @@ type PlotProps = {
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
   useEffect(() => {
+    console.log("5");
     if (!window) {
       return;
     }
