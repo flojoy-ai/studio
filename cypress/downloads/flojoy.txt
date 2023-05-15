@@ -211,12 +211,12 @@
                 "width": 250,
                 "height": 159,
                 "id": "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
-                "type": "VISOR",
+                "type": "PLOTLY_VISOR",
                 "data": {
                     "id": "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
                     "label": "SCATTER",
                     "func": "SCATTER",
-                    "type": "VISOR",
+                    "type": "PLOTLY_VISOR",
                     "ctrls": {},
                     "selected": false
                 },
@@ -235,12 +235,12 @@
                 "width": 250,
                 "height": 159,
                 "id": "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
-                "type": "VISOR",
+                "type": "PLOTLY_VISOR",
                 "data": {
                     "id": "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
                     "label": "HISTOGRAM",
                     "func": "HISTOGRAM",
-                    "type": "VISOR",
+                    "type": "PLOTLY_VISOR",
                     "ctrls": {},
                     "selected": true
                 },
