@@ -22,7 +22,7 @@ import { CustomFonts } from "./feature/common/CustomFonts";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { CtlManifestType, useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import SidebarCustom from "./feature/common/Sidebar/Sidebar";
+import { SidebarCustom } from "./feature/common/Sidebar/Sidebar";
 import {
   CTRL_MANIFEST,
   CTRL_TREE,
@@ -37,6 +37,7 @@ import {
   CMND_TREE,
 } from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
+import { RequestNode } from "./feature/flow_chart_panel/components/RequestNode";
 
 const App = () => {
   const addNewNode = useAddNewNode();
@@ -187,6 +188,7 @@ const App = () => {
               leafNodeClickHandler={addNewNode}
               isSideBarOpen={isSCRIPTSideBarOpen}
               setSideBarStatus={setSCRIPTSideBarStatus}
+              customContent={<RequestNode />}
             />
 
             <FlowChartTab
