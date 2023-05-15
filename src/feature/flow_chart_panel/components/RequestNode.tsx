@@ -18,7 +18,7 @@ export const RequestNode = () => {
   const { classes } = useStyles();
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <button className={classes.reqBtn}>
         <Anchor
           style={{
