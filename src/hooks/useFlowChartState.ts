@@ -85,6 +85,7 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     ...ctrl.layout,
   }))
 );
+const apiKeyAtom = atomWithImmer<string>("");
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
@@ -97,6 +98,7 @@ export function useFlowChartState() {
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
 
   const loadFlowExportObject = useCallback(
     (flow: any) => {
@@ -237,5 +239,7 @@ export function useFlowChartState() {
     nodes,
     setNodes,
     filesContent,
+    apiKey,
+    setApiKey
   };
 }
