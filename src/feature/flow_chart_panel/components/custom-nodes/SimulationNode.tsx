@@ -1,14 +1,11 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {
-  CustomNodeProps,
-  ElementsData,
-} from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles } from "@mantine/core";
 import { useEffect } from "react";
+import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
-import { useNodeStyles } from "../DefaultNode";
 
 const useStyles = createStyles((theme) => {
   const accent =
@@ -23,7 +20,7 @@ const useStyles = createStyles((theme) => {
       justifyContent: "center",
       border: `1px solid ${accent}`,
       color: accent,
-      backgroundColor: accent + "27",
+      backgroundColor: accent + "40",
     },
   };
 });
