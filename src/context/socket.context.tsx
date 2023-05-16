@@ -76,7 +76,7 @@ export const SocketContextProvider = ({ children }) => {
       });
       setSocket(ws);
     }
-  });
+  }, []);
   return (
     <SocketContext.Provider
       value={{
