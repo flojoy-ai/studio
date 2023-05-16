@@ -1,13 +1,17 @@
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import { createStyles, useMantineTheme } from "@mantine/core";
+import { Modal, createStyles, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { PassThrough } from "stream";
 
 interface APIKeyModelProps {
   isOpen: boolean;
   onClose: () => void;
 }
+const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "localhost";
+const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
+const API_URL = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -90,7 +94,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
 
   const sendApiKeyToDjango = async (apiKey: string) => {
     try {
-      const response = await fetch("http://localhost:8000/api/set-api", {
+      const response = await fetch(`${API_URL}/api/set-api`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,10 +111,16 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     } catch (error) {
       console.error("An error occurred:", error);
     }
-  };
+  }; 
 
-  const handelSendApi = () => {
-    sendApiKeyToDjango(apiKey);
+  const handleSendAPI = () => {
+    if (apiKey == null || apiKey.trim() == ""){
+      console.error("There is no API Key");
+    }
+    else{
+      sendApiKeyToDjango(apiKey);
+    }
+    
   };
 
   return (
@@ -135,7 +145,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         <div className={classes.title}>
           <div>API Key</div>
           <input type="text" onChange={handleApiKeyChange} value={apiKey} />
-          <button onClick={handelSendApi}>Submit</button>
+          <button disabled={!apiKey} onClick={handleSendAPI}>Submit</button>
         </div>
       </div>
     </ReactModal>
