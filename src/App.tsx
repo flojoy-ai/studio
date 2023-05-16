@@ -81,7 +81,6 @@ const App = () => {
     [loadFlowExportObject, setCtrlsManifest]
   );
 
-  // TODO: Remove this
   useEffect(() => {
     console.log("1");
     setRunningNode(runningNode);
