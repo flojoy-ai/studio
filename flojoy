@@ -59,6 +59,7 @@ initNodePackages=true
 initPythonPackages=true
 is_ci=false
 test_ci=false
+initSubmodule=true
 
 
 # creating system links
@@ -169,6 +170,10 @@ do
         test_ci=true #run with CI=true, allows to properly run tests locally 
         shift
         ;;
+        -s)
+        initSubmodule=false # don't update submodules, prevents overwriting local changes
+        shift
+        ;;
         *) # unknown option
         echo "Unknown option: $1"
         helpFunction
@@ -215,10 +220,12 @@ createFlojoyDirectoryWithYmlFile()
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
-git submodule update --init --recursive >/dev/null 2>&1
-feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+if $initSubmodule; then
+   git submodule update --init --recursive >/dev/null 2>&1
+   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+fi
 
- # checking virtual environment
+# checking virtual environment
 
 venvCmd=""
 
@@ -364,6 +371,6 @@ fi
 if [ -n "$venvCmd" ]; then
    $venvCmd && $start_project_cmd
 else
-    $start_project_cmd
+   $start_project_cmd
 fi
 sleep 1

@@ -158,6 +158,8 @@ export const SECTIONS: Sections = [
       { name: "Keithley", key: "KEITHLEY" },
       { name: "Labjack", key: "LABJACK" },
       { name: "Phidget", key: "PHIDGET" },
+      { name: "Stepper Driver tic", key: "STEPPER" },
+      { name: "Stepper Driver tic knob", key: "STEPPER2" },
       { name: "Serial", key: "SERIAL" },
     ],
   },

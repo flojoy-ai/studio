@@ -204,12 +204,12 @@ export const NOISY_SINE = {
       width: 250,
       height: 159,
       id: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
-      type: "VISOR",
+      type: "PLOTLY_VISOR",
       data: {
         id: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
         label: "SCATTER",
         func: "SCATTER",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {
@@ -227,12 +227,12 @@ export const NOISY_SINE = {
       width: 250,
       height: 159,
       id: "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
-      type: "VISOR",
+      type: "PLOTLY_VISOR",
       data: {
         id: "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
         label: "HISTOGRAM",
         func: "HISTOGRAM",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {
@@ -514,7 +514,7 @@ export const LOOP_APP = {
         id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
         label: "Line",
         func: "LINE",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {
@@ -528,7 +528,7 @@ export const LOOP_APP = {
         id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
         label: "Bar",
         func: "BAR",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {
@@ -693,7 +693,7 @@ export const CONDITIONAL = {
         id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
         label: "Line",
         func: "LINE",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {
@@ -707,7 +707,7 @@ export const CONDITIONAL = {
         id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
         label: "Bar",
         func: "BAR",
-        type: "VISOR",
+        type: "PLOTLY_VISOR",
         ctrls: {},
       },
       position: {

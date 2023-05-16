@@ -9,7 +9,7 @@
         {
             "name": "3D Scatter Plot",
             "key": "SCATTER3D",
-            "type": "VISOR",
+            "type": "PLOTLY_VISOR",
             "inputs": []
         },
         {
@@ -32,7 +32,7 @@
         {
             "name": "3D Surface Plot",
             "key": "SURFACE3D",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "GoTo",
@@ -64,7 +64,7 @@
         {
             "name": "Line",
             "key": "LINE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Object Detection",
@@ -140,7 +140,7 @@
         {
             "name": "Histogram",
             "key": "HISTOGRAM",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Multiply",
@@ -162,7 +162,7 @@
         {
             "name": "Scatter Plot",
             "key": "SCATTER",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "Invert",
@@ -172,7 +172,7 @@
         {
             "name": "Image Viewer",
             "key": "IMAGE",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         },
         {
             "name": "conditional",
@@ -226,7 +226,7 @@
         {
             "name": "Bar Chart",
             "key": "BAR",
-            "type": "VISOR"
+            "type": "PLOTLY_VISOR"
         }
     ],
     "parameters": {

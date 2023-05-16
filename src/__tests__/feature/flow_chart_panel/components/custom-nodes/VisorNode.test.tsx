@@ -28,6 +28,16 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   return { __esModule: true, default: mockChildren };
 });
 
+jest.mock("@src/hooks/useSocket", () => {
+  return {
+    useSocket: () => ({
+      states: {
+        programResults: {},
+      },
+    }),
+  };
+});
+
 describe("VisorNode", () => {
   it("checks the snapshot", () => {
     const { container } = renderWithTheme(<VisorNode {...props} />);
