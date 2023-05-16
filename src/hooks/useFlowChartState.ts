@@ -98,6 +98,11 @@ export function useFlowChartState() {
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
 
+  // TODO: This still changes every time a node is dragged...
+  // Could still be optimized further?
+  const selectedNodes = nodes.filter((n) => n.selected);
+  const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+
   const loadFlowExportObject = useCallback(
     (flow: any) => {
       if (!flow) {
@@ -241,5 +246,6 @@ export function useFlowChartState() {
     nodes,
     setNodes,
     filesContent,
+    selectedNode,
   };
 }

@@ -31,23 +31,13 @@ const useStyles = createStyles((theme) => {
 const SimulationNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode, selectedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  // TODO: Find a better way to keep track of selected state
-
-  // useEffect(() => {
-  //   console.log("19");
-  //   setNodes((prev) => {
-  //     const selectedNode = prev.find((n) => n.id === data.id);
-  //     if (selectedNode) {
-  //       selectedNode.data.selected = selectedNode.selected;
-  //     }
-  //   });
-  // }, [data, nodes, setNodes]);
+  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   let selectShadow = "";
-  if (runningNode === data.id || data.selected) {
+  if (runningNode === data.id || selected) {
     selectShadow =
       data.func === "LINSPACE"
         ? nodeClasses.defaultShadow

@@ -147,11 +147,6 @@ const Controls = () => {
     }
   };
 
-  // TODO: Delete this
-  // useEffect(() => {
-  //   saveFlowChartToLocalStorage(rfInstance);
-  // }, [rfInstance]);
-
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
@@ -209,12 +204,10 @@ const Controls = () => {
         </DropDown>
       )}
 
-      {/* TODO: Add this back */}
-
-      {/* <KeyboardShortcutModal
+      <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
-      /> */}
+      />
     </Box>
   );
 };

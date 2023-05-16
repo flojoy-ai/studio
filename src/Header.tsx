@@ -36,7 +36,6 @@ export type AppTab = "visual" | "panel" | "debug";
 
 export const Header = () => {
   const { classes } = useStyles();
-  const location = useLocation();
 
   return (
     <MantineHeader height="80px" className={classes.header}>

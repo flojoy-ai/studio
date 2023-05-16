@@ -44,20 +44,10 @@ const getboxShadow = (data: ElementsData) => {
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode, selectedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  // TODO: Find a better way to keep track of selected state
-
-  // useEffect(() => {
-  //   console.log("16");
-  //   setNodes((prev) => {
-  //     const selectedNode = prev.find((n) => n.id === data.id);
-  //     if (selectedNode) {
-  //       selectedNode.data.selected = selectedNode.selected;
-  //     }
-  //   });
-  // }, [data, nodes, setNodes]);
+  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   let operatorIcon;
   switch (data.func) {
@@ -78,7 +68,7 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || data.selected
+          runningNode === data.id || selected
             ? nodeClasses.arithmeticShadow
             : "",
           failedNode === data.id ? nodeClasses.failShadow : ""

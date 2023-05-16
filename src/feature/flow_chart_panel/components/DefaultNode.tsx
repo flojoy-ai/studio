@@ -61,26 +61,16 @@ export const useNodeStyles = createStyles((theme) => {
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
-  const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
+  const { runningNode, failedNode, selectedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  // TODO: Find a better way to keep track of selected state
-
-  // useEffect(() => {
-  //   console.log("14");
-  //   setNodes((prev) => {
-  //     const selectedNode = prev.find((n) => n.id === data.id);
-  //     if (selectedNode) {
-  //       selectedNode.data.selected = selectedNode.selected;
-  //     }
-  //   });
-  // }, [data, nodes, setNodes]);
+  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   return (
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || data.selected ? classes.defaultShadow : "",
+          runningNode === data.id || selected ? classes.defaultShadow : "",
           failedNode === data.id ? classes.failShadow : ""
         )}
       >

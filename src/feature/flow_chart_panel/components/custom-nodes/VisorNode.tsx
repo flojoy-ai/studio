@@ -42,21 +42,10 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode, selectedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  // TODO: Find a better way to keep track of selected state
-
-  // useEffect(() => {
-  //   console.log("21");
-  //   setNodes((prev) => {
-  //     const selectedNode = prev.find((n) => n.id === data.id);
-  //     if (selectedNode) {
-  //       selectedNode.data.selected = selectedNode.selected;
-  //     }
-  //     return prev;
-  //   });
-  // }, [data, nodes, setNodes]);
+  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   const { states } = useSocket();
   const { programResults } = states!;
@@ -86,9 +75,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || data.selected
-            ? nodeClasses.defaultShadow
-            : "",
+          runningNode === data.id || selected ? nodeClasses.defaultShadow : "",
           failedNode === data.id ? nodeClasses.failShadow : ""
         )}
       >

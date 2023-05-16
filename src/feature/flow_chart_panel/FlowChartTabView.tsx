@@ -16,6 +16,7 @@ import {
   NodeMouseHandler,
   NodeDragHandler,
   OnNodesDelete,
+  OnSelectionChangeFunc,
 } from "reactflow";
 
 import localforage from "localforage";
@@ -35,6 +36,7 @@ import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
+import { useStore } from "reactflow";
 
 localforage.config({
   name: "react-flow",
@@ -68,10 +70,15 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const { isEditMode, nodes, setNodes, edges, setEdges, setRfInstance } =
-    useFlowChartState();
-  const selectedNodes = nodes.filter((n) => n.selected);
-  const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  const {
+    isEditMode,
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    setRfInstance,
+    selectedNode,
+  } = useFlowChartState();
 
   const theme = useMantineTheme();
 
