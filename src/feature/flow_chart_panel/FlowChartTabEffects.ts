@@ -30,7 +30,7 @@ export function useFlowChartTabEffects({
         (node: any) => node.id === clickedElement?.id
       )[0];
 
-      setNd(filteredResult === undefined ? {} : filteredResult);
+      setNd(filteredResult === undefined ? null : filteredResult);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results, clickedElement]);
@@ -47,7 +47,7 @@ export function useFlowChartTabEffects({
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeLabel, nodeType, clickedElement]);

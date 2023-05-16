@@ -4,6 +4,7 @@ import json as _json
 import numpy as np
 import pandas as pd
 
+
 class PlotlyJSONEncoder(_json.JSONEncoder):
     """
     Meant to be passed as the `cls` kwarg to json.dumps(obj, cls=..)
@@ -11,7 +12,7 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
     Additionally, this encoder overrides nan functionality so that 'Inf',
     'NaN' and '-Inf' encode to 'null'. Which is stricter JSON than the Python
     version.
-    """    
+    """
 
     def coerce_to_strict(self, const):
         """
@@ -44,7 +45,6 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         try:
             new_o = _json.loads(encoded_o, parse_constant=self.coerce_to_strict)
         except ValueError:
-
             # invalid separators will fail here. raise a helpful exception
             raise ValueError(
                 "Encoding into strict JSON failed. Did you set the separators "
@@ -169,8 +169,10 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         else:
             raise NotEncodable
 
+
 class NotEncodable(Exception):
     pass
+
 
 def compare_values(first_value, second_value, operator):
     bool_ = None

@@ -1,28 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CustomResultNode converts image result data to a data URL: __image_type_file__ 1`] = `
-<div>
-  <div
-    data-testid="result-node"
-    style="position: relative;"
-  >
-    <div>
-      Handle Component
-    </div>
-    <div>
-      Handle Component
-    </div>
-    <div
-      data-imgsource="data:image/jpeg;base64,AQID"
-      id="node-id"
-      style="height: 190px; width: 210px;"
-    >
-      PlotlyComponent
-    </div>
-  </div>
-</div>
-`;
-
 exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1`] = `
 <div>
   <div
@@ -42,5 +19,6 @@ exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1
       PlotlyComponent
     </div>
   </div>
+  ,
 </div>
 `;

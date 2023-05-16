@@ -1,19 +1,15 @@
-import { CSSProperties } from "react";
+import { SVGProps } from "react";
 
-interface SVGProps {
-  style?: CSSProperties;
-}
-
-export const AddBGTemplate = ({ style }: SVGProps) => {
+export const AddBGTemplate = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       data-testid="default-svg"
-      style={style}
       width="99"
       height="100"
       viewBox="0 0 72 81"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M69.7184 43.874L6.41934 79.9997C4.08605 81.3313 1.18449 79.6464 1.18449 76.9599V4.70849C1.18449 2.02195 4.08604 0.337065 6.41933 1.66871L69.7184 37.7944C72.072 39.1376 72.072 42.5308 69.7184 43.874Z"
@@ -25,16 +21,16 @@ export const AddBGTemplate = ({ style }: SVGProps) => {
   );
 };
 
-export const MultiplySvg = ({ style }: SVGProps) => {
+export const MultiplySvg = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       data-testid="multiply-svg"
-      style={style}
       width="14"
       height="14"
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clipPath="url(#clip0_13_586)">
         <path
@@ -60,16 +56,16 @@ export const MultiplySvg = ({ style }: SVGProps) => {
   );
 };
 
-export const AddSvg = ({ style }: SVGProps) => {
+export const AddSvg = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       data-testid="add-svg"
-      style={style}
       width="16"
       height="16"
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M9.24222 6.58536H15.1016V9.19278H9.24222V15.1107H6.6348V9.19278H0.79007V6.58536H6.6348V0.608795H9.24222V6.58536Z"
@@ -79,16 +75,16 @@ export const AddSvg = ({ style }: SVGProps) => {
   );
 };
 
-export const AtSvg = ({ style }: SVGProps) => {
+export const AtSvg = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       data-testid="matmul-svg"
-      style={style}
       width="14"
       height="14"
       viewBox="0 0 14 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g>
         <path
@@ -112,16 +108,16 @@ export const AtSvg = ({ style }: SVGProps) => {
   );
 };
 
-export const SubSvg = ({ style }: SVGProps) => {
+export const SubSvg = ({ ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       data-testid="sub-svg"
-      style={style}
       width="16"
       height="16"
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M9.24222 6.58536H15.1016V9.19278H6.6348V9.19278H0.79007V6.58536"

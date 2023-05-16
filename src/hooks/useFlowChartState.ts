@@ -73,7 +73,6 @@ const initialManifests: CtlManifestType[] = [
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
@@ -95,7 +94,6 @@ export function useFlowChartState() {
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
@@ -103,7 +101,7 @@ export function useFlowChartState() {
   const loadFlowExportObject = useCallback(
     (flow: any) => {
       if (!flow) {
-        return;
+        return 0;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
@@ -121,25 +119,45 @@ export function useFlowChartState() {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
-      setGridLayout(parsedFileContent.gridLayout);
       const flow = parsedFileContent.rfInstance;
       setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
       loadFlowExportObject(flow);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
+  const getFileBlob = (rf: ReactFlowJsonObject<ElementsData>) => {
+    const fileContent = {
+      rfInstance,
+      ctrlsManifest,
+    };
+    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+
+    return new Blob([fileContentJsonString], {
+      type: "text/plain;charset=utf-8",
+    });
+  };
+
   const saveFile = async () => {
     if (rfInstance) {
-      const fileContent = {
-        rfInstance,
-        ctrlsManifest,
-        gridLayout,
-      };
-      const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+      const blob = getFileBlob(rfInstance);
 
-      const blob = new Blob([fileContentJsonString], {
-        type: "text/plain;charset=utf-8",
-      });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "flojoy.txt";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const saveFileAs = async () => {
+    if (rfInstance) {
+      const blob = getFileBlob(rfInstance);
+
       const handle = await (window as any).showSaveFilePicker({
         suggestedName: "flojoy.txt",
         types: [
@@ -203,12 +221,11 @@ export function useFlowChartState() {
     loadFlowExportObject,
     openFileSelector,
     saveFile,
+    saveFileAs,
     isEditMode,
     setIsEditMode,
     gridLayout,
     setGridLayout,
-    uiTheme,
-    setUiTheme,
     showLogs,
     setShowLogs,
     runningNode,
@@ -219,5 +236,6 @@ export function useFlowChartState() {
     setEdges,
     nodes,
     setNodes,
+    filesContent,
   };
 }

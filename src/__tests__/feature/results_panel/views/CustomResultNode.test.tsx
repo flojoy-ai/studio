@@ -1,10 +1,7 @@
-import { render } from "@testing-library/react";
 import CustomResultNode from "@src/feature/results_panel/views/CustomResultNode";
 import { ResultNodeData } from "@src/feature/results_panel/types/ResultsType";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
-jest.mock("@src/hooks/useFlowChartState", () => ({
-  useFlowChartState: jest.fn(() => ({ uiTheme: "dark" })),
-}));
 jest.mock("reactflow", () => {
   const Handle = jest.fn().mockReturnValue(<div>Handle Component</div>);
   const Position = { Left: "LEFT", Right: "RIGHT" };
@@ -16,13 +13,7 @@ jest.mock("reactflow", () => {
 jest.mock("@src/feature/common/PlotlyComponent", () => ({
   __esModule: true,
   default: jest.fn((props) => (
-    <div
-      id={props.id}
-      style={props.style}
-      data-imgsource={
-        props.data.length > 0 && props.data[0].source && props.data[0].source
-      }
-    >
+    <div id={props.id} style={props.style}>
       PlotlyComponent
     </div>
   )),
@@ -35,16 +26,29 @@ describe("CustomResultNode", () => {
     label: "node-label",
     type: "SINE",
     resultData: {
-      type: "bar",
-      x: [1, 2, 3],
-      y: [4, 5, 6],
-      layout: {
-        title: "some title",
+      default_fig: {
+        data: [
+          {
+            type: "bar",
+            x: [1, 2, 3],
+            y: [4, 5, 6],
+          },
+        ],
+        // layout: {
+        //   title: "some title",
+        // },
+      },
+      data: {
+        type: "ordered_pair",
+        x: [1, 2, 3],
+        y: [4, 5, 6],
       },
     },
   };
   it("renders a PlotlyComponent if result data is provided", () => {
-    const { container, getByTestId } = render(<CustomResultNode data={data} />);
+    const { container, getByTestId } = renderWithTheme(
+      <CustomResultNode data={data} />
+    );
     const resultNode = getByTestId("result-node");
     expect(resultNode).toBeInTheDocument();
     const plotlyComponent = resultNode.querySelector(`#${data.id}`);
@@ -54,34 +58,9 @@ describe("CustomResultNode", () => {
   });
 
   it("renders a 'NO Result' message if no result data is provided", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithTheme(
       <CustomResultNode data={{ ...data, resultData: undefined }} />
     );
     expect(getByText("NO Result")).toBeInTheDocument();
-  });
-
-  it("converts image result data to a data URL", () => {
-    const modifiedData: ResultNodeData = {
-      ...data,
-      resultData: {
-        type: "image",
-        y: [[1, 2, 3]],
-        file_type: ["image"],
-      },
-    };
-    const { container, getByTestId } = render(
-      <CustomResultNode data={modifiedData} />
-    );
-    const resultNode = getByTestId("result-node");
-    const plotlyComponent = resultNode.querySelector(`#${modifiedData.id}`);
-    expect(plotlyComponent).toBeInTheDocument();
-    expect(container).toMatchSnapshot("__image_type_file__");
-    expect(plotlyComponent).toHaveAttribute(
-      "data-imgsource",
-      "data:image/jpeg;base64," +
-        Buffer.from(
-          (modifiedData.resultData?.y![0] as number[]) || []
-        ).toString("base64")
-    );
   });
 });

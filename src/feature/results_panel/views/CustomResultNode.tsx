@@ -1,26 +1,17 @@
-import { Handle, Position } from "reactflow";
-import { useFlowChartState } from "../../../hooks/useFlowChartState";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { Handle, Position } from "reactflow";
 import { ResultNodeData } from "../types/ResultsType";
-import { Buffer } from "buffer";
+
 interface CustomResultNodeProp {
   data: ResultNodeData;
 }
-const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
-  const { uiTheme } = useFlowChartState();
-  const styledLayout = styledPlotLayout(uiTheme);
 
-  if (
-    data?.resultData &&
-    data.resultData.type &&
-    data.resultData.type === "image" &&
-    data.resultData.y !== undefined
-  ) {
-    const fileType = data.resultData.file_type![0];
-    const fileContent = data.resultData.y![0];
-    data.resultData.source = convertToDataUrl(fileContent, fileType);
-  }
+const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
+  const theme = useMantineTheme();
+  const styledLayout = usePlotLayout();
+  const accentColor = theme.colors.accent2[0];
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">
@@ -42,17 +33,18 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
       ) : (
         <PlotlyComponent
           id={data.id}
-          data={[data.resultData]}
-          layout={
-            !data.resultData?.layout
-              ? Object.assign({}, { title: `${data.func}` }, styledLayout)
-              : Object.assign(
-                  {},
-                  { title: `${data.func}` },
-                  data.resultData.layout,
-                  styledLayout
-                )
-          }
+          data={data.resultData.default_fig.data.map((d) => ({
+            ...d,
+            line: {
+              ...d.line,
+              color: accentColor,
+            },
+            marker: {
+              ...d.marker,
+              color: accentColor,
+            },
+          }))}
+          layout={Object.assign({}, { title: data.label }, styledLayout)}
           useResizeHandler
           style={{
             height: 190,
@@ -65,18 +57,3 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
 };
 
 export default CustomResultNode;
-
-function convertToDataUrl(fileContent: any, fileType: string): string {
-  let dataUrl = "";
-  switch (fileType) {
-    case "image":
-      dataUrl = "data:image/jpeg;base64," + convertToBase64(fileContent);
-      break;
-    default:
-      break;
-  }
-  return dataUrl;
-}
-
-const convertToBase64 = (content: any) =>
-  Buffer.from(content).toString("base64");

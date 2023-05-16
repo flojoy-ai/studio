@@ -3,14 +3,15 @@
 exports[`DropDown should render correctly 1`] = `
 <div>
   <div
-    class="dropdown__wrapper"
+    class="mantine-7c7vou"
+    data-cy="dropdown-wrapper"
     data-testid="dropdown-wrapper"
   >
     <button>
       Dropdown Button
     </button>
     <div
-      class="dropdown__container light"
+      class="mantine-1pnchyc"
       data-testid="dropdown-container"
     >
       <div>
@@ -18,5 +19,6 @@ exports[`DropDown should render correctly 1`] = `
       </div>
     </div>
   </div>
+  ,
 </div>
 `;

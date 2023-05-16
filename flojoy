@@ -1,0 +1,376 @@
+#!/bin/bash
+#
+# Run all services required by Flojoy Studio
+
+success_color='\033[38;5;71m'
+warning_color='\033[38;5;208m'
+error_color='\033[0;31m'
+info_color='\033[0;34m'
+general_color='\033[38;5;212m'
+default_color='\033[0m'
+info_mark=👉
+check_mark=✔
+alert_mark=⚠️
+error_mark=❌
+
+is_command_successful=0
+
+success_msg()
+{
+    message=$1
+    echo -e "$success_color$check_mark $message $default_color"
+    echo ''
+}
+info_msg()
+{
+    message=$1
+    echo -e "$info_color$info_mark $message $default_color"
+    echo ''
+}
+warning_msg()
+{
+    message=$1
+    echo -e "$warning_color$alert_mark $message $default_color"
+    echo ''
+}
+error_msg()
+{
+    message=$1
+    echo -e "$error_color$error_mark $message $default_color"
+    echo ''
+    echo ''
+}
+
+echo ''
+echo ''
+echo '      ============================================================'
+echo '     ||                  Welcome to Flojoy!                      ||'
+echo '     ||                                                          ||'
+echo '     ||         For Installation, Follow the Link Below          ||' 
+echo '     ||       https://docs.flojoy.io/getting-started/install/    ||'
+echo '     ||                                                          ||'
+echo '      ============================================================'
+echo ''
+venv=""
+
+
+djangoPort=8000
+initNodePackages=true
+initPythonPackages=true
+is_ci=false
+test_ci=false
+initSubmodule=true
+
+
+# creating system links
+
+createSystemLinks()
+{
+
+   FILE=$PWD/PYTHON/WATCH/STATUS_CODES.yml
+   if test -f "$FILE"; then
+      info_msg "$FILE exists."
+      is_command_successful=$(($is_command_successful+$?))
+   else
+      ln STATUS_CODES.yml PYTHON/WATCH/
+      is_command_successful=$(($is_command_successful+$?))
+   fi
+
+   FILE=$PWD/src/STATUS_CODES.yml
+   if test -f "$FILE"; then
+      info_msg "$FILE exists."
+      is_command_successful=$(($is_command_successful+$?))
+   else
+      ln STATUS_CODES.yml src
+      is_command_successful=$(($is_command_successful+$?))
+   fi
+}
+# Gives Feedback if the command run is successful or failed, if failed it exits the execution.
+
+feedback()
+{
+   is_successful=$1
+   message=$2
+   help_message=$3
+   if [ "$is_successful" -eq 0 ]; then
+      success_msg "$message"
+   else
+      error_msg "$help_message"
+      exit 1
+   fi
+}
+
+wait_for_redis()
+{
+   info_msg "Waiting for Redis server to start..."
+
+   ATTEMPTS=0
+   MAX_ATTEMPTS=20
+   while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
+     redis-cli ping >> /dev/null 2>&1
+     if [ $? == 0 ]; then
+         feedback 0 'Redis server started succesfully...' ''
+       break
+     else
+       sleep 1
+       ATTEMPTS=$((ATTEMPTS+1))
+     fi
+   done
+
+   if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
+     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
+   fi
+}
+
+# Help function
+
+helpFunction()
+{
+   echo ""
+   echo "Usage: $0 -n -p -r -v venv-path"
+   echo  " -r: shuts down existing Redis server and spins up a fresh one"
+   echo  " -v: path to a virtualenv"
+   echo  " -n: To not install npm packages"
+   echo  " -p: To not install python packages"
+   echo 1 # Exit script after printing help
+}
+
+# Parse command-line arguments
+while [ $# -gt 0 ]
+do
+    key="$1"
+    case $key in
+        -n)
+        initNodePackages=false
+        shift
+        ;;
+        -p)
+        initPythonPackages=false
+        shift
+        ;;
+        -r)
+        initRedis=true
+        shift
+        ;;
+        -v)
+        venv="$2"
+        shift
+        shift
+        ;;
+        -P)
+        djangoPort="$2"
+        shift
+        shift
+        ;;
+        -c)
+        is_ci=true
+        shift
+        ;;
+        -t)
+        test_ci=true #run with CI=true, allows to properly run tests locally 
+        shift
+        ;;
+        -s)
+        initSubmodule=false # don't update submodules, prevents overwriting local changes
+        shift
+        ;;
+        *) # unknown option
+        echo "Unknown option: $1"
+        helpFunction
+        exit 1
+        ;;
+    esac
+done
+
+# checking if flojoy.yaml file exists
+
+CWD="$PWD"
+
+createFlojoyDirectoryWithYmlFile()
+{
+   FOLDER=$HOME/.flojoy
+   FILE=$HOME/.flojoy/flojoy.yaml
+   if test -d "$FOLDER"; then
+      if test -f "$FILE"; then
+         info_msg "$FILE exists."
+         echo "PATH: $CWD" > $FILE
+         feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
+
+      else
+         info_msg "file flojoy.yaml in directory $FOLDER does not exists. "
+         touch $FILE && echo "PATH: $CWD" > $FILE
+         feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
+      fi
+   else
+      info_msg "directory ~/.flojoy/flojoy.yaml does not exists. "
+      mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
+      feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
+   fi
+   CREDENTIALS_FILE=$FOLDER/credentials
+   if ! test -f "$CREDENTIALS_FILE"; then
+      warning_msg " Warning: Credentials are not set for your project! You can set credentials by creating a file named 'credentials' in the directory '~/.flojoy' and adding your credentials to the file."
+
+   else
+      if ! grep -q 'FRONTIER_API_KEY' "$CREDENTIALS_FILE" >/dev/null 2>&1; then
+         warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials' file: FRONTIER_API_KEY:<your key>"   
+      fi
+   fi
+
+}
+createFlojoyDirectoryWithYmlFile
+
+# update submodules
+if $initSubmodule; then
+   git submodule update --init --recursive >/dev/null 2>&1
+   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+fi
+
+# checking virtual environment
+
+venvCmd=""
+
+if [ -n "$venv" ]
+then
+   info_msg "Virtual env path is provided, will use: ${venv}"
+   venvCmd="source ${venv}/bin/activate"
+
+   if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
+      venvCmd="source ${venv}bin/activate"
+   fi
+else
+   info_msg "No virtual env provided"
+fi
+
+# Check if Python, Pip, or npm is missing.
+if [ $is_ci = false ];then
+   source check-dependencies
+   # Call the function to check for dependencies
+   missing_dependencies=$(check_dependencies)
+   # If there are missing dependencies, print the list of them
+   if [ -n "$missing_dependencies" ]; then
+   error_msg "$missing_dependencies"
+   exit 1
+   fi
+fi
+
+# Install python packages
+
+if [ $initPythonPackages = true ]
+then
+   cd $CWD
+   info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
+   if [ -n "$venv" ];then
+      pip_cmd="pip install -r requirements.txt"
+   else
+      pip_cmd="python3 -m pip install -r requirements.txt"
+   fi
+   set -o pipefail
+   $venvCmd && $pip_cmd 2>&1 | while IFS= read -r line; do
+      if [[ $line == Requirement* ]]; then
+         echo "$line" | awk -F'in' '{print $1}'
+      elif [[ $line == WARNING* ]]; then
+         echo ''
+      else
+         echo "$line"
+      fi
+   done
+   feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
+fi
+
+# Install node packages
+
+if [ $initNodePackages = true ]
+then
+   info_msg "Argument -n is not provided, Node packages will be installed from package.json"
+   set -o pipefail
+   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
+   feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
+fi
+
+
+# update ES6 status codes file
+
+$venvCmd && python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=2)); f.write("\n"); f.close();'
+
+feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
+
+# creating system links
+
+createSystemLinks
+
+feedback $is_command_successful 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
+
+# jsonify python functions
+
+$venvCmd && python3 write_python_metadata.py
+
+feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
+
+# Generate Manifest
+
+$venvCmd && python3 generate_manifest.py
+
+feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+
+if [ $is_ci = true ];then
+   exit 0
+fi
+
+# initializing new Redis Instance
+if [ "$initRedis" ]
+then
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
+   feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
+   info_msg 'Spinning up a fresh Redis server...'
+   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-server"
+   wait_for_redis
+else
+   if [ $is_ci = false ]; then
+      redis-cli ping >> /dev/null 2>&1
+      if [ $? != 0 ]; then
+         info_msg "Redis is not running, trying to start Redis server..."
+         npx ttab -t 'Redis' "redis-server"
+         wait_for_redis
+      fi
+   fi
+fi
+
+# Closing All RQ Workers
+$venvCmd && python3 close-all-rq-workers.py >/dev/null
+feedback $? 'Closed all existing rq workers (if any).' 'Error occured while closing all existing rq workers (if any): seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
+
+# SHowing RQ WOrker Info
+
+info_msg 'Rq info after closing:'
+$venvCmd && rq info
+echo ''
+
+
+cd $CWD
+
+# Checking for YOLOV3 Weights
+CWD="$PWD"
+FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+if test -f "$FILE"; then
+   info_msg "$FILE exists."
+else
+   touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
+   wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+   echo ''
+fi
+
+sleep 1
+
+# start project services
+if [ $test_ci = true ]; then
+   start_project_cmd='npm run start-project:ci'
+else 
+   start_project_cmd='npm run start-project'
+fi
+ # start project services
+if [ -n "$venvCmd" ]; then
+   $venvCmd && $start_project_cmd
+else
+   $start_project_cmd
+fi
+sleep 1

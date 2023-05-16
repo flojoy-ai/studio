@@ -11,22 +11,26 @@
 - [ ] Flowchart + Control Panel file format & save-to-disk
 - [ ] Set up running program on timer
 
-## examples: 
-- [ ] Write & test 9 LabJack examples: 
-    - https://labjack.com/support/software/examples/ljm/python
-    - https://labjack.com/news/9-engineering-applications-your-labjack-data-acquisition-hardware
+## examples:
+
+- [ ] Write & test 9 LabJack examples:
+  - https://labjack.com/support/software/examples/ljm/python
+  - https://labjack.com/news/9-engineering-applications-your-labjack-data-acquisition-hardware
 - [ ] Contract Xing to write ML/AI no-code workflows
 
 ## servless api & platform:
+
 - [ ] Set up serverless s3 and InfluxDB LOADERS
 - [ ] Set up netlify serverless login, data viewers, homepage, and vektor demo
-- [ ] Set up 
+- [ ] Set up
 
 # GTM:
+
 - [ ] Reach out to these groups: https://www.nytimes.com/2022/03/15/technology/ai-no-code.html
 - [ ] Reach out to LabJack team
 
 # Available GitHub/Twitter/Namecheap handles:
+
 - https://twitter.com/vek_tore
 - https://twitter.com/vektorcore
 - https://twitter.com/vektor_io
@@ -48,9 +52,4 @@
 - vortx.ai <-- !
 - vortx_ai <-- !
 
-# 
-
-
-
-
-
+#

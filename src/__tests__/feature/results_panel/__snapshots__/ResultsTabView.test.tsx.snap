@@ -3,7 +3,7 @@
 exports[`ResultsTab component renders the ResultsTab component 1`] = `
 <div
   data-testid="results-flow"
-  style="height: 99vh;"
+  style="height: calc(100vh - 110px);"
 >
   <div
     data-testid="react-flow"

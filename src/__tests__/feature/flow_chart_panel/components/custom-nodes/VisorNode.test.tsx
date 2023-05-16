@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import VisorNode from "@src/feature/flow_chart_panel/components/custom-nodes/VisorNode";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 const props: CustomNodeProps = {
   data: {
@@ -21,7 +21,6 @@ const props: CustomNodeProps = {
 
 jest.mock("@hooks/useFlowChartState");
 
-
 jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   const mockChildren = jest
     .fn()
@@ -29,9 +28,19 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   return { __esModule: true, default: mockChildren };
 });
 
+jest.mock("@src/hooks/useSocket", () => {
+  return {
+    useSocket: () => ({
+      states: {
+        programResults: {},
+      },
+    }),
+  };
+});
+
 describe("VisorNode", () => {
   it("checks the snapshot", () => {
-    const { container } = render(<VisorNode {...props} />);
+    const { container } = renderWithTheme(<VisorNode {...props} />);
     expect(container).toMatchSnapshot();
   });
   it.each([
@@ -42,7 +51,7 @@ describe("VisorNode", () => {
     ["SCATTER3D", "scatter-svg"],
     ["BAR", "barchart-svg"],
   ])("should contain component: %p", (functionName, testId) => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <VisorNode data={{ ...props.data, func: functionName }} />
     );
 

@@ -20,24 +20,25 @@ import {
 
 import localforage from "localforage";
 
-import styledPlotLayout from "../common/defaultPlotLayout";
+import usePlotLayout from "../common/usePlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab: React.FC<FlowChartProps> = ({
+const FlowChartTab = ({
   results,
-  theme,
   rfInstance,
   setRfInstance,
   clickedElement,
@@ -61,7 +62,12 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
-  const { nodes, setNodes, edges, setEdges } = useFlowChartState();
+
+  const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const selectedNodes = nodes.filter((n) => n.selected);
+  const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+
+  const theme = useMantineTheme();
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
@@ -70,15 +76,15 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
   const modalStyles = {
-    overlay: { zIndex: 99 },
-    content: { zIndex: 100 },
+    overlay: { zIndex: 99, backgroundColor: theme.colors.modal[0] + "7f" },
+    content: { zIndex: 100, backgroundColor: theme.colors.modal[0] },
   };
 
   const onNodeClick: NodeMouseHandler = (_, node) => {
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[nodeType][nodeLabel + ".py"]
+        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
     );
     setClickedElement(node);
     openModal();
@@ -88,7 +94,7 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const defaultLayout = styledPlotLayout(theme);
+  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
@@ -156,10 +162,12 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   return (
     <ReactFlowProvider>
       <div
-        style={{ height: `99vh` }}
+        style={{ height: "calc(100vh - 110px)" }}
         data-testid="react-flow"
         data-rfinstance={JSON.stringify(nodes)}
       >
+        <NodeEditMenu selectedNode={selectedNode} />
+
         <ReactFlow
           style={{
             position: "fixed",
@@ -188,11 +196,10 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
         defaultLayout={defaultLayout}
         modalIsOpen={modalIsOpen}
         modalStyles={modalStyles}
-        nd={nd}
+        nd={nd!}
         nodeLabel={nodeLabel}
         nodeType={nodeType}
         pythonString={pythonString}
-        theme={theme}
       />
     </ReactFlowProvider>
   );

@@ -19,30 +19,40 @@ import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
-import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
 import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { createStyles } from "@mantine/styles";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+
+export const useAddButtonStyle = createStyles((theme) => {
+  return {
+    addButton: {
+      boxSizing: "border-box",
+      backgroundColor: theme.colors.modal[0],
+      border: theme.colors.accent1[0],
+      cursor: "pointer",
+    },
+  };
+});
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
   results: ResultsType;
-  theme: "light" | "dark";
   setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
   openCtrlModal: boolean;
 }
 
 const ControlsTab = ({
   results,
-  theme,
   setOpenCtrlModal,
   openCtrlModal,
 }: ControlsTabProps) => {
+  const theme = useMantineTheme();
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
-
   const {
     openEditModal,
     setOpenEditModal,
@@ -60,6 +70,7 @@ const ControlsTab = ({
     ctrlsManifest,
     setCtrlsManifest,
     isEditMode,
+    setIsEditMode,
     gridLayout,
     setGridLayout,
   } = useFlowChartState();
@@ -86,35 +97,7 @@ const ControlsTab = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedTimerId, rfInstance]);
 
-  useControlsTabEffects(saveAndRunFlowChart);
-
-  const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
-      }
-    }
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
-    setOpenCtrlModal(false);
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
+  useControlsTabEffects();
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
@@ -131,9 +114,9 @@ const ControlsTab = ({
   const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
-      if (c.id === ctrl.id) {
-        manClone[i].val = isNaN(+val) ? val : +val;
-      }
+      // if (c.id === ctrl.id) {
+      //   manClone[i].val = isNaN(+val) ? val : +val;
+      // }
     });
     cacheManifest(manClone);
     updateCtrlInputDataForNode(
@@ -155,7 +138,6 @@ const ControlsTab = ({
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
     const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
-
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
@@ -181,9 +163,15 @@ const ControlsTab = ({
 
   return (
     <div data-testid="controls-tab">
+      {/* <AddBtn
+        testId={"add-ctrl"}
+        handleClick={() => {
+          setOpenCtrlModal((prev) => !prev);
+          setIsEditMode(true);
+        }}
+      /> */}
       <ControlGrid
         controlProps={{
-          theme,
           isEditMode,
           results,
           updateCtrlValue,
@@ -194,18 +182,18 @@ const ControlsTab = ({
         }}
       />
 
-      <AddCtrlModal
+      {/* <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
         addCtrl={addCtrl}
         theme={theme}
-      />
-      <Modal
+      /> */}
+      {/* <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={() => setOpenEditModal(false)}
-        style={modalStyles}
+        style={modalStyles(theme)}
         ariaHideApp={false}
         contentLabel="Choose a Python function"
       >
@@ -273,8 +261,28 @@ const ControlsTab = ({
             </div>
           </div>
         )}
-      </Modal>
+      </Modal> */}
     </div>
+  );
+};
+
+const AddBtn = ({ handleClick, testId }) => {
+  const { classes } = useAddButtonStyle();
+  return (
+    <button
+      data-cy={testId}
+      data-testid={testId}
+      className={classes.addButton}
+      onClick={handleClick}
+      style={{
+        position: "relative",
+        width: "104px",
+        height: "43px",
+        margin: "10px",
+      }}
+    >
+      + Add CTRL
+    </button>
   );
 };
 

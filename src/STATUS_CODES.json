@@ -1,11 +1,13 @@
 {
-    "RQ_RUN_IN_PROCESS": "\ud83c\udfc3\u200d\u2640\ufe0f running script...",
-    "RQ_RUN_COMPLETE": "\ud83e\udd19 python script run successful",
-    "MISSING_RQ_RESULTS": "\ud83d\udc7d no result found",
-    "JOB_IN_RQ": "\ud83c\udfa0 queuing python job: ",
-    "RQ_RESULTS_RETURNED": "\ud83d\udd14 new results - check LOGS",
-    "STANDBY": "\ud83d\udc22 awaiting a new job",
-    "SERVER_ONLINE": "\ud83c\udfc1 node server online",
-    "SERVER_OFFLINE": "\ud83d\uded1 node server offline - run `node server.js` in your terminal",
-    "NO_RUNS_YET": "\u26f7\ufe0f No runs yet"
+  "RUN_PRE_JOB_OP": "\u23f3 running pre-job operation...",
+  "PRE_JOB_OP_FAILED": "\u274c pre-job operation failed - Re-run script...",
+  "RQ_RUN_IN_PROCESS": "\ud83c\udfc3\u200d\u2640\ufe0f running script...",
+  "RQ_RUN_COMPLETE": "\ud83e\udd19 python script run successful",
+  "MISSING_RQ_RESULTS": "\ud83d\udc7d no result found",
+  "JOB_IN_RQ": "\ud83c\udfa0 queuing python job: ",
+  "RQ_RESULTS_RETURNED": "\ud83d\udd14 new results - check DEBUG",
+  "STANDBY": "\ud83d\udc22 awaiting a new job",
+  "SERVER_ONLINE": "\ud83c\udfc1 node server online",
+  "SERVER_OFFLINE": "\ud83d\uded1 node server offline - run `node server.js` in your terminal",
+  "NO_RUNS_YET": "\u26f7\ufe0f No runs yet"
 }

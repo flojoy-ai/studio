@@ -1,6 +1,0 @@
-COMMAND:
-  - {
-      name: "Object Detection",
-      key: "OBJECT_DETECTION",
-      type: "SIMULATION"
-    }

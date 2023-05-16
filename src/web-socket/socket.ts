@@ -8,6 +8,7 @@ interface WebSocketServerProps {
   failedNode: any;
   failureReason: any;
   socketId: any;
+  onPreJobOpStarted: any;
   onClose?: (ev: CloseEvent) => void;
 }
 
@@ -16,6 +17,8 @@ enum ResponseEnum {
   nodeResults = "NODE_RESULTS",
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
+  failureReason = "FAILURE_REASON",
+  preJobOperation = "PRE_JOB_OP",
 }
 export class WebSocketServer {
   private server: WebSocket;
@@ -25,6 +28,7 @@ export class WebSocketServer {
   private failedNode: any;
   private failureReason: any;
   private socketId: any;
+  private onPreJobOpStarted: any;
   private onClose?: (ev: CloseEvent) => void;
   constructor({
     url,
@@ -35,6 +39,7 @@ export class WebSocketServer {
     failureReason,
     socketId,
     onClose,
+    onPreJobOpStarted,
   }: WebSocketServerProps) {
     this.pingResponse = pingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -44,6 +49,7 @@ export class WebSocketServer {
     this.socketId = socketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
+    this.onPreJobOpStarted = onPreJobOpStarted;
     this.init();
   }
   init() {
@@ -54,10 +60,16 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
-              data[ResponseEnum.systemStatus] ===
-              IServerStatus.RQ_RUN_COMPLETE
+              data[ResponseEnum.systemStatus] === IServerStatus.RQ_RUN_COMPLETE
             ) {
               this.pingResponse(IServerStatus.STANDBY);
+            }
+            if (
+              [IServerStatus.RQ_RUN_COMPLETE, IServerStatus.STANDBY].includes(
+                data[ResponseEnum.systemStatus]
+              )
+            ) {
+              this.onPreJobOpStarted({ isRunning: false, output: [] });
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -68,11 +80,14 @@ export class WebSocketServer {
               const resultIo = data[ResponseEnum.nodeResults];
               const resultData = {
                 ...resultIo,
-                result:{
+                result: {
                   ...resultIo.result,
-                  type: resultIo.result.type === 'file' ? "image" : resultIo.result.type
-                }
-              }
+                  type:
+                    resultIo.result.type === "file"
+                      ? "image"
+                      : resultIo.result.type,
+                },
+              };
               if (isExist) {
                 const filterResult = prev.io.filter(
                   (node) => node.id !== resultIo.id
@@ -92,6 +107,17 @@ export class WebSocketServer {
           }
           if (ResponseEnum.failedNodes in data) {
             this.failedNode(data[ResponseEnum.failedNodes]);
+            if (ResponseEnum.failureReason in data) {
+              this.failureReason(data[ResponseEnum.failureReason]);
+            }
+          }
+          if (ResponseEnum.preJobOperation in data) {
+            this.onPreJobOpStarted((prev) => ({
+              isRunning: data[ResponseEnum.preJobOperation].isRunning,
+              output: data[ResponseEnum.preJobOperation].isRunning
+                ? [...prev.output, data[ResponseEnum.preJobOperation].output]
+                : [],
+            }));
           }
           break;
         case "connection_established":

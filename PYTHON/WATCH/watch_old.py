@@ -35,39 +35,39 @@ from FUNCTIONS.ARITHMETIC import *
 from FUNCTIONS.VISORS import *
 from common.CONSTANTS import KEY_ALL_JOBEST_IDS
 
-stream = open('STATUS_CODES.yml', 'r')
+stream = open("STATUS_CODES.yml", "r", encoding="utf-8")
 STATUS_CODES = yaml.safe_load(stream)
 
 
 def get_port():
     try:
-        p = dotenv_values('.env')['REACT_APP_BACKEND_PORT']
+        p = dotenv_values(".env")["REACT_APP_BACKEND_PORT"]
     except Exception:
-        p = '8000'
+        p = "8000"
     return p
 
 
 def send_to_socket(data):
-    requests.post('http://localhost:' + get_port() +
-                  '/worker_response', json=json.dumps(data))
+    requests.post(
+        "http://localhost:" + get_port() + "/worker_response", json=json.dumps(data)
+    )
 
 
 class FlowScheduler:
     def __init__(self, **kwargs) -> None:
-        self.scheduler_job_id = kwargs['scheduler_job_id']
-        self.jobset_id = kwargs.get('jobsetId', None)
-        self.flow_chart = kwargs['fc']
+        self.scheduler_job_id = kwargs["scheduler_job_id"]
+        self.jobset_id = kwargs.get("jobsetId", None)
+        self.flow_chart = kwargs["fc"]
 
         self.jobq = JobQueue(self.jobset_id)
         self.graph: Graph = None
         self.flows: Flows = None
         self.signals: Signals = Signals()
 
-        self.job_service = JobService('flojoy')
-
+        self.job_service = JobService("flojoy")
 
     def run(self):
-        '''
+        """
         # notes on signals
         - when a node with special flow is being executed (enqueued),
           - system should update the signal dependency of all its childs of all directions to it's next version
@@ -84,7 +84,7 @@ class FlowScheduler:
         - there shouldn't be at anytime two instances of a job in the jobq
 
         - in this system, no node should be removed from the jobq
-        - there's no need for signals, basically a node will not be executed until the first run of its dependencies or the latest run of its 
+        - there's no need for signals, basically a node will not be executed until the first run of its dependencies or the latest run of its
         dependencies
 
         ## Alternatively,
@@ -96,7 +96,7 @@ class FlowScheduler:
         - CONS:
           - If we consider each node as special nodes, how does the algorithm behave?
             - After each node is complete it will turn on its signals
-            - 
+            -
 
         ## Alternatively,
         - whenever a node or direction is being reenqued,
@@ -138,16 +138,16 @@ class FlowScheduler:
 
 
             - when a node is popped from jobq,
-                
+
                 - check all signals are on
-                - if not der it at the end of 
+                - if not der it at the end of
 
 
         ## alternatively,
             - when adding flow into jobq, don't add it if all its signals are not ready
             - a spawning node should update all its childs to use the latest signals of its special childs
 
-        
+
         ## alternatively,
             - when adding flow into jobq, don't add it if all its signals are not ready
             - when a node with multiple branch is being added into jobq, turn off its signal
@@ -197,9 +197,13 @@ class FlowScheduler:
         ### CONS
         - will have to re-implement most of the arch
 
-        '''
-        print('\nrunning flojoy for jobset id: ', self.jobset_id,
-              'scheduler_job_id:', self.scheduler_job_id)
+        """
+        print(
+            "\nrunning flojoy for jobset id: ",
+            self.jobset_id,
+            "scheduler_job_id:",
+            self.scheduler_job_id,
+        )
 
         try:
             self.preprocess_graph()
@@ -210,19 +214,20 @@ class FlowScheduler:
                 if self.is_special_flow(job):
                     self.update_child_signals(job)
 
-
                 # if all the dependent signals haven't yet completed, just skip it
                 # the paths corresponding to these off signals will add it back to jobq
                 if self.signals.are_signals_on(job):
-                    print('skipping job:', job.job_id, 'off_signals:', off_signals)
+                    print("skipping job:", job.job_id, "off_signals:", off_signals)
                     continue
 
                 func, ctrls = self.get_job_data(job.job_id)
 
                 print(
-                    '\nenqueuing ', job.iteration_id,
-                    'dependency job ids', job.dependency_iteration_ids,
-                    "\ntopology after state: "
+                    "\nenqueuing ",
+                    job.iteration_id,
+                    "dependency job ids",
+                    job.dependency_iteration_ids,
+                    "\ntopology after state: ",
                 )
 
                 self.jobq.log_state()
@@ -233,7 +238,7 @@ class FlowScheduler:
                     job_id=job.job_id,
                     iteration_id=job.iteration_id,
                     previous_job_ids=job.dependency_iteration_ids,
-                    ctrls=ctrls
+                    ctrls=ctrls,
                 )
 
                 job_result = self.wait_for_job(job.iteration_id)
@@ -241,52 +246,51 @@ class FlowScheduler:
                 self.process_special_instructions(job.job_id, job_result)
 
             self.notify_jobset_finished()
-            print('jobset', self.jobset_id, 'finished successfully')
+            print("jobset", self.jobset_id, "finished successfully")
             return
         except Exception:
-            print('Watch.py run error: ', Exception, traceback.format_exc())
-            self.send_to_socket({
-                'jobsetId': self.jobset_id,
-                'SYSTEM_STATUS': 'Failed to run Flowchart script on worker... ',
-            })
-
+            print("Watch.py run error: ", Exception, traceback.format_exc())
+            self.send_to_socket(
+                {
+                    "jobsetId": self.jobset_id,
+                    "SYSTEM_STATUS": "Failed to run Flowchart script on worker... ",
+                }
+            )
 
     def run_topological_sorting(self):
         self.networkx_obj = reactflow_to_networkx(
-            self.flow_chart['nodes'], self.flow_chart['edges'])
+            self.flow_chart["nodes"], self.flow_chart["edges"]
+        )
 
         # networkx representation of the self.graph
-        self.DG = self.networkx_obj['DG']
-        self.edge_info = self.networkx_obj['edgeInfo']
+        self.DG = self.networkx_obj["DG"]
+        self.edge_info = self.networkx_obj["edgeInfo"]
 
         # # node_serial --> node
-        self.node_by_serial = self.networkx_obj['node_by_serial']
+        self.node_by_serial = self.networkx_obj["node_by_serial"]
         # # node_id --> node
-        self.node_by_id = self.networkx_obj['node_by_id']
+        self.node_by_id = self.networkx_obj["node_by_id"]
         # # node_id --> node_serial
-        self.node_id_by_serial = self.networkx_obj['node_id_by_serial']
+        self.node_id_by_serial = self.networkx_obj["node_id_by_serial"]
         # # node_serial --> node_id
-        self.node_serial_by_id = self.networkx_obj['node_serial_by_id']
+        self.node_serial_by_id = self.networkx_obj["node_serial_by_id"]
 
         # topological ordering of the nodes
-        self.sorted_job_ids = list(self.networkx_obj['sorted_job_ids'])
+        self.sorted_job_ids = list(self.networkx_obj["sorted_job_ids"])
 
-        print('\nnode serial --> node id')
-        print('-----------------------')
+        print("\nnode serial --> node id")
+        print("-----------------------")
         for serial, id in self.node_id_by_serial.items():
-            print(serial, ' -->', id)
-
+            print(serial, " -->", id)
 
     def update_child_signals(self, node_id, direction, child_id):
         self.signals.update_child_signals(child_id, node_id, direction)
 
-
     def is_special_flow(self, job):
         return job.job_id in self.flows.all_node_data
 
-
     def preprocess_graph(self):
-        print('\npre-processing the flow chart')
+        print("\npre-processing the flow chart")
 
         self.run_topological_sorting()
         self.graph = Graph(self.DG, self.edge_info)
@@ -295,19 +299,17 @@ class FlowScheduler:
         nodes_to_add = [(node_id, []) for node_id in self.sorted_job_ids]
         self.add_node_ids_to_jobq(nodes_to_add)
 
-        print('topology:', self.jobq.get_job_ids())
+        print("topology:", self.jobq.get_job_ids())
 
         # find the conditional flows/nodes
         self.flows = find_flows(
-            self.graph,
-            self.node_by_serial,
-            ["CONDITIONAL", "LOOP"]
+            self.graph, self.node_by_serial, ["CONDITIONAL", "LOOP"]
         )
 
         # fix the topology order for all special cmd childs
         apply_topology(self.flows, self.jobq.get_job_ids())
 
-        print('special cmd flows:', self.flows)
+        print("special cmd flows:", self.flows)
 
         # remove all special flows because they will be executed conditionally
         self.remove_conditional_nodes()
@@ -321,20 +323,20 @@ class FlowScheduler:
         print("preprocessing complete")
 
     def remove_conditional_nodes(self):
-        print('removing flows from jobq, before state:', self.jobq.get_job_ids())
+        print("removing flows from jobq, before state:", self.jobq.get_job_ids())
 
         conditional_node_ids = gather_all_flow_nodes(self.flows)
 
-        print('conditional node ids:', conditional_node_ids)
+        print("conditional node ids:", conditional_node_ids)
         for node_id in conditional_node_ids:
             self.jobq.remove(node_id)
 
-        print('removing flows from jobq, after state:', self.jobq.get_job_ids())
+        print("removing flows from jobq, after state:", self.jobq.get_job_ids())
 
     def process_special_instructions(self, node_id, job_result):
-        '''
+        """
         process special instructions to scheduler
-        '''
+        """
 
         nodes_to_add = []
 
@@ -347,26 +349,20 @@ class FlowScheduler:
 
             # add the childs of this flow into jobq
             child_ids = self.flows.get_flow(node_id, direction)
-            nodes_to_add += [
-                (child_id, [signal_id])
-                for child_id in child_ids
-            ]
+            nodes_to_add += [(child_id, [signal_id]) for child_id in child_ids]
             print(
-                F" adding direction({direction}) nodes",
+                f" adding direction({direction}) nodes",
                 json.dumps(nodes_to_add, indent=2),
-                'to job queue'
+                "to job queue",
             )
 
         # process instruction to flow to specified nodes
         next_nodes = get_next_nodes(job_result)
         if next_nodes is not None and len(next_nodes) > 0:
-            print(F" adding nodes to job queue:", json.dumps(next_nodes, indent=2))
-            nodes_to_add += [
-                (node_id, [])
-                for node_id in next_nodes
-            ]
+            print(f" adding nodes to job queue:", json.dumps(next_nodes, indent=2))
+            nodes_to_add += [(node_id, []) for node_id in next_nodes]
 
-        print('node_ids_to_add:', nodes_to_add)
+        print("node_ids_to_add:", nodes_to_add)
 
         if len(nodes_to_add) > 0:
             self.add_node_ids_to_jobq(nodes_to_add)
@@ -384,43 +380,41 @@ class FlowScheduler:
         self.jobq.add_job(job_id, prev_job_ids, signal_dependencies)
 
     def wait_for_job(self, job_id):
-        print('waiting for job to complete:', job_id)
+        print("waiting for job to complete:", job_id)
         while True:
-            time.sleep(.01)
+            time.sleep(0.01)
             job = self.job_service.fetch_job(job_id=job_id)
             job_status = job.get_status()
             # print('wait for job:', job_id, 'job_status:', job_status)
-            if job_status == 'finished' or job_status == 'failed':
-                print('finished waiting for job:',
-                      job_id, 'status:', job_status)
-                time.sleep(.7)
+            if job_status == "finished" or job_status == "failed":
+                print("finished waiting for job:", job_id, "status:", job_status)
+                time.sleep(0.7)
                 job_result = job.result
                 break
         return job_result
 
     def notify_jobset_finished(self):
         self.job_service.redis_dao.remove_item_from_list(
-            F'{self.jobset_id}_watch', self.scheduler_job_id
+            f"{self.jobset_id}_watch", self.scheduler_job_id
         )
 
     def get_job_data(self, job_id):
         node = self.node_by_id[job_id]
-        cmd = node['cmd']
+        cmd = node["cmd"]
         func = getattr(globals()[cmd], cmd)
-        ctrls = node['ctrls']
+        ctrls = node["ctrls"]
         return func, ctrls
 
     def get_latest_signal(self, node_id, direction):
         signal_iteration = self.signal_iterations.get((node_id, direction), 1)
-        return 'signal__' + node_id + "__" + direction + "__" + str(signal_iteration)
-
+        return "signal__" + node_id + "__" + direction + "__" + str(signal_iteration)
 
     def get_next_signal_iteration(self, node_id, direction):
         next_iteration = 1 + self.signal_iterations.get((node_id, direction), 0)
         self.signal_iterations[(node_id, direction)] = next_iteration
-        return 'signal__' + node_id + "__" + direction + "__" + str(next_iteration)
+        return "signal__" + node_id + "__" + direction + "__" + str(next_iteration)
 
 
 def run(**kwargs):
-    print('in run')
+    print("in run")
     FlowScheduler(**kwargs).run()

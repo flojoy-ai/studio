@@ -1,5 +1,5 @@
 /* eslint-disable cypress/no-unnecessary-waiting */
-import { NOISY_SINE } from "@src/data/RECIPES";
+import { NOISY_SINE } from "../../src/data/RECIPES";
 
 const nodes = NOISY_SINE.nodes.map((node) => ({
   selector: node.id,
@@ -16,11 +16,9 @@ describe("Script Tab Functionalities", () => {
         force: true,
       });
       cy.contains("h1", node.funcName, { matchCase: false });
-      cy.get(".ctrl-close-btn").click({ force: true });
+      cy.get("[data-cy=ctrl-close-btn]").click({ force: true });
     });
   });
 });
 
-
-
-export {}
+export {};

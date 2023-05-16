@@ -1,12 +1,12 @@
-import { act, renderHook, Renderer } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useFlowChartTabState } from "@src/feature/flow_chart_panel/FlowChartTabState";
 
-const { result, rerender } = renderHook(() => useFlowChartTabState());
+const { result } = renderHook(() => useFlowChartTabState());
 
 describe("FlowChartTabState", () => {
   it.each([
     [result.current.modalIsOpen, false],
-    [result.current.nd, {}],
+    [result.current.nd, null],
     [result.current.nodeLabel, "PYTHON FUNCTION"],
     [result.current.nodeType, "PYTHON FUNCTION TYPE"],
     [result.current.pythonString, "..."],
