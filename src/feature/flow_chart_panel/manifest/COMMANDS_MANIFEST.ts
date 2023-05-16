@@ -70,7 +70,7 @@ const CMND_TREE = {
         { title: "Phidget", key: "PHIDGET", child: null },
         { title: "Serial", key: "SERIAL", child: null },
         { title: "Stepper driver Tic", key: "STEPPER", child: null },
-        { title: "Stepper driver Tic knob", key: "STEPPER2", child: null},
+        { title: "Stepper driver Tic knob", key: "STEPPER2", child: null },
       ],
     },
     {
