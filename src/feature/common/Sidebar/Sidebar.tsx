@@ -1,4 +1,4 @@
-import { Navbar, ScrollArea, Input, Anchor } from "@mantine/core";
+import { Navbar, ScrollArea, Input, Anchor, Flex } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
@@ -8,6 +8,7 @@ import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
+import customDropdownStyles from "@src/feature/controls_panel/style/CustomDropdownStyles";
 
 interface Node {
   title: string;
@@ -20,7 +21,7 @@ interface LeafNode extends Node {
 
 type leafClickHandler = (key: string) => void;
 
-export const useAddButtonStyle = createStyles((theme) => {
+const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
       boxSizing: "border-box",
@@ -81,18 +82,20 @@ const useSidebarStyles = createStyles((theme) => ({
   },
 }));
 
-const SidebarCustom = ({
+export const SidebarCustom = ({
   isSideBarOpen,
   setSideBarStatus,
   sections,
   leafNodeClickHandler,
   manifestMap,
+  customContent,
 }: {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
   sections: Node;
   leafNodeClickHandler: leafClickHandler;
   manifestMap: any; //Key value pair object
+  customContent?: JSX.Element;
 }) => {
   const [textInput, handleChangeInput] = useState("");
   const addButtonClass = useAddButtonStyle();
@@ -225,7 +228,6 @@ const SidebarCustom = ({
             <CloseIconSvg />
           </button>
         </Navbar.Section>
-
         <Navbar.Section>
           <Input
             data-testid="sidebar-input"
@@ -242,6 +244,7 @@ const SidebarCustom = ({
             onChange={(e) => handleChangeInput(e.target.value)}
           />
         </Navbar.Section>
+        <Navbar.Section>{customContent}</Navbar.Section>
         <Navbar.Section
           grow
           className={classes.sections}
@@ -255,5 +258,3 @@ const SidebarCustom = ({
     </div>
   );
 };
-
-export default SidebarCustom;

@@ -55,12 +55,12 @@ describe("user workflow", () => {
 
     // Expand sidebar tree first
     cy.get("[data-cy=add-ctrl]").click();
-    cy.get("[data-testid=sidebar-sections]").find("button").first().click();
+    cy.get("[data-cy=sidebar-section-btn]").filter(":visible").first().click();
     cy.get("[data-testid=sidebar-sections]")
       .contains("Continuous Variables")
       .click();
     cy.get("[data-testid=sidebar-sections]").contains("Text & Files").click();
-    cy.get("[data-testid=sidebar-close").click();
+    cy.get("[data-testid=sidebar-close").filter(":visible").first().click();
 
     ctrlParameters.forEach((singleIter) => {
       singleIter.forEach((item) => {
