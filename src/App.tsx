@@ -1,41 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
-import { v4 as uuidv4 } from "uuid";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
-import { GlobalStyles } from "./feature/common/Global";
 import { useDisclosure } from "@mantine/hooks";
+import { GlobalStyles } from "./feature/common/Global";
 
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
-  useMantineTheme,
 } from "@mantine/core";
-import { Controls, Node } from "reactflow";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { useInterval } from "react-use";
 import "./App.css";
-import { AppTab, Header } from "./Header";
 import { ServerStatus } from "./ServerStatus";
 import { CustomFonts } from "./feature/common/CustomFonts";
+import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
-import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import { CtlManifestType, useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import SidebarCustom from "./feature/common/Sidebar/Sidebar";
-import {
-  CTRL_MANIFEST,
-  CTRL_TREE,
-} from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
-import { createStyles } from "@mantine/core";
-import PreJobOperationShow from "./feature/common/PreJobOperationShow";
-import { AddCTRLBtn } from "./AddCTRLBtn";
-import { EditSwitch } from "./EditSwitch";
-import { useInterval } from "react-use";
 import { saveFlowChartToLocalStorage } from "./services/FlowChartServices";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Layout } from "./Layout";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +40,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   const { states } = useSocket();
-  const { serverStatus, runningNode, failedNode, preJobOperation } = states!;
+  const { runningNode, failedNode, preJobOperation } = states!;
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const {
     rfInstance,
@@ -95,6 +81,7 @@ const App = () => {
     [loadFlowExportObject, setCtrlsManifest]
   );
 
+  // TODO: Remove this
   useEffect(() => {
     console.log("1");
     setRunningNode(runningNode);
@@ -107,6 +94,7 @@ const App = () => {
       fetchExampleApp(fileName);
     }
   }, [fileName, fetchExampleApp]);
+
   useEffect(() => {
     console.log("3");
     if (preJobOperation.isRunning) {
@@ -117,6 +105,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preJobOperation]);
 
+  // TODO: Find a better way to do this?
   useInterval(() => saveFlowChartToLocalStorage(rfInstance), 5000);
 
   return (
@@ -136,7 +125,6 @@ const App = () => {
           close={closePreJobModal}
         />
         <CustomFonts />
-        <ServerStatus serverStatus={serverStatus} />
         <RouterProvider router={router} />
       </MantineProvider>
     </ColorSchemeProvider>
