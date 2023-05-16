@@ -6,7 +6,7 @@ const SevenSegmentComponent = ({ ctrlObj, plotData, nd }) => {
 
   // useEffect(() => {
   //   if (nd) {
-  //     if (typeof nd.result.y[0] == "number") {
+  //     if (typeof nd.result.y[0] === "number") {
   //       const number = nd.result.y[0];
   //       if (number < 0) {
   //         const value = Math.floor(Math.abs(number));
