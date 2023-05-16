@@ -1,4 +1,4 @@
-import { PlotData, PlotType } from "plotly.js";
+import { PlotData } from "plotly.js";
 
 export enum ControlTypes {
   Input = "input",
@@ -29,6 +29,7 @@ export enum PlotTypeNames {
   Line = "Line",
   BarChart = "Bar Chart",
   Image = "Image",
+  Table = "Table"
 }
 
 //ROOT WILL NOT BE DISPLAYED
@@ -194,6 +195,10 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     name: PlotTypeNames.Image,
     type: "image",
   },
+  TABLE:{
+    name: PlotTypeNames.Table,
+    type: "table"
+  }
 };
 
 export const InputControlsManifest = {

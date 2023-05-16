@@ -16,6 +16,7 @@ import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
 import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -92,13 +93,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         {result ? (
           <>
             <PlotlyComponent
-              data={result.result.default_fig.data.map((d) => ({
-                ...d,
-                marker: {
-                  ...d.marker,
-                  color: accentColor,
-                },
-              }))}
+              data={makePlotlyData(result.result.default_fig.data, theme)}
               id={data.id}
               layout={{ ...plotLayout, ...layoutOverride }}
               useResizeHandler

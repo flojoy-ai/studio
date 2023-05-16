@@ -211,8 +211,6 @@ const App = () => {
 
             <ControlsTab
               results={programResults!}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
             />
           </div>
 
