@@ -126,12 +126,24 @@ const Controls = () => {
     openFileSelector,
     saveFile,
     saveFileAs,
+    nodes,
+    edges,
+    setRfInstance,
   } = useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
-      saveFlowChartToLocalStorage(rfInstance);
+      // Only update the react flow instance when required.
+      //
+      const updatedRfInstance = {
+        ...rfInstance,
+        nodes,
+        edges,
+      };
+      setRfInstance(updatedRfInstance);
+
+      saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
+      saveAndRunFlowChartInServer(socketId, updatedRfInstance);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -141,7 +153,7 @@ const Controls = () => {
 
   const cancelFC = () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
-      cancelFlowChartRun({ rfInstance, jobId: socketId });
+      cancelFlowChartRun(rfInstance, socketId);
     } else {
       alert("There is no running job on server.");
     }

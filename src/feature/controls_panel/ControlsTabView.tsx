@@ -73,18 +73,18 @@ const ControlsTab = () => {
     setCtrlsManifest(manifest);
   }
 
-  const saveAndRunFlowChart = useCallback(() => {
-    if (debouncedTimerId) {
-      clearTimeout(debouncedTimerId);
-    }
-    const timerId = setTimeout(() => {
-      setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
-    }, 3000);
+  // const saveAndRunFlowChart = useCallback(() => {
+  //   if (debouncedTimerId) {
+  //     clearTimeout(debouncedTimerId);
+  //   }
+  //   const timerId = setTimeout(() => {
+  //     setProgramResults({ io: [] });
+  //     saveAndRunFlowChartInServer(socketId, rfInstance);
+  //   }, 3000);
 
-    setDebouncedTimerId(timerId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedTimerId, rfInstance]);
+  //   setDebouncedTimerId(timerId);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [debouncedTimerId, rfInstance]);
 
   useControlsTabEffects();
 
