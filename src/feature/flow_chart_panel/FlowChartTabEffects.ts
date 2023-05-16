@@ -21,8 +21,6 @@ export function useFlowChartTabEffects({
   results: ResultsType;
   clickedElement: Node | undefined;
 }) {
-  const { rfInstance } = useFlowChartState();
-
   useEffect(() => {
     console.log("11");
     if (results && "io" in results) {

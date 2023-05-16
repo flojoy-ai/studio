@@ -131,11 +131,20 @@ export function useFlowChartState() {
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
 
-  const getFileBlob = (rf: ReactFlowJsonObject<ElementsData>) => {
+  const createFileBlob = (rf: ReactFlowJsonObject<ElementsData>) => {
+    const updatedRf = {
+      ...rf,
+      nodes,
+      edges,
+    };
+
+    setRfInstance(updatedRf);
+
     const fileContent = {
-      rfInstance,
+      rfInstance: updatedRf,
       ctrlsManifest,
     };
+
     const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
     return new Blob([fileContentJsonString], {
@@ -144,8 +153,9 @@ export function useFlowChartState() {
   };
 
   const saveFile = async () => {
+    console.log(rfInstance);
     if (rfInstance) {
-      const blob = getFileBlob(rfInstance);
+      const blob = createFileBlob(rfInstance);
 
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -162,7 +172,7 @@ export function useFlowChartState() {
 
   const saveFileAs = async () => {
     if (rfInstance) {
-      const blob = getFileBlob(rfInstance);
+      const blob = createFileBlob(rfInstance);
 
       const handle = await (window as any).showSaveFilePicker({
         suggestedName: "flojoy.txt",
@@ -207,18 +217,6 @@ export function useFlowChartState() {
       }
     });
   };
-
-  // TODO: Reimplement this
-  // useEffect(() => {
-  //   console.log("30");
-  //   setRfInstance((prev) => {
-  //     if (prev) {
-  //       prev.nodes = nodes;
-  //       prev.edges = edges;
-  //     }
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [nodes, edges]);
 
   return {
     rfInstance,
