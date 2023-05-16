@@ -2,25 +2,26 @@
     "rfInstance": {
         "nodes": [
             {
-                "width": 115,
-                "height": 115,
-                "id": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-                "type": "SIMULATION",
+                "width": 150,
+                "height": 135,
+                "id": "END-e3bacc69-e497-43d8-a960-db214aea8132",
+                "type": "TERMINATOR",
                 "data": {
-                    "id": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
-                    "label": "OBJECT DETECTION",
-                    "func": "OBJECT_DETECTION",
-                    "type": "SIMULATION",
-                    "ctrls": {}
+                    "id": "END-e3bacc69-e497-43d8-a960-db214aea8132",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {},
+                    "selected": false
                 },
                 "position": {
-                    "x": 695.504070585824,
-                    "y": 202.13116038829733
+                    "x": 1424.8975360606846,
+                    "y": 521.914638475153
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 695.504070585824,
-                    "y": 202.13116038829733
+                    "x": 1424.8975360606846,
+                    "y": 521.914638475153
                 },
                 "dragging": true
             },
@@ -50,39 +51,81 @@
                             "param": "path",
                             "value": ""
                         }
-                    }
+                    },
+                    "selected": false
                 },
                 "position": {
-                    "x": 226.037267287249,
-                    "y": 187.7976330882526
+                    "x": 412.77307381958275,
+                    "y": 519.0858631880646
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 226.037267287249,
-                    "y": 187.7976330882526
+                    "x": 412.77307381958275,
+                    "y": 519.0858631880646
                 },
                 "dragging": true
             },
             {
                 "width": 150,
                 "height": 135,
-                "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
-                "type": "TERMINATOR",
+                "id": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
+                "type": "IMAGE_PROCESSING",
                 "data": {
-                    "id": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
-                    "label": "Terminate",
-                    "func": "END",
-                    "type": "TERMINATOR",
-                    "ctrls": {}
+                    "id": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
+                    "label": "IMAGE_SMOOTHING",
+                    "func": "IMAGE_SMOOTHING",
+                    "type": "IMAGE_PROCESSING",
+                    "ctrls": {
+                        "file_type": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "file_type",
+                            "value": "image"
+                        },
+                        "kernel": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "kernel",
+                            "value": "5"
+                        },
+                        "smoothing_type": {
+                            "functionName": "IMAGE_SMOOTHING",
+                            "param": "smoothing_type",
+                            "value": "gaussian"
+                        }
+                    },
+                    "selected": false
                 },
                 "position": {
-                    "x": 1002.9112708314901,
-                    "y": 193.09986313255396
+                    "x": 752.3253874439304,
+                    "y": 521.8807538704394
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 1002.9112708314901,
-                    "y": 193.09986313255396
+                    "x": 752.3253874439304,
+                    "y": 521.8807538704394
+                },
+                "dragging": true
+            },
+            {
+                "width": 115,
+                "height": 115,
+                "id": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                    "label": "OBJECT_DETECTION",
+                    "func": "OBJECT_DETECTION",
+                    "type": "SIMULATION",
+                    "ctrls": {},
+                    "selected": false
+                },
+                "position": {
+                    "x": 1099.2041371041787,
+                    "y": 528.1180495920097
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1099.2041371041787,
+                    "y": 528.1180495920097
                 },
                 "dragging": true
             }
@@ -96,17 +139,24 @@
                 "id": "reactflow__edge-LOCAL_FILE-b6953411-4f5e-4f22-aaba-bdc923e56b86main-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdOBJECT_DETECTION"
             },
             {
-                "source": "OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bd",
+                "source": "IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763",
                 "sourceHandle": "main",
-                "target": "END-5e6d94ed-1f79-4c57-8b2f-753a22405f55",
+                "target": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                "targetHandle": "OBJECT_DETECTION",
+                "id": "reactflow__edge-IMAGE_SMOOTHING-e5248119-3fed-41a9-9888-5a226a67d763main-OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9OBJECT_DETECTION"
+            },
+            {
+                "source": "OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9",
+                "sourceHandle": "main",
+                "target": "END-e3bacc69-e497-43d8-a960-db214aea8132",
                 "targetHandle": "END",
-                "id": "reactflow__edge-OBJECT_DETECTION-a9866d79-0bc0-45d7-a2a4-6825b7a012bdmain-END-5e6d94ed-1f79-4c57-8b2f-753a22405f55END"
+                "id": "reactflow__edge-OBJECT_DETECTION-8f0ac220-1b17-41ed-b3ed-806cd6611ed9main-END-e3bacc69-e497-43d8-a960-db214aea8132END"
             }
         ],
         "viewport": {
-            "x": 100.78251993386277,
-            "y": 34.10874204470315,
-            "zoom": 1.015849582027344
+            "x": 399.5528962945224,
+            "y": 203.9327334314163,
+            "zoom": 1.219078249563759
         }
     },
     "ctrlsManifest": [
@@ -133,11 +183,21 @@
         },
         {
             "type": "input",
-            "name": "Text Input",
+            "name": "Numeric Input",
             "minWidth": 1,
             "minHeight": 1,
-            "id": "ctrl-e813ad6f-6717-4242-b705-2ef72861fe45",
             "hidden": false,
+            "id": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+            "layout": {
+                "x": 0,
+                "y": 1,
+                "h": 2,
+                "w": 2,
+                "i": "ctrl-d86eead2-f535-4880-a4d0-1d1ddba45b6e",
+                "minH": 1,
+                "minW": 1,
+                "static": false
+            },
             "param": {
                 "id": "LOCAL_FILE_LOCALFILE_path",
                 "functionName": "LOCAL_FILE",

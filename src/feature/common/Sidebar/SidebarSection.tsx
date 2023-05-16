@@ -34,6 +34,7 @@ const SidebarSection = ({ title, content, depth }) => {
       <UnstyledButton
         onClick={() => setOpened((o) => !o)}
         className={classes.control}
+        data-cy="sidebar-section-btn"
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -53,7 +54,9 @@ const SidebarSection = ({ title, content, depth }) => {
       </UnstyledButton>
       <Collapse in={opened}>
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + depth * 20}px` }}>{content}</div>
+        <div style={{ paddingLeft: `${10 + (depth + 1) * 20}px` }}>
+          {content}
+        </div>
       </Collapse>
     </>
   );

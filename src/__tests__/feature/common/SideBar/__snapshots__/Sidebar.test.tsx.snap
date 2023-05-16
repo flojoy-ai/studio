@@ -2,14 +2,14 @@
 
 exports[`Sidebar should render the component correctly 1`] = `
 <div>
+  <button
+    class="mantine-b33zvb"
+    data-testid="add-node-button"
+    style="position: absolute; width: 104px; height: 43px; left: 0px; top: 110px; margin: 10px; z-index: 1;"
+  >
+    + Add Node
+  </button>
   <div>
-    <button
-      class="mantine-b33zvb"
-      data-testid="add-node-button"
-      style="position: absolute; width: 104px; height: 43px; left: 0px; top: 110px; margin: 10px; z-index: 1;"
-    >
-      + Add Node
-    </button>
     <nav
       class="mantine-Navbar-root mantine-r90bv"
       data-testid="sidebar"
@@ -19,6 +19,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         style="right: 10px; position: absolute; top: 5px;"
       >
         <button
+          data-testid="sidebar-close"
           style="cursor: pointer;"
         >
           <div>
@@ -83,25 +84,7 @@ exports[`Sidebar should render the component correctly 1`] = `
       </div>
       <div
         class="mantine-khtkeg"
-        style="padding-top: 20px; padding-left: 100px;"
-      >
-        <button
-          style="border: 2px solid #30d5c8; background: transparent; border-radius: 2px;"
-        >
-          <a
-            class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
-            href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
-            style="text-decoration: none;"
-            target="_blank"
-          >
-            <span
-              style="color: rgb(48, 213, 200);"
-            >
-              Request a Node
-            </span>
-          </a>
-        </button>
-      </div>
+      />
       <div
         class="mantine-ScrollArea-root mantine-64qz2l"
         dir="ltr"
@@ -120,6 +103,7 @@ exports[`Sidebar should render the component correctly 1`] = `
           >
             <div
               class="mantine-6km1t0"
+              data-testid="sidebar-sections"
             />
           </div>
         </div>
