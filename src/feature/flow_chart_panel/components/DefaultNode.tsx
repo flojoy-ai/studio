@@ -80,7 +80,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
+          {selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
           <Box>{data.label}</Box>
