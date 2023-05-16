@@ -21,9 +21,10 @@ import { createStyles } from "@mantine/styles";
 import { useMantineTheme } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import { EditSwitch } from "@src/EditSwitch";
-import { CTRL_MANIFEST } from "./manifest/CONTROLS_MANIFEST";
+import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { v4 as uuidv4 } from "uuid";
 import { Layout } from "@src/Layout";
+import SidebarCustom from "../common/Sidebar/Sidebar";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -208,14 +209,13 @@ const ControlsTab = () => {
             setOpenEditModal,
           }}
         />
-        {/* TODO: Add edit sidebar back */}
-        {/* <SidebarCustom
-        sections={CTRL_TREE}
-        manifestMap={CTRL_MANIFEST}
-        leafNodeClickHandler={addCtrl}
-        isSideBarOpen={isCTRLSideBarOpen}
-        setSideBarStatus={setCTRLSideBarStatus}
-      /> */}
+        <SidebarCustom
+          sections={CTRL_TREE}
+          manifestMap={CTRL_MANIFEST}
+          leafNodeClickHandler={addCtrl}
+          isSideBarOpen={ctrlSidebarOpen}
+          setSideBarStatus={setCtrlSidebarOpen}
+        />
 
         {/* <AddCtrlModal
         isOpen={openCtrlModal}
