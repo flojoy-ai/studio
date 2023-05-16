@@ -7,7 +7,7 @@ import yaml
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from PYTHON.nodes.LOADERS.CLOUD_DATABASE.LOADER.LOADER import set_api_key
+from flojoy.utils import set_frontier_api_key
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -80,7 +80,7 @@ def worker_response(request):
 def set_user_api_key(request):
     key = request.data
     api_key = key["key"]
-    set_api_key(api_key)
+    set_frontier_api_key(api_key)
 
     response = {
         "success": True,
