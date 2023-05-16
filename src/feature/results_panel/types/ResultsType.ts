@@ -2,13 +2,14 @@ import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
 export const ALL_DC_TYPE = [
-  'grayscale',
-  'matrix',
-  'dataframe',
-  'image',
-  'ordered_pair',
-  'ordered_triple',
-  'scalar',
+  "grayscale",
+  "matrix",
+  "dataframe",
+  "image",
+  "ordered_pair",
+  "ordered_triple",
+  "scalar",
+  "plotly",
 ] as const;
 
 export type DataContainterType = (typeof ALL_DC_TYPE)[number];
@@ -25,6 +26,7 @@ export interface DataContainer {
   g?: number[];
   b?: number[];
   a?: number[];
+  fig?: { data: OverridePlotData };
 }
 
 export type ResultIO = {

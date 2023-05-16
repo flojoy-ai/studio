@@ -4,9 +4,9 @@ import { Layout } from "plotly.js";
 const usePlotLayout = () => {
   const theme = useMantineTheme();
   const accentColor =
-  theme.colorScheme === "dark"
-    ? theme.colors.accent1[0]
-    : theme.colors.accent2[0];
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
   const plotBackgroundColor =
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[5];
 

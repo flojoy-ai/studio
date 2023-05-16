@@ -5,7 +5,7 @@ import { PlotControlStateType } from "@src/feature/controls_panel/views/PlotCont
 import { dataContainer2Plotly } from "@src/utils/format_plotly_data";
 import { useCallback, useEffect } from "react";
 import { v4 as uuid4 } from "uuid";
-import {MantineTheme} from '@mantine/core'
+import { MantineTheme } from "@mantine/core";
 
 const usePlotControlEffect = ({
   selectedKeys,
@@ -17,13 +17,13 @@ const usePlotControlEffect = ({
   ctrlObj,
   selectedPlotOption,
   setPlotData,
-  theme
+  theme,
 }: PlotControlStateType & {
   nd: PlotControlProps["nd"];
   ctrlObj: PlotControlProps["ctrlObj"];
   selectedPlotOption: PlotControlProps["selectedPlotOption"];
   setPlotData: PlotControlProps["setPlotData"];
-  theme: MantineTheme
+  theme: MantineTheme;
 }) => {
   /**
    * Updates input options from available inputs in a node
@@ -65,13 +65,19 @@ const usePlotControlEffect = ({
     // }
 
     // setPlotData([result]);
-    if(nd?.result?.data && selectedPlotOption){
-      setPlotData(dataContainer2Plotly({
+    if (nd?.result?.data && selectedPlotOption) {
+      console.log(" nd.result: ", nd.result);
+      const result = dataContainer2Plotly({
         dataContainer: nd.result.data,
         plotType: selectedPlotOption.value.type!,
         plotMode: selectedPlotOption.value.mode!,
         theme,
-      }))
+        ...(["image", "plotly"].includes(nd.result.data.type) && {
+          fig: nd.result.default_fig.data,
+        }),
+      });
+      console.log(" result: ", result);
+      setPlotData(result);
     }
   }, [nd, selectedKeys, selectedPlotOption, setPlotData]);
 

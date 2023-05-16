@@ -13,7 +13,9 @@ import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
 import { useMantineColorScheme } from "@mantine/styles";
 import { Text, useMantineTheme } from "@mantine/core";
 import { useControlStyles } from "./control-component/ControlComponent";
-import PlotlyComponent, { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import PlotlyComponent, {
+  OverridePlotData,
+} from "@src/feature/common/PlotlyComponent";
 
 export interface PlotControlProps {
   nd: ResultIO | null;
@@ -51,7 +53,7 @@ const PlotControl = ({
     setPlotOptions,
     setSelectedKeys,
   } = PlotControlState();
-  const theme = useMantineTheme()
+  const theme = useMantineTheme();
   usePlotControlEffect({
     inputOptions,
     plotOptions,
@@ -63,7 +65,7 @@ const PlotControl = ({
     nd,
     selectedPlotOption,
     setPlotData,
-    theme
+    theme,
   });
 
   const colorScheme = useMantineColorScheme().colorScheme;

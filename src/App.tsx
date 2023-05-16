@@ -209,9 +209,7 @@ const App = () => {
               setSideBarStatus={setCTRLSideBarStatus}
             />
 
-            <ControlsTab
-              results={programResults!}
-            />
+            <ControlsTab results={programResults!} />
           </div>
 
           {/*  */}

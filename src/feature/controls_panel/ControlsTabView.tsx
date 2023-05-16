@@ -36,9 +36,7 @@ interface ControlsTabProps {
   results: ResultsType;
 }
 
-const ControlsTab = ({
-  results,
-}: ControlsTabProps) => {
+const ControlsTab = ({ results }: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
   const {

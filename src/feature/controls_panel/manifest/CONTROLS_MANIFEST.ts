@@ -29,7 +29,7 @@ export enum PlotTypeNames {
   Line = "Line",
   BarChart = "Bar Chart",
   Image = "Image",
-  Table = "Table"
+  Table = "Table",
 }
 
 //ROOT WILL NOT BE DISPLAYED
@@ -195,10 +195,10 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     name: PlotTypeNames.Image,
     type: "image",
   },
-  TABLE:{
+  TABLE: {
     name: PlotTypeNames.Table,
-    type: "table"
-  }
+    type: "table",
+  },
 };
 
 export const InputControlsManifest = {
