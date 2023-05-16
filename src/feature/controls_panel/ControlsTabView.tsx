@@ -23,6 +23,7 @@ import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import { EditSwitch } from "@src/EditSwitch";
 import { CTRL_MANIFEST } from "./manifest/CONTROLS_MANIFEST";
 import { v4 as uuidv4 } from "uuid";
+import { Layout } from "@src/Layout";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -180,34 +181,35 @@ const ControlsTab = () => {
   };
 
   return (
-    <div data-testid="controls-tab">
-      <div
-        className="top-row"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <AddCTRLBtn
-          setCTRLSideBarStatus={setCtrlSidebarOpen}
-          setIsEditMode={setIsEditMode}
-          isCTRLSideBarOpen={ctrlSidebarOpen}
+    <Layout>
+      <div data-testid="controls-tab">
+        <div
+          className="top-row"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <AddCTRLBtn
+            setCTRLSideBarStatus={setCtrlSidebarOpen}
+            setIsEditMode={setIsEditMode}
+            isCTRLSideBarOpen={ctrlSidebarOpen}
+          />
+          <EditSwitch isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
+        </div>
+        <ControlGrid
+          controlProps={{
+            isEditMode,
+            results,
+            updateCtrlValue,
+            attachParamsToCtrl,
+            removeCtrl,
+            setCurrentInput,
+            setOpenEditModal,
+          }}
         />
-        <EditSwitch isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
-      </div>
-      <ControlGrid
-        controlProps={{
-          isEditMode,
-          results,
-          updateCtrlValue,
-          attachParamsToCtrl,
-          removeCtrl,
-          setCurrentInput,
-          setOpenEditModal,
-        }}
-      />
-      {/* TODO: Add edit sidebar back */}
-      {/* <SidebarCustom
+        {/* TODO: Add edit sidebar back */}
+        {/* <SidebarCustom
         sections={CTRL_TREE}
         manifestMap={CTRL_MANIFEST}
         leafNodeClickHandler={addCtrl}
@@ -215,14 +217,14 @@ const ControlsTab = () => {
         setSideBarStatus={setCTRLSideBarStatus}
       /> */}
 
-      {/* <AddCtrlModal
+        {/* <AddCtrlModal
         isOpen={openCtrlModal}
         afterOpenModal={afterOpenModal}
         closeModal={closeModal}
         addCtrl={addCtrl}
         theme={theme}
       /> */}
-      {/* <Modal
+        {/* <Modal
         isOpen={openEditModal}
         onAfterOpen={afterOpenModal}
         onRequestClose={() => setOpenEditModal(false)}
@@ -295,7 +297,8 @@ const ControlsTab = () => {
           </div>
         )}
       </Modal> */}
-    </div>
+      </div>
+    </Layout>
   );
 };
 

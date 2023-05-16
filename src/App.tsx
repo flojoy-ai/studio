@@ -40,27 +40,15 @@ import { Layout } from "./Layout";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Layout>
-        <FlowChartTab />
-      </Layout>
-    ), // TODO: Add sidebar back to this tab
+    element: <FlowChartTab />, // TODO: Add sidebar back to this tab
   },
   {
     path: "/controls",
-    element: (
-      <Layout>
-        <ControlsTab />
-      </Layout>
-    ),
+    element: <ControlsTab />,
   },
   {
     path: "/debug",
-    element: (
-      <Layout>
-        <ResultsTab />
-      </Layout>
-    ),
+    element: <ResultsTab />,
   },
 ]);
 

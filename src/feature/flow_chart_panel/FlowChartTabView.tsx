@@ -34,6 +34,7 @@ import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "@src/Layout";
 
 localforage.config({
   name: "react-flow",
@@ -159,48 +160,50 @@ const FlowChartTab = () => {
     windowWidth,
   });
   return (
-    <ReactFlowProvider>
-      <div
-        style={{ height: "calc(100vh - 110px)" }}
-        data-testid="react-flow"
-        data-rfinstance={JSON.stringify(nodes)}
-      >
-        <NodeEditMenu selectedNode={selectedNode} />
+    <Layout>
+      <ReactFlowProvider>
+        <div
+          style={{ height: "calc(100vh - 110px)" }}
+          data-testid="react-flow"
+          data-rfinstance={JSON.stringify(nodes)}
+        >
+          <NodeEditMenu selectedNode={selectedNode} />
 
-        <ReactFlow
-          style={{
-            position: "fixed",
-            height: "100%",
-            width: "50%",
-          }}
-          nodes={nodes}
-          nodeTypes={nodeTypes}
-          edges={edges}
-          edgeTypes={edgeTypes}
-          connectionLineType={ConnectionLineType.Step}
-          onInit={onInit}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onNodeDoubleClick={onNodeClick}
-          onNodeDragStop={handleNodeDrag}
-          onNodesDelete={handleNodesDelete}
+          <ReactFlow
+            style={{
+              position: "fixed",
+              height: "100%",
+              width: "50%",
+            }}
+            nodes={nodes}
+            nodeTypes={nodeTypes}
+            edges={edges}
+            edgeTypes={edgeTypes}
+            connectionLineType={ConnectionLineType.Step}
+            onInit={onInit}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onNodeDoubleClick={onNodeClick}
+            onNodeDragStop={handleNodeDrag}
+            onNodesDelete={handleNodesDelete}
+          />
+        </div>
+
+        <NodeModal
+          afterOpenModal={afterOpenModal}
+          clickedElement={clickedElement}
+          closeModal={closeModal}
+          defaultLayout={defaultLayout}
+          modalIsOpen={modalIsOpen}
+          modalStyles={modalStyles}
+          nd={nd!}
+          nodeLabel={nodeLabel}
+          nodeType={nodeType}
+          pythonString={pythonString}
         />
-      </div>
-
-      <NodeModal
-        afterOpenModal={afterOpenModal}
-        clickedElement={clickedElement}
-        closeModal={closeModal}
-        defaultLayout={defaultLayout}
-        modalIsOpen={modalIsOpen}
-        modalStyles={modalStyles}
-        nd={nd!}
-        nodeLabel={nodeLabel}
-        nodeType={nodeType}
-        pythonString={pythonString}
-      />
-    </ReactFlowProvider>
+      </ReactFlowProvider>
+    </Layout>
   );
 };
 export default FlowChartTab;
