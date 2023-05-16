@@ -50,3 +50,7 @@ Flojoy is released under the [AGPLv3 license](https://www.gnu.org/licenses/agpl-
 The Flojoy copyright is owned by On-Scence Creative, and contributors are asked to sign a Contributor License Agreement (based on the Oracle CLA) that grants the company the non-exclusive right to re-license the contribution in the future. For example, the project could be re-licensed to one of the more permissive licenses above, or it could be dual licensed with a commercial license as a means to support the project.
 
 If you might be interested in using Flojoy in a context where the AGPL license is prohibitive, [please get in touch](mailto:jack.parmer@proton.me).
+
+# Architecture diagram
+
+![image](https://user-images.githubusercontent.com/1865834/228073014-4be8ef9c-8437-488c-a6c7-daf4ac18547a.png)
