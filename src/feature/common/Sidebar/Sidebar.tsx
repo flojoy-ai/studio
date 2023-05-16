@@ -117,7 +117,7 @@ export const SidebarCustom = ({
       //case 1: name is included in the string of the section node or leaf node
       if (node.title.toLowerCase().includes(textInput.toLocaleLowerCase())) {
         //case 1.1: node has children (is a section)
-        if (node["child"] != null && !("key" in node)) {
+        if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
             (c) => renderSection("", c, depth + 1) //render all the content of the children
           );
@@ -132,7 +132,7 @@ export const SidebarCustom = ({
           );
 
           //case 1.2: node has no children (is a leaf/command)
-        } else if (node["child"] == null && "key" in node) {
+        } else if (node["child"] === null && "key" in node) {
           return (
             <SidebarNode
               data-testid="sidebar-node"
@@ -148,7 +148,7 @@ export const SidebarCustom = ({
         //case 2: name is not included in the string of the section node or leaf node
       } else {
         //case 2.1: node has children (is a section)
-        if (node["child"] != null && !("key" in node)) {
+        if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
             (c) => renderSection(textInput, c, depth + 1) //render all the content of the children
           );
@@ -171,7 +171,7 @@ export const SidebarCustom = ({
       //case 3: no search input
     } else {
       //case 3.1: node has children (is a section)
-      if (node["child"] != null && !("key" in node)) {
+      if (node["child"] !== null && !("key" in node)) {
         content = node.child.map(
           (c) => renderSection("", c, depth + 1) //render all the content of the children
         );
@@ -186,7 +186,7 @@ export const SidebarCustom = ({
         );
 
         //case 3.2: node has no children (is a leaf/command)
-      } else if (node["child"] == null && "key" in node) {
+      } else if (node["child"] === null && "key" in node) {
         return (
           <SidebarNode
             data-testid="sidebar-node"
