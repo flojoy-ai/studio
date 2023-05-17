@@ -1,6 +1,6 @@
 import { Text, createStyles } from "@mantine/core";
 import { IServerStatus } from "./context/socket.context";
-import React from "react";
+import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   status: {
@@ -24,4 +24,4 @@ const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
   );
 };
 
-export default React.memo(ServerStatus);
+export default memo(ServerStatus);

@@ -2,24 +2,6 @@ import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
-const props: FlowChartProps = {
-  results: {
-    io: [],
-  },
-  rfInstance: {
-    nodes: [],
-    edges: [],
-    viewport: {
-      x: 1,
-      y: 1,
-      zoom: 1,
-    },
-  },
-  setRfInstance: jest.fn(),
-  clickedElement: undefined,
-  setClickedElement: jest.fn(),
-};
-
 class ResizeObserver {
   observe() {}
   unobserve() {}
@@ -91,9 +73,45 @@ jest.mock("@src/configs/NodeConfigs", () => {
 
 jest.mock("@src/hooks/useFlowChartState");
 
+jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
+  return {
+    COMMANDS: [],
+    SECTIONS: [],
+  };
+});
+
 jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   return {
     FUNCTION_PARAMETERS: {},
+  };
+});
+
+jest.mock("@src/hooks/useSocket", () => {
+  return {
+    useSocket: () => ({
+      states: {
+        programResults: {},
+      },
+    }),
+  };
+});
+
+jest.mock("react-router-dom", () => {
+  return {
+    __esModule: true,
+    useLocation: jest.fn().mockReturnValue({
+      pathname: "/",
+    }),
+    useSearchParams: jest.fn().mockReturnValue([new Map(), jest.fn()]),
+    Link: ({
+      to,
+      children,
+      testId,
+    }: {
+      to: string;
+      children: React.ReactNode;
+      testId: string;
+    }) => <div>{children}</div>,
   };
 });
 
@@ -102,15 +120,7 @@ window.IntersectionObserver = IntersectionObserver as any;
 
 describe("FlowChartTabView", () => {
   it("should render the component correcty", () => {
-    const { container } = renderWithTheme(
-      <FlowChartTab
-        results={props.results}
-        rfInstance={props.rfInstance}
-        setRfInstance={props.setRfInstance}
-        clickedElement={props.clickedElement}
-        setClickedElement={props.setClickedElement}
-      />
-    );
+    const { container } = renderWithTheme(<FlowChartTab />);
     expect(container).toMatchSnapshot();
   });
 
@@ -119,15 +129,7 @@ describe("FlowChartTabView", () => {
     ["react-flow", "react-flow"],
     ["NodeModal component", "node-modal"],
   ])("should contain %p component", (msg, testId) => {
-    const { getByTestId, getAllByTestId } = renderWithTheme(
-      <FlowChartTab
-        results={props.results}
-        rfInstance={props.rfInstance}
-        setRfInstance={props.setRfInstance}
-        clickedElement={props.clickedElement}
-        setClickedElement={props.setClickedElement}
-      />
-    );
+    const { getByTestId, getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
     let component;
 
@@ -141,15 +143,7 @@ describe("FlowChartTabView", () => {
   });
 
   it("checks the reactflow style", () => {
-    const { getAllByTestId } = renderWithTheme(
-      <FlowChartTab
-        results={props.results}
-        rfInstance={props.rfInstance}
-        setRfInstance={props.setRfInstance}
-        clickedElement={props.clickedElement}
-        setClickedElement={props.setClickedElement}
-      />
-    );
+    const { getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
     const componet = getAllByTestId("react-flow")[0];
     expect(componet).toHaveStyle("height: calc(100vh - 110px)");

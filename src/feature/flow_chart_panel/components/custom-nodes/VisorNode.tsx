@@ -6,7 +6,7 @@ import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "plotly.js";
-import React, { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
@@ -143,4 +143,4 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(VisorNode);
+export default memo(VisorNode);

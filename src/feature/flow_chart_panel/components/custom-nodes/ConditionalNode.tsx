@@ -3,7 +3,7 @@ import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, Text, clsx } from "@mantine/core";
 import { useSocket } from "@src/hooks/useSocket";
-import React, { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
@@ -122,4 +122,4 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(ConditionalNode);
+export default memo(ConditionalNode);

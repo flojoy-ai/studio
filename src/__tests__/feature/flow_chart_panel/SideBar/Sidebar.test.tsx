@@ -33,19 +33,19 @@ window.ResizeObserver = ResizeObserver as any;
 
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
-    const { container } = renderWithTheme(<Sidebar />);
+    const { container } = renderWithTheme(<Sidebar setNodes={jest.fn()} />);
     expect(container).toMatchSnapshot();
   });
 
   it("checks the add button to be in the document", () => {
-    const { getByTestId } = renderWithTheme(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar setNodes={jest.fn()} />);
     const addButton = getByTestId("add-node-button");
 
     expect(addButton).toBeInTheDocument();
   });
 
   it("fires The click event in add node, and checks if the classname of the navbar changes or not", () => {
-    const { getByTestId } = renderWithTheme(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar setNodes={jest.fn()} />);
 
     const addButton = getByTestId("add-node-button");
 
@@ -58,7 +58,7 @@ describe("Sidebar", () => {
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
-    const { getByTestId } = renderWithTheme(<Sidebar />);
+    const { getByTestId } = renderWithTheme(<Sidebar setNodes={jest.fn()} />);
     const input: any = getByTestId("sidebar-input");
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");

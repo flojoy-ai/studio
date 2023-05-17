@@ -125,7 +125,6 @@ const Controls = () => {
     maxFileSize: 50,
   });
 
-  // TODO: Fix saving
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,
     nodes: Node<ElementsData>[],

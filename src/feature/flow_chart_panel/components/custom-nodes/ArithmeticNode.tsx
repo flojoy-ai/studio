@@ -2,7 +2,7 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles } from "@mantine/core";
-import React from "react";
+import { memo } from "react";
 import {
   AddBGTemplate,
   AddSvg,
@@ -84,4 +84,4 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(ArithmeticNode);
+export default memo(ArithmeticNode);

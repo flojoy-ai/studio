@@ -26,7 +26,7 @@ type TabButtonProps = {
   testId?: string;
 };
 
-export const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
+const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
   const { classes } = useStyles();
   const active = location.pathname === to;
 
@@ -43,3 +43,5 @@ export const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
     </MediaQuery>
   );
 };
+
+export default HeaderTab;

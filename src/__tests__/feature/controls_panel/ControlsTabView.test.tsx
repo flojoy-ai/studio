@@ -31,15 +31,23 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
   },
 }));
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+  disconnect() {
+    // do nothing
+  }
+}
+
+window.ResizeObserver = ResizeObserver;
+
 describe("ControlsTab", () => {
   it("render ControlsTab correctly.", () => {
-    const { container } = renderWithTheme(
-      <ControlsTab
-        openCtrlModal={false}
-        setOpenCtrlModal={jest.fn()}
-        results={{}}
-      />
-    );
+    const { container } = renderWithTheme(<ControlsTab />);
     expect(container).toMatchSnapshot();
   });
 });

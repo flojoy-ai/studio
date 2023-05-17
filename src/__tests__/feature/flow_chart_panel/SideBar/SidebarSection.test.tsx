@@ -25,9 +25,9 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   };
 });
 
-jest.mock("@src/hooks/useFlowChartState", () => {
+jest.mock("@src/hooks/useFlowChartNodes", () => {
   return {
-    useFlowChartState: () => {
+    useFlowChartNodes: () => {
       return {
         setNodes: jest.fn(),
       };
@@ -45,20 +45,32 @@ describe("SidebarSection", () => {
   window.ResizeObserver = ResizeObserver as any;
   it("matches snapshot", () => {
     const { container } = renderWithTheme(
-      <SidebarSection title={items.title} child={items.child} />
+      <SidebarSection
+        title={items.title}
+        child={items.child}
+        setNodes={jest.fn()}
+      />
     );
     expect(container).toMatchSnapshot();
   });
   it("checks the section button in document", () => {
     const { getByTestId } = renderWithTheme(
-      <SidebarSection title={items.title} child={items.child} />
+      <SidebarSection
+        title={items.title}
+        child={items.child}
+        setNodes={jest.fn()}
+      />
     );
     const button = getByTestId("sidebar-subsection-button");
     expect(button).toBeInTheDocument();
   });
   it("checks if the collapse tab is open when the button is clicked", () => {
     const { getByTestId } = renderWithTheme(
-      <SidebarSection title={items.title} child={items.child} />
+      <SidebarSection
+        title={items.title}
+        child={items.child}
+        setNodes={jest.fn()}
+      />
     );
     const sectionButton = getByTestId("sidebar-subsection-button");
     const collapseButton = getByTestId("sidebar-subsection-collapse");

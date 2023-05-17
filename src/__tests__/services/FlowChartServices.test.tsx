@@ -70,7 +70,7 @@ describe("FlowChartServices", () => {
     it("given a flow chart and a job id, post the job to /wfc api endpoint", () => {
       //Given
       const fetchParams: any = {
-        body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true}',
+        body: '{"fc":"{\\"elements\\":\\"test\\"}","jobsetId":"random","cancelExistingJobs":true}',
         headers: { "Content-type": "application/json; charset=UTF-8" },
         method: "POST",
       };

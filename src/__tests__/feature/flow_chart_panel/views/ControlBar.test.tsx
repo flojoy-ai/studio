@@ -31,11 +31,16 @@ jest.mock("@src/feature/common/DropDown", () => ({
   default: jest.fn(() => <div>Dropdown</div>),
 }));
 
+jest.mock("react-router-dom", () => ({
+  __esModule: true,
+  useLocation: jest.fn().mockReturnValue({
+    pathname: "/",
+  }),
+}));
+
 describe("Controls", () => {
   it("should render correctly", () => {
-    const { container } = renderWithTheme(
-      <Controls activeTab="visual" setOpenCtrlModal={jest.fn()} />
-    );
+    const { container } = renderWithTheme(<Controls />);
 
     expect(screen.getByTestId("btn-play")).toBeInTheDocument();
     expect(screen.getByTestId("btn-play")).toBeDisabled();
@@ -45,9 +50,7 @@ describe("Controls", () => {
     expect(container).toMatchSnapshot("__main__");
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
-    renderWithTheme(
-      <Controls activeTab="debug" setOpenCtrlModal={jest.fn()} />
-    );
+    renderWithTheme(<Controls />);
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
   });
 });

@@ -1,7 +1,7 @@
 import { Box, Header as MantineHeader, createStyles } from "@mantine/core";
-import React from "react";
+import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
-import { HeaderTab } from "./HeaderTab";
+import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
 
@@ -53,4 +53,4 @@ const Header = () => {
   );
 };
 
-export default React.memo(Header);
+export default memo(Header);

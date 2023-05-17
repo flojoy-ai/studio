@@ -1,5 +1,5 @@
 import { Box, clsx, createStyles } from "@mantine/core";
-import React from "react";
+import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
@@ -97,4 +97,4 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(DefaultNode);
+export default memo(DefaultNode);

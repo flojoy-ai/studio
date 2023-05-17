@@ -1,8 +1,10 @@
 import { renderHook } from "@testing-library/react";
 import { useControlsTabEffects } from "@src/feature/controls_panel/ControlsTabEffects";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
 
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useFlowChartNodes");
 
 describe("UseControlsTabEffects", () => {
   const setCtrlsManifest = jest.fn();
@@ -14,6 +16,9 @@ describe("UseControlsTabEffects", () => {
     (useFlowChartState as jest.Mock).mockReturnValue({
       setCtrlsManifest: setCtrlsManifest,
       rfInstance: rfInstance,
+    });
+    (useFlowChartNodes as jest.Mock).mockReturnValue({
+      nodes: [],
     });
   });
 
@@ -33,9 +38,8 @@ describe("UseControlsTabEffects", () => {
 
   it("setCtrlManifest should not be called if rfInstance has nodes", () => {
     const rfInstanceWithNode = [{ id: 1, type: "start" }];
-    (useFlowChartState as jest.Mock).mockReturnValue({
-      setCtrlsManifest: setCtrlsManifest,
-      rfInstance: { nodes: rfInstanceWithNode },
+    (useFlowChartNodes as jest.Mock).mockReturnValue({
+      nodes: rfInstanceWithNode,
     });
     renderHook(() => useControlsTabEffects());
     expect(setCtrlsManifest).not.toHaveBeenCalled();

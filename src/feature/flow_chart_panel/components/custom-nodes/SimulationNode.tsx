@@ -2,7 +2,7 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles } from "@mantine/core";
-import React from "react";
+import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
@@ -77,4 +77,4 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(SimulationNode);
+export default memo(SimulationNode);

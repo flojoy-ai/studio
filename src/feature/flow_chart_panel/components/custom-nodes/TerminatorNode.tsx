@@ -3,7 +3,7 @@ import { Box, clsx, createStyles } from "@mantine/core";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import React from "react";
+import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 
 const useStyles = createStyles((theme) => {
@@ -56,4 +56,4 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default React.memo(TerminatorNode);
+export default memo(TerminatorNode);
