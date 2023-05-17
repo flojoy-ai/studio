@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 import NodeWrapper from "./NodeWrapper";
 
 export const useNodeStyles = createStyles((theme) => {
@@ -93,9 +92,6 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
-            <NodeEditButtons />
-          )}
           <Box>{data.label}</Box>
           <Box
             display="flex"

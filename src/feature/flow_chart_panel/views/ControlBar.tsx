@@ -24,6 +24,7 @@ import ReactSwitch from "react-switch";
 import "react-tabs/style/react-tabs.css";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import APIKeyModal from "./API_keyModal";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -118,22 +119,24 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
 
   const {
-    isEditMode,
-    setIsEditMode,
     rfInstance,
     openFileSelector,
     saveFile,
     saveFileAs,
+    nodeParamChanged,
+    setNodeParamChanged,
   } = useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
+      setNodeParamChanged(undefined);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -207,12 +210,19 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           <button onClick={() => setIskeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
+          <button onClick={() => setIsAPIKeyModelOpen(true)}>
+            Set API key
+          </button>
         </DropDown>
       )}
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
+      />
+      <APIKeyModal
+        isOpen={isAPIKeyModelOpen}
+        onClose={() => setIsAPIKeyModelOpen(false)}
       />
     </Box>
   );

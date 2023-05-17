@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 
 import ControlsTab from "./feature/controls_panel/ControlsTabView";
-import { v4 as uuidv4 } from "uuid";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { GlobalStyles } from "./feature/common/Global";
 import { useDisclosure } from "@mantine/hooks";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
-  useMantineTheme,
 } from "@mantine/core";
 import { Node } from "reactflow";
 import "./App.css";
@@ -20,20 +19,26 @@ import { AppTab, Header } from "./Header";
 import { ServerStatus } from "./ServerStatus";
 import { CustomFonts } from "./feature/common/CustomFonts";
 import { darkTheme, lightTheme } from "./feature/common/theme";
-import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
 import { CtlManifestType, useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import SidebarCustom from "./feature/common/Sidebar/Sidebar";
+import { SidebarCustom } from "./feature/common/Sidebar/Sidebar";
 import {
   CTRL_MANIFEST,
   CTRL_TREE,
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
-import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
+import { AddNodeBtn } from "./AddNodeBtn";
+import {
+  CMND_MANIFEST_MAP,
+  CMND_TREE,
+} from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
+import { RequestNode } from "./feature/flow_chart_panel/components/RequestNode";
 
 const App = () => {
+  const addNewNode = useAddNewNode();
   const { states } = useSocket();
   const {
     serverStatus,
@@ -45,6 +50,7 @@ const App = () => {
   const [openCtrlModal, setOpenCtrlModal] = useState(false);
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const [isCTRLSideBarOpen, setCTRLSideBarStatus] = useState(false); //for ctrl sidebar
+  const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false); //for script sidebar
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
@@ -65,7 +71,6 @@ const App = () => {
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
   ] = useDisclosure(false);
-  const mantineTheme = useMantineTheme();
   const queryString = window?.location?.search;
   const fileName =
     queryString.startsWith("?test_example_app") && queryString.split("=")[1];
@@ -97,7 +102,9 @@ const App = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey];
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find(
+      (ctrl) => ctrl.key === ctrlKey
+    )!;
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -120,8 +127,7 @@ const App = () => {
       hidden: false,
       id,
       layout: ctrlLayout,
-    } as CtlManifestType;
-
+    };
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
@@ -170,7 +176,19 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             {/* add node button currently in the sidebar, to be refactored */}
-            <Sidebar />
+            <AddNodeBtn
+              setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
+              isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
+            />
+
+            <SidebarCustom
+              sections={CMND_TREE}
+              manifestMap={CMND_MANIFEST_MAP}
+              leafNodeClickHandler={addNewNode}
+              isSideBarOpen={isSCRIPTSideBarOpen}
+              setSideBarStatus={setSCRIPTSideBarStatus}
+              customContent={<RequestNode />}
+            />
 
             <FlowChartTab
               rfInstance={rfInstance!}

@@ -1,5 +1,5 @@
 import { NOISY_SINE } from "../data/RECIPES";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect, useMemo } from "react";
@@ -85,6 +85,8 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     ...ctrl.layout,
   }))
 );
+const apiKeyAtom = atomWithImmer<string>("");
+const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
@@ -97,6 +99,8 @@ export function useFlowChartState() {
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   const loadFlowExportObject = useCallback(
     (flow: any) => {
@@ -237,5 +241,9 @@ export function useFlowChartState() {
     nodes,
     setNodes,
     filesContent,
+    apiKey,
+    setApiKey,
+    nodeParamChanged,
+    setNodeParamChanged,
   };
 }

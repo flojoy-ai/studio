@@ -21,10 +21,10 @@ export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
       onClick={() => setSCRIPTSideBarStatus(!isSCRIPTSideBarOpen)}
       style={{
         position: "absolute",
-        width: "104px",
+        width: "fit-content",
         height: "43px",
-        left: "0px",
-        top: "110px",
+        left: "10px",
+        top: "130px",
         margin: "10px",
         zIndex: 1,
       }}
