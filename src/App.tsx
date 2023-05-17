@@ -23,7 +23,7 @@ import { useSocket } from "./hooks/useSocket";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <FlowChartTab />, // TODO: Add sidebar back to this tab
+    element: <FlowChartTab />,
   },
   {
     path: "/controls",
