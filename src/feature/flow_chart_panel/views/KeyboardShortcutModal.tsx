@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     gap: 43,
     height: "100%",
-    width: 988,
+    width: "100%",
     padding: 24,
     backgroundColor: theme.colors.modal[0],
   },
@@ -95,8 +95,8 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
       data-testid="keyboard_shortcut_modal"
       opened={isOpen}
       onClose={onClose}
-      aria-label={"keyboard shortcut modal"}
-      size={"1030"}
+      aria-label="keyboard shortcut modal"
+      size={1030}
     >
       <Button onClick={onClose} className={classes.closeButton}></Button>
 

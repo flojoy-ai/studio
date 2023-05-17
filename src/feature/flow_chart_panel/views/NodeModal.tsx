@@ -36,7 +36,6 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
-  const themeMantine = useMantineTheme;
   const theme = useMantineColorScheme().colorScheme;
 
   return (
