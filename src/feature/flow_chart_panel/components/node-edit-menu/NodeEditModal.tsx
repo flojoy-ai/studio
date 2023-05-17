@@ -5,7 +5,7 @@ import ParamField, { ParamType } from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -56,15 +56,17 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode } = useFlowChartState();
   const replayNotice = "Replay the script to see your changes take effect";
-  const [isdataChanged, setIsDataChanged] = useState<undefined|boolean>(undefined);
+  const [isdataChanged, setIsDataChanged] = useState<undefined | boolean>(
+    undefined
+  );
 
   useEffect(() => {
-    if (isdataChanged == undefined){
+    if (isdataChanged == undefined) {
       setIsDataChanged(false);
     } else {
       setIsDataChanged(true);
     }
-  }, [node.data.ctrls])
+  }, [node.data.ctrls]);
 
   return (
     <Box className={classes.modal}>
@@ -88,7 +90,7 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
                 <p className={classes.paramName}>{`${name.toUpperCase()}:`}</p>
                 <ParamField
                   nodeId={node.id}
-                  paramId={name} 
+                  paramId={name}
                   functionName={node.data.func}
                   type={param.type as ParamType}
                   value={node.data.ctrls[name].value}
@@ -98,7 +100,11 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
             )
           )}
           <div className={classes.replayScriptNotice}>
-            {isdataChanged && <div><i>{replayNotice}</i></div>}
+            {isdataChanged && (
+              <div>
+                <i>{replayNotice}</i>
+              </div>
+            )}
           </div>
         </div>
       </Box>
