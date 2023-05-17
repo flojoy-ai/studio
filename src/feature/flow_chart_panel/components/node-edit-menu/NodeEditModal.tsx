@@ -41,6 +41,10 @@ const useStyles = createStyles((theme) => ({
     marginLeft: "auto",
     cursor: "pointer",
   },
+  replayScriptNotice: {
+    fontSize: 12,
+    margin: 6,
+  }
 }));
 
 type NodeEditModalProps = {
@@ -50,6 +54,7 @@ type NodeEditModalProps = {
 const NodeEditModal = ({ node }: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode } = useFlowChartState();
+  const replayNotice = "Replay the script to see your changes take effect"
 
   return (
     <Box className={classes.modal}>
@@ -82,6 +87,9 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
               </div>
             )
           )}
+          <div className={classes.replayScriptNotice}>
+            <i>{replayNotice}</i>
+          </div>
         </div>
       </Box>
     </Box>
