@@ -56,14 +56,15 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode } = useFlowChartState();
   const replayNotice = "Replay the script to see your changes take effect";
-  const [isDataChanged, setIsDataChanged] = useState<boolean|undefined>(undefined);
+  const [isDataChanged, setIsDataChanged] = useState<boolean | undefined>(
+    undefined
+  );
 
   useEffect(() => {
-    if(isDataChanged === undefined){
-      setIsDataChanged(false)
-    }
-    else{
-      setIsDataChanged(true)
+    if (isDataChanged === undefined) {
+      setIsDataChanged(false);
+    } else {
+      setIsDataChanged(true);
     }
   }, [node.data.ctrls]);
 
@@ -98,7 +99,11 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
               </div>
             )
           )}
-          {isDataChanged && (<div className={classes.replayScriptNotice}><i>{replayNotice}</i></div>)}
+          {isDataChanged && (
+            <div className={classes.replayScriptNotice}>
+              <i>{replayNotice}</i>
+            </div>
+          )}
         </div>
       </Box>
     </Box>
