@@ -24,7 +24,7 @@ export const AddCTRLBtn = ({
   const { classes } = useAddButtonStyle();
   return (
     <button
-      data-testid="add-node-button"
+      data-testid="add-ctrl-button"
       data-cy="add-ctrl"
       className={classes.addButton}
       onClick={() => {
