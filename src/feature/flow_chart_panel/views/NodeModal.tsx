@@ -1,9 +1,10 @@
-import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
-import { createStyles, useMantineColorScheme } from "@mantine/styles";
+import {Modal, useMantineTheme} from "@mantine/core";
+import {createStyles, useMantineColorScheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
+import { useState, useEffect } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -26,7 +27,7 @@ const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
-  modalStyles,
+  // modalStyles,
   nodeLabel,
   nodeType,
   nd,
@@ -35,15 +36,14 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
+  const themeMantine = useMantineTheme
   const theme = useMantineColorScheme().colorScheme;
+
   return (
-    <ReactModal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      style={modalStyles}
-      ariaHideApp={false}
-      contentLabel=""
+    <Modal
+      opened={modalIsOpen}
+      onClose={closeModal}
+      size={1030}
     >
       <button
         onClick={closeModal}
@@ -102,7 +102,7 @@ const NodeModal = ({
       >
         {`${JSON.stringify(clickedElement, undefined, 4)}`}
       </SyntaxHighlighter>
-    </ReactModal>
+    </Modal>
   );
 };
 

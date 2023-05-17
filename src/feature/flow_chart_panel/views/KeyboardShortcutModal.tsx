@@ -1,7 +1,5 @@
 import ModalCloseSvg from "@src/utils/ModalCloseSvg";
-import React from "react";
-import ReactModal from "react-modal";
-import { createStyles, useMantineTheme } from "@mantine/core";
+import { createStyles, useMantineTheme, Modal, Button } from "@mantine/core";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
@@ -44,7 +42,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     gap: 43,
     height: "100%",
-    width: "100%",
+    width: 988,
     padding: 24,
     backgroundColor: theme.colors.modal[0],
   },
@@ -91,45 +89,17 @@ const useStyles = createStyles((theme) => ({
 const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
   const { classes } = useStyles();
   const themeMantine = useMantineTheme();
-  const reactModalStyle: ReactModal.Styles = {
-    content: {
-      borderRadius: "8px",
-      height: "85vh",
-      width: "max(400px,936px)",
-      position: "relative",
-      inset: 0,
-      padding: 0,
-      backgroundColor: themeMantine.colors.modal[0],
-    },
-    overlay: {
-      zIndex: 100,
-      top: 0,
-      left: 0,
-      height: "100%",
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: themeMantine.colors.modal[0],
-    },
-  };
+
   return (
-    <ReactModal
+    <Modal
       data-testid="keyboard_shortcut_modal"
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={reactModalStyle}
-      ariaHideApp={false}
-      contentLabel={"keyboard shortcut modal"}
+      opened={isOpen}
+      onClose={onClose}
+      aria-label={"keyboard shortcut modal"}
+      size={"1030"}
     >
-      <button onClick={onClose} className={classes.closeButton}>
-        <ModalCloseSvg
-          style={{
-            height: 23,
-            width: 23,
-          }}
-        />
-      </button>
+      <Button onClick={onClose} className={classes.closeButton}></Button>
+      
       <div className={classes.container}>
         {platforms.map((platform) => {
           return (
@@ -153,7 +123,7 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
           );
         })}
       </div>
-    </ReactModal>
+    </Modal>
   );
 };
 
