@@ -82,6 +82,16 @@ const useSidebarStyles = createStyles((theme) => ({
   },
 }));
 
+type SidebarCustomProps = {
+  isSideBarOpen: boolean;
+  setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  sections: Node;
+  leafNodeClickHandler: leafClickHandler;
+  manifestMap: any; //Key value pair object
+  customContent?: JSX.Element;
+}
+
+
 export const SidebarCustom = ({
   isSideBarOpen,
   setSideBarStatus,
@@ -89,16 +99,8 @@ export const SidebarCustom = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
-}: {
-  isSideBarOpen: boolean;
-  setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: Node;
-  leafNodeClickHandler: leafClickHandler;
-  manifestMap: any; //Key value pair object
-  customContent?: JSX.Element;
-}) => {
+}: SidebarCustomProps) => {
   const [textInput, handleChangeInput] = useState("");
-  const addButtonClass = useAddButtonStyle();
   const { classes } = useSidebarStyles();
 
   //this function will create the sections to be rendered according to the search input
@@ -111,7 +113,7 @@ export const SidebarCustom = ({
       );
     }
 
-    var content;
+    let content;
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
@@ -192,7 +194,7 @@ export const SidebarCustom = ({
             data-testid="sidebar-node"
             depth={depth}
             key={(node as LeafNode).key}
-            onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
+            onClickHandle={leafNodeClickHandler}
             keyNode={(node as LeafNode).key}
             manifestMap={manifestMap}
           />
@@ -203,58 +205,52 @@ export const SidebarCustom = ({
   };
 
   return (
-    <div>
-      <Navbar
-        data-testid="sidebar"
-        height={800}
-        width={{ sm: 387 }}
-        p="md"
-        className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+    <Navbar
+      data-testid="sidebar"
+      height={800}
+      width={{ sm: 387 }}
+      p="md"
+      className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+    >
+      <Navbar.Section
+        style={{
+          right: 10,
+          position: "absolute",
+          top: 5,
+        }}
       >
-        <Navbar.Section
+        <button
+          data-testid="sidebar-close"
+          onClick={() => setSideBarStatus(false)}
           style={{
-            right: 10,
-            position: "absolute",
-            top: 5,
+            cursor: "pointer",
           }}
         >
-          <button
-            data-testid="sidebar-close"
-            onClick={() => setSideBarStatus(false)}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <CloseIconSvg />
-          </button>
-        </Navbar.Section>
-        <Navbar.Section>
-          <Input
-            data-testid="sidebar-input"
-            name="sidebar-input"
-            placeholder="Search"
-            icon={<IconSearch size={18} />}
-            radius="sm"
-            type="search"
-            style={{
-              marginTop: "30px",
-              background: "inherit",
-            }}
-            value={textInput}
-            onChange={(e) => handleChangeInput(e.target.value)}
-          />
-        </Navbar.Section>
-        <Navbar.Section>{customContent}</Navbar.Section>
-        <Navbar.Section
-          grow
-          className={classes.sections}
-          component={ScrollArea}
-        >
-          <div className={classes.sectionsInner} data-testid="sidebar-sections">
-            {renderSection(textInput, sections, 0)}
-          </div>
-        </Navbar.Section>
-      </Navbar>
-    </div>
+          <CloseIconSvg />
+        </button>
+      </Navbar.Section>
+      <Navbar.Section>
+        <Input
+          data-testid="sidebar-input"
+          name="sidebar-input"
+          placeholder="Search"
+          icon={<IconSearch size={18} />}
+          radius="sm"
+          type="search"
+          style={{
+            marginTop: "30px",
+            background: "inherit",
+          }}
+          value={textInput}
+          onChange={(e) => handleChangeInput(e.target.value)}
+        />
+      </Navbar.Section>
+      <Navbar.Section>{customContent}</Navbar.Section>
+      <Navbar.Section grow className={classes.sections} component={ScrollArea}>
+        <div className={classes.sectionsInner} data-testid="sidebar-sections">
+          {renderSection(textInput, sections, 0)}
+        </div>
+      </Navbar.Section>
+    </Navbar>
   );
 };

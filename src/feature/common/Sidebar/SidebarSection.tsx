@@ -13,10 +13,10 @@ export const useSidebarStyles = createStyles((theme) => ({
     fontWeight: 500,
     display: "block",
     width: "90%",
-    padding: `${theme.spacing.xs}px ${theme.spacing.md}px`,
+    padding: `${theme.spacing.xs} ${theme.spacing.xs}`,
     color: "black",
     fontSize: theme.fontSizes.sm,
-    margin: "10px 20px 10px 20px",
+    margin: "10px 20px",
     backgroundColor: theme.colors.accent1[0],
   },
 

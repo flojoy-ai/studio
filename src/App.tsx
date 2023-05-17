@@ -33,7 +33,7 @@ import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
 import { AddNodeBtn } from "./AddNodeBtn";
 import {
-  CMND_MANIFEST,
+  CMND_MANIFEST_MAP,
   CMND_TREE,
 } from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
@@ -105,6 +105,7 @@ const App = () => {
   const addCtrl = (ctrlKey: string) => {
     setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
     const ctrlObj = CTRL_MANIFEST[ctrlKey];
+    console.log(' control obj: ', ctrlObj)
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -184,7 +185,7 @@ const App = () => {
 
             <SidebarCustom
               sections={CMND_TREE}
-              manifestMap={CMND_MANIFEST}
+              manifestMap={CMND_MANIFEST_MAP}
               leafNodeClickHandler={addNewNode}
               isSideBarOpen={isSCRIPTSideBarOpen}
               setSideBarStatus={setSCRIPTSideBarStatus}

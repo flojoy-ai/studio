@@ -134,24 +134,24 @@ export const CTRL_TREE = {
 };
 
 export const OutputControlsManifest = {
-  PLOT: {
+  PLOT: [{
     name: ControlNames.Plot,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
-  },
-  SEVEN_SEGMENT_DISPLAY: {
+  }],
+  SEVEN_SEGMENT_DISPLAY: [{
     name: ControlNames.SevenSegmentDisplay,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
-  },
-  MEDIA_VIEWER: {
+  }],
+  MEDIA_VIEWER: [{
     name: ControlNames.MediaViewer,
     type: ControlTypes.Output,
     minHeight: 3,
     minWidth: 2,
-  },
+  }],
 };
 
 type PlotManifestType = {
@@ -177,7 +177,7 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     type: "histogram",
     mode: "lines",
   },
-  SURFACE_PLOT_3D: {
+  SURFACE_PLOT_3D:{
     name: PlotTypeNames.SurfacePlot3D,
     type: "surface",
   },
@@ -197,70 +197,69 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
 };
 
 export const InputControlsManifest = {
-  TEXT_INPUT: {
+  TEXT_INPUT: [{
     name: ControlNames.TextInput,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 1,
-  },
-  NUMERIC_INPUT: {
+  }],
+  NUMERIC_INPUT: [{
     name: ControlNames.NumericInput,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 1,
-  },
-  SLIDER: {
+  }],
+  SLIDER: [{
     name: ControlNames.Slider,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 2,
-  },
-  KNOB: {
+  }],
+  KNOB: [{
     name: ControlNames.Knob,
     type: ControlTypes.Input,
     minHeight: 2,
     minWidth: 1,
-  },
-  STATIC_NUMERIC_INPUT: {
+  }],
+  STATIC_NUMERIC_INPUT:[ {
     name: ControlNames.StaticNumericInput,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 2,
-  },
-  DROPDOWN: {
+  }],
+  DROPDOWN: [{
     name: ControlNames.Dropdown,
     type: ControlTypes.Input,
     minHeight: 2,
     minWidth: 2,
-  },
-  RADIO_BUTTON_GROUP: {
+  }],
+  RADIO_BUTTON_GROUP: [{
     name: ControlNames.RadioButtonGroup,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 2,
-  },
-  CHECKBOX_BUTTON_GROUP: {
+  }],
+  CHECKBOX_BUTTON_GROUP: [{
     name: ControlNames.CheckboxButtonGroup,
     type: ControlTypes.Input,
     minHeight: 1,
     minWidth: 2,
-  },
-  LOCAL_FILE_LOADER: {
+  }],
+  LOCAL_FILE_LOADER: [{
     name: ControlNames.LocalFileLoader,
     type: ControlTypes.Input,
     minHeight: 3,
     minWidth: 2,
-  },
-  NODE_REFERENCE: {
+  }],
+  NODE_REFERENCE: [{
     name: ControlNames.NodeReference,
     type: ControlTypes.Input,
     minHeight: 2,
     minWidth: 2,
-  },
+  }],
 };
 
 export const CTRL_MANIFEST = {
   ...InputControlsManifest,
-  ...OutputControlsManifest,
-  ...PlotTypesManifest,
+  ...OutputControlsManifest
 };

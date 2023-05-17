@@ -1,19 +1,21 @@
 import manifests from "../../../data/manifests-latest.json";
 
-type Commands = Record<
-  string,
-  {
-    title: string;
-    type: string;
-    key: string;
-    inputs?: { name: string; id: string; type: string }[];
-    ui_component_id?: string;
-    pip_dependencies?: Array<{
-      name: string;
-      v?: string | number;
-    }>;
-  }
->;
+type NodeElement = {
+  name: string;
+  type: string;
+  key: string;
+  inputs?: { name: string; id: string; type: string }[];
+  ui_component_id?: string;
+  pip_dependencies?: Array<{
+    name: string;
+    v?: string | number;
+  }>;
+}[]
+const CMND_MANIFEST = manifests.commands
+
+export type CommandManifestMap = {
+  [key: string]: NodeElement
+};
 
 type Sections = {
   title: string;
@@ -24,12 +26,15 @@ type Sections = {
   }[];
 }[];
 
-const CMND_MANIFEST: Commands = manifests.commands.reduce((result, element) => {
-  result[element.type] = element;
-  result["title"] = result["name"];
+const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce((result, element) => {
+  if (element.type in result){
+    result[element.type] = [...result[element.type], element]
+  } else {
+    result[element.type] = [element];
+  }
   return result;
 }, {});
-
+console.log(" resutl cmd manifest: ", CMND_MANIFEST)
 const CMND_TREE = {
   title: "ROOT",
   child: [
@@ -208,4 +213,4 @@ export const SECTIONS: Sections = [
   },
 ];
 
-export { CMND_MANIFEST, CMND_TREE };
+export { CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
