@@ -1,21 +1,25 @@
-import {Dispatch, memo, SetStateAction} from "react";
-import Select, {ThemeConfig} from "react-select";
+import { Dispatch, memo, SetStateAction } from "react";
+import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import customDropdownStyles from "../../style/CustomDropdownStyles";
 
-import {ControlNames} from "../../manifest/CONTROLS_MANIFEST";
+import { ControlNames } from "../../manifest/CONTROLS_MANIFEST";
 import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
-import {CtlManifestType, CtrlManifestParam, PlotManifestParam,} from "@src/hooks/useFlowChartState";
-import {ResultsType} from "@src/feature/results_panel/types/ResultsType";
-import {CtrlOptionValue} from "../../types/ControlOptions";
+import {
+  CtlManifestType,
+  CtrlManifestParam,
+  PlotManifestParam,
+} from "@src/hooks/useFlowChartState";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { CtrlOptionValue } from "../../types/ControlOptions";
 import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
 import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
-import {Box, clsx, createStyles, useMantineColorScheme} from "@mantine/core";
-import {CtrlValueType} from "@feature/controls_panel/types/CtrlValue";
+import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -457,7 +461,7 @@ const ControlComponent = ({
               updateCtrlValue(
                 (val as { label: string; value: string }).value,
                 ctrlObj,
-                  CtrlValueType.unknown
+                CtrlValueType.string
               );
             }}
             theme={theme as unknown as ThemeConfig}
@@ -484,7 +488,11 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
-                    updateCtrlValue(option.value, ctrlObj, CtrlValueType.unknown);
+                    updateCtrlValue(
+                      option.value,
+                      ctrlObj,
+                      CtrlValueType.unknown
+                    );
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
@@ -509,7 +517,11 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
-                    updateCtrlValue(option.value, ctrlObj, CtrlValueType.unknown);
+                    updateCtrlValue(
+                      option.value,
+                      ctrlObj,
+                      CtrlValueType.unknown
+                    );
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
