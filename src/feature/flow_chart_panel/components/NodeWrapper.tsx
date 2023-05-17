@@ -11,7 +11,7 @@ const NodeWrapper = ({
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
-  const { failedNode, setNodes } = useFlowChartState();
+  const { failedNode, setNodes, setEdges } = useFlowChartState();
   const { states } = useSocket();
   const [runError, setRunError] = useState<{
     message: string;
@@ -20,6 +20,9 @@ const NodeWrapper = ({
 
   const handleNodeRemove = (nodeId: string) => {
     setNodes((prev) => prev.filter((node) => node.id !== nodeId));
+    setEdges((prev) =>
+      prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+    );
   };
 
   useEffect(() => {
