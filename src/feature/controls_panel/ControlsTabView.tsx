@@ -26,6 +26,7 @@ import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { createStyles } from "@mantine/styles";
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -111,7 +112,11 @@ const ControlsTab = ({
     // }
   };
 
-  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
+  const updateCtrlValue = (
+    val: string,
+    ctrl: CtlManifestType,
+    tp: CtrlValueType
+  ) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
       // if (c.id === ctrl.id) {
@@ -126,6 +131,7 @@ const ControlsTab = ({
         functionName: (ctrl.param! as CtrlManifestParam).functionName,
         param: (ctrl.param! as CtrlManifestParam).param,
         value: val,
+        ValType: tp,
       }
     );
   };

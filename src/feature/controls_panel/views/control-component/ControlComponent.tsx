@@ -1,24 +1,21 @@
-import { Dispatch, memo, SetStateAction } from "react";
-import Select, { ThemeConfig } from "react-select";
+import {Dispatch, memo, SetStateAction} from "react";
+import Select, {ThemeConfig} from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import customDropdownStyles from "../../style/CustomDropdownStyles";
 
-import { ControlNames } from "../../manifest/CONTROLS_MANIFEST";
+import {ControlNames} from "../../manifest/CONTROLS_MANIFEST";
 import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
-import {
-  CtlManifestType,
-  CtrlManifestParam,
-  PlotManifestParam,
-} from "@src/hooks/useFlowChartState";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import { CtrlOptionValue } from "../../types/ControlOptions";
+import {CtlManifestType, CtrlManifestParam, PlotManifestParam,} from "@src/hooks/useFlowChartState";
+import {ResultsType} from "@src/feature/results_panel/types/ResultsType";
+import {CtrlOptionValue} from "../../types/ControlOptions";
 import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
 import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import {Box, clsx, createStyles, useMantineColorScheme} from "@mantine/core";
+import {CtrlValueType} from "@feature/controls_panel/types/CtrlValue";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -124,7 +121,11 @@ export const useControlStyles = createStyles((theme) => {
 export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   results: ResultsType;
-  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
+  updateCtrlValue: (
+    value: string,
+    ctrl: CtlManifestType,
+    ValType: CtrlValueType
+  ) => void;
   attachParamsToCtrl: (
     val: CtrlOptionValue | PlotManifestParam,
     ctrlObj: CtlManifestType
@@ -188,13 +189,14 @@ const ControlComponent = ({
 
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
-    value: string
+    value: string,
+    type: CtrlValueType
   ) => {
     setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
       return;
     }
-    updateCtrlValue(value, ctrlObj);
+    updateCtrlValue(value, ctrlObj, type);
 
     if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
       attachParamsToCtrl(
@@ -321,7 +323,11 @@ const ControlComponent = ({
             placeholder={"Please enter the full file path"}
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value);
+              handleCtrlValueChange(
+                setTextInput,
+                e.target.value,
+                CtrlValueType.string
+              );
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -347,7 +353,11 @@ const ControlComponent = ({
             placeholder="Write your text.."
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value);
+              handleCtrlValueChange(
+                setTextInput,
+                e.target.value,
+                CtrlValueType.string
+              );
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -361,7 +371,11 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value);
+              handleCtrlValueChange(
+                setNumberInput,
+                e.target.value,
+                CtrlValueType.number
+              );
             }}
             value={currentInputValue || numberInput || 0}
           />
@@ -375,7 +389,11 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={classes.ctrlNumericInput}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value);
+              handleCtrlValueChange(
+                setNumberInput,
+                e.target.value,
+                CtrlValueType.number
+              );
             }}
             disabled
             value={currentInputValue || numberInput || 0}
@@ -415,7 +433,11 @@ const ControlComponent = ({
             <Slider
               className="custom-slider"
               onChange={(val) => {
-                handleCtrlValueChange(setSliderInput, val.toString());
+                handleCtrlValueChange(
+                  setSliderInput,
+                  val.toString(),
+                  CtrlValueType.number
+                );
               }}
               value={+currentInputValue || +sliderInput || 0}
             />
@@ -434,7 +456,8 @@ const ControlComponent = ({
             onChange={(val) => {
               updateCtrlValue(
                 (val as { label: string; value: string }).value,
-                ctrlObj
+                ctrlObj,
+                  CtrlValueType.unknown
               );
             }}
             theme={theme as unknown as ThemeConfig}
@@ -461,7 +484,7 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
-                    updateCtrlValue(option.value, ctrlObj);
+                    updateCtrlValue(option.value, ctrlObj, CtrlValueType.unknown);
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
@@ -486,7 +509,7 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={(e) => {
-                    updateCtrlValue(option.value, ctrlObj);
+                    updateCtrlValue(option.value, ctrlObj, CtrlValueType.unknown);
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>

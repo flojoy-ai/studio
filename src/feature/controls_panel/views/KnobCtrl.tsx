@@ -3,10 +3,11 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { Draft } from "immer";
-import { useCallback, useEffect, useState, memo } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
+import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
 
 export interface KnobCtrlProps {
   makeLayoutStatic: () => void;
@@ -18,7 +19,11 @@ export interface KnobCtrlProps {
       | ReactGridLayout.Layout[]
       | ((draft: Draft<ReactGridLayout.Layout>[]) => void)
   ) => void;
-  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
+  updateCtrlValue: (
+    value: string,
+    ctrl: CtlManifestType,
+    ValTyp: CtrlValueType
+  ) => void;
   currentInputValue: number;
 }
 
@@ -35,7 +40,7 @@ const KnobCtrl = ({
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       if ((ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        updateCtrlValue(value.toString(), ctrlObj);
+        updateCtrlValue(value.toString(), ctrlObj, CtrlValueType.number);
       }
       setKnobValue(value);
     },

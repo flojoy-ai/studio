@@ -1,3 +1,5 @@
+import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+
 export type ElementsData = {
   id: string;
   label: string;
@@ -10,6 +12,7 @@ export type ElementsData = {
       functionName: string;
       param: string;
       value: string;
+      ValType: CtrlValueType;
     };
   };
   inputs?: Array<{ name: string; id: string; type: string }>;
