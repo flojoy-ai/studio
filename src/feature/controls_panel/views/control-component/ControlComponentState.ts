@@ -17,6 +17,7 @@ import {
 
 import { Data } from "plotly.js";
 import { useMantineColorScheme } from "@mantine/styles";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;
@@ -29,11 +30,12 @@ const ControlComponentState = ({
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
-    nodes,
     ctrlsManifest,
     setGridLayout,
     isEditMode,
   } = useFlowChartState();
+
+  const { nodes } = useFlowChartNodes();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);

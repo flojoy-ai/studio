@@ -3,9 +3,10 @@ import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "plotly.js";
-import { useEffect } from "react";
+import React, { useMemo } from "react";
 import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
@@ -15,8 +16,6 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { useMemo } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -43,10 +42,8 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { runningNode, failedNode, selectedNode } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   // TODO: Investigate why this keeps making it rerender
   const { states } = useSocket();
@@ -92,7 +89,9 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || selected ? nodeClasses.defaultShadow : "",
+          runningNode === data.id || data.selected
+            ? nodeClasses.defaultShadow
+            : "",
           failedNode === data.id ? nodeClasses.failShadow : ""
         )}
       >
@@ -144,4 +143,4 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default VisorNode;
+export default React.memo(VisorNode);

@@ -4,29 +4,12 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { Box, createStyles, Text } from "@mantine/core";
 
-function useTraceUpdate(props) {
-  const prev = useRef(props);
-  useEffect(() => {
-    const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-      if (prev.current[k] !== v) {
-        ps[k] = [prev.current[k], v];
-      }
-      return ps;
-    }, {});
-    if (Object.keys(changedProps).length > 0) {
-      console.log(new Date().getTime() + " Changed props:", changedProps);
-    }
-    prev.current = props;
-  });
-}
-
 const NodeWrapper = ({
   data,
   children,
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
-  useTraceUpdate({ data, children });
   const { failedNode } = useFlowChartState();
   const { states } = useSocket();
   const [runError, setRunError] = useState<{
@@ -57,8 +40,6 @@ const NodeWrapper = ({
       setRunError(null);
     };
   }, [failedNode, data, states?.failureReason]);
-
-  // console.log(`Rerendering ${data.id}`);
 
   return (
     <div

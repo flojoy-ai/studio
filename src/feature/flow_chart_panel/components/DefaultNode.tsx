@@ -1,10 +1,10 @@
 import { Box, clsx, createStyles } from "@mantine/core";
-import { useEffect } from "react";
+import React from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 import NodeWrapper from "./NodeWrapper";
+import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 export const useNodeStyles = createStyles((theme) => {
   const accent =
@@ -61,16 +61,14 @@ export const useNodeStyles = createStyles((theme) => {
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
-  const { runningNode, failedNode, selectedNode } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   return (
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || selected ? classes.defaultShadow : "",
+          runningNode === data.id || data.selected ? classes.defaultShadow : "",
           failedNode === data.id ? classes.failShadow : ""
         )}
       >
@@ -80,7 +78,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {selected && Object.keys(data.ctrls).length > 0 && (
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
           <Box>{data.label}</Box>
@@ -99,4 +97,4 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default DefaultNode;
+export default React.memo(DefaultNode);

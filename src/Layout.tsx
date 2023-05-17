@@ -1,5 +1,5 @@
-import { Header } from "./Header";
-import { ServerStatus } from "./ServerStatus";
+import Header from "./Header";
+import ServerStatus from "./ServerStatus";
 import { useSocket } from "./hooks/useSocket";
 
 type LayoutProps = {

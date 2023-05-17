@@ -1,5 +1,5 @@
 import { Select, TextInput, NumberInput, Checkbox } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
 
 export type ParamType = "float" | "int" | "string" | "boolean" | "select";
 
@@ -20,7 +20,7 @@ const ParamField = ({
   value,
   options,
 }: ParamFieldProps) => {
-  const { updateCtrlInputDataForNode } = useFlowChartState();
+  const { updateCtrlInputDataForNode } = useFlowChartNodes();
   const handleChange = (value: string) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
       functionName,

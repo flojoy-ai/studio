@@ -1,21 +1,19 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, Text, clsx } from "@mantine/core";
 import { useSocket } from "@src/hooks/useSocket";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
-import { Box, clsx, Text } from "@mantine/core";
-import { useNodeStyles } from "../DefaultNode";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { runningNode, failedNode, selectedNode } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  const selected = selectedNode ? selectedNode.id === data.id : false;
 
   const { states } = useSocket();
   const { programResults } = states!;
@@ -55,7 +53,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
     <NodeWrapper data={data}>
       <Box
         className={clsx(
-          runningNode === data.id || selected ? classes.defaultShadow : "",
+          runningNode === data.id || data.selected ? classes.defaultShadow : "",
           failedNode === data.id ? classes.failShadow : ""
         )}
       >
@@ -65,7 +63,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {selected && Object.keys(data.ctrls).length > 0 && (
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
           <Box>
@@ -124,4 +122,4 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default ConditionalNode;
+export default React.memo(ConditionalNode);

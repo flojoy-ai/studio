@@ -1,15 +1,9 @@
-import {
-  Box,
-  Header as MantineHeader,
-  createStyles,
-  useMantineColorScheme,
-} from "@mantine/core";
-import { Dispatch, SetStateAction } from "react";
+import { Box, Header as MantineHeader, createStyles } from "@mantine/core";
+import React from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
-import { Logo } from "./Logo";
 import { HeaderTab } from "./HeaderTab";
+import { Logo } from "./Logo";
 import Controls from "./feature/flow_chart_panel/views/ControlBar";
-import { useLocation } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -34,7 +28,7 @@ const useStyles = createStyles((theme) => ({
 
 export type AppTab = "visual" | "panel" | "debug";
 
-export const Header = () => {
+const Header = () => {
   const { classes } = useStyles();
 
   return (
@@ -58,3 +52,5 @@ export const Header = () => {
     </MantineHeader>
   );
 };
+
+export default React.memo(Header);

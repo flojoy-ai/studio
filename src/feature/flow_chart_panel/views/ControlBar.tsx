@@ -1,14 +1,7 @@
-import {
-  Box,
-  Text,
-  clsx,
-  createStyles,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
-import { AppTab } from "@src/Header";
+import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/DropDown";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
@@ -19,12 +12,14 @@ import {
 import CancelIconSvg from "@src/utils/cancel_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { Dispatch, memo, useEffect, useState } from "react";
-import ReactSwitch from "react-switch";
-import "react-tabs/style/react-tabs.css";
-import PlayBtn from "../components/play-btn/PlayBtn";
-import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import { memo, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import "react-tabs/style/react-tabs.css";
+import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { useFilePicker } from "use-file-picker";
+import PlayBtn from "../components/play-btn/PlayBtn";
+import { ElementsData } from "../types/CustomNodeProps";
+import KeyboardShortcutModal from "./KeyboardShortcutModal";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -110,30 +105,104 @@ localforage.config({
   storeName: "flows",
 });
 
+// TODO: Prevent this from rerendering every time a node changes
 const Controls = () => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
-  const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
 
   const location = useLocation();
 
-  const {
-    isEditMode,
-    setIsEditMode,
-    rfInstance,
-    openFileSelector,
-    saveFile,
-    saveFileAs,
-    nodes,
-    edges,
-    setRfInstance,
-  } = useFlowChartState();
+  const { rfInstance, setRfInstance, ctrlsManifest, setCtrlsManifest } =
+    useFlowChartState();
+
+  const { nodes, edges, loadFlowExportObject } = useFlowChartNodes();
+
+  const [openFileSelector, { filesContent }] = useFilePicker({
+    readAs: "Text",
+    accept: ".txt",
+    maxFileSize: 50,
+  });
+
+  // TODO: Fix saving
+  const createFileBlob = (
+    rf: ReactFlowJsonObject<ElementsData>,
+    nodes: Node<ElementsData>[],
+    edges: Edge[]
+  ) => {
+    const updatedRf = {
+      ...rf,
+      nodes,
+      edges,
+    };
+
+    setRfInstance(updatedRf);
+
+    const fileContent = {
+      rfInstance: updatedRf,
+      ctrlsManifest,
+    };
+
+    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+
+    return new Blob([fileContentJsonString], {
+      type: "text/plain;charset=utf-8",
+    });
+  };
+
+  const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    console.log(rfInstance);
+    if (rfInstance) {
+      const blob = createFileBlob(rfInstance, nodes, edges);
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "flojoy.txt";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (rfInstance) {
+      const blob = createFileBlob(rfInstance, nodes, edges);
+
+      const handle = await (window as any).showSaveFilePicker({
+        suggestedName: "flojoy.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+      await writableStream.write(blob);
+      await writableStream.close();
+    }
+  };
+
+  // TODO: Find out why this keeps firing when moving nodes
+  useEffect(() => {
+    console.log("29");
+    // there will be only single file in the filesContent, for each will loop only once
+    filesContent.forEach((file) => {
+      const parsedFileContent = JSON.parse(file.content);
+      const flow = parsedFileContent.rfInstance;
+      setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
+      loadFlowExportObject(flow);
+    });
+  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
+
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
-      //
       const updatedRfInstance = {
         ...rfInstance,
         nodes,
@@ -183,7 +252,7 @@ const Controls = () => {
       {location.pathname !== "/debug" && (
         <DropDown dropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
-          <button data-cy="btn-save" onClick={saveFile}>
+          <button data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
             Save
           </button>
           <button
@@ -204,7 +273,7 @@ const Controls = () => {
                 ? "Save As is not supported in this browser, sorry!"
                 : ""
             }
-            onClick={saveFileAs}
+            onClick={() => saveFileAs(nodes, edges)}
           >
             <Text>Save As</Text>
             <small>Ctrl + s</small>

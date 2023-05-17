@@ -2,7 +2,7 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles } from "@mantine/core";
-import { useEffect } from "react";
+import React from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
@@ -31,13 +31,11 @@ const useStyles = createStyles((theme) => {
 const SimulationNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, selectedNode } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  const selected = selectedNode ? selectedNode.id === data.id : false;
-
   let selectShadow = "";
-  if (runningNode === data.id || selected) {
+  if (runningNode === data.id || data.selected) {
     selectShadow =
       data.func === "LINSPACE"
         ? nodeClasses.defaultShadow
@@ -58,7 +56,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {selected && Object.keys(data.ctrls).length > 0 && (
+          {data.selected && Object.keys(data.ctrls).length > 0 && (
             <NodeEditButtons />
           )}
           <Box data-testid="data-label-design">
@@ -79,4 +77,4 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default SimulationNode;
+export default React.memo(SimulationNode);

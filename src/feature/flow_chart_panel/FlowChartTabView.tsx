@@ -36,7 +36,9 @@ import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
-import { useStore } from "reactflow";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { useSearchParams } from "react-router-dom";
+import Sidebar from "./SideBar/Sidebar";
 
 localforage.config({
   name: "react-flow",
@@ -44,6 +46,7 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
+  const [searchParams, _] = useSearchParams();
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
@@ -70,15 +73,16 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
+  const { setRfInstance, setCtrlsManifest } = useFlowChartState();
+
   const {
-    isEditMode,
     nodes,
     setNodes,
     edges,
     setEdges,
-    setRfInstance,
     selectedNode,
-  } = useFlowChartState();
+    loadFlowExportObject,
+  } = useFlowChartNodes();
 
   const theme = useMantineTheme();
 
@@ -146,6 +150,29 @@ const FlowChartTab = () => {
     [setNodes]
   );
 
+  const fetchExampleApp = useCallback(
+    async (fileName: string) => {
+      const res = await fetch(`/example-apps/${fileName}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await res.json();
+      setCtrlsManifest(data.ctrlsManifest);
+      const flow = data.rfInstance;
+      loadFlowExportObject(flow);
+    },
+    [loadFlowExportObject, setCtrlsManifest]
+  );
+
+  useEffect(() => {
+    const filename = searchParams.get("test_example_app");
+    if (filename) {
+      fetchExampleApp(filename);
+    }
+  }, []);
+
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -166,8 +193,10 @@ const FlowChartTab = () => {
     setPythonString,
     windowWidth,
   });
+
   return (
     <Layout>
+      <Sidebar />
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 110px)" }}
