@@ -6,6 +6,7 @@ import { useState } from "react";
 import SidebarSection from "./SidebarSection";
 import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
+import React from "react";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -218,4 +219,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);
