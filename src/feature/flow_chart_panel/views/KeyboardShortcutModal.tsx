@@ -99,7 +99,7 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
       size={"1030"}
     >
       <Button onClick={onClose} className={classes.closeButton}></Button>
-      
+
       <div className={classes.container}>
         {platforms.map((platform) => {
           return (

@@ -1,8 +1,8 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
-import {Modal, useMantineTheme} from "@mantine/core";
-import {createStyles, useMantineColorScheme } from "@mantine/styles";
+import { Modal, useMantineTheme } from "@mantine/core";
+import { createStyles, useMantineColorScheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { useState, useEffect } from "react";
 
@@ -36,15 +36,11 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
-  const themeMantine = useMantineTheme
+  const themeMantine = useMantineTheme;
   const theme = useMantineColorScheme().colorScheme;
 
   return (
-    <Modal
-      opened={modalIsOpen}
-      onClose={closeModal}
-      size={1030}
-    >
+    <Modal opened={modalIsOpen} onClose={closeModal} size={1030}>
       <button
         onClick={closeModal}
         data-cy="ctrl-close-btn"
