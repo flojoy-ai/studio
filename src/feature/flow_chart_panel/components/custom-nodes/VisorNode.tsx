@@ -16,6 +16,7 @@ import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
 import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { useMemo } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -47,8 +48,10 @@ const VisorNode = ({ data }: CustomNodeProps) => {
 
   const selected = selectedNode ? selectedNode.id === data.id : false;
 
+  // TODO: Investigate why this keeps making it rerender
   const { states } = useSocket();
   const { programResults } = states!;
+
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
 
@@ -71,6 +74,20 @@ const VisorNode = ({ data }: CustomNodeProps) => {
     },
   };
 
+  const plotlyResultData = useMemo(
+    () =>
+      result
+        ? result.result.default_fig.data.map((d) => ({
+            ...d,
+            marker: {
+              ...d.marker,
+              color: accentColor,
+            },
+          }))
+        : undefined,
+    [result]
+  );
+
   return (
     <NodeWrapper data={data}>
       <Box
@@ -79,16 +96,10 @@ const VisorNode = ({ data }: CustomNodeProps) => {
           failedNode === data.id ? nodeClasses.failShadow : ""
         )}
       >
-        {result ? (
+        {result && plotlyResultData ? (
           <>
             <PlotlyComponent
-              data={result.result.default_fig.data.map((d) => ({
-                ...d,
-                marker: {
-                  ...d.marker,
-                  color: accentColor,
-                },
-              }))}
+              data={plotlyResultData}
               id={data.id}
               layout={{ ...plotLayout, ...layoutOverride }}
               useResizeHandler

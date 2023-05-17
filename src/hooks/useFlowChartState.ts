@@ -120,6 +120,7 @@ export function useFlowChartState() {
     maxFileSize: 50,
   });
 
+  // TODO: Find out why this keeps firing when moving nodes
   useEffect(() => {
     console.log("29");
     // there will be only single file in the filesContent, for each will loop only once

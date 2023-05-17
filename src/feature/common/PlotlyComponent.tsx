@@ -6,6 +6,7 @@ type PlotProps = {
   id: string;
 } & PlotParams;
 
+// TODO: Why does this rerender constantly after first run?
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
   useEffect(() => {
@@ -19,6 +20,7 @@ const PlotlyComponent = (props: PlotProps) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
+
   return (
     <Plot
       data={data}
