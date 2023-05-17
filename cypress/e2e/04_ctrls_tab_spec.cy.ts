@@ -58,8 +58,8 @@ describe("Ctrl Tab management", () => {
 
         const itemText =
           typeof item.value === "string"
-            ? ControlNames.TextInput
-            : ControlNames.NumericInput;
+            ? "TEXT_INPUT"
+            : "NUMERIC_INPUT";
 
         cy.get("[data-testid=sidebar-sections]").contains(itemText).click();
 
