@@ -8,8 +8,10 @@ import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
-import { CommandManifestMap, Sections } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-
+import {
+  CommandManifestMap,
+  Sections,
+} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 
 type leafClickHandler = (key: string) => void;
 
