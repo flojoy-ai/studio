@@ -5,7 +5,7 @@ exports[`Sidebar should render the component correctly 1`] = `
   <button
     class="mantine-b33zvb"
     data-testid="add-node-button"
-    style="position: absolute; height: 43px; left: 10px; top: 130px; margin: 10px; z-index: 1;"
+    style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
   >
     + Add Node
   </button>
