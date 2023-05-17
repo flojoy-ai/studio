@@ -12,6 +12,9 @@ on:
 jobs:
   buildNode:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        parallelism: 4 # Number of parallel jobs
 
     steps:
       - uses: actions/checkout@v3
@@ -34,12 +37,14 @@ jobs:
           redis-port: 6379
 
       - name: Run Flojoy startup script
+        needs: Start Redis
         run: bash flojoy -c
 
       - name: Run unit tests
         run: npm run test
 
       - name: Run e2e test
+        needs: Run Flojoy startup script
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
