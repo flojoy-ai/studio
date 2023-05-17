@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, memo } from "react";
 import {
   Group,
   Box,
@@ -178,4 +178,4 @@ const SidebarSubSection = ({ subSection, onAdd }: SubSectionProps) => {
   );
 };
 
-export default SidebarSubSection;
+export default memo(SidebarSubSection);

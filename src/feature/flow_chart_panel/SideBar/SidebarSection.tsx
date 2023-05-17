@@ -13,6 +13,10 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "../types/CustomNodeProps";
+import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { memo } from "react";
+import { Node } from "reactflow";
+import { Draft } from "immer";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -55,6 +59,11 @@ interface LinksGroupProps {
     key: string;
     child?: { name: string; key: string }[];
   }[];
+  setNodes: (
+    update:
+      | Node<ElementsData>[]
+      | ((draft: Draft<Node<ElementsData>>[]) => void)
+  ) => void;
 }
 
 const getNodePosition = () => {
@@ -64,13 +73,11 @@ const getNodePosition = () => {
   };
 };
 
-const SidebarSection = ({ title, child }: LinksGroupProps) => {
+const SidebarSection = ({ title, child, setNodes }: LinksGroupProps) => {
   const { classes, theme } = useStyles();
   const hasChilds = Array.isArray(child);
   const [opened, setOpened] = useState(false);
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
-
-  const { nodes, setNodes } = useFlowChartState();
 
   const addNewNode: NodeOnAddFunc = useCallback(
     ({ funcName, params, type, inputs, uiComponentId, pip_dependencies }) => {
@@ -79,13 +86,19 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
       if (funcName === "CONSTANT") {
         nodeLabel = "2.0";
       } else {
-        const numOfThisNodesOnChart = nodes.filter(
-          (node) => node.data.func === funcName
-        ).length;
-        nodeLabel =
-          numOfThisNodesOnChart > 0
-            ? `${funcName}_${numOfThisNodesOnChart}`
-            : funcName;
+        nodeLabel = funcName;
+        // TODO: Re-add this feature
+        // Can probably cache the number node per type in state,
+        // creating a dependency on nodes in this component is
+        // extremely expensive.
+
+        // const numOfThisNodesOnChart = nodes.filter(
+        //   (node) => node.data.func === funcName
+        // ).length;
+        // nodeLabel =
+        //   numOfThisNodesOnChart > 0
+        //     ? `${funcName}_${numOfThisNodesOnChart}`
+        //     : funcName;
       }
       const nodeParams = params
         ? Object.keys(params).reduce(
@@ -120,7 +133,7 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
       };
       setNodes((els) => els.concat(newNode));
     },
-    [nodes, setNodes]
+    [setNodes]
   );
 
   const items = (hasChilds ? child : []).map((c) => (
@@ -158,4 +171,4 @@ const SidebarSection = ({ title, child }: LinksGroupProps) => {
   );
 };
 
-export default SidebarSection;
+export default memo(SidebarSection);

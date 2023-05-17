@@ -196,7 +196,7 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar setNodes={setNodes} />
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 110px)" }}

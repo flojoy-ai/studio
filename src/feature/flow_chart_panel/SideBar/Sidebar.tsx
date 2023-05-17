@@ -1,12 +1,15 @@
-import { Navbar, ScrollArea, createStyles, Input, Anchor } from "@mantine/core";
+import { Anchor, Input, Navbar, ScrollArea, createStyles } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 
+import { Draft } from "immer";
 import { useState } from "react";
+import { Node } from "reactflow";
 
-import SidebarSection from "./SidebarSection";
-import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
-import React from "react";
+import { memo } from "react";
+import { COMMANDS, SECTIONS } from "../manifest/COMMANDS_MANIFEST";
+import { ElementsData } from "../types/CustomNodeProps";
+import SidebarSection from "./SidebarSection";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -70,7 +73,15 @@ export const useSidebarStyles = createStyles((theme) => ({
   },
 }));
 
-const Sidebar = () => {
+type SidebarProps = {
+  setNodes: (
+    update:
+      | Node<ElementsData>[]
+      | ((draft: Draft<Node<ElementsData>>[]) => void)
+  ) => void;
+};
+
+const Sidebar = ({ setNodes }: SidebarProps) => {
   const [isSideBarOpen, setSideBarStatus] = useState(false);
   const [textInput, handleChangeInput] = useState("");
   const { classes, theme } = useSidebarStyles();
@@ -96,7 +107,13 @@ const Sidebar = () => {
         return SECTIONS.map((section, _) => {
           return section.child.map((child, _) => {
             if (child.key === item) {
-              return <SidebarSection {...section} key={section.title} />;
+              return (
+                <SidebarSection
+                  {...section}
+                  key={section.title}
+                  setNodes={setNodes}
+                />
+              );
             }
             return <></>;
           });
@@ -111,6 +128,7 @@ const Sidebar = () => {
         data-testid="sidebar-section"
         {...item}
         key={item.title}
+        setNodes={setNodes}
       />
     ));
     return sections;
@@ -219,4 +237,4 @@ const Sidebar = () => {
   );
 };
 
-export default React.memo(Sidebar);
+export default memo(Sidebar);
