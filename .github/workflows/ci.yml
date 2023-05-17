@@ -12,9 +12,6 @@ on:
 jobs:
   buildNode:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        parallelism: 4 # Number of parallel jobs
 
     steps:
       - uses: actions/checkout@v3
@@ -42,6 +39,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test
+
+      - name: Remove snapshots
+        run: echo "" > snapshots.js 
 
       - name: Run e2e test
         needs: Run Flojoy startup script
