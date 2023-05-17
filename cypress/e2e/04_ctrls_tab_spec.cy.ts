@@ -57,9 +57,7 @@ describe("Ctrl Tab management", () => {
         cy.get("[data-cy=add-ctrl]").click();
 
         const itemText =
-          typeof item.value === "string"
-            ? "TEXT_INPUT"
-            : "NUMERIC_INPUT";
+          typeof item.value === "string" ? "TEXT_INPUT" : "NUMERIC_INPUT";
 
         cy.get("[data-testid=sidebar-sections]").contains(itemText).click();
 
