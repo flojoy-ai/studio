@@ -18,14 +18,8 @@ export type CommandManifestMap = {
 
 export type Sections = {
   title: string;
-  child: {
-    title: string;
-    child?: {
-      title?: string;
-      key?: string;
-      child: Sections["child"][0]["child"] | null;
-    }[];
-  }[];
+  child: Sections[] | null;
+  key?: string;
 };
 
 const CMND_MANIFEST = manifests.commands;
