@@ -104,8 +104,7 @@ const App = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey];
-    console.log(' control obj: ', ctrlObj)
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find(ctrl=> ctrl.key === ctrlKey)!;
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -128,7 +127,7 @@ const App = () => {
       hidden: false,
       id,
       layout: ctrlLayout,
-    } as CtlManifestType;
+    };
 
     cacheManifest([...ctrlsManifest, ctrl]);
   };

@@ -28,7 +28,7 @@ export const useSidebarStyles = createStyles((theme) => ({
 type SidebarNodeProps = {
   onClickHandle: (key: string) => void;
   keyNode: string;
-  manifestMap: CommandManifestMap; //TODO:
+  manifestMap: CommandManifestMap;
   depth: number;
 };
 
@@ -39,9 +39,7 @@ const SidebarNode = ({
   depth,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
-  // console.log(" keys: ", keyNode);
   const commands = manifestMap[keyNode] || [];
-  // console.log(" commands: ", commands, " key: ", keyNode)
   return (
     <>
       {commands.map((cmd) => (
