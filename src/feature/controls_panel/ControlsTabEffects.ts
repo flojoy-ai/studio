@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
 
 export function useControlsTabEffects() {
   const { setCtrlsManifest } = useFlowChartState();
-  const { nodes } = useFlowChartNodes();
+  const { nodes } = useFlowChartGraph();
 
   useEffect(() => {
     console.log("40");

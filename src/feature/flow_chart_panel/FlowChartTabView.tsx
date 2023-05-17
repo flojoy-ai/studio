@@ -36,7 +36,7 @@ import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
-import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
 import { useSearchParams } from "react-router-dom";
 import Sidebar from "./SideBar/Sidebar";
 
@@ -82,7 +82,7 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     loadFlowExportObject,
-  } = useFlowChartNodes();
+  } = useFlowChartGraph();
 
   const theme = useMantineTheme();
 

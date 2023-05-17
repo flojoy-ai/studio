@@ -25,7 +25,7 @@ import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { v4 as uuidv4 } from "uuid";
 import { Layout } from "@src/Layout";
 import SidebarCustom from "../common/Sidebar/Sidebar";
-import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -68,7 +68,7 @@ const ControlsTab = () => {
   } = useFlowChartState();
 
   const { nodes, updateCtrlInputDataForNode, removeCtrlInputDataForNode } =
-    useFlowChartNodes();
+    useFlowChartGraph();
 
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);

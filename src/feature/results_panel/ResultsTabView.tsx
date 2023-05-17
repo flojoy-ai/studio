@@ -17,7 +17,7 @@ import { useResultsTabEffects } from "./ResultsTabEffects";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
-import { useFlowChartNodes } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
 interface ResultsTabProps {
   results: ResultsType;
 }
@@ -30,7 +30,7 @@ const ResultsTab = () => {
   const results = programResults!;
 
   const { setResultNodes, resultNodes } = useResultsTabState();
-  const { nodes, edges } = useFlowChartNodes();
+  const { nodes, edges } = useFlowChartGraph();
 
   const { width: windowWidth } = useWindowSize();
   const onInit: OnInit = (rfIns) => {
