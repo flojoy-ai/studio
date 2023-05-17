@@ -12,7 +12,6 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
-  useMantineTheme,
 } from "@mantine/core";
 import { Node } from "reactflow";
 import "./App.css";
@@ -27,13 +26,12 @@ import {
   CTRL_MANIFEST,
   CTRL_TREE,
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
-import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
 import { AddNodeBtn } from "./AddNodeBtn";
 import {
-  CMND_MANIFEST,
+  CMND_MANIFEST_MAP,
   CMND_TREE,
 } from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
@@ -104,7 +102,9 @@ const App = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey];
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find(
+      (ctrl) => ctrl.key === ctrlKey
+    )!;
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -127,8 +127,7 @@ const App = () => {
       hidden: false,
       id,
       layout: ctrlLayout,
-    } as CtlManifestType;
-
+    };
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
@@ -184,7 +183,7 @@ const App = () => {
 
             <SidebarCustom
               sections={CMND_TREE}
-              manifestMap={CMND_MANIFEST}
+              manifestMap={CMND_MANIFEST_MAP}
               leafNodeClickHandler={addNewNode}
               isSideBarOpen={isSCRIPTSideBarOpen}
               setSideBarStatus={setSCRIPTSideBarStatus}

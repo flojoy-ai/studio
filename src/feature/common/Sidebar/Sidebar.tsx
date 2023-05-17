@@ -1,4 +1,4 @@
-import { Navbar, ScrollArea, Input, Anchor, Flex } from "@mantine/core";
+import { Navbar, ScrollArea, Input } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
@@ -8,29 +8,12 @@ import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
-import customDropdownStyles from "@src/feature/controls_panel/style/CustomDropdownStyles";
-
-interface Node {
-  title: string;
-  child: Node[] | null;
-}
-
-interface LeafNode extends Node {
-  key: string;
-}
+import {
+  CommandManifestMap,
+  Sections,
+} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 
 type leafClickHandler = (key: string) => void;
-
-const useAddButtonStyle = createStyles((theme) => {
-  return {
-    addButton: {
-      boxSizing: "border-box",
-      backgroundColor: theme.colors.modal[0],
-      border: theme.colors.accent1[0],
-      cursor: "pointer",
-    },
-  };
-});
 
 const useSidebarStyles = createStyles((theme) => ({
   navbarView: {
@@ -82,6 +65,15 @@ const useSidebarStyles = createStyles((theme) => ({
   },
 }));
 
+type SidebarCustomProps = {
+  isSideBarOpen: boolean;
+  setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  sections: Sections;
+  leafNodeClickHandler: leafClickHandler;
+  manifestMap: CommandManifestMap;
+  customContent?: JSX.Element;
+};
+
 export const SidebarCustom = ({
   isSideBarOpen,
   setSideBarStatus,
@@ -89,29 +81,21 @@ export const SidebarCustom = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
-}: {
-  isSideBarOpen: boolean;
-  setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: Node;
-  leafNodeClickHandler: leafClickHandler;
-  manifestMap: any; //Key value pair object
-  customContent?: JSX.Element;
-}) => {
+}: SidebarCustomProps) => {
   const [textInput, handleChangeInput] = useState("");
-  const addButtonClass = useAddButtonStyle();
   const { classes } = useSidebarStyles();
 
   //this function will create the sections to be rendered according to the search input
-  const renderSection = (textInput: string, node: Node, depth: number) => {
+  const renderSection = (textInput: string, node: Sections, depth: number) => {
     //if we are at the root
     if (node.title === "ROOT") {
       if (!node.child) return null;
       return node.child.map(
-        (c) => renderSection(textInput, c, depth) //render all the content of the children
+        (c) => renderSection(textInput, c as Sections, depth) //render all the content of the children
       );
     }
 
-    var content;
+    let content: any;
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
@@ -119,7 +103,7 @@ export const SidebarCustom = ({
         //case 1.1: node has children (is a section)
         if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
-            (c) => renderSection("", c, depth + 1) //render all the content of the children
+            (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
           );
           return (
             <SidebarSection
@@ -136,9 +120,9 @@ export const SidebarCustom = ({
           return (
             <SidebarNode
               data-testid="sidebar-node"
-              key={(node as LeafNode).key}
-              onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
-              keyNode={(node as LeafNode).key}
+              key={node.title}
+              onClickHandle={() => leafNodeClickHandler(node.key as string)}
+              keyNode={node.key as string}
               manifestMap={manifestMap}
               depth={depth}
             />
@@ -150,7 +134,7 @@ export const SidebarCustom = ({
         //case 2.1: node has children (is a section)
         if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
-            (c) => renderSection(textInput, c, depth + 1) //render all the content of the children
+            (c) => renderSection(textInput, c as Sections, depth + 1) //render all the content of the children
           );
 
           //if the content is not empty, then the section is not empty
@@ -173,7 +157,7 @@ export const SidebarCustom = ({
       //case 3.1: node has children (is a section)
       if (node["child"] !== null && !("key" in node)) {
         content = node.child.map(
-          (c) => renderSection("", c, depth + 1) //render all the content of the children
+          (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
         );
         return (
           <SidebarSection
@@ -191,9 +175,9 @@ export const SidebarCustom = ({
           <SidebarNode
             data-testid="sidebar-node"
             depth={depth}
-            key={(node as LeafNode).key}
-            onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
-            keyNode={(node as LeafNode).key}
+            key={node.key as string}
+            onClickHandle={leafNodeClickHandler}
+            keyNode={node.key as string}
             manifestMap={manifestMap}
           />
         );
@@ -203,58 +187,52 @@ export const SidebarCustom = ({
   };
 
   return (
-    <div>
-      <Navbar
-        data-testid="sidebar"
-        height={800}
-        width={{ sm: 387 }}
-        p="md"
-        className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+    <Navbar
+      data-testid="sidebar"
+      height={800}
+      width={{ sm: 387 }}
+      p="md"
+      className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+    >
+      <Navbar.Section
+        style={{
+          right: 10,
+          position: "absolute",
+          top: 5,
+        }}
       >
-        <Navbar.Section
+        <button
+          data-testid="sidebar-close"
+          onClick={() => setSideBarStatus(false)}
           style={{
-            right: 10,
-            position: "absolute",
-            top: 5,
+            cursor: "pointer",
           }}
         >
-          <button
-            data-testid="sidebar-close"
-            onClick={() => setSideBarStatus(false)}
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <CloseIconSvg />
-          </button>
-        </Navbar.Section>
-        <Navbar.Section>
-          <Input
-            data-testid="sidebar-input"
-            name="sidebar-input"
-            placeholder="Search"
-            icon={<IconSearch size={18} />}
-            radius="sm"
-            type="search"
-            style={{
-              marginTop: "30px",
-              background: "inherit",
-            }}
-            value={textInput}
-            onChange={(e) => handleChangeInput(e.target.value)}
-          />
-        </Navbar.Section>
-        <Navbar.Section>{customContent}</Navbar.Section>
-        <Navbar.Section
-          grow
-          className={classes.sections}
-          component={ScrollArea}
-        >
-          <div className={classes.sectionsInner} data-testid="sidebar-sections">
-            {renderSection(textInput, sections, 0)}
-          </div>
-        </Navbar.Section>
-      </Navbar>
-    </div>
+          <CloseIconSvg />
+        </button>
+      </Navbar.Section>
+      <Navbar.Section>
+        <Input
+          data-testid="sidebar-input"
+          name="sidebar-input"
+          placeholder="Search"
+          icon={<IconSearch size={18} />}
+          radius="sm"
+          type="search"
+          style={{
+            marginTop: "30px",
+            background: "inherit",
+          }}
+          value={textInput}
+          onChange={(e) => handleChangeInput(e.target.value)}
+        />
+      </Navbar.Section>
+      <Navbar.Section>{customContent}</Navbar.Section>
+      <Navbar.Section grow className={classes.sections} component={ScrollArea}>
+        <div className={classes.sectionsInner} data-testid="sidebar-sections">
+          {renderSection(textInput, sections, 0)}
+        </div>
+      </Navbar.Section>
+    </Navbar>
   );
 };

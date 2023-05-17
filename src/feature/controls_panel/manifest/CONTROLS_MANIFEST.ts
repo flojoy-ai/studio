@@ -135,24 +135,33 @@ export const CTRL_TREE = {
 };
 
 export const OutputControlsManifest = {
-  PLOT: {
-    name: ControlNames.Plot,
-    type: ControlTypes.Output,
-    minHeight: 3,
-    minWidth: 2,
-  },
-  SEVEN_SEGMENT_DISPLAY: {
-    name: ControlNames.SevenSegmentDisplay,
-    type: ControlTypes.Output,
-    minHeight: 3,
-    minWidth: 2,
-  },
-  MEDIA_VIEWER: {
-    name: ControlNames.MediaViewer,
-    type: ControlTypes.Output,
-    minHeight: 3,
-    minWidth: 2,
-  },
+  PLOT: [
+    {
+      name: ControlNames.Plot,
+      type: ControlTypes.Output,
+      key: "PLOT",
+      minHeight: 3,
+      minWidth: 2,
+    },
+  ],
+  SEVEN_SEGMENT_DISPLAY: [
+    {
+      name: ControlNames.SevenSegmentDisplay,
+      type: ControlTypes.Output,
+      key: "SEVEN_SEGMENT_DISPLAY",
+      minHeight: 3,
+      minWidth: 2,
+    },
+  ],
+  MEDIA_VIEWER: [
+    {
+      name: ControlNames.MediaViewer,
+      type: ControlTypes.Output,
+      key: "MEDIA_VIEWER",
+      minHeight: 3,
+      minWidth: 2,
+    },
+  ],
 };
 
 type PlotManifestType = {
@@ -202,70 +211,109 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
 };
 
 export const InputControlsManifest = {
-  TEXT_INPUT: {
-    name: ControlNames.TextInput,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 1,
-  },
-  NUMERIC_INPUT: {
-    name: ControlNames.NumericInput,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 1,
-  },
-  SLIDER: {
-    name: ControlNames.Slider,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 2,
-  },
-  KNOB: {
-    name: ControlNames.Knob,
-    type: ControlTypes.Input,
-    minHeight: 2,
-    minWidth: 1,
-  },
-  STATIC_NUMERIC_INPUT: {
-    name: ControlNames.StaticNumericInput,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 2,
-  },
-  DROPDOWN: {
-    name: ControlNames.Dropdown,
-    type: ControlTypes.Input,
-    minHeight: 2,
-    minWidth: 2,
-  },
-  RADIO_BUTTON_GROUP: {
-    name: ControlNames.RadioButtonGroup,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 2,
-  },
-  CHECKBOX_BUTTON_GROUP: {
-    name: ControlNames.CheckboxButtonGroup,
-    type: ControlTypes.Input,
-    minHeight: 1,
-    minWidth: 2,
-  },
-  LOCAL_FILE_LOADER: {
-    name: ControlNames.LocalFileLoader,
-    type: ControlTypes.Input,
-    minHeight: 3,
-    minWidth: 2,
-  },
-  NODE_REFERENCE: {
-    name: ControlNames.NodeReference,
-    type: ControlTypes.Input,
-    minHeight: 2,
-    minWidth: 2,
-  },
+  TEXT_INPUT: [
+    {
+      name: ControlNames.TextInput,
+      type: ControlTypes.Input,
+      key: "TEXT_INPUT",
+      minHeight: 1,
+      minWidth: 1,
+    },
+  ],
+  NUMERIC_INPUT: [
+    {
+      name: ControlNames.NumericInput,
+      type: ControlTypes.Input,
+      key: "NUMERIC_INPUT",
+      minHeight: 1,
+      minWidth: 1,
+    },
+  ],
+  SLIDER: [
+    {
+      name: ControlNames.Slider,
+      type: ControlTypes.Input,
+      key: "SLIDER",
+      minHeight: 1,
+      minWidth: 2,
+    },
+  ],
+  KNOB: [
+    {
+      name: ControlNames.Knob,
+      type: ControlTypes.Input,
+      key: "KNOB",
+      minHeight: 2,
+      minWidth: 1,
+    },
+  ],
+  STATIC_NUMERIC_INPUT: [
+    {
+      name: ControlNames.StaticNumericInput,
+      type: ControlTypes.Input,
+      key: "STATIC_NUMERIC_INPUT",
+      minHeight: 1,
+      minWidth: 2,
+    },
+  ],
+  DROPDOWN: [
+    {
+      name: ControlNames.Dropdown,
+      type: ControlTypes.Input,
+      key: "DROPDOWN",
+      minHeight: 2,
+      minWidth: 2,
+    },
+  ],
+  RADIO_BUTTON_GROUP: [
+    {
+      name: ControlNames.RadioButtonGroup,
+      type: ControlTypes.Input,
+      key: "RADIO_BUTTON_GROUP",
+      minHeight: 1,
+      minWidth: 2,
+    },
+  ],
+  CHECKBOX_BUTTON_GROUP: [
+    {
+      name: ControlNames.CheckboxButtonGroup,
+      type: ControlTypes.Input,
+      key: "CHECKBOX_BUTTON_GROUP",
+      minHeight: 1,
+      minWidth: 2,
+    },
+  ],
+  LOCAL_FILE_LOADER: [
+    {
+      name: ControlNames.LocalFileLoader,
+      type: ControlTypes.Input,
+      key: "LOCAL_FILE_LOADER",
+      minHeight: 3,
+      minWidth: 2,
+    },
+  ],
+  NODE_REFERENCE: [
+    {
+      name: ControlNames.NodeReference,
+      type: ControlTypes.Input,
+      key: "NODE_REFERENCE",
+      minHeight: 2,
+      minWidth: 2,
+    },
+  ],
 };
 
-export const CTRL_MANIFEST = {
+type CTRLManifest = {
+  [key: string]: {
+    name: string;
+    type: string;
+    key: string;
+    minHeight: number;
+    minWidth: number;
+    [key: string]: any;
+  }[];
+};
+export const CTRL_MANIFEST: CTRLManifest = {
   ...InputControlsManifest,
   ...OutputControlsManifest,
-  ...PlotTypesManifest,
 };

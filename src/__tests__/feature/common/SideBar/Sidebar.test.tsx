@@ -5,6 +5,7 @@ import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode
 import { useState } from "react";
 import {
   CMND_MANIFEST,
+  CMND_MANIFEST_MAP,
   CMND_TREE,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import React from "react";
@@ -51,7 +52,7 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
         />
         <SidebarCustom
           sections={{ title: "ROOT", child: [] }}
-          manifestMap={CMND_MANIFEST}
+          manifestMap={CMND_MANIFEST_MAP}
           leafNodeClickHandler={addNewNode}
           isSideBarOpen={isSCRIPTSideBarOpen}
           setSideBarStatus={setSCRIPTSideBarStatus}
@@ -67,7 +68,6 @@ const SidebarTest =
 
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
-    console.log(SidebarTest);
     const { container } = renderWithTheme(<SidebarTest />);
     expect(container).toMatchSnapshot();
   });

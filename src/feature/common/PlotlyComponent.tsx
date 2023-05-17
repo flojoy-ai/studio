@@ -40,6 +40,7 @@ const PlotlyComponent = (props: PlotProps) => {
       data={data}
       layout={layout}
       useResizeHandler={useResizeHandler}
+      config={{ displayModeBar: false }}
       style={style}
     />
   );

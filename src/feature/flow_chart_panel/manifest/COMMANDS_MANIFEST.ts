@@ -1,36 +1,42 @@
-import manifests from "../../../data/manifests-latest.json";
+import manifests from "@src/data/manifests-latest.json";
 
-type Commands = Record<
-  string,
-  {
-    title: string;
-    type: string;
-    key: string;
-    inputs?: { name: string; id: string; type: string }[];
-    ui_component_id?: string;
-    pip_dependencies?: Array<{
-      name: string;
-      v?: string | number;
-    }>;
-  }
->;
-
-type Sections = {
-  title: string;
-  child: {
+type NodeElement = {
+  name: string;
+  type: string;
+  key: string;
+  inputs?: { name: string; id: string; type: string }[];
+  ui_component_id?: string;
+  pip_dependencies?: Array<{
     name: string;
-    key: string;
-    child?: Sections[0]["child"];
-  }[];
+    v?: string | number;
+  }>;
 }[];
 
-const CMND_MANIFEST: Commands = manifests.commands.reduce((result, element) => {
-  result[element.type] = element;
-  result["title"] = result["name"];
-  return result;
-}, {});
+export type CommandManifestMap = {
+  [key: string]: NodeElement;
+};
 
-const CMND_TREE = {
+export type Sections = {
+  title: string;
+  child: Sections[] | null;
+  key?: string;
+};
+
+const CMND_MANIFEST = manifests.commands;
+
+const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
+  (result, element) => {
+    if (element.type in result) {
+      result[element.type] = [...result[element.type], element];
+    } else {
+      result[element.type] = [element];
+    }
+    return result;
+  },
+  {}
+);
+
+const CMND_TREE: Sections = {
   title: "ROOT",
   child: [
     {
@@ -125,87 +131,4 @@ const CMND_TREE = {
   ],
 };
 
-export const SECTIONS: Sections = [
-  {
-    title: "AI and Machine learning",
-    child: [
-      {
-        name: "Object detection",
-        key: "AI_OBJECT_DETECTION",
-      },
-    ],
-  },
-
-  {
-    title: "Extractors",
-    child: [
-      // Extractors tab
-      { name: "Files", key: "FILE" },
-      { name: "DAQ", key: "DAQ" },
-    ],
-  },
-  {
-    title: "Generators",
-    child: [
-      // Generators tab
-      { name: "Simulations", key: "SIMULATION" },
-      { name: "Sample datasets", key: "SAMPLE_DATASET" },
-      { name: "Sample images", key: "SAMPLE_IMAGE" },
-    ],
-  },
-  {
-    title: "Instruments",
-    child: [
-      { name: "Web cam", key: "WEB_CAM" },
-      { name: "Keithley", key: "KEITHLEY" },
-      { name: "Labjack", key: "LABJACK" },
-      { name: "Phidget", key: "PHIDGET" },
-      { name: "Stepper Driver tic", key: "STEPPER" },
-      { name: "Stepper Driver tic knob", key: "STEPPER2" },
-      { name: "Serial", key: "SERIAL" },
-    ],
-  },
-  {
-    title: "Loaders",
-    child: [
-      // Loaders tab
-      { name: "Cloud databases", key: "CLOUD_DATABASE" },
-      { name: "Cloud file systems", key: "CLOUD_FILE_SYSTEM" },
-      { name: "Local file system", key: "LOCAL_FILE_SYSTEM" },
-    ],
-  },
-  {
-    title: "Logic gates",
-    child: [
-      // Conditionals, Timers, & Loops
-      { name: "Timers", key: "TIMER" },
-      { name: "Loops", key: "LOOP" },
-      { name: "Conditionals", key: "CONDITIONAL" },
-      { name: "Terminators", key: "TERMINATOR" },
-    ],
-  },
-
-  {
-    title: "Transformers",
-    child: [
-      // Transformers tab
-      { name: "Arithmetic", key: "ARITHMETIC" },
-      { name: "Signal processing", key: "SIGNAL_PROCESSING" },
-      { name: "Regressions", key: "REGRESSIONS" },
-      { name: "Image processing", key: "IMAGE_PROCESSING" },
-      { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
-      { name: "Matrix manipulation", key: "MATRIX_MANIPULATION" },
-      { name: "Array selection", key: "SELECT_ARRAY" },
-    ],
-  },
-
-  {
-    title: "Visualizers",
-    child: [
-      // Visualization tab
-      { name: "Plotly", key: "PLOTLY_VISOR" },
-    ],
-  },
-];
-
-export { CMND_MANIFEST, CMND_TREE };
+export { CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
