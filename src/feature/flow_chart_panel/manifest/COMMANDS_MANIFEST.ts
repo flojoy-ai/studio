@@ -49,7 +49,23 @@ const CMND_TREE: Sections = {
         },
       ],
     },
-
+    {
+      title: "SCIentific PYthon (SCIPY)",
+      child: [
+        {title: "SciPy Signal",key: "SCIPY_SIGNAL", child: null},
+        {title: "SciPy Stats", key: "SCIPY_STATS", child: null}
+      ],
+    },
+    {
+      title: "NUMeric PYthon (NUMPY)",
+      child: [
+        {
+          title: "NumPy",
+          key: "NUMPY",
+          child: null
+        },
+      ],
+    },
     {
       title: "Extractors",
       child: [
