@@ -36,7 +36,6 @@ const SidebarNode = ({
   onClickHandle,
   keyNode,
   manifestMap,
-  depth,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const commands = manifestMap[keyNode] || [];
@@ -47,7 +46,6 @@ const SidebarNode = ({
           key={cmd.key}
           className={classes.buttonLeafNode}
           onClick={() => {
-            console.log(" passing props: ", cmd.key || keyNode)
             onClickHandle(cmd.key || keyNode);
           }}
         >

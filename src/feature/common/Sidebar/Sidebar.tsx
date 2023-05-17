@@ -1,4 +1,4 @@
-import { Navbar, ScrollArea, Input, Anchor, Flex } from "@mantine/core";
+import { Navbar, ScrollArea, Input } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
@@ -8,29 +8,10 @@ import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
-import customDropdownStyles from "@src/feature/controls_panel/style/CustomDropdownStyles";
+import { CommandManifestMap, Sections } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 
-interface Node {
-  title: string;
-  child: Node[] | null;
-}
-
-interface LeafNode extends Node {
-  key: string;
-}
 
 type leafClickHandler = (key: string) => void;
-
-const useAddButtonStyle = createStyles((theme) => {
-  return {
-    addButton: {
-      boxSizing: "border-box",
-      backgroundColor: theme.colors.modal[0],
-      border: theme.colors.accent1[0],
-      cursor: "pointer",
-    },
-  };
-});
 
 const useSidebarStyles = createStyles((theme) => ({
   navbarView: {
@@ -85,12 +66,11 @@ const useSidebarStyles = createStyles((theme) => ({
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: Node;
+  sections: Sections;
   leafNodeClickHandler: leafClickHandler;
-  manifestMap: any; //Key value pair object
+  manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
-}
-
+};
 
 export const SidebarCustom = ({
   isSideBarOpen,
@@ -104,16 +84,16 @@ export const SidebarCustom = ({
   const { classes } = useSidebarStyles();
 
   //this function will create the sections to be rendered according to the search input
-  const renderSection = (textInput: string, node: Node, depth: number) => {
+  const renderSection = (textInput: string, node: Sections, depth: number) => {
     //if we are at the root
     if (node.title === "ROOT") {
       if (!node.child) return null;
       return node.child.map(
-        (c) => renderSection(textInput, c, depth) //render all the content of the children
+        (c) => renderSection(textInput, c as Sections, depth) //render all the content of the children
       );
     }
 
-    let content;
+    let content: any;
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
@@ -121,7 +101,7 @@ export const SidebarCustom = ({
         //case 1.1: node has children (is a section)
         if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
-            (c) => renderSection("", c, depth + 1) //render all the content of the children
+            (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
           );
           return (
             <SidebarSection
@@ -138,9 +118,9 @@ export const SidebarCustom = ({
           return (
             <SidebarNode
               data-testid="sidebar-node"
-              key={(node as LeafNode).key}
-              onClickHandle={() => leafNodeClickHandler((node as LeafNode).key)}
-              keyNode={(node as LeafNode).key}
+              key={node.title}
+              onClickHandle={() => leafNodeClickHandler(node.key as string)}
+              keyNode={node.key as string}
               manifestMap={manifestMap}
               depth={depth}
             />
@@ -152,7 +132,7 @@ export const SidebarCustom = ({
         //case 2.1: node has children (is a section)
         if (node["child"] !== null && !("key" in node)) {
           content = node.child.map(
-            (c) => renderSection(textInput, c, depth + 1) //render all the content of the children
+            (c) => renderSection(textInput, c as Sections, depth + 1) //render all the content of the children
           );
 
           //if the content is not empty, then the section is not empty
@@ -175,7 +155,7 @@ export const SidebarCustom = ({
       //case 3.1: node has children (is a section)
       if (node["child"] !== null && !("key" in node)) {
         content = node.child.map(
-          (c) => renderSection("", c, depth + 1) //render all the content of the children
+          (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
         );
         return (
           <SidebarSection
@@ -193,9 +173,9 @@ export const SidebarCustom = ({
           <SidebarNode
             data-testid="sidebar-node"
             depth={depth}
-            key={(node as LeafNode).key}
+            key={node.key as string}
             onClickHandle={leafNodeClickHandler}
-            keyNode={(node as LeafNode).key}
+            keyNode={node.key as string}
             manifestMap={manifestMap}
           />
         );

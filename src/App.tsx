@@ -12,7 +12,6 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
-  useMantineTheme,
 } from "@mantine/core";
 import { Node } from "reactflow";
 import "./App.css";
@@ -27,7 +26,6 @@ import {
   CTRL_MANIFEST,
   CTRL_TREE,
 } from "./feature/controls_panel/manifest/CONTROLS_MANIFEST";
-import { createStyles } from "@mantine/core";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { AddCTRLBtn } from "./AddCTRLBtn";
 import { EditSwitch } from "./EditSwitch";
@@ -104,7 +102,9 @@ const App = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCTRLSideBarStatus(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey].find(ctrl=> ctrl.key === ctrlKey)!;
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find(
+      (ctrl) => ctrl.key === ctrlKey
+    )!;
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -128,7 +128,6 @@ const App = () => {
       id,
       layout: ctrlLayout,
     };
-
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 

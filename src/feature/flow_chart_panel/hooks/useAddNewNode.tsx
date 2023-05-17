@@ -20,7 +20,6 @@ export const useAddNewNode = () => {
   const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
     ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY)!)
     : getNodePosition();
-  console.log(" lastnodeposition: ", lastNodePosition);
   useEffect(() => {
     return () => localStorage.setItem(LAST_NODE_POSITION_KEY, "");
   }, []);
