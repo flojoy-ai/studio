@@ -1,7 +1,7 @@
-import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
+import { Modal } from "@mantine/core";
 import {
   createStyles,
   useMantineColorScheme,
@@ -31,7 +31,6 @@ const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
-  modalStyles,
   nodeLabel,
   nodeType,
   nd,
@@ -40,25 +39,23 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
+
   const theme = useMantineTheme();
 
   const colorScheme = useMantineColorScheme().colorScheme;
+
   return (
-    <ReactModal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      style={modalStyles}
-      ariaHideApp={false}
-      contentLabel=""
+    <Modal
+      data-testid="node-modal"
+      opened={modalIsOpen}
+      onClose={closeModal}
+      size={1030}
     >
       <button
         onClick={closeModal}
         data-cy="ctrl-close-btn"
         className={classes.closeButton}
-      >
-        x
-      </button>
+      ></button>
 
       {nodeLabel !== undefined && nodeType !== undefined && (
         <div>
@@ -109,7 +106,7 @@ const NodeModal = ({
       >
         {`${JSON.stringify(clickedElement, undefined, 4)}`}
       </SyntaxHighlighter>
-    </ReactModal>
+    </Modal>
   );
 };
 
