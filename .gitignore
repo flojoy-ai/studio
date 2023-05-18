@@ -52,5 +52,5 @@ worker-manager/node_modules
 
 src/data/manifests-latest.json
 src/feature/flow_chart_panel/manifest/pythonFunctions.json
-PYTHON/.idea/
-djangoServer/.idea/
+PYTHON/.idea/*
+djangoServer/.idea/*
