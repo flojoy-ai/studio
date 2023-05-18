@@ -1,16 +1,15 @@
 import { createStyles } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "../../types/CustomNodeProps";
 import { Draft } from "immer";
 import { Node } from "reactflow";
+import { ElementsData } from "../../types/CustomNodeProps";
 
 const useStyles = createStyles((theme) => {
   return {
     addButton: {
       boxSizing: "border-box",
       backgroundColor: "transparent",
-      color: "red",
-      border: "1px solid red",
+      color: theme.colors.red[8],
+      border: `1px solid ${theme.colors.red[8]}`,
       cursor: "pointer",
     },
   };

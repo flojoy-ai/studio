@@ -5,21 +5,20 @@ import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { useSocket } from "@src/hooks/useSocket";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
 import { Layout } from "plotly.js";
 import { memo, useMemo } from "react";
-import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
 import Histogram from "../nodes/Histogram";
-import Scatter from "../nodes/Scatter";
-import BarChart from "../nodes/bar";
-import LineChart from "../nodes/line-chart";
-import { makePlotlyData } from "@src/utils/format_plotly_data";
-import PlotlyTable from "../nodes/Table";
 import PlotlyImage from "../nodes/Image";
+import Scatter from "../nodes/Scatter";
+import PlotlyTable from "../nodes/Table";
+import BarChart from "../nodes/bar";
 import BoxPlot from "../nodes/box-plot";
+import LineChart from "../nodes/line-chart";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -53,8 +52,9 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const params = data.inputs || [];
 
   // TODO: Investigate why this keeps making it rerender
-  const { states } = useSocket();
-  const { programResults } = states!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
