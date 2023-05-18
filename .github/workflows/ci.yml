@@ -9,8 +9,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+  APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
+
 jobs:
-  run-tests:
+  jest-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,21 +40,90 @@ jobs:
       - name: Run Flojoy startup script
         run: bash flojoy -c
 
-      - name: Run unit tests
+      - name: Run Jest tests
         run: npm run test
 
-  test-python:
+  code-style-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
           cache: "pip"
+
+      - name: Format dependencies
+        run: pip3 install black && npm i
+
+      - name: Run formatting check
+        run: npm run check
+
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
       - run: pip install -r requirements.txt
+
       - name: pytest
         run: |
           cd PYTHON
           python -m pytest
+
+  visual-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.5.0
+        with:
+          redis-version: 4
+          redis-port: 6379
+
+      - name: Run Flojoy startup script
+        run: bash flojoy -c
+
+      - name: Run e2e test
+        uses: cypress-io/github-action@v4
+        with:
+          build: npm run build
+          start: npm run start-project
+          browser: chrome
+          install: false
+
+  applitools-notification:
+    # this runs after all the test jobs have completed
+    needs: [visual-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Applitools batch status
+        uses: wei/curl@v1.1.1
+        with:
+          args: -X POST -d -H "accept:*/*" https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{env.APPLITOOLS_BATCH_ID}}/complete?apiKey=${{env.APPLITOOLS_API_KEY}}
