@@ -22,7 +22,7 @@ export const ClearCanvasBtn = () => {
   };
   return (
     <button
-      data-testid="add-node-button"
+      data-testid="clear-canvas-btn"
       className={classes.addButton}
       onClick={deleteAllNodes}
       style={{
