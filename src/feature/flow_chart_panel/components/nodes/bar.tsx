@@ -16,6 +16,7 @@ const BarChartDark = () => {
       width="225"
       height="226"
       viewBox="0 0 225 226"
+      data-testid="barchart-svg"
     >
       <rect width="100%" height="100%" fill="rgba(255, 255, 255, 0)"></rect>
       <path
@@ -168,6 +169,7 @@ const BarChartLight = () => {
       width="225"
       height="226"
       viewBox="0 0 225 226"
+      data-testid="barchart-svg"
     >
       <rect width="100%" height="100%" fill="rgba(255, 255, 255, 0)"></rect>
       <path
