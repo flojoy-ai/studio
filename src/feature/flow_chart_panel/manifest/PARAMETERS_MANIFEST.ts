@@ -1,14 +1,5 @@
 import manifests from "@src/data/manifests-latest.json";
 import { z } from "zod";
-type FunctionParametersType = {
-  [key: string]: {
-    [key: string]: {
-      type: string;
-      default: string | number;
-      options?: string[];
-    };
-  };
-};
 
 const paramsSchema = z.record(
   z.string(),

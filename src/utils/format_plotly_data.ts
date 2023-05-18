@@ -4,6 +4,8 @@ import {
   DataContainer,
   DataFrameData,
   OrderedPairData,
+  OrderedTripleData,
+  ScalarData,
 } from "@src/feature/results_panel/types/ResultsType";
 import { PlotData } from "plotly.js";
 
@@ -68,12 +70,35 @@ export const dataContainer2Plotly = ({
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
   const cellFillColor = "transparent";
   switch (dataContainer.type) {
+    // TODO: This match is not exausitive, missing matrix and grayscale
+    case "scalar": {
+      const data = dataContainer.data as ScalarData;
+      return [
+        {
+          x: data.c, // TODO: Not sure if this is right
+          type: plotType,
+          mode: plotMode,
+        },
+      ];
+    }
     case "ordered_pair": {
       const data = dataContainer.data as OrderedPairData;
       return [
         {
           x: data.x,
           y: data.y,
+          type: plotType,
+          mode: plotMode,
+        },
+      ];
+    }
+    case "ordered_triple": {
+      const data = dataContainer.data as OrderedTripleData;
+      return [
+        {
+          x: data.x,
+          y: data.y,
+          z: data.z, // TODO: Do we actually have z right now?
           type: plotType,
           mode: plotMode,
         },
