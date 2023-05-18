@@ -63,6 +63,10 @@ const useSidebarStyles = createStyles((theme) => ({
     cursor: "pointer",
     margin: "5px 5px",
   },
+
+  searchBox: {
+    marginTop: 30,
+  },
 }));
 
 type SidebarCustomProps = {
@@ -219,7 +223,7 @@ const Sidebar = ({
           icon={<IconSearch size={18} />}
           radius="sm"
           type="search"
-          mt={30}
+          className={classes.searchBox}
           value={textInput}
           onChange={(e) => handleChangeInput(e.target.value)}
         />
