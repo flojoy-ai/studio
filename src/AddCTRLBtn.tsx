@@ -24,7 +24,7 @@ export const AddCTRLBtn = ({
   const { classes } = useAddButtonStyle();
   return (
     <button
-      // data-testid="add-node-button"
+      data-testid="add-ctrl-button"
       data-cy="add-ctrl"
       className={classes.addButton}
       onClick={() => {
@@ -32,9 +32,9 @@ export const AddCTRLBtn = ({
         setIsEditMode(true);
       }}
       style={{
-        width: "104px",
+        width: "fit-content",
         height: "43px",
-        left: "0px",
+        left: "10px",
         top: "110px",
         margin: "10px",
         zIndex: 1,

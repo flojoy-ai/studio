@@ -5,7 +5,6 @@ import { Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
-import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 
 const useStyles = createStyles((theme) => {
   const accent =
@@ -56,9 +55,6 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
-            <NodeEditButtons />
-          )}
           <Box data-testid="data-label-design">
             <Box>{data.label}</Box>
           </Box>

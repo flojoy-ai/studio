@@ -20,6 +20,7 @@ import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import APIKeyModal from "./API_keyModal";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -110,12 +111,20 @@ const Controls = () => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
+  const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
 
   const location = useLocation();
 
-  const { rfInstance, setRfInstance, ctrlsManifest, setCtrlsManifest } =
-    useFlowChartState();
+  const {
+    rfInstance,
+    setRfInstance,
+    ctrlsManifest,
+    setCtrlsManifest,
+    nodeParamChanged,
+    setNodeParamChanged,
+  } = useFlowChartState();
 
   const { nodes, edges, loadFlowExportObject } = useFlowChartGraph();
 
@@ -212,6 +221,7 @@ const Controls = () => {
       saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer(socketId, updatedRfInstance);
+      setNodeParamChanged(undefined);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -281,12 +291,19 @@ const Controls = () => {
           <button onClick={() => setIskeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
+          <button onClick={() => setIsAPIKeyModelOpen(true)}>
+            Set API key
+          </button>
         </DropDown>
       )}
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
+      />
+      <APIKeyModal
+        isOpen={isAPIKeyModelOpen}
+        onClose={() => setIsAPIKeyModelOpen(false)}
       />
     </Box>
   );

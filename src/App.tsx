@@ -6,6 +6,7 @@ import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { useDisclosure } from "@mantine/hooks";
 import { GlobalStyles } from "./feature/common/Global";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   ColorScheme,

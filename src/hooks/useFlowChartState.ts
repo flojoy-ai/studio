@@ -1,5 +1,5 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
 import { Layout } from "react-grid-layout";
@@ -77,6 +77,8 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     ...ctrl.layout,
   }))
 );
+const apiKeyAtom = atomWithImmer<string>("");
+const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
@@ -87,6 +89,8 @@ export function useFlowChartState() {
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   return {
     rfInstance,
@@ -103,5 +107,9 @@ export function useFlowChartState() {
     setRunningNode,
     failedNode,
     setFailedNode,
+    apiKey,
+    setApiKey,
+    nodeParamChanged,
+    setNodeParamChanged,
   };
 }
