@@ -1,7 +1,7 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
-import { Modal, useMantineTheme } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import {
   createStyles,
   useMantineColorScheme,
@@ -39,11 +39,11 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
-  
+
   const theme = useMantineTheme();
 
   const colorScheme = useMantineColorScheme().colorScheme;
-  
+
   return (
     <Modal
       data-testid="node-modal"
