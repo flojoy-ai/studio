@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { CustomNodeProps } from "../types/CustomNodeProps";
+import { Box, Text, createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
-import { Box, createStyles, Text } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import { CustomNodeProps } from "../types/CustomNodeProps";
 import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 const NodeWrapper = ({
@@ -11,19 +11,12 @@ const NodeWrapper = ({
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
-  const { failedNode, setNodes, setEdges } = useFlowChartState();
+  const { failedNode } = useFlowChartState();
   const { states } = useSocket();
   const [runError, setRunError] = useState<{
     message: string;
     show: boolean;
   } | null>(null);
-
-  const handleNodeRemove = (nodeId: string) => {
-    setNodes((prev) => prev.filter((node) => node.id !== nodeId));
-    setEdges((prev) =>
-      prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
-    );
-  };
 
   useEffect(() => {
     console.log("15");
@@ -36,20 +29,19 @@ const NodeWrapper = ({
     return () => {
       setRunError(null);
     };
-  }, [failedNode, data, states?.failureReason]);
+  }, [failedNode, states?.failureReason]);
 
   return (
-    <div data-testid="node-wrapper">
+    <Box data-testid="node-wrapper" pos="relative">
       {runError && <ErrorPopup message={runError.message} />}
       {data.selected && (
         <NodeEditButtons
           showPencil={Object.keys(data.ctrls).length > 0}
           data={data}
-          handleRemove={handleNodeRemove}
         />
       )}
       {children}
-    </div>
+    </Box>
   );
 };
 

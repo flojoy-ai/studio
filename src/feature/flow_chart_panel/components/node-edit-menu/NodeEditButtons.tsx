@@ -5,9 +5,9 @@ import { ElementsData } from "../../types/CustomNodeProps";
 const useStyles = createStyles((theme) => ({
   Edit: {
     position: "absolute",
-    top: 10,
-    right: 3,
-    zIndex: 150,
+    top: 4,
+    right: 4,
+    zIndex: 10,
     display: "flex",
     cursor: "pointer",
     color:
@@ -19,22 +19,17 @@ const useStyles = createStyles((theme) => ({
 
 type NodeEditButtonsProps = {
   data: ElementsData;
-  handleRemove: (id: string) => void;
   showPencil: boolean;
 };
 
-const NodeEditButtons = ({
-  data,
-  handleRemove,
-  showPencil,
-}: NodeEditButtonsProps) => {
+const NodeEditButtons = ({ data, showPencil }: NodeEditButtonsProps) => {
   const { setIsEditMode } = useFlowChartState();
   const { classes } = useStyles();
 
   return (
     <Box className={classes.Edit}>
       {showPencil && <IconPencil onClick={() => setIsEditMode(true)} />}
-      <IconX onClick={() => handleRemove(data.id)} />
+      {/* <IconX onClick={() => handleRemove(data.id)} /> */}
     </Box>
   );
 };
