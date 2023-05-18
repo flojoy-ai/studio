@@ -48,7 +48,7 @@ describe("VisorNode", () => {
     ["HISTOGRAM", "histogram-svg"],
     ["LINE", "line-svg"],
     ["SURFACE3D", "surface3D-svg"],
-    ["SCATTER3D", "scatter-svg"],
+    ["SCATTER3D", "scatter3d-svg"],
     ["BAR", "barchart-svg"],
   ])("should contain component: %p", (functionName, testId) => {
     const { getByTestId } = renderWithTheme(

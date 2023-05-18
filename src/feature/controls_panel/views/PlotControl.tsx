@@ -11,8 +11,11 @@ import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import PlotControlState from "./PlotControlState";
 import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
 import { useMantineColorScheme } from "@mantine/styles";
-import { Text } from "@mantine/core";
+import { Text, useMantineTheme } from "@mantine/core";
 import { useControlStyles } from "./control-component/ControlComponent";
+import PlotlyComponent, {
+  OverridePlotData,
+} from "@src/feature/common/PlotlyComponent";
 
 export interface PlotControlProps {
   nd: ResultIO | null;
@@ -22,8 +25,8 @@ export interface PlotControlProps {
   setSelectedPlotOption: Dispatch<
     SetStateAction<PlotControlOptions | undefined>
   >;
-  plotData: Data[];
-  setPlotData: React.Dispatch<React.SetStateAction<Data[]>>;
+  plotData: OverridePlotData;
+  setPlotData: React.Dispatch<React.SetStateAction<OverridePlotData>>;
 }
 const plotInputKeys: Partial<Record<PlotData["type"], string[]>> = {
   histogram: ["x"],
@@ -50,6 +53,7 @@ const PlotControl = ({
     setPlotOptions,
     setSelectedKeys,
   } = PlotControlState();
+  const theme = useMantineTheme();
   usePlotControlEffect({
     inputOptions,
     plotOptions,
@@ -61,9 +65,10 @@ const PlotControl = ({
     nd,
     selectedPlotOption,
     setPlotData,
+    theme,
   });
 
-  const theme = useMantineColorScheme().colorScheme;
+  const colorScheme = useMantineColorScheme().colorScheme;
   const { classes } = useControlStyles();
   const plotLayout = usePlotLayout();
 
@@ -87,7 +92,7 @@ const PlotControl = ({
             }
           }}
           placeholder="Select Plot Type"
-          theme={theme as unknown as ThemeConfig}
+          theme={colorScheme as unknown as ThemeConfig}
           options={plotOptions}
           styles={customDropdownStyles}
           value={selectedPlotOption}
@@ -118,7 +123,7 @@ const PlotControl = ({
               placeholder={`Select ${key.toUpperCase()}`}
               options={inputOptions}
               styles={customDropdownStyles}
-              theme={theme as unknown as ThemeConfig}
+              theme={colorScheme as unknown as ThemeConfig}
               value={(selectedKeys && selectedKeys![key]) || ""}
             />
           ))}
@@ -133,9 +138,11 @@ const PlotControl = ({
           paddingBottom: "10px",
         }}
       >
-        <Plot
+        <PlotlyComponent
           data={plotData}
           layout={plotLayout}
+          useResizeHandler
+          id={ctrlObj.id}
           style={{
             width: "100%",
             height: "100%",

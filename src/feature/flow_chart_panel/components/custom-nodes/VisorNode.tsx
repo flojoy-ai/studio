@@ -16,6 +16,10 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
+import PlotlyTable from "../nodes/Table";
+import PlotlyImage from "../nodes/Image";
+import BoxPlot from "../nodes/box-plot";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -36,6 +40,9 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   SURFACE3D: <Surface3D />,
   SCATTER3D: <Scatter3D />,
   BAR: <BarChart />,
+  TABLE: <PlotlyTable />,
+  IMAGE: <PlotlyImage />,
+  BOX: <BoxPlot />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
@@ -74,13 +81,16 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const plotlyResultData = useMemo(
     () =>
       result
-        ? result.result.default_fig.data.map((d) => ({
-            ...d,
-            marker: {
-              ...d.marker,
-              color: accentColor,
-            },
-          }))
+        ? makePlotlyData(
+            result.result.default_fig.data.map((d) => ({
+              ...d,
+              marker: {
+                ...d.marker,
+                color: accentColor,
+              },
+            })),
+            theme
+          )
         : undefined,
     [result]
   );
@@ -126,7 +136,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             }}
           >
             {chartElemMap[data.func]}
-            <BGTemplate theme={theme.colorScheme} />
             <Box
               display="flex"
               h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}

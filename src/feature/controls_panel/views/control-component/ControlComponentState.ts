@@ -17,6 +17,7 @@ import {
 
 import { Data } from "plotly.js";
 import { useMantineColorScheme } from "@mantine/styles";
+import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
@@ -48,7 +49,7 @@ const ControlComponentState = ({
   );
   const [nd, setNd] = useState<ResultIO | null>(null);
 
-  const [plotData, setPlotData] = useState<Data[]>([]);
+  const [plotData, setPlotData] = useState<OverridePlotData>([]);
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined
   >(undefined);

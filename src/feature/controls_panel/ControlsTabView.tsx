@@ -49,9 +49,7 @@ const ControlsTab = () => {
   const results = programResults!;
 
   const {
-    openEditModal,
     setOpenEditModal,
-    currentInput,
     setCurrentInput,
     debouncedTimerId,
     setDebouncedTimerId,
@@ -64,7 +62,6 @@ const ControlsTab = () => {
     isEditMode,
     setIsEditMode,
     gridLayout,
-    setGridLayout,
   } = useFlowChartState();
 
   const { nodes, updateCtrlInputDataForNode, removeCtrlInputDataForNode } =
@@ -92,7 +89,7 @@ const ControlsTab = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey];
+    const ctrlObj = CTRL_MANIFEST[ctrlKey][0];
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {
@@ -300,26 +297,6 @@ const ControlsTab = () => {
       </Modal> */}
       </div>
     </Layout>
-  );
-};
-
-const AddBtn = ({ handleClick, testId }) => {
-  const { classes } = useAddButtonStyle();
-  return (
-    <button
-      data-cy={testId}
-      data-testid={testId}
-      className={classes.addButton}
-      onClick={handleClick}
-      style={{
-        position: "relative",
-        width: "104px",
-        height: "43px",
-        margin: "10px",
-      }}
-    >
-      + Add CTRL
-    </button>
   );
 };
 
