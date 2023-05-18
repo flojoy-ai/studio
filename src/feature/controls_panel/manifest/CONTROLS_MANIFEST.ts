@@ -77,6 +77,11 @@ export const CTRL_TREE = {
               key: "STATIC_NUMERIC_INPUT",
               child: null,
             },
+            {
+              title: "Dropdown",
+              key: "DROPDOWN",
+              child: null,
+            },
           ],
         },
         {

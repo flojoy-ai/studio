@@ -98,7 +98,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         {result ? (
           <>
             <PlotlyComponent
-              data={makePlotlyData(result.result.default_fig.data, theme)}
+              data={makePlotlyData(result.result.default_fig.data, theme, true)}
               id={data.id}
               layout={{ ...plotLayout, ...layoutOverride }}
               useResizeHandler
@@ -106,6 +106,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 height: 190,
                 width: 210,
               }}
+              isThumbnail
             />
 
             <Box
