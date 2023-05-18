@@ -29,6 +29,10 @@ const NodeEditButtons = ({ data, showPencil }: NodeEditButtonsProps) => {
   return (
     <Box className={classes.Edit}>
       {showPencil && <IconPencil onClick={() => setIsEditMode(true)} />}
+      {/* TODO: Add this back. Currently disabled for performance reasons */}
+      {/* Can't pass a callback from nodes/nodewrapper themselves because */}
+      {/* this would create a dependency on the nodes state. */}
+      {/* Have to find a way to attach a callback to each node from the Flow Chart component... */}
       {/* <IconX onClick={() => handleRemove(data.id)} /> */}
     </Box>
   );
