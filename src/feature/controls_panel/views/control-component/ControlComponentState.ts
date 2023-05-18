@@ -97,7 +97,7 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj, ParamValueType.string);
+      updateCtrlValue(file.name, ctrlObj, "string");
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plainFiles]);

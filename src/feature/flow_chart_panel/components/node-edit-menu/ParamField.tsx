@@ -29,7 +29,7 @@ const ParamField = ({
     });
   };
   switch (type) {
-    case ParamValueType.float:
+    case "float":
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
@@ -38,29 +38,29 @@ const ParamField = ({
           removeTrailingZeros
         />
       );
-    case ParamValueType.int:
+    case "int":
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value) : value}
         />
       );
-    case ParamValueType.string:
+    case "string":
       return (
         <TextInput
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value}
         />
       );
-    case ParamValueType.boolean:
+    case "boolean":
       return (
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked.toString())}
         />
       );
-    case ParamValueType.select:
+    case "select":
       return <Select onChange={handleChange} data={options!} value={value} />;
-    case ParamValueType.unknown:
+    case "unknown":
       return (
         <TextInput
           onChange={(e) => handleChange(e.currentTarget.value)}

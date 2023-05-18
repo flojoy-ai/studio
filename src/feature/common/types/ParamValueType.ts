@@ -1,4 +1,4 @@
-export enum ParamValueType {
+/* export enum ParamValueType {
   string = "string",
   float = "float",
   int = "int",
@@ -6,10 +6,10 @@ export enum ParamValueType {
   boolean = "boolean",
   select = "select",
   unknown = "unknown",
-}
+} */
 
-export type paramValueType =
-  | "text"
+export type ParamValueType =
+  | "string"
   | "float"
   | "int"
   | "array"

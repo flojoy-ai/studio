@@ -15,7 +15,7 @@ const elementData: ElementsData = {
       functionName: "node-123",
       param: "first_param",
       value: "10",
-      ValType: ParamValueType.int,
+      ValType: "int",
     },
   },
   func: "Rand",

@@ -43,7 +43,7 @@ const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
           updateCtrlValue(
             (val as { label: string; value: string }).value,
             ctrlObj,
-            ParamValueType.unknown
+            "unknown"
           );
         }}
         isDisabled={

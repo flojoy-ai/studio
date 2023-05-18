@@ -61,7 +61,7 @@ export const useAddNewNode = () => {
                 funcName === "CONSTANT"
                   ? nodeLabel
                   : params![param].default?.toString(),
-              ValType: ParamValueType.unknown,
+              ValType: "unknown" as ParamValueType,
             },
           }),
           {}
