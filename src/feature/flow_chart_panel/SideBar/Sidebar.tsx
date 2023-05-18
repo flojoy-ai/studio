@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
     position: "absolute",
     width: "104px",
     height: "43px",
-    left: "0px",
+    left: "18px",
     top: "110px",
     background: theme.colorScheme === "dark" ? "#243438" : "#F6F7F8",
     border:

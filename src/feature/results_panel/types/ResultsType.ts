@@ -1,5 +1,5 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { Data, Layout } from "plotly.js";
+import { Data, Layout } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 
 export type ResultIO = {
   cmd: string;

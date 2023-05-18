@@ -7,7 +7,7 @@ import {
   PlotControlOptions,
 } from "@src/feature/controls_panel/types/ControlOptions";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import { Data } from "plotly.js";
+import { Data } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 
 jest.mock("@src/hooks/useFlowChartState");

@@ -15,7 +15,7 @@ import {
   PlotControlOptions,
 } from "../../types/ControlOptions";
 
-import { Data } from "plotly.js";
+import { Data } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;

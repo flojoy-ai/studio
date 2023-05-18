@@ -1,4 +1,4 @@
-import { Layout } from "plotly.js";
+import { Layout } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 
 const styledPlotLayout = (theme: "light" | "dark") => {
   const plotFeatureColor = "#282c34";

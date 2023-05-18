@@ -1,5 +1,8 @@
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import type { PlotType, PlotData } from "plotly.js";
+import type {
+  PlotType,
+  PlotData,
+} from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 export interface CtrlOptionValue {
   id: string;
   functionName: string;

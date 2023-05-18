@@ -6,7 +6,7 @@ import customDropdownStyles from "../style/CustomDropdownStyles";
 import Plot from "react-plotly.js";
 import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
 import { SetStateAction } from "jotai";
-import { Data, PlotData } from "plotly.js";
+import { Data, PlotData } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import PlotControlState from "./PlotControlState";
 import usePlotControlEffect from "@src/hooks/usePlotControlEffect";

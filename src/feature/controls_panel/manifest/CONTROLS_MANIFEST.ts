@@ -1,4 +1,4 @@
-import { PlotData } from "plotly.js";
+import { PlotData } from "plotly.js/dist/plotly-flojoyCustomBundle.js";
 
 export enum ControlTypes {
   Input = "input",
