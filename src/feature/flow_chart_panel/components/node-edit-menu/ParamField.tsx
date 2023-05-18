@@ -60,6 +60,13 @@ const ParamField = ({
       );
     case ParamValueType.select:
       return <Select onChange={handleChange} data={options!} value={value} />;
+    case ParamValueType.unknown:
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
     default:
       return <p> There's something wrong with the paramType </p>;
   }

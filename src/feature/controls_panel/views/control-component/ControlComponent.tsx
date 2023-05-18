@@ -378,7 +378,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setNumberInput,
                 e.target.value,
-                ParamValueType.number
+                ParamValueType.float
               );
             }}
             value={currentInputValue || numberInput || 0}
@@ -404,7 +404,7 @@ const ControlComponent = ({
       )}
 
       {ctrlObj.name === ControlNames.StaticNumericInput && (
-        <Box className={classes.inputBody} data-cy="numeric-input">
+        <Box className={classes.inputBody}>
           <input
             type="number"
             placeholder="Enter a number"
@@ -413,7 +413,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setNumberInput,
                 e.target.value,
-                ParamValueType.number
+                ParamValueType.float
               );
             }}
             disabled
@@ -457,7 +457,7 @@ const ControlComponent = ({
                 handleCtrlValueChange(
                   setSliderInput,
                   val.toString(),
-                  ParamValueType.number
+                  ParamValueType.float
                 );
               }}
               value={+currentInputValue || +sliderInput || 0}
