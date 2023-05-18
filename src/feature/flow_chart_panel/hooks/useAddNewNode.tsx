@@ -1,11 +1,10 @@
-import { ElementsData } from "../types/CustomNodeProps";
-import { useEffect } from "react";
+import { Draft } from "immer";
+import { useCallback, useEffect } from "react";
+import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
-import { Node } from "reactflow";
-import { Draft } from "immer";
+import { ElementsData } from "../types/CustomNodeProps";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -16,7 +15,6 @@ export const useAddNewNode = (
       | ((draft: Draft<Node<ElementsData>>[]) => void)
   ) => void
 ) => {
-  //helper for addNewNode function
   const getNodePosition = () => {
     return {
       x: 50 + Math.random() * 200,
@@ -33,7 +31,7 @@ export const useAddNewNode = (
     return () => localStorage.setItem(LAST_NODE_POSITION_KEY, "");
   }, []);
 
-  return (key: string) => {
+  return useCallback((key: string) => {
     const nodePosition = {
       x: lastNodePosition.x + 100,
       y: lastNodePosition.y + 30,
@@ -51,6 +49,11 @@ export const useAddNewNode = (
     if (funcName === "CONSTANT") {
       nodeLabel = "2.0";
     } else {
+      // Commented out for now for performance reasons.
+      // This is because the code causes a dependency on the nodes state,
+      // which will cause this hook to be called every time the nodes
+      // change.
+
       // const numOfThisNodesOnChart = nodes.filter(
       //   (node) => node.data.func === funcName
       // ).length;
@@ -93,5 +96,5 @@ export const useAddNewNode = (
     };
     setNodes((els) => els.concat(newNode));
     localStorage.setItem(LAST_NODE_POSITION_KEY, JSON.stringify(nodePosition));
-  };
+  }, []);
 };

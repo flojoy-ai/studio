@@ -107,12 +107,11 @@ localforage.config({
 });
 
 // TODO: Prevent this from rerendering every time a node changes
-const Controls = () => {
+const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
-  const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
 
   const location = useLocation();
@@ -309,7 +308,7 @@ const Controls = () => {
   );
 };
 
-export default memo(Controls);
+export default memo(ControlBar);
 
 const FileButton = () => {
   const theme = useMantineTheme();

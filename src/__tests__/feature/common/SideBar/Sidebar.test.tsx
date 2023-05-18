@@ -1,6 +1,6 @@
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import { SidebarCustom } from "@src/feature/common/Sidebar/Sidebar";
+import Sidebar from "@src/feature/common/Sidebar/Sidebar";
 import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { fireEvent } from "@testing-library/react";
@@ -45,7 +45,7 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
           setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
           isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
         />
-        <SidebarCustom
+        <Sidebar
           sections={{ title: "ROOT", child: [] }}
           manifestMap={CMND_MANIFEST_MAP}
           leafNodeClickHandler={addNewNode}

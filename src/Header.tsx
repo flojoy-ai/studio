@@ -3,7 +3,7 @@ import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
-import Controls from "./feature/flow_chart_panel/views/ControlBar";
+import ControlBar from "./feature/flow_chart_panel/views/ControlBar";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -46,7 +46,7 @@ const Header = () => {
         </HeaderTab>
       </Box>
       <Box className={classes.controlButtons}>
-        <Controls />
+        <ControlBar />
         <DarkModeToggle />
       </Box>
     </MantineHeader>

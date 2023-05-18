@@ -2,7 +2,7 @@ import { Navbar, ScrollArea, Input } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 
 import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
@@ -74,7 +74,7 @@ type SidebarCustomProps = {
   customContent?: JSX.Element;
 };
 
-export const SidebarCustom = ({
+const Sidebar = ({
   isSideBarOpen,
   setSideBarStatus,
   sections,
@@ -236,3 +236,5 @@ export const SidebarCustom = ({
     </Navbar>
   );
 };
+
+export default memo(Sidebar);

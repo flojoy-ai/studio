@@ -30,7 +30,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
 import { BezierEdge, Node } from "reactflow";
-import { SidebarCustom } from "../common/Sidebar/Sidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -87,6 +87,7 @@ const FlowChartTab = () => {
   } = useFlowChartGraph();
 
   const addNewNode = useAddNewNode(setNodes);
+  const sidebarCustomContent = useMemo(() => <RequestNode />, []);
 
   const theme = useMantineTheme();
 
@@ -150,6 +151,11 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id))
       );
+      selectedNodeIds.forEach((id) => {
+        setEdges((prev) =>
+          prev.filter((edge) => edge.source !== id && edge.target !== id)
+        );
+      });
     },
     [setNodes]
   );
@@ -213,15 +219,14 @@ const FlowChartTab = () => {
         />
         <ClearCanvasBtn />
       </div>
-      <SidebarCustom
+      <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
         leafNodeClickHandler={addNewNode}
         isSideBarOpen={isSCRIPTSideBarOpen}
         setSideBarStatus={setSCRIPTSideBarStatus}
-        customContent={<RequestNode />}
+        customContent={sidebarCustomContent}
       />
-      {/* <Sidebar setNodes={setNodes} /> */}
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 110px)" }}
