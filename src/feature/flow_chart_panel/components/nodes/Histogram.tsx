@@ -1,5 +1,6 @@
 import { useMantineTheme } from "@mantine/core";
-import { CSSProperties, SVGProps } from "react";
+import { SVGProps } from "react";
+import { BGTemplate } from "../../svgs/histo-scatter-svg";
 
 const HistoTitle = ({ ...props }: SVGProps<SVGSVGElement>) => {
   const theme = useMantineTheme();
@@ -81,26 +82,30 @@ const HistoLabels = ({ ...props }: SVGProps<SVGSVGElement>) => {
 };
 
 const Histogram = ({ ...props }: SVGProps<SVGSVGElement>) => {
+  const theme = useMantineTheme();
   return (
-    <div data-testid="histogram-svg">
-      <HistoTitle
-        style={{
-          position: "absolute",
-          top: 20,
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      />
-      <HistoLabels
-        style={{
-          position: "absolute",
-          bottom: "-4px",
-          left: 79,
-          height: 106,
-          width: 109,
-        }}
-      />
-    </div>
+    <>
+      <div data-testid="histogram-svg">
+        <HistoTitle
+          style={{
+            position: "absolute",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        />
+        <HistoLabels
+          style={{
+            position: "absolute",
+            bottom: "-4px",
+            left: 79,
+            height: 106,
+            width: 109,
+          }}
+        />
+      </div>
+      <BGTemplate theme={theme.colorScheme} />
+    </>
   );
 };
 

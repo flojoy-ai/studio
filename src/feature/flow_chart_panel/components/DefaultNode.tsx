@@ -38,6 +38,7 @@ export const useNodeStyles = createStyles((theme) => {
           ? theme.colors.accent1[1]
           : theme.colors.accent2[0]
       } 0px 0px 27px 3px`,
+      borderRadius: "24px",
     },
 
     simulationShadow: {

@@ -3,11 +3,13 @@ import { MantineTheme } from "@mantine/core";
 import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
 import { PlotData } from "plotly.js";
 
+const NUM_OF_COLUMNS = 4;
+const NUM_OF_ROWS = 20;
+
 export const makePlotlyData = (data: OverridePlotData, theme: MantineTheme) => {
   const headerFillColor =
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
-  const cellFillColor =
-    theme.colorScheme === "light" ? theme.white : theme.colors.dark[5];
+  const cellFillColor = "transparent";
   return data.map((d) => {
     return {
       ...d,
@@ -15,12 +17,22 @@ export const makePlotlyData = (data: OverridePlotData, theme: MantineTheme) => {
         ...d,
         header: {
           ...d.header,
+          align: "center",
+          values: d.header?.values.filter(
+            (_: any, i: number) => i < NUM_OF_COLUMNS
+          ),
           fill: {
             color: headerFillColor,
           },
         },
         cells: {
           ...d.cells,
+          align: "center",
+          values: d.cells?.values
+            .filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+            .map((i: any) =>
+              i.filter((_: any, index: number) => index < NUM_OF_ROWS)
+            ),
           fill: {
             color: cellFillColor,
           },
@@ -50,9 +62,7 @@ export const dataContainer2Plotly = ({
 }: DataContainer2PlotlyProps): OverridePlotData => {
   const headerFillColor =
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
-  const cellFillColor =
-    theme.colorScheme === "light" ? theme.white : theme.colors.dark[5];
-
+  const cellFillColor = "transparent";
   switch (dataContainer.type) {
     case "ordered_pair":
       return [
@@ -71,6 +81,7 @@ export const dataContainer2Plotly = ({
       );
       return [
         {
+          type: "table",
           header: {
             values: headerValues,
             fill: {
@@ -88,7 +99,23 @@ export const dataContainer2Plotly = ({
     case "image":
       return fig!;
     case "plotly":
-      return dataContainer.fig?.data!;
+      return dataContainer.fig?.data?.map((d) => ({
+        ...d,
+        header: {
+          ...d.header,
+          align: "center",
+          fill: {
+            color: headerFillColor,
+          },
+        },
+        cells: {
+          ...d.cells,
+          align: "center",
+          fill: {
+            color: cellFillColor,
+          },
+        },
+      }))!;
     default:
       return [
         {

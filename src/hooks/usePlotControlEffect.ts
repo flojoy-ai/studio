@@ -44,29 +44,7 @@ const usePlotControlEffect = ({
    * Updates plot value from node result using selected keys
    */
   const updatePlotValue = useCallback(() => {
-    // const result: any = {};
-
-    // if (nd?.result && "data" in nd!.result && nd.result.data) {
-    //   Object.keys(nd.result.data).forEach((key) => {
-    //     result[key] = nd.result.data![key];
-    //   });
-    // }
-
-    // if (selectedKeys) {
-    //   for (const [key, value] of Object.entries(selectedKeys)) {
-    //     if (key !== "type") {
-    //       result[key] = value?.value;
-    //     }
-    //   }
-    // }
-    // if (selectedPlotOption) {
-    //   result.type = selectedPlotOption.value.type;
-    //   result.mode = selectedPlotOption.value.mode;
-    // }
-
-    // setPlotData([result]);
     if (nd?.result?.data && selectedPlotOption) {
-      console.log(" nd.result: ", nd.result);
       const result = dataContainer2Plotly({
         dataContainer: nd.result.data,
         plotType: selectedPlotOption.value.type!,
@@ -76,7 +54,6 @@ const usePlotControlEffect = ({
           fig: nd.result.default_fig.data,
         }),
       });
-      console.log(" result: ", result);
       setPlotData(result);
     }
   }, [nd, selectedKeys, selectedPlotOption, setPlotData]);
