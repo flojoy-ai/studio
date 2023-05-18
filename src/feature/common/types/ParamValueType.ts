@@ -7,3 +7,12 @@ export enum ParamValueType {
   select = "select",
   unknown = "unknown",
 }
+
+export type paramValueType =
+  | "text"
+  | "float"
+  | "int"
+  | "array"
+  | "boolean"
+  | "select"
+  | "unknown";

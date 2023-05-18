@@ -10,7 +10,7 @@ export enum ControlNames {
   Slider = "Slider",
   Knob = "Knob",
   StaticNumericInput = "Static Numeric Input",
-  ArrayNumbericInput = "Array Numberic Input",
+  ArrayNumericInput = "Array Numeric Input",
   Dropdown = "Dropdown",
   RadioButtonGroup = "Radio Button Group",
   CheckboxButtonGroup = "Checkbox Button Group",
@@ -264,7 +264,7 @@ export const InputControlsManifest = {
   ],
   ARRAY_INPUT: [
     {
-      name: ControlNames.ArrayNumbericInput,
+      name: ControlNames.ArrayNumericInput,
       type: ControlTypes.Input,
       key: "ARRAY_INPUT",
       minHeight: 1,

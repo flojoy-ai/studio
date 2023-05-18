@@ -22,9 +22,9 @@ const ParamField = ({
   const { updateCtrlInputDataForNode } = useFlowChartState();
   const handleChange = (value: string) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
-      functionName: functionName,
+      functionName,
       param: paramId,
-      value: value,
+      value,
       ValType: type,
     });
   };

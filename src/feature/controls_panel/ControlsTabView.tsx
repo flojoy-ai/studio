@@ -89,7 +89,7 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
   const updateCtrlValue = (
     val: string,
     ctrl: CtlManifestType,
-    tp: ParamValueType
+    camelCase: ParamValueType
   ) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
@@ -105,7 +105,7 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
         functionName: (ctrl.param! as CtrlManifestParam).functionName,
         param: (ctrl.param! as CtrlManifestParam).param,
         value: val,
-        ValType: tp,
+        ValType: camelCase,
       }
     );
   };
