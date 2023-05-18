@@ -33,15 +33,6 @@ jest.mock("@src/feature/common/PlotlyComponent", () => {
   return { __esModule: true, default: mockChild };
 });
 
-// jest.mock("@mantine/core", () => {
-//   const Modal = jest
-//     .fn()
-//     .mockReturnValue(<div data-testid="node_modal" />);
-//   return {
-//     default: Modal,
-//   };
-// });
-
 describe("NodeModal", () => {
   it("checks the snapshot", () => {
     const { container } = renderWithTheme(<NodeModal {...props} />);
