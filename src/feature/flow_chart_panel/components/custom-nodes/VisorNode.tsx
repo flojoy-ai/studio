@@ -19,6 +19,7 @@ import { makePlotlyData } from "@src/utils/format_plotly_data";
 import PlotlyTable from "../nodes/Table";
 import PlotlyImage from "../nodes/Image";
 import BoxPlot from "../nodes/box-plot";
+import BigNumber from "../nodes/BigNumber";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -42,6 +43,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   TABLE: <PlotlyTable />,
   IMAGE: <PlotlyImage />,
   BOX: <BoxPlot />,
+  BIG_NUMBER: <BigNumber />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {

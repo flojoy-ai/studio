@@ -53,7 +53,7 @@ class SmallMemory:
                 self.add_to_tracing_list(value_type_key)
                 RedisDao.get_instance().set_pandas_dataframe(memory_key, value)
                 self.add_to_tracing_list(memory_key)
-            case "str":
+            case "str" | "numpy.float64":
                 meta_data["type"] = "string"
                 RedisDao.get_instance().set_redis_obj(value_type_key, meta_data)
                 self.add_to_tracing_list(value_type_key)
@@ -88,7 +88,7 @@ class SmallMemory:
             case "pd_dframe":
                 return RedisDao.get_instance().get_pd_dataframe(memory_key)
             case _:
-                return {}
+                return None
 
     def delete_object(self, job_id, key):
         """

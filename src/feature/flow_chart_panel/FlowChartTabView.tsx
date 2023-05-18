@@ -48,7 +48,6 @@ const FlowChartTab = ({
     windowWidth,
     modalIsOpen,
     openModal,
-    afterOpenModal,
     closeModal,
     nd,
     nodeLabel,
@@ -63,11 +62,9 @@ const FlowChartTab = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const { nodes, setNodes, edges, setEdges } = useFlowChartState();
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
-
-  const theme = useMantineTheme();
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
@@ -137,7 +134,6 @@ const FlowChartTab = ({
   useFlowChartTabEffects({
     clickedElement,
     results,
-    afterOpenModal,
     closeModal,
     defaultPythonFnLabel,
     defaultPythonFnType,
@@ -185,7 +181,6 @@ const FlowChartTab = ({
       </div>
 
       <NodeModal
-        afterOpenModal={afterOpenModal}
         clickedElement={clickedElement}
         closeModal={closeModal}
         defaultLayout={defaultLayout}

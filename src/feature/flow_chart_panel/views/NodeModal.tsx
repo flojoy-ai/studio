@@ -2,34 +2,12 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Modal } from "@mantine/core";
-import {
-  createStyles,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/styles";
+import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 
-const useStyles = createStyles((theme) => {
-  return {
-    closeButton: {
-      margin: 5,
-      cursor: "pointer",
-      position: "absolute",
-      top: 0,
-      right: 0,
-      background: "transparent",
-      zIndex: 99,
-      "&:hover": {
-        color: theme.colors.red[7],
-      },
-    },
-  };
-});
-
 const NodeModal = ({
   modalIsOpen,
-  afterOpenModal,
   closeModal,
   nodeLabel,
   nodeType,
@@ -38,11 +16,9 @@ const NodeModal = ({
   defaultLayout,
   clickedElement,
 }: NodeModalProps) => {
-  const { classes } = useStyles();
-
   const theme = useMantineTheme();
 
-  const colorScheme = useMantineColorScheme().colorScheme;
+  const colorScheme = theme.colorScheme;
 
   return (
     <Modal
@@ -50,20 +26,12 @@ const NodeModal = ({
       opened={modalIsOpen}
       onClose={closeModal}
       size={1030}
+      title={nodeLabel}
     >
-      <button
-        onClick={closeModal}
-        data-cy="ctrl-close-btn"
-        className={classes.closeButton}
-      ></button>
-
       {nodeLabel !== undefined && nodeType !== undefined && (
-        <div>
-          <h1>{nodeLabel}</h1>
-          <h4>
-            Function type: <code>{nodeType}</code>
-          </h4>
-        </div>
+        <h4>
+          Function type: <code>{nodeType}</code>
+        </h4>
       )}
 
       {!nd?.result ? (
