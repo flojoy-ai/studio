@@ -33,13 +33,7 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
 
 describe("ControlsTab", () => {
   it("render ControlsTab correctly.", () => {
-    const { container } = renderWithTheme(
-      <ControlsTab
-        openCtrlModal={false}
-        setOpenCtrlModal={jest.fn()}
-        results={{}}
-      />
-    );
+    const { container } = renderWithTheme(<ControlsTab results={{}} />);
     expect(container).toMatchSnapshot();
   });
 });

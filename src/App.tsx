@@ -36,6 +36,7 @@ import {
 } from "./feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { useAddNewNode } from "./feature/flow_chart_panel/hooks/useAddNewNode";
 import { RequestNode } from "./feature/flow_chart_panel/components/RequestNode";
+import { ClearCanvasBtn } from "./feature/flow_chart_panel/components/clear-canvas-btn/ClearCanvasBtn";
 
 const App = () => {
   const addNewNode = useAddNewNode();
@@ -176,11 +177,20 @@ const App = () => {
         <main style={{ minHeight: "85vh" }}>
           <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
             {/* add node button currently in the sidebar, to be refactored */}
-            <AddNodeBtn
-              setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
-              isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
-            />
 
+            <div
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddNodeBtn
+                setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
+                isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
+              />
+              <ClearCanvasBtn />
+            </div>
             <SidebarCustom
               sections={CMND_TREE}
               manifestMap={CMND_MANIFEST_MAP}
@@ -197,6 +207,18 @@ const App = () => {
               clickedElement={clickedElement}
               setClickedElement={setClickedElement}
             />
+            <div
+              className="bottom-row"
+              style={{
+                position: "absolute",
+                width: "fit-content",
+                height: "43px",
+                left: "10px",
+                top: "130px",
+                margin: "10px",
+                zIndex: 1,
+              }}
+            ></div>
           </div>
 
           {/* Tab view containing controls */}
@@ -227,11 +249,7 @@ const App = () => {
               setSideBarStatus={setCTRLSideBarStatus}
             />
 
-            <ControlsTab
-              results={programResults!}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
+            <ControlsTab results={programResults!} />
           </div>
 
           {/*  */}

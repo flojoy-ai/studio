@@ -1,10 +1,27 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { useEffect } from "react";
 import Plot, { PlotParams } from "react-plotly.js";
+import { PlotData } from "plotly.js";
+
+export type OverridePlotData = Array<
+  Partial<PlotData> & {
+    header?: {
+      values?: any;
+      fill: {
+        color: string;
+      };
+    };
+    cells?: {
+      values?: any;
+      fill: { color: string };
+    };
+  }
+>;
 
 type PlotProps = {
   id: string;
-} & PlotParams;
+  data: OverridePlotData;
+} & Omit<PlotParams, "data">;
 
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id } = props;
@@ -23,6 +40,7 @@ const PlotlyComponent = (props: PlotProps) => {
       data={data}
       layout={layout}
       useResizeHandler={useResizeHandler}
+      config={{ displayModeBar: false }}
       style={style}
     />
   );
