@@ -217,7 +217,7 @@ const FlowChartTab = () => {
           setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
           isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
         />
-        <ClearCanvasBtn />
+        <ClearCanvasBtn setNodes={setNodes} />
       </div>
       <Sidebar
         sections={CMND_TREE}

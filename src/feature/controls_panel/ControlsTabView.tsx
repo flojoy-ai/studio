@@ -89,7 +89,12 @@ const ControlsTab = () => {
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
     setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey][0];
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
+    if (!ctrlObj) {
+      console.error("Could not find ctrl object for key", ctrlKey);
+      return;
+    }
+
     const id = `ctrl-${uuidv4()}`;
     let yAxis = 0;
     for (const el of gridLayout) {

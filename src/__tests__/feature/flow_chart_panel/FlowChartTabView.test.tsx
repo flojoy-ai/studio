@@ -1,6 +1,7 @@
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 
 class ResizeObserver {
   observe() {}
@@ -75,8 +76,8 @@ jest.mock("@src/hooks/useFlowChartState");
 
 jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
   return {
-    COMMANDS: [],
-    SECTIONS: [],
+    CMND_TREE: { title: "ROOT", child: [] },
+    CMND_MANIFEST_MAP: {},
   };
 });
 

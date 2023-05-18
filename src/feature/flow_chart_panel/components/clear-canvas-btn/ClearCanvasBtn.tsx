@@ -1,5 +1,8 @@
 import { createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { ElementsData } from "../../types/CustomNodeProps";
+import { Draft } from "immer";
+import { Node } from "reactflow";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -13,13 +16,22 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const ClearCanvasBtn = () => {
+type ClearCanvasBtnProps = {
+  setNodes: (
+    update:
+      | Node<ElementsData>[]
+      | ((draft: Draft<Node<ElementsData>>[]) => void)
+  ) => void;
+};
+
+export const ClearCanvasBtn = ({ setNodes }: ClearCanvasBtnProps) => {
   const { classes } = useStyles();
-  const { setNodes } = useFlowChartState();
+
   const deleteAllNodes = () => {
     console.log("deleting all nodes");
     setNodes([]);
   };
+
   return (
     <button
       data-testid="clear-canvas-btn"
