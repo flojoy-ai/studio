@@ -14,7 +14,7 @@ env:
   APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  buildNode:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +51,7 @@ jobs:
           browser: chrome
           install: false
 
-  testPython:
+  test-python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -66,3 +66,13 @@ jobs:
         run: |
           cd PYTHON
           python -m pytest
+
+  batch-completion-notification:
+    needs: run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Applitools batch status
+        uses: wei/curl@v1.1.1
+        with:
+          args: -d "" -X POST https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.APPLITOOLS_BATCH_ID }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
