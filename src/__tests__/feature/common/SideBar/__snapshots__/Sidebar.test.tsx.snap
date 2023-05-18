@@ -43,7 +43,7 @@ exports[`Sidebar should render the component correctly 1`] = `
       class="mantine-khtkeg"
     >
       <div
-        class="mantine-Input-wrapper mantine-9yjyzn"
+        class="mantine-Input-wrapper mantine-1risvgw"
       >
         <div
           class="mantine-1a5b1k mantine-Input-icon"
@@ -70,7 +70,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         </div>
         <input
           aria-invalid="false"
-          class="mantine-Input-input mantine-10w4rw8"
+          class="mantine-Input-input mantine-e063mj"
           data-testid="sidebar-input"
           data-with-icon="true"
           name="sidebar-input"

@@ -251,18 +251,20 @@ const FlowChartTab = () => {
           />
         </div>
 
-      <NodeModal
-        afterOpenModal={afterOpenModal}
-        clickedElement={clickedElement}
-        closeModal={closeModal}
-        defaultLayout={defaultLayout}
-        modalIsOpen={modalIsOpen}
-        nd={nd!}
-        nodeLabel={nodeLabel}
-        nodeType={nodeType}
-        pythonString={pythonString}
-      />
-    </ReactFlowProvider>
+        <NodeModal
+          afterOpenModal={afterOpenModal}
+          clickedElement={clickedElement}
+          closeModal={closeModal}
+          defaultLayout={defaultLayout}
+          modalIsOpen={modalIsOpen}
+          nd={nd!}
+          nodeLabel={nodeLabel}
+          nodeType={nodeType}
+          pythonString={pythonString}
+        />
+      </ReactFlowProvider>
+    </Layout>
   );
 };
+
 export default FlowChartTab;

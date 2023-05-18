@@ -1,7 +1,5 @@
-import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
-import { FlowChartProps } from "@src/feature/flow_chart_panel/types/FlowChartProps";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
   observe() {}
