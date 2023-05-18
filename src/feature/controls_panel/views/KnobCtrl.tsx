@@ -40,7 +40,7 @@ const KnobCtrl = ({
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       if ((ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        updateCtrlValue(value.toString(), ctrlObj, ParamValueType.number);
+        updateCtrlValue(value.toString(), ctrlObj, ParamValueType.float);
       }
       setKnobValue(value);
     },
