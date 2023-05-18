@@ -17,14 +17,14 @@ import {
 
 import { Data } from "plotly.js";
 import { useMantineColorScheme } from "@mantine/styles";
-import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: (
     value: string,
     ctrl: CtlManifestType,
-    ValType: CtrlValueType
+    ValType: ParamValueType
   ) => void;
   ctrlObj: CtlManifestType;
 };
@@ -97,7 +97,7 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj, CtrlValueType.string);
+      updateCtrlValue(file.name, ctrlObj, ParamValueType.string);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plainFiles]);

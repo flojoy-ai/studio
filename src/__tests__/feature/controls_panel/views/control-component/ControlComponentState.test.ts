@@ -32,7 +32,7 @@ jest.mock("@mantine/styles", () => ({
 }));
 
 const testControlComponentProps: ControlComponentStateProps = {
-  updateCtrlValue: "myUpdatedValue",
+  updateCtrlValue: () => {},
   ctrlObj: {
     id: "plot-control",
     name: "Plot Control",

@@ -19,7 +19,7 @@ import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { createStyles } from "@mantine/styles";
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
-import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -89,7 +89,7 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
   const updateCtrlValue = (
     val: string,
     ctrl: CtlManifestType,
-    tp: CtrlValueType
+    tp: ParamValueType
   ) => {
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {

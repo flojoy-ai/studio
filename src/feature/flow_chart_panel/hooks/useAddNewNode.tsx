@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
-import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -61,7 +61,7 @@ export const useAddNewNode = () => {
                 funcName === "CONSTANT"
                   ? nodeLabel
                   : params![param].default?.toString(),
-              ValType: CtrlValueType.unknown,
+              ValType: ParamValueType.unknown,
             },
           }),
           {}

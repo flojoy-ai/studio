@@ -1,13 +1,12 @@
-import { Select, TextInput, NumberInput, Checkbox } from "@mantine/core";
+import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-
-export type ParamType = "float" | "int" | "string" | "boolean" | "select";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 type ParamFieldProps = {
   nodeId: string;
   paramId: string;
   functionName: string;
-  type: ParamType;
+  type: ParamValueType;
   value: any;
   options?: string[];
 };
@@ -23,13 +22,14 @@ const ParamField = ({
   const { updateCtrlInputDataForNode } = useFlowChartState();
   const handleChange = (value: string) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
-      functionName,
+      functionName: functionName,
       param: paramId,
-      value,
+      value: value,
+      ValType: type,
     });
   };
   switch (type) {
-    case "float":
+    case ParamValueType.float:
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
@@ -38,28 +38,30 @@ const ParamField = ({
           removeTrailingZeros
         />
       );
-    case "int":
+    case ParamValueType.int:
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value) : value}
         />
       );
-    case "string":
+    case ParamValueType.string:
       return (
         <TextInput
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value}
         />
       );
-    case "boolean":
+    case ParamValueType.boolean:
       return (
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked.toString())}
         />
       );
-    case "select":
+    case ParamValueType.select:
       return <Select onChange={handleChange} data={options!} value={value} />;
+    default:
+      return <p> There's something wrong with the paramType </p>;
   }
 };
 

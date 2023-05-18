@@ -10,7 +10,7 @@ import {
   useControlStyles,
 } from "./control-component/ControlComponent";
 import { Box } from "@mantine/core";
-import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 interface NodeReferenceProps {
   updateCtrlValue: ControlComponentProps["updateCtrlValue"];
@@ -43,7 +43,7 @@ const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
           updateCtrlValue(
             (val as { label: string; value: string }).value,
             ctrlObj,
-            CtrlValueType.unknown
+            ParamValueType.unknown
           );
         }}
         isDisabled={

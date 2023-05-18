@@ -19,7 +19,7 @@ import SevenSegmentComponent from "../SevenSegmentComponent";
 import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
 import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
-import { CtrlValueType } from "@feature/controls_panel/types/CtrlValue";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -128,7 +128,7 @@ export type ControlComponentProps = {
   updateCtrlValue: (
     value: string,
     ctrl: CtlManifestType,
-    ValType: CtrlValueType
+    ValType: ParamValueType
   ) => void;
   attachParamsToCtrl: (
     val: CtrlOptionValue | PlotManifestParam,
@@ -194,7 +194,7 @@ const ControlComponent = ({
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
     value: string,
-    type: CtrlValueType
+    type: ParamValueType
   ) => {
     setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
@@ -330,7 +330,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setTextInput,
                 e.target.value,
-                CtrlValueType.string
+                ParamValueType.string
               );
             }}
             value={currentInputValue || textInput || ""}
@@ -360,7 +360,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setTextInput,
                 e.target.value,
-                CtrlValueType.string
+                ParamValueType.string
               );
             }}
             value={currentInputValue || textInput || ""}
@@ -378,7 +378,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setNumberInput,
                 e.target.value,
-                CtrlValueType.number
+                ParamValueType.number
               );
             }}
             value={currentInputValue || numberInput || 0}
@@ -395,7 +395,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setNumberInput,
                 e.target.value,
-                CtrlValueType.array
+                ParamValueType.array
               );
             }}
             value={currentInputValue || textInput || ""}
@@ -413,7 +413,7 @@ const ControlComponent = ({
               handleCtrlValueChange(
                 setNumberInput,
                 e.target.value,
-                CtrlValueType.number
+                ParamValueType.number
               );
             }}
             disabled
@@ -457,7 +457,7 @@ const ControlComponent = ({
                 handleCtrlValueChange(
                   setSliderInput,
                   val.toString(),
-                  CtrlValueType.number
+                  ParamValueType.number
                 );
               }}
               value={+currentInputValue || +sliderInput || 0}
@@ -478,7 +478,7 @@ const ControlComponent = ({
               updateCtrlValue(
                 (val as { label: string; value: string }).value,
                 ctrlObj,
-                CtrlValueType.string
+                ParamValueType.string
               );
             }}
             theme={theme as unknown as ThemeConfig}
@@ -508,7 +508,7 @@ const ControlComponent = ({
                     updateCtrlValue(
                       option.value,
                       ctrlObj,
-                      CtrlValueType.unknown
+                      ParamValueType.unknown
                     );
                   }}
                 />
@@ -537,7 +537,7 @@ const ControlComponent = ({
                     updateCtrlValue(
                       option.value,
                       ctrlObj,
-                      CtrlValueType.unknown
+                      ParamValueType.unknown
                     );
                   }}
                 />
