@@ -33,7 +33,7 @@ window.ResizeObserver = ResizeObserver as any;
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
     const { container } = render(<Sidebar />);
-    expect(container).toBeVisible();
+    expect(container).toMatchSnapshot();
   });
 
   it("checks the add button to be in the document", () => {

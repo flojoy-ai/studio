@@ -4,7 +4,7 @@ exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <div>
     <button
-      class="mantine-m8c4si"
+      class="mantine-1vul1xz"
       data-testid="add-node-button"
     >
       + Add Node
