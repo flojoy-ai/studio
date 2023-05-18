@@ -1,6 +1,5 @@
 import { useMantineTheme } from "@mantine/styles";
 import { Layout } from "plotly.js";
-import { useMemo } from "react";
 
 const usePlotLayout = () => {
   const theme = useMantineTheme();
