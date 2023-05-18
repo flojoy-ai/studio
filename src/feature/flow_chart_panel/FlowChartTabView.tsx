@@ -36,7 +36,7 @@ import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSearchParams } from "react-router-dom";
 import Sidebar from "./SideBar/Sidebar";
 

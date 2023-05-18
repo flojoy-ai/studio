@@ -25,9 +25,9 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   };
 });
 
-jest.mock("@src/hooks/useFlowChartNodes", () => {
+jest.mock("@src/hooks/useFlowChartGraph", () => {
   return {
-    useFlowChartNodes: () => {
+    useFlowChartGraph: () => {
       return {
         setNodes: jest.fn(),
       };

@@ -1,5 +1,5 @@
 import { Select, TextInput, NumberInput, Checkbox } from "@mantine/core";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ParamType = "float" | "int" | "string" | "boolean" | "select";
 

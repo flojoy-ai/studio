@@ -13,7 +13,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NodeOnAddFunc, ParamTypes } from "../types/NodeAddFunc";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "../types/CustomNodeProps";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { memo } from "react";
 import { Node } from "reactflow";
 import { Draft } from "immer";

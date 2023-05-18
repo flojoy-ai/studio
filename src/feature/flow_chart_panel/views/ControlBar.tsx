@@ -1,7 +1,7 @@
 import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/DropDown";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {

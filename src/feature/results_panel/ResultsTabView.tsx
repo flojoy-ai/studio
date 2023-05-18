@@ -14,10 +14,9 @@ import {
 } from "reactflow";
 import { ResultsType } from "./types/ResultsType";
 import { useResultsTabEffects } from "./ResultsTabEffects";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 interface ResultsTabProps {
   results: ResultsType;
 }

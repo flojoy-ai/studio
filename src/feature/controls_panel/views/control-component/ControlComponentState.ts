@@ -17,7 +17,7 @@ import {
 
 import { Data } from "plotly.js";
 import { useMantineColorScheme } from "@mantine/styles";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;

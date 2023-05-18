@@ -1,10 +1,10 @@
 import { renderHook } from "@testing-library/react";
 import { useControlsTabEffects } from "@src/feature/controls_panel/ControlsTabEffects";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartNodes";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 jest.mock("@src/hooks/useFlowChartState");
-jest.mock("@src/hooks/useFlowChartNodes");
+jest.mock("@src/hooks/useFlowChartGraph");
 
 describe("UseControlsTabEffects", () => {
   const setCtrlsManifest = jest.fn();
