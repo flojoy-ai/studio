@@ -65,7 +65,7 @@ describe("KeyboardShortcutModal", () => {
     shortcuts.forEach((shortcut) => {
       const commands = getAllByText(keyContainer, shortcut.command);
       commands.forEach((cmd) => {
-        expect(cmd).toBeInTheDocument(); 
+        expect(cmd).toBeInTheDocument();
       });
       expect(getByText(shortcut.platforms["windows"])).toBeInTheDocument();
       expect(getByText(shortcut.platforms["macOs"])).toBeInTheDocument();

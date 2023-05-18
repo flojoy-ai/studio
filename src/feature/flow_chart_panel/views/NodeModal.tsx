@@ -37,16 +37,17 @@ const NodeModal = ({
   const theme = useMantineColorScheme().colorScheme;
 
   return (
-    <Modal data-testid="node-modal" 
-      opened={modalIsOpen} 
-      onClose={closeModal} 
-      size={1030}>
+    <Modal
+      data-testid="node-modal"
+      opened={modalIsOpen}
+      onClose={closeModal}
+      size={1030}
+    >
       <button
         onClick={closeModal}
         data-cy="ctrl-close-btn"
         className={classes.closeButton}
-      >
-      </button>
+      ></button>
 
       {nodeLabel !== undefined && nodeType !== undefined && (
         <div>

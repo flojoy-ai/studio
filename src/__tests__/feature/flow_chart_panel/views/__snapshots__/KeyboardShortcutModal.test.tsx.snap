@@ -14,7 +14,7 @@ exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
     class="mantine-Modal-inner mantine-Modal-inner mantine-1w30zfw"
   >
     <section
-      aria-describedby="mantine-bhjrkb9cb-body"
+      aria-describedby="mantine-iecbthxb8-body"
       aria-modal="true"
       class="mantine-Paper-root mantine-Modal-content mantine-Modal-content mantine-ef2f3x"
       role="dialog"
@@ -46,7 +46,7 @@ exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
       </div>
       <div
         class="mantine-Modal-body mantine-1q36a81"
-        id="mantine-bhjrkb9cb-body"
+        id="mantine-iecbthxb8-body"
       >
         <button
           class="mantine-UnstyledButton-root mantine-Button-root mantine-1a27sgr"

@@ -98,14 +98,12 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
       aria-hidden="false"
     >
       <Button
-        data-testid="button" 
-        onClick={onClose} 
-        className={classes.closeButton}>
-      </Button>
+        data-testid="button"
+        onClick={onClose}
+        className={classes.closeButton}
+      ></Button>
 
-      <div
-        data-testid="key_container" 
-        className={classes.container}>
+      <div data-testid="key_container" className={classes.container}>
         {platforms.map((platform) => {
           return (
             <div className={classes.column} key={platform.key}>
