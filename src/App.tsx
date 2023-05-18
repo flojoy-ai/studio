@@ -249,11 +249,7 @@ const App = () => {
               setSideBarStatus={setCTRLSideBarStatus}
             />
 
-            <ControlsTab
-              results={programResults!}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
+            <ControlsTab results={programResults!} />
           </div>
 
           {/*  */}

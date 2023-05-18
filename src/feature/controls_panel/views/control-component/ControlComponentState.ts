@@ -17,6 +17,7 @@ import {
 
 import { Data } from "plotly.js";
 import { useMantineColorScheme } from "@mantine/styles";
+import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: any;
@@ -46,7 +47,7 @@ const ControlComponentState = ({
   );
   const [nd, setNd] = useState<ResultIO | null>(null);
 
-  const [plotData, setPlotData] = useState<Data[]>([]);
+  const [plotData, setPlotData] = useState<OverridePlotData>([]);
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined
   >(undefined);
