@@ -67,7 +67,7 @@ jobs:
           cd PYTHON
           python -m pytest
 
-  batch-completion-notification:
+  applitools-notify:
     needs: run-tests
     if: always()
     runs-on: ubuntu-latest
