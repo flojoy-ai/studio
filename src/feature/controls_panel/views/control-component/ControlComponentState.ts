@@ -61,12 +61,12 @@ const ControlComponentState = ({
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);
-  const ctrls: ElementsData["ctrls"] = inputNode?.data?.ctrls!;
+  const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
   const fnParams =
     FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
-  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param!];
+  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
   const defaultValue =
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val

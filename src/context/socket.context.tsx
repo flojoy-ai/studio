@@ -39,7 +39,11 @@ export const SocketContext = createContext<{ states: States } | null>(null);
 const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
 
-export const SocketContextProvider = ({ children }) => {
+export const SocketContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<ResultsType>({ io: [] });

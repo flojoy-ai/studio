@@ -107,26 +107,27 @@ const PlotControl = ({
             gap: "5px",
           }}
         >
-          {plotInputKeys[selectedPlotOption?.value.type!]?.map((key) => (
-            <Select
-              key={key}
-              className={classes.selectPlotType}
-              isSearchable={true}
-              onChange={(val) => {
-                if (val) {
-                  setSelectedKeys((prev) => ({
-                    ...prev,
-                    [key]: val,
-                  }));
-                }
-              }}
-              placeholder={`Select ${key.toUpperCase()}`}
-              options={inputOptions}
-              styles={customDropdownStyles}
-              theme={colorScheme as unknown as ThemeConfig}
-              value={(selectedKeys && selectedKeys![key]) || ""}
-            />
-          ))}
+          {selectedPlotOption?.value.type &&
+            plotInputKeys[selectedPlotOption?.value.type]?.map((key) => (
+              <Select
+                key={key}
+                className={classes.selectPlotType}
+                isSearchable={true}
+                onChange={(val) => {
+                  if (val) {
+                    setSelectedKeys((prev) => ({
+                      ...prev,
+                      [key]: val,
+                    }));
+                  }
+                }}
+                placeholder={`Select ${key.toUpperCase()}`}
+                options={inputOptions}
+                styles={customDropdownStyles}
+                theme={colorScheme as unknown as ThemeConfig}
+                value={(selectedKeys && selectedKeys![key]) || ""}
+              />
+            ))}
         </div>
       )}
 

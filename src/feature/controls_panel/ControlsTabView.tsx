@@ -159,7 +159,7 @@ const ControlsTab = () => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
+    const fnParams = FUNCTION_PARAMETERS[param.functionName];
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
@@ -169,9 +169,8 @@ const ControlsTab = () => {
         ? fnParam.default
         : 0;
     const ctrlData = ctrls && ctrls[param.param];
-    const inputValue = isNaN(+ctrlData?.value!)
-      ? ctrlData?.value
-      : +ctrlData?.value!;
+
+    const inputValue = ctrlData !== undefined ? +ctrlData.value : undefined;
     const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {

@@ -1,4 +1,5 @@
 import { createStyles } from "@mantine/core";
+import { useFlowChartState } from "./hooks/useFlowChartState";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -12,8 +13,17 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
+type AddNodeBtnProps = {
+  setSCRIPTSideBarStatus: (status: boolean) => void;
+  isSCRIPTSideBarOpen: boolean;
+};
+
+export const AddNodeBtn = ({
+  setSCRIPTSideBarStatus,
+  isSCRIPTSideBarOpen,
+}: AddNodeBtnProps) => {
   const { classes } = useStyles();
+
   return (
     <button
       data-testid="add-node-button"

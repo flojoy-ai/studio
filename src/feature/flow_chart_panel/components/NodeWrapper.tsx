@@ -22,7 +22,7 @@ const NodeWrapper = ({
     console.log("15");
     if (failedNode === data.id) {
       setRunError({
-        message: states?.failureReason!,
+        message: states?.failureReason ?? "Unknown failure reason",
         show: false,
       });
     }

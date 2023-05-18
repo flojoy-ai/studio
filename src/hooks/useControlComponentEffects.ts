@@ -29,7 +29,7 @@ const useControlComponentEffects = ({
     console.log("23");
     setSelectedOption(
       ctrlObj.type === "output"
-        ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
+        ? selectOptions?.find((option) => option.value === ctrlObj?.param)
         : selectOptions?.find((option) => {
             return (
               (option.value as CtrlOptionValue).id ===
@@ -37,7 +37,7 @@ const useControlComponentEffects = ({
               (option.value as CtrlOptionValue).nodeId ===
                 (ctrlObj?.param as CtrlManifestParam)?.nodeId
             );
-          })!
+          })
     );
   }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 

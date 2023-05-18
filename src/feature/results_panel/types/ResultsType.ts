@@ -14,19 +14,66 @@ export const ALL_DC_TYPE = [
 
 export type DataContainterType = (typeof ALL_DC_TYPE)[number];
 
+//export interface DataContainer {
+//  type: DataContainterType;
+//  x?: number[];
+//  y?: number[];
+//  z?: number[];
+//  t?: number[];
+//  m?: string;
+//  c?: number[];
+//  r?: number[];
+//  g?: number[];
+//  b?: number[];
+//  a?: number[];
+//  fig?: { data: OverridePlotData };
+//}
+
 export interface DataContainer {
   type: DataContainterType;
-  x?: number[];
-  y?: number[];
-  z?: number[];
-  t?: number[];
-  m?: string;
-  c?: number[];
-  r?: number[];
-  g?: number[];
-  b?: number[];
-  a?: number[];
-  fig?: { data: OverridePlotData };
+  data:
+    | GrayscaleData
+    | MatrixData
+    | DataFrameData
+    | ImageData
+    | OrderedPairData
+    | OrderedTripleData
+    | ScalarData
+    | OverridePlotData;
+}
+
+export interface GrayscaleData {
+  m: number[];
+}
+
+export interface MatrixData {
+  m: number[];
+}
+
+export interface DataFrameData {
+  m: string;
+}
+
+export interface ImageData {
+  r: number[];
+  g: number[];
+  b: number[];
+  a: number[];
+}
+
+export interface OrderedPairData {
+  x: number[];
+  y: number[];
+}
+
+export interface OrderedTripleData {
+  x: number[];
+  y: number[];
+  z: number[];
+}
+
+export interface ScalarData {
+  c: number[];
 }
 
 export type ResultIO = {

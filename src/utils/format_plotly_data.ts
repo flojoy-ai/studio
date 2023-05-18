@@ -1,6 +1,10 @@
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { MantineTheme } from "@mantine/core";
-import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
+import {
+  DataContainer,
+  DataFrameData,
+  OrderedPairData,
+} from "@src/feature/results_panel/types/ResultsType";
 import { PlotData } from "plotly.js";
 
 const NUM_OF_COLUMNS = 4;
@@ -64,17 +68,20 @@ export const dataContainer2Plotly = ({
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
   const cellFillColor = "transparent";
   switch (dataContainer.type) {
-    case "ordered_pair":
+    case "ordered_pair": {
+      const data = dataContainer.data as OrderedPairData;
       return [
         {
-          x: dataContainer.x!,
-          y: dataContainer.y!,
+          x: data.x,
+          y: data.y,
           type: plotType,
           mode: plotMode,
         },
       ];
-    case "dataframe":
-      const df = JSON.parse(dataContainer.m!);
+    }
+    case "dataframe": {
+      const data = dataContainer.data as DataFrameData;
+      const df = JSON.parse(data.m);
       const headerValues = Object.keys(df);
       const cellValues = Object.values(df).map((value) =>
         Object.values(value as Record<string, any>)
@@ -96,10 +103,12 @@ export const dataContainer2Plotly = ({
           },
         },
       ];
+    }
     case "image":
       return fig!;
-    case "plotly":
-      return dataContainer.fig?.data?.map((d) => ({
+    case "plotly": {
+      const data = dataContainer.data as OverridePlotData;
+      return data.map((d) => ({
         ...d,
         header: {
           ...d.header,
@@ -115,15 +124,10 @@ export const dataContainer2Plotly = ({
             color: cellFillColor,
           },
         },
-      }))!;
+      }));
+    }
     default:
-      return [
-        {
-          x: dataContainer.x!,
-          y: dataContainer.y!,
-          type: plotType,
-          mode: plotMode,
-        },
-      ];
+      console.log("Unknown data type!!");
+      return [];
   }
 };
