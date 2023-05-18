@@ -219,10 +219,7 @@ const Sidebar = ({
           icon={<IconSearch size={18} />}
           radius="sm"
           type="search"
-          style={{
-            marginTop: "30px",
-            background: "inherit",
-          }}
+          mt={30}
           value={textInput}
           onChange={(e) => handleChangeInput(e.target.value)}
         />

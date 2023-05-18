@@ -605,8 +605,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           class="mantine-khtkeg"
         >
           <div
-            class="mantine-Input-wrapper mantine-7c7vou"
-            style="margin-top: 30px;"
+            class="mantine-Input-wrapper mantine-rd8bu7"
           >
             <div
               class="mantine-1a5b1k mantine-Input-icon"
