@@ -116,6 +116,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 height: 190,
                 width: 210,
               }}
+              isThumbnail
             />
 
             <Box

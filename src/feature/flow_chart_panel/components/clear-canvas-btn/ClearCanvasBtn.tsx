@@ -28,7 +28,6 @@ export const ClearCanvasBtn = ({ setNodes }: ClearCanvasBtnProps) => {
   const { classes } = useStyles();
 
   const deleteAllNodes = () => {
-    console.log("deleting all nodes");
     setNodes([]);
   };
 

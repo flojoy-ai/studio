@@ -33,13 +33,14 @@ const CustomResultNode = ({ data }: CustomResultNodeProp) => {
       ) : (
         <PlotlyComponent
           id={data.id}
-          data={makePlotlyData(data.resultData.default_fig.data, theme)}
+          data={makePlotlyData(data.resultData.default_fig.data, theme, true)}
           layout={Object.assign({}, { title: data.label }, styledLayout)}
           useResizeHandler
           style={{
             height: 190,
             width: 210,
           }}
+          isThumbnail
         />
       )}
     </div>

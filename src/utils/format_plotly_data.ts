@@ -9,10 +9,14 @@ import {
 } from "@src/feature/results_panel/types/ResultsType";
 import { PlotData } from "plotly.js";
 
-const NUM_OF_COLUMNS = 4;
+const NUM_OF_COLUMNS = 2;
 const NUM_OF_ROWS = 20;
 
-export const makePlotlyData = (data: OverridePlotData, theme: MantineTheme) => {
+export const makePlotlyData = (
+  data: OverridePlotData,
+  theme: MantineTheme,
+  isThumbnail?: boolean
+) => {
   const headerFillColor =
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
   const cellFillColor = "transparent";
@@ -24,9 +28,9 @@ export const makePlotlyData = (data: OverridePlotData, theme: MantineTheme) => {
         header: {
           ...d.header,
           align: "center",
-          values: d.header?.values.filter(
-            (_: any, i: number) => i < NUM_OF_COLUMNS
-          ),
+          values: isThumbnail
+            ? d.header?.values.filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+            : d.header?.values,
           fill: {
             color: headerFillColor,
           },
@@ -34,11 +38,13 @@ export const makePlotlyData = (data: OverridePlotData, theme: MantineTheme) => {
         cells: {
           ...d.cells,
           align: "center",
-          values: d.cells?.values
-            .filter((_: any, i: number) => i < NUM_OF_COLUMNS)
-            .map((i: any) =>
-              i.filter((_: any, index: number) => index < NUM_OF_ROWS)
-            ),
+          values: isThumbnail
+            ? d.cells?.values
+                .filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+                .map((i: any) =>
+                  i.filter((_: any, index: number) => index < NUM_OF_ROWS)
+                )
+            : d.cells?.values,
           fill: {
             color: cellFillColor,
           },
