@@ -95,10 +95,9 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
       opened={isOpen}
       onClose={onClose}
       size={1030}
-      aria-hidden="false"
     >
       <Button
-        data-testid="button"
+        data-testid="closeButton"
         onClick={onClose}
         className={classes.closeButton}
       ></Button>

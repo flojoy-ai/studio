@@ -3,15 +3,21 @@ import KeyboardShortcutModal from "@src/feature/flow_chart_panel/views/KeyboardS
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 const testId = "keyboard_shortcut_modal";
-// mock ReactModal component
-jest.mock("react-modal", () => {
-  return {
-    __esModule: true,
-    default: jest.fn().mockImplementation(({ children }) => {
-      return <div data-testid={testId}>{children}</div>;
-    }),
-  };
-});
+// mock mantine/core Modal component
+
+jest.mock("@mantine/core", () => ({
+  __esModule: true,
+  default: jest.fn(({ children }) => <div>{children}</div>),
+  Modal: jest.fn(({ children }) => (
+    <div data-testid="keyboard_shortcut_modal">{children}</div>
+  )),
+  createStyles: jest.fn(() => jest.fn(() => ({ classes: {} }))),
+  Button: jest.fn(({ children, onClick }) => (
+    <button onClick={onClick} data-testid="closeButton">
+      {children}
+    </button>
+  )),
+}));
 
 describe("KeyboardShortcutModal", () => {
   const onCloseMock = jest.fn();
@@ -34,7 +40,7 @@ describe("KeyboardShortcutModal", () => {
     const { getByTestId } = renderWithTheme(
       <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
-    const closeButton = getByTestId("button");
+    const closeButton = getByTestId("closeButton");
     fireEvent.click(closeButton);
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
