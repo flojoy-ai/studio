@@ -1,15 +1,10 @@
-import { fireEvent, waitFor } from "@testing-library/react";
-import { SidebarCustom } from "@src/feature/common/Sidebar/Sidebar";
-import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
-import { useState } from "react";
-import {
-  CMND_MANIFEST,
-  CMND_MANIFEST_MAP,
-  CMND_TREE,
-} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import React from "react";
 import { AddNodeBtn } from "@src/AddNodeBtn";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import { SidebarCustom } from "@src/feature/common/Sidebar/Sidebar";
+import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
+import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { fireEvent } from "@testing-library/react";
+import { useState } from "react";
 
 class ResizeObserver {
   observe() {}
@@ -43,7 +38,7 @@ jest.mock("@src/hooks/useFlowChartState", () => {
 jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
   const SidebarMock = () => {
     const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false); //for script sidebar
-    const addNewNode = useAddNewNode();
+    const addNewNode = useAddNewNode(jest.fn());
     return (
       <>
         <AddNodeBtn

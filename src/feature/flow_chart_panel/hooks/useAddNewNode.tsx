@@ -4,10 +4,18 @@ import { v4 as uuidv4 } from "uuid";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
+import { Node } from "reactflow";
+import { Draft } from "immer";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
-export const useAddNewNode = () => {
+export const useAddNewNode = (
+  setNodes: (
+    update:
+      | Node<ElementsData>[]
+      | ((draft: Draft<Node<ElementsData>>[]) => void)
+  ) => void
+) => {
   //helper for addNewNode function
   const getNodePosition = () => {
     return {
@@ -16,13 +24,15 @@ export const useAddNewNode = () => {
     };
   };
 
-  const { nodes, setNodes } = useFlowChartState();
+  // const { nodes, setNodes } = useFlowChartState();
   const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
     ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY)!)
     : getNodePosition();
+
   useEffect(() => {
     return () => localStorage.setItem(LAST_NODE_POSITION_KEY, "");
   }, []);
+
   return (key: string) => {
     const nodePosition = {
       x: lastNodePosition.x + 100,
@@ -41,13 +51,14 @@ export const useAddNewNode = () => {
     if (funcName === "CONSTANT") {
       nodeLabel = "2.0";
     } else {
-      const numOfThisNodesOnChart = nodes.filter(
-        (node) => node.data.func === funcName
-      ).length;
-      nodeLabel =
-        numOfThisNodesOnChart > 0
-          ? `${funcName}_${numOfThisNodesOnChart}`
-          : funcName;
+      // const numOfThisNodesOnChart = nodes.filter(
+      //   (node) => node.data.func === funcName
+      // ).length;
+      // nodeLabel =
+      //   numOfThisNodesOnChart > 0
+      //     ? `${funcName}_${numOfThisNodesOnChart}`
+      //     : funcName;
+      nodeLabel = funcName;
     }
     const nodeParams = params
       ? Object.keys(params).reduce(

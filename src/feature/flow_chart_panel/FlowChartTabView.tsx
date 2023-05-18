@@ -1,44 +1,44 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 import {
+  ConnectionLineType,
+  EdgeTypes,
+  NodeDragHandler,
+  NodeMouseHandler,
+  NodeTypes,
+  OnConnect,
+  OnEdgesChange,
+  OnInit,
+  OnNodesChange,
+  OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
   addEdge,
-  ConnectionLineType,
-  OnNodesChange,
-  applyNodeChanges,
   applyEdgeChanges,
-  OnEdgesChange,
-  OnConnect,
-  NodeTypes,
-  EdgeTypes,
-  OnInit,
-  NodeMouseHandler,
-  NodeDragHandler,
-  OnNodesDelete,
-  OnSelectionChangeFunc,
+  applyNodeChanges,
 } from "reactflow";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
-import usePlotLayout from "../common/usePlotLayout";
-import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
-import NodeModal from "./views/NodeModal";
-import { FlowChartProps } from "./types/FlowChartProps";
-import { useFlowChartTabState } from "./FlowChartTabState";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { BezierEdge } from "reactflow";
-import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
-import { Node } from "reactflow";
-import { useSocket } from "@src/hooks/useSocket";
+import { useMantineTheme } from "@mantine/styles";
+import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
+import { nodeConfigs } from "@src/configs/NodeConfigs";
+import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
-import Sidebar from "./SideBar/Sidebar";
+import { BezierEdge, Node } from "reactflow";
+import { SidebarCustom } from "../common/Sidebar/Sidebar";
+import usePlotLayout from "../common/usePlotLayout";
+import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { useFlowChartTabState } from "./FlowChartTabState";
+import { RequestNode } from "./components/RequestNode";
+import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
+import { useAddNewNode } from "./hooks/useAddNewNode";
+import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
+import NodeModal from "./views/NodeModal";
 
 localforage.config({
   name: "react-flow",
@@ -50,6 +50,8 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
+  const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false);
+
   const { states } = useSocket();
   const { programResults } = states!;
   const results = programResults!;
@@ -83,6 +85,8 @@ const FlowChartTab = () => {
     selectedNode,
     loadFlowExportObject,
   } = useFlowChartGraph();
+
+  const addNewNode = useAddNewNode(setNodes);
 
   const theme = useMantineTheme();
 
@@ -196,7 +200,28 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <Sidebar setNodes={setNodes} />
+      <div
+        className="top-row"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <AddNodeBtn
+          setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
+          isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
+        />
+        <ClearCanvasBtn />
+      </div>
+      <SidebarCustom
+        sections={CMND_TREE}
+        manifestMap={CMND_MANIFEST_MAP}
+        leafNodeClickHandler={addNewNode}
+        isSideBarOpen={isSCRIPTSideBarOpen}
+        setSideBarStatus={setSCRIPTSideBarStatus}
+        customContent={<RequestNode />}
+      />
+      {/* <Sidebar setNodes={setNodes} /> */}
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 110px)" }}
