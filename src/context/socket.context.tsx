@@ -2,6 +2,7 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+
 type States = {
   programResults: ResultsType | null;
   setProgramResults: Dispatch<SetStateAction<ResultsType>>;
@@ -15,6 +16,7 @@ type States = {
     output: string[];
   };
 };
+
 export enum IServerStatus {
   OFFLINE = "🛑 server offline",
   CONNECTING = "Connecting to server...",
@@ -27,6 +29,7 @@ export enum IServerStatus {
   SERVER_ONLINE = "🏁 node server online",
   NO_RUNS_YET = "⛷️ No runs yet",
 }
+
 const DEFAULT_STATES = {
   runningNode: "",
   serverStatus: IServerStatus.CONNECTING,
@@ -34,10 +37,13 @@ const DEFAULT_STATES = {
   failureReason: "",
   socketId: "",
 };
+
 export const SocketContext = createContext<{ states: States } | null>(null);
 
 const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
+const BACKEND_PORT = process.env.VITE_SOCKET_PORT
+  ? Number(process.env.VITE_SOCKET_PORT)
+  : 8000;
 
 export const SocketContextProvider = ({
   children,
@@ -53,6 +59,7 @@ export const SocketContextProvider = ({
     isRunning: false,
     output: [],
   });
+
   const handleStateChange = (state: keyof States) => (value: any) => {
     setStates((prev) => ({
       ...prev,

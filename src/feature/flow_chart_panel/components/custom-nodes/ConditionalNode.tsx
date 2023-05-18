@@ -6,7 +6,6 @@ import { useSocket } from "@src/hooks/useSocket";
 import { memo, useEffect, useState } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
-import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
@@ -15,12 +14,13 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  const { states } = useSocket();
-  const { programResults } = states!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const isLoopInfoExist = () => {
     const isExist = Object.keys(additionalInfo).find(
-      (value, _) => value === data.id
+      (value) => value === data.id
     );
     return isExist && data.func === "LOOP";
   };

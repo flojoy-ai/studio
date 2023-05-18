@@ -1,24 +1,23 @@
-import { Dispatch, memo, SetStateAction } from "react";
-import Select, { ThemeConfig } from "react-select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { Dispatch, memo, SetStateAction } from "react";
+import Select, { ThemeConfig } from "react-select";
 import customDropdownStyles from "../../style/CustomDropdownStyles";
 
-import { ControlNames } from "../../manifest/CONTROLS_MANIFEST";
-import ControlComponentState from "./ControlComponentState";
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
+import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
   CtrlManifestParam,
-  PlotManifestParam,
 } from "@src/hooks/useFlowChartState";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ControlNames } from "../../manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "../../types/ControlOptions";
-import PlotControl from "../PlotControl";
-import SevenSegmentComponent from "../SevenSegmentComponent";
 import KnobCtrl from "../KnobCtrl";
 import NodeReference from "../NodeReference";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import PlotControl from "../PlotControl";
+import SevenSegmentComponent from "../SevenSegmentComponent";
+import ControlComponentState from "./ControlComponentState";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -125,16 +124,13 @@ export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   results: ResultsType;
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
-  attachParamsToCtrl: (
-    val: CtrlOptionValue | PlotManifestParam,
-    ctrlObj: CtlManifestType
-  ) => void;
+  attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ctrl: CtlManifestType
   ) => void;
   setCurrentInput: Dispatch<
-    SetStateAction<CtlManifestType & { index: number }>
+    SetStateAction<(CtlManifestType & { index: number }) | undefined>
   >;
   setOpenEditModal: Dispatch<SetStateAction<boolean>>;
 };
@@ -460,7 +456,7 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={(e) => {
+                  onChange={() => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
@@ -485,7 +481,7 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={(e) => {
+                  onChange={() => {
                     updateCtrlValue(option.value, ctrlObj);
                   }}
                 />

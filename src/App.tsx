@@ -36,8 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const { states } = useSocket();
-  const { runningNode, failedNode, preJobOperation } = states!;
+  const {
+    states: { runningNode, failedNode, preJobOperation },
+  } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
 
   const { setRunningNode, setFailedNode } = useFlowChartState();

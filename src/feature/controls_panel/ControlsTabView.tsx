@@ -1,31 +1,28 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useState } from "react";
 import "./style/Controls.css";
 
+import { createStyles } from "@mantine/styles";
+import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
+import { EditSwitch } from "@src/EditSwitch";
+import { Layout } from "@src/Layout";
+import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
 import { useSocket } from "@src/hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import { useControlsTabState } from "./ControlsTabState";
-import ControlGrid from "./views/ControlGrid";
-import { useControlsTabEffects } from "./ControlsTabEffects";
-import { CtrlOptionValue } from "./types/ControlOptions";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import { createStyles } from "@mantine/styles";
-import { useMantineTheme } from "@mantine/styles";
-import { AddCTRLBtn } from "@src/AddCTRLBtn";
-import { EditSwitch } from "@src/EditSwitch";
-import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { v4 as uuidv4 } from "uuid";
-import { Layout } from "@src/Layout";
 import SidebarCustom from "../common/Sidebar/Sidebar";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsTabEffects } from "./ControlsTabEffects";
+import { useControlsTabState } from "./ControlsTabState";
+import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
+import { CtrlOptionValue } from "./types/ControlOptions";
+import ControlGrid from "./views/ControlGrid";
 
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -43,20 +40,13 @@ localforage.config({ name: "react-flow", storeName: "flows" });
 const ControlsTab = () => {
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
-  const theme = useMantineTheme();
-  const { states } = useSocket();
-  const { socketId, setProgramResults, programResults } = states!;
-  const results = programResults!;
+  const {
+    states: { programResults },
+  } = useSocket();
+
+  const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
   const {
-    setOpenEditModal,
-    setCurrentInput,
-    debouncedTimerId,
-    setDebouncedTimerId,
-  } = useControlsTabState();
-
-  const {
-    rfInstance,
     ctrlsManifest,
     setCtrlsManifest,
     isEditMode,
@@ -64,26 +54,17 @@ const ControlsTab = () => {
     gridLayout,
   } = useFlowChartState();
 
-  const { nodes, updateCtrlInputDataForNode, removeCtrlInputDataForNode } =
-    useFlowChartGraph();
+  const { nodes, updateCtrlInputDataForNode } = useFlowChartGraph();
 
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
-  // const saveAndRunFlowChart = useCallback(() => {
-  //   if (debouncedTimerId) {
-  //     clearTimeout(debouncedTimerId);
-  //   }
-  //   const timerId = setTimeout(() => {
-  //     setProgramResults({ io: [] });
-  //     saveAndRunFlowChartInServer(socketId, rfInstance);
-  //   }, 3000);
-
-  //   setDebouncedTimerId(timerId);
-  // }, [debouncedTimerId, rfInstance]);
-
   useControlsTabEffects();
+
+  if (!programResults) {
+    return <div>No program results</div>;
+  }
 
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = (ctrlKey: string) => {
@@ -101,16 +82,18 @@ const ControlsTab = () => {
         yAxis = el.y;
       }
     }
+
     const ctrlLayout = {
       x: 0,
       y: yAxis + 1,
-      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
+      h: ctrlObj.minHeight > 2 ? ctrlObj.minHeight : 2,
       w: 2,
       i: id,
       minH: ctrlObj.minHeight,
       minW: ctrlObj.minWidth,
       static: !isEditMode,
     };
+
     const ctrl: CtlManifestType = {
       ...ctrlObj,
       hidden: false,
@@ -121,35 +104,33 @@ const ControlsTab = () => {
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
-  const removeCtrl = (e: any, ctrl: any = undefined) => {
-    const ctrlId = e.target.id;
+  const removeCtrl = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ctrl: CtlManifestType
+  ) => {
+    const ctrlId = (e.target as HTMLButtonElement).id;
     console.warn("Removing", ctrlId, ctrl);
     const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
-
-    // if (ctrl.param) {
-    //   removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
-    //   saveAndRunFlowChart();
-    // }
   };
 
   const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
-    manClone.forEach((c, i) => {
-      // if (c.id === ctrl.id) {
-      //   manClone[i].val = isNaN(+val) ? val : +val;
-      // }
-    });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(
-      (ctrl.param! as CtrlManifestParam).nodeId,
-      (ctrl.param! as CtrlManifestParam).param,
-      {
-        functionName: (ctrl.param! as CtrlManifestParam).functionName,
-        param: (ctrl.param! as CtrlManifestParam).param,
-        value: val,
-      }
-    );
+
+    if (ctrl.param) {
+      updateCtrlInputDataForNode(
+        (ctrl.param as CtrlManifestParam).nodeId,
+        (ctrl.param as CtrlManifestParam).param,
+        {
+          functionName: (ctrl.param as CtrlManifestParam).functionName,
+          param: (ctrl.param as CtrlManifestParam).param,
+          value: val,
+        }
+      );
+    } else {
+      console.error("Cannot update nonexistant parameter");
+    }
   };
 
   const attachParamsToCtrl = (
@@ -197,12 +178,12 @@ const ControlsTab = () => {
             setIsEditMode={setIsEditMode}
             isCTRLSideBarOpen={ctrlSidebarOpen}
           />
-          <EditSwitch isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
+          <EditSwitch />
         </div>
         <ControlGrid
           controlProps={{
             isEditMode,
-            results,
+            results: programResults,
             updateCtrlValue,
             attachParamsToCtrl,
             removeCtrl,
@@ -217,87 +198,6 @@ const ControlsTab = () => {
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
         />
-
-        {/* <AddCtrlModal
-        isOpen={openCtrlModal}
-        afterOpenModal={afterOpenModal}
-        closeModal={closeModal}
-        addCtrl={addCtrl}
-        theme={theme}
-      /> */}
-        {/* <Modal
-        isOpen={openEditModal}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={() => setOpenEditModal(false)}
-        style={modalStyles(theme)}
-        ariaHideApp={false}
-        contentLabel="Choose a Python function"
-      >
-        <button onClick={() => setOpenEditModal(false)} className="close-modal">
-          <ModalCloseSvg
-            style={{
-              height: 23,
-              width: 23,
-            }}
-          />
-        </button>
-        {currentInput && (
-          <div>
-            <p>Ctrl properties</p>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "5px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  alignItems: "center",
-                }}
-              >
-                <p>Hidden</p>
-                <ReactSwitch
-                  checked={
-                    ctrlsManifest[currentInput?.index!]!?.hidden! || false
-                  }
-                  onChange={(nextChecked) => {
-                    setCtrlsManifest((prev) => {
-                      prev[currentInput?.index!].hidden = nextChecked;
-                    });
-                  }}
-                />
-              </div>
-              {ctrlsManifest[currentInput?.index!]?.name ===
-                ControlNames.SevenSegmentDisplay && (
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "8px",
-                    alignItems: "center",
-                  }}
-                >
-                  <p>Segment Color </p>
-                  <input
-                    type="color"
-                    name="seven_segment_color"
-                    id="seven_segment_color"
-                    value={ctrlsManifest[currentInput.index].segmentColor || ""}
-                    onChange={(e) => {
-                      setCtrlsManifest((prev) => {
-                        prev[currentInput?.index!].segmentColor =
-                          e.target.value;
-                      });
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </Modal> */}
       </div>
     </Layout>
   );

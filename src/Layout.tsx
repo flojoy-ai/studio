@@ -7,8 +7,10 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { states } = useSocket();
-  const { serverStatus } = states!;
+  const {
+    states: { serverStatus },
+  } = useSocket();
+
   return (
     <div>
       <ServerStatus serverStatus={serverStatus} />
