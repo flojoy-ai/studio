@@ -6,7 +6,7 @@ const props: NodeModalProps = {
   modalIsOpen: false,
   afterOpenModal: jest.fn(),
   closeModal: jest.fn(),
-  modalStyles: {},
+  //modalStyles: {},
   nodeLabel: "test",
   nodeType: "test",
   nd: {
@@ -33,14 +33,14 @@ jest.mock("@src/feature/common/PlotlyComponent", () => {
   return { __esModule: true, default: mockChild };
 });
 
-jest.mock("react-modal", () => {
-  const ReactModal = jest
-    .fn()
-    .mockReturnValue(<div data-testid="react-modal" />);
-  return {
-    default: ReactModal,
-  };
-});
+// jest.mock("@mantine/core", () => {
+//   const Modal = jest
+//     .fn()
+//     .mockReturnValue(<div data-testid="node_modal" />);
+//   return {
+//     default: Modal,
+//   };
+// });
 
 describe("NodeModal", () => {
   it("checks the snapshot", () => {
@@ -52,7 +52,7 @@ describe("NodeModal", () => {
       <NodeModal {...props} />
     );
 
-    const component = getByTestId("react-modal");
+    const component = getByTestId("node-modal");
 
     expect(component).toBeInTheDocument();
   });

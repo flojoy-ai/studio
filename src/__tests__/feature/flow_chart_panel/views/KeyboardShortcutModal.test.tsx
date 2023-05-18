@@ -1,4 +1,4 @@
-import { fireEvent, getAllByText } from "@testing-library/react";
+import { fireEvent, getAllByText, getByTestId } from "@testing-library/react";
 import KeyboardShortcutModal from "@src/feature/flow_chart_panel/views/KeyboardShortcutModal";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
@@ -31,16 +31,16 @@ describe("KeyboardShortcutModal", () => {
   });
 
   it("calls onClose when the close button is clicked", () => {
-    const { getByRole } = renderWithTheme(
+    const { getByTestId } = renderWithTheme(
       <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
-    const closeButton = getByRole("button");
+    const closeButton = getByTestId("button");
     fireEvent.click(closeButton);
     expect(onCloseMock).toHaveBeenCalledTimes(1);
   });
 
   it("renders the correct keyboard shortcuts for each platform", () => {
-    const { getByText, container } = renderWithTheme(
+    const { getByTestId, getByText } = renderWithTheme(
       <KeyboardShortcutModal isOpen={true} onClose={onCloseMock} />
     );
     const shortcuts = [
@@ -60,10 +60,12 @@ describe("KeyboardShortcutModal", () => {
       },
       // Add more keyboard shortcuts here
     ];
+    const keyContainer = getByTestId("key_container");
+    expect(keyContainer).toBeInTheDocument();
     shortcuts.forEach((shortcut) => {
-      const commands = getAllByText(container, shortcut.command);
+      const commands = getAllByText(keyContainer, shortcut.command);
       commands.forEach((cmd) => {
-        expect(cmd).toBeInTheDocument();
+        expect(cmd).toBeInTheDocument(); 
       });
       expect(getByText(shortcut.platforms["windows"])).toBeInTheDocument();
       expect(getByText(shortcut.platforms["macOs"])).toBeInTheDocument();

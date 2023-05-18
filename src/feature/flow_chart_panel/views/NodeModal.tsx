@@ -4,7 +4,6 @@ import PlotlyComponent from "../../common/PlotlyComponent";
 import { Modal, useMantineTheme } from "@mantine/core";
 import { createStyles, useMantineColorScheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import { useState, useEffect } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -27,7 +26,6 @@ const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
-  // modalStyles,
   nodeLabel,
   nodeType,
   nd,
@@ -39,13 +37,15 @@ const NodeModal = ({
   const theme = useMantineColorScheme().colorScheme;
 
   return (
-    <Modal opened={modalIsOpen} onClose={closeModal} size={1030}>
+    <Modal data-testid="node-modal" 
+      opened={modalIsOpen} 
+      onClose={closeModal} 
+      size={1030}>
       <button
         onClick={closeModal}
         data-cy="ctrl-close-btn"
         className={classes.closeButton}
       >
-        x
       </button>
 
       {nodeLabel !== undefined && nodeType !== undefined && (

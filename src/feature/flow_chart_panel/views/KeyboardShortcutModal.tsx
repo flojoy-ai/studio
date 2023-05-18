@@ -88,19 +88,24 @@ const useStyles = createStyles((theme) => ({
 
 const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
   const { classes } = useStyles();
-  const themeMantine = useMantineTheme();
 
   return (
     <Modal
       data-testid="keyboard_shortcut_modal"
       opened={isOpen}
       onClose={onClose}
-      aria-label="keyboard shortcut modal"
       size={1030}
+      aria-hidden="false"
     >
-      <Button onClick={onClose} className={classes.closeButton}></Button>
+      <Button
+        data-testid="button" 
+        onClick={onClose} 
+        className={classes.closeButton}>
+      </Button>
 
-      <div className={classes.container}>
+      <div
+        data-testid="key_container" 
+        className={classes.container}>
         {platforms.map((platform) => {
           return (
             <div className={classes.column} key={platform.key}>
