@@ -1,9 +1,14 @@
-import ReactModal from "react-modal";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
-import { createStyles, useMantineColorScheme } from "@mantine/styles";
+import { Modal } from "@mantine/core";
+import {
+  createStyles,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -26,7 +31,6 @@ const NodeModal = ({
   modalIsOpen,
   afterOpenModal,
   closeModal,
-  modalStyles,
   nodeLabel,
   nodeType,
   nd,
@@ -35,23 +39,23 @@ const NodeModal = ({
   clickedElement,
 }: NodeModalProps) => {
   const { classes } = useStyles();
-  const theme = useMantineColorScheme().colorScheme;
+
+  const theme = useMantineTheme();
+
+  const colorScheme = useMantineColorScheme().colorScheme;
+
   return (
-    <ReactModal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      style={modalStyles}
-      ariaHideApp={false}
-      contentLabel=""
+    <Modal
+      data-testid="node-modal"
+      opened={modalIsOpen}
+      onClose={closeModal}
+      size={1030}
     >
       <button
         onClick={closeModal}
         data-cy="ctrl-close-btn"
         className={classes.closeButton}
-      >
-        x
-      </button>
+      ></button>
 
       {nodeLabel !== undefined && nodeType !== undefined && (
         <div>
@@ -71,7 +75,7 @@ const NodeModal = ({
           {nd?.result && (
             <PlotlyComponent
               id={nd.id}
-              data={nd.result.default_fig.data}
+              data={makePlotlyData(nd.result.default_fig.data, theme)}
               layout={
                 "layout" in nd.result.default_fig
                   ? Object.assign({}, defaultLayout)
@@ -90,7 +94,7 @@ const NodeModal = ({
       <h3>Python code</h3>
       <SyntaxHighlighter
         language="python"
-        style={theme === "dark" ? srcery : docco}
+        style={colorScheme === "dark" ? srcery : docco}
       >
         {pythonString}
       </SyntaxHighlighter>
@@ -98,11 +102,11 @@ const NodeModal = ({
       <h3>Node data</h3>
       <SyntaxHighlighter
         language="json"
-        style={theme === "dark" ? srcery : docco}
+        style={colorScheme === "dark" ? srcery : docco}
       >
         {`${JSON.stringify(clickedElement, undefined, 4)}`}
       </SyntaxHighlighter>
-    </ReactModal>
+    </Modal>
   );
 };
 

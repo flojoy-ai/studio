@@ -124,18 +124,19 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const { classes } = useStyles();
 
   const {
-    isEditMode,
-    setIsEditMode,
     rfInstance,
     openFileSelector,
     saveFile,
     saveFileAs,
+    nodeParamChanged,
+    setNodeParamChanged,
   } = useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
+      setNodeParamChanged(undefined);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."

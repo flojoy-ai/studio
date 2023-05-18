@@ -1,24 +1,30 @@
 import { createStyles } from "@mantine/core";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const useStyles = createStyles((theme) => {
   return {
     addButton: {
       boxSizing: "border-box",
-      backgroundColor: theme.colors.accent4[1],
-      color: theme.colors.accent4[0],
-      border: `1px solid ${theme.colors.accent4[0]}`,
+      backgroundColor: "transparent",
+      color: "red",
+      border: "1px solid red",
       cursor: "pointer",
     },
   };
 });
 
-export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
+export const ClearCanvasBtn = () => {
   const { classes } = useStyles();
+  const { setNodes } = useFlowChartState();
+  const deleteAllNodes = () => {
+    console.log("deleting all nodes");
+    setNodes([]);
+  };
   return (
     <button
-      data-testid="add-node-button"
+      data-testid="clear-canvas-btn"
       className={classes.addButton}
-      onClick={() => setSCRIPTSideBarStatus(!isSCRIPTSideBarOpen)}
+      onClick={deleteAllNodes}
       style={{
         width: "fit-content",
         height: "43px",
@@ -28,7 +34,7 @@ export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
         zIndex: 1,
       }}
     >
-      + Add Node
+      Clear Canvas
     </button>
   );
 };

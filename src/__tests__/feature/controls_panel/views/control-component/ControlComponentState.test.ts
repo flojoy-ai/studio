@@ -1,4 +1,5 @@
 import { DEFAULT_THEME } from "@mantine/styles";
+import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { darkTheme } from "@src/feature/common/theme";
 import {
   ControlOptions,
@@ -211,8 +212,7 @@ describe("Testing ControlComponentState State's", () => {
             x: [2, 4, 5, 6],
             y: [2, 4, 5, 6],
             z: [2, 4, 5, 6],
-            type: "box",
-            mode: "lines",
+            type: "ordered_pair",
           },
         },
       };
@@ -232,7 +232,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.plotData).toEqual([]);
     });
     it("Checks if the PlotData's State renders/fires with Updated State", () => {
-      const updatedTestPlotData: Data[] = [
+      const updatedTestPlotData: OverridePlotData = [
         {
           x: [5, 3, 2],
           y: [4, 2, 6],
@@ -287,10 +287,9 @@ describe("Testing ControlComponentState State's", () => {
         paper_bgcolor: "rgba(0,0,0,0)",
         plot_bgcolor: "#2c2e33",
         autosize: true,
-        font: { color: "#ffffff" },
+        font: { color: "#99f5ff" },
         margin: { t: 40, r: 40, b: 40, l: 40 },
         xaxis: { zeroline: false, type: "linear" },
-        showlegend: false,
       };
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)

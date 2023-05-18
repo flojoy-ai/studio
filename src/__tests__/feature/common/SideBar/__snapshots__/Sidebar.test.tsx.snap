@@ -5,7 +5,7 @@ exports[`Sidebar should render the component correctly 1`] = `
   <button
     class="mantine-b33zvb"
     data-testid="add-node-button"
-    style="position: absolute; height: 43px; left: 10px; top: 130px; margin: 10px; z-index: 1;"
+    style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
   >
     + Add Node
   </button>
@@ -43,7 +43,7 @@ exports[`Sidebar should render the component correctly 1`] = `
       class="mantine-khtkeg"
     >
       <div
-        class="mantine-Input-wrapper mantine-7c7vou"
+        class="mantine-Input-wrapper mantine-1v7s5f8"
         style="margin-top: 30px;"
       >
         <div
@@ -71,7 +71,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         </div>
         <input
           aria-invalid="false"
-          class="mantine-Input-input mantine-10w4rw8"
+          class="mantine-Input-input mantine-e063mj"
           data-testid="sidebar-input"
           data-with-icon="true"
           name="sidebar-input"
