@@ -66,3 +66,13 @@ jobs:
         run: |
           cd PYTHON
           python -m pytest
+
+  batch-completion-notification:
+    # this runs after all the test jobs have completed
+    needs: [run-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Applitools batch status
+        uses: wei/curl@v1.1.1
+        with:
+          args: -X POST -d -H "accept:*/*" https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{env.APPLITOOLS_BATCH_ID}}/complete?apiKey=${{env.APPLITOOLS_API_KEY}}
