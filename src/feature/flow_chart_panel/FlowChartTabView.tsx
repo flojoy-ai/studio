@@ -95,11 +95,6 @@ const FlowChartTab = () => {
   const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
 
-  const modalStyles = {
-    overlay: { zIndex: 99, backgroundColor: theme.colors.modal[0] + "7f" },
-    content: { zIndex: 100, backgroundColor: theme.colors.modal[0] },
-  };
-
   const onNodeClick: NodeMouseHandler = (_, node) => {
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
@@ -256,20 +251,18 @@ const FlowChartTab = () => {
           />
         </div>
 
-        <NodeModal
-          afterOpenModal={afterOpenModal}
-          clickedElement={clickedElement}
-          closeModal={closeModal}
-          defaultLayout={defaultLayout}
-          modalIsOpen={modalIsOpen}
-          modalStyles={modalStyles}
-          nd={nd!}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
-          pythonString={pythonString}
-        />
-      </ReactFlowProvider>
-    </Layout>
+      <NodeModal
+        afterOpenModal={afterOpenModal}
+        clickedElement={clickedElement}
+        closeModal={closeModal}
+        defaultLayout={defaultLayout}
+        modalIsOpen={modalIsOpen}
+        nd={nd!}
+        nodeLabel={nodeLabel}
+        nodeType={nodeType}
+        pythonString={pythonString}
+      />
+    </ReactFlowProvider>
   );
 };
 export default FlowChartTab;
