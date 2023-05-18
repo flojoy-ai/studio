@@ -39,6 +39,7 @@ const App = () => {
   const { states } = useSocket();
   const { runningNode, failedNode, preJobOperation } = states!;
   const [theme, setTheme] = useState<ColorScheme>("dark");
+
   const { setRunningNode, setFailedNode } = useFlowChartState();
   const [
     isPrejobModalOpen,
@@ -62,7 +63,6 @@ const App = () => {
     } else {
       closePreJobModal();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preJobOperation]);
 
   return (
