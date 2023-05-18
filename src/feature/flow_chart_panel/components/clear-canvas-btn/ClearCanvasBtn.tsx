@@ -15,10 +15,10 @@ const useStyles = createStyles((theme) => {
 
 export const ClearCanvasBtn = () => {
   const { classes } = useStyles();
-  const { setNodes } = useFlowChartState();
+  const { setNodes, setEdges } = useFlowChartState();
   const deleteAllNodes = () => {
-    console.log("deleting all nodes");
     setNodes([]);
+    setEdges([]);
   };
   return (
     <button
