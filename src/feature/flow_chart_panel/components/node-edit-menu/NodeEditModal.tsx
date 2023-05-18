@@ -5,7 +5,7 @@ import ParamField, { ParamType } from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -79,7 +79,7 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
             </Title>
             <IconPencil
               size={18}
-              style={{ marginLeft: "1rem", marginBottom: "4px" }}
+              style={{ marginLeft: "16px", marginBottom: "4px" }}
             />
           </Box>
           {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
@@ -108,4 +108,4 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   );
 };
 
-export default NodeEditModal;
+export default memo(NodeEditModal);
