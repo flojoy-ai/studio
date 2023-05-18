@@ -64,7 +64,7 @@ const ControlComponentState = ({
   const ctrls: ElementsData["ctrls"] = inputNode?.data?.ctrls!;
 
   const fnParams =
-    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
+    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
   const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param!];
   const defaultValue =
@@ -97,7 +97,6 @@ const ControlComponentState = ({
       }
       updateCtrlValue(file.name, ctrlObj);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plainFiles]);
 
   return {

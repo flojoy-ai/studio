@@ -47,7 +47,6 @@ const useControlComponentEffects = ({
       setTextInput("");
       setSliderInput("0");
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
   useEffect(() => {
     console.log("25");
@@ -57,8 +56,6 @@ const useControlComponentEffects = ({
     } else {
       setCurrentInputValue(defaultValue as number);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrls, ctrlObj, selectedOption]);
   // Filter attached node result from all node results
   useEffect(() => {
@@ -83,7 +80,7 @@ const useControlComponentEffects = ({
   useEffect(() => {
     console.log("27");
     if (ctrlObj.type === ControlTypes.Input) {
-      if (flowChartObject!?.nodes !== undefined) {
+      if (flowChartObject?.nodes !== undefined) {
         flowChartObject!.nodes.forEach((node) => {
           const nodeLabel = node.data!.label;
           const nodeFunctionName = node.data!.func;
@@ -113,7 +110,7 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!?.nodes !== undefined) {
+      if (flowChartObject?.nodes !== undefined) {
         flowChartObject!.nodes.forEach((node) => {
           const label = `Visualize node: ${node.data!.label} (#${node.id.slice(
             -5
@@ -128,7 +125,6 @@ const useControlComponentEffects = ({
     return () => {
       setSelectOptions([]);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj, flowChartObject?.nodes, ctrlObj?.type]);
 
   // Filter attached node result from all node results
@@ -149,7 +145,6 @@ const useControlComponentEffects = ({
     } catch (e) {
       console.error(e);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj.param, results.io, selectedOption]);
 };
 

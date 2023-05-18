@@ -2,7 +2,7 @@ import { Box, createStyles } from "@mantine/core";
 import { IconLock, IconLockOpen } from "@tabler/icons-react";
 import ReactSwitch from "react-switch";
 
-const useStyles = createStyles((theme) => {
+const useStyles = createStyles(() => {
   return {
     editContainer: {
       display: "flex",

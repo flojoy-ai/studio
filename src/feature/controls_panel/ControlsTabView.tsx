@@ -81,7 +81,6 @@ const ControlsTab = () => {
   //   }, 3000);
 
   //   setDebouncedTimerId(timerId);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [debouncedTimerId, rfInstance]);
 
   useControlsTabEffects();

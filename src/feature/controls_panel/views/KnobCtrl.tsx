@@ -39,7 +39,6 @@ const KnobCtrl = ({
       }
       setKnobValue(value);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [(ctrlObj?.param as CtrlManifestParam)?.nodeId]
   );
 
@@ -48,7 +47,6 @@ const KnobCtrl = ({
     return () => {
       setKnobValue(0);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
 
   return (

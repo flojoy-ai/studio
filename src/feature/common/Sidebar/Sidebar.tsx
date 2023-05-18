@@ -99,7 +99,7 @@ const Sidebar = ({
       );
     }
 
-    let content: any;
+    let content: any[];
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node

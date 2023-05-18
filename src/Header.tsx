@@ -5,7 +5,7 @@ import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import ControlBar from "./feature/flow_chart_panel/views/ControlBar";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   header: {
     display: "flex",
     justifyContent: "space-between",

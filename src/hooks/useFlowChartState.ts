@@ -73,7 +73,7 @@ const rfInstanceAtom = atomWithImmer<
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
-  initialManifests.map((ctrl, i) => ({
+  initialManifests.map((ctrl) => ({
     ...ctrl.layout,
   }))
 );

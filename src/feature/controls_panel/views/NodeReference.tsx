@@ -31,7 +31,6 @@ const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
         .label!,
       value: rfInstance?.nodes.find((n) => n.id === ctrlObj.val)?.id!,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj.param, rfInstance?.nodes]);
 
   return (

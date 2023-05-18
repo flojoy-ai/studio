@@ -11,6 +11,5 @@ export function useControlsTabEffects() {
     if (nodes.length === 0) {
       setCtrlsManifest([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes]);
 }

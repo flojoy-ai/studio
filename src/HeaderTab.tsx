@@ -1,6 +1,5 @@
 import { MediaQuery, clsx, createStyles } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { AppTab } from "./Header";
 
 const useStyles = createStyles((theme) => ({
   tab: {
