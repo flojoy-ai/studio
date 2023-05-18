@@ -27,8 +27,6 @@ export function saveAndRunFlowChartInServer({
   if (rfInstance) {
     const rfInstanceObject = rfInstance;
     const fcStr = JSON.stringify(rfInstanceObject);
-    console.log(fcStr);
-
     fetch(`${API_URI}/wfc`, {
       method: "POST",
       body: JSON.stringify({
