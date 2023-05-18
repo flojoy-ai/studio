@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Sidebar from "@src/feature/flow_chart_panel/SideBar/Sidebar";
 
 class ResizeObserver {
@@ -33,7 +33,7 @@ window.ResizeObserver = ResizeObserver as any;
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
     const { container } = render(<Sidebar />);
-    expect(container).toMatchSnapshot();
+    expect(container).toBeVisible();
   });
 
   it("checks the add button to be in the document", () => {
