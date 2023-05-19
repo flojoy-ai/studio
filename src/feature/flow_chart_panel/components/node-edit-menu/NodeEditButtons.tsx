@@ -1,14 +1,12 @@
 import { Box, createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useFlowChartTabState } from "../../FlowChartTabState";
-import PYTHON_FUNCTIONS from "../../manifest/pythonFunctions.json";
 import { IconArrowsMaximize, IconPencil, IconX } from "@tabler/icons-react";
 import { ElementsData } from "../../types/CustomNodeProps";
 
 const useStyles = createStyles((theme) => ({
   Edit: {
     position: "absolute",
-    top: 10,
+    top: 7,
     right: 3,
     zIndex: 150,
     display: "flex",
@@ -43,13 +41,6 @@ const NodeEditButtons = ({
   handleRemove,
   showPencil,
 }: NodeEditButtonsProps) => {
-  const {
-    setPythonString,
-    nodeLabel,
-    defaultPythonFnLabel,
-    nodeType,
-    defaultPythonFnType,
-  } = useFlowChartTabState();
   const { setIsEditMode, setIsExpandMode } = useFlowChartState();
   const { classes } = useStyles();
 
