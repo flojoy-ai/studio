@@ -12,7 +12,7 @@ export const ALL_DC_TYPE = [
   "plotly",
 ] as const;
 
-export type DataContainterType = (typeof ALL_DC_TYPE)[number];
+export type DataContainerType = (typeof ALL_DC_TYPE)[number];
 
 //export interface DataContainer {
 //  type: DataContainterType;
@@ -30,7 +30,7 @@ export type DataContainterType = (typeof ALL_DC_TYPE)[number];
 //}
 
 export interface DataContainer {
-  type: DataContainterType;
+  type: DataContainerType;
   data:
     | GrayscaleData
     | MatrixData

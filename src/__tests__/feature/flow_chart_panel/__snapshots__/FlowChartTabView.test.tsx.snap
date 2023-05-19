@@ -185,7 +185,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           + Add Node
         </button>
         <button
-          class="mantine-1xm8q7t"
+          class="mantine-1vw9se0"
           data-testid="clear-canvas-btn"
           style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
         >
