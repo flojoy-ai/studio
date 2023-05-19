@@ -15,6 +15,7 @@ import PlayBtn from "../components/play-btn/PlayBtn";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/dropdown/DropDown";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import { SettingsModal } from "./SettingsModal";
 
 localforage.config({
   name: "react-flow",
@@ -29,6 +30,7 @@ const Controls: FC<ControlsProps> = ({
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const {
     isEditMode,
@@ -153,6 +155,7 @@ const Controls: FC<ControlsProps> = ({
           <button onClick={() => setIskeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
+          <button onClick={() => setIsSettingsOpen(true)}>Settings</button>
         </DropDown>
       )}
       {activeTab !== "visual" && activeTab !== "debug" && (
@@ -185,6 +188,12 @@ const Controls: FC<ControlsProps> = ({
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={() => setIskeyboardShortcutOpen(false)}
+        theme={theme}
+      />
+
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
         theme={theme}
       />
     </div>

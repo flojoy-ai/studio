@@ -2,6 +2,214 @@
     "_v": 0,
     "commands": [
         {
+            "name": "KEITHLEY2400",
+            "key": "KEITHLEY2400",
+            "type": "KEITHLEY",
+            "pip_dependencies": [
+                {
+                    "name": "pyserial",
+                    "v": 3.5
+                }
+            ]
+        },
+        {
+            "name": "Feedback",
+            "key": "FEEDBACK",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Time Series",
+            "key": "TIMESERIES",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Subtract",
+            "key": "SUBTRACT",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "sub_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Local File",
+            "key": "LOCAL_FILE",
+            "type": "LOCAL_FILE_SYSTEM"
+        },
+        {
+            "name": "Timer",
+            "key": "TIMER",
+            "type": "TIMER"
+        },
+        {
+            "name": "Histogram",
+            "key": "HISTOGRAM",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Line",
+            "key": "LINE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Linspace",
+            "key": "LINSPACE",
+            "type": "SIMULATION",
+            "ui_component_id": "default"
+        },
+        {
+            "name": "R Dataset",
+            "key": "R_DATASET",
+            "type": "SAMPLE_DATASET",
+            "pip_dependencies": [
+                {
+                    "name": "rdatasets",
+                    "v": "0.1.0"
+                }
+            ]
+        },
+        {
+            "name": "Sine",
+            "key": "SINE",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Image Viewer",
+            "key": "IMAGE",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Constant",
+            "key": "CONSTANT",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Loop",
+            "key": "LOOP",
+            "type": "LOOP",
+            "inputs": [
+                {
+                    "name": "end",
+                    "id": "end",
+                    "type": "source"
+                },
+                {
+                    "name": "body",
+                    "id": "body",
+                    "type": "source"
+                }
+            ]
+        },
+        {
+            "name": "Invert",
+            "key": "INVERT",
+            "type": "MATRIX_MANIPULATION"
+        },
+        {
+            "name": "Butterworth Filter",
+            "key": "BUTTER",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "The End",
+            "key": "END",
+            "type": "TERMINATOR"
+        },
+        {
+            "name": "Absolute",
+            "key": "ABS",
+            "type": "ARITHMETIC"
+        },
+        {
+            "name": "Camera",
+            "key": "CAMERA",
+            "type": "WEB_CAM"
+        },
+        {
+            "name": "LABJACKU3",
+            "key": "LABJACKU3",
+            "type": "LABJACK",
+            "pip_dependencies": [
+                {
+                    "name": "labjackpython",
+                    "v": "2.1.0"
+                }
+            ]
+        },
+        {
+            "name": "PID",
+            "key": "PID",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Savitzky-Golay Filter",
+            "key": "SAVGOL",
+            "type": "SIGNAL_PROCESSING"
+        },
+        {
+            "name": "Add",
+            "key": "ADD",
+            "type": "ARITHMETIC",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "add_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Matmul",
+            "key": "MATMUL",
+            "type": "MATRIX_MANIPULATION",
+            "inputs": [
+                {
+                    "name": "y",
+                    "id": "matmul_y",
+                    "type": "target"
+                }
+            ]
+        },
+        {
+            "name": "Second Order System",
+            "key": "SECOND_ORDER_SYSTEM",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "Bar Chart",
+            "key": "BAR",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "3D Surface Plot",
+            "key": "SURFACE3D",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "Random (Uniform)",
+            "key": "RAND",
+            "type": "SIMULATION"
+        },
+        {
+            "name": "3D Scatter Plot",
+            "key": "SCATTER3D",
+            "type": "PLOTLY_VISOR",
+            "inputs": []
+        },
+        {
+            "name": "Scatter Plot",
+            "key": "SCATTER",
+            "type": "PLOTLY_VISOR"
+        },
+        {
+            "name": "GoTo",
+            "key": "GOTO",
+            "type": "LOOP"
+        },
+        {
             "name": "Conditional",
             "key": "CONDITIONAL",
             "type": "CONDITIONAL",
@@ -29,42 +237,41 @@
             ]
         },
         {
-            "name": "Invert",
-            "key": "INVERT",
-            "type": "MATRIX_MANIPULATION"
+            "name": "SERIAL",
+            "key": "SERIAL",
+            "type": "SERIAL"
         },
         {
-            "name": "Loop",
-            "key": "LOOP",
-            "type": "LOOP",
-            "inputs": [
+            "name": "SK Learn Image",
+            "key": "SKLEARNIMAGE",
+            "type": "SAMPLE_IMAGE",
+            "pip_dependencies": [
                 {
-                    "name": "end",
-                    "id": "end",
-                    "type": "source"
-                },
-                {
-                    "name": "body",
-                    "id": "body",
-                    "type": "source"
+                    "name": "scikit-image",
+                    "v": "0.20.0"
                 }
             ]
         },
         {
-            "name": "Timer",
-            "key": "TIMER",
-            "type": "TIMER"
+            "name": "SELECT_ARRAY",
+            "key": "SELECT_ARRAY",
+            "type": "SELECT_ARRAY"
         },
         {
-            "name": "Sine",
-            "key": "SINE",
-            "type": "SIMULATION"
+            "name": "Object Detection",
+            "key": "OBJECT_DETECTION",
+            "type": "AI_OBJECT_DETECTION",
+            "pip_dependencies": [
+                {
+                    "name": "opencv-python-headless",
+                    "v": "4.7.0.72"
+                }
+            ]
         },
         {
-            "name": "3D Scatter Plot",
-            "key": "SCATTER3D",
-            "type": "PLOTLY_VISOR",
-            "inputs": []
+            "name": "Loader",
+            "key": "LOADER",
+            "type": "CLOUD_DATABASE"
         },
         {
             "name": "Multiply",
@@ -79,17 +286,6 @@
             ]
         },
         {
-            "name": "SK Learn Image",
-            "key": "SKLEARNIMAGE",
-            "type": "SAMPLE_IMAGE",
-            "pip_dependencies": [
-                {
-                    "name": "scikit-image",
-                    "v": "0.20.0"
-                }
-            ]
-        },
-        {
             "name": "PHIDGET22",
             "key": "PHIDGET22",
             "type": "PHIDGET",
@@ -100,235 +296,73 @@
             ]
         },
         {
-            "name": "Camera",
-            "key": "CAMERA",
-            "type": "WEB_CAM"
-        },
-        {
-            "name": "SELECT_ARRAY",
-            "key": "SELECT_ARRAY",
-            "type": "SELECT_ARRAY"
-        },
-        {
-            "name": "PID",
-            "key": "PID",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "R Dataset",
-            "key": "R_DATASET",
-            "type": "SAMPLE_DATASET",
-            "pip_dependencies": [
-                {
-                    "name": "rdatasets",
-                    "v": "0.1.0"
-                }
-            ]
-        },
-        {
-            "name": "Feedback",
-            "key": "FEEDBACK",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Time Series",
-            "key": "TIMESERIES",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Absolute",
-            "key": "ABS",
-            "type": "ARITHMETIC"
-        },
-        {
-            "name": "Scatter Plot",
-            "key": "SCATTER",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Image Viewer",
-            "key": "IMAGE",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Local File",
-            "key": "LOCAL_FILE",
-            "type": "LOCAL_FILE_SYSTEM"
-        },
-        {
-            "name": "Object Detection",
-            "key": "OBJECT_DETECTION",
-            "type": "AI_OBJECT_DETECTION",
-            "pip_dependencies": [
-                {
-                    "name": "opencv-python-headless",
-                    "v": "4.7.0.72"
-                }
-            ]
-        },
-        {
-            "name": "Butterworth Filter",
-            "key": "BUTTER",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "Linspace",
-            "key": "LINSPACE",
-            "type": "SIMULATION",
-            "ui_component_id": "default"
-        },
-        {
-            "name": "LABJACKU3",
-            "key": "LABJACKU3",
-            "type": "LABJACK",
-            "pip_dependencies": [
-                {
-                    "name": "labjackpython",
-                    "v": "2.1.0"
-                }
-            ]
-        },
-        {
-            "name": "Random (Uniform)",
-            "key": "RAND",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Add",
-            "key": "ADD",
-            "type": "ARITHMETIC",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "add_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "SERIAL",
-            "key": "SERIAL",
-            "type": "SERIAL"
-        },
-        {
-            "name": "Histogram",
-            "key": "HISTOGRAM",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Second Order System",
-            "key": "SECOND_ORDER_SYSTEM",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "Loader",
-            "key": "LOADER",
-            "type": "CLOUD_DATABASE"
-        },
-        {
             "name": "Low-pass FIR Filter",
             "key": "FIR",
-            "type": "SIGNAL_PROCESSING"
-        },
-        {
-            "name": "3D Surface Plot",
-            "key": "SURFACE3D",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "GoTo",
-            "key": "GOTO",
-            "type": "LOOP"
-        },
-        {
-            "name": "Line",
-            "key": "LINE",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Subtract",
-            "key": "SUBTRACT",
-            "type": "ARITHMETIC",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "sub_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "Matmul",
-            "key": "MATMUL",
-            "type": "MATRIX_MANIPULATION",
-            "inputs": [
-                {
-                    "name": "y",
-                    "id": "matmul_y",
-                    "type": "target"
-                }
-            ]
-        },
-        {
-            "name": "Bar Chart",
-            "key": "BAR",
-            "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "Savitzky-Golay Filter",
-            "key": "SAVGOL",
             "type": "SIGNAL_PROCESSING"
         },
         {
             "name": "Table",
             "key": "TABLE",
             "type": "PLOTLY_VISOR"
-        },
-        {
-            "name": "KEITHLEY2400",
-            "key": "KEITHLEY2400",
-            "type": "KEITHLEY",
-            "pip_dependencies": [
-                {
-                    "name": "pyserial",
-                    "v": 3.5
-                }
-            ]
-        },
-        {
-            "name": "Constant",
-            "key": "CONSTANT",
-            "type": "SIMULATION"
-        },
-        {
-            "name": "The End",
-            "key": "END",
-            "type": "TERMINATOR"
         }
     ],
     "parameters": {
-        "CONDITIONAL": {
-            "operator_type": {
+        "KEITHLEY2400": {
+            "comport": {
                 "type": "string",
-                "default": ">="
-            }
-        },
-        "INVERT": {
-            "rcond": {
+                "default": "/dev/ttyUSB0"
+            },
+            "baudrate": {
                 "type": "float",
-                "default": 1.0
+                "default": 9600
             }
         },
-        "LOOP": {
-            "num_loops": {
-                "type": "int",
-                "default": -1
+        "FEEDBACK": {
+            "referred_node": {
+                "type": "node_reference",
+                "default": ""
+            }
+        },
+        "TIMESERIES": {},
+        "LOCAL_FILE": {
+            "file_type": {
+                "type": "string",
+                "default": "image"
+            },
+            "op_type": {
+                "type": "string",
+                "default": "OD"
+            },
+            "path": {
+                "type": "string",
+                "default": ""
             }
         },
         "TIMER": {
             "sleep_time": {
                 "type": "int",
                 "default": 0
+            }
+        },
+        "LINE": {},
+        "LINSPACE": {
+            "start": {
+                "type": "float",
+                "default": 10
+            },
+            "end": {
+                "type": "float",
+                "default": 0
+            },
+            "step": {
+                "type": "float",
+                "default": 1000
+            }
+        },
+        "R_DATASET": {
+            "dataset_key": {
+                "type": "string",
+                "default": "iris"
             }
         },
         "SINE": {
@@ -359,18 +393,25 @@
                 "default": "sine"
             }
         },
-        "SKLEARNIMAGE": {
-            "img_key": {
-                "type": "string",
-                "default": "astronaut"
+        "CONSTANT": {
+            "constant": {
+                "type": "float",
+                "default": "3"
             }
         },
-        "PHIDGET22": {
-            "n_sensors": {
+        "LOOP": {
+            "num_loops": {
                 "type": "int",
-                "default": 3
+                "default": -1
             }
         },
+        "INVERT": {
+            "rcond": {
+                "type": "float",
+                "default": 1.0
+            }
+        },
+        "END": {},
         "CAMERA": {
             "file_type": {
                 "type": "string",
@@ -381,10 +422,10 @@
                 "default": 0
             }
         },
-        "SELECT_ARRAY": {
-            "column": {
-                "type": "float",
-                "default": 0
+        "LABJACKU3": {
+            "numbers": {
+                "type": "int",
+                "default": 1
             }
         },
         "PID": {
@@ -401,51 +442,36 @@
                 "default": "356.25"
             }
         },
-        "R_DATASET": {
-            "dataset_key": {
-                "type": "string",
-                "default": "iris"
+        "SAVGOL": {
+            "wlen": {
+                "type": "int",
+                "default": 3
+            },
+            "porder": {
+                "type": "int",
+                "default": 1
             }
         },
-        "FEEDBACK": {
-            "referred_node": {
+        "SECOND_ORDER_SYSTEM": {
+            "d1": {
+                "type": "float",
+                "default": "250"
+            },
+            "d2": {
+                "type": "float",
+                "default": "100"
+            }
+        },
+        "GOTO": {
+            "goto_node_id": {
                 "type": "node_reference",
                 "default": ""
             }
         },
-        "TIMESERIES": {},
-        "LOCAL_FILE": {
-            "file_type": {
+        "CONDITIONAL": {
+            "operator_type": {
                 "type": "string",
-                "default": "image"
-            },
-            "op_type": {
-                "type": "string",
-                "default": "OD"
-            },
-            "path": {
-                "type": "string",
-                "default": ""
-            }
-        },
-        "LINSPACE": {
-            "start": {
-                "type": "float",
-                "default": 10
-            },
-            "end": {
-                "type": "float",
-                "default": 0
-            },
-            "step": {
-                "type": "float",
-                "default": 1000
-            }
-        },
-        "LABJACKU3": {
-            "numbers": {
-                "type": "int",
-                "default": 1
+                "default": ">="
             }
         },
         "SERIAL": {
@@ -466,20 +492,28 @@
                 "default": 1
             }
         },
-        "SECOND_ORDER_SYSTEM": {
-            "d1": {
+        "SKLEARNIMAGE": {
+            "img_key": {
+                "type": "string",
+                "default": "astronaut"
+            }
+        },
+        "SELECT_ARRAY": {
+            "column": {
                 "type": "float",
-                "default": "250"
-            },
-            "d2": {
-                "type": "float",
-                "default": "100"
+                "default": 0
             }
         },
         "LOADER": {
             "measurement_uuid": {
                 "type": "string",
                 "default": ""
+            }
+        },
+        "PHIDGET22": {
+            "n_sensors": {
+                "type": "int",
+                "default": 3
             }
         },
         "FIR": {
@@ -499,40 +533,6 @@
                 "type": "float",
                 "default": 10.0
             }
-        },
-        "GOTO": {
-            "goto_node_id": {
-                "type": "node_reference",
-                "default": ""
-            }
-        },
-        "LINE": {},
-        "SAVGOL": {
-            "wlen": {
-                "type": "int",
-                "default": 3
-            },
-            "porder": {
-                "type": "int",
-                "default": 1
-            }
-        },
-        "KEITHLEY2400": {
-            "comport": {
-                "type": "string",
-                "default": "/dev/ttyUSB0"
-            },
-            "baudrate": {
-                "type": "float",
-                "default": 9600
-            }
-        },
-        "CONSTANT": {
-            "constant": {
-                "type": "float",
-                "default": "3"
-            }
-        },
-        "END": {}
+        }
     }
 }

@@ -26,8 +26,9 @@ class FlowScheduler:
         self.scheduler_job_id = kwargs["scheduler_job_id"]
         self.jobset_id = kwargs.get("jobsetId", None)
         self.flow_chart = kwargs["fc"]
-
-        self.job_service = JobService("flojoy")
+        self.maximum_runtime = kwargs["extraParams"].get("maximumRuntime", 3000)
+        self.node_delay = kwargs["extraParams"].get("nodeDelay", 0)
+        self.job_service = JobService("flojoy", self.maximum_runtime)
 
     def run(self):
         print("\nrun jobset:", self.jobset_id)
@@ -156,7 +157,7 @@ class FlowScheduler:
         print(" waiting for job:", self.topology.get_label(job_id))
 
         while True:
-            time.sleep(0.01)
+            time.sleep(self.node_delay)
 
             job = self.job_service.fetch_job(job_id=job_id)
             job_status = job.get_status()

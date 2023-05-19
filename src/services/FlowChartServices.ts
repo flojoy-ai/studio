@@ -1,3 +1,4 @@
+import { useSettings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
@@ -23,6 +24,7 @@ export function saveAndRunFlowChartInServer({
   rfInstance?: ReactFlowJsonObject;
   jobId: string;
 }) {
+  const { nodeDelay, maximumRuntime } = useSettings();
   if (rfInstance) {
     const rfInstanceObject = rfInstance;
     const fcStr = JSON.stringify(rfInstanceObject);
@@ -33,6 +35,10 @@ export function saveAndRunFlowChartInServer({
         fc: fcStr,
         jobsetId: jobId,
         cancelExistingJobs: true,
+        extraParams: {
+          maximumRuntime: maximumRuntime,
+          nodeDelay: nodeDelay,
+        },
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     })
