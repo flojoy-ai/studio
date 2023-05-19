@@ -22,7 +22,7 @@ export const useSettings = () => {
     console.log("here");
     setSettingsList([
       {
-        title: "Node Delay",
+        title: "Node Delay (seconds)",
         key: "nodeDelay",
         type: "numerical-input",
         group: "backend",
@@ -30,7 +30,7 @@ export const useSettings = () => {
         setValue: setNodeDelay,
       },
       {
-        title: "Maximum Runtime",
+        title: "Maximum Runtime (seconds)",
         key: "maximumRuntime",
         type: "numerical-input",
         group: "backend",

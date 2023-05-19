@@ -25,7 +25,12 @@ async def enqueue_flow_chart(fc: dict, jobset_id, extraParams: dict):
         run,
         on_failure=report_failure,
         job_id=scheduler_job_id,
-        kwargs={"fc": fc, "jobsetId": jobset_id, "scheduler_job_id": scheduler_job_id, "extraParams": extraParams},
+        kwargs={
+            "fc": fc,
+            "jobsetId": jobset_id,
+            "scheduler_job_id": scheduler_job_id,
+            "extraParams": extraParams,
+        },
     )
 
 

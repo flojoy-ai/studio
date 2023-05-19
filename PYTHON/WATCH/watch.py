@@ -28,6 +28,9 @@ class FlowScheduler:
         self.flow_chart = kwargs["fc"]
         self.maximum_runtime = kwargs["extraParams"].get("maximumRuntime", 3000)
         self.node_delay = kwargs["extraParams"].get("nodeDelay", 0)
+        print("EXTRA PARAMS")
+        print(kwargs["extraParams"])
+
         self.job_service = JobService("flojoy", self.maximum_runtime)
 
     def run(self):

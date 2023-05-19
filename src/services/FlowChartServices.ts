@@ -43,7 +43,7 @@ export function saveAndRunFlowChartInServer({
         extraParams: settings.reduce((obj, setting) => {
           obj[setting.key] = setting.value;
           return obj;
-        }),
+        }, {}),
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
