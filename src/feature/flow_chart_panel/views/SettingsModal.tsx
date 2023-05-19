@@ -22,7 +22,7 @@ const reactModalStyle: ReactModal.Styles = {
   },
 };
 
-export const SettingsModal = ({ isOpen, onClose, theme }) => {
+export const SettingsModal = ({ isOpen, onClose }) => {
   return (
     <ReactModal
       data-testid="settings-modal"
