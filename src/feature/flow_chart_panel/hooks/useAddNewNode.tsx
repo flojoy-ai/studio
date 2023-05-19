@@ -24,7 +24,7 @@ export const useAddNewNode = (
 
   // const { nodes, setNodes } = useFlowChartState();
   const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
-    ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY)!)
+    ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY) || "")
     : getNodePosition();
 
   useEffect(() => {
@@ -36,7 +36,10 @@ export const useAddNewNode = (
       x: lastNodePosition.x + 100,
       y: lastNodePosition.y + 30,
     };
-    const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key)!;
+    const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
+    if (cmd === null || cmd === undefined) {
+      throw new Error("Command not found");
+    }
     const funcName = cmd.key;
     const type = cmd.type;
     const params = FUNCTION_PARAMETERS[cmd.key];
@@ -73,7 +76,7 @@ export const useAddNewNode = (
               value:
                 funcName === "CONSTANT"
                   ? nodeLabel
-                  : params![param].default?.toString(),
+                  : params[param].default?.toString(),
             },
           }),
           {}
