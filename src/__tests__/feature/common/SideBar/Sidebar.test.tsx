@@ -41,10 +41,7 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
     const addNewNode = useAddNewNode(jest.fn());
     return (
       <>
-        <AddNodeBtn
-          setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
-          isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
-        />
+        <AddNodeBtn />
         <Sidebar
           sections={{ title: "ROOT", child: [] }}
           manifestMap={CMND_MANIFEST_MAP}
@@ -89,7 +86,7 @@ describe("Sidebar", () => {
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
     const { getByTestId } = renderWithTheme(<SidebarTest />);
-    const input: any = getByTestId("sidebar-input");
+    const input = getByTestId("sidebar-input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");
   });

@@ -4,7 +4,6 @@ import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import NodeWrapper from "./NodeWrapper";
-import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 export const useNodeStyles = createStyles((theme) => {
   const accent =

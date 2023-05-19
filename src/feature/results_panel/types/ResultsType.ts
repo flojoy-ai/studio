@@ -79,13 +79,16 @@ export interface ScalarData {
 export type ResultIO = {
   cmd: string;
   id: string;
-  result: {
-    default_fig: {
-      data: OverridePlotData;
-    };
-    data: DataContainer;
-  };
+  result: Result;
 };
+
+export type Result = {
+  default_fig: {
+    data: OverridePlotData;
+  };
+  data: DataContainer;
+};
+
 export interface ResultsType {
   io?: ResultIO[];
 }

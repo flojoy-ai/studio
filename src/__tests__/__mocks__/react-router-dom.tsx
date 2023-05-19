@@ -5,9 +5,7 @@ module.exports = {
   }),
   useSearchParams: jest.fn().mockReturnValue([new Map(), jest.fn()]),
   Link: ({
-    to,
     children,
-    testId,
   }: {
     to: string;
     children: React.ReactNode;
