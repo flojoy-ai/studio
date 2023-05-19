@@ -12,7 +12,7 @@ export type ElementsData = {
       functionName: string;
       param: string;
       value: string;
-      ValType: ParamValueType;
+      valType: ParamValueType;
     };
   };
   inputs?: Array<{ name: string; id: string; type: string }>;

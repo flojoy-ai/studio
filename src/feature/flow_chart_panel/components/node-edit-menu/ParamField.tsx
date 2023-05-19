@@ -25,7 +25,7 @@ const ParamField = ({
       functionName,
       param: paramId,
       value,
-      ValType: type,
+      valType: type,
     });
   };
   switch (type) {

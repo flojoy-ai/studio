@@ -8,7 +8,7 @@ export interface ControlProps {
   updateCtrlValue: (
     value: string,
     ctrl: CtlManifestType,
-    ValType: ParamValueType
+    valType: ParamValueType
   ) => void;
   attachParamsToCtrl: any;
   removeCtrl: any;
