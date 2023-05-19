@@ -17,13 +17,13 @@ import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
-const edgeTypes: EdgeTypes = { default: CustomEdge as any };
-const nodeTypes: NodeTypes = { default: CustomResultNode as any };
+const edgeTypes: EdgeTypes = { default: CustomEdge };
+const nodeTypes: NodeTypes = { default: CustomResultNode };
 
 const ResultsTab = () => {
-  const { states } = useSocket();
-  const { programResults } = states!;
-  const results = programResults!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const { setResultNodes, resultNodes } = useResultsTabState();
   const { nodes, edges } = useFlowChartGraph();
@@ -42,8 +42,8 @@ const ResultsTab = () => {
     });
   };
   const nodeResults = useMemo(
-    () => (results && "io" in results ? results.io! : []),
-    [results]
+    () => (programResults && programResults.io ? programResults.io : []),
+    [programResults]
   );
 
   useResultsTabEffects({ nodeResults, setResultNodes, nodes, resultNodes });

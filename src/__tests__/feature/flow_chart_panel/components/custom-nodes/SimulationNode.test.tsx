@@ -1,6 +1,6 @@
-import SimulationNode from "@src/feature/flow_chart_panel/components/custom-nodes/SimulationNode";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import SimulationNode from "@src/feature/flow_chart_panel/components/custom-nodes/SimulationNode";
 
 const props: CustomNodeProps = {
   data: {
@@ -36,9 +36,7 @@ describe("ConditionalNode", () => {
     expect(container).toMatchSnapshot();
   });
   it("should contain the data label text", () => {
-    const { container, getByText } = renderWithTheme(
-      <SimulationNode {...props} />
-    );
+    const { getByText } = renderWithTheme(<SimulationNode {...props} />);
     const textField = getByText(props.data.label);
     expect(textField).toBeInTheDocument();
   });

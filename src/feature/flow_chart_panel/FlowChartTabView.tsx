@@ -21,7 +21,6 @@ import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 import localforage from "localforage";
 
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { useMantineTheme } from "@mantine/styles";
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
@@ -46,15 +45,15 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
   const { isSidebarOpen, setIsSidebarOpen } = useFlowChartState();
 
-  const { states } = useSocket();
-  const { programResults } = states!;
-  const results = programResults!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const {
     windowWidth,
@@ -178,7 +177,7 @@ const FlowChartTab = () => {
 
   useFlowChartTabEffects({
     clickedElement,
-    results,
+    results: programResults,
     afterOpenModal,
     closeModal,
     defaultPythonFnLabel,
@@ -245,18 +244,19 @@ const FlowChartTab = () => {
             onNodesDelete={handleNodesDelete}
           />
         </div>
-
-        <NodeModal
-          afterOpenModal={afterOpenModal}
-          clickedElement={clickedElement}
-          closeModal={closeModal}
-          defaultLayout={defaultLayout}
-          modalIsOpen={modalIsOpen}
-          nd={nd!}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
-          pythonString={pythonString}
-        />
+        {nd && (
+          <NodeModal
+            afterOpenModal={afterOpenModal}
+            clickedElement={clickedElement}
+            closeModal={closeModal}
+            defaultLayout={defaultLayout}
+            modalIsOpen={modalIsOpen}
+            nd={nd}
+            nodeLabel={nodeLabel}
+            nodeType={nodeType}
+            pythonString={pythonString}
+          />
+        )}
       </ReactFlowProvider>
     </Layout>
   );

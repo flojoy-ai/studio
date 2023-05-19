@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { Node } from "reactflow";
-import { useFlowChartState } from "../../hooks/useFlowChartState";
-import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import { ResultsType } from "../results_panel/types/ResultsType";
 import { FlowChartTabStateReturnType } from "./FlowChartTabState";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
@@ -18,15 +16,15 @@ export function useFlowChartTabEffects({
   nodeLabel,
   nodeType,
 }: FlowChartTabStateReturnType & {
-  results: ResultsType;
+  results: ResultsType | null;
   clickedElement: Node | undefined;
 }) {
   useEffect(() => {
     console.log("11");
-    if (results && "io" in results) {
-      const runResults = results.io!; // JSON.parse(results.io);
+    if (results && results.io) {
+      const runResults = results.io; // JSON.parse(results.io);
       const filteredResult = runResults.filter(
-        (node: any) => node.id === clickedElement?.id
+        (node) => node.id === clickedElement?.id
       )[0];
 
       setNd(filteredResult === undefined ? null : filteredResult);
