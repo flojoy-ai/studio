@@ -50,8 +50,13 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
-  const { isExpandMode, isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
-    useFlowChartState();
+  const {
+    isExpandMode,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setRfInstance,
+    setCtrlsManifest,
+  } = useFlowChartState();
 
   const {
     states: { programResults },
@@ -89,17 +94,6 @@ const FlowChartTab = () => {
   // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
-
-  const onNodeClick: NodeMouseHandler = (_, node) => {
-    setPythonString(
-      nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
-        ? "..."
-        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
-    );
-    setClickedElement(node);
-    openModal();
-  };
-
   const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
@@ -195,7 +189,6 @@ const FlowChartTab = () => {
   useFlowChartTabEffects({
     clickedElement,
     results: programResults,
-    afterOpenModal,
     closeModal,
     defaultPythonFnLabel,
     defaultPythonFnType,
@@ -240,37 +233,38 @@ const FlowChartTab = () => {
         >
           <NodeEditMenu selectedNode={selectedNode} />
 
-        <ReactFlow
-          style={{
-            position: "fixed",
-            height: "100%",
-            width: "50%",
-          }}
-          nodes={nodes}
-          nodeTypes={nodeTypes}
-          edges={edges}
-          edgeTypes={edgeTypes}
-          connectionLineType={ConnectionLineType.Step}
-          onInit={onInit}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onNodeDragStop={handleNodeDrag}
-          onNodesDelete={handleNodesDelete}
-        />
+          <ReactFlow
+            style={{
+              position: "fixed",
+              height: "100%",
+              width: "50%",
+            }}
+            nodes={nodes}
+            nodeTypes={nodeTypes}
+            edges={edges}
+            edgeTypes={edgeTypes}
+            connectionLineType={ConnectionLineType.Step}
+            onInit={onInit}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onNodeDragStop={handleNodeDrag}
+            onNodesDelete={handleNodesDelete}
+          />
 
-        <NodeExpandMenu
-          clickedElement={selectedNode}
-          closeModal={closeModal}
-          defaultLayout={defaultLayout}
-          modalIsOpen={modalIsOpen}
-          nd={nd!}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
-          pythonString={pythonString}
-        />
-      </div>
-    </ReactFlowProvider>
+          <NodeExpandMenu
+            clickedElement={selectedNode}
+            closeModal={closeModal}
+            defaultLayout={defaultLayout}
+            modalIsOpen={modalIsOpen}
+            nd={nd!}
+            nodeLabel={nodeLabel}
+            nodeType={nodeType}
+            pythonString={pythonString}
+          />
+        </div>
+      </ReactFlowProvider>
+    </Layout>
   );
 };
 
