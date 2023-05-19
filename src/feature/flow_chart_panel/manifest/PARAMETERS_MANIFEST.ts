@@ -15,7 +15,6 @@ const paramsSchema = z.record(
 
 type FuncParamsType = z.infer<typeof paramsSchema>;
 
-console.log(manifests.parameters);
 export const FUNCTION_PARAMETERS: FuncParamsType = paramsSchema.parse(
   manifests.parameters
 );

@@ -315,9 +315,10 @@ type CTRLManifest = {
     key: string;
     minHeight: number;
     minWidth: number;
-    [key: string]: any;
+    [key: string]: unknown;
   }[];
 };
+
 export const CTRL_MANIFEST: CTRLManifest = {
   ...InputControlsManifest,
   ...OutputControlsManifest,
