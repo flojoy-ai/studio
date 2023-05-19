@@ -23,6 +23,26 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
+export const sendApiKeyToDjango = async (apiKey: string) => {
+  try {
+    const response = await fetch(`${API_URI}/api/set-api`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ key: apiKey }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log(responseData);
+    } else {
+      console.error("Request failed:", response.status);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+};
 export function saveAndRunFlowChartInServer(
   jobId: string,
   rfInstance?: ReactFlowJsonObject
