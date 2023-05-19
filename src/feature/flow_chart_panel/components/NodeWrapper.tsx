@@ -37,7 +37,7 @@ const NodeWrapper = ({
     };
   }, [failedNode, data, states?.failureReason]);
   return (
-    <div data-testid="node-wrapper">
+    <Box data-testid="node-wrapper" pos="relative">
       {runError && <ErrorPopup message={runError.message} />}
       {data.selected && (
         <NodeEditButtons
@@ -47,7 +47,7 @@ const NodeWrapper = ({
         />
       )}
       {children}
-    </div>
+    </Box>
   );
 };
 
