@@ -380,7 +380,7 @@ const ControlComponent = ({
             placeholder="Enter numbers in CSV format"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value, "array");
+              handleCtrlValueChange(setTextInput, e.target.value, "array");
             }}
             value={currentInputValue || textInput || ""}
           />

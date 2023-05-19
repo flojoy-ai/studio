@@ -3,6 +3,7 @@ import { ReactFlowJsonObject } from "reactflow";
 
 import { CustomError } from "../utils/CustomError";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
