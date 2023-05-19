@@ -29,7 +29,9 @@ export const makePlotlyData = (
           ...d.header,
           align: "center",
           values: isThumbnail
-            ? d.header?.values.filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+            ? d.header?.values.filter(
+                (_: unknown, i: number) => i < NUM_OF_COLUMNS
+              )
             : d.header?.values,
           fill: {
             color: headerFillColor,
@@ -40,9 +42,9 @@ export const makePlotlyData = (
           align: "center",
           values: isThumbnail
             ? d.cells?.values
-                .filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+                .filter((_: unknown, i: number) => i < NUM_OF_COLUMNS)
                 .map((i: any) =>
-                  i.filter((_: any, index: number) => index < NUM_OF_ROWS)
+                  i.filter((_: unknown, index: number) => index < NUM_OF_ROWS)
                 )
             : d.cells?.values,
           fill: {
