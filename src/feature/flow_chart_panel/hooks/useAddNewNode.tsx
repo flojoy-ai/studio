@@ -4,6 +4,7 @@ import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "../types/CustomNodeProps";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
@@ -77,6 +78,7 @@ export const useAddNewNode = (
                 funcName === "CONSTANT"
                   ? nodeLabel
                   : params[param].default?.toString(),
+              valType: params[param].type as ParamValueType,
             },
           }),
           {}

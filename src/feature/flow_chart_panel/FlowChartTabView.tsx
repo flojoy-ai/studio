@@ -38,6 +38,7 @@ import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import NodeModal from "./views/NodeModal";
+import { NodeExpandMenu } from "./views/NodeExpandMenu";
 
 localforage.config({
   name: "react-flow",
@@ -49,7 +50,7 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+  const { isExpandMode, isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
     useFlowChartState();
 
   const {
@@ -59,8 +60,6 @@ const FlowChartTab = () => {
   const {
     windowWidth,
     modalIsOpen,
-    openModal,
-    afterOpenModal,
     closeModal,
     nd,
     nodeLabel,
@@ -174,6 +173,25 @@ const FlowChartTab = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (selectedNode === null) {
+      return;
+    }
+    let pythonString =
+      selectedNode?.data.label === defaultPythonFnLabel ||
+      selectedNode?.data.type === defaultPythonFnType
+        ? "..."
+        : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
+
+    if (selectedNode.data.func === "CONSTANT") {
+      pythonString = PYTHON_FUNCTIONS[selectedNode.data.func + ".py"];
+    }
+
+    setPythonString(pythonString);
+    setNodeLabel(selectedNode.data.label);
+    setNodeType(selectedNode.data.type);
+  }, [selectedNode]);
+
   useFlowChartTabEffects({
     clickedElement,
     results: programResults,
@@ -185,7 +203,6 @@ const FlowChartTab = () => {
     nd,
     nodeLabel,
     nodeType,
-    openModal,
     pythonString,
     setIsModalOpen,
     setNd,
@@ -223,41 +240,37 @@ const FlowChartTab = () => {
         >
           <NodeEditMenu selectedNode={selectedNode} />
 
-          <ReactFlow
-            style={{
-              position: "fixed",
-              height: "100%",
-              width: "50%",
-            }}
-            nodes={nodes}
-            nodeTypes={nodeTypes}
-            edges={edges}
-            edgeTypes={edgeTypes}
-            connectionLineType={ConnectionLineType.Step}
-            onInit={onInit}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onNodeDoubleClick={onNodeClick}
-            onNodeDragStop={handleNodeDrag}
-            onNodesDelete={handleNodesDelete}
-          />
-        </div>
-        {nd && (
-          <NodeModal
-            afterOpenModal={afterOpenModal}
-            clickedElement={clickedElement}
-            closeModal={closeModal}
-            defaultLayout={defaultLayout}
-            modalIsOpen={modalIsOpen}
-            nd={nd}
-            nodeLabel={nodeLabel}
-            nodeType={nodeType}
-            pythonString={pythonString}
-          />
-        )}
-      </ReactFlowProvider>
-    </Layout>
+        <ReactFlow
+          style={{
+            position: "fixed",
+            height: "100%",
+            width: "50%",
+          }}
+          nodes={nodes}
+          nodeTypes={nodeTypes}
+          edges={edges}
+          edgeTypes={edgeTypes}
+          connectionLineType={ConnectionLineType.Step}
+          onInit={onInit}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodeDragStop={handleNodeDrag}
+          onNodesDelete={handleNodesDelete}
+        />
+
+        <NodeExpandMenu
+          clickedElement={selectedNode}
+          closeModal={closeModal}
+          defaultLayout={defaultLayout}
+          modalIsOpen={modalIsOpen}
+          nd={nd!}
+          nodeLabel={nodeLabel}
+          nodeType={nodeType}
+          pythonString={pythonString}
+        />
+      </div>
+    </ReactFlowProvider>
   );
 };
 

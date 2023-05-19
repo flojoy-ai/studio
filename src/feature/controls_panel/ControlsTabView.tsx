@@ -22,8 +22,9 @@ import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
-
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -114,7 +115,11 @@ const ControlsTab = () => {
     cacheManifest(filterChilds);
   };
 
-  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
+  const updateCtrlValue = (
+    val: string,
+    ctrl: CtlManifestType,
+    tp: ParamValueType
+  ) => {
     const manClone = clone(ctrlsManifest);
     cacheManifest(manClone);
 
@@ -126,6 +131,7 @@ const ControlsTab = () => {
           functionName: (ctrl.param as CtrlManifestParam).functionName,
           param: (ctrl.param as CtrlManifestParam).param,
           value: val,
+          valType: tp,
         }
       );
     } else {

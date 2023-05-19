@@ -15,11 +15,16 @@ import {
   PlotControlOptions,
 } from "../../types/ControlOptions";
 
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
-  updateCtrlValue: any;
+  updateCtrlValue: (
+    value: string,
+    ctrl: CtlManifestType,
+    ValType: ParamValueType
+  ) => void;
   ctrlObj: CtlManifestType;
 };
 
@@ -93,7 +98,7 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj);
+      updateCtrlValue(file.name, ctrlObj, "string");
     });
   }, [plainFiles]);
 

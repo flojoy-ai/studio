@@ -18,6 +18,7 @@ import NodeReference from "../NodeReference";
 import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
 import ControlComponentState from "./ControlComponentState";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -123,7 +124,11 @@ export const useControlStyles = createStyles((theme) => {
 export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   results: ResultsType;
-  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
+  updateCtrlValue: (
+    value: string,
+    ctrl: CtlManifestType,
+    ValType: ParamValueType
+  ) => void;
   attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -184,13 +189,14 @@ const ControlComponent = ({
 
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
-    value: string
+    value: string,
+    type: ParamValueType
   ) => {
     setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
       return;
     }
-    updateCtrlValue(value, ctrlObj);
+    updateCtrlValue(value, ctrlObj, type);
 
     if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
       attachParamsToCtrl(
@@ -317,7 +323,7 @@ const ControlComponent = ({
             placeholder={"Please enter the full file path"}
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value);
+              handleCtrlValueChange(setTextInput, e.target.value, "string");
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -343,7 +349,7 @@ const ControlComponent = ({
             placeholder="Write your text.."
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value);
+              handleCtrlValueChange(setTextInput, e.target.value, "string");
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -357,9 +363,22 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value);
+              handleCtrlValueChange(setNumberInput, e.target.value, "float");
             }}
             value={currentInputValue || numberInput || 0}
+          />
+        </Box>
+      )}
+      {ctrlObj.name === ControlNames.ArrayNumericInput && (
+        <Box className={classes.inputBody}>
+          <input
+            type="text"
+            placeholder="Enter numbers in CSV format"
+            className={clsx(classes.ctrlNumericInput, "border-color")}
+            onChange={(e) => {
+              handleCtrlValueChange(setTextInput, e.target.value, "array");
+            }}
+            value={currentInputValue || textInput || ""}
           />
         </Box>
       )}
@@ -371,7 +390,7 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={classes.ctrlNumericInput}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value);
+              handleCtrlValueChange(setNumberInput, e.target.value, "float");
             }}
             disabled
             value={currentInputValue || numberInput || 0}
@@ -411,7 +430,7 @@ const ControlComponent = ({
             <Slider
               className="custom-slider"
               onChange={(val) => {
-                handleCtrlValueChange(setSliderInput, val.toString());
+                handleCtrlValueChange(setSliderInput, val.toString(), "float");
               }}
               value={+currentInputValue || +sliderInput || 0}
             />
@@ -430,7 +449,8 @@ const ControlComponent = ({
             onChange={(val) => {
               updateCtrlValue(
                 (val as { label: string; value: string }).value,
-                ctrlObj
+                ctrlObj,
+                "string"
               );
             }}
             theme={theme as unknown as ThemeConfig}
@@ -456,8 +476,8 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={() => {
-                    updateCtrlValue(option.value, ctrlObj);
+                  onChange={(e) => {
+                    updateCtrlValue(option.value, ctrlObj, "unknown");
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
@@ -481,8 +501,8 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={() => {
-                    updateCtrlValue(option.value, ctrlObj);
+                  onChange={(e) => {
+                    updateCtrlValue(option.value, ctrlObj, "unknown");
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
