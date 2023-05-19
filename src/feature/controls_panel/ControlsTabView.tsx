@@ -18,7 +18,6 @@ import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { createStyles } from "@mantine/styles";
-import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
