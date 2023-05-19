@@ -1,4 +1,4 @@
-import { PlotData, PlotType } from "plotly.js";
+import { PlotData } from "plotly.js";
 
 export enum ControlTypes {
   Input = "input",
@@ -10,6 +10,7 @@ export enum ControlNames {
   Slider = "Slider",
   Knob = "Knob",
   StaticNumericInput = "Static Numeric Input",
+  ArrayNumericInput = "Array Numeric Input",
   Dropdown = "Dropdown",
   RadioButtonGroup = "Radio Button Group",
   CheckboxButtonGroup = "Checkbox Button Group",
@@ -29,6 +30,7 @@ export enum PlotTypeNames {
   Line = "Line",
   BarChart = "Bar Chart",
   Image = "Image",
+  Table = "Table",
 }
 
 //ROOT WILL NOT BE DISPLAYED
@@ -56,6 +58,11 @@ export const CTRL_TREE = {
               key: "NUMERIC_INPUT",
               child: null,
             },
+            {
+              title: "Array Numeric Input",
+              key: "ARRAY_INPUT",
+              child: null,
+            },
           ],
         },
         {
@@ -74,6 +81,11 @@ export const CTRL_TREE = {
             {
               title: "Constants",
               key: "STATIC_NUMERIC_INPUT",
+              child: null,
+            },
+            {
+              title: "Dropdown",
+              key: "DROPDOWN",
               child: null,
             },
           ],
@@ -203,6 +215,10 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     name: PlotTypeNames.Image,
     type: "image",
   },
+  TABLE: {
+    name: PlotTypeNames.Table,
+    type: "table",
+  },
 };
 
 export const InputControlsManifest = {
@@ -249,6 +265,15 @@ export const InputControlsManifest = {
       key: "STATIC_NUMERIC_INPUT",
       minHeight: 1,
       minWidth: 2,
+    },
+  ],
+  ARRAY_INPUT: [
+    {
+      name: ControlNames.ArrayNumericInput,
+      type: ControlTypes.Input,
+      key: "ARRAY_INPUT",
+      minHeight: 1,
+      minWidth: 1,
     },
   ],
   DROPDOWN: [

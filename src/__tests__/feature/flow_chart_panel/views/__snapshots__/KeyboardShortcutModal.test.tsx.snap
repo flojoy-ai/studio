@@ -5,374 +5,236 @@ exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
   data-testid="keyboard_shortcut_modal"
 >
   <button
-    class="mantine-1b6dkzl"
-  >
-    <svg
-      fill="none"
-      height="16"
-      style="height: 23px; width: 23px;"
-      viewBox="0 0 16 16"
-      width="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12.1835 11.4905C12.1835 11.6885 12.0845 11.8865 11.8794 12.0915C11.5824 12.3885 10.9814 12.3956 10.6774 12.0915L3.98812 5.2043C3.69114 4.90732 3.68407 4.30628 3.98812 4.00222C4.29218 3.69816 4.88615 3.69816 5.1902 4.00222L11.8794 10.8894C12.0774 11.0874 12.1764 11.2854 12.1835 11.4905Z"
-        fill="#BCC2C4"
-      />
-      <path
-        d="M12.1834 4.50427C12.1834 4.70226 12.0844 4.90025 11.9854 5.09824L5.29616 12.0845C4.90018 12.3814 4.39813 12.3885 4.09408 12.0845C3.79002 11.7804 3.79002 11.1864 4.09408 10.8824L10.7833 3.99515C11.0803 3.69816 11.6813 3.69109 11.9854 3.99515C12.0844 4.09414 12.1834 4.29213 12.1834 4.49012L12.1834 4.50427Z"
-        fill="#BCC2C4"
-      />
-    </svg>
-  </button>
+    data-testid="closeButton"
+  />
   <div
-    class="mantine-x0uhq6"
+    data-testid="key_container"
   >
-    <div
-      class="mantine-1dq8pan"
-    >
-      <div
-        class="mantine-cgy8pf"
-      >
+    <div>
+      <div>
         For
          
-        <span
-          class="mantine-1no58"
-        >
+        <span>
           Windows
         </span>
       </div>
-      <div
-        class="mantine-1jckxy5"
-      >
-        <div
-          class="mantine-1pkw0r1"
-        >
+      <div>
+        <div>
           <span>
             Show/hide UI
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl \\
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Play
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl P
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Open Side Bar Panel
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl T
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Fit View
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl 1
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Zoom In
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl +
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Zoom Out
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl -
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Layout Node
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl L
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Select All
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl A
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Deselect
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Alt C
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Close Node
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl W
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             File Name
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl R
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Save
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl S
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Delete
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Ctrl D
           </span>
         </div>
       </div>
     </div>
-    <div
-      class="mantine-1dq8pan"
-    >
-      <div
-        class="mantine-cgy8pf"
-      >
+    <div>
+      <div>
         For
          
-        <span
-          class="mantine-1no58"
-        >
+        <span>
           MacOs
         </span>
       </div>
-      <div
-        class="mantine-1jckxy5"
-      >
-        <div
-          class="mantine-1pkw0r1"
-        >
+      <div>
+        <div>
           <span>
             Show/hide UI
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ z
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Play
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ P
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Open Side Bar Panel
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ T
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Fit View
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ 1
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Zoom In
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ +
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Zoom Out
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ -
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Layout Node
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ L
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Select All
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ A
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Deselect
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             Option C
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Close Node
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ W
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             File Name
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ R
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Save
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ S
           </span>
         </div>
-        <div
-          class="mantine-1pkw0r1"
-        >
+        <div>
           <span>
             Delete
           </span>
-          <span
-            class="mantine-1no58"
-          >
+          <span>
             ⌘ D
           </span>
         </div>

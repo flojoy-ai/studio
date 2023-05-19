@@ -2,9 +2,6 @@
 
 exports[`NodeModal checks the snapshot 1`] = `
 <div>
-  <div
-    data-testid="react-modal"
-  />
   ,
 </div>
 `;

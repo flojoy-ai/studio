@@ -6,7 +6,6 @@ import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "plotly.js";
 import { useEffect } from "react";
-import { BGTemplate } from "../../svgs/histo-scatter-svg";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 import Scatter3D from "../nodes/3d-scatter";
@@ -16,6 +15,10 @@ import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
 import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
+import PlotlyTable from "../nodes/Table";
+import PlotlyImage from "../nodes/Image";
+import BoxPlot from "../nodes/box-plot";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -36,6 +39,9 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   SURFACE3D: <Surface3D />,
   SCATTER3D: <Scatter3D />,
   BAR: <BarChart />,
+  TABLE: <PlotlyTable />,
+  IMAGE: <PlotlyImage />,
+  BOX: <BoxPlot />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
@@ -92,13 +98,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         {result ? (
           <>
             <PlotlyComponent
-              data={result.result.default_fig.data.map((d) => ({
-                ...d,
-                marker: {
-                  ...d.marker,
-                  color: accentColor,
-                },
-              }))}
+              data={makePlotlyData(result.result.default_fig.data, theme, true)}
               id={data.id}
               layout={{ ...plotLayout, ...layoutOverride }}
               useResizeHandler
@@ -106,6 +106,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 height: 190,
                 width: 210,
               }}
+              isThumbnail
             />
 
             <Box
@@ -126,7 +127,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             }}
           >
             {chartElemMap[data.func]}
-            <BGTemplate theme={theme.colorScheme} />
             <Box
               display="flex"
               h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
