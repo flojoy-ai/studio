@@ -209,17 +209,6 @@
             "type": "SIMULATION"
         },
         {
-            "name": "SERIAL",
-            "key": "SERIAL",
-            "type": "SERIAL",
-            "pip_dependencies": [
-                {
-                    "name": "pyserial",
-                    "v": 3.5
-                }
-            ]
-        },
-        {
             "name": "Loader",
             "key": "LOADER",
             "type": "CLOUD_DATABASE"
@@ -547,24 +536,6 @@
                 "default": 3
             }
         },
-        "SERIAL": {
-            "comport": {
-                "type": "string",
-                "default": "/dev/ttyUSB0"
-            },
-            "baudrate": {
-                "type": "float",
-                "default": 9600
-            },
-            "num_readings": {
-                "type": "float",
-                "default": 100
-            },
-            "record_period": {
-                "type": "float",
-                "default": 1
-            }
-        },
         "LOADER": {
             "measurement_uuid": {
                 "type": "string",
@@ -574,7 +545,92 @@
         "TIMESERIES": {},
         "R_DATASET": {
             "dataset_key": {
-                "type": "string",
+                "type": "select",
+                "options": [
+                    "ability.cov",
+                    "airmiles",
+                    "AirPassengers",
+                    "airquality",
+                    "anscombe",
+                    "attenu",
+                    "attitude",
+                    "austres",
+                    "BJsales",
+                    "BOD",
+                    "cars",
+                    "ChickWeight",
+                    "chickwts",
+                    "co2",
+                    "crimtab",
+                    "discoveries",
+                    "DNase",
+                    "esoph",
+                    "euro",
+                    "EuStockMarkets",
+                    "faithful",
+                    "Formaldehyde",
+                    "freeny",
+                    "HairEyeColor",
+                    "Harman23",
+                    "Harman74",
+                    "Indometh",
+                    "infert",
+                    "InsectSprays",
+                    "iris",
+                    "iris3",
+                    "islands",
+                    "JohnsonJohnson",
+                    "LakeHuron",
+                    "LakeHuron",
+                    "LifeCycleSavings",
+                    "Loblolly",
+                    "longley",
+                    "lynx",
+                    "morley",
+                    "mtcars",
+                    "nhtemp",
+                    "Nile",
+                    "nottem",
+                    "npk",
+                    "occupationalStatus",
+                    "Orange",
+                    "OrchardSprays",
+                    "PlantGrowth",
+                    "precip",
+                    "presidents",
+                    "pressure",
+                    "Puromycin",
+                    "quakes",
+                    "randu",
+                    "rivers",
+                    "rock",
+                    "Seatbelts",
+                    "sleep",
+                    "stackloss",
+                    "sunspot.month",
+                    "sunspot.year",
+                    "sunspots",
+                    "swiss",
+                    "Theoph",
+                    "Titanic",
+                    "ToothGrowth",
+                    "treering",
+                    "trees",
+                    "UCBAdmissions",
+                    "UKDriverDeaths",
+                    "UKgas",
+                    "USAccDeaths",
+                    "USArrests",
+                    "USJudgeRatings",
+                    "USPersonalExpenditure",
+                    "USPersonalExpenditure",
+                    "VADeaths",
+                    "volcano",
+                    "warpbreaks",
+                    "women",
+                    "WorldPhones",
+                    "WWWusage"
+                ],
                 "default": "iris"
             }
         },
@@ -651,7 +707,52 @@
         },
         "SKLEARNIMAGE": {
             "img_key": {
-                "type": "string",
+                "type": "select",
+                "options": [
+                    "astronaut",
+                    "binary_blobs",
+                    "brain",
+                    "brick",
+                    "camera",
+                    "cat",
+                    "cell",
+                    "cells3d",
+                    "checkerboard",
+                    "chelsea",
+                    "clock",
+                    "coffee",
+                    "coins",
+                    "colorwheel",
+                    "create_image_fetcher",
+                    "data_dir",
+                    "download_all",
+                    "eagle",
+                    "file_hash",
+                    "grass",
+                    "gravel",
+                    "horse",
+                    "hubble_deep_field",
+                    "human_mitosis",
+                    "image_fetcher",
+                    "immunohistochemistry",
+                    "kidney",
+                    "lbp_frontal_face_cascade_filename",
+                    "lfw_subset",
+                    "lily",
+                    "logo",
+                    "microaneurysms",
+                    "moon",
+                    "nickel_solidification",
+                    "page",
+                    "protein_transport",
+                    "retina",
+                    "rocket",
+                    "shepp_logan_phantom",
+                    "skin",
+                    "stereo_motorcycle",
+                    "text",
+                    "vortex"
+                ],
                 "default": "astronaut"
             }
         },
