@@ -13,22 +13,16 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-type AddNodeBtnProps = {
-  setSCRIPTSideBarStatus: (status: boolean) => void;
-  isSCRIPTSideBarOpen: boolean;
-};
-
-export const AddNodeBtn = ({
-  setSCRIPTSideBarStatus,
-  isSCRIPTSideBarOpen,
-}: AddNodeBtnProps) => {
+export const AddNodeBtn = () => {
   const { classes } = useStyles();
+
+  const { setIsSidebarOpen } = useFlowChartState();
 
   return (
     <button
       data-testid="add-node-button"
       className={classes.addButton}
-      onClick={() => setSCRIPTSideBarStatus(!isSCRIPTSideBarOpen)}
+      onClick={() => setIsSidebarOpen((prev) => !prev)}
       style={{
         width: "fit-content",
         height: "43px",

@@ -78,6 +78,7 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
   }))
 );
 const apiKeyAtom = atomWithImmer<string>("");
+const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
@@ -90,6 +91,7 @@ export function useFlowChartState() {
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   return {
@@ -111,5 +113,7 @@ export function useFlowChartState() {
     setApiKey,
     nodeParamChanged,
     setNodeParamChanged,
+    isSidebarOpen,
+    setIsSidebarOpen,
   };
 }

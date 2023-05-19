@@ -41,7 +41,8 @@ const App = () => {
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
 
-  const { setRunningNode, setFailedNode } = useFlowChartState();
+  const { setRunningNode, setFailedNode, setIsSidebarOpen } =
+    useFlowChartState();
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
@@ -65,6 +66,20 @@ const App = () => {
       closePreJobModal();
     }
   }, [preJobOperation]);
+
+  // TODO: I will move this into a hook tomorrow, signing off for now
+  const handleShortcut = (event: any) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === "a") {
+      event.preventDefault();
+      setIsSidebarOpen((prev) => !prev);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("keydown", handleShortcut);
+    return () => {
+      document.removeEventListener("keydown", handleShortcut);
+    };
+  }, []);
 
   return (
     <ColorSchemeProvider

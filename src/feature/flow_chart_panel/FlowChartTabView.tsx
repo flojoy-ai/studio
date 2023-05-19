@@ -50,7 +50,7 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
-  const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false);
+  const { isSidebarOpen, setIsSidebarOpen } = useFlowChartState();
 
   const { states } = useSocket();
   const { programResults } = states!;
@@ -88,8 +88,6 @@ const FlowChartTab = () => {
 
   const addNewNode = useAddNewNode(setNodes);
   const sidebarCustomContent = useMemo(() => <RequestNode />, []);
-
-  const theme = useMantineTheme();
 
   // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
@@ -208,18 +206,15 @@ const FlowChartTab = () => {
           justifyContent: "space-between",
         }}
       >
-        <AddNodeBtn
-          setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
-          isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
-        />
+        <AddNodeBtn />
         <ClearCanvasBtn setNodes={setNodes} />
       </div>
       <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
         leafNodeClickHandler={addNewNode}
-        isSideBarOpen={isSCRIPTSideBarOpen}
-        setSideBarStatus={setSCRIPTSideBarStatus}
+        isSideBarOpen={isSidebarOpen}
+        setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
       />
       <ReactFlowProvider>
