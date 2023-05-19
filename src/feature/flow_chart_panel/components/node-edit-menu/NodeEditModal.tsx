@@ -5,7 +5,7 @@ import ParamField, { ParamType } from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 
 const useStyles = createStyles((theme) => ({
   modal: {

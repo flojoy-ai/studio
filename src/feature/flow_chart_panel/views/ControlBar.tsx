@@ -109,7 +109,7 @@ localforage.config({
 // TODO: Prevent this from rerendering every time a node changes
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, setProgramResults, serverStatus } = states!;
+  const { socketId, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
@@ -121,7 +121,6 @@ const ControlBar = () => {
     setRfInstance,
     ctrlsManifest,
     setCtrlsManifest,
-    nodeParamChanged,
     setNodeParamChanged,
   } = useFlowChartState();
 
@@ -180,7 +179,7 @@ const ControlBar = () => {
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
 
-      const handle = await (window as any).showSaveFilePicker({
+      const handle = await window.showSaveFilePicker({
         suggestedName: "flojoy.txt",
         types: [
           {
