@@ -26,6 +26,7 @@ import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import APIKeyModal from "./API_keyModal";
+import { Settings, useSettings } from "@src/hooks/useSettings";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -124,20 +125,25 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
+  const { settingsList } = useSettings();
+  let backendSettings: Settings[] = [];
 
   const {
     rfInstance,
     openFileSelector,
     saveFile,
     saveFileAs,
-    nodeParamChanged,
     setNodeParamChanged,
   } = useFlowChartState();
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       saveFlowChartToLocalStorage(rfInstance);
       setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
+      saveAndRunFlowChartInServer({
+        rfInstance,
+        jobId: socketId,
+        settings: settingsList.filter((setting) => setting.group === "backend"),
+      });
       setNodeParamChanged(undefined);
     } else {
       alert(
