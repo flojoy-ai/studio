@@ -4,9 +4,7 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 const props: NodeModalProps = {
   modalIsOpen: false,
-  afterOpenModal: jest.fn(),
   closeModal: jest.fn(),
-  //modalStyles: {},
   nodeLabel: "test",
   nodeType: "test",
   nd: {

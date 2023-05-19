@@ -29,7 +29,6 @@ const useStyles = createStyles((theme) => {
 
 const NodeModal = ({
   modalIsOpen,
-  afterOpenModal,
   closeModal,
   nodeLabel,
   nodeType,
