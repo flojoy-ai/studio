@@ -2,6 +2,8 @@ import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
 import { CustomError } from "../utils/CustomError";
+import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -20,13 +22,12 @@ export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
 }: {
-  rfInstance?: ReactFlowJsonObject;
+  rfInstance?: ReactFlowJsonObject<ElementsData, any>;
   jobId: string;
 }) {
   if (rfInstance) {
     const rfInstanceObject = rfInstance;
     const fcStr = JSON.stringify(rfInstanceObject);
-
     fetch(`${API_URI}/wfc`, {
       method: "POST",
       body: JSON.stringify({
@@ -43,7 +44,7 @@ export function cancelFlowChartRun({
   rfInstance,
   jobId,
 }: {
-  rfInstance: ReactFlowJsonObject;
+  rfInstance: ReactFlowJsonObject<ElementsData, any>;
   jobId: string;
 }) {
   if (rfInstance) {
