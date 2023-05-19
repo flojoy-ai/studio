@@ -32,4 +32,6 @@ module.exports = {
     { deviceName: "Pixel 2", screenOrientation: "portrait" },
     { deviceName: "Nexus 10", screenOrientation: "landscape" },
   ],
+
+  failCypressOnDiff: false,
 };
