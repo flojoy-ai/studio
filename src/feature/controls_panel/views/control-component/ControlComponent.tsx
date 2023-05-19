@@ -376,7 +376,7 @@ const ControlComponent = ({
       {ctrlObj.name === ControlNames.ArrayNumericInput && (
         <Box className={classes.inputBody}>
           <input
-            type="string"
+            type="text"
             placeholder="Enter numbers in CSV format"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
