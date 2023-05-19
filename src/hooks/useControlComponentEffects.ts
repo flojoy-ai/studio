@@ -64,8 +64,8 @@ const useControlComponentEffects = ({
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
       if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io!.reverse();
+        if (results && results.io) {
+          const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];
@@ -81,9 +81,9 @@ const useControlComponentEffects = ({
     console.log("27");
     if (ctrlObj.type === ControlTypes.Input) {
       if (flowChartObject?.nodes !== undefined) {
-        flowChartObject!.nodes.forEach((node) => {
-          const nodeLabel = node.data!.label;
-          const nodeFunctionName = node.data!.func;
+        flowChartObject.nodes.forEach((node) => {
+          const nodeLabel = node.data.label;
+          const nodeFunctionName = node.data.func;
           const params = FUNCTION_PARAMETERS[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
@@ -111,8 +111,8 @@ const useControlComponentEffects = ({
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
       if (flowChartObject?.nodes !== undefined) {
-        flowChartObject!.nodes.forEach((node) => {
-          const label = `Visualize node: ${node.data!.label} (#${node.id.slice(
+        flowChartObject.nodes.forEach((node) => {
+          const label = `Visualize node: ${node.data.label} (#${node.id.slice(
             -5
           )})`;
           setSelectOptions((prev) => [
@@ -134,8 +134,8 @@ const useControlComponentEffects = ({
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
       if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io!.reverse();
+        if (results && results.io) {
+          const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];
