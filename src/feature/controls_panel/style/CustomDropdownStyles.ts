@@ -6,9 +6,9 @@ const customDropdownStyles = {
     zIndex: 2,
     opacity: 1,
     backgroundColor:
-      state.selectProps.theme === "dark" ? darkTheme.body : lightTheme.body,
-    color:
-      state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text,
+      state.selectProps.theme === "dark"
+        ? darkTheme.colors!.dark![6]
+        : lightTheme.colors!.gray![1],
   }),
 
   control: (provided, state) => ({
@@ -17,9 +17,9 @@ const customDropdownStyles = {
     border: 0,
     outline: 0,
     backgroundColor:
-      state.selectProps.theme === "dark" ? darkTheme.body : lightTheme.body,
-    color:
-      state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text,
+      state.selectProps.theme === "dark"
+        ? darkTheme.colors!.dark![6]
+        : lightTheme.colors!.gray![1],
   }),
 
   option: (styles, { selectProps, isFocused, isSelected }) => {
@@ -43,7 +43,9 @@ const customDropdownStyles = {
 
   singleValue: (provided, state) => {
     const color =
-      state.selectProps.theme === "dark" ? darkTheme.text : lightTheme.text;
+      state.selectProps.theme === "dark"
+        ? darkTheme.colors!.text![0]
+        : lightTheme.colors!.text![0];
 
     return { ...provided, color };
   },

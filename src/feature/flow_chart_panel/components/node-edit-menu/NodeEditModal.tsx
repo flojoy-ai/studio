@@ -1,78 +1,91 @@
-import { useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
 import { FUNCTION_PARAMETERS } from "../../manifest/PARAMETERS_MANIFEST";
 import ParamField, { ParamType } from "./ParamField";
-import styled from "styled-components";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { Box, Title, createStyles } from "@mantine/core";
+import { useEffect, useState } from "react";
+
+const useStyles = createStyles((theme) => ({
+  modal: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 10,
+    height: 684,
+    width: 324,
+    padding: "8px 8px",
+    backgroundColor: theme.colors.modal[0],
+    boxShadow:
+      theme.colorScheme === "dark" ? "none" : "0px 0px 8px 0px rgba(0,0,0,0.3)",
+  },
+  title: {
+    fontWeight: 700,
+    margin: 0,
+    textAlign: "center",
+  },
+  titleContainer: {
+    display: "flex",
+    alignItems: "center",
+    margin: "0 0 10px 0",
+  },
+  paramName: {
+    fontWeight: 600,
+    fontSize: 14,
+    marginTop: 16,
+    marginBottom: 4,
+  },
+  closeButton: {
+    width: "fit-content",
+    height: 18,
+    marginLeft: "auto",
+    cursor: "pointer",
+  },
+  replayScriptNotice: {
+    fontSize: 12,
+    margin: 6,
+  },
+}));
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
 };
 
-const StyledModal = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
-  height: 684px;
-  width: 324px;
-  padding: 8px 8px;
-  background-color: ${(props) =>
-    props.theme === "dark" ? "#141313ff" : "white"};
-  box-shadow: ${(props) =>
-    props.theme === "dark" ? "none" : "0px 0px 16px 0px rgba(0,0,0,0.3)"};
-`;
-
-const StyledTitle = styled.h4`
-  font-weight: 700;
-  margin: 0;
-  text-align: center;
-`;
-
-const StyledTitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 0 0 10px 0;
-`;
-
-const StyledParamName = styled.div`
-  font-weight: 600;
-  font-size: 14px;
-  margin-top: 16px;
-  margin-bottom: 4px;
-`;
-
-const StyledCloseButton = styled.div`
-  width: fit-content;
-  height: 18px;
-  margin-left: auto;
-  cursor: pointer;
-`;
-
 const NodeEditModal = ({ node }: NodeEditModalProps) => {
-  const theme = useMantineTheme();
-  const { setIsEditMode } = useFlowChartState();
+  const { classes } = useStyles();
+  const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
+    useFlowChartState();
+  const replayNotice = "Replay the script to see your changes take effect";
+
+  useEffect(() => {
+    if (nodeParamChanged === undefined) {
+      setNodeParamChanged(false);
+    } else {
+      setNodeParamChanged(true);
+    }
+  }, [node.data.ctrls]);
 
   return (
-    <StyledModal theme={theme.colorScheme}>
-      <StyledCloseButton onClick={() => setIsEditMode(false)}>
+    <Box className={classes.modal}>
+      <Box onClick={() => setIsEditMode(false)} className={classes.closeButton}>
         <IconX size={18} />
-      </StyledCloseButton>
-      <div style={{ padding: "0px 16px 24px 16px" }}>
+      </Box>
+      <Box p="0px 16px 24px 16px">
         <div key={node.id}>
-          <StyledTitleContainer>
-            <StyledTitle>{node.data.func.toUpperCase()}</StyledTitle>
+          <Box className={classes.titleContainer}>
+            <Title size="h4" className={classes.title}>
+              {node.data.func.toUpperCase()}
+            </Title>
             <IconPencil
               size={18}
               style={{ marginLeft: "1rem", marginBottom: "4px" }}
             />
-          </StyledTitleContainer>
+          </Box>
           {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
             ([name, param]) => (
               <div key={node.id + name}>
-                <StyledParamName>{`${name.toUpperCase()}:`}</StyledParamName>
+                <p className={classes.paramName}>{`${name.toUpperCase()}:`}</p>
                 <ParamField
                   nodeId={node.id}
                   paramId={name}
@@ -84,9 +97,14 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
               </div>
             )
           )}
+          {nodeParamChanged && (
+            <div className={classes.replayScriptNotice}>
+              <i>{replayNotice}</i>
+            </div>
+          )}
         </div>
-      </div>
-    </StyledModal>
+      </Box>
+    </Box>
   );
 };
 

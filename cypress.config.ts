@@ -45,3 +45,5 @@ export default defineConfig({
     pageLoadTimeout: 100000,
   },
 });
+
+require("@applitools/eyes-cypress")(module);

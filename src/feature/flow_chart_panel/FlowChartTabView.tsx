@@ -20,7 +20,7 @@ import {
 
 import localforage from "localforage";
 
-import styledPlotLayout from "../common/defaultPlotLayout";
+import usePlotLayout from "../common/usePlotLayout";
 import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
 import NodeModal from "./views/NodeModal";
 import { FlowChartProps } from "./types/FlowChartProps";
@@ -30,15 +30,15 @@ import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab: React.FC<FlowChartProps> = ({
+const FlowChartTab = ({
   results,
-  theme,
   rfInstance,
   setRfInstance,
   clickedElement,
@@ -67,16 +67,13 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
+  const theme = useMantineTheme();
+
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
-
-  const modalStyles = {
-    overlay: { zIndex: 99 },
-    content: { zIndex: 100 },
-  };
 
   const onNodeClick: NodeMouseHandler = (_, node) => {
     setPythonString(
@@ -92,7 +89,7 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     saveFlowChartToLocalStorage(rfInstance);
   }, [rfInstance]);
 
-  const defaultLayout = styledPlotLayout(theme);
+  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
@@ -193,12 +190,10 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
         closeModal={closeModal}
         defaultLayout={defaultLayout}
         modalIsOpen={modalIsOpen}
-        modalStyles={modalStyles}
         nd={nd!}
         nodeLabel={nodeLabel}
         nodeType={nodeType}
         pythonString={pythonString}
-        theme={theme}
       />
     </ReactFlowProvider>
   );

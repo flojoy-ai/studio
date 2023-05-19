@@ -1,13 +1,8 @@
 import clone from "just-clone";
 import localforage from "localforage";
 import React, { useCallback } from "react";
-import Modal from "react-modal";
-import { v4 as uuidv4 } from "uuid";
-
-import { modalStyles } from "./style/ControlModalStyles";
 import "./style/Controls.css";
 
-import ReactSwitch from "react-switch";
 import "@src/App.css";
 import {
   CtlManifestType,
@@ -15,38 +10,37 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { useSocket } from "@src/hooks/useSocket";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
-import AddCtrlModal from "./views/AddCtrlModal";
 import ControlGrid from "./views/ControlGrid";
-import { ControlNames } from "./manifest/CONTROLS_MANIFEST";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { createStyles } from "@mantine/styles";
+import { useMantineTheme } from "@mantine/styles";
+
+export const useAddButtonStyle = createStyles((theme) => {
+  return {
+    addButton: {
+      boxSizing: "border-box",
+      backgroundColor: theme.colors.modal[0],
+      border: theme.colors.accent1[0],
+      cursor: "pointer",
+    },
+  };
+});
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 interface ControlsTabProps {
   results: ResultsType;
-  theme: "light" | "dark";
-  setOpenCtrlModal: React.Dispatch<React.SetStateAction<boolean>>;
-  openCtrlModal: boolean;
 }
 
-const ControlsTab = ({
-  results,
-  theme,
-  setOpenCtrlModal,
-  openCtrlModal,
-}: ControlsTabProps) => {
+const ControlsTab = ({ results }: ControlsTabProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults } = states!;
-
   const {
-    openEditModal,
     setOpenEditModal,
-    currentInput,
     setCurrentInput,
     debouncedTimerId,
     setDebouncedTimerId,
@@ -56,18 +50,10 @@ const ControlsTab = ({
     rfInstance,
     nodes,
     updateCtrlInputDataForNode,
-    removeCtrlInputDataForNode,
     ctrlsManifest,
     setCtrlsManifest,
     isEditMode,
-    gridLayout,
-    setGridLayout,
   } = useFlowChartState();
-
-  const afterOpenModal = () => null;
-  const closeModal = () => {
-    setOpenCtrlModal(false);
-  };
 
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
@@ -87,34 +73,6 @@ const ControlsTab = ({
   }, [debouncedTimerId, rfInstance]);
 
   useControlsTabEffects();
-
-  const addCtrl = (ctrlObj: Partial<CtlManifestType>) => {
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
-      }
-    }
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight! > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
-    setOpenCtrlModal(false);
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
 
   const removeCtrl = (e: any, ctrl: any = undefined) => {
     const ctrlId = e.target.id;
@@ -182,7 +140,6 @@ const ControlsTab = ({
     <div data-testid="controls-tab">
       <ControlGrid
         controlProps={{
-          theme,
           isEditMode,
           results,
           updateCtrlValue,
@@ -192,86 +149,6 @@ const ControlsTab = ({
           setOpenEditModal,
         }}
       />
-      <AddCtrlModal
-        isOpen={openCtrlModal}
-        afterOpenModal={afterOpenModal}
-        closeModal={closeModal}
-        addCtrl={addCtrl}
-        theme={theme}
-      />
-      <Modal
-        isOpen={openEditModal}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={() => setOpenEditModal(false)}
-        style={modalStyles}
-        ariaHideApp={false}
-        contentLabel="Choose a Python function"
-      >
-        <button onClick={() => setOpenEditModal(false)} className="close-modal">
-          <ModalCloseSvg
-            style={{
-              height: 23,
-              width: 23,
-            }}
-          />
-        </button>
-        {currentInput && (
-          <div>
-            <p>Ctrl properties</p>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "5px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  alignItems: "center",
-                }}
-              >
-                <p>Hidden</p>
-                <ReactSwitch
-                  checked={
-                    ctrlsManifest[currentInput?.index!]!?.hidden! || false
-                  }
-                  onChange={(nextChecked) => {
-                    setCtrlsManifest((prev) => {
-                      prev[currentInput?.index!].hidden = nextChecked;
-                    });
-                  }}
-                />
-              </div>
-              {ctrlsManifest[currentInput?.index!]?.name ===
-                ControlNames.SevenSegmentDisplay && (
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "8px",
-                    alignItems: "center",
-                  }}
-                >
-                  <p>Segment Color </p>
-                  <input
-                    type="color"
-                    name="seven_segment_color"
-                    id="seven_segment_color"
-                    value={ctrlsManifest[currentInput.index].segmentColor || ""}
-                    onChange={(e) => {
-                      setCtrlsManifest((prev) => {
-                        prev[currentInput?.index!].segmentColor =
-                          e.target.value;
-                      });
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </Modal>
     </div>
   );
 };

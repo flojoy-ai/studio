@@ -1,5 +1,5 @@
 import { NOISY_SINE } from "../data/RECIPES";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useFilePicker } from "use-file-picker";
 import { useCallback, useEffect, useMemo } from "react";
@@ -73,7 +73,6 @@ const initialManifests: CtlManifestType[] = [
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
@@ -86,6 +85,8 @@ const gridLayoutAtom = atomWithImmer<Layout[]>(
     ...ctrl.layout,
   }))
 );
+const apiKeyAtom = atomWithImmer<string>("");
+const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
@@ -95,10 +96,11 @@ export function useFlowChartState() {
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   const loadFlowExportObject = useCallback(
     (flow: any) => {
@@ -228,8 +230,6 @@ export function useFlowChartState() {
     setIsEditMode,
     gridLayout,
     setGridLayout,
-    uiTheme,
-    setUiTheme,
     showLogs,
     setShowLogs,
     runningNode,
@@ -241,5 +241,9 @@ export function useFlowChartState() {
     nodes,
     setNodes,
     filesContent,
+    apiKey,
+    setApiKey,
+    nodeParamChanged,
+    setNodeParamChanged,
   };
 }
