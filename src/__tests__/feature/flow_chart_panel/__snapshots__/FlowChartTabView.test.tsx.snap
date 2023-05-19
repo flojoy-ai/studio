@@ -7,7 +7,9 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       class="mantine-Text-root mantine-1mkgn9v"
       data-cy="app-status"
     >
-      <code />
+      <code>
+        Connecting to server...
+      </code>
     </div>
     <header
       class="mantine-Header-root mantine-ii6m85"
@@ -37,49 +39,27 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           class="mantine-1mo5lls"
         >
           <button
-            class="mantine-1gj2b45"
-            data-cy="btn-cancel"
-            title="Cancel Run"
+            class="mantine-8mgm8e"
+            data-cy="btn-play"
+            data-testid="btn-play"
+            disabled=""
+            title="Server is offline"
           >
             <svg
-              fill-rule="nonzero"
-              height="34px"
-              viewBox="0,0,256,256"
-              width="34px"
+              fill="none"
+              height="11"
+              viewBox="0 0 9 11"
+              width="9"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <g
-                fill="white"
-                fill-opacity="0.67843"
-                fill-rule="nonzero"
-                font-family="none"
-                font-size="none"
-                font-weight="none"
-                stroke="none"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-width="1"
-                style="mix-blend-mode: normal;"
-                text-anchor="none"
-              >
-                <g
-                  transform="scale(10.66667,10.66667)"
-                >
-                  <path
-                    d="M12,2c-5.53,0 -10,4.47 -10,10c0,5.53 4.47,10 10,10c5.53,0 10,-4.47 10,-10c0,-5.53 -4.47,-10 -10,-10zM17,15.59l-1.41,1.41l-3.59,-3.59l-3.59,3.59l-1.41,-1.41l3.59,-3.59l-3.59,-3.59l1.41,-1.41l3.59,3.59l3.59,-3.59l1.41,1.41l-3.59,3.59z"
-                  />
-                </g>
-              </g>
+              <path
+                d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
+                fill="#99f5ff"
+              />
             </svg>
-            <div
-              class="mantine-Text-root mantine-1tocsax"
-            >
-              Cancel
-            </div>
+            <span>
+              Play
+            </span>
           </button>
           <div
             class="mantine-7c7vou"

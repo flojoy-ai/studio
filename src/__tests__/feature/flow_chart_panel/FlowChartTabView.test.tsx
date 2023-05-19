@@ -71,6 +71,7 @@ jest.mock("@src/configs/NodeConfigs", () => {
 });
 
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useSocket");
 
 jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
   return {
@@ -82,16 +83,6 @@ jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
 jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   return {
     FUNCTION_PARAMETERS: {},
-  };
-});
-
-jest.mock("@src/hooks/useSocket", () => {
-  return {
-    useSocket: () => ({
-      states: {
-        programResults: {},
-      },
-    }),
   };
 });
 

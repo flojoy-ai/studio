@@ -27,15 +27,7 @@ jest.mock("react-use", () => ({
   useWindowSize: jest.fn(() => ({ width: 1024, height: 768 })),
 }));
 
-jest.mock("@src/hooks/useSocket", () => {
-  return {
-    useSocket: () => ({
-      states: {
-        programResults: {},
-      },
-    }),
-  };
-});
+jest.mock("@src/hooks/useSocket");
 
 describe("ResultsTab component", () => {
   const results: ResultsType = {
