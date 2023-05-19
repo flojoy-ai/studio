@@ -16,7 +16,7 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import * as PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 

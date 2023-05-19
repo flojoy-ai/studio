@@ -68,7 +68,7 @@ const ParamField = ({
         />
       );
     default:
-      return <p> There's something wrong with the paramType </p>;
+      return <p> There&apos;s something wrong with the paramType </p>;
   }
 };
 
