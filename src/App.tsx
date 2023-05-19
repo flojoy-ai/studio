@@ -68,7 +68,7 @@ const App = () => {
   }, [preJobOperation]);
 
   // TODO: I will move this into a hook tomorrow, signing off for now
-  const handleShortcut = (event: any) => {
+  const handleShortcut = (event: KeyboardEvent) => {
     if ((event.metaKey || event.ctrlKey) && event.key === "a") {
       event.preventDefault();
       setIsSidebarOpen((prev) => !prev);
