@@ -15,8 +15,6 @@ import {
   PlotControlOptions,
 } from "../../types/ControlOptions";
 
-import { Data } from "plotly.js";
-import { useMantineColorScheme } from "@mantine/styles";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
@@ -56,7 +54,7 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const theme = useMantineColorScheme().colorScheme;
+
   const styledLayout = usePlotLayout();
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;

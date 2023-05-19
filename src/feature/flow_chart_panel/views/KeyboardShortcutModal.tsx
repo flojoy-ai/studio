@@ -1,5 +1,4 @@
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
-import { createStyles, useMantineTheme, Modal, Button } from "@mantine/core";
+import { createStyles, Modal, Button } from "@mantine/core";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;

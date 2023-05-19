@@ -12,14 +12,11 @@ import {
   ReactFlow,
   ReactFlowProvider,
 } from "reactflow";
-import { ResultsType } from "./types/ResultsType";
 import { useResultsTabEffects } from "./ResultsTabEffects";
 import { useSocket } from "@src/hooks/useSocket";
 import { Layout } from "@src/Layout";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-interface ResultsTabProps {
-  results: ResultsType;
-}
+
 const edgeTypes: EdgeTypes = { default: CustomEdge as any };
 const nodeTypes: NodeTypes = { default: CustomResultNode as any };
 
