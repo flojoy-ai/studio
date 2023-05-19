@@ -1,5 +1,6 @@
 import { createStyles } from "@mantine/core";
-import { useFlowChartState } from "./hooks/useFlowChartState";
+import { SetStateAction } from "jotai";
+import { Dispatch } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -13,10 +14,12 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const AddNodeBtn = () => {
-  const { classes } = useStyles();
+type AddNodeBtnProps = {
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-  const { setIsSidebarOpen } = useFlowChartState();
+export const AddNodeBtn = ({ setIsSidebarOpen }: AddNodeBtnProps) => {
+  const { classes } = useStyles();
 
   return (
     <button

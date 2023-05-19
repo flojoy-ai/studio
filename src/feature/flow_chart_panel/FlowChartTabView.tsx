@@ -49,7 +49,8 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
-  const { isSidebarOpen, setIsSidebarOpen } = useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+    useFlowChartState();
 
   const {
     states: { programResults },
@@ -73,8 +74,6 @@ const FlowChartTab = () => {
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
-
-  const { setRfInstance, setCtrlsManifest } = useFlowChartState();
 
   const {
     nodes,
@@ -205,7 +204,7 @@ const FlowChartTab = () => {
           justifyContent: "space-between",
         }}
       >
-        <AddNodeBtn />
+        <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
         <ClearCanvasBtn setNodes={setNodes} />
       </div>
       <Sidebar

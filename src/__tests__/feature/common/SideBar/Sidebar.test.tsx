@@ -37,11 +37,11 @@ jest.mock("@src/hooks/useFlowChartState", () => {
 
 jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
   const SidebarMock = () => {
-    const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false); //for script sidebar
+    const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false);
     const addNewNode = useAddNewNode(jest.fn());
     return (
       <>
-        <AddNodeBtn />
+        <AddNodeBtn setIsSidebarOpen={setSCRIPTSideBarStatus} />
         <Sidebar
           sections={{ title: "ROOT", child: [] }}
           manifestMap={CMND_MANIFEST_MAP}
@@ -52,11 +52,10 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
       </>
     );
   };
-  return { SidebarCustom: SidebarMock };
+  return { Sidebar: SidebarMock };
 });
 
-const SidebarTest =
-  require("@src/feature/common/Sidebar/Sidebar").SidebarCustom;
+const SidebarTest = require("@src/feature/common/Sidebar/Sidebar").Sidebar;
 
 describe("Sidebar", () => {
   it("should render the component correctly", () => {

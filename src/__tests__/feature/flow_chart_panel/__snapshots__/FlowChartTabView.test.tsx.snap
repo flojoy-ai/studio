@@ -50,7 +50,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <g
-                fill="#fb1c1c"
+                fill="white"
                 fill-opacity="0.67843"
                 fill-rule="nonzero"
                 font-family="none"

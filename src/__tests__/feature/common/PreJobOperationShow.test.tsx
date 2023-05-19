@@ -1,12 +1,51 @@
 import { render } from "@testing-library/react";
 import PreJobOperationShow from "@src/feature/common/PreJobOperationShow";
-import { DEFAULT_THEME } from "@mantine/core";
 
 jest.mock("@mantine/core", () => ({
   __esModule: true,
   default: jest.fn(({ children }) => <div>{children}</div>),
   Modal: jest.fn(({ children }) => <div>{children}</div>),
-  useMantineTheme: jest.fn(() => DEFAULT_THEME),
+  useMantineTheme: jest.fn(() => ({
+    colorScheme: "dark",
+    colors: {
+      dark: [
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+      ],
+      gray: [
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+        "#000",
+      ],
+      red: [
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+        "#f00",
+      ],
+    },
+  })),
 }));
 
 describe("PreJobOperationShow", () => {
