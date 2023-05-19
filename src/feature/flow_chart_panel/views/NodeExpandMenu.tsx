@@ -30,12 +30,8 @@ export const NodeExpandMenu = ({
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
 
-  const canEditNode = clickedElement
-    ? Object.keys(clickedElement.data.ctrls).length > 0
-    : false;
-
   const onSelectionChange = () => {
-    if (!clickedElement || !canEditNode) {
+    if (!clickedElement) {
       setIsExpandMode(false);
     }
   };
@@ -44,7 +40,7 @@ export const NodeExpandMenu = ({
 
   return (
     <Box pos="relative" data-testid="node-modal">
-      {clickedElement && canEditNode && isExpandMode && (
+      {clickedElement && isExpandMode && (
         <NodeModal
           modalIsOpen={isExpandMode}
           closeModal={closeModal}
