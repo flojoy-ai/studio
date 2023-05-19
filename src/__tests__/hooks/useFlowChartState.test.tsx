@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 
 import {
   CtlManifestType,
@@ -7,7 +7,7 @@ import {
 
 import { NOISY_SINE } from "../../data/RECIPES";
 
-const { result, rerender } = renderHook(() => useFlowChartState());
+const { result } = renderHook(() => useFlowChartState());
 const hookResult = result.current;
 
 const initialManifests: CtlManifestType[] = [
@@ -88,35 +88,6 @@ describe("useFlowChartState", () => {
       expect(currentResult).toEqual(expectedResult);
     });
   });
-  // describe("loadFlowExportObject", () => {
-  //   it.each([
-  //     ["undefined", undefined, 0],
-  //     [
-  //       "not undefined",
-  //       {
-  //         elements: "test",
-  //         position: [0, 0],
-  //         zoom: 1,
-  //       },
-  //       0,
-  //     ],
-  //   ])(
-  //     "given a/an %p flow object,retunrns from the function",
-  //     (statement: string, input: any, expectedReturnValue) => {
-  //       const spy = jest.spyOn(hookResult, "loadFlowExportObject");
-  //       const func = hookResult.loadFlowExportObject;
-  //       act(() => {
-  //         func(input);
-  //       });
-
-  //       if (input === undefined) {
-  //         expect(spy).toHaveReturnedWith(expectedReturnValue);
-  //       } else {
-  //         expect(spy).not.toHaveReturnedWith(expectedReturnValue);
-  //       }
-  //     }
-  //   );
-  // });
   // describe("useFilePicker", () => {
   //   it("checks if useFilePicker called with right parameters", () => {
   //     const filesContent = hookResult.filesContent;

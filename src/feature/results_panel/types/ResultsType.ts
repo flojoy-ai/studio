@@ -14,21 +14,6 @@ export const ALL_DC_TYPE = [
 
 export type DataContainerType = (typeof ALL_DC_TYPE)[number];
 
-//export interface DataContainer {
-//  type: DataContainterType;
-//  x?: number[];
-//  y?: number[];
-//  z?: number[];
-//  t?: number[];
-//  m?: string;
-//  c?: number[];
-//  r?: number[];
-//  g?: number[];
-//  b?: number[];
-//  a?: number[];
-//  fig?: { data: OverridePlotData };
-//}
-
 export interface DataContainer {
   type: DataContainerType;
   data:

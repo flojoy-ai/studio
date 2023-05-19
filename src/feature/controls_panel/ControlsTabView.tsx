@@ -157,7 +157,10 @@ const ControlsTab = () => {
         : 0;
     const ctrlData = ctrls && ctrls[param.param];
 
-    const inputValue = ctrlData !== undefined ? +ctrlData.value : undefined;
+    let inputValue: string | number | undefined = undefined;
+    if (ctrlData)
+      inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
+
     const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {

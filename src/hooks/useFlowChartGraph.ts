@@ -24,10 +24,11 @@ export const useFlowChartGraph = () => {
   const loadFlowExportObject = useCallback(
     (flow: ReactFlowJsonObject<ElementsData>) => {
       if (!flow) {
-        return;
+        return false;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
+      return true;
     },
     [setNodes, setEdges]
   );

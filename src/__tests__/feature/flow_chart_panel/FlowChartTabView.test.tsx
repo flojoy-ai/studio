@@ -86,24 +86,7 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   };
 });
 
-jest.mock("react-router-dom", () => {
-  return {
-    __esModule: true,
-    useLocation: jest.fn().mockReturnValue({
-      pathname: "/",
-    }),
-    useSearchParams: jest.fn().mockReturnValue([new Map(), jest.fn()]),
-    Link: ({
-      to,
-      children,
-      testId,
-    }: {
-      to: string;
-      children: React.ReactNode;
-      testId: string;
-    }) => <div>{children}</div>,
-  };
-});
+jest.mock("react-router-dom");
 
 jest.mock(
   "@src/feature/flow_chart_panel/manifest/pythonFunctions.json",

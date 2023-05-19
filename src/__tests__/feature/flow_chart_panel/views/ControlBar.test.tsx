@@ -31,12 +31,7 @@ jest.mock("@src/feature/common/DropDown", () => ({
   default: jest.fn(() => <div>Dropdown</div>),
 }));
 
-jest.mock("react-router-dom", () => ({
-  __esModule: true,
-  useLocation: jest.fn().mockReturnValue({
-    pathname: "/",
-  }),
-}));
+jest.mock("react-router-dom");
 
 describe("Controls", () => {
   it("should render correctly", () => {
