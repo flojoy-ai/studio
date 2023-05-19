@@ -3,6 +3,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import React, { useEffect, useState } from "react";
 import { CustomNodeProps } from "../types/CustomNodeProps";
+import NodeButtons from "./node-edit-menu/NodeButtons";
 
 const NodeWrapper = ({
   data,
@@ -37,6 +38,7 @@ const NodeWrapper = ({
       pos="relative"
       onClick={() => setIsEditMode(true)}
     >
+      {data.selected && <NodeButtons data={data} />}
       {runError && <ErrorPopup message={runError.message} />}
       {children}
     </Box>

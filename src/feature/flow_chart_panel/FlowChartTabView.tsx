@@ -3,7 +3,6 @@ import {
   ConnectionLineType,
   EdgeTypes,
   NodeDragHandler,
-  NodeMouseHandler,
   NodeTypes,
   OnConnect,
   OnEdgesChange,
@@ -16,7 +15,7 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import * as PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
@@ -37,7 +36,6 @@ import { RequestNode } from "./components/RequestNode";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
-import NodeModal from "./views/NodeModal";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 
 localforage.config({
@@ -172,8 +170,8 @@ const FlowChartTab = () => {
       return;
     }
     let pythonString =
-      selectedNode?.data.label === defaultPythonFnLabel ||
-      selectedNode?.data.type === defaultPythonFnType
+      selectedNode.data.label === defaultPythonFnLabel ||
+      selectedNode.data.type === defaultPythonFnType
         ? "..."
         : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
 

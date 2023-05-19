@@ -114,6 +114,14 @@ jest.mock("react-router-dom", () => {
   };
 });
 
+jest.mock(
+  "@src/feature/flow_chart_panel/manifest/pythonFunctions.json",
+  () => ({
+    __esModule: true,
+    default: {},
+  })
+);
+
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
 

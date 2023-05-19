@@ -6,20 +6,8 @@ import { ElementsData } from "../../types/CustomNodeProps";
 const useStyles = createStyles((theme) => ({
   Edit: {
     position: "absolute",
-    top: 7,
-    right: 3,
-    zIndex: 150,
-    display: "flex",
-    cursor: "pointer",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.gray[1]
-        : theme.colors.dark[8],
-  },
-  leftEdit: {
-    position: "absolute",
-    top: 8,
-    left: 7,
+    top: 6,
+    left: 6,
     zIndex: 150,
     display: "flex",
     cursor: "pointer",
@@ -30,13 +18,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-type NodeEditButtonsProps = {
+type NodeButtonsProps = {
   data: ElementsData;
-  showPencil: boolean;
 };
 
-const NodeEditButtons = ({ data, showPencil }: NodeEditButtonsProps) => {
-  const { setIsEditMode, setIsExpandMode } = useFlowChartState();
+const NodeButtons = ({ data }: NodeButtonsProps) => {
+  const { setIsExpandMode } = useFlowChartState();
   const { classes } = useStyles();
 
   const onNodeExpandClick = () => {
@@ -45,9 +32,8 @@ const NodeEditButtons = ({ data, showPencil }: NodeEditButtonsProps) => {
 
   return (
     <Box className={classes.Edit}>
-      <Box className={classes.leftEdit}>
+      <Box mr="auto">
         <IconArrowsMaximize onClick={onNodeExpandClick} />
-        {showPencil && <IconPencil onClick={() => setIsEditMode(true)} />}
       </Box>
       {/* TODO: Add this back. Currently disabled for performance reasons */}
       {/* Can't pass a callback from nodes/nodewrapper themselves because */}
@@ -58,4 +44,4 @@ const NodeEditButtons = ({ data, showPencil }: NodeEditButtonsProps) => {
   );
 };
 
-export default NodeEditButtons;
+export default NodeButtons;
