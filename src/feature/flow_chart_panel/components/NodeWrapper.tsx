@@ -3,7 +3,6 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import React, { useEffect, useState } from "react";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import NodeEditButtons from "./node-edit-menu/NodeEditButtons";
 
 const NodeWrapper = ({
   data,
@@ -11,6 +10,7 @@ const NodeWrapper = ({
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
+  const { setIsEditMode } = useFlowChartState();
   const { failedNode } = useFlowChartState();
   const { states } = useSocket();
   const [runError, setRunError] = useState<{
@@ -32,14 +32,12 @@ const NodeWrapper = ({
   }, [failedNode, states?.failureReason]);
 
   return (
-    <Box data-testid="node-wrapper" pos="relative">
+    <Box
+      data-testid="node-wrapper"
+      pos="relative"
+      onClick={() => setIsEditMode(true)}
+    >
       {runError && <ErrorPopup message={runError.message} />}
-      {data.selected && (
-        <NodeEditButtons
-          showPencil={Object.keys(data.ctrls).length > 0}
-          data={data}
-        />
-      )}
       {children}
     </Box>
   );
