@@ -20,7 +20,7 @@ import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import APIKeyModal from "./API_keyModal";
+import APIKeyModal from "./APIKeyModal";
 
 const useStyles = createStyles((theme) => {
   return {
