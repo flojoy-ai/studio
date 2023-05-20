@@ -133,11 +133,6 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id))
       );
-      selectedNodeIds.forEach((id) => {
-        setEdges((prev) =>
-          prev.filter((edge) => edge.source !== id && edge.target !== id)
-        );
-      });
     },
     [setNodes]
   );

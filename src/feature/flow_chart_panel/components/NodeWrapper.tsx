@@ -11,7 +11,7 @@ const NodeWrapper = ({
 }: CustomNodeProps & {
   children: React.ReactNode;
 }) => {
-  const { setIsEditMode } = useFlowChartState();
+  const { setIsEditMode, setIsExpandMode } = useFlowChartState();
   const { failedNode } = useFlowChartState();
   const { states } = useSocket();
   const [runError, setRunError] = useState<{
@@ -38,7 +38,9 @@ const NodeWrapper = ({
       pos="relative"
       onClick={() => setIsEditMode(true)}
     >
-      {data.selected && <NodeButtons data={data} />}
+      {data.selected && (
+        <NodeButtons data={data} setIsExpandMode={setIsExpandMode} />
+      )}
       {runError && <ErrorPopup message={runError.message} />}
       {children}
     </Box>

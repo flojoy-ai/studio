@@ -2,6 +2,8 @@ import { Box, createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { IconArrowsMaximize, IconPencil, IconX } from "@tabler/icons-react";
 import { ElementsData } from "../../types/CustomNodeProps";
+import { SetStateAction } from "jotai";
+import { Dispatch } from "react";
 
 const useStyles = createStyles((theme) => ({
   Edit: {
@@ -20,10 +22,10 @@ const useStyles = createStyles((theme) => ({
 
 type NodeButtonsProps = {
   data: ElementsData;
+  setIsExpandMode: Dispatch<SetStateAction<boolean>>;
 };
 
-const NodeButtons = ({ data }: NodeButtonsProps) => {
-  const { setIsExpandMode } = useFlowChartState();
+const NodeButtons = ({ data, setIsExpandMode }: NodeButtonsProps) => {
   const { classes } = useStyles();
 
   const onNodeExpandClick = () => {
@@ -33,7 +35,10 @@ const NodeButtons = ({ data }: NodeButtonsProps) => {
   return (
     <Box className={classes.Edit}>
       <Box mr="auto">
-        <IconArrowsMaximize onClick={onNodeExpandClick} />
+        <IconArrowsMaximize
+          data-testid="expand-button"
+          onClick={onNodeExpandClick}
+        />
       </Box>
       {/* TODO: Add this back. Currently disabled for performance reasons */}
       {/* Can't pass a callback from nodes/nodewrapper themselves because */}

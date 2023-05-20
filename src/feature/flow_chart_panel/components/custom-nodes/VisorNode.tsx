@@ -89,7 +89,8 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 color: accentColor,
               },
             })),
-            theme
+            theme,
+            true
           )
         : undefined,
     [result]
