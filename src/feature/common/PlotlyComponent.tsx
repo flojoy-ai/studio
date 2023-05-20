@@ -43,7 +43,7 @@ const PlotlyComponent = (props: PlotProps) => {
       layout={{
         ...layout,
         showlegend: !isThumbnail,
-        ...(data[0].title?.text ? { title: "" } : { title: layout.title }),
+        ...(data[0]?.title?.text && { title: "" }),
       }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false }}
