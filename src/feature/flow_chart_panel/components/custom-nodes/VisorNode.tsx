@@ -9,16 +9,17 @@ import { makePlotlyData } from "@src/utils/format_plotly_data";
 import { Layout } from "plotly.js";
 import { memo, useMemo } from "react";
 import { useNodeStyles } from "../DefaultNode";
-import NodeWrapper from "../NodeWrapper";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
+import BarChart from "../nodes/bar";
+import BigNumber from "../nodes/BigNumber";
+import BoxPlot from "../nodes/box-plot";
 import Histogram from "../nodes/Histogram";
 import PlotlyImage from "../nodes/Image";
+import LineChart from "../nodes/line-chart";
 import Scatter from "../nodes/Scatter";
 import PlotlyTable from "../nodes/Table";
-import BarChart from "../nodes/bar";
-import BoxPlot from "../nodes/box-plot";
-import LineChart from "../nodes/line-chart";
+import NodeWrapper from "../NodeWrapper";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -42,6 +43,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   TABLE: <PlotlyTable />,
   IMAGE: <PlotlyImage />,
   BOX: <BoxPlot />,
+  BIG_NUMBER: <BigNumber />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {

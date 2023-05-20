@@ -27,6 +27,7 @@ type PlotProps = {
 // TODO: Why does this rerender constantly after first run?
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
+
   useEffect(() => {
     console.log("5");
     if (!window) {
@@ -41,7 +42,11 @@ const PlotlyComponent = (props: PlotProps) => {
   return (
     <Plot
       data={data}
-      layout={{ ...layout, showlegend: !isThumbnail }}
+      layout={{
+        ...layout,
+        showlegend: !isThumbnail,
+        ...(data[0].title?.text ? { title: "" } : { title: layout.title }),
+      }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false }}
       style={style}
