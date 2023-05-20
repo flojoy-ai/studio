@@ -1,12 +1,25 @@
 import { Box, createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { IconPencil, IconX } from "@tabler/icons-react";
+import { IconArrowsMaximize, IconPencil, IconX } from "@tabler/icons-react";
 import { ElementsData } from "../../types/CustomNodeProps";
+
 const useStyles = createStyles((theme) => ({
   Edit: {
     position: "absolute",
-    top: 10,
+    top: 7,
     right: 3,
+    zIndex: 150,
+    display: "flex",
+    cursor: "pointer",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.gray[1]
+        : theme.colors.dark[8],
+  },
+  leftEdit: {
+    position: "absolute",
+    top: 8,
+    left: 7,
     zIndex: 150,
     display: "flex",
     cursor: "pointer",
@@ -28,14 +41,23 @@ const NodeEditButtons = ({
   handleRemove,
   showPencil,
 }: NodeEditButtonsProps) => {
-  const { setIsEditMode } = useFlowChartState();
+  const { setIsEditMode, setIsExpandMode } = useFlowChartState();
   const { classes } = useStyles();
 
+  const onNodeExpandClick = () => {
+    setIsExpandMode(true);
+  };
+
   return (
-    <Box className={classes.Edit}>
-      {showPencil && <IconPencil onClick={() => setIsEditMode(true)} />}
-      <IconX onClick={() => handleRemove(data.id)} />
-    </Box>
+    <div>
+      <Box className={classes.leftEdit}>
+        <IconArrowsMaximize onClick={onNodeExpandClick} />
+        {showPencil && <IconPencil onClick={() => setIsEditMode(true)} />}
+      </Box>
+      <Box className={classes.Edit}>
+        <IconX onClick={() => handleRemove(data.id)} />
+      </Box>
+    </div>
   );
 };
 

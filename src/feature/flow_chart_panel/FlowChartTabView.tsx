@@ -31,6 +31,7 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+import { NodeExpandMenu } from "./views/NodeExpandMenu";
 
 localforage.config({
   name: "react-flow",
@@ -47,7 +48,6 @@ const FlowChartTab = ({
   const {
     windowWidth,
     modalIsOpen,
-    openModal,
     closeModal,
     nd,
     nodeLabel,
@@ -62,7 +62,8 @@ const FlowChartTab = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges } = useFlowChartState();
+  const { isExpandMode, nodes, setNodes, edges, setEdges } =
+    useFlowChartState();
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
@@ -71,16 +72,6 @@ const FlowChartTab = ({
     []
   );
   const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
-
-  const onNodeClick: NodeMouseHandler = (_, node) => {
-    setPythonString(
-      nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
-        ? "..."
-        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
-    );
-    setClickedElement(node);
-    openModal();
-  };
 
   useEffect(() => {
     saveFlowChartToLocalStorage(rfInstance);
@@ -131,6 +122,25 @@ const FlowChartTab = ({
     [setNodes]
   );
 
+  useEffect(() => {
+    if (selectedNode === null) {
+      return;
+    }
+    let pythonString =
+      selectedNode?.data.label === defaultPythonFnLabel ||
+      selectedNode?.data.type === defaultPythonFnType
+        ? "..."
+        : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
+
+    if (selectedNode.data.func === "CONSTANT") {
+      pythonString = PYTHON_FUNCTIONS[selectedNode.data.func + ".py"];
+    }
+
+    setPythonString(pythonString);
+    setNodeLabel(selectedNode.data.label);
+    setNodeType(selectedNode.data.type);
+  }, [selectedNode]);
+
   useFlowChartTabEffects({
     clickedElement,
     results,
@@ -141,7 +151,6 @@ const FlowChartTab = ({
     nd,
     nodeLabel,
     nodeType,
-    openModal,
     pythonString,
     setIsModalOpen,
     setNd,
@@ -174,22 +183,21 @@ const FlowChartTab = ({
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          onNodeDoubleClick={onNodeClick}
           onNodeDragStop={handleNodeDrag}
           onNodesDelete={handleNodesDelete}
         />
-      </div>
 
-      <NodeModal
-        clickedElement={clickedElement}
-        closeModal={closeModal}
-        defaultLayout={defaultLayout}
-        modalIsOpen={modalIsOpen}
-        nd={nd!}
-        nodeLabel={nodeLabel}
-        nodeType={nodeType}
-        pythonString={pythonString}
-      />
+        <NodeExpandMenu
+          clickedElement={selectedNode}
+          closeModal={closeModal}
+          defaultLayout={defaultLayout}
+          modalIsOpen={modalIsOpen}
+          nd={nd!}
+          nodeLabel={nodeLabel}
+          nodeType={nodeType}
+          pythonString={pythonString}
+        />
+      </div>
     </ReactFlowProvider>
   );
 };

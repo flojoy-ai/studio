@@ -1,11 +1,12 @@
 import { Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
 import { FUNCTION_PARAMETERS } from "../../manifest/PARAMETERS_MANIFEST";
-import ParamField, { ParamType } from "./ParamField";
+import ParamField from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -90,7 +91,7 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
                   nodeId={node.id}
                   paramId={name}
                   functionName={node.data.func}
-                  type={param.type as ParamType}
+                  type={param.type as ParamValueType}
                   value={node.data.ctrls[name].value}
                   options={param.options}
                 />

@@ -21,10 +21,11 @@ export type OverridePlotData = Array<
 type PlotProps = {
   id: string;
   data: OverridePlotData;
+  isThumbnail?: boolean;
 } & Omit<PlotParams, "data">;
 
 const PlotlyComponent = (props: PlotProps) => {
-  const { data, layout, useResizeHandler, style, id } = props;
+  const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   useEffect(() => {
     if (!window) {
       return;
@@ -38,7 +39,7 @@ const PlotlyComponent = (props: PlotProps) => {
   return (
     <Plot
       data={data}
-      layout={layout}
+      layout={{ ...layout, showlegend: !isThumbnail }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false }}
       style={style}
