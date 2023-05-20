@@ -67,8 +67,6 @@ const FlowChartTab = ({
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
-  const theme = useMantineTheme();
-
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
     []

@@ -36,10 +36,8 @@ describe("NodeModal", () => {
     const { container } = renderWithTheme(<NodeModal {...props} />);
     expect(container).toMatchSnapshot();
   });
-  it("checks if the react modal component is rendered", () => {
-    const { container, getByTestId } = renderWithTheme(
-      <NodeModal {...props} />
-    );
+  it("checks if the mantine modal component is rendered", () => {
+    const { getByTestId } = renderWithTheme(<NodeModal {...props} />);
 
     const component = getByTestId("node-modal");
 
