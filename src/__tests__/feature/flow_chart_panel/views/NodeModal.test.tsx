@@ -13,10 +13,8 @@ const props: NodeModalProps = {
     result: {
       data: {
         type: "ordered_pair",
-        data: {
-          x: [],
-          y: [],
-        },
+        x: [],
+        y: [],
       },
       default_fig: {
         data: [],

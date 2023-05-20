@@ -209,11 +209,9 @@ describe("Testing ControlComponentState State's", () => {
           },
           data: {
             type: "ordered_pair",
-            data: {
-              x: [2, 4, 5, 6],
-              y: [2, 4, 5, 6],
-              z: [2, 4, 5, 6],
-            },
+            x: [2, 4, 5, 6],
+            y: [2, 4, 5, 6],
+            z: [2, 4, 5, 6],
           },
         },
       };

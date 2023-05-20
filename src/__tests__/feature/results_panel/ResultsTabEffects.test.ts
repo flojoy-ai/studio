@@ -24,10 +24,8 @@ describe("useResultsTabEffects", () => {
         },
         data: {
           type: "ordered_pair",
-          data: {
-            x: [1, 2, 3],
-            y: [1, 2, 3],
-          },
+          x: [1, 2, 3],
+          y: [1, 2, 3],
         },
       },
     },
