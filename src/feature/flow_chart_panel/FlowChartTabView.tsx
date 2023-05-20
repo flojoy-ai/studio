@@ -213,7 +213,7 @@ const FlowChartTab = () => {
         }}
       >
         <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-        <ClearCanvasBtn setNodes={setNodes} />
+        <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
       </div>
       <Sidebar
         sections={CMND_TREE}

@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 import { Draft } from "immer";
-import { Node } from "reactflow";
+import { Edge, Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
 
 const useStyles = createStyles((theme) => {
@@ -21,13 +21,15 @@ type ClearCanvasBtnProps = {
       | Node<ElementsData>[]
       | ((draft: Draft<Node<ElementsData>>[]) => void)
   ) => void;
+  setEdges: (update: Edge[] | ((draft: Draft<Edge>[]) => void)) => void;
 };
 
-export const ClearCanvasBtn = ({ setNodes }: ClearCanvasBtnProps) => {
+export const ClearCanvasBtn = ({ setNodes, setEdges }: ClearCanvasBtnProps) => {
   const { classes } = useStyles();
 
   const deleteAllNodes = () => {
     setNodes([]);
+    setEdges([]);
   };
 
   return (
