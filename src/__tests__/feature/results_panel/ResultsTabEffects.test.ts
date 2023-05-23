@@ -30,9 +30,7 @@ describe("useResultsTabEffects", () => {
       },
     },
   ];
-  const nodes: ResultTabStateReturnType["nodes"] = (
-    NOISY_SINE.nodes as Node<ElementsData>[]
-  ).map((node) => ({
+  const nodes = (NOISY_SINE.nodes as Node<ElementsData>[]).map((node) => ({
     ...node,
     type: "default",
     position: node.position,
@@ -41,13 +39,15 @@ describe("useResultsTabEffects", () => {
       resultData: undefined,
     },
   }));
-  const resultTabState: ResultTabStateReturnType & { nodeResults: ResultIO[] } =
-    {
-      resultNodes: [],
-      setResultNodes,
-      nodes,
-      nodeResults: [],
-    };
+  const resultTabState: ResultTabStateReturnType & {
+    nodes: Node<ElementsData>[];
+    nodeResults: ResultIO[];
+  } = {
+    resultNodes: [],
+    setResultNodes,
+    nodes,
+    nodeResults: [],
+  };
 
   afterEach(() => {
     jest.resetAllMocks();

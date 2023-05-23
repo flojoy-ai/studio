@@ -1,7 +1,8 @@
 import { MediaQuery, clsx, createStyles } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
-  button: {
+  tab: {
     display: "flex",
     height: "100%",
     alignItems: "center",
@@ -10,6 +11,8 @@ const useStyles = createStyles((theme) => ({
     border: "none",
     cursor: "pointer",
     backgroundColor: "transparent",
+    textDecoration: "none",
+    color: theme.colors.title[0],
   },
   active: {
     borderBottom: `1px solid ${theme.colors.accent1[0]}`,
@@ -17,30 +20,27 @@ const useStyles = createStyles((theme) => ({
 }));
 
 type TabButtonProps = {
-  onClick: () => void;
-  active: boolean;
+  to: string;
   children?: React.ReactNode;
   testId?: string;
 };
 
-export const TabButton = ({
-  onClick,
-  active,
-  children,
-  testId,
-}: TabButtonProps) => {
+const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
   const { classes } = useStyles();
+  const active = location.pathname === to;
 
   return (
     <MediaQuery smallerThan={700} styles={{ minHeight: 55 }}>
-      <button
-        onClick={onClick}
-        className={clsx(classes.button, active && classes.active)}
+      <Link
+        to={to}
+        className={clsx(classes.tab, active && classes.active)}
         color="dark"
         data-cy={testId}
       >
         {children}
-      </button>
+      </Link>
     </MediaQuery>
   );
 };
+
+export default HeaderTab;

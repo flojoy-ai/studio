@@ -1,24 +1,30 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import React, { useCallback } from "react";
+import { useState } from "react";
 import "./style/Controls.css";
 
+import { createStyles } from "@mantine/styles";
+import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
+import { EditSwitch } from "@src/EditSwitch";
+import { Layout } from "@src/Layout";
+import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
 import { useSocket } from "@src/hooks/useSocket";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
-import { useControlsTabState } from "./ControlsTabState";
-import ControlGrid from "./views/ControlGrid";
+import { v4 as uuidv4 } from "uuid";
+import SidebarCustom from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
+import { useControlsTabState } from "./ControlsTabState";
+import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import { createStyles } from "@mantine/styles";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
+import ControlGrid from "./views/ControlGrid";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -31,58 +37,82 @@ export const useAddButtonStyle = createStyles((theme) => {
 });
 
 localforage.config({ name: "react-flow", storeName: "flows" });
-interface ControlsTabProps {
-  results: ResultsType;
-}
 
-const ControlsTab = ({ results }: ControlsTabProps) => {
-  const { states } = useSocket();
-  const { socketId, setProgramResults } = states!;
-  const {
-    setOpenEditModal,
-    setCurrentInput,
-    debouncedTimerId,
-    setDebouncedTimerId,
-  } = useControlsTabState();
+const ControlsTab = () => {
+  const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
   const {
-    rfInstance,
-    nodes,
-    updateCtrlInputDataForNode,
+    states: { programResults },
+  } = useSocket();
+
+  const { setOpenEditModal, setCurrentInput } = useControlsTabState();
+
+  const {
     ctrlsManifest,
     setCtrlsManifest,
     isEditMode,
+    setIsEditMode,
+    gridLayout,
   } = useFlowChartState();
+
+  const { nodes, updateCtrlInputDataForNode } = useFlowChartGraph();
 
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
 
-  const saveAndRunFlowChart = useCallback(() => {
-    if (debouncedTimerId) {
-      clearTimeout(debouncedTimerId);
-    }
-    const timerId = setTimeout(() => {
-      setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
-    }, 3000);
-
-    setDebouncedTimerId(timerId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedTimerId, rfInstance]);
-
   useControlsTabEffects();
 
-  const removeCtrl = (e: any, ctrl: any = undefined) => {
-    const ctrlId = e.target.id;
+  if (!programResults) {
+    return <div>No program results</div>;
+  }
+
+  //function for handling a CTRL add (assume that input is key from manifest)
+  const addCtrl = (ctrlKey: string) => {
+    setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
+    const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
+    if (!ctrlObj) {
+      console.error("Could not find ctrl object for key", ctrlKey);
+      return;
+    }
+
+    const id = `ctrl-${uuidv4()}`;
+    let yAxis = 0;
+    for (const el of gridLayout) {
+      if (yAxis < el.y) {
+        yAxis = el.y;
+      }
+    }
+
+    const ctrlLayout = {
+      x: 0,
+      y: yAxis + 1,
+      h: ctrlObj.minHeight > 2 ? ctrlObj.minHeight : 2,
+      w: 2,
+      i: id,
+      minH: ctrlObj.minHeight,
+      minW: ctrlObj.minWidth,
+      static: !isEditMode,
+    };
+
+    const ctrl: CtlManifestType = {
+      ...ctrlObj,
+      hidden: false,
+      id,
+      layout: ctrlLayout,
+    } as CtlManifestType;
+
+    cacheManifest([...ctrlsManifest, ctrl]);
+  };
+
+  const removeCtrl = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ctrl: CtlManifestType
+  ) => {
+    const ctrlId = (e.target as HTMLButtonElement).id;
     console.warn("Removing", ctrlId, ctrl);
     const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
-
-    // if (ctrl.param) {
-    //   removeCtrlInputDataForNode(ctrl.param.nodeId, ctrl.param.id);
-    //   saveAndRunFlowChart();
-    // }
   };
 
   const updateCtrlValue = (
@@ -91,22 +121,22 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
     tp: ParamValueType
   ) => {
     const manClone = clone(ctrlsManifest);
-    manClone.forEach((c, i) => {
-      // if (c.id === ctrl.id) {
-      //   manClone[i].val = isNaN(+val) ? val : +val;
-      // }
-    });
     cacheManifest(manClone);
-    updateCtrlInputDataForNode(
-      (ctrl.param! as CtrlManifestParam).nodeId,
-      (ctrl.param! as CtrlManifestParam).param,
-      {
-        functionName: (ctrl.param! as CtrlManifestParam).functionName,
-        param: (ctrl.param! as CtrlManifestParam).param,
-        value: val,
-        valType: tp,
-      }
-    );
+
+    if (ctrl.param) {
+      updateCtrlInputDataForNode(
+        (ctrl.param as CtrlManifestParam).nodeId,
+        (ctrl.param as CtrlManifestParam).param,
+        {
+          functionName: (ctrl.param as CtrlManifestParam).functionName,
+          param: (ctrl.param as CtrlManifestParam).param,
+          value: val,
+          valType: tp,
+        }
+      );
+    } else {
+      console.error("Cannot update nonexistant parameter");
+    }
   };
 
   const attachParamsToCtrl = (
@@ -116,7 +146,7 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    const fnParams = FUNCTION_PARAMETERS[param?.functionName] || {};
+    const fnParams = FUNCTION_PARAMETERS[param.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
@@ -126,9 +156,11 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
         ? fnParam.default
         : 0;
     const ctrlData = ctrls && ctrls[param.param];
-    const inputValue = isNaN(+ctrlData?.value!)
-      ? ctrlData?.value
-      : +ctrlData?.value!;
+
+    let inputValue: string | number | undefined = undefined;
+    if (ctrlData)
+      inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
+
     const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
     manClone.forEach((c, i) => {
@@ -141,19 +173,42 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
   };
 
   return (
-    <div data-testid="controls-tab">
-      <ControlGrid
-        controlProps={{
-          isEditMode,
-          results,
-          updateCtrlValue,
-          attachParamsToCtrl,
-          removeCtrl,
-          setCurrentInput,
-          setOpenEditModal,
-        }}
-      />
-    </div>
+    <Layout>
+      <div data-testid="controls-tab">
+        <div
+          className="top-row"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <AddCTRLBtn
+            setCTRLSideBarStatus={setCtrlSidebarOpen}
+            setIsEditMode={setIsEditMode}
+            isCTRLSideBarOpen={ctrlSidebarOpen}
+          />
+          <EditSwitch />
+        </div>
+        <ControlGrid
+          controlProps={{
+            isEditMode,
+            results: programResults,
+            updateCtrlValue,
+            attachParamsToCtrl,
+            removeCtrl,
+            setCurrentInput,
+            setOpenEditModal,
+          }}
+        />
+        <SidebarCustom
+          sections={CTRL_TREE}
+          manifestMap={CTRL_MANIFEST}
+          leafNodeClickHandler={addCtrl}
+          isSideBarOpen={ctrlSidebarOpen}
+          setSideBarStatus={setCtrlSidebarOpen}
+        />
+      </div>
+    </Layout>
   );
 };
 

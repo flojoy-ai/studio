@@ -1,21 +1,20 @@
-import { CtlManifestType } from "@src/hooks/useFlowChartState";
-import Select, { ThemeConfig } from "react-select";
-import { Dispatch, Fragment } from "react";
-import { PlotControlOptions } from "../types/ControlOptions";
-import customDropdownStyles from "../style/CustomDropdownStyles";
-import Plot from "react-plotly.js";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { SetStateAction } from "jotai";
-import { Data, PlotData } from "plotly.js";
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import PlotControlState from "./PlotControlState";
-import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
-import { useMantineColorScheme } from "@mantine/styles";
 import { Text, useMantineTheme } from "@mantine/core";
-import { useControlStyles } from "./control-component/ControlComponent";
+import { useMantineColorScheme } from "@mantine/styles";
 import PlotlyComponent, {
   OverridePlotData,
 } from "@src/feature/common/PlotlyComponent";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { CtlManifestType } from "@src/hooks/useFlowChartState";
+import usePlotControlEffect from "@src/hooks/usePlotControlEffect";
+import { SetStateAction } from "jotai";
+import { PlotData } from "plotly.js";
+import { Dispatch, Fragment } from "react";
+import Select, { ThemeConfig } from "react-select";
+import customDropdownStyles from "../style/CustomDropdownStyles";
+import { PlotControlOptions } from "../types/ControlOptions";
+import PlotControlState from "./PlotControlState";
+import { useControlStyles } from "./control-component/ControlComponent";
 
 export interface PlotControlProps {
   nd: ResultIO | null;
@@ -107,26 +106,27 @@ const PlotControl = ({
             gap: "5px",
           }}
         >
-          {plotInputKeys[selectedPlotOption?.value.type!]?.map((key) => (
-            <Select
-              key={key}
-              className={classes.selectPlotType}
-              isSearchable={true}
-              onChange={(val) => {
-                if (val) {
-                  setSelectedKeys((prev) => ({
-                    ...prev,
-                    [key]: val,
-                  }));
-                }
-              }}
-              placeholder={`Select ${key.toUpperCase()}`}
-              options={inputOptions}
-              styles={customDropdownStyles}
-              theme={colorScheme as unknown as ThemeConfig}
-              value={(selectedKeys && selectedKeys![key]) || ""}
-            />
-          ))}
+          {selectedPlotOption?.value.type &&
+            plotInputKeys[selectedPlotOption?.value.type]?.map((key) => (
+              <Select
+                key={key}
+                className={classes.selectPlotType}
+                isSearchable={true}
+                onChange={(val) => {
+                  if (val) {
+                    setSelectedKeys((prev) => ({
+                      ...prev,
+                      [key]: val,
+                    }));
+                  }
+                }}
+                placeholder={`Select ${key.toUpperCase()}`}
+                options={inputOptions}
+                styles={customDropdownStyles}
+                theme={colorScheme as unknown as ThemeConfig}
+                value={(selectedKeys && selectedKeys[key]) || ""}
+              />
+            ))}
         </div>
       )}
 

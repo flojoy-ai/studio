@@ -44,11 +44,16 @@ const usePlotControlEffect = ({
    * Updates plot value from node result using selected keys
    */
   const updatePlotValue = useCallback(() => {
-    if (nd?.result?.data && selectedPlotOption) {
+    if (
+      nd?.result?.data &&
+      selectedPlotOption &&
+      selectedPlotOption.value.type &&
+      selectedPlotOption.value.mode
+    ) {
       const result = dataContainer2Plotly({
         dataContainer: nd.result.data,
-        plotType: selectedPlotOption.value.type!,
-        plotMode: selectedPlotOption.value.mode!,
+        plotType: selectedPlotOption.value.type,
+        plotMode: selectedPlotOption.value.mode,
         theme,
         ...(["image", "plotly"].includes(nd.result.data.type) && {
           fig: nd.result.default_fig.data,
@@ -70,7 +75,7 @@ const usePlotControlEffect = ({
     setSelectedKeys((prev) => {
       const updatedKeys = {};
       if (prev) {
-        for (const [key, value] of Object.entries(prev!)) {
+        for (const [key, value] of Object.entries(prev)) {
           updatedKeys[key] = inputOptions.find(
             (opt) => opt.label === value?.label
           );

@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import Controls from "@src/feature/flow_chart_panel/views/ControlBar";
+import ControlBar from "@src/feature/flow_chart_panel/views/ControlBar";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 // Mock useFlowChartState hook
@@ -31,11 +31,11 @@ jest.mock("@src/feature/common/DropDown", () => ({
   default: jest.fn(() => <div>Dropdown</div>),
 }));
 
+jest.mock("react-router-dom");
+
 describe("Controls", () => {
   it("should render correctly", () => {
-    const { container } = renderWithTheme(
-      <Controls activeTab="visual" setOpenCtrlModal={jest.fn()} />
-    );
+    const { container } = renderWithTheme(<ControlBar />);
 
     expect(screen.getByTestId("btn-play")).toBeInTheDocument();
     expect(screen.getByTestId("btn-play")).toBeDisabled();
@@ -45,9 +45,7 @@ describe("Controls", () => {
     expect(container).toMatchSnapshot("__main__");
   });
   it("should not show the Add node or add ctrl button when active tab is 'debug'", () => {
-    renderWithTheme(
-      <Controls activeTab="debug" setOpenCtrlModal={jest.fn()} />
-    );
+    renderWithTheme(<ControlBar />);
     expect(screen.queryByTestId("add-ctrl")).not.toBeInTheDocument();
   });
 });

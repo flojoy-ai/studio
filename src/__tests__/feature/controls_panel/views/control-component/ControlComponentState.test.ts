@@ -10,7 +10,6 @@ import ControlComponentState, {
 } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { act, renderHook } from "@testing-library/react";
-import { Data } from "plotly.js";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/data/manifests-latest.json", () => {
@@ -209,10 +208,10 @@ describe("Testing ControlComponentState State's", () => {
             ],
           },
           data: {
+            type: "ordered_pair",
             x: [2, 4, 5, 6],
             y: [2, 4, 5, 6],
             z: [2, 4, 5, 6],
-            type: "ordered_pair",
           },
         },
       };
