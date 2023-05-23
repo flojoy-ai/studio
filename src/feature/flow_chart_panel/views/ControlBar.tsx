@@ -12,7 +12,7 @@ import {
 import CancelIconSvg from "@src/utils/cancel_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -110,7 +110,7 @@ localforage.config({
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states;
-  const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
 
@@ -239,6 +239,14 @@ const ControlBar = () => {
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
 
+  const handleKeyboardShortcutModalClose = useCallback(() => {
+    setIsKeyboardShortcutOpen(false);
+  }, [setIsKeyboardShortcutOpen]);
+
+  const handleAPIKeyModalClose = useCallback(() => {
+    setIsAPIKeyModelOpen(false);
+  }, [setIsAPIKeyModelOpen]);
+
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
@@ -284,7 +292,7 @@ const ControlBar = () => {
             <small>Ctrl + s</small>
           </button>
           <button>History</button>
-          <button onClick={() => setIskeyboardShortcutOpen(true)}>
+          <button onClick={() => setIsKeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
           <button onClick={() => setIsAPIKeyModelOpen(true)}>
@@ -295,11 +303,11 @@ const ControlBar = () => {
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
-        onClose={() => setIskeyboardShortcutOpen(false)}
+        onClose={handleKeyboardShortcutModalClose}
       />
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
-        onClose={() => setIsAPIKeyModelOpen(false)}
+        onClose={handleAPIKeyModalClose}
       />
     </Box>
   );

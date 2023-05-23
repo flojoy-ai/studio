@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, memo } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
@@ -74,4 +74,4 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   );
 };
 
-export default APIKeyModal;
+export default memo(APIKeyModal);

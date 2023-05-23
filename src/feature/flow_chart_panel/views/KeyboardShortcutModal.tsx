@@ -1,4 +1,5 @@
 import { createStyles, Modal, Button } from "@mantine/core";
+import { memo } from "react";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
@@ -128,7 +129,7 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
   );
 };
 
-export default KeyboardShortcutModal;
+export default memo(KeyboardShortcutModal);
 
 const platforms = [
   { title: "Windows", key: "windows" },
