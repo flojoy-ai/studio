@@ -2,6 +2,10 @@ import { Settings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
+import { CustomError } from "../utils/CustomError";
+import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
+
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
@@ -20,20 +24,13 @@ export function saveAndRunFlowChartInServer({
   jobId,
   settings,
 }: {
-  rfInstance?: ReactFlowJsonObject;
+  rfInstance?: ReactFlowJsonObject<ElementsData, any>;
   jobId: string;
   settings: Settings[];
 }) {
   if (rfInstance) {
     const rfInstanceObject = rfInstance;
     const fcStr = JSON.stringify(rfInstanceObject);
-    console.log(
-      settings.reduce((obj, setting) => {
-        obj[setting.key] = setting.value;
-        return obj;
-      }, {})
-    );
-
     fetch(`${API_URI}/wfc`, {
       method: "POST",
       body: JSON.stringify({
@@ -54,7 +51,7 @@ export function cancelFlowChartRun({
   rfInstance,
   jobId,
 }: {
-  rfInstance: ReactFlowJsonObject;
+  rfInstance: ReactFlowJsonObject<ElementsData, any>;
   jobId: string;
 }) {
   if (rfInstance) {

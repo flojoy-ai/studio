@@ -10,6 +10,7 @@ export enum ControlNames {
   Slider = "Slider",
   Knob = "Knob",
   StaticNumericInput = "Static Numeric Input",
+  ArrayNumericInput = "Array Numeric Input",
   Dropdown = "Dropdown",
   RadioButtonGroup = "Radio Button Group",
   CheckboxButtonGroup = "Checkbox Button Group",
@@ -55,6 +56,11 @@ export const CTRL_TREE = {
             {
               title: "Numeric Text Input",
               key: "NUMERIC_INPUT",
+              child: null,
+            },
+            {
+              title: "Array Numeric Input",
+              key: "ARRAY_INPUT",
               child: null,
             },
           ],
@@ -259,6 +265,15 @@ export const InputControlsManifest = {
       key: "STATIC_NUMERIC_INPUT",
       minHeight: 1,
       minWidth: 2,
+    },
+  ],
+  ARRAY_INPUT: [
+    {
+      name: ControlNames.ArrayNumericInput,
+      type: ControlTypes.Input,
+      key: "ARRAY_INPUT",
+      minHeight: 1,
+      minWidth: 1,
     },
   ],
   DROPDOWN: [

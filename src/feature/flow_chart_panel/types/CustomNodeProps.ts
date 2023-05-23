@@ -1,3 +1,5 @@
+import { ParamValueType } from "@feature/common/types/ParamValueType";
+
 export type ElementsData = {
   id: string;
   label: string;
@@ -10,6 +12,7 @@ export type ElementsData = {
       functionName: string;
       param: string;
       value: string;
+      valType: ParamValueType;
     };
   };
   inputs?: Array<{ name: string; id: string; type: string }>;
