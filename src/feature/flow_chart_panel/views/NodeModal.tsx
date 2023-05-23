@@ -7,7 +7,6 @@ import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 import { IconBrandGithub, IconBrandGithubFilled } from "@tabler/icons-react";
 import { CMND_TREE } from "../manifest/COMMANDS_MANIFEST";
-import { forEach } from "cypress/types/lodash";
 
 const NodeModal = ({
   modalIsOpen,
@@ -38,7 +37,7 @@ const NodeModal = ({
     });
   });
 
-  let LINK: string;
+  let LINK = "";
   switch (nodeDataLabel) {
     case "END":
       LINK = `${GLINK}/${nodeCategory}/${nodeTypeLink}/${pythonString}`;

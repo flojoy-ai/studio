@@ -23,6 +23,9 @@ const props: NodeModalProps = {
   defaultLayout: undefined,
   clickedElement: {},
 };
+jest.mock("@src/data/manifests-latest.json", () => {
+  return { __esModule: true, default: { commands: [] } };
+});
 
 jest.mock("@src/feature/common/PlotlyComponent", () => {
   const mockChild = jest
