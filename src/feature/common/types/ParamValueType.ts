@@ -5,4 +5,5 @@ export type ParamValueType =
   | "array"
   | "boolean"
   | "select"
+  | "node_reference"
   | "unknown";
