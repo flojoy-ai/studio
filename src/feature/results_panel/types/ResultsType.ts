@@ -36,7 +36,7 @@ export type ResultIO = {
   result: {
     default_fig: {
       data: OverridePlotData;
-      layout?: Partial<Layout>
+      layout?: Partial<Layout>;
     };
     data: DataContainer;
   };

@@ -27,7 +27,7 @@ type PlotProps = {
 
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
-  const defaultPlotLayout = usePlotLayout()
+  const defaultPlotLayout = usePlotLayout();
 
   useEffect(() => {
     if (!window) {
