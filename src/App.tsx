@@ -53,13 +53,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("1");
     setRunningNode(runningNode);
     setFailedNode(failedNode);
   }, [runningNode, failedNode, setRunningNode, setFailedNode]);
 
   useEffect(() => {
-    console.log("3");
     if (preJobOperation.isRunning) {
       openPreJobModal();
     } else {

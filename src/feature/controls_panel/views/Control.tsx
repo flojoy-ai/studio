@@ -38,7 +38,7 @@ export default function Control({
         backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
       }}
     >
-      {isEditMode ? (
+      {isEditMode || !ctrl.hidden ? (
         <ControlComponent
           ctrlObj={ctrl}
           results={results}
@@ -48,17 +48,7 @@ export default function Control({
           setCurrentInput={setCurrentInput}
           setOpenEditModal={setOpenEditModal}
         />
-      ) : ctrl.hidden ? null : (
-        <ControlComponent
-          ctrlObj={ctrl}
-          results={results}
-          updateCtrlValue={updateCtrlValue}
-          attachParamsToCtrl={attachParamsToCtrl}
-          removeCtrl={removeCtrl}
-          setCurrentInput={setCurrentInput}
-          setOpenEditModal={setOpenEditModal}
-        />
-      )}
+      ) : null}
     </Box>
   );
 }

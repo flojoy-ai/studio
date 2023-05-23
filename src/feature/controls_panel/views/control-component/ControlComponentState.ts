@@ -91,7 +91,6 @@ const ControlComponentState = ({
   });
 
   useEffect(() => {
-    console.log("10");
     // there will be only single file in the filesContent, for each will loop only once
     plainFiles.forEach((file) => {
       setTextInput(file.name);

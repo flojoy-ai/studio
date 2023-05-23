@@ -20,7 +20,6 @@ export function useFlowChartTabEffects({
   clickedElement: Node | undefined;
 }) {
   useEffect(() => {
-    console.log("11");
     if (results && results.io) {
       const runResults = results.io; // JSON.parse(results.io);
       const filteredResult = runResults.filter(
@@ -32,7 +31,6 @@ export function useFlowChartTabEffects({
   }, [results, clickedElement]);
 
   useEffect(() => {
-    console.log("12");
     if (clickedElement?.data?.label && clickedElement?.data?.type) {
       setNodeLabel(clickedElement.data.func);
       setNodeType(clickedElement.data.type);
@@ -40,7 +38,6 @@ export function useFlowChartTabEffects({
   }, [clickedElement]);
 
   useEffect(() => {
-    console.log("13");
     setPythonString(
       nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
         ? "..."

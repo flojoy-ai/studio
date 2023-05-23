@@ -33,7 +33,6 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
     : 0;
 
   useEffect(() => {
-    console.log("18");
     if (
       programResults?.io?.length !== undefined &&
       programResults?.io?.length > 0

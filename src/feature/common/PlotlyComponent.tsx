@@ -29,7 +29,6 @@ const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
 
   useEffect(() => {
-    console.log("5");
     if (!window) {
       return;
     }

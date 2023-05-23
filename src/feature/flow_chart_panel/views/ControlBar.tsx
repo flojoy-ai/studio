@@ -158,7 +158,6 @@ const ControlBar = () => {
   };
 
   const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    console.log(rfInstance);
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
 
@@ -196,7 +195,6 @@ const ControlBar = () => {
 
   // TODO: Find out why this keeps firing when moving nodes
   useEffect(() => {
-    console.log("29");
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);

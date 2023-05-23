@@ -20,7 +20,6 @@ export default function ControlGrid({
   const { isEditMode } = controlProps;
 
   useEffect(() => {
-    console.log("7");
     if (isEditMode) {
       setGridLayout((prev) =>
         prev.map((layout) => ({ ...layout, static: false }))

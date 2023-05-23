@@ -26,7 +26,6 @@ const useControlComponentEffects = ({
   results: ResultsType;
 }) => {
   useEffect(() => {
-    console.log("23");
     setSelectedOption(
       ctrlObj.type === "output"
         ? selectOptions?.find((option) => option.value === ctrlObj?.param)
@@ -49,7 +48,6 @@ const useControlComponentEffects = ({
     };
   }, [selectedOption]);
   useEffect(() => {
-    console.log("25");
     if (ctrls) {
       const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
       setCurrentInputValue(isNaN(+value) ? value : +value);
@@ -59,7 +57,6 @@ const useControlComponentEffects = ({
   }, [ctrls, ctrlObj, selectedOption]);
   // Filter attached node result from all node results
   useEffect(() => {
-    console.log("26");
     try {
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
@@ -78,7 +75,6 @@ const useControlComponentEffects = ({
   }, [ctrlObj?.param, results, results.io, selectedOption, setNd]);
 
   useEffect(() => {
-    console.log("27");
     if (ctrlObj.type === ControlTypes.Input) {
       if (flowChartObject?.nodes !== undefined) {
         flowChartObject.nodes.forEach((node) => {
@@ -129,7 +125,6 @@ const useControlComponentEffects = ({
 
   // Filter attached node result from all node results
   useEffect(() => {
-    console.log("28");
     try {
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;

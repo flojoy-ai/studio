@@ -13,7 +13,6 @@ export function useResultsTabEffects({
   nodeResults: ResultIO[];
 }) {
   useEffect(() => {
-    console.log("22");
     if (nodeResults && nodeResults.length > 0 && nodes.length > 0) {
       setResultNodes(
         nodes.map((node) => {

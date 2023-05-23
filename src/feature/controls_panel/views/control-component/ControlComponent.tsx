@@ -269,6 +269,9 @@ const ControlComponent = ({
             className={classes.selectNode}
             isSearchable={true}
             onChange={(val) => {
+              console.log("was here");
+              console.log(val);
+              console.log(selectOptions);
               if (val)
                 attachParamsToCtrl(val.value as CtrlOptionValue, ctrlObj);
             }}

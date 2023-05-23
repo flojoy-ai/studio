@@ -18,7 +18,6 @@ const PreJobOperationShow = ({
   const lastElem = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("6");
     if (lastElem.current && lastElem.current.scrollIntoView) {
       lastElem.current.scrollIntoView({ behavior: "smooth" });
     }

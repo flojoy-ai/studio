@@ -7,7 +7,6 @@ export function useControlsTabEffects() {
   const { nodes } = useFlowChartGraph();
 
   useEffect(() => {
-    console.log("40");
     if (nodes.length === 0) {
       setCtrlsManifest([]);
     }
