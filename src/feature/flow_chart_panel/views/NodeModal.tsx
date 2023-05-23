@@ -19,7 +19,7 @@ const NodeModal = ({
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
-
+console.log(" nd: ", nd)
   return (
     <Modal
       data-testid="node-modal"
@@ -45,9 +45,28 @@ const NodeModal = ({
               id={nd.id}
               data={makePlotlyData(nd.result.default_fig.data, theme)}
               layout={
-                "layout" in nd.result.default_fig
-                  ? Object.assign({}, defaultLayout)
-                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
+                {
+                  "autosize": false,
+                  "height": 180,
+                  "hovermode": "closest",
+                  "margin": {
+                      "b": 0,
+                      "l": 0,
+                      "r": 0,
+                      "t": 0
+                  },
+                  "width": 200,
+                  "xaxis": {
+                      "visible": false
+                  },
+                  "yaxis": {
+                      "visible": false
+                  },
+        
+              }
+                // "layout" in nd.result.default_fig
+                //   ? Object.assign({}, defaultLayout)
+                //   : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
               }
               useResizeHandler
               style={{

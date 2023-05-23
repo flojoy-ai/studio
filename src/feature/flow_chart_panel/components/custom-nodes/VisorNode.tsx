@@ -44,6 +44,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   IMAGE: <PlotlyImage />,
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
+  MATRIX_VIEW: <PlotlyTable />
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {

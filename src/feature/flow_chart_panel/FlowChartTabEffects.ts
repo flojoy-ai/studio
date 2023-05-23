@@ -24,12 +24,13 @@ export function useFlowChartTabEffects({
   const { rfInstance } = useFlowChartState();
 
   useEffect(() => {
+    console.log(" results: ", results, " clickedElem: ", clickedElement)
     if (results && "io" in results) {
       const runResults = results.io!; // JSON.parse(results.io);
       const filteredResult = runResults.filter(
         (node: any) => node.id === clickedElement?.id
       )[0];
-
+      console.log(" filteredResutl: ", filteredResult)
       setNd(filteredResult === undefined ? null : filteredResult);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

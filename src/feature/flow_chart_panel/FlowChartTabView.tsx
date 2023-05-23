@@ -139,7 +139,9 @@ const FlowChartTab = ({
     setPythonString(pythonString);
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
+    setClickedElement(selectedNode)
   }, [selectedNode]);
+  console.log(" nd in flowcharttabview: ", nd)
 
   useFlowChartTabEffects({
     clickedElement,
@@ -188,7 +190,7 @@ const FlowChartTab = ({
         />
 
         <NodeExpandMenu
-          clickedElement={selectedNode}
+          clickedElement={clickedElement!}
           closeModal={closeModal}
           defaultLayout={defaultLayout}
           modalIsOpen={modalIsOpen}
