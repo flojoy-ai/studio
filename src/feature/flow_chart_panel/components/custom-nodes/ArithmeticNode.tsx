@@ -1,20 +1,16 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {
-  CustomNodeProps,
-  ElementsData,
-} from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles } from "@mantine/core";
+import { memo } from "react";
 import {
   AddBGTemplate,
   AddSvg,
-  AtSvg,
   MultiplySvg,
   SubSvg,
 } from "../../svgs/add-multiply-svg";
-import { useEffect } from "react";
-import NodeWrapper from "../NodeWrapper";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
+import NodeWrapper from "../NodeWrapper";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -34,27 +30,11 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow) {
-    return highlightShadow[data.func];
-  }
-  return highlightShadow["default"];
-};
-
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
 
   let operatorIcon;
   switch (data.func) {
@@ -104,19 +84,4 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default ArithmeticNode;
-
-const highlightShadow = {
-  default: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-  MULTIPLY: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-  ADD: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-};
+export default memo(ArithmeticNode);

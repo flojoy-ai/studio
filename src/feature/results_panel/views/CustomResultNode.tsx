@@ -5,11 +5,11 @@ import { Handle, Position } from "reactflow";
 import { ResultNodeData } from "../types/ResultsType";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 
-interface CustomResultNodeProp {
+type CustomResultNodeProp = {
   data: ResultNodeData;
-}
+};
 
-const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
+const CustomResultNode = ({ data }: CustomResultNodeProp) => {
   const theme = useMantineTheme();
 
   return (

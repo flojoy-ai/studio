@@ -1,8 +1,9 @@
 import { Box, createStyles } from "@mantine/core";
 import { IconLock, IconLockOpen } from "@tabler/icons-react";
 import ReactSwitch from "react-switch";
+import { useFlowChartState } from "./hooks/useFlowChartState";
 
-const useStyles = createStyles((theme) => {
+const useStyles = createStyles(() => {
   return {
     editContainer: {
       display: "flex",
@@ -13,14 +14,9 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const EditSwitch = ({
-  isEditMode,
-  setIsEditMode,
-}: {
-  isEditMode: boolean;
-  setIsEditMode: Function;
-}) => {
+export const EditSwitch = () => {
   const { classes } = useStyles();
+  const { isEditMode, setIsEditMode } = useFlowChartState();
   return (
     <Box className={classes.editContainer} data-cy="edit-switch">
       {isEditMode ? <IconLock /> : <IconLockOpen />}

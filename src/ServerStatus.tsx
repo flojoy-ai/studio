@@ -1,5 +1,6 @@
 import { Text, createStyles } from "@mantine/core";
 import { IServerStatus } from "./context/socket.context";
+import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   status: {
@@ -14,7 +15,7 @@ type ServerStatusProps = {
   serverStatus: IServerStatus;
 };
 
-export const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
+const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
   const { classes } = useStyles();
   return (
     <Text data-cy="app-status" className={classes.status}>
@@ -22,3 +23,5 @@ export const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
     </Text>
   );
 };
+
+export default memo(ServerStatus);
