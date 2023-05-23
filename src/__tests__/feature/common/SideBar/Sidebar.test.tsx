@@ -38,7 +38,7 @@ jest.mock("@src/hooks/useFlowChartState", () => {
 jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
   const SidebarMock = () => {
     const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false);
-    const addNewNode = useAddNewNode(jest.fn());
+    const addNewNode = useAddNewNode(jest.fn(), jest.fn());
     return (
       <>
         <AddNodeBtn setIsSidebarOpen={setSCRIPTSideBarStatus} />

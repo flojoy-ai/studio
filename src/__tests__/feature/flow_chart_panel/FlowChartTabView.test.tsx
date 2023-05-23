@@ -96,6 +96,11 @@ jest.mock(
   })
 );
 
+jest.mock("@src/configs/NodeConfigs", () => ({
+  __esModule: true,
+  nodeConfigs: {},
+}));
+
 window.ResizeObserver = ResizeObserver as any;
 window.IntersectionObserver = IntersectionObserver as any;
 
