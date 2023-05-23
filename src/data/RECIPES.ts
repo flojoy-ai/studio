@@ -1,4 +1,3 @@
-import {ParamValueType} from "@feature/common/types/ParamValueType";
 export const NOISY_SINE = {
   nodes: [
     {
