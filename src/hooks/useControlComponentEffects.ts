@@ -106,7 +106,7 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject?.nodes !== undefined) {
+      if (flowChartObject?.nodes) {
         flowChartObject.nodes.forEach((node) => {
           const label = `Visualize node: ${node.data.label} (#${node.id.slice(
             -5

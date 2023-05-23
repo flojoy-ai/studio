@@ -146,8 +146,7 @@ const ControlsTab = () => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    console.log(param);
-    const fnParams = FUNCTION_PARAMETERS[param.functionName];
+    const fnParams = FUNCTION_PARAMETERS[param.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
