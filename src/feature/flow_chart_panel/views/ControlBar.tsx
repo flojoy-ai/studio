@@ -20,7 +20,6 @@ import CancelIconSvg from "@src/utils/cancel_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { Dispatch, memo, useEffect, useState } from "react";
-import ReactSwitch from "react-switch";
 import "react-tabs/style/react-tabs.css";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
@@ -117,7 +116,7 @@ export type ControlsProps = {
   setOpenCtrlModal: Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
+const Controls = ({ activeTab }: ControlsProps) => {
   const { states } = useSocket();
   const { socketId, setProgramResults, serverStatus } = states!;
   const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
@@ -126,7 +125,6 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
   const { colorScheme } = useMantineColorScheme();
   const { classes } = useStyles();
   const { settingsList } = useSettings();
-  let backendSettings: Settings[] = [];
 
   const {
     rfInstance,
