@@ -17,6 +17,13 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
+import FamilyHistoryIconSvg from "@src/assets/family_history_icon";
+import HistoryIconSvg from "@src/assets/history_icon";
+import KeyBoardIconSvg from "@src/assets/keyboard_icon";
+import LoadIconSvg from "@src/assets/load_icon";
+import SaveAsIconSvg from "@src/assets/save_as_icon";
+import SaveIconSvg from "@src/assets/save_icon";
+import SettingsIconSvg from "@src/assets/settings_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { Dispatch, memo, useEffect, useState } from "react";
@@ -102,6 +109,9 @@ const useStyles = createStyles((theme) => {
       gap: "8px",
       paddingRight: "4px",
     },
+    dropDownIcon: {
+      
+    }
   };
 });
 
@@ -172,6 +182,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
           onClick={cancelFC}
           data-cy="btn-cancel"
           title="Cancel Run"
+          style={{ borderRadius: 8}}
         >
           <CancelIconSvg fill="white" />
           <Text>Cancel</Text>
@@ -179,19 +190,20 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
       )}
       {activeTab !== "debug" && (
         <DropDown dropDownBtn={<FileButton />}>
-          <button onClick={openFileSelector}>Load</button>
-          <button data-cy="btn-save" onClick={saveFile}>
-            Save
+          <button onClick={() => setIsAPIKeyModelOpen(true)} style={{display: "flex", gap: 7.5}}>
+          <FamilyHistoryIconSvg/>Set API key
+          </button>
+          <button onClick={openFileSelector} style={{display: "flex", gap: 11.77}}>
+            <LoadIconSvg/>Load
+            </button>
+          <button data-cy="btn-save" onClick={saveFile} style={{display: "flex", gap: 10.3}}>
+            <SaveIconSvg />Save
           </button>
           <button
             data-cy="btn-saveas"
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              ...(saveAsDisabled && {
-                cursor: "not-allowed",
-                opacity: 0.5,
-              }),
+              gap: 10.9
             }}
             className={saveAsDisabled ? "disabled" : ""}
             disabled={saveAsDisabled}
@@ -203,17 +215,20 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
             }
             onClick={saveFileAs}
           >
-            <Text>Save As</Text>
-            <small>Ctrl + s</small>
+            <SaveIconSvg/><Text>Save As</Text>
+            <div style={{position: "absolute", marginLeft:110, marginTop: 1}}><small>Ctrl + s</small></div>
           </button>
-          <button>History</button>
-          <button onClick={() => setIskeyboardShortcutOpen(true)}>
-            Keyboard Shortcut
+          <button style={{display: "flex", gap: 10.77}}>
+            <HistoryIconSvg/>History
           </button>
-          <button onClick={() => setIsAPIKeyModelOpen(true)}>
-            Set API key
+          <button onClick={() => setIskeyboardShortcutOpen(true)} style={{display: "flex", gap: 10.11}}>
+            <KeyBoardIconSvg/>Keyboard Shortcut
           </button>
         </DropDown>
+      )}
+
+      {activeTab !== "debug" && (
+        <SettingsButton/>
       )}
 
       <KeyboardShortcutModal
@@ -225,6 +240,8 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         onClose={() => setIsAPIKeyModelOpen(false)}
       />
     </Box>
+
+    
   );
 };
 
@@ -243,3 +260,11 @@ const FileButton = () => {
     </button>
   );
 };
+const SettingsButton = () => {
+  const theme = useMantineTheme();
+  return (
+    <button>
+      <SettingsIconSvg/>
+    </button>
+  );
+}
