@@ -130,11 +130,12 @@ const FlowChartTab = ({
       selectedNode?.data.label === defaultPythonFnLabel ||
       selectedNode?.data.type === defaultPythonFnType
         ? "..."
-        : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
+        : selectedNode?.data.label + ".py"
 
     if (selectedNode.data.func === "CONSTANT") {
-      pythonString = PYTHON_FUNCTIONS[selectedNode.data.func + ".py"];
+      pythonString = selectedNode.data.func + ".py";
     }
+    
 
     setPythonString(pythonString);
     setNodeLabel(selectedNode.data.label);
