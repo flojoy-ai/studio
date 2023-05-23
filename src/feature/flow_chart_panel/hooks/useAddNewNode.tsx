@@ -14,7 +14,8 @@ export const useAddNewNode = (
     update:
       | Node<ElementsData>[]
       | ((draft: Draft<Node<ElementsData>>[]) => void)
-  ) => void
+  ) => void,
+  getNodeFuncCount: (func: string) => number
 ) => {
   const getNodePosition = () => {
     return {
@@ -32,74 +33,82 @@ export const useAddNewNode = (
     return () => localStorage.setItem(LAST_NODE_POSITION_KEY, "");
   }, []);
 
-  return useCallback((key: string) => {
-    const nodePosition = {
-      x: lastNodePosition.x + 100,
-      y: lastNodePosition.y + 30,
-    };
-    const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
-    if (cmd === null || cmd === undefined) {
-      throw new Error("Command not found");
-    }
-    const funcName = cmd.key;
-    const type = cmd.type;
-    const params = FUNCTION_PARAMETERS[cmd.key];
-    const inputs = cmd.inputs;
-    const uiComponentId = cmd.ui_component_id;
-    const pip_dependencies = cmd.pip_dependencies;
-    let nodeLabel: string;
+  return useCallback(
+    (key: string) => {
+      const nodePosition = {
+        x: lastNodePosition.x + 100,
+        y: lastNodePosition.y + 30,
+      };
+      const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
+      if (cmd === null || cmd === undefined) {
+        throw new Error("Command not found");
+      }
+      const funcName = cmd.key;
+      const type = cmd.type;
+      const params = FUNCTION_PARAMETERS[cmd.key];
+      const inputs = cmd.inputs;
+      const uiComponentId = cmd.ui_component_id;
+      const pip_dependencies = cmd.pip_dependencies;
+      let nodeLabel: string;
 
-    const nodeId = `${funcName}-${uuidv4()}`;
-    if (funcName === "CONSTANT") {
-      nodeLabel = "2.0";
-    } else {
-      // Commented out for now for performance reasons.
-      // This is because the code causes a dependency on the nodes state,
-      // which will cause this hook to be called every time the nodes
-      // change.
+      const nodeId = `${funcName}-${uuidv4()}`;
+      if (funcName === "CONSTANT") {
+        nodeLabel = "2.0";
+      } else {
+        // Commented out for now for performance reasons.
+        // This is because the code causes a dependency on the nodes state,
+        // which will cause this hook to be called every time the nodes
+        // change.
 
-      // const numOfThisNodesOnChart = nodes.filter(
-      //   (node) => node.data.func === funcName
-      // ).length;
-      // nodeLabel =
-      //   numOfThisNodesOnChart > 0
-      //     ? `${funcName}_${numOfThisNodesOnChart}`
-      //     : funcName;
-      nodeLabel = funcName;
-    }
-    const nodeParams = params
-      ? Object.keys(params).reduce(
-          (prev: ElementsData["ctrls"], param) => ({
-            ...prev,
-            [param]: {
-              functionName: funcName,
-              param,
-              value:
-                funcName === "CONSTANT"
-                  ? nodeLabel
-                  : params[param].default?.toString(),
-              valType: params[param].type as ParamValueType,
-            },
-          }),
-          {}
-        )
-      : {};
+        // const numOfThisNodesOnChart = nodes.filter(
+        //   (node) => node.data.func === funcName
+        // ).length;
+        // nodeLabel =
+        //   numOfThisNodesOnChart > 0
+        //     ? `${funcName}_${numOfThisNodesOnChart}`
+        //     : funcName;
+        const numNodes = getNodeFuncCount(funcName);
+        nodeLabel = numNodes > 0 ? `${funcName}_${numNodes}` : funcName;
+        // nodeLabel = funcName;
+      }
+      const nodeParams = params
+        ? Object.keys(params).reduce(
+            (prev: ElementsData["ctrls"], param) => ({
+              ...prev,
+              [param]: {
+                functionName: funcName,
+                param,
+                value:
+                  funcName === "CONSTANT"
+                    ? nodeLabel
+                    : params[param].default?.toString(),
+                valType: params[param].type as ParamValueType,
+              },
+            }),
+            {}
+          )
+        : {};
 
-    const newNode = {
-      id: nodeId,
-      type: uiComponentId || type,
-      data: {
+      const newNode = {
         id: nodeId,
-        label: nodeLabel,
-        func: funcName,
-        type,
-        ctrls: nodeParams,
-        inputs,
-        pip_dependencies,
-      },
-      position: nodePosition,
-    };
-    setNodes((els) => els.concat(newNode));
-    localStorage.setItem(LAST_NODE_POSITION_KEY, JSON.stringify(nodePosition));
-  }, []);
+        type: uiComponentId || type,
+        data: {
+          id: nodeId,
+          label: nodeLabel,
+          func: funcName,
+          type,
+          ctrls: nodeParams,
+          inputs,
+          pip_dependencies,
+        },
+        position: nodePosition,
+      };
+      setNodes((els) => els.concat(newNode));
+      localStorage.setItem(
+        LAST_NODE_POSITION_KEY,
+        JSON.stringify(nodePosition)
+      );
+    },
+    [setNodes, getNodeFuncCount]
+  );
 };

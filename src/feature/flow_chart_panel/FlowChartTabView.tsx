@@ -88,7 +88,15 @@ const FlowChartTab = () => {
     loadFlowExportObject,
   } = useFlowChartGraph();
 
-  const addNewNode = useAddNewNode(setNodes);
+  const getNodeFuncCount = useCallback(
+    (func: string) => {
+      console.log(nodes);
+      return nodes.filter((n) => n.data.func === func).length;
+    },
+    [nodes.length]
+  );
+
+  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(() => <RequestNode />, []);
 
   const handleNodeRemove = useCallback(

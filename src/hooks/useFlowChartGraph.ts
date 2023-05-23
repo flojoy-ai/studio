@@ -1,9 +1,9 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { Edge, Node, ReactFlowJsonObject } from "reactflow";
-import { NOISY_SINE } from "../data/RECIPES";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect } from "react";
+import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { NOISY_SINE } from "../data/RECIPES";
 
 const initialNodes: Node<ElementsData>[] =
   NOISY_SINE.nodes as Node<ElementsData>[];
