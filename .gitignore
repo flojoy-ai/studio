@@ -47,7 +47,7 @@ dist
 update_apps.js
 worker-manager/node_modules
 
-.idea/*
+/**/.idea/*
 .vscode/*
 
 src/data/manifests-latest.json

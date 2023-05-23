@@ -3,16 +3,19 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useSocket");
 
-const elementData = {
+const elementData: ElementsData = {
   ctrls: {
     first_param: {
       functionName: "node-123",
       param: "first_param",
       value: "10",
+      valType: "int",
     },
   },
   func: "Rand",

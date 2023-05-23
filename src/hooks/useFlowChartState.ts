@@ -80,6 +80,7 @@ const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
+const expandModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
   initialManifests.map((ctrl, i) => ({
     ...ctrl.layout,
@@ -95,6 +96,7 @@ export function useFlowChartState() {
   const [edges, setEdges] = useAtom(edgesAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
+  const [isExpandMode, setIsExpandMode] = useAtom(expandModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
@@ -228,6 +230,8 @@ export function useFlowChartState() {
     saveFileAs,
     isEditMode,
     setIsEditMode,
+    isExpandMode,
+    setIsExpandMode,
     gridLayout,
     setGridLayout,
     showLogs,
