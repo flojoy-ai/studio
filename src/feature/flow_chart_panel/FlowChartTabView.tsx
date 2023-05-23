@@ -27,7 +27,7 @@ import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
-import { BezierEdge, Node } from "reactflow";
+import { Node } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
@@ -36,8 +36,9 @@ import { RequestNode } from "./components/RequestNode";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
-import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { CustomNodeProps } from "./types/CustomNodeProps";
+import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
@@ -101,7 +102,10 @@ const FlowChartTab = () => {
   );
 
   // TODO: Add smart edge back?
-  const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
+  const edgeTypes: EdgeTypes = useMemo(
+    () => ({ default: SmartBezierEdge }),
+    []
+  );
   // Attach a callback to each of the custom nodes.
   // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
   // Has to be passed through the data prop because passing as a regular prop doesn't work
