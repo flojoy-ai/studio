@@ -1,6 +1,5 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import React, { useCallback } from "react";
 import "./style/Controls.css";
 
 import "@src/App.css";
@@ -9,8 +8,6 @@ import {
   CtrlManifestParam,
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
-import { saveAndRunFlowChartInServer } from "@src/services/FlowChartServices";
-import { useSocket } from "@src/hooks/useSocket";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useControlsTabState } from "./ControlsTabState";
 import ControlGrid from "./views/ControlGrid";
@@ -36,17 +33,9 @@ interface ControlsTabProps {
 }
 
 const ControlsTab = ({ results }: ControlsTabProps) => {
-  const { states } = useSocket();
-  const { socketId, setProgramResults } = states!;
-  const {
-    setOpenEditModal,
-    setCurrentInput,
-    debouncedTimerId,
-    setDebouncedTimerId,
-  } = useControlsTabState();
+  const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
   const {
-    rfInstance,
     nodes,
     updateCtrlInputDataForNode,
     ctrlsManifest,
@@ -57,19 +46,6 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
-
-  const saveAndRunFlowChart = useCallback(() => {
-    if (debouncedTimerId) {
-      clearTimeout(debouncedTimerId);
-    }
-    const timerId = setTimeout(() => {
-      setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
-    }, 3000);
-
-    setDebouncedTimerId(timerId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedTimerId, rfInstance]);
 
   useControlsTabEffects();
 
@@ -91,7 +67,7 @@ const ControlsTab = ({ results }: ControlsTabProps) => {
     tp: ParamValueType
   ) => {
     const manClone = clone(ctrlsManifest);
-    manClone.forEach((c, i) => {
+    manClone.forEach(() => {
       // if (c.id === ctrl.id) {
       //   manClone[i].val = isNaN(+val) ? val : +val;
       // }
