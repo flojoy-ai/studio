@@ -373,7 +373,7 @@ exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
           <span
             class="kbs__cmd__key"
           >
-            ⌘ D
+            Backspace
           </span>
         </div>
       </div>
