@@ -37,6 +37,7 @@ import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { CustomNodeProps } from "./types/CustomNodeProps";
 
 localforage.config({
   name: "react-flow",
@@ -89,9 +90,36 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(setNodes);
   const sidebarCustomContent = useMemo(() => <RequestNode />, []);
 
+  const handleNodeRemove = useCallback(
+    (nodeId: string) => {
+      setNodes((prev) => prev.filter((node) => node.id !== nodeId));
+      setEdges((prev) =>
+        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+      );
+    },
+    [setNodes, setEdges]
+  );
+
   // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(() => ({ default: BezierEdge }), []);
-  const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
+  // Attach a callback to each of the custom nodes.
+  // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
+  // Has to be passed through the data prop because passing as a regular prop doesn't work
+  // for whatever reason.
+  const nodeTypes: NodeTypes = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(nodeConfigs).map(([key, CustomNode]) => {
+          return [
+            key,
+            ({ data }: CustomNodeProps) => (
+              <CustomNode data={{ ...data, handleRemove: handleNodeRemove }} />
+            ),
+          ];
+        })
+      ),
+    []
+  );
   const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
