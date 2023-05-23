@@ -11,7 +11,6 @@ interface CustomResultNodeProp {
 
 const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
   const theme = useMantineTheme();
-  const styledLayout = usePlotLayout();
 
   return (
     <div style={{ position: "relative" }} data-testid="result-node">
@@ -34,7 +33,10 @@ const CustomResultNode: React.FC<CustomResultNodeProp> = ({ data }) => {
         <PlotlyComponent
           id={data.id}
           data={makePlotlyData(data.resultData.default_fig.data, theme, true)}
-          layout={Object.assign({}, { title: data.label }, styledLayout)}
+          layout={{
+            ...data.resultData.default_fig.layout,
+            title: data.resultData.default_fig.layout?.title || data.label,
+          }}
           useResizeHandler
           style={{
             height: 190,

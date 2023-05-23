@@ -4,7 +4,6 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
-import { Layout } from "plotly.js";
 import { useEffect } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
@@ -14,7 +13,6 @@ import Histogram from "../nodes/Histogram";
 import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
 import LineChart from "../nodes/line-chart";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 import PlotlyTable from "../nodes/Table";
 import PlotlyImage from "../nodes/Image";
@@ -68,25 +66,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
 
-  const plotLayout = usePlotLayout();
-
-  const accentColor =
-    theme.colorScheme === "dark"
-      ? theme.colors.accent1[0]
-      : theme.colors.accent2[0];
-
-  const layoutOverride: Partial<Layout> = {
-    plot_bgcolor: "transparent",
-    title: data.label,
-    margin: { t: 30, r: 0, b: 0, l: 0 },
-    grid: { rows: 0, columns: 0 },
-    xaxis: { visible: false },
-    yaxis: { visible: false },
-    font: {
-      color: accentColor,
-    },
-  };
-
   return (
     <NodeWrapper data={data}>
       <Box
@@ -102,7 +81,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             <PlotlyComponent
               data={makePlotlyData(result.result.default_fig.data, theme, true)}
               id={data.id}
-              layout={{ ...plotLayout, ...layoutOverride }}
+              layout={result.result.default_fig.layout ?? {}}
               useResizeHandler
               style={{
                 height: 190,

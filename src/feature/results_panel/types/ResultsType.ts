@@ -1,5 +1,6 @@
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { Layout } from "plotly.js";
 
 export const ALL_DC_TYPE = [
   "grayscale",
@@ -35,6 +36,7 @@ export type ResultIO = {
   result: {
     default_fig: {
       data: OverridePlotData;
+      layout?: Partial<Layout>
     };
     data: DataContainer;
   };
