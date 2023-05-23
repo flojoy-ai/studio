@@ -234,8 +234,10 @@ exports[`KeyboardShortcutModal renders correctly when isOpen is true 1`] = `
           <span>
             Delete
           </span>
-          <span>
-            ⌘ D
+          <span
+            class="kbs__cmd__key"
+          >
+            Backspace
           </span>
         </div>
       </div>
