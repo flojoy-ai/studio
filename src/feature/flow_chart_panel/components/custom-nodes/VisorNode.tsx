@@ -3,10 +3,8 @@ import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { useSocket } from "@src/hooks/useSocket";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
-import { Layout } from "plotly.js";
 import { memo, useMemo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import Scatter3D from "../nodes/3d-scatter";
@@ -61,24 +59,10 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
 
-  const plotLayout = usePlotLayout();
-
   const accentColor =
     theme.colorScheme === "dark"
       ? theme.colors.accent1[0]
       : theme.colors.accent2[0];
-
-  const layoutOverride: Partial<Layout> = {
-    plot_bgcolor: "transparent",
-    title: data.label,
-    margin: { t: 30, r: 0, b: 0, l: 0 },
-    grid: { rows: 0, columns: 0 },
-    xaxis: { visible: false },
-    yaxis: { visible: false },
-    font: {
-      color: accentColor,
-    },
-  };
 
   const plotlyResultData = useMemo(
     () =>
@@ -113,7 +97,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             <PlotlyComponent
               data={plotlyResultData}
               id={data.id}
-              layout={{ ...plotLayout, ...layoutOverride }}
+              layout={result.result.default_fig.layout ?? {}}
               useResizeHandler
               style={{
                 height: 190,

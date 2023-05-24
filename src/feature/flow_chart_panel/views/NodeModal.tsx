@@ -44,11 +44,10 @@ const NodeModal = ({
             <PlotlyComponent
               id={nd.id}
               data={makePlotlyData(nd.result.default_fig.data, theme)}
-              layout={
-                "layout" in nd.result.default_fig
-                  ? Object.assign({}, defaultLayout)
-                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
-              }
+              layout={{
+                ...nd.result.default_fig.layout,
+                title: nd.result.default_fig.layout?.title || nodeLabel,
+              }}
               useResizeHandler
               style={{
                 height: 635,
