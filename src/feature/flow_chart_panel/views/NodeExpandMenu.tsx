@@ -6,7 +6,6 @@ import NodeModal from "./NodeModal";
 import { Box } from "@mantine/core";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { useFlowChartTabState } from "../FlowChartTabState";
-import PYTHON_FUNCTIONS from "../manifest/pythonFunctions.json";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
@@ -17,6 +16,7 @@ type NodeExpandMenuProps = {
   defaultLayout: any;
   clickedElement: Node<ElementsData> | null;
   pythonString: string;
+  nodeFileName: string;
 };
 
 export const NodeExpandMenu = ({
@@ -27,6 +27,7 @@ export const NodeExpandMenu = ({
   defaultLayout,
   clickedElement,
   pythonString,
+  nodeFileName
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
 
@@ -50,6 +51,7 @@ export const NodeExpandMenu = ({
           defaultLayout={defaultLayout}
           clickedElement={clickedElement}
           pythonString={pythonString}
+          nodeFileName={nodeFileName}
         />
       )}
     </Box>

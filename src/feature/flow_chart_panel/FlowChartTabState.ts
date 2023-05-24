@@ -12,6 +12,7 @@ export function useFlowChartTabState() {
   const [nodeLabel, setNodeLabel] = useState(defaultPythonFnLabel);
   const [nodeType, setNodeType] = useState(defaultPythonFnType);
   const [pythonString, setPythonString] = useState("...");
+  const [nodeFileName, setNodeFileName] = useState("...");
   const { setIsExpandMode } = useFlowChartState();
 
   const closeModal = () => {
@@ -27,10 +28,12 @@ export function useFlowChartTabState() {
     setNd,
     nodeLabel,
     nodeType,
+    nodeFileName,
+    pythonString,
     setNodeLabel,
     setNodeType,
+    setNodeFileName,
     setPythonString,
-    pythonString,
     defaultPythonFnLabel,
     defaultPythonFnType,
   };

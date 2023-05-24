@@ -52,7 +52,7 @@ export const lightTheme: MantineThemeOverride = {
     modal: ["#f4f4f4"],
     title: ["#111111"],
     text: ["#8c9699"],
-    accent1: ["#2e83ff", "#578bf2"],
+    accent1: ["#2e83ff", "#578bf2", "#2E83FF33"],
     accent2: ["#7b61ff", "#7418b5"],
     accent3: ["#ffa927"],
     accent4: ["rgba(123, 97, 255, 1)", "rgba(123, 97, 255, 0.17)"], //for add button and leaf nodes

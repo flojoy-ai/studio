@@ -54,6 +54,8 @@ const FlowChartTab = ({
     nodeType,
     pythonString,
     setPythonString,
+    nodeFileName,
+    setNodeFileName,
     defaultPythonFnLabel,
     defaultPythonFnType,
     setIsModalOpen,
@@ -126,16 +128,18 @@ const FlowChartTab = ({
     if (selectedNode === null) {
       return;
     }
-    let pythonString =
+    let nodeFileName =
       selectedNode?.data.label === defaultPythonFnLabel ||
       selectedNode?.data.type === defaultPythonFnType
         ? "..."
         : selectedNode?.data.label + ".py";
 
     if (selectedNode.data.func === "CONSTANT") {
-      pythonString = selectedNode.data.func + ".py";
+      nodeFileName = selectedNode.data.func + ".py";
     }
-
+    let pythonString = PYTHON_FUNCTIONS[nodeFileName];
+    
+    setNodeFileName(nodeFileName);
     setPythonString(pythonString);
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
@@ -152,11 +156,13 @@ const FlowChartTab = ({
     nodeLabel,
     nodeType,
     pythonString,
+    nodeFileName,
     setIsModalOpen,
     setNd,
     setNodeLabel,
     setNodeType,
     setPythonString,
+    setNodeFileName,
     windowWidth,
   });
   return (
@@ -196,6 +202,7 @@ const FlowChartTab = ({
           nodeLabel={nodeLabel}
           nodeType={nodeType}
           pythonString={pythonString}
+          nodeFileName={nodeFileName}
         />
       </div>
     </ReactFlowProvider>

@@ -41,6 +41,7 @@ const CMND_TREE: Sections = {
   child: [
     {
       title: "AI and Machine learning",
+      key: "AI_ML",
       child: [
         {
           title: "Object detection",
@@ -52,6 +53,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Extractors",
+      key: "EXTRACTORS", 
       child: [
         // Extractors tab
         { title: "Files", key: "FILE", child: null },
@@ -60,6 +62,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Generators",
+      key: "GENERATORS",
       child: [
         // Generators tab
         { title: "Simulations", key: "SIMULATION", child: null },
@@ -69,6 +72,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Instruments",
+      key: "INSTRUMENTS",
       child: [
         { title: "Web cam", key: "WEB_CAM", child: null },
         { title: "Keithley", key: "KEITHLEY", child: null },
@@ -81,6 +85,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Loaders",
+      key: "LOADERS",
       child: [
         // Loaders tab
         { title: "Cloud databases", key: "CLOUD_DATABASE", child: null },
@@ -90,6 +95,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Logic gates",
+      key: "LOGIC_GATES",
       child: [
         // Conditionals, Timers, & Loops
         { title: "Timers", key: "TIMER", child: null },
@@ -101,6 +107,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Transformers",
+      key: "TRANSFORMERS",
       child: [
         // Transformers tab
         { title: "Arithmetic", key: "ARITHMETIC", child: null },
@@ -123,6 +130,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Visualizers",
+      key: "VISUALIZERS",
       child: [
         // Visualization tab
         { title: "Plotly", key: "PLOTLY_VISOR", child: null },
