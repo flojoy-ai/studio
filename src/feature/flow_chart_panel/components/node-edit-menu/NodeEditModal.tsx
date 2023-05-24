@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
     top: 20,
     right: 20,
     zIndex: 10,
-    height: 684,
+    height: "calc(100vh - 300px)",
     width: 324,
     padding: "8px 8px",
     backgroundColor: theme.colors.modal[0],
@@ -69,7 +69,7 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   }, [node.data.ctrls]);
 
   return (
-    <Draggable bounds="html">
+    <Draggable bounds="main">
       <Box className={classes.modal}>
         <Box
           onClick={() => setIsEditMode(false)}
