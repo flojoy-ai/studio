@@ -225,7 +225,7 @@ const keyboardShortcuts = [
     command: "Delete",
     platforms: {
       windows: "Ctrl D",
-      macOs: "⌘ D",
+      macOs: "Backspace",
     },
   },
 ];
