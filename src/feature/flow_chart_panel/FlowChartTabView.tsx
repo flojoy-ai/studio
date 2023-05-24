@@ -48,12 +48,8 @@ localforage.config({
 const FlowChartTab = () => {
   const [searchParams] = useSearchParams();
   const [clickedElement] = useState<Node | undefined>(undefined);
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    setCtrlsManifest,
-  } = useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+    useFlowChartState();
 
   const {
     states: { programResults },
