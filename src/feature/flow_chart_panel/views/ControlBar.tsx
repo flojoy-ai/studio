@@ -12,7 +12,7 @@ import {
 import CancelIconSvg from "@src/utils/cancel_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { memo, useCallback, useEffect, useState } from "react";
+import { Dispatch, memo, useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -20,6 +20,8 @@ import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import { SettingsModal } from "./SettingsModal";
+import { Settings, useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
 
 const useStyles = createStyles((theme) => {
@@ -113,6 +115,8 @@ const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
+  const { settingsList } = useSettings();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const location = useLocation();
 
@@ -216,7 +220,11 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer(socketId, updatedRfInstance);
+      saveAndRunFlowChartInServer({
+        rfInstance,
+        jobId: socketId,
+        settings: settingsList.filter((setting) => setting.group === "backend"),
+      });
       setNodeParamChanged(undefined);
     } else {
       alert(
@@ -295,6 +303,7 @@ const ControlBar = () => {
           <button onClick={() => setIsKeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
+          <button onClick={() => setIsSettingsOpen(true)}>Settings</button>
           <button onClick={() => setIsAPIKeyModelOpen(true)}>
             Set API key
           </button>
@@ -304,6 +313,11 @@ const ControlBar = () => {
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}
+      />
+
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
       />
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}

@@ -127,6 +127,9 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 Keyboard Shortcut
               </button>
               <button>
+                Settings
+              </button>
+              <button>
                 Set API key
               </button>
             </div>
