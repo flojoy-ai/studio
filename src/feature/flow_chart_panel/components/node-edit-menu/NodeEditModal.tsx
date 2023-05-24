@@ -7,6 +7,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
 import { memo, useEffect } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
+import Draggable from "react-draggable";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -68,44 +69,51 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   }, [node.data.ctrls]);
 
   return (
-    <Box className={classes.modal}>
-      <Box onClick={() => setIsEditMode(false)} className={classes.closeButton}>
-        <IconX size={18} />
-      </Box>
-      <Box p="0px 16px 24px 16px">
-        <div key={node.id}>
-          <Box className={classes.titleContainer}>
-            <Title size="h4" className={classes.title}>
-              {node.data.func.toUpperCase()}
-            </Title>
-            <IconPencil
-              size={18}
-              style={{ marginLeft: "16px", marginBottom: "4px" }}
-            />
-          </Box>
-          {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
-            ([name, param]) => (
-              <div key={node.id + name}>
-                <p className={classes.paramName}>{`${name.toUpperCase()}:`}</p>
-                <ParamField
-                  nodeId={node.id}
-                  paramId={name}
-                  functionName={node.data.func}
-                  type={param.type as ParamValueType}
-                  value={node.data.ctrls[name].value}
-                  options={param.options}
-                />
+    <Draggable bounds="html">
+      <Box className={classes.modal}>
+        <Box
+          onClick={() => setIsEditMode(false)}
+          className={classes.closeButton}
+        >
+          <IconX size={18} />
+        </Box>
+        <Box p="0px 16px 24px 16px">
+          <div key={node.id}>
+            <Box className={classes.titleContainer}>
+              <Title size="h4" className={classes.title}>
+                {node.data.func.toUpperCase()}
+              </Title>
+              <IconPencil
+                size={18}
+                style={{ marginLeft: "16px", marginBottom: "4px" }}
+              />
+            </Box>
+            {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
+              ([name, param]) => (
+                <div key={node.id + name}>
+                  <p
+                    className={classes.paramName}
+                  >{`${name.toUpperCase()}:`}</p>
+                  <ParamField
+                    nodeId={node.id}
+                    paramId={name}
+                    functionName={node.data.func}
+                    type={param.type as ParamValueType}
+                    value={node.data.ctrls[name].value}
+                    options={param.options}
+                  />
+                </div>
+              )
+            )}
+            {nodeParamChanged && (
+              <div className={classes.replayScriptNotice}>
+                <i>{replayNotice}</i>
               </div>
-            )
-          )}
-          {nodeParamChanged && (
-            <div className={classes.replayScriptNotice}>
-              <i>{replayNotice}</i>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </Box>
       </Box>
-    </Box>
+    </Draggable>
   );
 };
 
