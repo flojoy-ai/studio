@@ -1,137 +1,87 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {
-  CustomNodeProps,
-  ElementsData,
-} from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles } from "@mantine/core";
+import { memo } from "react";
 import {
   AddBGTemplate,
   AddSvg,
-  AtSvg,
   MultiplySvg,
   SubSvg,
 } from "../../svgs/add-multiply-svg";
-import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import { useNodeStyles } from "../DefaultNode";
+import NodeWrapper from "../NodeWrapper";
 
-const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow) {
-    return highlightShadow[data.func];
-  }
-  return highlightShadow["default"];
-};
+const useStyles = createStyles((theme) => {
+  return {
+    arithmeticNode: {
+      color:
+        theme.colorScheme === "light"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+      background: "transparent",
+    },
+    operatorIcon: {
+      position: "absolute",
+      left: 29,
+      height: 18,
+      width: 18,
+    },
+  };
+});
 
 const ArithmeticNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const nodeClasses = useNodeStyles().classes;
+  const { classes } = useStyles();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
+  let operatorIcon;
+  switch (data.func) {
+    case "MULTIPLY":
+      operatorIcon = <MultiplySvg className={classes.operatorIcon} />;
+      break;
+    case "ADD":
+      operatorIcon = <AddSvg className={classes.operatorIcon} />;
+      break;
+    case "SUBTRACT":
+      operatorIcon = <SubSvg className={classes.operatorIcon} />;
+      break;
+    default:
+      operatorIcon = <Box />;
+  }
+
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.arithmeticShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
-            background: "transparent",
-            height: "fit-content",
-            minHeight: 115,
+        <Box
+          className={clsx(nodeClasses.nodeContainer, classes.arithmeticNode)}
+          sx={{
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
           <AddBGTemplate />
-          {data.func === "MULTIPLY" && (
-            <MultiplySvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          {data.func === "ADD" && (
-            <AddSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          {data.func === "SUBTRACT" && (
-            <SubSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-
-          {data.func === "MATMUL" && (
-            <AtSvg
-              style={{
-                position: "absolute",
-                top: "47px",
-                left: "29px",
-                height: "19px",
-                width: "18px",
-              }}
-            />
-          )}
-          <div
-            style={{
-              display: "flex",
+          {operatorIcon}
+          <Box
+            display="flex"
+            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+            sx={{
               flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </NodeWrapper>
   );
 };
 
-export default ArithmeticNode;
-
-const highlightShadow = {
-  default: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-  MULTIPLY: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-  ADD: {
-    boxShadow: "rgb(112 96 13) 0px 0px 27px 3px",
-    background: "#78640f96",
-  },
-};
+export default memo(ArithmeticNode);

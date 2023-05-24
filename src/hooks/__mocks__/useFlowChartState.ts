@@ -25,8 +25,6 @@ export const useFlowChartState = jest.fn(() => ({
   openFileSelector: jest.fn(),
   saveFile: jest.fn(),
   setIsEditMode: jest.fn(),
-  uiTheme: "dark",
-  setUiTheme: jest.fn(),
   showLogs: false,
   setShowLogs: jest.fn(),
   runningNode: "",

@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import ResultsTab from "@src/feature/results_panel/ResultsTabView";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 jest.mock("@src/hooks/useFlowChartState");
 
@@ -26,13 +27,15 @@ jest.mock("react-use", () => ({
   useWindowSize: jest.fn(() => ({ width: 1024, height: 768 })),
 }));
 
+jest.mock("@src/hooks/useSocket");
+
 describe("ResultsTab component", () => {
   const results: ResultsType = {
     io: [],
   };
 
   it("renders the ResultsTab component", () => {
-    render(<ResultsTab results={results} />);
+    renderWithTheme(<ResultsTab />);
 
     const reactFlowComponent = screen.getByTestId("results-flow");
     expect(reactFlowComponent).toBeInTheDocument();

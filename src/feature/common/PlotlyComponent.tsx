@@ -1,13 +1,33 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { useEffect } from "react";
 import Plot, { PlotParams } from "react-plotly.js";
+import { PlotData } from "plotly.js";
+
+export type OverridePlotData = Array<
+  Partial<PlotData> & {
+    header?: {
+      values?: any;
+      fill: {
+        color: string;
+      };
+    };
+    cells?: {
+      values?: any;
+      fill: { color: string };
+    };
+  }
+>;
 
 type PlotProps = {
   id: string;
-} & PlotParams;
+  data: OverridePlotData;
+  isThumbnail?: boolean;
+} & Omit<PlotParams, "data">;
 
+// TODO: Why does this rerender constantly after first run?
 const PlotlyComponent = (props: PlotProps) => {
-  const { data, layout, useResizeHandler, style, id } = props;
+  const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
+
   useEffect(() => {
     if (!window) {
       return;
@@ -16,13 +36,18 @@ const PlotlyComponent = (props: PlotProps) => {
       ...(window as any).plotlyOutput,
       [id]: { data },
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
+
   return (
     <Plot
       data={data}
-      layout={layout}
+      layout={{
+        ...layout,
+        showlegend: !isThumbnail,
+        ...(data[0]?.title?.text && { title: "" }),
+      }}
       useResizeHandler={useResizeHandler}
+      config={{ displayModeBar: false }}
       style={style}
     />
   );

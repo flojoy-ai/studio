@@ -1,6 +1,7 @@
-import { render } from "@testing-library/react";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import ConditionalNode from "@src/feature/flow_chart_panel/components/custom-nodes/ConditionalNode";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+
 const props: CustomNodeProps = {
   data: {
     id: "test-id",
@@ -27,26 +28,18 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   return { __esModule: true, default: mockChildren };
 });
 
-jest.mock("@src/hooks/useSocket", () => {
-  return {
-    useSocket: () => ({
-      states: {
-        programResults: {},
-      },
-    }),
-  };
-});
+jest.mock("@src/hooks/useSocket");
 
 describe("ConditionalNode", () => {
   it("checks the snapshot", () => {
-    const { container } = render(<ConditionalNode {...props} />);
+    const { container } = renderWithTheme(<ConditionalNode {...props} />);
     expect(container).toMatchSnapshot();
   });
   it.each([
     ["CONDITIONAL", "conditional-operator-type"],
     ["TIMER", "timer-value"],
     ["LOOP", "loop-info"],
-  ])("checks if the componenet: %p is rendered", (componentName, testId) => {
+  ])("checks if the component: %p is rendered", (componentName, testId) => {
     let ctrls = {};
     if (componentName === "CONDITIONAL") {
       ctrls = {
@@ -62,7 +55,7 @@ describe("ConditionalNode", () => {
       };
     }
 
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTheme(
       <ConditionalNode
         data={{ ...props.data, func: componentName, ctrls: ctrls }}
       />

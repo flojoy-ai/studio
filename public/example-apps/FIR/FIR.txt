@@ -453,12 +453,12 @@
                 "width": 250,
                 "height": 159,
                 "id": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
-                "type": "VISOR",
+                "type": "PLOTLY_VISOR",
                 "data": {
                     "id": "LINE-0e9e41cb-8eac-4cdc-9818-f316e9627c1e",
                     "label": "VIS",
                     "func": "LINE",
-                    "type": "VISOR",
+                    "type": "PLOTLY_VISOR",
                     "ctrls": {}
                 },
                 "position": {
@@ -476,12 +476,12 @@
                 "width": 250,
                 "height": 159,
                 "id": "LINE-e706825d-ea45-4228-a1e3-89c0b7a5191d",
-                "type": "VISOR",
+                "type": "PLOTLY_VISOR",
                 "data": {
                     "id": "LINE-e706825d-ea45-4228-a1e3-89c0b7a5191d",
                     "label": "RAW",
                     "func": "LINE",
-                    "type": "VISOR",
+                    "type": "PLOTLY_VISOR",
                     "ctrls": {}
                 },
                 "position": {

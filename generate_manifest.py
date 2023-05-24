@@ -21,7 +21,8 @@ prev_manifest = open_prev_manifest()
 
 all_files = [f for f in listdir(full_path) if (isfile(join(full_path, f)))]
 for mf in all_files:
-    if ".manifest.yaml" in mf:
+    allowed_file_ext = [".manifest.yaml", ".manifest.yml"]
+    if any(ext in mf for ext in allowed_file_ext):
         with open(join(full_path, mf), "r") as f:
             read_file = f.read()
             s = yaml.load(read_file, Loader=yaml.FullLoader)

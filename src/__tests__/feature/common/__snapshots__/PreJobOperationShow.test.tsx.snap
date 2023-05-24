@@ -4,7 +4,7 @@ exports[`PreJobOperationShow should render correctly 1`] = `
 <div>
   <div>
     <div
-      style="background: rgb(0, 0, 0); color: gray; padding: 10px; font-family: monospace; white-space: break-spaces; overflow: hidden;"
+      style="background: rgb(0, 0, 0); color: rgb(0, 0, 0); padding: 10px; font-family: monospace; white-space: break-spaces; overflow: hidden;"
     >
       Rendered this text!
     </div>

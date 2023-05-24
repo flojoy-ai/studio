@@ -1,4 +1,4 @@
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
@@ -15,26 +15,31 @@ import {
   PlotControlOptions,
 } from "../../types/ControlOptions";
 
-import { Data } from "plotly.js";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
+import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
-  updateCtrlValue: any;
+  updateCtrlValue: (
+    value: string,
+    ctrl: CtlManifestType,
+    ValType: ParamValueType
+  ) => void;
   ctrlObj: CtlManifestType;
-  theme: "light" | "dark";
 };
 
 const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
-  theme,
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
-    nodes,
     ctrlsManifest,
     setGridLayout,
     isEditMode,
   } = useFlowChartState();
+
+  const { nodes } = useFlowChartGraph();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
@@ -47,23 +52,24 @@ const ControlComponentState = ({
   );
   const [nd, setNd] = useState<ResultIO | null>(null);
 
-  const [plotData, setPlotData] = useState<Data[]>([]);
+  const [plotData, setPlotData] = useState<OverridePlotData>([]);
   const [selectedOption, setSelectedOption] = useState<
     ControlOptions | undefined
   >(undefined);
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const styledLayout = styledPlotLayout(theme);
+
+  const styledLayout = usePlotLayout();
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);
-  const ctrls: ElementsData["ctrls"] = inputNode?.data?.ctrls!;
+  const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
   const fnParams =
-    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
+    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
-  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param!];
+  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
   const defaultValue =
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val
@@ -91,9 +97,8 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj);
+      updateCtrlValue(file.name, ctrlObj, "string");
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plainFiles]);
 
   return {

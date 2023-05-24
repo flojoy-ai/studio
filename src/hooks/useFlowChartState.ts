@@ -1,12 +1,9 @@
-import { NOISY_SINE } from "../data/RECIPES";
-import { useAtom } from "jotai";
-import { atomWithImmer } from "jotai-immer";
-import { useFilePicker } from "use-file-picker";
-import { useCallback, useEffect, useMemo } from "react";
-import { Layout } from "react-grid-layout";
-import localforage from "localforage";
-import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { atom, useAtom } from "jotai";
+import { atomWithImmer } from "jotai-immer";
+import localforage from "localforage";
+import { Layout } from "react-grid-layout";
+import { ReactFlowJsonObject } from "reactflow";
 
 export interface CtrlManifestParam {
   functionName: string;
@@ -48,9 +45,6 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
-const initialNodes: Node<ElementsData>[] =
-  NOISY_SINE.nodes as Node<ElementsData>[];
-const initialEdges: Edge[] = NOISY_SINE.edges;
 const initialManifests: CtlManifestType[] = [
   {
     type: "input",
@@ -73,173 +67,57 @@ const initialManifests: CtlManifestType[] = [
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
-const uiThemeAtom = atomWithImmer<"light" | "dark">("dark");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
-const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
-const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const editModeAtom = atomWithImmer<boolean>(false);
+const expandModeAtom = atomWithImmer<boolean>(false);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
-  initialManifests.map((ctrl, i) => ({
+  initialManifests.map((ctrl) => ({
     ...ctrl.layout,
   }))
 );
+const apiKeyAtom = atomWithImmer<string>("");
+const isSidebarOpenAtom = atom<boolean>(false);
+const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
-  const [nodes, setNodes] = useAtom(nodesAtom);
-  const [edges, setEdges] = useAtom(edgesAtom);
   const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
+  const [isExpandMode, setIsExpandMode] = useAtom(expandModeAtom);
   const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [uiTheme, setUiTheme] = useAtom(uiThemeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
+  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
-  const loadFlowExportObject = useCallback(
-    (flow: any) => {
-      if (!flow) {
-        return 0;
-      }
-      setNodes(flow.nodes || []);
-      setEdges(flow.edges || []);
-    },
-    [setNodes, setEdges]
-  );
-
-  const [openFileSelector, { filesContent }] = useFilePicker({
-    readAs: "Text",
-    accept: ".txt",
-    maxFileSize: 50,
-  });
-
-  useEffect(() => {
-    // there will be only single file in the filesContent, for each will loop only once
-    filesContent.forEach((file) => {
-      const parsedFileContent = JSON.parse(file.content);
-      const flow = parsedFileContent.rfInstance;
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || initialManifests);
-      loadFlowExportObject(flow);
-    });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest, setGridLayout]);
-
-  const getFileBlob = (rf: ReactFlowJsonObject<ElementsData>) => {
-    const fileContent = {
-      rfInstance,
-      ctrlsManifest,
-    };
-    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
-
-    return new Blob([fileContentJsonString], {
-      type: "text/plain;charset=utf-8",
-    });
-  };
-
-  const saveFile = async () => {
-    if (rfInstance) {
-      const blob = getFileBlob(rfInstance);
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "flojoy.txt";
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }
-  };
-
-  const saveFileAs = async () => {
-    if (rfInstance) {
-      const blob = getFileBlob(rfInstance);
-
-      const handle = await (window as any).showSaveFilePicker({
-        suggestedName: "flojoy.txt",
-        types: [
-          {
-            description: "Text file",
-            accept: { "text/plain": [".txt"] },
-          },
-        ],
-      });
-      const writableStream = await handle.createWritable();
-      await writableStream.write(blob);
-      await writableStream.close();
-    }
-  };
-
-  const updateCtrlInputDataForNode = (
-    nodeId: string,
-    paramId: string,
-    inputData: ElementsData["ctrls"][""]
-  ) => {
-    setNodes((element) => {
-      const node = element.find((e) => e.id === nodeId);
-      if (node) {
-        if (node.data.func === "CONSTANT") {
-          node.data.ctrls = {
-            [paramId]: inputData,
-          };
-          node.data.label = inputData.value.toString();
-        } else {
-          node.data.ctrls[paramId] = inputData;
-        }
-      }
-    });
-  };
-  const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
-    setNodes((nodes) => {
-      const node = nodes.find((e) => e.id === nodeId);
-      if (node) {
-        node.data.ctrls = node.data.ctrls || {};
-        delete node.data.ctrls[paramId];
-      }
-    });
-  };
-
-  useEffect(() => {
-    setRfInstance((prev) => {
-      if (prev) {
-        prev.nodes = nodes;
-        prev.edges = edges;
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes, edges]);
   return {
     rfInstance,
     setRfInstance,
-    updateCtrlInputDataForNode,
-    removeCtrlInputDataForNode,
     ctrlsManifest,
     setCtrlsManifest,
-    loadFlowExportObject,
-    openFileSelector,
-    saveFile,
-    saveFileAs,
     isEditMode,
     setIsEditMode,
+    isExpandMode,
+    setIsExpandMode,
     gridLayout,
     setGridLayout,
-    uiTheme,
-    setUiTheme,
     showLogs,
     setShowLogs,
     runningNode,
     setRunningNode,
     failedNode,
     setFailedNode,
-    edges,
-    setEdges,
-    nodes,
-    setNodes,
-    filesContent,
+    apiKey,
+    setApiKey,
+    nodeParamChanged,
+    setNodeParamChanged,
+    isSidebarOpen,
+    setIsSidebarOpen,
   };
 }

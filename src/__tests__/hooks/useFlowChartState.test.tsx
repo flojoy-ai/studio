@@ -1,10 +1,16 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 
-import { useFlowChartState } from "../../hooks/useFlowChartState";
+import {
+  CtlManifestType,
+  useFlowChartState,
+} from "../../hooks/useFlowChartState";
 
 import { NOISY_SINE } from "../../data/RECIPES";
 
-const initialManifests: any = [
+const { result } = renderHook(() => useFlowChartState());
+const hookResult = result.current;
+
+const initialManifests: CtlManifestType[] = [
   {
     type: "input",
     name: "Slider",
@@ -12,10 +18,17 @@ const initialManifests: any = [
     hidden: false,
     minHeight: 1,
     minWidth: 2,
+    layout: {
+      x: 0,
+      y: 0,
+      h: 2,
+      w: 2,
+      minH: 1,
+      minW: 2,
+      i: "INPUT_PLACEHOLDER",
+    },
   },
 ];
-const { result, rerender } = renderHook(() => useFlowChartState());
-const hookResult = result.current;
 
 jest.mock("use-file-picker", () => {
   const initialManifests: any = [
@@ -68,7 +81,6 @@ describe("useFlowChartState", () => {
       ["rfInstance", hookResult.rfInstance, undefined],
       ["ctrlsManifest", hookResult.ctrlsManifest, initialManifests],
       ["isEditMode", hookResult.isEditMode, false],
-      ["uiTheme", hookResult.uiTheme, "dark"],
       ["showLogs", hookResult.showLogs, false],
       ["runningNode", hookResult.runningNode, ""],
       ["failedNode", hookResult.failedNode, ""],
@@ -76,42 +88,13 @@ describe("useFlowChartState", () => {
       expect(currentResult).toEqual(expectedResult);
     });
   });
-  describe("loadFlowExportObject", () => {
-    it.each([
-      ["undefined", undefined, 0],
-      [
-        "not undefined",
-        {
-          elements: "test",
-          position: [0, 0],
-          zoom: 1,
-        },
-        0,
-      ],
-    ])(
-      "given a/an %p flow object,retunrns from the function",
-      (statement: string, input: any, expectedReturnValue) => {
-        const spy = jest.spyOn(hookResult, "loadFlowExportObject");
-        const func = hookResult.loadFlowExportObject;
-        act(() => {
-          func(input);
-        });
+  // describe("useFilePicker", () => {
+  //   it("checks if useFilePicker called with right parameters", () => {
+  //     const filesContent = hookResult.filesContent;
 
-        if (input === undefined) {
-          expect(spy).toHaveReturnedWith(expectedReturnValue);
-        } else {
-          expect(spy).not.toHaveReturnedWith(expectedReturnValue);
-        }
-      }
-    );
-  });
-  describe("useFilePicker", () => {
-    it("checks if useFilePicker called with right parameters", () => {
-      const filesContent = hookResult.filesContent;
-
-      expect(filesContent.length).toEqual(1);
-    });
-  });
+  //     expect(filesContent.length).toEqual(1);
+  //   });
+  // });
 });
 
 const getExpectedData = (id) => {

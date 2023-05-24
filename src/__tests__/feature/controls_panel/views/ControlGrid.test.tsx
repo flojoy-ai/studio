@@ -1,10 +1,9 @@
-import { render } from "@testing-library/react";
-import ControlGrid from "@src/feature/controls_panel/views/ControlGrid";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import { ControlProps } from "@src/feature/controls_panel/types/ControlProps";
+import ControlGrid from "@src/feature/controls_panel/views/ControlGrid";
 
 const controlProps: ControlProps = {
   isEditMode: true,
-  theme: "dark",
   results: {},
   updateCtrlValue: jest.fn(),
   attachParamsToCtrl: jest.fn(),
@@ -22,7 +21,9 @@ jest.mock("@src/feature/controls_panel/views/Control", () => ({
 
 describe("ControlGrid.tsx", () => {
   it("renders the ControlGrid component.", () => {
-    const { container } = render(<ControlGrid controlProps={controlProps} />);
+    const { container } = renderWithTheme(
+      <ControlGrid controlProps={controlProps} />
+    );
     expect(container).toMatchSnapshot();
   });
 });

@@ -1,48 +1,223 @@
-import { memo, FC, useState, useEffect } from "react";
-import localforage from "localforage";
-import "react-tabs/style/react-tabs.css";
-import {
-  saveFlowChartToLocalStorage,
-  saveAndRunFlowChartInServer,
-  cancelFlowChartRun,
-} from "@src/services/FlowChartServices";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import ReactSwitch from "react-switch";
-import { ControlsProps } from "../types/ControlsProps";
-import { useSocket } from "@src/hooks/useSocket";
-import CancelIconSvg from "@src/utils/cancel_icon";
-import PlayBtn from "../components/play-btn/PlayBtn";
+import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
-import DropDown from "@src/feature/common/dropdown/DropDown";
+import DropDown from "@src/feature/common/DropDown";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useSocket } from "@src/hooks/useSocket";
+import {
+  cancelFlowChartRun,
+  saveAndRunFlowChartInServer,
+  saveFlowChartToLocalStorage,
+} from "@src/services/FlowChartServices";
+import CancelIconSvg from "@src/utils/cancel_icon";
+import { IconCaretDown } from "@tabler/icons-react";
+import localforage from "localforage";
+import { memo, useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import "react-tabs/style/react-tabs.css";
+import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { useFilePicker } from "use-file-picker";
+import PlayBtn from "../components/play-btn/PlayBtn";
+import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
+import APIKeyModal from "./APIKeyModal";
+
+const useStyles = createStyles((theme) => {
+  return {
+    controls: {
+      display: "flex",
+      alignItems: "center",
+      padding: "10px",
+      gap: "16px",
+    },
+
+    button: {
+      marginRight: "10px",
+      padding: "5px",
+      cursor: "pointer",
+      borderRadius: 2,
+      fontSize: "14px",
+      textDecoration: "none",
+      background: "transparent",
+      color: theme.colors.title[0],
+      border: "none",
+    },
+
+    addButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "4px",
+    },
+
+    addButtonPlus: {
+      fontSize: "20px",
+      color: theme.colors.accent1[0],
+    },
+
+    cancelButton: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "5px",
+      height: "33px",
+      width: "85px",
+      cursor: "pointer",
+      color: theme.colors.red[7],
+      border: `1px solid ${theme.colors.red[3]}`,
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[2],
+      transition: "transform ease-in 0.1s",
+
+      "&:hover": {
+        backgroundColor: theme.colors.red[8],
+        color: theme.white,
+      },
+
+      "&:hover > svg > g": {
+        fill: theme.white,
+      },
+
+      "&:active": {
+        transform: "scale(0.8)",
+      },
+    },
+
+    fileButton: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "8px",
+    },
+
+    editContainer: {
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+      paddingRight: "4px",
+    },
+  };
+});
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const Controls: FC<ControlsProps> = ({
-  theme,
-  activeTab,
-  setOpenCtrlModal,
-}) => {
+// TODO: Prevent this from rerendering every time a node changes
+const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, setProgramResults, serverStatus } = states!;
-  const [isKeyboardShortcutOpen, setIskeyboardShortcutOpen] = useState(false);
+  const { socketId, setProgramResults, serverStatus } = states;
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
+  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
+  const { classes } = useStyles();
+
+  const location = useLocation();
 
   const {
-    isEditMode,
-    setIsEditMode,
     rfInstance,
-    openFileSelector,
-    saveFile,
-    saveFileAs,
+    setRfInstance,
+    ctrlsManifest,
+    setCtrlsManifest,
+    setNodeParamChanged,
   } = useFlowChartState();
+
+  const { nodes, edges, loadFlowExportObject } = useFlowChartGraph();
+
+  const [openFileSelector, { filesContent }] = useFilePicker({
+    readAs: "Text",
+    accept: ".txt",
+    maxFileSize: 50,
+  });
+
+  const createFileBlob = (
+    rf: ReactFlowJsonObject<ElementsData>,
+    nodes: Node<ElementsData>[],
+    edges: Edge[]
+  ) => {
+    const updatedRf = {
+      ...rf,
+      nodes,
+      edges,
+    };
+
+    setRfInstance(updatedRf);
+
+    const fileContent = {
+      rfInstance: updatedRf,
+      ctrlsManifest,
+    };
+
+    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
+
+    return new Blob([fileContentJsonString], {
+      type: "text/plain;charset=utf-8",
+    });
+  };
+
+  const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (rfInstance) {
+      const blob = createFileBlob(rfInstance, nodes, edges);
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "flojoy.txt";
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
+  const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (rfInstance) {
+      const blob = createFileBlob(rfInstance, nodes, edges);
+
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "flojoy.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+      await writableStream.write(blob);
+      await writableStream.close();
+    }
+  };
+
+  // TODO: Find out why this keeps firing when moving nodes
+  useEffect(() => {
+    // there will be only single file in the filesContent, for each will loop only once
+    filesContent.forEach((file) => {
+      const parsedFileContent = JSON.parse(file.content);
+      const flow = parsedFileContent.rfInstance;
+      setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
+      loadFlowExportObject(flow);
+    });
+  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
+
   const onSave = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
-      saveFlowChartToLocalStorage(rfInstance);
+      // Only update the react flow instance when required.
+      const updatedRfInstance = {
+        ...rfInstance,
+        nodes,
+        edges,
+      };
+      setRfInstance(updatedRfInstance);
+
+      saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
-      saveAndRunFlowChartInServer({ rfInstance, jobId: socketId });
+      saveAndRunFlowChartInServer(socketId, updatedRfInstance);
+      setNodeParamChanged(undefined);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -52,78 +227,45 @@ const Controls: FC<ControlsProps> = ({
 
   const cancelFC = () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
-      cancelFlowChartRun({ rfInstance, jobId: socketId });
+      cancelFlowChartRun(rfInstance, socketId);
     } else {
       alert("There is no running job on server.");
     }
   };
 
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
-
-  const isPlayBtnDisabled = () =>
+  const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
 
+  const handleKeyboardShortcutModalClose = useCallback(() => {
+    setIsKeyboardShortcutOpen(false);
+  }, [setIsKeyboardShortcutOpen]);
+
+  const handleAPIKeyModalClose = useCallback(() => {
+    setIsAPIKeyModelOpen(false);
+  }, [setIsAPIKeyModelOpen]);
+
   return (
-    <div className="save__controls">
-      {isPlayBtnDisabled() || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn
-          onClick={onSave}
-          disabled={isPlayBtnDisabled()}
-          theme={theme}
-        />
+    <Box className={classes.controls}>
+      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+        <PlayBtn onClick={onSave} disabled={playBtnDisabled} />
       ) : (
         <button
-          className={`btn__cancel ${theme === "dark" ? "dark" : "light"}`}
+          className={classes.cancelButton}
           onClick={cancelFC}
           data-cy="btn-cancel"
           title="Cancel Run"
         >
-          <CancelIconSvg theme={theme} />
-          <span>Cancel</span>
+          <CancelIconSvg fill="white" />
+          <Text>Cancel</Text>
         </button>
       )}
-      {isEditMode && activeTab === "panel" && (
-        <AddBtn
-          testId={"add-ctrl"}
-          theme={theme}
-          handleClick={() => {
-            setOpenCtrlModal((prev) => !prev);
-          }}
-        />
-      )}
-      {activeTab !== "debug" && (
-        <DropDown
-          theme={theme}
-          DropDownBtn={
-            <button
-              className="save__controls_button btn__file"
-              style={{
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-            >
-              <span>File</span>
-              <svg
-                width="10"
-                height="7"
-                viewBox="0 0 10 7"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 0L5 6.74101L10 0H0Z"
-                  fill={theme === "dark" ? "#fff" : "#000"}
-                />
-              </svg>
-            </button>
-          }
-        >
+      {location.pathname !== "/debug" && (
+        <DropDown dropDownBtn={<FileButton />}>
           <button onClick={openFileSelector}>Load</button>
-          <button data-cy="btn-save" onClick={saveFile}>
+          <button data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
             Save
           </button>
           <button
@@ -144,79 +286,45 @@ const Controls: FC<ControlsProps> = ({
                 ? "Save As is not supported in this browser, sorry!"
                 : ""
             }
-            onClick={saveFileAs}
+            onClick={() => saveFileAs(nodes, edges)}
           >
-            <span>Save As</span>
+            <Text>Save As</Text>
             <small>Ctrl + s</small>
           </button>
           <button>History</button>
-          <button onClick={() => setIskeyboardShortcutOpen(true)}>
+          <button onClick={() => setIsKeyboardShortcutOpen(true)}>
             Keyboard Shortcut
           </button>
+          <button onClick={() => setIsAPIKeyModelOpen(true)}>
+            Set API key
+          </button>
         </DropDown>
-      )}
-      {activeTab !== "visual" && activeTab !== "debug" && (
-        <div className="switch_container" style={{ paddingRight: "4px" }}>
-          <span
-            data-cy="operation-switch"
-            data-testid="operation-switch"
-            style={{
-              cursor: "pointer",
-              fontSize: "14px",
-              ...(isEditMode
-                ? { color: "orange" }
-                : {
-                    color: theme === "dark" ? "#fff" : "#000",
-                  }),
-            }}
-            onClick={() => setIsEditMode(!isEditMode)}
-          >
-            Edit
-          </span>
-          <ReactSwitch
-            checked={isEditMode}
-            onChange={() => setIsEditMode(!isEditMode)}
-            height={22}
-            width={50}
-          />
-        </div>
       )}
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
-        onClose={() => setIskeyboardShortcutOpen(false)}
-        theme={theme}
+        onClose={handleKeyboardShortcutModalClose}
       />
-    </div>
+      <APIKeyModal
+        isOpen={isAPIKeyModelOpen}
+        onClose={handleAPIKeyModalClose}
+      />
+    </Box>
   );
 };
 
-export default memo(Controls);
+export default memo(ControlBar);
 
-const AddBtn = ({ handleClick, theme, testId }) => {
+const FileButton = () => {
+  const theme = useMantineTheme();
+  const { classes } = useStyles();
   return (
-    <button
-      data-cy={testId}
-      data-testid={testId}
-      className="save__controls_button btn__add"
-      onClick={handleClick}
-    >
-      {" "}
-      <div
-        style={{
-          color: theme === "dark" ? "#99F5FF" : "blue",
-          fontSize: "20px",
-        }}
-      >
-        +
-      </div>
-      <div
-        style={{
-          color: theme === "dark" ? "#fff" : "#000",
-        }}
-      >
-        Add
-      </div>
+    <button className={clsx(classes.button, classes.fileButton)}>
+      <Text>File</Text>
+      <IconCaretDown
+        size={14}
+        fill={theme.colorScheme === "dark" ? theme.white : theme.black}
+      />
     </button>
   );
 };

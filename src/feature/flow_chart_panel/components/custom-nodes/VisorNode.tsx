@@ -1,94 +1,159 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {
-  CustomNodeProps,
-  ElementsData,
-} from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { BGTemplate } from "../../svgs/histo-scatter-svg";
-import Scatter from "../nodes/Scatter";
-import Histogram from "../nodes/Histogram";
-import LineChart from "../nodes/line-chart";
-import Surface3D from "../nodes/3d-surface";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import PlotlyComponent from "@src/feature/common/PlotlyComponent";
+import usePlotLayout from "@src/feature/common/usePlotLayout";
+import { useSocket } from "@src/hooks/useSocket";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
+import { Layout } from "plotly.js";
+import { memo, useMemo } from "react";
+import { useNodeStyles } from "../DefaultNode";
 import Scatter3D from "../nodes/3d-scatter";
+import Surface3D from "../nodes/3d-surface";
 import BarChart from "../nodes/bar";
-import { useEffect } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
+import BigNumber from "../nodes/BigNumber";
+import BoxPlot from "../nodes/box-plot";
+import Histogram from "../nodes/Histogram";
+import PlotlyImage from "../nodes/Image";
+import LineChart from "../nodes/line-chart";
+import Scatter from "../nodes/Scatter";
+import PlotlyTable from "../nodes/Table";
+import NodeWrapper from "../NodeWrapper";
 
-const getboxShadow = (data: ElementsData) => {
-  if (data.func in highlightShadow) {
-    return highlightShadow[data.func];
-  }
-  return highlightShadow["default"];
+const useStyles = createStyles((theme) => {
+  return {
+    visorNode: {
+      background: "transparent",
+      color:
+        theme.colorScheme === "light"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+    },
+  };
+});
+
+const chartElemMap: { [func: string]: JSX.Element } = {
+  SCATTER: <Scatter />,
+  HISTOGRAM: <Histogram />,
+  LINE: <LineChart />,
+  SURFACE3D: <Surface3D />,
+  SCATTER3D: <Scatter3D />,
+  BAR: <BarChart />,
+  TABLE: <PlotlyTable />,
+  IMAGE: <PlotlyImage />,
+  BOX: <BoxPlot />,
+  BIG_NUMBER: <BigNumber />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const nodeClasses = useNodeStyles().classes;
+  const { classes } = useStyles();
+  const theme = useMantineTheme();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-      return prev;
-    });
-  }, [data, nodes, setNodes]);
+  // TODO: Investigate why this keeps making it rerender
+  const {
+    states: { programResults },
+  } = useSocket();
+
+  const results = programResults?.io;
+  const result = results?.find((r) => r.id === data.id);
+
+  const plotLayout = usePlotLayout();
+
+  const accentColor =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
+
+  const layoutOverride: Partial<Layout> = {
+    plot_bgcolor: "transparent",
+    title: data.label,
+    margin: { t: 30, r: 0, b: 0, l: 0 },
+    grid: { rows: 0, columns: 0 },
+    xaxis: { visible: false },
+    yaxis: { visible: false },
+    font: {
+      color: accentColor,
+    },
+  };
+
+  const plotlyResultData = useMemo(
+    () =>
+      result
+        ? makePlotlyData(
+            result.result.default_fig.data.map((d) => ({
+              ...d,
+              marker: {
+                ...d.marker,
+                color: accentColor,
+              },
+            })),
+            theme,
+            true
+          )
+        : undefined,
+    [result]
+  );
+
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && getboxShadow(data)),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          runningNode === data.id || data.selected
+            ? nodeClasses.defaultShadow
+            : "",
+          failedNode === data.id ? nodeClasses.failShadow : ""
+        )}
       >
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "17px",
-            color: uiTheme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
-            background: "transparent",
-            height: "fit-content",
-            minHeight: 115,
-            ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-          }}
-        >
-          {data.func === "SCATTER" && <Scatter theme={uiTheme} />}
-          {data.func === "HISTOGRAM" && <Histogram theme={uiTheme} />}
-          {data.func === "LINE" && <LineChart theme={uiTheme} />}
-          {data.func === "SURFACE3D" && <Surface3D theme={uiTheme} />}
-          {data.func === "SCATTER3D" && <Scatter3D theme={uiTheme} />}
-          {data.func === "BAR" && <BarChart theme={uiTheme} />}
-          <BGTemplate theme={uiTheme} />
-          <div
+        {result && plotlyResultData ? (
+          <>
+            <PlotlyComponent
+              data={plotlyResultData}
+              id={data.id}
+              layout={{ ...plotLayout, ...layoutOverride }}
+              useResizeHandler
+              style={{
+                height: 190,
+                width: 210,
+              }}
+              isThumbnail
+            />
+
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
+          </>
+        ) : (
+          <Box
+            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
             style={{
-              display: "flex",
-              flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 40 : "fit-content",
+              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
             }}
           >
-            <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+            {chartElemMap[data.func]}
+            <Box
+              display="flex"
+              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <HandleComponent data={data} inputs={params} />
+            </Box>
+          </Box>
+        )}
+      </Box>
     </NodeWrapper>
   );
 };
 
-export default VisorNode;
-
-const highlightShadow = {
-  default: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  HISTOGRAM: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SCATTER: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SURFACE3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  SCATTER3D: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  BAR: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-  LINE: { boxShadow: "#48abe0 0px 0px 27px 3px" },
-};
+export default memo(VisorNode);

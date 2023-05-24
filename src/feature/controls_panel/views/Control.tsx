@@ -4,6 +4,7 @@ import "@src/App.css";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import ControlComponent from "./control-component/ControlComponent";
+import { Box, useMantineColorScheme } from "@mantine/core";
 
 export default function Control({
   controlProps,
@@ -14,7 +15,6 @@ export default function Control({
 }) {
   const {
     isEditMode,
-    theme,
     results,
     updateCtrlValue,
     attachParamsToCtrl,
@@ -23,24 +23,24 @@ export default function Control({
     setOpenEditModal,
   } = controlProps;
 
+  const theme = useMantineColorScheme().colorScheme;
+
   return (
-    <div
-      className={isEditMode ? "ctrl-input" : ""}
+    <Box
       data-cy="ctrl-grid-item"
       data-testid="ctrl-grid-item"
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
+      w="100%"
+      h="100%"
+      display="flex"
+      sx={{
         flexDirection: "column",
-        borderRadius: "16px",
+        br: 16,
         backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
       }}
     >
-      {isEditMode ? (
+      {isEditMode || !ctrl.hidden ? (
         <ControlComponent
           ctrlObj={ctrl}
-          theme={theme}
           results={results}
           updateCtrlValue={updateCtrlValue}
           attachParamsToCtrl={attachParamsToCtrl}
@@ -48,18 +48,7 @@ export default function Control({
           setCurrentInput={setCurrentInput}
           setOpenEditModal={setOpenEditModal}
         />
-      ) : ctrl.hidden ? null : (
-        <ControlComponent
-          ctrlObj={ctrl}
-          theme={theme}
-          results={results}
-          updateCtrlValue={updateCtrlValue}
-          attachParamsToCtrl={attachParamsToCtrl}
-          removeCtrl={removeCtrl}
-          setCurrentInput={setCurrentInput}
-          setOpenEditModal={setOpenEditModal}
-        />
-      )}
-    </div>
+      ) : null}
+    </Box>
   );
 }

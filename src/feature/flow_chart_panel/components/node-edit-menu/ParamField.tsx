@@ -1,13 +1,12 @@
-import { Select, TextInput, NumberInput, Checkbox } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-
-export type ParamType = "float" | "int" | "string" | "boolean" | "select";
+import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 type ParamFieldProps = {
   nodeId: string;
   paramId: string;
   functionName: string;
-  type: ParamType;
+  type: ParamValueType;
   value: any;
   options?: string[];
 };
@@ -20,12 +19,13 @@ const ParamField = ({
   value,
   options,
 }: ParamFieldProps) => {
-  const { updateCtrlInputDataForNode } = useFlowChartState();
+  const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const handleChange = (value: string) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
       functionName,
       param: paramId,
       value,
+      valType: type,
     });
   };
   switch (type) {
@@ -60,6 +60,15 @@ const ParamField = ({
       );
     case "select":
       return <Select onChange={handleChange} data={options!} value={value} />;
+    case "unknown":
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
+    default:
+      return <p> There&apos;s something wrong with the paramType </p>;
   }
 };
 
