@@ -6,7 +6,7 @@ export type Settings = {
   key: string;
   type: string;
   group: string;
-  value: any;
+  value: string | number;
 };
 
 const settingsListDefault = atom([
