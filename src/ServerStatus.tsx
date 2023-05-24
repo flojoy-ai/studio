@@ -4,7 +4,6 @@ import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   status: {
-    backgroundColor: theme.colorScheme === "dark" ? "#14131361" : "#58454517",
     fontSize: "14px",
     minHeight: "30px",
     display: "flex",
