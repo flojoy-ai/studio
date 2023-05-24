@@ -60,6 +60,7 @@ initPythonPackages=true
 is_ci=false
 test_ci=false
 initSubmodule=true
+enableSentry=false
 
 
 # creating system links
@@ -157,13 +158,12 @@ do
         shift
         shift
         ;;
-        -P)
-        djangoPort="$2"
-        shift
-        shift
-        ;;
         -c)
         is_ci=true
+        shift
+        ;;
+        -S)
+        enableSentry=true
         shift
         ;;
         -t)
@@ -181,6 +181,8 @@ do
         ;;
     esac
 done
+
+
 
 # checking if flojoy.yaml file exists
 
@@ -346,6 +348,16 @@ $venvCmd && rq info
 echo ''
 
 
+# Setup Sentry env var
+if [ $enableSentry = true ]
+then
+  info_msg "Sentry will be enabled!"
+  export FLOJOY_ENABLE_SENTRY=1
+else
+  info_msg "Sentry will be disabled!"
+  export FLOJOY_ENABLE_SENTRY=0
+fi
+
 cd $CWD
 
 # Checking for YOLOV3 Weights
@@ -361,6 +373,7 @@ fi
 
 sleep 1
 
+
 # start project services
 if [ $test_ci = true ]; then
    start_project_cmd='npm run start-project:ci'
@@ -373,4 +386,3 @@ if [ -n "$venvCmd" ]; then
 else
    $start_project_cmd
 fi
-sleep 1
