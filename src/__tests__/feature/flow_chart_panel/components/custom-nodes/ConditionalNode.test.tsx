@@ -28,15 +28,7 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   return { __esModule: true, default: mockChildren };
 });
 
-jest.mock("@src/hooks/useSocket", () => {
-  return {
-    useSocket: () => ({
-      states: {
-        programResults: {},
-      },
-    }),
-  };
-});
+jest.mock("@src/hooks/useSocket");
 
 describe("ConditionalNode", () => {
   it("checks the snapshot", () => {

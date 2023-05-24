@@ -14,7 +14,6 @@
 //describe("Ctrl Tab management", () => {
 //  it("Should load default flow chart", () => {
 //    cy.on("uncaught:exception", () => false);
-//    // eslint-disable-next-line cypress/no-unnecessary-waiting
 //    cy.visit("/");
 //    cy.get("[data-testid=react-flow]", { timeout: 20000 });
 //    cy.get(`[data-cy="app-status"]`)

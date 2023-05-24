@@ -2,25 +2,319 @@
 
 exports[`FlowChartTabView should render the component correcty 1`] = `
 <div>
-  <div
-    data-testid="react-flow-provider"
-  >
+  <div>
     <div
-      data-rfinstance="[]"
-      data-testid="react-flow"
-      style="height: calc(100vh - 110px);"
+      class="mantine-Text-root mantine-1mkgn9v"
+      data-cy="app-status"
+    >
+      <code>
+        Connecting to server...
+      </code>
+    </div>
+    <header
+      class="mantine-Header-root mantine-ii6m85"
     >
       <div
-        class="mantine-n8y7xk"
-      />
+        class="mantine-1rquoiv"
+      >
+        <h1
+          class="mantine-Text-root mantine-Title-root mantine-1w3t10e"
+        >
+          FLOJOY
+        </h1>
+        <div>
+          SCRIPT
+        </div>
+        <div>
+          CTRLS
+        </div>
+        <div>
+          DEBUG
+        </div>
+      </div>
       <div
-        data-testid="react-flow"
-      />
+        class="mantine-oz64vn"
+      >
+        <div
+          class="mantine-1mo5lls"
+        >
+          <button
+            class="mantine-8mgm8e"
+            data-cy="btn-play"
+            data-testid="btn-play"
+            disabled=""
+            title="Server is offline"
+          >
+            <svg
+              fill="none"
+              height="11"
+              viewBox="0 0 9 11"
+              width="9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
+                fill="#99f5ff"
+              />
+            </svg>
+            <span>
+              Play
+            </span>
+          </button>
+          <div
+            class="mantine-7c7vou"
+            data-cy="dropdown-wrapper"
+            data-testid="dropdown-wrapper"
+          >
+            <button
+              class="mantine-1xqtn3 mantine-gh5nee"
+            >
+              <div
+                class="mantine-Text-root mantine-1tocsax"
+              >
+                File
+              </div>
+              <svg
+                class="tabler-icon tabler-icon-caret-down"
+                fill="#fff"
+                height="14"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 10l6 6l6 -6h-12"
+                />
+              </svg>
+            </button>
+            <div
+              class="mantine-1pnchyc"
+              data-testid="dropdown-container"
+            >
+              <button>
+                Load
+              </button>
+              <button
+                data-cy="btn-save"
+              >
+                Save
+              </button>
+              <button
+                aria-label="Save As"
+                class="disabled"
+                data-cy="btn-saveas"
+                disabled=""
+                style="display: flex; justify-content: space-between; cursor: not-allowed; opacity: 0.5;"
+                title="Save As is not supported in this browser, sorry!"
+              >
+                <div
+                  class="mantine-Text-root mantine-1tocsax"
+                >
+                  Save As
+                </div>
+                <small>
+                  Ctrl + s
+                </small>
+              </button>
+              <button>
+                History
+              </button>
+              <button>
+                Keyboard Shortcut
+              </button>
+              <button>
+                Settings
+              </button>
+              <button>
+                Set API key
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          class="mantine-26x671"
+        >
+          <svg
+            fill="none"
+            height="22"
+            viewBox="0 0 22 22"
+            width="22"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11 14C11.8333 14 12.5417 13.7083 13.125 13.125C13.7083 12.5417 14 11.8333 14 11C14 10.1667 13.7083 9.45833 13.125 8.875C12.5417 8.29167 11.8333 8 11 8C10.1667 8 9.45833 8.29167 8.875 8.875C8.29167 9.45833 8 10.1667 8 11C8 11.8333 8.29167 12.5417 8.875 13.125C9.45833 13.7083 10.1667 14 11 14ZM11 16C9.61667 16 8.43767 15.5123 7.463 14.537C6.48767 13.5623 6 12.3833 6 11C6 9.61667 6.48767 8.43733 7.463 7.462C8.43767 6.48733 9.61667 6 11 6C12.3833 6 13.5627 6.48733 14.538 7.462C15.5127 8.43733 16 9.61667 16 11C16 12.3833 15.5127 13.5623 14.538 14.537C13.5627 15.5123 12.3833 16 11 16ZM1 12C0.716667 12 0.479333 11.904 0.288 11.712C0.096 11.5207 0 11.2833 0 11C0 10.7167 0.096 10.479 0.288 10.287C0.479333 10.0957 0.716667 10 1 10H3C3.28333 10 3.521 10.0957 3.713 10.287C3.90433 10.479 4 10.7167 4 11C4 11.2833 3.90433 11.5207 3.713 11.712C3.521 11.904 3.28333 12 3 12H1ZM19 12C18.7167 12 18.4793 11.904 18.288 11.712C18.096 11.5207 18 11.2833 18 11C18 10.7167 18.096 10.479 18.288 10.287C18.4793 10.0957 18.7167 10 19 10H21C21.2833 10 21.5207 10.0957 21.712 10.287C21.904 10.479 22 10.7167 22 11C22 11.2833 21.904 11.5207 21.712 11.712C21.5207 11.904 21.2833 12 21 12H19ZM11 4C10.7167 4 10.4793 3.904 10.288 3.712C10.096 3.52067 10 3.28333 10 3V1C10 0.716667 10.096 0.479 10.288 0.287C10.4793 0.0956666 10.7167 0 11 0C11.2833 0 11.521 0.0956666 11.713 0.287C11.9043 0.479 12 0.716667 12 1V3C12 3.28333 11.9043 3.52067 11.713 3.712C11.521 3.904 11.2833 4 11 4ZM11 22C10.7167 22 10.4793 21.904 10.288 21.712C10.096 21.5207 10 21.2833 10 21V19C10 18.7167 10.096 18.4793 10.288 18.288C10.4793 18.096 10.7167 18 11 18C11.2833 18 11.521 18.096 11.713 18.288C11.9043 18.4793 12 18.7167 12 19V21C12 21.2833 11.9043 21.5207 11.713 21.712C11.521 21.904 11.2833 22 11 22ZM4.65 6.05L3.575 5C3.375 4.81667 3.279 4.58333 3.287 4.3C3.29567 4.01667 3.39167 3.775 3.575 3.575C3.775 3.375 4.01667 3.275 4.3 3.275C4.58333 3.275 4.81667 3.375 5 3.575L6.05 4.65C6.23333 4.85 6.325 5.08333 6.325 5.35C6.325 5.61667 6.23333 5.85 6.05 6.05C5.86667 6.25 5.63767 6.34567 5.363 6.337C5.08767 6.329 4.85 6.23333 4.65 6.05ZM17 18.425L15.95 17.35C15.7667 17.15 15.675 16.9127 15.675 16.638C15.675 16.3627 15.7667 16.1333 15.95 15.95C16.1333 15.75 16.3627 15.6543 16.638 15.663C16.9127 15.671 17.15 15.7667 17.35 15.95L18.425 17C18.625 17.1833 18.721 17.4167 18.713 17.7C18.7043 17.9833 18.6083 18.225 18.425 18.425C18.225 18.625 17.9833 18.725 17.7 18.725C17.4167 18.725 17.1833 18.625 17 18.425ZM15.95 6.05C15.75 5.86667 15.6543 5.63733 15.663 5.362C15.671 5.08733 15.7667 4.85 15.95 4.65L17 3.575C17.1833 3.375 17.4167 3.279 17.7 3.287C17.9833 3.29567 18.225 3.39167 18.425 3.575C18.625 3.775 18.725 4.01667 18.725 4.3C18.725 4.58333 18.625 4.81667 18.425 5L17.35 6.05C17.15 6.23333 16.9167 6.325 16.65 6.325C16.3833 6.325 16.15 6.23333 15.95 6.05ZM3.575 18.425C3.375 18.225 3.275 17.9833 3.275 17.7C3.275 17.4167 3.375 17.1833 3.575 17L4.65 15.95C4.85 15.7667 5.08767 15.675 5.363 15.675C5.63767 15.675 5.86667 15.7667 6.05 15.95C6.25 16.1333 6.346 16.3627 6.338 16.638C6.32933 16.9127 6.23333 17.15 6.05 17.35L5 18.425C4.81667 18.625 4.58333 18.7207 4.3 18.712C4.01667 18.704 3.775 18.6083 3.575 18.425Z"
+              fill="#FFA927"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <main
+      style="min-height: 85vh;"
+    >
       <div
-        class="mantine-n8y7xk"
-        data-testid="node-modal"
-      />
-    </div>
+        class="top-row"
+        style="display: flex; justify-content: space-between;"
+      >
+        <button
+          class="mantine-b33zvb"
+          data-testid="add-node-button"
+          style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
+        >
+          + Add Node
+        </button>
+        <button
+          class="mantine-1vw9se0"
+          data-testid="clear-canvas-btn"
+          style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
+        >
+          Clear Canvas
+        </button>
+      </div>
+      <nav
+        class="mantine-Navbar-root mantine-r90bv"
+        data-testid="sidebar"
+      >
+        <div
+          class="mantine-khtkeg"
+          style="right: 10px; position: absolute; top: 5px;"
+        >
+          <button
+            data-testid="sidebar-close"
+            style="cursor: pointer;"
+          >
+            <div>
+              <svg
+                fill="none"
+                height="9"
+                viewBox="0 0 9 9"
+                width="9"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8.73258 0.982585C8.78603 0.929203 8.82844 0.865816 8.85739 0.796043C8.88634 0.726271 8.90127 0.651479 8.90132 0.575938C8.90136 0.500398 8.88653 0.425588 8.85766 0.35578C8.8288 0.285972 8.78647 0.222533 8.73309 0.169085C8.6797 0.115637 8.61632 0.0732267 8.54654 0.0442758C8.47677 0.0153248 8.40198 0.000400004 8.32644 0.000353575C8.2509 0.000307145 8.17609 0.01514 8.10628 0.0440052C8.03647 0.0728703 7.97303 0.115202 7.91958 0.168585L4.45058 3.63758L0.982585 0.168585C0.874642 0.0606417 0.728239 -1.13737e-09 0.575585 0C0.42293 1.13737e-09 0.276528 0.0606417 0.168585 0.168585C0.0606417 0.276528 1.13737e-09 0.42293 0 0.575585C-1.13737e-09 0.728239 0.0606417 0.874642 0.168585 0.982585L3.63758 4.45058L0.168585 7.91859C0.115137 7.97203 0.0727396 8.03549 0.0438137 8.10532C0.0148879 8.17515 0 8.25 0 8.32558C0 8.40117 0.0148879 8.47602 0.0438137 8.54585C0.0727396 8.61568 0.115137 8.67914 0.168585 8.73258C0.276528 8.84053 0.42293 8.90117 0.575585 8.90117C0.651172 8.90117 0.726019 8.88628 0.795852 8.85736C0.865685 8.82843 0.929137 8.78603 0.982585 8.73258L4.45058 5.26358L7.91958 8.73258C8.02753 8.84039 8.17388 8.90091 8.32644 8.90082C8.479 8.90072 8.62527 8.84003 8.73309 8.73208C8.8409 8.62414 8.90141 8.47779 8.90132 8.32523C8.90122 8.17267 8.84053 8.0264 8.73258 7.91859L5.26358 4.45058L8.73258 0.982585Z"
+                  fill="#99f5ff"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
+        <div
+          class="mantine-khtkeg"
+        >
+          <div
+            class="mantine-Input-wrapper mantine-1risvgw"
+          >
+            <div
+              class="mantine-1a5b1k mantine-Input-icon"
+            >
+              <svg
+                class="tabler-icon tabler-icon-search"
+                fill="none"
+                height="18"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"
+                />
+                <path
+                  d="M21 21l-6 -6"
+                />
+              </svg>
+            </div>
+            <input
+              aria-invalid="false"
+              class="mantine-Input-input mantine-e063mj"
+              data-testid="sidebar-input"
+              data-with-icon="true"
+              name="sidebar-input"
+              placeholder="Search"
+              type="search"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="mantine-khtkeg"
+        >
+          <div
+            style="display: flex; justify-content: center;"
+          >
+            <button
+              class="mantine-4wxm47"
+            >
+              <a
+                class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
+                href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+                style="text-decoration: none;"
+                target="_blank"
+              >
+                <span
+                  class="mantine-vt08jf"
+                >
+                  Request a Node
+                </span>
+              </a>
+            </button>
+          </div>
+        </div>
+        <div
+          class="mantine-ScrollArea-root mantine-64qz2l"
+          dir="ltr"
+          style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
+        >
+          <style>
+            [data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}
+          </style>
+          <div
+            class="mantine-b6zkvl mantine-ScrollArea-viewport"
+            data-radix-scroll-area-viewport=""
+            style="overflow-x: scroll; overflow-y: scroll;"
+          >
+            <div
+              style="min-width: 100%; display: table;"
+            >
+              <div
+                class="mantine-6km1t0"
+                data-testid="sidebar-sections"
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div
+        data-testid="react-flow-provider"
+      >
+        <div
+          data-rfinstance="[{"width":150,"height":135,"id":"LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce","type":"default","data":{"id":"LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce","label":"LINSPACE","func":"LINSPACE","type":"SIMULATION","ctrls":{"start":{"functionName":"LINSPACE","param":"start","value":"10"},"end":{"functionName":"LINSPACE","param":"end","value":"0"},"step":{"functionName":"LINSPACE","param":"step","value":"1000"}},"selected":false},"position":{"x":-232.8571428571429,"y":321.9999999999999},"selected":false,"positionAbsolute":{"x":-232.8571428571429,"y":321.9999999999999},"dragging":true},{"width":115,"height":115,"id":"SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd","type":"SIMULATION","data":{"id":"SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd","label":"SINE","func":"SINE","type":"SIMULATION","ctrls":{"frequency":{"functionName":"SINE","param":"frequency","value":"1"},"offset":{"functionName":"SINE","param":"offset","value":"0"},"amplitude":{"functionName":"SINE","param":"amplitude","value":"1"},"phase":{"functionName":"SINE","param":"phase","value":"0"},"waveform":{"functionName":"SINE","param":"waveform","value":"sine"}},"selected":false},"position":{"x":198.57142857142856,"y":114.71428571428572},"selected":false,"positionAbsolute":{"x":198.57142857142856,"y":114.71428571428572},"dragging":true},{"width":115,"height":115,"id":"RAND-434f7314-f239-4e7d-a9c6-629529db1d82","type":"SIMULATION","data":{"id":"RAND-434f7314-f239-4e7d-a9c6-629529db1d82","label":"RAND","func":"RAND","type":"SIMULATION","ctrls":{},"selected":false},"position":{"x":193.28571428571428,"y":329.57142857142867},"selected":false,"positionAbsolute":{"x":193.28571428571428,"y":329.57142857142867},"dragging":true},{"width":115,"height":115,"id":"CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6","type":"SIMULATION","data":{"id":"CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6","label":"2.0","func":"CONSTANT","type":"SIMULATION","ctrls":{"constant":{"functionName":"CONSTANT","param":"constant","value":"2.0"}},"selected":false},"position":{"x":197.85714285714286,"y":543.2857142857143},"selected":false,"positionAbsolute":{"x":197.85714285714286,"y":543.2857142857143},"dragging":true},{"width":99,"height":115,"id":"MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766","type":"ARITHMETIC","data":{"id":"MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766","label":"MULTIPLY","func":"MULTIPLY","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"multiply_y","type":"target"}],"selected":false},"position":{"x":497.1428571428571,"y":161.71428571428567},"selected":false,"positionAbsolute":{"x":497.1428571428571,"y":161.71428571428567},"dragging":true},{"width":99,"height":115,"id":"ADD-a586b5d7-4343-430d-89ce-3c2a3d156695","type":"ARITHMETIC","data":{"id":"ADD-a586b5d7-4343-430d-89ce-3c2a3d156695","label":"ADD","func":"ADD","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"add_y","type":"target"}],"selected":false},"position":{"x":721.1428571428571,"y":336.5714285714285},"selected":false,"positionAbsolute":{"x":721.1428571428571,"y":336.5714285714285},"dragging":true},{"width":250,"height":159,"id":"SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6","type":"PLOTLY_VISOR","data":{"id":"SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6","label":"SCATTER","func":"SCATTER","type":"PLOTLY_VISOR","ctrls":{},"selected":false},"position":{"x":1045.5714285714287,"y":461.4285714285715},"selected":false,"positionAbsolute":{"x":1045.5714285714287,"y":461.4285714285715},"dragging":true},{"width":250,"height":159,"id":"HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f","type":"PLOTLY_VISOR","data":{"id":"HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f","label":"HISTOGRAM","func":"HISTOGRAM","type":"PLOTLY_VISOR","ctrls":{},"selected":true},"position":{"x":1036.5714285714287,"y":91.57142857142856},"selected":true,"positionAbsolute":{"x":1036.5714285714287,"y":91.57142857142856},"dragging":true},{"width":150,"height":135,"id":"END-06a4da40-a0ae-44ad-873b-9b65d096880a","type":"TERMINATOR","data":{"id":"END-06a4da40-a0ae-44ad-873b-9b65d096880a","label":"END","func":"END","type":"TERMINATOR","ctrls":{},"selected":false},"position":{"x":1515.0000000000002,"y":309.7142857142858},"selected":false,"positionAbsolute":{"x":1515.0000000000002,"y":309.7142857142858},"dragging":true}]"
+          data-testid="react-flow"
+          style="height: calc(100vh - 110px);"
+        >
+          <div
+            class="mantine-n8y7xk"
+          />
+          <div
+            data-testid="react-flow"
+          />
+          <div
+            class="mantine-n8y7xk"
+            data-testid="node-modal"
+          />
+        </div>
+      </div>
+    </main>
   </div>
   ,
 </div>

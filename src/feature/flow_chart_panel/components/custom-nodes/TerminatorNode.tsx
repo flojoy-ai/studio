@@ -1,9 +1,9 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, clsx, createStyles } from "@mantine/core";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
-import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { useEffect } from "react";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 
 const useStyles = createStyles((theme) => {
@@ -17,17 +17,8 @@ const useStyles = createStyles((theme) => {
 const TerminatorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
 
   return (
     <NodeWrapper data={data}>
@@ -65,4 +56,4 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default TerminatorNode;
+export default memo(TerminatorNode);
