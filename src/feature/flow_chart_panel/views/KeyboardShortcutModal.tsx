@@ -1,5 +1,5 @@
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
-import { createStyles, useMantineTheme, Modal, Button } from "@mantine/core";
+import { createStyles, Modal, Button } from "@mantine/core";
+import { memo } from "react";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
@@ -129,7 +129,7 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
   );
 };
 
-export default KeyboardShortcutModal;
+export default memo(KeyboardShortcutModal);
 
 const platforms = [
   { title: "Windows", key: "windows" },
@@ -225,7 +225,7 @@ const keyboardShortcuts = [
     command: "Delete",
     platforms: {
       windows: "Ctrl D",
-      macOs: "⌘ D",
+      macOs: "Backspace",
     },
   },
 ];

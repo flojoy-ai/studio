@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useWindowSize } from "react-use";
 import { ResultIO } from "../results_panel/types/ResultsType";
-
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 const defaultPythonFnLabel = "PYTHON FUNCTION";
 const defaultPythonFnType = "PYTHON FUNCTION TYPE";
+
 export function useFlowChartTabState() {
   const { width } = useWindowSize();
   const [modalIsOpen, setIsModalOpen] = useState(false);
@@ -11,23 +13,16 @@ export function useFlowChartTabState() {
   const [nodeLabel, setNodeLabel] = useState(defaultPythonFnLabel);
   const [nodeType, setNodeType] = useState(defaultPythonFnType);
   const [pythonString, setPythonString] = useState("...");
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const afterOpenModal = () => null;
+  const { setIsExpandMode } = useFlowChartState();
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsExpandMode(false);
   };
 
   return {
     windowWidth: width,
     modalIsOpen,
     setIsModalOpen,
-    openModal,
-    afterOpenModal,
     closeModal,
     nd,
     setNd,

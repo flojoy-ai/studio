@@ -14,7 +14,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from . import routing
 from channels.auth import AuthMiddlewareStack
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "djangoServer.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 
 application = ProtocolTypeRouter(
     {

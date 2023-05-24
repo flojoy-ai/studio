@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export function useControlsTabEffects() {
-  const { setCtrlsManifest, rfInstance } = useFlowChartState();
+  const { setCtrlsManifest } = useFlowChartState();
+  const { nodes } = useFlowChartGraph();
 
   useEffect(() => {
-    if (rfInstance?.nodes.length === 0) {
+    if (nodes.length === 0) {
       setCtrlsManifest([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rfInstance?.nodes]);
+  }, [nodes]);
 }

@@ -1,4 +1,6 @@
 import { createStyles } from "@mantine/core";
+import { SetStateAction } from "jotai";
+import { Dispatch } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -12,13 +14,18 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-export const AddNodeBtn = ({ setSCRIPTSideBarStatus, isSCRIPTSideBarOpen }) => {
+type AddNodeBtnProps = {
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export const AddNodeBtn = ({ setIsSidebarOpen }: AddNodeBtnProps) => {
   const { classes } = useStyles();
+
   return (
     <button
       data-testid="add-node-button"
       className={classes.addButton}
-      onClick={() => setSCRIPTSideBarStatus(!isSCRIPTSideBarOpen)}
+      onClick={() => setIsSidebarOpen((prev) => !prev)}
       style={{
         width: "fit-content",
         height: "43px",

@@ -25,7 +25,13 @@ export const useSidebarStyles = createStyles((theme) => ({
   },
 }));
 
-const SidebarSection = ({ title, content, depth }) => {
+type SidebarSectionProps = {
+  title: string;
+  content: React.ReactNode;
+  depth: number;
+};
+
+const SidebarSection = ({ title, content, depth }: SidebarSectionProps) => {
   const [opened, setOpened] = useState(false);
   const { classes, theme } = useSidebarStyles();
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;

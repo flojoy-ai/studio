@@ -40,12 +40,12 @@ jest.mock("@src/services/FlowChartServices", () => {
 });
 
 describe("FlowChartTabState", () => {
-  it("should call useEffect 4 times", () => {
+  it("should call useEffect 3 times", () => {
     const { rerender } = renderHook(() => useFlowChartTabEffects(params));
 
     const spy = jest.spyOn(React, "useEffect");
     rerender();
-    expect(spy).toHaveBeenCalledTimes(4);
+    expect(spy).toHaveBeenCalledTimes(3);
   });
   it("checks if the function is called", () => {
     const { rerender } = renderHook(() => useFlowChartTabEffects(params));

@@ -2,7 +2,7 @@ import { Navbar, ScrollArea, Input } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 
 import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
@@ -63,6 +63,10 @@ const useSidebarStyles = createStyles((theme) => ({
     cursor: "pointer",
     margin: "5px 5px",
   },
+
+  searchBox: {
+    marginTop: 30,
+  },
 }));
 
 type SidebarCustomProps = {
@@ -74,7 +78,7 @@ type SidebarCustomProps = {
   customContent?: JSX.Element;
 };
 
-export const SidebarCustom = ({
+const Sidebar = ({
   isSideBarOpen,
   setSideBarStatus,
   sections,
@@ -95,7 +99,7 @@ export const SidebarCustom = ({
       );
     }
 
-    let content: any;
+    let content: JSX.Element[];
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
@@ -219,10 +223,7 @@ export const SidebarCustom = ({
           icon={<IconSearch size={18} />}
           radius="sm"
           type="search"
-          style={{
-            marginTop: "30px",
-            background: "inherit",
-          }}
+          className={classes.searchBox}
           value={textInput}
           onChange={(e) => handleChangeInput(e.target.value)}
         />
@@ -236,3 +237,5 @@ export const SidebarCustom = ({
     </Navbar>
   );
 };
+
+export default memo(Sidebar);

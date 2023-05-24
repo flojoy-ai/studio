@@ -3,6 +3,7 @@
 exports[`ArithmeticNode checks the snapshot 1`] = `
 <div>
   <div
+    class="mantine-n8y7xk"
     data-testid="node-wrapper"
   >
     <div
