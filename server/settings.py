@@ -7,7 +7,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-if os.environ.get("FLOJOY_ENABLE_SENTRY"):
+if os.environ.get("FLOJOY_ENABLE_SENTRY") == "1":
     sentry_sdk.init(
         dsn="https://855ed5fed1d54d0facd709a1878377e7@o4504914175131648.ingest.sentry.io/4504914176901120",
         integrations=[
