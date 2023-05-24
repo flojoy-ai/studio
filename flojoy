@@ -130,9 +130,11 @@ helpFunction()
    echo ""
    echo "Usage: $0 -n -p -r -v venv-path"
    echo  " -r: shuts down existing Redis server and spins up a fresh one"
-   echo  " -v: path to a virtualenv"
-   echo  " -n: To not install npm packages"
-   echo  " -p: To not install python packages"
+   echo  " -v: path to a Python virtual environment"
+   echo  " -n: To NOT install npm packages"
+   echo  " -p: To NOT install python packages"
+   echo  " -s: To NOT update submodules"
+   echo  " -S: Enable Sentry"
    echo 1 # Exit script after printing help
 }
 
