@@ -44,8 +44,10 @@ console.log(" nd: ", nd)
             <PlotlyComponent
               id={nd.id}
               data={makePlotlyData(nd.result.default_fig.data, theme)}
-              layout={
-                {
+              layout={{
+                ...nd.result.default_fig.layout,
+                title: nd.result.default_fig.layout?.title || nodeLabel,
+                ... {
                   "autosize": false,
                   "height": 180,
                   "hovermode": "closest",
@@ -64,10 +66,7 @@ console.log(" nd: ", nd)
                   },
         
               }
-                // "layout" in nd.result.default_fig
-                //   ? Object.assign({}, defaultLayout)
-                //   : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
-              }
+              }}
               useResizeHandler
               style={{
                 height: 635,

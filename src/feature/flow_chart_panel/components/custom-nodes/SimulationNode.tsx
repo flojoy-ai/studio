@@ -2,7 +2,7 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles } from "@mantine/core";
-import { useEffect } from "react";
+import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 
@@ -30,17 +30,8 @@ const useStyles = createStyles((theme) => {
 const SimulationNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
 
   let selectShadow = "";
   if (runningNode === data.id || data.selected) {
@@ -82,4 +73,4 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default SimulationNode;
+export default memo(SimulationNode);

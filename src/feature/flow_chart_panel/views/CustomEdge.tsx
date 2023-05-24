@@ -1,6 +1,4 @@
 import { useMantineColorScheme } from "@mantine/core";
-import { useColorScheme } from "@mantine/hooks";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { FC } from "react";
 import { EdgeProps, getBezierPath, getMarkerEnd, MarkerType } from "reactflow";
 

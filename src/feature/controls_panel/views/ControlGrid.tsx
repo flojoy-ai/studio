@@ -36,11 +36,11 @@ export default function ControlGrid({
       className="layout"
       layouts={{ lg: gridLayout, md: gridLayout, sm: gridLayout }}
       cols={{ lg: 8, md: 8, sm: 6, xs: 4, xxs: 2 }}
-      onLayoutChange={(currentLayout, allLayout) => {
+      onLayoutChange={(currentLayout) => {
         setGridLayout(currentLayout);
       }}
     >
-      {ctrlsManifest.map((ctrl, i) => {
+      {ctrlsManifest.map((ctrl) => {
         if (ctrl.hidden && !isEditMode) {
           return (
             <div
