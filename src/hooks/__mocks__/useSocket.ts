@@ -7,6 +7,7 @@ module.exports = {
       setProgramResults: jest.fn(),
       failureReason: "test error",
       failedNode: "node-123",
+      programResults: {},
     },
   })),
 };

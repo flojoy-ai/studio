@@ -45,7 +45,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
 ]
 
-ROOT_URLCONF = "djangoServer.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -63,9 +63,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "djangoServer.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
-ASGI_APPLICATION = "djangoServer.asgi.application"
+ASGI_APPLICATION = "server.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {

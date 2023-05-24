@@ -1,5 +1,5 @@
 import { Box, clsx, createStyles } from "@mantine/core";
-import { useEffect } from "react";
+import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
@@ -61,17 +61,8 @@ export const useNodeStyles = createStyles((theme) => {
 
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
-  const { runningNode, failedNode, setNodes, nodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
 
   return (
     <NodeWrapper data={data}>
@@ -103,4 +94,4 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default DefaultNode;
+export default memo(DefaultNode);

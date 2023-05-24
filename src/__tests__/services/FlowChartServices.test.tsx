@@ -81,7 +81,7 @@ describe("FlowChartServices", () => {
       const fetchSpy = jest.spyOn(global, "fetch");
 
       //When
-      saveAndRunFlowChartInServer(param);
+      saveAndRunFlowChartInServer(param.jobsetId, param.rfInstance);
       //Expect
       expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams);
     });
@@ -99,7 +99,10 @@ describe("FlowChartServices", () => {
         .mockImplementation(() => Promise.resolve(testResponse) as any);
       try {
         //When
-        const data = await saveAndRunFlowChartInServer(param);
+        const data = await saveAndRunFlowChartInServer(
+          param.jobsetId,
+          param.rfInstance
+        );
       } catch (error) {
         //Expect
         expect(error).toBeInstanceOf(CustomModule.CustomError); //https://jestjs.io/docs/tutorial-async#error-handling

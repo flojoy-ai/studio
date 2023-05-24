@@ -1,5 +1,6 @@
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import type { PlotType, PlotData } from "plotly.js";
+import type { PlotData, PlotType } from "plotly.js";
+import { Result, ResultIO } from "@src/feature/results_panel/types/ResultsType";
+
 export interface CtrlOptionValue {
   id: string;
   functionName: string;
@@ -27,5 +28,5 @@ export interface PlotControlOptions {
 
 export interface NodeInputOptions {
   label: string;
-  value: any; // ResultIO['result']
+  value: Result; // ResultIO['result']
 }

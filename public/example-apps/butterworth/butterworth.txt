@@ -66,6 +66,11 @@
                             "param": "amplitude",
                             "value": 1
                         },
+                        "phase": {
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0.0
+                        },
                         "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
@@ -109,6 +114,11 @@
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 1
+                        },
+                        "phase": {
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0.0
                         },
                         "waveform": {
                             "functionName": "SINE",
