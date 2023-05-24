@@ -10,6 +10,7 @@ const useStyles = createStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    margin: "0 10px",
   },
 
   tabs: {
