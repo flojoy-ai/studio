@@ -64,7 +64,6 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       ? theme.colors.accent1[0]
       : theme.colors.accent2[0];
 
-
   const plotlyResultData = useMemo(
     () =>
       result
