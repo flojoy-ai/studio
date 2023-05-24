@@ -7,6 +7,11 @@ const useStyles = createStyles((theme) => {
       position: "relative",
     },
     dropdownContainer: {
+      paddingTop: 15,
+      paddingBottom: 15,
+      paddingLeft: 7,
+      paddingRight: 7,
+      borderRadius: 15,
       transition: "all ease 0.5s",
       flexDirection: "column",
       position: "absolute",
@@ -17,7 +22,7 @@ const useStyles = createStyles((theme) => {
       zIndex: -1,
       transform: "translateY(-10%)",
       opacity: 0,
-      backgroundColor: theme.colors.modal[0],
+      backgroundColor: theme.colorScheme === "light" ? "#FFFFFF" : "#111111",
       boxShadow: theme.colorScheme === "light" ? theme.shadows.sm : "none",
       "> button": {
         padding: "8px 12px",
@@ -25,21 +30,21 @@ const useStyles = createStyles((theme) => {
         cursor: "pointer",
         borderRadius: 2,
         fontSize: "14px",
+        fontWeight: "bold",
         textDecoration: "none",
-        background: "transparent",
+        background: theme.colorScheme === "light" ? "#FFFFFF" : "#111111",
         border: "none",
         width: "100%",
         textAlign: "start",
         whiteSpace: "nowrap",
         color:
-          theme.colorScheme === "dark" ? theme.colors.accent1[0] : theme.black,
+          theme.colorScheme === "dark" ? "#FFFFFF" : "#111111",
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? theme.colors.accent1[0]
-            : theme.colors.gray[3],
-        color: theme.black,
+            ? "#1C1B1F"
+            : "#F4F4F4",
       },
     },
   };

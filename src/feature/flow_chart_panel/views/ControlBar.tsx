@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Text,
   clsx,
   createStyles,
@@ -110,7 +111,7 @@ const useStyles = createStyles((theme) => {
       paddingRight: "4px",
     },
     dropDownIcon: {
-      
+      borderRadius: 20
     }
   };
 });
@@ -191,7 +192,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
       {activeTab !== "debug" && (
         <DropDown dropDownBtn={<FileButton />}>
           <button onClick={() => setIsAPIKeyModelOpen(true)} style={{display: "flex", gap: 7.5}}>
-          <FamilyHistoryIconSvg/>Set API key
+          <FamilyHistoryIconSvg size={14} />Set API key
           </button>
           <button onClick={openFileSelector} style={{display: "flex", gap: 11.77}}>
             <LoadIconSvg/>Load
@@ -228,7 +229,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
       )}
 
       {activeTab !== "debug" && (
-        <SettingsButton/>
+      <Button variant="subtle" size="xs" style={{right: 22}}><SettingsIconSvg/></Button>
       )}
 
       <KeyboardShortcutModal
@@ -240,7 +241,7 @@ const Controls = ({ activeTab, setOpenCtrlModal }: ControlsProps) => {
         onClose={() => setIsAPIKeyModelOpen(false)}
       />
     </Box>
-
+    
     
   );
 };
@@ -260,11 +261,3 @@ const FileButton = () => {
     </button>
   );
 };
-const SettingsButton = () => {
-  const theme = useMantineTheme();
-  return (
-    <button>
-      <SettingsIconSvg/>
-    </button>
-  );
-}
