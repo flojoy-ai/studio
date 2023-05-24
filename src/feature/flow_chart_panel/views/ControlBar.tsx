@@ -3,6 +3,7 @@ import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/DropDown";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";
 import {
   cancelFlowChartRun,
@@ -12,17 +13,16 @@ import {
 import CancelIconSvg from "@src/utils/cancel_icon";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { Dispatch, memo, useEffect, useState, useCallback } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
 import { ElementsData } from "../types/CustomNodeProps";
+import APIKeyModal from "./APIKeyModal";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
-import { Settings, useSettings } from "@src/hooks/useSettings";
-import APIKeyModal from "./APIKeyModal";
 
 const useStyles = createStyles((theme) => {
   return {

@@ -22,6 +22,7 @@ const useStyles = createStyles(() => ({
   controlButtons: {
     display: "flex",
     justifyContent: "flex-end",
+    alignItems: "center",
   },
 }));
 

@@ -7,6 +7,7 @@ const useStyles = createStyles(() => ({
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
+    marginRight: 10,
   },
 }));
 
