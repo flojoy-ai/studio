@@ -4,7 +4,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
 <div>
   <div>
     <div
-      class="mantine-Text-root mantine-1mkgn9v"
+      class="mantine-Text-root mantine-1knz4zz"
       data-cy="app-status"
     >
       <code>
@@ -12,7 +12,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       </code>
     </div>
     <header
-      class="mantine-Header-root mantine-ii6m85"
+      class="mantine-Header-root mantine-1qu0neq"
     >
       <div
         class="mantine-1rquoiv"
@@ -154,7 +154,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       </div>
     </header>
     <main
-      style="min-height: 85vh;"
+      style="min-height: calc(100vh - 100px);"
     >
       <div
         data-testid="controls-tab"
@@ -254,7 +254,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           data-testid="control-grid"
         />
         <nav
-          class="mantine-Navbar-root mantine-r90bv"
+          class="mantine-Navbar-root mantine-tqi198"
           data-testid="sidebar"
         >
           <div
