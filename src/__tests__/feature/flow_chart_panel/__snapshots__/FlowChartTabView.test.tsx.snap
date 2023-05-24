@@ -2,9 +2,11 @@
 
 exports[`FlowChartTabView should render the component correcty 1`] = `
 <div>
-  <div>
+  <div
+    class="mantine-1iveypt"
+  >
     <div
-      class="mantine-Text-root mantine-1knz4zz"
+      class="mantine-Text-root mantine-oucrfb"
       data-cy="app-status"
     >
       <code>
@@ -12,7 +14,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       </code>
     </div>
     <header
-      class="mantine-Header-root mantine-1qu0neq"
+      class="mantine-Header-root mantine-24hp65"
     >
       <div
         class="mantine-1rquoiv"
@@ -136,7 +138,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           </div>
         </div>
         <button
-          class="mantine-26x671"
+          class="mantine-1e1m4q8"
         >
           <svg
             fill="none"
