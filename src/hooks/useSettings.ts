@@ -7,44 +7,41 @@ export type Settings = {
   type: string;
   group: string;
   value: any;
-  setValue: any;
 };
 
-const nodeDelayDefault = atom(0);
-const maximumRuntimeDefault = atom(3000);
-const settingsListDefault = atom([{} as Settings]);
+const settingsListDefault = atom([
+  {
+    title: "Node Delay (seconds)",
+    key: "nodeDelay",
+    type: "numerical-input",
+    group: "backend",
+    value: 0.1,
+  },
+  {
+    title: "Maximum Runtime (seconds)",
+    key: "maximumRuntime",
+    type: "numerical-input",
+    group: "backend",
+    value: 3000,
+  },
+]);
 
 export const useSettings = () => {
-  const [nodeDelay, setNodeDelay] = useAtom(nodeDelayDefault);
-  const [maximumRuntime, setMaximumRuntime] = useAtom(maximumRuntimeDefault);
   const [settingsList, setSettingsList] = useAtom(settingsListDefault);
-  useEffect(() => {
-    console.log("here");
-    setSettingsList([
-      {
-        title: "Node Delay (seconds)",
-        key: "nodeDelay",
-        type: "numerical-input",
-        group: "backend",
-        value: nodeDelay,
-        setValue: setNodeDelay,
-      },
-      {
-        title: "Maximum Runtime (seconds)",
-        key: "maximumRuntime",
-        type: "numerical-input",
-        group: "backend",
-        value: maximumRuntime,
-        setValue: setMaximumRuntime,
-      },
-    ]);
-  }, [nodeDelay, maximumRuntime]);
+
+  const updateSettingList = (key: string, value: number) => {
+    setSettingsList((prev) => {
+      return prev.map((setting) => {
+        if (setting.key === key) {
+          return { ...setting, value };
+        }
+        return setting;
+      });
+    });
+  };
 
   return {
-    nodeDelay,
-    setNodeDelay,
-    maximumRuntime,
-    setMaximumRuntime,
     settingsList,
+    updateSettingList,
   };
 };

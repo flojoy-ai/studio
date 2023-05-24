@@ -85,7 +85,7 @@ const useStyles = createStyles((theme) => ({
 
 export const SettingsModal = ({ isOpen, onClose }) => {
   const { classes } = useStyles();
-  const { settingsList } = useSettings();
+  const { settingsList, updateSettingList } = useSettings();
   return (
     <Modal
       data-testid="settings-modal"
@@ -106,9 +106,16 @@ export const SettingsModal = ({ isOpen, onClose }) => {
                   data-testid="settings-input"
                   placeholder="Search"
                   radius="sm"
-                  type="search"
+                  type="text"
                   value={setting.value}
-                  onChange={(e) => setting.setValue(Number(e.target.value))}
+                  onChange={(e) => {
+                    const val = e.target.value;
+
+                    // If the value is an empty string or a valid number, update the state
+                    if (val === "" || (!isNaN(Number(val)) && val !== "")) {
+                      updateSettingList(setting.key, Number(val));
+                    }
+                  }}
                 />
               )}
             </div>
