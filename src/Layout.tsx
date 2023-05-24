@@ -13,9 +13,11 @@ export const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div>
+      {/* The ServerStatus takes 30px */}
       <ServerStatus serverStatus={serverStatus} />
+      {/* The ServerStatus takes 70px */}
       <Header />
-      <main style={{ minHeight: "85vh" }}>{children}</main>
+      <main style={{ minHeight: "calc(100vh - 100px)" }}>{children}</main>
     </div>
   );
 };
