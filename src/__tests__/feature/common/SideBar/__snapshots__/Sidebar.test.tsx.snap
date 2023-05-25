@@ -81,9 +81,6 @@ exports[`Sidebar should render the component correctly 1`] = `
       </div>
     </div>
     <div
-      class="mantine-khtkeg"
-    />
-    <div
       class="mantine-ScrollArea-root mantine-64qz2l"
       dir="ltr"
       style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
