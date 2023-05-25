@@ -23,6 +23,10 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { Settings, useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
+import {
+  sendProgramSavedToMix,
+  sendProgramRunToMix,
+} from "@src/services/MixpanelServices";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -175,6 +179,7 @@ const ControlBar = () => {
 
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      sendProgramSavedToMix(nodes, "disk");
     }
   };
 
@@ -192,7 +197,9 @@ const ControlBar = () => {
         ],
       });
       const writableStream = await handle.createWritable();
-      await writableStream.write(blob);
+      await writableStream
+        .write(blob)
+        .then(() => sendProgramSavedToMix(nodes, "disk"));
       await writableStream.close();
     }
   };

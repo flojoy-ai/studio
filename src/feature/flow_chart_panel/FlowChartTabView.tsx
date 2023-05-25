@@ -36,7 +36,7 @@ import { RequestNode } from "./components/RequestNode";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
-import { CustomNodeProps } from "./types/CustomNodeProps";
+import { CustomNodeProps, ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { sendNodeDeletedToMix } from "@src/services/MixpanelServices";
@@ -163,6 +163,9 @@ const FlowChartTab = () => {
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
+      nodes.forEach((node) => {
+        sendNodeDeletedToMix(node.data.label);
+      });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id))
