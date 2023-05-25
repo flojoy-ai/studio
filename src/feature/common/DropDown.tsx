@@ -1,6 +1,5 @@
 import { Box, createStyles } from "@mantine/core";
 import React, { useRef } from "react";
-
 const useStyles = createStyles((theme) => {
   return {
     dropdownWrapper: {
@@ -22,7 +21,7 @@ const useStyles = createStyles((theme) => {
       zIndex: -1,
       transform: "translateY(-10%)",
       opacity: 0,
-      backgroundColor: theme.colorScheme === "light" ? "#FFFFFF" : "#111111",
+      backgroundColor: theme.colors.modal[1],
       boxShadow: theme.colorScheme === "light" ? theme.shadows.sm : "none",
       "> button": {
         padding: "8px 12px",
@@ -32,32 +31,28 @@ const useStyles = createStyles((theme) => {
         fontSize: "14px",
         fontWeight: "bold",
         textDecoration: "none",
-        background: theme.colorScheme === "light" ? "#FFFFFF" : "#111111",
+        background: theme.colors.modal[1],
         border: "none",
         width: "100%",
         textAlign: "start",
         whiteSpace: "nowrap",
-        color:
-          theme.colorScheme === "dark" ? "#FFFFFF" : "#111111",
+        color: theme.colors.title[0],
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? "#1C1B1F"
-            : "#F4F4F4",
+            ? theme.colors.dark[5]
+            : theme.colors.modal[0],
       },
     },
   };
 });
-
 interface DropDownProps {
   children: React.ReactNode;
   dropDownBtn: React.ReactNode;
 }
-
 const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
   const { classes } = useStyles();
-
   const DropDownElem = useRef<HTMLDivElement>(null);
   const openDropDown = () => {
     if (DropDownElem.current) {
@@ -93,5 +88,4 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
     </Box>
   );
 };
-
 export default DropDown;
