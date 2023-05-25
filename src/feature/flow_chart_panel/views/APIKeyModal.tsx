@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     gap: 43,
-    height: 200,
+    height: 202,
     width: "100%",
     backgroundColor: theme.colors.modal[1],
     borderRadius: 17,
