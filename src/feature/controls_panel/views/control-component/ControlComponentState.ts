@@ -15,10 +15,9 @@ import {
   PlotControlOptions,
 } from "../../types/ControlOptions";
 
-import { Data } from "plotly.js";
-import { useMantineColorScheme } from "@mantine/styles";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: (
@@ -35,11 +34,12 @@ const ControlComponentState = ({
 }: ControlComponentStateProps) => {
   const {
     rfInstance: flowChartObject,
-    nodes,
     ctrlsManifest,
     setGridLayout,
     isEditMode,
   } = useFlowChartState();
+
+  const { nodes } = useFlowChartGraph();
 
   const [selectOptions, setSelectOptions] = useState<ControlOptions[]>([]);
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
@@ -59,17 +59,17 @@ const ControlComponentState = ({
   const [selectedPlotOption, setSelectedPlotOption] = useState<
     PlotControlOptions | undefined
   >(undefined);
-  const theme = useMantineColorScheme().colorScheme;
+
   const styledLayout = usePlotLayout();
 
   const inputNodeId = (ctrlObj?.param as CtrlManifestParam)?.nodeId;
   const inputNode = nodes.find((e) => e.id === inputNodeId);
-  const ctrls: ElementsData["ctrls"] = inputNode?.data?.ctrls!;
+  const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
   const fnParams =
-    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)!?.functionName] ||
+    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
-  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param!];
+  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
   const defaultValue =
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val
@@ -99,7 +99,6 @@ const ControlComponentState = ({
       }
       updateCtrlValue(file.name, ctrlObj, "string");
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plainFiles]);
 
   return {

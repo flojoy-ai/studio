@@ -3,14 +3,14 @@
 exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <button
-    class="mantine-b33zvb"
+    class="mantine-ili2si"
     data-testid="add-node-button"
-    style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
+    style="height: 43px; left: 10px; top: 110px; margin: 10px;"
   >
     + Add Node
   </button>
   <nav
-    class="mantine-Navbar-root mantine-r90bv"
+    class="mantine-Navbar-root mantine-tqi198"
     data-testid="sidebar"
   >
     <div
@@ -43,8 +43,7 @@ exports[`Sidebar should render the component correctly 1`] = `
       class="mantine-khtkeg"
     >
       <div
-        class="mantine-Input-wrapper mantine-1v7s5f8"
-        style="margin-top: 30px;"
+        class="mantine-Input-wrapper mantine-1risvgw"
       >
         <div
           class="mantine-1a5b1k mantine-Input-icon"

@@ -1,33 +1,26 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, Text, clsx } from "@mantine/core";
 import { useSocket } from "@src/hooks/useSocket";
-import { useEffect, useState } from "react";
-import NodeWrapper from "../NodeWrapper";
-import { Box, clsx, Text } from "@mantine/core";
+import { memo, useEffect, useState } from "react";
 import { useNodeStyles } from "../DefaultNode";
+import NodeWrapper from "../NodeWrapper";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
-  const { states } = useSocket();
-  const { programResults } = states!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const isLoopInfoExist = () => {
     const isExist = Object.keys(additionalInfo).find(
-      (value, _) => value === data.id
+      (value) => value === data.id
     );
     return isExist && data.func === "LOOP";
   };
@@ -40,7 +33,10 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
     : 0;
 
   useEffect(() => {
-    if (programResults?.io?.length! > 0) {
+    if (
+      programResults?.io?.length !== undefined &&
+      programResults?.io?.length > 0
+    ) {
       let programAdditionalInfo = {};
 
       const results = programResults?.io;
@@ -125,4 +121,4 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default ConditionalNode;
+export default memo(ConditionalNode);

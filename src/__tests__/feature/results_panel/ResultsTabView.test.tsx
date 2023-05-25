@@ -27,13 +27,15 @@ jest.mock("react-use", () => ({
   useWindowSize: jest.fn(() => ({ width: 1024, height: 768 })),
 }));
 
+jest.mock("@src/hooks/useSocket");
+
 describe("ResultsTab component", () => {
   const results: ResultsType = {
     io: [],
   };
 
   it("renders the ResultsTab component", () => {
-    renderWithTheme(<ResultsTab results={results} />);
+    renderWithTheme(<ResultsTab />);
 
     const reactFlowComponent = screen.getByTestId("results-flow");
     expect(reactFlowComponent).toBeInTheDocument();
