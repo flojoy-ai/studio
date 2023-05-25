@@ -1,7 +1,8 @@
+import { Box } from "@mantine/core";
+import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "../types/CustomNodeProps";
 import { Node, useOnSelectionChange } from "reactflow";
-import { useEffect } from "react";
+import { ElementsData } from "../types/CustomNodeProps";
 import NodeModal from "./NodeModal";
 import { Box } from "@mantine/core";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
@@ -52,6 +53,7 @@ export const NodeExpandMenu = ({
           clickedElement={clickedElement}
           pythonString={pythonString}
           nodeFileName={nodeFileName}
+          data-testid="expand-menu"
         />
       )}
     </Box>

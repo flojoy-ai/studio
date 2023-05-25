@@ -15,16 +15,19 @@ export const NOISY_SINE = {
             functionName: "LINSPACE",
             param: "start",
             value: "10",
+            valType: "float"
           },
           end: {
             functionName: "LINSPACE",
             param: "end",
             value: "0",
+            valType: "float"
           },
           step: {
             functionName: "LINSPACE",
             param: "step",
             value: "1000",
+            valType: "int"
           },
         },
       },
@@ -54,26 +57,31 @@ export const NOISY_SINE = {
             functionName: "SINE",
             param: "frequency",
             value: "1",
+            valType: "float",
           },
           offset: {
             functionName: "SINE",
             param: "offset",
             value: "0",
+            valType: "float"
           },
           amplitude: {
             functionName: "SINE",
             param: "amplitude",
             value: "1",
+            valType: "float",
           },
           phase: {
             functionName: "SINE",
             param: "phase",
             value: "0",
+            valType: "float"
           },
           waveform: {
             functionName: "SINE",
             param: "waveform",
             value: "sine",
+            valType: "select"
           },
         },
       },
@@ -126,6 +134,7 @@ export const NOISY_SINE = {
             functionName: "CONSTANT",
             param: "constant",
             value: "2.0",
+            valType: "float",
           },
         },
       },
@@ -370,16 +379,19 @@ export const LOOP_APP = {
             functionName: "LINSPACE",
             param: "start",
             value: 1,
+            valType: "float",
           },
           LINSPACE_LINSPACE_end: {
             functionName: "LINSPACE",
             param: "end",
             value: 14,
+            valType: "float",
           },
           LINSPACE_LINSPACE_step: {
             functionName: "LINSPACE",
             param: "step",
             value: 3,
+            valType: "int",
           },
         },
       },
@@ -400,14 +412,17 @@ export const LOOP_APP = {
           LOOP_LOOP_initial_count: {
             value: 0,
             param: "initial_count",
+            valType: "int",
           },
           LOOP_LOOP_iteration_count: {
             value: 2,
             param: "iteration_count",
+            valType: "int",
           },
           LOOP_LOOP_step: {
             value: 1,
             param: "step",
+            valType: "int",
           },
         },
         inputs: [
@@ -627,6 +642,7 @@ export const CONDITIONAL = {
             functionName: "CONSTANT",
             param: "constant",
             value: "3",
+            valType: "float",
           },
         },
       },
@@ -648,6 +664,7 @@ export const CONDITIONAL = {
             functionName: "CONSTANT",
             param: "constant",
             value: "4",
+            valType: "float",
           },
         },
       },
@@ -668,6 +685,7 @@ export const CONDITIONAL = {
           CONDITIONAL_CONDITIONAL_operator_type: {
             param: "operator_type",
             value: ">",
+            valType: "string",
           },
         },
         inputs: [
@@ -726,6 +744,7 @@ export const CONDITIONAL = {
           TIMER_TIMER_sleep_time: {
             param: "sleep_time",
             value: 3,
+            valType: "int",
           },
         },
       },
@@ -861,16 +880,19 @@ export const OBJECT_DETECTION = {
             functionName: "LOCAL_FILE",
             param: "file_type",
             value: "image",
+            valType: "string",
           },
           LOCAL_FILE_file_op_type: {
             functionName: "LOCAL_FILE",
             param: "op_type",
             value: "OD",
+            valType: "string",
           },
           LOCAL_FILE_file_path: {
             functionName: "LOCAL_FILE",
             param: "path",
             value: "",
+            valType: "string",
           },
         },
       },

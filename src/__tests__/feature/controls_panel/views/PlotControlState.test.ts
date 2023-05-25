@@ -17,7 +17,16 @@ describe("Testing PlotControl States", () => {
       const testInputOptions: NodeInputOptions[] = [
         {
           label: "My chart",
-          value: "Some Value",
+          value: {
+            data: {
+              type: "ordered_pair",
+              x: [1, 2, 3],
+              y: [1, 2, 3],
+            },
+            default_fig: {
+              data: [{}],
+            },
+          },
         },
       ];
 

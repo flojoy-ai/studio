@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import Plot, { PlotParams } from "react-plotly.js";
 import { PlotData } from "plotly.js";
+import usePlotLayout from "./usePlotLayout";
 
 export type OverridePlotData = Array<
   Partial<PlotData> & {
@@ -24,8 +25,10 @@ type PlotProps = {
   isThumbnail?: boolean;
 } & Omit<PlotParams, "data">;
 
+// TODO: Why does this rerender constantly after first run?
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
+  const defaultPlotLayout = usePlotLayout();
 
   useEffect(() => {
     if (!window) {
@@ -35,15 +38,15 @@ const PlotlyComponent = (props: PlotProps) => {
       ...(window as any).plotlyOutput,
       [id]: { data },
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
+
   return (
     <Plot
       data={data}
       layout={{
         ...layout,
+        ...defaultPlotLayout,
         showlegend: !isThumbnail,
-        ...(data[0]?.title?.text && { title: "" }),
       }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false }}

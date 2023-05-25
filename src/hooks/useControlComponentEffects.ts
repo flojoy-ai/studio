@@ -28,7 +28,7 @@ const useControlComponentEffects = ({
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
-        ? selectOptions?.find((option) => option.value === ctrlObj?.param)!
+        ? selectOptions?.find((option) => option.value === ctrlObj?.param)
         : selectOptions?.find((option) => {
             return (
               (option.value as CtrlOptionValue).id ===
@@ -36,7 +36,7 @@ const useControlComponentEffects = ({
               (option.value as CtrlOptionValue).nodeId ===
                 (ctrlObj?.param as CtrlManifestParam)?.nodeId
             );
-          })!
+          })
     );
   }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
 
@@ -46,7 +46,6 @@ const useControlComponentEffects = ({
       setTextInput("");
       setSliderInput("0");
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
   useEffect(() => {
     if (ctrls) {
@@ -55,8 +54,6 @@ const useControlComponentEffects = ({
     } else {
       setCurrentInputValue(defaultValue as number);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrls, ctrlObj, selectedOption]);
   // Filter attached node result from all node results
   useEffect(() => {
@@ -64,8 +61,8 @@ const useControlComponentEffects = ({
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
       if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io!.reverse();
+        if (results && results.io) {
+          const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];
@@ -79,10 +76,10 @@ const useControlComponentEffects = ({
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
-      if (flowChartObject!?.nodes !== undefined) {
-        flowChartObject!.nodes.forEach((node) => {
-          const nodeLabel = node.data!.label;
-          const nodeFunctionName = node.data!.func;
+      if (flowChartObject?.nodes !== undefined) {
+        flowChartObject.nodes.forEach((node) => {
+          const nodeLabel = node.data.label;
+          const nodeFunctionName = node.data.func;
           const params = FUNCTION_PARAMETERS[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
@@ -109,9 +106,9 @@ const useControlComponentEffects = ({
         });
       }
     } else if (ctrlObj.type === ControlTypes.Output) {
-      if (flowChartObject!?.nodes !== undefined) {
-        flowChartObject!.nodes.forEach((node) => {
-          const label = `Visualize node: ${node.data!.label} (#${node.id.slice(
+      if (flowChartObject?.nodes) {
+        flowChartObject.nodes.forEach((node) => {
+          const label = `Visualize node: ${node.data.label} (#${node.id.slice(
             -5
           )})`;
           setSelectOptions((prev) => [
@@ -124,7 +121,6 @@ const useControlComponentEffects = ({
     return () => {
       setSelectOptions([]);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj, flowChartObject?.nodes, ctrlObj?.type]);
 
   // Filter attached node result from all node results
@@ -133,8 +129,8 @@ const useControlComponentEffects = ({
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj?.param;
       if (nodeIdToPlot) {
-        if (results && "io" in results) {
-          const runResults = results.io!.reverse();
+        if (results && results.io) {
+          const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id
           )[0];
@@ -144,7 +140,6 @@ const useControlComponentEffects = ({
     } catch (e) {
       console.error(e);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlObj.param, results.io, selectedOption]);
 };
 

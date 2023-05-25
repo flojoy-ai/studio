@@ -1,50 +1,60 @@
-import { useCallback, useEffect, useMemo } from "react";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  ConnectionLineType,
+  EdgeTypes,
+  NodeDragHandler,
+  NodeTypes,
+  OnConnect,
+  OnEdgesChange,
+  OnInit,
+  OnNodesChange,
+  OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
   addEdge,
-  ConnectionLineType,
-  OnNodesChange,
-  applyNodeChanges,
   applyEdgeChanges,
-  OnEdgesChange,
-  OnConnect,
-  NodeTypes,
-  EdgeTypes,
-  OnInit,
-  NodeMouseHandler,
-  NodeDragHandler,
-  OnNodesDelete,
+  applyNodeChanges,
 } from "reactflow";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
-import usePlotLayout from "../common/usePlotLayout";
-import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
-import NodeModal from "./views/NodeModal";
-import { FlowChartProps } from "./types/FlowChartProps";
-import { useFlowChartTabState } from "./FlowChartTabState";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { AddNodeBtn } from "@src/AddNodeBtn";
+import { Layout } from "@src/Layout";
+import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useMantineColorScheme, useMantineTheme } from "@mantine/styles";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useSocket } from "@src/hooks/useSocket";
+import { useSearchParams } from "react-router-dom";
+import { Node } from "reactflow";
+import Sidebar from "../common/Sidebar/Sidebar";
+import usePlotLayout from "../common/usePlotLayout";
+import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { useFlowChartTabState } from "./FlowChartTabState";
+import { RequestNode } from "./components/RequestNode";
+import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
+import { useAddNewNode } from "./hooks/useAddNewNode";
+import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
+import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab = ({
-  results,
-  rfInstance,
-  setRfInstance,
-  clickedElement,
-  setClickedElement,
-}: FlowChartProps) => {
+const FlowChartTab = () => {
+  const [searchParams] = useSearchParams();
+  const [clickedElement] = useState<Node | undefined>(undefined);
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+    useFlowChartState();
+
+  const {
+    states: { programResults },
+  } = useSocket();
+
   const {
     windowWidth,
     modalIsOpen,
@@ -64,21 +74,59 @@ const FlowChartTab = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { isExpandMode, nodes, setNodes, edges, setEdges } =
-    useFlowChartState();
-  const selectedNodes = nodes.filter((n) => n.selected);
-  const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  const {
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    selectedNode,
+    loadFlowExportObject,
+  } = useFlowChartGraph();
 
+  const getNodeFuncCount = useCallback(
+    (func: string) => {
+      console.log(nodes);
+      return nodes.filter((n) => n.data.func === func).length;
+    },
+    [nodes.length]
+  );
+
+  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const sidebarCustomContent = useMemo(() => <RequestNode />, []);
+
+  const handleNodeRemove = useCallback(
+    (nodeId: string) => {
+      setNodes((prev) => prev.filter((node) => node.id !== nodeId));
+      setEdges((prev) =>
+        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+      );
+    },
+    [setNodes, setEdges]
+  );
+
+  // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
     []
   );
-  const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
-
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
-
+  // Attach a callback to each of the custom nodes.
+  // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
+  // Has to be passed through the data prop because passing as a regular prop doesn't work
+  // for whatever reason.
+  const nodeTypes: NodeTypes = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(nodeConfigs).map(([key, CustomNode]) => {
+          return [
+            key,
+            ({ data }: CustomNodeProps) => (
+              <CustomNode data={{ ...data, handleRemove: handleNodeRemove }} />
+            ),
+          ];
+        })
+      ),
+    []
+  );
   const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
@@ -124,6 +172,29 @@ const FlowChartTab = ({
     [setNodes]
   );
 
+  const fetchExampleApp = useCallback(
+    async (fileName: string) => {
+      const res = await fetch(`/example-apps/${fileName}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await res.json();
+      setCtrlsManifest(data.ctrlsManifest);
+      const flow = data.rfInstance;
+      loadFlowExportObject(flow);
+    },
+    [loadFlowExportObject, setCtrlsManifest]
+  );
+
+  useEffect(() => {
+    const filename = searchParams.get("test_example_app");
+    if (filename) {
+      fetchExampleApp(filename);
+    }
+  }, []);
+
   useEffect(() => {
     if (selectedNode === null) {
       return;
@@ -131,8 +202,6 @@ const FlowChartTab = ({
     let nodeFileName =
       selectedNode?.data.label === defaultPythonFnLabel ||
       selectedNode?.data.type === defaultPythonFnType
-        ? "..."
-        : selectedNode?.data.label + ".py";
 
     if (selectedNode.data.func === "CONSTANT") {
       nodeFileName = selectedNode.data.func + ".py";
@@ -147,7 +216,7 @@ const FlowChartTab = ({
 
   useFlowChartTabEffects({
     clickedElement,
-    results,
+    results: programResults,
     closeModal,
     defaultPythonFnLabel,
     defaultPythonFnType,
@@ -165,47 +234,62 @@ const FlowChartTab = ({
     setNodeFileName,
     windowWidth,
   });
+
   return (
-    <ReactFlowProvider>
-      <div
-        style={{ height: "calc(100vh - 110px)" }}
-        data-testid="react-flow"
-        data-rfinstance={JSON.stringify(nodes)}
-      >
-        <NodeEditMenu selectedNode={selectedNode} />
+      <ReactFlowProvider>
+        <div
+          style={{ height: "calc(100vh - 100px)" }}
+          data-testid="react-flow"
+          data-rfinstance={JSON.stringify(nodes)}
+        >
+          <NodeEditMenu selectedNode={selectedNode} />
 
-        <ReactFlow
-          style={{
-            position: "fixed",
-            height: "100%",
-            width: "50%",
-          }}
-          nodes={nodes}
-          nodeTypes={nodeTypes}
-          edges={edges}
-          edgeTypes={edgeTypes}
-          connectionLineType={ConnectionLineType.Step}
-          onInit={onInit}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onNodeDragStop={handleNodeDrag}
-          onNodesDelete={handleNodesDelete}
-        />
+          <ReactFlow
+            style={{
+              position: "fixed",
+              height: "100%",
+              width: "50%",
+            }}
+            nodes={nodes}
+            nodeTypes={nodeTypes}
+            edges={edges}
+            edgeTypes={edgeTypes}
+            connectionLineType={ConnectionLineType.Step}
+            onInit={onInit}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onNodeDragStop={handleNodeDrag}
+            onNodesDelete={handleNodesDelete}
+          >
+            <div
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                zIndex: 100,
+              }}
+            >
+              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
+              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
+            </div>
+          </ReactFlow>
 
-        <NodeExpandMenu
-          clickedElement={selectedNode}
-          closeModal={closeModal}
-          defaultLayout={defaultLayout}
-          modalIsOpen={modalIsOpen}
-          nd={nd!}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
-          pythonString={pythonString}
-          nodeFileName={nodeFileName}
-        />
-      </div>
-    </ReactFlowProvider>
+          <NodeExpandMenu
+            clickedElement={selectedNode}
+            closeModal={closeModal}
+            defaultLayout={defaultLayout}
+            modalIsOpen={modalIsOpen}
+            nd={nd!}
+            nodeLabel={nodeLabel}
+            nodeType={nodeType}
+            pythonString={pythonString}
+            nodeFileName={nodeFileName}
+          />
+        </div>
+      </ReactFlowProvider>
+    </Layout>
   );
 };
+
 export default FlowChartTab;

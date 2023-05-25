@@ -2,7 +2,7 @@ import { Navbar, ScrollArea, Input } from "@mantine/core";
 
 import { IconSearch } from "@tabler/icons-react";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 
 import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
@@ -17,29 +17,22 @@ type leafClickHandler = (key: string) => void;
 
 const useSidebarStyles = createStyles((theme) => ({
   navbarView: {
-    paddingBottom: 0,
     position: "absolute",
-    left: "0%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
+    top: "100px",
+    height: "calc(100vh - 100px)",
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
     transition: "500ms",
     zIndex: 1,
   },
 
   navbarHidden: {
-    paddingBottom: 0,
     position: "absolute",
     left: "-100%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
+    top: "100px",
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
+    height: "calc(100vh - 100px)",
     transition: "300ms",
     zIndex: 1,
   },
@@ -63,6 +56,10 @@ const useSidebarStyles = createStyles((theme) => ({
     cursor: "pointer",
     margin: "5px 5px",
   },
+
+  searchBox: {
+    marginTop: 30,
+  },
 }));
 
 type SidebarCustomProps = {
@@ -74,7 +71,7 @@ type SidebarCustomProps = {
   customContent?: JSX.Element;
 };
 
-export const SidebarCustom = ({
+const Sidebar = ({
   isSideBarOpen,
   setSideBarStatus,
   sections,
@@ -95,7 +92,7 @@ export const SidebarCustom = ({
       );
     }
 
-    let content: any;
+    let content: JSX.Element[];
 
     if (textInput !== "") {
       //case 1: name is included in the string of the section node or leaf node
@@ -189,7 +186,7 @@ export const SidebarCustom = ({
   return (
     <Navbar
       data-testid="sidebar"
-      height={800}
+      height={200}
       width={{ sm: 387 }}
       p="md"
       className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
@@ -219,10 +216,7 @@ export const SidebarCustom = ({
           icon={<IconSearch size={18} />}
           radius="sm"
           type="search"
-          style={{
-            marginTop: "30px",
-            background: "inherit",
-          }}
+          className={classes.searchBox}
           value={textInput}
           onChange={(e) => handleChangeInput(e.target.value)}
         />
@@ -236,3 +230,5 @@ export const SidebarCustom = ({
     </Navbar>
   );
 };
+
+export default memo(Sidebar);

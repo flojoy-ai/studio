@@ -1,7 +1,21 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import ControlsTab from "@src/feature/controls_panel/ControlsTabView";
+import { ReactFlowJsonObject } from "reactflow";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { Settings } from "http2";
 
 // mock `AddCtrlModal`
+
+jest.mock("@src/hooks/useSettings", () => {
+  return {
+    useSettings: () => {
+      return {
+        settingsList: [{} as Settings],
+      };
+    },
+  };
+});
+
 jest.mock("@src/feature/controls_panel/views/AddCtrlModal", () => ({
   __esModule: true,
   default: jest.fn(() => <div data-testid="add-ctrl-modal"></div>),
@@ -9,10 +23,11 @@ jest.mock("@src/feature/controls_panel/views/AddCtrlModal", () => ({
 // mock `useSocket` hook
 jest.mock("@src/hooks/useSocket");
 
-// mock `FlowChartServices`
-jest.mock("@src/services/FlowChartServices", () => ({
-  saveAndRunFlowChartInServer: jest.fn(),
-}));
+jest.mock("@src/services/FlowChartServices", () => {
+  return {
+    saveAndRunFlowChartInServer: jest.fn(),
+  };
+});
 
 // mock `ControlGrid` component
 jest.mock("@src/feature/controls_panel/views/ControlGrid", () => ({
@@ -31,9 +46,23 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
   },
 }));
 
+class ResizeObserver {
+  observe() {
+    // do nothing
+  }
+  unobserve() {
+    // do nothing
+  }
+  disconnect() {
+    // do nothing
+  }
+}
+
+window.ResizeObserver = ResizeObserver;
+
 describe("ControlsTab", () => {
   it("render ControlsTab correctly.", () => {
-    const { container } = renderWithTheme(<ControlsTab results={{}} />);
+    const { container } = renderWithTheme(<ControlsTab />);
     expect(container).toMatchSnapshot();
   });
 });

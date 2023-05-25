@@ -24,7 +24,7 @@ const HandleComponent = ({
       {params.length > 0 ? (
         data.func === "CONDITIONAL" ? (
           params
-            .filter((param, _) => param.type === "target")
+            .filter((param) => param.type === "target")
             .map((param, i) => {
               return (
                 <Handle

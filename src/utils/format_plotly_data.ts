@@ -1,7 +1,7 @@
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { MantineTheme } from "@mantine/core";
-import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
 import { PlotData } from "plotly.js";
+import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
 
 const NUM_OF_COLUMNS = 2;
 const NUM_OF_ROWS = 20;
@@ -23,7 +23,9 @@ export const makePlotlyData = (
           ...d.header,
           align: "center",
           values: isThumbnail
-            ? d.header?.values.filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+            ? d.header?.values.filter(
+                (_: unknown, i: number) => i < NUM_OF_COLUMNS
+              )
             : d.header?.values,
           fill: {
             color: headerFillColor,
@@ -34,9 +36,9 @@ export const makePlotlyData = (
           align: "center",
           values: isThumbnail
             ? d.cells?.values
-                .filter((_: any, i: number) => i < NUM_OF_COLUMNS)
+                .filter((_: unknown, i: number) => i < NUM_OF_COLUMNS)
                 .map((i: any) =>
-                  i.filter((_: any, index: number) => index < NUM_OF_ROWS)
+                  i.filter((_: unknown, index: number) => index < NUM_OF_ROWS)
                 )
             : d.cells?.values,
           fill: {
@@ -70,17 +72,39 @@ export const dataContainer2Plotly = ({
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
   const cellFillColor = "transparent";
   switch (dataContainer.type) {
-    case "ordered_pair":
+    // TODO: This match is not exausitive, missing matrix and grayscale
+    case "scalar": {
       return [
         {
-          x: dataContainer.x!,
-          y: dataContainer.y!,
+          x: dataContainer.c, // TODO: Not sure if this is right
           type: plotType,
           mode: plotMode,
         },
       ];
-    case "dataframe":
-      const df = JSON.parse(dataContainer.m!);
+    }
+    case "ordered_pair": {
+      return [
+        {
+          x: dataContainer.x,
+          y: dataContainer.y,
+          type: plotType,
+          mode: plotMode,
+        },
+      ];
+    }
+    case "ordered_triple": {
+      return [
+        {
+          x: dataContainer.x,
+          y: dataContainer.y,
+          z: dataContainer.z, // TODO: Do we actually have z right now?
+          type: plotType,
+          mode: plotMode,
+        },
+      ];
+    }
+    case "dataframe": {
+      const df = JSON.parse(dataContainer.m || "");
       const headerValues = Object.keys(df);
       const cellValues = Object.values(df).map((value) =>
         Object.values(value as Record<string, any>)
@@ -102,34 +126,32 @@ export const dataContainer2Plotly = ({
           },
         },
       ];
+    }
     case "image":
       return fig!;
-    case "plotly":
-      return dataContainer.fig?.data?.map((d) => ({
-        ...d,
-        header: {
-          ...d.header,
-          align: "center",
-          fill: {
-            color: headerFillColor,
+    case "plotly": {
+      return (
+        dataContainer.fig?.data?.map((d) => ({
+          ...d,
+          header: {
+            ...d.header,
+            align: "center",
+            fill: {
+              color: headerFillColor,
+            },
           },
-        },
-        cells: {
-          ...d.cells,
-          align: "center",
-          fill: {
-            color: cellFillColor,
+          cells: {
+            ...d.cells,
+            align: "center",
+            fill: {
+              color: cellFillColor,
+            },
           },
-        },
-      }))!;
+        })) || []
+      );
+    }
     default:
-      return [
-        {
-          x: dataContainer.x!,
-          y: dataContainer.y!,
-          type: plotType,
-          mode: plotMode,
-        },
-      ];
+      console.log("Unknown data type!!");
+      return [];
   }
 };

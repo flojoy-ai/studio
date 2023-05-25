@@ -55,6 +55,8 @@ def run_flow_chart(request):
     jobset_id = request.data["jobsetId"]
     job_service.add_jobset_id(jobset_id)
 
+    extraParams = request.data["extraParams"]
+
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
         "jobsetId": jobset_id,
@@ -62,7 +64,7 @@ def run_flow_chart(request):
         "RUNNING_NODES": "",
     }
     asyncio.run(send_msg_to_socket(msg=msg))
-    asyncio.run(prepare_jobs(fc, jobset_id))
+    asyncio.run(prepare_jobs(fc, jobset_id, extraParams))
     return Response(status=200)
 
 

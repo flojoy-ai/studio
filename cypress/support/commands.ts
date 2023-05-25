@@ -35,9 +35,3 @@
 //     }
 //   }
 // }
-
-require("@cypress/snapshot").register();
-
-Cypress.Commands.add("visitHomepage", () => {
-  cy.visit("http://localhost:3000");
-});
