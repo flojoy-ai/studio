@@ -65,7 +65,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     success: false,
     data: null,
   });
-  
+
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
   };

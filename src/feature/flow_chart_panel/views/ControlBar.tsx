@@ -355,7 +355,6 @@ const ControlBar = () => {
         <SettingsIconSvg />
       </Button>
 
-
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}
