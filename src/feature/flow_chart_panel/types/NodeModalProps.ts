@@ -6,6 +6,7 @@ export type NodeModalProps = {
   nodeLabel: any;
   nodeType: any;
   nd: ResultIO | null;
+  defaultLayout: any;
   clickedElement: any;
   pythonString: string;
 };

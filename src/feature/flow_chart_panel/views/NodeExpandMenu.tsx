@@ -44,6 +44,7 @@ export const NodeExpandMenu = ({
           nodeLabel={nodeLabel}
           nodeType={nodeType}
           nd={nd}
+          defaultLayout={defaultLayout}
           clickedElement={clickedElement}
           pythonString={pythonString}
           data-testid="expand-menu"
