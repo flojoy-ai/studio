@@ -127,6 +127,9 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
                 Keyboard Shortcut
               </button>
               <button>
+                Settings
+              </button>
+              <button>
                 Set API key
               </button>
             </div>

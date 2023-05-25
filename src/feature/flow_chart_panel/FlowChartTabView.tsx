@@ -47,16 +47,9 @@ localforage.config({
 
 const FlowChartTab = () => {
   const [searchParams] = useSearchParams();
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
-  const {
-    isExpandMode,
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    setCtrlsManifest,
-  } = useFlowChartState();
+  const [clickedElement] = useState<Node | undefined>(undefined);
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+    useFlowChartState();
 
   const {
     states: { programResults },
@@ -260,7 +253,7 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 110px)" }}
+          style={{ height: "100%" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >

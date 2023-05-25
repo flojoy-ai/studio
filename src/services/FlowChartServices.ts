@@ -1,3 +1,4 @@
+import { Settings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
@@ -45,10 +46,15 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
     console.error("An error occurred:", error);
   }
 };
-export function saveAndRunFlowChartInServer(
-  jobId: string,
-  rfInstance?: ReactFlowJsonObject<ElementsData, any>
-) {
+export function saveAndRunFlowChartInServer({
+  rfInstance,
+  jobId,
+  settings,
+}: {
+  rfInstance?: ReactFlowJsonObject<ElementsData, any>;
+  jobId: string;
+  settings: Settings[];
+}) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
 
@@ -58,6 +64,10 @@ export function saveAndRunFlowChartInServer(
         fc: fcStr,
         jobsetId: jobId,
         cancelExistingJobs: true,
+        extraParams: settings.reduce((obj, setting) => {
+          obj[setting.key] = setting.value;
+          return obj;
+        }, {}),
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
