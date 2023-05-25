@@ -54,3 +54,5 @@ src/data/*.json
 src/feature/flow_chart_panel/manifest/pythonFunctions.json
 
 .coverage
+coverage.xml
+

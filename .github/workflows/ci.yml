@@ -85,7 +85,7 @@ jobs:
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest --cov
+          python -m pytest --cov --cov-report=xml
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
