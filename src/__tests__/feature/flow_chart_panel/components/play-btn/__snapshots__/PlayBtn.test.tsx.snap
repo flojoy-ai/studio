@@ -2,7 +2,7 @@
 
 exports[`PlayBtn component renders correctly with default props 1`] = `
 <button
-  class="mantine-1juolou"
+  class="mantine-axqpfd"
   data-cy="btn-play"
   data-testid="btn-play"
   title="Run Script"

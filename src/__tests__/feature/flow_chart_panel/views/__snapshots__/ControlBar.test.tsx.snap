@@ -6,7 +6,7 @@ exports[`Controls should render correctly: __main__ 1`] = `
     class="mantine-1mo5lls"
   >
     <button
-      class="mantine-1juolou"
+      class="mantine-axqpfd"
       data-cy="btn-play"
       data-testid="btn-play"
       disabled=""

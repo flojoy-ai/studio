@@ -11,7 +11,7 @@ exports[`DropDown should render correctly 1`] = `
       Dropdown Button
     </button>
     <div
-      class="mantine-12qo352"
+      class="mantine-qxcot2"
       data-testid="dropdown-container"
     >
       <div>
