@@ -1,5 +1,6 @@
 import { createStyles } from "@mantine/core";
 import { CommandManifestMap } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { nodeAdded } from "@src/services/MixpanelServices";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -46,6 +47,7 @@ const SidebarNode = ({
           key={cmd.key}
           className={classes.buttonLeafNode}
           onClick={() => {
+            nodeAdded(cmd.key || keyNode);
             onClickHandle(cmd.key || keyNode);
           }}
         >

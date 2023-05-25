@@ -1,5 +1,6 @@
 import { MediaQuery, clsx, createStyles } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { tabChanged } from "@src/services/MixpanelServices";
 
 const useStyles = createStyles((theme) => ({
   tab: {
@@ -28,11 +29,16 @@ type TabButtonProps = {
 const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
   const { classes } = useStyles();
   const active = location.pathname === to;
+  //if the destination is '/', tab is PROGRAM, else it's just the upper case without '/'
+  const tab = to === "/" ? "PROGRAM" : to.replace("/", "").toUpperCase();
 
   return (
     <MediaQuery smallerThan={700} styles={{ minHeight: 55 }}>
       <Link
         to={to}
+        onClick={() => {
+          /*tabChanged(tab)}*/
+        }}
         className={clsx(classes.tab, active && classes.active)}
         color="dark"
         data-cy={testId}

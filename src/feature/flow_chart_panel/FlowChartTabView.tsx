@@ -83,7 +83,6 @@ const FlowChartTab = () => {
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
-      console.log(nodes);
       return nodes.filter((n) => n.data.func === func).length;
     },
     [nodes.length]

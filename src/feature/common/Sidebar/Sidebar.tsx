@@ -12,6 +12,11 @@ import {
   CommandManifestMap,
   Sections,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import {
+  nodeAdded,
+  nodeDeleted,
+  nodeSearched,
+} from "@src/services/MixpanelServices";
 
 type leafClickHandler = (key: string) => void;
 
