@@ -4,9 +4,9 @@ import createPlotlyComponent from "react-plotly.js/factory";
 import type { PlotParams } from "react-plotly.js";
 import { PlotData } from "plotly.js";
 import usePlotLayout from "./usePlotLayout";
-// Uncomment this line after running npm run bundle-plotly to reduce the bundle size
-// import Plotly from "plotly.js/dist/plotly-custom.min";
-import Plotly from "plotly.js/dist/plotly";
+// Note: You must generate the custom bundle first using npm run bundle-plotly for this import to work
+import Plotly from "plotly.js/dist/plotly-custom.min";
+// import Plotly from "plotly.js/dist/plotly";
 
 export type OverridePlotData = Array<
   Partial<PlotData> & {
