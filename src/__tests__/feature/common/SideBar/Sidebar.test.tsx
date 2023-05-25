@@ -80,7 +80,7 @@ describe("Sidebar", () => {
 
     fireEvent.click(addButton);
 
-    expect(sidebar).toHaveStyle("left:0%");
+    expect(sidebar).toHaveStyle("left:0px");
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {

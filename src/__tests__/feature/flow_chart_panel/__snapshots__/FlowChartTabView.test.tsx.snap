@@ -2,9 +2,11 @@
 
 exports[`FlowChartTabView should render the component correcty 1`] = `
 <div>
-  <div>
+  <div
+    class="mantine-1iveypt"
+  >
     <div
-      class="mantine-Text-root mantine-1mkgn9v"
+      class="mantine-Text-root mantine-oucrfb"
       data-cy="app-status"
     >
       <code>
@@ -12,7 +14,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       </code>
     </div>
     <header
-      class="mantine-Header-root mantine-ii6m85"
+      class="mantine-Header-root mantine-24hp65"
     >
       <div
         class="mantine-1rquoiv"
@@ -136,7 +138,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           </div>
         </div>
         <button
-          class="mantine-26x671"
+          class="mantine-1e1m4q8"
         >
           <svg
             fill="none"
@@ -154,29 +156,10 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       </div>
     </header>
     <main
-      style="min-height: 85vh;"
+      style="min-height: calc(100vh - 100px);"
     >
-      <div
-        class="top-row"
-        style="display: flex; justify-content: space-between;"
-      >
-        <button
-          class="mantine-b33zvb"
-          data-testid="add-node-button"
-          style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
-        >
-          + Add Node
-        </button>
-        <button
-          class="mantine-1vw9se0"
-          data-testid="clear-canvas-btn"
-          style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
-        >
-          Clear Canvas
-        </button>
-      </div>
       <nav
-        class="mantine-Navbar-root mantine-r90bv"
+        class="mantine-Navbar-root mantine-tqi198"
         data-testid="sidebar"
       >
         <div
@@ -300,7 +283,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
         <div
           data-rfinstance="[{"width":150,"height":135,"id":"LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce","type":"default","data":{"id":"LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce","label":"LINSPACE","func":"LINSPACE","type":"SIMULATION","ctrls":{"start":{"functionName":"LINSPACE","param":"start","value":"10","valType":"float"},"end":{"functionName":"LINSPACE","param":"end","value":"0","valType":"float"},"step":{"functionName":"LINSPACE","param":"step","value":"1000","valType":"int"}},"selected":false},"position":{"x":-232.8571428571429,"y":321.9999999999999},"selected":false,"positionAbsolute":{"x":-232.8571428571429,"y":321.9999999999999},"dragging":true},{"width":115,"height":115,"id":"SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd","type":"SIMULATION","data":{"id":"SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd","label":"SINE","func":"SINE","type":"SIMULATION","ctrls":{"frequency":{"functionName":"SINE","param":"frequency","value":"1","valType":"float"},"offset":{"functionName":"SINE","param":"offset","value":"0","valType":"float"},"amplitude":{"functionName":"SINE","param":"amplitude","value":"1","valType":"float"},"phase":{"functionName":"SINE","param":"phase","value":"0","valType":"float"},"waveform":{"functionName":"SINE","param":"waveform","value":"sine","valType":"select"}},"selected":false},"position":{"x":198.57142857142856,"y":114.71428571428572},"selected":false,"positionAbsolute":{"x":198.57142857142856,"y":114.71428571428572},"dragging":true},{"width":115,"height":115,"id":"RAND-434f7314-f239-4e7d-a9c6-629529db1d82","type":"SIMULATION","data":{"id":"RAND-434f7314-f239-4e7d-a9c6-629529db1d82","label":"RAND","func":"RAND","type":"SIMULATION","ctrls":{},"selected":false},"position":{"x":193.28571428571428,"y":329.57142857142867},"selected":false,"positionAbsolute":{"x":193.28571428571428,"y":329.57142857142867},"dragging":true},{"width":115,"height":115,"id":"CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6","type":"SIMULATION","data":{"id":"CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6","label":"2.0","func":"CONSTANT","type":"SIMULATION","ctrls":{"constant":{"functionName":"CONSTANT","param":"constant","value":"2.0","valType":"float"}},"selected":false},"position":{"x":197.85714285714286,"y":543.2857142857143},"selected":false,"positionAbsolute":{"x":197.85714285714286,"y":543.2857142857143},"dragging":true},{"width":99,"height":115,"id":"MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766","type":"ARITHMETIC","data":{"id":"MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766","label":"MULTIPLY","func":"MULTIPLY","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"multiply_y","type":"target"}],"selected":false},"position":{"x":497.1428571428571,"y":161.71428571428567},"selected":false,"positionAbsolute":{"x":497.1428571428571,"y":161.71428571428567},"dragging":true},{"width":99,"height":115,"id":"ADD-a586b5d7-4343-430d-89ce-3c2a3d156695","type":"ARITHMETIC","data":{"id":"ADD-a586b5d7-4343-430d-89ce-3c2a3d156695","label":"ADD","func":"ADD","type":"ARITHMETIC","ctrls":{},"inputs":[{"name":"y","id":"add_y","type":"target"}],"selected":false},"position":{"x":721.1428571428571,"y":336.5714285714285},"selected":false,"positionAbsolute":{"x":721.1428571428571,"y":336.5714285714285},"dragging":true},{"width":250,"height":159,"id":"SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6","type":"PLOTLY_VISOR","data":{"id":"SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6","label":"SCATTER","func":"SCATTER","type":"PLOTLY_VISOR","ctrls":{},"selected":false},"position":{"x":1045.5714285714287,"y":461.4285714285715},"selected":false,"positionAbsolute":{"x":1045.5714285714287,"y":461.4285714285715},"dragging":true},{"width":250,"height":159,"id":"HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f","type":"PLOTLY_VISOR","data":{"id":"HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f","label":"HISTOGRAM","func":"HISTOGRAM","type":"PLOTLY_VISOR","ctrls":{},"selected":true},"position":{"x":1036.5714285714287,"y":91.57142857142856},"selected":true,"positionAbsolute":{"x":1036.5714285714287,"y":91.57142857142856},"dragging":true},{"width":150,"height":135,"id":"END-06a4da40-a0ae-44ad-873b-9b65d096880a","type":"TERMINATOR","data":{"id":"END-06a4da40-a0ae-44ad-873b-9b65d096880a","label":"END","func":"END","type":"TERMINATOR","ctrls":{},"selected":false},"position":{"x":1515.0000000000002,"y":309.7142857142858},"selected":false,"positionAbsolute":{"x":1515.0000000000002,"y":309.7142857142858},"dragging":true}]"
           data-testid="react-flow"
-          style="height: calc(100vh - 110px);"
+          style="height: calc(100vh - 100px);"
         >
           <div
             class="mantine-n8y7xk"

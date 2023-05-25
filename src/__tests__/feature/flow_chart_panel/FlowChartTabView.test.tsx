@@ -132,6 +132,6 @@ describe("FlowChartTabView", () => {
     const { getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
     const componet = getAllByTestId("react-flow")[0];
-    expect(componet).toHaveStyle("height: calc(100vh - 110px)");
+    expect(componet).toHaveStyle("height: calc(100vh - 100px)");
   });
 });

@@ -233,16 +233,6 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div
-        className="top-row"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-        <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-      </div>
       <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
@@ -253,7 +243,7 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 110px)" }}
+          style={{ height: "calc(100vh - 100px)" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
@@ -276,7 +266,19 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
-          />
+          >
+            <div
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                zIndex: 100,
+              }}
+            >
+              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
+              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
+            </div>
+          </ReactFlow>
 
           <NodeExpandMenu
             clickedElement={selectedNode}

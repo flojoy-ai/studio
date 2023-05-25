@@ -4,10 +4,11 @@ import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   status: {
-    backgroundColor: theme.colorScheme === "dark" ? "#14131361" : "#58454517",
-    textAlign: "center",
     fontSize: "14px",
-    padding: "4px 0px",
+    minHeight: "30px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 

@@ -163,13 +163,16 @@ class FlowScheduler:
             time.sleep(self.node_delay)
 
             job = self.job_service.fetch_job(job_id=job_id)
-            job_status = job.get_status()
+            if job:
+                job_status = job.get_status()
 
-            if job_status in ["finished", "failed"]:
-                job_result = job.result
-                success = True if job_status == "finished" else False
-                print("  job:", self.topology.get_label(job_id), "status:", job_status)
-                break
+                if job_status in ["finished", "failed"]:
+                    job_result = job.result
+                    success = True if job_status == "finished" else False
+                    print(
+                        "  job:", self.topology.get_label(job_id), "status:", job_status
+                    )
+                    break
 
         return job_result, success
 
