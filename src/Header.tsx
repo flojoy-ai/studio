@@ -10,7 +10,7 @@ const useStyles = createStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "0px 10px",
+    margin: "0 10px",
   },
 
   tabs: {
@@ -32,7 +32,7 @@ const Header = () => {
   const { classes } = useStyles();
 
   return (
-    <MantineHeader height="80px" className={classes.header}>
+    <MantineHeader height="70px" className={classes.header}>
       <Box className={classes.tabs}>
         <Logo />
         <HeaderTab to={"/"} testId="script-btn">

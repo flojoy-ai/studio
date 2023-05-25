@@ -5,6 +5,7 @@ import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
 } from "../../services/FlowChartServices";
+import { Settings } from "@src/hooks/useSettings";
 
 const key: string = "flow-joy";
 const rfInstance: any = {
@@ -16,6 +17,7 @@ const param: any = {
     elements: "test",
   },
   jobsetId: "random",
+  settings: [{} as Settings],
 };
 
 /**
@@ -70,7 +72,7 @@ describe("FlowChartServices", () => {
     it("given a flow chart and a job id, post the job to /wfc api endpoint", () => {
       //Given
       const fetchParams: any = {
-        body: '{"fc":"{\\"elements\\":\\"test\\"}","jobsetId":"random","cancelExistingJobs":true}',
+        body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true,"extraParams":{}}',
         headers: { "Content-type": "application/json; charset=UTF-8" },
         method: "POST",
       };
@@ -79,7 +81,7 @@ describe("FlowChartServices", () => {
       const fetchSpy = jest.spyOn(global, "fetch");
 
       //When
-      saveAndRunFlowChartInServer(param.jobsetId, param.rfInstance);
+      saveAndRunFlowChartInServer(param);
       //Expect
       expect(fetchSpy).toHaveBeenCalledWith(api_endPoint, fetchParams);
     });
@@ -97,10 +99,7 @@ describe("FlowChartServices", () => {
         .mockImplementation(() => Promise.resolve(testResponse) as any);
       try {
         //When
-        const data = await saveAndRunFlowChartInServer(
-          param.jobsetId,
-          param.rfInstance
-        );
+        const data = await saveAndRunFlowChartInServer(param);
       } catch (error) {
         //Expect
         expect(error).toBeInstanceOf(CustomModule.CustomError); //https://jestjs.io/docs/tutorial-async#error-handling

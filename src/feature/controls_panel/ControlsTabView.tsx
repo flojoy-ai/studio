@@ -22,7 +22,6 @@ import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
 export const useAddButtonStyle = createStyles((theme) => {
