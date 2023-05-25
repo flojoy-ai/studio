@@ -60,7 +60,7 @@ initPythonPackages=true
 is_ci=false
 test_ci=false
 initSubmodule=true
-enableSentry=false
+enableSentry=true
 
 
 # creating system links
@@ -134,7 +134,7 @@ helpFunction()
    echo  " -n: To NOT install npm packages"
    echo  " -p: To NOT install python packages"
    echo  " -s: To NOT update submodules"
-   echo  " -S: Enable Sentry"
+   echo  " -S: To NOT enable Sentry"
    echo 1 # Exit script after printing help
 }
 
@@ -165,7 +165,7 @@ do
         shift
         ;;
         -S)
-        enableSentry=true
+        enableSentry=false
         shift
         ;;
         -t)

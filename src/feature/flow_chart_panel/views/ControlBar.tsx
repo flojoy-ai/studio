@@ -27,7 +27,7 @@ import SaveIconSvg from "@src/assets/SaveIconSVG";
 import SettingsIconSvg from "@src/assets/SettingsIconSVG";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { Dispatch, memo, useEffect, useState, useCallback } from "react";
+import { memo, useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -36,8 +36,9 @@ import PlayBtn from "../components/play-btn/PlayBtn";
 import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
-import { Settings, useSettings } from "@src/hooks/useSettings";
+import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -272,6 +273,9 @@ const ControlBar = () => {
   const handleAPIKeyModalClose = useCallback(() => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
+
+  useKeyboardShortcut("ctrl", "p", onSave);
+  useKeyboardShortcut("ctrl", "c", cancelFC);
 
   return (
     <Box className={classes.controls}>

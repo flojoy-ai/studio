@@ -5,7 +5,7 @@ export type NodeModalProps = {
   closeModal: () => void;
   nodeLabel: any;
   nodeType: any;
-  nd: ResultIO;
+  nd: ResultIO | null;
   defaultLayout: any;
   clickedElement: any;
   pythonString: string;

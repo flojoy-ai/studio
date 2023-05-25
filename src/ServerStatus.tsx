@@ -2,7 +2,7 @@ import { Text, createStyles } from "@mantine/core";
 import { IServerStatus } from "./context/socket.context";
 import { memo } from "react";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   status: {
     fontSize: "14px",
     minHeight: "30px",
