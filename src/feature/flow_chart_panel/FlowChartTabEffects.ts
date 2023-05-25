@@ -20,13 +20,11 @@ export function useFlowChartTabEffects({
   clickedElement: Node | undefined;
 }) {
   useEffect(() => {
-    console.log(" results: ", results, " clickedElem: ", clickedElement)
     if (results && results.io) {
       const runResults = results.io; // JSON.parse(results.io);
       const filteredResult = runResults.filter(
         (node) => node.id === clickedElement?.id
       )[0];
-      console.log(" filteredResutl: ", filteredResult)
       setNd(filteredResult === undefined ? null : filteredResult);
     }
   }, [results, clickedElement]);

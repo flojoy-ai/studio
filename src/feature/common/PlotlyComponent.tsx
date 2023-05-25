@@ -21,12 +21,13 @@ export type OverridePlotData = Array<
 
 type PlotProps = {
   id: string;
-  data: OverridePlotData;
+  data: any; //OverridePlotData;
   isThumbnail?: boolean;
+  layout: any;
 } & Omit<PlotParams, "data">;
 
 // TODO: Why does this rerender constantly after first run?
-const PlotlyComponent = (props: PlotProps) => {
+const PlotlyComponent = (props: any) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
 
@@ -47,13 +48,9 @@ const PlotlyComponent = (props: PlotProps) => {
         ...layout,
         ...defaultPlotLayout,
         showlegend: !isThumbnail,
-        ...(isThumbnail && {
-          height: 190,
-          width: 210,
-        })
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false, staticPlot:isThumbnail }}
+      config={{ displayModeBar: false, staticPlot: isThumbnail }}
       style={style}
     />
   );

@@ -42,7 +42,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   IMAGE: <PlotlyImage />,
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
-  MATRIX_VIEW: <PlotlyTable />
+  MATRIX_VIEW: <PlotlyTable />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
@@ -101,8 +101,8 @@ const VisorNode = ({ data }: CustomNodeProps) => {
               layout={result.result.default_fig.layout ?? {}}
               useResizeHandler
               style={{
-                height: 190,
-                width: 210,
+                height: 293,
+                width: 380,
               }}
               isThumbnail
             />

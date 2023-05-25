@@ -217,9 +217,8 @@ const FlowChartTab = () => {
     setPythonString(pythonString);
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-    setClickedElement(selectedNode)
+    setClickedElement(selectedNode);
   }, [selectedNode]);
-  console.log(" nd in flowcharttabview: ", nd)
 
   useFlowChartTabEffects({
     clickedElement,

@@ -5,6 +5,7 @@ import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
 
 const NUM_OF_COLUMNS = 2;
 const NUM_OF_ROWS = 20;
+const MATRIX_COLUMNS = 4;
 
 export const makePlotlyData = (
   data: OverridePlotData,
@@ -28,7 +29,7 @@ export const makePlotlyData = (
               )
             : d.header?.values,
           fill: {
-            color: headerFillColor,
+            color: d.header?.values.length ? headerFillColor : "transparent",
           },
         },
         cells: {
@@ -36,9 +37,17 @@ export const makePlotlyData = (
           align: "center",
           values: isThumbnail
             ? d.cells?.values
-                .filter((_: unknown, i: number) => i < NUM_OF_COLUMNS)
+                .filter(
+                  (_: unknown, i: number) =>
+                    i <
+                    (d.header?.values.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS)
+                )
                 .map((i: any) =>
-                  i.filter((_: unknown, index: number) => index < NUM_OF_ROWS)
+                  i.filter(
+                    (_: unknown, index: number) =>
+                      index <
+                      (d.header?.values.length ? NUM_OF_ROWS : MATRIX_COLUMNS)
+                  )
                 )
             : d.cells?.values,
           fill: {

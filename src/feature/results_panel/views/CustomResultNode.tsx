@@ -39,8 +39,8 @@ const CustomResultNode = ({ data }: CustomResultNodeProp) => {
           }}
           useResizeHandler
           style={{
-            height: 190,
-            width: 210,
+            height: 293,
+            width: 380,
           }}
           isThumbnail
         />
