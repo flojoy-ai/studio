@@ -19,7 +19,7 @@ import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import { frontEndLoads } from "./services/MixpanelServices";
+import { sendFrontEndLoadsToMix } from "./services/MixpanelServices";
 
 const router = createBrowserRouter([
   {
@@ -74,7 +74,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    frontEndLoads();
+    //SendFrontEndLoadsToMix();
     document.addEventListener("keydown", handleShortcut);
     return () => {
       document.removeEventListener("keydown", handleShortcut);

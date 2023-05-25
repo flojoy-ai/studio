@@ -13,9 +13,9 @@ import {
   Sections,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import {
-  nodeAdded,
-  nodeDeleted,
-  nodeSearched,
+  SendNodeAddedToMix,
+  SendNodeDeletedToMix,
+  SendNodeSearchedToMix,
 } from "@src/services/MixpanelServices";
 
 type leafClickHandler = (key: string) => void;

@@ -1,6 +1,6 @@
 import mixpanel from "mixpanel-browser";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
-export const frontEndLoads = () => {
+export const sendFrontEndLoadsToMix = () => {
   try {
     mixpanel.init(PROJECT_TOKEN, {
       debug: true,
@@ -12,7 +12,7 @@ export const frontEndLoads = () => {
     console.error(`the request failed: ${e}`);
   }
 };
-export const nodeDeleted = (node: string) => {
+export const SendNodeDeletedToMix = (node: string) => {
   try {
     mixpanel.track("Node Deleted", { nodeTitle: node });
   } catch (e) {
@@ -20,7 +20,7 @@ export const nodeDeleted = (node: string) => {
   }
 };
 
-export const nodeAdded = (node: string) => {
+export const SendNodeAddedToMix = (node: string) => {
   try {
     mixpanel.track("Node Added", { nodeTitle: node });
   } catch (e) {
@@ -28,14 +28,14 @@ export const nodeAdded = (node: string) => {
   }
 };
 
-export const tabChanged = (changedTab: string) => {
+export const SendTabChangedToMix = (changedTab: string) => {
   try {
     mixpanel.track("Tab Changed", { tab: changedTab });
   } catch (e) {
     console.error(`the request failed: ${e}`);
   }
 };
-export const nodeSearched = (node: string) => {
+export const SendNodeSearchedToMix = (node: string) => {
   try {
     mixpanel.track("Node Searched", { nodeTitle: node });
   } catch (e) {
