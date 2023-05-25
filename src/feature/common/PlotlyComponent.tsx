@@ -29,7 +29,7 @@ type PlotProps = {
   isThumbnail?: boolean;
 } & Omit<PlotParams, "data">;
 
-const PlotlyComponent = (props: any) => {
+const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
   const Plot = createPlotlyComponent(Plotly);
