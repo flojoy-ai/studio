@@ -20,6 +20,7 @@ export const useFlowChartGraph = () => {
   // Could still be optimized further?
   const selectedNodes = nodes.filter((n) => n.selected);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  console.log(nodes);
 
   const loadFlowExportObject = useCallback(
     (flow: ReactFlowJsonObject<ElementsData>) => {
