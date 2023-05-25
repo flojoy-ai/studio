@@ -47,9 +47,13 @@ const PlotlyComponent = (props: PlotProps) => {
         ...layout,
         ...defaultPlotLayout,
         showlegend: !isThumbnail,
+        ...(isThumbnail && {
+          height: 190,
+          width: 210,
+        })
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false }}
+      config={{ displayModeBar: false, staticPlot:isThumbnail }}
       style={style}
     />
   );

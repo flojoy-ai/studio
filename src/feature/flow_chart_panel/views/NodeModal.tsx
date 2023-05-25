@@ -19,7 +19,7 @@ const NodeModal = ({
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
-console.log(" nd: ", nd)
+  console.log(" nd: ", nd);
   return (
     <Modal
       data-testid="node-modal"
@@ -47,25 +47,6 @@ console.log(" nd: ", nd)
               layout={{
                 ...nd.result.default_fig.layout,
                 title: nd.result.default_fig.layout?.title || nodeLabel,
-                ... {
-                  "autosize": false,
-                  "height": 180,
-                  "hovermode": "closest",
-                  "margin": {
-                      "b": 0,
-                      "l": 0,
-                      "r": 0,
-                      "t": 0
-                  },
-                  "width": 200,
-                  "xaxis": {
-                      "visible": false
-                  },
-                  "yaxis": {
-                      "visible": false
-                  },
-        
-              }
               }}
               useResizeHandler
               style={{
