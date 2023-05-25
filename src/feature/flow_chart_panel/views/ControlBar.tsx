@@ -23,6 +23,7 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -254,6 +255,9 @@ const ControlBar = () => {
   const handleAPIKeyModalClose = useCallback(() => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
+
+  useKeyboardShortcut("ctrl", "p", onSave);
+  useKeyboardShortcut("ctrl", "c", cancelFC);
 
   return (
     <Box className={classes.controls}>
