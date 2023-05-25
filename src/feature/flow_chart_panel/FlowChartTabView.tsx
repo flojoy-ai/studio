@@ -228,8 +228,6 @@ const FlowChartTab = () => {
     setNodeType,
     setPythonString,
     windowWidth,
-    isSidebarOpen,
-    setIsSidebarOpen,
   });
 
   return (
