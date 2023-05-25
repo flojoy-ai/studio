@@ -23,7 +23,6 @@ const useStyles = createStyles((theme) => {
       gap: 6,
       flexWrap: "wrap",
       outline: 0,
-      padding: "padding: 8px 12px px 12px",
       cursor: "pointer",
       position: "relative",
       transition: "transform ease-in 0.1s, box-shadow ease-in 0.25s",

@@ -1,9 +1,10 @@
-import FamilyHistoryIconSvg from "@src/assets/family_history_icon";
+import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import { ChangeEvent, memo, useState } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { IconCheck } from "@tabler/icons-react";
+import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
 
 interface APIKeyModelProps {
   isOpen: boolean;
@@ -61,10 +62,6 @@ const useStyles = createStyles((theme) => ({
 const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   const { classes } = useStyles();
   const { apiKey, setApiKey } = useFlowChartState();
-  const [apiResponse, setApiResponse] = useState({
-    success: false,
-    data: null,
-  });
 
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
@@ -73,36 +70,13 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setApiKey("");
     onClose();
   };
-  const sendApiKeyToDjango = async (apiKey: string) => {
-    try {
-      const response = await fetch(`${API_URL}/api/set-api`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ key: apiKey }),
-      });
-      if (response.ok) {
-        const responseData = await response.json();
-        notifications.show({
-          title: "Successful!",
-          message: "Successfully set the API Key",
-          icon: <IconCheck />,
-          autoClose: 5000,
-        });
-        setApiResponse(responseData);
-      } else {
-        console.error("Request failed:", response.status);
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+
   const handleSendAPI = () => {
     if (apiKey === null || apiKey.trim() === "") {
       console.error("There is no API Key");
     } else {
       sendApiKeyToDjango(apiKey);
+      setApiKey("");
     }
   };
   return (

@@ -18,13 +18,13 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
-import FamilyHistoryIconSvg from "@src/assets/family_history_icon";
-import HistoryIconSvg from "@src/assets/history_icon";
-import KeyBoardIconSvg from "@src/assets/keyboard_icon";
-import LoadIconSvg from "@src/assets/load_icon";
-import SaveAsIconSvg from "@src/assets/save_as_icon";
-import SaveIconSvg from "@src/assets/save_icon";
-import SettingsIconSvg from "@src/assets/settings_icon";
+import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
+import HistoryIconSvg from "@src/assets/HistoryIconSVG";
+import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
+import LoadIconSvg from "@src/assets/LoadIconSVG";
+import SaveAsIconSvg from "@src/assets/SaveAsIconSVG";
+import SaveIconSvg from "@src/assets/SaveIconSVG";
+import SettingsIconSvg from "@src/assets/SettingsIconSVG";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { Dispatch, memo, useEffect, useState, useCallback } from "react";
@@ -351,7 +351,12 @@ const ControlBar = () => {
         </DropDown>
       )}
 
-      <Button variant="subtle" size="xs" style={{ right: 22 }}>
+      <Button
+        variant="subtle"
+        size="xs"
+        style={{ right: 22 }}
+        onClick={() => setIsSettingsOpen(true)}
+      >
         <SettingsIconSvg />
       </Button>
 

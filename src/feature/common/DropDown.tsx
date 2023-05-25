@@ -6,10 +6,7 @@ const useStyles = createStyles((theme) => {
       position: "relative",
     },
     dropdownContainer: {
-      paddingTop: 15,
-      paddingBottom: 15,
-      paddingLeft: 7,
-      paddingRight: 7,
+      padding: "15px 7px",
       borderRadius: 15,
       transition: "all ease 0.5s",
       flexDirection: "column",
@@ -41,7 +38,7 @@ const useStyles = createStyles((theme) => {
       "> button:not(.disabled):hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? theme.colors.dark[5]
+            ? theme.colors.dark[6]
             : theme.colors.modal[0],
       },
     },

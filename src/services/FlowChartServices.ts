@@ -1,6 +1,7 @@
 import { Settings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
+import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 
@@ -38,7 +39,11 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData);
+      notifications.show({
+        title: "Successful!",
+        message: "Successfully set the API Key",
+        autoClose: 5000,
+      });
     } else {
       console.error("Request failed:", response.status);
     }
