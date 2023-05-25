@@ -44,7 +44,7 @@ jobs:
         run: npm run test
 
       - name: Codecov report
-      - uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v3
 
   code-style-check:
     runs-on: ubuntu-latest
