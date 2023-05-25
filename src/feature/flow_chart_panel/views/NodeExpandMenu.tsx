@@ -10,7 +10,7 @@ type NodeExpandMenuProps = {
   closeModal: () => void;
   nodeLabel: any;
   nodeType: any;
-  nd: ResultIO;
+  nd: ResultIO | null;
   defaultLayout: any;
   clickedElement: Node<ElementsData> | null;
   pythonString: string;
@@ -43,7 +43,7 @@ export const NodeExpandMenu = ({
           closeModal={closeModal}
           nodeLabel={nodeLabel}
           nodeType={nodeType}
-          nd={nd!}
+          nd={nd}
           defaultLayout={defaultLayout}
           clickedElement={clickedElement}
           pythonString={pythonString}

@@ -43,6 +43,9 @@ jobs:
       - name: Run Jest tests
         run: npm run test
 
+      - name: Codecov report
+        uses: codecov/codecov-action@v3
+
   code-style-check:
     runs-on: ubuntu-latest
     steps:
@@ -82,7 +85,10 @@ jobs:
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest
+          python -m pytest --cov --cov-report=xml
+
+      - name: Codecov report
+        uses: codecov/codecov-action@v3
 
   visual-tests:
     runs-on: ubuntu-latest
