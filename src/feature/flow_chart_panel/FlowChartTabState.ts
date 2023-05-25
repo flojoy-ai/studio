@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useWindowSize } from "react-use";
 import { ResultIO } from "../results_panel/types/ResultsType";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 const defaultPythonFnLabel = "PYTHON FUNCTION";
 const defaultPythonFnType = "PYTHON FUNCTION TYPE";
 
