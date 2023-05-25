@@ -116,6 +116,7 @@ const ControlComponentState = ({
     selectOptions,
     setSelectOptions,
     inputOptions,
+    setInputOptions,
     outputOptions,
     setOutputOptions,
     flowChartObject,
