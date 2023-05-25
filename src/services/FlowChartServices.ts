@@ -45,10 +45,18 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
         autoClose: 5000,
       });
     } else {
-      console.error("Request failed:", response.status);
+      notifications.show({
+        title: "Failed",
+        message: "Failed to set the API Key",
+        autoClose: 5000,
+      });
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    notifications.show({
+      title: "Failed",
+      message: "Failed to set the API Key",
+      autoClose: 5000,
+    });
   }
 };
 export function saveAndRunFlowChartInServer({
