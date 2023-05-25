@@ -102,7 +102,6 @@ const FlowChartTab = () => {
     [setNodes, setEdges]
   );
 
-  // TODO: Add smart edge back?
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
     []
@@ -229,6 +228,8 @@ const FlowChartTab = () => {
     setNodeType,
     setPythonString,
     windowWidth,
+    isSidebarOpen,
+    setIsSidebarOpen,
   });
 
   return (
