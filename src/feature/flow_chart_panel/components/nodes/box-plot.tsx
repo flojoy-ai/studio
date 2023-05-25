@@ -1,7 +1,6 @@
 import { useMantineTheme } from "@mantine/core";
-import { SVGProps } from "react";
 
-const BoxPlot = ({ ...props }: SVGProps<SVGSVGElement>) => {
+const BoxPlot = () => {
   const theme = useMantineTheme();
   if (theme.colorScheme === "dark") {
     return <BoxPlotDark />;
