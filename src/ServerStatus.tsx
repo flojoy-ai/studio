@@ -1,12 +1,14 @@
 import { Text, createStyles } from "@mantine/core";
 import { IServerStatus } from "./context/socket.context";
+import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   status: {
-    backgroundColor: theme.colorScheme === "dark" ? "#14131361" : "#58454517",
-    textAlign: "center",
     fontSize: "14px",
-    padding: "4px 0px",
+    minHeight: "30px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -14,7 +16,7 @@ type ServerStatusProps = {
   serverStatus: IServerStatus;
 };
 
-export const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
+const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
   const { classes } = useStyles();
   return (
     <Text data-cy="app-status" className={classes.status}>
@@ -22,3 +24,5 @@ export const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
     </Text>
   );
 };
+
+export default memo(ServerStatus);

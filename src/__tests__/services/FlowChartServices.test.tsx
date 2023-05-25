@@ -5,6 +5,7 @@ import {
   saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
 } from "../../services/FlowChartServices";
+import { Settings } from "@src/hooks/useSettings";
 
 const key: string = "flow-joy";
 const rfInstance: any = {
@@ -16,6 +17,7 @@ const param: any = {
     elements: "test",
   },
   jobsetId: "random",
+  settings: [{} as Settings],
 };
 
 /**
@@ -70,7 +72,7 @@ describe("FlowChartServices", () => {
     it("given a flow chart and a job id, post the job to /wfc api endpoint", () => {
       //Given
       const fetchParams: any = {
-        body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true}',
+        body: '{"fc":"{\\"elements\\":\\"test\\"}","cancelExistingJobs":true,"extraParams":{}}',
         headers: { "Content-type": "application/json; charset=UTF-8" },
         method: "POST",
       };

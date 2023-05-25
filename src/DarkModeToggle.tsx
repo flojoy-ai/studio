@@ -1,12 +1,15 @@
 import { createStyles, useMantineColorScheme } from "@mantine/core";
 import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   toggle: {
     fontSize: 18,
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
+    marginRight: 10,
+    display: "flex",
+    alignItems: "center",
   },
 }));
 

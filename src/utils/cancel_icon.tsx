@@ -14,7 +14,7 @@ const CancelIconSvg = ({ fill }: CancelIconSvgProps) => {
     >
       <g
         fillOpacity="0.67843"
-        fill="#fb1c1c"
+        fill={fill}
         fillRule="nonzero"
         stroke="none"
         strokeWidth="1"

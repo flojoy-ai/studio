@@ -1,16 +1,19 @@
 import FamilyHistoryIconSvg from "@src/assets/family_history_icon";
-import React, { useState } from "react";
+import { ChangeEvent, memo, useState } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { IconCheck } from "@tabler/icons-react";
+
 interface APIKeyModelProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "localhost";
 const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
 const API_URL = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
+
 const useStyles = createStyles((theme) => ({
   container: {
     display: "relative",
@@ -62,7 +65,8 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     success: false,
     data: null,
   });
-  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  
+  const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
   };
   const handleClose = () => {
@@ -140,4 +144,5 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     </>
   );
 };
-export default APIKeyModal;
+
+export default memo(APIKeyModal);

@@ -15,6 +15,8 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
   return { __esModule: true, default: mockChildren };
 });
 
+jest.mock("@src/hooks/useSocket");
+
 describe("ArithmeticNode", () => {
   it("checks the snapshot", () => {
     const { container } = renderWithTheme(<ArithmeticNode {...props} />);

@@ -5,6 +5,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 const defaultPythonFnLabel = "PYTHON FUNCTION";
 const defaultPythonFnType = "PYTHON FUNCTION TYPE";
+
 export function useFlowChartTabState() {
   const { width } = useWindowSize();
   const [modalIsOpen, setIsModalOpen] = useState(false);

@@ -4,22 +4,20 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
-import { Layout } from "plotly.js";
-import { useEffect } from "react";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
+import { memo, useMemo } from "react";
 import { useNodeStyles } from "../DefaultNode";
-import NodeWrapper from "../NodeWrapper";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
-import Histogram from "../nodes/Histogram";
-import Scatter from "../nodes/Scatter";
 import BarChart from "../nodes/bar";
-import LineChart from "../nodes/line-chart";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { makePlotlyData } from "@src/utils/format_plotly_data";
-import PlotlyTable from "../nodes/Table";
-import PlotlyImage from "../nodes/Image";
-import BoxPlot from "../nodes/box-plot";
 import BigNumber from "../nodes/BigNumber";
+import BoxPlot from "../nodes/box-plot";
+import Histogram from "../nodes/Histogram";
+import PlotlyImage from "../nodes/Image";
+import LineChart from "../nodes/line-chart";
+import Scatter from "../nodes/Scatter";
+import PlotlyTable from "../nodes/Table";
+import NodeWrapper from "../NodeWrapper";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -50,42 +48,39 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-      return prev;
-    });
-  }, [data, nodes, setNodes]);
+  // TODO: Investigate why this keeps making it rerender
+  const {
+    states: { programResults },
+  } = useSocket();
 
-  const { states } = useSocket();
-  const { programResults } = states!;
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
-
-  const plotLayout = usePlotLayout();
 
   const accentColor =
     theme.colorScheme === "dark"
       ? theme.colors.accent1[0]
       : theme.colors.accent2[0];
 
-  const layoutOverride: Partial<Layout> = {
-    plot_bgcolor: "transparent",
-    title: data.label,
-    margin: { t: 30, r: 0, b: 0, l: 0 },
-    grid: { rows: 0, columns: 0 },
-    xaxis: { visible: false },
-    yaxis: { visible: false },
-    font: {
-      color: accentColor,
-    },
-  };
+  const plotlyResultData = useMemo(
+    () =>
+      result
+        ? makePlotlyData(
+            result.result.default_fig.data.map((d) => ({
+              ...d,
+              marker: {
+                ...d.marker,
+                color: accentColor,
+              },
+            })),
+            theme,
+            true
+          )
+        : undefined,
+    [result]
+  );
 
   return (
     <NodeWrapper data={data}>
@@ -97,12 +92,12 @@ const VisorNode = ({ data }: CustomNodeProps) => {
           failedNode === data.id ? nodeClasses.failShadow : ""
         )}
       >
-        {result ? (
+        {result && plotlyResultData ? (
           <>
             <PlotlyComponent
-              data={makePlotlyData(result.result.default_fig.data, theme, true)}
+              data={plotlyResultData}
               id={data.id}
-              layout={{ ...plotLayout, ...layoutOverride }}
+              layout={result.result.default_fig.layout ?? {}}
               useResizeHandler
               style={{
                 height: 190,
@@ -145,4 +140,4 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   );
 };
 
-export default VisorNode;
+export default memo(VisorNode);

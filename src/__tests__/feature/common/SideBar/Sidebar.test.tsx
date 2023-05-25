@@ -1,15 +1,10 @@
-import { fireEvent, waitFor } from "@testing-library/react";
-import { SidebarCustom } from "@src/feature/common/Sidebar/Sidebar";
-import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
-import { useState } from "react";
-import {
-  CMND_MANIFEST,
-  CMND_MANIFEST_MAP,
-  CMND_TREE,
-} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import React from "react";
 import { AddNodeBtn } from "@src/AddNodeBtn";
+import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import Sidebar from "@src/feature/common/Sidebar/Sidebar";
+import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
+import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { fireEvent } from "@testing-library/react";
+import { useState } from "react";
 
 class ResizeObserver {
   observe() {}
@@ -42,15 +37,12 @@ jest.mock("@src/hooks/useFlowChartState", () => {
 
 jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
   const SidebarMock = () => {
-    const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false); //for script sidebar
-    const addNewNode = useAddNewNode();
+    const [isSCRIPTSideBarOpen, setSCRIPTSideBarStatus] = useState(false);
+    const addNewNode = useAddNewNode(jest.fn(), jest.fn());
     return (
       <>
-        <AddNodeBtn
-          setSCRIPTSideBarStatus={setSCRIPTSideBarStatus}
-          isSCRIPTSideBarOpen={isSCRIPTSideBarOpen}
-        />
-        <SidebarCustom
+        <AddNodeBtn setIsSidebarOpen={setSCRIPTSideBarStatus} />
+        <Sidebar
           sections={{ title: "ROOT", child: [] }}
           manifestMap={CMND_MANIFEST_MAP}
           leafNodeClickHandler={addNewNode}
@@ -60,11 +52,10 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
       </>
     );
   };
-  return { SidebarCustom: SidebarMock };
+  return { Sidebar: SidebarMock };
 });
 
-const SidebarTest =
-  require("@src/feature/common/Sidebar/Sidebar").SidebarCustom;
+const SidebarTest = require("@src/feature/common/Sidebar/Sidebar").Sidebar;
 
 describe("Sidebar", () => {
   it("should render the component correctly", () => {
@@ -89,12 +80,12 @@ describe("Sidebar", () => {
 
     fireEvent.click(addButton);
 
-    expect(sidebar).toHaveStyle("left:0%");
+    expect(sidebar).toHaveStyle("left:0px");
   });
 
   it("fires an Input event and checks if the textInput state changes or not", async () => {
     const { getByTestId } = renderWithTheme(<SidebarTest />);
-    const input: any = getByTestId("sidebar-input");
+    const input = getByTestId("sidebar-input") as HTMLInputElement;
     fireEvent.change(input, { target: { value: "sine" } });
     expect(input.value).toBe("sine");
   });
