@@ -14,6 +14,11 @@ env:
   APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
+  codecov-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: codecov/codecov-action@v3
+
   jest-tests:
     runs-on: ubuntu-latest
 
