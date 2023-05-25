@@ -12,7 +12,9 @@ export const sendFrontEndLoadsToMix = () => {
     console.error(`the request failed: ${e}`);
   }
 };
-export const SendNodeDeletedToMix = (node: string) => {
+
+//this needs more work since I would need to override readtflow stuff
+export const sendNodeDeletedToMix = (node: string) => {
   try {
     mixpanel.track("Node Deleted", { nodeTitle: node });
   } catch (e) {
@@ -20,7 +22,7 @@ export const SendNodeDeletedToMix = (node: string) => {
   }
 };
 
-export const SendNodeAddedToMix = (node: string) => {
+export const sendNodeAddedToMix = (node: string) => {
   try {
     mixpanel.track("Node Added", { nodeTitle: node });
   } catch (e) {
@@ -28,14 +30,14 @@ export const SendNodeAddedToMix = (node: string) => {
   }
 };
 
-export const SendTabChangedToMix = (changedTab: string) => {
+export const sendTabChangedToMix = (changedTab: string) => {
   try {
     mixpanel.track("Tab Changed", { tab: changedTab });
   } catch (e) {
     console.error(`the request failed: ${e}`);
   }
 };
-export const SendNodeSearchedToMix = (node: string) => {
+export const sendNodeSearchedToMix = (node: string) => {
   try {
     mixpanel.track("Node Searched", { nodeTitle: node });
   } catch (e) {

@@ -39,6 +39,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { sendNodeDeletedToMix } from "@src/services/MixpanelServices";
 
 localforage.config({
   name: "react-flow",
@@ -92,11 +93,12 @@ const FlowChartTab = () => {
   const sidebarCustomContent = useMemo(() => <RequestNode />, []);
 
   const handleNodeRemove = useCallback(
-    (nodeId: string) => {
+    (nodeId: string, nodeLabel: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
+      sendNodeDeletedToMix(nodeLabel);
     },
     [setNodes, setEdges]
   );
@@ -239,6 +241,7 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
+        sideBarType={"flowChart"}
       />
       <ReactFlowProvider>
         <div

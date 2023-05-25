@@ -1,6 +1,7 @@
 import { createStyles } from "@mantine/core";
 import { CommandManifestMap } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import { SendNodeAddedToMix } from "@src/services/MixpanelServices";
+import { sendNodeAddedToMix } from "@src/services/MixpanelServices";
+import { tabType } from "@feature/common/Sidebar/Sidebar";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -31,31 +32,51 @@ type SidebarNodeProps = {
   keyNode: string;
   manifestMap: CommandManifestMap;
   depth: number;
+  sideBarType: tabType;
 };
 
 const SidebarNode = ({
   onClickHandle,
   keyNode,
   manifestMap,
+  sideBarType,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const commands = manifestMap[keyNode] || [];
-  return (
-    <>
-      {commands.map((cmd) => (
-        <button
-          key={cmd.key}
-          className={classes.buttonLeafNode}
-          onClick={() => {
-            //SendNodeAddedToMix(cmd.key || keyNode);
-            onClickHandle(cmd.key || keyNode);
-          }}
-        >
-          {cmd.key || cmd.name}
-        </button>
-      ))}
-    </>
-  );
+  if (sideBarType === "flowChart") {
+    return (
+      <>
+        {commands.map((cmd) => (
+          <button
+            key={cmd.key}
+            className={classes.buttonLeafNode}
+            onClick={() => {
+              sendNodeAddedToMix(cmd.key || keyNode);
+              onClickHandle(cmd.key || keyNode);
+            }}
+          >
+            {cmd.key || cmd.name}
+          </button>
+        ))}
+      </>
+    );
+  } else {
+    return (
+      <>
+        {commands.map((cmd) => (
+          <button
+            key={cmd.key}
+            className={classes.buttonLeafNode}
+            onClick={() => {
+              onClickHandle(cmd.key || keyNode);
+            }}
+          >
+            {cmd.key || cmd.name}
+          </button>
+        ))}
+      </>
+    );
+  }
 };
 
 export default SidebarNode;

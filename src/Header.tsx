@@ -26,8 +26,6 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-export type AppTab = "visual" | "panel" | "debug";
-
 const Header = () => {
   const { classes } = useStyles();
 

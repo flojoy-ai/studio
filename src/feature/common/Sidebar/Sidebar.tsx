@@ -13,11 +13,12 @@ import {
   Sections,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import {
-  SendNodeAddedToMix,
-  SendNodeDeletedToMix,
-  SendNodeSearchedToMix,
+  sendNodeAddedToMix,
+  sendNodeDeletedToMix,
+  sendNodeSearchedToMix,
 } from "@src/services/MixpanelServices";
 
+export type tabType = "flowChart" | "controls" | "results";
 type leafClickHandler = (key: string) => void;
 
 const useSidebarStyles = createStyles((theme) => ({
@@ -74,6 +75,7 @@ type SidebarCustomProps = {
   leafNodeClickHandler: leafClickHandler;
   manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
+  sideBarType: tabType;
 };
 
 const Sidebar = ({
@@ -83,6 +85,7 @@ const Sidebar = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
+  sideBarType,
 }: SidebarCustomProps) => {
   const [textInput, handleChangeInput] = useState("");
   const { classes } = useSidebarStyles();
@@ -127,6 +130,7 @@ const Sidebar = ({
               keyNode={node.key as string}
               manifestMap={manifestMap}
               depth={depth}
+              sideBarType={sideBarType}
             />
           );
         }
@@ -181,6 +185,7 @@ const Sidebar = ({
             onClickHandle={leafNodeClickHandler}
             keyNode={node.key as string}
             manifestMap={manifestMap}
+            sideBarType={sideBarType}
           />
         );
       }

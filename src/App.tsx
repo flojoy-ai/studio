@@ -74,7 +74,7 @@ const App = () => {
     }
   };
   useEffect(() => {
-    //SendFrontEndLoadsToMix();
+    //sendFrontEndLoadsToMix();
     document.addEventListener("keydown", handleShortcut);
     return () => {
       document.removeEventListener("keydown", handleShortcut);

@@ -1,6 +1,6 @@
 import { MediaQuery, clsx, createStyles } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { SendTabChangedToMix } from "@src/services/MixpanelServices";
+import { sendTabChangedToMix } from "@src/services/MixpanelServices";
 
 const useStyles = createStyles((theme) => ({
   tab: {
