@@ -46,14 +46,14 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
       });
     } else {
       notifications.show({
-        title: "Failed",
+        title: "Failed!",
         message: "Failed to set the API Key",
         autoClose: 5000,
       });
     }
   } catch (error) {
     notifications.show({
-      title: "Failed",
+      title: "Failed!",
       message: "Failed to set the API Key",
       autoClose: 5000,
     });
