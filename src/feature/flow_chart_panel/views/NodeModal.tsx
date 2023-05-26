@@ -60,7 +60,7 @@ export const NodeModalStyles = createStyles((theme) => ({
 
 // const getPath = (obj : Sections, key: string, paths = []) => {
 //   if (obj.title === "ROOT") {
-//     getPath()
+//     getPath( key)
 //   }
 //   if (obj.) return [{ id: obj.id }];
 

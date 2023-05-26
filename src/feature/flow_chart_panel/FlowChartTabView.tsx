@@ -202,11 +202,13 @@ const FlowChartTab = () => {
     let nodeFileName =
       selectedNode?.data.label === defaultPythonFnLabel ||
       selectedNode?.data.type === defaultPythonFnType
+        ? "..."
+        : selectedNode?.data.label + ".py";
 
     if (selectedNode.data.func === "CONSTANT") {
       nodeFileName = selectedNode.data.func + ".py";
     }
-    let pythonString = PYTHON_FUNCTIONS[nodeFileName];
+    const pythonString = PYTHON_FUNCTIONS[nodeFileName];
 
     setNodeFileName(nodeFileName);
     setPythonString(pythonString);
@@ -236,6 +238,7 @@ const FlowChartTab = () => {
   });
 
   return (
+    <Layout>
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 100px)" }}
