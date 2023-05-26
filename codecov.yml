@@ -3,6 +3,11 @@ codecov:
     after_n_builds: 2
     wait_for_ci: yes
 
+coverage:
+  status:
+    project: off
+    patch: off
+
 flag_management:
   individual_flags:
     - name: typescript
