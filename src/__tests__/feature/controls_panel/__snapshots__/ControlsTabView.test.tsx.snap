@@ -32,7 +32,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               <img
                 alt="Logo"
                 class="mantine-27ixb3 mantine-Image-image"
-                src="/public/assets/favicon.png"
+                src="/public/assets/logo.png"
                 style="object-fit: cover; width: 5rem; height: 5rem;"
               />
             </div>

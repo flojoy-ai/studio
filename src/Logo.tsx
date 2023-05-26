@@ -5,7 +5,7 @@ export const Logo = () => {
     <Image
       width={80}
       height={80}
-      src="/public/assets/favicon.png"
+      src="/public/assets/logo.png"
       alt="Logo"
     ></Image>
   );
