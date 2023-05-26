@@ -1,4 +1,4 @@
-import { createStyles, useMantineTheme } from "@mantine/core";
+import { Button, createStyles, useMantineTheme } from "@mantine/core";
 import React, { useRef } from "react";
 import "@src/feature/flow_chart_panel/components/play-btn/play-btn.css";
 
@@ -72,7 +72,7 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
   };
 
   return (
-    <button
+    <Button
       className={classes.btnPlay}
       ref={ButtonElem}
       style={style}
@@ -98,8 +98,9 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
           }
         />
       </svg>
+      <div style={{ padding: "4px" }} />
       <span>Play</span>
-    </button>
+    </Button>
   );
 };
 

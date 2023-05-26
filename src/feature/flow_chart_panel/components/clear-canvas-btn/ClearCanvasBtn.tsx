@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { Button, createStyles } from "@mantine/core";
 import { Draft } from "immer";
 import { Edge, Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
@@ -8,8 +8,6 @@ const useStyles = createStyles((theme) => {
     button: {
       width: "fit-content",
       height: "43px",
-      left: "10px",
-      top: "110px",
       margin: "10px",
       boxSizing: "border-box",
       backgroundColor: "transparent",
@@ -17,6 +15,10 @@ const useStyles = createStyles((theme) => {
       border: `1px solid ${theme.colors.red[8]}`,
       cursor: "pointer",
       zIndex: 100,
+      fontWeight: 600,
+      "&:not([data-disabled])": theme.fn.hover({
+        backgroundColor: theme.fn.darken(theme.colors.red[8], 0.6),
+      }),
     },
   };
 });
@@ -39,12 +41,12 @@ export const ClearCanvasBtn = ({ setNodes, setEdges }: ClearCanvasBtnProps) => {
   };
 
   return (
-    <button
+    <Button
       data-testid="clear-canvas-btn"
       className={classes.button}
       onClick={deleteAllNodes}
     >
       Clear Canvas
-    </button>
+    </Button>
   );
 };
