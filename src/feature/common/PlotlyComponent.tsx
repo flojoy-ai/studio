@@ -49,12 +49,11 @@ const PlotlyComponent = (props: PlotProps) => {
         ...layout,
         ...defaultPlotLayout,
         showlegend: !isThumbnail,
-        ...(isThumbnail && isMatrix
-          && getSizeForMatrix())
+        ...(isThumbnail && isMatrix && getSizeForMatrix()),
       }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false, staticPlot: isThumbnail }}
-      style={ isMatrix && isThumbnail ? getSizeForMatrix() : style}
+      style={isMatrix && isThumbnail ? getSizeForMatrix() : style}
     />
   );
 };
@@ -64,6 +63,6 @@ export default PlotlyComponent;
 const getSizeForMatrix = () => {
   return {
     width: 240,
-    height:260,
+    height: 260,
   };
 };
