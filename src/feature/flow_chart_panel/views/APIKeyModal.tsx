@@ -11,10 +11,6 @@ interface APIKeyModelProps {
   onClose: () => void;
 }
 
-const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "localhost";
-const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
-const API_URL = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
-
 const useStyles = createStyles((theme) => ({
   container: {
     display: "relative",
