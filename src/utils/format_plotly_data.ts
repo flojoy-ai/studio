@@ -17,6 +17,7 @@ export const makePlotlyData = (
   const cellFillColor = "transparent";
   const matrixFontColor =
     theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.dark[7];
+
   return data.map((d) => {
     return {
       ...d,
@@ -26,12 +27,12 @@ export const makePlotlyData = (
           ...d.header,
           align: "center",
           values: isThumbnail
-            ? d.header?.values.filter(
+            ? d.header?.values?.filter(
                 (_: unknown, i: number) => i < NUM_OF_COLUMNS
               )
             : d.header?.values,
           fill: {
-            color: d.header?.values.length ? headerFillColor : "transparent",
+            color: d.header?.values?.length ? headerFillColor : "transparent",
           },
         },
         cells: {
@@ -39,13 +40,13 @@ export const makePlotlyData = (
           align: "center",
           values: isThumbnail
             ? d.cells?.values
-                .filter(
+                ?.filter(
                   (_: unknown, i: number) =>
                     i <
                     (d.header?.values.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS)
                 )
                 .map((i: any) =>
-                  i.filter(
+                  i?.filter(
                     (_: unknown, index: number) =>
                       index <
                       (d.header?.values.length ? NUM_OF_ROWS : MATRIX_COLUMNS)
@@ -55,7 +56,7 @@ export const makePlotlyData = (
           fill: {
             color: cellFillColor,
           },
-          ...(!d.header?.values.length && {
+          ...(!d.header?.values?.length && {
             font: { color: matrixFontColor },
           }),
           ...(isThumbnail && {
