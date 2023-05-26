@@ -1,9 +1,10 @@
 from fastapi import APIRouter, WebSocket
-from utils.config import manager
+from captain.utils.config import manager
 
-router = APIRouter()
+router = APIRouter(tags=["ws"])
 
-#this does nothing for now except establish a websocket connection
+
+# this does nothing for now except establish a websocket connection
 @router.websocket("/ws/socket-server/")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.ws.connect(websocket)

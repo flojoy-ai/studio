@@ -1,9 +1,10 @@
 from fastapi import WebSocket
 
 
-class Manager(object): 
+class Manager(object):
     def __init__(self):
-        self.ws = ConnectionManager() #websocket manager
+        self.ws = ConnectionManager()  # websocket manager
+
 
 class ConnectionManager:
     def __init__(self):
@@ -24,4 +25,4 @@ class ConnectionManager:
             try:
                 await connection.send_text(message)
             except RuntimeError:
-                self.disconnect(connection)
+                await self.disconnect(connection)

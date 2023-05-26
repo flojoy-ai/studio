@@ -12,6 +12,8 @@ const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
 const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
+const FASTAPI = "http://127.0.0.1:2333";
+
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
 // This is to prevent unnecessary re-rendering which would happen
@@ -28,13 +30,15 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
 
 export const sendApiKeyToDjango = async (apiKey: string) => {
   try {
-    const response = await fetch(`${API_URI}/api/set-api`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ key: apiKey }),
-    });
+    const response = await fetch(
+      `${FASTAPI}/key/?` +
+        new URLSearchParams({
+          api_key: apiKey,
+        }).toString(),
+      {
+        method: "POST",
+      }
+    );
 
     if (response.ok) {
       const responseData = await response.json();

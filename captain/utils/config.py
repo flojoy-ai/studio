@@ -1,3 +1,3 @@
-from internal.manager import Manager
+from captain.internal.manager import Manager
 
 manager = Manager()
