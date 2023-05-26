@@ -23,7 +23,6 @@ const useStyles = createStyles((theme) => {
       gap: 6,
       flexWrap: "wrap",
       outline: 0,
-      padding: "padding: 8px 12px 8px 12px",
       cursor: "pointer",
       position: "relative",
       transition: "transform ease-in 0.1s, box-shadow ease-in 0.25s",
@@ -32,6 +31,7 @@ const useStyles = createStyles((theme) => {
       backgroundColor: theme.colors.accent4[1],
       color: accent[0],
       border: `1px solid ${accent[0]}`,
+      borderRadius: 6,
       "&:hover": {
         backgroundColor: accent[1] + "36",
       },
@@ -87,14 +87,11 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
         viewBox="0 0 9 11"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        style={{ marginBottom: 2 }}
       >
         <path
           d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
-          fill={
-            theme.colorScheme === "dark"
-              ? theme.colors.accent1[0]
-              : theme.colors.accent2[0]
-          }
+          fill={theme.colors.accent1[0]}
         />
       </svg>
       <div style={{ padding: "4px" }} />

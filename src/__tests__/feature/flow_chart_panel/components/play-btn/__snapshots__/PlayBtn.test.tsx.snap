@@ -2,7 +2,7 @@
 
 exports[`PlayBtn component renders correctly with default props 1`] = `
 <button
-  class="mantine-8mgm8e"
+  class="mantine-axqpfd"
   data-cy="btn-play"
   data-testid="btn-play"
   title="Run Script"
@@ -10,6 +10,7 @@ exports[`PlayBtn component renders correctly with default props 1`] = `
   <svg
     fill="none"
     height="11"
+    style="margin-bottom: 2px;"
     viewBox="0 0 9 11"
     width="9"
     xmlns="http://www.w3.org/2000/svg"
