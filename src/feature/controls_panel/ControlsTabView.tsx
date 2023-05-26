@@ -3,6 +3,7 @@ import localforage from "localforage";
 import { useState } from "react";
 import "./style/Controls.css";
 
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { createStyles } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
@@ -17,12 +18,11 @@ import {
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { v4 as uuidv4 } from "uuid";
-import SidebarCustom from "../common/Sidebar/Sidebar";
+import NewSidebar from "../common/Sidebar/NewSidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
@@ -199,7 +199,7 @@ const ControlsTab = () => {
             setOpenEditModal,
           }}
         />
-        <SidebarCustom
+        <NewSidebar
           sections={CTRL_TREE}
           manifestMap={CTRL_MANIFEST}
           leafNodeClickHandler={addCtrl}

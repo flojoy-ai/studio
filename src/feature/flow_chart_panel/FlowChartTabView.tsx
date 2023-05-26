@@ -39,6 +39,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import NewSidebar from "../common/Sidebar/NewSidebar";
 
 localforage.config({
   name: "react-flow",
@@ -233,7 +234,7 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <Sidebar
+      <NewSidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
         leafNodeClickHandler={addNewNode}

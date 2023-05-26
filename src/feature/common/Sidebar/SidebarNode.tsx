@@ -1,5 +1,13 @@
-import { createStyles } from "@mantine/core";
+import {
+  Box,
+  ChevronIcon,
+  Collapse,
+  Group,
+  UnstyledButton,
+  createStyles,
+} from "@mantine/core";
 import { CommandManifestMap } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { useState } from "react";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -23,6 +31,10 @@ export const useSidebarStyles = createStyles((theme) => ({
     margin: "5px",
     fontFamily: "monospace",
   },
+
+  chevron: {
+    transition: "transform 200ms ease",
+  },
 }));
 
 type SidebarNodeProps = {
@@ -39,19 +51,24 @@ const SidebarNode = ({
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const commands = manifestMap[keyNode] || [];
+  const [open, setOpen] = useState(false);
   return (
     <>
-      {commands.map((cmd) => (
-        <button
-          key={cmd.key}
-          className={classes.buttonLeafNode}
-          onClick={() => {
-            onClickHandle(cmd.key || keyNode);
-          }}
-        >
-          {cmd.key || cmd.name}
-        </button>
-      ))}
+      <Collapse in>
+        <div>
+          {commands.map((cmd) => (
+            <button
+              key={cmd.key}
+              className={classes.buttonLeafNode}
+              onClick={() => {
+                onClickHandle(cmd.key || keyNode);
+              }}
+            >
+              {cmd.key || cmd.name}
+            </button>
+          ))}
+        </div>
+      </Collapse>
     </>
   );
 };
