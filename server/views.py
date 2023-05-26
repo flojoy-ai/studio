@@ -4,10 +4,8 @@ import os
 import sys
 import time
 import yaml
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from flojoy.utils import set_frontier_api_key
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -74,18 +72,5 @@ def worker_response(request):
     asyncio.run(send_msg_to_socket(parse_data))
     response = {
         "success": True,
-    }
-    return Response(response, status=200)
-
-
-@api_view(["POST"])
-def set_user_api_key(request):
-    key = request.data
-    api_key = key["key"]
-    set_frontier_api_key(api_key)
-
-    response = {
-        "success": True,
-        "data": api_key,
     }
     return Response(response, status=200)

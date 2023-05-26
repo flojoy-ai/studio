@@ -9,5 +9,4 @@ urlpatterns = [
     path("wfc", run_flow_chart),
     path("worker_response", worker_response),
     path("cancel_fc", cancel_flow_chart),
-    path("api/set-api", set_user_api_key),
 ]
