@@ -5,9 +5,10 @@ export type NodeModalProps = {
   closeModal: () => void;
   nodeLabel: any;
   nodeType: any;
-  nd: ResultIO;
-  nodeFileName : string;
+  nd: ResultIO | null;
   defaultLayout: any;
   clickedElement: any;
   pythonString: string;
+    nodeFileName : string;
+
 };

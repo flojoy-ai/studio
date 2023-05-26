@@ -280,7 +280,7 @@ const FlowChartTab = () => {
             closeModal={closeModal}
             defaultLayout={defaultLayout}
             modalIsOpen={modalIsOpen}
-            nd={nd!}
+            nd={nd}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}

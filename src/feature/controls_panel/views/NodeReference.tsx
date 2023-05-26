@@ -10,7 +10,6 @@ import {
   useControlStyles,
 } from "./control-component/ControlComponent";
 import { Box } from "@mantine/core";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 interface NodeReferenceProps {
   updateCtrlValue: ControlComponentProps["updateCtrlValue"];

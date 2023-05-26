@@ -69,7 +69,6 @@ const NodeModal = ({
   nd,
   nodeFileName,
   pythonString,
-  defaultLayout,
   clickedElement,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
