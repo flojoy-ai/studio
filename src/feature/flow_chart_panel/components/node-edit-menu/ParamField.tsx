@@ -1,5 +1,5 @@
 import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 type ParamFieldProps = {
@@ -19,7 +19,7 @@ const ParamField = ({
   value,
   options,
 }: ParamFieldProps) => {
-  const { updateCtrlInputDataForNode } = useFlowChartState();
+  const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const handleChange = (value: string) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
       functionName,
@@ -68,7 +68,7 @@ const ParamField = ({
         />
       );
     default:
-      return <p> There's something wrong with the paramType </p>;
+      return <p> There&apos;s something wrong with the paramType </p>;
   }
 };
 

@@ -12,18 +12,21 @@ import {
   ReactFlow,
   ReactFlowProvider,
 } from "reactflow";
-import { ResultsType } from "./types/ResultsType";
 import { useResultsTabEffects } from "./ResultsTabEffects";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-interface ResultsTabProps {
-  results: ResultsType;
-}
-const edgeTypes: EdgeTypes = { default: CustomEdge as any };
-const nodeTypes: NodeTypes = { default: CustomResultNode as any };
+import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "@src/Layout";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
-const ResultsTab = ({ results }: ResultsTabProps) => {
-  const { setResultNodes, nodes, resultNodes } = useResultsTabState();
-  const { edges } = useFlowChartState();
+const edgeTypes: EdgeTypes = { default: CustomEdge };
+const nodeTypes: NodeTypes = { default: CustomResultNode };
+
+const ResultsTab = () => {
+  const {
+    states: { programResults },
+  } = useSocket();
+
+  const { setResultNodes, resultNodes } = useResultsTabState();
+  const { nodes, edges } = useFlowChartGraph();
 
   const { width: windowWidth } = useWindowSize();
   const onInit: OnInit = (rfIns) => {
@@ -39,25 +42,30 @@ const ResultsTab = ({ results }: ResultsTabProps) => {
     });
   };
   const nodeResults = useMemo(
-    () => (results && "io" in results ? results.io! : []),
-    [results]
+    () => (programResults && programResults.io ? programResults.io : []),
+    [programResults]
   );
 
   useResultsTabEffects({ nodeResults, setResultNodes, nodes, resultNodes });
 
   return (
-    <ReactFlowProvider>
-      <div style={{ height: "calc(100vh - 110px)" }} data-testid="results-flow">
-        <ReactFlow
-          nodes={resultNodes}
-          edges={edges}
-          edgeTypes={edgeTypes}
-          nodeTypes={nodeTypes}
-          connectionLineType={ConnectionLineType.Step}
-          onInit={onInit}
-        />
-      </div>
-    </ReactFlowProvider>
+    <Layout>
+      <ReactFlowProvider>
+        <div
+          style={{ height: "calc(100vh - 110px)" }}
+          data-testid="results-flow"
+        >
+          <ReactFlow
+            nodes={resultNodes}
+            edges={edges}
+            edgeTypes={edgeTypes}
+            nodeTypes={nodeTypes}
+            connectionLineType={ConnectionLineType.Step}
+            onInit={onInit}
+          />
+        </div>
+      </ReactFlowProvider>
+    </Layout>
   );
 };
 
