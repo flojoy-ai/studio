@@ -80,7 +80,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
             true
           )
         : undefined,
-    [result]
+    [result, theme.colorScheme]
   );
 
   return (

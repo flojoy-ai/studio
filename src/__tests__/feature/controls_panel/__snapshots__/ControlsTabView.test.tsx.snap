@@ -2,9 +2,11 @@
 
 exports[`ControlsTab render ControlsTab correctly. 1`] = `
 <div>
-  <div>
+  <div
+    class="mantine-1iveypt"
+  >
     <div
-      class="mantine-Text-root mantine-1mkgn9v"
+      class="mantine-Text-root mantine-oucrfb"
       data-cy="app-status"
     >
       <code>
@@ -12,7 +14,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       </code>
     </div>
     <header
-      class="mantine-Header-root mantine-ii6m85"
+      class="mantine-Header-root mantine-24hp65"
     >
       <div
         class="mantine-1rquoiv"
@@ -127,13 +129,16 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 Keyboard Shortcut
               </button>
               <button>
+                Settings
+              </button>
+              <button>
                 Set API key
               </button>
             </div>
           </div>
         </div>
         <button
-          class="mantine-26x671"
+          class="mantine-1e1m4q8"
         >
           <svg
             fill="none"
@@ -151,7 +156,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       </div>
     </header>
     <main
-      style="min-height: 85vh;"
+      style="min-height: calc(100vh - 100px);"
     >
       <div
         data-testid="controls-tab"
@@ -251,7 +256,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           data-testid="control-grid"
         />
         <nav
-          class="mantine-Navbar-root mantine-r90bv"
+          class="mantine-Navbar-root mantine-tqi198"
           data-testid="sidebar"
         >
           <div

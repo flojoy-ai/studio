@@ -15,6 +15,7 @@ export const makePlotlyData = (
   const headerFillColor =
     theme.colorScheme === "light" ? theme.white : theme.colors.dark[6];
   const cellFillColor = "transparent";
+  const matrixFontColor = theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.dark[7]
   return data.map((d) => {
     return {
       ...d,
@@ -53,6 +54,12 @@ export const makePlotlyData = (
           fill: {
             color: cellFillColor,
           },
+          ...(!d.header?.values.length && {
+            font: { color: matrixFontColor },
+          }),
+          ...(isThumbnail && {
+            height: 40,
+          }),
         },
       }),
       marker: {

@@ -4,12 +4,18 @@ import { Dispatch } from "react";
 
 const useStyles = createStyles((theme) => {
   return {
-    addButton: {
+    button: {
+      width: "fit-content",
+      height: "43px",
+      left: "10px",
+      top: "110px",
+      margin: "10px",
       boxSizing: "border-box",
       backgroundColor: theme.colors.accent4[1],
       color: theme.colors.accent4[0],
       border: `1px solid ${theme.colors.accent4[0]}`,
       cursor: "pointer",
+      zIndex: 100,
     },
   };
 });
@@ -24,7 +30,7 @@ export const AddNodeBtn = ({ setIsSidebarOpen }: AddNodeBtnProps) => {
   return (
     <button
       data-testid="add-node-button"
-      className={classes.addButton}
+      className={classes.button}
       onClick={() => setIsSidebarOpen((prev) => !prev)}
       style={{
         width: "fit-content",
@@ -32,7 +38,6 @@ export const AddNodeBtn = ({ setIsSidebarOpen }: AddNodeBtnProps) => {
         left: "10px",
         top: "110px",
         margin: "10px",
-        zIndex: 1,
       }}
     >
       + Add Node

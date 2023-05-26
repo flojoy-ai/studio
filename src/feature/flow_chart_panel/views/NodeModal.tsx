@@ -18,7 +18,6 @@ const NodeModal = ({
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
-  console.log(" nd: ", nd);
   return (
     <Modal
       data-testid="node-modal"

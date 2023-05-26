@@ -30,6 +30,7 @@ type PlotProps = {
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
+  const isMatrix = data[0]?.header?.values.length === 0;
 
   useEffect(() => {
     if (!window) {
@@ -48,12 +49,21 @@ const PlotlyComponent = (props: PlotProps) => {
         ...layout,
         ...defaultPlotLayout,
         showlegend: !isThumbnail,
+        ...(isThumbnail && isMatrix
+          && getSizeForMatrix())
       }}
       useResizeHandler={useResizeHandler}
       config={{ displayModeBar: false, staticPlot: isThumbnail }}
-      style={style}
+      style={ isMatrix && isThumbnail ? getSizeForMatrix() : style}
     />
   );
 };
 
 export default PlotlyComponent;
+
+const getSizeForMatrix = () => {
+  return {
+    width: 240,
+    height:260,
+  };
+};
