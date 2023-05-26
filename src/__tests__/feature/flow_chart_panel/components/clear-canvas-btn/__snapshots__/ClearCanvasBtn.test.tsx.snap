@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CanvasClearBtn renders correctly with default props 1`] = `
+<div>
+  <button
+    class="mantine-3z0i1f"
+    data-testid="clear-canvas-btn"
+  >
+    Clear Canvas
+  </button>
+  ,
+</div>
+`;
