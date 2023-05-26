@@ -215,7 +215,7 @@ const FlowChartTab = () => {
     setNodeType(selectedNode.data.type);
   }, [selectedNode]);
 
-const proOptions = { hideAttribution: true };
+  const proOptions = { hideAttribution: true };
 
   useFlowChartTabEffects({
     clickedElement,
