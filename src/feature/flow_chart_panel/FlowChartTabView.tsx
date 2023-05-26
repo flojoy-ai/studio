@@ -10,6 +10,7 @@ import {
   OnNodesChange,
   OnNodesDelete,
   ReactFlow,
+  MiniMap,
   ReactFlowProvider,
   addEdge,
   applyEdgeChanges,
@@ -279,6 +280,7 @@ const FlowChartTab = () => {
               <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
             </div>
           </ReactFlow>
+          <MiniMap zoomable pannable />
 
           <NodeExpandMenu
             clickedElement={selectedNode}
