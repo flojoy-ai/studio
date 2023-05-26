@@ -1,13 +1,11 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 import { CMND_TREE, Sections } from "../manifest/COMMANDS_MANIFEST";
-import FlojoyTheme from "@src/assets/FlojoyTheme";
-// import VectorIconSVG from "@src/assets/VectorIconSVG";
+import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
@@ -16,6 +14,7 @@ export const NodeModalStyles = createStyles((theme) => ({
   },
   header: {
     padding: "80px 0px 45px 86px",
+    borderRadius: 17,
   },
   title: {
     position: "absolute",
@@ -109,6 +108,7 @@ const NodeModal = ({
 }: NodeModalProps) => {
   const theme = useMantineTheme();
   const { classes } = NodeModalStyles();
+  const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   let nodeCategory = "";
@@ -131,12 +131,11 @@ const NodeModal = ({
       LINK = LINK + `S/${nodeDataLabel}/${nodeFileName}`;
       break;
     case "LOGIC_GATES":
-      LINK = LINK + `S/${nodeDataLabel}/${nodeFileName}`;
+      LINK = LINK + `S/${nodeFileName}`;
       break;
     default:
       LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
   }
-  console.log(LINK);
 
   return (
     <Modal
@@ -153,8 +152,6 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
-      <Modal.Title>{/* <VectorIconSVG /> {nodeLabel} */}</Modal.Title>
-
       <Flex gap="xl">
         <Box>
           <Button
@@ -221,7 +218,6 @@ const NodeModal = ({
           )}
         </div>
       )}
-
       <div style={{ display: "flex" }}>
         <h2 style={{ fontSize: 22, marginTop: 2, marginBottom: 0 }}>
           Python code
@@ -229,24 +225,16 @@ const NodeModal = ({
       </div>
       <SyntaxHighlighter
         language="python"
-        // style={colorScheme === "dark" ? srcery : docco}
-        customStyle={{}}
-        useInlineStyles={false}
-        codeTagProps={{
-          style: {
-            FlojoyTheme,
-          },
-        }}
+        style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
       >
         {pythonString}
       </SyntaxHighlighter>
-
       <h2 style={{ fontSize: 22, marginTop: 28, marginBottom: 0 }}>
         Node data
       </h2>
       <SyntaxHighlighter
         language="json"
-        style={colorScheme === "dark" ? srcery : docco}
+        style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
       >
         {`${JSON.stringify(clickedElement, undefined, 4)}`}
       </SyntaxHighlighter>
