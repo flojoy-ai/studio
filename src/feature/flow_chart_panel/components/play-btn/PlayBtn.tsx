@@ -1,4 +1,4 @@
-import { createStyles, useMantineTheme } from "@mantine/core";
+import { Button, createStyles, useMantineTheme } from "@mantine/core";
 import React, { useRef } from "react";
 import "@src/feature/flow_chart_panel/components/play-btn/play-btn.css";
 
@@ -28,18 +28,12 @@ const useStyles = createStyles((theme) => {
       transition: "transform ease-in 0.1s, box-shadow ease-in 0.25s",
       WebkitAppearance: "none",
       appearance: "none",
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.modal[0]
-          : "rgba(46, 131, 255, 0.2)",
-      color: theme.colors.accent1[0],
-      border:
-        theme.colorScheme === "dark"
-          ? `0.5px solid #99F5FF`
-          : `0.5px solid #2E83FF`,
+      backgroundColor: theme.colors.accent4[1],
+      color: accent[0],
+      border: `1px solid ${accent[0]}`,
       borderRadius: 6,
       "&:hover": {
-        backgroundColor: accent[1] + "48",
+        backgroundColor: accent[1] + "36",
       },
       "&:disabled, &:disabled:hover": {
         color: "#b5b5b5",
@@ -77,7 +71,7 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
   };
 
   return (
-    <button
+    <Button
       className={classes.btnPlay}
       ref={ButtonElem}
       style={style}
@@ -100,8 +94,9 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
           fill={theme.colors.accent1[0]}
         />
       </svg>
+      <div style={{ padding: "4px" }} />
       <span>Play</span>
-    </button>
+    </Button>
   );
 };
 

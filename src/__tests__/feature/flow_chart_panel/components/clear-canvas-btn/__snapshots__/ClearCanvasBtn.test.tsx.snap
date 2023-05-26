@@ -3,10 +3,20 @@
 exports[`CanvasClearBtn renders correctly with default props 1`] = `
 <div>
   <button
-    class="mantine-3z0i1f"
+    class="mantine-UnstyledButton-root mantine-Button-root mantine-2gorln"
+    data-button="true"
     data-testid="clear-canvas-btn"
+    type="button"
   >
-    Clear Canvas
+    <div
+      class="mantine-1wpc1xj mantine-Button-inner"
+    >
+      <span
+        class="mantine-1ryt1ht mantine-Button-label"
+      >
+        Clear Canvas
+      </span>
+    </div>
   </button>
   ,
 </div>

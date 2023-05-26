@@ -40,6 +40,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { Box } from "@mantine/core";
 
 localforage.config({
   name: "react-flow",
@@ -268,17 +269,16 @@ const FlowChartTab = () => {
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
           >
-            <div
+            <Box
               className="top-row"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                zIndex: 100,
               }}
             >
               <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
               <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-            </div>
+            </Box>
           </ReactFlow>
           <MiniMap zoomable pannable />
 

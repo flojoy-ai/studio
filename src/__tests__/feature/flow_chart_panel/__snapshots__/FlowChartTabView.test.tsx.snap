@@ -19,11 +19,25 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       <div
         class="mantine-1rquoiv"
       >
-        <h1
-          class="mantine-Text-root mantine-Title-root mantine-1w3t10e"
+        <div
+          class="mantine-Image-root mantine-yxmaw9"
+          style="width: 3rem;"
         >
-          FLOJOY
-        </h1>
+          <figure
+            class="mantine-qenwvq mantine-Image-figure"
+          >
+            <div
+              class="mantine-1iugybl mantine-Image-imageWrapper"
+            >
+              <img
+                alt="Logo"
+                class="mantine-27ixb3 mantine-Image-image"
+                src="/public/assets/logo.png"
+                style="object-fit: cover; width: 3rem; height: 3rem;"
+              />
+            </div>
+          </figure>
+        </div>
         <div>
           SCRIPT
         </div>
@@ -41,28 +55,42 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           class="mantine-1mo5lls"
         >
           <button
-            class="mantine-axqpfd"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-btd47x"
+            data-button="true"
             data-cy="btn-play"
+            data-disabled="true"
             data-testid="btn-play"
             disabled=""
             title="Server is offline"
+            type="button"
           >
-            <svg
-              fill="none"
-              height="11"
-              style="margin-bottom: 2px;"
-              viewBox="0 0 9 11"
-              width="9"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="mantine-1wpc1xj mantine-Button-inner"
             >
-              <path
-                d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
-                fill="#99f5ff"
-              />
-            </svg>
-            <span>
-              Play
-            </span>
+              <span
+                class="mantine-1ryt1ht mantine-Button-label"
+              >
+                <svg
+                  fill="none"
+                  height="11"
+                  style="margin-bottom: 2px;"
+                  viewBox="0 0 9 11"
+                  width="9"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
+                    fill="#99f5ff"
+                  />
+                </svg>
+                <div
+                  style="padding: 4px;"
+                />
+                <span>
+                  Play
+                </span>
+              </span>
+            </div>
           </button>
           <div
             class="mantine-7c7vou"
@@ -263,6 +291,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
         </div>
         <button
           class="mantine-1e1m4q8"
+          data-testid="darkmode-toggle"
         >
           <svg
             fill="none"
