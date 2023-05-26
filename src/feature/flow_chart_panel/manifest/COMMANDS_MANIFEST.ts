@@ -19,6 +19,7 @@ export type CommandManifestMap = {
 export type Sections = {
   title: string;
   child: Sections[] | null;
+  parentKey?: string;
   key?: string;
 };
 
@@ -41,7 +42,7 @@ const CMND_TREE: Sections = {
   child: [
     {
       title: "AI and Machine learning",
-      key: "AI_ML",
+      parentKey: "AI_ML",
       child: [
         {
           title: "Object detection",
@@ -53,7 +54,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Extractors",
-      key: "EXTRACTORS", 
+      parentKey: "EXTRACTOR",
       child: [
         // Extractors tab
         { title: "Files", key: "FILE", child: null },
@@ -62,7 +63,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Generators",
-      key: "GENERATORS",
+      parentKey: "GENERATOR",
       child: [
         // Generators tab
         { title: "Simulations", key: "SIMULATION", child: null },
@@ -72,7 +73,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Instruments",
-      key: "INSTRUMENTS",
+      parentKey: "INSTRUMENT",
       child: [
         { title: "Web cam", key: "WEB_CAM", child: null },
         { title: "Keithley", key: "KEITHLEY", child: null },
@@ -85,7 +86,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Loaders",
-      key: "LOADERS",
+      parentKey: "LOADER",
       child: [
         // Loaders tab
         { title: "Cloud databases", key: "CLOUD_DATABASE", child: null },
@@ -95,7 +96,7 @@ const CMND_TREE: Sections = {
     },
     {
       title: "Logic gates",
-      key: "LOGIC_GATES",
+      parentKey: "LOGIC_GATE",
       child: [
         // Conditionals, Timers, & Loops
         { title: "Timers", key: "TIMER", child: null },
@@ -107,7 +108,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Transformers",
-      key: "TRANSFORMERS",
+      parentKey: "TRANSFORMER",
       child: [
         // Transformers tab
         { title: "Arithmetic", key: "ARITHMETIC", child: null },
@@ -130,7 +131,7 @@ const CMND_TREE: Sections = {
 
     {
       title: "Visualizers",
-      key: "VISUALIZERS",
+      parentKey: "VISUALIZER",
       child: [
         // Visualization tab
         { title: "Plotly", key: "PLOTLY_VISOR", child: null },

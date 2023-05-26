@@ -4,9 +4,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Node, useOnSelectionChange } from "reactflow";
 import { ElementsData } from "../types/CustomNodeProps";
 import NodeModal from "./NodeModal";
-import { Box } from "@mantine/core";
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import { useFlowChartTabState } from "../FlowChartTabState";
+dimport { useFlowChartTabState } from "../FlowChartTabState";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
@@ -28,7 +26,7 @@ export const NodeExpandMenu = ({
   defaultLayout,
   clickedElement,
   pythonString,
-  nodeFileName
+  nodeFileName,
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
 

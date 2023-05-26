@@ -9,6 +9,5 @@ export type NodeModalProps = {
   defaultLayout: any;
   clickedElement: any;
   pythonString: string;
-    nodeFileName : string;
-
+  nodeFileName: string;
 };
