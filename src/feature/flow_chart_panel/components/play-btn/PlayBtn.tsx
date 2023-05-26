@@ -29,12 +29,11 @@ const useStyles = createStyles((theme) => {
       transition: "transform ease-in 0.1s, box-shadow ease-in 0.25s",
       WebkitAppearance: "none",
       appearance: "none",
-      backgroundColor:
-        theme.colorScheme === "dark" ? theme.colors.modal[0] : "",
+      backgroundColor: theme.colors.accent4[1],
       color: accent[0],
       border: `1px solid ${accent[0]}`,
       "&:hover": {
-        backgroundColor: accent[1] + "48",
+        backgroundColor: accent[1] + "36",
       },
       "&:disabled, &:disabled:hover": {
         color: "#b5b5b5",

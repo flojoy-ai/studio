@@ -16,9 +16,9 @@ const useStyles = createStyles((theme) => {
       cursor: "pointer",
       zIndex: 100,
       fontWeight: 600,
-      "&:not([data-disabled])": theme.fn.hover({
-        backgroundColor: theme.fn.darken(theme.colors.red[8], 0.6),
-      }),
+      "&:hover": {
+        backgroundColor: theme.colors.red[8] + "36",
+      },
     },
   };
 });

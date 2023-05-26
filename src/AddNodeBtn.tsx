@@ -3,6 +3,8 @@ import { SetStateAction } from "jotai";
 import { Dispatch } from "react";
 
 const useStyles = createStyles((theme) => {
+  const accent =
+    theme.colorScheme === "dark" ? theme.colors.accent1 : theme.colors.accent2;
   return {
     button: {
       width: "fit-content",
@@ -15,9 +17,9 @@ const useStyles = createStyles((theme) => {
       cursor: "pointer",
       zIndex: 100,
       fontWeight: 600,
-      "&:not([data-disabled])": theme.fn.hover({
-        backgroundColor: theme.fn.darken(theme.colors.accent4[0], 0.6),
-      }),
+      "&:hover": {
+        backgroundColor: accent[1] + "36",
+      },
     },
   };
 });
