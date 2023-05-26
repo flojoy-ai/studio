@@ -1,5 +1,7 @@
-import { ChangeEvent, memo } from "react";
+import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
+import { ChangeEvent, memo, useState } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
+import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
 
@@ -10,27 +12,48 @@ interface APIKeyModelProps {
 
 const useStyles = createStyles((theme) => ({
   container: {
-    display: "flex",
+    display: "relative",
     justifyContent: "center",
     alignItems: "center",
     gap: 43,
-    height: "100%",
+    height: 202,
     width: "100%",
-    padding: 24,
-    backgroundColor: theme.colors.modal[0],
+    backgroundColor: theme.colors.modal[1],
+    borderRadius: 17,
   },
   title: {
+    display: "flex",
+    gap: 5,
     fontSize: 24,
     fontWeight: "bold",
     fontFamily: "Inter",
-    marginBottom: 10,
+    marginTop: "10%",
+    marginLeft: "22%",
   },
-  submitButton: {
+  submitButtonLine: {
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 5,
+    color: theme.colors.accent1[0],
+  },
+  submitBtn: {
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.accent1[0] : "none",
+    color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
+  },
+  closeBtn: {
+    position: "absolute",
+    top: 10,
+    right: 15,
+  },
+  inputBox: {
+    input: {
+      width: 250,
+      backgroundColor: theme.colors.modal[0],
+    },
   },
 }));
-
 const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   const { classes } = useStyles();
   const { apiKey, setApiKey } = useFlowChartState();
@@ -38,39 +61,64 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
   };
-
   const handleClose = () => {
     setApiKey("");
     onClose();
   };
 
   const handleSendAPI = () => {
-    if (apiKey == null || apiKey.trim() == "") {
+    if (apiKey === null || apiKey.trim() === "") {
       console.error("There is no API Key");
     } else {
+      notifications.show({
+        id: "set-api-key",
+        loading: true,
+        title: "Setting your API key",
+        message: "Setting your API key, Please be patient",
+        autoClose: false,
+        withCloseButton: false,
+      });
       sendApiKeyToDjango(apiKey);
+      setApiKey("");
     }
   };
-
   return (
-    <Modal
-      data-testid="user_API_Key_modal"
-      opened={isOpen}
-      onClose={handleClose}
-      aria-labelledby="API Key modal"
-    >
-      <div className={classes.container}>
-        <div className={classes.title}>
-          <div>API Key:</div>
-          <div className={classes.submitButton}>
-            <Input type="text" onChange={handleApiKeyChange} value={apiKey} />
-            <Button disabled={!apiKey} onClick={handleSendAPI}>
+    <>
+      <Modal.Root
+        data-testid="user_API_Key_modal"
+        opened={isOpen}
+        onClose={handleClose}
+        aria-labelledby="API Key modal"
+        size={600}
+        centered
+      >
+        <Modal.Overlay />
+        <Modal.Content className={classes.container}>
+          <div className={classes.title}>
+            <FamilyHistoryIconSvg size={20} />
+            API Key:
+          </div>
+          <Modal.CloseButton className={classes.closeBtn} />
+          <div className={classes.submitButtonLine}>
+            <Input
+              type="text"
+              onChange={handleApiKeyChange}
+              value={apiKey}
+              className={classes.inputBox}
+              placeholder="API Key"
+            />
+            <Button
+              disabled={!apiKey}
+              onClick={handleSendAPI}
+              className={classes.submitBtn}
+            >
               Submit
             </Button>
           </div>
-        </div>
-      </div>
-    </Modal>
+        </Modal.Content>
+      </Modal.Root>
+      <Notifications />
+    </>
   );
 };
 
