@@ -39,20 +39,23 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      notifications.show({
+      notifications.update({
+        id: "set-api-key",
         title: "Successful!",
         message: "Successfully set the API Key",
         autoClose: 5000,
       });
     } else {
-      notifications.show({
+      notifications.update({
+        id: "set-api-key",
         title: "Failed!",
         message: "Failed to set the API Key",
         autoClose: 5000,
       });
     }
   } catch (error) {
-    notifications.show({
+    notifications.update({
+      id: "set-api-key",
       title: "Failed!",
       message: "Failed to set the API Key",
       autoClose: 5000,

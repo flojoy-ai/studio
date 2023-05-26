@@ -3,7 +3,6 @@ import { ChangeEvent, memo, useState } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { IconCheck } from "@tabler/icons-react";
 import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
 
 interface APIKeyModelProps {
@@ -71,6 +70,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     if (apiKey === null || apiKey.trim() === "") {
       console.error("There is no API Key");
     } else {
+      notifications.show({
+        id: "set-api-key",
+        loading: true,
+        title: "Setting your API key",
+        message: "Setting your API key, Please be patient",
+        autoClose: false,
+        withCloseButton: false,
+      });
       sendApiKeyToDjango(apiKey);
       setApiKey("");
     }
