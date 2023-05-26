@@ -290,6 +290,11 @@ const FlowChartTab = () => {
                     ? "rgba(0, 0, 0, 0.1)"
                     : "rgba(255, 255, 255, 0.1)",
               }}
+              nodeColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.25)"
+                  : "rgba(255, 255, 255, 0.25)"
+              }
               maskColor={
                 theme.colorScheme === "light"
                   ? "rgba(0, 0, 0, 0.05)"
