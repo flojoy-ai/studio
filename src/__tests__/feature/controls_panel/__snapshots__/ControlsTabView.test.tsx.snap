@@ -19,11 +19,25 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       <div
         class="mantine-1rquoiv"
       >
-        <h1
-          class="mantine-Text-root mantine-Title-root mantine-1w3t10e"
+        <div
+          class="mantine-Image-root mantine-yxmaw9"
+          style="width: 5rem;"
         >
-          FLOJOY
-        </h1>
+          <figure
+            class="mantine-qenwvq mantine-Image-figure"
+          >
+            <div
+              class="mantine-1iugybl mantine-Image-imageWrapper"
+            >
+              <img
+                alt="Logo"
+                class="mantine-27ixb3 mantine-Image-image"
+                src="/public/assets/favicon.png"
+                style="object-fit: cover; width: 5rem; height: 5rem;"
+              />
+            </div>
+          </figure>
+        </div>
         <div>
           SCRIPT
         </div>
