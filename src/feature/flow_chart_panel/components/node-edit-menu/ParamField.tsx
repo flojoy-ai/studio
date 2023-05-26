@@ -60,6 +60,13 @@ const ParamField = ({
       );
     case "select":
       return <Select onChange={handleChange} data={options!} value={value} />;
+    case "node_reference":
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
     case "unknown":
       return (
         <TextInput
