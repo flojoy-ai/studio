@@ -40,7 +40,7 @@ import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { Box, useMantineTheme } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 
 localforage.config({
   name: "react-flow",
@@ -283,22 +283,22 @@ const FlowChartTab = () => {
               <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
               <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
             </Box>
-          </ReactFlow>
-          <MiniMap
-            style={{
-              backgroundColor:
+            <MiniMap
+              style={{
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? "rgba(0, 0, 0, 0.1)"
+                    : "rgba(255, 255, 255, 0.1)",
+              }}
+              maskColor={
                 theme.colorScheme === "light"
-                  ? "rgba(0, 0, 0, 0.1)"
-                  : "rgba(255, 255, 255, 0.1)",
-            }}
-            maskColor={
-              theme.colorScheme === "light"
-                ? "rgba(0, 0, 0, 0.05)"
-                : "rgba(255, 255, 255, 0.05)"
-            }
-            zoomable
-            pannable
-          />
+                  ? "rgba(0, 0, 0, 0.05)"
+                  : "rgba(255, 255, 255, 0.05)"
+              }
+              zoomable
+              pannable
+            />
+          </ReactFlow>
 
           <NodeExpandMenu
             clickedElement={selectedNode}
