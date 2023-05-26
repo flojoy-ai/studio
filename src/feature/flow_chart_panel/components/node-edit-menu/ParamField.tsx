@@ -9,6 +9,7 @@ type ParamFieldProps = {
   type: ParamValueType;
   value: any;
   options?: string[];
+  otherNodeIds?: string[];
 };
 
 const ParamField = ({
@@ -18,6 +19,7 @@ const ParamField = ({
   type,
   value,
   options,
+  otherNodeIds,
 }: ParamFieldProps) => {
   const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const handleChange = (value: string) => {
@@ -62,10 +64,7 @@ const ParamField = ({
       return <Select onChange={handleChange} data={options!} value={value} />;
     case "node_reference":
       return (
-        <TextInput
-          onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value}
-        />
+        <Select onChange={handleChange} data={otherNodeIds!} value={value} />
       );
     case "unknown":
       return (

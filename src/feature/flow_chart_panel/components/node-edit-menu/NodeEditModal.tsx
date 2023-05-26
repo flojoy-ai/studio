@@ -52,13 +52,16 @@ const useStyles = createStyles((theme) => ({
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
+  otherNodes: Node<ElementsData>[] | null;
 };
 
-const NodeEditModal = ({ node }: NodeEditModalProps) => {
+const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
     useFlowChartState();
   const replayNotice = "Replay the script to see your changes take effect";
+  //converted from node to Ids here so that it will only do this when the edit menu is opened
+  const otherNodeIds = otherNodes?.map((node) => node.id);
 
   useEffect(() => {
     if (nodeParamChanged === undefined) {
@@ -101,6 +104,7 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
                     type={param.type as ParamValueType}
                     value={node.data.ctrls[name].value}
                     options={param.options}
+                    otherNodeIds={otherNodeIds}
                   />
                 </div>
               )
