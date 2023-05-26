@@ -215,6 +215,8 @@ const FlowChartTab = () => {
     setNodeType(selectedNode.data.type);
   }, [selectedNode]);
 
+const proOptions = { hideAttribution: true };
+
   useFlowChartTabEffects({
     clickedElement,
     results: programResults,
@@ -258,6 +260,7 @@ const FlowChartTab = () => {
               height: "100%",
               width: "50%",
             }}
+            proOptions={proOptions}
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
