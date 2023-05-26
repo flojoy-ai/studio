@@ -58,27 +58,44 @@ export const NodeModalStyles = createStyles((theme) => ({
   },
 }));
 
-// const getPath = (obj : Sections, key: string, paths = []) => {
-//   if (obj.title === "ROOT") {
-//     getPath( key)
-//   }
-//   if (obj.) return [{ id: obj.id }];
+const getPath = (obj: Sections, key: string, paths: string[] = []) => {
+  if (obj.key! && obj.key!.includes(key)) {
+    let searchKey = "";
+    switch (obj.key) {
+      case "PLOTLY_VISOR":
+        searchKey = obj.title.toUpperCase();
+        break;
+      default:
+        searchKey = obj.key;
+    }
+    return [searchKey];
+  }
+  if (obj.child !== null && obj.child.length > 0) {
+    if (obj.parentKey!) {
+      switch (obj.parentKey) {
+        case "AI_ML":
+          paths.push(obj.parentKey);
+          break;
+        default:
+          paths.push(obj.parentKey + "S");
+      }
+    }
 
-//   if (obj.child !== null && obj.child.length) {
-//     paths.push({ id: obj.id });
-//     let found = false;
-//     obj.children.forEach((child) => {
-//       const temPaths = getPath(child, id);
-//       if (temPaths) {
-//         paths = paths.concat(temPaths);
-//         found = true;
-//       }
-//     });
-//     !found && paths.pop();
-//     return paths;
-//   }
-//   return null;
-// };
+    let found = false;
+    obj.child.forEach((childNode) => {
+      const temPaths = getPath(childNode, key) as string[];
+      if (temPaths) {
+        paths = paths.concat(temPaths);
+        found = true;
+      }
+    });
+
+    !found && paths.pop();
+    return paths;
+  }
+
+  return null;
+};
 
 const NodeModal = ({
   modalIsOpen,
@@ -95,62 +112,31 @@ const NodeModal = ({
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   let nodeCategory = "";
-  let nodeTypeLink = "";
-
   const nodeDataLabel = nodeFileName.split(".")[0];
-  console.log("This is the node data label:", nodeDataLabel);
-  console.log("This is node label ", nodeLabel);
-  console.log("This is node type: ", nodeType);
-  console.log("This is node data function: ", clickedElement.data.func);
   const colorScheme = theme.colorScheme;
 
-  CMND_TREE.child?.forEach((outer) => {
-    outer.child?.forEach((inner) => {
-      if (
-        outer.parentKey !== undefined &&
-        outer.title.toUpperCase().includes(outer.parentKey)
-      ) {
-        nodeCategory = outer.parentKey + "S";
-      } else if (outer.parentKey !== undefined) {
-        nodeCategory = outer.parentKey;
-      }
+  console.log(getPath(CMND_TREE, nodeType));
 
-      if (inner.key === nodeType && inner.key !== undefined) {
-        nodeTypeLink = inner.key;
-        if (nodeCategory === "VISUALIZERS")
-          nodeTypeLink = inner.title.toUpperCase();
-      }
-    });
-  });
-
-  console.log("This is node category: ", nodeCategory);
-  console.log("This is node type link:", nodeTypeLink);
-
-  let LINK = "";
-  switch (nodeCategory) {
-    // case "GENERATORS":
-    //   break;
-    // case "INSTRUMENTS":
-    //   break;
-    // case "LOADERS":
-    //   break;
-    // case "TRANSFORMERS":
-    //   break;
-    // case "VISUALIZERS":
-    //   break;
-    default:
-      LINK = `${GLINK}/${nodeCategory}/${nodeTypeLink}/${nodeDataLabel}/${nodeFileName}`;
+  let LINK = `${GLINK}`;
+  if (getPath(CMND_TREE, nodeType) !== null) {
+    const path: string[] = getPath(CMND_TREE, nodeType)!;
+    nodeCategory = path[0];
+    for (let i = 0; i < path.length; i++) {
+      LINK += `/${path[i]}`;
+    }
   }
-  // switch (nodeCategory) {
-  //   case "":
-  //     LINK = `${GLINK}/${nodeCategory}/${nodeTypeLink}/${nodeFileName}`;
-  //     break;
-  //   case "OBJECT_DETECTION":
-  //     LINK = `${GLINK}/AI_ML/${nodeDataLabel}/${nodeFileName}`;
-  //     break;
-  //   default:
-  //     LINK = `${GLINK}/${nodeCategory}/${nodeTypeLink}/${nodeDataLabel}/${nodeFileName}`;
-  // }
+
+  switch (nodeCategory) {
+    case "GENERATORS":
+      LINK = LINK + `S/${nodeDataLabel}/${nodeFileName}`;
+      break;
+    case "LOGIC_GATES":
+      LINK = LINK + `S/${nodeDataLabel}/${nodeFileName}`;
+      break;
+    default:
+      LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
+  }
+  console.log(LINK);
 
   return (
     <Modal
