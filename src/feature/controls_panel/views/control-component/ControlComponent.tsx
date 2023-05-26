@@ -476,7 +476,7 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={(e) => {
+                  onChange={() => {
                     updateCtrlValue(option.value, ctrlObj, "unknown");
                   }}
                 />
@@ -501,7 +501,7 @@ const ControlComponent = ({
                   name={`${ctrlObj.id}_${option.value}`}
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
-                  onChange={(e) => {
+                  onChange={() => {
                     updateCtrlValue(option.value, ctrlObj, "unknown");
                   }}
                 />

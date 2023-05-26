@@ -1,8 +1,6 @@
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
 import { createStyles, Input } from "@mantine/core";
 import { Modal } from "@mantine/core";
 import { useSettings } from "@src/hooks/useSettings";
-import { IconSearch } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
   content: {
