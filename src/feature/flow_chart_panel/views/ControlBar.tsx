@@ -209,7 +209,7 @@ const ControlBar = () => {
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
-  const onSave = async () => {
+  const onRun = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
       const updatedRfInstance = {
@@ -222,7 +222,7 @@ const ControlBar = () => {
       saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({
-        rfInstance,
+        rfInstance: updatedRfInstance,
         jobId: socketId,
         settings: settingsList.filter((setting) => setting.group === "backend"),
       });
@@ -256,13 +256,13 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
-  useKeyboardShortcut("ctrl", "p", onSave);
+  useKeyboardShortcut("ctrl", "p", onRun);
   useKeyboardShortcut("ctrl", "c", cancelFC);
 
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onClick={onSave} disabled={playBtnDisabled} />
+        <PlayBtn onClick={onRun} disabled={playBtnDisabled} />
       ) : (
         <button
           className={classes.cancelButton}
