@@ -1,5 +1,4 @@
 import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
 
 export type Settings = {
   title: string;
