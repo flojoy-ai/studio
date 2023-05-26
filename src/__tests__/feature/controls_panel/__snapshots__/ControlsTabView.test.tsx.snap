@@ -21,7 +21,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       >
         <div
           class="mantine-Image-root mantine-yxmaw9"
-          style="width: 5rem;"
+          style="width: 3rem;"
         >
           <figure
             class="mantine-qenwvq mantine-Image-figure"
@@ -33,7 +33,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 alt="Logo"
                 class="mantine-27ixb3 mantine-Image-image"
                 src="/public/assets/logo.png"
-                style="object-fit: cover; width: 5rem; height: 5rem;"
+                style="object-fit: cover; width: 3rem; height: 3rem;"
               />
             </div>
           </figure>
