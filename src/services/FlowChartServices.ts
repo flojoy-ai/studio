@@ -1,6 +1,7 @@
 import { Settings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
+import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import {
@@ -43,12 +44,27 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
 
     if (response.ok) {
       const responseData = await response.json();
-      console.log(responseData);
+      notifications.update({
+        id: "set-api-key",
+        title: "Successful!",
+        message: "Successfully set the API Key",
+        autoClose: 5000,
+      });
     } else {
-      console.error("Request failed:", response.status);
+      notifications.update({
+        id: "set-api-key",
+        title: "Failed!",
+        message: "Failed to set the API Key",
+        autoClose: 5000,
+      });
     }
   } catch (error) {
-    console.error("An error occurred:", error);
+    notifications.update({
+      id: "set-api-key",
+      title: "Failed!",
+      message: "Failed to set the API Key",
+      autoClose: 5000,
+    });
   }
 };
 export function saveAndRunFlowChartInServer({

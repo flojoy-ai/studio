@@ -81,7 +81,7 @@ const HistoLabels = ({ ...props }: SVGProps<SVGSVGElement>) => {
   );
 };
 
-const Histogram = ({ ...props }: SVGProps<SVGSVGElement>) => {
+const Histogram = () => {
   const theme = useMantineTheme();
   return (
     <>

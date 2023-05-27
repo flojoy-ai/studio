@@ -19,6 +19,7 @@ import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
+import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "./services/MixpanelServices";
 
 const router = createBrowserRouter([
@@ -66,20 +67,10 @@ const App = () => {
     }
   }, [preJobOperation]);
 
-  // TODO: I will move this into a hook tomorrow, signing off for now
-  const handleShortcut = (event: KeyboardEvent) => {
-    if ((event.metaKey || event.ctrlKey) && event.key === "a") {
-      event.preventDefault();
-      setIsSidebarOpen((prev) => !prev);
-    }
-  };
   useEffect(() => {
     //sendFrontEndLoadsToMix();
-    document.addEventListener("keydown", handleShortcut);
-    return () => {
-      document.removeEventListener("keydown", handleShortcut);
-    };
   }, []);
+  useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ColorSchemeProvider
