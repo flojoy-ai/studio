@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarCustomContent component renders correctly with default props 1`] = `
+<div>
+  <div
+    class="mantine-4mlmvu"
+  >
+    <button
+      class="mantine-1o4es46"
+      data-testid="request-node-btn"
+    >
+      <a
+        class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
+        href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+        style="text-decoration: none;"
+        target="_blank"
+      >
+        <span
+          class="mantine-vt08jf"
+        >
+          Request a Node
+        </span>
+      </a>
+    </button>
+    <button
+      class="mantine-vaeigl"
+      data-testid="end-node-btn"
+    >
+      END
+    </button>
+  </div>
+  ,
+</div>
+`;

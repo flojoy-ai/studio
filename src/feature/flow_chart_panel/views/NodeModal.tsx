@@ -13,13 +13,11 @@ const NodeModal = ({
   nodeType,
   nd,
   pythonString,
-  defaultLayout,
   clickedElement,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
-
   return (
     <Modal
       data-testid="node-modal"

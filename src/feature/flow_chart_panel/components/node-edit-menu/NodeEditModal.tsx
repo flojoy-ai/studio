@@ -7,6 +7,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Box, Title, createStyles } from "@mantine/core";
 import { memo, useEffect } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
+import Draggable from "react-draggable";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -14,7 +15,7 @@ const useStyles = createStyles((theme) => ({
     top: 20,
     right: 20,
     zIndex: 10,
-    height: 684,
+    height: "calc(100vh - 300px)",
     width: 324,
     padding: "8px 8px",
     backgroundColor: theme.colors.modal[0],
@@ -51,13 +52,16 @@ const useStyles = createStyles((theme) => ({
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
+  otherNodes: Node<ElementsData>[] | null;
 };
 
-const NodeEditModal = ({ node }: NodeEditModalProps) => {
+const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
     useFlowChartState();
   const replayNotice = "Replay the script to see your changes take effect";
+  //converted from node to Ids here so that it will only do this when the edit menu is opened
+  const otherNodeLabels = otherNodes?.map((node) => node.data.label);
 
   useEffect(() => {
     if (nodeParamChanged === undefined) {
@@ -68,44 +72,52 @@ const NodeEditModal = ({ node }: NodeEditModalProps) => {
   }, [node.data.ctrls]);
 
   return (
-    <Box className={classes.modal}>
-      <Box onClick={() => setIsEditMode(false)} className={classes.closeButton}>
-        <IconX size={18} />
-      </Box>
-      <Box p="0px 16px 24px 16px">
-        <div key={node.id}>
-          <Box className={classes.titleContainer}>
-            <Title size="h4" className={classes.title}>
-              {node.data.func.toUpperCase()}
-            </Title>
-            <IconPencil
-              size={18}
-              style={{ marginLeft: "16px", marginBottom: "4px" }}
-            />
-          </Box>
-          {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
-            ([name, param]) => (
-              <div key={node.id + name}>
-                <p className={classes.paramName}>{`${name.toUpperCase()}:`}</p>
-                <ParamField
-                  nodeId={node.id}
-                  paramId={name}
-                  functionName={node.data.func}
-                  type={param.type as ParamValueType}
-                  value={node.data.ctrls[name].value}
-                  options={param.options}
-                />
+    <Draggable bounds="main">
+      <Box className={classes.modal}>
+        <Box
+          onClick={() => setIsEditMode(false)}
+          className={classes.closeButton}
+        >
+          <IconX size={18} />
+        </Box>
+        <Box p="0px 16px 24px 16px">
+          <div key={node.id}>
+            <Box className={classes.titleContainer}>
+              <Title size="h4" className={classes.title}>
+                {node.data.func.toUpperCase()}
+              </Title>
+              <IconPencil
+                size={18}
+                style={{ marginLeft: "16px", marginBottom: "4px" }}
+              />
+            </Box>
+            {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
+              ([name, param]) => (
+                <div key={node.id + name}>
+                  <p
+                    className={classes.paramName}
+                  >{`${name.toUpperCase()}:`}</p>
+                  <ParamField
+                    nodeId={node.id}
+                    paramId={name}
+                    functionName={node.data.func}
+                    type={param.type as ParamValueType}
+                    value={node.data.ctrls[name].value}
+                    options={param.options}
+                    otherNodeLabels={otherNodeLabels}
+                  />
+                </div>
+              )
+            )}
+            {nodeParamChanged && (
+              <div className={classes.replayScriptNotice}>
+                <i>{replayNotice}</i>
               </div>
-            )
-          )}
-          {nodeParamChanged && (
-            <div className={classes.replayScriptNotice}>
-              <i>{replayNotice}</i>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </Box>
       </Box>
-    </Box>
+    </Draggable>
   );
 };
 

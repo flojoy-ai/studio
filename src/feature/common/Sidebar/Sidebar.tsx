@@ -17,29 +17,22 @@ type leafClickHandler = (key: string) => void;
 
 const useSidebarStyles = createStyles((theme) => ({
   navbarView: {
-    paddingBottom: 0,
     position: "absolute",
-    left: "0%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
+    top: "100px",
+    height: "calc(100vh - 100px)",
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
     transition: "500ms",
     zIndex: 1,
   },
 
   navbarHidden: {
-    paddingBottom: 0,
     position: "absolute",
     left: "-100%",
-    right: "0%",
-    top: "110px",
-    bottom: "0%",
+    top: "100px",
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-    height: "100%",
+    height: "calc(100vh - 100px)",
     transition: "300ms",
     zIndex: 1,
   },
@@ -193,7 +186,7 @@ const Sidebar = ({
   return (
     <Navbar
       data-testid="sidebar"
-      height={800}
+      height={200}
       width={{ sm: 387 }}
       p="md"
       className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
@@ -228,7 +221,7 @@ const Sidebar = ({
           onChange={(e) => handleChangeInput(e.target.value)}
         />
       </Navbar.Section>
-      <Navbar.Section>{customContent}</Navbar.Section>
+      {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <div className={classes.sectionsInner} data-testid="sidebar-sections">
           {renderSection(textInput, sections, 0)}

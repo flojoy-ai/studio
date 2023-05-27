@@ -1,6 +1,5 @@
 import { useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
-import usePlotLayout from "@src/feature/common/usePlotLayout";
 import { Handle, Position } from "reactflow";
 import { ResultNodeData } from "../types/ResultsType";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
@@ -39,8 +38,8 @@ const CustomResultNode = ({ data }: CustomResultNodeProp) => {
           }}
           useResizeHandler
           style={{
-            height: 190,
-            width: 210,
+            height: 293,
+            width: 380,
           }}
           isThumbnail
         />

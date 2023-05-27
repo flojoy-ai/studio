@@ -7,6 +7,9 @@ const useStyles = createStyles(() => ({
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
+    marginRight: 10,
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -15,7 +18,11 @@ export const DarkModeToggle = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   return (
-    <button onClick={() => toggleColorScheme()} className={classes.toggle}>
+    <button
+      onClick={() => toggleColorScheme()}
+      className={classes.toggle}
+      data-testid="darkmode-toggle"
+    >
       {colorScheme === "dark" ? <LightIcon /> : <DarkIcon />}
     </button>
   );

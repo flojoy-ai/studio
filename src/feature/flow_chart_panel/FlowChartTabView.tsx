@@ -10,6 +10,7 @@ import {
   OnNodesChange,
   OnNodesDelete,
   ReactFlow,
+  MiniMap,
   ReactFlowProvider,
   addEdge,
   applyEdgeChanges,
@@ -19,7 +20,6 @@ import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
@@ -32,13 +32,15 @@ import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import { RequestNode } from "./components/RequestNode";
+import SidebarCustomContent from "./components/SidebarCustomContent";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import { Box, useMantineTheme } from "@mantine/core";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 
 localforage.config({
   name: "react-flow",
@@ -47,9 +49,12 @@ localforage.config({
 
 const FlowChartTab = () => {
   const [searchParams] = useSearchParams();
-  const [clickedElement] = useState<Node | undefined>(undefined);
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
     useFlowChartState();
+  const theme = useMantineTheme();
 
   const {
     states: { programResults },
@@ -78,6 +83,7 @@ const FlowChartTab = () => {
     edges,
     setEdges,
     selectedNode,
+    unSelectedNodes,
     loadFlowExportObject,
   } = useFlowChartGraph();
 
@@ -90,7 +96,10 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(() => <RequestNode />, []);
+  const sidebarCustomContent = useMemo(
+    () => <SidebarCustomContent onAddNode={addNewNode} />,
+    [nodes, edges]
+  );
 
   const handleNodeRemove = useCallback(
     (nodeId: string) => {
@@ -210,7 +219,10 @@ const FlowChartTab = () => {
     setPythonString(pythonString);
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
+    setClickedElement(selectedNode);
   }, [selectedNode]);
+
+  const proOptions = { hideAttribution: true };
 
   useFlowChartTabEffects({
     clickedElement,
@@ -233,16 +245,6 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div
-        className="top-row"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-        <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-      </div>
       <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
@@ -253,11 +255,14 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 110px)" }}
+          style={{ height: "calc(100vh - 100px)" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
-          <NodeEditMenu selectedNode={selectedNode} />
+          <NodeEditMenu
+            selectedNode={selectedNode}
+            unSelectedNodes={unSelectedNodes}
+          />
 
           <ReactFlow
             style={{
@@ -265,6 +270,7 @@ const FlowChartTab = () => {
               height: "100%",
               width: "50%",
             }}
+            proOptions={proOptions}
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
@@ -276,14 +282,45 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
-          />
+          >
+            <Box
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
+              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
+            </Box>
+            <MiniMap
+              style={{
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? "rgba(0, 0, 0, 0.1)"
+                    : "rgba(255, 255, 255, 0.1)",
+              }}
+              nodeColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.25)"
+                  : "rgba(255, 255, 255, 0.25)"
+              }
+              maskColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.05)"
+                  : "rgba(255, 255, 255, 0.05)"
+              }
+              zoomable
+              pannable
+            />
+          </ReactFlow>
 
           <NodeExpandMenu
             clickedElement={selectedNode}
             closeModal={closeModal}
             defaultLayout={defaultLayout}
             modalIsOpen={modalIsOpen}
-            nd={nd!}
+            nd={nd}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}

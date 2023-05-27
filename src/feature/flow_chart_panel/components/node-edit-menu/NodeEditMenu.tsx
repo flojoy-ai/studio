@@ -6,9 +6,13 @@ import { Box } from "@mantine/core";
 
 type NodeEditMenuProps = {
   selectedNode: Node<ElementsData> | null;
+  unSelectedNodes: Node<ElementsData>[] | null; //used in ParamField.tsx for references
 };
 
-export const NodeEditMenu = ({ selectedNode }: NodeEditMenuProps) => {
+export const NodeEditMenu = ({
+  selectedNode,
+  unSelectedNodes,
+}: NodeEditMenuProps) => {
   const { isEditMode, setIsEditMode } = useFlowChartState();
 
   const canEditNode = selectedNode
@@ -25,7 +29,7 @@ export const NodeEditMenu = ({ selectedNode }: NodeEditMenuProps) => {
   return (
     <Box pos="relative">
       {selectedNode && canEditNode && isEditMode && (
-        <NodeEditModal node={selectedNode} />
+        <NodeEditModal node={selectedNode} otherNodes={unSelectedNodes} />
       )}
     </Box>
   );

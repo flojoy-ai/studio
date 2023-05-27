@@ -142,6 +142,7 @@ const CMND_TREE: Sections = {
       child: [
         // Visualization tab
         { title: "Plotly", key: "PLOTLY_VISOR", child: null },
+        { title: "Data Structure", key: "DATA_STRUCTURE", child: null },
       ],
     },
   ],
