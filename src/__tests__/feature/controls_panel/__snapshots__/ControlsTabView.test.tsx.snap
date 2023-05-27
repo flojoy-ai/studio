@@ -480,9 +480,6 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </div>
           <div
-            class="mantine-khtkeg"
-          />
-          <div
             class="mantine-ScrollArea-root mantine-64qz2l"
             dir="ltr"
             style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -514,13 +511,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                         class="mantine-1a78l0v"
                       >
                         <div
-                          class="mantine-ajwi11"
+                          class="mantine-vjvxie"
                         >
                           Inputs
                         </div>
                       </div>
                       <svg
-                        class="mantine-sggls6"
+                        class="mantine-1qj2gwa"
                         fill="none"
                         height="14"
                         stroke="currentColor"
@@ -561,13 +558,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Continuous Variables
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -631,13 +628,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Discrete Variables
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -701,13 +698,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Booleans & Nodes
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -756,13 +753,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Text & Files
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -819,13 +816,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                         class="mantine-1a78l0v"
                       >
                         <div
-                          class="mantine-ajwi11"
+                          class="mantine-vjvxie"
                         >
                           Outputs
                         </div>
                       </div>
                       <svg
-                        class="mantine-sggls6"
+                        class="mantine-1qj2gwa"
                         fill="none"
                         height="14"
                         stroke="currentColor"

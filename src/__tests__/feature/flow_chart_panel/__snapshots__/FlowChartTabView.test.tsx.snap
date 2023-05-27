@@ -383,28 +383,31 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           </div>
         </div>
         <div
-          class="mantine-khtkeg"
+          class="mantine-4mlmvu"
         >
-          <div
-            style="display: flex; justify-content: center;"
+          <button
+            class="mantine-1o4es46"
+            data-testid="request-node-btn"
           >
-            <button
-              class="mantine-4wxm47"
+            <a
+              class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
+              href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+              style="text-decoration: none;"
+              target="_blank"
             >
-              <a
-                class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
-                href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
-                style="text-decoration: none;"
-                target="_blank"
+              <span
+                class="mantine-vt08jf"
               >
-                <span
-                  class="mantine-vt08jf"
-                >
-                  Request a Node
-                </span>
-              </a>
-            </button>
-          </div>
+                Request a Node
+              </span>
+            </a>
+          </button>
+          <button
+            class="mantine-vaeigl"
+            data-testid="end-node-btn"
+          >
+            END
+          </button>
         </div>
         <div
           class="mantine-ScrollArea-root mantine-64qz2l"

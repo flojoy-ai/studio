@@ -32,7 +32,7 @@ import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import { RequestNode } from "./components/RequestNode";
+import SidebarCustomContent from "./components/SidebarCustomContent";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
@@ -96,7 +96,10 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(() => <RequestNode />, []);
+  const sidebarCustomContent = useMemo(
+    () => <SidebarCustomContent onAddNode={addNewNode} />,
+    [nodes, edges]
+  );
 
   const handleNodeRemove = useCallback(
     (nodeId: string) => {
