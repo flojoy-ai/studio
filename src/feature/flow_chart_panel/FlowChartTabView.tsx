@@ -83,6 +83,7 @@ const FlowChartTab = () => {
     edges,
     setEdges,
     selectedNode,
+    unSelectedNodes,
     loadFlowExportObject,
   } = useFlowChartGraph();
 
@@ -255,7 +256,10 @@ const FlowChartTab = () => {
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
-          <NodeEditMenu selectedNode={selectedNode} />
+          <NodeEditMenu
+            selectedNode={selectedNode}
+            unSelectedNodes={unSelectedNodes}
+          />
 
           <ReactFlow
             style={{
