@@ -10,6 +10,7 @@ import {
   OnNodesChange,
   OnNodesDelete,
   ReactFlow,
+  MiniMap,
   ReactFlowProvider,
   addEdge,
   applyEdgeChanges,
@@ -19,7 +20,6 @@ import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
@@ -39,7 +39,8 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { Box } from "@mantine/core";
+import { Box, useMantineTheme } from "@mantine/core";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 
 localforage.config({
   name: "react-flow",
@@ -53,6 +54,7 @@ const FlowChartTab = () => {
   );
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
     useFlowChartState();
+  const theme = useMantineTheme();
 
   const {
     states: { programResults },
@@ -216,6 +218,8 @@ const FlowChartTab = () => {
     setClickedElement(selectedNode);
   }, [selectedNode]);
 
+  const proOptions = { hideAttribution: true };
+
   useFlowChartTabEffects({
     clickedElement,
     results: programResults,
@@ -259,6 +263,7 @@ const FlowChartTab = () => {
               height: "100%",
               width: "50%",
             }}
+            proOptions={proOptions}
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
@@ -281,6 +286,26 @@ const FlowChartTab = () => {
               <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
               <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
             </Box>
+            <MiniMap
+              style={{
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? "rgba(0, 0, 0, 0.1)"
+                    : "rgba(255, 255, 255, 0.1)",
+              }}
+              nodeColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.25)"
+                  : "rgba(255, 255, 255, 0.25)"
+              }
+              maskColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.05)"
+                  : "rgba(255, 255, 255, 0.05)"
+              }
+              zoomable
+              pannable
+            />
           </ReactFlow>
 
           <NodeExpandMenu
