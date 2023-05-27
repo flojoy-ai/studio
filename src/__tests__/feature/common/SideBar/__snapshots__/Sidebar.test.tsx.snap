@@ -3,11 +3,20 @@
 exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <button
-    class="mantine-ili2si"
+    class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
+    data-button="true"
     data-testid="add-node-button"
-    style="height: 43px; left: 10px; top: 110px; margin: 10px;"
+    type="button"
   >
-    + Add Node
+    <div
+      class="mantine-1wpc1xj mantine-Button-inner"
+    >
+      <span
+        class="mantine-1ryt1ht mantine-Button-label"
+      >
+        + Add Node
+      </span>
+    </div>
   </button>
   <nav
     class="mantine-Navbar-root mantine-tqi198"

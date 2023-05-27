@@ -26,7 +26,7 @@ describe("studio", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
-      tag: "main page",
+      tag: "dark flow page",
       target: "window",
       fully: true,
     });
@@ -34,7 +34,14 @@ describe("studio", () => {
     cy.get('[data-testid="add-node-button"]').click();
 
     cy.eyesCheckWindow({
-      tag: "main page",
+      tag: "dark flow page with add node sidebar",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+    cy.eyesCheckWindow({
+      tag: "light flow page",
       target: "window",
       fully: true,
     });
