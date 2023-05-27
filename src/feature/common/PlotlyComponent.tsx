@@ -49,7 +49,7 @@ const PlotlyComponent = (props: PlotProps) => {
         showlegend: !isThumbnail,
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false }}
+      config={{ displayModeBar: false, staticPlot: isThumbnail }}
       style={style}
     />
   );
