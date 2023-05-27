@@ -36,7 +36,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     marginBottom: 90,
     marginLeft: 650,
   },
-  buttonStyle: {
+  buttonStyle1: {
     width: 180,
     fontSize: 14,
     borderRadius: 35,
@@ -49,10 +49,43 @@ export const NodeModalStyles = createStyles((theme) => ({
     "&:hover": {
       backgroundColor: `${
         theme.colorScheme === "dark"
-          ? theme.colors.accent4[1]
-          : theme.colors.accent1[2]
+          ? theme.colors.accent1[2]
+          : theme.colors.accent1[1]
       }`,
-      color: `${theme.colors.accent1[0]}`,
+      color: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0]
+      }`,
+    },
+  },
+  buttonStyle2: {
+    width: 180,
+    fontSize: 14,
+    borderRadius: 35,
+    color: `${
+      theme.colorScheme === "dark"
+        ? theme.colors.accent1[0]
+        : theme.colors.accent1[0]
+    }`,
+    borderColor: `${theme.colors.accent1[0]}`,
+    backgroundColor: `${
+      theme.colorScheme === "dark"
+        ? theme.colors.accent4[1]
+        : theme.colors.accent1[2]
+    }`,
+    border: "1px solid",
+    "&:hover": {
+      backgroundColor: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[2]
+          : theme.colors.accent1[1]
+      }`,
+      color: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[7]
+          : theme.colors.gray[0]
+      }`,
     },
   },
 }));
@@ -156,7 +189,7 @@ const NodeModal = ({
         <Box>
           <Button
             size="md"
-            classNames={{ root: classes.buttonStyle }}
+            classNames={{ root: classes.buttonStyle1 }}
             component="a"
             href={LINK}
             target="_blank"
@@ -166,7 +199,11 @@ const NodeModal = ({
           </Button>
         </Box>
         <Box>
-          <Button size="md" classNames={{ root: classes.buttonStyle }}>
+          <Button
+            size="md"
+            classNames={{ root: classes.buttonStyle2 }}
+            style={{}}
+          >
             VIEW EXAMPLES
           </Button>
         </Box>

@@ -51,6 +51,8 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
       setNodeLabel: jest.fn(),
       setNodeType: jest.fn(),
       setPythonString: jest.fn(),
+      setNodeFileName: jest.fn(),
+      nodeFileName: "test.py",
       pythonString: "...",
       defaultPythonFnLabel: "PYTHON FUNCTION",
       defaultPythonFnType: "PYTHON FUNCTION TYPE",

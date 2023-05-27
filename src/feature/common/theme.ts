@@ -26,7 +26,7 @@ export const darkTheme: MantineThemeOverride = {
     modal: ["#191919"],
     title: ["#ffffff"],
     text: ["#bcc2c4"],
-    accent1: ["#99f5ff", "#48abe0"],
+    accent1: ["#99f5ff", "#48abe0", "#d4fbff"],
     accent2: ["#7b61ff", "#7418b5"],
     accent3: ["#ffc93f"],
     accent4: ["rgba(153, 245, 255, 1)", "rgba(153, 245, 255, 0.2)"], //for add buttons and leaf nodes
