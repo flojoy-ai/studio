@@ -12,11 +12,7 @@ import {
   CommandManifestMap,
   Sections,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import {
-  sendNodeAddedToMix,
-  sendNodeDeletedToMix,
-  sendNodeSearchedToMix,
-} from "@src/services/MixpanelServices";
+import { sendNodeSearchedToMix } from "@src/services/MixpanelServices";
 
 export type tabType = "flowChart" | "controls" | "results";
 type leafClickHandler = (key: string) => void;

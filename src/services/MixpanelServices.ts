@@ -60,6 +60,19 @@ export const sendTabChangedToMix = (changedTab: string) => {
     console.error(`the request failed: ${e}`);
   }
 };
+
+export const sendEventToMix = (
+  Event: string,
+  dataType: string | string[],
+  data: string | string[]
+) => {
+  try {
+    mixpanel.track(Event, { dataType: data });
+  } catch (e) {
+    console.error(`the request failed: ${e}`);
+  }
+};
+
 export const sendNodeSearchedToMix = (node: string) => {
   try {
     mixpanel.track("Node Searched", { nodeTitle: node });

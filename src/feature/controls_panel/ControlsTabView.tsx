@@ -24,6 +24,7 @@ import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -112,6 +113,8 @@ const ControlsTab = () => {
     console.warn("Removing", ctrlId, ctrl);
     const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
     cacheManifest(filterChilds);
+    //I need to figure this out
+    sendEventToMix("Widget Deleted", "", "");
   };
 
   const updateCtrlValue = (

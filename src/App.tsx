@@ -68,7 +68,7 @@ const App = () => {
   }, [preJobOperation]);
 
   useEffect(() => {
-    //sendFrontEndLoadsToMix();
+    sendFrontEndLoadsToMix();
   }, []);
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 

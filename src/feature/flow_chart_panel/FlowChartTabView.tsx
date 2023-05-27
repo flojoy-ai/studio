@@ -40,7 +40,10 @@ import { CustomNodeProps, ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { Box } from "@mantine/core";
-import { sendNodeDeletedToMix } from "@src/services/MixpanelServices";
+import {
+  sendEventToMix,
+  sendNodeDeletedToMix,
+} from "@src/services/MixpanelServices";
 
 localforage.config({
   name: "react-flow",
@@ -99,7 +102,8 @@ const FlowChartTab = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
-      sendNodeDeletedToMix(nodeLabel);
+      sendEventToMix("Node Deleted", "Node Title", nodeLabel);
+      //sendNodeDeletedToMix(nodeLabel);
     },
     [setNodes, setEdges]
   );
@@ -165,7 +169,8 @@ const FlowChartTab = () => {
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendNodeDeletedToMix(node.data.label);
+        sendEventToMix("Node Deleted", "nodeTitle", node.data.label);
+        //sendNodeDeletedToMix(node.data.label);
       });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>

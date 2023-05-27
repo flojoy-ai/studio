@@ -1,6 +1,9 @@
 import { createStyles } from "@mantine/core";
 import { CommandManifestMap } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import { sendNodeAddedToMix } from "@src/services/MixpanelServices";
+import {
+  sendEventToMix,
+  sendNodeAddedToMix,
+} from "@src/services/MixpanelServices";
 import { tabType } from "@feature/common/Sidebar/Sidebar";
 
 export const useSidebarStyles = createStyles((theme) => ({
@@ -51,7 +54,7 @@ const SidebarNode = ({
             key={cmd.key}
             className={classes.buttonLeafNode}
             onClick={() => {
-              sendNodeAddedToMix(cmd.key || keyNode);
+              sendEventToMix("Node Added", "Node Title", cmd.key || keyNode);
               onClickHandle(cmd.key || keyNode);
             }}
           >
@@ -68,6 +71,7 @@ const SidebarNode = ({
             key={cmd.key}
             className={classes.buttonLeafNode}
             onClick={() => {
+              sendEventToMix("Widget Added", "", cmd.key || keyNode);
               onClickHandle(cmd.key || keyNode);
             }}
           >

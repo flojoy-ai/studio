@@ -1,6 +1,9 @@
 import { MediaQuery, clsx, createStyles } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { sendTabChangedToMix } from "@src/services/MixpanelServices";
+import {
+  sendEventToMix,
+  sendTabChangedToMix,
+} from "@src/services/MixpanelServices";
 
 const useStyles = createStyles((theme) => ({
   tab: {
@@ -37,7 +40,7 @@ const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
       <Link
         to={to}
         onClick={() => {
-          /*SendTabChangedToMix(tab)}*/
+          sendEventToMix("Tab Changed", "tab", tab);
         }}
         className={clsx(classes.tab, active && classes.active)}
         color="dark"
