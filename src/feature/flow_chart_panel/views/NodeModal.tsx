@@ -147,9 +147,7 @@ const NodeModal = ({
   let nodeCategory = "";
   const nodeDataLabel = nodeFileName.split(".")[0];
   const colorScheme = theme.colorScheme;
-
-  console.log(getPath(CMND_TREE, nodeType));
-
+  
   let LINK = `${GLINK}`;
   if (getPath(CMND_TREE, nodeType) !== null) {
     const path: string[] = getPath(CMND_TREE, nodeType)!;
@@ -169,7 +167,7 @@ const NodeModal = ({
     default:
       LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
   }
-
+  
   return (
     <Modal
       data-testid="node-modal"
@@ -202,7 +200,6 @@ const NodeModal = ({
           <Button
             size="md"
             classNames={{ root: classes.buttonStyle2 }}
-            style={{}}
           >
             VIEW EXAMPLES
           </Button>

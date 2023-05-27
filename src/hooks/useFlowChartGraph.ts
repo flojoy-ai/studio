@@ -18,7 +18,13 @@ export const useFlowChartGraph = () => {
 
   // TODO: This still changes every time a node is dragged...
   // Could still be optimized further?
-  const selectedNodes = nodes.filter((n) => n.selected);
+  const selectedNodes: Node<ElementsData>[] = [];
+  const unSelectedNodes: Node<ElementsData>[] = [];
+  for (const n of nodes) {
+    if (n.selected) {
+      selectedNodes.push(n);
+    } else unSelectedNodes.push(n);
+  }
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
@@ -77,6 +83,7 @@ export const useFlowChartGraph = () => {
     edges,
     setEdges,
     selectedNode,
+    unSelectedNodes,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     loadFlowExportObject,
