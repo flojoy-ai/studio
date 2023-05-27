@@ -14,7 +14,7 @@ exports[`CustomResultNode renders a PlotlyComponent if result data is provided 1
     </div>
     <div
       id="node-id"
-      style="height: 190px; width: 210px;"
+      style="height: 293px; width: 380px;"
     >
       PlotlyComponent
     </div>
