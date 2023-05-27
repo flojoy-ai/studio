@@ -1,3 +1,3 @@
 from captain.internal.manager import Manager
 
-manager = Manager()
+manager_front_end = Manager()
