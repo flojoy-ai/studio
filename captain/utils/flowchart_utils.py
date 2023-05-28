@@ -1,21 +1,25 @@
-
 import networkx as nx
 
 from captain.models.topology import Topology
 
+
 def cancel_flowchart_by_id(jobset_id):
     raise NotImplementedError("Function not implemented.")
 
-#converts the graph/flowchart from a dict to a networkx graph
+
+# converts the graph/flowchart from a dict to a networkx graph
 def create_topology(flowchart, redis_client):
     graph = flowchart_to_nx_graph(flowchart)
-    return Topology(graph, redis_client)
+    # TODO: ID is not ""
+    return Topology(graph, redis_client, "")
+
 
 def run_flowchart(redis_client):
-    #get flowchart from redis
+    # get flowchart from redis
     flowchart = redis_client.get("FLOW_CHART")
 
-#converts the dict to a networkx graph
+
+# converts the dict to a networkx graph
 def flowchart_to_nx_graph(flowchart):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
@@ -49,6 +53,3 @@ def flowchart_to_nx_graph(flowchart):
     nx.draw(nx_graph, with_labels=True)
 
     return nx_graph
-
-
-

@@ -20,7 +20,7 @@ class ConnectionManager:
     async def send_personal_message(self, message: str, websocket: WebSocket):
         await websocket.send_text(message)
 
-    #this method sends a message to all connected websockets
+    # this method sends a message to all connected websockets
     async def broadcast(self, message: str):
         for connection in self.active_connections:
             try:
