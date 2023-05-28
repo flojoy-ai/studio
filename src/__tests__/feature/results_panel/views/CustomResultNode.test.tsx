@@ -53,7 +53,7 @@ describe("CustomResultNode", () => {
     expect(resultNode).toBeInTheDocument();
     const plotlyComponent = resultNode.querySelector(`#${data.id}`);
     expect(plotlyComponent).toBeInTheDocument();
-    expect(plotlyComponent).toHaveStyle({ height: "190px", width: "210px" });
+    expect(plotlyComponent).toHaveStyle({ height: "293px", width: "380px" });
     expect(container).toMatchSnapshot();
   });
 

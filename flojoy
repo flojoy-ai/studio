@@ -61,6 +61,7 @@ is_ci=false
 test_ci=false
 initSubmodule=true
 enableSentry=true
+generateCustomBundle=true
 
 
 # creating system links
@@ -133,6 +134,7 @@ helpFunction()
    echo  " -v: path to a Python virtual environment"
    echo  " -n: To NOT install npm packages"
    echo  " -p: To NOT install python packages"
+   echo  " -g: To NOT generate custom plotly.js bundle"
    echo  " -s: To NOT update submodules"
    echo  " -S: To NOT enable Sentry"
    echo 1 # Exit script after printing help
@@ -174,6 +176,10 @@ do
         ;;
         -s)
         initSubmodule=false # don't update submodules, prevents overwriting local changes
+        shift
+        ;;
+        -g)
+        generateCustomBundle=false
         shift
         ;;
         *) # unknown option
@@ -291,6 +297,11 @@ then
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
+if [ "$generateCustomBundle" = true ]
+then
+   info_msg "Argument -g is not provided, custom bundle will be generated"
+   cd "$CWD" && npm run bundle-plotly
+fi
 
 # update ES6 status codes file
 
