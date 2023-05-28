@@ -3,11 +3,9 @@ import HandleComponent from "@feature/flow_chart_panel/components/HandleComponen
 import {CustomNodeProps} from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useEffect } from "react";
 import NodeWrapper from "../NodeWrapper";
-import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
 import { Box, clsx, createStyles } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
 import {
-    AddBGTemplate,
     ScipySvg
 } from "../../svgs/add-multiply-svg";
 const useStyles = createStyles((theme) => {
@@ -58,8 +56,7 @@ const ScipyNode = ({ data }: CustomNodeProps) => {
         ? nodeClasses.defaultShadow
         : nodeClasses.scipyShadow;
   }
-  let operatorIcon;
-  operatorIcon = <ScipySvg className={classes.operatorIcon} />;
+  const operatorIcon = <ScipySvg className={classes.operatorIcon} />;
   return (
     <NodeWrapper data={data}>
       <Box
@@ -74,9 +71,6 @@ const ScipyNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
-            <NodeEditButtons />
-          )}
           <Box data-testid="data-label-design">
             <Box>{data.label}</Box>
           </Box>

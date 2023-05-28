@@ -60,9 +60,7 @@ const CMND_TREE: Sections = {
       title: "NUMeric PYthon (NUMPY)",
       child: [
         {
-          title: "NumPy",
-          key: "NUMPY",
-          child: null
+          title: "NumPy LinAlg", key: "NUMPY_LINALG", child: null
         },
       ],
     },
