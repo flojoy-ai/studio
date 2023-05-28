@@ -57,5 +57,6 @@ export const lightTheme: MantineThemeOverride = {
     accent2: ["#7b61ff", "#7418b5"],
     accent3: ["#ffa927"],
     accent4: ["rgba(123, 97, 255, 1)", "rgba(123, 97, 255, 0.17)"], //for add button and leaf nodes
+    accent5: ["#ff7b61", "#ff3b15"],
   },
 };
