@@ -293,7 +293,7 @@ const ControlBar = () => {
           <Text>Cancel</Text>
         </button>
       )}
-      {location.pathname !== "/debug" && (
+      {
         <DropDown dropDownBtn={<FileButton />}>
           <button
             onClick={() => setIsAPIKeyModelOpen(true)}
@@ -353,7 +353,7 @@ const ControlBar = () => {
             Keyboard Shortcut
           </button>
         </DropDown>
-      )}
+      }
 
       <Button
         variant="subtle"

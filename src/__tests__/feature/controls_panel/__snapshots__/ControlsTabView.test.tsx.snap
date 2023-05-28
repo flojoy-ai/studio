@@ -319,12 +319,21 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           style="display: flex; justify-content: space-between;"
         >
           <button
-            class="mantine-b33zvb"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
+            data-button="true"
             data-cy="add-ctrl"
             data-testid="add-ctrl-button"
-            style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
+            type="button"
           >
-            + Add CTRL
+            <div
+              class="mantine-1wpc1xj mantine-Button-inner"
+            >
+              <span
+                class="mantine-1ryt1ht mantine-Button-label"
+              >
+                + Add CTRL
+              </span>
+            </div>
           </button>
           <div
             class="mantine-1u5otvk"
