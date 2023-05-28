@@ -6,16 +6,14 @@ import pandas as pd
 
 MAX_LIST_SIZE = 1000
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
-REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
+REDIS_PORT = int(os.environ.get("REDIS_PORT", "6379"))
 
 
 class RedisDao:
-    r = None
     _instance = None
 
     def __init__(self):
-        if RedisDao.r is None:
-            RedisDao.r = Redis(host=REDIS_HOST, port=REDIS_PORT)
+        self.r = Redis(host=REDIS_HOST, port=REDIS_PORT)
 
     @staticmethod
     def get_instance():

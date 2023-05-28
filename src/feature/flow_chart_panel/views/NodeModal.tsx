@@ -1,10 +1,16 @@
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
+import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Modal } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
+
+// Import only the languages needed to reduce bundle size
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("json", json);
 
 const NodeModal = ({
   modalIsOpen,
@@ -13,13 +19,11 @@ const NodeModal = ({
   nodeType,
   nd,
   pythonString,
-  defaultLayout,
   clickedElement,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
-
   return (
     <Modal
       data-testid="node-modal"
