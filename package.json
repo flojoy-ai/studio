@@ -50,11 +50,8 @@
     "start": "vite",
     "build": "vite build",
     "backend": "python3 manage.py runserver",
-<<<<<<< HEAD
     "fastapi": "uvicorn captain.main:app --reload --port 2333",
-=======
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar",
->>>>>>> origin/develop
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy-watch",
     "rq-flojoy": "cd PYTHON && OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy",
     "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
