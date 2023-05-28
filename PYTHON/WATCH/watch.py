@@ -22,15 +22,18 @@ ENV_CI = "CI"
 
 
 class FlowScheduler:
-    def __init__(self, **kwargs) -> None:
-        self.scheduler_job_id = kwargs["scheduler_job_id"]
-        self.jobset_id = kwargs.get("jobsetId", None)
-        self.flow_chart = kwargs["fc"]
-        self.maximum_runtime = kwargs["extraParams"].get("maximumRuntime", 3000)
-        self.node_delay = kwargs["extraParams"].get("nodeDelay", 0)
-        print("EXTRA PARAMS")
-        print(kwargs["extraParams"])
+    def __init__(self, scheduler_job_id, fc, extraParams, jobsetId=None) -> None:
+        # print("sjid", scheduler_job_id)
+        # print("fc", fc)
+        # print("ep", extraParams)
+        # print("jsid", jobsetId)
 
+        self.scheduler_job_id = scheduler_job_id
+        self.jobset_id = jobsetId
+        self.flow_chart = fc
+        # TODO: split this up into different input vars
+        self.maximum_runtime = extraParams.get("maximumRuntime", 3000)
+        self.node_delay = extraParams.get("nodeDelay", 0)
         self.job_service = JobService("flojoy", self.maximum_runtime)
 
     def run(self):
@@ -227,5 +230,5 @@ def run(**kwargs):
     try:
         return FlowScheduler(**kwargs).run()
     except Exception:
-        print("exception occured whilte running the flowchart")
+        print("exception occured while running the flowchart")
         print(traceback.format_exc())

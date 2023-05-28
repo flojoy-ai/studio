@@ -1,12 +1,13 @@
 import { Box, createStyles } from "@mantine/core";
 import React, { useRef } from "react";
-
 const useStyles = createStyles((theme) => {
   return {
     dropdownWrapper: {
       position: "relative",
     },
     dropdownContainer: {
+      padding: "15px 7px",
+      borderRadius: 15,
       transition: "all ease 0.5s",
       flexDirection: "column",
       position: "absolute",
@@ -17,7 +18,7 @@ const useStyles = createStyles((theme) => {
       zIndex: -1,
       transform: "translateY(-10%)",
       opacity: 0,
-      backgroundColor: theme.colors.modal[0],
+      backgroundColor: theme.colors.modal[1],
       boxShadow: theme.colorScheme === "light" ? theme.shadows.sm : "none",
       "> button": {
         padding: "8px 12px",
@@ -25,34 +26,30 @@ const useStyles = createStyles((theme) => {
         cursor: "pointer",
         borderRadius: 2,
         fontSize: "14px",
+        fontWeight: "bold",
         textDecoration: "none",
-        background: "transparent",
+        background: theme.colors.modal[1],
         border: "none",
         width: "100%",
         textAlign: "start",
         whiteSpace: "nowrap",
-        color:
-          theme.colorScheme === "dark" ? theme.colors.accent1[0] : theme.black,
+        color: theme.colors.title[0],
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
           theme.colorScheme === "dark"
-            ? theme.colors.accent1[0]
-            : theme.colors.gray[3],
-        color: theme.black,
+            ? theme.colors.dark[6]
+            : theme.colors.modal[0],
       },
     },
   };
 });
-
 interface DropDownProps {
   children: React.ReactNode;
   dropDownBtn: React.ReactNode;
 }
-
 const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
   const { classes } = useStyles();
-
   const DropDownElem = useRef<HTMLDivElement>(null);
   const openDropDown = () => {
     if (DropDownElem.current) {
@@ -88,5 +85,4 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
     </Box>
   );
 };
-
 export default DropDown;

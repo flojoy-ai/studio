@@ -9,6 +9,7 @@
     "@applitools/eyes-cypress": "^3.32.2",
     "@mantine/core": "^6.0.9",
     "@mantine/hooks": "^6.0.9",
+    "@mantine/notifications": "^6.0.11",
     "@tabler/icons-react": "^2.17.0",
     "@tisoap/react-flow-smart-edge": "^3.0.0",
     "cors": "^2.8.5",
@@ -65,7 +66,7 @@
     "electron-package:mac": "electron-builder build --mac --publish always",
     "electron-publish": "electron-builder build --publish always -mwl",
     "test": "CI=true node_modules/.bin/jest",
-    "test:watch": "jest --watch --coverage",
+    "test:watch": "node_modules/.bin/jest --watch --coverage",
     "test:dev": "node_modules/.bin/jest --updateSnapshot",
     "update-submodule": "git submodule update --remote --recursive"
   },

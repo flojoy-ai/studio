@@ -1,4 +1,12 @@
-import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Text,
+  clsx,
+  createStyles,
+  useMantineTheme,
+} from "@mantine/core";
+import { AppTab } from "@src/Header";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/DropDown";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
@@ -10,6 +18,13 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
+import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
+import HistoryIconSvg from "@src/assets/HistoryIconSVG";
+import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
+import LoadIconSvg from "@src/assets/LoadIconSVG";
+import SaveAsIconSvg from "@src/assets/SaveAsIconSVG";
+import SaveIconSvg from "@src/assets/SaveIconSVG";
+import SettingsIconSvg from "@src/assets/SettingsIconSVG";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { memo, useEffect, useState, useCallback } from "react";
@@ -100,6 +115,9 @@ const useStyles = createStyles((theme) => {
       alignItems: "center",
       gap: "8px",
       paddingRight: "4px",
+    },
+    dropDownIcon: {
+      borderRadius: 20,
     },
   };
 });
@@ -209,7 +227,7 @@ const ControlBar = () => {
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
-  const onSave = async () => {
+  const onRun = async () => {
     if (rfInstance && rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
       const updatedRfInstance = {
@@ -222,7 +240,7 @@ const ControlBar = () => {
       saveFlowChartToLocalStorage(updatedRfInstance);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({
-        rfInstance,
+        rfInstance: updatedRfInstance,
         jobId: socketId,
         settings: settingsList.filter((setting) => setting.group === "backend"),
       });
@@ -256,19 +274,20 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
-  useKeyboardShortcut("ctrl", "p", onSave);
+  useKeyboardShortcut("ctrl", "p", onRun);
   useKeyboardShortcut("ctrl", "c", cancelFC);
 
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onClick={onSave} disabled={playBtnDisabled} />
+        <PlayBtn onClick={onRun} disabled={playBtnDisabled} />
       ) : (
         <button
           className={classes.cancelButton}
           onClick={cancelFC}
           data-cy="btn-cancel"
           title="Cancel Run"
+          style={{ borderRadius: 8 }}
         >
           <CancelIconSvg fill="white" />
           <Text>Cancel</Text>
@@ -276,19 +295,33 @@ const ControlBar = () => {
       )}
       {location.pathname !== "/debug" && (
         <DropDown dropDownBtn={<FileButton />}>
-          <button onClick={openFileSelector}>Load</button>
-          <button data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
+          <button
+            onClick={() => setIsAPIKeyModelOpen(true)}
+            style={{ display: "flex", gap: 7.5 }}
+          >
+            <FamilyHistoryIconSvg size={14} />
+            Set API key
+          </button>
+          <button
+            onClick={openFileSelector}
+            style={{ display: "flex", gap: 11.77 }}
+          >
+            <LoadIconSvg />
+            Load
+          </button>
+          <button
+            data-cy="btn-save"
+            onClick={() => saveFile(nodes, edges)}
+            style={{ display: "flex", gap: 10.3 }}
+          >
+            <SaveIconSvg />
             Save
           </button>
           <button
             data-cy="btn-saveas"
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              ...(saveAsDisabled && {
-                cursor: "not-allowed",
-                opacity: 0.5,
-              }),
+              gap: 10.9,
             }}
             className={saveAsDisabled ? "disabled" : ""}
             disabled={saveAsDisabled}
@@ -300,19 +333,36 @@ const ControlBar = () => {
             }
             onClick={() => saveFileAs(nodes, edges)}
           >
+            <SaveIconSvg />
             <Text>Save As</Text>
-            <small>Ctrl + s</small>
+            <div
+              style={{ position: "absolute", marginLeft: 110, marginTop: 1 }}
+            >
+              <small>Ctrl + s</small>
+            </div>
           </button>
-          <button>History</button>
-          <button onClick={() => setIsKeyboardShortcutOpen(true)}>
+          <button style={{ display: "flex", gap: 10.77 }}>
+            <HistoryIconSvg />
+            History
+          </button>
+          <button
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+            style={{ display: "flex", gap: 10.11 }}
+          >
+            <KeyBoardIconSvg />
             Keyboard Shortcut
-          </button>
-          <button onClick={() => setIsSettingsOpen(true)}>Settings</button>
-          <button onClick={() => setIsAPIKeyModelOpen(true)}>
-            Set API key
           </button>
         </DropDown>
       )}
+
+      <Button
+        variant="subtle"
+        size="xs"
+        style={{ right: 22 }}
+        onClick={() => setIsSettingsOpen(true)}
+      >
+        <SettingsIconSvg />
+      </Button>
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
