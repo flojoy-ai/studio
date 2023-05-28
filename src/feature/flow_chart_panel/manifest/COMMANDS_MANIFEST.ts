@@ -40,7 +40,7 @@ const CMND_TREE: Sections = {
   title: "ROOT",
   child: [
     {
-      title: "AI and Machine learning",
+      title: "AI and Machine Learning",
       child: [
         {
           title: "Object detection",
@@ -50,17 +50,19 @@ const CMND_TREE: Sections = {
       ],
     },
     {
-      title: "SCIentific PYthon (SCIPY)",
+      title: "Scientific Python (SCIPY)",
       child: [
-        {title: "SciPy Signal",key: "SCIPY_SIGNAL", child: null},
-        {title: "SciPy Stats", key: "SCIPY_STATS", child: null}
+        { title: "SciPy Signal", key: "SCIPY_SIGNAL", child: null },
+        { title: "SciPy Stats", key: "SCIPY_STATS", child: null },
       ],
     },
     {
-      title: "NUMeric PYthon (NUMPY)",
+      title: "Numeric Python (NUMPY)",
       child: [
         {
-          title: "NumPy LinAlg", key: "NUMPY_LINALG", child: null
+          title: "NumPy LinAlg",
+          key: "NUMPY_LINALG",
+          child: null,
         },
       ],
     },
@@ -103,7 +105,7 @@ const CMND_TREE: Sections = {
       ],
     },
     {
-      title: "Logic gates",
+      title: "Logic Gates",
       child: [
         // Conditionals, Timers, & Loops
         { title: "Timers", key: "TIMER", child: null },
