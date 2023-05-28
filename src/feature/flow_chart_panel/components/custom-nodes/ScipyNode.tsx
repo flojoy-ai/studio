@@ -1,7 +1,6 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import {CustomNodeProps} from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { useEffect } from "react";
 import NodeWrapper from "../NodeWrapper";
 import { Box, clsx, createStyles } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
@@ -15,7 +14,7 @@ const useStyles = createStyles((theme) => {
       : theme.colors.accent5[0];
   return {
     scipyNode: {
-      width: 120,
+      width: 180,
       height: 130,
       borderRadius: 6,
       flexDirection: "column",
@@ -26,8 +25,8 @@ const useStyles = createStyles((theme) => {
     },
     operatorIcon: {
         position: "absolute",
-        left: 8,
-        top: 5,
+        right: 8,
+        bottom: 5,
         height: 40,
         width: 40,
     },
@@ -37,24 +36,12 @@ const useStyles = createStyles((theme) => {
 const ScipyNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
-  const { runningNode, failedNode, nodes, setNodes } = useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
-
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
 
   let selectShadow = "";
   if (runningNode === data.id || data.selected) {
-    selectShadow =
-      data.func === "LINSPACE"
-        ? nodeClasses.defaultShadow
-        : nodeClasses.scipyShadow;
+    selectShadow = nodeClasses.scipyShadow;
   }
   const operatorIcon = <ScipySvg className={classes.operatorIcon} />;
   return (
