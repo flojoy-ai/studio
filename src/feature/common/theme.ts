@@ -31,6 +31,7 @@ export const darkTheme: MantineThemeOverride = {
     accent3: ["#ffc93f"],
     accent4: ["rgba(153, 245, 255, 1)", "rgba(153, 245, 255, 0.2)"], //for add buttons and leaf nodes
     accent5: ["#ff7b61", "#ff3b15"],
+    accent6: ["#007bff", "#4c83bf"]
   },
 };
 
@@ -58,5 +59,6 @@ export const lightTheme: MantineThemeOverride = {
     accent3: ["#ffa927"],
     accent4: ["rgba(123, 97, 255, 1)", "rgba(123, 97, 255, 0.17)"], //for add button and leaf nodes
     accent5: ["#ff7b61", "#ff3b15"],
+    accent6: ["#325c89", "#4c83bf"]
   },
 };

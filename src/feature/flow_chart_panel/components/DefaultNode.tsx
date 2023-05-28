@@ -55,6 +55,13 @@ export const useNodeStyles = createStyles((theme) => {
           : theme.colors.accent5[1]
       } 0px 0px 27px 3px`,
     },
+    numpyShadow: {
+      boxShadow: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.accent6[1]
+          : theme.colors.accent6[1]
+      } 0px 0px 27px 3px`,
+    },
     arithmeticShadow: {
       filter: `drop-shadow(0px 0px 20px ${theme.colors.accent3[0]})`,
     },
