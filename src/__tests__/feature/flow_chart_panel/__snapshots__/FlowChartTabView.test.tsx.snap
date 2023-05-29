@@ -312,7 +312,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
       style="min-height: calc(100vh - 100px);"
     >
       <nav
-        class="mantine-Navbar-root mantine-tqi198"
+        class="mantine-Navbar-root mantine-17429x2"
         data-testid="sidebar"
       >
         <div

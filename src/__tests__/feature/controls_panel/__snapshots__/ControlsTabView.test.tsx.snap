@@ -319,7 +319,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           style="display: flex; justify-content: space-between;"
         >
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-14tpfas"
             data-button="true"
             data-cy="add-ctrl"
             data-testid="add-ctrl-button"
@@ -418,7 +418,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           data-testid="control-grid"
         />
         <nav
-          class="mantine-Navbar-root mantine-tqi198"
+          class="mantine-Navbar-root mantine-17429x2"
           data-testid="sidebar"
         >
           <div

@@ -19,7 +19,7 @@ exports[`Sidebar should render the component correctly 1`] = `
     </div>
   </button>
   <nav
-    class="mantine-Navbar-root mantine-tqi198"
+    class="mantine-Navbar-root mantine-17429x2"
     data-testid="sidebar"
   >
     <div
