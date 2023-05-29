@@ -14,11 +14,6 @@ def create_topology(flowchart, redis_client):
     return Topology(graph, redis_client, "")
 
 
-def run_flowchart(redis_client):
-    # get flowchart from redis
-    flowchart = redis_client.get("FLOW_CHART")
-
-
 # converts the dict to a networkx graph
 def flowchart_to_nx_graph(flowchart):
     elems = flowchart["nodes"]

@@ -3,11 +3,13 @@ from captain.types.flowchart import PostCancelFC, PostWFC, WorkerResponse
 from captain.utils.flowchart_utils import (
     cancel_flowchart_by_id,
     create_topology,
-    run_flowchart,
 )
 from captain.utils.redis_dao import RedisDao
 
 router = APIRouter(tags=["flowchart"])
+
+running_topology = None 
+
 
 """
 FRONT-END CLIENT ACCESSIBLE END-POINTS
@@ -34,10 +36,10 @@ async def write_and_run_flowchart(request: PostWFC):
     redis_client = RedisDao()
 
     # create the topology
-    topology = create_topology(request.fc, redis_client)
+    running_topology = create_topology(request.fc, redis_client)
 
     # run the flowhchart
-    topology.run()
+    running_topology.run()
 
 
 """
