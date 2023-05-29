@@ -13,6 +13,10 @@ class PostWFC(BaseModel):
     extraParams: dict
 
 
-class WorkerResponse(BaseModel):
+class WorkerSuccessResponse(BaseModel):
+    node_id: str
+    result: dict
+
+class WorkerFailedResponse(BaseModel):
     node_id: str
     result: dict

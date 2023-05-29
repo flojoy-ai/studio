@@ -1,15 +1,22 @@
+import asyncio
+import json
 from fastapi import APIRouter
-from captain.types.flowchart import PostCancelFC, PostWFC, WorkerResponse
+import yaml
+from captain.types.flowchart import PostCancelFC, PostWFC, WorkerSuccessResponse, WorkerFailedResponse
 from captain.utils.flowchart_utils import (
     cancel_flowchart_by_id,
     create_topology,
 )
 from captain.utils.redis_dao import RedisDao
+from captain.utils.config import manager
 
 router = APIRouter(tags=["flowchart"])
 
 running_topology = None
 
+STATUS_CODES = yaml.load(
+    open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
+)
 
 """
 FRONT-END CLIENT ACCESSIBLE END-POINTS
@@ -38,6 +45,15 @@ async def write_and_run_flowchart(request: PostWFC):
     # create the topology
     running_topology = create_topology(request.fc, redis_client)
 
+    #create message for front-end
+    msg = {
+        "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
+        "jobsetId": request.jobset_id,
+        "FAILED_NODES": "",
+        "RUNNING_NODES": "",
+    }
+    asyncio.run(manager.ws.broadcast(json.dumps(msg)))
+
     # run the flowhchart
     running_topology.run()
 
@@ -53,10 +69,10 @@ signal a job has been finished.
 
 
 @router.post("/job_finished/", summary="job finished")
-async def job_finished(resp: WorkerResponse):
+async def job_finished(resp: WorkerSuccessResponse):
     raise NotImplementedError("Function not implemented.")
 
 
 @router.post("/job_failed/", summary="job failed")
-async def job_failed(resp: WorkerResponse):
+async def job_failed(resp: WorkerFailedResponse):
     raise NotImplementedError("Function not implemented.")
