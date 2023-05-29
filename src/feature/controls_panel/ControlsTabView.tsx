@@ -24,7 +24,10 @@ import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
-import { sendEventToMix } from "@src/services/MixpanelServices";
+import {
+  sendEventToMix,
+  sendMultipleDataEventToMix,
+} from "@src/services/MixpanelServices";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -179,6 +182,14 @@ const ControlsTab = () => {
       }
     });
     cacheManifest(manClone);
+    //mixpanel telemetry
+    const nodeAttached = inputNode ? inputNode.data.label : "No node attached";
+    sendMultipleDataEventToMix(
+      "Widget Attached",
+      [nodeAttached, ctrl.name],
+      ["nodeAttached", "widgetName"]
+    );
+    //sendTwoDataEventToMix("Widget Attached", nodeAttached, ctrl.name, "nodeAttached", "widgetName");
   };
 
   return (

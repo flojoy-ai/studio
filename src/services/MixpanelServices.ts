@@ -63,11 +63,28 @@ export const sendTabChangedToMix = (changedTab: string) => {
 
 export const sendEventToMix = (
   Event: string,
-  data: string | string[],
+  data: string,
   dataType = "data"
 ) => {
   try {
     mixpanel.track(Event, { [dataType]: data });
+  } catch (e) {
+    console.error(`the request failed: ${e}`);
+  }
+};
+
+//@pre-condition: the input array of data and dataType must be the same size
+export const sendMultipleDataEventToMix = (
+  Event: string,
+  data: string[],
+  dataType = ["data"]
+) => {
+  try {
+    const obj = {};
+    for (let i = 0; i < data.length; i++) {
+      obj[dataType[i]] = data[i];
+    }
+    mixpanel.track(Event, obj);
   } catch (e) {
     console.error(`the request failed: ${e}`);
   }
