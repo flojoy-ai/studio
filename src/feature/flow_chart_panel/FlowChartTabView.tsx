@@ -28,7 +28,6 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
 import { Node } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -39,10 +38,14 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps, ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+<<<<<<< HEAD
 import {
   sendEventToMix,
   sendNodeDeletedToMix,
 } from "@src/services/MixpanelServices";
+=======
+import Sidebar from "../common/Sidebar/Sidebar";
+>>>>>>> develop
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 

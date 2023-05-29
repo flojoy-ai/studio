@@ -20,7 +20,10 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
-import { sendFrontEndLoadsToMix } from "./services/MixpanelServices";
+import {
+  sendEventToMix,
+  sendFrontEndLoadsToMix,
+} from "@src/services/MixpanelServices";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +42,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   const {
-    states: { runningNode, failedNode, preJobOperation },
+    states: { runningNode, failedNode, preJobOperation, serverStatus },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
 
@@ -69,6 +72,7 @@ const App = () => {
 
   useEffect(() => {
     sendFrontEndLoadsToMix();
+    sendEventToMix("Server Status", serverStatus);
   }, []);
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 

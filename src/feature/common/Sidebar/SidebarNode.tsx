@@ -1,10 +1,14 @@
-import { createStyles } from "@mantine/core";
-import { CommandManifestMap } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { createStyles, Divider, useMantineTheme } from "@mantine/core";
+import {
+  CommandManifestMap,
+  CommandSection,
+} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import {
   sendEventToMix,
   sendNodeAddedToMix,
 } from "@src/services/MixpanelServices";
 import { tabType } from "@feature/common/Sidebar/Sidebar";
+import SidebarSection from "./SidebarSection";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -28,59 +32,127 @@ export const useSidebarStyles = createStyles((theme) => ({
     margin: "5px",
     fontFamily: "monospace",
   },
+
+  chevron: {
+    transition: "transform 200ms ease",
+  },
 }));
 
 type SidebarNodeProps = {
-  onClickHandle: (key: string) => void;
-  keyNode: string;
-  manifestMap: CommandManifestMap;
   depth: number;
-  sideBarType: tabType;
+  manifestMap: CommandManifestMap;
+  node: CommandSection;
+  leafClickHandler: (key: string) => void;
+  query: string;
+  matchedParent: boolean;
+  expand: boolean;
+  collapse: boolean;
 };
 
+const nodeTitleMatches = (query: string, node: CommandSection) =>
+  query !== "" &&
+  node.title.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+
 const SidebarNode = ({
-  onClickHandle,
-  keyNode,
+  depth,
   manifestMap,
-  sideBarType,
+  node,
+  leafClickHandler,
+  query,
+  matchedParent = false,
+  expand,
+  collapse,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
-  const commands = manifestMap[keyNode] || [];
-  if (sideBarType === "flowChart") {
+  const theme = useMantineTheme();
+
+  if (node.title === "ROOT") {
+    if (!node.children) return null;
+
     return (
-      <>
-        {commands.map((cmd) => (
-          <button
-            key={cmd.key}
-            className={classes.buttonLeafNode}
-            onClick={() => {
-              sendEventToMix("Node Added", cmd.key || keyNode, "nodeTitle");
-              onClickHandle(cmd.key || keyNode);
-            }}
-          >
-            {cmd.key || cmd.name}
-          </button>
-        ))}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {commands.map((cmd) => (
-          <button
-            key={cmd.key}
-            className={classes.buttonLeafNode}
-            onClick={() => {
-              sendEventToMix("Widget Added", cmd.key || keyNode, "widgetTitle");
-              onClickHandle(cmd.key || keyNode);
-            }}
-          >
-            {cmd.key || cmd.name}
-          </button>
-        ))}
-      </>
+      <div>
+        {node.children.map((c) => {
+          // Actually needs to be called as a function to achieve depth-first traversal,
+          // otherwise React lazily evaluates it and doesn't recurse immediately, resulting in breadth-first traversal.
+          return SidebarNode({
+            node: c,
+            depth: 0,
+            manifestMap,
+            leafClickHandler,
+            query,
+            matchedParent: nodeTitleMatches(query, c),
+            expand,
+            collapse,
+          });
+        })}
+      </div>
     );
   }
+
+  if (node.children) {
+    return (
+      <SidebarSection
+        title={node.title}
+        depth={depth + 1}
+        expand={expand}
+        collapse={collapse}
+      >
+        {node.children.map((c) =>
+          SidebarNode({
+            node: c,
+            depth: depth + 1,
+            manifestMap,
+            leafClickHandler,
+            query,
+            matchedParent: matchedParent || nodeTitleMatches(query, c),
+            expand,
+            collapse,
+          })
+        )}
+      </SidebarSection>
+    );
+  }
+
+  const key = node.key ?? "";
+
+  const commands = manifestMap[key] ?? [];
+  const lowercased = query.toLocaleLowerCase();
+  const shouldFilter = query !== "" && !matchedParent;
+  const searchMatches = shouldFilter
+    ? commands.filter(
+        (c) =>
+          c.key.toLocaleLowerCase().includes(lowercased) ||
+          c.name.toLocaleLowerCase().includes(lowercased)
+      )
+    : commands;
+
+  if (searchMatches.length === 0) {
+    return null;
+  }
+
+  return (
+    <div>
+      <Divider
+        variant="dashed"
+        color={
+          theme.colorScheme === "dark"
+            ? theme.colors.accent1[0]
+            : theme.colors.accent2[0]
+        }
+        label={node.title}
+        w="80%"
+      />
+      {searchMatches.map((command) => (
+        <button
+          key={command.key}
+          className={classes.buttonLeafNode}
+          onClick={() => leafClickHandler(command.key ?? key)}
+        >
+          {command.key || command.name}
+        </button>
+      ))}
+    </div>
+  );
 };
 
 export default SidebarNode;
