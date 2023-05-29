@@ -15,41 +15,64 @@ const useStyles = createStyles((theme) => ({
     display: "relative",
     justifyContent: "center",
     alignItems: "center",
+    border:
+      theme.colorScheme === "light"
+        ? `1px solid ${theme.colors.accent5[0]}`
+        : `1px solid ${theme.colors.accent5[0]}`,
     gap: 43,
-    height: 202,
-    width: "100%",
+    height: 160,
     backgroundColor: theme.colors.modal[1],
-    borderRadius: 17,
+    borderRadius: 19,
+    boxShadow:
+      theme.colorScheme === "light"
+        ? `0px 4px 8px 2px ${theme.colors.accent5[1]}`
+        : "none",
   },
   title: {
     display: "flex",
-    gap: 5,
-    fontSize: 24,
+    gap: 9.7,
+    fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Inter",
-    marginTop: "10%",
-    marginLeft: "22%",
+    marginTop: "9%",
+    marginLeft: "8.5%",
+    marginBottom: "1%",
+  },
+  titleText: {
+    position: "absolute",
+    left: 63,
+    top: 36,
   },
   submitButtonLine: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    gap: 5,
+    gap: 4,
     color: theme.colors.accent1[0],
   },
   submitBtn: {
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.accent1[0] : "none",
     color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[2]
+          : theme.colors.accent1[1],
+    },
   },
   closeBtn: {
     position: "absolute",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.title[0]
+        : theme.colors.gray[9],
     top: 10,
     right: 15,
   },
   inputBox: {
     input: {
-      width: 250,
+      width: 270,
       backgroundColor: theme.colors.modal[0],
     },
   },
@@ -89,14 +112,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         opened={isOpen}
         onClose={handleClose}
         aria-labelledby="API Key modal"
-        size={600}
+        size="calc(303px + 128px)"
         centered
       >
         <Modal.Overlay />
         <Modal.Content className={classes.container}>
           <div className={classes.title}>
             <FamilyHistoryIconSvg size={20} />
-            API Key:
+            <div className={classes.titleText}>API Key</div>
           </div>
           <Modal.CloseButton className={classes.closeBtn} />
           <div className={classes.submitButtonLine}>
@@ -105,7 +128,6 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               onChange={handleApiKeyChange}
               value={apiKey}
               className={classes.inputBox}
-              placeholder="API Key"
             />
             <Button
               disabled={!apiKey}
