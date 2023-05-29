@@ -251,6 +251,14 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
+      <Sidebar
+        sections={CMND_TREE}
+        manifestMap={CMND_MANIFEST_MAP}
+        leafNodeClickHandler={addNewNode}
+        isSideBarOpen={isSidebarOpen}
+        setSideBarStatus={setIsSidebarOpen}
+        customContent={sidebarCustomContent}
+      />
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 100px)" }}
