@@ -8,7 +8,7 @@ from captain.utils.redis_dao import RedisDao
 
 router = APIRouter(tags=["flowchart"])
 
-running_topology = None 
+running_topology = None
 
 
 """

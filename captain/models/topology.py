@@ -18,11 +18,10 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs = set()
         self.is_ci = os.getenv(key="CI", default=False)
- 
 
     # initial logic of topology
     def run(self):
-        next_jobs = self.collect_ready_jobs() #get nodes with in-degree 0
+        next_jobs = self.collect_ready_jobs()  # get nodes with in-degree 0
         for job_id in next_jobs:
             self.run_job(job_id)
             time.sleep(self.node_delay)
@@ -30,10 +29,13 @@ class Topology:
     def collect_ready_jobs(self):
         next_jobs = []
         for job_id in self.working_graph.nodes:
-            if job_id not in self.finished_jobs and self.working_graph.in_degree(job_id) == 0:
-                next_jobs.append(job_id) 
+            if (
+                job_id not in self.finished_jobs
+                and self.working_graph.in_degree(job_id) == 0
+            ):
+                next_jobs.append(job_id)
         return next_jobs
-    
+
     def run_job(self, job_id):
         raise NotImplementedError("Function not implemented.")
 
@@ -42,5 +44,3 @@ class Topology:
             return list(self.original_graph.predecessors(job_id))
         except Exception:
             return []
-
-
