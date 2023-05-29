@@ -1,4 +1,4 @@
-import { createStyles } from "@mantine/core";
+import { createStyles, Divider, useMantineTheme } from "@mantine/core";
 import {
   CommandManifestMap,
   CommandSection,
@@ -55,24 +55,25 @@ const SidebarNode = ({
   matchedParent = false,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
+  const theme = useMantineTheme();
 
   if (node.title === "ROOT") {
     if (!node.children) return null;
 
     return (
       <div>
-        {node.children.map((c) =>
+        {node.children.map((c) => {
           // Actually needs to be called as a function to achieve depth-first traversal,
           // otherwise React lazily evaluates it and doesn't recurse immediately, resulting in breadth-first traversal.
-          SidebarNode({
+          return SidebarNode({
             node: c,
             depth: 0,
             manifestMap,
             leafClickHandler,
             query,
             matchedParent: nodeTitleMatches(query, c),
-          })
-        )}
+          });
+        })}
       </div>
     );
   }
@@ -87,7 +88,7 @@ const SidebarNode = ({
             manifestMap,
             leafClickHandler,
             query,
-            matchedParent: nodeTitleMatches(query, c),
+            matchedParent: matchedParent || nodeTitleMatches(query, c),
           })
         )}
       </SidebarSection>
@@ -106,12 +107,23 @@ const SidebarNode = ({
           c.name.toLocaleLowerCase().includes(lowercased)
       )
     : commands;
+
   if (searchMatches.length === 0) {
     return null;
   }
 
   return (
-    <SidebarSection title={node.title} depth={depth}>
+    <div>
+      <Divider
+        variant="dashed"
+        color={
+          theme.colorScheme === "dark"
+            ? theme.colors.accent1[0]
+            : theme.colors.accent2[0]
+        }
+        label={node.title}
+        w="80%"
+      />
       {searchMatches.map((command) => (
         <button
           key={command.key}
@@ -121,7 +133,7 @@ const SidebarNode = ({
           {command.key || command.name}
         </button>
       ))}
-    </SidebarSection>
+    </div>
   );
 };
 
