@@ -23,7 +23,7 @@ const useSidebarStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     transition: "500ms",
-    zIndex: 1,
+    zIndex: 50,
   },
 
   navbarHidden: {
@@ -34,7 +34,7 @@ const useSidebarStyles = createStyles((theme) => ({
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "calc(100vh - 100px)",
     transition: "300ms",
-    zIndex: 1,
+    zIndex: 50,
   },
 
   sections: {
@@ -101,16 +101,21 @@ const Sidebar = ({
   const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
 
-  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
-
   // These being booleans don't actually mean anything,
   // They just need to be values that can easily be changed in order
   // to trigger a useEffect in the children.
   // This is easily done by just toggling the booleans.
   const [expand, setExpand] = useState(false);
   const [collapse, setCollapse] = useState(false);
+
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    if (e.target.value === "") {
+      setCollapse(!collapse);
+    } else {
+      setExpand(!expand);
+    }
+  };
 
   return (
     <Navbar
