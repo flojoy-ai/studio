@@ -13,7 +13,7 @@ const useStyles = createStyles((theme) => {
       color: theme.colors.accent4[0],
       border: `1px solid ${theme.colors.accent4[0]}`,
       cursor: "pointer",
-      zIndex: 100,
+      zIndex: 40,
       fontWeight: 600,
       "&:hover": {
         backgroundColor: accent[1] + "36",
