@@ -1,7 +1,7 @@
-import SyntaxHighlighter from "react-syntax-highlighter";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
+import { JSONTree } from "react-json-tree";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
@@ -132,6 +132,31 @@ const getPath = (obj: Sections, key: string, paths: string[] = []) => {
   return null;
 };
 
+const themeJSONTree = () => {
+  const darkJSONTree = {
+    scheme: "flojoy",
+    base00: "#272822",
+    base01: "#383830",
+    base02: "#49483e",
+    base03: "#75715e",
+    base04: "#a59f85",
+    base05: "#f8f8f2",
+    base06: "#f5f4f1",
+    base07: "#f9f8f5",
+    base08: "#f92672",
+    base09: "#fd971f",
+    base0A: "#f4bf75",
+    base0B: "#a6e22e",
+    base0C: "#a1efe4",
+    base0D: "#66d9ef",
+    base0E: "#ae81ff",
+    base0F: "#cc6633",
+  };
+
+  const lightJSONTree = {};
+  return { darkJSONTree, lightJSONTree };
+};
+
 // Import only the languages needed to reduce bundle size
 SyntaxHighlighter.registerLanguage("python", python);
 SyntaxHighlighter.registerLanguage("json", json);
@@ -149,12 +174,13 @@ const NodeModal = ({
   const theme = useMantineTheme();
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
+  const { lightJSONTree, darkJSONTree } = themeJSONTree();
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   let nodeCategory = "";
   const nodeDataLabel = nodeFileName.split(".")[0];
   const colorScheme = theme.colorScheme;
-  
+
   let LINK = `${GLINK}`;
   if (getPath(CMND_TREE, nodeType) !== null) {
     const path: string[] = getPath(CMND_TREE, nodeType)!;
@@ -174,7 +200,7 @@ const NodeModal = ({
     default:
       LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
   }
-  
+
   return (
     <Modal
       data-testid="node-modal"
@@ -204,10 +230,7 @@ const NodeModal = ({
           </Button>
         </Box>
         <Box>
-          <Button
-            size="md"
-            classNames={{ root: classes.buttonStyle2 }}
-          >
+          <Button size="md" classNames={{ root: classes.buttonStyle2 }}>
             VIEW EXAMPLES
           </Button>
         </Box>
@@ -273,6 +296,13 @@ const NodeModal = ({
       <h2 style={{ fontSize: 22, marginTop: 28, marginBottom: 0 }}>
         Node data
       </h2>
+
+      <div>
+        <JSONTree
+          data={clickedElement}
+          theme={colorScheme === "dark" ? lightJSONTree : darkJSONTree}
+        ></JSONTree>
+      </div>
       <SyntaxHighlighter
         language="json"
         style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
