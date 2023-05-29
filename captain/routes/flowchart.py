@@ -2,7 +2,12 @@ import asyncio
 import json
 from fastapi import APIRouter
 import yaml
-from captain.types.flowchart import PostCancelFC, PostWFC, WorkerSuccessResponse, WorkerFailedResponse
+from captain.types.flowchart import (
+    PostCancelFC,
+    PostWFC,
+    WorkerSuccessResponse,
+    WorkerFailedResponse,
+)
 from captain.utils.flowchart_utils import (
     cancel_flowchart_by_id,
     create_topology,
@@ -45,7 +50,7 @@ async def write_and_run_flowchart(request: PostWFC):
     # create the topology
     running_topology = create_topology(request.fc, redis_client)
 
-    #create message for front-end
+    # create message for front-end
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
         "jobsetId": request.jobset_id,

@@ -17,6 +17,7 @@ class WorkerSuccessResponse(BaseModel):
     node_id: str
     result: dict
 
+
 class WorkerFailedResponse(BaseModel):
     node_id: str
     result: dict
