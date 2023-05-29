@@ -1,4 +1,7 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
+import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
@@ -128,6 +131,10 @@ const getPath = (obj: Sections, key: string, paths: string[] = []) => {
 
   return null;
 };
+
+// Import only the languages needed to reduce bundle size
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("json", json);
 
 const NodeModal = ({
   modalIsOpen,

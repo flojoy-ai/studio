@@ -1,8 +1,12 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { useEffect } from "react";
-import Plot, { PlotParams } from "react-plotly.js";
+import createPlotlyComponent from "react-plotly.js/factory";
+import type { PlotParams } from "react-plotly.js";
 import { PlotData } from "plotly.js";
 import usePlotLayout from "./usePlotLayout";
+// Note: You must generate the custom bundle first using npm run bundle-plotly for this import to work
+import Plotly from "plotly.js/dist/plotly-custom.min";
+// import Plotly from "plotly.js/dist/plotly";
 
 export type OverridePlotData = Array<
   Partial<PlotData> & {
@@ -26,10 +30,10 @@ type PlotProps = {
   layout: any;
 } & Omit<PlotParams, "data">;
 
-// TODO: Why does this rerender constantly after first run?
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
+  const Plot = createPlotlyComponent(Plotly);
   const isMatrix = data[0]?.header?.values.length === 0;
 
   useEffect(() => {
