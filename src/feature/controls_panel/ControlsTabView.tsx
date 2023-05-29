@@ -18,7 +18,7 @@ import {
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import { v4 as uuidv4 } from "uuid";
-import NewSidebar from "../common/Sidebar/NewSidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
@@ -199,7 +199,7 @@ const ControlsTab = () => {
             setOpenEditModal,
           }}
         />
-        <NewSidebar
+        <Sidebar
           sections={CTRL_TREE}
           manifestMap={CTRL_MANIFEST}
           leafNodeClickHandler={addCtrl}
