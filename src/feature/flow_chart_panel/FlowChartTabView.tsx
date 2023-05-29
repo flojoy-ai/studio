@@ -28,7 +28,6 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
 import { Node } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -39,7 +38,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import NewSidebar from "../common/Sidebar/NewSidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 
 localforage.config({
   name: "react-flow",
@@ -234,7 +233,7 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <NewSidebar
+      <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
         leafNodeClickHandler={addNewNode}

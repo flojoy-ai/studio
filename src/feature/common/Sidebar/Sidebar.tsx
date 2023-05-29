@@ -4,14 +4,13 @@ import { IconSearch } from "@tabler/icons-react";
 
 import { memo, useState } from "react";
 
-import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
-import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
 import {
   CommandManifestMap,
   CommandSection,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import SidebarNode from "./SidebarNode";
 
 type leafClickHandler = (key: string) => void;
 
@@ -38,6 +37,7 @@ const useSidebarStyles = createStyles((theme) => ({
   },
 
   sections: {
+    marginTop: theme.spacing.md,
     marginLeft: -theme.spacing.md,
     marginRight: -theme.spacing.md,
   },
@@ -79,122 +79,11 @@ const Sidebar = ({
   manifestMap,
   customContent,
 }: SidebarCustomProps) => {
-  const [textInput, handleChangeInput] = useState("");
+  const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
 
-  //this function will create the sections to be rendered according to the search input
-  const renderSection = (
-    textInput: string,
-    node: CommandSection,
-    depth: number
-  ) => {
-    //if we are at the root
-    if (node.title === "ROOT") {
-      if (!node.children) return null;
-      return node.children.map(
-        (c) => renderSection(textInput, c as CommandSection, depth) //render all the content of the children
-      );
-    }
-
-    let content: JSX.Element[];
-
-    console.log(node.children, node.title);
-    if (textInput !== "") {
-      // const queryInCommands = Boolean(
-      //   !node.child &&
-      //     node.key &&
-      //     manifestMap[node.key].some(
-      //       (c) =>
-      //         c.name.toLowerCase().includes(textInput.toLocaleLowerCase()) ||
-      //         c.key.toLowerCase().includes(textInput.toLocaleLowerCase())
-      //     )
-      // );
-      //case 1: name is included in the string of the section node or leaf node
-      if (node.title.toLowerCase().includes(textInput.toLocaleLowerCase())) {
-        //case 1.1: node has children (is a section)
-        if (node["children"] !== null && !node.key) {
-          content = node.children.map(
-            (c) => renderSection("", c as CommandSection, depth + 1) //render all the content of the children
-          );
-          return (
-            <SidebarSection
-              data-testid="sidebar-section"
-              key={node.title}
-              title={node.title}
-              content={content}
-              depth={depth}
-            />
-          );
-
-          //case 1.2: node has no children (is a leaf/command)
-        } else if (node["children"] === null && node.key) {
-          return (
-            <SidebarNode
-              data-testid="sidebar-node"
-              key={node.title}
-              onClickHandle={() => leafNodeClickHandler(node.key as string)}
-              keyNode={node.key as string}
-              manifestMap={manifestMap}
-              depth={depth}
-            />
-          );
-        }
-
-        //case 2: name is not included in the string of the section node or leaf node
-      } else {
-        //case 2.1: node has children (is a section)
-        if (node["children"] !== null && !node.key) {
-          content = node.children.map(
-            (c) => renderSection(textInput, c as CommandSection, depth + 1) //render all the content of the children
-          );
-
-          //if the content is not empty, then the section is not empty
-          if (!content.every((value) => value === null)) {
-            return (
-              <SidebarSection
-                data-testid="sidebar-section"
-                key={node.title}
-                title={node.title}
-                content={content}
-                depth={depth}
-              />
-            );
-          }
-        }
-      }
-
-      //case 3: no search input
-    } else {
-      //case 3.1: node has children (is a section)
-      if (node["children"] !== null && !node.key) {
-        content = node.children.map(
-          (c) => renderSection("", c as CommandSection, depth + 1) //render all the content of the children
-        );
-        return (
-          <SidebarSection
-            data-testid="sidebar-section"
-            key={node.title}
-            title={node.title}
-            content={content}
-            depth={depth}
-          />
-        );
-
-        //case 3.2: node has no children (is a leaf/command)
-      } else if (node["children"] === null && node.key) {
-        return (
-          <SidebarNode
-            data-testid="sidebar-node"
-            depth={depth}
-            key={node.key as string}
-            onClickHandle={leafNodeClickHandler}
-            keyNode={node.key as string}
-            manifestMap={manifestMap}
-          />
-        );
-      }
-    }
-    return null;
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
   return (
@@ -231,15 +120,20 @@ const Sidebar = ({
           radius="sm"
           type="search"
           className={classes.searchBox}
-          value={textInput}
-          onChange={(e) => handleChangeInput(e.target.value)}
+          value={query}
+          onChange={handleQueryChange}
         />
       </Navbar.Section>
       <Navbar.Section>{customContent}</Navbar.Section>
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
-        <div className={classes.sectionsInner} data-testid="sidebar-sections">
-          {renderSection(textInput, sections, 0)}
-        </div>
+        <SidebarNode
+          depth={0}
+          leafClickHandler={leafNodeClickHandler}
+          manifestMap={manifestMap}
+          node={sections}
+          query={query}
+          matchedParent={false}
+        />
       </Navbar.Section>
     </Navbar>
   );
