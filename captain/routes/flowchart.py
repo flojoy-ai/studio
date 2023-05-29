@@ -14,14 +14,12 @@ from captain.utils.flowchart_utils import (
 )
 from captain.utils.redis_dao import RedisDao
 from captain.utils.config import manager
+from captain.utils.status_codes import STATUS_CODES
 
 router = APIRouter(tags=["flowchart"])
 
 running_topology = None
 
-STATUS_CODES = yaml.load(
-    open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
-)
 
 """
 FRONT-END CLIENT ACCESSIBLE END-POINTS
