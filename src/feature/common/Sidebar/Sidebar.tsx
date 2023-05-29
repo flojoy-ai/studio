@@ -1,4 +1,5 @@
-import { Navbar, ScrollArea, Input } from "@mantine/core";
+import { Navbar, ScrollArea, Input, UnstyledButton, Box } from "@mantine/core";
+import { IconArrowAutofitUp, IconArrowAutofitDown } from "@tabler/icons-react";
 
 import { IconSearch } from "@tabler/icons-react";
 
@@ -60,6 +61,24 @@ const useSidebarStyles = createStyles((theme) => ({
   searchBox: {
     marginTop: 30,
   },
+
+  expandCollapseButtonContainer: {
+    display: "flex",
+    justifyContent: "end",
+    gap: 2,
+    marginBottom: 10,
+    marginRight: 12,
+  },
+
+  uiButton: {
+    transition: "0.2s ease-in-out",
+    "&:hover": {
+      color:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+    },
+  },
 }));
 
 type SidebarCustomProps = {
@@ -85,6 +104,13 @@ const Sidebar = ({
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
+
+  // These being booleans don't actually mean anything,
+  // They just need to be values that can easily be changed in order
+  // to trigger a useEffect in the children.
+  // This is easily done by just toggling the booleans.
+  const [expand, setExpand] = useState(false);
+  const [collapse, setCollapse] = useState(false);
 
   return (
     <Navbar
@@ -126,6 +152,20 @@ const Sidebar = ({
       </Navbar.Section>
       {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
+        <Box className={classes.expandCollapseButtonContainer}>
+          <UnstyledButton
+            onClick={() => setExpand(!expand)}
+            className={classes.uiButton}
+          >
+            <IconArrowAutofitDown />
+          </UnstyledButton>
+          <UnstyledButton
+            onClick={() => setCollapse(!collapse)}
+            className={classes.uiButton}
+          >
+            <IconArrowAutofitUp />
+          </UnstyledButton>
+        </Box>
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}
@@ -133,6 +173,8 @@ const Sidebar = ({
           node={sections}
           query={query}
           matchedParent={false}
+          expand={expand}
+          collapse={collapse}
         />
       </Navbar.Section>
     </Navbar>

@@ -40,6 +40,8 @@ type SidebarNodeProps = {
   leafClickHandler: (key: string) => void;
   query: string;
   matchedParent: boolean;
+  expand: boolean;
+  collapse: boolean;
 };
 
 const nodeTitleMatches = (query: string, node: CommandSection) =>
@@ -53,6 +55,8 @@ const SidebarNode = ({
   leafClickHandler,
   query,
   matchedParent = false,
+  expand,
+  collapse,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const theme = useMantineTheme();
@@ -72,6 +76,8 @@ const SidebarNode = ({
             leafClickHandler,
             query,
             matchedParent: nodeTitleMatches(query, c),
+            expand,
+            collapse,
           });
         })}
       </div>
@@ -80,7 +86,12 @@ const SidebarNode = ({
 
   if (node.children) {
     return (
-      <SidebarSection title={node.title} depth={depth + 1}>
+      <SidebarSection
+        title={node.title}
+        depth={depth + 1}
+        expand={expand}
+        collapse={collapse}
+      >
         {node.children.map((c) =>
           SidebarNode({
             node: c,
@@ -89,6 +100,8 @@ const SidebarNode = ({
             leafClickHandler,
             query,
             matchedParent: matchedParent || nodeTitleMatches(query, c),
+            expand,
+            collapse,
           })
         )}
       </SidebarSection>

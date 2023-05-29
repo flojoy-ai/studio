@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createStyles,
   UnstyledButton,
@@ -42,9 +42,17 @@ type SidebarSectionProps = {
   title: string;
   depth: number;
   children: React.ReactNode;
+  expand: boolean;
+  collapse: boolean;
 };
 
-const SidebarSection = ({ depth, title, children }: SidebarSectionProps) => {
+const SidebarSection = ({
+  depth,
+  title,
+  children,
+  expand,
+  collapse,
+}: SidebarSectionProps) => {
   const [opened, setOpened] = useState(false);
   const { classes, theme } = useSidebarStyles();
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
@@ -52,6 +60,14 @@ const SidebarSection = ({ depth, title, children }: SidebarSectionProps) => {
   if (Children.toArray(children).every((child) => child === null)) {
     return null;
   }
+
+  useEffect(() => {
+    setOpened(true);
+  }, [expand]);
+
+  useEffect(() => {
+    setOpened(false);
+  }, [collapse]);
 
   return (
     <>
