@@ -258,6 +258,8 @@ const ControlBar = () => {
 
   useKeyboardShortcut("ctrl", "p", onSave);
   useKeyboardShortcut("ctrl", "c", cancelFC);
+  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+
 
   return (
     <Box className={classes.controls}>

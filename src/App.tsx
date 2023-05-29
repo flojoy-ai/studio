@@ -20,6 +20,7 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+import { useReactFlow } from "reactflow";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,9 @@ const App = () => {
       closePreJobModal();
     }
   }, [preJobOperation]);
+  
+  const { zoomIn } = useReactFlow();
+  useKeyboardShortcut("ctrl", "v", zoomIn);
 
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 
