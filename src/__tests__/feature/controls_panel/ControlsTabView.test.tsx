@@ -1,7 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import ControlsTab from "@src/feature/controls_panel/ControlsTabView";
-import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { Settings } from "http2";
 
 // mock `AddCtrlModal`

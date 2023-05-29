@@ -2,25 +2,39 @@
 
 exports[`PlayBtn component renders correctly with default props 1`] = `
 <button
-  class="mantine-8mgm8e"
+  class="mantine-UnstyledButton-root mantine-Button-root mantine-btd47x"
+  data-button="true"
   data-cy="btn-play"
   data-testid="btn-play"
   title="Run Script"
+  type="button"
 >
-  <svg
-    fill="none"
-    height="11"
-    viewBox="0 0 9 11"
-    width="9"
-    xmlns="http://www.w3.org/2000/svg"
+  <div
+    class="mantine-1wpc1xj mantine-Button-inner"
   >
-    <path
-      d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
-      fill="#99f5ff"
-    />
-  </svg>
-  <span>
-    Play
-  </span>
+    <span
+      class="mantine-1ryt1ht mantine-Button-label"
+    >
+      <svg
+        fill="none"
+        height="11"
+        style="margin-bottom: 2px;"
+        viewBox="0 0 9 11"
+        width="9"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
+          fill="#99f5ff"
+        />
+      </svg>
+      <div
+        style="padding: 4px;"
+      />
+      <span>
+        Play
+      </span>
+    </span>
+  </div>
 </button>
 `;

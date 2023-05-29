@@ -124,7 +124,7 @@ const Sidebar = ({
           onChange={handleQueryChange}
         />
       </Navbar.Section>
-      <Navbar.Section>{customContent}</Navbar.Section>
+      {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <SidebarNode
           depth={0}

@@ -25,7 +25,6 @@ export function useFlowChartTabEffects({
       const filteredResult = runResults.filter(
         (node) => node.id === clickedElement?.id
       )[0];
-
       setNd(filteredResult === undefined ? null : filteredResult);
     }
   }, [results, clickedElement]);
