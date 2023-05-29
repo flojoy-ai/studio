@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createStyles,
   UnstyledButton,
@@ -7,6 +7,7 @@ import {
   Collapse,
 } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { Children } from "react";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -16,7 +17,9 @@ export const useSidebarStyles = createStyles((theme) => ({
     padding: `${theme.spacing.xs} ${theme.spacing.xs}`,
     color: "black",
     fontSize: theme.fontSizes.sm,
-    margin: "10px 20px",
+    margin: "0px 20px 5px 20px",
+
+    borderRadius: 2,
     backgroundColor: theme.colors.accent1[0],
   },
   title: {
@@ -37,14 +40,35 @@ export const useSidebarStyles = createStyles((theme) => ({
 
 type SidebarSectionProps = {
   title: string;
-  content: React.ReactNode;
   depth: number;
+  children: React.ReactNode;
+  expand: boolean;
+  collapse: boolean;
 };
 
-const SidebarSection = ({ title, content, depth }: SidebarSectionProps) => {
+const SidebarSection = ({
+  depth,
+  title,
+  children,
+  expand,
+  collapse,
+}: SidebarSectionProps) => {
   const [opened, setOpened] = useState(false);
   const { classes, theme } = useSidebarStyles();
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
+
+  useEffect(() => {
+    setOpened(true);
+  }, [expand]);
+
+  useEffect(() => {
+    setOpened(false);
+  }, [collapse]);
+
+  if (Children.toArray(children).every((child) => child === null)) {
+    return null;
+  }
+
   return (
     <>
       <UnstyledButton
@@ -72,8 +96,8 @@ const SidebarSection = ({ title, content, depth }: SidebarSectionProps) => {
       </UnstyledButton>
       <Collapse in={opened}>
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + (depth + 1) * 20}px` }}>
-          {content}
+        <div style={{ paddingLeft: `${10 + (depth + 1) * 8}px` }}>
+          {children}
         </div>
       </Collapse>
     </>
