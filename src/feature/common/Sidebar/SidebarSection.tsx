@@ -57,10 +57,6 @@ const SidebarSection = ({
   const { classes, theme } = useSidebarStyles();
   const ChevronIcon = theme.dir === "ltr" ? IconChevronRight : IconChevronLeft;
 
-  if (Children.toArray(children).every((child) => child === null)) {
-    return null;
-  }
-
   useEffect(() => {
     setOpened(true);
   }, [expand]);
@@ -68,6 +64,10 @@ const SidebarSection = ({
   useEffect(() => {
     setOpened(false);
   }, [collapse]);
+
+  if (Children.toArray(children).every((child) => child === null)) {
+    return null;
+  }
 
   return (
     <>
