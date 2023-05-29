@@ -410,7 +410,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           </button>
         </div>
         <div
-          class="mantine-ScrollArea-root mantine-64qz2l"
+          class="mantine-ScrollArea-root mantine-125kpyp"
           dir="ltr"
           style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
         >
@@ -424,12 +424,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           >
             <div
               style="min-width: 100%; display: table;"
-            >
-              <div
-                class="mantine-6km1t0"
-                data-testid="sidebar-sections"
-              />
-            </div>
+            />
           </div>
         </div>
       </nav>
