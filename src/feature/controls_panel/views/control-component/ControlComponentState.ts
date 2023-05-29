@@ -14,17 +14,11 @@ import {
   NodeInputOptions,
   PlotControlOptions,
 } from "../../types/ControlOptions";
-
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 export type ControlComponentStateProps = {
-  updateCtrlValue: (
-    value: string,
-    ctrl: CtlManifestType,
-    ValType: ParamValueType
-  ) => void;
+  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   ctrlObj: CtlManifestType;
 };
 
@@ -47,9 +41,9 @@ const ControlComponentState = ({
   const [textInput, setTextInput] = useState<string>("");
   const [numberInput, setNumberInput] = useState<string>("0");
   const [sliderInput, setSliderInput] = useState<string>("0");
-  const [currentInputValue, setCurrentInputValue] = useState<string | number>(
-    0
-  );
+  const [currentInputValue, setCurrentInputValue] = useState<
+    string | number | boolean
+  >(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
   const [plotData, setPlotData] = useState<OverridePlotData>([]);
@@ -97,7 +91,7 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj, "string");
+      updateCtrlValue(file.name, ctrlObj);
     });
   }, [plainFiles]);
 
