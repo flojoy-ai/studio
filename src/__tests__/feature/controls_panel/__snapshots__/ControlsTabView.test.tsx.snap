@@ -319,12 +319,21 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           style="display: flex; justify-content: space-between;"
         >
           <button
-            class="mantine-b33zvb"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
+            data-button="true"
             data-cy="add-ctrl"
             data-testid="add-ctrl-button"
-            style="height: 43px; left: 10px; top: 110px; margin: 10px; z-index: 1;"
+            type="button"
           >
-            + Add CTRL
+            <div
+              class="mantine-1wpc1xj mantine-Button-inner"
+            >
+              <span
+                class="mantine-1ryt1ht mantine-Button-label"
+              >
+                + Add CTRL
+              </span>
+            </div>
           </button>
           <div
             class="mantine-1u5otvk"
@@ -480,9 +489,6 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </div>
           <div
-            class="mantine-khtkeg"
-          />
-          <div
             class="mantine-ScrollArea-root mantine-64qz2l"
             dir="ltr"
             style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
@@ -514,13 +520,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                         class="mantine-1a78l0v"
                       >
                         <div
-                          class="mantine-ajwi11"
+                          class="mantine-vjvxie"
                         >
                           Inputs
                         </div>
                       </div>
                       <svg
-                        class="mantine-sggls6"
+                        class="mantine-1qj2gwa"
                         fill="none"
                         height="14"
                         stroke="currentColor"
@@ -561,13 +567,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Continuous Variables
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -631,13 +637,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Discrete Variables
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -701,13 +707,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Booleans & Nodes
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -756,13 +762,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                               class="mantine-1a78l0v"
                             >
                               <div
-                                class="mantine-ajwi11"
+                                class="mantine-vjvxie"
                               >
                                 Text & Files
                               </div>
                             </div>
                             <svg
-                              class="mantine-sggls6"
+                              class="mantine-1qj2gwa"
                               fill="none"
                               height="14"
                               stroke="currentColor"
@@ -819,13 +825,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                         class="mantine-1a78l0v"
                       >
                         <div
-                          class="mantine-ajwi11"
+                          class="mantine-vjvxie"
                         >
                           Outputs
                         </div>
                       </div>
                       <svg
-                        class="mantine-sggls6"
+                        class="mantine-1qj2gwa"
                         fill="none"
                         height="14"
                         stroke="currentColor"

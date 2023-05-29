@@ -19,9 +19,19 @@ export const useSidebarStyles = createStyles((theme) => ({
     margin: "10px 20px",
     backgroundColor: theme.colors.accent1[0],
   },
+  title: {
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
+  },
 
   chevron: {
     transition: "transform 200ms ease",
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
   },
 }));
 
@@ -44,7 +54,9 @@ const SidebarSection = ({ title, content, depth }: SidebarSectionProps) => {
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box ml="md">{title}</Box>
+            <Box ml="md" className={classes.title}>
+              {title}
+            </Box>
           </Box>
           <ChevronIcon
             className={classes.chevron}

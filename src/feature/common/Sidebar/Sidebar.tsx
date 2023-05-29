@@ -227,7 +227,7 @@ const Sidebar = ({
           onChange={(e) => handleChangeInput(e.target.value)}
         />
       </Navbar.Section>
-      <Navbar.Section>{customContent}</Navbar.Section>
+      {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <div className={classes.sectionsInner} data-testid="sidebar-sections">
           {renderSection(textInput, sections, 0)}
