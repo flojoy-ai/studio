@@ -504,6 +504,64 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               <div
                 style="min-width: 100%; display: table;"
               >
+                <div
+                  class="mantine-a9igro"
+                >
+                  <button
+                    class="mantine-UnstyledButton-root mantine-1b5exya"
+                    type="button"
+                  >
+                    <svg
+                      class="tabler-icon tabler-icon-arrow-autofit-down"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 20h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8"
+                      />
+                      <path
+                        d="M18 4v17"
+                      />
+                      <path
+                        d="M15 18l3 3l3 -3"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="mantine-UnstyledButton-root mantine-1b5exya"
+                    type="button"
+                  >
+                    <svg
+                      class="tabler-icon tabler-icon-arrow-autofit-up"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 4h-6a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h8"
+                      />
+                      <path
+                        d="M18 20v-17"
+                      />
+                      <path
+                        d="M15 6l3 -3l3 3"
+                      />
+                    </svg>
+                  </button>
+                </div>
                 <div>
                   <button
                     class="mantine-UnstyledButton-root mantine-1l7c9mr"
@@ -550,7 +608,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
-                        style="padding-left: 20px;"
+                        style="padding-left: 26px;"
                       >
                         <button
                           class="mantine-UnstyledButton-root mantine-1l7c9mr"
@@ -597,227 +655,75 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 25px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Slider
-                                    </div>
+                                    Slider
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      SLIDER
-                                    </button>
-                                  </div>
-                                </div>
+                                  SLIDER
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Knob
-                                    </div>
+                                    Knob
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      KNOB
-                                    </button>
-                                  </div>
-                                </div>
+                                  KNOB
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Numeric Text Input
-                                    </div>
+                                    Numeric Text Input
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      NUMERIC_INPUT
-                                    </button>
-                                  </div>
-                                </div>
+                                  NUMERIC_INPUT
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Array Numeric Input
-                                    </div>
+                                    Array Numeric Input
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      ARRAY_INPUT
-                                    </button>
-                                  </div>
-                                </div>
+                                  ARRAY_INPUT
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -867,227 +773,75 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 25px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Radio Button Group
-                                    </div>
+                                    Radio Button Group
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      RADIO_BUTTON_GROUP
-                                    </button>
-                                  </div>
-                                </div>
+                                  RADIO_BUTTON_GROUP
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Checkbox Button Group
-                                    </div>
+                                    Checkbox Button Group
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      CHECKBOX_BUTTON_GROUP
-                                    </button>
-                                  </div>
-                                </div>
+                                  CHECKBOX_BUTTON_GROUP
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Constants
-                                    </div>
+                                    Constants
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      STATIC_NUMERIC_INPUT
-                                    </button>
-                                  </div>
-                                </div>
+                                  STATIC_NUMERIC_INPUT
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Dropdown
-                                    </div>
+                                    Dropdown
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      DROPDOWN
-                                    </button>
-                                  </div>
-                                </div>
+                                  DROPDOWN
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -1137,62 +891,24 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 25px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Node Reference
-                                    </div>
+                                    Node Reference
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      NODE_REFERENCE
-                                    </button>
-                                  </div>
-                                </div>
+                                  NODE_REFERENCE
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -1242,117 +958,41 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 25px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      File Uploader
-                                    </div>
+                                    File Uploader
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      LOCAL_FILE_LOADER
-                                    </button>
-                                  </div>
-                                </div>
+                                  LOCAL_FILE_LOADER
+                                </button>
                               </div>
-                              <button
-                                class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                                data-cy="sidebar-section-btn"
-                                type="button"
-                              >
+                              <div>
                                 <div
-                                  class="mantine-Group-root mantine-pr1x6c"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
                                 >
                                   <div
-                                    class="mantine-1a78l0v"
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                                   >
-                                    <div
-                                      class="mantine-vjvxie"
-                                    >
-                                      Text Input
-                                    </div>
+                                    Text Input
                                   </div>
-                                  <svg
-                                    class="mantine-1qj2gwa"
-                                    fill="none"
-                                    height="14"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    style="transform: none;"
-                                    viewBox="0 0 24 24"
-                                    width="14"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9 6l6 6l-6 6"
-                                    />
-                                  </svg>
                                 </div>
-                              </button>
-                              <div
-                                aria-hidden="true"
-                                class="mantine-1avyp1d"
-                                style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                              >
-                                <div
-                                  style="opacity: 0; transition: opacity 200ms ease;"
+                                <button
+                                  class="mantine-19u83u8"
                                 >
-                                  <div
-                                    style="padding-left: 25px;"
-                                  >
-                                    <button
-                                      class="mantine-19u83u8"
-                                    >
-                                      TEXT_INPUT
-                                    </button>
-                                  </div>
-                                </div>
+                                  TEXT_INPUT
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -1405,172 +1045,58 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
-                        style="padding-left: 20px;"
+                        style="padding-left: 26px;"
                       >
-                        <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                          data-cy="sidebar-section-btn"
-                          type="button"
-                        >
+                        <div>
                           <div
-                            class="mantine-Group-root mantine-pr1x6c"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
                           >
                             <div
-                              class="mantine-1a78l0v"
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                             >
-                              <div
-                                class="mantine-vjvxie"
-                              >
-                                LED Display
-                              </div>
+                              LED Display
                             </div>
-                            <svg
-                              class="mantine-1qj2gwa"
-                              fill="none"
-                              height="14"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              style="transform: none;"
-                              viewBox="0 0 24 24"
-                              width="14"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 6l6 6l-6 6"
-                              />
-                            </svg>
                           </div>
-                        </button>
-                        <div
-                          aria-hidden="true"
-                          class="mantine-1avyp1d"
-                          style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                        >
-                          <div
-                            style="opacity: 0; transition: opacity 200ms ease;"
+                          <button
+                            class="mantine-19u83u8"
                           >
-                            <div
-                              style="padding-left: 20px;"
-                            >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                SEVEN_SEGMENT_DISPLAY
-                              </button>
-                            </div>
-                          </div>
+                            SEVEN_SEGMENT_DISPLAY
+                          </button>
                         </div>
-                        <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                          data-cy="sidebar-section-btn"
-                          type="button"
-                        >
+                        <div>
                           <div
-                            class="mantine-Group-root mantine-pr1x6c"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
                           >
                             <div
-                              class="mantine-1a78l0v"
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                             >
-                              <div
-                                class="mantine-vjvxie"
-                              >
-                                Media Viewer
-                              </div>
+                              Media Viewer
                             </div>
-                            <svg
-                              class="mantine-1qj2gwa"
-                              fill="none"
-                              height="14"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              style="transform: none;"
-                              viewBox="0 0 24 24"
-                              width="14"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 6l6 6l-6 6"
-                              />
-                            </svg>
                           </div>
-                        </button>
-                        <div
-                          aria-hidden="true"
-                          class="mantine-1avyp1d"
-                          style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                        >
-                          <div
-                            style="opacity: 0; transition: opacity 200ms ease;"
+                          <button
+                            class="mantine-19u83u8"
                           >
-                            <div
-                              style="padding-left: 20px;"
-                            >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                MEDIA_VIEWER
-                              </button>
-                            </div>
-                          </div>
+                            MEDIA_VIEWER
+                          </button>
                         </div>
-                        <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
-                          data-cy="sidebar-section-btn"
-                          type="button"
-                        >
+                        <div>
                           <div
-                            class="mantine-Group-root mantine-pr1x6c"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
                           >
                             <div
-                              class="mantine-1a78l0v"
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
                             >
-                              <div
-                                class="mantine-vjvxie"
-                              >
-                                Plotly
-                              </div>
+                              Plotly
                             </div>
-                            <svg
-                              class="mantine-1qj2gwa"
-                              fill="none"
-                              height="14"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              style="transform: none;"
-                              viewBox="0 0 24 24"
-                              width="14"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M9 6l6 6l-6 6"
-                              />
-                            </svg>
                           </div>
-                        </button>
-                        <div
-                          aria-hidden="true"
-                          class="mantine-1avyp1d"
-                          style="box-sizing: border-box; display: none; height: 0px; overflow: hidden;"
-                        >
-                          <div
-                            style="opacity: 0; transition: opacity 200ms ease;"
+                          <button
+                            class="mantine-19u83u8"
                           >
-                            <div
-                              style="padding-left: 20px;"
-                            >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                PLOT
-                              </button>
-                            </div>
-                          </div>
+                            PLOT
+                          </button>
                         </div>
                       </div>
                     </div>
