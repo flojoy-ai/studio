@@ -110,7 +110,7 @@ const FlowChartTab = () => {
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
-      sendEventToMix("Node Deleted", "Node Title", nodeLabel);
+      sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
       //sendNodeDeletedToMix(nodeLabel);
     },
     [setNodes, setEdges]
@@ -176,7 +176,7 @@ const FlowChartTab = () => {
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
-        sendEventToMix("Node Deleted", "nodeTitle", node.data.label);
+        sendEventToMix("Node Deleted", node.data.label, "nodeTitle");
         //sendNodeDeletedToMix(node.data.label);
       });
       const selectedNodeIds = nodes.map((node) => node.id);

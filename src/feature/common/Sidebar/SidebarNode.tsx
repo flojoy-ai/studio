@@ -54,7 +54,7 @@ const SidebarNode = ({
             key={cmd.key}
             className={classes.buttonLeafNode}
             onClick={() => {
-              sendEventToMix("Node Added", "Node Title", cmd.key || keyNode);
+              sendEventToMix("Node Added", cmd.key || keyNode, "nodeTitle");
               onClickHandle(cmd.key || keyNode);
             }}
           >
@@ -71,7 +71,7 @@ const SidebarNode = ({
             key={cmd.key}
             className={classes.buttonLeafNode}
             onClick={() => {
-              sendEventToMix("Widget Added", "", cmd.key || keyNode);
+              sendEventToMix("Widget Added", cmd.key || keyNode, "widgetTitle");
               onClickHandle(cmd.key || keyNode);
             }}
           >

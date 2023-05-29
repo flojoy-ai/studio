@@ -111,10 +111,17 @@ const ControlsTab = () => {
   ) => {
     const ctrlId = (e.target as HTMLButtonElement).id;
     console.warn("Removing", ctrlId, ctrl);
-    const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    const filterChilds: CtlManifestType[] = [];
+    let filteredChild = "";
+    for (const ctrl of ctrlsManifest) {
+      if (ctrl.id !== ctrlId) {
+        filterChilds.push(ctrl);
+      } else {
+        filteredChild = ctrl.name;
+      }
+    }
     cacheManifest(filterChilds);
-    //I need to figure this out
-    sendEventToMix("Widget Deleted", "", "");
+    sendEventToMix("Widget Deleted", filteredChild, "widgetTitle");
   };
 
   const updateCtrlValue = (

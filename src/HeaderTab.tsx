@@ -40,7 +40,7 @@ const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
       <Link
         to={to}
         onClick={() => {
-          sendEventToMix("Tab Changed", "tab", tab);
+          sendEventToMix("Tab Changed", tab, "tab");
         }}
         className={clsx(classes.tab, active && classes.active)}
         color="dark"

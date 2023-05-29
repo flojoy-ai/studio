@@ -63,11 +63,11 @@ export const sendTabChangedToMix = (changedTab: string) => {
 
 export const sendEventToMix = (
   Event: string,
-  dataType: string | string[],
-  data: string | string[]
+  data: string | string[],
+  dataType = "data"
 ) => {
   try {
-    mixpanel.track(Event, { dataType: data });
+    mixpanel.track(Event, { [dataType]: data });
   } catch (e) {
     console.error(`the request failed: ${e}`);
   }
