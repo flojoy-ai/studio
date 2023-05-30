@@ -2,16 +2,20 @@ import manifests from "@src/data/manifests-latest.json";
 
 import { z } from "zod";
 
-const commandSchema = z.object({
-  name: z.string(),
-  key: z.string(),
-  type: z.string(),
-  pip_dependencies: z.optional(
-    z.array(z.object({ name: z.string(), v: z.optional(z.string()) }))
-  ),
-});
-
-const commandsSchema = z.array(commandSchema);
+const commandsSchema = z.array(
+  z.object({
+    name: z.string(),
+    key: z.string(),
+    type: z.string(),
+    inputs: z.optional(
+      z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+    ),
+    ui_component_id: z.optional(z.string()),
+    pip_dependencies: z.optional(
+      z.array(z.object({ name: z.string(), v: z.optional(z.string()) }))
+    ),
+  })
+);
 
 const paramsSchema = z.record(
   z.string(),
@@ -32,7 +36,6 @@ const manifestSchema = z.object({
 
 type Manifest = z.infer<typeof manifestSchema>;
 type ManifestParams = z.infer<typeof paramsSchema>;
-type ManifestCommand = z.infer<typeof commandSchema>;
 type ManifestCommands = z.infer<typeof commandsSchema>;
 
 const parsedManifest: Manifest = manifestSchema.parse(manifests);
@@ -53,7 +56,7 @@ const CMND_MANIFEST: ManifestCommands = parsedManifest.commands;
 //}[];
 
 export type CommandManifestMap = {
-  [key: string]: ManifestCommand;
+  [key: string]: ManifestCommands;
 };
 
 export type CommandSection = {
