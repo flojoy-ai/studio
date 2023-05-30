@@ -14,6 +14,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  useReactFlow,
 } from "reactflow";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
@@ -39,6 +40,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 
 localforage.config({
   name: "react-flow",
@@ -249,36 +251,18 @@ const FlowChartTab = () => {
         >
           <NodeEditMenu selectedNode={selectedNode} />
 
-          <ReactFlow
-            style={{
-              position: "fixed",
-              height: "100%",
-              width: "50%",
-            }}
+          <FlowChartKeyboardShortcuts
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
             edgeTypes={edgeTypes}
-            connectionLineType={ConnectionLineType.Step}
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            onNodeDragStop={handleNodeDrag}
-            onNodesDelete={handleNodesDelete}
-          >
-            <div
-              className="top-row"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                zIndex: 100,
-              }}
-            >
-              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-            </div>
-          </ReactFlow>
+            handleNodeDrag={handleNodeDrag}
+            handleNodesDelete={handleNodesDelete}
+          />
 
           <NodeExpandMenu
             clickedElement={selectedNode}

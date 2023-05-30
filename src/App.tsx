@@ -66,9 +66,6 @@ const App = () => {
       closePreJobModal();
     }
   }, [preJobOperation]);
-  
-  const { zoomIn } = useReactFlow();
-  useKeyboardShortcut("ctrl", "v", zoomIn);
 
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 

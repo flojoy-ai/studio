@@ -35,15 +35,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   const ctrlsShortCut = () => {
-    navigate('/controls');
+    navigate("/controls");
   };
 
   const debugShortCut = () => {
-    navigate('/debug')
+    navigate("/debug");
   };
 
   const mainShortCut = () => {
-    navigate('/')
+    navigate("/");
   };
 
   useKeyboardShortcut("shift", "C", () => ctrlsShortCut());
