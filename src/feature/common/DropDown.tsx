@@ -8,7 +8,7 @@ const useStyles = createStyles((theme) => {
     dropdownContainer: {
       padding: "15px 7px",
       borderRadius: 15,
-      transition: "all ease 0.5s",
+      transition: "all ease 400ms",
       flexDirection: "column",
       position: "absolute",
       top: "52px",

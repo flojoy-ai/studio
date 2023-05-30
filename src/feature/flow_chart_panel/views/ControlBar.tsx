@@ -5,6 +5,7 @@ import {
   clsx,
   createStyles,
   useMantineTheme,
+  UnstyledButton,
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import DropDown from "@src/feature/common/DropDown";
@@ -47,7 +48,6 @@ const useStyles = createStyles((theme) => {
     },
 
     button: {
-      marginRight: "10px",
       padding: "5px",
       cursor: "pointer",
       borderRadius: 2,
@@ -104,7 +104,6 @@ const useStyles = createStyles((theme) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      gap: "8px",
     },
 
     editContainer: {
@@ -115,6 +114,16 @@ const useStyles = createStyles((theme) => {
     },
     dropDownIcon: {
       borderRadius: 20,
+    },
+    settingsButton: {
+      padding: 6,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 6,
+      "&:hover": {
+        backgroundColor: theme.colors.accent1[0] + "2f",
+      },
     },
   };
 });
@@ -331,52 +340,52 @@ const ControlBar = () => {
 
   return (
     <Box className={classes.controls}>
-      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
-      ) : (
-        <button
-          className={classes.cancelButton}
-          onClick={cancelFC}
-          data-cy="btn-cancel"
-          title="Cancel Run"
-          style={{ borderRadius: 8 }}
-        >
-          <CancelIconSvg fill="white" />
-          <Text>Cancel</Text>
-        </button>
-      )}
-      <DropDown dropDownBtn={<FileButton />}>
-        <button
-          onClick={() => setIsAPIKeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          Set API key
-        </button>
-        <LoadButton />
-        <SaveButton saveFile={saveFile} />
-        <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-        <button style={{ display: "flex", gap: 10.77 }}>
-          <HistoryIconSvg />
-          History
-        </button>
-        <button
-          onClick={() => setIsKeyboardShortcutOpen(true)}
-          style={{ display: "flex", gap: 10.11 }}
-        >
-          <KeyBoardIconSvg />
-          Keyboard Shortcut
-        </button>
-      </DropDown>
+      <Box display="flex" mr={24} sx={{ gap: 12 }}>
+        {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+          <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
+        ) : (
+          <button
+            className={classes.cancelButton}
+            onClick={cancelFC}
+            data-cy="btn-cancel"
+            title="Cancel Run"
+            style={{ borderRadius: 8 }}
+          >
+            <CancelIconSvg fill="white" />
+            <Text>Cancel</Text>
+          </button>
+        )}
+        <DropDown dropDownBtn={<FileButton />}>
+          <button
+            onClick={() => setIsAPIKeyModelOpen(true)}
+            style={{ display: "flex", gap: 7.5 }}
+          >
+            <FamilyHistoryIconSvg size={14} />
+            Set API key
+          </button>
+          <LoadButton />
+          <SaveButton saveFile={saveFile} />
+          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+          <button style={{ display: "flex", gap: 10.77 }}>
+            <HistoryIconSvg />
+            History
+          </button>
+          <button
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+            style={{ display: "flex", gap: 10.11 }}
+          >
+            <KeyBoardIconSvg />
+            Keyboard Shortcut
+          </button>
+        </DropDown>
 
-      <Button
-        variant="subtle"
-        size="xs"
-        style={{ right: 22 }}
-        onClick={() => setIsSettingsOpen(true)}
-      >
-        <SettingsIconSvg />
-      </Button>
+        <UnstyledButton
+          onClick={() => setIsSettingsOpen(true)}
+          className={classes.settingsButton}
+        >
+          <SettingsIconSvg />
+        </UnstyledButton>
+      </Box>
 
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
