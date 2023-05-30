@@ -4,7 +4,6 @@ import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "../types/CustomNodeProps";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
@@ -55,21 +54,8 @@ export const useAddNewNode = (
       if (funcName === "CONSTANT") {
         nodeLabel = "2.0";
       } else {
-        // Commented out for now for performance reasons.
-        // This is because the code causes a dependency on the nodes state,
-        // which will cause this hook to be called every time the nodes
-        // change.
-
-        // const numOfThisNodesOnChart = nodes.filter(
-        //   (node) => node.data.func === funcName
-        // ).length;
-        // nodeLabel =
-        //   numOfThisNodesOnChart > 0
-        //     ? `${funcName}_${numOfThisNodesOnChart}`
-        //     : funcName;
         const numNodes = getNodeFuncCount(funcName);
         nodeLabel = numNodes > 0 ? `${funcName}_${numNodes}` : funcName;
-        // nodeLabel = funcName;
       }
       const nodeParams = params
         ? Object.keys(params).reduce(
@@ -79,10 +65,7 @@ export const useAddNewNode = (
                 functionName: funcName,
                 param,
                 value:
-                  funcName === "CONSTANT"
-                    ? nodeLabel
-                    : params[param].default?.toString(),
-                valType: params[param].type as ParamValueType,
+                  funcName === "CONSTANT" ? nodeLabel : params[param].default,
               },
             }),
             {}

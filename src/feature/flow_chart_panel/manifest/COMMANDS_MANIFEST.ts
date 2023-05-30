@@ -16,10 +16,10 @@ export type CommandManifestMap = {
   [key: string]: NodeElement;
 };
 
-export type Sections = {
+export type CommandSection = {
   title: string;
-  child: Sections[] | null;
   parentKey?: string;
+  children: CommandSection[] | null;
   key?: string;
 };
 
@@ -37,17 +37,17 @@ const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
   {}
 );
 
-const CMND_TREE: Sections = {
+const CMND_TREE: CommandSection = {
   title: "ROOT",
-  child: [
+  children: [
     {
       title: "AI and Machine learning",
       parentKey: "AI_ML",
-      child: [
+      children: [
         {
           title: "Object detection",
           key: "AI_OBJECT_DETECTION",
-          child: null,
+          children: null,
         },
       ],
     },
@@ -55,87 +55,98 @@ const CMND_TREE: Sections = {
     {
       title: "Extractors",
       parentKey: "EXTRACTOR",
-      child: [
+      children: [
         // Extractors tab
-        { title: "Files", key: "FILE", child: null },
-        { title: "DAQ", key: "DAQ", child: null },
+        { title: "Files", key: "FILE", children: null },
+        { title: "DAQ", key: "DAQ", children: null },
       ],
     },
     {
       title: "Generators",
       parentKey: "GENERATOR",
-      child: [
+      children: [
         // Generators tab
-        { title: "Simulations", key: "SIMULATION", child: null },
-        { title: "Sample datasets", key: "SAMPLE_DATASET", child: null },
-        { title: "Sample images", key: "SAMPLE_IMAGE", child: null },
+        { title: "Simulations", key: "SIMULATION", children: null },
+        { title: "Sample datasets", key: "SAMPLE_DATASET", children: null },
+        { title: "Sample images", key: "SAMPLE_IMAGE", children: null },
       ],
     },
     {
       title: "Instruments",
       parentKey: "INSTRUMENT",
-      child: [
-        { title: "Web cam", key: "WEB_CAM", child: null },
-        { title: "Keithley", key: "KEITHLEY", child: null },
-        { title: "Labjack", key: "LABJACK", child: null },
-        { title: "Phidget", key: "PHIDGET", child: null },
-        { title: "Serial", key: "SERIAL", child: null },
-        { title: "Stepper driver Tic", key: "STEPPER", child: null },
-        { title: "Stepper driver Tic knob", key: "STEPPER2", child: null },
+      children: [
+        { title: "Web cam", key: "WEB_CAM", children: null },
+        { title: "Keithley", key: "KEITHLEY", children: null },
+        { title: "Labjack", key: "LABJACK", children: null },
+        { title: "Phidget", key: "PHIDGET", children: null },
+        { title: "Serial", key: "SERIAL", children: null },
+        { title: "Stepper driver Tic", key: "STEPPER", children: null },
+        { title: "Stepper driver Tic knob", key: "STEPPER2", children: null },
       ],
     },
     {
       title: "Loaders",
       parentKey: "LOADER",
-      child: [
+      children: [
         // Loaders tab
-        { title: "Cloud databases", key: "CLOUD_DATABASE", child: null },
-        { title: "Cloud file systems", key: "CLOUD_FILE_SYSTEM", child: null },
-        { title: "Local file system", key: "LOCAL_FILE_SYSTEM", child: null },
+        { title: "Cloud databases", key: "CLOUD_DATABASE", children: null },
+        {
+          title: "Cloud file systems",
+          key: "CLOUD_FILE_SYSTEM",
+          children: null,
+        },
+        {
+          title: "Local file system",
+          key: "LOCAL_FILE_SYSTEM",
+          children: null,
+        },
       ],
     },
     {
       title: "Logic gates",
       parentKey: "LOGIC_GATE",
-      child: [
-        // Conditionals, Timers, & Loops
-        { title: "Timers", key: "TIMER", child: null },
-        { title: "Loops", key: "LOOP", child: null },
-        { title: "Conditionals", key: "CONDITIONAL", child: null },
-        { title: "Terminators", key: "TERMINATOR", child: null },
+      children: [        // Conditionals, Timers, & Loops
+        { title: "Timers", key: "TIMER", children: null },
+        { title: "Loops", key: "LOOP", children: null },
+        { title: "Conditionals", key: "CONDITIONAL", children: null },
+        { title: "Terminators", key: "TERMINATOR", children: null },
       ],
     },
 
     {
       title: "Transformers",
       parentKey: "TRANSFORMER",
-      child: [
+      children: [
         // Transformers tab
-        { title: "Arithmetic", key: "ARITHMETIC", child: null },
-        { title: "Signal processing", key: "SIGNAL_PROCESSING", child: null },
-        { title: "Regressions", key: "REGRESSIONS", child: null },
-        { title: "Image processing", key: "IMAGE_PROCESSING", child: null },
+        { title: "Arithmetic", key: "ARITHMETIC", children: null },
+        {
+          title: "Signal processing",
+          key: "SIGNAL_PROCESSING",
+          children: null,
+        },
+        { title: "Regressions", key: "REGRESSIONS", children: null },
+        { title: "Image processing", key: "IMAGE_PROCESSING", children: null },
         {
           title: "Image identification",
           key: "IMAGE_IDENTIFICATION",
-          child: null,
+          children: null,
         },
         {
           title: "Matrix manipulation",
           key: "MATRIX_MANIPULATION",
-          child: null,
+          children: null,
         },
-        { title: "Array selection", key: "SELECT_ARRAY", child: null },
+        { title: "Array selection", key: "SELECT_ARRAY", children: null },
       ],
     },
 
     {
       title: "Visualizers",
       parentKey: "VISUALIZER",
-      child: [
+      children: [
         // Visualization tab
-        { title: "Plotly", key: "PLOTLY_VISOR", child: null },
-        { title: "Data Structure", key: "DATA_STRUCTURE", child: null },
+        { title: "Plotly", key: "PLOTLY_VISOR", children: null },
+        { title: "Data Structure", key: "DATA_STRUCTURE", children: null },
       ],
     },
   ],
