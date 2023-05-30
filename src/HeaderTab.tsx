@@ -13,6 +13,9 @@ const useStyles = createStyles((theme) => ({
     backgroundColor: "transparent",
     textDecoration: "none",
     color: theme.colors.title[0],
+    "&:hover": {
+      color: theme.colors.accent1[0],
+    },
   },
   active: {
     borderBottom: `1px solid ${theme.colors.accent1[0]}`,

@@ -12,14 +12,12 @@ const useStyles = createStyles(() => ({
     alignItems: "center",
     margin: "0 10px",
   },
-
   tabs: {
     display: "flex",
     height: "100%",
     alignItems: "center",
     gap: "16px",
   },
-
   controlButtons: {
     display: "flex",
     justifyContent: "flex-end",
