@@ -260,9 +260,8 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </div>
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-1o935yu"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-1soyxyt"
             data-button="true"
-            style="right: 22px;"
             type="button"
           >
             <div

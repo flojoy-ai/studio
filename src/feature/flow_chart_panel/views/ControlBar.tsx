@@ -119,6 +119,15 @@ const useStyles = createStyles((theme) => {
     dropDownIcon: {
       borderRadius: 20,
     },
+    settingBtn: {
+      right: 22,
+      "&:hover": {
+        backgroundColor:
+          theme.colorScheme === "light"
+            ? theme.colors.accent2[2]
+            : theme.colors.accent1[2],
+      },
+    },
   };
 });
 
@@ -358,7 +367,7 @@ const ControlBar = () => {
       <Button
         variant="subtle"
         size="xs"
-        style={{ right: 22 }}
+        className={classes.settingBtn}
         onClick={() => setIsSettingsOpen(true)}
       >
         <SettingsIconSvg />
