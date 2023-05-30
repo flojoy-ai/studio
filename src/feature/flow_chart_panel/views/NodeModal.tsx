@@ -107,6 +107,7 @@ const getPath = (obj: CommandSection, key: string, paths: string[] = []) => {
       default:
         searchKey = obj.key;
     }
+    if (obj.key.includes("STEPPER")) searchKey = "STEPPER_MOTOR";
     return [searchKey];
   }
   if (obj.children !== null && obj.children.length > 0) {
@@ -205,8 +206,10 @@ const NodeModal = ({
   let LINK = `${GLINK}`;
   if (getPath(CMND_TREE, nodeType) !== null) {
     const path: string[] = getPath(CMND_TREE, nodeType)!;
+    let pathLength = path.length;
+    if (nodeType === "STEPPER") pathLength = -1;
     nodeCategory = path[0];
-    for (let i = 0; i < path.length; i++) {
+    for (let i = 0; i < pathLength; i++) {
       LINK += `/${path[i]}`;
     }
   }
@@ -217,6 +220,14 @@ const NodeModal = ({
       break;
     case "LOGIC_GATES":
       LINK = LINK + `S/${nodeFileName}`;
+      break;
+    case "LOADERS":
+      if (nodeDataLabel === "LOCAL_FILE") LINK = LINK + `/${nodeFileName}`;
+      break;
+    case "INSTRUMENTS":
+      if (nodeType === "SERIAL")
+        LINK = LINK + `/${nodeType + "_TIMESERIES"}` + `/${nodeFileName}`;
+      if (nodeType.includes("STEPPER")) LINK = LINK + `/${nodeFileName}`;
       break;
     default:
       LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
