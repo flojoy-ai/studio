@@ -127,11 +127,7 @@ const ControlsTab = () => {
     cacheManifest(filterChilds);
   };
 
-  const updateCtrlValue = (
-    val: string,
-    ctrl: CtlManifestType,
-    tp: ParamValueType
-  ) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     cacheManifest(manClone);
 
@@ -143,7 +139,6 @@ const ControlsTab = () => {
           functionName: (ctrl.param as CtrlManifestParam).functionName,
           param: (ctrl.param as CtrlManifestParam).param,
           value: val,
-          valType: tp,
         }
       );
     } else {
@@ -169,7 +164,7 @@ const ControlsTab = () => {
         : 0;
     const ctrlData = ctrls && ctrls[param.param];
 
-    let inputValue: string | number | undefined = undefined;
+    let inputValue: string | number | boolean | undefined = undefined;
     if (ctrlData)
       inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
 
