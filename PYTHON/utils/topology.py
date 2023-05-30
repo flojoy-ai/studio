@@ -106,8 +106,7 @@ class Topology:
 
         if deps is not None and len(deps) <= 0:
             print(" + add", self.get_label(job_id), "in jobq")
-            if job_id not in self.jobq:
-                self.jobq.append(job_id)
+            self.jobq.append(job_id)
 
     def get_job_dependencies(self, job_id, original=False):
         graph = self.get_graph(original)
