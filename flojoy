@@ -62,31 +62,7 @@ test_ci=false
 initSubmodule=true
 enableSentry=true
 
-# creating system links
-
-createSystemLinks()
-{
-
-   FILE=$PWD/PYTHON/WATCH/STATUS_CODES.yml
-   if test -f "$FILE"; then
-      info_msg "$FILE exists."
-      is_command_successful=$(($is_command_successful+$?))
-   else
-      ln STATUS_CODES.yml PYTHON/WATCH/
-      is_command_successful=$(($is_command_successful+$?))
-   fi
-
-   FILE=$PWD/src/STATUS_CODES.yml
-   if test -f "$FILE"; then
-      info_msg "$FILE exists."
-      is_command_successful=$(($is_command_successful+$?))
-   else
-      ln STATUS_CODES.yml src
-      is_command_successful=$(($is_command_successful+$?))
-   fi
-}
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
-
 feedback()
 {
    is_successful=$1
