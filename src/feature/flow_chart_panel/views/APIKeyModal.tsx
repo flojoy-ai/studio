@@ -52,13 +52,15 @@ const useStyles = createStyles((theme) => ({
   },
   submitBtn: {
     backgroundColor:
-      theme.colorScheme === "dark" ? theme.colors.accent1[0] : "none",
+      theme.colorScheme === "dark"
+        ? theme.colors.accent1[0]
+        : theme.colors.accent2[0],
     color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
           ? theme.colors.accent1[2]
-          : theme.colors.accent1[1],
+          : theme.colors.accent2[2],
     },
   },
   closeBtn: {
