@@ -15,10 +15,7 @@ const useStyles = createStyles((theme) => ({
     display: "relative",
     justifyContent: "center",
     alignItems: "center",
-    border:
-      theme.colorScheme === "light"
-        ? `1px solid ${theme.colors.accent5[0]}`
-        : `1px solid ${theme.colors.accent5[0]}`,
+    border: `1px solid ${theme.colors.accent5[0]}`,
     gap: 43,
     height: 160,
     backgroundColor: theme.colors.modal[1],
@@ -114,7 +111,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         opened={isOpen}
         onClose={handleClose}
         aria-labelledby="API Key modal"
-        size="calc(303px + 128px)"
+        size={431}
         centered
       >
         <Modal.Overlay />
