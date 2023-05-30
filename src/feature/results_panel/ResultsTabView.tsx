@@ -48,6 +48,7 @@ const ResultsTab = () => {
 
   useResultsTabEffects({ nodeResults, setResultNodes, nodes, resultNodes });
 
+  const proOptions = { hideAttribution: true };
   return (
     <Layout>
       <ReactFlowProvider>
@@ -62,6 +63,7 @@ const ResultsTab = () => {
             nodeTypes={nodeTypes}
             connectionLineType={ConnectionLineType.Step}
             onInit={onInit}
+            proOptions={proOptions}
           />
         </div>
       </ReactFlowProvider>
