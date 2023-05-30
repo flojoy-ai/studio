@@ -19,7 +19,7 @@ export const useSidebarStyles = createStyles((theme) => ({
     border: `1px solid ${theme.colors.accent4[0]}`,
     backgroundColor: theme.colors.accent4[1],
     color: theme.colors.accent4[0],
-    padding: `${theme.spacing.xs}`,
+    padding: theme.spacing.xs,
     cursor: "pointer",
     margin: "5px",
     fontFamily: "monospace",
