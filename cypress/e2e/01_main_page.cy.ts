@@ -39,9 +39,23 @@ describe("studio", () => {
       fully: true,
     });
 
+    cy.get('[data-handleid="SINE"]').click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with SINE menu",
+      target: "window",
+      fully: true,
+    });
+
     cy.get('[data-testid="darkmode-toggle"]').click();
     cy.eyesCheckWindow({
       tag: "light flow page",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-cy="ctrls-btn"]').click();
+    cy.eyesCheckWindow({
+      tag: "light ctrl page",
       target: "window",
       fully: true,
     });
