@@ -8,7 +8,7 @@ const useStyles = createStyles((theme) => {
     dropdownContainer: {
       padding: "15px 7px",
       borderRadius: 15,
-      transition: "all ease 400ms",
+      transition: "all ease 0.4s",
       flexDirection: "column",
       position: "absolute",
       top: "52px",
@@ -23,7 +23,6 @@ const useStyles = createStyles((theme) => {
       "> button": {
         padding: "8px 12px",
         marginRight: "10px",
-        cursor: "pointer",
         borderRadius: 2,
         fontSize: "14px",
         fontWeight: "bold",
@@ -34,6 +33,10 @@ const useStyles = createStyles((theme) => {
         textAlign: "start",
         whiteSpace: "nowrap",
         color: theme.colors.title[0],
+      },
+      "> button.disabled": {
+        cursor: "not-allowed",
+        opacity: 0.5,
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
