@@ -2,6 +2,17 @@ import manifests from "@src/data/manifests-latest.json";
 
 import { z } from "zod";
 
+const commandSchema = z.object({
+  name: z.string(),
+  key: z.string(),
+  type: z.string(),
+  pip_dependencies: z.optional(
+    z.array(z.object({ name: z.string(), v: z.optional(z.string()) }))
+  ),
+});
+
+const commandsSchema = z.array(commandSchema);
+
 const paramsSchema = z.record(
   z.string(),
   z.record(
@@ -14,25 +25,35 @@ const paramsSchema = z.record(
   )
 );
 
-type FuncParamsType = z.infer<typeof paramsSchema>;
+const manifestSchema = z.object({
+  commands: commandsSchema,
+  parameters: paramsSchema,
+});
 
-const FUNCTION_PARAMETERS: FuncParamsType = paramsSchema.parse(
-  manifests.parameters
-);
-type NodeElement = {
-  name: string;
-  type: string;
-  key: string;
-  inputs?: { name: string; id: string; type: string }[];
-  ui_component_id?: string;
-  pip_dependencies?: Array<{
-    name: string;
-    v?: string | number;
-  }>;
-}[];
+type Manifest = z.infer<typeof manifestSchema>;
+type ManifestParams = z.infer<typeof paramsSchema>;
+type ManifestCommand = z.infer<typeof commandSchema>;
+type ManifestCommands = z.infer<typeof commandsSchema>;
+
+const parsedManifest: Manifest = manifestSchema.parse(manifests);
+
+const FUNCTION_PARAMETERS: ManifestParams = parsedManifest.parameters;
+const CMND_MANIFEST: ManifestCommands = parsedManifest.commands;
+
+//type NodeElement = {
+//  name: string;
+//  type: string;
+//  key: string;
+//  inputs?: { name: string; id: string; type: string }[];
+//  ui_component_id?: string;
+//  pip_dependencies?: Array<{
+//    name: string;
+//    v?: string;
+//  }>;
+//}[];
 
 export type CommandManifestMap = {
-  [key: string]: NodeElement;
+  [key: string]: ManifestCommand;
 };
 
 export type CommandSection = {
@@ -41,9 +62,7 @@ export type CommandSection = {
   key?: string;
 };
 
-const CMND_MANIFEST = manifests.commands;
-
-const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
+const CMND_MANIFEST_MAP: CommandManifestMap = CMND_MANIFEST.reduce(
   (result, element) => {
     if (element.type in result) {
       result[element.type] = [...result[element.type], element];
@@ -54,6 +73,8 @@ const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
   },
   {}
 );
+
+//console.log(CMND_MANIFEST_MAP);
 
 const CMND_TREE: CommandSection = {
   title: "ROOT",
@@ -125,7 +146,6 @@ const CMND_TREE: CommandSection = {
         { title: "Terminators", key: "TERMINATOR", children: null },
       ],
     },
-
     {
       title: "Transformers",
       children: [
@@ -151,7 +171,6 @@ const CMND_TREE: CommandSection = {
         { title: "Array selection", key: "SELECT_ARRAY", children: null },
       ],
     },
-
     {
       title: "Visualizers",
       children: [
