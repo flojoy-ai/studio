@@ -1,4 +1,4 @@
-import { Container, Button, Text, Title, Box } from "@mantine/core";
+import { Container, Button, Text, Title } from "@mantine/core";
 
 type ErrorPageProps = {
   error: Error;
