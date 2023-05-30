@@ -78,6 +78,7 @@ jest.mock("@src/utils/ManifestLoader", () => {
     CMND_TREE: { title: "ROOT", child: [] },
     CMND_MANIFEST_MAP: {},
     FUNCTION_PARAMETERS: {},
+    getManifestCmdsMap: jest.fn(),
   };
 });
 
