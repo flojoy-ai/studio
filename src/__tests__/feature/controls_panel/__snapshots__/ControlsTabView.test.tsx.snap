@@ -319,7 +319,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           style="display: flex; justify-content: space-between;"
         >
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-14tpfas"
             data-button="true"
             data-cy="add-ctrl"
             data-testid="add-ctrl-button"
@@ -418,7 +418,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           data-testid="control-grid"
         />
         <nav
-          class="mantine-Navbar-root mantine-tqi198"
+          class="mantine-Navbar-root mantine-17429x2"
           data-testid="sidebar"
         >
           <div
@@ -489,7 +489,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </div>
           <div
-            class="mantine-ScrollArea-root mantine-64qz2l"
+            class="mantine-ScrollArea-root mantine-125kpyp"
             dir="ltr"
             style="position: relative; --radix-scroll-area-corner-width: 0px; --radix-scroll-area-corner-height: 0px;"
           >
@@ -505,11 +505,66 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 style="min-width: 100%; display: table;"
               >
                 <div
-                  class="mantine-6km1t0"
-                  data-testid="sidebar-sections"
+                  class="mantine-a9igro"
                 >
                   <button
-                    class="mantine-UnstyledButton-root mantine-1ps37dd"
+                    class="mantine-UnstyledButton-root mantine-1b5exya"
+                    type="button"
+                  >
+                    <svg
+                      class="tabler-icon tabler-icon-arrow-autofit-down"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 20h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8"
+                      />
+                      <path
+                        d="M18 4v17"
+                      />
+                      <path
+                        d="M15 18l3 3l3 -3"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="mantine-UnstyledButton-root mantine-1b5exya"
+                    type="button"
+                  >
+                    <svg
+                      class="tabler-icon tabler-icon-arrow-autofit-up"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 4h-6a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h8"
+                      />
+                      <path
+                        d="M18 20v-17"
+                      />
+                      <path
+                        d="M15 6l3 -3l3 3"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    class="mantine-UnstyledButton-root mantine-1l7c9mr"
                     data-cy="sidebar-section-btn"
                     type="button"
                   >
@@ -553,10 +608,10 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
-                        style="padding-left: 30px;"
+                        style="padding-left: 26px;"
                       >
                         <button
-                          class="mantine-UnstyledButton-root mantine-1ps37dd"
+                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -600,33 +655,81 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 50px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                SLIDER
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                KNOB
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                NUMERIC_INPUT
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                ARRAY_INPUT
-                              </button>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Slider
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  SLIDER
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Knob
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  KNOB
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Numeric Text Input
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  NUMERIC_INPUT
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Array Numeric Input
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  ARRAY_INPUT
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1ps37dd"
+                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -670,33 +773,81 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 50px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                RADIO_BUTTON_GROUP
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                CHECKBOX_BUTTON_GROUP
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                STATIC_NUMERIC_INPUT
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                DROPDOWN
-                              </button>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Radio Button Group
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  RADIO_BUTTON_GROUP
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Checkbox Button Group
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  CHECKBOX_BUTTON_GROUP
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Constants
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  STATIC_NUMERIC_INPUT
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Dropdown
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  DROPDOWN
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1ps37dd"
+                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -740,18 +891,30 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 50px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                NODE_REFERENCE
-                              </button>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Node Reference
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  NODE_REFERENCE
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1ps37dd"
+                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -795,18 +958,42 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
-                              style="padding-left: 50px;"
+                              style="padding-left: 34px;"
                             >
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                LOCAL_FILE_LOADER
-                              </button>
-                              <button
-                                class="mantine-19u83u8"
-                              >
-                                TEXT_INPUT
-                              </button>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    File Uploader
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  LOCAL_FILE_LOADER
+                                </button>
+                              </div>
+                              <div>
+                                <div
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  role="separator"
+                                >
+                                  <div
+                                    class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                                  >
+                                    Text Input
+                                  </div>
+                                </div>
+                                <button
+                                  class="mantine-19u83u8"
+                                >
+                                  TEXT_INPUT
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -814,7 +1001,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                     </div>
                   </div>
                   <button
-                    class="mantine-UnstyledButton-root mantine-1ps37dd"
+                    class="mantine-UnstyledButton-root mantine-1l7c9mr"
                     data-cy="sidebar-section-btn"
                     type="button"
                   >
@@ -858,23 +1045,59 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
-                        style="padding-left: 30px;"
+                        style="padding-left: 26px;"
                       >
-                        <button
-                          class="mantine-19u83u8"
-                        >
-                          SEVEN_SEGMENT_DISPLAY
-                        </button>
-                        <button
-                          class="mantine-19u83u8"
-                        >
-                          MEDIA_VIEWER
-                        </button>
-                        <button
-                          class="mantine-19u83u8"
-                        >
-                          PLOT
-                        </button>
+                        <div>
+                          <div
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
+                          >
+                            <div
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                            >
+                              LED Display
+                            </div>
+                          </div>
+                          <button
+                            class="mantine-19u83u8"
+                          >
+                            SEVEN_SEGMENT_DISPLAY
+                          </button>
+                        </div>
+                        <div>
+                          <div
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
+                          >
+                            <div
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                            >
+                              Media Viewer
+                            </div>
+                          </div>
+                          <button
+                            class="mantine-19u83u8"
+                          >
+                            MEDIA_VIEWER
+                          </button>
+                        </div>
+                        <div>
+                          <div
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            role="separator"
+                          >
+                            <div
+                              class="mantine-Text-root mantine-Divider-label mantine-Divider-left mantine-Divider-labelDefaultStyles mantine-1ax2o7h"
+                            >
+                              Plotly
+                            </div>
+                          </div>
+                          <button
+                            class="mantine-19u83u8"
+                          >
+                            PLOT
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

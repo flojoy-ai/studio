@@ -1,17 +1,17 @@
-import { Navbar, ScrollArea, Input } from "@mantine/core";
+import { Navbar, ScrollArea, Input, UnstyledButton, Box } from "@mantine/core";
+import { IconArrowAutofitUp, IconArrowAutofitDown } from "@tabler/icons-react";
 
 import { IconSearch } from "@tabler/icons-react";
 
 import { memo, useState } from "react";
 
-import SidebarSection from "./SidebarSection";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
-import SidebarNode from "./SidebarNode";
 import { createStyles } from "@mantine/core";
 import {
   CommandManifestMap,
-  Sections,
+  CommandSection,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import SidebarNode from "./SidebarNode";
 
 type leafClickHandler = (key: string) => void;
 
@@ -23,7 +23,7 @@ const useSidebarStyles = createStyles((theme) => ({
     backgroundColor: theme.colors.modal[0],
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     transition: "500ms",
-    zIndex: 1,
+    zIndex: 50,
   },
 
   navbarHidden: {
@@ -34,10 +34,11 @@ const useSidebarStyles = createStyles((theme) => ({
     boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
     height: "calc(100vh - 100px)",
     transition: "300ms",
-    zIndex: 1,
+    zIndex: 50,
   },
 
   sections: {
+    marginTop: theme.spacing.md,
     marginLeft: -theme.spacing.md,
     marginRight: -theme.spacing.md,
   },
@@ -60,12 +61,30 @@ const useSidebarStyles = createStyles((theme) => ({
   searchBox: {
     marginTop: 30,
   },
+
+  expandCollapseButtonContainer: {
+    display: "flex",
+    justifyContent: "end",
+    gap: 2,
+    marginBottom: 10,
+    marginRight: 12,
+  },
+
+  uiButton: {
+    transition: "0.2s ease-in-out",
+    "&:hover": {
+      color:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+    },
+  },
 }));
 
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: Sections;
+  sections: CommandSection;
   leafNodeClickHandler: leafClickHandler;
   manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
@@ -79,108 +98,23 @@ const Sidebar = ({
   manifestMap,
   customContent,
 }: SidebarCustomProps) => {
-  const [textInput, handleChangeInput] = useState("");
+  const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
 
-  //this function will create the sections to be rendered according to the search input
-  const renderSection = (textInput: string, node: Sections, depth: number) => {
-    //if we are at the root
-    if (node.title === "ROOT") {
-      if (!node.child) return null;
-      return node.child.map(
-        (c) => renderSection(textInput, c as Sections, depth) //render all the content of the children
-      );
-    }
+  // These being booleans don't actually mean anything,
+  // They just need to be values that can easily be changed in order
+  // to trigger a useEffect in the children.
+  // This is easily done by just toggling the booleans.
+  const [expand, setExpand] = useState(false);
+  const [collapse, setCollapse] = useState(false);
 
-    let content: JSX.Element[];
-
-    if (textInput !== "") {
-      //case 1: name is included in the string of the section node or leaf node
-      if (node.title.toLowerCase().includes(textInput.toLocaleLowerCase())) {
-        //case 1.1: node has children (is a section)
-        if (node["child"] !== null && !("key" in node)) {
-          content = node.child.map(
-            (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
-          );
-          return (
-            <SidebarSection
-              data-testid="sidebar-section"
-              key={node.title}
-              title={node.title}
-              content={content}
-              depth={depth}
-            />
-          );
-
-          //case 1.2: node has no children (is a leaf/command)
-        } else if (node["child"] === null && "key" in node) {
-          return (
-            <SidebarNode
-              data-testid="sidebar-node"
-              key={node.title}
-              onClickHandle={() => leafNodeClickHandler(node.key as string)}
-              keyNode={node.key as string}
-              manifestMap={manifestMap}
-              depth={depth}
-            />
-          );
-        }
-
-        //case 2: name is not included in the string of the section node or leaf node
-      } else {
-        //case 2.1: node has children (is a section)
-        if (node["child"] !== null && !("key" in node)) {
-          content = node.child.map(
-            (c) => renderSection(textInput, c as Sections, depth + 1) //render all the content of the children
-          );
-
-          //if the content is not empty, then the section is not empty
-          if (!content.every((value) => value === null)) {
-            return (
-              <SidebarSection
-                data-testid="sidebar-section"
-                key={node.title}
-                title={node.title}
-                content={content}
-                depth={depth}
-              />
-            );
-          }
-        }
-      }
-
-      //case 3: no search input
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    if (e.target.value === "") {
+      setCollapse(!collapse);
     } else {
-      //case 3.1: node has children (is a section)
-      if (node["child"] !== null && !("key" in node)) {
-        content = node.child.map(
-          (c) => renderSection("", c as Sections, depth + 1) //render all the content of the children
-        );
-        return (
-          <SidebarSection
-            data-testid="sidebar-section"
-            key={node.title}
-            title={node.title}
-            content={content}
-            depth={depth}
-          />
-        );
-
-        //case 3.2: node has no children (is a leaf/command)
-      } else if (node["child"] === null && "key" in node) {
-        return (
-          <SidebarNode
-            data-testid="sidebar-node"
-            depth={depth}
-            key={node.key as string}
-            onClickHandle={leafNodeClickHandler}
-            keyNode={node.key as string}
-            manifestMap={manifestMap}
-          />
-        );
-      }
+      setExpand(!expand);
     }
-    return null;
   };
 
   return (
@@ -217,15 +151,36 @@ const Sidebar = ({
           radius="sm"
           type="search"
           className={classes.searchBox}
-          value={textInput}
-          onChange={(e) => handleChangeInput(e.target.value)}
+          value={query}
+          onChange={handleQueryChange}
         />
       </Navbar.Section>
       {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
-        <div className={classes.sectionsInner} data-testid="sidebar-sections">
-          {renderSection(textInput, sections, 0)}
-        </div>
+        <Box className={classes.expandCollapseButtonContainer}>
+          <UnstyledButton
+            onClick={() => setExpand(!expand)}
+            className={classes.uiButton}
+          >
+            <IconArrowAutofitDown />
+          </UnstyledButton>
+          <UnstyledButton
+            onClick={() => setCollapse(!collapse)}
+            className={classes.uiButton}
+          >
+            <IconArrowAutofitUp />
+          </UnstyledButton>
+        </Box>
+        <SidebarNode
+          depth={0}
+          leafClickHandler={leafNodeClickHandler}
+          manifestMap={manifestMap}
+          node={sections}
+          query={query}
+          matchedParent={false}
+          expand={expand}
+          collapse={collapse}
+        />
       </Navbar.Section>
     </Navbar>
   );

@@ -41,8 +41,7 @@ const NodeReference = ({ updateCtrlValue, ctrlObj }: NodeReferenceProps) => {
         onChange={(val) => {
           updateCtrlValue(
             (val as { label: string; value: string }).value,
-            ctrlObj,
-            "unknown"
+            ctrlObj
           );
         }}
         isDisabled={

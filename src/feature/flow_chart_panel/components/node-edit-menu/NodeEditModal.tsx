@@ -61,7 +61,9 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
     useFlowChartState();
   const replayNotice = "Replay the script to see your changes take effect";
   //converted from node to Ids here so that it will only do this when the edit menu is opened
-  const otherNodeLabels = otherNodes?.map((node) => node.data.label);
+  const nodeReferenceOptions =
+    otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ||
+    [];
 
   useEffect(() => {
     if (nodeParamChanged === undefined) {
@@ -104,7 +106,7 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
                     type={param.type as ParamValueType}
                     value={node.data.ctrls[name].value}
                     options={param.options}
-                    otherNodeLabels={otherNodeLabels}
+                    nodeReferenceOptions={nodeReferenceOptions}
                   />
                 </div>
               )
