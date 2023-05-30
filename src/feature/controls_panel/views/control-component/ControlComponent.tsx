@@ -18,7 +18,6 @@ import NodeReference from "../NodeReference";
 import PlotControl from "../PlotControl";
 import SevenSegmentComponent from "../SevenSegmentComponent";
 import ControlComponentState from "./ControlComponentState";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 export const useControlStyles = createStyles((theme) => {
   return {
@@ -124,11 +123,7 @@ export const useControlStyles = createStyles((theme) => {
 export type ControlComponentProps = {
   ctrlObj: CtlManifestType;
   results: ResultsType;
-  updateCtrlValue: (
-    value: string,
-    ctrl: CtlManifestType,
-    ValType: ParamValueType
-  ) => void;
+  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   attachParamsToCtrl: (val: CtrlOptionValue, ctrlObj: CtlManifestType) => void;
   removeCtrl: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -182,6 +177,7 @@ const ControlComponent = ({
     paramOptions,
     styledLayout,
     openFileSelector,
+    setInputOptions,
   } = ControlComponentState({
     updateCtrlValue,
     ctrlObj,
@@ -189,14 +185,13 @@ const ControlComponent = ({
 
   const handleCtrlValueChange = (
     setValue: Dispatch<SetStateAction<string>>,
-    value: string,
-    type: ParamValueType
+    value: string
   ) => {
     setValue(value);
     if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
       return;
     }
-    updateCtrlValue(value, ctrlObj, type);
+    updateCtrlValue(value, ctrlObj);
 
     if ((ctrlObj.param as CtrlManifestParam).functionName === "CONSTANT") {
       attachParamsToCtrl(
@@ -250,6 +245,7 @@ const ControlComponent = ({
     setSliderInput,
     setTextInput,
     openFileSelector,
+    setInputOptions,
   });
   return (
     <Box
@@ -323,7 +319,7 @@ const ControlComponent = ({
             placeholder={"Please enter the full file path"}
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value, "string");
+              handleCtrlValueChange(setTextInput, e.target.value);
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -349,7 +345,7 @@ const ControlComponent = ({
             placeholder="Write your text.."
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value, "string");
+              handleCtrlValueChange(setTextInput, e.target.value);
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -363,7 +359,7 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value, "float");
+              handleCtrlValueChange(setNumberInput, e.target.value);
             }}
             value={currentInputValue || numberInput || 0}
           />
@@ -376,7 +372,7 @@ const ControlComponent = ({
             placeholder="Enter numbers in CSV format"
             className={clsx(classes.ctrlNumericInput, "border-color")}
             onChange={(e) => {
-              handleCtrlValueChange(setTextInput, e.target.value, "array");
+              handleCtrlValueChange(setTextInput, e.target.value);
             }}
             value={currentInputValue || textInput || ""}
           />
@@ -390,7 +386,7 @@ const ControlComponent = ({
             placeholder="Enter a number"
             className={classes.ctrlNumericInput}
             onChange={(e) => {
-              handleCtrlValueChange(setNumberInput, e.target.value, "float");
+              handleCtrlValueChange(setNumberInput, e.target.value);
             }}
             disabled
             value={currentInputValue || numberInput || 0}
@@ -430,7 +426,7 @@ const ControlComponent = ({
             <Slider
               className="custom-slider"
               onChange={(val) => {
-                handleCtrlValueChange(setSliderInput, val.toString(), "float");
+                handleCtrlValueChange(setSliderInput, val.toString());
               }}
               value={+currentInputValue || +sliderInput || 0}
             />
@@ -449,8 +445,7 @@ const ControlComponent = ({
             onChange={(val) => {
               updateCtrlValue(
                 (val as { label: string; value: string }).value,
-                ctrlObj,
-                "string"
+                ctrlObj
               );
             }}
             theme={theme as unknown as ThemeConfig}
@@ -477,7 +472,7 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={() => {
-                    updateCtrlValue(option.value, ctrlObj, "unknown");
+                    updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>
@@ -502,7 +497,7 @@ const ControlComponent = ({
                   value={option.value}
                   checked={currentInputValue.toString() === option.value}
                   onChange={() => {
-                    updateCtrlValue(option.value, ctrlObj, "unknown");
+                    updateCtrlValue(option.value, ctrlObj);
                   }}
                 />
                 <label htmlFor={`${ctrlObj.id}_${option.value}`}>

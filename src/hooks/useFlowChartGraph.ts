@@ -1,7 +1,7 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 
@@ -16,9 +16,16 @@ export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
 
-  // TODO: This still changes every time a node is dragged...
-  // Could still be optimized further?
-  const selectedNodes = nodes.filter((n) => n.selected);
+  const { selectedNodes, unSelectedNodes } = useMemo(() => {
+    const selectedNodes: Node<ElementsData>[] = [];
+    const unSelectedNodes: Node<ElementsData>[] = [];
+    for (const n of nodes) {
+      if (n.selected) {
+        selectedNodes.push(n);
+      } else unSelectedNodes.push(n);
+    }
+    return { selectedNodes, unSelectedNodes };
+  }, [nodes]);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
@@ -77,6 +84,7 @@ export const useFlowChartGraph = () => {
     edges,
     setEdges,
     selectedNode,
+    unSelectedNodes,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     loadFlowExportObject,

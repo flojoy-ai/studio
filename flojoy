@@ -62,7 +62,6 @@ test_ci=false
 initSubmodule=true
 enableSentry=true
 
-
 # creating system links
 
 createSystemLinks()
@@ -290,7 +289,6 @@ then
    cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
-
 
 # update ES6 status codes file
 

@@ -7,7 +7,6 @@ import { memo, useCallback, useEffect, useState } from "react";
 import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 export interface KnobCtrlProps {
   makeLayoutStatic: () => void;
@@ -19,11 +18,7 @@ export interface KnobCtrlProps {
       | ReactGridLayout.Layout[]
       | ((draft: Draft<ReactGridLayout.Layout>[]) => void)
   ) => void;
-  updateCtrlValue: (
-    value: string,
-    ctrl: CtlManifestType,
-    ValTyp: ParamValueType
-  ) => void;
+  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   currentInputValue: number;
 }
 
@@ -40,7 +35,7 @@ const KnobCtrl = ({
   const updateCtrlValueFromKnob = useCallback(
     (value: number) => {
       if ((ctrlObj?.param as CtrlManifestParam)?.nodeId) {
-        updateCtrlValue(value.toString(), ctrlObj, "float");
+        updateCtrlValue(value.toString(), ctrlObj);
       }
       setKnobValue(value);
     },
