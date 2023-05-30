@@ -290,11 +290,6 @@ then
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
-# update ES6 status codes file
-
-$venvCmd && python3 -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml").read()), indent=2)); f.write("\n"); f.close();'
-
-feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
 
 # creating system links
 
