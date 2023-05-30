@@ -19,7 +19,6 @@ import {
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
-
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";

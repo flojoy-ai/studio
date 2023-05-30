@@ -1,9 +1,13 @@
 import { Button, createStyles, useMantineTheme } from "@mantine/core";
 import React, { useRef } from "react";
 import "@src/feature/flow_chart_panel/components/play-btn/play-btn.css";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { Node, Edge } from "reactflow";
+import { ElementsData } from "../../types/CustomNodeProps";
 
 interface PlayBtnProps {
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onPlay: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
   style?: React.CSSProperties;
   disabled?: boolean;
 }
@@ -51,9 +55,10 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
+const PlayBtn = ({ onPlay, style, disabled = false }: PlayBtnProps) => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+  const { nodes, edges } = useFlowChartGraph();
 
   const ButtonElem = useRef<HTMLButtonElement>(null);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -65,10 +70,12 @@ const PlayBtn = ({ onClick, style, disabled = false }: PlayBtnProps) => {
         ButtonElem.current?.classList.remove("animate");
       }, 1000);
     }
-    if (onClick) {
-      onClick(e);
+    if (onPlay) {
+      onPlay(nodes, edges);
     }
   };
+
+  useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
 
   return (
     <Button
