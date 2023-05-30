@@ -3,13 +3,12 @@ import localforage from "localforage";
 import { useState } from "react";
 import "./style/Controls.css";
 
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { createStyles } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
 import { EditSwitch } from "@src/EditSwitch";
 import { Layout } from "@src/Layout";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,

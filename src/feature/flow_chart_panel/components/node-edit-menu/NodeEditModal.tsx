@@ -1,6 +1,6 @@
 import { Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
-import { FUNCTION_PARAMETERS } from "../../manifest/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
 import ParamField from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";

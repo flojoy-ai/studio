@@ -1,8 +1,5 @@
 import { createStyles, Divider, useMantineTheme } from "@mantine/core";
-import {
-  CommandManifestMap,
-  CommandSection,
-} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
 
 export const useSidebarStyles = createStyles((theme) => ({

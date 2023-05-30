@@ -1,9 +1,8 @@
+import { CMND_MANIFEST, FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
-import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "../types/CustomNodeProps";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";

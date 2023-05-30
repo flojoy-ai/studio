@@ -1,6 +1,6 @@
 import { CtrlOptionValue } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
 import { ControlTypes } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";

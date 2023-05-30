@@ -1,5 +1,24 @@
 import manifests from "@src/data/manifests-latest.json";
 
+import { z } from "zod";
+
+const paramsSchema = z.record(
+  z.string(),
+  z.record(
+    z.string(),
+    z.object({
+      type: z.string(),
+      default: z.union([z.string(), z.number(), z.boolean()]),
+      options: z.optional(z.array(z.string())),
+    })
+  )
+);
+
+type FuncParamsType = z.infer<typeof paramsSchema>;
+
+const FUNCTION_PARAMETERS: FuncParamsType = paramsSchema.parse(
+  manifests.parameters
+);
 type NodeElement = {
   name: string;
   type: string;
@@ -144,4 +163,4 @@ const CMND_TREE: CommandSection = {
   ],
 };
 
-export { CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
+export { FUNCTION_PARAMETERS, CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
