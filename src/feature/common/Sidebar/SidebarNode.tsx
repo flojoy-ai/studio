@@ -88,6 +88,7 @@ const SidebarNode = ({
         depth={depth + 1}
         expand={expand}
         collapse={collapse}
+        key={node.title}
       >
         {node.children.map((c) =>
           SidebarNode({
@@ -123,7 +124,7 @@ const SidebarNode = ({
   }
 
   return (
-    <div>
+    <div key={node.key}>
       <Divider
         variant="dashed"
         color={
