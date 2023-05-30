@@ -34,14 +34,19 @@ const manifestSchema = z.object({
   parameters: paramsSchema,
 });
 
-type Manifest = z.infer<typeof manifestSchema>;
-type ManifestParams = z.infer<typeof paramsSchema>;
-type ManifestCommands = z.infer<typeof commandsSchema>;
+export type Manifest = z.infer<typeof manifestSchema>;
+export type ManifestParams = z.infer<typeof paramsSchema>;
+export type ManifestCommands = z.infer<typeof commandsSchema>;
 
-const parsedManifest: Manifest = manifestSchema.parse(manifests);
+export function getManifestParams() {
+  const parsedManifest: Manifest = manifestSchema.parse(manifests);
+  return parsedManifest.parameters;
+}
 
-const FUNCTION_PARAMETERS: ManifestParams = parsedManifest.parameters;
-const CMND_MANIFEST: ManifestCommands = parsedManifest.commands;
+export function getManifestCmds() {
+  const parsedManifest: Manifest = manifestSchema.parse(manifests);
+  return parsedManifest.commands;
+}
 
 export type CommandManifestMap = {
   [key: string]: ManifestCommands;
@@ -53,17 +58,16 @@ export type CommandSection = {
   key?: string;
 };
 
-const CMND_MANIFEST_MAP: CommandManifestMap = CMND_MANIFEST.reduce(
-  (result, element) => {
+export function getManifestCmdsMap(): CommandManifestMap {
+  return getManifestCmds().reduce((result, element) => {
     if (element.type in result) {
       result[element.type] = [...result[element.type], element];
     } else {
       result[element.type] = [element];
     }
     return result;
-  },
-  {}
-);
+  }, {});
+}
 
 // TODO: should probably move this to a json file
 const CMND_TREE: CommandSection = {
@@ -172,4 +176,4 @@ const CMND_TREE: CommandSection = {
   ],
 };
 
-export { FUNCTION_PARAMETERS, CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
+export { CMND_TREE };

@@ -1,6 +1,6 @@
 import { CtrlOptionValue } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
+import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
 import { ControlTypes } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
@@ -80,7 +80,7 @@ const useControlComponentEffects = ({
         flowChartObject.nodes.forEach((node) => {
           const nodeLabel = node.data.label;
           const nodeFunctionName = node.data.func;
-          const params = FUNCTION_PARAMETERS[nodeFunctionName];
+          const params = getManifestParams()[nodeFunctionName];
           const sep = " ▶ ";
           if (params) {
             Object.keys(params).forEach((param) => {

@@ -1,4 +1,4 @@
-import { CMND_MANIFEST, FUNCTION_PARAMETERS } from "@src/utils/ManifestLoader";
+import { getManifestParams, getManifestCmds } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
@@ -37,13 +37,13 @@ export const useAddNewNode = (
         x: lastNodePosition.x + 100,
         y: lastNodePosition.y + 30,
       };
-      const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
+      const cmd = getManifestCmds().find((cmd) => cmd.key === key);
       if (cmd === null || cmd === undefined) {
         throw new Error("Command not found");
       }
       const funcName = cmd.key;
       const type = cmd.type;
-      const params = FUNCTION_PARAMETERS[cmd.key];
+      const params = getManifestParams()[cmd.key];
       const inputs = cmd.inputs;
       const uiComponentId = cmd.ui_component_id;
       const pip_dependencies = cmd.pip_dependencies;
