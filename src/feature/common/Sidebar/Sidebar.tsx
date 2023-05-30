@@ -14,7 +14,6 @@ import {
 import { sendNodeSearchedToMix } from "@src/services/MixpanelServices";
 import SidebarNode from "./SidebarNode";
 
-export type tabType = "flowChart" | "controls" | "results";
 type leafClickHandler = (key: string) => void;
 
 const useSidebarStyles = createStyles((theme) => ({
@@ -90,7 +89,6 @@ type SidebarCustomProps = {
   leafNodeClickHandler: leafClickHandler;
   manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
-  sideBarType: tabType;
 };
 
 const Sidebar = ({
@@ -100,7 +98,6 @@ const Sidebar = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
-  sideBarType,
 }: SidebarCustomProps) => {
   const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
@@ -117,10 +114,10 @@ const Sidebar = ({
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     if (e.target.value === "") {
-      setSearched(true);
       setCollapse(!collapse);
     } else {
       setExpand(!expand);
+      setSearched(true);
     }
   };
 
@@ -187,6 +184,7 @@ const Sidebar = ({
           matchedParent={false}
           expand={expand}
           collapse={collapse}
+          searched={searched}
         />
       </Navbar.Section>
     </Navbar>

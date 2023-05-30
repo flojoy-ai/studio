@@ -6,6 +6,7 @@ import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
 import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "../types/CustomNodeProps";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -108,6 +109,7 @@ export const useAddNewNode = (
         LAST_NODE_POSITION_KEY,
         JSON.stringify(nodePosition)
       );
+      //sendEventToMix("Node Added", newNode.data.label);
     },
     [setNodes, getNodeFuncCount]
   );

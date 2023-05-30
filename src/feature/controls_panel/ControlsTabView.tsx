@@ -104,7 +104,7 @@ const ControlsTab = () => {
       id,
       layout: ctrlLayout,
     } as CtlManifestType;
-
+    sendEventToMix("Widget Added", ctrl.name, "widgetTitle");
     cacheManifest([...ctrlsManifest, ctrl]);
   };
 
@@ -123,8 +123,8 @@ const ControlsTab = () => {
         filteredChild = ctrl.name;
       }
     }
-    cacheManifest(filterChilds);
     sendEventToMix("Widget Deleted", filteredChild, "widgetTitle");
+    cacheManifest(filterChilds);
   };
 
   const updateCtrlValue = (
@@ -189,7 +189,6 @@ const ControlsTab = () => {
       [nodeAttached, ctrl.name],
       ["nodeAttached", "widgetName"]
     );
-    //sendTwoDataEventToMix("Widget Attached", nodeAttached, ctrl.name, "nodeAttached", "widgetName");
   };
 
   return (
@@ -226,7 +225,6 @@ const ControlsTab = () => {
           leafNodeClickHandler={addCtrl}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
-          sideBarType={"controls"}
         />
       </div>
     </Layout>
