@@ -45,9 +45,10 @@ const FlowChartKeyboardShortcuts = ({
   handleNodeDrag,
   handleNodesDelete,
 }: FlowChartKeyboardShortcutsProps) => {
-  const { zoomIn, zoomOut } = useReactFlow();
+  const { zoomIn, zoomOut, fitView } = useReactFlow();
   useKeyboardShortcut("ctrl", "=", zoomIn);
   useKeyboardShortcut("ctrl", "-", zoomOut);
+  useKeyboardShortcut("ctrl", "1", fitView)
 
   const { setIsSidebarOpen } = useFlowChartState();
   const { setNodes, setEdges } = useFlowChartGraph();

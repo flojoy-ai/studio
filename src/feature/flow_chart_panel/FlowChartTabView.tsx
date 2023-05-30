@@ -43,6 +43,7 @@ import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 localforage.config({
   name: "react-flow",
@@ -77,6 +78,8 @@ const FlowChartTab = () => {
     setNd,
     setNodeLabel,
     setNodeType,
+    selectAllNodes,
+    isSelectAllNodes,
   } = useFlowChartTabState();
 
   const {
@@ -225,6 +228,16 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
+  const selectAllNodesShortCut = () => {
+   for (const n of nodes){
+    console.log("hi");
+    n.data.selected = true;
+  }
+  isSelectAllNodes(true)
+};
+
+  useKeyboardShortcut("ctrl", "l", () => selectAllNodesShortCut());
+
   useFlowChartTabEffects({
     clickedElement,
     results: programResults,
@@ -242,6 +255,8 @@ const FlowChartTab = () => {
     setNodeType,
     setPythonString,
     windowWidth,
+    selectAllNodes,
+    isSelectAllNodes,
   });
 
   return (
@@ -261,8 +276,8 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={selectedNode}
-            unSelectedNodes={unSelectedNodes}
+            selectedNode={ selectAllNodes ? null : selectedNode }
+            unSelectedNodes={ selectAllNodes ? null : unSelectedNodes }
           />
 
           <FlowChartKeyboardShortcuts
