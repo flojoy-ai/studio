@@ -7,7 +7,7 @@ import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
-import { CMND_TREE, Sections } from "../manifest/COMMANDS_MANIFEST";
+import { CMND_TREE, CommandSection } from "../manifest/COMMANDS_MANIFEST";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 
 export const NodeModalStyles = createStyles((theme) => ({
@@ -16,11 +16,12 @@ export const NodeModalStyles = createStyles((theme) => ({
     height: "700px",
   },
   header: {
-    padding: "80px 0px 45px 86px",
+    padding: "80px 450px 40px 82px",
     borderRadius: 17,
   },
   title: {
-    position: "absolute",
+    display: "block",
+    position: "relative",
     fontSize: 32,
     fontWeight: 700,
     color: `${theme.colors.title[0]}`,
@@ -93,19 +94,22 @@ export const NodeModalStyles = createStyles((theme) => ({
   },
 }));
 
-const getPath = (obj: Sections, key: string, paths: string[] = []) => {
+const getPath = (obj: CommandSection, key: string, paths: string[] = []) => {
   if (obj.key! && obj.key!.includes(key)) {
     let searchKey = "";
     switch (obj.key) {
       case "PLOTLY_VISOR":
         searchKey = obj.title.toUpperCase();
         break;
+      case "AI_OBJECT_DETECTION":
+        searchKey = "";
+        break;
       default:
         searchKey = obj.key;
     }
     return [searchKey];
   }
-  if (obj.child !== null && obj.child.length > 0) {
+  if (obj.children !== null && obj.children.length > 0) {
     if (obj.parentKey!) {
       switch (obj.parentKey) {
         case "AI_ML":
@@ -117,8 +121,8 @@ const getPath = (obj: Sections, key: string, paths: string[] = []) => {
     }
 
     let found = false;
-    obj.child.forEach((childNode) => {
-      const temPaths = getPath(childNode, key) as string[];
+    obj.children.forEach((childNode) => {
+      const temPaths = getPath(childNode as CommandSection, key) as string[];
       if (temPaths) {
         paths = paths.concat(temPaths);
         found = true;
@@ -128,32 +132,49 @@ const getPath = (obj: Sections, key: string, paths: string[] = []) => {
     !found && paths.pop();
     return paths;
   }
-
   return null;
 };
 
-const themeJSONTree = () => {
+const themeJSONTree = (theme) => {
   const darkJSONTree = {
     scheme: "flojoy",
-    base00: "#272822",
-    base01: "#383830",
-    base02: "#49483e",
-    base03: "#75715e",
-    base04: "#a59f85",
-    base05: "#f8f8f2",
-    base06: "#f5f4f1",
-    base07: "#f9f8f5",
-    base08: "#f92672",
-    base09: "#fd971f",
-    base0A: "#f4bf75",
-    base0B: "#a6e22e",
-    base0C: "#a1efe4",
-    base0D: "#66d9ef",
-    base0E: "#ae81ff",
-    base0F: "#cc6633",
+    base00: `${theme.colors.modal[0]}`,
+    base01: `${theme.colors.accent3[0]}`,
+    base02: `${theme.colors.accent3[0]}`,
+    base03: `${theme.colors.accent2[0]}`,
+    base04: `${theme.colors.accent1[1]}`,
+    base05: `${theme.colors.accent3[0]}`,
+    base06: `${theme.colors.accent2[0]}`,
+    base07: `${theme.colors.accent2[0]}`,
+    base08: `${theme.colors.accent3[0]}`,
+    base09: `${theme.colors.accent1[0]}`,
+    base0A: `${theme.colors.accent1[1]}`,
+    base0B: `${theme.colors.accent3[0]}`,
+    base0C: `${theme.colors.text[0]}`,
+    base0D: `${theme.colors.title[0]}`,
+    base0E: `${theme.colors.accent1[0]}`,
+    base0F: `${theme.colors.accent1[0]}`,
   };
 
-  const lightJSONTree = {};
+  const lightJSONTree = {
+    scheme: "flojoy",
+    base00: `${theme.colors.modal[0]}`,
+    base01: `${theme.colors.accent3[0]}`,
+    base02: `${theme.colors.accent3[0]}`,
+    base03: `${theme.colors.accent2[0]}`,
+    base04: `${theme.colors.accent1[0]}`,
+    base05: `${theme.colors.accent3[0]}`,
+    base06: `${theme.colors.accent2[0]}`,
+    base07: `${theme.colors.accent2[0]}`,
+    base08: `${theme.colors.accent3[0]}`,
+    base09: `${theme.colors.accent1[0]}`,
+    base0A: `${theme.colors.accent1[1]}`,
+    base0B: `${theme.colors.accent3[0]}`,
+    base0C: `${theme.colors.text[0]}`,
+    base0D: `${theme.colors.title[0]}`,
+    base0E: `${theme.colors.accent1[0]}`,
+    base0F: `${theme.colors.accent1[0]}`,
+  };
   return { darkJSONTree, lightJSONTree };
 };
 
@@ -174,7 +195,7 @@ const NodeModal = ({
   const theme = useMantineTheme();
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
-  const { lightJSONTree, darkJSONTree } = themeJSONTree();
+  const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   let nodeCategory = "";
@@ -225,7 +246,6 @@ const NodeModal = ({
             href={LINK}
             target="_blank"
           >
-            {/* <VectorIconSVG /> */}
             VIEW ON GITHUB
           </Button>
         </Box>
@@ -247,7 +267,7 @@ const NodeModal = ({
         >
           Function Type:{" "}
           <code style={{ color: `${theme.colors.accent1[0]}` }}>
-            {nodeType}
+            {nodeType === "PLOTLY_VISOR" ? nodeType.split("_")[1] : nodeType}
           </code>
         </h3>
       )}
@@ -300,15 +320,9 @@ const NodeModal = ({
       <div>
         <JSONTree
           data={clickedElement}
-          theme={colorScheme === "dark" ? lightJSONTree : darkJSONTree}
+          theme={colorScheme === "dark" ? darkJSONTree : lightJSONTree}
         ></JSONTree>
       </div>
-      <SyntaxHighlighter
-        language="json"
-        style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
-      >
-        {`${JSON.stringify(clickedElement, undefined, 4)}`}
-      </SyntaxHighlighter>
     </Modal>
   );
 };

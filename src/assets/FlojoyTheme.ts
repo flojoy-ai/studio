@@ -37,7 +37,7 @@ export const useFlojoySyntaxTheme = () => {
       color: `${theme.colors.accent3[0]}`,
     },
     "hljs-doctag": {
-      color: `${theme.colors.accent3[0]}`,
+      color: `${theme.colors.text[0]}`,
     },
     "hljs-selector-id": {
       color: `${theme.colors.accent1[1]}`,

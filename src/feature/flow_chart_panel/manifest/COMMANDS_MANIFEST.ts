@@ -105,7 +105,8 @@ const CMND_TREE: CommandSection = {
     {
       title: "Logic gates",
       parentKey: "LOGIC_GATE",
-      children: [        // Conditionals, Timers, & Loops
+      children: [
+        // Conditionals, Timers, & Loops
         { title: "Timers", key: "TIMER", children: null },
         { title: "Loops", key: "LOOP", children: null },
         { title: "Conditionals", key: "CONDITIONAL", children: null },
