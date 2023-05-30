@@ -43,18 +43,6 @@ const parsedManifest: Manifest = manifestSchema.parse(manifests);
 const FUNCTION_PARAMETERS: ManifestParams = parsedManifest.parameters;
 const CMND_MANIFEST: ManifestCommands = parsedManifest.commands;
 
-//type NodeElement = {
-//  name: string;
-//  type: string;
-//  key: string;
-//  inputs?: { name: string; id: string; type: string }[];
-//  ui_component_id?: string;
-//  pip_dependencies?: Array<{
-//    name: string;
-//    v?: string;
-//  }>;
-//}[];
-
 export type CommandManifestMap = {
   [key: string]: ManifestCommands;
 };
@@ -77,8 +65,7 @@ const CMND_MANIFEST_MAP: CommandManifestMap = CMND_MANIFEST.reduce(
   {}
 );
 
-//console.log(CMND_MANIFEST_MAP);
-
+// TODO: should probably move this to a json file
 const CMND_TREE: CommandSection = {
   title: "ROOT",
   children: [
