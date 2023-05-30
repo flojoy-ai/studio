@@ -97,7 +97,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} />,
-    []
+    [addNewNode]
   );
 
   const handleNodeRemove = useCallback(
