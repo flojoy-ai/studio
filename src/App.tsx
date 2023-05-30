@@ -72,7 +72,6 @@ const App = () => {
 
   useEffect(() => {
     sendFrontEndLoadsToMix();
-    sendEventToMix("Server Status", serverStatus);
   }, []);
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
 

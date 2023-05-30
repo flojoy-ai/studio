@@ -148,9 +148,9 @@ const SidebarNode = ({
           className={classes.buttonLeafNode}
           onClick={() => {
             if (searched) {
-              sendEventToMix("Node Searched", command.name);
+              sendEventToMix("Node Searched", command.name, "nodeTitle");
             }
-            sendEventToMix("Node Added", command.name);
+            sendEventToMix("Node Added", command.name, "nodeTitle");
             leafClickHandler(command.key ?? key);
           }}
         >
