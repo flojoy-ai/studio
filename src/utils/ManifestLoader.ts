@@ -1,6 +1,6 @@
 import manifests from "@src/data/manifests-latest.json";
-
-import { z } from "zod";
+import { fromZodError } from "zod-validation-error";
+import { z, ZodError } from "zod";
 
 const commandsSchema = z.array(
   z.object({
@@ -39,13 +39,29 @@ export type ManifestParams = z.infer<typeof paramsSchema>;
 export type ManifestCommands = z.infer<typeof commandsSchema>;
 
 export function getManifestParams() {
-  const parsedManifest: Manifest = manifestSchema.parse(manifests);
-  return parsedManifest.parameters;
+  try {
+    const parsedManifest: Manifest = manifestSchema.parse(manifests);
+    return parsedManifest.parameters;
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw new Error("something is seriously wrong");
+    }
+  }
 }
 
 export function getManifestCmds() {
-  const parsedManifest: Manifest = manifestSchema.parse(manifests);
-  return parsedManifest.commands;
+  try {
+    const parsedManifest: Manifest = manifestSchema.parse(manifests);
+    return parsedManifest.commands;
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw new Error("something is seriously wrong");
+    }
+  }
 }
 
 export type CommandManifestMap = {
