@@ -17,6 +17,7 @@ export const NodeModalStyles = createStyles((theme) => ({
   header: {
     padding: "80px 80px 20px 80px",
     borderRadius: 17,
+    position: "unset",
   },
   title: {
     display: "block",
@@ -26,7 +27,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     color: `${theme.colors.title[0]}`,
   },
   body: {
-    padding: "10px 65px 40px",
+    padding: "10px 65px 45px",
   },
   close: {
     position: "absolute",
@@ -91,6 +92,7 @@ export const NodeModalStyles = createStyles((theme) => ({
 const themeJSONTree = (theme: MantineTheme) => {
   const darkJSONTree = {
     scheme: "flojoy",
+    author: "Jack",
     base00: `${theme.colors.modal[0]}`,
     base01: `${theme.colors.accent3[0]}`,
     base02: `${theme.colors.accent3[0]}`,
@@ -111,6 +113,7 @@ const themeJSONTree = (theme: MantineTheme) => {
 
   const lightJSONTree = {
     scheme: "flojoy",
+    author: "Jack",
     base00: `${theme.colors.modal[0]}`,
     base01: `${theme.colors.accent3[0]}`,
     base02: `${theme.colors.accent3[0]}`,
@@ -251,11 +254,17 @@ const NodeModal = ({
       <h2 style={{ fontSize: 22, marginTop: 28, marginBottom: 0 }}>
         Node data
       </h2>
-
       <div>
         <JSONTree
           data={selectedNode}
-          theme={colorScheme === "dark" ? darkJSONTree : lightJSONTree}
+          theme={{
+            extend: colorScheme === "dark" ? darkJSONTree : lightJSONTree,
+            tree: {
+              marginTop: 15,
+              padding: 20,
+            },
+          }}
+          labelRenderer={([key]) => <li style={{ paddingLeft: 8 }}>{key}</li>}
         ></JSONTree>
       </div>
     </Modal>

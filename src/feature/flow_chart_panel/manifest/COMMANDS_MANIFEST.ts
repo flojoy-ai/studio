@@ -18,7 +18,6 @@ export type CommandManifestMap = {
 
 export type CommandSection = {
   title: string;
-  parentKey?: string;
   children: CommandSection[] | null;
   key?: string;
 };
@@ -42,7 +41,6 @@ const CMND_TREE: CommandSection = {
   children: [
     {
       title: "AI and Machine learning",
-      parentKey: "AI_ML",
       children: [
         {
           title: "Object detection",
@@ -54,7 +52,6 @@ const CMND_TREE: CommandSection = {
 
     {
       title: "Extractors",
-      parentKey: "EXTRACTOR",
       children: [
         // Extractors tab
         { title: "Files", key: "FILE", children: null },
@@ -63,7 +60,6 @@ const CMND_TREE: CommandSection = {
     },
     {
       title: "Generators",
-      parentKey: "GENERATOR",
       children: [
         // Generators tab
         { title: "Simulations", key: "SIMULATION", children: null },
@@ -73,7 +69,6 @@ const CMND_TREE: CommandSection = {
     },
     {
       title: "Instruments",
-      parentKey: "INSTRUMENT",
       children: [
         { title: "Web cam", key: "WEB_CAM", children: null },
         { title: "Keithley", key: "KEITHLEY", children: null },
@@ -86,7 +81,6 @@ const CMND_TREE: CommandSection = {
     },
     {
       title: "Loaders",
-      parentKey: "LOADER",
       children: [
         // Loaders tab
         { title: "Cloud databases", key: "CLOUD_DATABASE", children: null },
@@ -104,7 +98,6 @@ const CMND_TREE: CommandSection = {
     },
     {
       title: "Logic gates",
-      parentKey: "LOGIC_GATE",
       children: [
         // Conditionals, Timers, & Loops
         { title: "Timers", key: "TIMER", children: null },
@@ -116,7 +109,6 @@ const CMND_TREE: CommandSection = {
 
     {
       title: "Transformers",
-      parentKey: "TRANSFORMER",
       children: [
         // Transformers tab
         { title: "Arithmetic", key: "ARITHMETIC", children: null },
@@ -143,7 +135,6 @@ const CMND_TREE: CommandSection = {
 
     {
       title: "Visualizers",
-      parentKey: "VISUALIZER",
       children: [
         // Visualization tab
         { title: "Plotly", key: "PLOTLY_VISOR", children: null },

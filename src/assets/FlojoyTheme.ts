@@ -1,7 +1,7 @@
 import { useMantineTheme } from "@mantine/core";
-
+import { CSSProperties } from "react";
 type SyntaxTheme = {
-  [key: string]: React.CSSProperties;
+  [key: string]: CSSProperties;
 };
 
 export const useFlojoySyntaxTheme = () => {
