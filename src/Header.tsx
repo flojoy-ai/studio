@@ -15,8 +15,8 @@ const useStyles = createStyles(() => ({
   tabs: {
     display: "flex",
     height: "100%",
+    gap: 32,
     alignItems: "center",
-    gap: "16px",
   },
   controlButtons: {
     display: "flex",
@@ -34,13 +34,13 @@ const Header = () => {
       <Box className={classes.tabs}>
         <Logo />
         <HeaderTab to={"/"} testId="script-btn">
-          SCRIPT
+          Visual Python Script
         </HeaderTab>
         <HeaderTab to={"/controls"} testId="ctrls-btn">
-          CTRLS
+          Ctrl Panel
         </HeaderTab>
         <HeaderTab to={"/debug"} testId="debug-btn">
-          DEBUG
+          Debug
         </HeaderTab>
       </Box>
       <Box className={classes.controlButtons}>
