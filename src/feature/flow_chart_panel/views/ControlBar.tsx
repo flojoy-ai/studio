@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Text,
   clsx,
   createStyles,
