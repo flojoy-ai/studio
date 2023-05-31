@@ -74,7 +74,7 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
   }, [node.data.ctrls]);
 
   return (
-    <Draggable bounds="main">
+    <Draggable bounds="main" cancel="#undrag">
       <Box className={classes.modal}>
         <Box
           onClick={() => setIsEditMode(false)}
@@ -95,7 +95,7 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
             </Box>
             {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
               ([name, param]) => (
-                <div key={node.id + name}>
+                <div key={node.id + name} id="undrag">
                   <p
                     className={classes.paramName}
                   >{`${name.toUpperCase()}:`}</p>
