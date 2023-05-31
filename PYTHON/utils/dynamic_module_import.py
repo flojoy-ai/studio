@@ -26,8 +26,7 @@ def create_map():
             if file.endswith(".py"):
                 mapping[file[:-3]] = (
                     os.path.join(root, file[:-3])
-                        .replace("/", ".")
-                        .replace("\\", ".")
-                        .replace("PYTHON.", "")
+                    .replace("/", ".")
+                    .replace("\\", ".")
+                    .replace("PYTHON.", "")
                 )
-            
