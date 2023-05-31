@@ -1,9 +1,16 @@
-import { Navbar, ScrollArea, Input, UnstyledButton, Box } from "@mantine/core";
+import {
+  Navbar,
+  ScrollArea,
+  Input,
+  UnstyledButton,
+  Box,
+  useMantineTheme,
+} from "@mantine/core";
 import { IconArrowAutofitUp, IconArrowAutofitDown } from "@tabler/icons-react";
 
 import { IconSearch } from "@tabler/icons-react";
 
-import { memo, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import { createStyles } from "@mantine/core";
@@ -116,6 +123,8 @@ const Sidebar = ({
   manifestMap,
   customContent,
 }: SidebarCustomProps) => {
+  const theme = useMantineTheme();
+
   const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
 
@@ -134,6 +143,17 @@ const Sidebar = ({
       setExpand(!expand);
     }
   };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const setFocus = () => {
+    inputRef.current && inputRef.current.focus();
+  };
+
+  useEffect(() => {
+    if (isSideBarOpen) {
+      setFocus();
+    }
+  }, [isSideBarOpen]);
 
   return (
     <Navbar
@@ -169,6 +189,14 @@ const Sidebar = ({
           className={classes.searchBox}
           value={query}
           onChange={handleQueryChange}
+          ref={inputRef}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       </Navbar.Section>
       {customContent}
