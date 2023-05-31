@@ -15,7 +15,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     height: "700px",
   },
   header: {
-    padding: "80px 80px 20px 80px",
+    padding: "65px 80px 30px 80px",
     borderRadius: 17,
     position: "unset",
   },
