@@ -7,7 +7,6 @@ import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
-import { CMND_TREE, CommandSection } from "../manifest/COMMANDS_MANIFEST";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 
 export const NodeModalStyles = createStyles((theme) => ({
@@ -67,7 +66,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     width: 180,
     fontSize: 14,
     borderRadius: 35,
-    color: `${theme.colors.accent1[0]}`,
+    color: theme.colors.accent1[0],
     borderColor: `${theme.colors.accent1[0]}`,
     backgroundColor: `${
       theme.colorScheme === "dark"
@@ -89,48 +88,6 @@ export const NodeModalStyles = createStyles((theme) => ({
     },
   },
 }));
-
-const getPath = (obj: CommandSection, key: string, paths: string[] = []) => {
-  if (obj.key !== undefined && obj.key.includes(key)) {
-    let searchKey = "";
-    switch (obj.key) {
-      case "PLOTLY_VISOR":
-        searchKey = obj.title.toUpperCase();
-        break;
-      case "AI_OBJECT_DETECTION":
-        searchKey = "";
-        break;
-      default:
-        searchKey = obj.key;
-    }
-    if (obj.key.includes("STEPPER")) searchKey = "STEPPER_MOTOR";
-    return [searchKey];
-  }
-  if (obj.children !== null && obj.children.length > 0) {
-    if (obj.parentKey !== undefined) {
-      switch (obj.parentKey) {
-        case "AI_ML":
-          paths.push(obj.parentKey);
-          break;
-        default:
-          paths.push(obj.parentKey + "S");
-      }
-    }
-
-    let found = false;
-    obj.children.forEach((childNode) => {
-      const temPaths = getPath(childNode as CommandSection, key) as string[];
-      if (temPaths) {
-        paths = paths.concat(temPaths);
-        found = true;
-      }
-    });
-
-    !found && paths.pop();
-    return paths;
-  }
-  return null;
-};
 
 const themeJSONTree = (theme) => {
   const darkJSONTree = {
@@ -185,50 +142,19 @@ const NodeModal = ({
   nodeLabel,
   nodeType,
   nd,
-  nodeFileName,
+  nodeFilePath,
   pythonString,
-  clickedElement,
+  selectedNode
 }: NodeModalProps) => {
   const theme = useMantineTheme();
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
-  console.log("This is node Label: ", nodeLabel);
-  console.log("This is node Type: ", nodeType);
-  console.log("This is file name: ", nodeFileName);
-  console.log("This is selected data function: ", clickedElement.data.func);
-
-  const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
-  let nodeCategory = "";
-  const nodeDataLabel = nodeFileName.split(".")[0];
+  
   const colorScheme = theme.colorScheme;
 
-  let LINK = `${GLINK}`;
-  if (getPath(CMND_TREE, nodeType) !== null) {
-    const path = getPath(CMND_TREE, nodeType) as string[];
-    let pathLength = path.length;
-    if (nodeType === "STEPPER") pathLength = -1;
-    nodeCategory = path[0];
-    for (let i = 0; i < pathLength; i++) {
-      LINK += `/${path[i]}`;
-    }
-  }
-
-  switch (nodeCategory) {
-    case "GENERATORS":
-      LINK = LINK + `S/${nodeDataLabel}/${nodeFileName}`;
-      break;
-    case "LOGIC_GATES":
-      LINK = LINK + `S/${nodeFileName}`;
-      break;
-    case "INSTRUMENTS":
-      if (nodeType === "SERIAL")
-        LINK = LINK + `/${nodeType + "_TIMESERIES"}` + `/${nodeFileName}`;
-      if (nodeType.includes("STEPPER")) LINK = LINK + `/${nodeFileName}`;
-      break;
-    default:
-      LINK = LINK + `/${nodeDataLabel}/${nodeFileName}`;
-  }
+  const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
+  const LINK = `${GLINK}/${nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "")}`
 
   return (
     <Modal
@@ -299,7 +225,7 @@ const NodeModal = ({
               data={makePlotlyData(nd.result.default_fig.data, theme)}
               layout={{
                 ...nd.result.default_fig.layout,
-                title: nd.result.default_fig.layout?.title || nodeLabel,
+                title: nd.result.default_fig.layout?.title ?? nodeLabel,
               }}
               useResizeHandler
               style={{
@@ -327,7 +253,7 @@ const NodeModal = ({
 
       <div>
         <JSONTree
-          data={clickedElement}
+          data={selectedNode}
           theme={colorScheme === "dark" ? darkJSONTree : lightJSONTree}
         ></JSONTree>
       </div>

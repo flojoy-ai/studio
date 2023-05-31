@@ -22,7 +22,7 @@ const props: NodeModalProps = {
     },
   },
   pythonString: "test-python-string",
-  nodeFileName: "test.py",
+  nodeFilePath: "test.py",
   defaultLayout: undefined,
   clickedElement: {},
 };

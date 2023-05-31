@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -26,9 +26,6 @@ import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { useSearchParams } from "react-router-dom";
-import { Node } from "reactflow";
-import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
@@ -48,11 +45,7 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const [searchParams] = useSearchParams();
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
   const theme = useMantineTheme();
 
@@ -69,8 +62,8 @@ const FlowChartTab = () => {
     nodeType,
     pythonString,
     setPythonString,
-    nodeFileName,
-    setNodeFileName,
+    nodeFilePath,
+    setNodeFilePath,
     defaultPythonFnLabel,
     defaultPythonFnType,
     setIsModalOpen,
@@ -86,7 +79,6 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
-    loadFlowExportObject,
   } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
@@ -135,7 +127,6 @@ const FlowChartTab = () => {
       ),
     []
   );
-  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
@@ -180,48 +171,21 @@ const FlowChartTab = () => {
     [setNodes]
   );
 
-  const fetchExampleApp = useCallback(
-    async (fileName: string) => {
-      const res = await fetch(`/example-apps/${fileName}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const data = await res.json();
-      setCtrlsManifest(data.ctrlsManifest);
-      const flow = data.rfInstance;
-      loadFlowExportObject(flow);
-    },
-    [loadFlowExportObject, setCtrlsManifest]
-  );
-
-  useEffect(() => {
-    const filename = searchParams.get("test_example_app");
-    if (filename) {
-      fetchExampleApp(filename);
-    }
-  }, []);
-
   useEffect(() => {
     if (selectedNode === null) {
       return;
     }
-
-    const nodeFileName = selectedNode.data.func + ".py";
-    const pythonString = PYTHON_FUNCTIONS[nodeFileName];
-
-    setNodeFileName(nodeFileName);
-    setPythonString(pythonString);
+    const nodeFileName = `${selectedNode?.data.func}.py`;
+    const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
+    setNodeFilePath(nodeFileData.path ?? "");
+    setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-    setClickedElement(selectedNode);
   }, [selectedNode]);
 
   const proOptions = { hideAttribution: true };
 
   useFlowChartTabEffects({
-    clickedElement,
     results: programResults,
     closeModal,
     defaultPythonFnLabel,
@@ -231,14 +195,15 @@ const FlowChartTab = () => {
     nodeLabel,
     nodeType,
     pythonString,
-    nodeFileName,
+    nodeFilePath,
     setIsModalOpen,
     setNd,
     setNodeLabel,
     setNodeType,
     setPythonString,
-    setNodeFileName,
+    setNodeFilePath,
     windowWidth,
+    selectedNode
   });
 
   return (
@@ -314,15 +279,14 @@ const FlowChartTab = () => {
           </ReactFlow>
 
           <NodeExpandMenu
-            clickedElement={selectedNode}
+            selectedNode={selectedNode}
             closeModal={closeModal}
-            defaultLayout={defaultLayout}
             modalIsOpen={modalIsOpen}
             nd={nd}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}
-            nodeFileName={nodeFileName}
+            nodeFilePath={nodeFilePath}
           />
         </div>
       </ReactFlowProvider>
