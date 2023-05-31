@@ -39,7 +39,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   const {
-    states: { runningNode, failedNode, preJobOperation, serverStatus },
+    states: { runningNode, failedNode, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
 
