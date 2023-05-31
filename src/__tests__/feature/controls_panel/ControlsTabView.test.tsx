@@ -20,6 +20,7 @@ jest.mock("@src/feature/controls_panel/views/AddCtrlModal", () => ({
 }));
 // mock `useSocket` hook
 jest.mock("@src/hooks/useSocket");
+jest.mock("@src/hooks/useControlsState");
 
 jest.mock("@src/services/FlowChartServices", () => {
   return {
