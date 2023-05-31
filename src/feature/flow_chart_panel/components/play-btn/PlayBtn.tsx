@@ -42,7 +42,8 @@ const useStyles = createStyles((theme) => {
       },
       "&:disabled, &:disabled:hover": {
         color: "#b5b5b5",
-        backgroundColor: "#e9ecef",
+        backgroundColor:
+          theme.colorScheme === "light" ? "#e9ecef" : theme.colors.accent5[0],
         border: 0,
         cursor: "not-allowed",
       },
@@ -89,15 +90,17 @@ const PlayBtn = ({ onPlay, style, disabled = false }: PlayBtnProps) => {
       disabled={disabled}
       title={disabled ? "Server is offline" : "Run Script"}
     >
-      <PlayBtnIconSVG
-        color={
-          disabled
-            ? theme.colors.dark[0]
-            : theme.colorScheme === "light"
-            ? theme.colors.accent2[0]
-            : theme.colors.accent1[0]
-        }
-      />
+      <div style={{ marginTop: 3.5 }}>
+        <PlayBtnIconSVG
+          color={
+            disabled
+              ? theme.colors.dark[0]
+              : theme.colorScheme === "light"
+              ? theme.colors.accent2[0]
+              : theme.colors.accent1[0]
+          }
+        />
+      </div>
 
       <div style={{ padding: "4px" }} />
       <span>Play</span>
