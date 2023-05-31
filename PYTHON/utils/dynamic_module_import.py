@@ -7,7 +7,6 @@ mapping = {}
 
 def get_module_func(file_name: str, func_name: str):
     if not mapping:
-        print("create a map")
         create_map()
     file_path = mapping.get(file_name)
 
@@ -20,11 +19,15 @@ def get_module_func(file_name: str, func_name: str):
 
 
 def create_map():
+    print("creating a node mapping")
     for root, _, files in os.walk(nodes_dir):
         for file in files:
             # map file name to file path
-            mapping[file[:-3]] = (
-                os.path.join(root, file[:-3])
-                .replace(os.path.sep, ".")
-                .replace("PYTHON.", "")
-            )
+            if file.endswith(".py"):
+                mapping[file[:-3]] = (
+                    os.path.join(root, file[:-3])
+                        .replace("/", ".")
+                        .replace("\\", ".")
+                        .replace("PYTHON.", "")
+                )
+            
