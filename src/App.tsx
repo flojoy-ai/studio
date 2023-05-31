@@ -67,7 +67,7 @@ const App = () => {
     }
   }, [preJobOperation]);
 
-  useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
+  useKeyboardShortcut("ctrl", "t", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ColorSchemeProvider

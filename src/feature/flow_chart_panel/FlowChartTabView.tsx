@@ -229,14 +229,37 @@ const FlowChartTab = () => {
   const proOptions = { hideAttribution: true };
 
   const selectAllNodesShortCut = () => {
-   for (const n of nodes){
-    console.log("hi");
-    n.data.selected = true;
-  }
-  isSelectAllNodes(true)
-};
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = true;
+      });
+    });
+    isSelectAllNodes(true);
+  };
 
-  useKeyboardShortcut("ctrl", "l", () => selectAllNodesShortCut());
+  const deselectAllNodeShortCut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = false;
+      });
+    });
+    isSelectAllNodes(false);
+  };
+
+  const deselectNodeShortCut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        if (selectedNode !== null && node.id === selectedNode.id) {
+          node.selected = false;
+        }
+      });
+    });
+    isSelectAllNodes(false);
+  };
+
+  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortCut());
+  useKeyboardShortcut("ctrl", "m", () => deselectAllNodeShortCut());
+  useKeyboardShortcut("ctrl", "n", () => deselectNodeShortCut());
 
   useFlowChartTabEffects({
     clickedElement,
@@ -276,8 +299,8 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={ selectAllNodes ? null : selectedNode }
-            unSelectedNodes={ selectAllNodes ? null : unSelectedNodes }
+            selectedNode={selectAllNodes ? null : selectedNode}
+            unSelectedNodes={unSelectedNodes}
           />
 
           <FlowChartKeyboardShortcuts
