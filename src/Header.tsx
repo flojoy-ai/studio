@@ -63,7 +63,9 @@ const Header = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const large = useMediaQuery(
-    `(min-width: ${getBreakpointValue(theme.breakpoints.sm)}px)`
+    `(min-width: ${getBreakpointValue(theme.breakpoints.sm)}px)`,
+    true,
+    { getInitialValueInEffect: false }
   );
 
   return (
