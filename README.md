@@ -1,4 +1,4 @@
-[![main: CI](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml)
+[![main: CI](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/flojoy-io/studio/branch/main/graph/badge.svg?token=BIB703MANI)](https://codecov.io/gh/flojoy-io/studio)
 
 # Flojoy
 

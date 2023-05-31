@@ -1,6 +1,6 @@
-import manifests from "../../../data/manifests-latest.json";
+import manifests from "@src/data/manifests-latest.json";
 
-type Commands = {
+type NodeElement = {
   name: string;
   type: string;
   key: string;
@@ -12,94 +12,136 @@ type Commands = {
   }>;
 }[];
 
-type Sections = {
+export type CommandManifestMap = {
+  [key: string]: NodeElement;
+};
+
+export type CommandSection = {
   title: string;
-  child: {
-    name: string;
-    key: string;
-    child?: Sections[0]["child"];
-  }[];
-}[];
+  children: CommandSection[] | null;
+  key?: string;
+};
 
-export const COMMANDS: Commands = manifests.commands;
+const CMND_MANIFEST = manifests.commands;
 
-export const SECTIONS: Sections = [
-  {
-    title: "AI and Machine learning",
-    child: [
-      {
-        name: "Object detection",
-        key: "AI_OBJECT_DETECTION",
-      },
-    ],
+const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
+  (result, element) => {
+    if (element.type in result) {
+      result[element.type] = [...result[element.type], element];
+    } else {
+      result[element.type] = [element];
+    }
+    return result;
   },
+  {}
+);
 
-  {
-    title: "Extractors",
-    child: [
-      // Extractors tab
-      { name: "Files", key: "FILE" },
-      { name: "DAQ", key: "DAQ" },
-    ],
-  },
-  {
-    title: "Generators",
-    child: [
-      // Generators tab
-      { name: "Simulations", key: "SIMULATION" },
-      { name: "Sample datasets", key: "SAMPLE_DATASET" },
-      { name: "Sample images", key: "SAMPLE_IMAGE" },
-    ],
-  },
-  {
-    title: "Instruments",
-    child: [
-      { name: "Web cam", key: "WEB_CAM" },
-      { name: "Keithley", key: "KEITHLEY" },
-      { name: "Labjack", key: "LABJACK" },
-      { name: "Phidget", key: "PHIDGET" },
-      { name: "Serial", key: "SERIAL" },
-    ],
-  },
-  {
-    title: "Loaders",
-    child: [
-      // Loaders tab
-      { name: "Cloud databases", key: "CLOUD_DATABASE" },
-      { name: "Cloud file systems", key: "CLOUD_FILE_SYSTEM" },
-      { name: "Local file system", key: "LOCAL_FILE_SYSTEM" },
-    ],
-  },
-  {
-    title: "Logic gates",
-    child: [
-      // Conditionals, Timers, & Loops
-      { name: "Timers", key: "TIMER" },
-      { name: "Loops", key: "LOOP" },
-      { name: "Conditionals", key: "CONDITIONAL" },
-      { name: "Terminators", key: "TERMINATOR" },
-    ],
-  },
+const CMND_TREE: CommandSection = {
+  title: "ROOT",
+  children: [
+    {
+      title: "AI and Machine learning",
+      children: [
+        {
+          title: "Object detection",
+          key: "AI_OBJECT_DETECTION",
+          children: null,
+        },
+      ],
+    },
 
-  {
-    title: "Transformers",
-    child: [
-      // Transformers tab
-      { name: "Arithmetic", key: "ARITHMETIC" },
-      { name: "Signal processing", key: "SIGNAL_PROCESSING" },
-      { name: "Regressions", key: "REGRESSIONS" },
-      { name: "Image processing", key: "IMAGE_PROCESSING" },
-      { name: "Image identification", key: "IMAGE_IDENTIFICATION" },
-      { name: "Matrix manipulation", key: "MATRIX_MANIPULATION" },
-      { name: "Array selection", key: "SELECT_ARRAY" },
-    ],
-  },
+    {
+      title: "Extractors",
+      children: [
+        // Extractors tab
+        { title: "Files", key: "FILE", children: null },
+        { title: "DAQ", key: "DAQ", children: null },
+      ],
+    },
+    {
+      title: "Generators",
+      children: [
+        // Generators tab
+        { title: "Simulations", key: "SIMULATION", children: null },
+        { title: "Sample datasets", key: "SAMPLE_DATASET", children: null },
+        { title: "Sample images", key: "SAMPLE_IMAGE", children: null },
+      ],
+    },
+    {
+      title: "Instruments",
+      children: [
+        { title: "Web cam", key: "WEB_CAM", children: null },
+        { title: "Keithley", key: "KEITHLEY", children: null },
+        { title: "Labjack", key: "LABJACK", children: null },
+        { title: "Phidget", key: "PHIDGET", children: null },
+        { title: "Serial", key: "SERIAL", children: null },
+        { title: "Stepper driver Tic", key: "STEPPER", children: null },
+        { title: "Stepper driver Tic knob", key: "STEPPER2", children: null },
+      ],
+    },
+    {
+      title: "Loaders",
+      children: [
+        // Loaders tab
+        { title: "Cloud databases", key: "CLOUD_DATABASE", children: null },
+        {
+          title: "Cloud file systems",
+          key: "CLOUD_FILE_SYSTEM",
+          children: null,
+        },
+        {
+          title: "Local file system",
+          key: "LOCAL_FILE_SYSTEM",
+          children: null,
+        },
+      ],
+    },
+    {
+      title: "Logic gates",
+      children: [
+        // Conditionals, Timers, & Loops
+        { title: "Timers", key: "TIMER", children: null },
+        { title: "Loops", key: "LOOP", children: null },
+        { title: "Conditionals", key: "CONDITIONAL", children: null },
+        { title: "Terminators", key: "TERMINATOR", children: null },
+      ],
+    },
 
-  {
-    title: "Visualizers",
-    child: [
-      // Visualization tab
-      { name: "Plotly", key: "PLOTLY_VISOR" },
-    ],
-  },
-];
+    {
+      title: "Transformers",
+      children: [
+        // Transformers tab
+        { title: "Arithmetic", key: "ARITHMETIC", children: null },
+        {
+          title: "Signal processing",
+          key: "SIGNAL_PROCESSING",
+          children: null,
+        },
+        { title: "Regressions", key: "REGRESSIONS", children: null },
+        { title: "Image processing", key: "IMAGE_PROCESSING", children: null },
+        {
+          title: "Image identification",
+          key: "IMAGE_IDENTIFICATION",
+          children: null,
+        },
+        {
+          title: "Matrix manipulation",
+          key: "MATRIX_MANIPULATION",
+          children: null,
+        },
+        { title: "Array selection", key: "SELECT_ARRAY", children: null },
+      ],
+    },
+
+    {
+      title: "Visualizers",
+      children: [
+        // Visualization tab
+        { title: "Plotly", key: "PLOTLY_VISOR", children: null },
+        { title: "Data Structure", key: "DATA_STRUCTURE", children: null },
+      ],
+    },
+  ],
+};
+
+export { CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };

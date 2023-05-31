@@ -66,6 +66,11 @@
                             "param": "amplitude",
                             "value": 1
                         },
+                        "phase": {
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0.0
+                        },
                         "waveform": {
                             "functionName": "SINE",
                             "param": "waveform",
@@ -109,6 +114,11 @@
                             "functionName": "SINE",
                             "param": "amplitude",
                             "value": 1
+                        },
+                        "phase": {
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0.0
                         },
                         "waveform": {
                             "functionName": "SINE",
@@ -185,12 +195,12 @@
                 "width": 250,
                 "height": 159,
                 "id": "LINE-b371dd3f-c16d-480c-b43a-d9078d196147",
-                "type": "VISOR",
+                "type": "PLOTLY_VISOR",
                 "data": {
                     "id": "LINE-b371dd3f-c16d-480c-b43a-d9078d196147",
                     "label": "LINE",
                     "func": "LINE",
-                    "type": "VISOR",
+                    "type": "PLOTLY_VISOR",
                     "ctrls": {}
                 },
                 "position": {

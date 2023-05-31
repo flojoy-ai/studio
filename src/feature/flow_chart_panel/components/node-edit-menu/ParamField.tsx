@@ -1,15 +1,18 @@
-import { Select, TextInput, NumberInput, Checkbox } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-
-export type ParamType = "float" | "int" | "string" | "boolean" | "select";
+import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 type ParamFieldProps = {
   nodeId: string;
   paramId: string;
   functionName: string;
-  type: ParamType;
+  type: ParamValueType;
   value: any;
   options?: string[];
+  nodeReferenceOptions?: {
+    label: string;
+    value: string;
+  }[];
 };
 
 const ParamField = ({
@@ -19,9 +22,10 @@ const ParamField = ({
   type,
   value,
   options,
+  nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const { updateCtrlInputDataForNode } = useFlowChartState();
-  const handleChange = (value: string) => {
+  const { updateCtrlInputDataForNode } = useFlowChartGraph();
+  const handleChange = (value: string | boolean) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
       functionName,
       param: paramId,
@@ -55,11 +59,35 @@ const ParamField = ({
     case "boolean":
       return (
         <Checkbox
-          onChange={(e) => handleChange(e.currentTarget.checked.toString())}
+          onChange={(e) => handleChange(e.currentTarget.checked)}
+          label={JSON.stringify(value)}
         />
       );
     case "select":
-      return <Select onChange={handleChange} data={options!} value={value} />;
+      return (
+        <Select
+          onChange={(val) => handleChange(val as string)}
+          data={options ?? []}
+          value={value}
+        />
+      );
+    case "node_reference":
+      return (
+        <Select
+          onChange={(val) => handleChange(val as string)}
+          data={nodeReferenceOptions ?? []}
+          value={value}
+        />
+      );
+    case "unknown":
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
+    default:
+      return <p> There&apos;s something wrong with the paramType </p>;
   }
 };
 

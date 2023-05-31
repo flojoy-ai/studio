@@ -40,12 +40,19 @@ dump.rdb
 PYTHON/WATCH/fc.json
 PYTHON/obj-detection.jpg
 PYTHON/utils/object_detection/yolov3.weights
-src/feature/flow_chart_panel/pythonFunctions.json
+src/feature/flow_chart_panel/manifest/pythonFunctions.json
 venv2
 .env
 dist
 update_apps.js
 worker-manager/node_modules
 
-.idea/*
+/**/.idea/*
 .vscode/*
+
+src/data/*.json
+src/feature/flow_chart_panel/manifest/pythonFunctions.json
+
+.coverage
+coverage.xml
+

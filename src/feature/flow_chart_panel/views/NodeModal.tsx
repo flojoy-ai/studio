@@ -1,42 +1,41 @@
-import ReactModal from "react-modal";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
+import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { docco, srcery } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import PlotlyComponent from "../../common/PlotlyComponent";
+import { Modal } from "@mantine/core";
+import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
+import { makePlotlyData } from "@src/utils/format_plotly_data";
 
-function NodeModal({
+// Import only the languages needed to reduce bundle size
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("json", json);
+
+const NodeModal = ({
   modalIsOpen,
-  afterOpenModal,
   closeModal,
-  modalStyles,
   nodeLabel,
   nodeType,
   nd,
   pythonString,
-  defaultLayout,
-  theme,
   clickedElement,
-}: NodeModalProps) {
-  return (
-    <ReactModal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      style={modalStyles}
-      ariaHideApp={false}
-      contentLabel=""
-    >
-      <button onClick={closeModal} className="ctrl-close-btn">
-        x
-      </button>
+}: NodeModalProps) => {
+  const theme = useMantineTheme();
 
+  const colorScheme = theme.colorScheme;
+  return (
+    <Modal
+      data-testid="node-modal"
+      opened={modalIsOpen}
+      onClose={closeModal}
+      size={1030}
+      title={nodeLabel}
+    >
       {nodeLabel !== undefined && nodeType !== undefined && (
-        <div>
-          <h1>{nodeLabel}</h1>
-          <h4>
-            Function type: <code>{nodeType}</code>
-          </h4>
-        </div>
+        <h4>
+          Function type: <code>{nodeType}</code>
+        </h4>
       )}
 
       {!nd?.result ? (
@@ -48,12 +47,11 @@ function NodeModal({
           {nd?.result && (
             <PlotlyComponent
               id={nd.id}
-              data={nd.result.default_fig.data}
-              layout={
-                "layout" in nd.result.default_fig
-                  ? Object.assign({}, nd.result.default_fig.layout)
-                  : Object.assign({}, { title: `${nd.cmd}` }, defaultLayout)
-              }
+              data={makePlotlyData(nd.result.default_fig.data, theme)}
+              layout={{
+                ...nd.result.default_fig.layout,
+                title: nd.result.default_fig.layout?.title || nodeLabel,
+              }}
               useResizeHandler
               style={{
                 height: 635,
@@ -67,7 +65,7 @@ function NodeModal({
       <h3>Python code</h3>
       <SyntaxHighlighter
         language="python"
-        style={theme === "dark" ? srcery : docco}
+        style={colorScheme === "dark" ? srcery : docco}
       >
         {pythonString}
       </SyntaxHighlighter>
@@ -75,12 +73,12 @@ function NodeModal({
       <h3>Node data</h3>
       <SyntaxHighlighter
         language="json"
-        style={theme === "dark" ? srcery : docco}
+        style={colorScheme === "dark" ? srcery : docco}
       >
         {`${JSON.stringify(clickedElement, undefined, 4)}`}
       </SyntaxHighlighter>
-    </ReactModal>
+    </Modal>
   );
-}
+};
 
 export default NodeModal;

@@ -1,13 +1,39 @@
 /* eslint @typescript-eslint/no-explicit-any: 0 */
 import { useEffect } from "react";
-import Plot, { PlotParams } from "react-plotly.js";
+import createPlotlyComponent from "react-plotly.js/factory";
+import type { PlotParams } from "react-plotly.js";
+import { PlotData } from "plotly.js";
+import usePlotLayout from "./usePlotLayout";
+import Plotly from "plotly.js";
+
+export type OverridePlotData = Array<
+  Partial<PlotData> & {
+    header?: {
+      values?: any;
+      fill: {
+        color: string;
+      };
+    };
+    cells?: {
+      values?: any;
+      fill: { color: string };
+    };
+  }
+>;
 
 type PlotProps = {
   id: string;
-} & PlotParams;
+  data: OverridePlotData;
+  isThumbnail?: boolean;
+  layout: any;
+} & Omit<PlotParams, "data">;
 
 const PlotlyComponent = (props: PlotProps) => {
-  const { data, layout, useResizeHandler, style, id } = props;
+  const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
+  const defaultPlotLayout = usePlotLayout();
+  const Plot = createPlotlyComponent(Plotly);
+  const isMatrix = data[0]?.header?.values.length === 0;
+
   useEffect(() => {
     if (!window) {
       return;
@@ -16,16 +42,29 @@ const PlotlyComponent = (props: PlotProps) => {
       ...(window as any).plotlyOutput,
       [id]: { data },
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, id]);
+
   return (
     <Plot
       data={data}
-      layout={layout}
+      layout={{
+        ...layout,
+        ...defaultPlotLayout,
+        showlegend: !isThumbnail,
+        ...(isThumbnail && isMatrix && getSizeForMatrix()),
+      }}
       useResizeHandler={useResizeHandler}
-      style={style}
+      config={{ displayModeBar: false, staticPlot: isThumbnail }}
+      style={isMatrix && isThumbnail ? getSizeForMatrix() : style}
     />
   );
 };
 
 export default PlotlyComponent;
+
+const getSizeForMatrix = () => {
+  return {
+    width: 240,
+    height: 260,
+  };
+};

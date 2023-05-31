@@ -1,120 +1,82 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
+import ControlsTab from "./feature/controls_panel/ControlsTabView";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
-import ControlsTab from "./feature/controls_panel/ControlsTabView";
 
-import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "./feature/common/theme";
-import { GlobalStyles } from "./feature/common/global";
 import { useDisclosure } from "@mantine/hooks";
+import { GlobalStyles } from "./feature/common/Global";
 
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import { useFlowChartState } from "./hooks/useFlowChartState";
-import { Node } from "reactflow";
-import Controls from "./feature/flow_chart_panel/views/ControlBar";
-import { DarkIcon, LightIcon } from "./utils/ThemeIconSvg";
-import { useWindowSize } from "react-use";
-import { useSocket } from "./hooks/useSocket";
-import Sidebar from "./feature/flow_chart_panel/SideBar/Sidebar";
-import { MantineProvider } from "@mantine/core";
+import { CustomFonts } from "./feature/common/CustomFonts";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
+import { darkTheme, lightTheme } from "./feature/common/theme";
+import { useFlowChartState } from "./hooks/useFlowChartState";
+import { useSocket } from "./hooks/useSocket";
+import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <FlowChartTab />,
+  },
+  {
+    path: "/controls",
+    element: <ControlsTab />,
+  },
+  {
+    path: "/debug",
+    element: <ResultsTab />,
+  },
+]);
 
 const App = () => {
-  const { states } = useSocket();
   const {
-    serverStatus,
-    programResults,
-    runningNode,
-    failedNode,
-    preJobOperation,
-  } = states!;
-  const [openCtrlModal, setOpenCtrlModal] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
-  const {
-    rfInstance,
-    setRfInstance,
-    setUiTheme,
-    setRunningNode,
-    setFailedNode,
-    setCtrlsManifest,
-    loadFlowExportObject,
-  } = useFlowChartState();
-  const [currentTab, setCurrentTab] = useState<"visual" | "panel" | "debug">(
-    "visual"
-  );
+    states: { runningNode, failedNode, preJobOperation },
+  } = useSocket();
+  const [theme, setTheme] = useState<ColorScheme>("dark");
+
+  const { setRunningNode, setFailedNode, setIsSidebarOpen } =
+    useFlowChartState();
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
   ] = useDisclosure(false);
-  const { width: windowWidth } = useWindowSize();
-  const queryString = window?.location?.search;
-  const fileName =
-    queryString.startsWith("?test_example_app") && queryString.split("=")[1];
-  const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-      setUiTheme("dark");
-    } else {
-      setTheme("light");
-      setUiTheme("light");
-    }
+
+  const toggleColorScheme = (color?: ColorScheme) => {
+    setTheme(color || (theme === "dark" ? "light" : "dark"));
   };
 
-  const fetchExampleApp = useCallback(
-    (fileName: string) => {
-      fetch(`/example-apps/${fileName}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setCtrlsManifest(data.ctrlsManifest);
-          const flow = data.rfInstance;
-          loadFlowExportObject(flow);
-        })
-        .catch((err) => console.log("fetch example app err: ", err));
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fileName]
-  );
-
   useEffect(() => {
-    setRunningNode(runningNode);
     setRunningNode(runningNode);
     setFailedNode(failedNode);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runningNode, failedNode]);
-  useEffect(() => {
-    if (fileName) {
-      fetchExampleApp(fileName);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fileName]);
+  }, [runningNode, failedNode, setRunningNode, setFailedNode]);
+
   useEffect(() => {
     if (preJobOperation.isRunning) {
       openPreJobModal();
     } else {
       closePreJobModal();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preJobOperation]);
 
+  useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
+
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ColorSchemeProvider
+      colorScheme={theme}
+      toggleColorScheme={toggleColorScheme}
+    >
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{
-          colorScheme: theme,
-        }}
+        theme={theme === "dark" ? darkTheme : lightTheme}
       >
         <GlobalStyles />
         <PreJobOperationShow
@@ -122,118 +84,10 @@ const App = () => {
           outputs={preJobOperation.output}
           close={closePreJobModal}
         />
-        <p
-          className="App-status"
-          data-cy="app-status"
-          style={{
-            backgroundColor: theme === "dark" ? "#14131361" : "#58454517",
-          }}
-        >
-          <code>{serverStatus}</code>
-        </p>
-        <header
-          className={`flex App-header border-color  ${
-            theme === "dark" && "dark"
-          }`}
-          style={{
-            ...(windowWidth <= 700 && {
-              flexDirection: "column",
-              height: "fit-content",
-            }),
-          }}
-        >
-          <div
-            className="App-tabs flex"
-            style={{
-              width: windowWidth <= 700 ? "100%" : "750px",
-            }}
-          >
-            <h1 className="App-brand">FLOJOY</h1>
-            <button
-              onClick={() => setCurrentTab("visual")}
-              className={currentTab === "visual" ? "active-" + theme : ""}
-              style={{
-                ...(windowWidth <= 700 && {
-                  minHeight: "55px",
-                }),
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="script-btn"
-            >
-              SCRIPT
-            </button>
-            <button
-              onClick={() => setCurrentTab("panel")}
-              className={currentTab === "panel" ? "active-" + theme : ""}
-              style={{
-                ...(windowWidth <= 700 && {
-                  minHeight: "55px",
-                }),
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="ctrls-btn"
-            >
-              CTRLS
-            </button>
-            <button
-              className={currentTab === "debug" ? "active-" + theme : ""}
-              onClick={() => setCurrentTab("debug")}
-              style={{
-                color: theme === "dark" ? "#fff" : "#000",
-              }}
-              data-cy="debug-btn"
-            >
-              DEBUG
-            </button>
-          </div>
-          <div
-            className="flex App-control-buttons"
-            style={{
-              width:
-                windowWidth >= 1080
-                  ? "750px"
-                  : windowWidth <= 700
-                  ? "100%"
-                  : "420px",
-            }}
-          >
-            <Controls
-              theme={theme}
-              activeTab={currentTab}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-            <button onClick={toggleTheme} className="App-theme-toggle">
-              {theme === "dark" ? <LightIcon /> : <DarkIcon />}
-            </button>
-          </div>
-        </header>
-        <main style={{ minHeight: "85vh" }}>
-          <div style={{ display: currentTab === "visual" ? "block" : "none" }}>
-            <Sidebar />
-
-            <FlowChartTab
-              rfInstance={rfInstance!}
-              setRfInstance={setRfInstance}
-              results={programResults!}
-              theme={theme}
-              clickedElement={clickedElement}
-              setClickedElement={setClickedElement}
-            />
-          </div>
-          <div style={{ display: currentTab === "panel" ? "block" : "none" }}>
-            <ControlsTab
-              results={programResults!}
-              theme={theme}
-              openCtrlModal={openCtrlModal}
-              setOpenCtrlModal={setOpenCtrlModal}
-            />
-          </div>
-          <div style={{ display: currentTab === "debug" ? "block" : "none" }}>
-            <ResultsTab results={programResults!} />
-          </div>
-        </main>
+        <CustomFonts />
+        <RouterProvider router={router} />
       </MantineProvider>
-    </ThemeProvider>
+    </ColorSchemeProvider>
   );
 };
 

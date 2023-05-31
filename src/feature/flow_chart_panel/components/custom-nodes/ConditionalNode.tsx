@@ -1,33 +1,26 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import "@feature/flow_chart_panel/style/defaultNode.css";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, Text, clsx } from "@mantine/core";
 import { useSocket } from "@src/hooks/useSocket";
-import { useEffect, useState } from "react";
-import NodeWrapper from "../node-wrapper/NodeWrapper";
-import NodeEditButtons from "../node-edit-menu/NodeEditButtons";
+import { memo, useEffect, useState } from "react";
+import { useNodeStyles } from "../DefaultNode";
+import NodeWrapper from "../NodeWrapper";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
+  const { classes } = useNodeStyles();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
-  const { uiTheme, runningNode, failedNode, nodes, setNodes } =
-    useFlowChartState();
+  const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  useEffect(() => {
-    setNodes((prev) => {
-      const selectedNode = prev.find((n) => n.id === data.id);
-      if (selectedNode) {
-        selectedNode.data.selected = selectedNode.selected;
-      }
-    });
-  }, [data, nodes, setNodes]);
-  const { states } = useSocket();
-  const { programResults } = states!;
+  const {
+    states: { programResults },
+  } = useSocket();
 
   const isLoopInfoExist = () => {
     const isExist = Object.keys(additionalInfo).find(
-      (value, _) => value === data.id
+      (value) => value === data.id
     );
     return isExist && data.func === "LOOP";
   };
@@ -40,7 +33,10 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
     : 0;
 
   useEffect(() => {
-    if (programResults?.io?.length! > 0) {
+    if (
+      programResults?.io?.length !== undefined &&
+      programResults?.io?.length > 0
+    ) {
       let programAdditionalInfo = {};
 
       const results = programResults?.io;
@@ -57,59 +53,40 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
 
   return (
     <NodeWrapper data={data}>
-      <div
-        style={{
-          ...((runningNode === data.id || data.selected) && {
-            boxShadow: "#48abe0 0px 0px 27px 3px",
-          }),
-          ...(failedNode === data.id && {
-            boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
-          }),
-        }}
+      <Box
+        className={clsx(
+          runningNode === data.id || data.selected ? classes.defaultShadow : "",
+          failedNode === data.id ? classes.failShadow : ""
+        )}
       >
-        <div
-          className="default_node_container"
+        <Box
+          className={clsx(classes.nodeContainer, classes.defaultNode)}
           style={{
-            backgroundColor:
-              uiTheme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
-            border:
-              uiTheme === "light"
-                ? "1px solid rgba(123, 97, 255, 1)"
-                : "1px solid #99F5FF",
-            color: uiTheme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          {data.selected && Object.keys(data.ctrls).length > 0 && (
-            <NodeEditButtons />
-          )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "5px",
-              width: "100%",
-              flexDirection: "column",
-              textAlign: "center",
-            }}
-          >
-            <div style={{ marginTop: "20px" }}>{data.label}</div>
-            <div>
+          <Box>
+            <Box mt={25}>{data.label}</Box>
+            <Box>
               {data.func === "CONDITIONAL" && (
                 <>
                   {params?.length !== 0 ? (
-                    <p data-testid="conditional-operator-type">
+                    <Text
+                      mt={20}
+                      sx={{ textAlign: "center" }}
+                      data-testid="conditional-operator-type"
+                    >
                       x {data["ctrls"]["operator_type"]["value"]} y
-                    </p>
+                    </Text>
                   ) : (
                     <>
                       {Object.keys(additionalInfo)
-                        .filter((value, _) => value === data.id)
+                        .filter((value) => value === data.id)
                         .map((_, index) => {
                           return (
-                            <p key={index + 1}>
+                            <Text key={index + 1}>
                               status: {additionalInfo[data.id]["status"]}
-                            </p>
+                            </Text>
                           );
                         })}
                     </>
@@ -117,32 +94,31 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
                 </>
               )}
               {data.func === "TIMER" && (
-                <p data-testid="timer-value">
+                <Text data-testid="timer-value">
                   {data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s
-                </p>
+                </Text>
               )}
               {data.func === "LOOP" && (
-                <div data-testid="loop-info">
+                <Box data-testid="loop-info">
                   <p>{`${current_iteration}/${total_iteration}`}</p>
-                </div>
+                </Box>
               )}
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div
-            style={{
-              display: "flex",
+          <Box
+            display="flex"
+            h={params.length > 0 ? (params.length + 1) * 32 : "fit-content"}
+            sx={{
               flexDirection: "column",
-              height:
-                params.length > 0 ? (params.length + 1) * 32 : "fit-content",
             }}
           >
             <HandleComponent data={data} inputs={params} />
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </NodeWrapper>
   );
 };
 
-export default ConditionalNode;
+export default memo(ConditionalNode);

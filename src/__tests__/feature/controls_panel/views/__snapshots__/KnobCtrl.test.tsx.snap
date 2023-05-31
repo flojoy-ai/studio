@@ -6,5 +6,6 @@ exports[`KnobCtrl Component test KnobCtrl should render with Props 1`] = `
     data-testid="KnobCtrlDiv"
     style="width: 100%; display: flex; justify-content: center; align-items: center;"
   />
+  ,
 </div>
 `;

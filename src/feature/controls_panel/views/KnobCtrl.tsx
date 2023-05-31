@@ -3,7 +3,7 @@ import {
   CtrlManifestParam,
 } from "@src/hooks/useFlowChartState";
 import { Draft } from "immer";
-import { useCallback, useEffect, useState, memo } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Silver from "@src/utils/SilverKnob";
 import ReactGridLayout from "react-grid-layout";
 import { ControlOptions } from "../types/ControlOptions";
@@ -39,7 +39,6 @@ const KnobCtrl = ({
       }
       setKnobValue(value);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [(ctrlObj?.param as CtrlManifestParam)?.nodeId]
   );
 
@@ -47,7 +46,6 @@ const KnobCtrl = ({
     return () => {
       setKnobValue(0);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOption]);
 
   return (

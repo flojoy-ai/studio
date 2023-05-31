@@ -1,14 +1,15 @@
-import { act, renderHook } from "@testing-library/react";
-import ControlComponentState, {
-  ControlComponentStateProps,
-} from "@src/feature/controls_panel/views/control-component/ControlComponentState";
+import { DEFAULT_THEME } from "@mantine/styles";
+import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import { darkTheme } from "@src/feature/common/theme";
 import {
   ControlOptions,
   PlotControlOptions,
 } from "@src/feature/controls_panel/types/ControlOptions";
+import ControlComponentState, {
+  ControlComponentStateProps,
+} from "@src/feature/controls_panel/views/control-component/ControlComponentState";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import { Data } from "plotly.js";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { act, renderHook } from "@testing-library/react";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/data/manifests-latest.json", () => {
@@ -21,9 +22,16 @@ jest.mock("@src/data/manifests-latest.json", () => {
   };
 });
 
+jest.mock("@mantine/styles", () => ({
+  useMantineColorScheme: jest.fn(() => ({ colorScheme: "dark" })),
+  useMantineTheme: jest.fn(() => ({
+    ...DEFAULT_THEME,
+    ...darkTheme,
+  })),
+}));
+
 const testControlComponentProps: ControlComponentStateProps = {
-  updateCtrlValue: "myUpdatedValue",
-  theme: "dark",
+  updateCtrlValue: () => {},
   ctrlObj: {
     id: "plot-control",
     name: "Plot Control",
@@ -198,14 +206,12 @@ describe("Testing ControlComponentState State's", () => {
                 mode: "lines",
               },
             ],
-            layout: styledPlotLayout("light"),
           },
           data: {
+            type: "ordered_pair",
             x: [2, 4, 5, 6],
             y: [2, 4, 5, 6],
             z: [2, 4, 5, 6],
-            type: "box",
-            mode: "lines",
           },
         },
       };
@@ -225,7 +231,7 @@ describe("Testing ControlComponentState State's", () => {
       expect(result.current.plotData).toEqual([]);
     });
     it("Checks if the PlotData's State renders/fires with Updated State", () => {
-      const updatedTestPlotData: Data[] = [
+      const updatedTestPlotData: OverridePlotData = [
         {
           x: [5, 3, 2],
           y: [4, 2, 6],
@@ -278,11 +284,12 @@ describe("Testing ControlComponentState State's", () => {
     it("Checks if the StyledLayout State renders with default State", () => {
       const testStyledLayout = {
         paper_bgcolor: "rgba(0,0,0,0)",
-        plot_bgcolor: "#282c34",
+        plot_bgcolor: "#2c2e33",
         autosize: true,
-        font: { color: "#282c34" },
+        font: { color: "#99f5ff" },
         margin: { t: 40, r: 40, b: 40, l: 40 },
         xaxis: { zeroline: false, type: "linear" },
+        template: {},
       };
       const { result } = renderHook(() =>
         ControlComponentState(testControlComponentProps)

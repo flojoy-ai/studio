@@ -22,12 +22,19 @@ ENV_CI = "CI"
 
 
 class FlowScheduler:
-    def __init__(self, **kwargs) -> None:
-        self.scheduler_job_id = kwargs["scheduler_job_id"]
-        self.jobset_id = kwargs.get("jobsetId", None)
-        self.flow_chart = kwargs["fc"]
+    def __init__(self, scheduler_job_id, fc, extraParams, jobsetId=None) -> None:
+        # print("sjid", scheduler_job_id)
+        # print("fc", fc)
+        # print("ep", extraParams)
+        # print("jsid", jobsetId)
 
-        self.job_service = JobService("flojoy")
+        self.scheduler_job_id = scheduler_job_id
+        self.jobset_id = jobsetId
+        self.flow_chart = fc
+        # TODO: split this up into different input vars
+        self.maximum_runtime = extraParams.get("maximumRuntime", 3000)
+        self.node_delay = extraParams.get("nodeDelay", 0)
+        self.job_service = JobService("flojoy", self.maximum_runtime)
 
     def run(self):
         print("\nrun jobset:", self.jobset_id)
@@ -156,16 +163,19 @@ class FlowScheduler:
         print(" waiting for job:", self.topology.get_label(job_id))
 
         while True:
-            time.sleep(0.01)
+            time.sleep(self.node_delay)
 
             job = self.job_service.fetch_job(job_id=job_id)
-            job_status = job.get_status()
+            if job:
+                job_status = job.get_status()
 
-            if job_status in ["finished", "failed"]:
-                job_result = job.result
-                success = True if job_status == "finished" else False
-                print("  job:", self.topology.get_label(job_id), "status:", job_status)
-                break
+                if job_status in ["finished", "failed"]:
+                    job_result = job.result
+                    success = True if job_status == "finished" else False
+                    print(
+                        "  job:", self.topology.get_label(job_id), "status:", job_status
+                    )
+                    break
 
         return job_result, success
 
@@ -220,5 +230,5 @@ def run(**kwargs):
     try:
         return FlowScheduler(**kwargs).run()
     except Exception:
-        print("exception occured whilte running the flowchart")
+        print("exception occured while running the flowchart")
         print(traceback.format_exc())

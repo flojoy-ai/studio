@@ -1,11 +1,10 @@
-import { renderHook } from "@testing-library/react";
+import { NOISY_SINE } from "@src/data/RECIPES";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { useResultsTabEffects } from "@src/feature/results_panel/ResultsTabEffects";
 import { ResultTabStateReturnType } from "@src/feature/results_panel/ResultsTabState";
-import { NOISY_SINE } from "@src/data/RECIPES";
-import { Node } from "reactflow";
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
-import styledPlotLayout from "@src/feature/common/defaultPlotLayout";
+import { renderHook } from "@testing-library/react";
+import { Node } from "reactflow";
 
 describe("useResultsTabEffects", () => {
   const setResultNodes = jest.fn();
@@ -22,7 +21,6 @@ describe("useResultsTabEffects", () => {
               y: [1, 2, 3],
             },
           ],
-          layout: styledPlotLayout("dark"),
         },
         data: {
           type: "ordered_pair",
@@ -32,9 +30,7 @@ describe("useResultsTabEffects", () => {
       },
     },
   ];
-  const nodes: ResultTabStateReturnType["nodes"] = (
-    NOISY_SINE.nodes as Node<ElementsData>[]
-  ).map((node) => ({
+  const nodes = (NOISY_SINE.nodes as Node<ElementsData>[]).map((node) => ({
     ...node,
     type: "default",
     position: node.position,
@@ -43,13 +39,15 @@ describe("useResultsTabEffects", () => {
       resultData: undefined,
     },
   }));
-  const resultTabState: ResultTabStateReturnType & { nodeResults: ResultIO[] } =
-    {
-      resultNodes: [],
-      setResultNodes,
-      nodes,
-      nodeResults: [],
-    };
+  const resultTabState: ResultTabStateReturnType & {
+    nodes: Node<ElementsData>[];
+    nodeResults: ResultIO[];
+  } = {
+    resultNodes: [],
+    setResultNodes,
+    nodes,
+    nodeResults: [],
+  };
 
   afterEach(() => {
     jest.resetAllMocks();

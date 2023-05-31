@@ -1,54 +1,68 @@
-import { useCallback, useEffect, useMemo } from "react";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  ConnectionLineType,
+  EdgeTypes,
+  NodeDragHandler,
+  NodeTypes,
+  OnConnect,
+  OnEdgesChange,
+  OnInit,
+  OnNodesChange,
+  OnNodesDelete,
   ReactFlow,
+  MiniMap,
   ReactFlowProvider,
   addEdge,
-  ConnectionLineType,
-  OnNodesChange,
-  applyNodeChanges,
   applyEdgeChanges,
-  OnEdgesChange,
-  OnConnect,
-  NodeTypes,
-  EdgeTypes,
-  OnInit,
-  NodeMouseHandler,
-  NodeDragHandler,
-  OnNodesDelete,
+  applyNodeChanges,
 } from "reactflow";
+import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
 
-import styledPlotLayout from "../common/defaultPlotLayout";
-import { saveFlowChartToLocalStorage } from "../../services/FlowChartServices";
-import NodeModal from "./views/NodeModal";
-import { FlowChartProps } from "./types/FlowChartProps";
-import { useFlowChartTabState } from "./FlowChartTabState";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { AddNodeBtn } from "@src/AddNodeBtn";
+import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useSocket } from "@src/hooks/useSocket";
+import { useSearchParams } from "react-router-dom";
+import { Node } from "reactflow";
+import usePlotLayout from "../common/usePlotLayout";
+import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { useFlowChartTabState } from "./FlowChartTabState";
+import SidebarCustomContent from "./components/SidebarCustomContent";
+import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
+import { useAddNewNode } from "./hooks/useAddNewNode";
+import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
+import { CustomNodeProps } from "./types/CustomNodeProps";
+import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import Sidebar from "../common/Sidebar/Sidebar";
+import { Box, useMantineTheme } from "@mantine/core";
+import { useFlowChartState } from "@hooks/useFlowChartState";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
 
-const FlowChartTab: React.FC<FlowChartProps> = ({
-  results,
-  theme,
-  rfInstance,
-  setRfInstance,
-  clickedElement,
-  setClickedElement,
-}: FlowChartProps) => {
+const FlowChartTab = () => {
+  const [searchParams] = useSearchParams();
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+    useFlowChartState();
+  const theme = useMantineTheme();
+
+  const {
+    states: { programResults },
+  } = useSocket();
+
   const {
     windowWidth,
     modalIsOpen,
-    openModal,
-    afterOpenModal,
     closeModal,
     nd,
     nodeLabel,
@@ -63,36 +77,63 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setNodeType,
   } = useFlowChartTabState();
 
-  const { isEditMode, nodes, setNodes, edges, setEdges } = useFlowChartState();
-  const selectedNodes = nodes.filter((n) => n.selected);
-  const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  const {
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    selectedNode,
+    unSelectedNodes,
+    loadFlowExportObject,
+  } = useFlowChartGraph();
+
+  const getNodeFuncCount = useCallback(
+    (func: string) => {
+      console.log(nodes);
+      return nodes.filter((n) => n.data.func === func).length;
+    },
+    [nodes.length]
+  );
+
+  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const sidebarCustomContent = useMemo(
+    () => <SidebarCustomContent onAddNode={addNewNode} />,
+    [nodes, edges]
+  );
+
+  const handleNodeRemove = useCallback(
+    (nodeId: string) => {
+      setNodes((prev) => prev.filter((node) => node.id !== nodeId));
+      setEdges((prev) =>
+        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+      );
+    },
+    [setNodes, setEdges]
+  );
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
     []
   );
-  const nodeTypes: NodeTypes = useMemo(() => nodeConfigs, []);
-
-  const modalStyles = {
-    overlay: { zIndex: 99 },
-    content: { zIndex: 100 },
-  };
-
-  const onNodeClick: NodeMouseHandler = (_, node) => {
-    setPythonString(
-      nodeLabel === defaultPythonFnLabel || nodeType === defaultPythonFnType
-        ? "..."
-        : PYTHON_FUNCTIONS[nodeLabel + ".py"]
-    );
-    setClickedElement(node);
-    openModal();
-  };
-
-  useEffect(() => {
-    saveFlowChartToLocalStorage(rfInstance);
-  }, [rfInstance]);
-
-  const defaultLayout = styledPlotLayout(theme);
+  // Attach a callback to each of the custom nodes.
+  // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
+  // Has to be passed through the data prop because passing as a regular prop doesn't work
+  // for whatever reason.
+  const nodeTypes: NodeTypes = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(nodeConfigs).map(([key, CustomNode]) => {
+          return [
+            key,
+            ({ data }: CustomNodeProps) => (
+              <CustomNode data={{ ...data, handleRemove: handleNodeRemove }} />
+            ),
+          ];
+        })
+      ),
+    []
+  );
+  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
@@ -137,10 +178,54 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     [setNodes]
   );
 
+  const fetchExampleApp = useCallback(
+    async (fileName: string) => {
+      const res = await fetch(`/example-apps/${fileName}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await res.json();
+      setCtrlsManifest(data.ctrlsManifest);
+      const flow = data.rfInstance;
+      loadFlowExportObject(flow);
+    },
+    [loadFlowExportObject, setCtrlsManifest]
+  );
+
+  useEffect(() => {
+    const filename = searchParams.get("test_example_app");
+    if (filename) {
+      fetchExampleApp(filename);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedNode === null) {
+      return;
+    }
+    let pythonString =
+      selectedNode.data.label === defaultPythonFnLabel ||
+      selectedNode.data.type === defaultPythonFnType
+        ? "..."
+        : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
+
+    if (selectedNode.data.func === "CONSTANT") {
+      pythonString = PYTHON_FUNCTIONS[selectedNode.data.func + ".py"];
+    }
+
+    setPythonString(pythonString);
+    setNodeLabel(selectedNode.data.label);
+    setNodeType(selectedNode.data.type);
+    setClickedElement(selectedNode);
+  }, [selectedNode]);
+
+  const proOptions = { hideAttribution: true };
+
   useFlowChartTabEffects({
     clickedElement,
-    results,
-    afterOpenModal,
+    results: programResults,
     closeModal,
     defaultPythonFnLabel,
     defaultPythonFnType,
@@ -148,7 +233,6 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     nd,
     nodeLabel,
     nodeType,
-    openModal,
     pythonString,
     setIsModalOpen,
     setNd,
@@ -157,50 +241,93 @@ const FlowChartTab: React.FC<FlowChartProps> = ({
     setPythonString,
     windowWidth,
   });
+
   return (
-    <ReactFlowProvider>
-      <div
-        style={{ height: "calc(100vh - 110px)" }}
-        data-testid="react-flow"
-        data-rfinstance={JSON.stringify(nodes)}
-      >
-        <NodeEditMenu selectedNode={selectedNode} />
-
-        <ReactFlow
-          style={{
-            position: "fixed",
-            height: "100%",
-            width: "50%",
-          }}
-          nodes={nodes}
-          nodeTypes={nodeTypes}
-          edges={edges}
-          edgeTypes={edgeTypes}
-          connectionLineType={ConnectionLineType.Step}
-          onInit={onInit}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onNodeDoubleClick={onNodeClick}
-          onNodeDragStop={handleNodeDrag}
-          onNodesDelete={handleNodesDelete}
-        />
-      </div>
-
-      <NodeModal
-        afterOpenModal={afterOpenModal}
-        clickedElement={clickedElement}
-        closeModal={closeModal}
-        defaultLayout={defaultLayout}
-        modalIsOpen={modalIsOpen}
-        modalStyles={modalStyles}
-        nd={nd!}
-        nodeLabel={nodeLabel}
-        nodeType={nodeType}
-        pythonString={pythonString}
-        theme={theme}
+    <Layout>
+      <Sidebar
+        sections={CMND_TREE}
+        manifestMap={CMND_MANIFEST_MAP}
+        leafNodeClickHandler={addNewNode}
+        isSideBarOpen={isSidebarOpen}
+        setSideBarStatus={setIsSidebarOpen}
+        customContent={sidebarCustomContent}
       />
-    </ReactFlowProvider>
+      <ReactFlowProvider>
+        <div
+          style={{ height: "calc(100vh - 100px)" }}
+          data-testid="react-flow"
+          data-rfinstance={JSON.stringify(nodes)}
+        >
+          <NodeEditMenu
+            selectedNode={selectedNode}
+            unSelectedNodes={unSelectedNodes}
+          />
+
+          <ReactFlow
+            style={{
+              position: "fixed",
+              height: "100%",
+              width: "50%",
+            }}
+            proOptions={proOptions}
+            nodes={nodes}
+            nodeTypes={nodeTypes}
+            edges={edges}
+            edgeTypes={edgeTypes}
+            connectionLineType={ConnectionLineType.Step}
+            onInit={onInit}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onNodeDragStop={handleNodeDrag}
+            onNodesDelete={handleNodesDelete}
+          >
+            <Box
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
+              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
+            </Box>
+            <MiniMap
+              style={{
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? "rgba(0, 0, 0, 0.1)"
+                    : "rgba(255, 255, 255, 0.1)",
+              }}
+              nodeColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.25)"
+                  : "rgba(255, 255, 255, 0.25)"
+              }
+              maskColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.05)"
+                  : "rgba(255, 255, 255, 0.05)"
+              }
+              zoomable
+              pannable
+            />
+          </ReactFlow>
+
+          <NodeExpandMenu
+            clickedElement={selectedNode}
+            closeModal={closeModal}
+            defaultLayout={defaultLayout}
+            modalIsOpen={modalIsOpen}
+            nd={nd}
+            nodeLabel={nodeLabel}
+            nodeType={nodeType}
+            pythonString={pythonString}
+          />
+        </div>
+      </ReactFlowProvider>
+    </Layout>
   );
 };
+
 export default FlowChartTab;

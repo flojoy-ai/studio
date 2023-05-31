@@ -1,21 +1,29 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import { SocketContextProvider } from "./context/socket.context";
+import "./index.css";
 // default styling
-import "reactflow/dist/style.css";
 import { createRoot } from "react-dom/client";
+import "reactflow/dist/style.css";
 
 // or if you just want basic styles
 import "reactflow/dist/base.css";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorPage } from "./ErrorPage";
+
+const root = createRoot(document.getElementById("root") as HTMLElement);
+
+function fallbackRender({ error, resetErrorBoundary }) {
+  return <ErrorPage error={error} resetErrorBoundary={resetErrorBoundary} />;
+}
+
 root.render(
   <React.StrictMode>
-    <SocketContextProvider>
-      <App />
-    </SocketContextProvider>
+    <ErrorBoundary fallbackRender={fallbackRender}>
+      <SocketContextProvider>
+        <App />
+      </SocketContextProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );

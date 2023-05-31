@@ -2,7 +2,7 @@
 import type { Config } from "@jest/types";
 import { pathsToModuleNameMapper } from "ts-jest";
 import { compilerOptions } from "./tsconfig.json";
-export default async (): Promise<Config.InitialOptions> => {
+const config = async (): Promise<Config.InitialOptions> => {
   return {
     preset: "ts-jest",
     setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
@@ -32,5 +32,11 @@ export default async (): Promise<Config.InitialOptions> => {
     transform: {
       "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }],
     },
+    testPathIgnorePatterns: [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/__tests__/__utils__",
+    ],
   };
 };
+
+export default config;

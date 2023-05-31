@@ -9,12 +9,13 @@ export type ElementsData = {
     [key: string]: {
       functionName: string;
       param: string;
-      value: string;
+      value: string | boolean | number;
     };
   };
   inputs?: Array<{ name: string; id: string; type: string }>;
   selects?: any;
   selected?: boolean;
+  handleRemove?: (nodeId: string) => void;
 };
 
 export interface CustomNodeProps {

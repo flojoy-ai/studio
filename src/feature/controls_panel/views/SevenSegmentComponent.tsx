@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 // import { Display as SevenSegmentDisplay } from "react-7-segment-display";
 
-const SevenSegmentComponent = ({ ctrlObj, plotData, nd }) => {
+// TODO: Properly type this component
+type SevenSegmentComponentProp = {
+  ctrlObj: any;
+  plotData: any;
+  nd: any;
+};
+const SevenSegmentComponent = ({
+  ctrlObj,
+  plotData,
+  nd,
+}: SevenSegmentComponentProp) => {
   const [data, setData] = useState(0);
 
   // useEffect(() => {
   //   if (nd) {
-  //     if (typeof nd.result.y[0] == "number") {
+  //     if (typeof nd.result.y[0] === "number") {
   //       const number = nd.result.y[0];
   //       if (number < 0) {
   //         const value = Math.floor(Math.abs(number));

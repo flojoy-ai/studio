@@ -1,9 +1,10 @@
+import { useMantineTheme } from "@mantine/styles";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 
 export const NodeStyle = (
-  data: CustomNodeProps["data"],
-  theme: "light" | "dark"
+  data: CustomNodeProps["data"]
 ): React.CSSProperties | undefined => {
+  const theme = useMantineTheme();
   if (
     data.func === "LINSPACE" ||
     data.func === "LOOP" ||
@@ -13,19 +14,20 @@ export const NodeStyle = (
     data.func === "BUTTER" ||
     data.func === "LOCAL_FILE"
   ) {
+    const accent =
+      theme.colorScheme === "light"
+        ? theme.colors.accent2[0]
+        : theme.colors.accent1[0];
+
     return {
       padding: 10,
       height: "105px",
       width: "190px",
       fontWeight: 600,
       borderRadius: "6px",
-      backgroundColor:
-        theme === "light" ? "rgb(123 97 255 / 16%)" : "#99f5ff4f",
-      border:
-        theme === "light"
-          ? "1px solid rgba(123, 97, 255, 1)"
-          : "1px solid #99F5FF",
-      color: theme === "light" ? "rgba(123, 97, 255, 1)" : "#99F5FF",
+      backgroundColor: accent + "4f",
+      border: accent,
+      color: accent,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -38,31 +40,35 @@ export const NodeStyle = (
     data.func === "SAW" ||
     data.func === "RAND" ||
     data.func === "CONSTANT" ||
-    data.func == "OBJECT_DETECTION"
+    data.func === "OBJECT_DETECTION"
   ) {
+    const accent =
+      theme.colorScheme === "light"
+        ? theme.colors.accent1[0]
+        : theme.colors.accent2[0];
     return {
       height: "115px",
       width: "115px",
       borderRadius: "6px",
-      border:
-        theme === "light"
-          ? "1px solid #2E83FF"
-          : "1px solid rgba(123, 97, 255, 1)",
-      backgroundColor:
-        theme === "light" ? "rgba(46, 131, 255, 0.2)" : "rgb(123 97 255 / 16%)",
+      border: accent,
+      backgroundColor: accent + "4f",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       fontSize: "17px",
-      color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+      color: accent,
     };
   } else {
+    const accent =
+      theme.colorScheme === "light"
+        ? theme.colors.accent1[0]
+        : theme.colors.accent2[0];
     return {
       display: "flex",
       alignItems: "center",
       fontSize: "17px",
-      color: theme === "light" ? "#2E83FF" : "rgba(123, 97, 255, 1)",
+      color: accent,
       background: "transparent",
     };
   }

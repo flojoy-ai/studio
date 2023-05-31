@@ -1,14 +1,13 @@
-import ModalCloseSvg from "@src/utils/ModalCloseSvg";
-import React from "react";
-import ReactModal from "react-modal";
-import "./keyboardShortcutModal.css";
+import { createStyles, Modal, Button } from "@mantine/core";
+import { memo } from "react";
 interface KeyboardShortcutProps {
   isOpen: boolean;
   onClose: () => void;
-  theme: "dark" | "light";
 }
 
-const reactModalStyle: ReactModal.Styles = {
+//all existing styles in this file should be made using createStyles
+
+const useStyles = createStyles((theme) => ({
   content: {
     borderRadius: "8px",
     height: "85vh",
@@ -27,46 +26,96 @@ const reactModalStyle: ReactModal.Styles = {
     justifyContent: "center",
     alignItems: "center",
   },
-};
-const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
-  isOpen,
-  onClose,
-  theme,
-}) => {
+  closeButton: {
+    position: "absolute",
+    backgroundColor: "transparent",
+    border: 0,
+    cursor: "pointer",
+    top: 15,
+    right: 10,
+    padding: 0,
+    color: theme.colors.accent1[0],
+  },
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 43,
+    height: "100%",
+    width: "100%",
+    padding: 24,
+    backgroundColor: theme.colors.modal[0],
+  },
+  column: {
+    width: "100%",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    fontFamily: "Inter",
+    marginBottom: 10,
+  },
+  platformName: {
+    color: "#3d7ff2",
+  },
+  list: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    padding: theme.spacing.md, // 24px
+    gap: theme.spacing.xs, // 8px
+    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.15)",
+    borderRadius: theme.radius.md, // 8px
+    backgroundColor: theme.colors.modal[0],
+    color: theme.colors.text[0],
+    border: `1px solid ${theme.colors.modal[0]}`,
+    width: "100%",
+  },
+  listItem: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    padding: theme.spacing.xs, // 8px
+    width: "100%",
+    boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.1)",
+    borderRadius: theme.radius.xs, // 2px
+  },
+  commandKey: {
+    color: "#3d7ff2",
+  },
+}));
+
+const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
+  const { classes } = useStyles();
+
   return (
-    <ReactModal
+    <Modal
       data-testid="keyboard_shortcut_modal"
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={reactModalStyle}
-      ariaHideApp={false}
-      contentLabel={"keyboard shortcut modal"}
+      opened={isOpen}
+      onClose={onClose}
+      size={1030}
     >
-      <button onClick={onClose} className="kbs__close__btn">
-        <ModalCloseSvg
-          style={{
-            height: 23,
-            width: 23,
-          }}
-        />
-      </button>
-      <div className={`kbs__container ${theme}`}>
+      <Button
+        data-testid="closeButton"
+        onClick={onClose}
+        className={classes.closeButton}
+      ></Button>
+
+      <div data-testid="key_container" className={classes.container}>
         {platforms.map((platform) => {
           return (
-            <div className={`kbs__col ${theme}`} key={platform.key}>
-              <div className="kbs__title">
+            <div className={classes.column} key={platform.key}>
+              <div className={classes.title}>
                 For{" "}
-                <span className="kbs__platform__name">{platform.title}</span>
+                <span className={classes.platformName}>{platform.title}</span>
               </div>
 
-              <div className={`kbs__list ${theme}`}>
+              <div className={classes.list}>
                 {keyboardShortcuts.map((shortcut) => (
-                  <div
-                    className={`kbs__list__item ${theme}`}
-                    key={shortcut.command}
-                  >
+                  <div className={classes.listItem} key={shortcut.command}>
                     <span>{shortcut.command}</span>
-                    <span className="kbs__cmd__key">
+                    <span className={classes.commandKey}>
                       {shortcut.platforms[platform.key]}
                     </span>
                   </div>
@@ -76,11 +125,11 @@ const KeyboardShortcutModal: React.FC<KeyboardShortcutProps> = ({
           );
         })}
       </div>
-    </ReactModal>
+    </Modal>
   );
 };
 
-export default KeyboardShortcutModal;
+export default memo(KeyboardShortcutModal);
 
 const platforms = [
   { title: "Windows", key: "windows" },
@@ -176,7 +225,7 @@ const keyboardShortcuts = [
     command: "Delete",
     platforms: {
       windows: "Ctrl D",
-      macOs: "⌘ D",
+      macOs: "Backspace",
     },
   },
 ];

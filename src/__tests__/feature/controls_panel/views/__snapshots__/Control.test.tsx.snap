@@ -3,17 +3,17 @@
 exports[`Control.tsx render Control component correctly. 1`] = `
 <div>
   <div
-    class="ctrl-input"
+    class="mantine-tezkkk"
     data-cy="ctrl-grid-item"
     data-testid="ctrl-grid-item"
-    style="width: 100%; height: 100%; display: flex; flex-direction: column; border-radius: 16px; background-color: rgba(20, 19, 19, 0.38);"
   >
     <div
-      data-props="{"ctrlObj":{"id":"test-ctrl","minHeight":110,"minWidth":150,"name":"Test ctrl","type":"input","hidden":false,"layout":{"h":12,"w":12,"i":"test-id","x":10,"y":10}},"theme":"dark","results":{}}"
+      data-props="{"ctrlObj":{"id":"test-ctrl","minHeight":110,"minWidth":150,"name":"Test ctrl","type":"input","hidden":false,"layout":{"h":12,"w":12,"i":"test-id","x":10,"y":10}},"results":{}}"
       data-testid="control-component"
     >
       Control Component
     </div>
   </div>
+  ,
 </div>
 `;

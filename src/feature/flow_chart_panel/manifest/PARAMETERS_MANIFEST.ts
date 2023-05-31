@@ -1,12 +1,20 @@
 import manifests from "@src/data/manifests-latest.json";
-type FunctionParametersType = {
-  [key: string]: {
-    [key: string]: {
-      type: string;
-      default: string | number;
-      options?: string[];
-    };
-  };
-};
+import { z } from "zod";
 
-export const FUNCTION_PARAMETERS: FunctionParametersType = manifests.parameters;
+const paramsSchema = z.record(
+  z.string(),
+  z.record(
+    z.string(),
+    z.object({
+      type: z.string(),
+      default: z.union([z.string(), z.number(), z.boolean()]),
+      options: z.optional(z.array(z.string())),
+    })
+  )
+);
+
+type FuncParamsType = z.infer<typeof paramsSchema>;
+
+export const FUNCTION_PARAMETERS: FuncParamsType = paramsSchema.parse(
+  manifests.parameters
+);

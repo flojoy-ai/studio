@@ -1,13 +1,10 @@
-const CancelIconSvg = ({
-  style,
-  theme,
-}: {
-  theme: string;
-  style?: Record<string, any>;
-}) => {
+type CancelIconSvgProps = {
+  fill: string;
+};
+
+const CancelIconSvg = ({ fill }: CancelIconSvgProps) => {
   return (
     <svg
-      style={style}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0,0,256,256"
@@ -17,7 +14,7 @@ const CancelIconSvg = ({
     >
       <g
         fillOpacity="0.67843"
-        fill="#fb1c1c"
+        fill={fill}
         fillRule="nonzero"
         stroke="none"
         strokeWidth="1"
