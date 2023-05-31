@@ -50,6 +50,10 @@ const FlowChartKeyboardShortcuts = ({
   useKeyboardShortcut("ctrl", "-", zoomOut);
   useKeyboardShortcut("ctrl", "1", fitView);
 
+  useKeyboardShortcut("meta", "=", zoomIn);
+  useKeyboardShortcut("meta", "-", zoomOut);
+  useKeyboardShortcut("meta", "1", fitView);
+
   const { setIsSidebarOpen } = useFlowChartState();
   const { setNodes, setEdges } = useFlowChartGraph();
 

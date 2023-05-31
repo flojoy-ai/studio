@@ -258,8 +258,12 @@ const FlowChartTab = () => {
   };
 
   useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortCut());
-  useKeyboardShortcut("ctrl", "m", () => deselectAllNodeShortCut());
-  useKeyboardShortcut("ctrl", "n", () => deselectNodeShortCut());
+  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortCut());
+  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortCut());
+
+  useKeyboardShortcut("meta", "a", () => selectAllNodesShortCut());
+  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortCut());
+  useKeyboardShortcut("meta", "9", () => deselectNodeShortCut());
 
   useFlowChartTabEffects({
     clickedElement,

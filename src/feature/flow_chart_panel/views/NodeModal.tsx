@@ -7,6 +7,7 @@ import { Modal } from "@mantine/core";
 import { useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 // Import only the languages needed to reduce bundle size
 SyntaxHighlighter.registerLanguage("python", python);
@@ -24,6 +25,10 @@ const NodeModal = ({
   const theme = useMantineTheme();
 
   const colorScheme = theme.colorScheme;
+
+  useKeyboardShortcut("ctrl", "e", closeModal);
+  useKeyboardShortcut("meta", "e", closeModal);
+
   return (
     <Modal
       data-testid="node-modal"

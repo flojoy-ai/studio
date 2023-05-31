@@ -278,6 +278,10 @@ const ControlBar = () => {
   useKeyboardShortcut("ctrl", "c", cancelFC);
   useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
 
+  useKeyboardShortcut("meta", "p", onRun);
+  useKeyboardShortcut("meta", "c", cancelFC);
+  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
+
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
