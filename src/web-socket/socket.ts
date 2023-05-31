@@ -120,7 +120,6 @@ export class WebSocketServer {
                 : [],
             }));
           }
-          console.log(this.isConnected());
           break;
         case "connection_established":
           if (this.socketId) {

@@ -2,6 +2,7 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+
 type States = {
   programResults: ResultsType | null;
   setProgramResults: Dispatch<SetStateAction<ResultsType>>;
