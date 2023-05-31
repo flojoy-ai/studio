@@ -5,6 +5,7 @@ import {
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import SidebarSection from "./SidebarSection";
+import { AppTab } from "@feature/common/Sidebar/Sidebar";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -44,6 +45,7 @@ type SidebarNodeProps = {
   expand: boolean;
   collapse: boolean;
   searched: boolean;
+  appTab: AppTab;
 };
 
 const nodeTitleMatches = (query: string, node: CommandSection) =>
@@ -60,6 +62,7 @@ const SidebarNode = ({
   expand,
   collapse,
   searched,
+  appTab,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const theme = useMantineTheme();
@@ -82,6 +85,7 @@ const SidebarNode = ({
             expand,
             collapse,
             searched,
+            appTab,
           });
         })}
       </div>
@@ -108,6 +112,7 @@ const SidebarNode = ({
             expand,
             collapse,
             searched,
+            appTab,
           })
         )}
       </SidebarSection>
@@ -148,10 +153,9 @@ const SidebarNode = ({
           key={command.key}
           className={classes.buttonLeafNode}
           onClick={() => {
-            if (searched) {
+            if (searched && appTab === "FlowChart") {
               sendEventToMix("Node Searched", command.name, "nodeTitle");
             }
-            sendEventToMix("Node Added", command.name, "nodeTitle");
             leafClickHandler(command.key ?? key);
           }}
         >

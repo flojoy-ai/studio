@@ -92,7 +92,7 @@ export const useAddNewNode = (
         LAST_NODE_POSITION_KEY,
         JSON.stringify(nodePosition)
       );
-      //sendEventToMix("Node Added", newNode.data.label);
+      sendEventToMix("Node Added", newNode.data.label);
     },
     [setNodes, getNodeFuncCount]
   );

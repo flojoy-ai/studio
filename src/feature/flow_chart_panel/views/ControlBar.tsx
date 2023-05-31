@@ -296,7 +296,7 @@ const ControlBar = () => {
       setRfInstance(updatedRfInstance);
 
       saveFlowChartToLocalStorage(updatedRfInstance);
-      sendProgramToMix(rfInstance.nodes, true);
+      sendProgramToMix(rfInstance.nodes, true, false);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,

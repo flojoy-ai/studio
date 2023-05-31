@@ -107,7 +107,6 @@ const FlowChartTab = () => {
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
       sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
-      //sendNodeDeletedToMix(nodeLabel);
     },
     [setNodes, setEdges]
   );
@@ -173,7 +172,6 @@ const FlowChartTab = () => {
     (nodes) => {
       nodes.forEach((node) => {
         sendEventToMix("Node Deleted", node.data.label, "nodeTitle");
-        //sendNodeDeletedToMix(node.data.label);
       });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
@@ -256,6 +254,7 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
+        appTab={"FlowChart"}
       />
       <ReactFlowProvider>
         <div

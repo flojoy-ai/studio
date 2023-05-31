@@ -80,7 +80,7 @@ const useSidebarStyles = createStyles((theme) => ({
     },
   },
 }));
-
+export type AppTab = "FlowChart" | "Control" | "Result";
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -88,6 +88,7 @@ type SidebarCustomProps = {
   leafNodeClickHandler: leafClickHandler;
   manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
+  appTab: AppTab;
 };
 
 const Sidebar = ({
@@ -97,6 +98,7 @@ const Sidebar = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
+  appTab,
 }: SidebarCustomProps) => {
   const [query, setQuery] = useState("");
   const { classes } = useSidebarStyles();
@@ -184,6 +186,7 @@ const Sidebar = ({
           expand={expand}
           collapse={collapse}
           searched={searched}
+          appTab={appTab}
         />
       </Navbar.Section>
     </Navbar>

@@ -32,13 +32,13 @@ const Header = () => {
     <MantineHeader height="70px" className={classes.header}>
       <Box className={classes.tabs}>
         <Logo />
-        <HeaderTab to={"/"} testId="script-btn">
+        <HeaderTab to={"/"} testId="script-btn" appTab={"FlowChart"}>
           SCRIPT
         </HeaderTab>
-        <HeaderTab to={"/controls"} testId="ctrls-btn">
+        <HeaderTab to={"/controls"} testId="ctrls-btn" appTab={"Control"}>
           CTRLS
         </HeaderTab>
-        <HeaderTab to={"/debug"} testId="debug-btn">
+        <HeaderTab to={"/debug"} testId="debug-btn" appTab={"Result"}>
           DEBUG
         </HeaderTab>
       </Box>

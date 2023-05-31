@@ -220,6 +220,7 @@ const ControlsTab = () => {
           leafNodeClickHandler={addCtrl}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
+          appTab={"Control"}
         />
       </div>
     </Layout>
