@@ -1,6 +1,7 @@
 import asyncio
+from http.client import HTTPException
 import json
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 import yaml
 from captain.types.flowchart import (
     PostCancelFC,
@@ -11,21 +12,21 @@ from captain.types.flowchart import (
 from captain.utils.flowchart_utils import (
     cancel_flowchart_by_id,
     create_topology,
+    running_topology
 )
 from captain.utils.redis_dao import RedisDao
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
+from captain.types.worker import WorkerJobResponse
 
 router = APIRouter(tags=["flowchart"])
 
-running_topology = None
-
 
 """
-FRONT-END CLIENT ACCESSIBLE END-POINTS
+FRONT-END CLIENT ACCESSED END-POINTS
 ______________________________________
 
-These end-points are accessible by the front-end client. They are used to
+These end-points are accessed by the front-end client. They are used to
 initiate processes on the back-end.
 """
 
@@ -38,6 +39,9 @@ async def cancel_flowchart(fc: PostCancelFC):
 
 @router.post("/wfc/", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
+
+    global running_topology
+
     # cancel any currently running flowchart
     if request.cancel_existing_jobs:
         cancel_flowchart_by_id(request.jobset_id)
@@ -55,27 +59,33 @@ async def write_and_run_flowchart(request: PostWFC):
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
-    asyncio.run(manager.ws.broadcast(json.dumps(msg)))
+    asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
 
     # run the flowchart
-    asyncio.run(running_topology.run())
+    asyncio.create_task(running_topology.run())
 
 
 """
-BACK-END CLIENT ACCESSIBLE END-POINTS
+BACK-END CLIENT ACCESSED END-POINTS
 _____________________________________
 
-These end-points are accessible by the back-end client. They are used to implement
+These end-points are accessed by the back-end client. They are used to implement
 the event driven paradigm of the back-end. Workers that run jobs will poll these to 
 signal a job has been finished.
 """
 
+@router.post("/worker_response", summary="worker response")
+async def worker_response(request: WorkerJobResponse):
 
-@router.post("/job_finished/", summary="job finished")
-async def job_finished(resp: WorkerSuccessResponse):
-    raise NotImplementedError("Function not implemented.")
+    print("Received a response from a worker")
 
+    request_dict = request.dict()
 
-@router.post("/job_failed/", summary="job failed")
-async def job_failed(resp: WorkerFailedResponse):
-    raise NotImplementedError("Function not implemented.")
+    # forward response from worker to the front-end
+    asyncio.create_task(manager.ws.broadcast(json.dumps(request_dict)))
+
+    # handle finished job
+    asyncio.create_task(running_topology.handle_finished_job(request_dict)) # type: ignore
+
+    return Response(status_code=200)
+
