@@ -57,8 +57,8 @@ async def write_and_run_flowchart(request: PostWFC):
     }
     asyncio.run(manager.ws.broadcast(json.dumps(msg)))
 
-    # run the flowhchart
-    running_topology.run()
+    # run the flowchart
+    asyncio.run(running_topology.run())
 
 
 """
