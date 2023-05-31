@@ -26,10 +26,11 @@ export const darkTheme: MantineThemeOverride = {
     modal: ["#191919", "#111111"],
     title: ["#ffffff"],
     text: ["#bcc2c4"],
-    accent1: ["#99f5ff", "#48abe0"],
-    accent2: ["#7b61ff", "#7418b5"],
+    accent1: ["#99f5ff", "#48abe0", "#d4fbff"],
+    accent2: ["#7b61ff", "#7418b5", "#af9fff"],
     accent3: ["#ffc93f"],
     accent4: ["rgba(153, 245, 255, 1)", "rgba(153, 245, 255, 0.2)"], //for add buttons and leaf nodes
+    accent5: ["#303030", "rgba(237, 237, 237, 0.2)"],
   },
 };
 
@@ -52,9 +53,10 @@ export const lightTheme: MantineThemeOverride = {
     modal: ["#f4f4f4", "#ffffff"],
     title: ["#111111"],
     text: ["#8c9699"],
-    accent1: ["#2e83ff", "#578bf2"],
-    accent2: ["#7b61ff", "#7418b5"],
+    accent1: ["#2e83ff", "#578bf2", "#d4fbff"],
+    accent2: ["#7b61ff", "#7418b5", "#af9fff"],
     accent3: ["#ffa927"],
     accent4: ["rgba(123, 97, 255, 1)", "rgba(123, 97, 255, 0.17)"], //for add button and leaf nodes
+    accent5: ["#EDEDED", "rgba(237, 237, 237, 0.2)"],
   },
 };
