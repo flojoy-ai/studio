@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
   ConnectionLineType,
   EdgeTypes,
+  MiniMap,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -10,36 +14,35 @@ import {
   OnNodesChange,
   OnNodesDelete,
   ReactFlow,
-  MiniMap,
   ReactFlowProvider,
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
 } from "reactflow";
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
-import localforage from "localforage";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Box, Text, useMantineTheme } from "@mantine/core";
 import { AddNodeBtn } from "@src/AddNodeBtn";
-import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
+import { Layout } from "@src/Layout";
+import { TabActions } from "@src/TabActions";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import localforage from "localforage";
 import { useSearchParams } from "react-router-dom";
 import { Node } from "reactflow";
+import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
+import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
+import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import SidebarCustomContent from "./components/SidebarCustomContent";
-import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import Sidebar from "../common/Sidebar/Sidebar";
-import { Box, useMantineTheme } from "@mantine/core";
-import { useFlowChartState } from "@hooks/useFlowChartState";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { IconButton } from "@src/IconButton";
 
 localforage.config({
   name: "react-flow",
@@ -193,6 +196,11 @@ const FlowChartTab = () => {
     [loadFlowExportObject, setCtrlsManifest]
   );
 
+  const clearCanvas = useCallback(() => {
+    setNodes([]);
+    setEdges([]);
+  }, [setNodes, setEdges]);
+
   useEffect(() => {
     const filename = searchParams.get("test_example_app");
     if (filename) {
@@ -243,6 +251,22 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
+      <TabActions>
+        <IconButton
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+        >
+          <Text size="sm">Add Python Function</Text>
+        </IconButton>
+        <IconButton
+          onClick={() => clearCanvas()}
+          icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
+          ml="auto"
+          h="100%"
+        >
+          <Text size="sm">Clear Canvas</Text>
+        </IconButton>
+      </TabActions>
       <Sidebar
         sections={CMND_TREE}
         manifestMap={CMND_MANIFEST_MAP}
@@ -253,7 +277,7 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 100px)" }}
+          style={{ height: "calc(100vh - 150px)" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
@@ -281,16 +305,16 @@ const FlowChartTab = () => {
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
           >
-            <Box
-              className="top-row"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-            </Box>
+            {/* <Box */}
+            {/*   className="top-row" */}
+            {/*   style={{ */}
+            {/*     display: "flex", */}
+            {/*     justifyContent: "space-between", */}
+            {/*   }} */}
+            {/* > */}
+            {/*   <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} /> */}
+            {/*   <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} /> */}
+            {/* </Box> */}
             <MiniMap
               style={{
                 backgroundColor:

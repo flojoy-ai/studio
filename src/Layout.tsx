@@ -18,7 +18,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <ServerStatus serverStatus={serverStatus} />
       {/* The ServerStatus takes 70px */}
       <Header />
-      <main style={{ minHeight: "calc(100vh - 100px)" }}>{children}</main>
+      <main style={{ minHeight: "calc(100vh - 150px)" }}>{children}</main>
     </Box>
   );
 };

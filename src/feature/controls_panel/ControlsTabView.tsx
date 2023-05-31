@@ -3,11 +3,11 @@ import localforage from "localforage";
 import { useState } from "react";
 import "./style/Controls.css";
 
+import { Box, Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
 import { EditSwitch } from "@src/EditSwitch";
-import { Layout } from "@src/Layout";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
@@ -16,6 +16,10 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
+import { IconButton } from "@src/IconButton";
+import { Layout } from "@src/Layout";
+import { TabActions } from "@src/TabActions";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
@@ -37,6 +41,7 @@ export const useAddButtonStyle = createStyles((theme) => {
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = () => {
+  const theme = useMantineTheme();
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
   const {
@@ -168,20 +173,29 @@ const ControlsTab = () => {
   return (
     <Layout>
       <div data-testid="controls-tab">
-        <div
-          className="top-row"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <AddCTRLBtn
-            setCTRLSideBarStatus={setCtrlSidebarOpen}
-            setIsEditMode={setIsEditMode}
-            isCTRLSideBarOpen={ctrlSidebarOpen}
-          />
+        <TabActions gap={16}>
+          <IconButton
+            onClick={() => setCtrlSidebarOpen(true)}
+            icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          >
+            <Text size="sm">Add Control</Text>
+          </IconButton>
           <EditSwitch />
-        </div>
+        </TabActions>
+        {/* <div */}
+        {/*   className="top-row" */}
+        {/*   style={{ */}
+        {/*     display: "flex", */}
+        {/*     justifyContent: "space-between", */}
+        {/*   }} */}
+        {/* > */}
+        {/*   <AddCTRLBtn */}
+        {/*     setCTRLSideBarStatus={setCtrlSidebarOpen} */}
+        {/*     setIsEditMode={setIsEditMode} */}
+        {/*     isCTRLSideBarOpen={ctrlSidebarOpen} */}
+        {/*   /> */}
+        {/*   <EditSwitch /> */}
+        {/* </div> */}
         <ControlGrid
           controlProps={{
             isEditMode,
