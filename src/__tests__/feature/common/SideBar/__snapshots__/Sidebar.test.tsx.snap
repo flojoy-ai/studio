@@ -27,8 +27,9 @@ exports[`Sidebar should render the component correctly 1`] = `
       style="right: 10px; position: absolute; top: 5px;"
     >
       <button
+        class="mantine-UnstyledButton-root mantine-eo1vv"
         data-testid="sidebar-close"
-        style="cursor: pointer;"
+        type="button"
       >
         <div>
           <svg
