@@ -16,22 +16,26 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import localforage from "localforage";
-
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
+import { useLoaderData } from "react-router-dom";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
+import {
+  CMND_TREE,
+  getManifestParams,
+  getManifestCmdsMap,
+  ManifestParams,
+} from "@src/utils/ManifestLoader";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -44,8 +48,17 @@ localforage.config({
   storeName: "flows",
 });
 
+export const FlowChartTabLoader = () => {
+  const manifestParams: ManifestParams = getManifestParams();
+  return { manifestParams };
+};
+
 const FlowChartTab = () => {
+  const { manifestParams } = useLoaderData() as {
+    manifestParams: ManifestParams;
+  };
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
+
     useFlowChartState();
   const theme = useMantineTheme();
 
@@ -86,7 +99,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} />,
-    [nodes, edges]
+    [addNewNode]
   );
 
   const handleNodeRemove = useCallback(
@@ -204,7 +217,7 @@ const FlowChartTab = () => {
     <Layout>
       <Sidebar
         sections={CMND_TREE}
-        manifestMap={CMND_MANIFEST_MAP}
+        manifestMap={getManifestCmdsMap()}
         leafNodeClickHandler={addNewNode}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
@@ -219,6 +232,7 @@ const FlowChartTab = () => {
           <NodeEditMenu
             selectedNode={selectedNode}
             unSelectedNodes={unSelectedNodes}
+            manifestParams={manifestParams}
           />
 
           <ReactFlow

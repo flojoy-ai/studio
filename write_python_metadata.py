@@ -30,7 +30,7 @@ for single_file in file_paths:
         }
 
 s = json.dumps(obj=function_dict, indent=2)
-result = open("src/feature/flow_chart_panel/manifest/pythonFunctions.json", "w")
+result = open("src/data/pythonFunctions.json", "w")
 result.write(s)
 result.write("\n")
 result.close()

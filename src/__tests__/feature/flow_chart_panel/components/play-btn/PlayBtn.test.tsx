@@ -2,11 +2,9 @@ import { fireEvent, screen } from "@testing-library/react";
 import PlayBtn from "@src/feature/flow_chart_panel/components/play-btn/PlayBtn";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
-const theme = "light";
-
 describe("PlayBtn component", () => {
   it("renders correctly with default props", () => {
-    renderWithTheme(<PlayBtn />);
+    renderWithTheme(<PlayBtn onPlay={jest.fn()} />);
     const playBtn = screen.getByRole("button");
     expect(playBtn).toBeInTheDocument();
     expect(playBtn).not.toBeDisabled();
@@ -16,14 +14,14 @@ describe("PlayBtn component", () => {
 
   it("calls onClick function when clicked", () => {
     const handleClick = jest.fn();
-    renderWithTheme(<PlayBtn onClick={handleClick} />);
+    renderWithTheme(<PlayBtn onPlay={handleClick} />);
     const playBtn = screen.getByRole("button");
     fireEvent.click(playBtn);
     expect(handleClick).toHaveBeenCalled();
   });
 
   it("adds animation class on click", () => {
-    renderWithTheme(<PlayBtn />);
+    renderWithTheme(<PlayBtn onPlay={jest.fn()} />);
     const playBtn = screen.getByRole("button");
     fireEvent.click(playBtn);
     expect(playBtn).toHaveClass("animate");
@@ -31,7 +29,7 @@ describe("PlayBtn component", () => {
 
   it("removes animation class after 1 second", async () => {
     jest.useFakeTimers();
-    renderWithTheme(<PlayBtn />);
+    renderWithTheme(<PlayBtn onPlay={jest.fn()} />);
     const playBtn = screen.getByRole("button");
     fireEvent.click(playBtn);
     expect(playBtn).toHaveClass("animate");
@@ -40,7 +38,7 @@ describe("PlayBtn component", () => {
   });
 
   it("disables button when 'disabled' prop is true", () => {
-    renderWithTheme(<PlayBtn disabled={true} />);
+    renderWithTheme(<PlayBtn onPlay={jest.fn()} disabled={true} />);
     const playBtn = screen.getByRole("button");
     expect(playBtn).toBeDisabled();
     expect(playBtn).toHaveAttribute("title", "Server is offline");
