@@ -26,7 +26,7 @@ const useStyles = createStyles((theme) => {
         content: "''",
         borderBottom: `2px solid ${accent[0]}`,
         transform: "scaleX(0) translateY(24px)", // A bit hacky CSS, should probably find a better way
-        transition: "transform 200ms ease-in-out",
+        transition: "transform 250ms ease-in-out",
       },
       "&:hover": {
         "&:after": {
