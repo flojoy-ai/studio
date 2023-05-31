@@ -1,19 +1,71 @@
 import manifests from "@src/data/manifests-latest.json";
+import { fromZodError } from "zod-validation-error";
+import { z, ZodError } from "zod";
 
-type NodeElement = {
-  name: string;
-  type: string;
-  key: string;
-  inputs?: { name: string; id: string; type: string }[];
-  ui_component_id?: string;
-  pip_dependencies?: Array<{
-    name: string;
-    v?: string | number;
-  }>;
-}[];
+const commandsSchema = z.array(
+  z.object({
+    name: z.string(),
+    key: z.string(),
+    type: z.string(),
+    inputs: z.optional(
+      z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+    ),
+    ui_component_id: z.optional(z.string()),
+    pip_dependencies: z.optional(
+      z.array(z.object({ name: z.string(), v: z.optional(z.string()) }))
+    ),
+  })
+);
+
+const paramsSchema = z.record(
+  z.string(),
+  z.record(
+    z.string(),
+    z.object({
+      type: z.string(),
+      default: z.union([z.string(), z.number(), z.boolean()]),
+      options: z.optional(z.array(z.string())),
+    })
+  )
+);
+
+const manifestSchema = z.object({
+  commands: commandsSchema,
+  parameters: paramsSchema,
+});
+
+export type Manifest = z.infer<typeof manifestSchema>;
+export type ManifestParams = z.infer<typeof paramsSchema>;
+export type ManifestCommands = z.infer<typeof commandsSchema>;
+
+export function getManifestParams() {
+  try {
+    const parsedManifest: Manifest = manifestSchema.parse(manifests);
+    return parsedManifest.parameters;
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw e;
+    }
+  }
+}
+
+export function getManifestCmds() {
+  try {
+    const parsedManifest: Manifest = manifestSchema.parse(manifests);
+    return parsedManifest.commands;
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw new Error("something is seriously wrong");
+    }
+  }
+}
 
 export type CommandManifestMap = {
-  [key: string]: NodeElement;
+  [key: string]: ManifestCommands;
 };
 
 export type CommandSection = {
@@ -22,20 +74,18 @@ export type CommandSection = {
   key?: string;
 };
 
-const CMND_MANIFEST = manifests.commands;
-
-const CMND_MANIFEST_MAP: CommandManifestMap = manifests.commands.reduce(
-  (result, element) => {
+export function getManifestCmdsMap(): CommandManifestMap {
+  return getManifestCmds().reduce((result, element) => {
     if (element.type in result) {
       result[element.type] = [...result[element.type], element];
     } else {
       result[element.type] = [element];
     }
     return result;
-  },
-  {}
-);
+  }, {});
+}
 
+// TODO: should probably move this to a json file
 const CMND_TREE: CommandSection = {
   title: "ROOT",
   children: [
@@ -106,7 +156,6 @@ const CMND_TREE: CommandSection = {
         { title: "Terminators", key: "TERMINATOR", children: null },
       ],
     },
-
     {
       title: "Transformers",
       children: [
@@ -132,7 +181,6 @@ const CMND_TREE: CommandSection = {
         { title: "Array selection", key: "SELECT_ARRAY", children: null },
       ],
     },
-
     {
       title: "Visualizers",
       children: [
@@ -144,4 +192,4 @@ const CMND_TREE: CommandSection = {
   ],
 };
 
-export { CMND_MANIFEST, CMND_TREE, CMND_MANIFEST_MAP };
+export { CMND_TREE };

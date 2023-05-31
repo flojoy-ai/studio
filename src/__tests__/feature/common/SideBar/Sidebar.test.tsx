@@ -2,7 +2,7 @@ import { AddNodeBtn } from "@src/AddNodeBtn";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import Sidebar from "@src/feature/common/Sidebar/Sidebar";
 import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
-import { CMND_MANIFEST_MAP } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { getManifestCmdsMap } from "@src/utils/ManifestLoader";
 import { fireEvent } from "@testing-library/react";
 import { useState } from "react";
 
@@ -11,15 +11,11 @@ class ResizeObserver {
   unobserve() {}
 }
 
-jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
+jest.mock("@src/utils/ManifestLoader", () => {
   return {
-    Commmands: {},
-  };
-});
-
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
-  return {
+    Commands: {},
     FUNCTION_PARAMETERS: {},
+    getManifestCmdsMap: jest.fn(),
   };
 });
 
@@ -44,7 +40,7 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
         <AddNodeBtn setIsSidebarOpen={setSCRIPTSideBarStatus} />
         <Sidebar
           sections={{ title: "ROOT", children: [] }}
-          manifestMap={CMND_MANIFEST_MAP}
+          manifestMap={getManifestCmdsMap()}
           leafNodeClickHandler={addNewNode}
           isSideBarOpen={isSCRIPTSideBarOpen}
           setSideBarStatus={setSCRIPTSideBarStatus}

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Node } from "reactflow";
 import { ResultsType } from "../results_panel/types/ResultsType";
 import { FlowChartTabStateReturnType } from "./FlowChartTabState";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 
 export function useFlowChartTabEffects({
   results,

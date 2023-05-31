@@ -17,7 +17,7 @@ export const useSidebarStyles = createStyles((theme) => ({
     padding: `${theme.spacing.xs} ${theme.spacing.xs}`,
     color: "black",
     fontSize: theme.fontSizes.sm,
-    margin: "0px 20px 5px 20px",
+    margin: "0px 20px 10px 20px",
 
     borderRadius: 2,
     backgroundColor: theme.colors.accent1[0],
@@ -28,7 +28,6 @@ export const useSidebarStyles = createStyles((theme) => ({
         ? theme.colors.dark[6]
         : theme.colors.gray[0],
   },
-
   chevron: {
     transition: "transform 200ms ease",
     color:
@@ -96,9 +95,9 @@ const SidebarSection = ({
       </UnstyledButton>
       <Collapse in={opened}>
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + (depth + 1) * 8}px` }}>
+        <Box style={{ paddingLeft: `${10 + (depth + 1) * 8}px` }}>
           {children}
-        </div>
+        </Box>
       </Collapse>
     </>
   );
