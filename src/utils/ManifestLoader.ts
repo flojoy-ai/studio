@@ -46,7 +46,7 @@ export function getManifestParams() {
     if (e instanceof ZodError) {
       throw fromZodError(e);
     } else {
-      throw new Error("something is seriously wrong");
+      throw e;
     }
   }
 }
