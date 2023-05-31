@@ -4,7 +4,6 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Node, useOnSelectionChange } from "reactflow";
 import { ElementsData } from "../types/CustomNodeProps";
 import NodeModal from "./NodeModal";
-import { useFlowChartTabState } from "../FlowChartTabState";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;

@@ -207,15 +207,8 @@ const FlowChartTab = () => {
     if (selectedNode === null) {
       return;
     }
-    let nodeFileName =
-      selectedNode?.data.label === defaultPythonFnLabel ||
-      selectedNode?.data.type === defaultPythonFnType
-        ? "..."
-        : selectedNode?.data.label + ".py";
 
-    if (selectedNode.data.func === "CONSTANT") {
-      nodeFileName = selectedNode.data.func + ".py";
-    }
+    const nodeFileName = selectedNode.data.func + ".py";
     const pythonString = PYTHON_FUNCTIONS[nodeFileName];
 
     setNodeFileName(nodeFileName);

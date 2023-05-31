@@ -16,7 +16,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     height: "700px",
   },
   header: {
-    padding: "80px 450px 40px 82px",
+    padding: "60px 450px 30px 80px",
     borderRadius: 17,
   },
   title: {
@@ -27,7 +27,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     color: `${theme.colors.title[0]}`,
   },
   body: {
-    padding: "0px 65px",
+    padding: "10px 65px 40px",
   },
   close: {
     position: "absolute",
@@ -67,11 +67,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     width: 180,
     fontSize: 14,
     borderRadius: 35,
-    color: `${
-      theme.colorScheme === "dark"
-        ? theme.colors.accent1[0]
-        : theme.colors.accent1[0]
-    }`,
+    color: `${theme.colors.accent1[0]}`,
     borderColor: `${theme.colors.accent1[0]}`,
     backgroundColor: `${
       theme.colorScheme === "dark"
@@ -95,7 +91,7 @@ export const NodeModalStyles = createStyles((theme) => ({
 }));
 
 const getPath = (obj: CommandSection, key: string, paths: string[] = []) => {
-  if (obj.key! && obj.key!.includes(key)) {
+  if (obj.key !== undefined && obj.key.includes(key)) {
     let searchKey = "";
     switch (obj.key) {
       case "PLOTLY_VISOR":
@@ -111,7 +107,7 @@ const getPath = (obj: CommandSection, key: string, paths: string[] = []) => {
     return [searchKey];
   }
   if (obj.children !== null && obj.children.length > 0) {
-    if (obj.parentKey!) {
+    if (obj.parentKey !== undefined) {
       switch (obj.parentKey) {
         case "AI_ML":
           paths.push(obj.parentKey);
@@ -197,6 +193,10 @@ const NodeModal = ({
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
+  console.log("This is node Label: ", nodeLabel);
+  console.log("This is node Type: ", nodeType);
+  console.log("This is file name: ", nodeFileName);
+  console.log("This is selected data function: ", clickedElement.data.func);
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   let nodeCategory = "";
@@ -205,7 +205,7 @@ const NodeModal = ({
 
   let LINK = `${GLINK}`;
   if (getPath(CMND_TREE, nodeType) !== null) {
-    const path: string[] = getPath(CMND_TREE, nodeType)!;
+    const path = getPath(CMND_TREE, nodeType) as string[];
     let pathLength = path.length;
     if (nodeType === "STEPPER") pathLength = -1;
     nodeCategory = path[0];
@@ -220,9 +220,6 @@ const NodeModal = ({
       break;
     case "LOGIC_GATES":
       LINK = LINK + `S/${nodeFileName}`;
-      break;
-    case "LOADERS":
-      if (nodeDataLabel === "LOCAL_FILE") LINK = LINK + `/${nodeFileName}`;
       break;
     case "INSTRUMENTS":
       if (nodeType === "SERIAL")
