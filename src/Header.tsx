@@ -5,6 +5,7 @@ import {
   getBreakpointValue,
   em,
   useMantineTheme,
+  MediaQuery,
 } from "@mantine/core";
 import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
@@ -63,9 +64,7 @@ const Header = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const large = useMediaQuery(
-    `(min-width: ${getBreakpointValue(theme.breakpoints.sm)}px)`,
-    true,
-    { getInitialValueInEffect: false }
+    `(min-width: ${getBreakpointValue(theme.breakpoints.sm)}px)`
   );
 
   return (
