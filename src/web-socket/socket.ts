@@ -1,6 +1,5 @@
 import { IServerStatus } from "@src/context/socket.context";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import ServerStatus from "@src/ServerStatus";
 
 interface WebSocketServerProps {
   url: string;
@@ -135,7 +134,6 @@ export class WebSocketServer {
             "Connection Established",
             "Server Status"
           );
-          console.log("success");
           break;
         default:
           console.log(" default data type: ", data);

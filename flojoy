@@ -135,6 +135,8 @@ helpFunction()
    echo  " -p: To NOT install python packages"
    echo  " -s: To NOT update submodules"
    echo  " -S: To NOT enable Sentry"
+   echo  " -t: To enable local CI tests"
+   echo  " -T: To NOT enable Telemetry"
    echo 1 # Exit script after printing help
 }
 
@@ -164,6 +166,10 @@ do
         is_ci=true
         shift
         ;;
+        -T)
+        enableTelemetry=false
+        shift
+        ;;
         -S)
         enableSentry=false
         shift
@@ -174,10 +180,6 @@ do
         ;;
         -s)
         initSubmodule=false # don't update submodules, prevents overwriting local changes
-        shift
-        ;;
-        -telemetry)
-        telemetry=false #disable mixpanel telemetry, which is on by default
         shift
         ;;
         *) # unknown option

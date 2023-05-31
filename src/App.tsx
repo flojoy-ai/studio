@@ -21,7 +21,7 @@ import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import {
-  sendEventToMix,
+  disableTelemtry,
   sendFrontEndLoadsToMix,
 } from "@src/services/MixpanelServices";
 
@@ -71,6 +71,7 @@ const App = () => {
   }, [preJobOperation]);
 
   useEffect(() => {
+    disableTelemtry(true);
     sendFrontEndLoadsToMix();
   }, []);
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
