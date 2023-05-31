@@ -41,6 +41,7 @@ import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 localforage.config({
   name: "react-flow",
@@ -52,8 +53,10 @@ const FlowChartTab = () => {
   const [clickedElement, setClickedElement] = useState<Node | undefined>(
     undefined
   );
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
+  const { setCtrlsManifest } = useControlsState();
+
   const theme = useMantineTheme();
 
   const {

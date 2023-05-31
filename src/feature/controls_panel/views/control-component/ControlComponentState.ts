@@ -16,6 +16,7 @@ import {
 } from "../../types/ControlOptions";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
@@ -26,12 +27,9 @@ const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
 }: ControlComponentStateProps) => {
-  const {
-    rfInstance: flowChartObject,
-    ctrlsManifest,
-    setGridLayout,
-    isEditMode,
-  } = useFlowChartState();
+  const { rfInstance: flowChartObject, isEditMode } = useFlowChartState();
+
+  const { ctrlsManifest, setGridLayout } = useControlsState();
 
   const { nodes } = useFlowChartGraph();
 
