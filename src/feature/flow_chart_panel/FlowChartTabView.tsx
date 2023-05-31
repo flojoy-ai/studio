@@ -58,7 +58,6 @@ const FlowChartTab = () => {
     manifestParams: ManifestParams;
   };
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
-
     useFlowChartState();
   const theme = useMantineTheme();
 
