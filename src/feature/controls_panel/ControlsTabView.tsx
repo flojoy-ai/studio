@@ -3,9 +3,8 @@ import localforage from "localforage";
 import { useState } from "react";
 import "./style/Controls.css";
 
-import { Box, Text, useMantineTheme } from "@mantine/core";
+import { Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
-import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
 import { EditSwitch } from "@src/EditSwitch";
 import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
@@ -19,7 +18,7 @@ import { useSocket } from "@src/hooks/useSocket";
 import { IconButton } from "@src/IconButton";
 import { Layout } from "@src/Layout";
 import { TabActions } from "@src/TabActions";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
@@ -27,6 +26,7 @@ import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
+
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -50,13 +50,8 @@ const ControlsTab = () => {
 
   const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
-  const {
-    ctrlsManifest,
-    setCtrlsManifest,
-    isEditMode,
-    setIsEditMode,
-    gridLayout,
-  } = useFlowChartState();
+  const { ctrlsManifest, setCtrlsManifest, isEditMode, gridLayout } =
+    useFlowChartState();
 
   const { nodes, updateCtrlInputDataForNode } = useFlowChartGraph();
 

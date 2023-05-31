@@ -19,8 +19,7 @@ import {
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, Text, useMantineTheme } from "@mantine/core";
-import { AddNodeBtn } from "@src/AddNodeBtn";
+import { Text, useMantineTheme } from "@mantine/core";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
@@ -33,7 +32,6 @@ import { useSearchParams } from "react-router-dom";
 import { Node } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
-import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -305,16 +303,6 @@ const FlowChartTab = () => {
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
           >
-            {/* <Box */}
-            {/*   className="top-row" */}
-            {/*   style={{ */}
-            {/*     display: "flex", */}
-            {/*     justifyContent: "space-between", */}
-            {/*   }} */}
-            {/* > */}
-            {/*   <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} /> */}
-            {/*   <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} /> */}
-            {/* </Box> */}
             <MiniMap
               style={{
                 backgroundColor:
