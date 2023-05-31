@@ -3,7 +3,6 @@ import localforage from "localforage";
 import { useState } from "react";
 import "./style/Controls.css";
 
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { createStyles } from "@mantine/styles";
 import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
