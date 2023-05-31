@@ -34,7 +34,6 @@
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^6.11.1",
     "react-select": "^5.7.2",
-    "react-switch": "^7.0.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-tabs": "^6.0.1",
     "react-use": "^17.4.0",
