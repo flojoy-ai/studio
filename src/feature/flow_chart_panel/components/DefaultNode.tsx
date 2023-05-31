@@ -38,7 +38,7 @@ export const useNodeStyles = createStyles((theme) => {
           ? theme.colors.accent1[1]
           : theme.colors.accent2[0]
       } 0px 0px 27px 3px`,
-      borderRadius: "24px",
+      borderRadius: "8px",
     },
 
     simulationShadow: {
@@ -47,14 +47,17 @@ export const useNodeStyles = createStyles((theme) => {
           ? theme.colors.accent2[1]
           : theme.colors.accent1[1]
       } 0px 0px 27px 3px`,
+      borderRadius: "8px",
     },
 
     arithmeticShadow: {
       filter: `drop-shadow(0px 0px 20px ${theme.colors.accent3[0]})`,
+      borderRadius: "8px",
     },
 
     failShadow: {
       boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
+      borderRadius: "8px",
     },
   };
 });
