@@ -8,7 +8,7 @@ nodes_dir = "PYTHON/nodes"
 pattern = "*.py"
 
 # List to store the file paths
-file_paths:list[str] = []
+file_paths: list[str] = []
 badbadnotgood = ["VCTR.py", "__init__.py", ".DS_Store"]
 
 # Walk through all the directories and subdirectories
@@ -25,9 +25,9 @@ function_dict: dict[str, dict[str, str]] = dict()
 for single_file in file_paths:
     with open(single_file) as f:
         function_dict[os.path.basename(single_file)] = {
-            'metadata': f.read(),
-            'path' : single_file
-            }
+            "metadata": f.read(),
+            "path": single_file,
+        }
 
 s = json.dumps(obj=function_dict, indent=2)
 result = open("src/feature/flow_chart_panel/manifest/pythonFunctions.json", "w")

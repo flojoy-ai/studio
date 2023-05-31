@@ -6,7 +6,7 @@ import { ElementsData } from "./types/CustomNodeProps";
 
 export function useFlowChartTabEffects({
   results,
-   selectedNode,
+  selectedNode,
   setNd,
 }: FlowChartTabStateReturnType & {
   results: ResultsType | null;

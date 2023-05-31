@@ -72,14 +72,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -203,7 +197,7 @@ const FlowChartTab = () => {
     setPythonString,
     setNodeFilePath,
     windowWidth,
-    selectedNode
+    selectedNode,
   });
 
   return (

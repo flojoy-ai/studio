@@ -144,17 +144,19 @@ const NodeModal = ({
   nd,
   nodeFilePath,
   pythonString,
-  selectedNode
+  selectedNode,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
-  
+
   const colorScheme = theme.colorScheme;
 
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
-  const LINK = `${GLINK}/${nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "")}`
+  const LINK = `${GLINK}/${nodeFilePath
+    .replace("\\", "/")
+    .replace("PYTHON/nodes/", "")}`;
 
   return (
     <Modal
