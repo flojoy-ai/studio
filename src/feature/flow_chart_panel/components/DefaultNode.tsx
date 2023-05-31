@@ -1,4 +1,4 @@
-import { Box, clsx, createStyles } from "@mantine/core";
+import { Text, Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
@@ -78,7 +78,9 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Box>{data.label}</Box>
+          <Text weight={600} size="xl" sx={{ letterSpacing: 1 }}>
+            {data.label}
+          </Text>
           <Box
             display="flex"
             h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
