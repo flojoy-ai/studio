@@ -20,9 +20,6 @@ const PlayBtnIcon = ({ color }: PlayTimeIconProps) => {
         <path
           d="M8.5 4.63397C9.16667 5.01887 9.16667 5.98113 8.5 6.36603L1.75 10.2631C1.08333 10.648 0.25 10.1669 0.25 9.39711L0.25 1.60289C0.25 0.833085 1.08333 0.35196 1.75 0.73686L8.5 4.63397Z"
           fill={color}
-          // theme.colorScheme === "light"
-          //   ? theme.colors.accent2[0]
-          //   : theme.colors.accent1[0]
         />
       </svg>
     </div>
