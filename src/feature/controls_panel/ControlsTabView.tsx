@@ -177,20 +177,6 @@ const ControlsTab = () => {
           </IconButton>
           <EditSwitch />
         </TabActions>
-        {/* <div */}
-        {/*   className="top-row" */}
-        {/*   style={{ */}
-        {/*     display: "flex", */}
-        {/*     justifyContent: "space-between", */}
-        {/*   }} */}
-        {/* > */}
-        {/*   <AddCTRLBtn */}
-        {/*     setCTRLSideBarStatus={setCtrlSidebarOpen} */}
-        {/*     setIsEditMode={setIsEditMode} */}
-        {/*     isCTRLSideBarOpen={ctrlSidebarOpen} */}
-        {/*   /> */}
-        {/*   <EditSwitch /> */}
-        {/* </div> */}
         <ControlGrid
           controlProps={{
             isEditMode,
