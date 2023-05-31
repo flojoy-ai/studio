@@ -1,6 +1,7 @@
 import { Box } from "@mantine/core";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { Layout } from "plotly.js";
 import { Node, useOnSelectionChange } from "reactflow";
 import { ElementsData } from "../types/CustomNodeProps";
 import NodeModal from "./NodeModal";
@@ -8,10 +9,10 @@ import NodeModal from "./NodeModal";
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  nodeLabel: any;
-  nodeType: any;
+  nodeLabel: string;
+  nodeType: string;
   nd: ResultIO | null;
-  defaultLayout: any;
+  defaultLayout: Partial<Layout>;
   clickedElement: Node<ElementsData> | null;
   pythonString: string;
 };
@@ -26,7 +27,6 @@ export const NodeExpandMenu = ({
   pythonString,
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
-
   const onSelectionChange = () => {
     if (!clickedElement) {
       setIsExpandMode(false);
