@@ -31,17 +31,16 @@ describe("studio", () => {
       fully: true,
     });
 
-    cy.get('[data-testid="add-node-button"]').click();
-
+    cy.get('[data-handleid="SINE"]').click();
     cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
+      tag: "dark flow page with SINE menu",
       target: "window",
       fully: true,
     });
 
-    cy.get('[data-handleid="SINE"]').click();
+    cy.get('[data-testid="add-node-button"]').click();
     cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
+      tag: "dark flow page with add node sidebar",
       target: "window",
       fully: true,
     });
