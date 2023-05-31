@@ -5,7 +5,13 @@ import Select, { ThemeConfig } from "react-select";
 import customDropdownStyles from "../../style/CustomDropdownStyles";
 
 import useControlComponentEffects from "@hooks/useControlComponentEffects";
-import { Box, clsx, createStyles, useMantineColorScheme } from "@mantine/core";
+import {
+  Box,
+  clsx,
+  createStyles,
+  Text,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import {
   CtlManifestType,
@@ -255,7 +261,6 @@ const ControlComponent = ({
         justifyContent: "center",
         alignItems: "center",
         flex: "1",
-        padding: "16px",
       }}
       data-cy={ctrlObj.id}
     >
@@ -299,8 +304,17 @@ const ControlComponent = ({
         </Box>
       )}
       {!isEditMode && (
-        <p className="ctrl-param">Node: {selectedOption?.label}</p>
+        <Text
+          weight={600}
+          sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
+          w="100%"
+          ta="left"
+        >
+          {selectedOption?.label ?? "NODE: "}
+        </Text>
       )}
+
+      {/* TODO: Refactor this */}
       {ctrlObj.name === ControlNames.Plot && (
         <PlotControl
           nd={nd}
