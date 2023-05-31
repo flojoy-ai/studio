@@ -19,7 +19,6 @@ import {
 import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
 
 import localforage from "localforage";
-
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
@@ -28,7 +27,6 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useSearchParams } from "react-router-dom";
 import { Node } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
 import usePlotLayout from "../common/usePlotLayout";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -39,6 +37,7 @@ import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import Sidebar from "../common/Sidebar/Sidebar";
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 
@@ -98,7 +97,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} />,
-    [nodes, edges]
+    [addNewNode]
   );
 
   const handleNodeRemove = useCallback(
