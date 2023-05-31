@@ -1,14 +1,10 @@
 import mixpanel from "mixpanel-browser";
 import { Node } from "reactflow";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
+const enable = +(process.env.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
-let disable: boolean;
-export const disableTelemtry = (dis: boolean) => {
-  console.log(process.env.FLOJOY_ENABLE_TELEMETRY);
-  disable = dis;
-};
 export const sendFrontEndLoadsToMix = () => {
-  if (!disable) {
+  if (enable) {
     try {
       mixpanel.init(PROJECT_TOKEN, {
         debug: true,
@@ -22,14 +18,20 @@ export const sendFrontEndLoadsToMix = () => {
   }
 };
 //for frontier, go to LOADER.py
-export const sendProgramToMix = (nodes: Node[], runProgram = false) => {
-  if (nodes && !disable) {
+export const sendProgramToMix = (
+  nodes: Node[],
+  runProgram = false,
+  saveProgram = true
+) => {
+  if (nodes && enable) {
     const nodeList = JSON.stringify(nodes.map((node) => node.data.label));
-    sendMultipleDataEventToMix(
-      "Program Saved",
-      [nodeList, "disk"],
-      ["nodeList", "savedTo"]
-    );
+    if (saveProgram) {
+      sendMultipleDataEventToMix(
+        "Program Saved",
+        [nodeList, "disk"],
+        ["nodeList", "savedTo"]
+      );
+    }
     if (runProgram) {
       sendEventToMix("Program Run", nodeList, "nodeList");
     }
@@ -41,7 +43,7 @@ export const sendEventToMix = (
   data: string,
   dataType = "data"
 ) => {
-  if (!disable) {
+  if (enable) {
     try {
       mixpanel.track(Event, { [dataType]: data });
     } catch (e) {
@@ -56,7 +58,7 @@ export const sendMultipleDataEventToMix = (
   data: string[],
   dataType = ["data"]
 ) => {
-  if (!disable) {
+  if (enable) {
     try {
       const obj = {};
       for (let i = 0; i < data.length; i++) {

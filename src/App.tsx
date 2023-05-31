@@ -20,10 +20,7 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
-import {
-  disableTelemtry,
-  sendFrontEndLoadsToMix,
-} from "@src/services/MixpanelServices";
+import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +68,6 @@ const App = () => {
   }, [preJobOperation]);
 
   useEffect(() => {
-    disableTelemtry(true);
     sendFrontEndLoadsToMix();
   }, []);
   useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
