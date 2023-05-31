@@ -122,10 +122,7 @@ const useStyles = createStyles((theme) => {
     settingBtn: {
       right: 22,
       "&:hover": {
-        backgroundColor:
-          theme.colorScheme === "light"
-            ? theme.colors.accent2[2]
-            : theme.colors.accent1[2],
+        backgroundColor: theme.colors.accent4[1],
       },
     },
   };

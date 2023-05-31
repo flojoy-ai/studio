@@ -260,7 +260,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
             </div>
           </div>
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-1soyxyt"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-1q1h5jp"
             data-button="true"
             type="button"
           >
