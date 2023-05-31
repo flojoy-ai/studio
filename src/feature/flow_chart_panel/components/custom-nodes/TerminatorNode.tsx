@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, clsx, createStyles } from "@mantine/core";
+import { Text, Box, clsx, createStyles } from "@mantine/core";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
@@ -40,7 +40,9 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Box>{data.label}</Box>
+          <Text weight={600} size="xl" sx={{ letterSpacing: 1 }}>
+            {data.label}
+          </Text>
           <Box
             display="flex"
             h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
