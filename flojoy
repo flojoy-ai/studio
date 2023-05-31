@@ -61,6 +61,7 @@ is_ci=false
 test_ci=false
 initSubmodule=true
 enableSentry=true
+enableTelemetry=true
 
 # creating system links
 
@@ -173,6 +174,10 @@ do
         ;;
         -s)
         initSubmodule=false # don't update submodules, prevents overwriting local changes
+        shift
+        ;;
+        -telemetry)
+        telemetry=false #disable mixpanel telemetry, which is on by default
         shift
         ;;
         *) # unknown option
@@ -356,6 +361,16 @@ then
 else
   info_msg "Sentry will be disabled!"
   export FLOJOY_ENABLE_SENTRY=0
+fi
+
+# Setup Telemetry
+if [ $enableTelemetry = true ]
+then
+  info_msg "Telemetry will be enabled!"
+  export FLOJOY_ENABLE_TELEMETRY=1
+else
+  info_msg "Telemetry will be disabled!"
+  export FLOJOY_ENABLE_TELEMETRY=0
 fi
 
 cd $CWD

@@ -38,10 +38,7 @@ import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import {
-  sendProgramSavedToMix,
-  sendProgramRunToMix,
-} from "@src/services/MixpanelServices";
+import { sendProgramToMix } from "@src/services/MixpanelServices";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -197,7 +194,7 @@ const ControlBar = () => {
 
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      sendProgramSavedToMix(nodes, "disk");
+      sendProgramToMix(rfInstance.nodes);
     }
   };
 
@@ -215,9 +212,10 @@ const ControlBar = () => {
         ],
       });
       const writableStream = await handle.createWritable();
+
       await writableStream
         .write(blob)
-        .then(() => sendProgramSavedToMix(nodes, "disk"));
+        .then(() => sendProgramToMix(rfInstance.nodes));
       await writableStream.close();
     }
   };
@@ -244,6 +242,7 @@ const ControlBar = () => {
       setRfInstance(updatedRfInstance);
 
       saveFlowChartToLocalStorage(updatedRfInstance);
+      sendProgramToMix(rfInstance.nodes, true);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,

@@ -4,10 +4,6 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import {
-  sendProgramRunToMix,
-  sendProgramSavedToMix,
-} from "@src/services/MixpanelServices";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -27,7 +23,6 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
     const flowObj = rfInstance;
-    sendProgramSavedToMix(rfInstance.nodes, "disk");
     localforage.setItem(flowKey, flowObj);
   }
 }
@@ -78,7 +73,6 @@ export function saveAndRunFlowChartInServer({
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
-    sendProgramRunToMix(rfInstance.nodes);
 
     fetch(`${API_URI}/wfc`, {
       method: "POST",

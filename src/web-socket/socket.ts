@@ -1,4 +1,6 @@
 import { IServerStatus } from "@src/context/socket.context";
+import { sendEventToMix } from "@src/services/MixpanelServices";
+import ServerStatus from "@src/ServerStatus";
 
 interface WebSocketServerProps {
   url: string;
@@ -119,6 +121,7 @@ export class WebSocketServer {
                 : [],
             }));
           }
+          console.log(this.isConnected());
           break;
         case "connection_established":
           if (this.socketId) {
@@ -127,6 +130,12 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
           }
+          sendEventToMix(
+            "Initial Status",
+            "Connection Established",
+            "Server Status"
+          );
+          console.log("success");
           break;
         default:
           console.log(" default data type: ", data);
@@ -135,6 +144,7 @@ export class WebSocketServer {
     };
     this.server.onclose = this.onClose || null;
     this.server.onerror = (event) => {
+      sendEventToMix("Inital Status", "Connection Failed", "Server Status");
       console.log("Error Event: ", event);
       this.pingResponse(IServerStatus.OFFLINE);
     };

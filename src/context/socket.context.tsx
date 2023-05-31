@@ -2,6 +2,8 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+import { sendEventToMix } from "@src/services/MixpanelServices";
+import serverStatus from "@src/ServerStatus";
 
 type States = {
   programResults: ResultsType | null;

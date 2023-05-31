@@ -11,7 +11,6 @@ import {
   CommandManifestMap,
   CommandSection,
 } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
-import { sendNodeSearchedToMix } from "@src/services/MixpanelServices";
 import SidebarNode from "./SidebarNode";
 
 type leafClickHandler = (key: string) => void;
