@@ -52,7 +52,7 @@ export const sendEventToMix = (
   }
 };
 
-//@pre-condition: the input array of data and dataType must be the same size
+//pre-condition: the input array of data and dataType must be the same size
 export const sendMultipleDataEventToMix = (
   Event: string,
   data: string[],
