@@ -8,12 +8,12 @@ import NodeModal from "./NodeModal";
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  nodeLabel: any;
-  nodeType: any;
+  nodeLabel: string;
+  nodeType: string;
   nd: ResultIO | null;
-  defaultLayout: any;
-  clickedElement: Node<ElementsData> | null;
+  selectedNode: Node<ElementsData> | null;
   pythonString: string;
+  nodeFilePath: string;
 };
 
 export const NodeExpandMenu = ({
@@ -21,14 +21,14 @@ export const NodeExpandMenu = ({
   nodeLabel,
   nodeType,
   nd,
-  defaultLayout,
-  clickedElement,
+  selectedNode,
   pythonString,
+  nodeFilePath,
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
 
   const onSelectionChange = () => {
-    if (!clickedElement) {
+    if (!selectedNode) {
       setIsExpandMode(false);
     }
   };
@@ -37,17 +37,17 @@ export const NodeExpandMenu = ({
 
   return (
     <Box pos="relative" data-testid="node-modal">
-      {clickedElement && isExpandMode && (
+      {selectedNode && isExpandMode && (
         <NodeModal
           modalIsOpen={isExpandMode}
           closeModal={closeModal}
           nodeLabel={nodeLabel}
           nodeType={nodeType}
           nd={nd}
-          defaultLayout={defaultLayout}
-          clickedElement={clickedElement}
           pythonString={pythonString}
+          nodeFilePath={nodeFilePath}
           data-testid="expand-menu"
+          selectedNode={selectedNode}
         />
       )}
     </Box>

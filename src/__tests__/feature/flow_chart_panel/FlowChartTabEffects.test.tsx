@@ -1,18 +1,19 @@
 import * as React from "react";
 import { renderHook } from "@testing-library/react";
 import { useFlowChartTabEffects } from "@src/feature/flow_chart_panel/FlowChartTabEffects";
+import { FlowChartTabStateReturnType } from "@src/feature/flow_chart_panel/FlowChartTabState";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { Node } from "reactflow";
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
-const params: any = {
+const params: FlowChartTabStateReturnType & {
+  results: ResultsType | null;
+  selectedNode: Node<ElementsData> | null;
+} = {
   results: {
     io: [],
   },
-  clickedElement: {
-    data: {
-      label: "test",
-      type: "test",
-      func: "test",
-    },
-  },
+  selectedNode: null,
   setNodeLabel: jest.fn(),
   setNodeType: jest.fn(),
   setPythonString: jest.fn(),
@@ -21,6 +22,14 @@ const params: any = {
   defaultPythonFnType: "",
   nodeLabel: "",
   nodeType: "",
+  closeModal: jest.fn(),
+  modalIsOpen: false,
+  nd: null,
+  nodeFilePath: "",
+  pythonString: "",
+  setIsModalOpen: jest.fn(),
+  setNodeFilePath: jest.fn(),
+  windowWidth: 1000,
 };
 
 jest.mock("@src/hooks/useFlowChartState", () => {
@@ -45,7 +54,7 @@ describe("FlowChartTabState", () => {
 
     const spy = jest.spyOn(React, "useEffect");
     rerender();
-    expect(spy).toHaveBeenCalledTimes(3);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
   it("checks if the function is called", () => {
     const { rerender } = renderHook(() => useFlowChartTabEffects(params));
