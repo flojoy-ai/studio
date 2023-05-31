@@ -4,7 +4,7 @@ import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import PlotlyComponent from "../../common/PlotlyComponent";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
-import { useMantineTheme } from "@mantine/styles";
+import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
@@ -15,7 +15,7 @@ export const NodeModalStyles = createStyles((theme) => ({
     height: "700px",
   },
   header: {
-    padding: "60px 450px 30px 80px",
+    padding: "80px 80px 20px 80px",
     borderRadius: 17,
   },
   title: {
@@ -35,9 +35,8 @@ export const NodeModalStyles = createStyles((theme) => ({
       width: 40,
       height: 40,
     },
-    marginTop: 0,
-    marginBottom: 90,
-    marginLeft: 650,
+    right: 40,
+    top: 45,
   },
   buttonStyle1: {
     width: 180,
@@ -89,7 +88,7 @@ export const NodeModalStyles = createStyles((theme) => ({
   },
 }));
 
-const themeJSONTree = (theme) => {
+const themeJSONTree = (theme: MantineTheme) => {
   const darkJSONTree = {
     scheme: "flojoy",
     base00: `${theme.colors.modal[0]}`,

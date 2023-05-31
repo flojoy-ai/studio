@@ -56,6 +56,7 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
       pythonString: "...",
       defaultPythonFnLabel: "PYTHON FUNCTION",
       defaultPythonFnType: "PYTHON FUNCTION TYPE",
+      setNodeFilePath: jest.fn(),
     }),
   };
 });

@@ -1,15 +1,7 @@
 import { useMantineTheme } from "@mantine/core";
 
 type SyntaxTheme = {
-  [key: string]: {
-    display?: string;
-    overflowX?: string;
-    padding?: string;
-    color?: string;
-    background?: string;
-    fontStyle?: string;
-    fontWeight?: string;
-  };
+  [key: string]: React.CSSProperties;
 };
 
 export const useFlojoySyntaxTheme = () => {
@@ -17,8 +9,8 @@ export const useFlojoySyntaxTheme = () => {
   const darkFlojoy: SyntaxTheme = {
     hljs: {
       display: "block",
+      padding: "20px",
       overflowX: "auto",
-      padding: "0.5em",
       color: theme.colors.title[0],
       background: theme.colors.modal[0],
     },
@@ -126,8 +118,8 @@ export const useFlojoySyntaxTheme = () => {
   const lightFlojoy: SyntaxTheme = {
     hljs: {
       display: "block",
+      padding: "20px",
       overflowX: "auto",
-      padding: "0.5em",
       color: theme.colors.title[0],
       background: theme.colors.modal[0],
     },

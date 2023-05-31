@@ -23,8 +23,7 @@ const props: NodeModalProps = {
   },
   pythonString: "test-python-string",
   nodeFilePath: "test.py",
-  defaultLayout: undefined,
-  clickedElement: {},
+  selectedNode: null,
 };
 jest.mock("@src/data/manifests-latest.json", () => {
   return { __esModule: true, default: { commands: [] } };
