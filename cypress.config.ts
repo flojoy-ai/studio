@@ -4,6 +4,7 @@ const path = require("path");
 
 export default defineConfig({
   projectId: "aqkk6c",
+
   e2e: {
     video: false,
     baseUrl: "http://localhost:3000/",
@@ -43,5 +44,12 @@ export default defineConfig({
     numTestsKeptInMemory: 0,
     responseTimeout: 120e3,
     pageLoadTimeout: 100000,
+  },
+
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+    },
   },
 });
