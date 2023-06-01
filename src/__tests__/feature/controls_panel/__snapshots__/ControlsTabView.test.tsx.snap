@@ -537,7 +537,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 </div>
                 <div>
                   <button
-                    class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                    class="mantine-UnstyledButton-root mantine-o084mm"
                     data-cy="sidebar-section-btn"
                     type="button"
                   >
@@ -581,10 +581,11 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
+                        class="mantine-1avyp1d"
                         style="padding-left: 26px;"
                       >
                         <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                          class="mantine-UnstyledButton-root mantine-o084mm"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -628,6 +629,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
+                              class="mantine-1avyp1d"
                               style="padding-left: 34px;"
                             >
                               <div>
@@ -702,7 +704,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                          class="mantine-UnstyledButton-root mantine-o084mm"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -746,6 +748,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
+                              class="mantine-1avyp1d"
                               style="padding-left: 34px;"
                             >
                               <div>
@@ -820,7 +823,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                          class="mantine-UnstyledButton-root mantine-o084mm"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -864,6 +867,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
+                              class="mantine-1avyp1d"
                               style="padding-left: 34px;"
                             >
                               <div>
@@ -887,7 +891,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                           </div>
                         </div>
                         <button
-                          class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                          class="mantine-UnstyledButton-root mantine-o084mm"
                           data-cy="sidebar-section-btn"
                           type="button"
                         >
@@ -931,6 +935,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             style="opacity: 0; transition: opacity 200ms ease;"
                           >
                             <div
+                              class="mantine-1avyp1d"
                               style="padding-left: 34px;"
                             >
                               <div>
@@ -974,7 +979,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                     </div>
                   </div>
                   <button
-                    class="mantine-UnstyledButton-root mantine-1l7c9mr"
+                    class="mantine-UnstyledButton-root mantine-o084mm"
                     data-cy="sidebar-section-btn"
                     type="button"
                   >
@@ -1018,6 +1023,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       style="opacity: 0; transition: opacity 200ms ease;"
                     >
                       <div
+                        class="mantine-1avyp1d"
                         style="padding-left: 26px;"
                       >
                         <div>

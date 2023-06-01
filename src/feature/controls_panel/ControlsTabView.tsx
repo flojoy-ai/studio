@@ -7,7 +7,9 @@ import { Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import "@src/App.css";
 import { EditSwitch } from "@src/EditSwitch";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { IconButton } from "@src/IconButton";
+import { Layout } from "@src/Layout";
+import { TabActions } from "@src/TabActions";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
@@ -15,10 +17,9 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
-import { IconButton } from "@src/IconButton";
-import { Layout } from "@src/Layout";
-import { TabActions } from "@src/TabActions";
+import { ManifestParams, getManifestParams } from "@src/utils/ManifestLoader";
 import { IconPlus } from "@tabler/icons-react";
+import { useLoaderData } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
@@ -40,8 +41,17 @@ export const useAddButtonStyle = createStyles((theme) => {
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
+export const ControlsTabLoader = () => {
+  const manifestParams: ManifestParams = getManifestParams();
+  return { manifestParams };
+};
+
 const ControlsTab = () => {
   const theme = useMantineTheme();
+  const { manifestParams } = useLoaderData() as {
+    manifestParams: ManifestParams;
+  };
+
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
   const {
@@ -139,7 +149,7 @@ const ControlsTab = () => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    const fnParams = FUNCTION_PARAMETERS[param.functionName] || {};
+    const fnParams = manifestParams[param.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =

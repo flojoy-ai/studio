@@ -7,6 +7,8 @@ type ExtendedCustomColors =
   | "accent1"
   | "accent2"
   | "accent3"
+  | "accent4"
+  | "accent5"
   | DefaultMantineColor;
 
 declare module "@mantine/core" {

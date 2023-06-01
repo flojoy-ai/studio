@@ -458,21 +458,31 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           class="mantine-4mlmvu"
         >
           <button
-            class="mantine-1o4es46"
+            class="mantine-UnstyledButton-root mantine-Button-root mantine-11vbxlv"
+            data-button="true"
             data-testid="request-node-btn"
+            type="button"
           >
-            <a
-              class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
-              href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
-              style="text-decoration: none;"
-              target="_blank"
+            <div
+              class="mantine-1wpc1xj mantine-Button-inner"
             >
               <span
-                class="mantine-vt08jf"
+                class="mantine-1ryt1ht mantine-Button-label"
               >
-                Request a Node
+                <a
+                  class="mantine-Text-root mantine-Anchor-root mantine-90izhu"
+                  href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+                  style="text-decoration: none;"
+                  target="_blank"
+                >
+                  <span
+                    class="mantine-vt08jf"
+                  >
+                    Request a Node
+                  </span>
+                </a>
               </span>
-            </a>
+            </div>
           </button>
           <button
             class="mantine-vaeigl"

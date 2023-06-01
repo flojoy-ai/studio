@@ -11,4 +11,5 @@ module.exports = {
     children: React.ReactNode;
     testId: string;
   }) => <div>{children}</div>,
+  useLoaderData: jest.fn().mockReturnValue({ manifestParams: {} }),
 };
