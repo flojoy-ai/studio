@@ -1,5 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import Dropdown from "@src/feature/common/DropDown";
+import Dropdown from "@src/feature/common/Dropdown";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";

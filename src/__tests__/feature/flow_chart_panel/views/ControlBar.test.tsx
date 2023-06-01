@@ -26,7 +26,7 @@ jest.mock("@src/feature/flow_chart_panel/views/KeyboardShortcutModal", () => ({
   default: jest.fn(() => <div>KeyboardShortcutModal</div>),
 }));
 // Mock DropDown component
-jest.mock("@src/feature/common/DropDown", () => ({
+jest.mock("@src/feature/common/Dropdown", () => ({
   __esModule: true,
   default: jest.fn(() => <div>Dropdown</div>),
 }));

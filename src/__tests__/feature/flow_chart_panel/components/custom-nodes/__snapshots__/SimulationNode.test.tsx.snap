@@ -17,7 +17,7 @@ exports[`ConditionalNode checks the snapshot 1`] = `
           data-testid="data-label-design"
         >
           <div
-            class="mantine-1avyp1d"
+            class="mantine-Text-root mantine-amfnxg"
           >
             test
           </div>

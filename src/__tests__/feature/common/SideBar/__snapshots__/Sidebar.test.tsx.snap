@@ -3,23 +3,12 @@
 exports[`Sidebar should render the component correctly 1`] = `
 <div>
   <button
-    class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
-    data-button="true"
     data-testid="add-node-button"
-    type="button"
   >
-    <div
-      class="mantine-1wpc1xj mantine-Button-inner"
-    >
-      <span
-        class="mantine-1ryt1ht mantine-Button-label"
-      >
-        + Add Node
-      </span>
-    </div>
+    Add Node
   </button>
   <nav
-    class="mantine-Navbar-root mantine-17429x2"
+    class="mantine-Navbar-root mantine-19y8ij8"
     data-testid="sidebar"
   >
     <div
@@ -80,7 +69,7 @@ exports[`Sidebar should render the component correctly 1`] = `
         </div>
         <input
           aria-invalid="false"
-          class="mantine-Input-input mantine-e063mj"
+          class="mantine-Input-input mantine-15qjt8b"
           data-testid="sidebar-input"
           data-with-icon="true"
           name="sidebar-input"
