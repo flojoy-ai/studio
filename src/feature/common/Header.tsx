@@ -9,7 +9,7 @@ import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
-import ControlBar from "./feature/flow_chart_panel/views/ControlBar";
+import ControlBar from "@src/feature/flow_chart_panel/views/ControlBar";
 import { useWindowSize } from "react-use";
 
 const useStyles = createStyles((theme) => ({

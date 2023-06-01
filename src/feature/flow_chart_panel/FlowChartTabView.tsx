@@ -1,4 +1,17 @@
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Text, useMantineTheme } from "@mantine/core";
+import { nodeConfigs } from "@src/configs/NodeConfigs";
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
+import { IconButton } from "@src/feature/common/IconButton";
+import { Layout } from "@src/feature/common/Layout";
+import { TabActions } from "@src/feature/common/TabActions";
+import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useSocket } from "@src/hooks/useSocket";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import {
   addEdge,
   applyEdgeChanges,
@@ -16,37 +29,21 @@ import {
   ReactFlow,
   ReactFlowProvider,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, useMantineTheme } from "@mantine/core";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
-import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useSocket } from "@src/hooks/useSocket";
-import { Layout } from "@src/Layout";
-import { TabActions } from "@src/TabActions";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import localforage from "localforage";
-import { useSearchParams } from "react-router-dom";
-import { Node } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
-import usePlotLayout from "../common/usePlotLayout";
 import SidebarCustomContent from "./components/SidebarCustomContent";
-import { useLoaderData } from "react-router-dom";
 
+import {
+  CMND_TREE,
+  getManifestCmdsMap,
+  getManifestParams,
+  ManifestParams,
+} from "@src/utils/ManifestLoader";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import {
-  CMND_TREE,
-  getManifestParams,
-  getManifestCmdsMap,
-  ManifestParams,
-} from "@src/utils/ManifestLoader";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
-import { IconButton } from "@src/IconButton";
 
 localforage.config({
   name: "react-flow",

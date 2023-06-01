@@ -6,7 +6,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
-import { useFlowChartState } from "./hooks/useFlowChartState";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const useStyles = createStyles((theme) => {
   return {

@@ -6,10 +6,10 @@ import "./style/Controls.css";
 import { Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
 import "@src/App.css";
-import { EditSwitch } from "@src/EditSwitch";
-import { IconButton } from "@src/IconButton";
-import { Layout } from "@src/Layout";
-import { TabActions } from "@src/TabActions";
+import { EditSwitch } from "@src/feature/common/EditSwitch";
+import { IconButton } from "@src/feature/common/IconButton";
+import { Layout } from "@src/feature/common/Layout";
+import { TabActions } from "@src/feature/common/TabActions";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
@@ -17,7 +17,7 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
-import { ManifestParams, getManifestParams } from "@src/utils/ManifestLoader";
+import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
 import { IconPlus } from "@tabler/icons-react";
 import { useLoaderData } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";

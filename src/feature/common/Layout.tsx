@@ -1,6 +1,6 @@
 import Header from "./Header";
 import ServerStatus from "./ServerStatus";
-import { useSocket } from "./hooks/useSocket";
+import { useSocket } from "@src/hooks/useSocket";
 import { Box } from "@mantine/core";
 
 type LayoutProps = {
