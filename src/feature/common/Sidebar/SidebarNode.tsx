@@ -1,8 +1,5 @@
 import { createStyles, Divider, useMantineTheme } from "@mantine/core";
-import {
-  CommandManifestMap,
-  CommandSection,
-} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
 
 export const useSidebarStyles = createStyles((theme) => ({
@@ -22,7 +19,7 @@ export const useSidebarStyles = createStyles((theme) => ({
     border: `1px solid ${theme.colors.accent4[0]}`,
     backgroundColor: theme.colors.accent4[1],
     color: theme.colors.accent4[0],
-    padding: `${theme.spacing.xs}`,
+    padding: theme.spacing.xs,
     cursor: "pointer",
     margin: "5px",
     fontFamily: "monospace",
@@ -91,6 +88,7 @@ const SidebarNode = ({
         depth={depth + 1}
         expand={expand}
         collapse={collapse}
+        key={node.title}
       >
         {node.children.map((c) =>
           SidebarNode({
@@ -126,7 +124,7 @@ const SidebarNode = ({
   }
 
   return (
-    <div>
+    <div key={node.key}>
       <Divider
         variant="dashed"
         color={

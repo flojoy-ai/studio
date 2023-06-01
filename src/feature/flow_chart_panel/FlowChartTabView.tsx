@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -17,25 +17,26 @@ import {
   applyNodeChanges,
   useReactFlow,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
-
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import localforage from "localforage";
-
 import { AddNodeBtn } from "@src/AddNodeBtn";
 import { Layout } from "@src/Layout";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { useSearchParams } from "react-router-dom";
-import { Node } from "reactflow";
-import usePlotLayout from "../common/usePlotLayout";
+import { useLoaderData } from "react-router-dom";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { CMND_MANIFEST_MAP, CMND_TREE } from "./manifest/COMMANDS_MANIFEST";
+import {
+  CMND_TREE,
+  getManifestParams,
+  getManifestCmdsMap,
+  ManifestParams,
+} from "@src/utils/ManifestLoader";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -50,12 +51,16 @@ localforage.config({
   storeName: "flows",
 });
 
+export const FlowChartTabLoader = () => {
+  const manifestParams: ManifestParams = getManifestParams();
+  return { manifestParams };
+};
+
 const FlowChartTab = () => {
-  const [searchParams] = useSearchParams();
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+  const { manifestParams } = useLoaderData() as {
+    manifestParams: ManifestParams;
+  };
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
   const theme = useMantineTheme();
 
@@ -72,6 +77,8 @@ const FlowChartTab = () => {
     nodeType,
     pythonString,
     setPythonString,
+    nodeFilePath,
+    setNodeFilePath,
     defaultPythonFnLabel,
     defaultPythonFnType,
     setIsModalOpen,
@@ -82,15 +89,8 @@ const FlowChartTab = () => {
     isSelectAllNodes,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    loadFlowExportObject,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -103,7 +103,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} />,
-    [nodes, edges]
+    [addNewNode]
   );
 
   const handleNodeRemove = useCallback(
@@ -138,7 +138,6 @@ const FlowChartTab = () => {
       ),
     []
   );
-  const defaultLayout = usePlotLayout();
 
   const onInit: OnInit = (rfIns) => {
     const flowSize = 1107;
@@ -183,47 +182,16 @@ const FlowChartTab = () => {
     [setNodes]
   );
 
-  const fetchExampleApp = useCallback(
-    async (fileName: string) => {
-      const res = await fetch(`/example-apps/${fileName}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const data = await res.json();
-      setCtrlsManifest(data.ctrlsManifest);
-      const flow = data.rfInstance;
-      loadFlowExportObject(flow);
-    },
-    [loadFlowExportObject, setCtrlsManifest]
-  );
-
-  useEffect(() => {
-    const filename = searchParams.get("test_example_app");
-    if (filename) {
-      fetchExampleApp(filename);
-    }
-  }, []);
-
   useEffect(() => {
     if (selectedNode === null) {
       return;
     }
-    let pythonString =
-      selectedNode.data.label === defaultPythonFnLabel ||
-      selectedNode.data.type === defaultPythonFnType
-        ? "..."
-        : PYTHON_FUNCTIONS[selectedNode?.data.label + ".py"];
-
-    if (selectedNode.data.func === "CONSTANT") {
-      pythonString = PYTHON_FUNCTIONS[selectedNode.data.func + ".py"];
-    }
-
-    setPythonString(pythonString);
+    const nodeFileName = `${selectedNode?.data.func}.py`;
+    const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
+    setNodeFilePath(nodeFileData.path ?? "");
+    setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-    setClickedElement(selectedNode);
   }, [selectedNode]);
 
   const proOptions = { hideAttribution: true };
@@ -266,7 +234,6 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "9", () => deselectNodeShortCut());
 
   useFlowChartTabEffects({
-    clickedElement,
     results: programResults,
     closeModal,
     defaultPythonFnLabel,
@@ -276,21 +243,24 @@ const FlowChartTab = () => {
     nodeLabel,
     nodeType,
     pythonString,
+    nodeFilePath,
     setIsModalOpen,
     setNd,
     setNodeLabel,
     setNodeType,
     setPythonString,
+    setNodeFilePath,
     windowWidth,
     selectAllNodes,
     isSelectAllNodes,
+    selectedNode,
   });
 
   return (
     <Layout>
       <Sidebar
         sections={CMND_TREE}
-        manifestMap={CMND_MANIFEST_MAP}
+        manifestMap={getManifestCmdsMap()}
         leafNodeClickHandler={addNewNode}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
@@ -305,6 +275,7 @@ const FlowChartTab = () => {
           <NodeEditMenu
             selectedNode={selectAllNodes ? null : selectedNode}
             unSelectedNodes={unSelectedNodes}
+            manifestParams={manifestParams}
           />
 
           <FlowChartKeyboardShortcuts
@@ -321,14 +292,14 @@ const FlowChartTab = () => {
           />
 
           <NodeExpandMenu
-            clickedElement={selectedNode}
+            selectedNode={selectedNode}
             closeModal={closeModal}
-            defaultLayout={defaultLayout}
             modalIsOpen={modalIsOpen}
             nd={nd}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}
+            nodeFilePath={nodeFilePath}
           />
         </div>
       </ReactFlowProvider>

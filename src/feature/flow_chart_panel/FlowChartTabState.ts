@@ -12,6 +12,7 @@ export function useFlowChartTabState() {
   const [nodeLabel, setNodeLabel] = useState(defaultPythonFnLabel);
   const [nodeType, setNodeType] = useState(defaultPythonFnType);
   const [pythonString, setPythonString] = useState("...");
+  const [nodeFilePath, setNodeFilePath] = useState("...");
   const { setIsExpandMode } = useFlowChartState();
   const [selectAllNodes, isSelectAllNodes] = useState(false);
 
@@ -28,10 +29,12 @@ export function useFlowChartTabState() {
     setNd,
     nodeLabel,
     nodeType,
+    nodeFilePath,
+    pythonString,
     setNodeLabel,
     setNodeType,
+    setNodeFilePath,
     setPythonString,
-    pythonString,
     defaultPythonFnLabel,
     defaultPythonFnType,
     selectAllNodes,
