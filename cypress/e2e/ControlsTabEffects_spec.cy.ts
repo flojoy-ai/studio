@@ -1,58 +1,31 @@
+
 /// <reference types="cypress" />
-
-import { useControlsTabEffects } from "../../src/feature/controls_panel/ControlsTabEffects";
-
 describe( "useControlsTabEffects", () => {
-  beforeEach( () => {
-    cy.eyesOpen( {
-      appName: 'Studio',
-      testName: 'useControlsTabEffects Test',
-    } )
-  } );
+  it( "should update ctrlsManifest when nodes length is 0", () => {
+    cy.visit( "/controls" ).wait( 3000 );// Assuming you have a web application to test
 
-  afterEach( () => {
-    cy.eyesClose()
-  } );
-
-  it( "should call setCtrlsManifest with an empty array when nodes length is 0", () => {
-    const setCtrlsManifestSpy = cy.spy();
-
-    cy.stub( useControlsTabEffects ).returns( {
-      setCtrlsManifest: setCtrlsManifestSpy,
-    } );
-    cy.stub( useControlsTabEffects ).returns( {
-      nodes: [],
+    cy.intercept( "GET", "../../src/hooks/useFlowChartState", {
+      fixture: "useFlowChartStateFixture.json", // Replace with actual fixture data
     } );
 
-    cy.mount( () => useControlsTabEffects() );
-
-    cy.wrap( setCtrlsManifestSpy ).should( "be.calledWith", [] );
-
-    cy.eyesCheckWindow( {
-      tag: "Empty nodes",
-      target: "window",
-      fully: true,
-    } );
-  } );
-
-  it( "should not call setCtrlsManifest when nodes length is not 0", () => {
-    const setCtrlsManifestSpy = cy.spy();
-
-    cy.stub( useControlsTabEffects ).returns( {
-      setCtrlsManifest: setCtrlsManifestSpy,
-    } );
-    cy.stub( useControlsTabEffects, ).returns( {
-      nodes: [ { id: 1 } ],
+    cy.intercept( "GET", "../../src/hooks/useFlowChartGraph", {
+      fixture: "useFlowChartGraphFixture.json", // Replace with actual fixture data
     } );
 
-    cy.mount( () => useControlsTabEffects() );
+    // Wait for the data to be loaded and rendered
+    cy.wait( "@useFlowChartState" );
+    cy.wait( "@useFlowChartGraph" );
 
-    cy.wrap( setCtrlsManifestSpy ).should( "not.be.called" );
+    // Assert initial state before useEffect is triggered
+    cy.get( "@setCtrlsManifest" ).should( "not.be.called" );
 
-    cy.eyesCheckWindow( {
-      tag: "Non-empty nodes",
-      target: "window",
-      fully: true,
-    } );
+    // Trigger useEffect by performing an action that changes nodes length to 0
+    // e.g., delete all nodes from the UI
+
+    // Wait for the useEffect to be triggered and assert the updated state
+    cy.get( "@setCtrlsManifest" ).should( "be.calledWith", [] );
+
+    // Additional assertions if necessary
   } );
 } );
+

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useFlowChartState } from "../../hooks/useFlowChartState";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useFlowChartGraph } from "../../hooks/useFlowChartGraph";
 
-export function useControlsTabEffects() {
+export function useControlsTabEffects () {
   const { setCtrlsManifest } = useFlowChartState();
   const { nodes } = useFlowChartGraph();
 
-  useEffect(() => {
-    if (nodes.length === 0) {
-      setCtrlsManifest([]);
+  useEffect( () => {
+    if ( nodes.length === 0 ) {
+      setCtrlsManifest( [] );
     }
-  }, [nodes]);
+  }, [ nodes ] );
 }

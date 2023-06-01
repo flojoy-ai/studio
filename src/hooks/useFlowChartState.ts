@@ -64,37 +64,37 @@ const initialManifests: CtlManifestType[] = [
     },
   },
 ];
-const failedNodeAtom = atomWithImmer<string>("");
-const runningNodeAtom = atomWithImmer<string>("");
-const showLogsAtom = atomWithImmer<boolean>(false);
+const failedNodeAtom = atomWithImmer<string>( "" );
+const runningNodeAtom = atomWithImmer<string>( "" );
+const showLogsAtom = atomWithImmer<boolean>( false );
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
->(undefined);
-const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
-const editModeAtom = atomWithImmer<boolean>(false);
-const expandModeAtom = atomWithImmer<boolean>(false);
+>( undefined );
+const manifestAtom = atomWithImmer<CtlManifestType[]>( initialManifests );
+const editModeAtom = atomWithImmer<boolean>( false );
+const expandModeAtom = atomWithImmer<boolean>( false );
 const gridLayoutAtom = atomWithImmer<Layout[]>(
-  initialManifests.map((ctrl) => ({
+  initialManifests.map( ( ctrl ) => ( {
     ...ctrl.layout,
-  }))
+  } ) )
 );
-const apiKeyAtom = atomWithImmer<string>("");
-const isSidebarOpenAtom = atom<boolean>(false);
-const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
-localforage.config({ name: "react-flow", storeName: "flows" });
+const apiKeyAtom = atomWithImmer<string>( "" );
+const isSidebarOpenAtom = atom<boolean>( false );
+const nodeParamChangedAtom = atom<boolean | undefined>( undefined );
+localforage?.config( { name: "react-flow", storeName: "flows" } );
 
-export function useFlowChartState() {
-  const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
-  const [ctrlsManifest, setCtrlsManifest] = useAtom(manifestAtom);
-  const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
-  const [isExpandMode, setIsExpandMode] = useAtom(expandModeAtom);
-  const [gridLayout, setGridLayout] = useAtom(gridLayoutAtom);
-  const [showLogs, setShowLogs] = useAtom(showLogsAtom);
-  const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
-  const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
-  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
-  const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
-  const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
+export function useFlowChartState () {
+  const [ rfInstance, setRfInstance ] = useAtom( rfInstanceAtom );
+  const [ ctrlsManifest, setCtrlsManifest ] = useAtom( manifestAtom );
+  const [ isEditMode, setIsEditMode ] = useAtom( editModeAtom );
+  const [ isExpandMode, setIsExpandMode ] = useAtom( expandModeAtom );
+  const [ gridLayout, setGridLayout ] = useAtom( gridLayoutAtom );
+  const [ showLogs, setShowLogs ] = useAtom( showLogsAtom );
+  const [ runningNode, setRunningNode ] = useAtom( runningNodeAtom );
+  const [ failedNode, setFailedNode ] = useAtom( failedNodeAtom );
+  const [ apiKey, setApiKey ] = useAtom( apiKeyAtom );
+  const [ isSidebarOpen, setIsSidebarOpen ] = useAtom( isSidebarOpenAtom );
+  const [ nodeParamChanged, setNodeParamChanged ] = useAtom( nodeParamChangedAtom );
 
   return {
     rfInstance,
