@@ -5,7 +5,7 @@ exports[`Sidebar should render the component correctly 1`] = `
   <button
     class="mantine-UnstyledButton-root mantine-Button-root mantine-nbw8xs"
     data-button="true"
-    data-cy="add-node-button"
+    data-testid="add-node-button"
     type="button"
   >
     <div
