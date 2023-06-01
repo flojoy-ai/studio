@@ -1,4 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import FlowChartKeyboardShortcuts from "@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
@@ -32,6 +33,14 @@ jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => {
 jest.mock("@src/services/FlowChartServices", () => {
   return {
     saveFlowChartToLocalStorage: () => jest.fn(),
+  };
+});
+
+jest.mock("@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts", () => {
+  return {
+    default: jest.fn(() => {
+      return <div></div>;
+    }),
   };
 });
 
@@ -86,8 +95,6 @@ jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
   };
 });
 
-jest.mock("react-router-dom");
-
 jest.mock(
   "@src/feature/flow_chart_panel/manifest/pythonFunctions.json",
   () => ({
@@ -117,15 +124,8 @@ describe("FlowChartTabView", () => {
   ])("should contain %p component", (msg, testId) => {
     const { getByTestId, getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
-    let component;
-
-    if (testId === "react-flow") {
-      component = getAllByTestId(testId);
-      expect(component).toHaveLength(2);
-    } else {
-      component = getByTestId(testId);
-      expect(component).toBeInTheDocument();
-    }
+    const component = getByTestId(testId);
+    expect(component).toBeInTheDocument();
   });
 
   it("checks the reactflow style", () => {

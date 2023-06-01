@@ -18,28 +18,24 @@ const useKeyboardShortcut = (
           if (event.key === shortcut && event.ctrlKey) {
             event.preventDefault();
             callbackRef.current();
-            event.stopPropagation();
           }
           break;
         case "alt":
           if (event.key === shortcut && event.altKey) {
             event.preventDefault();
             callbackRef.current();
-            event.stopPropagation();
           }
           break;
         case "shift":
           if (event.key === shortcut && event.shiftKey) {
             event.preventDefault();
             callbackRef.current();
-            event.stopPropagation();
           }
           break;
         case "meta":
           if (event.key === shortcut && event.metaKey) {
             event.preventDefault();
             callbackRef.current();
-            event.stopPropagation();
           }
           break;
       }
