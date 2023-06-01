@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
-import ControlsTab from "./feature/controls_panel/ControlsTabView";
-import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
+import ControlsTab, {
+  ControlsTabLoader,
+} from "./feature/controls_panel/ControlsTabView";
+import FlowChartTab, {
+  FlowChartTabLoader,
+} from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { useDisclosure } from "@mantine/hooks";
@@ -12,7 +16,11 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  useRouteError,
+} from "react-router-dom";
 import "./App.css";
 import { CustomFonts } from "./feature/common/CustomFonts";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
@@ -20,18 +28,31 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+import { ErrorPage } from "./ErrorPage";
+
+function ErrorBoundary() {
+  const error: Error = useRouteError() as Error;
+  return (
+    <ErrorPage error={error} resetErrorBoundary={() => location.reload()} />
+  );
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
+    loader: FlowChartTabLoader,
+    errorElement: <ErrorBoundary />,
     element: <FlowChartTab />,
   },
   {
     path: "/controls",
+    loader: ControlsTabLoader,
+    errorElement: <ErrorBoundary />,
     element: <ControlsTab />,
   },
   {
     path: "/debug",
+    errorElement: <ErrorBoundary />,
     element: <ResultsTab />,
   },
 ]);

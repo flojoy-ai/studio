@@ -51,9 +51,12 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
       setNodeLabel: jest.fn(),
       setNodeType: jest.fn(),
       setPythonString: jest.fn(),
+      setNodeFileName: jest.fn(),
+      nodeFileName: "test.py",
       pythonString: "...",
       defaultPythonFnLabel: "PYTHON FUNCTION",
       defaultPythonFnType: "PYTHON FUNCTION TYPE",
+      setNodeFilePath: jest.fn(),
     }),
   };
 });
@@ -74,28 +77,21 @@ jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useSocket");
 
-jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
+jest.mock("@src/utils/ManifestLoader", () => {
   return {
     CMND_TREE: { title: "ROOT", child: [] },
     CMND_MANIFEST_MAP: {},
-  };
-});
-
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
-  return {
     FUNCTION_PARAMETERS: {},
+    getManifestCmdsMap: jest.fn(),
   };
 });
 
 jest.mock("react-router-dom");
 
-jest.mock(
-  "@src/feature/flow_chart_panel/manifest/pythonFunctions.json",
-  () => ({
-    __esModule: true,
-    default: {},
-  })
-);
+jest.mock("@src/data/pythonFunctions.json", () => ({
+  __esModule: true,
+  default: {},
+}));
 
 jest.mock("@src/configs/NodeConfigs", () => ({
   __esModule: true,

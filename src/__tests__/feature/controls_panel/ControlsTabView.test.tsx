@@ -35,7 +35,7 @@ jest.mock("@src/feature/controls_panel/views/ControlGrid", () => ({
 }));
 
 // mock `PARAMETERS_MANIFEST`
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
+jest.mock("@src/utils/ManifestLoader", () => ({
   FUNCTION_PARAMETERS: {
     ADD: {
       a: { default: 0 },
