@@ -33,7 +33,7 @@ export const AddNodeBtn = ({ setIsSidebarOpen }: AddNodeBtnProps) => {
 
   return (
     <Button
-      data-testid="add-node-button"
+      data-cy="add-node-button"
       className={classes.button}
       onClick={() => setIsSidebarOpen((prev) => !prev)}
     >
