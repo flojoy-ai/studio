@@ -1,5 +1,6 @@
 import { Box, createStyles } from "@mantine/core";
 import React, { useRef } from "react";
+
 const useStyles = createStyles((theme) => {
   return {
     dropdownWrapper: {
@@ -32,6 +33,7 @@ const useStyles = createStyles((theme) => {
         width: "100%",
         textAlign: "start",
         whiteSpace: "nowrap",
+        cursor: "pointer",
         color: theme.colors.title[0],
       },
       "> button.disabled": {
@@ -47,25 +49,27 @@ const useStyles = createStyles((theme) => {
     },
   };
 });
-interface DropDownProps {
+
+interface DropdownProps {
   children: React.ReactNode;
-  dropDownBtn: React.ReactNode;
+  dropdownBtn: React.ReactNode;
 }
-const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
+
+const Dropdown = ({ children, dropdownBtn }: DropdownProps) => {
   const { classes } = useStyles();
-  const DropDownElem = useRef<HTMLDivElement>(null);
+  const DropdownElem = useRef<HTMLDivElement>(null);
   const openDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "1";
-      DropDownElem.current.style.zIndex = "50";
-      DropDownElem.current.style.transform = "translateY(0)";
+    if (DropdownElem.current) {
+      DropdownElem.current.style.opacity = "1";
+      DropdownElem.current.style.zIndex = "50";
+      DropdownElem.current.style.transform = "translateY(0)";
     }
   };
   const closeDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "0";
-      DropDownElem.current.style.zIndex = "-1";
-      DropDownElem.current.style.transform = "translateY(-10%)";
+    if (DropdownElem.current) {
+      DropdownElem.current.style.opacity = "0";
+      DropdownElem.current.style.zIndex = "-1";
+      DropdownElem.current.style.transform = "translateY(-10%)";
     }
   };
   return (
@@ -76,11 +80,11 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
       onMouseEnter={openDropDown}
       onMouseLeave={closeDropDown}
     >
-      {dropDownBtn}
+      {dropdownBtn}
       <Box
         data-testid="dropdown-container"
         className={classes.dropdownContainer}
-        ref={DropDownElem}
+        ref={DropdownElem}
         onMouseLeave={closeDropDown}
       >
         {children}
@@ -88,4 +92,4 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
     </Box>
   );
 };
-export default DropDown;
+export default Dropdown;

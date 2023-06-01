@@ -7,7 +7,7 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
-import DropDown from "@src/feature/common/DropDown";
+import Dropdown from "@src/feature/common/Dropdown";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
@@ -354,7 +354,7 @@ const ControlBar = () => {
             <Text>Cancel</Text>
           </button>
         )}
-        <DropDown dropDownBtn={<FileButton />}>
+        <Dropdown dropdownBtn={<FileButton />}>
           <button
             onClick={() => setIsAPIKeyModelOpen(true)}
             style={{ display: "flex", gap: 7.5 }}
@@ -376,7 +376,7 @@ const ControlBar = () => {
             <KeyBoardIconSvg />
             Keyboard Shortcut
           </button>
-        </DropDown>
+        </Dropdown>
 
         <UnstyledButton
           onClick={() => setIsSettingsOpen(true)}
