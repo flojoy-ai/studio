@@ -31,7 +31,7 @@ describe("studio", () => {
       fully: true,
     });
 
-    cy.get('[data-cy="add-node-button"]').click();
+    cy.get('[data-testid="add-node-button"]').click();
 
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
