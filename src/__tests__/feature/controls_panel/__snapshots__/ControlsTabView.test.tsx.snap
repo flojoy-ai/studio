@@ -355,11 +355,13 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </button>
           <div
-            class="mantine-1glwo61"
+            class="mantine-12evbdh"
             data-cy="edit-switch"
+            id="edit-switch-wrapper"
           >
             <div
-              class="mantine-Text-root mantine-j4kjdy"
+              class="mantine-Text-root mantine-efmku9"
+              id="edit-switch-text"
             >
               Edit
             </div>
@@ -371,12 +373,12 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               >
                 <input
                   class="mantine-19htmtn mantine-Switch-input"
-                  id="mantine-1x61irgyd"
+                  id="edit-switch"
                   type="checkbox"
                 />
                 <label
                   class="mantine-8py79d mantine-Switch-track"
-                  for="mantine-1x61irgyd"
+                  for="edit-switch"
                 >
                   <div
                     class="mantine-i45em0 mantine-Switch-thumb"

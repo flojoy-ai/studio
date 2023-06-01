@@ -8,20 +8,15 @@ import {
 import { IconCheck } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
-const useStyles = createStyles((theme) => {
-  return {
-    editContainer: {
-      display: "flex",
-      margin: 10,
-      gap: "8px",
-      paddingRight: "4px",
-      alignItems: "center",
-    },
-    editText: {
-      color: theme.colors.text[0],
-    },
-  };
-});
+const useStyles = createStyles(() => ({
+  container: {
+    display: "flex",
+    margin: 10,
+    paddingRight: 4,
+    gap: 8,
+    alignItems: "center",
+  },
+}));
 
 export const EditSwitch = () => {
   const { classes } = useStyles();
@@ -29,8 +24,12 @@ export const EditSwitch = () => {
   const theme = useMantineTheme();
 
   return (
-    <Box className={classes.editContainer} data-cy="edit-switch">
-      <Text size="sm" className={classes.editText}>
+    <Box
+      className={classes.container}
+      data-cy="edit-switch"
+      id="edit-switch-wrapper"
+    >
+      <Text size="sm" color={theme.colors.text[0]} id="edit-switch-text">
         Edit
       </Text>
       <Switch
@@ -39,6 +38,7 @@ export const EditSwitch = () => {
         size="sm"
         color="gray"
         onLabel={<IconCheck size={16} color={theme.colors.accent1[0]} />}
+        id="edit-switch"
       />
     </Box>
   );
