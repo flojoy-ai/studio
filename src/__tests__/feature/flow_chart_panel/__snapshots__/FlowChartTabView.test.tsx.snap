@@ -515,6 +515,9 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
           />
           <div />
           <div
+            data-testid="react-flow"
+          />
+          <div
             class="mantine-n8y7xk"
             data-testid="node-modal"
           />

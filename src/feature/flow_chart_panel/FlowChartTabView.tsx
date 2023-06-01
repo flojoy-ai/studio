@@ -85,8 +85,6 @@ const FlowChartTab = () => {
     setNd,
     setNodeLabel,
     setNodeType,
-    selectAllNodes,
-    isSelectAllNodes,
   } = useFlowChartTabState();
 
   const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
@@ -196,25 +194,23 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const selectAllNodesShortCut = () => {
+  const selectAllNodesShortcut = () => {
     setNodes((nodes) => {
       nodes.map((node) => {
         node.selected = true;
       });
     });
-    isSelectAllNodes(true);
   };
 
-  const deselectAllNodeShortCut = () => {
+  const deselectAllNodeShortcut = () => {
     setNodes((nodes) => {
       nodes.map((node) => {
         node.selected = false;
       });
     });
-    isSelectAllNodes(false);
   };
 
-  const deselectNodeShortCut = () => {
+  const deselectNodeShortcut = () => {
     setNodes((nodes) => {
       nodes.map((node) => {
         if (selectedNode !== null && node.id === selectedNode.id) {
@@ -222,16 +218,15 @@ const FlowChartTab = () => {
         }
       });
     });
-    isSelectAllNodes(false);
   };
 
-  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortCut());
-  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortCut());
-  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortCut());
+  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
 
-  useKeyboardShortcut("meta", "a", () => selectAllNodesShortCut());
-  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortCut());
-  useKeyboardShortcut("meta", "9", () => deselectNodeShortCut());
+  useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
   useFlowChartTabEffects({
     results: programResults,
@@ -251,8 +246,6 @@ const FlowChartTab = () => {
     setPythonString,
     setNodeFilePath,
     windowWidth,
-    selectAllNodes,
-    isSelectAllNodes,
     selectedNode,
   });
 
@@ -273,23 +266,63 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={selectAllNodes ? null : selectedNode}
+            selectedNode={nodes.every((n) => n.selected) ? null : selectedNode}
             unSelectedNodes={unSelectedNodes}
             manifestParams={manifestParams}
           />
 
-          <FlowChartKeyboardShortcuts
+          <FlowChartKeyboardShortcuts />
+
+          <ReactFlow
+            style={{
+              position: "fixed",
+              height: "100%",
+              width: "50%",
+            }}
+            proOptions={proOptions}
             nodes={nodes}
             nodeTypes={nodeTypes}
             edges={edges}
             edgeTypes={edgeTypes}
+            connectionLineType={ConnectionLineType.Step}
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            handleNodeDrag={handleNodeDrag}
-            handleNodesDelete={handleNodesDelete}
-          />
+            onNodeDragStop={handleNodeDrag}
+            onNodesDelete={handleNodesDelete}
+          >
+            <Box
+              className="top-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
+              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
+            </Box>
+            <MiniMap
+              style={{
+                backgroundColor:
+                  theme.colorScheme === "light"
+                    ? "rgba(0, 0, 0, 0.1)"
+                    : "rgba(255, 255, 255, 0.1)",
+              }}
+              nodeColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.25)"
+                  : "rgba(255, 255, 255, 0.25)"
+              }
+              maskColor={
+                theme.colorScheme === "light"
+                  ? "rgba(0, 0, 0, 0.05)"
+                  : "rgba(255, 255, 255, 0.05)"
+              }
+              zoomable
+              pannable
+            />
+          </ReactFlow>
 
           <NodeExpandMenu
             selectedNode={selectedNode}
