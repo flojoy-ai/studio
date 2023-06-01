@@ -14,6 +14,7 @@ const params: FlowChartTabStateReturnType & {
     io: [],
   },
   selectedNode: null,
+  selectAllNodes: false,
   setNodeLabel: jest.fn(),
   setNodeType: jest.fn(),
   setPythonString: jest.fn(),
@@ -30,6 +31,7 @@ const params: FlowChartTabStateReturnType & {
   setIsModalOpen: jest.fn(),
   setNodeFilePath: jest.fn(),
   windowWidth: 1000,
+  isSelectAllNodes: jest.fn(),
 };
 
 jest.mock("@src/hooks/useFlowChartState", () => {

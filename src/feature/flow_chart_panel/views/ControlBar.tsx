@@ -215,6 +215,7 @@ const LoadButton = () => {
 
 const ControlBar = () => {
   const { states } = useSocket();
+  const { nodes, edges } = useFlowChartGraph();
   const { socketId, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
@@ -333,10 +334,11 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
+  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
   useKeyboardShortcut("ctrl", "c", cancelFC);
   useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
 
-  useKeyboardShortcut("meta", "p", onRun);
+  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
   useKeyboardShortcut("meta", "c", cancelFC);
   useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
