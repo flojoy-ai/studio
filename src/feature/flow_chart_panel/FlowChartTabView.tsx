@@ -16,7 +16,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "./manifest/pythonFunctions.json";
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Text, useMantineTheme } from "@mantine/core";
 import { nodeConfigs } from "@src/configs/NodeConfigs";

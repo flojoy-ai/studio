@@ -6,12 +6,6 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 jest.mock("@src/hooks/useFlowChartState");
 // Mock useSocket hook
 jest.mock("@src/hooks/useSocket");
-jest.mock("react-switch", () => ({
-  __esModule: true,
-  default: jest.fn(() => {
-    return <div data-testid="react-switch" />;
-  }),
-}));
 jest.mock("react-modal");
 // Mock saveFlowChartToLocalStorage, saveAndRunFlowChartInServer, and cancelFlowChartRun functions
 jest.mock("@src/services/FlowChartServices", () => ({
