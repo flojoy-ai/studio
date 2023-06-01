@@ -3,16 +3,14 @@ import {
   Header as MantineHeader,
   createStyles,
   getBreakpointValue,
-  em,
   useMantineTheme,
-  MediaQuery,
 } from "@mantine/core";
 import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import ControlBar from "./feature/flow_chart_panel/views/ControlBar";
-import { useMediaQuery } from "@mantine/hooks";
+import { useWindowSize } from "react-use";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -63,9 +61,10 @@ const tabs = [
 const Header = () => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
-  const large = useMediaQuery(
-    `(min-width: ${getBreakpointValue(theme.breakpoints.sm)}px)`
-  );
+
+  // Actual media query causes flickering... need to use this manual one
+  const { width } = useWindowSize();
+  const large = width > getBreakpointValue(theme.breakpoints.sm);
 
   return (
     <MantineHeader height="70px" className={classes.header}>
