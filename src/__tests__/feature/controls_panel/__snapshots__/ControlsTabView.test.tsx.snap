@@ -371,12 +371,12 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               >
                 <input
                   class="mantine-19htmtn mantine-Switch-input"
-                  id="mantine-pk5nvg5p0"
+                  id="mantine-l4kvdxx5w"
                   type="checkbox"
                 />
                 <label
                   class="mantine-8py79d mantine-Switch-track"
-                  for="mantine-pk5nvg5p0"
+                  for="mantine-l4kvdxx5w"
                 >
                   <div
                     class="mantine-i45em0 mantine-Switch-thumb"
