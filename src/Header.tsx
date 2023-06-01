@@ -34,21 +34,15 @@ const Header = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
-  const ctrlsShortCut = () => {
+  useKeyboardShortcut("shift", "C", () => {
     navigate("/controls");
-  };
-
-  const debugShortCut = () => {
+  });
+  useKeyboardShortcut("shift", "B", () => {
     navigate("/debug");
-  };
-
-  const mainShortCut = () => {
+  });
+  useKeyboardShortcut("shift", "S", () => {
     navigate("/");
-  };
-
-  useKeyboardShortcut("shift", "C", () => ctrlsShortCut());
-  useKeyboardShortcut("shift", "B", () => debugShortCut());
-  useKeyboardShortcut("shift", "S", () => mainShortCut());
+  });
 
   return (
     <MantineHeader height="70px" className={classes.header}>
