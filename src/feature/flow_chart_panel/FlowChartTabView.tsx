@@ -31,7 +31,10 @@ import {
 } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
 import SidebarCustomContent from "./components/SidebarCustomContent";
+import { useFlowChartTabEffects } from "./FlowChartTabEffects";
+import { useFlowChartTabState } from "./FlowChartTabState";
 
+import { useControlsState } from "@src/hooks/useControlsState";
 import {
   CMND_TREE,
   getManifestCmdsMap,
@@ -39,8 +42,6 @@ import {
   ManifestParams,
 } from "@src/utils/ManifestLoader";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
-import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
@@ -56,18 +57,20 @@ export const FlowChartTabLoader = () => {
 };
 
 const FlowChartTab = () => {
+  const [searchParams] = useSearchParams();
+
   const { manifestParams } = useLoaderData() as {
     manifestParams: ManifestParams;
   };
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setCtrlsManifest } =
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
+  const { setCtrlsManifest } = useControlsState();
+
   const theme = useMantineTheme();
 
   const {
     states: { programResults },
   } = useSocket();
-
-  const [searchParams] = useSearchParams();
 
   const {
     windowWidth,
