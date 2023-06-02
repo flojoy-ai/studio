@@ -9,7 +9,6 @@ on:
     types:
       - closed
 
-
 env:
   PROJECT_OWNER: flojoy-io
   PROJECT_REPO: rc
@@ -41,4 +40,4 @@ jobs:
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ env.PROJECT_TOKEN }} \
           --data '{"ref":"main", "inputs":{"github_event_name":"${{ github.event_name }}", "github_head_ref": "${{ github.head_ref }}", "github_event_pull_request_number": "${{ github.event.pull_request.number }}", "context_issue_number": "${{ github.event.pull_request.number }}", "context_repo_owner": "${{ github.repository_owner }}", "context_repo_repo": "${{ github.repository }}", "github_event_pull_request_merged": "${{ github.event.pull_request.merged }}", "github_event_action": "${{ github.event.action }}"}}'
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v3
