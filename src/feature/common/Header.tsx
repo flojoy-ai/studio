@@ -3,13 +3,16 @@ import {
   Header as MantineHeader,
   createStyles,
   getBreakpointValue,
+  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
 import { memo } from "react";
 import { DarkModeToggle } from "./DarkModeToggle";
 import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
-import ControlBar from "@src/feature/flow_chart_panel/views/ControlBar";
+import ControlBar from "../flow_chart_panel/views/ControlBar";
+import useKeyboardShortcut from "../../hooks/useKeyboardShortcut";
+import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "react-use";
 
 const useStyles = createStyles((theme) => ({
@@ -19,6 +22,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     margin: "0 10px",
   },
+
   tabs: {
     display: "flex",
     height: "100%",
@@ -31,6 +35,7 @@ const useStyles = createStyles((theme) => ({
     },
     alignItems: "center",
   },
+
   controlButtons: {
     display: "flex",
     justifyContent: "flex-end",
@@ -59,8 +64,19 @@ const tabs = [
 ];
 
 const Header = () => {
-  const { classes } = useStyles();
   const theme = useMantineTheme();
+  const { classes } = useStyles();
+  const navigate = useNavigate();
+
+  useKeyboardShortcut("shift", "C", () => {
+    navigate("/controls");
+  });
+  useKeyboardShortcut("shift", "B", () => {
+    navigate("/debug");
+  });
+  useKeyboardShortcut("shift", "S", () => {
+    navigate("/");
+  });
 
   // Actual media query causes flickering... need to use this manual one
   const { width } = useWindowSize();

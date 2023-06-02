@@ -7,7 +7,6 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
-import Dropdown from "@src/feature/common/Dropdown";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
@@ -36,7 +35,7 @@ import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useControlsTabState } from "@src/feature/controls_panel/ControlsTabState";
+import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 
 const useStyles = createStyles((theme) => {
@@ -371,7 +370,7 @@ const ControlBar = () => {
       ) : (
         <CancelButton cancelFC={cancelFC} />
       )}
-      <DropDown dropDownBtn={<FileButton />}>
+      <Dropdown dropdownBtn={<FileButton />}>
         <button
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
@@ -393,16 +392,14 @@ const ControlBar = () => {
           <KeyBoardIconSvg />
           Keyboard Shortcut
         </button>
-      </DropDown>
+      </Dropdown>
 
-        <UnstyledButton
-          onClick={() => setIsSettingsOpen(true)}
-          className={classes.settingsButton}
-        >
-          <SettingsIconSvg />
-        </UnstyledButton>
-      </Box>
-
+      <UnstyledButton
+        onClick={() => setIsSettingsOpen(true)}
+        className={classes.settingsButton}
+      >
+        <SettingsIconSvg />
+      </UnstyledButton>
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}
