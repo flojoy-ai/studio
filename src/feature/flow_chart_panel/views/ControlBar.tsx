@@ -36,6 +36,8 @@ import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { useControlsTabState } from "@src/feature/controls_panel/ControlsTabState";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -185,8 +187,8 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
 };
 
 const LoadButton = () => {
-  const { ctrlsManifest, setCtrlsManifest } = useFlowChartState();
   const { loadFlowExportObject } = useFlowChartGraph();
+  const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
   const [openFileSelector, { filesContent }] = useFilePicker({
     readAs: "Text",
@@ -222,8 +224,9 @@ const ControlBar = () => {
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, ctrlsManifest, setNodeParamChanged } =
+  const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
+  const { ctrlsManifest } = useControlsState();
 
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -24,7 +24,7 @@ import { nodeConfigs } from "@src/configs/NodeConfigs";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
@@ -42,6 +42,7 @@ import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 localforage.config({
   name: "react-flow",
@@ -54,11 +55,17 @@ export const FlowChartTabLoader = () => {
 };
 
 const FlowChartTab = () => {
+  const [searchParams] = useSearchParams();
+  const [clickedElement, setClickedElement] = useState<Node | undefined>(
+    undefined
+  );
   const { manifestParams } = useLoaderData() as {
     manifestParams: ManifestParams;
   };
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
+  const { setCtrlsManifest } = useControlsState();
+
   const theme = useMantineTheme();
 
   const {

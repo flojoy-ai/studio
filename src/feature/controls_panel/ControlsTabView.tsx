@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./style/Controls.css";
 
 import { createStyles } from "@mantine/styles";
@@ -23,6 +23,7 @@ import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
+import { useControlsState } from "@src/hooks/useControlsState";
 import { useLoaderData } from "react-router-dom";
 
 export const useAddButtonStyle = createStyles((theme) => {
@@ -56,16 +57,12 @@ const ControlsTab = () => {
 
   const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
-  const {
-    ctrlsManifest,
-    setCtrlsManifest,
-    isEditMode,
-    setIsEditMode,
-    gridLayout,
-  } = useFlowChartState();
+  const { isEditMode, setIsEditMode } = useFlowChartState();
+
+  const { ctrlsManifest, setCtrlsManifest, maxGridLayoutHeight } =
+    useControlsState();
 
   const { nodes, updateCtrlInputDataForNode } = useFlowChartGraph();
-
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
@@ -77,42 +74,40 @@ const ControlsTab = () => {
   }
 
   //function for handling a CTRL add (assume that input is key from manifest)
-  const addCtrl = (ctrlKey: string) => {
-    setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
-    if (!ctrlObj) {
-      console.error("Could not find ctrl object for key", ctrlKey);
-      return;
-    }
-
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
+  const addCtrl = useCallback(
+    (ctrlKey: string) => {
+      setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
+      const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
+      if (!ctrlObj) {
+        console.error("Could not find ctrl object for key", ctrlKey);
+        return;
       }
-    }
 
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
+      const id = `ctrl-${uuidv4()}`;
+      const yPos = maxGridLayoutHeight;
 
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
+      const ctrlLayout = {
+        x: 0,
+        y: yPos + 1,
+        h: Math.max(ctrlObj.minHeight, 2),
+        w: 2,
+        i: id,
+        minH: ctrlObj.minHeight,
+        minW: ctrlObj.minWidth,
+        static: !isEditMode,
+      };
 
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
+      const ctrl: CtlManifestType = {
+        ...ctrlObj,
+        hidden: false,
+        id,
+        layout: ctrlLayout,
+      } as CtlManifestType;
+
+      cacheManifest([...ctrlsManifest, ctrl]);
+    },
+    [maxGridLayoutHeight]
+  );
 
   const removeCtrl = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
