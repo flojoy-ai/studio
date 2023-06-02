@@ -1,9 +1,8 @@
+import { getManifestParams, getManifestCmds } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
-import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
 import { ElementsData } from "../types/CustomNodeProps";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
@@ -39,13 +38,13 @@ export const useAddNewNode = (
         x: lastNodePosition.x + 100,
         y: lastNodePosition.y + 30,
       };
-      const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
+      const cmd = getManifestCmds().find((cmd) => cmd.key === key);
       if (cmd === null || cmd === undefined) {
         throw new Error("Command not found");
       }
       const funcName = cmd.key;
       const type = cmd.type;
-      const params = FUNCTION_PARAMETERS[cmd.key];
+      const params = getManifestParams()[cmd.key];
       const inputs = cmd.inputs;
       const uiComponentId = cmd.ui_component_id;
       const pip_dependencies = cmd.pip_dependencies;

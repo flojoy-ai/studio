@@ -1,15 +1,24 @@
-import { Anchor, createStyles, Flex } from "@mantine/core";
+import { Anchor, Button, createStyles, Flex } from "@mantine/core";
 
 const useStyles = createStyles((theme) => {
+  const accent =
+    theme.colorScheme === "dark" ? theme.colors.accent1 : theme.colors.accent2;
   return {
     container: {
       borderBottom: `1px solid ${theme.colors.gray[5]}`,
     },
     reqBtn: {
-      border: `2px solid ${theme.colors.accent1[0]}`,
-      background: "transparent",
-      borderRadius: "2px",
-      alignSelf: "center",
+      width: "fit-content",
+      boxSizing: "border-box",
+      backgroundColor: theme.colors.accent4[1],
+      color: theme.colors.accent4[0],
+      border: `1px solid ${theme.colors.accent4[0]}`,
+      cursor: "pointer",
+      zIndex: 100,
+      fontWeight: 600,
+      "&:hover": {
+        backgroundColor: accent[1] + "36",
+      },
     },
     span: {
       color: theme.colors.accent1[0],
@@ -48,7 +57,7 @@ const SidebarCustomContent = ({ onAddNode }: SidebarCustomContentProps) => {
 
 const RequestNode = ({ classes }: { classes: Record<string, string> }) => {
   return (
-    <button className={classes.reqBtn} data-testid="request-node-btn">
+    <Button className={classes.reqBtn} data-testid="request-node-btn">
       <Anchor
         style={{
           textDecoration: "none",
@@ -58,9 +67,10 @@ const RequestNode = ({ classes }: { classes: Record<string, string> }) => {
       >
         <span className={classes.span}>Request a Node</span>
       </Anchor>
-    </button>
+    </Button>
   );
 };
+
 type EndNodeProps = {
   classes: Record<string, string>;
   onAddNode: (key: string) => void;

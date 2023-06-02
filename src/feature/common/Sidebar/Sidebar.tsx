@@ -7,10 +7,7 @@ import { memo, useState } from "react";
 
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import { createStyles } from "@mantine/core";
-import {
-  CommandManifestMap,
-  CommandSection,
-} from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 
 type leafClickHandler = (key: string) => void;
