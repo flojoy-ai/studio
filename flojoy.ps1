@@ -205,7 +205,7 @@ if ($missing_dependencies) {
   exit 1
 }
 
-function check_and_install_py_pckg(){
+function check_and_install_py_pckg() {
   param (
     $pckg_name,
     $pip_cmd
@@ -277,15 +277,6 @@ else {
 }
 
 
-
-# Start the Django server
-$dir = $CWD
-$wt_path = "wt.exe"
-$cmd = "python write_port_to_env.py $djangoPort && python manage.py runserver $djangoPort"
-$tab_args = "-d `"$dir`" cmd /c $cmd"
-Start-Process -FilePath $wt_path -ArgumentList $tab_args
-feedback $? "Starting Django server on port $djangoPort in a new tab..." 'Failed while starting Django server, check error detail printed above!'
-
 # Check for rq-win package
 & pip show rq-win 2>$1 > $null
 $is_installed = $LastExitCode
@@ -302,37 +293,21 @@ if ($is_installed -ne 0) {
 }
 
 
-# Get RQ Worker script path
-
+# Get Python scripts path
 $python_scripts_path = & python .\get_script_dir.py
 feedback $? 'Script path found for Python...' "Couldn't find script path for Python site-packages. Make sure you installed all required Python packages or run this script without -p argument to install packages automatically."
-$rq_path = Join-Path $python_scripts_path "rqworker.exe"
-$rq_script = "$rq_path -w rq_win.WindowsWorker"
+info_msg 'Checking if Python Scripts path is available in Path environment...'
+$existingPath = [Environment]::GetEnvironmentVariable("Path", "User")
+# Check if the path already exists in the variable
+if ($existingPath -split ";" -contains $python_scripts_path) {
+  feedback $true "The Python Scripts path is already present in the Path environment variable..." ""
+} else {
+  info_msg "Adding Scipts path to Path environment..."
+  setx path "$existingPath;$python_scripts_path" 2>$1 > $null
+  feedback $? "Scripts path added successfully, Please restart PowerShell and run the script again to take effect." "Failed to add Scripts path please add following path to Path environment and run this script again. $python_scripts_path"
+  Exit 0
+}
 
-
-# Initializing FLOJOY-WATCH RQ Worker
-$dir = $CWD
-$wt_path = "wt.exe"
-$cmd = "$rq_script flojoy-watch"
-$tab_args = "-d `"$dir`" cmd /c $cmd"
-Start-Process -FilePath $wt_path -ArgumentList $tab_args
-feedback $? 'Starting RQ worker for flojoy-watch in a new tab...' 'Starting RQ worker for flojoy-watch failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-
-# Initializing Flojoy RQ Worker for nodes
-$dir = Join-Path $CWD 'PYTHON'
-$wt_path = "wt.exe"
-$cmd = "$rq_script flojoy"
-$tab_args = "-d `"$dir`" cmd /c $cmd"
-Start-Process -FilePath $wt_path -ArgumentList $tab_args
-feedback $? 'Starting RQ worker for nodes in a new tab...' 'Starting RQ worker for nodes failed, check if ttab is installed (npx ttab) or check if rq worker is installed in your python package'
-
-
-
-# Initializing React Server
-
-$dir = $CWD
-$wt_path = "wt.exe"
-$tab_args = "-d `"$dir`" cmd /c npm start"
-Start-Process -FilePath $wt_path -ArgumentList $tab_args
-feedback $? 'Starting React server on port 3000 in a new tab...' 'Could not start React server, check is npm installed in your local machine or run the script without -n flag to install the node packages'
+# Start the project
+info_msg 'Starting the project...'
+& npm run start-project:win
