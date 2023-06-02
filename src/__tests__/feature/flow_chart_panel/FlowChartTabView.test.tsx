@@ -1,4 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import FlowChartKeyboardShortcuts from "@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
@@ -32,6 +33,14 @@ jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => {
 jest.mock("@src/services/FlowChartServices", () => {
   return {
     saveFlowChartToLocalStorage: () => jest.fn(),
+  };
+});
+
+jest.mock("@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts", () => {
+  return {
+    default: jest.fn(() => {
+      return <div></div>;
+    }),
   };
 });
 

@@ -4,6 +4,8 @@ import { DarkModeToggle } from "./DarkModeToggle";
 import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import ControlBar from "./feature/flow_chart_panel/views/ControlBar";
+import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createStyles(() => ({
   header: {
@@ -30,6 +32,17 @@ export type AppTab = "visual" | "panel" | "debug";
 
 const Header = () => {
   const { classes } = useStyles();
+  const navigate = useNavigate();
+
+  useKeyboardShortcut("shift", "C", () => {
+    navigate("/controls");
+  });
+  useKeyboardShortcut("shift", "B", () => {
+    navigate("/debug");
+  });
+  useKeyboardShortcut("shift", "S", () => {
+    navigate("/");
+  });
 
   return (
     <MantineHeader height="70px" className={classes.header}>

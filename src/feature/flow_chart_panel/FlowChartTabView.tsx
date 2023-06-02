@@ -15,6 +15,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  useReactFlow,
 } from "reactflow";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import localforage from "localforage";
@@ -39,9 +40,11 @@ import {
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { Box, useMantineTheme } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
 
 localforage.config({
@@ -198,6 +201,40 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
+  const selectAllNodesShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = true;
+      });
+    });
+  };
+
+  const deselectAllNodeShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = false;
+      });
+    });
+  };
+
+  const deselectNodeShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        if (selectedNode !== null && node.id === selectedNode.id) {
+          node.selected = false;
+        }
+      });
+    });
+  };
+
+  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
+
+  useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
+
   useFlowChartTabEffects({
     results: programResults,
     closeModal,
@@ -236,10 +273,14 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={selectedNode}
+            selectedNode={
+              nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
+            }
             unSelectedNodes={unSelectedNodes}
             manifestParams={manifestParams}
           />
+
+          <FlowChartKeyboardShortcuts />
 
           <ReactFlow
             style={{

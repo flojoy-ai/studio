@@ -141,6 +141,8 @@ type SaveButtonProps = {
 
 const SaveButton = ({ saveFile }: SaveButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
+  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
     <button
@@ -211,6 +213,30 @@ const LoadButton = () => {
     <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
       <LoadIconSvg />
       Load
+    </button>
+  );
+};
+
+type CancelButtonProps = {
+  cancelFC: () => void;
+};
+
+const CancelButton = ({ cancelFC }: CancelButtonProps) => {
+  const { classes } = useStyles();
+
+  useKeyboardShortcut("ctrl", "c", cancelFC);
+  useKeyboardShortcut("meta", "c", cancelFC);
+
+  return (
+    <button
+      className={classes.cancelButton}
+      onClick={cancelFC}
+      data-cy="btn-cancel"
+      title="Cancel Run"
+      style={{ borderRadius: 8 }}
+    >
+      <CancelIconSvg fill="white" />
+      <Text>Cancel</Text>
     </button>
   );
 };
@@ -336,23 +362,12 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
       ) : (
-        <button
-          className={classes.cancelButton}
-          onClick={cancelFC}
-          data-cy="btn-cancel"
-          title="Cancel Run"
-          style={{ borderRadius: 8 }}
-        >
-          <CancelIconSvg fill="white" />
-          <Text>Cancel</Text>
-        </button>
+        <CancelButton cancelFC={cancelFC} />
       )}
       <DropDown dropDownBtn={<FileButton />}>
         <button
