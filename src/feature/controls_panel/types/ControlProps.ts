@@ -2,7 +2,6 @@ import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { CtlManifestType } from "@src/hooks/useFlowChartState";
 import { Dispatch, SetStateAction } from "react";
 import { CtrlOptionValue } from "./ControlOptions";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 export interface ControlProps {
   isEditMode: boolean;

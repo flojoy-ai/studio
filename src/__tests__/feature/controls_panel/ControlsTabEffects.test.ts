@@ -1,9 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { useControlsTabEffects } from "@src/feature/controls_panel/ControlsTabEffects";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsState } from "@src/hooks/useControlsState";
 
-jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useFlowChartGraph");
 
 describe("UseControlsTabEffects", () => {
@@ -13,11 +13,11 @@ describe("UseControlsTabEffects", () => {
   };
 
   beforeEach(() => {
-    (useFlowChartState as jest.Mock).mockReturnValue({
+    (useControlsState as jest.Mock).mockReturnValue({
       setCtrlsManifest: setCtrlsManifest,
-      rfInstance: rfInstance,
     });
     (useFlowChartGraph as jest.Mock).mockReturnValue({
+      rfInstance: rfInstance,
       nodes: [],
     });
   });

@@ -83,6 +83,7 @@ jest.mock("@src/configs/NodeConfigs", () => {
 });
 
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useSocket");
 
 jest.mock("@src/utils/ManifestLoader", () => {
