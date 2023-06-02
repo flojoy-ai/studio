@@ -56,7 +56,11 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
           }}
         >
           <Box data-testid="data-label-design">
-            <Text weight={600} size="xl" sx={{ letterSpacing: 1 }}>
+            <Text
+              weight={600}
+              size="xl"
+              sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
+            >
               {data.label}
             </Text>
           </Box>

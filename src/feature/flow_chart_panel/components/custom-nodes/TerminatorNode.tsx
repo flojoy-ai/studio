@@ -40,7 +40,11 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Text weight={600} size="xl" sx={{ letterSpacing: 1 }}>
+          <Text
+            weight={600}
+            size="xl"
+            sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
+          >
             {data.label}
           </Text>
           <Box
