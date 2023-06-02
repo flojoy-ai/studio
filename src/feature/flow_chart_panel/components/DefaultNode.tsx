@@ -3,6 +3,7 @@ import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
+import { NodeLabel } from "./NodeLabel";
 import NodeWrapper from "./NodeWrapper";
 
 export const useNodeStyles = createStyles((theme) => {
@@ -16,7 +17,7 @@ export const useNodeStyles = createStyles((theme) => {
       display: "flex",
       alignItems: "center",
       fontSize: 17,
-      minHeight: 115,
+      minHeight: 130,
       height: "fit-content",
     },
 
@@ -24,7 +25,7 @@ export const useNodeStyles = createStyles((theme) => {
       flexDirection: "column",
       justifyContent: "center",
       padding: 10,
-      width: 190,
+      width: 210,
       borderRadius: 6,
       fontWeight: 600,
       border: `1px solid ${accent}`,
@@ -81,13 +82,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Text
-            weight={600}
-            size="xl"
-            sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
-          >
-            {data.label}
-          </Text>
+          <NodeLabel label={data.label} />
           <Box
             display="flex"
             h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}

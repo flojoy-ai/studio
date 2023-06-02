@@ -13,7 +13,7 @@ const useStyles = createStyles((theme) => {
       : theme.colors.accent2[0];
   return {
     simulationNode: {
-      width: 115,
+      width: 130,
       borderRadius: 6,
       flexDirection: "column",
       justifyContent: "center",
