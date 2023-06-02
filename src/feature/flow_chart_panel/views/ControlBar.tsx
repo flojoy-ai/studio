@@ -139,6 +139,8 @@ type SaveButtonProps = {
 
 const SaveButton = ({ saveFile }: SaveButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
+  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
     <button
@@ -334,13 +336,8 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
-  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
   useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-
-  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
   useKeyboardShortcut("meta", "c", cancelFC);
-  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
     <Box className={classes.controls}>

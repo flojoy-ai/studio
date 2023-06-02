@@ -122,8 +122,15 @@ describe("FlowChartTabView", () => {
   ])("should contain %p component", (msg, testId) => {
     const { getByTestId, getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
-    const component = getByTestId(testId);
-    expect(component).toBeInTheDocument();
+    let component;
+
+    if (testId === "react-flow") {
+      component = getAllByTestId(testId);
+      expect(component).toHaveLength(2);
+    } else {
+      component = getByTestId(testId);
+      expect(component).toBeInTheDocument();
+    }
   });
 
   it("checks the reactflow style", () => {
