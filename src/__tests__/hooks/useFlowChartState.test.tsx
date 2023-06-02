@@ -1,34 +1,11 @@
 import { renderHook } from "@testing-library/react";
 
-import {
-  CtlManifestType,
-  useFlowChartState,
-} from "../../hooks/useFlowChartState";
+import { useFlowChartState } from "../../hooks/useFlowChartState";
 
 import { NOISY_SINE } from "../../data/RECIPES";
 
 const { result } = renderHook(() => useFlowChartState());
 const hookResult = result.current;
-
-const initialManifests: CtlManifestType[] = [
-  {
-    type: "input",
-    name: "Slider",
-    id: "INPUT_PLACEHOLDER",
-    hidden: false,
-    minHeight: 1,
-    minWidth: 2,
-    layout: {
-      x: 0,
-      y: 0,
-      h: 2,
-      w: 2,
-      minH: 1,
-      minW: 2,
-      i: "INPUT_PLACEHOLDER",
-    },
-  },
-];
 
 jest.mock("use-file-picker", () => {
   const initialManifests: any = [
@@ -79,7 +56,6 @@ describe("useFlowChartState", () => {
   describe("checking default values of states", () => {
     it.each([
       ["rfInstance", hookResult.rfInstance, undefined],
-      ["ctrlsManifest", hookResult.ctrlsManifest, initialManifests],
       ["isEditMode", hookResult.isEditMode, false],
       ["showLogs", hookResult.showLogs, false],
       ["runningNode", hookResult.runningNode, ""],
