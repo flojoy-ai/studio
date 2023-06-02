@@ -28,6 +28,7 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+import { useReactFlow } from "reactflow";
 import { ErrorPage } from "@src/ErrorPage";
 
 function ErrorBoundary() {
@@ -87,7 +88,8 @@ const App = () => {
     }
   }, [preJobOperation]);
 
-  useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
+  useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
+  useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ColorSchemeProvider

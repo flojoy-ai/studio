@@ -7,6 +7,7 @@ import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 
 export const NodeModalStyles = createStyles((theme) => ({
@@ -155,6 +156,8 @@ const NodeModal = ({
 
   const colorScheme = theme.colorScheme;
 
+  useKeyboardShortcut("ctrl", "e", closeModal);
+  useKeyboardShortcut("meta", "e", closeModal);
   const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
   const LINK = `${GLINK}/${nodeFilePath
     .replace("\\", "/")

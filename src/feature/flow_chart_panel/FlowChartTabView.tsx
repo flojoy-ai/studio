@@ -5,15 +5,22 @@ import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { IconButton } from "@src/feature/common/IconButton";
 import { TabActions } from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
+import {
+  CMND_TREE,
+  ManifestParams,
+  getManifestCmdsMap,
+  getManifestParams,
+} from "@src/utils/ManifestLoader";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import {
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
@@ -26,20 +33,15 @@ import {
   OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
 } from "reactflow";
-import SidebarCustomContent from "./components/SidebarCustomContent";
+import Sidebar from "../common/Sidebar/Sidebar";
+import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import { useControlsState } from "@src/hooks/useControlsState";
-import {
-  CMND_TREE,
-  getManifestCmdsMap,
-  getManifestParams,
-  ManifestParams,
-} from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import Sidebar from "../common/Sidebar/Sidebar";
+import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
@@ -232,6 +234,40 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
+  const selectAllNodesShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = true;
+      });
+    });
+  };
+
+  const deselectAllNodeShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        node.selected = false;
+      });
+    });
+  };
+
+  const deselectNodeShortcut = () => {
+    setNodes((nodes) => {
+      nodes.map((node) => {
+        if (selectedNode !== null && node.id === selectedNode.id) {
+          node.selected = false;
+        }
+      });
+    });
+  };
+
+  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
+
+  useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
+  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
+  useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
+
   useFlowChartTabEffects({
     results: programResults,
     closeModal,
@@ -287,10 +323,14 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={selectedNode}
+            selectedNode={
+              nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
+            }
             unSelectedNodes={unSelectedNodes}
             manifestParams={manifestParams}
           />
+
+          <FlowChartKeyboardShortcuts />
 
           <ReactFlow
             style={{
