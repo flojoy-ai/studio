@@ -28,8 +28,6 @@ import {
   sendEventToMix,
   sendMultipleDataEventToMix,
 } from "@src/services/MixpanelServices";
-
->>>>>>> develop
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
