@@ -259,6 +259,7 @@ const FlowChartTab = () => {
         <IconButton
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          data-testid="add-node-button"
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
