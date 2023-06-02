@@ -273,7 +273,9 @@ const FlowChartTab = () => {
           data-rfinstance={JSON.stringify(nodes)}
         >
           <NodeEditMenu
-            selectedNode={nodes.every((n) => n.selected) ? null : selectedNode}
+            selectedNode={
+              nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
+            }
             unSelectedNodes={unSelectedNodes}
             manifestParams={manifestParams}
           />
