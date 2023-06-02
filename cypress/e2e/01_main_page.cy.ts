@@ -32,7 +32,10 @@ describe("studio", () => {
     });
 
     // This nodeid value is from src/data/RECIPES.ts
-    cy.get('[data-nodeid="SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]').click();
+    cy.get(
+      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
+    ).click();
+
     cy.eyesCheckWindow({
       tag: "dark flow page with SINE menu",
       target: "window",
