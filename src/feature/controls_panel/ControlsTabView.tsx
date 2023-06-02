@@ -180,7 +180,7 @@ const ControlsTab = () => {
       <div data-testid="controls-tab">
         <TabActions gap={16}>
           <IconButton
-            onClick={() => setCtrlSidebarOpen(true)}
+            onClick={() => setCtrlSidebarOpen(!ctrlSidebarOpen)}
             icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
           >
             <Text size="sm">Add Control</Text>
