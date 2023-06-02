@@ -109,8 +109,6 @@ const Sidebar = ({
   // This is easily done by just toggling the booleans.
   const [expand, setExpand] = useState(false);
   const [collapse, setCollapse] = useState(false);
-  //used for mixpanel telemetery
-  const [searched, setSearched] = useState(false);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -118,7 +116,6 @@ const Sidebar = ({
       setCollapse(!collapse);
     } else {
       setExpand(!expand);
-      setSearched(true);
     }
   };
 
@@ -185,7 +182,6 @@ const Sidebar = ({
           matchedParent={false}
           expand={expand}
           collapse={collapse}
-          searched={searched}
           appTab={appTab}
         />
       </Navbar.Section>

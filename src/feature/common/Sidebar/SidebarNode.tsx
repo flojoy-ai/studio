@@ -44,7 +44,6 @@ type SidebarNodeProps = {
   matchedParent: boolean;
   expand: boolean;
   collapse: boolean;
-  searched: boolean;
   appTab: AppTab;
 };
 
@@ -61,7 +60,6 @@ const SidebarNode = ({
   matchedParent = false,
   expand,
   collapse,
-  searched,
   appTab,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
@@ -84,7 +82,6 @@ const SidebarNode = ({
             matchedParent: nodeTitleMatches(query, c),
             expand,
             collapse,
-            searched,
             appTab,
           });
         })}
@@ -111,7 +108,6 @@ const SidebarNode = ({
             matchedParent: matchedParent || nodeTitleMatches(query, c),
             expand,
             collapse,
-            searched,
             appTab,
           })
         )}
@@ -153,7 +149,7 @@ const SidebarNode = ({
           key={command.key}
           className={classes.buttonLeafNode}
           onClick={() => {
-            if (searched && appTab === "FlowChart") {
+            if (query !== "" && appTab === "FlowChart") {
               sendEventToMix("Node Searched", command.name, "nodeTitle");
             }
             leafClickHandler(command.key ?? key);

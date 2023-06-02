@@ -31,16 +31,14 @@ type TabButtonProps = {
 const HeaderTab = ({ to, children, testId, appTab }: TabButtonProps) => {
   const { classes } = useStyles();
   const active = location.pathname === to;
-  const changeTab = () => {
-    //if the destination is '/', tab is PROGRAM, else it's just the upper case without '/'
-    sendEventToMix("Tab Changed", appTab, "Tab");
-  };
 
   return (
     <MediaQuery smallerThan={700} styles={{ minHeight: 55 }}>
       <Link
         to={to}
-        onClick={changeTab}
+        onClick={() => {
+          sendEventToMix("Tab Changed", appTab, "Tab");
+        }}
         className={clsx(classes.tab, active && classes.active)}
         color="dark"
         data-cy={testId}
