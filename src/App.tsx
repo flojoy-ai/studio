@@ -29,7 +29,7 @@ import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { useReactFlow } from "reactflow";
-import { ErrorPage } from "./ErrorPage";
+import { ErrorPage } from "@src/ErrorPage";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;

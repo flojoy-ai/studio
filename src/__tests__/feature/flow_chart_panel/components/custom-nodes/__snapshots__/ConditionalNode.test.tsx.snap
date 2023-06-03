@@ -10,7 +10,7 @@ exports[`ConditionalNode checks the snapshot 1`] = `
       class="mantine-1avyp1d"
     >
       <div
-        class="mantine-1oexgir"
+        class="mantine-1gj61mu"
         style="padding: 0px 0px 8px 0px;"
       >
         <div
@@ -19,7 +19,11 @@ exports[`ConditionalNode checks the snapshot 1`] = `
           <div
             class="mantine-11k3zi0"
           >
-            test
+            <div
+              class="mantine-Text-root mantine-9ywh0t"
+            >
+              test
+            </div>
           </div>
           <div
             class="mantine-1avyp1d"

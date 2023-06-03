@@ -1,13 +1,12 @@
 import {
   Box,
-  Button,
   Text,
   clsx,
   createStyles,
   useMantineTheme,
+  UnstyledButton,
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
-import DropDown from "@src/feature/common/DropDown";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
@@ -36,7 +35,7 @@ import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useControlsTabState } from "@src/feature/controls_panel/ControlsTabState";
+import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 
 const useStyles = createStyles((theme) => {
@@ -49,7 +48,6 @@ const useStyles = createStyles((theme) => {
     },
 
     button: {
-      marginRight: "10px",
       padding: "5px",
       cursor: "pointer",
       borderRadius: 2,
@@ -106,7 +104,6 @@ const useStyles = createStyles((theme) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      gap: "8px",
     },
 
     editContainer: {
@@ -118,10 +115,14 @@ const useStyles = createStyles((theme) => {
     dropDownIcon: {
       borderRadius: 20,
     },
-    settingBtn: {
-      right: 22,
+    settingsButton: {
+      padding: 6,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 6,
       "&:hover": {
-        backgroundColor: theme.colors.accent4[1],
+        backgroundColor: theme.colors.accent1[0] + "2f",
       },
     },
   };
@@ -369,7 +370,7 @@ const ControlBar = () => {
       ) : (
         <CancelButton cancelFC={cancelFC} />
       )}
-      <DropDown dropDownBtn={<FileButton />}>
+      <Dropdown dropdownBtn={<FileButton />}>
         <button
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
@@ -391,17 +392,14 @@ const ControlBar = () => {
           <KeyBoardIconSvg />
           Keyboard Shortcut
         </button>
-      </DropDown>
+      </Dropdown>
 
-      <Button
-        variant="subtle"
-        size="xs"
-        className={classes.settingBtn}
+      <UnstyledButton
         onClick={() => setIsSettingsOpen(true)}
+        className={classes.settingsButton}
       >
         <SettingsIconSvg />
-      </Button>
-
+      </UnstyledButton>
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}

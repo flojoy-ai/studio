@@ -1,6 +1,6 @@
 import Header from "./Header";
 import ServerStatus from "./ServerStatus";
-import { useSocket } from "./hooks/useSocket";
+import { useSocket } from "@src/hooks/useSocket";
 import { Box } from "@mantine/core";
 
 type LayoutProps = {
@@ -18,7 +18,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <ServerStatus serverStatus={serverStatus} />
       {/* The ServerStatus takes 70px */}
       <Header />
-      <main style={{ minHeight: "calc(100vh - 100px)" }}>{children}</main>
+      <main style={{ minHeight: "calc(100vh - 150px)" }}>{children}</main>
     </Box>
   );
 };

@@ -3,12 +3,13 @@ import localforage from "localforage";
 import { useCallback, useState } from "react";
 import "./style/Controls.css";
 
+import { Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
-import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
-import { EditSwitch } from "@src/EditSwitch";
-import { Layout } from "@src/Layout";
-import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
+import { EditSwitch } from "@src/feature/common/EditSwitch";
+import { IconButton } from "@src/feature/common/IconButton";
+import { Layout } from "@src/feature/common/Layout";
+import { TabActions } from "@src/feature/common/TabActions";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
@@ -16,6 +17,8 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
+import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
+import { IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
@@ -45,6 +48,7 @@ export const ControlsTabLoader = () => {
 };
 
 const ControlsTab = () => {
+  const theme = useMantineTheme();
   const { manifestParams } = useLoaderData() as {
     manifestParams: ManifestParams;
   };
@@ -57,7 +61,7 @@ const ControlsTab = () => {
 
   const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
-  const { isEditMode, setIsEditMode } = useFlowChartState();
+  const { isEditMode } = useFlowChartState();
 
   const { ctrlsManifest, setCtrlsManifest, maxGridLayoutHeight } =
     useControlsState();
@@ -174,20 +178,15 @@ const ControlsTab = () => {
   return (
     <Layout>
       <div data-testid="controls-tab">
-        <div
-          className="top-row"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <AddCTRLBtn
-            setCTRLSideBarStatus={setCtrlSidebarOpen}
-            setIsEditMode={setIsEditMode}
-            isCTRLSideBarOpen={ctrlSidebarOpen}
-          />
+        <TabActions gap={16}>
+          <IconButton
+            onClick={() => setCtrlSidebarOpen(!ctrlSidebarOpen)}
+            icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          >
+            <Text size="sm">Add Control</Text>
+          </IconButton>
           <EditSwitch />
-        </div>
+        </TabActions>
         <ControlGrid
           controlProps={{
             isEditMode,

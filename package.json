@@ -7,8 +7,8 @@
   "main": "electron/main.js",
   "dependencies": {
     "@applitools/eyes-cypress": "^3.32.2",
-    "@mantine/core": "^6.0.9",
-    "@mantine/hooks": "^6.0.9",
+    "@mantine/core": "^6.0.11",
+    "@mantine/hooks": "^6.0.11",
     "@mantine/notifications": "^6.0.11",
     "@tabler/icons-react": "^2.17.0",
     "@tisoap/react-flow-smart-edge": "^3.0.0",
@@ -35,7 +35,6 @@
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^6.11.1",
     "react-select": "^5.7.2",
-    "react-switch": "^7.0.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-tabs": "^6.0.1",
     "react-use": "^17.4.0",

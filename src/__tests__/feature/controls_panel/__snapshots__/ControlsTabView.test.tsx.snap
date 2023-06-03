@@ -17,11 +17,11 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
       class="mantine-Header-root mantine-24hp65"
     >
       <div
-        class="mantine-1rquoiv"
+        class="mantine-ae64b8"
       >
         <div
           class="mantine-Image-root mantine-yxmaw9"
-          style="width: 3rem;"
+          style="width: 4rem;"
         >
           <figure
             class="mantine-qenwvq mantine-Image-figure"
@@ -33,19 +33,19 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 alt="Logo"
                 class="mantine-27ixb3 mantine-Image-image"
                 src="/public/assets/logo.png"
-                style="object-fit: cover; width: 3rem; height: 3rem;"
+                style="object-fit: cover; width: 4rem; height: 4rem;"
               />
             </div>
           </figure>
         </div>
         <div>
-          SCRIPT
+          Visual Python Script
         </div>
         <div>
-          CTRLS
+          Ctrl Panel
         </div>
         <div>
-          DEBUG
+          Debug
         </div>
       </div>
       <div
@@ -104,7 +104,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             data-testid="dropdown-wrapper"
           >
             <button
-              class="mantine-1xqtn3 mantine-gh5nee"
+              class="mantine-16w6kkh mantine-1mzig7k"
             >
               <div
                 class="mantine-Text-root mantine-1tocsax"
@@ -129,7 +129,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               </svg>
             </button>
             <div
-              class="mantine-qxcot2"
+              class="mantine-q5mpwf"
               data-testid="dropdown-container"
             >
               <button
@@ -266,32 +266,21 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             </div>
           </div>
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-1q1h5jp"
-            data-button="true"
+            class="mantine-UnstyledButton-root mantine-ahyxcr"
             type="button"
           >
-            <div
-              class="mantine-1wpc1xj mantine-Button-inner"
+            <svg
+              fill="none"
+              height="17"
+              viewBox="0 0 11 11"
+              width="17"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <span
-                class="mantine-1ryt1ht mantine-Button-label"
-              >
-                <div>
-                  <svg
-                    fill="none"
-                    height="17"
-                    viewBox="0 0 11 11"
-                    width="17"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.01032 10.9167L3.79365 9.18334C3.67629 9.1382 3.5657 9.08404 3.46188 9.02084C3.35806 8.95765 3.2565 8.88994 3.15719 8.81772L1.54574 9.4948L0.0561523 6.92188L1.45094 5.86563C1.44192 5.80244 1.4374 5.7415 1.4374 5.68282V5.3172C1.4374 5.25852 1.44192 5.19758 1.45094 5.13438L0.0561523 4.07813L1.54574 1.50522L3.15719 2.1823C3.2565 2.11008 3.36032 2.04237 3.46865 1.97918C3.57699 1.91598 3.68532 1.86182 3.79365 1.81668L4.01032 0.0833435H6.98949L7.20615 1.81668C7.32351 1.86182 7.4341 1.91598 7.53792 1.97918C7.64174 2.04237 7.74331 2.11008 7.84261 2.1823L9.45407 1.50522L10.9437 4.07813L9.54886 5.13438C9.55789 5.19758 9.5624 5.25852 9.5624 5.3172V5.68282C9.5624 5.7415 9.55338 5.80244 9.53532 5.86563L10.9301 6.92188L9.44053 9.4948L7.84261 8.81772C7.74331 8.88994 7.63949 8.95765 7.53115 9.02084C7.42282 9.08404 7.31449 9.1382 7.20615 9.18334L6.98949 10.9167H4.01032ZM5.52699 7.39584C6.0506 7.39584 6.49747 7.21077 6.86761 6.84063C7.23775 6.4705 7.42282 6.02362 7.42282 5.50001C7.42282 4.9764 7.23775 4.52952 6.86761 4.15938C6.49747 3.78925 6.0506 3.60418 5.52699 3.60418C4.99435 3.60418 4.54522 3.78925 4.17959 4.15938C3.81397 4.52952 3.63115 4.9764 3.63115 5.50001C3.63115 6.02362 3.81397 6.4705 4.17959 6.84063C4.54522 7.21077 4.99435 7.39584 5.52699 7.39584ZM5.52699 6.31251C5.30129 6.31251 5.10945 6.23352 4.95147 6.07553C4.79348 5.91754 4.71449 5.7257 4.71449 5.50001C4.71449 5.27432 4.79348 5.08248 4.95147 4.92449C5.10945 4.7665 5.30129 4.68751 5.52699 4.68751C5.75268 4.68751 5.94452 4.7665 6.10251 4.92449C6.26049 5.08248 6.33949 5.27432 6.33949 5.50001C6.33949 5.7257 6.26049 5.91754 6.10251 6.07553C5.94452 6.23352 5.75268 6.31251 5.52699 6.31251ZM4.95824 9.83334H6.02803L6.21761 8.39793C6.49747 8.3257 6.75702 8.21963 6.99626 8.0797C7.23549 7.93977 7.45442 7.7705 7.65303 7.57188L8.99365 8.12709L9.52178 7.20626L8.35719 6.32605C8.40233 6.19966 8.43393 6.0665 8.45199 5.92657C8.47004 5.78664 8.47907 5.64445 8.47907 5.50001C8.47907 5.35557 8.47004 5.21338 8.45199 5.07345C8.43393 4.93352 8.40233 4.80036 8.35719 4.67397L9.52178 3.79376L8.99365 2.87293L7.65303 3.44168C7.45442 3.23404 7.23549 3.06025 6.99626 2.92032C6.75702 2.78039 6.49747 2.67432 6.21761 2.60209L6.04157 1.16668H4.97178L4.78219 2.60209C4.50233 2.67432 4.24278 2.78039 4.00355 2.92032C3.76431 3.06025 3.54539 3.22952 3.34678 3.42813L2.00615 2.87293L1.47803 3.79376L2.64261 4.66043C2.59747 4.79584 2.56587 4.93126 2.54782 5.06668C2.52976 5.20209 2.52074 5.34654 2.52074 5.50001C2.52074 5.64445 2.52976 5.78439 2.54782 5.9198C2.56587 6.05522 2.59747 6.19064 2.64261 6.32605L1.47803 7.20626L2.00615 8.12709L3.34678 7.55834C3.54539 7.76598 3.76431 7.93977 4.00355 8.0797C4.24278 8.21963 4.50233 8.3257 4.78219 8.39793L4.95824 9.83334Z"
-                      fill="#99f5ff"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </div>
+              <path
+                d="M4.01032 10.9167L3.79365 9.18334C3.67629 9.1382 3.5657 9.08404 3.46188 9.02084C3.35806 8.95765 3.2565 8.88994 3.15719 8.81772L1.54574 9.4948L0.0561523 6.92188L1.45094 5.86563C1.44192 5.80244 1.4374 5.7415 1.4374 5.68282V5.3172C1.4374 5.25852 1.44192 5.19758 1.45094 5.13438L0.0561523 4.07813L1.54574 1.50522L3.15719 2.1823C3.2565 2.11008 3.36032 2.04237 3.46865 1.97918C3.57699 1.91598 3.68532 1.86182 3.79365 1.81668L4.01032 0.0833435H6.98949L7.20615 1.81668C7.32351 1.86182 7.4341 1.91598 7.53792 1.97918C7.64174 2.04237 7.74331 2.11008 7.84261 2.1823L9.45407 1.50522L10.9437 4.07813L9.54886 5.13438C9.55789 5.19758 9.5624 5.25852 9.5624 5.3172V5.68282C9.5624 5.7415 9.55338 5.80244 9.53532 5.86563L10.9301 6.92188L9.44053 9.4948L7.84261 8.81772C7.74331 8.88994 7.63949 8.95765 7.53115 9.02084C7.42282 9.08404 7.31449 9.1382 7.20615 9.18334L6.98949 10.9167H4.01032ZM5.52699 7.39584C6.0506 7.39584 6.49747 7.21077 6.86761 6.84063C7.23775 6.4705 7.42282 6.02362 7.42282 5.50001C7.42282 4.9764 7.23775 4.52952 6.86761 4.15938C6.49747 3.78925 6.0506 3.60418 5.52699 3.60418C4.99435 3.60418 4.54522 3.78925 4.17959 4.15938C3.81397 4.52952 3.63115 4.9764 3.63115 5.50001C3.63115 6.02362 3.81397 6.4705 4.17959 6.84063C4.54522 7.21077 4.99435 7.39584 5.52699 7.39584ZM5.52699 6.31251C5.30129 6.31251 5.10945 6.23352 4.95147 6.07553C4.79348 5.91754 4.71449 5.7257 4.71449 5.50001C4.71449 5.27432 4.79348 5.08248 4.95147 4.92449C5.10945 4.7665 5.30129 4.68751 5.52699 4.68751C5.75268 4.68751 5.94452 4.7665 6.10251 4.92449C6.26049 5.08248 6.33949 5.27432 6.33949 5.50001C6.33949 5.7257 6.26049 5.91754 6.10251 6.07553C5.94452 6.23352 5.75268 6.31251 5.52699 6.31251ZM4.95824 9.83334H6.02803L6.21761 8.39793C6.49747 8.3257 6.75702 8.21963 6.99626 8.0797C7.23549 7.93977 7.45442 7.7705 7.65303 7.57188L8.99365 8.12709L9.52178 7.20626L8.35719 6.32605C8.40233 6.19966 8.43393 6.0665 8.45199 5.92657C8.47004 5.78664 8.47907 5.64445 8.47907 5.50001C8.47907 5.35557 8.47004 5.21338 8.45199 5.07345C8.43393 4.93352 8.40233 4.80036 8.35719 4.67397L9.52178 3.79376L8.99365 2.87293L7.65303 3.44168C7.45442 3.23404 7.23549 3.06025 6.99626 2.92032C6.75702 2.78039 6.49747 2.67432 6.21761 2.60209L6.04157 1.16668H4.97178L4.78219 2.60209C4.50233 2.67432 4.24278 2.78039 4.00355 2.92032C3.76431 3.06025 3.54539 3.22952 3.34678 3.42813L2.00615 2.87293L1.47803 3.79376L2.64261 4.66043C2.59747 4.79584 2.56587 4.93126 2.54782 5.06668C2.52976 5.20209 2.52074 5.34654 2.52074 5.50001C2.52074 5.64445 2.52976 5.78439 2.54782 5.9198C2.56587 6.05522 2.59747 6.19064 2.64261 6.32605L1.47803 7.20626L2.00615 8.12709L3.34678 7.55834C3.54539 7.76598 3.76431 7.93977 4.00355 8.0797C4.24278 8.21963 4.50233 8.3257 4.78219 8.39793L4.95824 9.83334Z"
+                fill="#99f5ff"
+              />
+            </svg>
           </button>
         </div>
         <button
@@ -306,124 +295,106 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M11 14C11.8333 14 12.5417 13.7083 13.125 13.125C13.7083 12.5417 14 11.8333 14 11C14 10.1667 13.7083 9.45833 13.125 8.875C12.5417 8.29167 11.8333 8 11 8C10.1667 8 9.45833 8.29167 8.875 8.875C8.29167 9.45833 8 10.1667 8 11C8 11.8333 8.29167 12.5417 8.875 13.125C9.45833 13.7083 10.1667 14 11 14ZM11 16C9.61667 16 8.43767 15.5123 7.463 14.537C6.48767 13.5623 6 12.3833 6 11C6 9.61667 6.48767 8.43733 7.463 7.462C8.43767 6.48733 9.61667 6 11 6C12.3833 6 13.5627 6.48733 14.538 7.462C15.5127 8.43733 16 9.61667 16 11C16 12.3833 15.5127 13.5623 14.538 14.537C13.5627 15.5123 12.3833 16 11 16ZM1 12C0.716667 12 0.479333 11.904 0.288 11.712C0.096 11.5207 0 11.2833 0 11C0 10.7167 0.096 10.479 0.288 10.287C0.479333 10.0957 0.716667 10 1 10H3C3.28333 10 3.521 10.0957 3.713 10.287C3.90433 10.479 4 10.7167 4 11C4 11.2833 3.90433 11.5207 3.713 11.712C3.521 11.904 3.28333 12 3 12H1ZM19 12C18.7167 12 18.4793 11.904 18.288 11.712C18.096 11.5207 18 11.2833 18 11C18 10.7167 18.096 10.479 18.288 10.287C18.4793 10.0957 18.7167 10 19 10H21C21.2833 10 21.5207 10.0957 21.712 10.287C21.904 10.479 22 10.7167 22 11C22 11.2833 21.904 11.5207 21.712 11.712C21.5207 11.904 21.2833 12 21 12H19ZM11 4C10.7167 4 10.4793 3.904 10.288 3.712C10.096 3.52067 10 3.28333 10 3V1C10 0.716667 10.096 0.479 10.288 0.287C10.4793 0.0956666 10.7167 0 11 0C11.2833 0 11.521 0.0956666 11.713 0.287C11.9043 0.479 12 0.716667 12 1V3C12 3.28333 11.9043 3.52067 11.713 3.712C11.521 3.904 11.2833 4 11 4ZM11 22C10.7167 22 10.4793 21.904 10.288 21.712C10.096 21.5207 10 21.2833 10 21V19C10 18.7167 10.096 18.4793 10.288 18.288C10.4793 18.096 10.7167 18 11 18C11.2833 18 11.521 18.096 11.713 18.288C11.9043 18.4793 12 18.7167 12 19V21C12 21.2833 11.9043 21.5207 11.713 21.712C11.521 21.904 11.2833 22 11 22ZM4.65 6.05L3.575 5C3.375 4.81667 3.279 4.58333 3.287 4.3C3.29567 4.01667 3.39167 3.775 3.575 3.575C3.775 3.375 4.01667 3.275 4.3 3.275C4.58333 3.275 4.81667 3.375 5 3.575L6.05 4.65C6.23333 4.85 6.325 5.08333 6.325 5.35C6.325 5.61667 6.23333 5.85 6.05 6.05C5.86667 6.25 5.63767 6.34567 5.363 6.337C5.08767 6.329 4.85 6.23333 4.65 6.05ZM17 18.425L15.95 17.35C15.7667 17.15 15.675 16.9127 15.675 16.638C15.675 16.3627 15.7667 16.1333 15.95 15.95C16.1333 15.75 16.3627 15.6543 16.638 15.663C16.9127 15.671 17.15 15.7667 17.35 15.95L18.425 17C18.625 17.1833 18.721 17.4167 18.713 17.7C18.7043 17.9833 18.6083 18.225 18.425 18.425C18.225 18.625 17.9833 18.725 17.7 18.725C17.4167 18.725 17.1833 18.625 17 18.425ZM15.95 6.05C15.75 5.86667 15.6543 5.63733 15.663 5.362C15.671 5.08733 15.7667 4.85 15.95 4.65L17 3.575C17.1833 3.375 17.4167 3.279 17.7 3.287C17.9833 3.29567 18.225 3.39167 18.425 3.575C18.625 3.775 18.725 4.01667 18.725 4.3C18.725 4.58333 18.625 4.81667 18.425 5L17.35 6.05C17.15 6.23333 16.9167 6.325 16.65 6.325C16.3833 6.325 16.15 6.23333 15.95 6.05ZM3.575 18.425C3.375 18.225 3.275 17.9833 3.275 17.7C3.275 17.4167 3.375 17.1833 3.575 17L4.65 15.95C4.85 15.7667 5.08767 15.675 5.363 15.675C5.63767 15.675 5.86667 15.7667 6.05 15.95C6.25 16.1333 6.346 16.3627 6.338 16.638C6.32933 16.9127 6.23333 17.15 6.05 17.35L5 18.425C4.81667 18.625 4.58333 18.7207 4.3 18.712C4.01667 18.704 3.775 18.6083 3.575 18.425Z"
-              fill="#FFA927"
+              d="M9.375 18.054C6.77083 18.054 4.55729 17.1764 2.73437 15.4211C0.911458 13.6659 0 11.5345 0 9.02699C0 6.51949 0.911458 4.38812 2.73437 2.63287C4.55729 0.877624 6.77083 0 9.375 0C9.61805 0 9.85694 0.00835842 10.0917 0.0250751C10.3257 0.0417917 10.5556 0.0668665 10.7812 0.1003C10.0694 0.585083 9.50104 1.21597 9.07604 1.99296C8.65035 2.77062 8.4375 3.6108 8.4375 4.5135C8.4375 6.01799 8.98437 7.29682 10.0781 8.34997C11.1719 9.40312 12.5 9.92969 14.0625 9.92969C15.0174 9.92969 15.8941 9.72474 16.6927 9.31485C17.4913 8.90563 18.1424 8.35833 18.6458 7.67294C18.6806 7.89026 18.7066 8.11159 18.724 8.33693C18.7413 8.56294 18.75 8.79296 18.75 9.02699C18.75 11.5345 17.8385 13.6659 16.0156 15.4211C14.1927 17.1764 11.9792 18.054 9.375 18.054ZM9.375 16.048C10.9028 16.048 12.2743 15.6428 13.4896 14.8324C14.7049 14.0213 15.5903 12.9638 16.1458 11.6599C15.7986 11.7434 15.4514 11.8103 15.1042 11.8605C14.7569 11.9106 14.4097 11.9357 14.0625 11.9357C11.9271 11.9357 10.1083 11.2129 8.60625 9.76721C7.10486 8.32088 6.35417 6.56964 6.35417 4.5135C6.35417 4.17916 6.38021 3.84483 6.43229 3.5105C6.48437 3.17616 6.55382 2.84183 6.64062 2.5075C5.28646 3.04243 4.18854 3.89498 3.34687 5.06515C2.50451 6.23531 2.08333 7.55593 2.08333 9.02699C2.08333 10.9661 2.79514 12.6211 4.21875 13.9918C5.64236 15.3626 7.36111 16.048 9.375 16.048Z"
+              fill="#99f5ff"
             />
           </svg>
         </button>
       </div>
     </header>
     <main
-      style="min-height: calc(100vh - 100px);"
+      style="min-height: calc(100vh - 150px);"
     >
       <div
         data-testid="controls-tab"
       >
-        <div
-          class="top-row"
-          style="display: flex; justify-content: space-between;"
+        <header
+          class="mantine-Header-root mantine-od14s5"
         >
           <button
-            class="mantine-UnstyledButton-root mantine-Button-root mantine-14tpfas"
-            data-button="true"
-            data-cy="add-ctrl"
-            data-testid="add-ctrl-button"
+            class="mantine-UnstyledButton-root mantine-1wldwd4"
             type="button"
           >
             <div
-              class="mantine-1wpc1xj mantine-Button-inner"
+              class="mantine-4yvtry"
             >
-              <span
-                class="mantine-1ryt1ht mantine-Button-label"
+              <svg
+                class="tabler-icon tabler-icon-plus"
+                fill="none"
+                height="16"
+                stroke="#99f5ff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                + Add CTRL
-              </span>
+                <path
+                  d="M12 5l0 14"
+                />
+                <path
+                  d="M5 12l14 0"
+                />
+              </svg>
+               
+              <div
+                class="mantine-xmc2fu"
+              >
+                <div
+                  class="mantine-Text-root mantine-123iu60"
+                >
+                  Add Control
+                </div>
+              </div>
+               
             </div>
           </button>
           <div
-            class="mantine-1u5otvk"
+            class="mantine-12evbdh"
             data-cy="edit-switch"
+            id="edit-switch-wrapper"
           >
-            <svg
-              class="tabler-icon tabler-icon-lock-open"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 11m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"
-              />
-              <path
-                d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
-              />
-              <path
-                d="M8 11v-5a4 4 0 0 1 8 0"
-              />
-            </svg>
             <div
-              style="position: relative; display: inline-block; text-align: left; opacity: 1; direction: ltr; border-radius: 11px; transition: opacity 0.25s; user-select: none;"
+              class="mantine-Text-root mantine-efmku9"
+              id="edit-switch-text"
+            >
+              Edit
+            </div>
+            <div
+              class="mantine-Switch-root mantine-Switch-root mantine-1knyxmk"
             >
               <div
-                class="react-switch-bg"
-                style="height: 22px; width: 50px; margin: 0px; position: relative; background: rgb(136, 136, 136); border-radius: 11px; cursor: pointer; transition: background 0.25s;"
+                class="mantine-1xir3ka mantine-Switch-body"
               >
-                <div
-                  style="height: 22px; width: 30px; position: relative; opacity: 0; pointer-events: none; transition: opacity 0.25s;"
+                <input
+                  class="mantine-19htmtn mantine-Switch-input"
+                  id="edit-switch"
+                  type="checkbox"
+                />
+                <label
+                  class="mantine-8py79d mantine-Switch-track"
+                  for="edit-switch"
                 >
-                  <svg
-                    height="100%"
-                    style="position: absolute; top: 0px;"
-                    viewBox="-2 -5 17 21"
-                    width="100%"
-                  >
-                    <path
-                      d="M11.264 0L5.26 6.004 2.103 2.847 0 4.95l5.26 5.26 8.108-8.107L11.264 0"
-                      fill="#fff"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </div>
+                  <div
+                    class="mantine-i45em0 mantine-Switch-thumb"
+                  />
+                  <div
+                    class="mantine-1tps2x6 mantine-Switch-trackLabel"
+                  />
+                </label>
                 <div
-                  style="height: 22px; width: 30px; position: absolute; opacity: 1; right: 0px; top: 0px; pointer-events: none; transition: opacity 0.25s;"
-                >
-                  <svg
-                    height="100%"
-                    style="position: absolute; top: 0px;"
-                    viewBox="-2 -5 14 20"
-                    width="100%"
-                  >
-                    <path
-                      d="M9.9 2.12L7.78 0 4.95 2.828 2.12 0 0 2.12l2.83 2.83L0 7.776 2.123 9.9 4.95 7.07 7.78 9.9 9.9 7.776 7.072 4.95 9.9 2.12"
-                      fill="#fff"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </div>
+                  class="mantine-lg73n mantine-Switch-labelWrapper"
+                />
               </div>
-              <div
-                class="react-switch-handle"
-                style="height: 20px; width: 20px; background: rgb(255, 255, 255); display: inline-block; cursor: pointer; border-radius: 50%; position: absolute; transform: translateX(1px); top: 1px; outline: 0; border: 0px; transition: background-color 0.25s, transform 0.25s, box-shadow 0.15s;"
-              />
-              <input
-                aria-checked="false"
-                role="switch"
-                style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"
-                type="checkbox"
-              />
             </div>
           </div>
-        </div>
+        </header>
         <div
           data-testid="control-grid"
         />
         <nav
-          class="mantine-Navbar-root mantine-17429x2"
+          class="mantine-Navbar-root mantine-19y8ij8"
           data-testid="sidebar"
         >
           <div
@@ -431,8 +402,9 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
             style="right: 10px; position: absolute; top: 5px;"
           >
             <button
+              class="mantine-UnstyledButton-root mantine-eo1vv"
               data-testid="sidebar-close"
-              style="cursor: pointer;"
+              type="button"
             >
               <div>
                 <svg
@@ -483,7 +455,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               </div>
               <input
                 aria-invalid="false"
-                class="mantine-Input-input mantine-e063mj"
+                class="mantine-Input-input mantine-15qjt8b"
                 data-testid="sidebar-input"
                 data-with-icon="true"
                 name="sidebar-input"
@@ -666,7 +638,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             >
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -676,14 +648,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   SLIDER
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -693,14 +665,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   KNOB
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -710,14 +682,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   NUMERIC_INPUT
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -727,7 +699,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   ARRAY_INPUT
                                 </button>
@@ -785,7 +757,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             >
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -795,14 +767,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   RADIO_BUTTON_GROUP
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -812,14 +784,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   CHECKBOX_BUTTON_GROUP
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -829,14 +801,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   STATIC_NUMERIC_INPUT
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -846,7 +818,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   DROPDOWN
                                 </button>
@@ -904,7 +876,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             >
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -914,7 +886,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   NODE_REFERENCE
                                 </button>
@@ -972,7 +944,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             >
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -982,14 +954,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   LOCAL_FILE_LOADER
                                 </button>
                               </div>
                               <div>
                                 <div
-                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                                  class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                                   role="separator"
                                 >
                                   <div
@@ -999,7 +971,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="mantine-19u83u8"
+                                  class="mantine-ksrxd0"
                                 >
                                   TEXT_INPUT
                                 </button>
@@ -1060,7 +1032,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                       >
                         <div>
                           <div
-                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                             role="separator"
                           >
                             <div
@@ -1070,14 +1042,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             </div>
                           </div>
                           <button
-                            class="mantine-19u83u8"
+                            class="mantine-ksrxd0"
                           >
                             SEVEN_SEGMENT_DISPLAY
                           </button>
                         </div>
                         <div>
                           <div
-                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                             role="separator"
                           >
                             <div
@@ -1087,14 +1059,14 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             </div>
                           </div>
                           <button
-                            class="mantine-19u83u8"
+                            class="mantine-ksrxd0"
                           >
                             MEDIA_VIEWER
                           </button>
                         </div>
                         <div>
                           <div
-                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-12kkid6"
+                            class="mantine-Divider-root mantine-Divider-horizontal mantine-Divider-withLabel mantine-a90p9m"
                             role="separator"
                           >
                             <div
@@ -1104,7 +1076,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                             </div>
                           </div>
                           <button
-                            class="mantine-19u83u8"
+                            class="mantine-ksrxd0"
                           >
                             PLOT
                           </button>

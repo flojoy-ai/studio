@@ -4,9 +4,10 @@ import { NodeInputOptions, PlotControlOptions } from "../types/ControlOptions";
 const PlotControlState = () => {
   const [inputOptions, setInputOptions] = useState<NodeInputOptions[]>([]);
   const [plotOptions, setPlotOptions] = useState<PlotControlOptions[]>([]);
-  const [selectedKeys, setSelectedKeys] = useState<Record<string, any> | null>(
-    null
-  );
+  const [selectedKeys, setSelectedKeys] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
 
   return {
     setInputOptions,

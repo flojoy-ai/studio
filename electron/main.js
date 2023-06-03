@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { app, BrowserWindow, dialog, Menu } = require("electron");
 const path = require("upath");
 const child_process = require("child_process");

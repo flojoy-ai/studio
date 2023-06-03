@@ -238,13 +238,6 @@ if ($initNodePackages) {
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
 
-
-# update ES6 status codes file
-
-& python -c 'import yaml, json; f=open("src/STATUS_CODES.json", "w"); f.write(json.dumps(yaml.safe_load(open("STATUS_CODES.yml", encoding="utf-8").read()), indent=4)); f.close();'
-
-feedback $? 'Updated ES6 status codes file.' 'Failed to update ES6 status codes file, check if all required Python packages are installed. You can run this script without -p argument to install required Python packages automatically'
-
 # creating system links
 
 createSystemLinks

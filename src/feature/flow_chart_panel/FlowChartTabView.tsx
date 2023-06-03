@@ -1,7 +1,29 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { Text, useMantineTheme } from "@mantine/core";
+import { nodeConfigs } from "@src/configs/NodeConfigs";
+import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
+import { IconButton } from "@src/feature/common/IconButton";
+import { TabActions } from "@src/feature/common/TabActions";
+import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
+import { useControlsState } from "@src/hooks/useControlsState";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { useSocket } from "@src/hooks/useSocket";
+import {
+  CMND_TREE,
+  ManifestParams,
+  getManifestCmdsMap,
+  getManifestParams,
+} from "@src/utils/ManifestLoader";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
+import localforage from "localforage";
+import { useCallback, useEffect, useMemo } from "react";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import {
   ConnectionLineType,
   EdgeTypes,
+  MiniMap,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -10,42 +32,20 @@ import {
   OnNodesChange,
   OnNodesDelete,
   ReactFlow,
-  MiniMap,
   ReactFlowProvider,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  useReactFlow,
 } from "reactflow";
-import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import localforage from "localforage";
-import { AddNodeBtn } from "@src/AddNodeBtn";
-import { Layout } from "@src/Layout";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
-import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useSocket } from "@src/hooks/useSocket";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import Sidebar from "../common/Sidebar/Sidebar";
+import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
-import { ClearCanvasBtn } from "./components/clear-canvas-btn/ClearCanvasBtn";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import {
-  CMND_TREE,
-  getManifestParams,
-  getManifestCmdsMap,
-  ManifestParams,
-} from "@src/utils/ManifestLoader";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
-import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
-import Sidebar from "../common/Sidebar/Sidebar";
-import { Box, useMantineTheme } from "@mantine/core";
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useControlsState } from "@src/hooks/useControlsState";
+import { Layout } from "../common/Layout";
 
 localforage.config({
   name: "react-flow",
@@ -59,12 +59,10 @@ export const FlowChartTabLoader = () => {
 
 const FlowChartTab = () => {
   const [searchParams] = useSearchParams();
-  const [clickedElement, setClickedElement] = useState<Node | undefined>(
-    undefined
-  );
   const { manifestParams } = useLoaderData() as {
     manifestParams: ManifestParams;
   };
+
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
   const { setCtrlsManifest } = useControlsState();
@@ -94,8 +92,15 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
-    useFlowChartGraph();
+  const {
+    nodes,
+    setNodes,
+    edges,
+    setEdges,
+    selectedNode,
+    unSelectedNodes,
+    loadFlowExportObject,
+  } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -187,6 +192,34 @@ const FlowChartTab = () => {
     [setNodes]
   );
 
+  const fetchExampleApp = useCallback(
+    async (fileName: string) => {
+      const res = await fetch(`/example-apps/${fileName}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await res.json();
+      setCtrlsManifest(data.ctrlsManifest);
+      const flow = data.rfInstance;
+      loadFlowExportObject(flow);
+    },
+    [loadFlowExportObject, setCtrlsManifest]
+  );
+
+  const clearCanvas = useCallback(() => {
+    setNodes([]);
+    setEdges([]);
+  }, [setNodes, setEdges]);
+
+  useEffect(() => {
+    const filename = searchParams.get("test_example_app");
+    if (filename) {
+      fetchExampleApp(filename);
+    }
+  }, []);
+
   useEffect(() => {
     if (selectedNode === null) {
       return;
@@ -258,6 +291,23 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
+      <TabActions>
+        <IconButton
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          data-testid="add-node-button"
+        >
+          <Text size="sm">Add Python Function</Text>
+        </IconButton>
+        <IconButton
+          onClick={() => clearCanvas()}
+          icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
+          ml="auto"
+          h="100%"
+        >
+          <Text size="sm">Clear Canvas</Text>
+        </IconButton>
+      </TabActions>
       <Sidebar
         sections={CMND_TREE}
         manifestMap={getManifestCmdsMap()}
@@ -268,7 +318,7 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 100px)" }}
+          style={{ height: "calc(100vh - 150px)" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
@@ -301,16 +351,6 @@ const FlowChartTab = () => {
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
           >
-            <Box
-              className="top-row"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <AddNodeBtn setIsSidebarOpen={setIsSidebarOpen} />
-              <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />
-            </Box>
             <MiniMap
               style={{
                 backgroundColor:

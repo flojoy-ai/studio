@@ -23,10 +23,23 @@ export const useSidebarStyles = createStyles((theme) => ({
     cursor: "pointer",
     margin: "5px",
     fontFamily: "monospace",
+    transition: "100ms ease-in",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[1] + "6f"
+          : theme.colors.accent2[1] + "4f",
+    },
   },
 
   chevron: {
     transition: "transform 200ms ease",
+  },
+
+  divider: {
+    "& .mantine-Divider-label": {
+      marginTop: 0,
+    },
   },
 }));
 
@@ -134,6 +147,7 @@ const SidebarNode = ({
         }
         label={node.title}
         w="80%"
+        className={classes.divider}
       />
       {searchMatches.map((command) => (
         <button
