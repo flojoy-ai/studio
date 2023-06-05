@@ -61,7 +61,7 @@ is_ci=false
 test_ci=false
 initSubmodule=true
 enableSentry=true
-enableTelemetry=true
+enableTelemetry=false
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 feedback()
@@ -112,7 +112,7 @@ helpFunction()
    echo  " -s: To NOT update submodules"
    echo  " -S: To NOT enable Sentry"
    echo  " -t: To enable local CI tests"
-   echo  " -T: To NOT enable Telemetry"
+   echo  " -T: To enable Telemetry"
    echo 1 # Exit script after printing help
 }
 
@@ -143,7 +143,7 @@ do
         shift
         ;;
         -T)
-        enableTelemetry=false
+        enableTelemetry=true
         shift
         ;;
         -S)
