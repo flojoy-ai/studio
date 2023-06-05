@@ -23,6 +23,9 @@ const returnValues = {
   OnInit,
   useOnSelectionChange,
   ReactFlow,
+  useReactFlow: jest.fn(() => {
+    return { zoomIn: jest.fn(), zoomOut: jest.fn(), fitView: jest.fn() };
+  }),
 };
 
 module.exports = returnValues;

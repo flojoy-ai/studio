@@ -55,8 +55,10 @@ export const useAddNewNode = (
         nodeLabel = "2.0";
       } else {
         const numNodes = getNodeFuncCount(funcName);
-        nodeLabel = numNodes > 0 ? `${funcName}_${numNodes}` : funcName;
+        nodeLabel = numNodes > 0 ? `${funcName} ${numNodes}` : funcName;
       }
+      nodeLabel = nodeLabel.replaceAll("_", " ");
+
       const nodeParams = params
         ? Object.keys(params).reduce(
             (prev: ElementsData["ctrls"], param) => ({

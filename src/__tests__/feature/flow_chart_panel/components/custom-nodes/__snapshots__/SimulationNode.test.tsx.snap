@@ -10,14 +10,14 @@ exports[`ConditionalNode checks the snapshot 1`] = `
       class="mantine-1avyp1d"
     >
       <div
-        class="mantine-1ee35f4"
+        class="mantine-dxv43y"
       >
         <div
           class="mantine-1avyp1d"
           data-testid="data-label-design"
         >
           <div
-            class="mantine-1avyp1d"
+            class="mantine-Text-root mantine-50i6g9"
           >
             test
           </div>

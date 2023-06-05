@@ -1,4 +1,3 @@
-import { AddNodeBtn } from "@src/AddNodeBtn";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import Sidebar from "@src/feature/common/Sidebar/Sidebar";
 import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
@@ -37,7 +36,12 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
     const addNewNode = useAddNewNode(jest.fn(), jest.fn());
     return (
       <>
-        <AddNodeBtn setIsSidebarOpen={setSCRIPTSideBarStatus} />
+        <button
+          data-testid="add-node-button"
+          onClick={() => setSCRIPTSideBarStatus(true)}
+        >
+          Add Node
+        </button>
         <Sidebar
           sections={{ title: "ROOT", children: [] }}
           manifestMap={getManifestCmdsMap()}

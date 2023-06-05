@@ -1,4 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
+import FlowChartKeyboardShortcuts from "@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
@@ -32,6 +33,14 @@ jest.mock("@src/feature/flow_chart_panel/views/NodeModal", () => {
 jest.mock("@src/services/FlowChartServices", () => {
   return {
     saveFlowChartToLocalStorage: () => jest.fn(),
+  };
+});
+
+jest.mock("@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts", () => {
+  return {
+    default: jest.fn(() => {
+      return <div></div>;
+    }),
   };
 });
 
@@ -128,7 +137,7 @@ describe("FlowChartTabView", () => {
   it("checks the reactflow style", () => {
     const { getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
-    const componet = getAllByTestId("react-flow")[0];
-    expect(componet).toHaveStyle("height: calc(100vh - 100px)");
+    const component = getAllByTestId("react-flow")[0];
+    expect(component).toHaveStyle("height: calc(100vh - 150px)");
   });
 });

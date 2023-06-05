@@ -78,6 +78,7 @@ const PlayBtn = ({ onPlay, style, disabled = false }: PlayBtnProps) => {
   };
 
   useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
+  useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
 
   return (
     <Button

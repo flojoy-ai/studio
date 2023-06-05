@@ -3,7 +3,7 @@
 exports[`Control.tsx render Control component correctly. 1`] = `
 <div>
   <div
-    class="mantine-tezkkk"
+    class="mantine-w77h9w"
     data-cy="ctrl-grid-item"
     data-testid="ctrl-grid-item"
   >

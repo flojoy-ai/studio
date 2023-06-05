@@ -10,7 +10,7 @@ import "reactflow/dist/style.css";
 import "reactflow/dist/base.css";
 
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorPage } from "./ErrorPage";
+import { ErrorPage } from "@src/ErrorPage";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 

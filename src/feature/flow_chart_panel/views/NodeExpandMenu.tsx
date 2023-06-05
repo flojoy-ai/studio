@@ -26,7 +26,6 @@ export const NodeExpandMenu = ({
   nodeFilePath,
 }: NodeExpandMenuProps) => {
   const { isExpandMode, setIsExpandMode } = useFlowChartState();
-
   const onSelectionChange = () => {
     if (!selectedNode) {
       setIsExpandMode(false);

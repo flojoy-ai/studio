@@ -29,7 +29,7 @@ import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
-import { ErrorPage } from "./ErrorPage";
+import { ErrorPage } from "@src/ErrorPage";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -91,7 +91,9 @@ const App = () => {
   useEffect(() => {
     sendFrontEndLoadsToMix();
   }, []);
-  useKeyboardShortcut("ctrl", "a", () => setIsSidebarOpen((prev) => !prev));
+
+  useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
+  useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ColorSchemeProvider
