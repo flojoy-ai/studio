@@ -45,6 +45,7 @@ import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
 
 localforage.config({
@@ -104,7 +105,6 @@ const FlowChartTab = () => {
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
-      console.log(nodes);
       return nodes.filter((n) => n.data.func === func).length;
     },
     [nodes.length]
@@ -117,11 +117,12 @@ const FlowChartTab = () => {
   );
 
   const handleNodeRemove = useCallback(
-    (nodeId: string) => {
+    (nodeId: string, nodeLabel: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
       );
+      sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
     },
     [setNodes, setEdges]
   );
@@ -184,6 +185,9 @@ const FlowChartTab = () => {
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
+      nodes.forEach((node) => {
+        sendEventToMix("Node Deleted", node.data.label, "nodeTitle");
+      });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id))
@@ -315,6 +319,7 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
+        appTab={"FlowChart"}
       />
       <ReactFlowProvider>
         <div

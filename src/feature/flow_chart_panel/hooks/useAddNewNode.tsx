@@ -4,6 +4,7 @@ import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "../types/CustomNodeProps";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -92,6 +93,7 @@ export const useAddNewNode = (
         LAST_NODE_POSITION_KEY,
         JSON.stringify(nodePosition)
       );
+      sendEventToMix("Node Added", newNode.data.label);
     },
     [setNodes, getNodeFuncCount]
   );

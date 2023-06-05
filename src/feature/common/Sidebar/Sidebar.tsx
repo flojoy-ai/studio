@@ -32,7 +32,6 @@ const useSidebarStyles = createStyles((theme) => {
       transition: "500ms",
       zIndex: 50,
     },
-
     navbarHidden: {
       position: "absolute",
       left: "-100%",
@@ -103,6 +102,7 @@ const useSidebarStyles = createStyles((theme) => {
   };
 });
 
+export type AppTab = "FlowChart" | "Control" | "Result";
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -110,6 +110,7 @@ type SidebarCustomProps = {
   leafNodeClickHandler: leafClickHandler;
   manifestMap: CommandManifestMap;
   customContent?: JSX.Element;
+  appTab: AppTab;
 };
 
 const Sidebar = ({
@@ -119,6 +120,7 @@ const Sidebar = ({
   leafNodeClickHandler,
   manifestMap,
   customContent,
+  appTab,
 }: SidebarCustomProps) => {
   const theme = useMantineTheme();
 
@@ -221,6 +223,7 @@ const Sidebar = ({
           matchedParent={false}
           expand={expand}
           collapse={collapse}
+          appTab={appTab}
         />
       </Navbar.Section>
     </Navbar>

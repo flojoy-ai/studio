@@ -28,7 +28,10 @@ import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useLoaderData } from "react-router-dom";
-
+import {
+  sendEventToMix,
+  sendMultipleDataEventToMix,
+} from "@src/services/MixpanelServices";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -101,6 +104,8 @@ const ControlsTab = () => {
         static: !isEditMode,
       };
 
+      //mixpanel telemetry
+      sendEventToMix("Widget Added", ctrlObj.name, "widgetTitle");
       const ctrl: CtlManifestType = {
         ...ctrlObj,
         hidden: false,
@@ -119,7 +124,16 @@ const ControlsTab = () => {
   ) => {
     const ctrlId = (e.target as HTMLButtonElement).id;
     console.warn("Removing", ctrlId, ctrl);
-    const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    const filterChilds: CtlManifestType[] = [];
+    let filteredChild = "";
+    for (const ctrl of ctrlsManifest) {
+      if (ctrl.id !== ctrlId) {
+        filterChilds.push(ctrl);
+      } else {
+        filteredChild = ctrl.name;
+      }
+    }
+    sendEventToMix("Widget Deleted", filteredChild, "widgetTitle");
     cacheManifest(filterChilds);
   };
 
@@ -173,6 +187,13 @@ const ControlsTab = () => {
       }
     });
     cacheManifest(manClone);
+    //mixpanel telemetry
+    const nodeAttached = inputNode ? inputNode.data.label : "No node attached";
+    sendMultipleDataEventToMix(
+      "Widget Attached",
+      [nodeAttached, ctrl.name],
+      ["nodeAttached", "widgetName"]
+    );
   };
 
   return (
@@ -204,6 +225,7 @@ const ControlsTab = () => {
           leafNodeClickHandler={addCtrl}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
+          appTab={"Control"}
         />
       </div>
     </Layout>

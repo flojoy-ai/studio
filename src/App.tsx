@@ -28,7 +28,7 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
-import { useReactFlow } from "reactflow";
+import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 
 function ErrorBoundary() {
@@ -87,6 +87,10 @@ const App = () => {
       closePreJobModal();
     }
   }, [preJobOperation]);
+
+  useEffect(() => {
+    sendFrontEndLoadsToMix();
+  }, []);
 
   useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
   useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));

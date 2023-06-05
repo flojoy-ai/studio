@@ -61,6 +61,7 @@ is_ci=false
 test_ci=false
 initSubmodule=true
 enableSentry=true
+enableTelemetry=false
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 feedback()
@@ -110,6 +111,8 @@ helpFunction()
    echo  " -p: To NOT install python packages"
    echo  " -s: To NOT update submodules"
    echo  " -S: To NOT enable Sentry"
+   echo  " -t: To enable local CI tests"
+   echo  " -T: To enable Telemetry"
    echo 1 # Exit script after printing help
 }
 
@@ -137,6 +140,10 @@ do
         ;;
         -c)
         is_ci=true
+        shift
+        ;;
+        -T)
+        enableTelemetry=true
         shift
         ;;
         -S)
@@ -327,6 +334,16 @@ then
 else
   info_msg "Sentry will be disabled!"
   export FLOJOY_ENABLE_SENTRY=0
+fi
+
+# Setup Telemetry
+if [ $enableTelemetry = true ]
+then
+  info_msg "Telemetry will be enabled!"
+  export FLOJOY_ENABLE_TELEMETRY=1
+else
+  info_msg "Telemetry will be disabled!"
+  export FLOJOY_ENABLE_TELEMETRY=0
 fi
 
 cd $CWD

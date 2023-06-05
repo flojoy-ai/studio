@@ -35,7 +35,7 @@ const NodeButtons = ({ data, setIsExpandMode }: NodeButtonsProps) => {
       console.error("NodeButtons: handleRemove callback not attached");
       return;
     }
-    data.handleRemove(data.id);
+    data.handleRemove(data.id, data.label);
   };
 
   return (

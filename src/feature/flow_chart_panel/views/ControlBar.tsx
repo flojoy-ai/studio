@@ -15,6 +15,7 @@ import {
   saveAndRunFlowChartInServer,
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
+import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import HistoryIconSvg from "@src/assets/HistoryIconSVG";
@@ -294,6 +295,7 @@ const ControlBar = () => {
 
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      sendProgramToMix(rfInstance.nodes);
     }
   };
 
@@ -311,7 +313,10 @@ const ControlBar = () => {
         ],
       });
       const writableStream = await handle.createWritable();
-      await writableStream.write(blob);
+
+      await writableStream
+        .write(blob)
+        .then(() => sendProgramToMix(rfInstance.nodes));
       await writableStream.close();
     }
   };
@@ -327,6 +332,7 @@ const ControlBar = () => {
       setRfInstance(updatedRfInstance);
 
       saveFlowChartToLocalStorage(updatedRfInstance);
+      sendProgramToMix(rfInstance.nodes, true, false);
       setProgramResults({ io: [] });
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,

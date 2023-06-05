@@ -22,6 +22,7 @@
     "js-yaml": "^4.1.0",
     "just-clone": "^6.2.0",
     "localforage": "^1.10.0",
+    "mixpanel-browser": "^2.47.0",
     "plotly.js": "file:./bauhaus/plotly.js-2.23.2.tgz",
     "rc-slider": "^10.1.1",
     "react": "^18.2.0",
