@@ -11,6 +11,7 @@ import "reactflow/dist/base.css";
 
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@src/ErrorPage";
+import { BrowserRouter } from "react-router-dom";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -20,10 +21,12 @@ function fallbackRender({ error, resetErrorBoundary }) {
 
 root.render(
   <React.StrictMode>
-    <ErrorBoundary fallbackRender={fallbackRender}>
-      <SocketContextProvider>
-        <App />
-      </SocketContextProvider>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <ErrorBoundary fallbackRender={fallbackRender}>
+        <SocketContextProvider>
+          <App />
+        </SocketContextProvider>
+      </ErrorBoundary>
+    </BrowserRouter>
   </React.StrictMode>
 );
