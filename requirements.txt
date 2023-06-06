@@ -5,7 +5,7 @@ django-cors-headers==3.13.0
 flojoy
 matplotlib==3.5.2
 networkx==2.8.4
-numpy==1.24.3
+numpy==1.23.0
 pandas==1.4.2
 plotly==5.8.2
 python-box==6.0
