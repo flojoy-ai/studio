@@ -72,7 +72,7 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
 
 jest.mock("@src/feature/flow_chart_panel/FlowChartTabEffects", () => {
   return {
-    useFlowChartTabEffects: () => {},
+    useFlowChartTabEffects: jest.fn(),
   };
 });
 
@@ -92,6 +92,7 @@ jest.mock("@src/utils/ManifestLoader", () => {
     CMND_MANIFEST_MAP: {},
     FUNCTION_PARAMETERS: {},
     getManifestCmdsMap: jest.fn(),
+    getManifestParams: jest.fn(),
   };
 });
 
