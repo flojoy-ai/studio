@@ -1,5 +1,5 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { ChangeEvent, memo, useState } from "react";
+import { ChangeEvent, memo } from "react";
 import { Modal, createStyles, Button, Input } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -96,7 +96,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         id: "set-api-key",
         loading: true,
         title: "Setting your API key",
-        message: "Setting your API key, Please be patient",
+        message: "Setting your API key, please be patient",
         autoClose: false,
         withCloseButton: false,
       });

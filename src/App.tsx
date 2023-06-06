@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 
-import ControlsTab, {
-  ControlsTabLoader,
-} from "./feature/controls_panel/ControlsTabView";
-import FlowChartTab, {
-  FlowChartTabLoader,
-} from "./feature/flow_chart_panel/FlowChartTabView";
 import ResultsTab from "./feature/results_panel/ResultsTabView";
 
 import { useDisclosure } from "@mantine/hooks";
 import { GlobalStyles } from "./feature/common/Global";
+import {
+  KBarAnimator,
+  KBarPortal,
+  KBarPositioner,
+  KBarProvider,
+  KBarSearch,
+  KBarResults,
+  useMatches,
+} from "kbar";
 
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useRouteError,
-} from "react-router-dom";
+import { useRouteError, useNavigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { CustomFonts } from "./feature/common/CustomFonts";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
@@ -28,8 +27,10 @@ import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
-import { useReactFlow } from "reactflow";
-import { ErrorPage } from "./ErrorPage";
+import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
+import { ErrorPage } from "@src/ErrorPage";
+import ControlsTab from "./feature/controls_panel/ControlsTabView";
+import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -38,32 +39,58 @@ function ErrorBoundary() {
   );
 }
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    loader: FlowChartTabLoader,
-    errorElement: <ErrorBoundary />,
-    element: <FlowChartTab />,
-  },
-  {
-    path: "/controls",
-    loader: ControlsTabLoader,
-    errorElement: <ErrorBoundary />,
-    element: <ControlsTab />,
-  },
-  {
-    path: "/debug",
-    errorElement: <ErrorBoundary />,
-    element: <ResultsTab />,
-  },
-]);
+function RenderResults() {
+  const { results } = useMatches();
+
+  return (
+    <KBarResults
+      items={results}
+      onRender={({ item, active }) =>
+        typeof item === "string" ? (
+          <div>{item}</div>
+        ) : (
+          <div
+            style={{
+              background: active ? "#eee" : "transparent",
+            }}
+          >
+            {item.name}
+          </div>
+        )
+      }
+    />
+  );
+}
 
 const App = () => {
   const {
     states: { runningNode, failedNode, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-
+  const navigate = useNavigate();
+  const actions = [
+    {
+      id: "main",
+      name: "main",
+      shortcut: [""],
+      keywords: "",
+      perform: () => navigate("/"),
+    },
+    {
+      id: "ctrl",
+      name: "ctrl",
+      shortcut: [""],
+      keywords: "",
+      perform: () => navigate("/controls"),
+    },
+    {
+      id: "debug",
+      name: "debug",
+      shortcut: [""],
+      keywords: "",
+      perform: () => navigate("/debug"),
+    },
+  ];
   const { setRunningNode, setFailedNode, setIsSidebarOpen } =
     useFlowChartState();
   const [
@@ -88,6 +115,10 @@ const App = () => {
     }
   }, [preJobOperation]);
 
+  useEffect(() => {
+    sendFrontEndLoadsToMix();
+  }, []);
+
   useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
   useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
@@ -101,14 +132,40 @@ const App = () => {
         withNormalizeCSS
         theme={theme === "dark" ? darkTheme : lightTheme}
       >
-        <GlobalStyles />
-        <PreJobOperationShow
-          opened={isPrejobModalOpen}
-          outputs={preJobOperation.output}
-          close={closePreJobModal}
-        />
-        <CustomFonts />
-        <RouterProvider router={router} />
+        <KBarProvider actions={actions}>
+          <KBarPortal>
+            <KBarPositioner>
+              <KBarAnimator>
+                <KBarSearch />
+                <RenderResults />
+              </KBarAnimator>
+            </KBarPositioner>
+          </KBarPortal>
+          <GlobalStyles />
+          <PreJobOperationShow
+            opened={isPrejobModalOpen}
+            outputs={preJobOperation.output}
+            close={closePreJobModal}
+          />
+          <CustomFonts />
+          <Routes>
+            <Route
+              path="/"
+              element={<FlowChartTab />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/controls"
+              element={<ControlsTab />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/debug"
+              element={<ResultsTab />}
+              errorElement={<ErrorBoundary />}
+            />
+          </Routes>
+        </KBarProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );

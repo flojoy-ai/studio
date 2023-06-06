@@ -81,7 +81,7 @@ const useControlComponentEffects = ({
           const nodeLabel = node.data.label;
           const nodeFunctionName = node.data.func;
           const params = getManifestParams()[nodeFunctionName];
-          const sep = " ▶ ";
+          const sep = " ▸ ";
           if (params) {
             Object.keys(params).forEach((param) => {
               setSelectOptions((prev) => [

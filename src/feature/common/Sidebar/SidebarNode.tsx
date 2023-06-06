@@ -1,6 +1,8 @@
 import { createStyles, Divider, useMantineTheme } from "@mantine/core";
 import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
+import { AppTab } from "@feature/common/Sidebar/Sidebar";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -23,10 +25,23 @@ export const useSidebarStyles = createStyles((theme) => ({
     cursor: "pointer",
     margin: "5px",
     fontFamily: "monospace",
+    transition: "100ms ease-in",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[1] + "6f"
+          : theme.colors.accent2[1] + "4f",
+    },
   },
 
   chevron: {
     transition: "transform 200ms ease",
+  },
+
+  divider: {
+    "& .mantine-Divider-label": {
+      marginTop: 0,
+    },
   },
 }));
 
@@ -39,6 +54,7 @@ type SidebarNodeProps = {
   matchedParent: boolean;
   expand: boolean;
   collapse: boolean;
+  appTab: AppTab;
 };
 
 const nodeTitleMatches = (query: string, node: CommandSection) =>
@@ -54,6 +70,7 @@ const SidebarNode = ({
   matchedParent = false,
   expand,
   collapse,
+  appTab,
 }: SidebarNodeProps) => {
   const { classes } = useSidebarStyles();
   const theme = useMantineTheme();
@@ -75,6 +92,7 @@ const SidebarNode = ({
             matchedParent: nodeTitleMatches(query, c),
             expand,
             collapse,
+            appTab,
           });
         })}
       </div>
@@ -100,6 +118,7 @@ const SidebarNode = ({
             matchedParent: matchedParent || nodeTitleMatches(query, c),
             expand,
             collapse,
+            appTab,
           })
         )}
       </SidebarSection>
@@ -134,12 +153,18 @@ const SidebarNode = ({
         }
         label={node.title}
         w="80%"
+        className={classes.divider}
       />
       {searchMatches.map((command) => (
         <button
           key={command.key}
           className={classes.buttonLeafNode}
-          onClick={() => leafClickHandler(command.key ?? key)}
+          onClick={() => {
+            if (query !== "" && appTab === "FlowChart") {
+              sendEventToMix("Node Searched", command.name, "nodeTitle");
+            }
+            leafClickHandler(command.key ?? key);
+          }}
         >
           {command.key || command.name}
         </button>
