@@ -86,14 +86,7 @@ jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useSocket");
 
-jest.mock("@src/utils/ManifestLoader", () => {
-  return {
-    CMND_TREE: { title: "ROOT", child: [] },
-    CMND_MANIFEST_MAP: {},
-    FUNCTION_PARAMETERS: {},
-    getManifestCmdsMap: jest.fn(),
-  };
-});
+jest.mock("@src/utils/ManifestLoader");
 
 jest.mock("react-router-dom");
 
