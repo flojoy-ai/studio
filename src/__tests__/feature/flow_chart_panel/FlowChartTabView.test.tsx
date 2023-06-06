@@ -1,5 +1,4 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import FlowChartKeyboardShortcuts from "@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
@@ -8,8 +7,6 @@ class ResizeObserver {
 }
 
 class IntersectionObserver {
-  constructor() {}
-
   observe() {
     return null;
   }
@@ -72,7 +69,7 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
 
 jest.mock("@src/feature/flow_chart_panel/FlowChartTabEffects", () => {
   return {
-    useFlowChartTabEffects: () => {},
+    useFlowChartTabEffects: jest.fn(),
   };
 });
 
