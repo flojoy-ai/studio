@@ -43,6 +43,7 @@ jest.mock("@src/utils/ManifestLoader", () => ({
     },
     CONSTANT: {},
   },
+  getManifestParams : jest.fn()
 }));
 
 class ResizeObserver {

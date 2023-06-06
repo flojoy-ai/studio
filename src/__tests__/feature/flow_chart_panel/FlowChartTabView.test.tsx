@@ -92,6 +92,7 @@ jest.mock("@src/utils/ManifestLoader", () => {
     CMND_MANIFEST_MAP: {},
     FUNCTION_PARAMETERS: {},
     getManifestCmdsMap: jest.fn(),
+    getManifestParams : jest.fn()
   };
 });
 
