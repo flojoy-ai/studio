@@ -15,7 +15,7 @@ export type ElementsData = {
   inputs?: Array<{ name: string; id: string; type: string }>;
   selects?: any;
   selected?: boolean;
-  handleRemove?: (nodeId: string) => void;
+  handleRemove?: (nodeId: string, nodeLabel: string) => void;
 };
 
 export interface CustomNodeProps {

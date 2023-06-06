@@ -23,6 +23,12 @@ const returnValues = {
   OnInit,
   useOnSelectionChange,
   ReactFlow,
+  useReactFlow: jest.fn(() => {
+    return { zoomIn: jest.fn(), zoomOut: jest.fn(), fitView: jest.fn() };
+  }),
+  MiniMap: jest.fn(({ children }) => (
+    <div data-testid="reactflow-minimap">{children}</div>
+  )),
 };
 
 module.exports = returnValues;

@@ -1,5 +1,5 @@
 import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
@@ -16,6 +16,7 @@ import {
 } from "../../types/ControlOptions";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 export type ControlComponentStateProps = {
   updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
@@ -26,12 +27,9 @@ const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
 }: ControlComponentStateProps) => {
-  const {
-    rfInstance: flowChartObject,
-    ctrlsManifest,
-    setGridLayout,
-    isEditMode,
-  } = useFlowChartState();
+  const { rfInstance: flowChartObject, isEditMode } = useFlowChartState();
+
+  const { ctrlsManifest, setGridLayout } = useControlsState();
 
   const { nodes } = useFlowChartGraph();
 
@@ -61,7 +59,7 @@ const ControlComponentState = ({
   const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
   const fnParams =
-    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
+    getManifestParams()[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
   const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
   const defaultValue =

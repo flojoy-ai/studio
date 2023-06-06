@@ -1,5 +1,6 @@
 import { Box, createStyles } from "@mantine/core";
 import React, { useRef } from "react";
+
 const useStyles = createStyles((theme) => {
   return {
     dropdownWrapper: {
@@ -8,7 +9,7 @@ const useStyles = createStyles((theme) => {
     dropdownContainer: {
       padding: "15px 7px",
       borderRadius: 15,
-      transition: "all ease 0.5s",
+      transition: "all ease 0.4s",
       flexDirection: "column",
       position: "absolute",
       top: "52px",
@@ -23,7 +24,6 @@ const useStyles = createStyles((theme) => {
       "> button": {
         padding: "8px 12px",
         marginRight: "10px",
-        cursor: "pointer",
         borderRadius: 2,
         fontSize: "14px",
         fontWeight: "bold",
@@ -33,7 +33,12 @@ const useStyles = createStyles((theme) => {
         width: "100%",
         textAlign: "start",
         whiteSpace: "nowrap",
+        cursor: "pointer",
         color: theme.colors.title[0],
+      },
+      "> button.disabled": {
+        cursor: "not-allowed",
+        opacity: 0.5,
       },
       "> button:not(.disabled):hover": {
         backgroundColor:
@@ -44,25 +49,27 @@ const useStyles = createStyles((theme) => {
     },
   };
 });
-interface DropDownProps {
+
+interface DropdownProps {
   children: React.ReactNode;
-  dropDownBtn: React.ReactNode;
+  dropdownBtn: React.ReactNode;
 }
-const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
+
+const Dropdown = ({ children, dropdownBtn }: DropdownProps) => {
   const { classes } = useStyles();
-  const DropDownElem = useRef<HTMLDivElement>(null);
+  const DropdownElem = useRef<HTMLDivElement>(null);
   const openDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "1";
-      DropDownElem.current.style.zIndex = "50";
-      DropDownElem.current.style.transform = "translateY(0)";
+    if (DropdownElem.current) {
+      DropdownElem.current.style.opacity = "1";
+      DropdownElem.current.style.zIndex = "50";
+      DropdownElem.current.style.transform = "translateY(0)";
     }
   };
   const closeDropDown = () => {
-    if (DropDownElem.current) {
-      DropDownElem.current.style.opacity = "0";
-      DropDownElem.current.style.zIndex = "-1";
-      DropDownElem.current.style.transform = "translateY(-10%)";
+    if (DropdownElem.current) {
+      DropdownElem.current.style.opacity = "0";
+      DropdownElem.current.style.zIndex = "-1";
+      DropdownElem.current.style.transform = "translateY(-10%)";
     }
   };
   return (
@@ -73,11 +80,11 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
       onMouseEnter={openDropDown}
       onMouseLeave={closeDropDown}
     >
-      {dropDownBtn}
+      {dropdownBtn}
       <Box
         data-testid="dropdown-container"
         className={classes.dropdownContainer}
-        ref={DropDownElem}
+        ref={DropdownElem}
         onMouseLeave={closeDropDown}
       >
         {children}
@@ -85,4 +92,4 @@ const DropDown = ({ children, dropDownBtn }: DropDownProps) => {
     </Box>
   );
 };
-export default DropDown;
+export default Dropdown;

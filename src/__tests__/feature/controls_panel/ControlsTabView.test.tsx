@@ -20,6 +20,7 @@ jest.mock("@src/feature/controls_panel/views/AddCtrlModal", () => ({
 }));
 // mock `useSocket` hook
 jest.mock("@src/hooks/useSocket");
+jest.mock("@src/hooks/useControlsState");
 
 jest.mock("@src/services/FlowChartServices", () => {
   return {
@@ -34,15 +35,7 @@ jest.mock("@src/feature/controls_panel/views/ControlGrid", () => ({
 }));
 
 // mock `PARAMETERS_MANIFEST`
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => ({
-  FUNCTION_PARAMETERS: {
-    ADD: {
-      a: { default: 0 },
-      b: { default: 0 },
-    },
-    CONSTANT: {},
-  },
-}));
+jest.mock("@src/utils/ManifestLoader");
 
 class ResizeObserver {
   observe() {

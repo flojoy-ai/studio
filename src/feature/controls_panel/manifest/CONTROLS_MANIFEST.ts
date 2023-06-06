@@ -1,4 +1,4 @@
-import { CommandSection } from "@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST";
+import { CommandSection } from "@src/utils/ManifestLoader";
 import { PlotData } from "plotly.js";
 
 export enum ControlTypes {

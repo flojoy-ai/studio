@@ -20,4 +20,9 @@ module.exports = {
     // this is the only eslint rule that should be off!
     "react/react-in-jsx-scope": "off",
   },
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
 };

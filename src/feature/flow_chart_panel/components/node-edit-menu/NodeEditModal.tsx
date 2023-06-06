@@ -1,6 +1,6 @@
 import { Node } from "reactflow";
 import { ElementsData } from "../../types/CustomNodeProps";
-import { FUNCTION_PARAMETERS } from "../../manifest/PARAMETERS_MANIFEST";
+import { ManifestParams } from "@src/utils/ManifestLoader";
 import ParamField from "./ParamField";
 import { IconPencil, IconX } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -53,9 +53,14 @@ const useStyles = createStyles((theme) => ({
 type NodeEditModalProps = {
   node: Node<ElementsData>;
   otherNodes: Node<ElementsData>[] | null;
+  manifestParams: ManifestParams;
 };
 
-const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
+const NodeEditModal = ({
+  node,
+  otherNodes,
+  manifestParams,
+}: NodeEditModalProps) => {
   const { classes } = useStyles();
   const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
     useFlowChartState();
@@ -74,7 +79,7 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
   }, [node.data.ctrls]);
 
   return (
-    <Draggable bounds="main">
+    <Draggable bounds="main" cancel="#undrag">
       <Box className={classes.modal}>
         <Box
           onClick={() => setIsEditMode(false)}
@@ -93,9 +98,9 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
                 style={{ marginLeft: "16px", marginBottom: "4px" }}
               />
             </Box>
-            {Object.entries(FUNCTION_PARAMETERS[node.data.func]).map(
+            {Object.entries(manifestParams[node.data.func]).map(
               ([name, param]) => (
-                <div key={node.id + name}>
+                <div key={node.id + name} id="undrag">
                   <p
                     className={classes.paramName}
                   >{`${name.toUpperCase()}:`}</p>

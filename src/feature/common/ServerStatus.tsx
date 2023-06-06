@@ -1,5 +1,5 @@
 import { Text, createStyles } from "@mantine/core";
-import { IServerStatus } from "./context/socket.context";
+import { IServerStatus } from "@src/context/socket.context";
 import { memo } from "react";
 
 const useStyles = createStyles(() => ({

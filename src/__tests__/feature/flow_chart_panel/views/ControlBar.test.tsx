@@ -4,14 +4,9 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 // Mock useFlowChartState hook
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useControlsState");
 // Mock useSocket hook
 jest.mock("@src/hooks/useSocket");
-jest.mock("react-switch", () => ({
-  __esModule: true,
-  default: jest.fn(() => {
-    return <div data-testid="react-switch" />;
-  }),
-}));
 jest.mock("react-modal");
 // Mock saveFlowChartToLocalStorage, saveAndRunFlowChartInServer, and cancelFlowChartRun functions
 jest.mock("@src/services/FlowChartServices", () => ({
@@ -26,7 +21,7 @@ jest.mock("@src/feature/flow_chart_panel/views/KeyboardShortcutModal", () => ({
   default: jest.fn(() => <div>KeyboardShortcutModal</div>),
 }));
 // Mock DropDown component
-jest.mock("@src/feature/common/DropDown", () => ({
+jest.mock("@src/feature/common/Dropdown", () => ({
   __esModule: true,
   default: jest.fn(() => <div>Dropdown</div>),
 }));
