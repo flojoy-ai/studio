@@ -5,7 +5,6 @@ import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { IconButton } from "@src/feature/common/IconButton";
 import { TabActions } from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
-import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
@@ -19,7 +18,6 @@ import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -54,11 +52,9 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const [searchParams] = useSearchParams();
   const manifestParams: ManifestParams = getManifestParams();
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
-  const { setCtrlsManifest } = useControlsState();
 
   const theme = useMantineTheme();
 
@@ -85,15 +81,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    loadFlowExportObject,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -188,33 +177,10 @@ const FlowChartTab = () => {
     [setNodes]
   );
 
-  const fetchExampleApp = useCallback(
-    async (fileName: string) => {
-      const res = await fetch(`/example-apps/${fileName}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const data = await res.json();
-      setCtrlsManifest(data.ctrlsManifest);
-      const flow = data.rfInstance;
-      loadFlowExportObject(flow);
-    },
-    [loadFlowExportObject, setCtrlsManifest]
-  );
-
   const clearCanvas = useCallback(() => {
     setNodes([]);
     setEdges([]);
   }, [setNodes, setEdges]);
-
-  useEffect(() => {
-    const filename = searchParams.get("test_example_app");
-    if (filename) {
-      fetchExampleApp(filename);
-    }
-  }, []);
 
   useEffect(() => {
     if (selectedNode === null) {

@@ -23,7 +23,6 @@ export const useAddNewNode = (
     };
   };
 
-  // const { nodes, setNodes } = useFlowChartState();
   const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
     ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY) || "")
     : getNodePosition();

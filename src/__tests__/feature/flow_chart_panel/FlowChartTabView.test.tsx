@@ -1,5 +1,4 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import FlowChartKeyboardShortcuts from "@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts";
 import FlowChartTab from "@src/feature/flow_chart_panel/FlowChartTabView";
 
 class ResizeObserver {
@@ -8,8 +7,6 @@ class ResizeObserver {
 }
 
 class IntersectionObserver {
-  constructor() {}
-
   observe() {
     return null;
   }
@@ -86,15 +83,7 @@ jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useSocket");
 
-jest.mock("@src/utils/ManifestLoader", () => {
-  return {
-    CMND_TREE: { title: "ROOT", child: [] },
-    CMND_MANIFEST_MAP: {},
-    FUNCTION_PARAMETERS: {},
-    getManifestCmdsMap: jest.fn(),
-    getManifestParams: jest.fn(),
-  };
-});
+jest.mock("@src/utils/ManifestLoader");
 
 jest.mock("react-router-dom");
 

@@ -568,6 +568,7 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
                   </svg>
                 </button>
               </div>
+              <div />
             </div>
           </div>
         </div>
