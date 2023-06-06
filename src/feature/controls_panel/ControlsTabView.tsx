@@ -27,7 +27,6 @@ import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { useLoaderData } from "react-router-dom";
 import {
   sendEventToMix,
   sendMultipleDataEventToMix,
@@ -45,16 +44,9 @@ export const useAddButtonStyle = createStyles((theme) => {
 
 localforage.config({ name: "react-flow", storeName: "flows" });
 
-export const ControlsTabLoader = () => {
-  const manifestParams: ManifestParams = getManifestParams();
-  return { manifestParams };
-};
-
 const ControlsTab = () => {
   const theme = useMantineTheme();
-  const { manifestParams } = useLoaderData() as {
-    manifestParams: ManifestParams;
-  };
+  const manifestParams: ManifestParams = getManifestParams();
 
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 

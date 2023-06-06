@@ -19,7 +19,7 @@ import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -53,17 +53,9 @@ localforage.config({
   storeName: "flows",
 });
 
-export const FlowChartTabLoader = () => {
-  const manifestParams: ManifestParams = getManifestParams();
-  return { manifestParams };
-};
-
 const FlowChartTab = () => {
   const [searchParams] = useSearchParams();
-  const { manifestParams } = useLoaderData() as {
-    manifestParams: ManifestParams;
-  };
-
+  const manifestParams: ManifestParams = getManifestParams();
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
   const { setCtrlsManifest } = useControlsState();
