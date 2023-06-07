@@ -109,6 +109,7 @@ const CMND_TREE: CommandSection = {
       title: "Extractors",
       children: [
         // Extractors tab
+        { title: "Dataframes", key: "DATAFRAME", children: null },
         { title: "Files", key: "FILE", children: null },
         { title: "DAQ", key: "DAQ", children: null },
       ],
