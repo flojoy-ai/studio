@@ -36,9 +36,11 @@ jobs:
       - name: Run Flojoy startup script
         run: bash flojoy -c
 
-      - name: Ngrok TCP Tunelling
-        uses: apogiatzis/ngrok-tunneling-action@v0.1.4
-        with:
-          timeout: 1h
-          port: 3000
-          ngrok_authtoken: ${{ secrets.NGROK_AUTHTOKEN }}
+      - run: wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        shell: bash
+      - run: unzip -qq ngrok-stable-linux-amd64.zip
+        shell: bash
+      - run: ./ngrok authtoken ${{ secrets.NGROK_AUTHTOKEN}}
+        shell: bash
+      - run: timeout 1h ./ngrok http 3000
+        shell: bash
