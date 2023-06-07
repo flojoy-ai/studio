@@ -44,6 +44,7 @@ describe("Verify Add and Delete node", () => {
       target: "window",
       fully: true,
     });
+    cy.xpath("//div[contains(text(), 'LOADER')]").should('not.exist', "//div[contains(text(), 'LOADER')]");
   });
   afterEach(() => {
     cy.eyesClose();
