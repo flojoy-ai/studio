@@ -58,6 +58,7 @@
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy-watch",
     "rq-flojoy": "cd PYTHON && OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy",
     "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
+    "start-project:ngrok": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy,Ngrok\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\" \"./ngrok http 3000\"",
     "start-project:win": "concurrently -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"rqworker.exe -w rq_win.WindowsWorker flojoy-watch\" \"cd PYTHON && rqworker.exe -w rq_win.WindowsWorker flojoy\"",
     "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
     "format": "npx prettier --write . && black . --extend-exclude '/(node_modules)/'",
