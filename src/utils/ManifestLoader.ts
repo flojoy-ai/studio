@@ -184,6 +184,7 @@ const CMND_TREE: CommandSection = {
           children: null,
         },
         { title: "Array selection", key: "SELECT_ARRAY", children: null },
+        { title: "Type casting", key: "TYPE_CASTING", children: null },
       ],
     },
     {
