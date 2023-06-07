@@ -10,10 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Deploy challenge
+  preview:
     runs-on: ubuntu-latest
-    needs: cancel
 
     steps:
       - uses: actions/checkout@v3
