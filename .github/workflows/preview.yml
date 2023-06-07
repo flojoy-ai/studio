@@ -42,5 +42,5 @@ jobs:
         shell: bash
       - run: ./ngrok authtoken ${{ secrets.NGROK_AUTHTOKEN}}
         shell: bash
-      - run: timeout 1h ./ngrok http 3000
+      - run: npm run start-project && timeout 1h ./ngrok http 3000
         shell: bash
