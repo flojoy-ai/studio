@@ -5,6 +5,7 @@ import { Box, Text, clsx } from "@mantine/core";
 import { useSocket } from "@src/hooks/useSocket";
 import { memo, useEffect, useState } from "react";
 import { useNodeStyles } from "../DefaultNode";
+import { NodeLabel } from "../NodeLabel";
 import NodeWrapper from "../NodeWrapper";
 
 const ConditionalNode = ({ data }: CustomNodeProps) => {
@@ -66,7 +67,9 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
           }}
         >
           <Box>
-            <Box mt={25}>{data.label}</Box>
+            <Box mt={25}>
+              <NodeLabel label={data.label} />
+            </Box>
             <Box>
               {data.func === "CONDITIONAL" && (
                 <>

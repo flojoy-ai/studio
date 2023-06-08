@@ -1,5 +1,5 @@
 import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
@@ -14,17 +14,12 @@ import {
   NodeInputOptions,
   PlotControlOptions,
 } from "../../types/ControlOptions";
-
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 export type ControlComponentStateProps = {
-  updateCtrlValue: (
-    value: string,
-    ctrl: CtlManifestType,
-    ValType: ParamValueType
-  ) => void;
+  updateCtrlValue: (value: string, ctrl: CtlManifestType) => void;
   ctrlObj: CtlManifestType;
 };
 
@@ -32,12 +27,9 @@ const ControlComponentState = ({
   updateCtrlValue,
   ctrlObj,
 }: ControlComponentStateProps) => {
-  const {
-    rfInstance: flowChartObject,
-    ctrlsManifest,
-    setGridLayout,
-    isEditMode,
-  } = useFlowChartState();
+  const { rfInstance: flowChartObject, isEditMode } = useFlowChartState();
+
+  const { ctrlsManifest, setGridLayout } = useControlsState();
 
   const { nodes } = useFlowChartGraph();
 
@@ -47,9 +39,9 @@ const ControlComponentState = ({
   const [textInput, setTextInput] = useState<string>("");
   const [numberInput, setNumberInput] = useState<string>("0");
   const [sliderInput, setSliderInput] = useState<string>("0");
-  const [currentInputValue, setCurrentInputValue] = useState<string | number>(
-    0
-  );
+  const [currentInputValue, setCurrentInputValue] = useState<
+    string | number | boolean
+  >(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 
   const [plotData, setPlotData] = useState<OverridePlotData>([]);
@@ -67,7 +59,7 @@ const ControlComponentState = ({
   const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
   const fnParams =
-    FUNCTION_PARAMETERS[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
+    getManifestParams()[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
     {};
   const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
   const defaultValue =
@@ -97,7 +89,7 @@ const ControlComponentState = ({
       if (!(ctrlObj?.param as CtrlManifestParam)?.nodeId) {
         return;
       }
-      updateCtrlValue(file.name, ctrlObj, "string");
+      updateCtrlValue(file.name, ctrlObj);
     });
   }, [plainFiles]);
 

@@ -31,8 +31,18 @@ describe("studio", () => {
       fully: true,
     });
 
-    cy.get('[data-testid="add-node-button"]').click();
+    // This nodeid value is from src/data/RECIPES.ts
+    cy.get(
+      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
+    ).click();
 
+    cy.eyesCheckWindow({
+      tag: "dark flow page with SINE menu",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="add-node-button"]').click();
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
       target: "window",
@@ -42,6 +52,13 @@ describe("studio", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
     cy.eyesCheckWindow({
       tag: "light flow page",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-cy="ctrls-btn"]').click();
+    cy.eyesCheckWindow({
+      tag: "light ctrl page",
       target: "window",
       fully: true,
     });

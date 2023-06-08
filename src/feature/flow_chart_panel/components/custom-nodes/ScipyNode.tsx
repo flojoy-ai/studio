@@ -10,8 +10,8 @@ import {
 const useStyles = createStyles((theme) => {
   const accent =
     theme.colorScheme === "light"
-      ? theme.colors.accent5[0]
-      : theme.colors.accent5[0];
+      ? theme.colors.accent6[0]
+      : theme.colors.accent6[0];
   return {
     scipyNode: {
       width: 180,

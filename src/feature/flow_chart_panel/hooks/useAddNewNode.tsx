@@ -1,11 +1,10 @@
+import { getManifestParams, getManifestCmds } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { CMND_MANIFEST } from "../manifest/COMMANDS_MANIFEST";
-import { FUNCTION_PARAMETERS } from "../manifest/PARAMETERS_MANIFEST";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "../types/CustomNodeProps";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -24,7 +23,6 @@ export const useAddNewNode = (
     };
   };
 
-  // const { nodes, setNodes } = useFlowChartState();
   const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
     ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY) || "")
     : getNodePosition();
@@ -39,13 +37,13 @@ export const useAddNewNode = (
         x: lastNodePosition.x + 100,
         y: lastNodePosition.y + 30,
       };
-      const cmd = CMND_MANIFEST.find((cmd) => cmd.key === key);
+      const cmd = getManifestCmds().find((cmd) => cmd.key === key);
       if (cmd === null || cmd === undefined) {
         throw new Error("Command not found");
       }
       const funcName = cmd.key;
       const type = cmd.type;
-      const params = FUNCTION_PARAMETERS[cmd.key];
+      const params = getManifestParams()[cmd.key];
       const inputs = cmd.inputs;
       const uiComponentId = cmd.ui_component_id;
       const pip_dependencies = cmd.pip_dependencies;
@@ -55,22 +53,11 @@ export const useAddNewNode = (
       if (funcName === "CONSTANT") {
         nodeLabel = "2.0";
       } else {
-        // Commented out for now for performance reasons.
-        // This is because the code causes a dependency on the nodes state,
-        // which will cause this hook to be called every time the nodes
-        // change.
-
-        // const numOfThisNodesOnChart = nodes.filter(
-        //   (node) => node.data.func === funcName
-        // ).length;
-        // nodeLabel =
-        //   numOfThisNodesOnChart > 0
-        //     ? `${funcName}_${numOfThisNodesOnChart}`
-        //     : funcName;
         const numNodes = getNodeFuncCount(funcName);
-        nodeLabel = numNodes > 0 ? `${funcName}_${numNodes}` : funcName;
-        // nodeLabel = funcName;
+        nodeLabel = numNodes > 0 ? `${funcName} ${numNodes}` : funcName;
       }
+      nodeLabel = nodeLabel.replaceAll("_", " ");
+
       const nodeParams = params
         ? Object.keys(params).reduce(
             (prev: ElementsData["ctrls"], param) => ({
@@ -79,10 +66,7 @@ export const useAddNewNode = (
                 functionName: funcName,
                 param,
                 value:
-                  funcName === "CONSTANT"
-                    ? nodeLabel
-                    : params[param].default?.toString(),
-                valType: params[param].type as ParamValueType,
+                  funcName === "CONSTANT" ? nodeLabel : params[param].default,
               },
             }),
             {}
@@ -108,6 +92,7 @@ export const useAddNewNode = (
         LAST_NODE_POSITION_KEY,
         JSON.stringify(nodePosition)
       );
+      sendEventToMix("Node Added", newNode.data.label);
     },
     [setNodes, getNodeFuncCount]
   );

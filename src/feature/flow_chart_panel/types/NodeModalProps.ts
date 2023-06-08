@@ -1,12 +1,14 @@
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { Node } from "reactflow";
+import { ElementsData } from "./CustomNodeProps";
 
 export type NodeModalProps = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  nodeLabel: any;
-  nodeType: any;
+  nodeLabel: string;
+  nodeType: string;
   nd: ResultIO | null;
-  defaultLayout: any;
-  clickedElement: any;
   pythonString: string;
+  nodeFilePath: string;
+  selectedNode: Node<ElementsData> | null;
 };

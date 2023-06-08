@@ -1,7 +1,7 @@
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, clsx, createStyles } from "@mantine/core";
+import { Text, Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
@@ -13,7 +13,7 @@ const useStyles = createStyles((theme) => {
       : theme.colors.accent2[0];
   return {
     simulationNode: {
-      width: 115,
+      width: 130,
       borderRadius: 6,
       flexDirection: "column",
       justifyContent: "center",
@@ -56,7 +56,13 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
           }}
         >
           <Box data-testid="data-label-design">
-            <Box>{data.label}</Box>
+            <Text
+              weight={600}
+              size="xl"
+              sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
+            >
+              {data.label}
+            </Text>
           </Box>
           <Box
             display="flex"

@@ -1,8 +1,9 @@
-import { Box, clsx, createStyles } from "@mantine/core";
+import { Text, Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
 import { CustomNodeProps } from "../types/CustomNodeProps";
+import { NodeLabel } from "./NodeLabel";
 import NodeWrapper from "./NodeWrapper";
 
 export const useNodeStyles = createStyles((theme) => {
@@ -16,7 +17,7 @@ export const useNodeStyles = createStyles((theme) => {
       display: "flex",
       alignItems: "center",
       fontSize: 17,
-      minHeight: 115,
+      minHeight: 130,
       height: "fit-content",
     },
 
@@ -24,7 +25,7 @@ export const useNodeStyles = createStyles((theme) => {
       flexDirection: "column",
       justifyContent: "center",
       padding: 10,
-      width: 190,
+      width: 210,
       borderRadius: 6,
       fontWeight: 600,
       border: `1px solid ${accent}`,
@@ -38,7 +39,7 @@ export const useNodeStyles = createStyles((theme) => {
           ? theme.colors.accent1[1]
           : theme.colors.accent2[0]
       } 0px 0px 27px 3px`,
-      borderRadius: "24px",
+      borderRadius: "8px",
     },
 
     simulationShadow: {
@@ -47,6 +48,7 @@ export const useNodeStyles = createStyles((theme) => {
           ? theme.colors.accent2[1]
           : theme.colors.accent1[1]
       } 0px 0px 27px 3px`,
+      borderRadius: "8px",
     },
     scipyShadow: {
       boxShadow: `${
@@ -64,10 +66,12 @@ export const useNodeStyles = createStyles((theme) => {
     },
     arithmeticShadow: {
       filter: `drop-shadow(0px 0px 20px ${theme.colors.accent3[0]})`,
+      borderRadius: "8px",
     },
 
     failShadow: {
       boxShadow: "rgb(183 0 0) 0px 0px 27px 3px",
+      borderRadius: "8px",
     },
   };
 });
@@ -91,7 +95,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Box>{data.label}</Box>
+          <NodeLabel label={data.label} />
           <Box
             display="flex"
             h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}

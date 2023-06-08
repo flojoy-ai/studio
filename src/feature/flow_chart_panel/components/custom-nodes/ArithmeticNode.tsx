@@ -24,8 +24,8 @@ const useStyles = createStyles((theme) => {
     operatorIcon: {
       position: "absolute",
       left: 29,
-      height: 18,
-      width: 18,
+      height: 20,
+      width: 20,
     },
   };
 });
@@ -36,7 +36,7 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-  let operatorIcon;
+  let operatorIcon: JSX.Element;
   switch (data.func) {
     case "MULTIPLY":
       operatorIcon = <MultiplySvg className={classes.operatorIcon} />;

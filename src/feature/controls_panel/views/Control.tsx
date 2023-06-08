@@ -31,6 +31,7 @@ export default function Control({
       data-testid="ctrl-grid-item"
       w="100%"
       h="100%"
+      p="30px 26px"
       display="flex"
       sx={{
         flexDirection: "column",

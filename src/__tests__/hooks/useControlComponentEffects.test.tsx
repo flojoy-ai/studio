@@ -73,11 +73,7 @@ const hookParams: any = {
   results: results,
 };
 
-const { result, rerender } = renderHook(() =>
-  useControlsTabEffects(hookParams)
-);
-
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
+jest.mock("@src/utils/ManifestLoader", () => {
   return {
     FUNCTION_PARAMETERS: {},
   };

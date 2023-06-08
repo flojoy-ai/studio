@@ -1,5 +1,3 @@
-import { ParamValueType } from "@feature/common/types/ParamValueType";
-
 export type ElementsData = {
   id: string;
   label: string;
@@ -11,14 +9,13 @@ export type ElementsData = {
     [key: string]: {
       functionName: string;
       param: string;
-      value: string;
-      valType: ParamValueType;
+      value: string | boolean | number;
     };
   };
   inputs?: Array<{ name: string; id: string; type: string }>;
   selects?: any;
   selected?: boolean;
-  handleRemove?: (nodeId: string) => void;
+  handleRemove?: (nodeId: string, nodeLabel: string) => void;
 };
 
 export interface CustomNodeProps {
