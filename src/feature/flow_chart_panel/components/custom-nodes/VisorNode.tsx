@@ -43,7 +43,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
-  ARRAY_VIEW : <PlotlyTable />,
+  ARRAY_VIEW: <PlotlyTable />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
