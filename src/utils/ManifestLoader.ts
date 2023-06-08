@@ -94,7 +94,7 @@ const CMND_TREE: CommandSection = {
       children: [
         {
           title: "Object detection",
-          key: "AI_OBJECT_DETECTION",
+          key: "OBJECT_DETECTION",
           children: null,
         },
         {
