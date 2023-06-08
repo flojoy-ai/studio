@@ -40,7 +40,7 @@ describe("Verify Add and Delete node", () => {
     //Delete node LOADER
     cy.get('.tabler-icon-x[width=\'24\']').click();
     cy.eyesCheckWindow({
-      tag: "dark flow page",
+      tag: "dark flow page with open loader container",
       target: "window",
       fully: true,
     });
