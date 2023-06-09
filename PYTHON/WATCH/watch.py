@@ -47,10 +47,8 @@ class FlowScheduler:
         self.topology.print_graph()
         self.topology.collect_ready_jobs()
 
-        num_times_waited_for_new_jobs = 0
-        wait_time_for_new_jobs = 0.1
-        wait_time_multiplier = 2
-        max_wait_time = 10
+        wait_time = 0.1
+        running_jobs = []
 
         while not self.topology.finished():
             print("\nnext wave")
@@ -60,32 +58,30 @@ class FlowScheduler:
                 self.topology.collect_ready_jobs()
                 next_jobs = self.topology.next_jobs()
 
-                if len(next_jobs) == 0:
-                    wait_time_for_new_jobs = wait_time_for_new_jobs * pow(
-                        wait_time_multiplier, num_times_waited_for_new_jobs
-                    )
-                    wait_time_for_new_jobs = min(wait_time_for_new_jobs, max_wait_time)
-                    print(
-                        f"no new jobs to execute, sleeping for {wait_time_for_new_jobs} sec"
-                    )
-                    time.sleep(wait_time_for_new_jobs)
-                    num_times_waited_for_new_jobs += 1
-                    continue
-
-                # reset wait count
-                num_times_waited_for_new_jobs = 0
-
                 self.topology.print_jobq("ready ")
 
                 for job_id in next_jobs:
                     self.run_job(job_id)
+                    running_jobs.append(job_id)
 
                 print("waiting on jobs enqueued")
-                for job_id in next_jobs:
-                    job_result, success = self.wait_for_job(job_id)
+                finished_jobs: list[str] = []
+                for job_id in running_jobs:
+                    print("running jobs:", running_jobs)
+                    is_job_finished, job_result, success = self.wait_for_job(job_id)
+                    if not is_job_finished:
+                        continue
+                    finished_jobs.append(job_id)
                     self.process_job_result(job_id, job_result, success)
+                    break
+
+                for job_id in finished_jobs:
+                    running_jobs.remove(job_id)
 
                 self.topology.clear_jobq()
+
+                print(f"wait for {wait_time} sec")
+                time.sleep(wait_time)
 
             except Exception as e:
                 self.topology.print_graph(
@@ -159,25 +155,18 @@ class FlowScheduler:
             input_job_ids=dependencies,
         )
 
-    def wait_for_job(self, job_id):
+    def wait_for_job(self, job_id) -> tuple[bool, any, bool]:
         print(" waiting for job:", self.topology.get_label(job_id))
-
-        while True:
-            time.sleep(self.node_delay)
-
-            job = self.job_service.fetch_job(job_id=job_id)
-            if job:
-                job_status = job.get_status()
-
-                if job_status in ["finished", "failed"]:
-                    job_result = job.result
-                    success = True if job_status == "finished" else False
-                    print(
-                        "  job:", self.topology.get_label(job_id), "status:", job_status
-                    )
-                    break
-
-        return job_result, success
+        is_job_finished, job_result, success = False, None, False
+        job = self.job_service.fetch_job(job_id=job_id)
+        if job:
+            job_status = job.get_status()
+            if job_status in ["finished", "failed"]:
+                job_result = job.result
+                success = True if job_status == "finished" else False
+                is_job_finished = True
+                print("  job:", self.topology.get_label(job_id), "status:", job_status)
+        return is_job_finished, job_result, success
 
     def notify_jobset_finished(self):
         self.job_service.redis_dao.remove_item_from_list(
