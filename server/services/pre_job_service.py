@@ -3,11 +3,20 @@ import pkg_resources
 from datetime import datetime
 from ..utils.install_package import install_packages
 from ..utils.send_to_socket import send_msg_to_socket
+
+import os, sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+
 from PYTHON.services.job_service import JobService
-from PYTHON.WATCH.watch import run
+from PYTHON.WATCH.watch import run_flowchart, job_finished
+
 
 job_service = JobService("flojoy-watch")
-q = job_service.queue
+queue_scheduler = job_service.queue
+
 
 STATUS_CODES = yaml.load(
     open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
@@ -18,23 +27,16 @@ def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
 
-async def enqueue_flow_chart(fc: dict, jobset_id, extraParams: dict):
-    scheduler_job_id = f"{jobset_id}_{datetime.now()}"
-    job_service.add_flojoy_watch_job_id(scheduler_job_id)
-    q.enqueue(
-        run,
-        on_failure=report_failure,
-        job_id=scheduler_job_id,
-        kwargs={
-            "fc": fc,
-            "jobsetId": jobset_id,
-            "scheduler_job_id": scheduler_job_id,
-            "extraParams": extraParams,
-        },
-    )
+def _run_flow_chart(fc: dict, jobset_id, maximum_runtime_ms: int):
+    job_service.add_flojoy_watch_job_id(jobset_id)
+    run_flowchart(fc=fc, jobset_id=jobset_id)
 
 
-async def prepare_jobs(fc: dict, jobset_id: str, extraParams: dict):
+def handle_job_finished(job_id: str, jobset_id: str):
+    job_finished(job_id=job_id, jobset_id=jobset_id)
+
+
+async def run_jobset(fc: dict, jobset_id: str, maximum_runtime_ms: int):
     nodes = fc["nodes"]
     missing_packages = []
     socket_msg = {
@@ -69,7 +71,7 @@ async def prepare_jobs(fc: dict, jobset_id: str, extraParams: dict):
             socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
             socket_msg["PRE_JOB_OP"]["isRunning"] = False
             await send_msg_to_socket(socket_msg)
-            await enqueue_flow_chart(fc, jobset_id, extraParams)
+            _run_flow_chart(fc, jobset_id, maximum_runtime_ms)
         else:
             socket_msg["PRE_JOB_OP"][
                 "output"
@@ -81,4 +83,4 @@ async def prepare_jobs(fc: dict, jobset_id: str, extraParams: dict):
         socket_msg["PRE_JOB_OP"]["isRunning"] = False
         socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RQ_RUN_IN_PROCESS"],)
         await send_msg_to_socket(socket_msg)
-        await enqueue_flow_chart(fc, jobset_id, extraParams)
+        _run_flow_chart(fc, jobset_id, maximum_runtime_ms)

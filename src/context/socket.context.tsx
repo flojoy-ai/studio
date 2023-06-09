@@ -68,25 +68,33 @@ export const SocketContextProvider = ({
   };
 
   useEffect(() => {
+    // retry connecting to websocket when down
     if (!socket) {
-      console.log("Creating new WebSocket connection to backend");
-      const ws = new WebSocketServer({
-        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
-        pingResponse: handleStateChange("serverStatus"),
-        onNodeResultsReceived: setProgramResults,
-        runningNode: handleStateChange("runningNode"),
-        failedNode: handleStateChange("failedNode"),
-        failureReason: handleStateChange("failureReason"),
-        socketId: handleStateChange("socketId"),
-        onPreJobOpStarted: setPreJobOperation,
-        onClose: (ev) => {
-          console.log("socket closed with event:", ev);
-          setSocket(undefined);
-        },
-      });
-      setSocket(ws);
+      const intervalId = setInterval(() => {
+        try {
+          console.log("Creating new WebSocket connection to backend");
+          const ws = new WebSocketServer({
+            url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
+            pingResponse: handleStateChange("serverStatus"),
+            onNodeResultsReceived: setProgramResults,
+            runningNode: handleStateChange("runningNode"),
+            failedNode: handleStateChange("failedNode"),
+            failureReason: handleStateChange("failureReason"),
+            socketId: handleStateChange("socketId"),
+            onPreJobOpStarted: setPreJobOperation,
+            onClose: (ev) => {
+              console.log("socket closed with event:", ev);
+              setSocket(undefined);
+            },
+          });
+          setSocket(ws);
+          clearInterval(intervalId);
+        } catch (err) {
+          console.warn("Connecting websocket failed with error:", err);
+        }
+      }, 3000);
     }
-  }, []);
+  }, [socket]);
   return (
     <SocketContext.Provider
       value={{

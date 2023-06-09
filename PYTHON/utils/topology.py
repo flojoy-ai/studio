@@ -1,15 +1,44 @@
 import json
 import networkx as nx
+from networkx.readwrite import json_graph
 import copy
 
 
 class Topology:
-    def __init__(self, graph: nx.DiGraph) -> None:
-        self.original_graph = copy.deepcopy(graph)
-        self.working_graph = copy.deepcopy(graph)
+    def __init__(self, graph: nx.DiGraph | None) -> None:
+        if graph is not None:
+            self.original_graph = copy.deepcopy(graph)
+            self.working_graph = copy.deepcopy(graph)
+        self.scheduled_jobs = set()
         self.finished_jobs = set()
         self.jobq = []
         self.is_finished = False
+
+    def to_json(self) -> str:
+        state = {
+            "original_graph": json.dumps(
+                json_graph.node_link_data(self.original_graph)
+            ),
+            "working_graph": json.dumps(json_graph.node_link_data(self.working_graph)),
+            "scheduled_jobs": list(self.scheduled_jobs),
+            "finished_jobs": list(self.finished_jobs),
+            "jobq": self.jobq,
+            "is_finished": self.is_finished,
+        }
+        return json.dumps(state)
+
+    def from_json(self, state_str: dict):
+        state = json.loads(state_str)
+        self.original_graph = json_graph.node_link_graph(
+            json.loads(state["original_graph"])
+        )
+        self.working_graph = json_graph.node_link_graph(
+            json.loads(state["working_graph"])
+        )
+        self.scheduled_jobs = set(state["scheduled_jobs"])
+        self.finished_jobs = set(state["finished_jobs"])
+        self.jobq = state["jobq"]
+        self.is_finished = state["is_finished"]
 
     def get_working_graph(self):
         return self.working_graph
@@ -22,6 +51,8 @@ class Topology:
     def restart(self, job_id):
         print("  *** restarting job:", self.get_label(job_id, original=True))
 
+        # has to reconstruct all edges from the entire subgraph rooted in job_id
+        # which means, to copy the edges from the original graph into working graph
         graph = self.original_graph
         sub_graph = graph.subgraph([job_id] + list(nx.descendants(graph, job_id)))
         original_edges = sub_graph.edges
@@ -29,18 +60,22 @@ class Topology:
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
         ]
 
+        # reconstructing edges in working graph
         self.working_graph.add_edges_from(original_edges)
 
+        # has to clear all the nodes in the subgraph from being scheduled or finished
+        self.scheduled_jobs.remove(job_id)
         self.finished_jobs.remove(job_id)
-
+        # clear the descendants as well
         for d_id in nx.descendants(self.working_graph, job_id):
             try:
+                self.scheduled_jobs.remove(job_id)
                 self.finished_jobs.remove(d_id)
             except Exception:
                 pass
 
         print(
-            "   after reconstruction, all descendents for job id:",
+            "   after reconstruction, all descendants for job id:",
             self.get_label(job_id),
             "are:",
             [
@@ -89,10 +124,10 @@ class Topology:
     def add_to_jobq_if_ready(self, job_id):
         """
         Checks if the provided job has any dependencies (no incoming edge).
-        If it doesn't, then it removes it from graph and moves it to jobq.
+        If it doesn't, then prepares the job_id for the next run
         """
 
-        if job_id in self.finished_jobs:
+        if job_id in self.finished_jobs or job_id in self.scheduled_jobs:
             return
 
         deps = self.get_job_dependencies(job_id)
@@ -107,6 +142,7 @@ class Topology:
         if deps is not None and len(deps) <= 0:
             print(" + add", self.get_label(job_id), "in jobq")
             self.jobq.append(job_id)
+            self.scheduled_jobs.add(job_id)
 
     def get_job_dependencies(self, job_id, original=False):
         graph = self.get_graph(original)
@@ -122,11 +158,11 @@ class Topology:
         )
         return self.is_finished
 
-    def next_jobs(self):
-        return self.jobq.copy()
+    def has_next(self) -> bool:
+        return len(self.jobq) > 0
 
-    def clear_jobq(self):
-        self.jobq.clear()
+    def pop_job(self) -> str:
+        return self.jobq.pop()
 
     def get_graph(self, original):
         return self.original_graph if original else self.working_graph
@@ -165,7 +201,7 @@ class Topology:
         t = self.get_label(target_job_id, original=original)
         return f"{s} -- {label} --> {t}"
 
-    def print_graph(self, prefix=None, verbose=False, original=False):
+    def print_graph(self, prefix=None, original=False):
         graph = self.get_graph(original)
         if prefix is None:
             prefix = "working graph:" if not original else "original graph:"
@@ -174,11 +210,9 @@ class Topology:
         ]
         edges = list(graph.edges.data())
 
-        if not verbose:
-            edges_str = [
-                self.get_edge_label_string(s, t, original=original)
-                for (s, t, _) in edges
-            ]
+        edges_str = [
+            self.get_edge_label_string(s, t, original=original) for (s, t, _) in edges
+        ]
 
         print(
             prefix,
@@ -186,6 +220,10 @@ class Topology:
             json.dumps(nodes, indent=2),
             "\nedges:",
             json.dumps(edges_str, indent=2),
+            "\nfinished_jobs:",
+            list(self.finished_jobs),
+            "\nis_finished:",
+            self.is_finished,
         )
 
     def print_jobq(self, prefix=""):

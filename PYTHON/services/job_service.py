@@ -3,6 +3,13 @@ from PYTHON.common.CONSTANTS import (
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
 )
+
+
+import os, sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
 from dao.redis_dao import RedisDao
 from node_sdk.small_memory import SmallMemory
 from rq import Queue
@@ -17,7 +24,10 @@ def report_failure(job, connection, type, value, traceback):
 
 class JobService:
     def __init__(self, queue_name, maximum_runtime=3000):
-        self.redis_dao = RedisDao()
+        """
+        It is safe to construct multiple instances of JobService. It is designed to automatically reuse existing connections to backend.
+        """
+        self.redis_dao = RedisDao.get_instance()
         self.queue = Queue(
             queue_name, connection=self.redis_dao.r, default_timeout=maximum_runtime
         )

@@ -1,7 +1,6 @@
-import json
+from __future__ import annotations
 import os
 import sys
-import time
 import traceback
 import warnings
 
@@ -9,115 +8,165 @@ import matplotlib.cbook
 import networkx as nx
 from flojoy import get_next_directions, get_next_nodes
 
+
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
-from services.job_service import JobService
+from node_sdk.small_memory import SmallMemory
+from PYTHON.services.job_service import JobService
 from utils.dynamic_module_import import get_module_func, create_map
 from utils.topology import Topology
 
-ENV_CI = "CI"
+
+ENV_KEY_CI = "CI"
+REDIS_KEY_TOPOLOGY = "__topology__"
+REDIS_KEY_MAX_RUN_TIME = "__max_run_time__"
+QUEUE_NAME_WORKERS = "flojoy"
 
 
 class FlowScheduler:
-    def __init__(self, scheduler_job_id, fc, extraParams, jobsetId=None) -> None:
-        # print("sjid", scheduler_job_id)
-        # print("fc", fc)
-        # print("ep", extraParams)
-        # print("jsid", jobsetId)
-        self.scheduler_job_id = scheduler_job_id
-        self.jobset_id = jobsetId
-        self.flow_chart = fc
-        # TODO: split this up into different input vars
-        self.maximum_runtime = extraParams.get("maximumRuntime", 3000)
-        self.node_delay = extraParams.get("nodeDelay", 0)
-        self.job_service = JobService("flojoy", self.maximum_runtime)
+    """
+    FlowScheduler manages scheduling for flowchart jobs.
+    It maintains its state in backend DB,
+    and provides methods to schedule jobs that are ready, mark a job as finished.
 
-    def run(self):
-        print("\nrun jobset:", self.jobset_id)
-        self.is_ci = os.getenv(key=ENV_CI, default=False)
+    Note:
+    Its methods are not thread safe.
+    Which means if you call its methods in parallel,
+    you won't get predictable behavior.
+    But, its methods don't keep any unsaved states when they finish.
+    """
+
+    def __init__(
+        self,
+        jobset_id: str,
+        fc: any | None = None,
+        maximum_runtime_ms: int | None = None,
+        persist_state: bool = False,
+    ):
+        """Constructor
+
+        Parameters
+        ----------
+        jobset_id : str
+                  This is a required parameter.
+                  A unique id to track a flowchart's execution.
+        fc : flowchart
+            When fc (flowchart) is provided, it'll initiate its state with it and save its state in DB.
+            When fc (flowchart) is not provided, it'll load the its state from DB.
+        maximum_runtime_ms : int | None
+            Maximum runtime of a node in milliseconds.
+            The next run of the ready jobs are scheduled with this value as the maximum runtime.
+            When this parameter is not provided,
+            it'll use the value currently saved in DB. It'll default to 3000ms if a value is not found in DB.
+            When fc parameter is provided, it interprets that as a whole new jobset run.
+            In that case, if this parameter maximum_runtime_ms is omitted,
+            it'll default to 3000ms without looking in DB.
+        persist_state : bool
+            Flag to indicate whether the scheduler state should be persisted in DB
+        """
+
+        self.is_ci = os.getenv(key=ENV_KEY_CI, default=False)
         print("is running in CI?", self.is_ci)
-        self.nx_graph = reactflow_to_networkx(
-            self.flow_chart["nodes"], self.flow_chart["edges"]
-        )
+
+        self.jobset_id: str = jobset_id
+        self.persist_state = persist_state
+        if fc is not None:
+            self.maximum_runtime_ms = (
+                maximum_runtime_ms if maximum_runtime_ms is not None else 3000
+            )
+            self._init_jobset(fc)
+            self.save_state()
+        else:
+            self.load_state()
+
+        self.job_service = JobService(QUEUE_NAME_WORKERS, self.maximum_runtime_ms)
+
+    def _init_jobset(self, fc) -> None:
+        print("\nrun jobset:", self.jobset_id)
+
+        self.nx_graph = _reactflow_to_networkx(fc["nodes"], fc["edges"])
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
-        self.topology.collect_ready_jobs()
 
-        num_times_waited_for_new_jobs = 0
-        wait_time_for_new_jobs = 0.1
-        wait_time_multiplier = 2
-        max_wait_time = 10
+        print("finished constructing scheduler")
 
-        while not self.topology.finished():
-            print("\nnext wave")
+    def run_jobq(self):
+        print("\nrun jobq")
+        try:
             # self.topology.print_graph()
+            self.topology.print_jobq("before collecting jobs current")
+            self.topology.collect_ready_jobs()
+            self.topology.print_jobq("ready ")
+            while self.topology.has_next():
+                next_job_id = self.topology.pop_job()
+                self._enqueue_job(next_job_id)
+            self.save_state()
+        except Exception as e:
+            self.topology.print_graph(
+                "exception occurred in scheduler, current working graph:"
+            )
+            print(traceback.format_exc())
+            raise e
 
-            try:
-                self.topology.collect_ready_jobs()
-                next_jobs = self.topology.next_jobs()
+    def handle_job_finished(self, job_id: str, jobset_id: str):
+        print(
+            f"handling job finished: {self.topology.get_label(job_id)} - jobset_id: {jobset_id}"
+        )
+        job_result, success = self._get_job_result(job_id)
+        self._process_job_result(job_id, job_result, success)
+        self.save_state()
+        self.run_jobq()
 
-                if len(next_jobs) == 0:
-                    wait_time_for_new_jobs = wait_time_for_new_jobs * pow(
-                        wait_time_multiplier, num_times_waited_for_new_jobs
-                    )
-                    wait_time_for_new_jobs = min(wait_time_for_new_jobs, max_wait_time)
-                    print(
-                        f"no new jobs to execute, sleeping for {wait_time_for_new_jobs} sec"
-                    )
-                    time.sleep(wait_time_for_new_jobs)
-                    num_times_waited_for_new_jobs += 1
-                    continue
+    def save_state(self):
+        if not self.persist_state:
+            return
+        print("saving scheduler state")
+        topology_json = self.topology.to_json()
+        SmallMemory().write_to_memory(self.jobset_id, REDIS_KEY_TOPOLOGY, topology_json)
+        SmallMemory().write_to_memory(
+            self.jobset_id, REDIS_KEY_MAX_RUN_TIME, str(self.maximum_runtime_ms)
+        )
+        print("scheduler state saved")
 
-                # reset wait count
-                num_times_waited_for_new_jobs = 0
+    def load_state(self):
+        if not self.persist_state:
+            return
+        print("loading scheduler state")
+        self.maximum_runtime_ms = int(
+            SmallMemory().read_memory(self.jobset_id, REDIS_KEY_MAX_RUN_TIME)
+        )
+        topology_json = SmallMemory().read_memory(self.jobset_id, REDIS_KEY_TOPOLOGY)
+        self.topology = Topology(None)
+        self.topology.from_json(topology_json)
+        print("scheduler state loaded")
 
-                self.topology.print_jobq("ready ")
-
-                for job_id in next_jobs:
-                    self.run_job(job_id)
-
-                print("waiting on jobs enqueued")
-                for job_id in next_jobs:
-                    job_result, success = self.wait_for_job(job_id)
-                    self.process_job_result(job_id, job_result, success)
-
-                self.topology.clear_jobq()
-
-            except Exception as e:
-                self.topology.print_graph(
-                    "exception occurred in scheduler, current working graph:"
-                )
-                print(traceback.format_exc())
-                raise e
-
-        # jobset finished
-        self.topology.print_graph()
-        self.notify_jobset_finished()
-        print("finished proceessing jobset", self.jobset_id, "\n")
-
-    def process_job_result(self, job_id, job_result, success):
+    def _process_job_result(self, job_id, job_result, success):
         """
         process special instructions to scheduler
         """
+
+        print(f"processing job result for: {self.topology.get_label(job_id)}")
 
         if not success:
             self.topology.mark_job_failure(job_id)
             return
 
         # process instruction to flow through specified directions
-        for direction_ in get_next_directions(job_result):
-            direction = direction_.lower()
-            self.topology.mark_job_success(job_id, direction)
+        self._flow_to_directions(job_id, job_result)
 
         # process instruction to flow to specified nodes
-        nodes_to_add = []
-        next_nodes = get_next_nodes(job_result)
-        if next_nodes is not None:
-            nodes_to_add += [node_id for node_id in next_nodes]
+        self._flow_to_nodes(job_result)
+
+    def _flow_to_directions(self, job_id, job_result):
+        for direction_ in get_next_directions(job_result):
+            self.topology.mark_job_success(job_id, direction_.lower())
+
+    def _flow_to_nodes(self, job_result):
+        nodes_to_add = get_next_nodes(job_result)
 
         if len(nodes_to_add) > 0:
             print(
@@ -129,13 +178,33 @@ class FlowScheduler:
             print("OVER HERE")
             self.topology.restart(node_id)
 
-    def run_job(self, job_id):
-        node = self.nx_graph.nodes[job_id]
+    def _get_job_result(self, job_id):
+        job_result = None
+        success = True
+        job = self.job_service.fetch_job(job_id=job_id)
+        print(f"get job result for job_id: {self.topology.get_label(job_id)}")
+        if job:
+            job_status = job.get_status()
+            print(f"job_status: {job_status}")
+            if job_status in ["finished", "failed"]:
+                job_result = job.result
+                success = True if job_status == "finished" else False
+                print("  job:", self.topology.get_label(job_id), "status:", job_status)
+        else:
+            print(
+                " Error: could not fetch result for job id:",
+                self.topology.get_label(job_id),
+            )
+            return None, False
+        return job_result, success
+
+    def _enqueue_job(self, job_id):
+        node = self.topology.working_graph.nodes[job_id]
         cmd = node["cmd"]
-        cmd_mock = node["cmd"] + "_MOCK"
         func = get_module_func(cmd, cmd)
         if self.is_ci:
             try:
+                cmd_mock = node["cmd"] + "_MOCK"
                 func = get_module_func(cmd, cmd_mock)
             except Exception:
                 pass
@@ -159,50 +228,19 @@ class FlowScheduler:
             input_job_ids=dependencies,
         )
 
-    def wait_for_job(self, job_id):
-        print(" waiting for job:", self.topology.get_label(job_id))
 
-        while True:
-            time.sleep(self.node_delay)
-
-            job = self.job_service.fetch_job(job_id=job_id)
-            if job:
-                job_status = job.get_status()
-
-                if job_status in ["finished", "failed"]:
-                    job_result = job.result
-                    success = True if job_status == "finished" else False
-                    print(
-                        "  job:", self.topology.get_label(job_id), "status:", job_status
-                    )
-                    break
-
-        return job_result, success
-
-    def notify_jobset_finished(self):
-        self.job_service.redis_dao.remove_item_from_list(
-            f"{self.jobset_id}_watch", self.scheduler_job_id
-        )
-
-    def print_flow_chart(self):
-        print(
-            "nodes from FE:",
-            json.dumps(self.flow_chart["nodes"], indent=2),
-            "\nedges from FE:",
-            json.dumps(self.flow_chart["edges"], indent=2),
-        )
-
-
-def reactflow_to_networkx(elems, edges):
+def _reactflow_to_networkx(elems, edges):
     nx_graph: nx.DiGraph = nx.DiGraph()
     for i in range(len(elems)):
         el = elems[i]
         node_id = el["id"]
         data = el["data"]
         cmd = el["data"]["func"]
+
         ctrls = data["ctrls"] if "ctrls" in data else {}
         inputs = data["inputs"] if "inputs" in data else {}
         label = data["label"] if "label" in data else {}
+
         nx_graph.add_node(
             node_id,
             pos=(el["position"]["x"], el["position"]["y"]),
@@ -221,14 +259,30 @@ def reactflow_to_networkx(elems, edges):
         label = e["sourceHandle"]
         nx_graph.add_edge(u, v, label=label, id=_id)
 
-    nx.draw(nx_graph, with_labels=True)
-
     return nx_graph
 
 
-def run(**kwargs):
+flowScheduler: FlowScheduler
+
+
+def run_flowchart(**kwargs):
+    print("\n\n\nrun_flowchart")
+    global flowScheduler
     try:
-        return FlowScheduler(**kwargs).run()
+        flowScheduler = FlowScheduler(**kwargs)
+        flowScheduler.run_jobq()
+        return flowScheduler
     except Exception:
-        print("exception occured while running the flowchart")
+        print("exception occurred while running the flowchart")
+        print(traceback.format_exc())
+
+
+def job_finished(**kwargs):
+    global flowScheduler
+    print("job_finished")
+    try:
+        flowScheduler.handle_job_finished(**kwargs)
+        return flowScheduler
+    except Exception:
+        print("exception occurred while handling job finished, kwargs:", kwargs)
         print(traceback.format_exc())
