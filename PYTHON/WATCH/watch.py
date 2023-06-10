@@ -82,14 +82,6 @@ class FlowScheduler:
                 print("waiting on jobs enqueued")
                 for job_id in next_jobs:
                     job_result, success = self.wait_for_job(job_id)
-                    print(
-                        " job result: ",
-                        "",
-                        " sucess: ",
-                        success,
-                        " jobid: ",
-                        self.topology.get_label(job_id),
-                    )
                     self.process_job_result(job_id, job_result, success)
 
                 self.topology.clear_jobq()
