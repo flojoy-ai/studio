@@ -43,7 +43,10 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
-  PROPHET: <LineChart />,
+  // TODO: This should really be a LineChart, but Flojoy is having issues rendering
+  //  time series linecharts: https://github.com/flojoy-io/nodes/issues/96
+  //  using image works for now. See nodes/VISUALIZERS/PLOTLY/PROPHET/PROPHET.py
+  PROPHET: <PlotlyImage />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
