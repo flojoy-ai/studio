@@ -45,7 +45,6 @@ class FlowScheduler:
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
-        self.topology.collect_ready_jobs()
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
@@ -83,6 +82,14 @@ class FlowScheduler:
                 print("waiting on jobs enqueued")
                 for job_id in next_jobs:
                     job_result, success = self.wait_for_job(job_id)
+                    print(
+                        " job result: ",
+                        "",
+                        " sucess: ",
+                        success,
+                        " jobid: ",
+                        self.topology.get_label(job_id),
+                    )
                     self.process_job_result(job_id, job_result, success)
 
                 self.topology.clear_jobq()
