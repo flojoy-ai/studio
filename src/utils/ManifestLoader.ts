@@ -97,6 +97,11 @@ const CMND_TREE: CommandSection = {
           key: "AI_OBJECT_DETECTION",
           children: null,
         },
+        {
+          title: "Predict Time Series",
+          key: "PREDICT_TIME_SERIES",
+          children: null,
+        },
       ],
     },
 
