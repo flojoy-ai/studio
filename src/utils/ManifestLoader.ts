@@ -23,10 +23,11 @@ const paramsSchema = z.record(
     z.string(),
     z.object({
       type: z.string(),
-      default: z.union([z.string(), z.number(), z.boolean()]),
+      default: z.union([z.string(), z.number(), z.boolean()]).nullish(),
       options: z.optional(z.array(z.string())),
     })
   )
+  .nullish()
 );
 
 const manifestSchema = z.object({
@@ -104,7 +105,20 @@ const CMND_TREE: CommandSection = {
         },
       ],
     },
+    {
+      title: "SCIentific PYthon (SciPy)",
+      children: [
+        { title: "Stats", key: "SCIPY_STATS", children: null},
+        { title: "Signal", key: "SCIPY_SIGNAL", children: null},
 
+      ]
+    },
+    {
+      title: "NUMeric PYthon (NumPy)",
+      children: [
+        { title: "Linalg", key: "NUMPY_LINALG", children: null},
+      ]
+    },
     {
       title: "Extractors",
       children: [
