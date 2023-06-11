@@ -3,6 +3,7 @@
 # python
 /venv
 /venv2
+.venv
 
 # dependencies
 /node_modules
