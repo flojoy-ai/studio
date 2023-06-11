@@ -57,7 +57,7 @@
     "backend": "python3 manage.py runserver",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy-watch",
-    "rq-flojoy": "cd PYTHON && OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy",
+    "rq-flojoy": "cd PYTHON && OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python worker.py",
     "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
     "start-project:win": "concurrently -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"rqworker.exe -w rq_win.WindowsWorker flojoy-watch\" \"cd PYTHON && rqworker.exe -w rq_win.WindowsWorker flojoy\"",
     "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
