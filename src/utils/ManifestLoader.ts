@@ -97,6 +97,7 @@ const CMND_TREE: CommandSection = {
           key: "AI_OBJECT_DETECTION",
           children: null,
         },
+        { title: "Regression", key: "REGRESSION", children: null },
         {
           title: "Classification",
           key: "CLASSIFICATION",
@@ -104,7 +105,17 @@ const CMND_TREE: CommandSection = {
         },
       ],
     },
-
+    {
+      title: "SCIentific PYthon (SciPy)",
+      children: [
+        { title: "Stats", key: "SCIPY_STATS", children: null },
+        { title: "Signal", key: "SCIPY_SIGNAL", children: null },
+      ],
+    },
+    {
+      title: "NUMeric PYthon (NumPy)",
+      children: [{ title: "Linalg", key: "NUMPY_LINALG", children: null }],
+    },
     {
       title: "Extractors",
       children: [
