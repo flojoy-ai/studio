@@ -68,6 +68,7 @@ const ParamField = ({
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
+          checked={value}
         />
       );
     case "select":
