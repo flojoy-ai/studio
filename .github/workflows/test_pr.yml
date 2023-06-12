@@ -1,4 +1,4 @@
-name: Trigger test PR workflow
+name: Trigger Live test
 
 on:
   pull_request:
@@ -35,9 +35,72 @@ jobs:
           echo "GitHub Event Action: ${{ github.event.action }}"
 
       - name: Trigger test PR
+        id: trigger_pr
         run: |
           curl -X POST https://api.github.com/repos/${{ env.PROJECT_OWNER }}/${{ env.PROJECT_REPO }}/actions/workflows/${{ env.PROJECT_WORKFLOW_ID }}/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ env.PROJECT_TOKEN }} \
           --data '{"ref":"main", "inputs":{"github_event_name":"${{ github.event_name }}", "github_head_ref": "${{ github.head_ref }}", "github_event_pull_request_number": "${{ github.event.pull_request.number }}", "context_issue_number": "${{ github.event.pull_request.number }}", "context_repo_owner": "${{ github.repository_owner }}", "context_repo_repo": "${{ github.repository }}", "github_event_pull_request_merged": "${{ github.event.pull_request.merged }}", "github_event_action": "${{ github.event.action }}"}}'
       - uses: actions/checkout@v3
+
+      - name: Wait for 10m
+        run: sleep 10m
+
+      - name: Find Comment with URLs
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          token: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-regex: 'flojoy-test\.com:3000'
+
+      - name: Extract test URLs
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        id: extract-ip-port
+        run: |
+          URL_REGEX='([0-9]+)_(windows|linux)\.flojoy-test\.com'
+          if [[ "${{ steps.fc.outputs.comment-body }}" =~ $URL_REGEX ]]; then
+            export FC_COMMENT_BODY="${{ steps.fc.outputs.comment-body }}"
+            while [[ "${FC_COMMENT_BODY}" =~ $URL_REGEX ]]; do
+              domain="${BASH_REMATCH[1]}"
+              platform="${BASH_REMATCH[2]}"
+
+              if [[ $platform == "windows" ]]; then
+                echo "domain_windows=${domain}_windows.flojoy-test.com" >> $GITHUB_OUTPUT
+              elif [[ $platform == "linux" ]]; then
+                echo "domain_linux=${domain}_linux.flojoy-test.com" >> $GITHUB_OUTPUT
+              fi
+
+              # Replace the matched URL with an empty string to continue searching for more URLs
+              FC_COMMENT_BODY="${FC_COMMENT_BODY//${BASH_REMATCH[0]}/}"
+            done
+          else
+            echo "No matching URLs found in the comment body."
+          fi
+
+      - name: Test if Flojou-studio is up
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        id: test-http-page
+        run: |
+          echo "Test on http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
+          CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_windows }}:3000")
+          if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
+            echo "The HTTP page contains '<title>FLOJOY</title>'."
+            echo "Test passed on Windows."
+          else
+            echo "The HTTP page does not contain '<title>FLOJOY</title>'."
+            echo "Test failed on Windows."
+            exit 1
+          fi
+
+          echo "Test on http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
+          CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_linux }}:3000")
+          if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
+            echo "The HTTP page contains '<title>FLOJOY</title>'."
+            echo "Test passed on Linux."
+          else
+            echo "The HTTP page does not contain '<title>FLOJOY</title>'."
+            echo "Test failed on Linux."
+            exit1
+          fi
