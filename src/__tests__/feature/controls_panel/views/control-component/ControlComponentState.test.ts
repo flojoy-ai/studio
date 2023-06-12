@@ -288,7 +288,7 @@ describe("Testing ControlComponentState State's", () => {
         autosize: true,
         font: { color: "#99f5ff" },
         margin: { t: 40, r: 40, b: 40, l: 40 },
-        xaxis: { zeroline: false, type: "linear" },
+        xaxis: { zeroline: false, type: "-" },
         template: {},
       };
       const { result } = renderHook(() =>

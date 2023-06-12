@@ -19,16 +19,14 @@ const commandsSchema = z.array(
 
 const paramsSchema = z.record(
   z.string(),
-  z
-    .record(
-      z.string(),
-      z.object({
-        type: z.string(),
-        default: z.union([z.string(), z.number(), z.boolean()]).nullish(),
-        options: z.optional(z.array(z.string())),
-      })
-    )
-    .nullish()
+  z.record(
+    z.string(),
+    z.object({
+      type: z.string(),
+      default: z.union([z.string(), z.number(), z.boolean()]),
+      options: z.optional(z.array(z.string())),
+    })
+  )
 );
 
 const manifestSchema = z.object({
