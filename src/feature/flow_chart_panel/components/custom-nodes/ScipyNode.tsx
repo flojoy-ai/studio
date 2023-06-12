@@ -1,12 +1,10 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import {CustomNodeProps} from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import NodeWrapper from "../NodeWrapper";
 import { Box, clsx, createStyles } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
-import {
-    ScipySvg
-} from "../../svgs/add-multiply-svg";
+import { ScipySvg } from "../../svgs/add-multiply-svg";
 const useStyles = createStyles((theme) => {
   const accent =
     theme.colorScheme === "light"
@@ -24,11 +22,11 @@ const useStyles = createStyles((theme) => {
       backgroundColor: accent + "27",
     },
     operatorIcon: {
-        position: "absolute",
-        right: 8,
-        bottom: 5,
-        height: 40,
-        width: 40,
+      position: "absolute",
+      right: 8,
+      bottom: 5,
+      height: 40,
+      width: 40,
     },
   };
 });

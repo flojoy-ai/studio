@@ -18,5 +18,5 @@ export const nodeConfigs = {
   AI_OBJECT_DETECTION: DefaultNode,
   SCIPY_STATS: ScipyNode,
   SCIPY_SIGNAL: ScipyNode,
-  NUMPY_LINALG: NumpyNode
+  NUMPY_LINALG: NumpyNode,
 };
