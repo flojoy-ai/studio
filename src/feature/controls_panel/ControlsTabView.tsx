@@ -195,6 +195,7 @@ const ControlsTab = () => {
           <IconButton
             onClick={() => setCtrlSidebarOpen(!ctrlSidebarOpen)}
             icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+            data-testid="add-ctrl-button"
           >
             <Text size="sm">Add Control</Text>
           </IconButton>
