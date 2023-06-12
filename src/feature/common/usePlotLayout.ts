@@ -16,7 +16,7 @@ const usePlotLayout = () => {
     autosize: true,
     font: { color: accentColor },
     margin: { t: 40, r: 40, b: 40, l: 40 },
-    xaxis: { zeroline: false, type: "linear" },
+    xaxis: { zeroline: false, type: "-" },
     template: {},
   };
   return defaultLayout;

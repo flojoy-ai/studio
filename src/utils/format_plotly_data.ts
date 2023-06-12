@@ -18,6 +18,11 @@ export const makePlotlyData = (
   const matrixFontColor =
     theme.colorScheme === "dark" ? theme.colors.gray[0] : theme.colors.dark[7];
 
+  const accentColor =
+    theme.colorScheme === "dark"
+      ? theme.colors.accent1[0]
+      : theme.colors.accent2[0];
+
   return data.map((d) => {
     return {
       ...d,
@@ -66,6 +71,11 @@ export const makePlotlyData = (
       }),
       marker: {
         ...d.marker,
+        color: accentColor,
+      },
+      line: {
+        ...d.line,
+        color: accentColor,
       },
     };
   });
