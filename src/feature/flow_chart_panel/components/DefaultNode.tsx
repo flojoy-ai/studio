@@ -50,7 +50,20 @@ export const useNodeStyles = createStyles((theme) => {
       } 0px 0px 27px 3px`,
       borderRadius: "8px",
     },
-
+    scipyShadow: {
+      boxShadow: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.accent6[1]
+          : theme.colors.accent6[1]
+      } 0px 0px 27px 3px`,
+    },
+    numpyShadow: {
+      boxShadow: `${
+        theme.colorScheme === "dark"
+          ? theme.colors.accent7[1]
+          : theme.colors.accent7[1]
+      } 0px 0px 27px 3px`,
+    },
     arithmeticShadow: {
       filter: `drop-shadow(0px 0px 20px ${theme.colors.accent3[0]})`,
       borderRadius: "8px",

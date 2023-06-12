@@ -60,7 +60,7 @@ export const useFlowChartGraph = () => {
           node.data.ctrls = {
             [paramId]: inputData,
           };
-          node.data.label = inputData.value.toString();
+          node.data.label = inputData.value?.toString() ?? "CONSTANT";
         } else {
           node.data.ctrls[paramId] = inputData;
         }

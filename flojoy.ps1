@@ -294,7 +294,8 @@ $existingPath = [Environment]::GetEnvironmentVariable("Path", "User")
 # Check if the path already exists in the variable
 if ($existingPath -split ";" -contains $python_scripts_path) {
   feedback $true "The Python Scripts path is already present in the Path environment variable..." ""
-} else {
+}
+else {
   info_msg "Adding Scipts path to Path environment..."
   setx path "$existingPath;$python_scripts_path" 2>$1 > $null
   feedback $? "Scripts path added successfully, Please restart PowerShell and run the script again to take effect." "Failed to add Scripts path please add following path to Path environment and run this script again. $python_scripts_path"

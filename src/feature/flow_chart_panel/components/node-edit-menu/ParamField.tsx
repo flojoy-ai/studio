@@ -56,11 +56,19 @@ const ParamField = ({
           value={value}
         />
       );
+    case "array":
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
     case "boolean":
       return (
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
+          checked={value}
         />
       );
     case "select":

@@ -45,7 +45,6 @@ class FlowScheduler:
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
-        self.topology.collect_ready_jobs()
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
