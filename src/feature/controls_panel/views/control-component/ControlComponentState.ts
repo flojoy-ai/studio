@@ -40,7 +40,7 @@ const ControlComponentState = ({
   const [numberInput, setNumberInput] = useState<string>("0");
   const [sliderInput, setSliderInput] = useState<string>("0");
   const [currentInputValue, setCurrentInputValue] = useState<
-    string | number | boolean
+    string | number | boolean | undefined | null
   >(0);
   const [nd, setNd] = useState<ResultIO | null>(null);
 

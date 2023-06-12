@@ -23,7 +23,7 @@ const paramsSchema = z.record(
     z.string(),
     z.object({
       type: z.string(),
-      default: z.union([z.string(), z.number(), z.boolean()]),
+      default: z.union([z.string(), z.number(), z.boolean()]).nullish(),
       options: z.optional(z.array(z.string())),
     })
   )
@@ -94,7 +94,7 @@ const CMND_TREE: CommandSection = {
       children: [
         {
           title: "Object detection",
-          key: "AI_OBJECT_DETECTION",
+          key: "OBJECT_DETECTION",
           children: null,
         },
         { title: "Regression", key: "REGRESSION", children: null },
@@ -120,6 +120,7 @@ const CMND_TREE: CommandSection = {
       title: "Extractors",
       children: [
         // Extractors tab
+        { title: "Dataframes", key: "DATAFRAME", children: null },
         { title: "Files", key: "FILE", children: null },
         { title: "DAQ", key: "DAQ", children: null },
       ],
