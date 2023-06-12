@@ -1,13 +1,10 @@
 name: CI
 
 on:
-  push:
-    branches: ["main", "develop"]
   pull_request:
-    branches: ["main", "develop"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches:
+      - main
+      - develop
 
 env:
   APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
