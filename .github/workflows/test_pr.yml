@@ -51,7 +51,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          token: ${{ secrets.PRIVATE_PROJECT_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
           issue-number: ${{ github.event.pull_request.number }}
           body-regex: 'flojoy-test\.com:3000'
 
