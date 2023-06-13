@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-require('cypress-xpath')
+require("cypress-xpath");
 describe("Verify Add and Delete node", () => {
   beforeEach(() => {
     cy.eyesOpen({
@@ -16,7 +16,7 @@ describe("Verify Add and Delete node", () => {
       target: "window",
       fully: true,
     });
-// Click add node
+    // Click add node
     cy.get('[data-testid="add-node-button"]').click();
 
     cy.eyesCheckWindow({
@@ -38,13 +38,16 @@ describe("Verify Add and Delete node", () => {
     // Click on added container LOADER
     cy.xpath("//div[contains(text(), 'LOADER')]").click();
     //Delete node LOADER
-    cy.get('.tabler-icon-x[width=\'24\']').click();
+    cy.get(".tabler-icon-x[width='24']").click();
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
       fully: true,
     });
-    cy.xpath("//div[contains(text(), 'LOADER')]").should('not.exist', "//div[contains(text(), 'LOADER')]");
+    cy.xpath("//div[contains(text(), 'LOADER')]").should(
+      "not.exist",
+      "//div[contains(text(), 'LOADER')]"
+    );
   });
   afterEach(() => {
     cy.eyesClose();

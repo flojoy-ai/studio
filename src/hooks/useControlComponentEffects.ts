@@ -50,6 +50,10 @@ const useControlComponentEffects = ({
   useEffect(() => {
     if (ctrls) {
       const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
+      if (value === null || value === undefined) {
+        setCurrentInputValue(value);
+        return;
+      }
       setCurrentInputValue(isNaN(+value) ? value : +value);
     } else {
       setCurrentInputValue(defaultValue as number);

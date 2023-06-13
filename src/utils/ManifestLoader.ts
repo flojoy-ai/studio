@@ -23,7 +23,7 @@ const paramsSchema = z.record(
     z.string(),
     z.object({
       type: z.string(),
-      default: z.union([z.string(), z.number(), z.boolean()]),
+      default: z.union([z.string(), z.number(), z.boolean()]).nullish(),
       options: z.optional(z.array(z.string())),
     })
   )
@@ -94,7 +94,13 @@ const CMND_TREE: CommandSection = {
       children: [
         {
           title: "Object detection",
-          key: "AI_OBJECT_DETECTION",
+          key: "OBJECT_DETECTION",
+          children: null,
+        },
+        { title: "Regression", key: "REGRESSION", children: null },
+        {
+          title: "Classification",
+          key: "CLASSIFICATION",
           children: null,
         },
         {
@@ -104,11 +110,22 @@ const CMND_TREE: CommandSection = {
         },
       ],
     },
-
+    {
+      title: "SCIentific PYthon (SciPy)",
+      children: [
+        { title: "Stats", key: "SCIPY_STATS", children: null },
+        { title: "Signal", key: "SCIPY_SIGNAL", children: null },
+      ],
+    },
+    {
+      title: "NUMeric PYthon (NumPy)",
+      children: [{ title: "Linalg", key: "NUMPY_LINALG", children: null }],
+    },
     {
       title: "Extractors",
       children: [
         // Extractors tab
+        { title: "Dataframes", key: "DATAFRAME", children: null },
         { title: "Files", key: "FILE", children: null },
         { title: "DAQ", key: "DAQ", children: null },
       ],
@@ -184,6 +201,7 @@ const CMND_TREE: CommandSection = {
           children: null,
         },
         { title: "Array selection", key: "SELECT_ARRAY", children: null },
+        { title: "Type casting", key: "TYPE_CASTING", children: null },
       ],
     },
     {

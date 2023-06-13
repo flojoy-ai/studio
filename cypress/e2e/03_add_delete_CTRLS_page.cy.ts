@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-require('cypress-xpath')
+require("cypress-xpath");
 describe("Verify Add and Delete CTRLS", () => {
   beforeEach(() => {
     cy.eyesOpen({
@@ -7,7 +7,6 @@ describe("Verify Add and Delete CTRLS", () => {
       testName: Cypress.currentTest.title,
     });
   });
-
 
   it("should open flojoy studio's main page", () => {
     cy.visit("/").wait(1000);
@@ -17,7 +16,7 @@ describe("Verify Add and Delete CTRLS", () => {
       target: "window",
       fully: true,
     });
-// Open CTRLS
+    // Open CTRLS
     cy.get("[data-cy='ctrls-btn']").click();
 
     cy.eyesCheckWindow({
@@ -25,21 +24,21 @@ describe("Verify Add and Delete CTRLS", () => {
       target: "window",
       fully: true,
     });
-// Click add CTRLS button
+    // Click add CTRLS button
     cy.get('[data-testid="add-ctrl-button"]').click();
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar",
       target: "window",
       fully: true,
     });
-// Open Inputs
+    // Open Inputs
     cy.xpath("//div[contains(text(), 'Inputs')]").click();
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar and INPUTS",
       target: "window",
       fully: true,
     });
-// Open Continue variables
+    // Open Continue variables
     cy.xpath("//div[contains(text(), 'Continuous Variables')]").click();
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar, INPUTS and Continuous Variables",
