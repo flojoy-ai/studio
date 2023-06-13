@@ -45,7 +45,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
   ARRAY_VIEW: <PlotlyTable />,
-  COMPOSITE_PLOT: <CompositePlot />,
+  COMPOSITE: <CompositePlot />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
