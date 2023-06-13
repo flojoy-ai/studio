@@ -44,6 +44,8 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
   ARRAY_VIEW: <PlotlyTable />,
+  PROPHET_PLOT: <LineChart />,
+  PROPHET_COMPONENTS: <LineChart />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
