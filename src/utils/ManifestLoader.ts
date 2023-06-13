@@ -178,6 +178,7 @@ const CMND_TREE: CommandSection = {
       children: [
         // Transformers tab
         { title: "Arithmetic", key: "ARITHMETIC", children: null },
+        { title: "Calculus", key: "CALCULUS", children:null },
         {
           title: "Signal processing",
           key: "SIGNAL_PROCESSING",
