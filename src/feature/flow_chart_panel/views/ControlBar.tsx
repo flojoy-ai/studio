@@ -38,6 +38,7 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
+import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -134,6 +135,18 @@ localforage.config({
   storeName: "flows",
 });
 
+const downloadBlob = (blob: Blob, filename: string) => {
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
+
 // The following buttons are extracted into components in order to isolate the
 // rerenders due to calling useFlowChartGraph.
 
@@ -219,6 +232,34 @@ const LoadButton = () => {
   );
 };
 
+type ExportResultButtonProps = {
+  results: ResultsType | null;
+  disabled: boolean;
+};
+
+const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
+  const downloadResult = () => {
+    const data = results?.io;
+    if (!data) return;
+
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
+    downloadBlob(blob, "result.txt");
+  };
+
+  return (
+    <button
+      onClick={downloadResult}
+      className={disabled ? "disabled" : ""}
+      disabled={disabled}
+      style={{ display: "flex", gap: 11 }}
+    >
+      <SaveIconSvg />
+      Export Result
+    </button>
+  );
+};
+
 type CancelButtonProps = {
   cancelFC: () => void;
 };
@@ -245,7 +286,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
 
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, setProgramResults, serverStatus } = states;
+  const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
@@ -360,6 +401,10 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
+  const exportResultDisabled =
+    programResults === null ||
+    programResults.io === undefined ||
+    programResults.io.length === 0;
 
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
@@ -387,6 +432,10 @@ const ControlBar = () => {
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+        <ExportResultButton
+          results={programResults}
+          disabled={exportResultDisabled}
+        />
         <button style={{ display: "flex", gap: 10.77 }}>
           <HistoryIconSvg />
           History

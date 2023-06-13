@@ -25,6 +25,8 @@ const ResultsTab = () => {
     states: { programResults },
   } = useSocket();
 
+  console.log(programResults);
+
   const { setResultNodes, resultNodes } = useResultsTabState();
   const { nodes, edges } = useFlowChartGraph();
 
