@@ -161,6 +161,11 @@ const CMND_TREE: CommandSection = {
           key: "LOCAL_FILE_SYSTEM",
           children: null,
         },
+        {
+          title: "Redis system",
+          key: "REDIS_SYSTEM",
+          children: null,
+        },
       ],
     },
     {
