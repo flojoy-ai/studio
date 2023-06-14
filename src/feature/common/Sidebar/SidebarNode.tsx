@@ -76,11 +76,11 @@ const SidebarNode = ({
   const theme = useMantineTheme();
 
   if (node.title === "ROOT") {
-    if (!node.children) return null;
+    if (!node.subcategories) return null;
 
     return (
       <div>
-        {node.children.map((c) => {
+        {node.subcategories.map((c) => {
           // Actually needs to be called as a function to achieve depth-first traversal,
           // otherwise React lazily evaluates it and doesn't recurse immediately, resulting in breadth-first traversal.
           return SidebarNode({
@@ -99,7 +99,7 @@ const SidebarNode = ({
     );
   }
 
-  if (node.children) {
+  if (node.subcategories) {
     return (
       <SidebarSection
         title={node.title}
@@ -108,7 +108,7 @@ const SidebarNode = ({
         collapse={collapse}
         key={node.title}
       >
-        {node.children.map((c) =>
+        {node.subcategories.map((c) =>
           SidebarNode({
             node: c,
             depth: depth + 1,

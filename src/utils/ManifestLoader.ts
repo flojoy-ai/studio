@@ -68,12 +68,6 @@ export type CommandManifestMap = {
   [key: string]: ManifestCommands;
 };
 
-export type CommandSection = {
-  title: string;
-  children: CommandSection[] | null;
-  key?: string;
-};
-
 export function getManifestCmdsMap(): CommandManifestMap {
   return getManifestCmds().reduce((result, element) => {
     if (element.type in result) {
@@ -85,134 +79,144 @@ export function getManifestCmdsMap(): CommandManifestMap {
   }, {});
 }
 
+const baseCategorySchema = z.object({
+  title: z.string(),
+  // this optional down below is kinda like a hack for recursive type
+  key: z.string().optional(),
+});
+
+type Category = z.infer<typeof baseCategorySchema> & {
+  subcategories: Category[];
+};
+
+const categorySchema: z.ZodType<Category> = baseCategorySchema.extend({
+  subcategories: z.lazy(() => categorySchema.array()),
+});
+
+export type CommandSection = z.infer<typeof categorySchema>;
+
+// export function getCommandSectionMap() {}
+
 // TODO: should probably move this to a json file
-const CMND_TREE: CommandSection = {
+const CMND_TREE: CommandSection = categorySchema.parse({
   title: "ROOT",
-  children: [
+  subcategories: [
     {
       title: "AI and Machine learning",
-      children: [
+      subcategories: [
         {
           title: "Object detection",
           key: "OBJECT_DETECTION",
-          children: null,
         },
-        { title: "Regression", key: "REGRESSION", children: null },
+        { title: "Regression", key: "REGRESSION" },
         {
           title: "Classification",
           key: "CLASSIFICATION",
-          children: null,
         },
         {
           title: "Predict Time Series",
           key: "PREDICT_TIME_SERIES",
-          children: null,
         },
       ],
     },
     {
       title: "SCIentific PYthon (SciPy)",
-      children: [
-        { title: "Stats", key: "SCIPY_STATS", children: null },
-        { title: "Signal", key: "SCIPY_SIGNAL", children: null },
+      subcategories: [
+        { title: "Stats", key: "SCIPY_STATS" },
+        { title: "Signal", key: "SCIPY_SIGNAL" },
       ],
     },
     {
       title: "NUMeric PYthon (NumPy)",
-      children: [{ title: "Linalg", key: "NUMPY_LINALG", children: null }],
+      subcategories: [{ title: "Linalg", key: "NUMPY_LINALG" }],
     },
     {
       title: "Extractors",
-      children: [
+      subcategories: [
         // Extractors tab
-        { title: "Dataframes", key: "DATAFRAME", children: null },
-        { title: "Files", key: "FILE", children: null },
-        { title: "DAQ", key: "DAQ", children: null },
+        { title: "Dataframes", key: "DATAFRAME" },
+        { title: "Files", key: "FILE" },
+        { title: "DAQ", key: "DAQ" },
       ],
     },
     {
       title: "Generators",
-      children: [
+      subcategories: [
         // Generators tab
-        { title: "Simulations", key: "SIMULATION", children: null },
-        { title: "Sample datasets", key: "SAMPLE_DATASET", children: null },
-        { title: "Sample images", key: "SAMPLE_IMAGE", children: null },
+        { title: "Simulations", key: "SIMULATION" },
+        { title: "Sample datasets", key: "SAMPLE_DATASET" },
+        { title: "Sample images", key: "SAMPLE_IMAGE" },
       ],
     },
     {
       title: "Instruments",
-      children: [
-        { title: "Web cam", key: "WEB_CAM", children: null },
-        { title: "Keithley", key: "KEITHLEY", children: null },
-        { title: "Labjack", key: "LABJACK", children: null },
-        { title: "Phidget", key: "PHIDGET", children: null },
-        { title: "Serial", key: "SERIAL", children: null },
-        { title: "Stepper driver Tic", key: "STEPPER", children: null },
-        { title: "Stepper driver Tic knob", key: "STEPPER2", children: null },
+      subcategories: [
+        { title: "Web cam", key: "WEB_CAM" },
+        { title: "Keithley", key: "KEITHLEY" },
+        { title: "Labjack", key: "LABJACK" },
+        { title: "Phidget", key: "PHIDGET" },
+        { title: "Serial", key: "SERIAL" },
+        { title: "Stepper driver Tic", key: "STEPPER" },
+        { title: "Stepper driver Tic knob", key: "STEPPER2" },
       ],
     },
     {
       title: "Loaders",
-      children: [
+      subcategories: [
         // Loaders tab
-        { title: "Cloud databases", key: "CLOUD_DATABASE", children: null },
+        { title: "Cloud databases", key: "CLOUD_DATABASE" },
         {
           title: "Cloud file systems",
           key: "CLOUD_FILE_SYSTEM",
-          children: null,
         },
         {
           title: "Local file system",
           key: "LOCAL_FILE_SYSTEM",
-          children: null,
         },
       ],
     },
     {
       title: "Logic gates",
-      children: [
+      subcategories: [
         // Conditionals, Timers, & Loops
-        { title: "Timers", key: "TIMER", children: null },
-        { title: "Loops", key: "LOOP", children: null },
-        { title: "Conditionals", key: "CONDITIONAL", children: null },
-        { title: "Terminators", key: "TERMINATOR", children: null },
+        { title: "Timers", key: "TIMER" },
+        { title: "Loops", key: "LOOP" },
+        { title: "Conditionals", key: "CONDITIONAL" },
+        { title: "Terminators", key: "TERMINATOR" },
       ],
     },
     {
       title: "Transformers",
-      children: [
+      subcategories: [
         // Transformers tab
-        { title: "Arithmetic", key: "ARITHMETIC", children: null },
+        { title: "Arithmetic", key: "ARITHMETIC" },
         {
           title: "Signal processing",
           key: "SIGNAL_PROCESSING",
-          children: null,
         },
-        { title: "Regressions", key: "REGRESSIONS", children: null },
-        { title: "Image processing", key: "IMAGE_PROCESSING", children: null },
+        { title: "Regressions", key: "REGRESSIONS" },
+        { title: "Image processing", key: "IMAGE_PROCESSING" },
         {
           title: "Image identification",
           key: "IMAGE_IDENTIFICATION",
-          children: null,
         },
         {
           title: "Matrix manipulation",
           key: "MATRIX_MANIPULATION",
-          children: null,
         },
-        { title: "Array selection", key: "SELECT_ARRAY", children: null },
-        { title: "Type casting", key: "TYPE_CASTING", children: null },
+        { title: "Array selection", key: "SELECT_ARRAY" },
+        { title: "Type casting", key: "TYPE_CASTING" },
       ],
     },
     {
       title: "Visualizers",
-      children: [
+      subcategories: [
         // Visualization tab
-        { title: "Plotly", key: "PLOTLY_VISOR", children: null },
-        { title: "Data Structure", key: "DATA_STRUCTURE", children: null },
+        { title: "Plotly", key: "PLOTLY_VISOR" },
+        { title: "Data Structure", key: "DATA_STRUCTURE" },
       ],
     },
   ],
-};
+});
 
 export { CMND_TREE };

@@ -43,7 +43,7 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
           Add Node
         </button>
         <Sidebar
-          sections={{ title: "ROOT", children: [] }}
+          sections={{ title: "ROOT", subcategories: [] }}
           manifestMap={getManifestCmdsMap()}
           leafNodeClickHandler={addNewNode}
           isSideBarOpen={isSCRIPTSideBarOpen}
