@@ -167,7 +167,7 @@ const ControlsTab = () => {
     const ctrlData = ctrls && ctrls[param.param];
 
     let inputValue: string | number | boolean | undefined = undefined;
-    if (ctrlData)
+    if (ctrlData && ctrlData.value !== undefined && ctrlData.value !== null)
       inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
 
     const currentInputValue = ctrlData ? inputValue : defaultValue;
@@ -195,6 +195,7 @@ const ControlsTab = () => {
           <IconButton
             onClick={() => setCtrlSidebarOpen(!ctrlSidebarOpen)}
             icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+            data-testid="add-ctrl-button"
           >
             <Text size="sm">Add Control</Text>
           </IconButton>

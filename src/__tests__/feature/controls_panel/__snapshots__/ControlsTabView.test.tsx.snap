@@ -313,6 +313,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
         >
           <button
             class="mantine-UnstyledButton-root mantine-1wldwd4"
+            data-testid="add-ctrl-button"
             type="button"
           >
             <div
