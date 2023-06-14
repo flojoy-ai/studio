@@ -61,30 +61,8 @@ Write-Host ""
 $djangoPort = 8000
 $initNodePackages = $true
 $initPythonPackages = $true
+$updateSubmodule = $true
 
-# creating system links
-
-function createSystemLinks {
-  $FILE = Join-Path $PWD PYTHON/WATCH/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-
-  $FILE = Join-Path $PWD src/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-}
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 
@@ -134,6 +112,11 @@ while ($arguments) {
     "-P" {
       $djangoPort = $arguments[$index + 1]
       $index = $index + 2
+      continue
+    }
+    "-s" {
+      $updateSubmodule = $false
+      $index = $index + 1
       continue
     }
     default {
@@ -188,9 +171,11 @@ function createFlojoyDirectoryWithYmlFile {
 
 createFlojoyDirectoryWithYmlFile
 
-# Update submodules
-& git submodule update --init --recursive > $null
-feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+if ($updateSubmodule) {
+  Update submodules
+  & git submodule update --init --recursive > $null
+  feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+}
 
 
 # Check if Python, Pip, or npm is missing.
@@ -237,12 +222,6 @@ if ($initNodePackages) {
   & npm install
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
-
-# creating system links
-
-createSystemLinks
-
-feedback $? 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
 
 # jsonify python functions
 
