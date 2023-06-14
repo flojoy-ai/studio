@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "christian-kohler.npm-intellisense",
+    "yoavbls.pretty-ts-errors",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "gruntfuggly.todo-tree",
+    "redhat.vscode-yaml"
+  ]
+}
