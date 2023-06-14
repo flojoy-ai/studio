@@ -173,6 +173,11 @@ const CMND_TREE: CommandSection = categorySchema.parse({
           title: "Local file system",
           key: "LOCAL_FILE_SYSTEM",
         },
+        {
+          title: "Redis system",
+          key: "REDIS_SYSTEM",
+          children: null,
+        },
       ],
     },
     {
