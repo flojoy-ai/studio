@@ -103,6 +103,11 @@ const CMND_TREE: CommandSection = {
           key: "CLASSIFICATION",
           children: null,
         },
+        {
+          title: "Predict Time Series",
+          key: "PREDICT_TIME_SERIES",
+          children: null,
+        },
       ],
     },
     {
