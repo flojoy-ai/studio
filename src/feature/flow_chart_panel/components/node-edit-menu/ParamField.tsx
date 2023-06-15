@@ -9,7 +9,10 @@ type ParamFieldProps = {
   type: ParamValueType;
   value: any;
   options?: string[];
-  otherNodeLabels?: string[];
+  nodeReferenceOptions?: {
+    label: string;
+    value: string;
+  }[];
 };
 
 const ParamField = ({
@@ -19,15 +22,14 @@ const ParamField = ({
   type,
   value,
   options,
-  otherNodeLabels,
+  nodeReferenceOptions,
 }: ParamFieldProps) => {
   const { updateCtrlInputDataForNode } = useFlowChartGraph();
-  const handleChange = (value: string) => {
+  const handleChange = (value: string | boolean) => {
     updateCtrlInputDataForNode(nodeId, paramId, {
       functionName,
       param: paramId,
       value,
-      valType: type,
     });
   };
   switch (type) {
@@ -54,21 +56,34 @@ const ParamField = ({
           value={value}
         />
       );
+    case "array":
+      return (
+        <TextInput
+          onChange={(e) => handleChange(e.currentTarget.value)}
+          value={value}
+        />
+      );
     case "boolean":
       return (
         <Checkbox
-          onChange={(e) => handleChange(e.currentTarget.checked.toString())}
+          onChange={(e) => handleChange(e.currentTarget.checked)}
+          label={JSON.stringify(value)}
+          checked={value}
         />
       );
     case "select":
       return (
-        <Select onChange={handleChange} data={options ?? []} value={value} />
+        <Select
+          onChange={(val) => handleChange(val as string)}
+          data={options ?? []}
+          value={value}
+        />
       );
     case "node_reference":
       return (
         <Select
-          onChange={handleChange}
-          data={otherNodeLabels ?? []}
+          onChange={(val) => handleChange(val as string)}
+          data={nodeReferenceOptions ?? []}
           value={value}
         />
       );

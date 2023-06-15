@@ -1,5 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import DropDown from "@src/feature/common/DropDown";
+import Dropdown from "@src/feature/common/Dropdown";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";
@@ -9,7 +9,7 @@ describe("DropDown", () => {
   const children = <div>Dropdown Children</div>;
   it("should render correctly", () => {
     const { container, getByText, getByTestId } = renderWithTheme(
-      <DropDown dropDownBtn={DropDownBtn}>{children}</DropDown>
+      <Dropdown dropdownBtn={DropDownBtn}>{children}</Dropdown>
     );
     // Check that the button is rendered
     const button = getByText("Dropdown Button");
@@ -22,7 +22,7 @@ describe("DropDown", () => {
 
   it("should open and close on hover", () => {
     const { getByTestId } = renderWithTheme(
-      <DropDown dropDownBtn={DropDownBtn}>{children}</DropDown>
+      <Dropdown dropdownBtn={DropDownBtn}>{children}</Dropdown>
     );
     const dropdownWrapper = getByTestId("dropdown-wrapper");
     const dropdownContainer = getByTestId("dropdown-container");

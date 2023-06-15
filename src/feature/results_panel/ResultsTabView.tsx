@@ -1,9 +1,12 @@
 import { useMemo } from "react";
 import { useWindowSize } from "react-use";
 import CustomEdge from "../flow_chart_panel/views/CustomEdge";
-import CustomResultNode from "./views/CustomResultNode";
 import { useResultsTabState } from "./ResultsTabState";
+import CustomResultNode from "./views/CustomResultNode";
 
+import { Layout } from "@src/feature/common/Layout";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { useSocket } from "@src/hooks/useSocket";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -13,9 +16,6 @@ import {
   ReactFlowProvider,
 } from "reactflow";
 import { useResultsTabEffects } from "./ResultsTabEffects";
-import { useSocket } from "@src/hooks/useSocket";
-import { Layout } from "@src/Layout";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 const edgeTypes: EdgeTypes = { default: CustomEdge };
 const nodeTypes: NodeTypes = { default: CustomResultNode };
@@ -48,6 +48,7 @@ const ResultsTab = () => {
 
   useResultsTabEffects({ nodeResults, setResultNodes, nodes, resultNodes });
 
+  const proOptions = { hideAttribution: true };
   return (
     <Layout>
       <ReactFlowProvider>
@@ -62,6 +63,7 @@ const ResultsTab = () => {
             nodeTypes={nodeTypes}
             connectionLineType={ConnectionLineType.Step}
             onInit={onInit}
+            proOptions={proOptions}
           />
         </div>
       </ReactFlowProvider>

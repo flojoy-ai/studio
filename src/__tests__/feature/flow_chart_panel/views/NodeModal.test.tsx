@@ -22,9 +22,12 @@ const props: NodeModalProps = {
     },
   },
   pythonString: "test-python-string",
-  defaultLayout: undefined,
-  clickedElement: {},
+  nodeFilePath: "test.py",
+  selectedNode: null,
 };
+jest.mock("@src/data/manifests-latest.json", () => {
+  return { __esModule: true, default: { commands: [] } };
+});
 
 jest.mock("@src/feature/common/PlotlyComponent", () => {
   const mockChild = jest

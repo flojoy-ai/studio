@@ -43,6 +43,9 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
+  ARRAY_VIEW: <PlotlyTable />,
+  PROPHET_PLOT: <LineChart />,
+  PROPHET_COMPONENTS: <LineChart />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
@@ -50,7 +53,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   // TODO: Investigate why this keeps making it rerender
   const {
@@ -60,25 +63,10 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   const results = programResults?.io;
   const result = results?.find((r) => r.id === data.id);
 
-  const accentColor =
-    theme.colorScheme === "dark"
-      ? theme.colors.accent1[0]
-      : theme.colors.accent2[0];
-
   const plotlyResultData = useMemo(
     () =>
       result
-        ? makePlotlyData(
-            result.result.default_fig.data.map((d) => ({
-              ...d,
-              marker: {
-                ...d.marker,
-                color: accentColor,
-              },
-            })),
-            theme,
-            true
-          )
+        ? makePlotlyData(result.result.default_fig.data, theme, true)
         : undefined,
     [result, theme.colorScheme]
   );

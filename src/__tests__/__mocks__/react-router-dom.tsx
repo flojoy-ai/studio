@@ -4,6 +4,9 @@ module.exports = {
     pathname: "/",
   }),
   useSearchParams: jest.fn().mockReturnValue([new Map(), jest.fn()]),
+  useNavigate: jest.fn(() => {
+    return jest.fn();
+  }),
   Link: ({
     children,
   }: {
@@ -11,4 +14,5 @@ module.exports = {
     children: React.ReactNode;
     testId: string;
   }) => <div>{children}</div>,
+  useLoaderData: jest.fn().mockReturnValue({ manifestParams: {} }),
 };

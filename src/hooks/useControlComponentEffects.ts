@@ -1,6 +1,6 @@
 import { CtrlOptionValue } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
 import { ControlTypes } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
@@ -50,6 +50,10 @@ const useControlComponentEffects = ({
   useEffect(() => {
     if (ctrls) {
       const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
+      if (value === null || value === undefined) {
+        setCurrentInputValue(value);
+        return;
+      }
       setCurrentInputValue(isNaN(+value) ? value : +value);
     } else {
       setCurrentInputValue(defaultValue as number);
@@ -80,8 +84,8 @@ const useControlComponentEffects = ({
         flowChartObject.nodes.forEach((node) => {
           const nodeLabel = node.data.label;
           const nodeFunctionName = node.data.func;
-          const params = FUNCTION_PARAMETERS[nodeFunctionName];
-          const sep = " ▶ ";
+          const params = getManifestParams()[nodeFunctionName];
+          const sep = " ▸ ";
           if (params) {
             Object.keys(params).forEach((param) => {
               setSelectOptions((prev) => [

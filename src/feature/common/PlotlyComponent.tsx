@@ -2,9 +2,8 @@
 import { useEffect } from "react";
 import createPlotlyComponent from "react-plotly.js/factory";
 import type { PlotParams } from "react-plotly.js";
-import { PlotData } from "plotly.js";
+import Plotly, { PlotData } from "plotly.js";
 import usePlotLayout from "./usePlotLayout";
-import Plotly from "plotly.js";
 
 export type OverridePlotData = Array<
   Partial<PlotData> & {

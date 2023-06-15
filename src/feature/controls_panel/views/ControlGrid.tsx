@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "@src/App.css";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import "../style/Controls.css";
 import { ControlProps } from "../types/ControlProps";
 import Control from "./Control";
 import { useMantineColorScheme } from "@mantine/styles";
+import { useControlsState } from "@src/hooks/useControlsState";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -16,8 +16,8 @@ export default function ControlGrid({
   controlProps: ControlProps;
 }) {
   const theme = useMantineColorScheme().colorScheme;
-  const { ctrlsManifest, gridLayout, setGridLayout } = useFlowChartState();
   const { isEditMode } = controlProps;
+  const { gridLayout, setGridLayout, ctrlsManifest } = useControlsState();
 
   useEffect(() => {
     if (isEditMode) {

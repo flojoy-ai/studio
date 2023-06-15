@@ -15,7 +15,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from services.job_service import JobService
-from utils.dynamic_module_import import get_module_func
+from utils.dynamic_module_import import get_module_func, create_map
 from utils.topology import Topology
 
 ENV_CI = "CI"
@@ -27,7 +27,6 @@ class FlowScheduler:
         # print("fc", fc)
         # print("ep", extraParams)
         # print("jsid", jobsetId)
-
         self.scheduler_job_id = scheduler_job_id
         self.jobset_id = jobsetId
         self.flow_chart = fc
@@ -46,7 +45,6 @@ class FlowScheduler:
         self.topology = Topology(graph=self.nx_graph)
         self.topology.print_id_to_label_mapping()
         self.topology.print_graph()
-        self.topology.collect_ready_jobs()
 
         num_times_waited_for_new_jobs = 0
         wait_time_for_new_jobs = 0.1
@@ -127,6 +125,7 @@ class FlowScheduler:
             )
 
         for node_id in nodes_to_add:
+            print("OVER HERE")
             self.topology.restart(node_id)
 
     def run_job(self, job_id):

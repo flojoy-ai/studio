@@ -16,21 +16,25 @@ const useKeyboardShortcut = (
       switch (motifier) {
         case "ctrl":
           if (event.key === shortcut && event.ctrlKey) {
+            event.preventDefault();
             callbackRef.current();
           }
           break;
         case "alt":
           if (event.key === shortcut && event.altKey) {
+            event.preventDefault();
             callbackRef.current();
           }
           break;
         case "shift":
           if (event.key === shortcut && event.shiftKey) {
+            event.preventDefault();
             callbackRef.current();
           }
           break;
         case "meta":
           if (event.key === shortcut && event.metaKey) {
+            event.preventDefault();
             callbackRef.current();
           }
           break;

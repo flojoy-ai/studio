@@ -1,3 +1,4 @@
+import { CommandSection } from "@src/utils/ManifestLoader";
 import { PlotData } from "plotly.js";
 
 export enum ControlTypes {
@@ -34,89 +35,89 @@ export enum PlotTypeNames {
 }
 
 //ROOT WILL NOT BE DISPLAYED
-export const CTRL_TREE = {
+export const CTRL_TREE: CommandSection = {
   title: "ROOT",
-  child: [
+  children: [
     {
       title: "Inputs",
-      child: [
+      children: [
         {
           title: "Continuous Variables",
-          child: [
+          children: [
             {
               title: "Slider",
               key: "SLIDER",
-              child: null,
+              children: null,
             },
             {
               title: "Knob",
               key: "KNOB",
-              child: null,
+              children: null,
             },
             {
               title: "Numeric Text Input",
               key: "NUMERIC_INPUT",
-              child: null,
+              children: null,
             },
             {
               title: "Array Numeric Input",
               key: "ARRAY_INPUT",
-              child: null,
+              children: null,
             },
           ],
         },
         {
           title: "Discrete Variables",
-          child: [
+          children: [
             {
               title: "Radio Button Group",
               key: "RADIO_BUTTON_GROUP",
-              child: null,
+              children: null,
             },
             {
               title: "Checkbox Button Group",
               key: "CHECKBOX_BUTTON_GROUP",
-              child: null,
+              children: null,
             },
             {
               title: "Constants",
               key: "STATIC_NUMERIC_INPUT",
-              child: null,
+              children: null,
             },
             {
               title: "Dropdown",
               key: "DROPDOWN",
-              child: null,
+              children: null,
             },
           ],
         },
         {
           title: "Booleans & Nodes",
-          child: [
+          children: [
             {
               title: "Toggle switch",
               key: "TOGGLE_SWITCH",
-              child: null,
+              children: null,
             },
             {
               title: "Node Reference",
               key: "NODE_REFERENCE",
-              child: null,
+              children: null,
             },
           ],
         },
         {
           title: "Text & Files",
-          child: [
+          children: [
             {
               title: "File Uploader",
               key: "LOCAL_FILE_LOADER",
-              child: null,
+              children: null,
             },
             {
               title: "Text Input",
               key: "TEXT_INPUT",
-              child: null,
+              children: null,
             },
           ],
         },
@@ -124,21 +125,21 @@ export const CTRL_TREE = {
     },
     {
       title: "Outputs",
-      child: [
+      children: [
         {
           title: "LED Display",
           key: "SEVEN_SEGMENT_DISPLAY",
-          child: null,
+          children: null,
         },
         {
           title: "Media Viewer",
           key: "MEDIA_VIEWER",
-          child: null,
+          children: null,
         },
         {
           title: "Plotly",
           key: "PLOT",
-          child: null,
+          children: null,
         },
       ],
     },

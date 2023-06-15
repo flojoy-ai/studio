@@ -7,8 +7,6 @@ class ResizeObserver {
 }
 
 class IntersectionObserver {
-  constructor() {}
-
   observe() {
     return null;
   }
@@ -35,6 +33,14 @@ jest.mock("@src/services/FlowChartServices", () => {
   };
 });
 
+jest.mock("@src/feature/flow_chart_panel/FlowChartKeyboardShortcuts", () => {
+  return {
+    default: jest.fn(() => {
+      return <div></div>;
+    }),
+  };
+});
+
 jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
   return {
     useFlowChartTabState: jest.fn().mockReturnValue({
@@ -51,16 +57,19 @@ jest.mock("@src/feature/flow_chart_panel/FlowChartTabState", () => {
       setNodeLabel: jest.fn(),
       setNodeType: jest.fn(),
       setPythonString: jest.fn(),
+      setNodeFileName: jest.fn(),
+      nodeFileName: "test.py",
       pythonString: "...",
       defaultPythonFnLabel: "PYTHON FUNCTION",
       defaultPythonFnType: "PYTHON FUNCTION TYPE",
+      setNodeFilePath: jest.fn(),
     }),
   };
 });
 
 jest.mock("@src/feature/flow_chart_panel/FlowChartTabEffects", () => {
   return {
-    useFlowChartTabEffects: () => {},
+    useFlowChartTabEffects: jest.fn(),
   };
 });
 
@@ -71,30 +80,17 @@ jest.mock("@src/configs/NodeConfigs", () => {
 });
 
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useSocket");
 
-jest.mock("@src/feature/flow_chart_panel/manifest/COMMANDS_MANIFEST", () => {
-  return {
-    CMND_TREE: { title: "ROOT", child: [] },
-    CMND_MANIFEST_MAP: {},
-  };
-});
-
-jest.mock("@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST", () => {
-  return {
-    FUNCTION_PARAMETERS: {},
-  };
-});
+jest.mock("@src/utils/ManifestLoader");
 
 jest.mock("react-router-dom");
 
-jest.mock(
-  "@src/feature/flow_chart_panel/manifest/pythonFunctions.json",
-  () => ({
-    __esModule: true,
-    default: {},
-  })
-);
+jest.mock("@src/data/pythonFunctions.json", () => ({
+  __esModule: true,
+  default: {},
+}));
 
 jest.mock("@src/configs/NodeConfigs", () => ({
   __esModule: true,
@@ -131,7 +127,7 @@ describe("FlowChartTabView", () => {
   it("checks the reactflow style", () => {
     const { getAllByTestId } = renderWithTheme(<FlowChartTab />);
 
-    const componet = getAllByTestId("react-flow")[0];
-    expect(componet).toHaveStyle("height: calc(100vh - 100px)");
+    const component = getAllByTestId("react-flow")[0];
+    expect(component).toHaveStyle("height: calc(100vh - 150px)");
   });
 });

@@ -1,14 +1,15 @@
 import clone from "just-clone";
 import localforage from "localforage";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./style/Controls.css";
 
+import { Text, useMantineTheme } from "@mantine/core";
 import { createStyles } from "@mantine/styles";
-import { AddCTRLBtn } from "@src/AddCTRLBtn";
 import "@src/App.css";
-import { EditSwitch } from "@src/EditSwitch";
-import { Layout } from "@src/Layout";
-import { FUNCTION_PARAMETERS } from "@src/feature/flow_chart_panel/manifest/PARAMETERS_MANIFEST";
+import { EditSwitch } from "@src/feature/common/EditSwitch";
+import { IconButton } from "@src/feature/common/IconButton";
+import { Layout } from "@src/feature/common/Layout";
+import { TabActions } from "@src/feature/common/TabActions";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   CtlManifestType,
@@ -16,14 +17,20 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
+import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
+import { IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
-import SidebarCustom from "../common/Sidebar/Sidebar";
+import Sidebar from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
 import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import ControlGrid from "./views/ControlGrid";
+import { useControlsState } from "@src/hooks/useControlsState";
+import {
+  sendEventToMix,
+  sendMultipleDataEventToMix,
+} from "@src/services/MixpanelServices";
 export const useAddButtonStyle = createStyles((theme) => {
   return {
     addButton: {
@@ -38,6 +45,9 @@ export const useAddButtonStyle = createStyles((theme) => {
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = () => {
+  const theme = useMantineTheme();
+  const manifestParams: ManifestParams = getManifestParams();
+
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
   const {
@@ -46,16 +56,12 @@ const ControlsTab = () => {
 
   const { setOpenEditModal, setCurrentInput } = useControlsTabState();
 
-  const {
-    ctrlsManifest,
-    setCtrlsManifest,
-    isEditMode,
-    setIsEditMode,
-    gridLayout,
-  } = useFlowChartState();
+  const { isEditMode } = useFlowChartState();
+
+  const { ctrlsManifest, setCtrlsManifest, maxGridLayoutHeight } =
+    useControlsState();
 
   const { nodes, updateCtrlInputDataForNode } = useFlowChartGraph();
-
   function cacheManifest(manifest: CtlManifestType[]) {
     setCtrlsManifest(manifest);
   }
@@ -67,42 +73,42 @@ const ControlsTab = () => {
   }
 
   //function for handling a CTRL add (assume that input is key from manifest)
-  const addCtrl = (ctrlKey: string) => {
-    setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-    const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
-    if (!ctrlObj) {
-      console.error("Could not find ctrl object for key", ctrlKey);
-      return;
-    }
-
-    const id = `ctrl-${uuidv4()}`;
-    let yAxis = 0;
-    for (const el of gridLayout) {
-      if (yAxis < el.y) {
-        yAxis = el.y;
+  const addCtrl = useCallback(
+    (ctrlKey: string) => {
+      setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
+      const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
+      if (!ctrlObj) {
+        console.error("Could not find ctrl object for key", ctrlKey);
+        return;
       }
-    }
 
-    const ctrlLayout = {
-      x: 0,
-      y: yAxis + 1,
-      h: ctrlObj.minHeight > 2 ? ctrlObj.minHeight : 2,
-      w: 2,
-      i: id,
-      minH: ctrlObj.minHeight,
-      minW: ctrlObj.minWidth,
-      static: !isEditMode,
-    };
+      const id = `ctrl-${uuidv4()}`;
+      const yPos = maxGridLayoutHeight;
 
-    const ctrl: CtlManifestType = {
-      ...ctrlObj,
-      hidden: false,
-      id,
-      layout: ctrlLayout,
-    } as CtlManifestType;
+      const ctrlLayout = {
+        x: 0,
+        y: yPos + 1,
+        h: Math.max(ctrlObj.minHeight, 2),
+        w: 2,
+        i: id,
+        minH: ctrlObj.minHeight,
+        minW: ctrlObj.minWidth,
+        static: !isEditMode,
+      };
 
-    cacheManifest([...ctrlsManifest, ctrl]);
-  };
+      //mixpanel telemetry
+      sendEventToMix("Widget Added", ctrlObj.name, "widgetTitle");
+      const ctrl: CtlManifestType = {
+        ...ctrlObj,
+        hidden: false,
+        id,
+        layout: ctrlLayout,
+      } as CtlManifestType;
+
+      cacheManifest([...ctrlsManifest, ctrl]);
+    },
+    [maxGridLayoutHeight]
+  );
 
   const removeCtrl = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -110,15 +116,20 @@ const ControlsTab = () => {
   ) => {
     const ctrlId = (e.target as HTMLButtonElement).id;
     console.warn("Removing", ctrlId, ctrl);
-    const filterChilds = ctrlsManifest.filter((ctrl) => ctrl.id !== ctrlId);
+    const filterChilds: CtlManifestType[] = [];
+    let filteredChild = "";
+    for (const ctrl of ctrlsManifest) {
+      if (ctrl.id !== ctrlId) {
+        filterChilds.push(ctrl);
+      } else {
+        filteredChild = ctrl.name;
+      }
+    }
+    sendEventToMix("Widget Deleted", filteredChild, "widgetTitle");
     cacheManifest(filterChilds);
   };
 
-  const updateCtrlValue = (
-    val: string,
-    ctrl: CtlManifestType,
-    tp: ParamValueType
-  ) => {
+  const updateCtrlValue = (val: string, ctrl: CtlManifestType) => {
     const manClone = clone(ctrlsManifest);
     cacheManifest(manClone);
 
@@ -130,7 +141,6 @@ const ControlsTab = () => {
           functionName: (ctrl.param as CtrlManifestParam).functionName,
           param: (ctrl.param as CtrlManifestParam).param,
           value: val,
-          valType: tp,
         }
       );
     } else {
@@ -145,7 +155,7 @@ const ControlsTab = () => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    const fnParams = FUNCTION_PARAMETERS[param.functionName] || {};
+    const fnParams = manifestParams[param.functionName] || {};
     // debugger
     const fnParam = fnParams[param?.param];
     const defaultValue =
@@ -156,8 +166,8 @@ const ControlsTab = () => {
         : 0;
     const ctrlData = ctrls && ctrls[param.param];
 
-    let inputValue: string | number | undefined = undefined;
-    if (ctrlData)
+    let inputValue: string | number | boolean | undefined = undefined;
+    if (ctrlData && ctrlData.value !== undefined && ctrlData.value !== null)
       inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
 
     const currentInputValue = ctrlData ? inputValue : defaultValue;
@@ -169,25 +179,28 @@ const ControlsTab = () => {
       }
     });
     cacheManifest(manClone);
+    //mixpanel telemetry
+    const nodeAttached = inputNode ? inputNode.data.label : "No node attached";
+    sendMultipleDataEventToMix(
+      "Widget Attached",
+      [nodeAttached, ctrl.name],
+      ["nodeAttached", "widgetName"]
+    );
   };
 
   return (
     <Layout>
       <div data-testid="controls-tab">
-        <div
-          className="top-row"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <AddCTRLBtn
-            setCTRLSideBarStatus={setCtrlSidebarOpen}
-            setIsEditMode={setIsEditMode}
-            isCTRLSideBarOpen={ctrlSidebarOpen}
-          />
+        <TabActions gap={16}>
+          <IconButton
+            onClick={() => setCtrlSidebarOpen(!ctrlSidebarOpen)}
+            icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+            data-testid="add-ctrl-button"
+          >
+            <Text size="sm">Add Control</Text>
+          </IconButton>
           <EditSwitch />
-        </div>
+        </TabActions>
         <ControlGrid
           controlProps={{
             isEditMode,
@@ -199,12 +212,13 @@ const ControlsTab = () => {
             setOpenEditModal,
           }}
         />
-        <SidebarCustom
+        <Sidebar
           sections={CTRL_TREE}
           manifestMap={CTRL_MANIFEST}
           leafNodeClickHandler={addCtrl}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
+          appTab={"Control"}
         />
       </div>
     </Layout>
