@@ -12,8 +12,6 @@ $check_mark = '✔'
 $alert_mark = '⚠️'
 $error_mark = '❌'
 
-$is_command_successful = 0
-
 function success_msg {
   param (
     $message
@@ -58,10 +56,11 @@ Write-Host "     ||                                                          ||"
 Write-Host "      ============================================================" -ForegroundColor $general_color
 Write-Host ""
 
-$djangoPort = 8000
 $initNodePackages = $true
 $initPythonPackages = $true
-$updateSubmodule = $true
+$initSubmodule = $true
+$enableSentry = $true
+$enableTelemetry = $false
 
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -82,13 +81,14 @@ function feedback {
 }
 
 # Help function
-
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p"
-  Write-Host " -n: To not install npm packages"
-  Write-Host " -p: To not install python packages"
-  return 1 # Exit script after printing help
+  Write-Host "Usage: $0 -n -p -s -S -T"
+  Write-Host  " -n: To NOT install npm packages"
+  Write-Host  " -p: To NOT install python packages"
+  Write-Host  " -s: To NOT update submodules"
+  Write-Host  " -S: To NOT enable Sentry"
+  Write-Host  " -T: To enable Telemetry"
 }
 
 # Assign command-line arguments to a variable
@@ -109,13 +109,18 @@ while ($arguments) {
       $index = $index + 1
       continue
     }
-    "-P" {
-      $djangoPort = $arguments[$index + 1]
-      $index = $index + 2
+    "-S" {
+      $enableSentry = $false
+      $index = $index + 1
       continue
     }
     "-s" {
-      $updateSubmodule = $false
+      $initSubmodule = $false
+      $index = $index + 1
+      continue
+    }
+    "-T" {
+      $enableTelemetry = $true
       $index = $index + 1
       continue
     }
@@ -171,8 +176,8 @@ function createFlojoyDirectoryWithYmlFile {
 
 createFlojoyDirectoryWithYmlFile
 
-if ($updateSubmodule) {
-  Update submodules
+if ($initSubmodule) {
+  # Update submodules
   & git submodule update --init --recursive > $null
   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 }
@@ -234,6 +239,26 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 & python generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+
+# Setup Sentry env var
+if ( $enableSentry -eq $true ) {
+  info_msg "Sentry will be enabled!"
+  [System.Environment]::SetEnvironmentVariable('FLOJOY_ENABLE_SENTRY', 1)
+} 
+else {
+  info_msg "Sentry will be disabled!"
+  [System.Environment]::SetEnvironmentVariable('FLOJOY_ENABLE_SENTRY', 0)
+}
+# Setup Telemetry
+if ( $enableTelemetry -eq $true ) {
+  info_msg "Telemetry will be enabled!"
+  [System.Environment]::SetEnvironmentVariable('FLOJOY_ENABLE_TELEMETRY', 1)
+}
+else {
+  info_msg "Telemetry will be disabled!"
+  [System.Environment]::SetEnvironmentVariable('FLOJOY_ENABLE_TELEMETRY', 0)
+}
+
 
 info_msg 'Checking if Memurai is running...'
 & memurai-cli.exe ping 2>$1 > $null

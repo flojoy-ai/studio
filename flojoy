@@ -54,7 +54,6 @@ echo ''
 venv=""
 
 
-djangoPort=8000
 initNodePackages=true
 initPythonPackages=true
 is_ci=false
@@ -104,7 +103,7 @@ wait_for_redis()
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -n -p -r -v venv-path"
+   echo "Usage: $0 -n -p -r -s -S -t -T -v venv-path"
    echo  " -r: shuts down existing Redis server and spins up a fresh one"
    echo  " -v: path to a Python virtual environment"
    echo  " -n: To NOT install npm packages"
