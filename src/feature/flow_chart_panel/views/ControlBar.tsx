@@ -239,10 +239,9 @@ type ExportResultButtonProps = {
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   const downloadResult = () => {
-    const data = results?.io;
-    if (!data) return;
+    if (!results) return;
 
-    const json = JSON.stringify(data, null, 2);
+    const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
     downloadBlob(blob, "result.txt");
   };
