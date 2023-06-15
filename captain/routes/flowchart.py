@@ -31,31 +31,33 @@ initiate processes on the back-end.
 """
 
 
-@router.post("/cancel_fc/", summary="cancel flowchart")
+@router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_flowchart(fc: PostCancelFC):
     jobset_id = fc.jobset_id
     cancel_flowchart_by_id(jobset_id)
 
 
-@router.post("/wfc/", summary="write and run flowchart")
+@router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
 
     global running_topology
 
     # cancel any currently running flowchart
-    if request.cancel_existing_jobs:
-        cancel_flowchart_by_id(request.jobset_id)
+
+    # TODO implement cancel function 
+    # if request.cancelExistingJobs:
+    #     cancel_flowchart_by_id(request.jobsetId)
 
     # connect to Redis and write the flowchart
     redis_client = RedisDao()
 
     # create the topology
-    running_topology = create_topology(request.fc, redis_client)
+    running_topology = create_topology(json.loads(request.fc), redis_client)
 
     # create message for front-end
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
-        "jobsetId": request.jobset_id,
+        "jobsetId": request.jobsetId,
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }

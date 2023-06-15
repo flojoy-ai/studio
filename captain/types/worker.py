@@ -1,10 +1,10 @@
-from typing import Any, Dict
+from typing import Any
 from pydantic import BaseModel
 
-class NodeResults:
+class NodeResults(BaseModel):
     cmd: str
     id: str
-    result: Dict[str, Any]
+    result: dict[str, Any]
 
 class WorkerJobResponse(BaseModel):
     SYSTEM_STATUS: str
@@ -12,5 +12,5 @@ class WorkerJobResponse(BaseModel):
     RUNNING_NODE: str
     FAILURE_NODES: str
     FAILURE_REASON: str
-    PRE_JOB_OP: Dict[str, Any]
+    PRE_JOB_OP: dict[str, Any]
     jobsetId: str

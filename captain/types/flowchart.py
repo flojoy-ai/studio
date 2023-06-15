@@ -1,8 +1,5 @@
 from pydantic import BaseModel
 
-class ExtraParams:
-    nodeDelay: float
-    maximumRuntime: float
 
 class PostCancelFC(BaseModel):
     fc: str
@@ -11,9 +8,9 @@ class PostCancelFC(BaseModel):
 
 class PostWFC(BaseModel):
     fc: str
-    jobset_id: str
-    cancel_existing_jobs: bool
-    extraParams: ExtraParams
+    jobsetId: str | None = None
+    cancelExistingJobs: bool
+    extraParams: dict[str, str | float | int] 
 
 
 class WorkerSuccessResponse(BaseModel):

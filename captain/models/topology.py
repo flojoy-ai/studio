@@ -3,6 +3,7 @@ from copy import deepcopy
 from captain.celery.tasks import run_job_on_worker
 import os
 import time
+import marshal
 
 from flojoy import get_next_directions, get_next_nodes
 

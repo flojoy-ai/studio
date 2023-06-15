@@ -27,3 +27,4 @@ uvicorn[standard]==0.22.0
 fastapi==0.95.2
 celery==5.2.7
 debugpy
+celery[redis]

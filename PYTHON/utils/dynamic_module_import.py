@@ -28,5 +28,4 @@ def create_map():
                     os.path.join(root, file[:-3])
                     .replace("/", ".")
                     .replace("\\", ".")
-                    .replace("PYTHON.", "")
                 )
