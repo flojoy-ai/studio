@@ -98,42 +98,47 @@ $arguments = $args
 $index = 0
 while ($arguments) {
   $key = $arguments[$index]
-  switch ($key) {
-    "-n" {
-      $initNodePackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-p" {
-      $initPythonPackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-S" {
-      $enableSentry = $false
-      $index = $index + 1
-      continue
-    }
-    "-s" {
-      $initSubmodule = $false
-      $index = $index + 1
-      continue
-    }
-    "-T" {
-      $enableTelemetry = $true
-      $index = $index + 1
-      continue
-    }
-    default {
-      Write-Host "Unknown option: $key"
-      helpFunction
-      exit 1
-    }
-  }
+
   if ($index -eq $arguments.Length) {
     break
   }
+  if ($key -ceq "-n") {
+    $initNodePackages = $false
+    $index = $index + 1
+    continue
+    
+
+  }
+  elseif ($key -ceq "-p") {
+    $initPythonPackages = $false
+    $index = $index + 1
+    continue
+    
+  }
+  elseif ($key -ceq "-S") {
+    $enableSentry = $false
+    $index = $index + 1
+    continue
+
+  }
+  elseif ($key -ceq "-s") {
+    $initSubmodule = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-T") {
+    $enableTelemetry = $true
+    $index = $index + 1
+    continue
+  }
+  else {
+    Write-Host "Unknown option: $key"
+    helpFunction
+    exit 1
+  }
 }
+
+
 
 $CWD = $PWD
 
@@ -176,7 +181,8 @@ function createFlojoyDirectoryWithYmlFile {
 
 createFlojoyDirectoryWithYmlFile
 
-if ($initSubmodule) {
+if ($initSubmodule -eq $true) {
+  Write-Host "init value: $initSubmodule"
   # Update submodules
   & git submodule update --init --recursive > $null
   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
