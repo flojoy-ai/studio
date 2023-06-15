@@ -53,7 +53,10 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    show: false,
   });
+  win.maximize();
+  win.show();
 
   if (url) {
     // electron-vite-vue#298
