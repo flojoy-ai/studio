@@ -56,7 +56,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build && electron-builder",
     "backend": "python3 manage.py runserver",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES rq worker flojoy-watch",
