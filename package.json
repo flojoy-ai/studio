@@ -79,59 +79,6 @@
     "test:dev": "jest --updateSnapshot",
     "update-submodule": "git submodule update --remote --recursive"
   },
-  "build": {
-    "appId": "io.flojoy.desktop",
-    "productName": "Flojoy-Desktop",
-    "asar": true,
-    "icon": "electron/assets/favicon.ico",
-    "files": [
-      "build/**/*",
-      "electron/**/*",
-      "package.json"
-    ],
-    "extraResources": [
-      {
-        "from": "docker-compose-prod.yml",
-        "to": "docker-compose-prod.yml"
-      }
-    ],
-    "mac": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "dmg"
-      ],
-      "darkModeSupport": true
-    },
-    "linux": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "deb",
-        "tar.gz"
-      ]
-    },
-    "win": {
-      "icon": "electron/assets/favicon.ico",
-      "target": [
-        "portable"
-      ]
-    },
-    "extraMetadata": {
-      "main": "electron/main.js"
-    },
-    "extends": null
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
