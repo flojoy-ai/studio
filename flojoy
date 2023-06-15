@@ -364,7 +364,7 @@ sleep 1
 
 # start project services
 if [ $test_ci = true ]; then
-   start_project_cmd='npm run start-project:ci' && npm run open
+   start_project_cmd='npm run start-project:ci'
 else 
    start_project_cmd='npm run start-project' 
 fi
