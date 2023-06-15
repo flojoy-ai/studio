@@ -238,12 +238,27 @@ type ExportResultButtonProps = {
 };
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
-  const downloadResult = () => {
+  const downloadResult = async () => {
     if (!results) return;
-
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
-    downloadBlob(blob, "result.txt");
+    if ("showSaveFilePicker" in window) {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "output.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+
+      await writableStream.write(blob);
+      await writableStream.close();
+    } else {
+      downloadBlob(blob, "output.txt");
+    }
   };
 
   return (
@@ -324,17 +339,7 @@ const ControlBar = () => {
   const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "flojoy.txt";
-
-      document.body.appendChild(link);
-      link.click();
-
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      downloadBlob(blob, "flojoy.txt");
       sendProgramToMix(rfInstance.nodes);
     }
   };
