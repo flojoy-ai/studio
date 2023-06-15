@@ -13,8 +13,6 @@
 /coverage
 /cypress/screenshots/
 
-# production
-/build
 
 # gitpod config to prevent unwanted installations
 .gitpod.yml 

@@ -366,7 +366,7 @@ sleep 1
 if [ $test_ci = true ]; then
    start_project_cmd='npm run start-project:ci' && npm run open
 else 
-   start_project_cmd='npm run start-project' && npm run open
+   start_project_cmd='npm run start-project' 
 fi
  # start project services
 if [ -n "$venvCmd" ]; then
