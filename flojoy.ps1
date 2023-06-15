@@ -106,8 +106,6 @@ while ($arguments) {
     $initNodePackages = $false
     $index = $index + 1
     continue
-    
-
   }
   elseif ($key -ceq "-p") {
     $initPythonPackages = $false
@@ -119,7 +117,6 @@ while ($arguments) {
     $enableSentry = $false
     $index = $index + 1
     continue
-
   }
   elseif ($key -ceq "-s") {
     $initSubmodule = $false
@@ -137,8 +134,6 @@ while ($arguments) {
     exit 1
   }
 }
-
-
 
 $CWD = $PWD
 
@@ -182,7 +177,6 @@ function createFlojoyDirectoryWithYmlFile {
 createFlojoyDirectoryWithYmlFile
 
 if ($initSubmodule -eq $true) {
-  Write-Host "init value: $initSubmodule"
   # Update submodules
   & git submodule update --init --recursive > $null
   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
