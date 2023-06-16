@@ -1,4 +1,10 @@
-from PYTHON.common.CONSTANTS import (
+import os
+import sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+from common.CONSTANTS import (
     KEY_ALL_JOBEST_IDS,
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
