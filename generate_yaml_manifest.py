@@ -1,11 +1,11 @@
 from types import UnionType
 from typing import Any, Callable, Literal, Union, get_args
-from collections import OrderedDict
 import yaml
 import importlib.util
 import os
 import inspect
 from typing import TypeVar, Generic
+from dataclasses import dataclass, fields, is_dataclass
 
 T = TypeVar("T")
 
@@ -105,17 +105,19 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         if param.default is not param.empty:
             default_value = param.default
 
+        # Case 1: Untyped DataContainer
         if param_type == DataContainer:
             create_input(name, "any")
+        # Case 2: Typed DataContainer with a generic type
         elif is_outer_type(param_type, DataContainer):
             generic = param_type.__args__[0]
 
-            if is_union(generic):
-                input_type = union_type_str(generic)
-            else:
-                input_type = generic.__name__
+            input_type = (
+                union_type_str(generic) if is_union(generic) else generic.__name__
+            )
 
             create_input(name, input_type)
+        # Case 3: Union type
         elif is_union(param_type):
             if not all([t in ALLOWED_PARAM_TYPES for t in param_type.__args__]):
                 raise TypeError(
@@ -126,6 +128,7 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                 "type": union_type_str(param_type),
                 "default": default_value,
             }
+        # Case 4: Literal type which becomes a select param
         elif is_outer_type(param_type, Literal):
             params[name] = {
                 "type": "select",
@@ -143,19 +146,58 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                 "default": default_value,
             }
 
-        # # TODO: Handle generics
-        # if param.annotation == DataContainer:
-        #     inputs.append({"name": name, "id": name, "type": "target"})
-        # else:
-        #     # TODO: Generate default value
-        #     params[name] = {"type": param.annotation.__name__}
-
     if inputs:
         manifest["inputs"] = inputs
     if params:
         manifest["parameters"] = params
 
+    outputs = []
+    create_output = lambda name, output_type: outputs.append(
+        {"name": name, "id": name, "type": output_type}
+    )
+
+    # TODO: Refactor similar code
+    return_type = sig.return_annotation
+
+    # Single untyped output
+    if return_type == DataContainer:
+        create_output("default", "any")
+    # Single typed output
+    elif is_outer_type(return_type, DataContainer):
+        generic = return_type.__args__[0]
+        output_type = union_type_str(generic) if is_union(generic) else generic.__name__
+
+        create_output("default", output_type)
+    # Multiple outputs
+    elif is_dataclass(return_type):
+        for field in fields(return_type):
+            if field.type != DataContainer and not is_outer_type(
+                field.type, DataContainer
+            ):
+                raise TypeError(
+                    f"Return type must be a DataContainer or a DataClass consisting of only DataContainers as fields, got {return_type}"
+                )
+
+            generic = field.type.__args__[0]
+            output_type = (
+                union_type_str(generic) if is_union(generic) else generic.__name__
+            )
+
+            create_output(field.name, output_type)
+    else:
+        raise TypeError(
+            f"Return type must be a DataContainer or a DataClass consisting of only DataContainers as fields, got {return_type}"
+        )
+
+    manifest["outputs"] = outputs
+
     return {"COMMAND": [manifest]}
+
+
+@dataclass(frozen=True)
+class FooOutput:
+    output1: DataContainer[OrderedPair]
+    output2: DataContainer[Matrix]
 
 
 def FOO(
@@ -165,8 +207,8 @@ def FOO(
     asd: str | int | list[str] | list[int],
     baz: Literal["a", "b", "c"] = "b",
     bar: float = 1.0,
-):
-    pass
+) -> FooOutput:
+    return FooOutput(output1=DataContainer(), output2=DataContainer())
 
 
 def main():
