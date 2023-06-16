@@ -18,6 +18,10 @@ import LineChart from "../nodes/line-chart";
 import Scatter from "../nodes/Scatter";
 import PlotlyTable from "../nodes/Table";
 import NodeWrapper from "../NodeWrapper";
+import ArrayView from "../nodes/array-view";
+import ProphetPlot from "../nodes/prophet-plot";
+import ProphetComponents from "../nodes/prophet-components";
+import Composite from "../nodes/composite";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -43,9 +47,10 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
   MATRIX_VIEW: <PlotlyTable />,
-  ARRAY_VIEW: <PlotlyTable />,
-  PROPHET_PLOT: <LineChart />,
-  PROPHET_COMPONENTS: <LineChart />,
+  ARRAY_VIEW: <ArrayView />,
+  PROPHET_PLOT: <ProphetPlot />,
+  PROPHET_COMPONENTS: <ProphetComponents />,
+  COMPOSITE: <Composite />
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
