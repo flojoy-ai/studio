@@ -93,7 +93,7 @@ const CompositePlotDark = () => {
         <rect
           x="5"
           y="1"
-          width="224"
+          width="223"
           height="224"
           rx="5"
           stroke="#99F5FF"
@@ -189,7 +189,7 @@ const CompositePlotLight = () => {
         <rect
           x="5"
           y="1"
-          width="224"
+          width="223"
           height="224"
           rx="5"
           stroke="#7B61FF"
