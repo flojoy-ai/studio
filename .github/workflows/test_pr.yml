@@ -122,6 +122,9 @@ jobs:
                 "replacement": "${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
               }]
             },
+            "variables": {
+              "URL": "${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
+            },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
                 "repo": "${{ github.event.repository.name}}",
@@ -142,6 +145,9 @@ jobs:
                 "original": "windows01.flojoy-test.com:3000",
                 "replacement": "${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
               }]
+            },
+            "variables": {
+              "URL": "${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
