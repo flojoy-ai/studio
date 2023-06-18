@@ -116,14 +116,8 @@ jobs:
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "overrides": {
-              "hostnames": [{
-                "original": "windows01.flojoy-test.com:3000",
-                "replacement": "${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
-              }]
-            },
             "variables": {
-              "URL": "${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000/"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
@@ -140,14 +134,8 @@ jobs:
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "overrides": {
-              "hostnames": [{
-                "original": "windows01.flojoy-test.com:3000",
-                "replacement": "${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
-              }]
-            },
             "variables": {
-              "URL": "${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
