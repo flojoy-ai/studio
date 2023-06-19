@@ -20,10 +20,10 @@ import { useSocket } from "@src/hooks/useSocket";
 import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
 import { IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
-import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
+import { CTRL_TREE, ControlElement } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
 import { useControlsState } from "@src/hooks/useControlsState";
@@ -68,19 +68,10 @@ const ControlsTab = () => {
 
   useControlsTabEffects();
 
-  if (!programResults) {
-    return <div>No program results</div>;
-  }
-
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = useCallback(
-    (ctrlKey: string) => {
+    (ctrlObj: ControlElement) => {
       setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-      const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
-      if (!ctrlObj) {
-        console.error("Could not find ctrl object for key", ctrlKey);
-        return;
-      }
 
       const id = `ctrl-${uuidv4()}`;
       const yPos = maxGridLayoutHeight;
@@ -164,10 +155,10 @@ const ControlsTab = () => {
         : fnParam?.default
         ? fnParam.default
         : 0;
-    const ctrlData = ctrls && ctrls[param.param];
+    const ctrlData = ctrls ? ctrls[param.param] : null;
 
     let inputValue: string | number | boolean | undefined = undefined;
-    if (ctrlData && ctrlData.value !== undefined && ctrlData.value !== null)
+    if (ctrlData?.value !== undefined && ctrlData?.value !== null)
       inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
 
     const currentInputValue = ctrlData ? inputValue : defaultValue;
@@ -187,6 +178,9 @@ const ControlsTab = () => {
       ["nodeAttached", "widgetName"]
     );
   };
+  if (!programResults) {
+    return <div>No program results</div>;
+  }
 
   return (
     <Layout>
@@ -214,8 +208,7 @@ const ControlsTab = () => {
         />
         <Sidebar
           sections={CTRL_TREE}
-          manifestMap={CTRL_MANIFEST}
-          leafNodeClickHandler={addCtrl}
+          leafNodeClickHandler={addCtrl as LeafClickHandler}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
           appTab={"Control"}

@@ -1,8 +1,13 @@
 import { createStyles, Divider, useMantineTheme } from "@mantine/core";
-import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
+import {
+  CMND_MANIFEST,
+  NodeElement,
+  Manifest_Child,
+} from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
-import { AppTab } from "@feature/common/Sidebar/Sidebar";
+import { AppTab, LeafClickHandler } from "@feature/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@src/services/MixpanelServices";
+import { ControlElement } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -47,9 +52,10 @@ export const useSidebarStyles = createStyles((theme) => ({
 
 type SidebarNodeProps = {
   depth: number;
-  manifestMap: CommandManifestMap;
-  node: CommandSection;
-  leafClickHandler: (key: string) => void;
+  node:
+    | CMND_MANIFEST<NodeElement | ControlElement>
+    | Manifest_Child<NodeElement | ControlElement>;
+  leafClickHandler: LeafClickHandler;
   query: string;
   matchedParent: boolean;
   expand: boolean;
@@ -57,13 +63,17 @@ type SidebarNodeProps = {
   appTab: AppTab;
 };
 
-const nodeTitleMatches = (query: string, node: CommandSection) =>
-  query !== "" &&
-  node.title.toLocaleLowerCase().includes(query.toLocaleLowerCase());
+const nodeTitleMatches = (
+  query: string,
+  node: Manifest_Child<NodeElement | ControlElement>
+) =>
+  Boolean(
+    query !== "" &&
+      node.name?.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+  );
 
 const SidebarNode = ({
   depth,
-  manifestMap,
   node,
   leafClickHandler,
   query,
@@ -75,18 +85,16 @@ const SidebarNode = ({
   const { classes } = useSidebarStyles();
   const theme = useMantineTheme();
 
-  if (node.title === "ROOT") {
-    if (!node.subcategories) return null;
-
+  if (node.name === "ROOT") {
+    if (!node.children) return null;
     return (
       <div>
-        {node.subcategories.map((c) => {
+        {node.children.map((c) => {
           // Actually needs to be called as a function to achieve depth-first traversal,
           // otherwise React lazily evaluates it and doesn't recurse immediately, resulting in breadth-first traversal.
           return SidebarNode({
             node: c,
             depth: 0,
-            manifestMap,
             leafClickHandler,
             query,
             matchedParent: nodeTitleMatches(query, c),
@@ -98,21 +106,21 @@ const SidebarNode = ({
       </div>
     );
   }
+  const hasNode = node.children?.every((n) => !n.children);
 
-  if (node.subcategories) {
+  if (!hasNode) {
     return (
       <SidebarSection
-        title={node.title}
+        title={node.name ?? ""}
         depth={depth + 1}
         expand={expand}
         collapse={collapse}
-        key={node.title}
+        key={node.name}
       >
-        {node.subcategories.map((c) =>
+        {(node.children as Manifest_Child<NodeElement | ControlElement>[])?.map((c) =>
           SidebarNode({
             node: c,
             depth: depth + 1,
-            manifestMap,
             leafClickHandler,
             query,
             matchedParent: matchedParent || nodeTitleMatches(query, c),
@@ -125,25 +133,22 @@ const SidebarNode = ({
     );
   }
 
-  const key = node.key ?? "";
-
-  const commands = manifestMap[key] ?? [];
+  const commands = node.children?.filter((c) => !c.children) ?? [];
   const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
-    ? commands.filter(
+    ? commands?.filter(
         (c) =>
-          c.key.toLocaleLowerCase().includes(lowercased) ||
-          c.name.toLocaleLowerCase().includes(lowercased)
+          c.key?.toLocaleLowerCase().includes(lowercased) ||
+          c.name?.toLocaleLowerCase().includes(lowercased)
       )
     : commands;
 
-  if (searchMatches.length === 0) {
+  if (searchMatches?.length === 0) {
     return null;
   }
-
   return (
-    <div key={node.key}>
+    <div key={node.name}>
       <Divider
         variant="dashed"
         color={
@@ -151,22 +156,22 @@ const SidebarNode = ({
             ? theme.colors.accent1[0]
             : theme.colors.accent2[0]
         }
-        label={node.title}
+        label={node.name}
         w="80%"
         className={classes.divider}
       />
-      {searchMatches.map((command) => (
+      {searchMatches?.map((command) => (
         <button
           key={command.key}
           className={classes.buttonLeafNode}
           onClick={() => {
             if (query !== "" && appTab === "FlowChart") {
-              sendEventToMix("Node Searched", command.name, "nodeTitle");
+              sendEventToMix("Node Searched", command.name ?? "", "nodeTitle");
             }
-            leafClickHandler(command.key ?? key);
+            leafClickHandler(command as NodeElement | ControlElement);
           }}
         >
-          {command.key || command.name}
+          {command.key ?? command.name}
         </button>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { getManifestParams, getManifestCmds } from "@src/utils/ManifestLoader";
+import { getManifestParams, getManifestCmds, NodeElement } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
@@ -7,6 +7,9 @@ import { ElementsData } from "../types/CustomNodeProps";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
+
+export type AddNewNode = (node:NodeElement) => void
+
 
 export const useAddNewNode = (
   setNodes: (
@@ -32,21 +35,21 @@ export const useAddNewNode = (
   }, []);
 
   return useCallback(
-    (key: string) => {
+    (node: NodeElement) => {
       const nodePosition = {
         x: lastNodePosition.x + 100,
         y: lastNodePosition.y + 30,
       };
-      const cmd = getManifestCmds().find((cmd) => cmd.key === key);
-      if (cmd === null || cmd === undefined) {
-        throw new Error("Command not found");
-      }
-      const funcName = cmd.key;
-      const type = cmd.type;
-      const params = getManifestParams()[cmd.key];
-      const inputs = cmd.inputs;
-      const uiComponentId = cmd.ui_component_id;
-      const pip_dependencies = cmd.pip_dependencies;
+      // const cmd = getManifestCmds().find((cmd) => cmd.key === key);
+      // if (cmd === null || cmd === undefined) {
+      //   throw new Error("Command not found");
+      // }
+      const funcName = node.key;
+      const type = node.type;
+      const params = node.parameters;
+      const inputs = node.inputs;
+      const uiComponentId = node.ui_component_id;
+      const pip_dependencies = node.pip_dependencies;
       let nodeLabel: string;
 
       const nodeId = `${funcName}-${uuidv4()}`;

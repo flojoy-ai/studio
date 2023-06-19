@@ -11,7 +11,6 @@ import { useSocket } from "@src/hooks/useSocket";
 import {
   CMND_TREE,
   ManifestParams,
-  getManifestCmdsMap,
   getManifestParams,
 } from "@src/utils/ManifestLoader";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
@@ -35,7 +34,7 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
 } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
@@ -81,7 +80,7 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes, nodesManifest } =
     useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
@@ -93,8 +92,8 @@ const FlowChartTab = () => {
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
   const sidebarCustomContent = useMemo(
-    () => <SidebarCustomContent onAddNode={addNewNode} />,
-    [addNewNode]
+    () => <SidebarCustomContent onAddNode={addNewNode} nodesManifest={nodesManifest} />,
+    [addNewNode, nodesManifest]
   );
 
   const handleNodeRemove = useCallback(
@@ -272,8 +271,7 @@ const FlowChartTab = () => {
       </TabActions>
       <Sidebar
         sections={CMND_TREE}
-        manifestMap={getManifestCmdsMap()}
-        leafNodeClickHandler={addNewNode}
+        leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
