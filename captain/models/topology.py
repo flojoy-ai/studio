@@ -7,6 +7,7 @@ import marshal
 from flojoy import get_next_directions, get_next_nodes
 
 from PYTHON.utils.dynamic_module_import import get_module_func
+from PYTHON.services.job_service import JobService
 
 lock = asyncio.Lock()
 
@@ -24,6 +25,7 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs = set()
         self.is_ci = os.getenv(key="CI", default=False)
+        self.job_service = JobService('flojoy', self.max_runtime)
 
     # initial and main logic of topology
     async def run(self):
@@ -68,7 +70,7 @@ class Topology:
         )
 
         # enqueue job to worker and get the AsyncResult
-        async_result = run_job_on_worker.delay(
+        self.job_service.enqueue_job(
             func=func,
             jobset_id=self.jobset_id,
             job_id=job_id,
@@ -76,10 +78,7 @@ class Topology:
             ctrls=node["ctrls"],
             previous_job_ids=[],
             input_job_ids=dependencies,
-        ) 
-
-        # wait for the job to finish
-        result = async_result.get(timeout=self.max_runtime)
+        )
 
     async def handle_finished_job(self, result):
         #
