@@ -94,6 +94,6 @@ export function useFlowChartState() {
     s3AccessKey,
     setS3AccessKey,
     s3SecretKey,
-    setS3SecretKey
+    setS3SecretKey,
   };
 }

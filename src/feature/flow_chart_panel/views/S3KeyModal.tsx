@@ -41,7 +41,7 @@ const useStyles = createStyles((theme) => ({
   },
   userInputContainer: {
     display: "relative",
-    marginLeft: 40, 
+    marginLeft: 40,
     marginTop: 0,
   },
   submitButtonLine: {
@@ -62,7 +62,7 @@ const useStyles = createStyles((theme) => ({
     },
     marginTop: 53,
     marginLeft: -88,
-    marginRight: 100
+    marginRight: 100,
   },
   closeBtn: {
     position: "absolute",
@@ -78,13 +78,14 @@ const useStyles = createStyles((theme) => ({
       width: 270,
       backgroundColor: theme.colors.modal[0],
     },
-    marginTop: 5
+    marginTop: 5,
   },
 }));
 const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
   const { classes } = useStyles();
-  const [ s3Name, setS3Name ] = useState<string>("")
-  const { s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } = useFlowChartState();
+  const [s3Name, setS3Name] = useState<string>("");
+  const { s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
+    useFlowChartState();
 
   const handlNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setS3Name(e.target.value);
@@ -110,7 +111,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
         autoClose: false,
         withCloseButton: false,
       });
-      sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey)
+      sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
       setS3SecretKey("");
       setS3AccessKey("");
     }
@@ -138,7 +139,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
           </div>
           <Modal.CloseButton className={classes.closeBtn} />
           <div className={classes.userInputContainer}>
-          <h4 style={{marginBottom:0}}>Name:</h4>
+            <h4 style={{ marginBottom: 0 }}>Name:</h4>
             <div className={classes.submitButtonLine}>
               <Input
                 type="text"
@@ -147,7 +148,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
                 className={classes.inputBox}
               />
             </div>
-            <h4 style={{marginBottom:0}}>Access Key:</h4>
+            <h4 style={{ marginBottom: 0 }}>Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
                 type="text"
@@ -156,7 +157,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
                 className={classes.inputBox}
               />
             </div>
-            <h4 style={{marginBottom:0}}>Secret Access Key:</h4>
+            <h4 style={{ marginBottom: 0 }}>Secret Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
                 type="text"
@@ -168,7 +169,9 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
                 disabled={!s3SecretKey}
                 onClick={handleS3Key}
                 className={classes.submitBtn}
-              >Submit</Button>
+              >
+                Submit
+              </Button>
             </div>
           </div>
         </Modal.Content>
