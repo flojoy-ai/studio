@@ -17,6 +17,7 @@ import PlotlyImage from "../nodes/Image";
 import LineChart from "../nodes/line-chart";
 import Scatter from "../nodes/Scatter";
 import PlotlyTable from "../nodes/Table";
+import CompositePlot from "../nodes/composite-plot";
 import NodeWrapper from "../NodeWrapper";
 
 const useStyles = createStyles((theme) => {
@@ -46,6 +47,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   ARRAY_VIEW: <PlotlyTable />,
   PROPHET_PLOT: <LineChart />,
   PROPHET_COMPONENTS: <LineChart />,
+  COMPOSITE: <CompositePlot />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {

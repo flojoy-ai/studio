@@ -3,8 +3,14 @@ import pkg_resources
 from datetime import datetime
 from ..utils.install_package import install_packages
 from ..utils.send_to_socket import send_msg_to_socket
-from PYTHON.services.job_service import JobService
-from PYTHON.WATCH.watch import run
+import os
+import sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+from services.job_service import JobService
+from WATCH.watch import run
 
 job_service = JobService("flojoy-watch")
 q = job_service.queue
