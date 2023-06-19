@@ -85,7 +85,6 @@ def set_user_api_key(request):
     set_frontier_api_key(api_key)
 
     response = {
-        "success": True,
         "data": api_key,
     }
     return Response(response, status=200)
@@ -100,7 +99,6 @@ def set_s3_key(request):
     set_frontier_s3_key(s3_name, access_key, secret_key)
 
     response = {
-        "success": True,
         "name": s3_name,
         "accessKey": access_key,
         "secretKey": secret_key,

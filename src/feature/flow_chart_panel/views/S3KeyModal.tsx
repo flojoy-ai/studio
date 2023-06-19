@@ -87,7 +87,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
   const { s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
     useFlowChartState();
 
-  const handlNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setS3Name(e.target.value);
   };
 
@@ -143,7 +143,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <div className={classes.submitButtonLine}>
               <Input
                 type="text"
-                onChange={handlNameChange}
+                onChange={handleNameChange}
                 value={s3Name}
                 className={classes.inputBox}
               />

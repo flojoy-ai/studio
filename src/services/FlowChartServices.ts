@@ -89,12 +89,7 @@ export const sendS3KeyToDjango = async (
         autoClose: 5000,
       });
     } else {
-      notifications.update({
-        id: "set-s3-key",
-        title: "Failed!",
-        message: "Failed to set the Access Key",
-        autoClose: 5000,
-      });
+      throw new Error("Unable to process the response");
     }
   } catch (error) {
     notifications.update({
