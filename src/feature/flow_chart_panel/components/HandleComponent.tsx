@@ -209,7 +209,9 @@ const HandleComponent = ({
                       border: "1px solid #fff",
                     }}
                   ></div>
-                  <div style={{ paddingLeft: "8px" }}>{param.name}</div>
+                  {data.func !== "COMPOSITE" && (
+                    <div style={{ paddingLeft: "8px" }}>{param.name}</div>
+                  )}
                 </div>
               </Handle>
             );

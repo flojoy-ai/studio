@@ -33,6 +33,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  BezierEdge,
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -94,6 +95,11 @@ const FlowChartTab = () => {
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} nodesManifest={nodesManifest} />,
     [addNewNode, nodesManifest]
+  );
+  const manifestMap = useMemo(() => getManifestCmdsMap(), []);
+  const toggleSidebar = useCallback(
+    () => setIsSidebarOpen((prev) => !prev),
+    []
   );
 
   const handleNodeRemove = useCallback(
@@ -254,14 +260,14 @@ const FlowChartTab = () => {
     <Layout>
       <TabActions>
         <IconButton
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          onClick={toggleSidebar}
           icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
           data-testid="add-node-button"
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
         <IconButton
-          onClick={() => clearCanvas()}
+          onClick={clearCanvas}
           icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
           ml="auto"
           h="100%"

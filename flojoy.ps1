@@ -12,8 +12,6 @@ $check_mark = '✔'
 $alert_mark = '⚠️'
 $error_mark = '❌'
 
-$is_command_successful = 0
-
 function success_msg {
   param (
     $message
@@ -58,33 +56,12 @@ Write-Host "     ||                                                             
 Write-Host "      ===============================================================" -ForegroundColor $general_color
 Write-Host ""
 
-$djangoPort = 8000
 $initNodePackages = $true
 $initPythonPackages = $true
+$initSubmodule = $true
+$enableSentry = $true
+$enableTelemetry = $false
 
-# creating system links
-
-function createSystemLinks {
-  $FILE = Join-Path $PWD PYTHON/WATCH/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-
-  $FILE = Join-Path $PWD src/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-}
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 
@@ -104,7 +81,6 @@ function feedback {
 }
 
 # Help function
-
 function helpFunction {
   Write-Host ""
   Write-Host "Usage: $0 -n -p -s -S -T -v venv"
@@ -123,28 +99,7 @@ $arguments = $args
 $index = 0
 while ($arguments) {
   $key = $arguments[$index]
-  switch ($key) {
-    "-n" {
-      $initNodePackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-p" {
-      $initPythonPackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-P" {
-      $djangoPort = $arguments[$index + 1]
-      $index = $index + 2
-      continue
-    }
-    default {
-      Write-Host "Unknown option: $key"
-      helpFunction
-      exit 1
-    }
-  }
+
   if ($index -eq $arguments.Length) {
     break
   }
@@ -284,12 +239,6 @@ if ($initNodePackages) {
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
 
-# creating system links
-
-createSystemLinks
-
-feedback $? 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
-
 # jsonify python functions
 
 & python write_python_metadata.py
@@ -301,6 +250,26 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 # & python generate_manifest.py
 
 # feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+
+# Setup Sentry env var
+if ( $enableSentry -eq $true ) {
+  info_msg "Sentry will be enabled!"
+  $Env:FLOJOY_ENABLE_SENTRY = 1
+} 
+else {
+  info_msg "Sentry will be disabled!"
+  $Env:FLOJOY_ENABLE_SENTRY = 0
+}
+# Setup Telemetry
+if ( $enableTelemetry -eq $true ) {
+  info_msg "Telemetry will be enabled!"
+  $Env:FLOJOY_ENABLE_TELEMETRY = 1
+}
+else {
+  info_msg "Telemetry will be disabled!"
+  $Env:FLOJOY_ENABLE_TELEMETRY = 0
+}
+
 
 # Setup Sentry env var
 if ( $enableSentry -eq $true ) {
