@@ -1,6 +1,5 @@
 import asyncio
 from copy import deepcopy
-from captain.celery.tasks import run_job_on_worker
 import os
 import time
 import marshal
