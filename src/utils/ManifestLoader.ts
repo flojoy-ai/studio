@@ -105,8 +105,7 @@ export function getManifestCmdsMap(): CommandManifestMap {
 }
 
 // TODO: should probably move this to a json file
-const CMND_TREE: CMND_MANIFEST<NodeElement> = CommandManifest as CMND_MANIFEST<NodeElement>;
-
-
+const CMND_TREE: CMND_MANIFEST<NodeElement> =
+  CommandManifest as CMND_MANIFEST<NodeElement>;
 
 export { CMND_TREE };

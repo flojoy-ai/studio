@@ -1,4 +1,8 @@
-import { getManifestParams, getManifestCmds, NodeElement } from "@src/utils/ManifestLoader";
+import {
+  getManifestParams,
+  getManifestCmds,
+  NodeElement,
+} from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
@@ -8,8 +12,7 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
-export type AddNewNode = (node:NodeElement) => void
-
+export type AddNewNode = (node: NodeElement) => void;
 
 export const useAddNewNode = (
   setNodes: (

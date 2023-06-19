@@ -41,10 +41,13 @@ const useStyles = createStyles((theme) => {
 
 type SidebarCustomContentProps = {
   onAddNode: AddNewNode;
-  nodesManifest: NodeElement[]
+  nodesManifest: NodeElement[];
 };
 
-const SidebarCustomContent = ({ onAddNode, nodesManifest }: SidebarCustomContentProps) => {
+const SidebarCustomContent = ({
+  onAddNode,
+  nodesManifest,
+}: SidebarCustomContentProps) => {
   const { classes } = useStyles();
   return (
     <Flex
@@ -54,7 +57,11 @@ const SidebarCustomContent = ({ onAddNode, nodesManifest }: SidebarCustomContent
       className={classes.container}
     >
       <RequestNode classes={classes} />
-      <EndNode classes={classes} onAddNode={onAddNode} nodesManifest={nodesManifest} />
+      <EndNode
+        classes={classes}
+        onAddNode={onAddNode}
+        nodesManifest={nodesManifest}
+      />
     </Flex>
   );
 };
@@ -78,12 +85,15 @@ const RequestNode = ({ classes }: { classes: Record<string, string> }) => {
 type EndNodeProps = {
   classes: Record<string, string>;
   onAddNode: AddNewNode;
-  nodesManifest: NodeElement[]
+  nodesManifest: NodeElement[];
 };
 
-const EndNode = ({ classes, onAddNode, nodesManifest}: EndNodeProps) => {
+const EndNode = ({ classes, onAddNode, nodesManifest }: EndNodeProps) => {
   const nodeKey = "END";
-  const endNode = useMemo(() => nodesManifest.find(n=> n.key === nodeKey), [nodesManifest]);
+  const endNode = useMemo(
+    () => nodesManifest.find((n) => n.key === nodeKey),
+    [nodesManifest]
+  );
   return (
     <>
       {endNode ? (

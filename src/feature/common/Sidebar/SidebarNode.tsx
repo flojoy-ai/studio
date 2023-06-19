@@ -117,17 +117,18 @@ const SidebarNode = ({
         collapse={collapse}
         key={node.name}
       >
-        {(node.children as Manifest_Child<NodeElement | ControlElement>[])?.map((c) =>
-          SidebarNode({
-            node: c,
-            depth: depth + 1,
-            leafClickHandler,
-            query,
-            matchedParent: matchedParent || nodeTitleMatches(query, c),
-            expand,
-            collapse,
-            appTab,
-          })
+        {(node.children as Manifest_Child<NodeElement | ControlElement>[])?.map(
+          (c) =>
+            SidebarNode({
+              node: c,
+              depth: depth + 1,
+              leafClickHandler,
+              query,
+              matchedParent: matchedParent || nodeTitleMatches(query, c),
+              expand,
+              collapse,
+              appTab,
+            })
         )}
       </SidebarSection>
     );

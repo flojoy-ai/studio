@@ -1,4 +1,5 @@
 from rq import Queue
+
 try:
     from rq_win import WindowsWorker as Worker
 except ImportError:
@@ -7,6 +8,7 @@ import os
 import sys
 import debugpy
 from dao.redis_dao import RedisDao
+
 sys.path.append(os.path.abspath(os.getcwd()))
 
 

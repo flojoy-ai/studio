@@ -157,12 +157,12 @@ export const CTRL_TREE: CMND_MANIFEST<ControlElement> = {
               children: null,
             },
             {
-                name: ControlNames.TextInput,
-                type: ControlTypes.Input,
-                key: "TEXT_INPUT",
-                minHeight: 1,
-                minWidth: 1,
-              
+              name: ControlNames.TextInput,
+              type: ControlTypes.Input,
+              key: "TEXT_INPUT",
+              minHeight: 1,
+              minWidth: 1,
+
               children: null,
             },
           ],
@@ -216,7 +216,6 @@ export const CTRL_TREE: CMND_MANIFEST<ControlElement> = {
   ],
 };
 
-
 type PlotManifestType = {
   name: string;
   type?: PlotData["type"];
@@ -262,4 +261,3 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     type: "table",
   },
 };
-
