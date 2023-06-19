@@ -23,7 +23,7 @@ export const makePlotlyData = (
       ? theme.colors.accent1[0]
       : theme.colors.accent2[0];
 
-  return data.map((d) => {
+  return data.map((d, d_index) => {
     return {
       ...d,
       ...(d.type === "table" && {
@@ -69,14 +69,16 @@ export const makePlotlyData = (
           }),
         },
       }),
-      marker: {
-        ...d.marker,
-        color: accentColor,
-      },
-      line: {
-        ...d.line,
-        color: accentColor,
-      },
+      ...(d_index === 0 && {
+        marker: {
+          ...d.marker,
+          color: accentColor,
+        },
+        line: {
+          ...d.line,
+          color: accentColor,
+        },
+      }),
     };
   });
 };
