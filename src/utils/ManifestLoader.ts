@@ -155,7 +155,6 @@ const CMND_TREE: CommandSection = {
         { title: "Stepper driver Tic", key: "STEPPER", children: null },
         { title: "Stepper driver Tic knob", key: "STEPPER2", children: null },
         { title: "Cpu Temp Ram", key: "CPU", children: null },
-
       ],
     },
     {
