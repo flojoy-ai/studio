@@ -154,7 +154,7 @@ const CMND_TREE: CommandSection = {
         { title: "Serial", key: "SERIAL", children: null },
         { title: "Stepper driver Tic", key: "STEPPER", children: null },
         { title: "Stepper driver Tic knob", key: "STEPPER2", children: null },
-        { title: "Raspberry Pie", key: "RASPBERRY", children: null },
+        { title: "Cpu Temp Ram", key: "CPU", children: null },
 
       ],
     },
