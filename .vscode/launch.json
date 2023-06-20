@@ -10,7 +10,7 @@
       "type": "python",
       "request": "launch",
       "module": "uvicorn",
-      "args": ["captain.main:app", "--reload", "--port", "8000"],
+      "args": ["captain.main:app", "--reload", "--port", "8000", "--log-level", "debug"],
     }
   ]
 }

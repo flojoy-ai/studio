@@ -1,10 +1,11 @@
 from redis import Redis
 from rq import Queue, Worker
-import os
-
+import os, sys
 import debugpy
 
-from dao.redis_dao import RedisDao
+sys.path.append(os.path.dirname(sys.path[0]))
+print(os.path.dirname(sys.path[0]))
+from PYTHON.dao.redis_dao import RedisDao
 
 DEFAULT_PORT = 5678
 

@@ -1,6 +1,7 @@
 import asyncio
 from copy import deepcopy
-import os
+import logging
+import os, sys
 import time
 import marshal
 
@@ -11,6 +12,7 @@ from PYTHON.services.job_service import JobService
 
 lock = asyncio.Lock()
 
+sys.path.append(os.path.join(sys.path[0], "PYTHON")) # Needed for dynamic module import
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary print statements 
@@ -90,6 +92,9 @@ class Topology:
 
         print(f"job {self.get_label(job_id)} is done and has been received.")
         async with lock:
+            if job_id in self.finished_jobs:
+                logging.warning(f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN")
+                return
             self.finished_jobs.add(job_id)
         
         if (job_id is None or job_result is None):
@@ -99,7 +104,7 @@ class Topology:
             self.process_job_result(job_id, job_result, success=True) #TODO: handle in case of failure
             next_jobs = self.remove_node_and_get_next(job_id)
          
-
+        print("Starting next jobs: " + str(next_jobs))
         self.run_jobs(next_jobs)
                
 
@@ -145,7 +150,6 @@ class Topology:
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
         return list(next_nodes)
-        
 
     def restart(self, job_id):
         print("  *** restarting job:", self.get_label(job_id, original=True))
@@ -179,7 +183,6 @@ class Topology:
 
     def mark_job_success(self, job_id, label="main"):
         print(f"  job finished: {self.get_label(job_id)}, label:", label)
-        self.remove_dependencies(job_id, label)
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True

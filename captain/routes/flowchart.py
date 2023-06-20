@@ -1,7 +1,7 @@
 import asyncio
 from http.client import HTTPException
 import json
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Request, Response
 import yaml
 from captain.types.flowchart import (
     PostCancelFC,
@@ -77,17 +77,21 @@ signal a job has been finished.
 """
 
 @router.post("/worker_response", summary="worker response")
-async def worker_response(request: WorkerJobResponse):
+async def worker_response(request: Request): # use type Request, otherwise does not work???? 
 
     print("Received a response from a worker")
 
-    request_dict = request.dict()
+    request_json = await request.json()
+    # print(request_dict)
 
     # forward response from worker to the front-end
-    asyncio.create_task(manager.ws.broadcast(json.dumps(request_dict)))
+    asyncio.create_task(manager.ws.broadcast(request_json))
+
+    request_dict = json.loads(request_json)
 
     # handle finished job
-    asyncio.create_task(running_topology.handle_finished_job(request_dict)) # type: ignore
+    if "NODE_RESULTS" in request_dict:
+        asyncio.create_task(running_topology.handle_finished_job(request_dict)) # type: ignore
 
     return Response(status_code=200)
 
