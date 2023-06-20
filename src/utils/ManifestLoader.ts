@@ -103,6 +103,11 @@ const CMND_TREE: CommandSection = {
           key: "CLASSIFICATION",
           children: null,
         },
+        {
+          title: "Natural Language Processing",
+          key: "NLP",
+          children: null,
+        },
       ],
     },
     {
