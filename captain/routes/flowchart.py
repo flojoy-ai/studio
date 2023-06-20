@@ -77,17 +77,18 @@ signal a job has been finished.
 """
 
 @router.post("/worker_response", summary="worker response")
-async def worker_response(request: Request): # use type Request, otherwise does not work???? 
+async def worker_response(request: Request): # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work???? 
 
     print("Received a response from a worker")
 
     request_json = await request.json()
     # print(request_dict)
+    request_dict = json.loads(request_json)
+    request_dict["type"] = "worker_response"
 
     # forward response from worker to the front-end
-    asyncio.create_task(manager.ws.broadcast(request_json))
+    asyncio.create_task(manager.ws.broadcast(json.dumps(request_dict)))
 
-    request_dict = json.loads(request_json)
 
     # handle finished job
     if "NODE_RESULTS" in request_dict:

@@ -1,5 +1,5 @@
 import json
-from fastapi import APIRouter, WebSocket
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 import yaml
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
@@ -11,12 +11,20 @@ router = APIRouter(tags=["ws"])
 @router.websocket("/ws/socket-server/")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.ws.connect(websocket)
-    await manager.ws.broadcast(
-        json.dumps(
+    try:
+        # send "Connection established" message to client
+        await websocket.send_text(
+            json.dumps(
             {
                 "type": "connection_established",
                 "msg": "You are now connected to flojoy servers",
                 "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
             }
-        )
-    )
+        ))
+        
+        # await for messages and send messages (no need to read from frontend, this is used to keep connection alive)
+        while True:
+            await websocket.receive_text()
+
+    except WebSocketDisconnect:
+        print("Client disconnected")
