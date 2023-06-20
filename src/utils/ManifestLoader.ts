@@ -1,6 +1,6 @@
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
-import CommandManifest from "../../generate_manifest.json";
+import CommandManifest from "@src/data/manifests-latest.json";
 
 const commandsSchema = z.array(
   z.object({
@@ -34,14 +34,13 @@ export type NodeElement = {
   key: string;
   type: string;
   inputs?: { name: string; id: string; type: string }[];
-  parameters?: Record<
-    string,
-    {
+  parameters?: {
+    [key: string]: {
       type: string;
       default?: string | number | boolean | null;
       options?: string[];
-    }
-  >;
+    };
+  };
   pip_dependencies?: { name: string; v?: string }[];
   ui_component_id?: string;
   children: null;

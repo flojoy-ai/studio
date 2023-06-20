@@ -5,14 +5,14 @@ nodes_dir = "PYTHON/nodes"
 mapping = {}
 
 
-def get_module_func(file_name: str, func_name: str):
+def get_module_func(file_name: str):
     if not mapping:
         create_map()
     file_path = mapping.get(file_name)
 
     if file_path is not None:
         module = import_module(file_path)
-        return getattr(module, func_name)
+        return module
 
     else:
         print(f"File {file_name} not found in subdirectories of {nodes_dir}")

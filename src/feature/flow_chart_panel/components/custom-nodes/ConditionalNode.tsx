@@ -8,7 +8,7 @@ import { useNodeStyles } from "../DefaultNode";
 import { NodeLabel } from "../NodeLabel";
 import NodeWrapper from "../NodeWrapper";
 
-const ConditionalNode = ({ data }: CustomNodeProps) => {
+const ConditionalNode = ({ data, handleRemove }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
   const [additionalInfo, setAdditionalInfo] = useState({});
 
@@ -53,7 +53,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   }, [programResults]);
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected ? classes.defaultShadow : "",

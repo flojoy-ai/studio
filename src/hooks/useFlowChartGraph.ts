@@ -84,7 +84,6 @@ export const useFlowChartGraph = () => {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    paramId: string,
     inputData: ElementsData["ctrls"][""]
   ) => {
     setNodes((element) => {
@@ -92,11 +91,11 @@ export const useFlowChartGraph = () => {
       if (node) {
         if (node.data.func === "CONSTANT") {
           node.data.ctrls = {
-            [paramId]: inputData,
+            [inputData.param]: inputData,
           };
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
         } else {
-          node.data.ctrls[paramId] = inputData;
+          node.data.ctrls[inputData.param] = inputData;
         }
       }
     });

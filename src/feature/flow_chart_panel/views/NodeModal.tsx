@@ -267,7 +267,9 @@ const NodeModal = ({
               padding: 20,
             },
           }}
-          labelRenderer={([key]) => <li style={{ paddingLeft: 8 }}>{key}</li>}
+          labelRenderer={([key]) => (
+            <span style={{ paddingLeft: 8 }}>{key}</span>
+          )}
         ></JSONTree>
       </div>
     </Modal>

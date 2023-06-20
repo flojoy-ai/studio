@@ -1,14 +1,11 @@
-import {
-  getManifestParams,
-  getManifestCmds,
-  NodeElement,
-} from "@src/utils/ManifestLoader";
+import { NodeElement } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback, useEffect } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "../types/CustomNodeProps";
 import { sendEventToMix } from "@src/services/MixpanelServices";
+import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 
 const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
 
@@ -43,16 +40,13 @@ export const useAddNewNode = (
         x: lastNodePosition.x + 100,
         y: lastNodePosition.y + 30,
       };
-      // const cmd = getManifestCmds().find((cmd) => cmd.key === key);
-      // if (cmd === null || cmd === undefined) {
-      //   throw new Error("Command not found");
-      // }
       const funcName = node.key;
       const type = node.type;
       const params = node.parameters;
       const inputs = node.inputs;
       const uiComponentId = node.ui_component_id;
       const pip_dependencies = node.pip_dependencies;
+      const path = NodeFunctionsMap[`${funcName}.py`]?.path ?? "";
       let nodeLabel: string;
 
       const nodeId = `${funcName}-${uuidv4()}`;
@@ -65,14 +59,15 @@ export const useAddNewNode = (
       nodeLabel = nodeLabel.replaceAll("_", " ");
 
       const nodeParams = params
-        ? Object.keys(params).reduce(
-            (prev: ElementsData["ctrls"], param) => ({
+        ? Object.entries(params).reduce(
+            (prev: ElementsData["ctrls"], [paramName, param]) => ({
               ...prev,
-              [param]: {
+              [paramName]: {
+                ...param,
                 functionName: funcName,
-                param,
+                param: paramName,
                 value:
-                  funcName === "CONSTANT" ? nodeLabel : params[param].default,
+                  funcName === "CONSTANT" ? nodeLabel : param.default ?? "",
               },
             }),
             {}
@@ -90,6 +85,7 @@ export const useAddNewNode = (
           ctrls: nodeParams,
           inputs,
           pip_dependencies,
+          path,
         },
         position: nodePosition,
       };

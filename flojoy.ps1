@@ -247,28 +247,9 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
-# & python generate_manifest.py
+& python generate_manifest.py
 
-# feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
-
-# Setup Sentry env var
-if ( $enableSentry -eq $true ) {
-  info_msg "Sentry will be enabled!"
-  $Env:FLOJOY_ENABLE_SENTRY = 1
-} 
-else {
-  info_msg "Sentry will be disabled!"
-  $Env:FLOJOY_ENABLE_SENTRY = 0
-}
-# Setup Telemetry
-if ( $enableTelemetry -eq $true ) {
-  info_msg "Telemetry will be enabled!"
-  $Env:FLOJOY_ENABLE_TELEMETRY = 1
-}
-else {
-  info_msg "Telemetry will be disabled!"
-  $Env:FLOJOY_ENABLE_TELEMETRY = 0
-}
+feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
 
 # Setup Sentry env var

@@ -50,7 +50,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   COMPOSITE: <CompositePlot />,
 };
 
-const VisorNode = ({ data }: CustomNodeProps) => {
+const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
@@ -74,7 +74,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected

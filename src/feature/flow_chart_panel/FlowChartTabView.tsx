@@ -8,11 +8,7 @@ import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
-import {
-  CMND_TREE,
-  ManifestParams,
-  getManifestParams,
-} from "@src/utils/ManifestLoader";
+import { CMND_TREE } from "@src/utils/ManifestLoader";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
@@ -33,7 +29,6 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  BezierEdge,
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -41,7 +36,7 @@ import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { CustomNodeProps } from "./types/CustomNodeProps";
+import { ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
@@ -52,7 +47,6 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const manifestParams: ManifestParams = getManifestParams();
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
 
@@ -108,7 +102,7 @@ const FlowChartTab = () => {
     ),
     [addNewNode, nodesManifest]
   );
-  const manifestMap = useMemo(() => getManifestCmdsMap(), []);
+
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     []
@@ -139,8 +133,8 @@ const FlowChartTab = () => {
         Object.entries(nodeConfigs).map(([key, CustomNode]) => {
           return [
             key,
-            ({ data }: CustomNodeProps) => (
-              <CustomNode data={{ ...data, handleRemove: handleNodeRemove }} />
+            (props: { data: ElementsData }) => (
+              <CustomNode data={props.data} handleRemove={handleNodeRemove} />
             ),
           ];
         })
@@ -306,7 +300,6 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
-            manifestParams={manifestParams}
           />
 
           <FlowChartKeyboardShortcuts />
