@@ -137,11 +137,14 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <FamilyHistoryIconSvg size={20} />
             <div className={classes.titleText}>Set S3 Key</div>
           </div>
-          <Modal.CloseButton className={classes.closeBtn} />
+          <Modal.CloseButton 
+          data-testid="s3-close-btn"
+          className={classes.closeBtn} />
           <div className={classes.userInputContainer}>
             <h4 style={{ marginBottom: 0 }}>Name:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_name_input"
                 type="text"
                 onChange={handleNameChange}
                 value={s3Name}
@@ -151,6 +154,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <h4 style={{ marginBottom: 0 }}>Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_access_input"
                 type="text"
                 onChange={handleS3AccessKeyChange}
                 value={s3AccessKey}
@@ -160,12 +164,14 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <h4 style={{ marginBottom: 0 }}>Secret Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_secret_input"
                 type="text"
                 onChange={handleS3SecretKeyChange}
                 value={s3SecretKey}
                 className={classes.inputBox}
               />
               <Button
+                data-testid="s3-submit-btn"
                 disabled={!s3SecretKey}
                 onClick={handleS3Key}
                 className={classes.submitBtn}
