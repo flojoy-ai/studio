@@ -47,6 +47,30 @@ describe("studio", () => {
             target: "window",
             fully: true,
           });
+
+        cy.get('[data-testid="api-key-input"]').type("TestAPIKeyInput")
+
+        cy.eyesCheckWindow({
+            tag: "dark flow page with apikey modal with input",
+            target: "window",
+            fully: true,
+          });
+
+        cy.get('[data-testid="api-key-input-btn"]').click()
+
+        cy.eyesCheckWindow({
+            tag: "dark flow page with apikey modal after submitting",
+            target: "window",
+            fully: true,
+          });
+        
+        cy.get('[data-testid="api-key-close-btn"]').click()
+
+        cy.eyesCheckWindow({
+            tag: "dark flow page with apikey modal after closing",
+            target: "window",
+            fully: true,
+          });
         
     
     })

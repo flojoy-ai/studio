@@ -120,15 +120,19 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
             <FamilyHistoryIconSvg size={20} />
             <div className={classes.titleText}>API Key</div>
           </div>
-          <Modal.CloseButton className={classes.closeBtn} />
+          <Modal.CloseButton 
+          data-testid="api-key-close-btn"
+          className={classes.closeBtn} />
           <div className={classes.submitButtonLine}>
             <Input
+              data-testid="api-key-input"
               type="text"
               onChange={handleApiKeyChange}
               value={apiKey}
               className={classes.inputBox}
             />
             <Button
+              data-testid="api-key-input-btn"
               disabled={!apiKey}
               onClick={handleSendAPI}
               className={classes.submitBtn}
