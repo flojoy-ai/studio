@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => {
     plugins: [
       react(),
       EnvironmentPlugin("all"),
-      eslint(),
+      eslint({ emitWarning: true }),
       electron([
         {
           // Main-Process entry file of the Electron App.

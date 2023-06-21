@@ -28,17 +28,17 @@ const useControlComponentEffects = ({
   useEffect(() => {
     setSelectedOption(
       ctrlObj.type === "output"
-        ? selectOptions?.find((option) => option.value === ctrlObj?.param)
-        : selectOptions?.find((option) => {
+        ? selectOptions.find((option) => option.value === ctrlObj.param)
+        : selectOptions.find((option) => {
             return (
-              (option.value as CtrlOptionValue).id ===
-                (ctrlObj?.param as CtrlManifestParam)?.id &&
+              (option.value as CtrlOptionValue).param ===
+                (ctrlObj?.param as CtrlManifestParam)?.param &&
               (option.value as CtrlOptionValue).nodeId ===
                 (ctrlObj?.param as CtrlManifestParam)?.nodeId
             );
           })
     );
-  }, [ctrlObj?.param, selectOptions, ctrlObj.type, setSelectedOption]);
+  }, [ctrlObj.param, selectOptions, setSelectedOption]);
 
   useEffect(() => {
     return () => {
@@ -49,7 +49,7 @@ const useControlComponentEffects = ({
   }, [selectedOption]);
   useEffect(() => {
     if (ctrls) {
-      const value = ctrls[(ctrlObj?.param as CtrlManifestParam)?.param]?.value;
+      const value = ctrls[(ctrlObj.param as CtrlManifestParam)?.param]?.value;
       if (value === null || value === undefined) {
         setCurrentInputValue(value);
         return;
@@ -63,7 +63,7 @@ const useControlComponentEffects = ({
   useEffect(() => {
     try {
       // figure out what we're visualizing
-      const nodeIdToPlot = ctrlObj?.param;
+      const nodeIdToPlot = ctrlObj.param;
       if (nodeIdToPlot) {
         if (results && results.io) {
           const runResults = results.io.reverse();
@@ -76,7 +76,7 @@ const useControlComponentEffects = ({
     } catch (e) {
       console.error(e);
     }
-  }, [ctrlObj?.param, results, results.io, selectedOption, setNd]);
+  }, [ctrlObj.param, results, results.io, selectedOption, setNd]);
 
   useEffect(() => {
     if (ctrlObj.type === ControlTypes.Input) {
@@ -125,13 +125,13 @@ const useControlComponentEffects = ({
     return () => {
       setSelectOptions([]);
     };
-  }, [ctrlObj, flowChartObject?.nodes, ctrlObj?.type]);
+  }, [ctrlObj, flowChartObject?.nodes]);
 
   // Filter attached node result from all node results
   useEffect(() => {
     try {
       // figure out what we're visualizing
-      const nodeIdToPlot = ctrlObj?.param;
+      const nodeIdToPlot = ctrlObj.param;
       if (nodeIdToPlot) {
         if (results && results.io) {
           const runResults = results.io.reverse();

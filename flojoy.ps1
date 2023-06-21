@@ -12,8 +12,6 @@ $check_mark = '✔'
 $alert_mark = '⚠️'
 $error_mark = '❌'
 
-$is_command_successful = 0
-
 function success_msg {
   param (
     $message
@@ -49,42 +47,21 @@ function error_msg {
 
 Write-Host ""
 Write-Host ""
-Write-Host "      ============================================================"  -ForegroundColor $general_color
-Write-Host "     ||                  Welcome to Flojoy!                      ||" -ForegroundColor $general_color
-Write-Host "     ||                                                          ||" -ForegroundColor $general_color
-Write-Host "     ||         For Installation, Follow the Link Below          ||" -ForegroundColor $general_color
-Write-Host "     ||       https://docs.flojoy.io/getting-started/install/    ||" -ForegroundColor $general_color
-Write-Host "     ||                                                          ||" -ForegroundColor $general_color
-Write-Host "      ============================================================" -ForegroundColor $general_color
+Write-Host "      ==============================================================="  -ForegroundColor $general_color
+Write-Host "     ||                     Welcome to Flojoy!                      ||" -ForegroundColor $general_color
+Write-Host "     ||                                                             ||" -ForegroundColor $general_color
+Write-Host "     ||           For Installation, Follow the Link Below           ||" -ForegroundColor $general_color
+Write-Host "     ||       https://docs.flojoy.io/getting-started/install/       ||" -ForegroundColor $general_color
+Write-Host "     ||                                                             ||" -ForegroundColor $general_color
+Write-Host "      ===============================================================" -ForegroundColor $general_color
 Write-Host ""
 
-$djangoPort = 8000
 $initNodePackages = $true
 $initPythonPackages = $true
+$initSubmodule = $true
+$enableSentry = $true
+$enableTelemetry = $false
 
-# creating system links
-
-function createSystemLinks {
-  $FILE = Join-Path $PWD PYTHON/WATCH/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-
-  $FILE = Join-Path $PWD src/STATUS_CODES.yml
-  if (Test-Path $FILE) {
-    info_msg "$FILE exists."
-    $is_command_successful += $?
-  }
-  else {
-    cmd /c mklink $FILE STATUS_CODES.yml
-    $is_command_successful += $?
-  }
-}
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 
@@ -104,13 +81,15 @@ function feedback {
 }
 
 # Help function
-
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p"
-  Write-Host " -n: To not install npm packages"
-  Write-Host " -p: To not install python packages"
-  return 1 # Exit script after printing help
+  Write-Host "Usage: $0 -n -p -s -S -T -v venv"
+  Write-Host  " -n: To NOT install npm packages"
+  Write-Host  " -p: To NOT install python packages"
+  Write-Host  " -s: To NOT update submodules"
+  Write-Host  " -S: To NOT enable Sentry"
+  Write-Host  " -T: To enable Telemetry"
+  Write-Host  " -v: To use virtual env"
 }
 
 # Assign command-line arguments to a variable
@@ -120,30 +99,45 @@ $arguments = $args
 $index = 0
 while ($arguments) {
   $key = $arguments[$index]
-  switch ($key) {
-    "-n" {
-      $initNodePackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-p" {
-      $initPythonPackages = $false
-      $index = $index + 1
-      continue
-    }
-    "-P" {
-      $djangoPort = $arguments[$index + 1]
-      $index = $index + 2
-      continue
-    }
-    default {
-      Write-Host "Unknown option: $key"
-      helpFunction
-      exit 1
-    }
-  }
+
   if ($index -eq $arguments.Length) {
     break
+  }
+  if ($key -ceq "-n") {
+    $initNodePackages = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-p") {
+    $initPythonPackages = $false
+    $index = $index + 1
+    continue
+    
+  }
+  elseif ($key -ceq "-S") {
+    $enableSentry = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-s") {
+    $initSubmodule = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-T") {
+    $enableTelemetry = $true
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-v") {
+    $venvPath = $arguments[$index + 1]
+    $index = $index + 2
+    continue
+  }
+  else {
+    Write-Host "Unknown option: $key"
+    helpFunction
+    exit 1
   }
 }
 
@@ -188,9 +182,16 @@ function createFlojoyDirectoryWithYmlFile {
 
 createFlojoyDirectoryWithYmlFile
 
-# Update submodules
-& git submodule update --init --recursive > $null
-feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+if ($venvPath) {
+  info_msg "Venv path is given, will use: $venvPath"
+  & $venvPath\Scripts\activate
+}
+
+if ($initSubmodule -eq $true) {
+  # Update submodules
+  & git submodule update --init --recursive > $null
+  feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
+}
 
 
 # Check if Python, Pip, or npm is missing.
@@ -238,12 +239,6 @@ if ($initNodePackages) {
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
 
-# creating system links
-
-createSystemLinks
-
-feedback $? 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
-
 # jsonify python functions
 
 & python write_python_metadata.py
@@ -255,6 +250,26 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 & python generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+
+# Setup Sentry env var
+if ( $enableSentry -eq $true ) {
+  info_msg "Sentry will be enabled!"
+  $Env:FLOJOY_ENABLE_SENTRY = 1
+} 
+else {
+  info_msg "Sentry will be disabled!"
+  $Env:FLOJOY_ENABLE_SENTRY = 0
+}
+# Setup Telemetry
+if ( $enableTelemetry -eq $true ) {
+  info_msg "Telemetry will be enabled!"
+  $Env:FLOJOY_ENABLE_TELEMETRY = 1
+}
+else {
+  info_msg "Telemetry will be disabled!"
+  $Env:FLOJOY_ENABLE_TELEMETRY = 0
+}
+
 
 info_msg 'Checking if Memurai is running...'
 & memurai-cli.exe ping 2>$1 > $null
@@ -285,21 +300,21 @@ if ($is_installed -ne 0) {
   }
 }
 
-
-# Get Python scripts path
-$python_scripts_path = & python .\get_script_dir.py
-feedback $? 'Script path found for Python...' "Couldn't find script path for Python site-packages. Make sure you installed all required Python packages or run this script without -p argument to install packages automatically."
-info_msg 'Checking if Python Scripts path is available in Path environment...'
-$existingPath = [Environment]::GetEnvironmentVariable("Path", "User")
-# Check if the path already exists in the variable
-if ($existingPath -split ";" -contains $python_scripts_path) {
-  feedback $true "The Python Scripts path is already present in the Path environment variable..." ""
-}
-else {
-  info_msg "Adding Scipts path to Path environment..."
-  setx path "$existingPath;$python_scripts_path" 2>$1 > $null
-  feedback $? "Scripts path added successfully, Please restart PowerShell and run the script again to take effect." "Failed to add Scripts path please add following path to Path environment and run this script again. $python_scripts_path"
-  Exit 0
+if (!$venvPath) {
+  # Get Python scripts path
+  $python_scripts_path = & python .\get_script_dir.py
+  feedback $? 'Script path found for Python...' "Couldn't find script path for Python site-packages. Make sure you installed all required Python packages or run this script without -p argument to install packages automatically."
+  info_msg 'Checking if Python Scripts path is available in Path environment...'
+  $existingPath = $Env:PATH
+  # Check if the path already exists in the variable
+  if ($existingPath -split $([System.IO.Path]::PathSeparator) -contains $python_scripts_path) {
+    feedback $true "The Python Scripts path is already present in the Path environment variable..." ""
+  }
+  else {
+    info_msg "Adding Scipts path to Path environment..."
+    $Env:PATH = "$python_scripts_path$([System.IO.Path]::PathSeparator)$Env:PATH"
+    feedback $? "Scripts path added successfully!" "Failed to add Scripts path please add following path to Path environment and run this script again. $python_scripts_path"
+  }
 }
 
 # Start the project
