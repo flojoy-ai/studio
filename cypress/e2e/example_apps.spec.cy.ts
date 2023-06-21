@@ -1,5 +1,6 @@
 it("should open flojoy studio's main page", () => {
-    cy.visit("/").wait(1000);})
+  cy.visit("/").wait(1000);
+});
 //import { ElementsData } from "../../src/feature/flow_chart_panel/types/CustomNodeProps";
 //import { matchPlotlyOutput } from "..//utils/matchPlotlyOutput";
 //import { Node } from "reactflow";
