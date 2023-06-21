@@ -163,6 +163,7 @@ const SaveButton = ({ saveFile }: SaveButtonProps) => {
   return (
     <button
       data-cy="btn-save"
+      data-testid="btn-save"
       onClick={() => saveFile(nodes, edges)}
       style={{ display: "flex", gap: 10.3 }}
     >
@@ -183,6 +184,7 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   return (
     <button
       data-cy="btn-saveas"
+      data-testid="btn-saveas"
       style={{
         display: "flex",
         gap: 10.9,
@@ -226,7 +228,10 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
+    <button 
+    data-testid="btn-load"
+    onClick={openFileSelector} 
+    style={{ display: "flex", gap: 11.77 }}>
       <LoadIconSvg />
       Load
     </button>
@@ -264,6 +269,7 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
 
   return (
     <button
+      data-testid="btn-exportresult"
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
@@ -290,6 +296,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
       className={classes.cancelButton}
       onClick={cancelFC}
       data-cy="btn-cancel"
+      data-testid="btn-cancel"
       title="Cancel Run"
       style={{ borderRadius: 8 }}
     >
@@ -429,6 +436,7 @@ const ControlBar = () => {
       )}
       <Dropdown dropdownBtn={<FileButton />}>
         <button
+          data-testid="btn-apikey"
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -436,6 +444,7 @@ const ControlBar = () => {
           Set API key
         </button>
         <button
+          data-testid="btn-s3key"
           onClick={() => setIsS3KeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -449,11 +458,14 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
-        <button style={{ display: "flex", gap: 10.77 }}>
+        <button 
+        data-testid="btn-history"
+        style={{ display: "flex", gap: 10.77 }}>
           <HistoryIconSvg />
           History
         </button>
         <button
+          data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}
           style={{ display: "flex", gap: 10.11 }}
         >
@@ -463,6 +475,7 @@ const ControlBar = () => {
       </Dropdown>
 
       <UnstyledButton
+        data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
         className={classes.settingsButton}
       >
@@ -495,7 +508,9 @@ const FileButton = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <button className={clsx(classes.button, classes.fileButton)}>
+    <button
+    data-testid="btn-filebutton"
+    className={clsx(classes.button, classes.fileButton)}>
       <Text>File</Text>
       <IconCaretDown
         size={14}
