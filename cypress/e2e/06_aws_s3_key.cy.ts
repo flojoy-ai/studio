@@ -26,48 +26,38 @@ describe("studio", () => {
   it("should open flojoy studio's main page", () => {
     cy.visit("/").wait(1000);
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      fully: true,
-    });
-
     cy.get('[data-testid="btn-filebutton"]').trigger("mouseover");
 
+    cy.get('[data-testid="btn-s3key"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page with dropdown bar",
+      tag: "dark flow page with AWS S3 key modal",
       target: "window",
       fully: true,
     });
 
-    cy.get('[data-testid="btn-apikey"]').click();
+    cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
+    cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
+    cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal",
+      tag: "dark flow page with AWS S3 key modal inputs",
       target: "window",
       fully: true,
     });
 
-    cy.get('[data-testid="api-key-input"]').type("TestAPIKeyInput");
+    cy.get('[data-testid="s3-submit-btn"]').click();
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal with input",
+      tag: "dark flow page with AWS S3 key modal submit",
       target: "window",
       fully: true,
     });
 
-    cy.get('[data-testid="api-key-input-btn"]').click();
+    cy.get('[data-testid="s3-close-btn"]').click();
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal after submitting",
-      target: "window",
-      fully: true,
-    });
-
-    cy.get('[data-testid="api-key-close-btn"]').click();
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal after closing",
+      tag: "dark flow page with AWS S3 key modal closed",
       target: "window",
       fully: true,
     });

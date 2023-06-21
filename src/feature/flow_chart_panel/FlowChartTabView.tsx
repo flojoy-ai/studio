@@ -268,6 +268,7 @@ const FlowChartTab = () => {
           <Text size="sm">Add Python Function</Text>
         </IconButton>
         <IconButton
+          data-testid="clear-canvas-btn"
           onClick={clearCanvas}
           icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
           ml="auto"
