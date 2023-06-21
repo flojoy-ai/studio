@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class PostCancelFC(BaseModel):
     fc: str
-    jobset_id: str
+    jobsetId: str | None = None 
 
 
 class PostWFC(BaseModel):

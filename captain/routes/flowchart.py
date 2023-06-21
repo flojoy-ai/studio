@@ -3,6 +3,7 @@ from http.client import HTTPException
 import json
 from fastapi import APIRouter, Request, Response
 import yaml
+import time
 from captain.types.flowchart import (
     PostCancelFC,
     PostWFC,
@@ -10,7 +11,6 @@ from captain.types.flowchart import (
     WorkerFailedResponse,
 )
 from captain.utils.flowchart_utils import (
-    cancel_flowchart_by_id,
     create_topology,
     running_topology
 )
@@ -32,21 +32,22 @@ initiate processes on the back-end.
 
 
 @router.post("/cancel_fc", summary="cancel flowchart")
-async def cancel_flowchart(fc: PostCancelFC):
-    jobset_id = fc.jobset_id
-    cancel_flowchart_by_id(jobset_id)
+async def cancel_fc(fc: PostCancelFC):
+
+    running_topology.cancel()
+    msg = {
+        "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
+        "jobsetId": fc.jobsetId,
+        "FAILED_NODES": "",
+        "RUNNING_NODES": "",
+    }
+    asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
 
 
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
 
     global running_topology
-
-    # cancel any currently running flowchart
-
-    # TODO implement cancel function 
-    # if request.cancelExistingJobs:
-    #     cancel_flowchart_by_id(request.jobsetId)
 
     # connect to Redis and write the flowchart
     redis_client = RedisDao()
@@ -88,10 +89,9 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
 
     # forward response from worker to the front-end
     asyncio.create_task(manager.ws.broadcast(json.dumps(request_dict)))
-
-
-    # handle finished job
     if "NODE_RESULTS" in request_dict:
+        job_id: str = request_dict.get('NODE_RESULTS', {}).get('id', None)
+        print(f"{job_id} finished at {time.time()}")
         asyncio.create_task(running_topology.handle_finished_job(request_dict)) # type: ignore
 
     return Response(status_code=200)

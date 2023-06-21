@@ -2,12 +2,7 @@ import networkx as nx
 from captain.models.topology import Topology
 
 # stores the topology of the currently running flowchart
-running_topology : Topology | None = None
-
-# cancel the currently running flowchart
-def cancel_flowchart_by_id(jobset_id):
-    raise NotImplementedError("Function not implemented.")
-
+running_topology : Topology | None = None 
 
 # converts the graph/flowchart from a dict to a networkx graph
 def create_topology(flowchart, redis_client):

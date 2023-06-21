@@ -28,6 +28,7 @@ class Topology:
         self.finished_jobs = set()
         self.is_ci = os.getenv(key="CI", default=False)
         self.job_service = JobService('flojoy', self.max_runtime)
+        self.cancelled=False
 
     # initial and main logic of topology
     async def run(self):
@@ -71,6 +72,8 @@ class Topology:
             [self.get_label(dep_id, original=True) for dep_id in dependencies],
         )
 
+        print(f"{job_id} queued at {time.time()}")
+
         # enqueue job to worker and get the AsyncResult
         self.job_service.enqueue_job(
             func=func,
@@ -82,10 +85,17 @@ class Topology:
             input_job_ids=dependencies,
         )
 
+    def cancel(self):
+        self.cancelled = True
+
     async def handle_finished_job(self, result):
         #
         # get the data from the worker response 
         # (@flojoy wrapper is responsible for sending to this route in func)
+
+        if self.cancelled:
+            print("Received job, but skipping since cancelled")
+            return
 
         job_id: str = result.get('NODE_RESULTS', {}).get('id', None)
         job_result = result.get('NODE_RESULTS', {}).get('result', None)
