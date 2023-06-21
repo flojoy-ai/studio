@@ -137,9 +137,10 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <FamilyHistoryIconSvg size={20} />
             <div className={classes.titleText}>Set S3 Key</div>
           </div>
-          <Modal.CloseButton 
-          data-testid="s3-close-btn"
-          className={classes.closeBtn} />
+          <Modal.CloseButton
+            data-testid="s3-close-btn"
+            className={classes.closeBtn}
+          />
           <div className={classes.userInputContainer}>
             <h4 style={{ marginBottom: 0 }}>Name:</h4>
             <div className={classes.submitButtonLine}>
