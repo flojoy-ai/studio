@@ -125,6 +125,8 @@ jobs:
           start: npm run start-project
           browser: chrome
           install: false
-          
+
       - name: Codecov report
         uses: codecov/codecov-action@v3
+        with:
+          flags: cypress
