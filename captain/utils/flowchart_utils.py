@@ -1,9 +1,6 @@
 import networkx as nx
 from captain.models.topology import Topology
 
-# stores the topology of the currently running flowchart
-running_topology : Topology | None = None 
-
 # converts the graph/flowchart from a dict to a networkx graph
 def create_topology(flowchart, redis_client):
     graph = flowchart_to_nx_graph(flowchart)

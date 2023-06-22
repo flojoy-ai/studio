@@ -1,10 +1,12 @@
 from fastapi import WebSocket
 import logging
 
+from captain.models.topology import Topology
+
 class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
-
+        self.running_topology: Topology | None = None
 
 class ConnectionManager:
     def __init__(self):

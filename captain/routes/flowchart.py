@@ -13,7 +13,6 @@ from captain.types.flowchart import (
 )
 from captain.utils.flowchart_utils import (
     create_topology,
-    running_topology
 )
 from captain.utils.redis_dao import RedisDao
 from captain.utils.config import manager
@@ -34,8 +33,9 @@ initiate processes on the back-end.
 
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):
-    running_topology.cancel()
-
+    if manager.running_topology is not None:
+        print("WARNING: not supposed to be None")
+        manager.running_topology.cancel()
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
         "jobsetId": req.jobsetId,
@@ -49,13 +49,11 @@ async def cancel_fc(req: PostCancelFC):
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
 
-    global running_topology
-
     # connect to Redis and write the flowchart
     redis_client = RedisDao()
 
     # create the topology
-    running_topology = create_topology(json.loads(request.fc), redis_client)
+    manager.running_topology = create_topology(json.loads(request.fc), redis_client)
 
     # create message for front-end
     msg = {
@@ -68,7 +66,7 @@ async def write_and_run_flowchart(request: PostWFC):
     asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
 
     # run the flowchart
-    asyncio.create_task(running_topology.run())
+    asyncio.create_task(manager.running_topology.run())
 
 
 """
@@ -95,7 +93,7 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
     if "NODE_RESULTS" in request_dict:
         job_id: str = request_dict.get('NODE_RESULTS', {}).get('id', None)
         print(f"{job_id} finished at {time.time()}")
-        asyncio.create_task(running_topology.handle_finished_job(request_dict)) # type: ignore
+        asyncio.create_task(manager.running_topology.handle_finished_job(request_dict)) # type: ignore
 
     return Response(status_code=200)
 
