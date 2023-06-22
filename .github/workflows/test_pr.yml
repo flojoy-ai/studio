@@ -45,7 +45,6 @@ jobs:
           -u ${{ env.PROJECT_TOKEN }} \
           --data '{"ref":"main", "inputs":{"github_event_name":"${{ github.event_name }}", "github_head_ref": "${{ github.head_ref }}", "github_event_pull_request_number": "${{ github.event.pull_request.number }}", "context_issue_number": "${{ github.event.pull_request.number }}", "context_repo_owner": "${{ github.repository_owner }}", "context_repo_repo": "${{ github.repository }}", "github_event_pull_request_merged": "${{ github.event.pull_request.merged }}", "github_event_action": "${{ github.event.action }}"}}'
       - uses: actions/checkout@v3
-
       - name: Wait for 10m
         run: sleep 10m
 
@@ -108,7 +107,7 @@ jobs:
             exit1
           fi
 
-      - name: Windows live test on Reflect.run 
+      - name: Windows live test on Reflect.run
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
           curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
@@ -116,11 +115,8 @@ jobs:
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "overrides": {
-              "hostnames": [{
-                "original": "windows01.flojoy-test.com:3000",
-                "replacement": "${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
-              }]
+            "variables": {
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000/"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
@@ -129,7 +125,7 @@ jobs:
             }
           }'
 
-      - name: Linux live test on Reflect.run 
+      - name: Linux live test on Reflect.run
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
           curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
@@ -137,16 +133,12 @@ jobs:
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "overrides": {
-              "hostnames": [{
-                "original": "windows01.flojoy-test.com:3000",
-                "replacement": "${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
-              }]
+            "variables": {
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
                 "repo": "${{ github.event.repository.name}}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
-          }
-
+          }'
