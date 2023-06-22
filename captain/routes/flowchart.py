@@ -11,6 +11,7 @@ from captain.types.flowchart import (
     WorkerSuccessResponse,
     WorkerFailedResponse,
 )
+from captain.utils.broadcast import broadcast_worker_response
 from captain.utils.flowchart_utils import (
     create_topology,
     spawn_workers,
@@ -65,6 +66,7 @@ async def write_and_run_flowchart(request: PostWFC):
 
     # get the amount of workers needed
     spawn_workers(manager)
+    # time.sleep(1) # wait for workers to spawn)
 
     # run the flowchart
     asyncio.create_task(manager.running_topology.run())
@@ -85,12 +87,11 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
     print("Received a response from a worker")
 
     request_json = await request.json()
-    # print(request_dict)
     request_dict = json.loads(request_json)
-    request_dict["type"] = "worker_response"
 
-    # forward response from worker to the front-end
-    asyncio.create_task(manager.ws.broadcast(json.dumps(request_dict)))
+    # broadcast worker response to frontend
+    asyncio.create_task(broadcast_worker_response(manager, request_dict))
+
     if "NODE_RESULTS" in request_dict:
         job_id: str = request_dict.get('NODE_RESULTS', {}).get('id', None)
         print(f"{job_id} finished at {time.time()}")

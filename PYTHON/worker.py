@@ -6,7 +6,6 @@ import debugpy
 sys.path.append(os.path.dirname(sys.path[0]))
 print(os.path.dirname(sys.path[0]))
 from PYTHON.dao.redis_dao import RedisDao
-import PYTHON.nodes # RQ worker will benefit from having nodes imported, no need to import during runtime
 
 DEFAULT_PORT = 5678
 

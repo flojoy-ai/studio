@@ -3,6 +3,8 @@ from copy import deepcopy
 import logging
 from multiprocessing import Process
 import os, sys
+from subprocess import Popen
+import signal
 import time
 import marshal
 
@@ -33,9 +35,11 @@ class Topology:
         self.job_service = JobService('flojoy', self.max_runtime)
         self.cancelled=False
         self.worker_processes=worker_processes
+        self.time_start = 0
 
     # initial and main logic of topology
     async def run(self):
+        self.time_start = time.time()
         async with lock:
             next_jobs = self.collect_ready_jobs()  # get nodes with in-degree 0
         self.run_jobs(next_jobs)
@@ -201,9 +205,10 @@ class Topology:
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
+            print(f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE")
             for worker_process in self.worker_processes:
                 worker_process.terminate()
-
+                
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
         print(f"  job {self.get_label(job_id)} failed")

@@ -3,9 +3,11 @@ from multiprocessing import Process
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
 from redis import Redis
-from rq import Queue, Worker
+from rq.queue import Queue
+from rq.worker import Worker
 import os, sys
 import debugpy
+import subprocess 
 
 sys.path.append(os.path.dirname(sys.path[0]))
 print(os.path.dirname(sys.path[0]))
@@ -13,9 +15,6 @@ from PYTHON.dao.redis_dao import RedisDao
 
 
 def run_worker(index):
-    sys.path.append(os.path.dirname(sys.path[0]))
-    print(os.path.dirname(sys.path[0]))
-    import PYTHON.nodes
     queue = Queue('flojoy', connection=RedisDao().r)
     worker = Worker([queue], connection=RedisDao().r, name=f"flojoy{index}")
     worker.work()
@@ -28,7 +27,6 @@ def create_topology(flowchart, redis_client, worker_processes):
 
 # spawns a set amount of RQ workers to execute jobs (node functions) 
 def spawn_workers(manager : Manager):
-
     if manager.running_topology is None:
         print("ERROR: Could not spawn workers, no topology detected")
         return

@@ -1,5 +1,6 @@
+from subprocess import Popen
 from fastapi import WebSocket
-from rq import Worker
+from rq.worker import Worker
 import logging
 from multiprocessing import Process
 
