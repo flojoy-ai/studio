@@ -5,6 +5,8 @@ import os, sys
 import time
 import marshal
 
+from collections import deque
+
 from flojoy import get_next_directions, get_next_nodes
 
 from PYTHON.utils.dynamic_module_import import get_module_func
@@ -43,10 +45,10 @@ class Topology:
 
     def collect_ready_jobs(self):
         next_jobs = []
-        for job_id in self.working_graph.nodes:
+        for job_id in self.original_graph.nodes:
             if (
                 job_id not in self.finished_jobs
-                and self.working_graph.in_degree(job_id) == 0
+                and self.original_graph.in_degree(job_id) == 0
             ):
                 next_jobs.append(job_id)
         return next_jobs
@@ -75,6 +77,7 @@ class Topology:
         print(f"{job_id} queued at {time.time()}")
 
         # enqueue job to worker and get the AsyncResult
+
         self.job_service.enqueue_job(
             func=func,
             jobset_id=self.jobset_id,
@@ -257,4 +260,28 @@ class Topology:
     
     def get_graph(self, original):
         return self.original_graph if original else self.working_graph
+    
+    # this function will get the maximum amount of independant nodes during the topological sort of the graph. 
+    # Will be used to determine how many workers to spawn
+    def get_maximum_workers(self, maximum_capacity = 4):
+        max_independant = 0
+        temp_graph = deepcopy(self.original_graph)
+        queue = deque()
+        for job_id in self.collect_ready_jobs():
+            queue.append(job_id)
+
+        while len(queue) > 0:
+            n = len(queue)
+            max_independant = max(n, max_independant)
+            if max_independant >= maximum_capacity:
+                return maximum_capacity
+            for i in range(n):
+                job_id = queue.popleft()
+                neighbours = self.working_graph.successors()
+                self.working_graph.remov
+
+
+
+
+
 

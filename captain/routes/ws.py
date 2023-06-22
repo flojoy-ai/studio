@@ -1,4 +1,5 @@
 import json
+import uuid
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 import yaml
 from captain.utils.config import manager
@@ -18,6 +19,7 @@ async def websocket_endpoint(websocket: WebSocket):
             {
                 "type": "connection_established",
                 "msg": "You are now connected to flojoy servers",
+                "socketId": str(uuid.uuid4()),
                 "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
             }
         ))

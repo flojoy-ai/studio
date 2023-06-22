@@ -2,6 +2,7 @@ import asyncio
 from http.client import HTTPException
 import json
 from fastapi import APIRouter, Request, Response
+import uuid 
 import yaml
 import time
 from captain.types.flowchart import (
@@ -32,12 +33,13 @@ initiate processes on the back-end.
 
 
 @router.post("/cancel_fc", summary="cancel flowchart")
-async def cancel_fc(fc: PostCancelFC):
-
+async def cancel_fc(req: PostCancelFC):
     running_topology.cancel()
+
     msg = {
-        "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
-        "jobsetId": fc.jobsetId,
+        "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
+        "jobsetId": req.jobsetId,
+        "type": "worker_response", # TODO modify frontend such that this field isn't required for switching playBtn state 
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
@@ -62,6 +64,7 @@ async def write_and_run_flowchart(request: PostWFC):
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
+    print(f"MSG IS {msg}")
     asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
 
     # run the flowchart
