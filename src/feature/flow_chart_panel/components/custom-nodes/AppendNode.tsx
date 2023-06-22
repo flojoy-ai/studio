@@ -36,21 +36,6 @@ const AppendNode = ({ data }: CustomNodeProps) => {
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
-//   let operatorIcon: JSX.Element;
-//   switch (data.func) {
-//     case "MULTIPLY":
-//       operatorIcon = <MultiplySvg className={classes.operatorIcon} />;
-//       break;
-//     case "ADD":
-//       operatorIcon = <AddSvg className={classes.operatorIcon} />;
-//       break;
-//     case "SUBTRACT":
-//       operatorIcon = <SubSvg className={classes.operatorIcon} />;
-//       break;
-//     default:
-//       operatorIcon = <Box />;
-//   }
-
   return (
     <NodeWrapper data={data}>
       <Box
