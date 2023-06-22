@@ -14,6 +14,7 @@ import {
   cancelFlowChartRun,
   saveAndRunFlowChartInServer,
   saveFlowChartToLocalStorage,
+  saveProjectToCloud,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/utils/cancel_icon";
@@ -40,6 +41,7 @@ import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
+import { LoadProjectModal } from "./load_project/LoadProjectModal";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -275,6 +277,24 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   );
 };
 
+type SaveToCloudButtonProps = {
+  saveToCloud: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
+};
+
+const SaveToCloudButton = ({ saveToCloud }: SaveToCloudButtonProps) => {
+  const { nodes, edges } = useFlowChartGraph();
+
+  return (
+    <button
+      onClick={() => saveToCloud(nodes, edges)}
+      style={{ display: "flex", gap: 11 }}
+    >
+      <SaveIconSvg />
+      Save to Cloud
+    </button>
+  );
+};
+
 type CancelButtonProps = {
   cancelFC: () => void;
 };
@@ -305,11 +325,12 @@ const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, setNodeParamChanged } =
+  const { rfInstance, setRfInstance, setNodeParamChanged, apiKey } =
     useFlowChartState();
   const { ctrlsManifest } = useControlsState();
 
@@ -339,33 +360,50 @@ const ControlBar = () => {
   };
 
   const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance) {
-      const blob = createFileBlob(rfInstance, nodes, edges);
-      downloadBlob(blob, "flojoy.txt");
-      sendProgramToMix(rfInstance.nodes);
+    if (!rfInstance) {
+      throw new Error("Missing rfInstance when saving");
     }
+
+    const blob = createFileBlob(rfInstance, nodes, edges);
+    downloadBlob(blob, "flojoy.txt");
+    sendProgramToMix(rfInstance.nodes);
   };
 
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance) {
-      const blob = createFileBlob(rfInstance, nodes, edges);
-
-      const handle = await window.showSaveFilePicker({
-        suggestedName: "flojoy.txt",
-        types: [
-          {
-            description: "Text file",
-            accept: { "text/plain": [".txt"] },
-          },
-        ],
-      });
-      const writableStream = await handle.createWritable();
-
-      await writableStream
-        .write(blob)
-        .then(() => sendProgramToMix(rfInstance.nodes));
-      await writableStream.close();
+    if (!rfInstance) {
+      throw new Error("Missing rfInstance when saving");
     }
+    const blob = createFileBlob(rfInstance, nodes, edges);
+
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "flojoy.txt",
+      types: [
+        {
+          description: "Text file",
+          accept: { "text/plain": [".txt"] },
+        },
+      ],
+    });
+    const writableStream = await handle.createWritable();
+
+    await writableStream
+      .write(blob)
+      .then(() => sendProgramToMix(rfInstance.nodes));
+    await writableStream.close();
+  };
+
+  const saveToCloud = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (!rfInstance) {
+      throw new Error("Missing rfInstance when saving");
+    }
+
+    const updatedRfInstance = {
+      ...rfInstance,
+      nodes,
+      edges,
+    };
+
+    saveProjectToCloud("test lmao", updatedRfInstance);
   };
 
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
@@ -449,6 +487,14 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
+        <button
+          onClick={() => setIsProjectModalOpen(true)}
+          style={{ display: "flex", gap: 11.77 }}
+        >
+          <LoadIconSvg />
+          Load from Cloud
+        </button>
+        <SaveToCloudButton saveToCloud={saveToCloud} />
         <button style={{ display: "flex", gap: 10.77 }}>
           <HistoryIconSvg />
           History
@@ -484,6 +530,10 @@ const ControlBar = () => {
       <S3KeyModal
         isOpen={isS3KeyModelOpen}
         onClose={() => setIsS3KeyModelOpen(false)}
+      />
+      <LoadProjectModal
+        open={isProjectModalOpen}
+        onClose={() => setIsProjectModalOpen(false)}
       />
     </Box>
   );

@@ -7,6 +7,7 @@ from .views import (
     cancel_flow_chart,
     set_user_api_key,
     set_s3_key,
+    projects,
 )
 
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path("cancel_fc", cancel_flow_chart),
     path("api/set-api", set_user_api_key),
     path("s3/set-s3-key", set_s3_key),
+    path("projects", projects),
 ]

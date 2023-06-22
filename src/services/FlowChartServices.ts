@@ -4,6 +4,8 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { Project } from "@src/feature/flow_chart_panel/views/load_project/ProjectComponent";
+import { ProjectWithoutData } from "@src/feature/flow_chart_panel/views/load_project/LoadProjectModal";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -100,6 +102,33 @@ export const sendS3KeyToDjango = async (
     });
   }
 };
+
+export const saveProjectToCloud = async (
+  name: string,
+  rfInstance: ReactFlowJsonObject
+) => {
+  return await fetch(`${API_URI}/projects`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      rfInstance,
+    }),
+  });
+};
+
+export const getProjectsFromCloud = async () => {
+  const res = await fetch(`${API_URI}/projects`);
+  return (await res.json()) as ProjectWithoutData[];
+};
+
+export const getProjectFromCloudById = async (ref: string) => {
+  const res = await fetch(`${API_URI}/projects/${ref}`);
+  return (await res.json()) as Project;
+};
+
 export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,

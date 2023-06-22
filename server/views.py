@@ -4,10 +4,12 @@ import os
 import sys
 import time
 import yaml
+import requests
+import logging
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from flojoy.utils import set_frontier_api_key, set_frontier_s3_key
+from flojoy.utils import get_frontier_api_key, set_frontier_api_key, set_frontier_s3_key
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -21,6 +23,8 @@ job_service = JobService("flojoy-watch")
 STATUS_CODES = yaml.load(
     open("STATUS_CODES.yml", "r", encoding="utf-8"), Loader=yaml.Loader
 )
+
+logger = logging.getLogger(__name__)
 
 
 def report_failure(job, connection, type, value, traceback):
@@ -105,3 +109,24 @@ def set_s3_key(request):
     }
 
     return Response(response, status=200)
+
+
+@api_view(["GET", "POST"])
+def projects(request):
+    api_key = get_frontier_api_key()
+
+    if not api_key:
+        return Response("Missing API key", status=401)
+
+    frontier_uri = os.environ["FRONTIER_URI"]
+    if not frontier_uri:
+        frontier_uri = "https://frontier.flojoy.io"
+
+    if request.method == "POST":
+        data = request.data
+        res = requests.post(f"{frontier_uri}/api/projects?api_key={api_key}", json=data)
+    else:
+        res = requests.get(f"{frontier_uri}/api/projects?api_key={api_key}")
+
+    logger.info(res.content)
+    return Response(res.json(), status=res.status_code)

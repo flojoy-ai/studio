@@ -1,5 +1,5 @@
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
