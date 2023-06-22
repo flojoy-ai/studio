@@ -228,10 +228,11 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button 
-    data-testid="btn-load"
-    onClick={openFileSelector} 
-    style={{ display: "flex", gap: 11.77 }}>
+    <button
+      data-testid="btn-load"
+      onClick={openFileSelector}
+      style={{ display: "flex", gap: 11.77 }}
+    >
       <LoadIconSvg />
       Load
     </button>
@@ -458,9 +459,10 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
-        <button 
-        data-testid="btn-history"
-        style={{ display: "flex", gap: 10.77 }}>
+        <button
+          data-testid="btn-history"
+          style={{ display: "flex", gap: 10.77 }}
+        >
           <HistoryIconSvg />
           History
         </button>
@@ -509,8 +511,9 @@ const FileButton = () => {
   const { classes } = useStyles();
   return (
     <button
-    data-testid="btn-filebutton"
-    className={clsx(classes.button, classes.fileButton)}>
+      data-testid="btn-filebutton"
+      className={clsx(classes.button, classes.fileButton)}
+    >
       <Text>File</Text>
       <IconCaretDown
         size={14}

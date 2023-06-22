@@ -105,6 +105,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           >
             <button
               class="mantine-16w6kkh mantine-1mzig7k"
+              data-testid="btn-filebutton"
             >
               <div
                 class="mantine-Text-root mantine-1tocsax"
@@ -133,6 +134,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               data-testid="dropdown-container"
             >
               <button
+                data-testid="btn-apikey"
                 style="display: flex; gap: 7.5px;"
               >
                 <div>
@@ -152,6 +154,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 Set API key
               </button>
               <button
+                data-testid="btn-s3key"
                 style="display: flex; gap: 7.5px;"
               >
                 <div>
@@ -171,6 +174,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 AWS S3 key
               </button>
               <button
+                data-testid="btn-load"
                 style="display: flex; gap: 11.77px;"
               >
                 <div>
@@ -191,6 +195,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               </button>
               <button
                 data-cy="btn-save"
+                data-testid="btn-save"
                 style="display: flex; gap: 10.3px;"
               >
                 <div>
@@ -213,6 +218,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 aria-label="Save As"
                 class="disabled"
                 data-cy="btn-saveas"
+                data-testid="btn-saveas"
                 disabled=""
                 style="display: flex; gap: 10.9px;"
                 title="Save As is not supported in this browser, sorry!"
@@ -246,6 +252,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
               </button>
               <button
                 class="disabled"
+                data-testid="btn-exportresult"
                 disabled=""
                 style="display: flex; gap: 11px;"
               >
@@ -266,6 +273,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 Export Result
               </button>
               <button
+                data-testid="btn-history"
                 style="display: flex; gap: 10.77px;"
               >
                 <div>
@@ -285,6 +293,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
                 History
               </button>
               <button
+                data-testid="btn-keyboardshortcut"
                 style="display: flex; gap: 10.11px;"
               >
                 <div>
@@ -307,6 +316,7 @@ exports[`ControlsTab render ControlsTab correctly. 1`] = `
           </div>
           <button
             class="mantine-UnstyledButton-root mantine-ahyxcr"
+            data-testid="btn-setting"
             type="button"
           >
             <svg

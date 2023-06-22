@@ -1,9 +1,9 @@
 import { defineConfig } from "cypress";
-import { join } from 'path';
+import { join } from "path";
 const fs = require("fs");
 const path = require("path");
 
-const downloadsFolder = join(__dirname, 'cypress/downloads');
+const downloadsFolder = join(__dirname, "cypress/downloads");
 
 export default defineConfig({
   projectId: "aqkk6c",
