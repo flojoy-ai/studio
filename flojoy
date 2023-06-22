@@ -272,13 +272,6 @@ then
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
-
-# creating system links
-
-createSystemLinks
-
-feedback $is_command_successful 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
-
 # jsonify python functions
 
 $venvCmd && python3 write_python_metadata.py
