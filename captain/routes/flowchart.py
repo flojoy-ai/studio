@@ -13,8 +13,9 @@ from captain.types.flowchart import (
 )
 from captain.utils.flowchart_utils import (
     create_topology,
+    spawn_workers,
 )
-from captain.utils.redis_dao import RedisDao
+from PYTHON.dao.redis_dao import RedisDao
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
 from captain.types.worker import WorkerJobResponse
@@ -49,11 +50,9 @@ async def cancel_fc(req: PostCancelFC):
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
 
-    # connect to Redis and write the flowchart
-    redis_client = RedisDao()
 
     # create the topology
-    manager.running_topology = create_topology(json.loads(request.fc), redis_client)
+    manager.running_topology = create_topology(json.loads(request.fc), manager.redis_client, manager.worker_processes)
 
     # create message for front-end
     msg = {
@@ -62,8 +61,10 @@ async def write_and_run_flowchart(request: PostWFC):
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
-    print(f"MSG IS {msg}")
     asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
+
+    # get the amount of workers needed
+    spawn_workers(manager)
 
     # run the flowchart
     asyncio.create_task(manager.running_topology.run())

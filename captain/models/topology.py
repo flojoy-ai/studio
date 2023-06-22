@@ -1,6 +1,7 @@
 import asyncio
 from copy import deepcopy
 import logging
+from multiprocessing import Process
 import os, sys
 import time
 import marshal
@@ -19,7 +20,7 @@ class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary print statements 
     def __init__(
-        self, graph, redis_client, jobset_id, node_delay: int = 0, max_runtime: int = 0
+        self, graph, redis_client, jobset_id, worker_processes : list[Process], node_delay: int = 0, max_runtime: int = 0
     ):
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
@@ -31,6 +32,7 @@ class Topology:
         self.is_ci = os.getenv(key="CI", default=False)
         self.job_service = JobService('flojoy', self.max_runtime)
         self.cancelled=False
+        self.worker_processes=worker_processes
 
     # initial and main logic of topology
     async def run(self):
@@ -199,6 +201,8 @@ class Topology:
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
+            for worker_process in self.worker_processes:
+                worker_process.terminate()
 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
@@ -277,8 +281,13 @@ class Topology:
                 return maximum_capacity
             for i in range(n):
                 job_id = queue.popleft()
-                neighbours = self.working_graph.successors()
-                self.working_graph.remov
+                successors = temp_graph.successors(job_id)
+                temp_graph.remove_node(job_id)
+                for neighbour in successors:
+                    if temp_graph.in_degree(neighbour) == 0:
+                        queue.append(neighbour)
+
+        return max_independant
 
 
 

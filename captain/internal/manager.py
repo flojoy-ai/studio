@@ -1,12 +1,17 @@
 from fastapi import WebSocket
+from rq import Worker
 import logging
+from multiprocessing import Process
 
 from captain.models.topology import Topology
+from PYTHON.dao.redis_dao import RedisDao
 
 class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None
+        self.redis_client = RedisDao() # TODO currently not needed, but very high probability to be needed in the future
+        self.worker_processes : list[Process] = []
 
 class ConnectionManager:
     def __init__(self):
