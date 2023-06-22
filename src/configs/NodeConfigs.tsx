@@ -1,4 +1,5 @@
 import ArithmeticNode from "@src/feature/flow_chart_panel/components/custom-nodes/ArithmeticNode";
+import AppendNode from "@src/feature/flow_chart_panel/components/custom-nodes/AppendNode";
 import ConditionalNode from "@src/feature/flow_chart_panel/components/custom-nodes/ConditionalNode";
 import SimulationNode from "@src/feature/flow_chart_panel/components/custom-nodes/SimulationNode";
 import TerminatorNode from "@src/feature/flow_chart_panel/components/custom-nodes/TerminatorNode";
@@ -10,6 +11,7 @@ import NumpyNode from "@src/feature/flow_chart_panel/components/custom-nodes/Num
 export const nodeConfigs = {
   default: DefaultNode,
   ARITHMETIC: ArithmeticNode,
+  APPEND: AppendNode,
   SIMULATION: SimulationNode,
   PLOTLY_VISOR: VisorNode,
   CONDITIONAL: ConditionalNode,
