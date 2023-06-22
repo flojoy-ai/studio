@@ -1,15 +1,16 @@
 import { Fragment } from "react";
 import { Handle, Position } from "reactflow";
-import { CustomNodeProps, ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "../types/CustomNodeProps";
 import { v4 as uuidV4 } from "uuid";
 
 const HandleComponent = ({
   data,
   inputs,
-}: CustomNodeProps & {
+}: {
+  data: ElementsData;
   inputs: ElementsData["inputs"];
 }) => {
-  const params = inputs || [];
+  const params = inputs ?? [];
 
   return (
     <Fragment>

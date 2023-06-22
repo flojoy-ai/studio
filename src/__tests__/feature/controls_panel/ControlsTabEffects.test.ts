@@ -5,6 +5,7 @@ import { useControlsState } from "@src/hooks/useControlsState";
 
 jest.mock("@src/hooks/useControlsState");
 jest.mock("@src/hooks/useFlowChartGraph");
+jest.mock("@src/utils/ManifestLoader");
 
 describe("UseControlsTabEffects", () => {
   const setCtrlsManifest = jest.fn();

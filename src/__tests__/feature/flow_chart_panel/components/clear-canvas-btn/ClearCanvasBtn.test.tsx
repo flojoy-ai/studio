@@ -19,6 +19,7 @@ const initialNodes: Node<ElementsData>[] = [
       type: "SIMULATION",
       ctrls: {},
       selected: false,
+      path: "path/to/node.py",
     },
     position: {
       x: 0,
@@ -43,6 +44,7 @@ const initialNodes: Node<ElementsData>[] = [
       type: "SIMULATION",
       ctrls: {},
       selected: false,
+      path: "path/to/node.py",
     },
     position: {
       x: 100,
@@ -74,8 +76,8 @@ jest.doMock(
   "@src/feature/flow_chart_panel/components/clear-canvas-btn/ClearCanvasBtn",
   () => {
     const ClearCanvasBtnMock = () => {
-      const [nodes, setNodes] = useAtom(nodesAtom);
-      const [edges, setEdges] = useAtom(edgesAtom);
+      const [, setNodes] = useAtom(nodesAtom);
+      const [, setEdges] = useAtom(edgesAtom);
 
       return <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />;
     };
@@ -96,24 +98,20 @@ describe("CanvasClearBtn", () => {
   });
 
   it("clears nodes when clicked", () => {
-    const { container, getByTestId } = renderWithTheme(<ClearCanvasBtnTest />);
+    const { getByTestId } = renderWithTheme(<ClearCanvasBtnTest />);
 
-    const [nodes, setNodes] = renderHook(() => useAtom(nodesAtom)).result
-      .current;
+    const [nodes] = renderHook(() => useAtom(nodesAtom)).result.current;
 
     expect(nodes).not.toHaveLength(0);
 
-    const [edges, setEdges] = renderHook(() => useAtom(edgesAtom)).result
-      .current;
+    const [edges] = renderHook(() => useAtom(edgesAtom)).result.current;
     expect(edges).not.toHaveLength(0);
 
     const clearButton = getByTestId("clear-canvas-btn");
     fireEvent.click(clearButton);
 
-    const [newNodes, _setNodes] = renderHook(() => useAtom(nodesAtom)).result
-      .current;
-    const [newEdges, _setEdges] = renderHook(() => useAtom(edgesAtom)).result
-      .current;
+    const [newNodes] = renderHook(() => useAtom(nodesAtom)).result.current;
+    const [newEdges] = renderHook(() => useAtom(edgesAtom)).result.current;
 
     expect(newNodes).toHaveLength(0);
     expect(newEdges).toHaveLength(0);

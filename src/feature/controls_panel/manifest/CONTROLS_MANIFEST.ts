@@ -1,5 +1,6 @@
-import { CMND_MANIFEST } from "@src/utils/ManifestLoader";
+import { createSectionSchema } from "@src/utils/ManifestLoader";
 import { PlotData } from "plotly.js";
+import { z } from "zod";
 
 export enum ControlTypes {
   Input = "input",
@@ -34,17 +35,22 @@ export enum PlotTypeNames {
   Table = "Table",
 }
 
-export type ControlElement = {
-  name: string;
-  key: string;
-  type: string;
-  minHeight: number;
-  minWidth: number;
-  children: null;
-};
+const controlElementSchema = z.object({
+  name: z.string(),
+  key: z.string(),
+  type: z.string(),
+  minHeight: z.number(),
+  minWidth: z.number(),
+  children: z.null(),
+});
+export type ControlElement = z.infer<typeof controlElementSchema>;
+
+const controlSectionSchema = createSectionSchema(controlElementSchema);
+
+export type ControlSection = z.infer<typeof controlSectionSchema>;
 
 //ROOT WILL NOT BE DISPLAYED
-export const CTRL_TREE: CMND_MANIFEST<ControlElement> = {
+export const CTRL_TREE: ControlSection = {
   name: "ROOT",
   children: [
     {

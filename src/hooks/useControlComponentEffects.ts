@@ -1,6 +1,5 @@
 import { CtrlOptionValue } from "@src/feature/controls_panel/types/ControlOptions";
 import { ControlComponentStateType } from "@src/feature/controls_panel/views/control-component/ControlComponentState";
-import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import { useEffect } from "react";
 import { ControlTypes } from "../feature/controls_panel/manifest/CONTROLS_MANIFEST";
@@ -64,14 +63,12 @@ const useControlComponentEffects = ({
     try {
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj.param;
-      if (nodeIdToPlot) {
-        if (results && results.io) {
-          const runResults = results.io.reverse();
-          const filteredResult = runResults.filter(
-            (node) => nodeIdToPlot === node.id
-          )[0];
-          setNd(filteredResult === undefined ? null : filteredResult);
-        }
+      if (nodeIdToPlot && results?.io) {
+        const runResults = results.io.reverse();
+        const filteredResult = runResults.filter(
+          (node) => nodeIdToPlot === node.id
+        )[0];
+        setNd(filteredResult === undefined ? null : filteredResult);
       }
     } catch (e) {
       console.error(e);
@@ -84,7 +81,7 @@ const useControlComponentEffects = ({
         flowChartObject.nodes.forEach((node) => {
           const nodeLabel = node.data.label;
           const nodeFunctionName = node.data.func;
-          const params = getManifestParams()[nodeFunctionName];
+          const params = node.data.ctrls;
           const sep = " ▸ ";
           if (params) {
             Object.keys(params).forEach((param) => {
@@ -101,7 +98,7 @@ const useControlComponentEffects = ({
                     param,
                     nodeId: node.id,
                     inputId: ctrlObj.id,
-                    type: params[param].type as string,
+                    type: params[param].type,
                   },
                 },
               ]);
@@ -133,7 +130,7 @@ const useControlComponentEffects = ({
       // figure out what we're visualizing
       const nodeIdToPlot = ctrlObj.param;
       if (nodeIdToPlot) {
-        if (results && results.io) {
+        if (results?.io) {
           const runResults = results.io.reverse();
           const filteredResult = runResults.filter(
             (node) => nodeIdToPlot === node.id

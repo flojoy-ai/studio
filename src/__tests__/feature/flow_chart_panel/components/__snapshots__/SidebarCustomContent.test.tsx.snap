@@ -32,12 +32,6 @@ exports[`SidebarCustomContent component renders correctly with default props 1`]
         </span>
       </div>
     </button>
-    <button
-      class="mantine-vaeigl"
-      data-testid="end-node-btn"
-    >
-      END
-    </button>
   </div>
   ,
 </div>

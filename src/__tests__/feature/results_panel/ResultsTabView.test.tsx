@@ -5,6 +5,7 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useControlsState");
+jest.mock("@src/utils/ManifestLoader");
 
 jest.mock("@src/feature/results_panel/ResultsTabEffects", () => ({
   useResultsTabEffects: jest.fn(),

@@ -16,9 +16,12 @@ import {
 import { memo, useEffect, useRef, useState } from "react";
 
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
-import { CMND_MANIFEST, NodeElement } from "@src/utils/ManifestLoader";
+import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
-import { ControlElement } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import {
+  ControlElement,
+  ControlSection,
+} from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 export type LeafClickHandler = (elem: NodeElement | ControlElement) => void;
 
@@ -109,7 +112,7 @@ export type AppTab = "FlowChart" | "Control" | "Result";
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: CMND_MANIFEST<NodeElement | ControlElement>;
+  sections: NodeSection | ControlSection;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   appTab: AppTab;

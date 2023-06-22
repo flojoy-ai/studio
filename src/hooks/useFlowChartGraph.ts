@@ -4,11 +4,7 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
-import {
-  CMND_TREE,
-  Manifest_Child,
-  NodeElement,
-} from "@src/utils/ManifestLoader";
+import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 
 const initialNodes: Node<ElementsData>[] =
   NOISY_SINE.nodes as Node<ElementsData>[];
@@ -54,29 +50,30 @@ export const useFlowChartGraph = () => {
       });
     });
   }, [selectedNode]);
-  const addNodesToManifest = useCallback(
-    (arr: Manifest_Child<NodeElement>[] | NodeElement[]) => {
-      if (!Array.isArray(arr)) {
-        return;
-      }
-      let nodes: NodeElement[] = [];
-      arr.forEach((child) => {
-        if (child.children === null) {
-          nodes = [...nodes, child];
-        } else {
-          const n = addNodesToManifest(child.children);
-          if (n) {
-            nodes = [...nodes, ...n];
-          }
+
+  /**
+   * Creates a node mapping from nodeSection
+   */
+  const addNodesToManifest = useCallback((arr) => {
+    if (!Array.isArray(arr)) {
+      return;
+    }
+    let nodes: NodeElement[] = [];
+    arr.forEach((child) => {
+      if (child.children === null) {
+        nodes = [...nodes, child];
+      } else {
+        const n = addNodesToManifest(child.children);
+        if (n) {
+          nodes = [...nodes, ...n];
         }
-      });
-      return nodes;
-    },
-    []
-  );
+      }
+    });
+    return nodes;
+  }, []);
 
   useEffect(() => {
-    const allNodes = addNodesToManifest(CMND_TREE.children);
+    const allNodes = addNodesToManifest(nodeSection.children);
     if (allNodes) {
       setNodesManifest(allNodes);
     }
@@ -90,12 +87,10 @@ export const useFlowChartGraph = () => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.func === "CONSTANT") {
-          node.data.ctrls = {
-            [inputData.param]: inputData,
-          };
+          node.data.ctrls[inputData.param].value = inputData.value;
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
         } else {
-          node.data.ctrls[inputData.param] = inputData;
+          node.data.ctrls[inputData.param].value = inputData.value;
         }
       }
     });

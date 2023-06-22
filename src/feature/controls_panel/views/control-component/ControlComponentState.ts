@@ -1,5 +1,4 @@
 import usePlotLayout from "@src/feature/common/usePlotLayout";
-import { getManifestParams } from "@src/utils/ManifestLoader";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import {
@@ -58,10 +57,12 @@ const ControlComponentState = ({
   const inputNode = nodes.find((e) => e.id === inputNodeId);
   const ctrls: ElementsData["ctrls"] | undefined = inputNode?.data?.ctrls;
 
-  const fnParams =
-    getManifestParams()[(ctrlObj?.param as CtrlManifestParam)?.functionName] ||
-    {};
-  const fnParam = fnParams[(ctrlObj?.param as CtrlManifestParam)?.param];
+  const fnParams = ctrls
+    ? ctrls[(ctrlObj?.param as CtrlManifestParam)?.functionName]
+    : {};
+  const fnParam = fnParams
+    ? fnParams[(ctrlObj?.param as CtrlManifestParam)?.param]
+    : null;
   const defaultValue =
     (ctrlObj?.param as CtrlManifestParam)?.functionName === "CONSTANT"
       ? ctrlObj.val

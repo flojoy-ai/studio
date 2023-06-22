@@ -12,6 +12,8 @@ import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
 import { act, renderHook } from "@testing-library/react";
 
 jest.mock("@src/hooks/useFlowChartState");
+jest.mock("@src/utils/ManifestLoader");
+
 jest.mock("@src/data/manifests-latest.json", () => {
   return {
     __esModule: true,

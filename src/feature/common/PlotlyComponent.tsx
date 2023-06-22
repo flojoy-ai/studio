@@ -31,7 +31,7 @@ const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
   const Plot = createPlotlyComponent(Plotly);
-  const isMatrix = data[0]?.header?.values.length === 0;
+  const isMatrix = data[0]?.header?.values?.length === 0;
 
   useEffect(() => {
     if (!window) {

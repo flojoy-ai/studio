@@ -8,7 +8,7 @@ import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
-import { CMND_TREE } from "@src/utils/ManifestLoader";
+import { nodeSection } from "@src/utils/ManifestLoader";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
@@ -282,7 +282,7 @@ const FlowChartTab = () => {
         </IconButton>
       </TabActions>
       <Sidebar
-        sections={CMND_TREE}
+        sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}

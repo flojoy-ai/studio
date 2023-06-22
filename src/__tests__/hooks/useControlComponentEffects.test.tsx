@@ -73,11 +73,7 @@ const hookParams: any = {
   results: results,
 };
 
-jest.mock("@src/utils/ManifestLoader", () => {
-  return {
-    FUNCTION_PARAMETERS: {},
-  };
-});
+jest.mock("@src/utils/ManifestLoader");
 
 describe("useControlsTabEffects", () => {
   it("given ctrlsobj type is output, maps ctrls object param with selected item value", () => {

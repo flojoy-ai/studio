@@ -1,13 +1,12 @@
 import { createStyles, Divider, useMantineTheme } from "@mantine/core";
-import {
-  CMND_MANIFEST,
-  NodeElement,
-  Manifest_Child,
-} from "@src/utils/ManifestLoader";
+import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
 import { AppTab, LeafClickHandler } from "@feature/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ControlElement } from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
+import {
+  ControlElement,
+  ControlSection,
+} from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
 export const useSidebarStyles = createStyles((theme) => ({
   control: {
@@ -52,9 +51,7 @@ export const useSidebarStyles = createStyles((theme) => ({
 
 type SidebarNodeProps = {
   depth: number;
-  node:
-    | CMND_MANIFEST<NodeElement | ControlElement>
-    | Manifest_Child<NodeElement | ControlElement>;
+  node: NodeSection | ControlSection;
   leafClickHandler: LeafClickHandler;
   query: string;
   matchedParent: boolean;
@@ -63,10 +60,7 @@ type SidebarNodeProps = {
   appTab: AppTab;
 };
 
-const nodeTitleMatches = (
-  query: string,
-  node: Manifest_Child<NodeElement | ControlElement>
-) =>
+const nodeTitleMatches = (query: string, node: NodeSection | ControlSection) =>
   Boolean(
     query !== "" &&
       node.name?.toLocaleLowerCase().includes(query.toLocaleLowerCase())
@@ -86,7 +80,6 @@ const SidebarNode = ({
   const theme = useMantineTheme();
 
   if (node.name === "ROOT") {
-    if (!node.children) return null;
     return (
       <div>
         {node.children.map((c) => {
@@ -106,9 +99,9 @@ const SidebarNode = ({
       </div>
     );
   }
-  const hasNode = node.children?.every((n) => !n.children);
+  const categoryHasNode = (node.children as any[])?.every((n) => !n.children);
 
-  if (!hasNode) {
+  if (!categoryHasNode) {
     return (
       <SidebarSection
         title={node.name ?? ""}
@@ -117,24 +110,23 @@ const SidebarNode = ({
         collapse={collapse}
         key={node.name}
       >
-        {(node.children as Manifest_Child<NodeElement | ControlElement>[])?.map(
-          (c) =>
-            SidebarNode({
-              node: c,
-              depth: depth + 1,
-              leafClickHandler,
-              query,
-              matchedParent: matchedParent || nodeTitleMatches(query, c),
-              expand,
-              collapse,
-              appTab,
-            })
+        {node.children?.map((c) =>
+          SidebarNode({
+            node: c,
+            depth: depth + 1,
+            leafClickHandler,
+            query,
+            matchedParent: matchedParent || nodeTitleMatches(query, c),
+            expand,
+            collapse,
+            appTab,
+          })
         )}
       </SidebarSection>
     );
   }
 
-  const commands = node.children?.filter((c) => !c.children) ?? [];
+  const commands = (node.children as any[])?.filter((c) => !c.children);
   const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
@@ -169,7 +161,9 @@ const SidebarNode = ({
             if (query !== "" && appTab === "FlowChart") {
               sendEventToMix("Node Searched", command.name ?? "", "nodeTitle");
             }
-            leafClickHandler(command as NodeElement | ControlElement);
+            leafClickHandler(
+              command as unknown as NodeElement | ControlElement
+            );
           }}
         >
           {command.key ?? command.name}
