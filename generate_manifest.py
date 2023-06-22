@@ -18,8 +18,6 @@ def browse_directories(dir_path: str):
     )  # Sort entries alphabetically
 
     for entry in entries:
-        # if depth == 5:
-        #     break
         if entry.is_dir():
             if (
                 entry.name.startswith(".")
@@ -37,6 +35,8 @@ def browse_directories(dir_path: str):
             continue
     if len(result["children"]) == 0:
         manifest_path = Path.join(dir_path, "manifest.yml")
+        if not Path.exists(manifest_path):
+            manifest_path = Path.join(dir_path, "manifest.yaml")
         with open(manifest_path, "r") as mf:
             m = mf.read()
             mf.close()
