@@ -23,7 +23,7 @@ describe("studio", () => {
     // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
     // Traditional assertions that scrape the page for text values are not needed here.
   
-    it("should open flojoy studio's main page", () => {
+    it("clear canvas test", () => {
       cy.visit("/").wait(1000);
   
       cy.get('[data-testid="clear-canvas-btn"]').click()

@@ -8,7 +8,7 @@ describe("Verify Add and Delete CTRLS", () => {
     });
   });
 
-  it("should open flojoy studio's main page", () => {
+  it("add delete CTRLS page", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({

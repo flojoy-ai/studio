@@ -8,7 +8,7 @@ describe("Verify Add and Delete node", () => {
     });
   });
 
-  it("should open flojoy studio's main page", () => {
+  it("add delete node page test", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
