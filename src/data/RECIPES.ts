@@ -2,7 +2,7 @@ export const NOISY_SINE = {
   nodes: [
     {
       width: 150,
-      height: 135,
+      height: 150,
       id: "LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135ce",
       type: "default",
       data: {
@@ -27,6 +27,7 @@ export const NOISY_SINE = {
             value: "1000",
           },
         },
+        selected: false,
       },
       position: {
         x: -232.8571428571429,
@@ -40,8 +41,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 115,
-      height: 115,
+      width: 130,
+      height: 130,
       id: "SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd",
       type: "SIMULATION",
       data: {
@@ -76,6 +77,7 @@ export const NOISY_SINE = {
             value: "sine",
           },
         },
+        selected: false,
       },
       position: {
         x: 198.57142857142856,
@@ -89,8 +91,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 115,
-      height: 115,
+      width: 130,
+      height: 130,
       id: "RAND-434f7314-f239-4e7d-a9c6-629529db1d82",
       type: "SIMULATION",
       data: {
@@ -99,6 +101,7 @@ export const NOISY_SINE = {
         func: "RAND",
         type: "SIMULATION",
         ctrls: {},
+        selected: false,
       },
       position: {
         x: 193.28571428571428,
@@ -112,8 +115,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 115,
-      height: 115,
+      width: 130,
+      height: 130,
       id: "CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6",
       type: "SIMULATION",
       data: {
@@ -128,6 +131,7 @@ export const NOISY_SINE = {
             value: "2.0",
           },
         },
+        selected: false,
       },
       position: {
         x: 197.85714285714286,
@@ -141,68 +145,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 99,
-      height: 115,
-      id: "MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766",
-      type: "ARITHMETIC",
-      data: {
-        id: "MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766",
-        label: "MULTIPLY",
-        func: "MULTIPLY",
-        type: "ARITHMETIC",
-        ctrls: {},
-        inputs: [
-          {
-            name: "y",
-            id: "multiply_y",
-            type: "target",
-          },
-        ],
-      },
-      position: {
-        x: 497.1428571428571,
-        y: 161.71428571428567,
-      },
-      selected: false,
-      positionAbsolute: {
-        x: 497.1428571428571,
-        y: 161.71428571428567,
-      },
-      dragging: true,
-    },
-    {
-      width: 99,
-      height: 115,
-      id: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-      type: "ARITHMETIC",
-      data: {
-        id: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-        label: "ADD",
-        func: "ADD",
-        type: "ARITHMETIC",
-        ctrls: {},
-        inputs: [
-          {
-            name: "y",
-            id: "add_y",
-            type: "target",
-          },
-        ],
-      },
-      position: {
-        x: 721.1428571428571,
-        y: 336.5714285714285,
-      },
-      selected: false,
-      positionAbsolute: {
-        x: 721.1428571428571,
-        y: 336.5714285714285,
-      },
-      dragging: true,
-    },
-    {
-      width: 250,
-      height: 159,
+      width: 225,
+      height: 226,
       id: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
       type: "PLOTLY_VISOR",
       data: {
@@ -211,6 +155,7 @@ export const NOISY_SINE = {
         func: "SCATTER",
         type: "PLOTLY_VISOR",
         ctrls: {},
+        selected: false,
       },
       position: {
         x: 1045.5714285714287,
@@ -234,12 +179,13 @@ export const NOISY_SINE = {
         func: "HISTOGRAM",
         type: "PLOTLY_VISOR",
         ctrls: {},
+        selected: false,
       },
       position: {
         x: 1036.5714285714287,
         y: 91.57142857142856,
       },
-      selected: true,
+      selected: false,
       positionAbsolute: {
         x: 1036.5714285714287,
         y: 91.57142857142856,
@@ -247,8 +193,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 150,
-      height: 135,
+      width: 210,
+      height: 130,
       id: "END-06a4da40-a0ae-44ad-873b-9b65d096880a",
       type: "TERMINATOR",
       data: {
@@ -257,6 +203,7 @@ export const NOISY_SINE = {
         func: "END",
         type: "TERMINATOR",
         ctrls: {},
+        selected: false,
       },
       position: {
         x: 1515.0000000000002,
@@ -266,6 +213,78 @@ export const NOISY_SINE = {
       positionAbsolute: {
         x: 1515.0000000000002,
         y: 309.7142857142858,
+      },
+      dragging: true,
+    },
+    {
+      width: 99,
+      height: 130,
+      id: "ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5",
+      type: "ARITHMETIC",
+      data: {
+        id: "ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5",
+        label: "ADD",
+        func: "ADD",
+        type: "ARITHMETIC",
+        ctrls: {},
+        inputs: [
+          {
+            name: "x",
+            id: "add_x",
+            type: "target",
+          },
+          {
+            name: "y",
+            id: "add_y",
+            type: "target",
+          },
+        ],
+        selected: false,
+      },
+      position: {
+        x: 467.9386702595857,
+        y: 182.05635543362985,
+      },
+      selected: false,
+      positionAbsolute: {
+        x: 467.9386702595857,
+        y: 182.05635543362985,
+      },
+      dragging: true,
+    },
+    {
+      width: 99,
+      height: 130,
+      id: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+      type: "ARITHMETIC",
+      data: {
+        id: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+        label: "MULTIPLY",
+        func: "MULTIPLY",
+        type: "ARITHMETIC",
+        ctrls: {},
+        inputs: [
+          {
+            name: "x",
+            id: "multiply_x",
+            type: "target",
+          },
+          {
+            name: "y",
+            id: "multiply_y",
+            type: "target",
+          },
+        ],
+        selected: false,
+      },
+      position: {
+        x: 722.2243845452999,
+        y: 342.05635543362973,
+      },
+      selected: false,
+      positionAbsolute: {
+        x: 722.2243845452999,
+        y: 342.05635543362973,
       },
       dragging: true,
     },
@@ -293,48 +312,6 @@ export const NOISY_SINE = {
       id: "reactflow__edge-LINSPACE-340e6c5c-8e47-4a5e-95ed-dc627e9135cemain-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbdSINE",
     },
     {
-      source: "RAND-434f7314-f239-4e7d-a9c6-629529db1d82",
-      sourceHandle: "main",
-      target: "MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766",
-      targetHandle: "multiply_y",
-      id: "reactflow__edge-RAND-434f7314-f239-4e7d-a9c6-629529db1d82main-MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766multiply_y",
-    },
-    {
-      source: "SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd",
-      sourceHandle: "main",
-      target: "MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766",
-      targetHandle: "MULTIPLY",
-      id: "reactflow__edge-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbdmain-MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766MULTIPLY",
-    },
-    {
-      source: "CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6",
-      sourceHandle: "main",
-      target: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-      targetHandle: "add_y",
-      id: "reactflow__edge-CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6main-ADD-a586b5d7-4343-430d-89ce-3c2a3d156695add_y",
-    },
-    {
-      source: "MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766",
-      sourceHandle: "main",
-      target: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-      targetHandle: "ADD",
-      id: "reactflow__edge-MULTIPLY-fe70e746-04bc-4c27-990d-821eed943766main-ADD-a586b5d7-4343-430d-89ce-3c2a3d156695ADD",
-    },
-    {
-      source: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-      sourceHandle: "main",
-      target: "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
-      targetHandle: "HISTOGRAM",
-      id: "reactflow__edge-ADD-a586b5d7-4343-430d-89ce-3c2a3d156695main-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51fHISTOGRAM",
-    },
-    {
-      source: "ADD-a586b5d7-4343-430d-89ce-3c2a3d156695",
-      sourceHandle: "main",
-      target: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
-      targetHandle: "SCATTER",
-      id: "reactflow__edge-ADD-a586b5d7-4343-430d-89ce-3c2a3d156695main-SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6SCATTER",
-    },
-    {
       source: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
       sourceHandle: "main",
       target: "END-06a4da40-a0ae-44ad-873b-9b65d096880a",
@@ -348,11 +325,53 @@ export const NOISY_SINE = {
       targetHandle: "END",
       id: "reactflow__edge-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51fmain-END-06a4da40-a0ae-44ad-873b-9b65d096880aEND",
     },
+    {
+      source: "SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd",
+      sourceHandle: "main",
+      target: "ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5",
+      targetHandle: "add_x",
+      id: "reactflow__edge-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbdmain-ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5add_x",
+    },
+    {
+      source: "RAND-434f7314-f239-4e7d-a9c6-629529db1d82",
+      sourceHandle: "main",
+      target: "ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5",
+      targetHandle: "add_y",
+      id: "reactflow__edge-RAND-434f7314-f239-4e7d-a9c6-629529db1d82main-ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5add_y",
+    },
+    {
+      source: "ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5",
+      sourceHandle: "main",
+      target: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+      targetHandle: "multiply_x",
+      id: "reactflow__edge-ADD-a1d8b053-e60b-4eb0-affb-4d084e1524c5main-MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830amultiply_x",
+    },
+    {
+      source: "CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6",
+      sourceHandle: "main",
+      target: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+      targetHandle: "multiply_y",
+      id: "reactflow__edge-CONSTANT-f4066d40-8610-40ad-9caf-b3b5802675c6main-MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830amultiply_y",
+    },
+    {
+      source: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+      sourceHandle: "main",
+      target: "SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6",
+      targetHandle: "SCATTER_target",
+      id: "reactflow__edge-MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830amain-SCATTER-da4e4991-d9a4-4c71-95e6-56b13266ede6SCATTER_target",
+    },
+    {
+      source: "MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830a",
+      sourceHandle: "main",
+      target: "HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f",
+      targetHandle: "HISTOGRAM_target",
+      id: "reactflow__edge-MULTIPLY-744c7328-edbf-454d-a1f3-d7c5d61b830amain-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51fHISTOGRAM_target",
+    },
   ],
   viewport: {
-    x: 100.78251993386277,
-    y: 34.10874204470315,
-    zoom: 1.015849582027344,
+    x: 226.6796457828928,
+    y: 31.056018042519327,
+    zoom: 0.6853504029717089,
   },
 };
 
