@@ -97,10 +97,20 @@ const CMND_TREE: CommandSection = {
           key: "OBJECT_DETECTION",
           children: null,
         },
+        {
+          title: "Image caption",
+          key: "IMAGE_CAPTION",
+          children: null,
+        },
         { title: "Regression", key: "REGRESSION", children: null },
         {
           title: "Classification",
           key: "CLASSIFICATION",
+          children: null,
+        },
+        {
+          title: "Predict Time Series",
+          key: "PREDICT_TIME_SERIES",
           children: null,
         },
       ],
@@ -159,6 +169,11 @@ const CMND_TREE: CommandSection = {
         {
           title: "Local file system",
           key: "LOCAL_FILE_SYSTEM",
+          children: null,
+        },
+        {
+          title: "Redis system",
+          key: "REDIS_SYSTEM",
           children: null,
         },
       ],
