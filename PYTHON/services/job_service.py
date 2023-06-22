@@ -1,4 +1,10 @@
-from PYTHON.common.CONSTANTS import (
+import os
+import sys
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
+
+from common.CONSTANTS import (
     KEY_ALL_JOBEST_IDS,
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
@@ -83,10 +89,8 @@ class JobService:
         iteration_id,
         ctrls,
         previous_job_ids,
-        input_job_ids=None,
+        previous_jobs,
     ):
-        input_job_ids = input_job_ids if input_job_ids is not None else previous_job_ids
-
         if Job.exists(job_id, self.redis_dao.r):
             job = Job.fetch(job_id, connection=self.redis_dao.r)
             job.delete()
@@ -98,12 +102,13 @@ class JobService:
             job_id=iteration_id,
             kwargs={
                 "ctrls": ctrls,
-                "previous_job_ids": input_job_ids,
+                "previous_job_ids": previous_job_ids,
+                "previous_jobs": previous_jobs,
                 "jobset_id": jobset_id,
                 "node_id": job_id,
                 "job_id": iteration_id,
             },
-            depends_on=previous_job_ids,
+            depends_on=[],
         )
         self.add_job(iteration_id, jobset_id)
 

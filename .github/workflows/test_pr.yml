@@ -14,6 +14,8 @@ env:
   PROJECT_REPO: rc
   PROJECT_WORKFLOW_ID: terraform-test-env.yml
   PROJECT_TOKEN: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
+  REFLECT_SUITE: flojoy-live-test
+  REFLECT_TOKEN: ${{ secrets.REFLECT_TOKEN }}
 
 jobs:
   trigger_workflow:
@@ -35,6 +37,7 @@ jobs:
           echo "GitHub Event Action: ${{ github.event.action }}"
 
       - name: Trigger test PR
+        if: github.event.action == 'opened'
         id: trigger_pr
         run: |
           curl -X POST https://api.github.com/repos/${{ env.PROJECT_OWNER }}/${{ env.PROJECT_REPO }}/actions/workflows/${{ env.PROJECT_WORKFLOW_ID }}/dispatches \
@@ -103,3 +106,39 @@ jobs:
             echo "Test failed on Linux."
             exit1
           fi
+
+      - name: Windows live test on Reflect.run
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        run: |
+          curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
+          --header 'Content-Type: text/plain' \
+          --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
+          --data '{
+            "browser": "Chrome",
+            "variables": {
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000/"
+            },
+            "gitHub": {
+                "owner": "${{ github.repository_owner }}",
+                "repo": "${{ github.event.repository.name}}",
+                "sha": "${{ github.event.pull_request.head.sha }}"
+            }
+          }'
+
+      - name: Linux live test on Reflect.run
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        run: |
+          curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
+          --header 'Content-Type: text/plain' \
+          --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
+          --data '{
+            "browser": "Chrome",
+            "variables": {
+              "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
+            },
+            "gitHub": {
+                "owner": "${{ github.repository_owner }}",
+                "repo": "${{ github.event.repository.name}}",
+                "sha": "${{ github.event.pull_request.head.sha }}"
+            }
+          }'

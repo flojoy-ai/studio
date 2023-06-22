@@ -1,4 +1,3 @@
-import { JSX } from 'react'
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
@@ -6,7 +5,7 @@ import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
-import { memo, useMemo } from "react";
+import { memo, useMemo , JSX} from "react";
 import { useNodeStyles } from "../DefaultNode";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
@@ -22,7 +21,7 @@ import NodeWrapper from "../NodeWrapper";
 import ArrayView from "../nodes/array-view";
 import ProphetPlot from "../nodes/prophet-plot";
 import ProphetComponents from "../nodes/prophet-components";
-import Composite from "../nodes/composite";
+import CompositePlot from "../nodes/composite-plot";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -51,7 +50,7 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   ARRAY_VIEW: <ArrayView />,
   PROPHET_PLOT: <ProphetPlot />,
   PROPHET_COMPONENTS: <ProphetComponents />,
-  COMPOSITE: <Composite />
+  COMPOSITE: <CompositePlot />
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {

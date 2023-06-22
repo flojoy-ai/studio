@@ -7,7 +7,7 @@ import yaml
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from flojoy.utils import set_frontier_api_key
+from flojoy.utils import set_frontier_api_key, set_frontier_s3_key
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -85,7 +85,23 @@ def set_user_api_key(request):
     set_frontier_api_key(api_key)
 
     response = {
-        "success": True,
         "data": api_key,
     }
+    return Response(response, status=200)
+
+
+@api_view(["POST"])
+def set_s3_key(request):
+    key = request.data
+    s3_name = key["name"]
+    access_key = key["accessKey"]
+    secret_key = key["secretKey"]
+    set_frontier_s3_key(s3_name, access_key, secret_key)
+
+    response = {
+        "name": s3_name,
+        "accessKey": access_key,
+        "secretKey": secret_key,
+    }
+
     return Response(response, status=200)
