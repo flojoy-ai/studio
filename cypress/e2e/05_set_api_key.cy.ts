@@ -63,9 +63,9 @@ describe("studio", () => {
       target: "window",
       fully: true,
     });
-  });
 
     cy.get('[data-testid="api-key-close-btn"]').click();
+  });
 
   // This method performs cleanup after each test.
   afterEach(() => {
