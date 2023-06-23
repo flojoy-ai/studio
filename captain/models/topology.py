@@ -3,10 +3,7 @@ from copy import deepcopy
 import logging
 from multiprocessing import Process
 import os, sys
-from subprocess import Popen
-import signal
 import time
-import marshal
 
 from collections import deque
 
@@ -22,7 +19,7 @@ class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary print statements 
     def __init__(
-        self, graph, redis_client, jobset_id, worker_processes : list[Process], node_delay: int = 0, max_runtime: int = 0
+        self, graph, redis_client, jobset_id, worker_processes : list[Process], node_delay: float  = 0, max_runtime: float = 0
     ):
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
@@ -45,9 +42,9 @@ class Topology:
         self.run_jobs(next_jobs)
 
     def run_jobs(self, jobs):
-        time.sleep(self.node_delay)
         for job_id in jobs:
             asyncio.create_task(self.run_job(job_id))
+            time.sleep(self.node_delay)
 
     def collect_ready_jobs(self):
         next_jobs = []
@@ -96,6 +93,7 @@ class Topology:
 
     def cancel(self):
         self.cancelled = True
+        self.kill_workers()
 
     async def handle_finished_job(self, result):
         #
@@ -200,14 +198,20 @@ class Topology:
             ],
         )
 
+    def kill_workers(self):
+        for worker_process in self.worker_processes:
+            worker_process.terminate()
+    
+    def is_cancelled(self):
+        return self.cancelled
+
     def mark_job_success(self, job_id, label="main"):
         print(f"  job finished: {self.get_label(job_id)}, label:", label)
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
             print(f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE")
-            for worker_process in self.worker_processes:
-                worker_process.terminate()
+            self.kill_workers()
                 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)

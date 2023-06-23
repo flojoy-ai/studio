@@ -1,7 +1,6 @@
 import json
 import uuid
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-import yaml
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
 

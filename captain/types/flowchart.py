@@ -10,7 +10,8 @@ class PostWFC(BaseModel):
     fc: str
     jobsetId: str | None = None
     cancelExistingJobs: bool
-    extraParams: dict[str, str | float | int] 
+    nodeDelay: float
+    maximumRuntime: float
 
 
 class WorkerSuccessResponse(BaseModel):

@@ -1,4 +1,3 @@
-import asyncio
 import json
 from captain.internal.manager import Manager
 

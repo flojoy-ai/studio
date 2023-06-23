@@ -16,7 +16,7 @@ def report_failure(job, connection, type, value, traceback):
 
 
 class JobService:
-    def __init__(self, queue_name, maximum_runtime=3000):
+    def __init__(self, queue_name, maximum_runtime : float =3000):
         self.redis_dao = RedisDao()
         self.queue = Queue(
             queue_name, connection=self.redis_dao.r, default_timeout=maximum_runtime

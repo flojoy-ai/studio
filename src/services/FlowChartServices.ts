@@ -84,7 +84,7 @@ export function saveAndRunFlowChartInServer({
         fc: fcStr,
         jobsetId: jobId,
         cancelExistingJobs: true,
-        extraParams: settings.reduce((obj, setting) => {
+        ...settings.reduce((obj, setting) => { //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
           obj[setting.key] = setting.value;
           return obj;
         }, {}),

@@ -1,25 +1,18 @@
 import asyncio
-from http.client import HTTPException
 import json
 from fastapi import APIRouter, Request, Response
-import uuid 
-import yaml
 import time
 from captain.types.flowchart import (
     PostCancelFC,
     PostWFC,
-    WorkerSuccessResponse,
-    WorkerFailedResponse,
 )
 from captain.utils.broadcast import broadcast_worker_response
 from captain.utils.flowchart_utils import (
     create_topology,
     spawn_workers,
 )
-from PYTHON.dao.redis_dao import RedisDao
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
-from captain.types.worker import WorkerJobResponse
 
 router = APIRouter(tags=["flowchart"])
 
@@ -32,6 +25,7 @@ These end-points are accessed by the front-end client. They are used to
 initiate processes on the back-end.
 """
 
+# TODO do we want to convert field names from camelCase to snake_case?
 
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):
@@ -53,7 +47,7 @@ async def write_and_run_flowchart(request: PostWFC):
 
 
     # create the topology
-    manager.running_topology = create_topology(json.loads(request.fc), manager.redis_client, manager.worker_processes)
+    manager.running_topology = create_topology(request, manager.redis_client, manager.worker_processes)
 
     # create message for front-end
     msg = {
@@ -83,6 +77,9 @@ signal a job has been finished.
 
 @router.post("/worker_response", summary="worker response")
 async def worker_response(request: Request): # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work???? 
+
+    if manager.running_topology is not None and manager.running_topology.is_cancelled():
+        return Response(status_code=200)
 
     print("Received a response from a worker")
 

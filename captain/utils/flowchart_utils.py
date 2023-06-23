@@ -1,3 +1,4 @@
+import json
 import networkx as nx
 from multiprocessing import Process
 from captain.internal.manager import Manager
@@ -6,8 +7,7 @@ from redis import Redis
 from rq.queue import Queue
 from rq.worker import Worker
 import os, sys
-import debugpy
-import subprocess 
+from captain.types.flowchart import PostWFC 
 
 sys.path.append(os.path.dirname(sys.path[0]))
 print(os.path.dirname(sys.path[0]))
@@ -19,11 +19,10 @@ def run_worker(index):
     worker = Worker([queue], connection=RedisDao().r, name=f"flojoy{index}")
     worker.work()
 
-# converts the graph/flowchart from a dict to a networkx graph
-def create_topology(flowchart, redis_client, worker_processes):
-    graph = flowchart_to_nx_graph(flowchart)
+def create_topology(request : PostWFC, redis_client, worker_processes):
+    graph = flowchart_to_nx_graph(json.loads(request.fc))
     # TODO: ID is not ""
-    return Topology(graph, redis_client, "", worker_processes=worker_processes)
+    return Topology(graph, redis_client, "", worker_processes=worker_processes, node_delay=request.nodeDelay, max_runtime=request.maximumRuntime)
 
 # spawns a set amount of RQ workers to execute jobs (node functions) 
 def spawn_workers(manager : Manager):
