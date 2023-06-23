@@ -1,6 +1,6 @@
 codecov:
   notify:
-    after_n_builds: 2
+    after_n_builds: 3
     wait_for_ci: yes
 
 coverage:
@@ -15,6 +15,10 @@ flag_management:
         - type: project
           target: 30%
     - name: python
+      statuses:
+        - type: project
+          target: 30%
+    - name: visual
       statuses:
         - type: project
           target: 30%
