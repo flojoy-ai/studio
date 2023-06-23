@@ -19,7 +19,7 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   return (
     <NodeWrapper data={data}>
@@ -49,7 +49,7 @@ const TerminatorNode = ({ data }: CustomNodeProps) => {
               flexDirection: "column",
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            <HandleComponent data={data} />
           </Box>
         </Box>
       </Box>

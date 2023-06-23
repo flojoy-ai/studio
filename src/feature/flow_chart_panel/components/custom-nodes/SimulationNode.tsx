@@ -31,7 +31,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   let selectShadow = "";
   if (runningNode === data.id || data.selected) {
@@ -71,7 +71,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
               flexDirection: "column",
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            <HandleComponent data={data} />
           </Box>
         </Box>
       </Box>

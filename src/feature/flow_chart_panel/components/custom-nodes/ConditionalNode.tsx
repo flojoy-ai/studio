@@ -13,7 +13,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
   const [additionalInfo, setAdditionalInfo] = useState({});
 
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   const {
     states: { programResults },
@@ -30,7 +30,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
     ? additionalInfo[data.id]["current_iteration"] || 0
     : 0;
   const total_iteration = isLoopInfoExist()
-    ? data["ctrls"][`LOOP_${data.label}_iteration_count`]["value"] || 0
+    ? data["ctrls"][`LOOP_${data.label}_iteration_count`]["value"] ?? 0
     : 0;
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
               flexDirection: "column",
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            <HandleComponent data={data} />
           </Box>
         </Box>
       </Box>

@@ -108,7 +108,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 flexDirection: "column",
               }}
             >
-              <HandleComponent data={data} inputs={params} />
+              <HandleComponent data={data} />
             </Box>
           </>
         ) : (
@@ -126,7 +126,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
                 flexDirection: "column",
               }}
             >
-              <HandleComponent data={data} inputs={params} />
+              <HandleComponent data={data} />
             </Box>
           </Box>
         )}

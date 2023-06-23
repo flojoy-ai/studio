@@ -79,7 +79,7 @@ export const useNodeStyles = createStyles((theme) => {
 const DefaultNode = ({ data }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   return (
     <NodeWrapper data={data}>
@@ -103,7 +103,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
               flexDirection: "column",
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            <HandleComponent data={data} />
           </Box>
         </Box>
       </Box>
