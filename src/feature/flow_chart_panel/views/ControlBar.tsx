@@ -45,7 +45,7 @@ import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
-import { LoadProjectModal } from "./load_project/LoadProjectModal";
+import { LoadProjectModal } from "./LoadProjectModal";
 import { useAtom } from "jotai";
 import { notifications } from "@mantine/notifications";
 

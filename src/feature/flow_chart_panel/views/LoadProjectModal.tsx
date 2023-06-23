@@ -1,21 +1,17 @@
 import { createStyles, Modal, Table, Title } from "@mantine/core";
-import {
-  handleProjectLoadAtom,
-  useFlowChartState,
-} from "@src/hooks/useFlowChartState";
+import { handleProjectLoadAtom } from "@src/hooks/useFlowChartState";
 import {
   getProjectFromCloudById,
   getProjectsFromCloud,
 } from "@src/services/FlowChartServices";
 import { useEffect, useState } from "react";
-import { ProjectComponent } from "./ProjectComponent";
 import {
   handleEdgesLoadAtom,
   handleNodesLoadAtom,
 } from "@src/hooks/useFlowChartGraph";
 import { useAtom } from "jotai";
 import { notifications } from "@mantine/notifications";
-import { ProjectWithoutData } from "../../types/Project";
+import { ProjectWithoutData } from "@src/feature/flow_chart_panel/types/Project";
 
 const useStyles = createStyles(() => ({
   tableRow: {
