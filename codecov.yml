@@ -18,6 +18,10 @@ flag_management:
       statuses:
         - type: project
           target: 30%
+    - name: visual
+      statuses:
+        - type: project
+          target: 30%
 comment:
   layout: "reach, diff, flags, files"
   behaviour: default

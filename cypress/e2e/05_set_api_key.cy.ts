@@ -26,7 +26,7 @@ describe("studio", () => {
   it("set api key test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="btn-filebutton"]').trigger("mouseover");
+    cy.get('[data-testid="btn-filebtn"]').trigger("mouseover");
 
     cy.eyesCheckWindow({
       tag: "dark flow page with dropdown bar",
@@ -53,19 +53,19 @@ describe("studio", () => {
     cy.get('[data-testid="api-key-input-btn"]').click();
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal after submitting",
+      tag: "dark flow page with apikey modal after submit",
       target: "window",
       fully: true,
     });
 
-    cy.get('[data-testid="api-key-close-btn"]').click();
-
     cy.eyesCheckWindow({
-      tag: "dark flow page with apikey modal after closing",
+      tag: "dark flow page with apikey modal after submit",
       target: "window",
       fully: true,
     });
   });
+
+    cy.get('[data-testid="api-key-close-btn"]').click();
 
   // This method performs cleanup after each test.
   afterEach(() => {
