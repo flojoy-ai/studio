@@ -1,6 +1,6 @@
 codecov:
   notify:
-    after_n_builds: 2
+    after_n_builds: 3
     wait_for_ci: yes
 
 coverage:
@@ -18,3 +18,7 @@ flag_management:
       statuses:
         - type: project
           target: 30%
+comment:
+  layout: "reach, diff, flags, files"
+  behaviour: default
+  required_changes: no

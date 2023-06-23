@@ -496,9 +496,10 @@ const FileButton = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <button 
-    data-testid="btn-filebtn"
-    className={clsx(classes.button, classes.fileButton)}>
+    <button
+      data-testid="btn-filebtn"
+      className={clsx(classes.button, classes.fileButton)}
+    >
       <Text>File</Text>
       <IconCaretDown
         size={14}
