@@ -47,6 +47,7 @@ export interface RfSpatialInfoType {
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
+export const projectNameAtom = atom<string>("");
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);

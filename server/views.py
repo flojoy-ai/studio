@@ -118,7 +118,7 @@ def projects(request):
     if not api_key:
         return Response("Missing API key", status=401)
 
-    frontier_uri = os.environ["FRONTIER_URI"]
+    frontier_uri = os.environ.get("FRONTIER_URI")
     if not frontier_uri:
         frontier_uri = "https://frontier.flojoy.io"
 
@@ -129,4 +129,19 @@ def projects(request):
         res = requests.get(f"{frontier_uri}/api/projects?api_key={api_key}")
 
     logger.info(res.content)
+    return Response(res.json(), status=res.status_code)
+
+
+@api_view(["GET"])
+def get_project(request, ref):
+    api_key = get_frontier_api_key()
+
+    if not api_key:
+        return Response("Missing API key", status=401)
+
+    frontier_uri = os.environ.get("FRONTIER_URI")
+    if not frontier_uri:
+        frontier_uri = "https://frontier.flojoy.io"
+
+    res = requests.get(f"{frontier_uri}/api/projects/{ref}?api_key={api_key}")
     return Response(res.json(), status=res.status_code)

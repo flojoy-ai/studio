@@ -25,8 +25,8 @@ const useSidebarStyles = createStyles((theme) => {
   return {
     navbarView: {
       position: "absolute",
-      top: "150px",
-      height: "calc(100vh - 150px)",
+      top: "170px",
+      height: "calc(100vh - 170px)",
       backgroundColor: theme.colors.modal[0],
       boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
       transition: "500ms",
@@ -35,10 +35,10 @@ const useSidebarStyles = createStyles((theme) => {
     navbarHidden: {
       position: "absolute",
       left: "-100%",
-      top: "150px",
+      top: "170px",
       backgroundColor: theme.colors.modal[0],
       boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-      height: "calc(100vh - 150px)",
+      height: "calc(100vh - 170px)",
       transition: "300ms",
       zIndex: 50,
     },

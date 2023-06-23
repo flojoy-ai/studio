@@ -4,8 +4,10 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { Project } from "@src/feature/flow_chart_panel/views/load_project/ProjectComponent";
-import { ProjectWithoutData } from "@src/feature/flow_chart_panel/views/load_project/LoadProjectModal";
+import {
+  Project,
+  ProjectWithoutData,
+} from "@src/feature/flow_chart_panel/views/load_project/LoadProjectModal";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";

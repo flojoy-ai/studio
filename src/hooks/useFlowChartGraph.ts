@@ -11,6 +11,15 @@ const initialEdges: Edge[] = NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
+export const handleNodesLoadAtom = atom(
+  null,
+  (get, set, update: Node<ElementsData>[]) => {
+    set(nodesAtom, update);
+  }
+);
+export const handleEdgesLoadAtom = atom(null, (get, set, update: Edge[]) => {
+  set(edgesAtom, update);
+});
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);

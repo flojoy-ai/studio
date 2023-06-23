@@ -287,7 +287,7 @@ const FlowChartTab = () => {
       />
       <ReactFlowProvider>
         <div
-          style={{ height: "calc(100vh - 150px)" }}
+          style={{ height: "calc(100vh - 170px)" }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >

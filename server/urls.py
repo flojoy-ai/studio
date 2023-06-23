@@ -8,6 +8,7 @@ from .views import (
     set_user_api_key,
     set_s3_key,
     projects,
+    get_project,
 )
 
 
@@ -19,4 +20,5 @@ urlpatterns = [
     path("api/set-api", set_user_api_key),
     path("s3/set-s3-key", set_s3_key),
     path("projects", projects),
+    path("projects/<int:ref>", get_project),
 ]

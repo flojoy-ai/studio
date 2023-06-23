@@ -15,14 +15,16 @@ const useStyles = createStyles((theme) => ({
 
 type ProjectComponentProps = {
   project: ProjectWithoutData;
-  onClick: () => void;
+  loadProject: (project: ProjectWithoutData) => void;
 };
 
 export const ProjectComponent = ({
   project,
-  onClick,
+  loadProject,
 }: ProjectComponentProps) => {
   const { classes } = useStyles();
+
+  const onClick = () => loadProject(project);
 
   return (
     <Box className={classes.container} onClick={onClick}>
