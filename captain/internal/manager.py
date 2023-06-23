@@ -4,11 +4,11 @@ from captain.utils.logger import logger
 from captain.models.topology import Topology
 from PYTHON.dao.redis_dao import RedisDao
 
-
+""" Acts as a bridge between backend components """
 class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
-        self.running_topology: Topology | None = None
+        self.running_topology: Topology | None = None # holds the topology 
         self.redis_client = (
             RedisDao()
         )  # TODO currently not needed, but very high probability to be needed in the future

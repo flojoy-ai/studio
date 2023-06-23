@@ -14,7 +14,7 @@ const settingsListDefault = atom([
     key: "nodeDelay",
     type: "numerical-input",
     group: "backend",
-    value: 0.1,
+    value: 0,
   },
   {
     title: "Maximum Runtime (seconds)",

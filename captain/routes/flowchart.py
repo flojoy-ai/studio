@@ -55,6 +55,7 @@ async def write_and_run_flowchart(request: PostWFC):
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
         "jobsetId": request.jobsetId,
+        "type": "worker_response",  # TODO modify frontend such that this field isn't required for switching playBtn state
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
