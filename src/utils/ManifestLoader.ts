@@ -97,6 +97,11 @@ const CMND_TREE: CommandSection = {
           key: "OBJECT_DETECTION",
           children: null,
         },
+        {
+          title: "Image caption",
+          key: "IMAGE_CAPTION",
+          children: null,
+        },
         { title: "Regression", key: "REGRESSION", children: null },
         {
           title: "Classification",
@@ -188,6 +193,7 @@ const CMND_TREE: CommandSection = {
       children: [
         // Transformers tab
         { title: "Arithmetic", key: "ARITHMETIC", children: null },
+        { title: "Calculus", key: "CALCULUS", children: null },
         {
           title: "Signal processing",
           key: "SIGNAL_PROCESSING",

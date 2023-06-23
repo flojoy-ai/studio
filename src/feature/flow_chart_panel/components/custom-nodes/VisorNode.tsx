@@ -5,7 +5,7 @@ import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
 import { makePlotlyData } from "@src/utils/format_plotly_data";
-import { memo, useMemo } from "react";
+import { memo, useMemo, JSX } from "react";
 import { useNodeStyles } from "../DefaultNode";
 import Scatter3D from "../nodes/3d-scatter";
 import Surface3D from "../nodes/3d-surface";
@@ -18,6 +18,11 @@ import LineChart from "../nodes/line-chart";
 import Scatter from "../nodes/Scatter";
 import PlotlyTable from "../nodes/Table";
 import NodeWrapper from "../NodeWrapper";
+import ArrayView from "../nodes/array-view";
+import ProphetPlot from "../nodes/prophet-plot";
+import ProphetComponents from "../nodes/prophet-components";
+import CompositePlot from "../nodes/composite-plot";
+import MatrixView from "../nodes/matrix-view";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -42,10 +47,11 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   IMAGE: <PlotlyImage />,
   BOX: <BoxPlot />,
   BIG_NUMBER: <BigNumber />,
-  MATRIX_VIEW: <PlotlyTable />,
-  ARRAY_VIEW: <PlotlyTable />,
-  PROPHET_PLOT: <LineChart />,
-  PROPHET_COMPONENTS: <LineChart />,
+  MATRIX_VIEW: <MatrixView />,
+  ARRAY_VIEW: <ArrayView />,
+  PROPHET_PLOT: <ProphetPlot />,
+  PROPHET_COMPONENTS: <ProphetComponents />,
+  COMPOSITE: <CompositePlot />,
 };
 
 const VisorNode = ({ data }: CustomNodeProps) => {
