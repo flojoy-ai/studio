@@ -124,7 +124,10 @@ const CMND_TREE: CommandSection = {
     },
     {
       title: "NUMeric PYthon (NumPy)",
-      children: [{ title: "Linalg", key: "NUMPY_LINALG", children: null }],
+      children: [
+        { title: "Linalg", key: "NUMPY_LINALG", children: null },
+        { title: "Random", key: "NUMPY_RANDOM", children: null}  
+      ],
     },
     {
       title: "Extractors",
