@@ -214,7 +214,7 @@ class Topology:
             logger.debug(
                 f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
             )
-            self.kill_workers()
+            self.cancel()
 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
