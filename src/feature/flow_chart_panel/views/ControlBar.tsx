@@ -429,6 +429,7 @@ const ControlBar = () => {
       )}
       <Dropdown dropdownBtn={<FileButton />}>
         <button
+          data-testid="btn-apikey"
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -495,7 +496,9 @@ const FileButton = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <button className={clsx(classes.button, classes.fileButton)}>
+    <button 
+    data-testid="btn-filebtn"
+    className={clsx(classes.button, classes.fileButton)}>
       <Text>File</Text>
       <IconCaretDown
         size={14}
