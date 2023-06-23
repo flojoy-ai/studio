@@ -182,7 +182,7 @@
     ],
     "exclude": [
       "assets/",
-      "test/"
+      "src/__tests__"
     ],
     "all": true
   }
