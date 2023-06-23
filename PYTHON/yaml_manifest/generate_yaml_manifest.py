@@ -60,17 +60,6 @@ def main():
     with open(os.path.join(MANIFEST_DIR, "test.manifest.yaml"), "w") as f:
         yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
 
-    # for node_file in get_nodes_files(NODES_DIR):
-    #     try:
-    #         func = get_node_function(node_file)
-    #     except ModuleNotFoundError:
-    #         print(f"Failed to import {node_file}, probably missing dependencies")
-    #         continue
-    #
-    #     # The folder before the node folder
-    #     node_type = node_file[:-3].split(os.sep)[-2]
-    #     manifest = make_manifest_for(node_type, func)
-
 
 if __name__ == "__main__":
     main()

@@ -37,8 +37,3 @@ class Matrix(DataContainer):
 
 class Dataframe(DataContainer):
     pass
-
-
-if __name__ == "__main__":
-    a = OrderedPair()
-    print(isinstance(a, DataContainer))
