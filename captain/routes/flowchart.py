@@ -66,7 +66,7 @@ async def write_and_run_flowchart(request: PostWFC):
 
     # get the amount of workers needed
     spawn_workers(manager)
-    # time.sleep(1) # wait for workers to spawn)
+    time.sleep(1) # give workers time to start, not really needed, only because node starts off slower at LINSPACE since it is queued before the worker actually starts
 
     # run the flowchart
     asyncio.create_task(manager.running_topology.run())
