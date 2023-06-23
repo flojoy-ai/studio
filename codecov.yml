@@ -18,7 +18,7 @@ flag_management:
       statuses:
         - type: project
           target: 30%
-    - name: visual
+    - name: cypress
       statuses:
         - type: project
           target: 30%
