@@ -1,87 +1,10 @@
+import inspect
 from types import UnionType
 from typing import Any, Callable, Literal, Union, get_args
-import yaml
-import importlib.util
-import os
-import inspect
-from typing import TypeVar, Generic
-from dataclasses import dataclass, fields, is_dataclass
+from dataclasses import fields, is_dataclass
+from flojoy_mock import DataContainer
 
-T = TypeVar("T")
-
-
-class DataContainer(Generic[T]):
-    pass
-
-
-class OrderedPair:
-    pass
-
-
-class OrderedTriple:
-    pass
-
-
-class Matrix:
-    pass
-
-
-NODES_DIR = "PYTHON/nodes"
-MANIFEST_DIR = "manifest"
 ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str]]
-
-
-def get_nodes_files(root_dir: str) -> list[str]:
-    result = []
-
-    for root, _, files in os.walk(root_dir):
-        if root == root_dir:
-            continue
-
-        node_files = filter(
-            lambda file: file.endswith(".py") and file[:-3].isupper(), files
-        )
-
-        for file_name in node_files:
-            file_path = os.path.join(root, file_name)
-            result.append(file_path)
-
-    return result
-
-
-def get_node_function(path: str) -> Callable:
-    module_name = path[:-3].replace(os.sep, ".")
-    module = importlib.import_module(module_name)
-
-    func_name = os.path.basename(path)[:-3]
-    return getattr(module, func_name)
-
-
-def is_outer_type(t, outer_type):
-    return hasattr(t, "__origin__") and t.__origin__ == outer_type
-
-
-def is_union(t):
-    return is_outer_type(t, Union) or isinstance(t, UnionType)
-
-
-def get_union_types(union):
-    if hasattr(union, "__args__"):
-        return union.__args__
-    else:
-        return get_args(union)
-
-
-def get_full_type_name(t):
-    if hasattr(t, "__origin__"):
-        arg_names = ", ".join(get_full_type_name(arg) for arg in t.__args__)
-        return f"{t.__origin__.__name__}[{arg_names}]"
-    else:
-        return t.__name__
-
-
-def union_type_str(union):
-    return "|".join([get_full_type_name(t) for t in get_union_types(union)])
 
 
 def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
@@ -194,43 +117,28 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
     return {"COMMAND": [manifest]}
 
 
-@dataclass(frozen=True)
-class FooOutput:
-    output1: DataContainer[OrderedPair]
-    output2: DataContainer[Matrix]
+def is_outer_type(t, outer_type):
+    return hasattr(t, "__origin__") and t.__origin__ == outer_type
 
 
-def FOO(
-    a: DataContainer[OrderedPair | OrderedTriple | Matrix],
-    b: DataContainer[Matrix],
-    quux: str | int,
-    asd: str | int | list[str] | list[int],
-    baz: Literal["a", "b", "c"] = "b",
-    bar: float = 1.0,
-) -> FooOutput:
-    return FooOutput(output1=DataContainer(), output2=DataContainer())
+def is_union(t):
+    return is_outer_type(t, Union) or isinstance(t, UnionType)
 
 
-def main():
-    if not os.path.exists(MANIFEST_DIR):
-        os.mkdir(MANIFEST_DIR)
-
-    manifest = make_manifest_for("ARITHMETIC", FOO)
-    print(manifest)
-    with open(os.path.join(MANIFEST_DIR, "test.manifest.yaml"), "w") as f:
-        yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
-
-    # for node_file in get_nodes_files(NODES_DIR):
-    #     try:
-    #         func = get_node_function(node_file)
-    #     except ModuleNotFoundError:
-    #         print(f"Failed to import {node_file}, probably missing dependencies")
-    #         continue
-    #
-    #     # The folder before the node folder
-    #     node_type = node_file[:-3].split(os.sep)[-2]
-    #     manifest = make_manifest_for(node_type, func)
+def get_union_types(union):
+    if hasattr(union, "__args__"):
+        return union.__args__
+    else:
+        return get_args(union)
 
 
-if __name__ == "__main__":
-    main()
+def get_full_type_name(t):
+    if hasattr(t, "__origin__"):
+        arg_names = ", ".join(get_full_type_name(arg) for arg in t.__args__)
+        return f"{t.__origin__.__name__}[{arg_names}]"
+    else:
+        return t.__name__
+
+
+def union_type_str(union):
+    return "|".join([get_full_type_name(t) for t in get_union_types(union)])
