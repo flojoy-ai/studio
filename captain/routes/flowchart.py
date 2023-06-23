@@ -28,6 +28,7 @@ initiate processes on the back-end.
 
 # TODO do we want to convert field names from camelCase to snake_case?
 
+
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):
     logger.info("Cancelling flowchart...")
@@ -36,7 +37,7 @@ async def cancel_fc(req: PostCancelFC):
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
         "jobsetId": req.jobsetId,
-        "type": "worker_response", # TODO modify frontend such that this field isn't required for switching playBtn state 
+        "type": "worker_response",  # TODO modify frontend such that this field isn't required for switching playBtn state
         "FAILED_NODES": "",
         "RUNNING_NODES": "",
     }
@@ -45,9 +46,10 @@ async def cancel_fc(req: PostCancelFC):
 
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
-
     # create the topology
-    manager.running_topology = create_topology(request, manager.redis_client, manager.worker_processes)
+    manager.running_topology = create_topology(
+        request, manager.redis_client, manager.worker_processes
+    )
 
     # create message for front-end
     msg = {
@@ -60,7 +62,9 @@ async def write_and_run_flowchart(request: PostWFC):
 
     # get the amount of workers needed
     spawn_workers(manager)
-    time.sleep(1) # OPTIONAL. Give workers time to start. Not really needed, only because job is queued before the worker actually starts. Prevents slow start.
+    time.sleep(
+        1
+    )  # OPTIONAL. Give workers time to start. Not really needed, only because job is queued before the worker actually starts. Prevents slow start.
 
     # run the flowchart
     asyncio.create_task(manager.running_topology.run())
@@ -75,9 +79,11 @@ the event driven paradigm of the back-end. Workers that run jobs will poll these
 signal a job has been finished.
 """
 
-@router.post("/worker_response", summary="worker response")
-async def worker_response(request: Request): # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work???? 
 
+@router.post("/worker_response", summary="worker response")
+async def worker_response(
+    request: Request,
+):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
     if manager.running_topology is not None and manager.running_topology.is_cancelled():
         return Response(status_code=200)
 
@@ -90,9 +96,8 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
     asyncio.create_task(broadcast_worker_response(manager, request_dict))
 
     if "NODE_RESULTS" in request_dict:
-        job_id: str = request_dict.get('NODE_RESULTS', {}).get('id', None)
+        job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
         logger.debug(f"{job_id} finished at {time.time()}")
-        asyncio.create_task(manager.running_topology.handle_finished_job(request_dict)) # type: ignore
+        asyncio.create_task(manager.running_topology.handle_finished_job(request_dict))  # type: ignore
 
     return Response(status_code=200)
-

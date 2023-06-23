@@ -15,14 +15,15 @@ async def websocket_endpoint(websocket: WebSocket):
         # send "Connection established" message to client
         await websocket.send_text(
             json.dumps(
-            {
-                "type": "connection_established",
-                "msg": "You are now connected to flojoy servers",
-                "socketId": str(uuid.uuid4()),
-                "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
-            }
-        ))
-        
+                {
+                    "type": "connection_established",
+                    "msg": "You are now connected to flojoy servers",
+                    "socketId": str(uuid.uuid4()),
+                    "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
+                }
+            )
+        )
+
         # await for messages and send messages (no need to read from frontend, this is used to keep connection alive)
         while True:
             await websocket.receive_text()

@@ -12,12 +12,20 @@ from captain.utils.logger import logger
 
 lock = asyncio.Lock()
 
-sys.path.append(os.path.join(sys.path[0], "PYTHON")) # Needed for dynamic module import
+sys.path.append(os.path.join(sys.path[0], "PYTHON"))  # Needed for dynamic module import
+
+
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
-    # TODO: Remove unnecessary logger.debug statements 
+    # TODO: Remove unnecessary logger.debug statements
     def __init__(
-        self, graph, redis_client, jobset_id, worker_processes : list[Process], node_delay: float  = 0, max_runtime: float = 0
+        self,
+        graph,
+        redis_client,
+        jobset_id,
+        worker_processes: list[Process],
+        node_delay: float = 0,
+        max_runtime: float = 0,
     ):
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
@@ -27,9 +35,9 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs = set()
         self.is_ci = os.getenv(key="CI", default=False)
-        self.job_service = JobService('flojoy', self.max_runtime)
-        self.cancelled=False
-        self.worker_processes=worker_processes
+        self.job_service = JobService("flojoy", self.max_runtime)
+        self.cancelled = False
+        self.worker_processes = worker_processes
         self.time_start = 0
 
     # initial and main logic of topology
@@ -56,7 +64,7 @@ class Topology:
 
     async def run_job(self, job_id):
         async with lock:
-            node = self.original_graph.nodes[job_id] 
+            node = self.original_graph.nodes[job_id]
         cmd = node["cmd"]
         cmd_mock = node["cmd"] + "_MOCK"
         func = get_module_func(cmd, cmd)
@@ -92,40 +100,43 @@ class Topology:
 
     async def handle_finished_job(self, result):
         #
-        # get the data from the worker response 
+        # get the data from the worker response
         # (@flojoy wrapper is responsible for sending to this route in func)
 
         if self.cancelled:
             logger.debug("Received job, but skipping since cancelled")
             return
 
-        job_id: str = result.get('NODE_RESULTS', {}).get('id', None)
-        job_result = result.get('NODE_RESULTS', {}).get('result', None)
+        job_id: str = result.get("NODE_RESULTS", {}).get("id", None)
+        job_result = result.get("NODE_RESULTS", {}).get("result", None)
 
         logger.debug(f"job {self.get_label(job_id)} is done and has been received.")
         async with lock:
             if job_id in self.finished_jobs:
-                logging.warning(f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN")
+                logging.warning(
+                    f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN"
+                )
                 return
             self.finished_jobs.add(job_id)
-        
-        if (job_id is None or job_result is None):
-            raise Exception("job_id is not supposed to be None") 
-        
+
+        if job_id is None or job_result is None:
+            raise Exception("job_id is not supposed to be None")
+
         async with lock:
-            self.process_job_result(job_id, job_result, success=True) #TODO: handle in case of failure
+            self.process_job_result(
+                job_id, job_result, success=True
+            )  # TODO: handle in case of failure
             next_jobs = self.remove_node_and_get_next(job_id)
-         
+
         logger.debug(f"Starting next jobs: {next_jobs}")
         self.run_jobs(next_jobs)
-               
 
     def process_job_result(self, job_id, job_result, success):
         """
         process special instructions to scheduler
         """
 
-        logger.debug(f'processing job result for: {self.get_label(job_id)}')
+        logger.debug(f"processing job result for: {self.get_label(job_id)}")
         if not success:
             self.mark_job_failure(job_id)
             return
@@ -149,7 +160,7 @@ class Topology:
         for node_id in nodes_to_add:
             self.restart(node_id)
 
-    # this function removes the node and checks its successors 
+    # this function removes the node and checks its successors
     # for new jobs. A new job is ready when a sucessor has no dependencies.
     def remove_node_and_get_next(self, job_id):
         next_nodes = set()
@@ -166,7 +177,9 @@ class Topology:
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
 
         graph = self.original_graph
-        sub_graph = graph.subgraph([job_id] + list(self.original_graph.descendants(graph, job_id)))
+        sub_graph = graph.subgraph(
+            [job_id] + list(self.original_graph.descendants(graph, job_id))
+        )
         original_edges = sub_graph.edges
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
@@ -189,7 +202,7 @@ class Topology:
     def kill_workers(self):
         for worker_process in self.worker_processes:
             worker_process.terminate()
-    
+
     def is_cancelled(self):
         return self.cancelled
 
@@ -198,9 +211,11 @@ class Topology:
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
-            logger.debug(f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE")
+            logger.debug(
+                f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
+            )
             self.kill_workers()
-                
+
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
         logger.debug(f"job {self.get_label(job_id)} failed")
@@ -210,7 +225,9 @@ class Topology:
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("cmd", job_id)
         else:
-            logger.debug(f"get_label: job_id {job_id} not found in original: {original}")
+            logger.debug(
+                f"get_label: job_id {job_id} not found in original: {original}"
+            )
         return job_id
 
     def remove_dependencies(self, job_id, label="main"):
@@ -225,7 +242,7 @@ class Topology:
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
         return edges
-    
+
     def remove_dependency(self, job_id, succ_id):
         if self.working_graph.has_edge(job_id, succ_id):
             logger.debug(
@@ -256,15 +273,17 @@ class Topology:
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("label", job_id)
         else:
-            logger.debug(f"get_label: job_id {job_id} not found in original: {original}")
+            logger.debug(
+                f"get_label: job_id {job_id} not found in original: {original}"
+            )
         return job_id
-    
+
     def get_graph(self, original):
         return self.original_graph if original else self.working_graph
-    
-    # this function will get the maximum amount of independant nodes during the topological sort of the graph. 
+
+    # this function will get the maximum amount of independant nodes during the topological sort of the graph.
     # Will be used to determine how many workers to spawn
-    def get_maximum_workers(self, maximum_capacity = 4):
+    def get_maximum_workers(self, maximum_capacity=4):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
         queue = deque()
@@ -285,9 +304,3 @@ class Topology:
                         queue.append(neighbour)
 
         return max_independant
-
-
-
-
-
-

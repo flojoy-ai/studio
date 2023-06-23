@@ -1,10 +1,12 @@
 from typing import Any
 from pydantic import BaseModel
 
+
 class NodeResults(BaseModel):
     cmd: str
     id: str
     result: dict[str, Any]
+
 
 class WorkerJobResponse(BaseModel):
     SYSTEM_STATUS: str | None = None

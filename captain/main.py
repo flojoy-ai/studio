@@ -6,7 +6,7 @@ from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
 from captain.utils.logger import logger, logger_setup
 
-# init node mapping 
+# init node mapping
 create_map()
 
 app = FastAPI()
@@ -20,10 +20,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# routes 
+# routes
 app.include_router(ws.router)
 app.include_router(flowchart.router)
 app.include_router(key.router)
+
 
 @app.on_event("startup")
 async def startup_event():
