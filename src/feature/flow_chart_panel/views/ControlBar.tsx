@@ -8,7 +8,11 @@ import {
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import {
+  projectAtom,
+  projectNameAtom,
+  useFlowChartState,
+} from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
   cancelFlowChartRun,
@@ -42,6 +46,8 @@ import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
 import { LoadProjectModal } from "./load_project/LoadProjectModal";
+import { useAtom } from "jotai";
+import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -208,6 +214,7 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
 
 const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const [, setProjectName] = useAtom(projectNameAtom);
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
   const [openFileSelector, { filesContent }] = useFilePicker({
@@ -221,6 +228,7 @@ const LoadButton = () => {
     // there will be only single file in the filesContent, for each will loop only once
     filesContent.forEach((file) => {
       const parsedFileContent = JSON.parse(file.content);
+      setProjectName(parsedFileContent.projectName);
       const flow = parsedFileContent.rfInstance;
       setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
       loadFlowExportObject(flow);
@@ -330,8 +338,9 @@ const ControlBar = () => {
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, setNodeParamChanged, apiKey } =
+  const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
+  const [project, setProject] = useAtom(projectAtom);
   const { ctrlsManifest } = useControlsState();
 
   const createFileBlob = (
@@ -394,7 +403,20 @@ const ControlBar = () => {
 
   const saveToCloud = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (!rfInstance) {
+      notifications.show({
+        title: "Error",
+        message: "Missing flow chart when trying to save",
+        color: "red",
+      });
       throw new Error("Missing rfInstance when saving");
+    }
+    if (!project.name || project.name === "") {
+      notifications.show({
+        title: "Error",
+        message: "Project must have a name before saving!",
+        color: "red",
+      });
+      return;
     }
 
     const updatedRfInstance = {
@@ -403,7 +425,25 @@ const ControlBar = () => {
       edges,
     };
 
-    saveProjectToCloud("test lmao", updatedRfInstance);
+    try {
+      const saved = await saveProjectToCloud({
+        ...project,
+        rfInstance: updatedRfInstance,
+      });
+      notifications.show({
+        title: "Saved",
+        message: "Project saved to cloud.",
+        color: "cyan",
+      });
+      console.log(saved);
+      setProject(saved);
+    } catch {
+      notifications.show({
+        title: "Error",
+        message: "An error occurred when trying to save to cloud.",
+        color: "red",
+      });
+    }
   };
 
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {

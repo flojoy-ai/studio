@@ -3,7 +3,6 @@ import {
   Header as MantineHeader,
   createStyles,
   getBreakpointValue,
-  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
 import { memo } from "react";

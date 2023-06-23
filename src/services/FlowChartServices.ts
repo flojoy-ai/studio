@@ -7,7 +7,7 @@ import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import {
   Project,
   ProjectWithoutData,
-} from "@src/feature/flow_chart_panel/views/load_project/LoadProjectModal";
+} from "@src/feature/flow_chart_panel/types/Project";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -105,20 +105,15 @@ export const sendS3KeyToDjango = async (
   }
 };
 
-export const saveProjectToCloud = async (
-  name: string,
-  rfInstance: ReactFlowJsonObject
-) => {
-  return await fetch(`${API_URI}/projects`, {
+export const saveProjectToCloud = async (project: Partial<Project>) => {
+  const res = await fetch(`${API_URI}/projects`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name,
-      rfInstance,
-    }),
+    body: JSON.stringify(project),
   });
+  return (await res.json()) as Project;
 };
 
 export const getProjectsFromCloud = async () => {

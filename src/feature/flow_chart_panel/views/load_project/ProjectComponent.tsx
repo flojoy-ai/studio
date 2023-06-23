@@ -1,9 +1,7 @@
 import { Box, createStyles, Text } from "@mantine/core";
-import { getProjectFromCloudById } from "@src/services/FlowChartServices";
-import { Project, ReactFlowJsonObject } from "reactflow";
-import { ProjectWithoutData } from "./LoadProjectModal";
+import { ProjectWithoutData } from "../../types/Project";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   container: {
     padding: 10,
     width: "100%",

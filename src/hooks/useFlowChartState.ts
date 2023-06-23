@@ -3,6 +3,8 @@ import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
+import { Project } from "@src/feature/flow_chart_panel/types/Project";
+import { focusAtom } from "jotai-optics";
 
 export interface CtrlManifestParam {
   functionName: string;
@@ -44,13 +46,17 @@ export interface RfSpatialInfoType {
   zoom: number;
 }
 
+export const projectAtom = atom<Partial<Project>>({ name: "" });
+export const handleProjectLoadAtom = atom(null, (get, set, update: Project) => {
+  set(projectAtom, update);
+});
+
+const rfInstanceAtom = focusAtom(projectAtom, (op) => op.prop("rfInstance"));
+export const projectNameAtom = focusAtom(projectAtom, (op) => op.prop("name"));
+
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
-export const projectNameAtom = atom<string>("");
-const rfInstanceAtom = atomWithImmer<
-  ReactFlowJsonObject<ElementsData> | undefined
->(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
 const apiKeyAtom = atomWithImmer<string>("");
