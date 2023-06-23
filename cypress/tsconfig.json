@@ -5,5 +5,11 @@
     "types": ["cypress", "node"],
     "resolveJsonModule": true
   },
-  "include": ["**/*.ts", "../src/**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../src/**/*.ts",
+    "support/e2e.js",
+    "support/commands.js",
+    "plugins/index.js"
+  ]
 }

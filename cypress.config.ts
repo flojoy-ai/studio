@@ -11,37 +11,42 @@ export default defineConfig({
     video: false,
     baseUrl: "http://localhost:3000/",
     setupNodeEvents(on, config) {
+      // require("./cypress/plugins/index.js")(on, config);
       require("@cypress/code-coverage/task")(on, config);
-      // implement node event listeners here
-      on("task", {
-        readExampleFiles() {
-          // Get a list of all files in the /public directory
-          const files = fs.readdirSync(
-            path.join(__dirname, "/public/example-apps")
-          );
 
-          // Filter the list of files to only include .txt files
-          const txtFiles = files.filter((file: string) =>
-            file.endsWith(".txt")
-          );
+      // on("file:preprocessor", require("@cypress/code-coverage/use-babelrc"));
 
-          // Read the contents of each .txt file, parse it as JSON, and store it in an array
-          const jsonObjects: any[] = [];
-          for (const txtFile of txtFiles) {
-            const txtFilePath = path.join(
-              __dirname,
-              "/public/example-apps",
-              txtFile
-            );
-            const txtFileContents = fs.readFileSync(txtFilePath, "utf-8");
-            const jsonObject = JSON.parse(txtFileContents);
-            jsonObjects.push({ title: txtFile, data: jsonObject });
-          }
+      // // implement node event listeners here
+      // on("task", {
+      //   readExampleFiles() {
+      //     // Get a list of all files in the /public directory
+      //     const files = fs.readdirSync(
+      //       path.join(__dirname, "/public/example-apps")
+      //     );
 
-          // Return the array of JSON objects
-          return jsonObjects;
-        },
-      });
+      //     // Filter the list of files to only include .txt files
+      //     const txtFiles = files.filter((file: string) =>
+      //       file.endsWith(".txt")
+      //     );
+
+      //     // Read the contents of each .txt file, parse it as JSON, and store it in an array
+      //     const jsonObjects: any[] = [];
+      //     for (const txtFile of txtFiles) {
+      //       const txtFilePath = path.join(
+      //         __dirname,
+      //         "/public/example-apps",
+      //         txtFile
+      //       );
+      //       const txtFileContents = fs.readFileSync(txtFilePath, "utf-8");
+      //       const jsonObject = JSON.parse(txtFileContents);
+      //       jsonObjects.push({ title: txtFile, data: jsonObject });
+      //     }
+
+      //     // Return the array of JSON objects
+      //     return jsonObjects;
+      //   },
+      // });
+      return config;
     },
     downloadsFolder,
     requestTimeout: 30000,

@@ -1,6 +1,6 @@
 codecov:
   notify:
-    after_n_builds: 2
+    after_n_builds: 3
     wait_for_ci: yes
 
 coverage:
@@ -22,3 +22,16 @@ flag_management:
       statuses:
         - type: project
           target: 30%
+ignore:
+  - "src/setupTests.ts"
+  - "src/**/*.test.tsx"
+  - "src/**/*.cy.ts"
+  - "src/**/*.cy.tsx"
+  - "src/**/*.d.ts"
+  - "./src/models"
+  - "src/reportWebVitals.ts"
+
+comment:
+  layout: "reach, diff, flags, files"
+  behaviour: default
+  required_changes: no
