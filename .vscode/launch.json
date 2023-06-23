@@ -6,7 +6,7 @@
   "configurations": [
     
     {
-      "name": "Python: Current File",
+      "name": "FastAPI debug",
       "type": "python",
       "request": "launch",
       "module": "uvicorn",

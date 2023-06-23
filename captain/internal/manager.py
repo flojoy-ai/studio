@@ -1,7 +1,6 @@
 from fastapi import WebSocket
-import logging
 from multiprocessing import Process
-
+from captain.utils.logger import logger
 from captain.models.topology import Topology
 from PYTHON.dao.redis_dao import RedisDao
 
@@ -19,19 +18,17 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-        print("active connections: ", len(self.active_connections))
+        logger.debug("Connected! Amt of active connections: ", len(self.active_connections))
 
     async def disconnect(self, websocket: WebSocket):
-        print("disconnect")
         self.active_connections.remove(websocket)
-        print("active connections: ", len(self.active_connections))
+        logger.debug("Disconnected ;( ! Amt of active connections: ", len(self.active_connections))
 
     # this method sends a message to all connected websockets
     async def broadcast(self, message: str):
-        # print("broadcasting message: ", message, " to ", len(self.active_connections), " connections")
         for connection in self.active_connections:
             try:
                 await connection.send_text(message)
             except RuntimeError:
                 await self.disconnect(connection)
-                logging.error("RuntimeError in broadcast")
+                logger.error("RuntimeError in broadcast")

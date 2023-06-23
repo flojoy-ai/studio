@@ -4,20 +4,18 @@ import logging
 from multiprocessing import Process
 import os, sys
 import time
-
 from collections import deque
-
 from flojoy import get_next_directions, get_next_nodes
-
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
+from captain.utils.logger import logger
 
 lock = asyncio.Lock()
 
 sys.path.append(os.path.join(sys.path[0], "PYTHON")) # Needed for dynamic module import
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
-    # TODO: Remove unnecessary print statements 
+    # TODO: Remove unnecessary logger.debug statements 
     def __init__(
         self, graph, redis_client, jobset_id, worker_processes : list[Process], node_delay: float  = 0, max_runtime: float = 0
     ):
@@ -70,14 +68,14 @@ class Topology:
 
         dependencies = self.get_job_dependencies(job_id)
 
-        print(
+        logger.debug(
             " enqueue job:",
             self.get_label(job_id),
             "dependencies:",
             [self.get_label(dep_id, original=True) for dep_id in dependencies],
         )
 
-        print(f"{job_id} queued at {time.time()}")
+        logger.debug(f"{job_id} queued at {time.time()}")
 
         # enqueue job to worker and get the AsyncResult
 
@@ -101,13 +99,13 @@ class Topology:
         # (@flojoy wrapper is responsible for sending to this route in func)
 
         if self.cancelled:
-            print("Received job, but skipping since cancelled")
+            logger.debug("Received job, but skipping since cancelled")
             return
 
         job_id: str = result.get('NODE_RESULTS', {}).get('id', None)
         job_result = result.get('NODE_RESULTS', {}).get('result', None)
 
-        print(f"job {self.get_label(job_id)} is done and has been received.")
+        logger.debug(f"job {self.get_label(job_id)} is done and has been received.")
         async with lock:
             if job_id in self.finished_jobs:
                 logging.warning(f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN")
@@ -121,7 +119,7 @@ class Topology:
             self.process_job_result(job_id, job_result, success=True) #TODO: handle in case of failure
             next_jobs = self.remove_node_and_get_next(job_id)
          
-        print("Starting next jobs: " + str(next_jobs))
+        logger.debug("Starting next jobs: " + str(next_jobs))
         self.run_jobs(next_jobs)
                
 
@@ -130,7 +128,7 @@ class Topology:
         process special instructions to scheduler
         """
 
-        print(F'processing job result for: {self.get_label(job_id)}')
+        logger.debug(F'processing job result for: {self.get_label(job_id)}')
         if not success:
             self.mark_job_failure(job_id)
             return
@@ -147,7 +145,7 @@ class Topology:
             nodes_to_add += [node_id for node_id in next_nodes]
 
         if len(nodes_to_add) > 0:
-            print(
+            logger.debug(
                 "  + adding nodes to graph:",
                 [self.get_label(n_id, original=True) for n_id in nodes_to_add],
             )
@@ -169,7 +167,7 @@ class Topology:
         return list(next_nodes)
 
     def restart(self, job_id):
-        print("  *** restarting job:", self.get_label(job_id, original=True))
+        logger.debug("  *** restarting job:", self.get_label(job_id, original=True))
 
         graph = self.original_graph
         sub_graph = graph.subgraph([job_id] + list(self.original_graph.descendants(graph, job_id)))
@@ -188,7 +186,7 @@ class Topology:
             except Exception:
                 pass
 
-        print(
+        logger.debug(
             "   after reconstruction, all descendents for job id:",
             self.get_label(job_id),
             "are:",
@@ -206,23 +204,23 @@ class Topology:
         return self.cancelled
 
     def mark_job_success(self, job_id, label="main"):
-        print(f"  job finished: {self.get_label(job_id)}, label:", label)
+        logger.debug(f"  job finished: {self.get_label(job_id)}, label:", label)
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
-            print(f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE")
+            logger.debug(f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE")
             self.kill_workers()
                 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
-        print(f"  job {self.get_label(job_id)} failed")
+        logger.debug(f"  job {self.get_label(job_id)} failed")
 
     def get_cmd(self, job_id, original=False):
         graph = self.get_graph(original)
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("cmd", job_id)
         else:
-            print("get_label: job_id", job_id, "not found in original:", original)
+            logger.debug("get_label: job_id", job_id, "not found in original:", original)
         return job_id
 
     def remove_dependencies(self, job_id, label="main"):
@@ -240,7 +238,7 @@ class Topology:
     
     def remove_dependency(self, job_id, succ_id):
         if self.working_graph.has_edge(job_id, succ_id):
-            print(
+            logger.debug(
                 f"  - remove dependency: {self.get_edge_label_string(job_id, succ_id)}"
             )
             self.working_graph.remove_edge(job_id, succ_id)
@@ -268,7 +266,7 @@ class Topology:
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("label", job_id)
         else:
-            print("get_label: job_id", job_id, "not found in original:", original)
+            logger.debug("get_label: job_id", job_id, "not found in original:", original)
         return job_id
     
     def get_graph(self, original):

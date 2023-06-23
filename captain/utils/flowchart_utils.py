@@ -8,9 +8,9 @@ from rq.queue import Queue
 from rq.worker import Worker
 import os, sys
 from captain.types.flowchart import PostWFC 
+from captain.utils.logger import logger
 
 sys.path.append(os.path.dirname(sys.path[0]))
-print(os.path.dirname(sys.path[0]))
 from PYTHON.dao.redis_dao import RedisDao
 
 
@@ -21,16 +21,16 @@ def run_worker(index):
 
 def create_topology(request : PostWFC, redis_client, worker_processes):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
-    # TODO: ID is not ""
     return Topology(graph, redis_client, "", worker_processes=worker_processes, node_delay=request.nodeDelay, max_runtime=request.maximumRuntime)
 
 # spawns a set amount of RQ workers to execute jobs (node functions) 
 def spawn_workers(manager : Manager):
     if manager.running_topology is None:
-        print("ERROR: Could not spawn workers, no topology detected")
+        logger.error("Could not spawn workers, no topology detected")
         return
     worker_number = manager.running_topology.get_maximum_workers()
-    print(f"NEED {worker_number} WORKERS")
+    logger.debug(f"NEED {worker_number} WORKERS")
+    logger.info(f"Spawning {worker_number} workers")
     os.environ['OBJC_DISABLE_INITIALIZE_FORK_SAFETY'] = 'YES'
     for i in range(worker_number):
         worker_process = Process(target=run_worker, args=(i,))

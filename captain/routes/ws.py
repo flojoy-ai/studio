@@ -3,11 +3,11 @@ import uuid
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
+from captain.utils.logger import logger
 
 router = APIRouter(tags=["ws"])
 
 
-# this does nothing for now except establish a websocket connection
 @router.websocket("/ws/socket-server/")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.ws.connect(websocket)
@@ -28,4 +28,4 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.receive_text()
 
     except WebSocketDisconnect:
-        print("Client disconnected")
+        logger.info("Client disconnected")

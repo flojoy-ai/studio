@@ -13,6 +13,7 @@ from captain.utils.flowchart_utils import (
 )
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
+from captain.utils.logger import logger
 
 router = APIRouter(tags=["flowchart"])
 
@@ -29,8 +30,8 @@ initiate processes on the back-end.
 
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):
+    logger.info("Cancelling flowchart...")
     if manager.running_topology is not None:
-        print("WARNING: not supposed to be None")
         manager.running_topology.cancel()
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
@@ -44,7 +45,6 @@ async def cancel_fc(req: PostCancelFC):
 
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
-
 
     # create the topology
     manager.running_topology = create_topology(request, manager.redis_client, manager.worker_processes)
@@ -60,7 +60,7 @@ async def write_and_run_flowchart(request: PostWFC):
 
     # get the amount of workers needed
     spawn_workers(manager)
-    time.sleep(1) # give workers time to start, not really needed, only because node starts off slower at LINSPACE since it is queued before the worker actually starts
+    time.sleep(1) # OPTIONAL. Give workers time to start. Not really needed, only because job is queued before the worker actually starts. Prevents slow start.
 
     # run the flowchart
     asyncio.create_task(manager.running_topology.run())
@@ -81,7 +81,7 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
     if manager.running_topology is not None and manager.running_topology.is_cancelled():
         return Response(status_code=200)
 
-    print("Received a response from a worker")
+    logger.debug("Received a response from a worker")
 
     request_json = await request.json()
     request_dict = json.loads(request_json)
