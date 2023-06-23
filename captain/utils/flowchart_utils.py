@@ -1,3 +1,4 @@
+import io
 import json
 import networkx as nx
 from multiprocessing import Process
@@ -15,6 +16,9 @@ from PYTHON.dao.redis_dao import RedisDao
 
 
 def run_worker(index):
+    if os.environ.get("PRINT_WORKER_OUTPUT", None) is None or os.environ.get("PRINT_WORKER_OUTPUT", None) == "False":
+        text_trap = io.StringIO()
+        sys.stdout = text_trap
     queue = Queue('flojoy', connection=RedisDao().r)
     worker = Worker([queue], connection=RedisDao().r, name=f"flojoy{index}")
     worker.work()
@@ -37,7 +41,7 @@ def spawn_workers(manager : Manager):
         worker_process.daemon = True
         worker_process.start()
         manager.worker_processes.append(worker_process)
-
+    
 # converts the dict to a networkx graph
 def flowchart_to_nx_graph(flowchart):
     elems = flowchart["nodes"]

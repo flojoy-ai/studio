@@ -69,10 +69,7 @@ class Topology:
         dependencies = self.get_job_dependencies(job_id)
 
         logger.debug(
-            " enqueue job:",
-            self.get_label(job_id),
-            "dependencies:",
-            [self.get_label(dep_id, original=True) for dep_id in dependencies],
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id, original=True) for dep_id in dependencies]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
@@ -119,7 +116,7 @@ class Topology:
             self.process_job_result(job_id, job_result, success=True) #TODO: handle in case of failure
             next_jobs = self.remove_node_and_get_next(job_id)
          
-        logger.debug("Starting next jobs: " + str(next_jobs))
+        logger.debug(f"Starting next jobs: {next_jobs}")
         self.run_jobs(next_jobs)
                
 
@@ -128,7 +125,7 @@ class Topology:
         process special instructions to scheduler
         """
 
-        logger.debug(F'processing job result for: {self.get_label(job_id)}')
+        logger.debug(f'processing job result for: {self.get_label(job_id)}')
         if not success:
             self.mark_job_failure(job_id)
             return
@@ -146,8 +143,7 @@ class Topology:
 
         if len(nodes_to_add) > 0:
             logger.debug(
-                "  + adding nodes to graph:",
-                [self.get_label(n_id, original=True) for n_id in nodes_to_add],
+                f"Adding nodes to graph: {[self.get_label(n_id, original=True) for n_id in nodes_to_add]}",
             )
 
         for node_id in nodes_to_add:
@@ -167,7 +163,7 @@ class Topology:
         return list(next_nodes)
 
     def restart(self, job_id):
-        logger.debug("  *** restarting job:", self.get_label(job_id, original=True))
+        logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
 
         graph = self.original_graph
         sub_graph = graph.subgraph([job_id] + list(self.original_graph.descendants(graph, job_id)))
@@ -187,13 +183,7 @@ class Topology:
                 pass
 
         logger.debug(
-            "   after reconstruction, all descendents for job id:",
-            self.get_label(job_id),
-            "are:",
-            [
-                self.get_label(d_id)
-                for d_id in self.original_graph.descendants(self.working_graph, job_id)
-            ],
+            f"After reconstruction, all descendents for job id: {self.get_label(job_id)} are {[self.get_label(d_id) for d_id in self.original_graph.descendants(self.working_graph, job_id)]}"
         )
 
     def kill_workers(self):
@@ -204,7 +194,7 @@ class Topology:
         return self.cancelled
 
     def mark_job_success(self, job_id, label="main"):
-        logger.debug(f"  job finished: {self.get_label(job_id)}, label:", label)
+        logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
             self.is_finished = True
@@ -213,14 +203,14 @@ class Topology:
                 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
-        logger.debug(f"  job {self.get_label(job_id)} failed")
+        logger.debug(f"job {self.get_label(job_id)} failed")
 
     def get_cmd(self, job_id, original=False):
         graph = self.get_graph(original)
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("cmd", job_id)
         else:
-            logger.debug("get_label: job_id", job_id, "not found in original:", original)
+            logger.debug(f"get_label: job_id {job_id} not found in original: {original}")
         return job_id
 
     def remove_dependencies(self, job_id, label="main"):
@@ -266,7 +256,7 @@ class Topology:
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("label", job_id)
         else:
-            logger.debug("get_label: job_id", job_id, "not found in original:", original)
+            logger.debug(f"get_label: job_id {job_id} not found in original: {original}")
         return job_id
     
     def get_graph(self, original):

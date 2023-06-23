@@ -91,7 +91,7 @@ async def worker_response(request: Request): # TODO figure out way to use Pydant
 
     if "NODE_RESULTS" in request_dict:
         job_id: str = request_dict.get('NODE_RESULTS', {}).get('id', None)
-        print(f"{job_id} finished at {time.time()}")
+        logger.debug(f"{job_id} finished at {time.time()}")
         asyncio.create_task(manager.running_topology.handle_finished_job(request_dict)) # type: ignore
 
     return Response(status_code=200)
