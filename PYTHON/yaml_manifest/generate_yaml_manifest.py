@@ -2,11 +2,12 @@ from typing import Callable
 from types import ModuleType
 import importlib.util
 import os
-from typing import TypeVar, Generic
-from build_ast import make_manifest_ast
-import ast
-import inspect
+from build_ast import get_pip_dependencies, make_manifest_ast
+import yaml
 import importlib
+import ast
+from manifest import make_manifest_for
+
 from flojoy_mock import DataContainer, Matrix
 
 
@@ -48,17 +49,16 @@ def main():
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
-    func = getattr(module, "FOO")
-    sig = inspect.signature(func)
-    params = sig.parameters
-    for name, param in params.items():
-        print(
-            f"{name}: annotation: {param.annotation}, is DataContainer: {issubclass(param.annotation, DataContainer)}"
-        )
 
-    # manifest = make_manifest_for("ARITHMETIC", FOO)
-    # with open(os.path.join(MANIFEST_DIR, "test.manifest.yaml"), "w") as f:
-    #     yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
+    func = getattr(module, "FOO")
+    manifest = make_manifest_for("ARITHMETIC", func)
+
+    pip_deps = get_pip_dependencies(tree)
+    if pip_deps:
+        manifest["COMMAND"][0]["pip_dependencies"] = pip_deps
+
+    with open(os.path.join(MANIFEST_DIR, "test.manifest.yaml"), "w") as f:
+        yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
 
     # for node_file in get_nodes_files(NODES_DIR):
     #     try:

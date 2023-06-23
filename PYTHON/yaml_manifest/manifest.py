@@ -28,29 +28,39 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         if param.default is not param.empty:
             default_value = param.default
 
-        # Case 1: Untyped DataContainer
-        if param_type == DataContainer:
-            create_input(name, "any")
-        # Case 2: Typed DataContainer with a generic type
-        elif is_outer_type(param_type, DataContainer):
-            generic = param_type.__args__[0]
+        # Case 1: Union type
+        if is_union(param_type):
+            union_types = get_union_types(param_type)
+            dc_types = [t for t in union_types if is_datacontainer(t)]
+            # Case 1.1: Union of DataContainers
+            if len(dc_types) == len(union_types):
+                # Obviously if the union contains DataContainer, it's just Any
+                if DataContainer in dc_types:
+                    create_input(name, "any")
+                    continue
 
-            input_type = (
-                union_type_str(generic) if is_union(generic) else generic.__name__
-            )
+                create_input(name, union_type_str(param_type))
+            # Case 1.2: Union of other types
+            elif not dc_types:
+                if not all([t in ALLOWED_PARAM_TYPES for t in param_type.__args__]):
+                    raise TypeError(
+                        f"Union types must be one of {ALLOWED_PARAM_TYPES}, got {param_type.__args__}"
+                    )
 
-            create_input(name, input_type)
-        # Case 3: Union type
-        elif is_union(param_type):
-            if not all([t in ALLOWED_PARAM_TYPES for t in param_type.__args__]):
+                params[name] = {
+                    "type": union_type_str(param_type),
+                    "default": default_value,
+                }
+            else:
                 raise TypeError(
-                    f"Union types must be one of {ALLOWED_PARAM_TYPES}, got {param_type.__args__}"
+                    f"Type union must either contain all DataContainers or no DataContainers at all."
                 )
-
-            params[name] = {
-                "type": union_type_str(param_type),
-                "default": default_value,
-            }
+        # Case 2: Any DataContainer
+        elif param_type == DataContainer:
+            create_input(name, "any")
+        # Case 3: Some class that inherits from DataContainer
+        elif is_datacontainer(param_type):
+            create_input(name, param_type.__name__)
         # Case 4: Literal type which becomes a select param
         elif is_outer_type(param_type, Literal):
             params[name] = {
@@ -82,28 +92,35 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
     # TODO: Refactor similar code
     return_type = sig.return_annotation
 
+    # Union case
+    if is_union(return_type):
+        union_types = get_union_types(return_type)
+        if not all(issubclass(t, DataContainer) for t in union_types):
+            raise TypeError(f"Return type union must contain all DataContainers")
+
+        # Obviously if the union contains DataContainer, it's just Any
+        if DataContainer in union_types:
+            create_output("default", "any")
+        else:
+            create_output("default", union_type_str(return_type))
     # Single untyped output
-    if return_type == DataContainer:
+    elif return_type == DataContainer:
         create_output("default", "any")
     # Single typed output
-    elif is_outer_type(return_type, DataContainer):
-        generic = return_type.__args__[0]
-        output_type = union_type_str(generic) if is_union(generic) else generic.__name__
-
-        create_output("default", output_type)
+    elif issubclass(return_type, DataContainer):
+        create_output("default", return_type.__name__)
     # Multiple outputs
     elif is_dataclass(return_type):
         for field in fields(return_type):
-            if field.type != DataContainer and not is_outer_type(
-                field.type, DataContainer
-            ):
+            if not issubclass(field.type, DataContainer):
                 raise TypeError(
                     f"Return type must be a DataContainer or a DataClass consisting of only DataContainers as fields, got {return_type}"
                 )
 
-            generic = field.type.__args__[0]
             output_type = (
-                union_type_str(generic) if is_union(generic) else generic.__name__
+                union_type_str(field.type)
+                if is_union(field.type)
+                else field.type.__name__
             )
 
             create_output(field.name, output_type)
@@ -123,6 +140,10 @@ def is_outer_type(t, outer_type):
 
 def is_union(t):
     return is_outer_type(t, Union) or isinstance(t, UnionType)
+
+
+def is_datacontainer(t):
+    return inspect.isclass(t) and issubclass(t, DataContainer)
 
 
 def get_union_types(union):
