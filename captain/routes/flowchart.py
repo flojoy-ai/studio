@@ -86,6 +86,7 @@ async def worker_response(
     request: Request,
 ):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
     if manager.running_topology is not None and manager.running_topology.is_cancelled():
+        logger.debug("Flowchart is cancelled, ignoring worker response")
         return Response(status_code=200)
 
     logger.debug("Received a response from a worker")
