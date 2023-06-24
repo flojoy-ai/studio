@@ -9,9 +9,6 @@ class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None # holds the topology 
-        self.redis_client = (
-            RedisDao()
-        )  # TODO currently not needed, but very high probability to be needed in the future
         self.worker_processes: list[Process] = []
         self.debug_mode = False
 

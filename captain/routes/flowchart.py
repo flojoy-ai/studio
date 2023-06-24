@@ -6,8 +6,9 @@ from captain.types.flowchart import (
     PostCancelFC,
     PostWFC,
 )
-from captain.utils.broadcast import broadcast_worker_response
+from captain.utils.broadcast import broadcast_worker_response, signal_prejob_op, signal_standby
 from captain.utils.flowchart_utils import (
+    clear_memory,
     create_topology,
     spawn_workers,
 )
@@ -34,32 +35,28 @@ async def cancel_fc(req: PostCancelFC):
     logger.info("Cancelling flowchart...")
     if manager.running_topology is not None:
         manager.running_topology.cancel()
-    msg = {
-        "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
-        "jobsetId": req.jobsetId,
-        "type": "worker_response",  # TODO modify frontend such that this field isn't required for switching playBtn state
-        "FAILED_NODES": "",
-        "RUNNING_NODES": "",
-    }
-    asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
+    if req.jobsetId is None: 
+        logger.debug("No jobsetId provided, skipping signal_standby")
+        return
+    asyncio.create_task(signal_standby(manager, req.jobsetId))
 
 
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
+
+    # create message for front-end to indicate we are running pre-job operations
+    if request.jobsetId is None:
+        logger.debug("No jobsetId provided, skipping signal_prejob_op")
+        return
+    asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
+
+    # clear previous worker memory 
+    clear_memory()
+
     # create the topology
     manager.running_topology = create_topology(
-        request, manager.redis_client, manager.worker_processes
+        request, manager.worker_processes
     )
-
-    # create message for front-end
-    msg = {
-        "SYSTEM_STATUS": STATUS_CODES["RUN_PRE_JOB_OP"],
-        "jobsetId": request.jobsetId,
-        "type": "worker_response",  # TODO modify frontend such that this field isn't required for switching playBtn state
-        "FAILED_NODES": "",
-        "RUNNING_NODES": "",
-    }
-    asyncio.create_task(manager.ws.broadcast(json.dumps(msg)))
 
     # get the amount of workers needed
     spawn_workers(manager)
@@ -102,4 +99,3 @@ async def worker_response(
         logger.debug(f"{job_id} finished at {time.time()}")
         asyncio.create_task(manager.running_topology.handle_finished_job(request_dict))  # type: ignore
 
-    return Response(status_code=200)

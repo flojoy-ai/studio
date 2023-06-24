@@ -22,15 +22,13 @@ class Topology:
     def __init__(
         self,
         graph,
-        redis_client,
         jobset_id,
         worker_processes: list[Process],
         node_delay: float = 0,
-        max_runtime: float = 0,
+        max_runtime: float = 3000,
     ):
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
-        self.redis_client = redis_client
         self.jobset_id = jobset_id
         self.node_delay = node_delay
         self.max_runtime = max_runtime
@@ -84,7 +82,6 @@ class Topology:
         logger.debug(f"{job_id} queued at {time.time()}")
 
         # enqueue job to worker and get the AsyncResult
-
         self.job_service.enqueue_job(
             func=func,
             jobset_id=self.jobset_id,
@@ -94,6 +91,7 @@ class Topology:
             previous_job_ids=dependencies
         )
 
+    # also used for when the topology finishes 
     def cancel(self):
         self.cancelled = True
         self.kill_workers()
@@ -206,6 +204,7 @@ class Topology:
         for worker_process in self.worker_processes:
             worker_process.terminate()
 
+    # also used for when the topology is finished
     def is_cancelled(self):
         return self.cancelled
 

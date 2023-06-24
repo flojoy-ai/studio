@@ -20,7 +20,9 @@ from rq.job import Job, NoSuchJobError
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
-
+# NOTE: this is used both in fastAPI backend (/captain) and Django backend (/server)
+# however, most of these methods are redundant in fastAPI backend.
+# TODO: if we completely get rid of old backend, figure out which methods are needed
 class JobService:
     def __init__(self, queue_name, maximum_runtime: float = 3000):
         self.redis_dao = RedisDao()
