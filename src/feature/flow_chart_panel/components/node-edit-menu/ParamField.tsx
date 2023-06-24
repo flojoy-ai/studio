@@ -1,4 +1,12 @@
-import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
+import {
+  NumberInput,
+  Select,
+  TextInput,
+  Switch,
+  useMantineTheme,
+  createStyles,
+  MantineProvider,
+} from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 
@@ -14,6 +22,17 @@ type ParamFieldProps = {
     value: string;
   }[];
 };
+//
+// const useStyles = createStyles((theme) => {
+//   return {
+//     input: {
+//       backgroundColor: "gray",
+//     },
+//     root: {
+//       color: "gray",
+//     },
+//   };
+// });
 
 const ParamField = ({
   nodeId,
@@ -32,6 +51,9 @@ const ParamField = ({
       value,
     });
   };
+  const theme = useMantineTheme();
+  //const { classes } = useStyles();
+
   switch (type) {
     case "float":
       return (
@@ -65,11 +87,23 @@ const ParamField = ({
       );
     case "boolean":
       return (
-        <Checkbox
-          onChange={(e) => handleChange(e.currentTarget.checked)}
-          label={JSON.stringify(value)}
-          checked={value}
-        />
+        <MantineProvider
+          theme={{
+            colors: {
+              accent1: theme.colors.accent1,
+              accent2: theme.colors.accent2,
+            },
+          }}
+        >
+          <Switch
+            onChange={(e) => handleChange(e.currentTarget.checked)}
+            label={JSON.stringify(value)}
+            onLabel="T"
+            offLabel="F"
+            size="md"
+            color="accent1.1"
+          />
+        </MantineProvider>
       );
     case "select":
       return (
