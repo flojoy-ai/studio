@@ -289,6 +289,12 @@ class Topology:
 
     # this function will get the maximum amount of independant nodes during the topological sort of the graph.
     # Will be used to determine how many workers to spawn
+    # TODO (priority very low): delete edges based on their label: currenly, we are deleting all edges regardless of their labels.
+    # So for example : 
+    # Suppose we have a graph with 3 nodes: LOOP, node1, node2 and end,
+    # assuming LOOP is the only dependency of all the nodes,
+    # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end), 
+    # we will spawn 3 workers instead of the logical amount which is 2.
     def get_maximum_workers(self, maximum_capacity=4):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
