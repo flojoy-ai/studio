@@ -63,7 +63,7 @@
     "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python3 PYTHON/rq_worker.py flojoy-watch",
     "rq-flojoy": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python3 PYTHON/rq_worker.py flojoy",
     "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
-    "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"python manage.py runserver\" \"python PYTHON/rq_worker.py flojoy-watch\" \"python PYTHON/rq_worker.py flojoy\"",
+    "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto \"npm:start\" \"python PYTHON/rq_worker.py flojoy\" \"npm:fastapi\"",
     "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
     "start-project-fastapi": "concurrently -c auto \"npm:fastapi\" \"npm:start\"",
     "start-project-fastapi:debug": "concurrently -c auto \"npm:fastapi:debug\" \"npm:start\"",

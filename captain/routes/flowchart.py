@@ -1,7 +1,7 @@
-import asyncio
-import json
+import asyncio, os, sys, json, time
+
+sys.path.append(os.path.abspath(os.getcwd()))
 from fastapi import APIRouter, Request, Response
-import time
 from captain.types.flowchart import (
     PostCancelFC,
     PostWFC,

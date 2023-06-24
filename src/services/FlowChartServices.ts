@@ -7,13 +7,10 @@ import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-// const BACKEND_PORT = process.env.VITE_BACKEND_PORT
-//   ? Number(process.env.VITE_BACKEND_PORT)
-//   : 8000;
-const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
+const BACKEND_PORT = process.env.VITE_BACKEND_PORT
+  ? +process.env.VITE_BACKEND_PORT
+  : 8000;
 const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
-
-const FASTAPI = "http://127.0.0.1:2333";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -22,7 +19,6 @@ const FASTAPI = "http://127.0.0.1:2333";
 // changed (for example with a useEffect).
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
-  // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
     const flowObj = rfInstance;
     localforage.setItem(flowKey, flowObj);
@@ -32,7 +28,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
 export const sendApiKeyToDjango = async (apiKey: string) => {
   try {
     const response = await fetch(
-      `${FASTAPI}/key/?` +
+      `${API_URI}/key/?` +
         new URLSearchParams({
           api_key: apiKey,
         }).toString(),
@@ -42,7 +38,7 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
     );
 
     if (response.ok) {
-      const responseData = await response.json();
+      await response.json();
       notifications.update({
         id: "set-api-key",
         title: "Successful!",
@@ -85,7 +81,7 @@ export const sendS3KeyToDjango = async (
     });
 
     if (response.ok) {
-      const responseData = await response.json();
+      await response.json();
       notifications.update({
         id: "set-s3-key",
         title: "Successful!",
@@ -109,7 +105,7 @@ export function saveAndRunFlowChartInServer({
   jobId,
   settings,
 }: {
-  rfInstance?: ReactFlowJsonObject<ElementsData, any>;
+  rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
   settings: Settings[];
 }) {
@@ -134,7 +130,7 @@ export function saveAndRunFlowChartInServer({
 }
 
 export function cancelFlowChartRun(
-  rfInstance: ReactFlowJsonObject<ElementsData, any>,
+  rfInstance: ReactFlowJsonObject<ElementsData>,
   jobId: string
 ) {
   if (rfInstance) {

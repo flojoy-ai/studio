@@ -75,7 +75,7 @@ class Topology:
                 pass
 
         dependencies = self.get_job_dependencies(job_id)
-
+        
         logger.debug(
             f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id, original=True) for dep_id in dependencies]}"
         )
@@ -90,8 +90,7 @@ class Topology:
             job_id=job_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
-            previous_job_ids=[],
-            input_job_ids=dependencies,
+            previous_job_ids=dependencies
         )
 
     def cancel(self):

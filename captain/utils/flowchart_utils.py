@@ -1,31 +1,11 @@
-import io
-import json
+import os, json
 import networkx as nx
 from multiprocessing import Process
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from redis import Redis
-from rq.queue import Queue
-from rq.worker import Worker
-import os, sys
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
-
-sys.path.append(os.path.dirname(sys.path[0]))
-from PYTHON.dao.redis_dao import RedisDao
-
-
-def run_worker(index):
-    if (
-        os.environ.get("PRINT_WORKER_OUTPUT", None) is None
-        or os.environ.get("PRINT_WORKER_OUTPUT", None) == "False"
-    ):
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-    queue = Queue("flojoy", connection=RedisDao().r)
-    worker = Worker([queue], connection=RedisDao().r, name=f"flojoy{index}")
-    worker.work()
-
+from PYTHON.rq_worker import start_worker
 
 def create_topology(request: PostWFC, redis_client, worker_processes):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
@@ -47,9 +27,8 @@ def spawn_workers(manager: Manager):
     worker_number = manager.running_topology.get_maximum_workers()
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
-    os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
-    for i in range(worker_number):
-        worker_process = Process(target=run_worker, args=(i,))
+    for _ in range(worker_number):
+        worker_process = Process(target=start_worker, args=("flojoy",))
         worker_process.daemon = True
         worker_process.start()
         manager.worker_processes.append(worker_process)
