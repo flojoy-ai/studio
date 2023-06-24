@@ -10,6 +10,7 @@ from captain.utils.broadcast import broadcast_worker_response, signal_prejob_op,
 from captain.utils.flowchart_utils import (
     clear_memory,
     create_topology,
+    prepare_for_next_run,
     spawn_workers,
 )
 from captain.utils.config import manager
@@ -50,8 +51,8 @@ async def write_and_run_flowchart(request: PostWFC):
         return
     asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
 
-    # clear previous worker memory 
-    clear_memory()
+    # prepare for next topology run, clear memory 
+    prepare_for_next_run()
 
     # create the topology
     manager.running_topology = create_topology(
