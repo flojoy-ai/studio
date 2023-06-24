@@ -9,6 +9,7 @@ from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
+import networkx as nx
 
 lock = asyncio.Lock()
 
@@ -123,10 +124,9 @@ class Topology:
             raise Exception("job_id is not supposed to be None")
 
         async with lock:
-            self.process_job_result(
+            next_jobs = self.process_job_result(
                 job_id, job_result, success=True
             )  # TODO: handle in case of failure
-            next_jobs = self.remove_node_and_get_next(job_id)
 
         logger.debug(f"Starting next jobs: {next_jobs}")
         self.run_jobs(next_jobs)
@@ -142,9 +142,10 @@ class Topology:
             return
 
         # process instruction to flow through specified directions
+        next_nodes_from_dependencies = set()
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
-            self.mark_job_success(job_id, direction)
+            self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
         # process instruction to flow to specified nodes
         nodes_to_add = []
@@ -159,26 +160,32 @@ class Topology:
 
         for node_id in nodes_to_add:
             self.restart(node_id)
+        
+        for node_id in nodes_to_add:
+            if self.working_graph.in_degree(node_id) == 0: # check if no dependencies left for node
+                next_nodes_from_dependencies.add(node_id)
+        
+        return list(next_nodes_from_dependencies)
 
     # this function removes the node and checks its successors
     # for new jobs. A new job is ready when a sucessor has no dependencies.
-    def remove_node_and_get_next(self, job_id):
-        next_nodes = set()
+    # NOTE doesn't actually remove the node, just its edges/dependencies corresponding to the label/direction
+    def remove_edges_and_get_next(self, job_id, label_direction, next_nodes : set):
         successors = list(self.working_graph.successors(job_id))
-        self.working_graph.remove_node(job_id)
+        self.remove_dependencies(job_id, label_direction)
         for d_id in successors:
             if d_id in self.finished_jobs:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
-        return list(next_nodes)
+        
 
     def restart(self, job_id):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
 
         graph = self.original_graph
         sub_graph = graph.subgraph(
-            [job_id] + list(self.original_graph.descendants(graph, job_id))
+            [job_id] + list(nx.descendants(graph, job_id))
         )
         original_edges = sub_graph.edges
         original_edges = [
@@ -189,15 +196,12 @@ class Topology:
 
         self.finished_jobs.remove(job_id)
 
-        for d_id in self.original_graph.descendants(self.working_graph, job_id):
+        for d_id in nx.descendants(self.working_graph, job_id):
             try:
                 self.finished_jobs.remove(d_id)
             except Exception:
                 pass
-
-        logger.debug(
-            f"After reconstruction, all descendents for job id: {self.get_label(job_id)} are {[self.get_label(d_id) for d_id in self.original_graph.descendants(self.working_graph, job_id)]}"
-        )
+        
 
     def kill_workers(self):
         for worker_process in self.worker_processes:
@@ -206,7 +210,7 @@ class Topology:
     def is_cancelled(self):
         return self.cancelled
 
-    def mark_job_success(self, job_id, label="main"):
+    def mark_job_success(self, job_id, next_nodes, label="main"):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
@@ -215,6 +219,8 @@ class Topology:
                 f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
             )
             self.cancel()
+            return 
+        self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def mark_job_failure(self, job_id):
         self.finished_jobs.add(job_id)
