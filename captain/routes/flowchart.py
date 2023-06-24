@@ -8,7 +8,6 @@ from captain.types.flowchart import (
 )
 from captain.utils.broadcast import broadcast_worker_response, signal_prejob_op, signal_standby
 from captain.utils.flowchart_utils import (
-    clear_memory,
     create_topology,
     prepare_for_next_run,
     spawn_workers,
