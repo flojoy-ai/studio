@@ -9,8 +9,8 @@ from common.CONSTANTS import (
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
 )
-from dao.redis_dao import RedisDao
-from node_sdk.small_memory import SmallMemory
+from PYTHON.dao.redis_dao import RedisDao
+from PYTHON.node_sdk.small_memory import SmallMemory
 from rq import Queue
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
@@ -20,9 +20,11 @@ from rq.job import Job, NoSuchJobError
 def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
-
+# NOTE: this is used both in fastAPI backend (/captain) and Django backend (/server)
+# however, most of these methods are redundant in fastAPI backend.
+# TODO: if we completely get rid of old backend, figure out which methods are needed
 class JobService:
-    def __init__(self, queue_name, maximum_runtime=3000):
+    def __init__(self, queue_name, maximum_runtime: float = 3000):
         self.redis_dao = RedisDao()
         self.queue = Queue(
             queue_name, connection=self.redis_dao.r, default_timeout=maximum_runtime
@@ -89,7 +91,6 @@ class JobService:
         iteration_id,
         ctrls,
         previous_job_ids,
-        previous_jobs,
     ):
         if Job.exists(job_id, self.redis_dao.r):
             job = Job.fetch(job_id, connection=self.redis_dao.r)
@@ -103,7 +104,6 @@ class JobService:
             kwargs={
                 "ctrls": ctrls,
                 "previous_job_ids": previous_job_ids,
-                "previous_jobs": previous_jobs,
                 "jobset_id": jobset_id,
                 "node_id": job_id,
                 "job_id": iteration_id,

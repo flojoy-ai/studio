@@ -2,9 +2,7 @@ import asyncio
 import json
 import os
 import sys
-import time
 import yaml
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from flojoy.utils import set_frontier_api_key, set_frontier_s3_key
@@ -33,7 +31,6 @@ def cancel_flow_chart(request):
     jobset_id = request.data["jobsetId"]
 
     job_service.reset(fc.get("nodes", []))
-    time.sleep(2)
     msg = {
         "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
         "jobsetId": jobset_id,
