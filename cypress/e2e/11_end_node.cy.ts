@@ -38,7 +38,6 @@ describe("studio", () => {
     // close sidebar
     cy.get('[data-testid="sidebar-close"]').click();
 
-
     cy.eyesCheckWindow({
       tag: "dark flow page with end node",
       target: "window",
