@@ -28,8 +28,5 @@ def create_map():
             # map file name to file path
             if file.endswith(".py"):
                 mapping[file[:-3]] = (
-                    os.path.join(root, file[:-3])
-                    .replace("/", ".")
-                    .replace("\\", ".")
-                    .replace("PYTHON.", "")
+                    os.path.join(root, file[:-3]).replace("/", ".").replace("\\", ".")
                 )

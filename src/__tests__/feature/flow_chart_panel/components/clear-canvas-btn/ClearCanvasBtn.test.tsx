@@ -1,5 +1,5 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
-import { ClearCanvasBtn } from "@src/feature/flow_chart_panel/components/clear-canvas-btn/ClearCanvasBtn";
+import { ClearCanvasBtn } from "@src/feature/flow_chart_panel/components/ClearCanvasBtn";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { fireEvent, renderHook } from "@testing-library/react";
 import { useAtom } from "jotai";
@@ -72,21 +72,18 @@ const initialEdges: Edge[] = [
 const nodesAtom = atomWithImmer(initialNodes);
 const edgesAtom = atomWithImmer(initialEdges);
 
-jest.doMock(
-  "@src/feature/flow_chart_panel/components/clear-canvas-btn/ClearCanvasBtn",
-  () => {
-    const ClearCanvasBtnMock = () => {
-      const [, setNodes] = useAtom(nodesAtom);
-      const [, setEdges] = useAtom(edgesAtom);
+jest.doMock("@src/feature/flow_chart_panel/components/ClearCanvasBtn", () => {
+  const ClearCanvasBtnMock = () => {
+    const [nodes, setNodes] = useAtom(nodesAtom);
+    const [edges, setEdges] = useAtom(edgesAtom);
 
-      return <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />;
-    };
-    return { ClearCanvasBtn: ClearCanvasBtnMock };
-  }
-);
+    return <ClearCanvasBtn setNodes={setNodes} setEdges={setEdges} />;
+  };
+  return { ClearCanvasBtn: ClearCanvasBtnMock };
+});
 
 const ClearCanvasBtnTest =
-  require("@src/feature/flow_chart_panel/components/clear-canvas-btn/ClearCanvasBtn").ClearCanvasBtn;
+  require("@src/feature/flow_chart_panel/components/ClearCanvasBtn").ClearCanvasBtn;
 
 describe("CanvasClearBtn", () => {
   it("renders correctly with default props", () => {

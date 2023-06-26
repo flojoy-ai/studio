@@ -41,12 +41,6 @@ exports[`FlowChartTabView should render the component correcty 1`] = `
         <div>
           Visual Python Script
         </div>
-        <div>
-          Ctrl Panel
-        </div>
-        <div>
-          Debug
-        </div>
       </div>
       <div
         class="mantine-oz64vn"

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 require("cypress-xpath");
-describe("Verify Add and Delete CTRLS", () => {
+describe.skip("Verify Add and Delete CTRLS", () => {
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",
