@@ -18,12 +18,8 @@ import { memo, useEffect, useRef, useState } from "react";
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
 import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
-import {
-  ControlElement,
-  ControlSection,
-} from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
-export type LeafClickHandler = (elem: NodeElement | ControlElement) => void;
+export type LeafClickHandler = (elem: NodeElement) => void;
 
 const useSidebarStyles = createStyles((theme) => {
   const accent =
@@ -112,7 +108,7 @@ export type AppTab = "FlowChart" | "Control" | "Result";
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: NodeSection | ControlSection;
+  sections: NodeSection;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   appTab: AppTab;
