@@ -23,12 +23,18 @@ describe("studio", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("history btn test", () => {
+  it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="btn-filebutton"]').trigger("mouseover");
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
-    cy.get("[data-testid=btn-history]").click();
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with keyboardshorcut modal",
+      target: "window",
+      fully: true,
+    });
   });
 
   // This method performs cleanup after each test.

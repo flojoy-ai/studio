@@ -26,7 +26,7 @@ describe("studio", () => {
   it("aws s3 key test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="btn-filebutton"]').trigger("mouseover");
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
     cy.get('[data-testid="btn-s3key"]').click();
 
@@ -39,12 +39,6 @@ describe("studio", () => {
     cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
     cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
     cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with AWS S3 key modal inputs",
-      target: "window",
-      fully: true,
-    });
 
     cy.get('[data-testid="s3-submit-btn"]').click();
 

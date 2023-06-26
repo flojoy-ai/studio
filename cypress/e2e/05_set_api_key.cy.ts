@@ -26,7 +26,7 @@ describe("studio", () => {
   it("set api key test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="btn-filebtn"]').trigger("mouseover");
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
     cy.eyesCheckWindow({
       tag: "dark flow page with dropdown bar",

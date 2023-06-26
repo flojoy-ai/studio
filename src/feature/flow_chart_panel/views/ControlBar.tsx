@@ -437,6 +437,7 @@ const ControlBar = () => {
           Set API key
         </button>
         <button
+          data-testid="btn-s3key"
           onClick={() => setIsS3KeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -450,11 +451,8 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
-        <button style={{ display: "flex", gap: 10.77 }}>
-          <HistoryIconSvg />
-          History
-        </button>
         <button
+          data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}
           style={{ display: "flex", gap: 10.11 }}
         >
@@ -464,6 +462,7 @@ const ControlBar = () => {
       </Dropdown>
 
       <UnstyledButton
+        data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
         className={classes.settingsButton}
       >
@@ -497,7 +496,7 @@ const FileButton = () => {
   const { classes } = useStyles();
   return (
     <button
-      data-testid="btn-filebtn"
+      data-testid="file-btn"
       className={clsx(classes.button, classes.fileButton)}
     >
       <Text>File</Text>
