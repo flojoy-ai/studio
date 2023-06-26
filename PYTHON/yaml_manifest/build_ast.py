@@ -107,7 +107,7 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
         return None
 
     # Look for the deps keyword
-    kw = find(decorator.keywords, lambda k: k.args == "deps")
+    kw = find(decorator.keywords, lambda k: k.arg == "deps")
 
     if not kw:
         return None
