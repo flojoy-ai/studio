@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Node } from "reactflow";
-import { ResultsType } from "../results_panel/types/ResultsType";
+import { ResultsType } from "../common//types/ResultsType";
 import { FlowChartTabStateReturnType } from "./FlowChartTabState";
 import { ElementsData } from "./types/CustomNodeProps";
 

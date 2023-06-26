@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import ResultsTab from "./feature/results_panel/ResultsTabView";
-
 import { useDisclosure } from "@mantine/hooks";
 import { GlobalStyles } from "./feature/common/Global";
 import {
@@ -29,7 +27,6 @@ import { useSocket } from "./hooks/useSocket";
 import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
-import ControlsTab from "./feature/controls_panel/ControlsTabView";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 
 function ErrorBoundary() {
@@ -152,16 +149,6 @@ const App = () => {
             <Route
               path="/"
               element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/controls"
-              element={<ControlsTab />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/debug"
-              element={<ResultsTab />}
               errorElement={<ErrorBoundary />}
             />
           </Routes>
