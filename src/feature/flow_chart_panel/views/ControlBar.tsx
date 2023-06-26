@@ -39,6 +39,7 @@ import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import S3KeyModal from "./S3KeyModal";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -303,6 +304,7 @@ const ControlBar = () => {
   const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
+  const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -433,6 +435,13 @@ const ControlBar = () => {
           <FamilyHistoryIconSvg size={14} />
           Set API key
         </button>
+        <button
+          onClick={() => setIsS3KeyModelOpen(true)}
+          style={{ display: "flex", gap: 7.5 }}
+        >
+          <FamilyHistoryIconSvg size={14} />
+          AWS S3 key
+        </button>
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
@@ -471,6 +480,10 @@ const ControlBar = () => {
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
+      />
+      <S3KeyModal
+        isOpen={isS3KeyModelOpen}
+        onClose={() => setIsS3KeyModelOpen(false)}
       />
     </Box>
   );

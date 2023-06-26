@@ -272,13 +272,6 @@ then
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
-
-# creating system links
-
-createSystemLinks
-
-feedback $is_command_successful 'Created symlinks successfully!' 'Creating symlinks failed, check your PYTHON/WATCH or src folder, maybe one of them is missing'
-
 # jsonify python functions
 
 $venvCmd && python3 write_python_metadata.py
@@ -347,16 +340,19 @@ fi
 
 cd $CWD
 
+# YOLOV3 check/download moved to node
+# Leave commented until tested?
+
 # Checking for YOLOV3 Weights
-CWD="$PWD"
-FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
-if test -f "$FILE"; then
-   info_msg "$FILE exists."
-else
-   touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
-   wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
-   echo ''
-fi
+# CWD="$PWD"
+# FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+# if test -f "$FILE"; then
+#    info_msg "$FILE exists."
+# else
+#    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
+#    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+#    echo ''
+# fi
 
 sleep 1
 

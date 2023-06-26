@@ -53,6 +53,8 @@ const rfInstanceAtom = atomWithImmer<
 const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
 const apiKeyAtom = atomWithImmer<string>("");
+const s3AccessKeyAtom = atomWithImmer<string>("");
+const s3SecretKeyAtom = atomWithImmer<string>("");
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 localforage.config({ name: "react-flow", storeName: "flows" });
@@ -65,6 +67,8 @@ export function useFlowChartState() {
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
+  const [s3AccessKey, setS3AccessKey] = useAtom(s3AccessKeyAtom);
+  const [s3SecretKey, setS3SecretKey] = useAtom(s3SecretKeyAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
@@ -87,5 +91,9 @@ export function useFlowChartState() {
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
+    s3AccessKey,
+    setS3AccessKey,
+    s3SecretKey,
+    setS3SecretKey,
   };
 }
