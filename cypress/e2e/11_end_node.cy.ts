@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
 
-const layoutRegions = [
-  { selector: '[data-cy="app-status"]' },
-  { selector: '[data-cy="btn-play"]' },
-];
-
 describe("studio", () => {
+  const layoutRegions = [
+    { selector: '[data-cy="app-status"]' },
+    { selector: '[data-cy="btn-play"]' },
+  ];
   // This method performs setup before each test.
   beforeEach(() => {
     // Open Eyes to start visual testing.
