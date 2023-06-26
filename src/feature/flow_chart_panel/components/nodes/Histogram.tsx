@@ -1,6 +1,6 @@
 import { useMantineTheme } from "@mantine/core";
 import { SVGProps } from "react";
-import { BGTemplate } from "../../svgs/histo-scatter-svg";
+import { BGTemplate } from "@src/assets/PlotBGTemplate";
 
 const HistoTitle = ({ ...props }: SVGProps<SVGSVGElement>) => {
   const theme = useMantineTheme();

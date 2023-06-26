@@ -1,11 +1,12 @@
 import { Header as MantineHeader } from "@mantine/core";
+import { memo } from "react";
 
 type TabActionsProps = {
   children: React.ReactNode;
   gap?: number;
 };
 
-export const TabActions = ({ children, gap = 0 }: TabActionsProps) => {
+const TabActions = ({ children, gap = 0 }: TabActionsProps) => {
   return (
     <MantineHeader
       height={50}
@@ -16,3 +17,5 @@ export const TabActions = ({ children, gap = 0 }: TabActionsProps) => {
     </MantineHeader>
   );
 };
+
+export default memo(TabActions);

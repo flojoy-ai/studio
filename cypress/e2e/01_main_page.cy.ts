@@ -63,6 +63,7 @@ describe("studio", () => {
       layout: layoutRegions,
       fully: true,
     });
+<<<<<<< HEAD
 
     cy.get('[data-cy="ctrls-btn"]').click();
     cy.eyesCheckWindow({
@@ -71,6 +72,8 @@ describe("studio", () => {
       layout: layoutRegions,
       fully: true,
     });
+=======
+>>>>>>> develop
   });
 
   // This method performs cleanup after each test.

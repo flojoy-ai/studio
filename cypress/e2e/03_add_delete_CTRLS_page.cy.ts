@@ -1,12 +1,16 @@
 /// <reference types="cypress" />
 
 require("cypress-xpath");
+<<<<<<< HEAD
 describe("Verify Add and Delete CTRLS", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
 
+=======
+describe.skip("Verify Add and Delete CTRLS", () => {
+>>>>>>> develop
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",
