@@ -63,17 +63,6 @@ describe("studio", () => {
       layout: layoutRegions,
       fully: true,
     });
-<<<<<<< HEAD
-
-    cy.get('[data-cy="ctrls-btn"]').click();
-    cy.eyesCheckWindow({
-      tag: "light ctrl page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-=======
->>>>>>> develop
   });
 
   // This method performs cleanup after each test.
