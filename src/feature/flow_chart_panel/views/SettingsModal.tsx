@@ -29,14 +29,13 @@ const useStyles = createStyles((theme) => ({
     top: 15,
     right: 10,
     padding: 0,
-    color: theme.colors.accent1[0],
   },
   container: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     gap: 43,
-    height: "100%",
+    height: "40%",
     width: "100%",
     padding: 24,
     backgroundColor: theme.colors.modal[0],
@@ -91,15 +90,21 @@ export const SettingsModal = ({
   const { classes } = useStyles();
   const { settingsList, updateSettingList } = useSettings();
   return (
-    <Modal
+    <Modal.Root
       data-testid="settings-modal"
       opened={isOpen}
       onClose={onClose}
       size={1030}
     >
-      {/* <Modal.CloseButton data-testid="settings-modal-closebtn" /> */}
-
-      <div data-testid="settings_container" className={classes.container}>
+      <Modal.Overlay className={classes.overlay} />
+      <Modal.Content
+        data-testid="settings_container"
+        className={classes.container}
+      >
+        <Modal.CloseButton
+          data-testid="settings-close-btn"
+          className={classes.closeButton}
+        ></Modal.CloseButton>
         <div className={classes.list}>
           {settingsList.map((setting) => (
             <div
@@ -122,7 +127,7 @@ export const SettingsModal = ({
             </div>
           ))}
         </div>
-      </div>
-    </Modal>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

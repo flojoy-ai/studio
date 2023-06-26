@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+require("cypress-xpath");
+
 describe("studio", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
@@ -39,18 +41,31 @@ describe("studio", () => {
       fully: true,
     });
 
-    // cy.get('[data-testid="settings-modal-closebtn"]').click();
+    // Retrieve node delay and maximum time
+    cy.get('[data-testid="settings-input"]').eq(0).clear();
+    cy.get('[data-testid="settings-input"]').eq(0).type("0.5");
+    cy.get('[data-testid="settings-input"]').eq(1).clear();
+    cy.get('[data-testid="settings-input"]').eq(1).type("100");
 
-    // cy.get('[data-testid="darkmode-toggle"]').click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with settings modal with input",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
 
-    // cy.get('[data-testid="btn-setting"]').click();
+    cy.get('[data-testid="settings-close-btn"]').click();
 
-    // cy.eyesCheckWindow({
-    //   tag: "light flow page with setting modal",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="btn-setting"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with setting modal",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
   });
 
   // This method performs cleanup after each test.
