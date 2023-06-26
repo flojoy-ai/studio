@@ -136,7 +136,7 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
 
     manifest["outputs"] = outputs
 
-    return {"COMMAND": [manifest]}
+    return manifest
 
 
 def is_outer_type(t, outer_type):
