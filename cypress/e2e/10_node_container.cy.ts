@@ -1,0 +1,119 @@
+/// <reference types="cypress" />
+require("cypress-xpath");
+describe("Verify node containers", () => {
+  beforeEach(() => {
+    cy.eyesOpen({
+      appName: "studio",
+      testName: Cypress.currentTest.title,
+    });
+  });
+
+  it("Verify node containers", () => {
+    cy.visit("/").wait(1000);
+
+    // Click add node
+    cy.get('[data-testid="add-node-button"]').click();
+
+    // Click expand and sidebar btn
+    cy.get('[data-testid="sidebar-expand-btn"]').click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page after clicking sidebar expand btn",
+      target: "window",
+      fully: true,
+    });
+    cy.get('[data-testid="sidebar-collapse-btn"]').click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page after clicking sidebar collapse btn",
+      target: "window",
+      fully: true,
+    });
+
+    //Select container AI and Machine Learning
+    cy.xpath("//div[contains(text(), 'AI and Machine learning')]").click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with AI and Machine learning container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'AI and Machine learning')]").click();
+
+    //Select container SciPy
+    cy.xpath("//div[contains(text(), 'SCIentific PYthon (SciPy)')]").click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with SciPy container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'SCIentific PYthon (SciPy)')]").click();
+
+    //Select container NumPy
+    cy.xpath("//div[contains(text(), 'NUMeric PYthon (NumPy)')]").click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with NumPy container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'NUMeric PYthon (NumPy)')]").click();
+
+    //Select container Loaders
+    cy.xpath("//div[contains(text(), 'Extractors')]").click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Extractors container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Extractors')]").click();
+
+    //Select container Generators
+    cy.xpath("//div[contains(text(), 'Generators')]").click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Generators container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Generators')]").click();
+
+    //Select container Loaders
+    cy.xpath("//div[contains(text(), 'Loaders')]").click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Loaders container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Loaders')]").click();
+
+    //Select container Logic gates
+    cy.xpath("//div[contains(text(), 'Logic gates')]").click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Logic gates container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Logic gates')]").click();
+
+    //Select container Transformers
+    cy.xpath("//div[contains(text(), 'Transformers')]").click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Transformer container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Transformers')]").click();
+
+    //Select container Visualizers
+    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
+    cy.eyesCheckWindow({
+      tag: "dark flow page with Visualizers container",
+      target: "window",
+      fully: true,
+    });
+    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
+  });
+  afterEach(() => {
+    cy.eyesClose();
+  });
+});

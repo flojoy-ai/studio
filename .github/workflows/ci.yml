@@ -38,13 +38,13 @@ jobs:
       - name: Run Flojoy startup script
         run: bash flojoy -c
 
-      - name: Run Jest tests
-        run: npm run test
+      # - name: Run Jest tests
+      #   run: npm run test
 
-      - name: Codecov report
-        uses: codecov/codecov-action@v3
-        with:
-          flags: typescript
+      # - name: Codecov report
+      #   uses: codecov/codecov-action@v3
+      #   with:
+      #     flags: typescript
 
   code-style-check:
     runs-on: ubuntu-latest

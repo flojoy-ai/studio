@@ -202,12 +202,14 @@ const Sidebar = ({
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <Box className={classes.expandCollapseButtonContainer}>
           <UnstyledButton
+            data-testid="sidebar-expand-btn"
             onClick={() => setExpand(!expand)}
             className={classes.uiButton}
           >
             <IconArrowAutofitDown />
           </UnstyledButton>
           <UnstyledButton
+            data-testid="sidebar-collapse-btn"
             onClick={() => setCollapse(!collapse)}
             className={classes.uiButton}
           >
