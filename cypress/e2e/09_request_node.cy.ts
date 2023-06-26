@@ -1,12 +1,11 @@
 /// <reference types="cypress" />
 
-const layoutRegions = [
-  { selector: '[data-cy="app-status"]' },
-  { selector: '[data-cy="btn-play"]' },
-];
-
 require("cypress-xpath");
 describe(" node", () => {
+  const layoutRegions = [
+    { selector: '[data-cy="app-status"]' },
+    { selector: '[data-cy="btn-play"]' },
+  ];
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",
