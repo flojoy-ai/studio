@@ -25,6 +25,7 @@ describe("CustomResultNode", () => {
     ctrls: {},
     label: "node-label",
     type: "SINE",
+    path: "path/to/node.py",
     resultData: {
       default_fig: {
         data: [
@@ -34,9 +35,6 @@ describe("CustomResultNode", () => {
             y: [4, 5, 6],
           },
         ],
-        // layout: {
-        //   title: "some title",
-        // },
       },
       data: {
         type: "ordered_pair",

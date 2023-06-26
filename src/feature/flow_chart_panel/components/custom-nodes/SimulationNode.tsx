@@ -27,7 +27,7 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const SimulationNode = ({ data }: CustomNodeProps) => {
+const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
@@ -42,7 +42,7 @@ const SimulationNode = ({ data }: CustomNodeProps) => {
   }
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           selectShadow,

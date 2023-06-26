@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, Box, clsx, createStyles } from "@mantine/core";
+import { Box, clsx, createStyles } from "@mantine/core";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
@@ -15,14 +15,14 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const TerminatorNode = ({ data }: CustomNodeProps) => {
+const TerminatorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs || [];
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected

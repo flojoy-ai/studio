@@ -1,5 +1,6 @@
-import { CommandSection } from "@src/utils/ManifestLoader";
+import { createSectionSchema } from "@src/utils/ManifestLoader";
 import { PlotData } from "plotly.js";
+import { z } from "zod";
 
 export enum ControlTypes {
   Input = "input",
@@ -34,89 +35,140 @@ export enum PlotTypeNames {
   Table = "Table",
 }
 
+const controlElementSchema = z.object({
+  name: z.string(),
+  key: z.string(),
+  type: z.string(),
+  minHeight: z.number(),
+  minWidth: z.number(),
+  children: z.null(),
+});
+export type ControlElement = z.infer<typeof controlElementSchema>;
+
+const controlSectionSchema = createSectionSchema(controlElementSchema);
+
+export type ControlSection = z.infer<typeof controlSectionSchema>;
+
 //ROOT WILL NOT BE DISPLAYED
-export const CTRL_TREE: CommandSection = {
-  title: "ROOT",
+export const CTRL_TREE: ControlSection = {
+  name: "ROOT",
   children: [
     {
-      title: "Inputs",
+      name: "Inputs",
       children: [
         {
-          title: "Continuous Variables",
+          name: "Continuous Variables",
           children: [
             {
-              title: "Slider",
+              name: ControlNames.Slider,
+              type: ControlTypes.Input,
               key: "SLIDER",
+              minHeight: 1,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Knob",
+              name: ControlNames.Knob,
+              type: ControlTypes.Input,
               key: "KNOB",
+              minHeight: 2,
+              minWidth: 1,
               children: null,
             },
             {
-              title: "Numeric Text Input",
+              name: ControlNames.NumericInput,
+              type: ControlTypes.Input,
               key: "NUMERIC_INPUT",
+              minHeight: 1,
+              minWidth: 1,
               children: null,
             },
             {
-              title: "Array Numeric Input",
+              name: ControlNames.ArrayNumericInput,
+              type: ControlTypes.Input,
               key: "ARRAY_INPUT",
+              minHeight: 1,
+              minWidth: 1,
               children: null,
             },
           ],
         },
         {
-          title: "Discrete Variables",
+          name: "Discrete Variables",
           children: [
             {
-              title: "Radio Button Group",
+              name: ControlNames.RadioButtonGroup,
+              type: ControlTypes.Input,
               key: "RADIO_BUTTON_GROUP",
+              minHeight: 1,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Checkbox Button Group",
+              name: ControlNames.CheckboxButtonGroup,
+              type: ControlTypes.Input,
               key: "CHECKBOX_BUTTON_GROUP",
+              minHeight: 1,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Constants",
+              name: ControlNames.StaticNumericInput,
+              type: ControlTypes.Input,
               key: "STATIC_NUMERIC_INPUT",
+              minHeight: 1,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Dropdown",
+              name: ControlNames.Dropdown,
+              type: ControlTypes.Input,
               key: "DROPDOWN",
+              minHeight: 2,
+              minWidth: 2,
               children: null,
             },
           ],
         },
         {
-          title: "Booleans & Nodes",
+          name: "Booleans & Nodes",
           children: [
             {
-              title: "Toggle switch",
+              name: "Toggle switch",
               key: "TOGGLE_SWITCH",
+              type: ControlTypes.Input,
+              minHeight: 2,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Node Reference",
+              name: ControlNames.NodeReference,
+              type: ControlTypes.Input,
               key: "NODE_REFERENCE",
+              minHeight: 2,
+              minWidth: 2,
               children: null,
             },
           ],
         },
         {
-          title: "Text & Files",
+          name: "Text & Files",
           children: [
             {
-              title: "File Uploader",
+              name: ControlNames.LocalFileLoader,
+              type: ControlTypes.Input,
               key: "LOCAL_FILE_LOADER",
+              minHeight: 3,
+              minWidth: 2,
               children: null,
             },
             {
-              title: "Text Input",
+              name: ControlNames.TextInput,
+              type: ControlTypes.Input,
               key: "TEXT_INPUT",
+              minHeight: 1,
+              minWidth: 1,
+
               children: null,
             },
           ],
@@ -124,54 +176,48 @@ export const CTRL_TREE: CommandSection = {
       ],
     },
     {
-      title: "Outputs",
+      name: "Outputs",
       children: [
         {
-          title: "LED Display",
-          key: "SEVEN_SEGMENT_DISPLAY",
-          children: null,
+          name: "PLOTLY",
+          children: [
+            {
+              name: ControlNames.Plot,
+              type: ControlTypes.Output,
+              key: "PLOT",
+              minHeight: 3,
+              minWidth: 2,
+              children: null,
+            },
+          ],
         },
         {
-          title: "Media Viewer",
-          key: "MEDIA_VIEWER",
-          children: null,
+          name: "MEDIA VIEWER",
+          children: [
+            {
+              name: ControlNames.MediaViewer,
+              type: ControlTypes.Output,
+              key: "MEDIA_VIEWER",
+              minHeight: 3,
+              minWidth: 2,
+              children: null,
+            },
+          ],
         },
         {
-          title: "Plotly",
-          key: "PLOT",
-          children: null,
+          name: "LED DISPLAY",
+          children: [
+            {
+              name: ControlNames.SevenSegmentDisplay,
+              type: ControlTypes.Output,
+              key: "SEVEN_SEGMENT_DISPLAY",
+              minHeight: 3,
+              minWidth: 2,
+              children: null,
+            },
+          ],
         },
       ],
-    },
-  ],
-};
-
-export const OutputControlsManifest = {
-  PLOT: [
-    {
-      name: ControlNames.Plot,
-      type: ControlTypes.Output,
-      key: "PLOT",
-      minHeight: 3,
-      minWidth: 2,
-    },
-  ],
-  SEVEN_SEGMENT_DISPLAY: [
-    {
-      name: ControlNames.SevenSegmentDisplay,
-      type: ControlTypes.Output,
-      key: "SEVEN_SEGMENT_DISPLAY",
-      minHeight: 3,
-      minWidth: 2,
-    },
-  ],
-  MEDIA_VIEWER: [
-    {
-      name: ControlNames.MediaViewer,
-      type: ControlTypes.Output,
-      key: "MEDIA_VIEWER",
-      minHeight: 3,
-      minWidth: 2,
     },
   ],
 };
@@ -220,122 +266,4 @@ export const PlotTypesManifest: { [key: string]: PlotManifestType } = {
     name: PlotTypeNames.Table,
     type: "table",
   },
-};
-
-export const InputControlsManifest = {
-  TEXT_INPUT: [
-    {
-      name: ControlNames.TextInput,
-      type: ControlTypes.Input,
-      key: "TEXT_INPUT",
-      minHeight: 1,
-      minWidth: 1,
-    },
-  ],
-  NUMERIC_INPUT: [
-    {
-      name: ControlNames.NumericInput,
-      type: ControlTypes.Input,
-      key: "NUMERIC_INPUT",
-      minHeight: 1,
-      minWidth: 1,
-    },
-  ],
-  SLIDER: [
-    {
-      name: ControlNames.Slider,
-      type: ControlTypes.Input,
-      key: "SLIDER",
-      minHeight: 1,
-      minWidth: 2,
-    },
-  ],
-  KNOB: [
-    {
-      name: ControlNames.Knob,
-      type: ControlTypes.Input,
-      key: "KNOB",
-      minHeight: 2,
-      minWidth: 1,
-    },
-  ],
-  STATIC_NUMERIC_INPUT: [
-    {
-      name: ControlNames.StaticNumericInput,
-      type: ControlTypes.Input,
-      key: "STATIC_NUMERIC_INPUT",
-      minHeight: 1,
-      minWidth: 2,
-    },
-  ],
-  ARRAY_INPUT: [
-    {
-      name: ControlNames.ArrayNumericInput,
-      type: ControlTypes.Input,
-      key: "ARRAY_INPUT",
-      minHeight: 1,
-      minWidth: 1,
-    },
-  ],
-  DROPDOWN: [
-    {
-      name: ControlNames.Dropdown,
-      type: ControlTypes.Input,
-      key: "DROPDOWN",
-      minHeight: 2,
-      minWidth: 2,
-    },
-  ],
-  RADIO_BUTTON_GROUP: [
-    {
-      name: ControlNames.RadioButtonGroup,
-      type: ControlTypes.Input,
-      key: "RADIO_BUTTON_GROUP",
-      minHeight: 1,
-      minWidth: 2,
-    },
-  ],
-  CHECKBOX_BUTTON_GROUP: [
-    {
-      name: ControlNames.CheckboxButtonGroup,
-      type: ControlTypes.Input,
-      key: "CHECKBOX_BUTTON_GROUP",
-      minHeight: 1,
-      minWidth: 2,
-    },
-  ],
-  LOCAL_FILE_LOADER: [
-    {
-      name: ControlNames.LocalFileLoader,
-      type: ControlTypes.Input,
-      key: "LOCAL_FILE_LOADER",
-      minHeight: 3,
-      minWidth: 2,
-    },
-  ],
-  NODE_REFERENCE: [
-    {
-      name: ControlNames.NodeReference,
-      type: ControlTypes.Input,
-      key: "NODE_REFERENCE",
-      minHeight: 2,
-      minWidth: 2,
-    },
-  ],
-};
-
-type CTRLManifest = {
-  [key: string]: {
-    name: string;
-    type: string;
-    key: string;
-    minHeight: number;
-    minWidth: number;
-    [key: string]: unknown;
-  }[];
-};
-
-export const CTRL_MANIFEST: CTRLManifest = {
-  ...InputControlsManifest,
-  ...OutputControlsManifest,
 };

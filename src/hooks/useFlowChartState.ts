@@ -4,13 +4,10 @@ import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
-export interface CtrlManifestParam {
-  functionName: string;
-  param: string;
+export type CtrlManifestParam = ElementsData["ctrls"][""] & {
   nodeId: string;
   id: string;
-  type?: string;
-}
+};
 export interface PlotManifestParam {
   node: string;
   plot?: PlotType;

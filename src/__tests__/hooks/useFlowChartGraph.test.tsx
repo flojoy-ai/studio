@@ -4,6 +4,8 @@ import { act, renderHook } from "@testing-library/react";
 const { result } = renderHook(() => useFlowChartGraph());
 const hookResult = result.current;
 
+jest.mock("@src/utils/ManifestLoader");
+
 describe("useFlowChartGraph", () => {
   describe("loadFlowExportObject", () => {
     it.each([

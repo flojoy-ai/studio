@@ -30,7 +30,7 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const ArithmeticNode = ({ data }: CustomNodeProps) => {
+const ArithmeticNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
@@ -52,7 +52,7 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   }
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected

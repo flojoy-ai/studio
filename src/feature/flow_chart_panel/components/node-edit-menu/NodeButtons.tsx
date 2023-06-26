@@ -21,9 +21,14 @@ const useStyles = createStyles((theme) => ({
 type NodeButtonsProps = {
   data: ElementsData;
   setIsExpandMode: Dispatch<SetStateAction<boolean>>;
+  handleRemove: (nodeId: string, nodeLabel: string) => void;
 };
 
-const NodeButtons = ({ data, setIsExpandMode }: NodeButtonsProps) => {
+const NodeButtons = ({
+  data,
+  setIsExpandMode,
+  handleRemove,
+}: NodeButtonsProps) => {
   const { classes } = useStyles();
 
   const onNodeExpandClick = () => {
@@ -31,11 +36,7 @@ const NodeButtons = ({ data, setIsExpandMode }: NodeButtonsProps) => {
   };
 
   const handleXButtonClick = () => {
-    if (!data.handleRemove) {
-      console.error("NodeButtons: handleRemove callback not attached");
-      return;
-    }
-    data.handleRemove(data.id, data.label);
+    handleRemove(data.id, data.label);
   };
 
   return (

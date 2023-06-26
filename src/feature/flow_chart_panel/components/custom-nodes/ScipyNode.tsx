@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const ScipyNode = ({ data }: CustomNodeProps) => {
+const ScipyNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
@@ -43,7 +43,7 @@ const ScipyNode = ({ data }: CustomNodeProps) => {
   }
   const operatorIcon = <ScipySvg className={classes.operatorIcon} />;
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           selectShadow,

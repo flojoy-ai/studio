@@ -5,19 +5,25 @@ import {
   UnstyledButton,
   Box,
   useMantineTheme,
+  createStyles,
 } from "@mantine/core";
-import { IconArrowAutofitUp, IconArrowAutofitDown } from "@tabler/icons-react";
-
-import { IconSearch } from "@tabler/icons-react";
+import {
+  IconArrowAutofitUp,
+  IconArrowAutofitDown,
+  IconSearch,
+} from "@tabler/icons-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
 import CloseIconSvg from "@src/utils/SidebarCloseSvg";
-import { createStyles } from "@mantine/core";
-import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
+import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
+import {
+  ControlElement,
+  ControlSection,
+} from "@src/feature/controls_panel/manifest/CONTROLS_MANIFEST";
 
-type leafClickHandler = (key: string) => void;
+export type LeafClickHandler = (elem: NodeElement | ControlElement) => void;
 
 const useSidebarStyles = createStyles((theme) => {
   const accent =
@@ -106,9 +112,8 @@ export type AppTab = "FlowChart" | "Control" | "Result";
 type SidebarCustomProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: CommandSection;
-  leafNodeClickHandler: leafClickHandler;
-  manifestMap: CommandManifestMap;
+  sections: NodeSection | ControlSection;
+  leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
   appTab: AppTab;
 };
@@ -118,7 +123,6 @@ const Sidebar = ({
   setSideBarStatus,
   sections,
   leafNodeClickHandler,
-  manifestMap,
   customContent,
   appTab,
 }: SidebarCustomProps) => {
@@ -145,7 +149,7 @@ const Sidebar = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const setFocus = () => {
-    inputRef.current && inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -217,7 +221,6 @@ const Sidebar = ({
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}
-          manifestMap={manifestMap}
           node={sections}
           query={query}
           matchedParent={false}

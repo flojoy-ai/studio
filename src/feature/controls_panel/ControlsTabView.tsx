@@ -17,13 +17,12 @@ import {
   useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
-import { getManifestParams, ManifestParams } from "@src/utils/ManifestLoader";
 import { IconPlus } from "@tabler/icons-react";
 import { v4 as uuidv4 } from "uuid";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import { useControlsTabEffects } from "./ControlsTabEffects";
 import { useControlsTabState } from "./ControlsTabState";
-import { CTRL_MANIFEST, CTRL_TREE } from "./manifest/CONTROLS_MANIFEST";
+import { CTRL_TREE, ControlElement } from "./manifest/CONTROLS_MANIFEST";
 import { CtrlOptionValue } from "./types/ControlOptions";
 import ControlGrid from "./views/ControlGrid";
 import { useControlsState } from "@src/hooks/useControlsState";
@@ -46,7 +45,6 @@ localforage.config({ name: "react-flow", storeName: "flows" });
 
 const ControlsTab = () => {
   const theme = useMantineTheme();
-  const manifestParams: ManifestParams = getManifestParams();
 
   const [ctrlSidebarOpen, setCtrlSidebarOpen] = useState(false);
 
@@ -68,19 +66,10 @@ const ControlsTab = () => {
 
   useControlsTabEffects();
 
-  if (!programResults) {
-    return <div>No program results</div>;
-  }
-
   //function for handling a CTRL add (assume that input is key from manifest)
   const addCtrl = useCallback(
-    (ctrlKey: string) => {
+    (ctrlObj: ControlElement) => {
       setCtrlSidebarOpen(false); //close the sidebar when adding a ctrl
-      const ctrlObj = CTRL_MANIFEST[ctrlKey].find((c) => c.key === ctrlKey);
-      if (!ctrlObj) {
-        console.error("Could not find ctrl object for key", ctrlKey);
-        return;
-      }
 
       const id = `ctrl-${uuidv4()}`;
       const yPos = maxGridLayoutHeight;
@@ -134,15 +123,13 @@ const ControlsTab = () => {
     cacheManifest(manClone);
 
     if (ctrl.param) {
-      updateCtrlInputDataForNode(
-        (ctrl.param as CtrlManifestParam).nodeId,
-        (ctrl.param as CtrlManifestParam).param,
-        {
-          functionName: (ctrl.param as CtrlManifestParam).functionName,
-          param: (ctrl.param as CtrlManifestParam).param,
-          value: val,
-        }
-      );
+      const ctrlParam = ctrl.param as CtrlManifestParam;
+      updateCtrlInputDataForNode((ctrl.param as CtrlManifestParam).nodeId, {
+        functionName: ctrlParam.functionName,
+        param: ctrlParam.param,
+        value: val,
+        type: ctrlParam.type,
+      });
     } else {
       console.error("Cannot update nonexistant parameter");
     }
@@ -155,30 +142,45 @@ const ControlsTab = () => {
     // grab the current value for this param if it already exists in the flowchart nodes
     const inputNode = nodes.find((e) => e.id === param.nodeId);
     const ctrls = inputNode?.data?.ctrls;
-    const fnParams = manifestParams[param.functionName] || {};
-    // debugger
-    const fnParam = fnParams[param?.param];
-    const defaultValue =
-      param.functionName === "CONSTANT"
-        ? ctrl.val
-        : fnParam?.default
-        ? fnParam.default
-        : 0;
-    const ctrlData = ctrls && ctrls[param.param];
-
-    let inputValue: string | number | boolean | undefined = undefined;
-    if (ctrlData && ctrlData.value !== undefined && ctrlData.value !== null)
-      inputValue = isNaN(+ctrlData.value) ? ctrlData.value : +ctrlData.value;
-
-    const currentInputValue = ctrlData ? inputValue : defaultValue;
     const manClone = clone(ctrlsManifest);
-    manClone.forEach((c, i) => {
-      if (c.id === ctrl.id) {
-        manClone[i].param = param;
-        manClone[i].val = currentInputValue;
+    if (ctrls) {
+      // debugger
+      const fnParam = ctrls[param?.param];
+      const defaultValue =
+        param.functionName === "CONSTANT"
+          ? ctrl.val
+          : fnParam?.default
+          ? fnParam.default
+          : 0;
+
+      let inputValue: string | number | boolean | undefined = undefined;
+      if (fnParam?.value !== undefined && fnParam?.value !== null) {
+        inputValue = isNaN(+fnParam.value) ? fnParam.value : +fnParam.value;
       }
-    });
-    cacheManifest(manClone);
+      const currentInputValue = fnParam ? inputValue : defaultValue;
+      manClone.forEach((c, i) => {
+        if (c.id === ctrl.id) {
+          manClone[i].param = {
+            functionName: param.functionName,
+            id: param.id,
+            nodeId: param.nodeId,
+            param: param.param,
+            node: param.id,
+            type: param.type,
+            value: currentInputValue,
+          };
+          manClone[i].val = currentInputValue;
+        }
+      });
+      cacheManifest(manClone);
+    } else {
+      manClone.forEach((c, i) => {
+        if (c.id === ctrl.id) {
+          manClone[i].param = param as unknown as string;
+        }
+      });
+      cacheManifest(manClone);
+    }
     //mixpanel telemetry
     const nodeAttached = inputNode ? inputNode.data.label : "No node attached";
     sendMultipleDataEventToMix(
@@ -187,6 +189,9 @@ const ControlsTab = () => {
       ["nodeAttached", "widgetName"]
     );
   };
+  if (!programResults) {
+    return <div>No program results</div>;
+  }
 
   return (
     <Layout>
@@ -214,8 +219,7 @@ const ControlsTab = () => {
         />
         <Sidebar
           sections={CTRL_TREE}
-          manifestMap={CTRL_MANIFEST}
-          leafNodeClickHandler={addCtrl}
+          leafNodeClickHandler={addCtrl as LeafClickHandler}
           isSideBarOpen={ctrlSidebarOpen}
           setSideBarStatus={setCtrlSidebarOpen}
           appTab={"Control"}
