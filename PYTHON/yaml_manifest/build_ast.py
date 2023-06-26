@@ -1,7 +1,7 @@
 import ast
 from typing import Optional, Any, Callable
 
-SELECTED_IMPORTS = ["flojoy_mock", "dataclasses", "typing"]
+SELECTED_IMPORTS = ["flojoy", "dataclasses", "typing"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):

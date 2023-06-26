@@ -2,7 +2,7 @@ import inspect
 from types import UnionType
 from typing import Any, Callable, Literal, Union, get_args
 from dataclasses import fields, is_dataclass
-from flojoy_mock import DataContainer
+from flojoy import DataContainer
 
 ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str]]
 

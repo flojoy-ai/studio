@@ -1,4 +1,4 @@
-from flojoy_mock import (
+from flojoy import (
     flojoy,
     OrderedPair,
     OrderedTriple,
@@ -6,9 +6,10 @@ from flojoy_mock import (
 )
 from typing import Literal
 from dataclasses import dataclass
+import numpy as np
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True)  # Multiple outputs
 class FooOutput:
     output1: OrderedPair
     output2: Matrix
@@ -16,11 +17,14 @@ class FooOutput:
 
 @flojoy(deps={"torch": "0.25.2"})
 def FOO(
-    a: OrderedPair | OrderedTriple | Matrix,
+    a: OrderedPair | OrderedTriple | Matrix,  # Different potential types for input
     b: Matrix,
     quux: str | int,
-    asd: str | int | list[str] | list[int],
-    baz: Literal["a", "b", "c"] = "b",
-    bar: float = 1.0,
+    asd: str | int | list[str] | list[int],  # Different potential types for parameter
+    baz: Literal["a", "b", "c"] = "b",  # Select Param
+    bar: float = 1.0,  # Default values
 ) -> FooOutput:
-    return FooOutput(output1=OrderedPair(), output2=Matrix())
+    return FooOutput(
+        output1=OrderedPair(x=np.array([]), y=np.array([])),
+        output2=Matrix(m=np.array([])),
+    )
