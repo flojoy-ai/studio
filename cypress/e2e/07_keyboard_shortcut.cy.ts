@@ -1,5 +1,10 @@
 /// <reference types="cypress" />
 
+const layoutRegions = [
+  { selector: '[data-cy="app-status"]' },
+  { selector: '[data-cy="btn-play"]' },
+];
+
 describe("studio", () => {
   // This method performs setup before each test.
   beforeEach(() => {
@@ -37,7 +42,7 @@ describe("studio", () => {
       fully: true,
     });
 
-    cy.get('[data-testid="keyboardshortcut-closebtn"]').click();
+    cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({force : true});
 
     cy.get('[data-testid="darkmode-toggle"]').click();
 

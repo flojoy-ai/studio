@@ -1,5 +1,10 @@
 /// <reference types="cypress" />
 
+const layoutRegions = [
+  { selector: '[data-cy="app-status"]' },
+  { selector: '[data-cy="btn-play"]' },
+];
+
 describe("studio", () => {
   // This method performs setup before each test.
   beforeEach(() => {

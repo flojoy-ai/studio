@@ -1,4 +1,10 @@
 /// <reference types="cypress" />
+
+const layoutRegions = [
+  { selector: '[data-cy="app-status"]' },
+  { selector: '[data-cy="btn-play"]' },
+];
+
 require("cypress-xpath");
 describe("Verify node containers", () => {
   beforeEach(() => {
