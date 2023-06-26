@@ -1,5 +1,4 @@
 import json
-import uuid
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from captain.utils.config import manager
 from captain.utils.status_codes import STATUS_CODES
@@ -8,9 +7,13 @@ from captain.utils.logger import logger
 router = APIRouter(tags=["ws"])
 
 
-@router.websocket("/ws/socket-server/")
-async def websocket_endpoint(websocket: WebSocket):
-    await manager.ws.connect(websocket)
+@router.websocket("/ws/{socket_id}")
+async def websocket_endpoint(websocket: WebSocket, socket_id: str):
+    if socket_id in list(manager.ws.active_connections_map.keys()):
+        logger.info("client {socket_id} is already connected!")
+        return
+
+    await manager.ws.connect(websocket, socket_id=socket_id)
     try:
         # send "Connection established" message to client
         await websocket.send_text(
@@ -18,7 +21,7 @@ async def websocket_endpoint(websocket: WebSocket):
                 {
                     "type": "connection_established",
                     "msg": "You are now connected to flojoy servers",
-                    "socketId": str(uuid.uuid4()),
+                    "socketId": socket_id,
                     "SYSTEM_STATUS": STATUS_CODES["STANDBY"],
                 }
             )
@@ -29,4 +32,5 @@ async def websocket_endpoint(websocket: WebSocket):
             await websocket.receive_text()
 
     except WebSocketDisconnect:
-        logger.info("Client disconnected")
+        await manager.ws.disconnect(socket_id=socket_id)
+        logger.info(f"Client {socket_id} is disconnected")

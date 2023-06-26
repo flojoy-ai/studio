@@ -10,10 +10,9 @@ from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
 import networkx as nx
+from importlib import import_module
 
 lock = asyncio.Lock()
-
-sys.path.append(os.path.join(sys.path[0], "PYTHON"))  # Needed for dynamic module import
 
 
 class Topology:
@@ -21,7 +20,7 @@ class Topology:
     # TODO: Remove unnecessary logger.debug statements
     def __init__(
         self,
-        graph,
+        graph: nx.DiGraph,
         jobset_id,
         worker_processes: list[Process],
         node_delay: float = 0,
@@ -66,15 +65,20 @@ class Topology:
             node = self.original_graph.nodes[job_id]
         cmd = node["cmd"]
         cmd_mock = node["cmd"] + "_MOCK"
-        func = get_module_func(cmd, cmd)
-        if self.is_ci:
-            try:
-                func = get_module_func(cmd, cmd_mock)
-            except Exception:
-                pass
+        node_path = node.get("node_path") or ""
+        node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+        if node_path != "":
+            module = import_module(node_path)
+        else:
+            module = get_module_func(cmd)
+        func_name = cmd_mock if self.is_ci else cmd
+        try:
+            func = getattr(module, func_name)
+        except AttributeError:
+            func = getattr(module, cmd)
 
         dependencies = self.get_job_dependencies(job_id)
-        
+
         logger.debug(
             f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id, original=True) for dep_id in dependencies]}"
         )
@@ -88,10 +92,10 @@ class Topology:
             job_id=job_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
-            previous_job_ids=dependencies
+            previous_job_ids=dependencies,
         )
 
-    # also used for when the topology finishes 
+    # also used for when the topology finishes
     def cancel(self):
         self.cancelled = True
         self.kill_workers()
@@ -118,7 +122,7 @@ class Topology:
             self.finished_jobs.add(job_id)
 
         if job_id is None or job_result is None:
-            raise Exception("job_id is not supposed to be None")
+            raise ValueError("job_id is not supposed to be None")
 
         async with lock:
             next_jobs = self.process_job_result(
@@ -157,17 +161,19 @@ class Topology:
 
         for node_id in nodes_to_add:
             self.restart(node_id)
-        
+
         for node_id in nodes_to_add:
-            if self.working_graph.in_degree(node_id) == 0: # check if no dependencies left for node
+            if (
+                self.working_graph.in_degree(node_id) == 0
+            ):  # check if no dependencies left for node
                 next_nodes_from_dependencies.add(node_id)
-        
+
         return list(next_nodes_from_dependencies)
 
     # this function removes the node and checks its successors
     # for new jobs. A new job is ready when a sucessor has no dependencies.
     # NOTE doesn't actually remove the node, just its edges/dependencies corresponding to the label/direction
-    def remove_edges_and_get_next(self, job_id, label_direction, next_nodes : set):
+    def remove_edges_and_get_next(self, job_id, label_direction, next_nodes: set):
         successors = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
         for d_id in successors:
@@ -175,15 +181,12 @@ class Topology:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
-        
 
     def restart(self, job_id):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
 
         graph = self.original_graph
-        sub_graph = graph.subgraph(
-            [job_id] + list(nx.descendants(graph, job_id))
-        )
+        sub_graph = graph.subgraph([job_id] + list(nx.descendants(graph, job_id)))
         original_edges = sub_graph.edges
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
@@ -198,7 +201,6 @@ class Topology:
                 self.finished_jobs.remove(d_id)
             except Exception:
                 pass
-        
 
     def kill_workers(self):
         for worker_process in self.worker_processes:
@@ -217,7 +219,7 @@ class Topology:
                 f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
             )
             self.cancel()
-            return 
+            return
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def mark_job_failure(self, job_id):
@@ -288,10 +290,10 @@ class Topology:
     # this function will get the maximum amount of independant nodes during the topological sort of the graph.
     # Will be used to determine how many workers to spawn
     # TODO (priority very low): delete edges based on their label: currenly, we are deleting all edges regardless of their labels.
-    # So for example : 
+    # So for example :
     # Suppose we have a graph with 3 nodes: LOOP, node1, node2 and end,
     # assuming LOOP is the only dependency of all the nodes,
-    # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end), 
+    # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
     def get_maximum_workers(self, maximum_capacity=4):
         max_independant = 0
@@ -314,3 +316,6 @@ class Topology:
                         queue.append(neighbour)
 
         return max_independant
+
+    def cleanup(self):
+        self.job_service.reset(list(self.original_graph.nodes))

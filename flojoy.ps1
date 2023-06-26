@@ -61,6 +61,7 @@ $initPythonPackages = $true
 $initSubmodule = $true
 $enableSentry = $true
 $enableTelemetry = $false
+$isDebugMode = $false
 
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -83,13 +84,14 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -s -S -T -v venv"
+  Write-Host "Usage: $0 -n -p -s -S -T -v venv -d"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
   Write-Host  " -s: To NOT update submodules"
   Write-Host  " -S: To NOT enable Sentry"
   Write-Host  " -T: To enable Telemetry"
   Write-Host  " -v: To use virtual env"
+  Write-Host  " -d: To enable debug mode"
 }
 
 # Assign command-line arguments to a variable
@@ -126,6 +128,11 @@ while ($arguments) {
   }
   elseif ($key -ceq "-T") {
     $enableTelemetry = $true
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-d") {
+    $isDebugMode = $true
     $index = $index + 1
     continue
   }
@@ -320,4 +327,14 @@ if (!$venvPath) {
 
 # Start the project
 info_msg 'Starting the project...'
-& npm run start-project:win
+if ($isDebugMode -eq $true) {
+  info_msg "Debug mode will be enabled!"
+  $Env:DEBUG = $true
+  $startProjectCmd = "npm run start-project:win:debug"
+}
+else {
+  $Env:DEBUG = $false
+  $startProjectCmd = "npm run start-project:win"
+
+}
+Invoke-Expression $startProjectCmd

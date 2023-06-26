@@ -32,10 +32,9 @@ def debugger(port: int, worker_name: str):
 
 
 def start_worker(worker_name: str):
-    print("starting worker: ")
     if (
-        os.environ.get("PRINT_WORKER_OUTPUT", None) is None
-        or os.environ.get("PRINT_WORKER_OUTPUT", None) == "False"
+        os.environ.get("DEBUG", None) is None
+        or os.environ.get("DEBUG", None) == "False"
     ):
         text_trap = io.StringIO()
         sys.stdout = text_trap
