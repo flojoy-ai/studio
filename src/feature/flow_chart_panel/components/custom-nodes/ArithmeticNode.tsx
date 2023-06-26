@@ -8,7 +8,7 @@ import {
   AddSvg,
   MultiplySvg,
   SubSvg,
-} from "../../svgs/add-multiply-svg";
+} from "@src/assets/ArithmeticSVG";
 import { useNodeStyles } from "../DefaultNode";
 import NodeWrapper from "../NodeWrapper";
 
