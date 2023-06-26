@@ -16,7 +16,7 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/utils/cancel_icon";
+import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
@@ -38,7 +38,7 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
 
 const useStyles = createStyles((theme) => {

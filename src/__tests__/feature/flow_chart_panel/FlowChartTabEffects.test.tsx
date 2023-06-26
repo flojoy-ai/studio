@@ -2,7 +2,7 @@ import * as React from "react";
 import { renderHook } from "@testing-library/react";
 import { useFlowChartTabEffects } from "@src/feature/flow_chart_panel/FlowChartTabEffects";
 import { FlowChartTabStateReturnType } from "@src/feature/flow_chart_panel/FlowChartTabState";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
 import { Node } from "reactflow";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
