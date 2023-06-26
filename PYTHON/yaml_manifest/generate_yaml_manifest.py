@@ -47,7 +47,7 @@ def main():
     for file in get_nodes_files(NODES_DIR):
         try:
             manifest = create_manifest(file)
-            with open(os.path.join(os.path.dirname(file), "manifest.yaml"), "w") as f:
+            with open(os.path.join(os.path.dirname(file), "manifest.yml"), "w+") as f:
                 yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
             print(f"Wrote manifest for {os.path.basename(file)}")
         except Exception as e:
