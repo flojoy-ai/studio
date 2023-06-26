@@ -35,6 +35,21 @@ describe("studio", () => {
       target: "window",
       fully: true,
     });
+
+    cy.get('[data-testid="keyboardshortcut-closebtn"]').click();
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with keyboardshorcut modal",
+      target: "window",
+      fully: true,
+    });
+
   });
 
   // This method performs cleanup after each test.

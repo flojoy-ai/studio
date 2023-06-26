@@ -65,6 +65,41 @@ describe("studio", () => {
     });
 
     cy.get('[data-testid="api-key-close-btn"]').click();
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-apikey"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with apikey modal",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="api-key-input"]').type("TestAPIKeyInput");
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with apikey modal with input",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="api-key-input-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with apikey modal after submit",
+      target: "window",
+      fully: true,
+    });
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with apikey modal after submit",
+      target: "window",
+      fully: true,
+    });
+
   });
 
   // This method performs cleanup after each test.

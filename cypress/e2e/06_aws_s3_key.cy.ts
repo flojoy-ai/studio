@@ -55,6 +55,39 @@ describe("studio", () => {
       target: "window",
       fully: true,
     });
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-s3key"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with AWS S3 key modal",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
+    cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
+    cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
+
+    cy.get('[data-testid="s3-submit-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with AWS S3 key modal submit",
+      target: "window",
+      fully: true,
+    });
+
+    cy.get('[data-testid="s3-close-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with AWS S3 key modal closed",
+      target: "window",
+      fully: true,
+    });
+
   });
 
   // This method performs cleanup after each test.
