@@ -4,7 +4,8 @@ import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps
 import NodeWrapper from "../NodeWrapper";
 import { Box, clsx, createStyles } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
-import { ScipySvg } from "../../svgs/add-multiply-svg";
+import { ScipySvg } from "@src/assets/ArithmeticSVG";
+
 const useStyles = createStyles((theme) => {
   const accent =
     theme.colorScheme === "light"

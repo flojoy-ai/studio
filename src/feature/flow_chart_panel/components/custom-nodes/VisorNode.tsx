@@ -4,25 +4,25 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
-import { makePlotlyData } from "@src/utils/format_plotly_data";
+import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import { memo, useMemo, JSX } from "react";
 import { useNodeStyles } from "../DefaultNode";
-import Scatter3D from "../nodes/3d-scatter";
-import Surface3D from "../nodes/3d-surface";
-import BarChart from "../nodes/bar";
+import Scatter3D from "../nodes/3DScatter";
+import Surface3D from "../nodes/3DSurface";
+import BarChart from "../nodes/Bar";
 import BigNumber from "../nodes/BigNumber";
-import BoxPlot from "../nodes/box-plot";
+import BoxPlot from "../nodes/BoxPlot";
 import Histogram from "../nodes/Histogram";
 import PlotlyImage from "../nodes/Image";
-import LineChart from "../nodes/line-chart";
+import LineChart from "../nodes/LineChart";
 import Scatter from "../nodes/Scatter";
 import PlotlyTable from "../nodes/Table";
 import NodeWrapper from "../NodeWrapper";
-import ArrayView from "../nodes/array-view";
-import ProphetPlot from "../nodes/prophet-plot";
-import ProphetComponents from "../nodes/prophet-components";
-import CompositePlot from "../nodes/composite-plot";
-import MatrixView from "../nodes/matrix-view";
+import ArrayView from "../nodes/ArrayView";
+import ProphetPlot from "../nodes/ProphetPlot";
+import ProphetComponents from "../nodes/ProphetComponents";
+import CompositePlot from "../nodes/CompositePlot";
+import MatrixView from "../nodes/MatrixView";
 
 const useStyles = createStyles((theme) => {
   return {
