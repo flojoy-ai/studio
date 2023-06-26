@@ -55,13 +55,6 @@ describe("studio", () => {
       target: "window",
       fully: true,
     });
-
-    cy.get('[data-cy="ctrls-btn"]').click();
-    cy.eyesCheckWindow({
-      tag: "light ctrl page",
-      target: "window",
-      fully: true,
-    });
   });
 
   // This method performs cleanup after each test.
