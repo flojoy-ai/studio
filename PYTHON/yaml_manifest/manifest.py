@@ -45,8 +45,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
             elif not dc_types:
                 if not all([t in ALLOWED_PARAM_TYPES for t in param_type.__args__]):
                     raise TypeError(
-                        f"""Union types must be one of {ALLOWED_PARAM_TYPES},
-                        got {param_type.__args__}"""
+                        f"Union types must be one of {ALLOWED_PARAM_TYPES},"
+                        f"got {param_type.__args__}"
                     )
 
                 params[name] = {
@@ -55,8 +55,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                 }
             else:
                 raise TypeError(
-                    """Type union must either contain all DataContainers 
-                    or no DataContainers at all."""
+                    "Type union must either contain all DataContainers"
+                    "or no DataContainers at all."
                 )
         # Case 2: Any DataContainer
         elif param_type == DataContainer:
@@ -74,8 +74,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         else:
             if param_type not in ALLOWED_PARAM_TYPES:
                 raise TypeError(
-                    f"""Parameter types must be one of {ALLOWED_PARAM_TYPES},
-                    got {param_type}"""
+                    f"Parameter types must be one of {ALLOWED_PARAM_TYPES},"
+                    f"got {param_type}"
                 )
 
             params[name] = {
@@ -117,8 +117,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         for field in fields(return_type):
             if not issubclass(field.type, DataContainer):
                 raise TypeError(
-                    f"""Return type must be a DataContainer or a DataClass
-                    consisting of only DataContainers as fields, got {return_type}"""
+                    "Return type must be a DataContainer or a DataClass"
+                    "consisting of only DataContainers as fields, got {return_type}"
                 )
 
             output_type = (
@@ -130,8 +130,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
             create_output(field.name, output_type)
     else:
         raise TypeError(
-            f"""Return type must be a DataContainer or a DataClass consisting 
-            of only DataContainers as fields, got {return_type}"""
+            "Return type must be a DataContainer or a DataClass consisting"
+            f"of only DataContainers as fields, got {return_type}"
         )
 
     manifest["outputs"] = outputs
