@@ -1,15 +1,11 @@
 import os
 import yaml
-import importlib
-import importlib.util
-from typing import Callable
 from types import ModuleType
 from build_ast import get_pip_dependencies, make_manifest_ast
 from manifest import make_manifest_for
 
 
-NODES_DIR = "PYTHON/nodes"
-MANIFEST_DIR = "manifest"
+NODES_DIR = "../nodes"
 
 
 def get_nodes_files(root_dir: str) -> list[str]:
@@ -30,32 +26,33 @@ def get_nodes_files(root_dir: str) -> list[str]:
     return result
 
 
-def get_node_function(path: str) -> Callable:
-    module_name = path[:-3].replace(os.sep, ".")
-    module = importlib.import_module(module_name)
-
-    func_name = os.path.basename(path)[:-3]
-    return getattr(module, func_name)
-
-
-def main():
-    if not os.path.exists(MANIFEST_DIR):
-        os.mkdir(MANIFEST_DIR)
-
-    tree = make_manifest_ast("test.py")
+def create_manifest(path: str) -> dict:
+    tree = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
 
-    func = getattr(module, "FOO")
+    filename = os.path.basename(path)[:-3]
+    func = getattr(module, filename)
     manifest = make_manifest_for("ARITHMETIC", func)
 
     pip_deps = get_pip_dependencies(tree)
     if pip_deps:
         manifest["COMMAND"][0]["pip_dependencies"] = pip_deps
 
-    with open(os.path.join(MANIFEST_DIR, "test.manifest.yaml"), "w") as f:
-        yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
+    return manifest
+
+
+def main():
+    for file in get_nodes_files(NODES_DIR):
+        try:
+            manifest = create_manifest(file)
+            with open(os.path.join(os.path.dirname(file), "manifest.yaml"), "w") as f:
+                yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
+            print(f"Wrote manifest for {os.path.basename(file)}")
+        except Exception as e:
+            # print(f"Failed to generate manifest for {file}, reason: {e}")
+            continue
 
 
 if __name__ == "__main__":
