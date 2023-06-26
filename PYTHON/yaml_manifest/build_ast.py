@@ -1,5 +1,5 @@
 import ast
-from typing import Any, Optional
+from typing import Optional, Any, Callable
 
 SELECTED_IMPORTS = ["flojoy_mock", "dataclasses", "typing"]
 
@@ -8,9 +8,6 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
     def has_decorator(
         self, node: ast.FunctionDef | ast.ClassDef, decorator_name: str
     ) -> bool:
-        if not node.decorator_list:
-            return False
-
         for decorator in node.decorator_list:
             if isinstance(decorator, ast.Name) and decorator.id == decorator_name:
                 return True
@@ -32,7 +29,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
             return node
         return None
 
-    def visit_ImportFrom(self, node):
+    def visit_ImportFrom(self, node: ast.ImportFrom):
         if node.module in SELECTED_IMPORTS:
             return node
         return None
@@ -69,11 +66,11 @@ def make_manifest_ast(path: str) -> ast.Module:
     transformer = FlojoyNodeTransformer()
     tree: ast.Module = transformer.visit(tree)
 
-    flojoy_nodes = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
-    if not flojoy_nodes:
+    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+
+    if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
-    flojoy_node = flojoy_nodes[0]
     if not flojoy_node.returns or not isinstance(flojoy_node.returns, ast.Name):
         raise ValueError(
             "Flojoy node must have a dataclass or DataContainer return type hint"
@@ -93,26 +90,24 @@ def make_manifest_ast(path: str) -> ast.Module:
 
 
 def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
-    flojoy_nodes = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
-    if not flojoy_nodes:
+    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
-    is_decorator_with_deps = (
+    # Differentiates between @flojoy and @flojoy(deps={...})
+    decorator = find(
+        flojoy_node.decorator_list,
         lambda d: isinstance(d, ast.Call)
         and isinstance(d.func, ast.Name)
-        and d.func.id == "flojoy"
+        and d.func.id == "flojoy",
     )
 
-    flojoy_node = flojoy_nodes[0]
-    # Differentiates between @flojoy and @flojoy(deps={...})
-    decorator = next(filter(is_decorator_with_deps, flojoy_node.decorator_list), None)
-
     # If it's just @flojoy then there are no dependencies
-    if not decorator or not isinstance(decorator, ast.Call):
+    if not decorator:
         return None
 
     # Look for the deps keyword
-    kw = next(filter(lambda k: k.arg == "deps", decorator.keywords), None)
+    kw = find(decorator.keywords, lambda k: k.args == "deps")
 
     if not kw:
         return None
@@ -127,3 +122,7 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
         deps.append({"name": package.value, "v": ver.value})
 
     return deps
+
+
+def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:
+    return next(filter(predicate, collection), None)

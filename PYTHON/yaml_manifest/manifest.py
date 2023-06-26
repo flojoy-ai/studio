@@ -16,35 +16,37 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
     inputs = []
     params = {}
 
-    create_input = lambda name, input_type: inputs.append(
-        {"name": name, "id": name, "type": input_type}
-    )
+    def create_io(arr):
+        def func(name: str, input_type: str):
+            arr.append({"name": name, "id": name, "type": input_type})
+
+        return func
+
+    create_input = create_io(inputs)
 
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
         param_type = param.annotation
-        default_value = None
-
-        if param.default is not param.empty:
-            default_value = param.default
+        default_value = param.default if param.default is not param.empty else None
 
         # Case 1: Union type
         if is_union(param_type):
             union_types = get_union_types(param_type)
             dc_types = [t for t in union_types if is_datacontainer(t)]
+
             # Case 1.1: Union of DataContainers
             if len(dc_types) == len(union_types):
                 # Obviously if the union contains DataContainer, it's just Any
                 if DataContainer in dc_types:
                     create_input(name, "any")
-                    continue
-
-                create_input(name, union_type_str(param_type))
+                else:
+                    create_input(name, union_type_str(param_type))
             # Case 1.2: Union of other types
             elif not dc_types:
                 if not all([t in ALLOWED_PARAM_TYPES for t in param_type.__args__]):
                     raise TypeError(
-                        f"Union types must be one of {ALLOWED_PARAM_TYPES}, got {param_type.__args__}"
+                        f"""Union types must be one of {ALLOWED_PARAM_TYPES},
+                        got {param_type.__args__}"""
                     )
 
                 params[name] = {
@@ -53,7 +55,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                 }
             else:
                 raise TypeError(
-                    f"Type union must either contain all DataContainers or no DataContainers at all."
+                    """Type union must either contain all DataContainers 
+                    or no DataContainers at all."""
                 )
         # Case 2: Any DataContainer
         elif param_type == DataContainer:
@@ -71,7 +74,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         else:
             if param_type not in ALLOWED_PARAM_TYPES:
                 raise TypeError(
-                    f"Parameter types must be one of {ALLOWED_PARAM_TYPES}, got {param_type}"
+                    f"""Parameter types must be one of {ALLOWED_PARAM_TYPES},
+                    got {param_type}"""
                 )
 
             params[name] = {
@@ -85,18 +89,17 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         manifest["parameters"] = params
 
     outputs = []
-    create_output = lambda name, output_type: outputs.append(
-        {"name": name, "id": name, "type": output_type}
-    )
 
-    # TODO: Refactor similar code
+    create_output = create_io(outputs)
+
+    # Do a similar thing for the return type
     return_type = sig.return_annotation
 
     # Union case
     if is_union(return_type):
         union_types = get_union_types(return_type)
         if not all(issubclass(t, DataContainer) for t in union_types):
-            raise TypeError(f"Return type union must contain all DataContainers")
+            raise TypeError("Return type union must contain all DataContainers")
 
         # Obviously if the union contains DataContainer, it's just Any
         if DataContainer in union_types:
@@ -114,7 +117,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
         for field in fields(return_type):
             if not issubclass(field.type, DataContainer):
                 raise TypeError(
-                    f"Return type must be a DataContainer or a DataClass consisting of only DataContainers as fields, got {return_type}"
+                    f"""Return type must be a DataContainer or a DataClass
+                    consisting of only DataContainers as fields, got {return_type}"""
                 )
 
             output_type = (
@@ -126,7 +130,8 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
             create_output(field.name, output_type)
     else:
         raise TypeError(
-            f"Return type must be a DataContainer or a DataClass consisting of only DataContainers as fields, got {return_type}"
+            f"""Return type must be a DataContainer or a DataClass consisting 
+            of only DataContainers as fields, got {return_type}"""
         )
 
     manifest["outputs"] = outputs
