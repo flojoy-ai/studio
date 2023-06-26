@@ -19,7 +19,6 @@ import {
 } from "@mantine/core";
 import { useRouteError, useNavigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { CustomFonts } from "./feature/common/CustomFonts";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
@@ -144,7 +143,6 @@ const App = () => {
             outputs={preJobOperation.output}
             close={closePreJobModal}
           />
-          <CustomFonts />
           <Routes>
             <Route
               path="/"
