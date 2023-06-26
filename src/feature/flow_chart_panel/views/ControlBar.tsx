@@ -16,7 +16,7 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/utils/cancel_icon";
+import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";

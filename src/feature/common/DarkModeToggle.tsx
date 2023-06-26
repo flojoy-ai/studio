@@ -3,7 +3,7 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
-import { DarkIcon, LightIcon } from "@src/utils/ThemeIconSvg";
+import { DarkIcon, LightIcon } from "@src/assets/ThemeIconSvg";
 
 const useStyles = createStyles(() => ({
   toggle: {
