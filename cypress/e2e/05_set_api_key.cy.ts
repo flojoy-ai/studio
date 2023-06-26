@@ -31,6 +31,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with dropdown bar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -39,6 +40,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -47,6 +49,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal with input",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -55,12 +58,14 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal after submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal after submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -75,6 +80,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -83,6 +89,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal with input",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -91,15 +98,16 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal after submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal after submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
-
   });
 
   // This method performs cleanup after each test.

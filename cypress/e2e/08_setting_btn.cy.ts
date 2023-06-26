@@ -31,6 +31,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with setting modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

@@ -14,6 +14,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Open CTRLS
@@ -22,6 +23,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click add CTRLS button
@@ -29,6 +31,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Open Inputs
@@ -36,6 +39,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar and INPUTS",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Open Continue variables
@@ -43,6 +47,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add CTRLS sidebar, INPUTS and Continuous Variables",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     //Select Numeric Input
@@ -50,6 +55,7 @@ describe("Verify Add and Delete CTRLS", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with NUMERIC_INPUT CTRLS open",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

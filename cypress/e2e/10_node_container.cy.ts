@@ -19,12 +19,14 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page after clicking sidebar expand btn",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.get('[data-testid="sidebar-collapse-btn"]').click();
     cy.eyesCheckWindow({
       tag: "dark flow page after clicking sidebar collapse btn",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -34,6 +36,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with AI and Machine learning container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'AI and Machine learning')]").click();
@@ -43,6 +46,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with SciPy container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'SCIentific PYthon (SciPy)')]").click();
@@ -52,6 +56,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with NumPy container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'NUMeric PYthon (NumPy)')]").click();
@@ -61,6 +66,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Extractors container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Extractors')]").click();
@@ -70,6 +76,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Generators container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Generators')]").click();
@@ -80,6 +87,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Loaders container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Loaders')]").click();
@@ -90,6 +98,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Logic gates container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Logic gates')]").click();
@@ -100,6 +109,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Transformer container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Transformers')]").click();
@@ -109,6 +119,7 @@ describe("Verify node containers", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with Visualizers container",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Visualizers')]").click();

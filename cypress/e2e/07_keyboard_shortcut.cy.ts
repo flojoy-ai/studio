@@ -33,6 +33,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with keyboardshorcut modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -47,9 +48,9 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with keyboardshorcut modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
-
   });
 
   // This method performs cleanup after each test.

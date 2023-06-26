@@ -41,6 +41,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with end node",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

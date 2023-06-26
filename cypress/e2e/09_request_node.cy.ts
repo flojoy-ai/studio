@@ -14,6 +14,7 @@ describe(" node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click add node
@@ -25,6 +26,7 @@ describe(" node", () => {
     cy.eyesCheckWindow({
       tag: "new page with node request form",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

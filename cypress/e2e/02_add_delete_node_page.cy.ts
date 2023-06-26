@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+
 require("cypress-xpath");
 describe("Verify Add and Delete node", () => {
   beforeEach(() => {
@@ -14,6 +15,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click add node
@@ -22,6 +24,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     //Select container Loaders
@@ -33,6 +36,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with node loader",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click on added container LOADER
@@ -42,6 +46,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'LOADER')]").should(

@@ -31,6 +31,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page without any nodes",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

@@ -33,6 +33,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with AWS S3 key modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -45,6 +46,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with AWS S3 key modal submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -53,6 +55,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with AWS S3 key modal closed",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -65,6 +68,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with AWS S3 key modal",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -77,6 +81,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with AWS S3 key modal submit",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -85,9 +90,9 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page with AWS S3 key modal closed",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
-
   });
 
   // This method performs cleanup after each test.

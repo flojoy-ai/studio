@@ -1,5 +1,10 @@
 /// <reference types="cypress" />
 
+const layoutRegions = [
+  { selector: '[data-cy="app-status"]' },
+  { selector: '[data-cy="btn-play"]' },
+];
+
 describe("studio", () => {
   // This method performs setup before each test.
   beforeEach(() => {
@@ -28,6 +33,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -39,6 +45,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with SINE menu",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -46,6 +53,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -53,6 +61,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -60,6 +69,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light ctrl page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });
