@@ -1,10 +1,5 @@
 /// <reference types="cypress" />
 
-const layoutRegions = [
-  { selector: '[data-cy="app-status"]' },
-  { selector: '[data-cy="btn-play"]' },
-];
-
 describe("studio", () => {
   // This method performs setup before each test.
   beforeEach(() => {
@@ -28,32 +23,35 @@ describe("studio", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("keyboard shortcut test", () => {
+  it("clear canvas test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+    // Click clear canvas button
+    cy.get(
+      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
+    ).click();
 
-    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+    cy.get('[data-testid="expand-button"]').click();
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with keyboardshorcut modal",
+      tag: "dark flow page with Histogram node modal",
       target: "window",
-      layout: layoutRegions,
       fully: true,
     });
 
-    cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
+    cy.get('[data-testid="node-modal-closebtn"]').click();
 
     cy.get('[data-testid="darkmode-toggle"]').click();
 
-    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+    cy.get(
+      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
+    ).click();
 
-    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+    cy.get('[data-testid="expand-button"]').click();
 
     cy.eyesCheckWindow({
-      tag: "light flow page with keyboardshorcut modal",
+      tag: "light flow page with Histogram node modal",
       target: "window",
-      layout: layoutRegions,
       fully: true,
     });
   });
