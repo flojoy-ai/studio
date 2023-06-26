@@ -38,6 +38,19 @@ describe("studio", () => {
       layout: layoutRegions,
       fully: true,
     });
+
+    // cy.get('[data-testid="settings-modal-closebtn"]').click();
+
+    // cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // cy.get('[data-testid="btn-setting"]').click();
+
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with setting modal",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
   });
 
   // This method performs cleanup after each test.

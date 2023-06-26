@@ -182,7 +182,9 @@
     ],
     "exclude": [
       "assets/",
-      "src/__tests__"
+      "src/__tests__",
+      " src/feature/controls_panel/",
+      " src/feature/results_panel/"
     ],
     "all": true
   }

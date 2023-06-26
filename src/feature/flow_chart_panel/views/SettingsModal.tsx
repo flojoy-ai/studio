@@ -97,6 +97,8 @@ export const SettingsModal = ({
       onClose={onClose}
       size={1030}
     >
+      {/* <Modal.CloseButton data-testid="settings-modal-closebtn" /> */}
+
       <div data-testid="settings_container" className={classes.container}>
         <div className={classes.list}>
           {settingsList.map((setting) => (
