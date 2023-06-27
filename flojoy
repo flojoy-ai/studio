@@ -280,9 +280,15 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
+cd PYTHON/manifest
+$venvCmd && python3 generate_yaml_manifest.py
+cd ../..
+
+feedback $? 'Generated yaml manifests for Python nodes' 'Error occurred while generating yaml manifests. Check errors printed above!'
+
 $venvCmd && python3 generate_manifest.py
 
-feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
 if [ $is_ci = true ];then
    exit 0
