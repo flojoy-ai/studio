@@ -8,6 +8,20 @@ from manifest import make_manifest_for
 NODES_DIR = "../nodes"
 
 
+def main():
+    for file in get_nodes_files(NODES_DIR):
+        path = os.path.join(os.path.dirname(file), "manifest.yml")
+        node_filename = os.path.basename(file)
+        try:
+            manifest = create_manifest(file)
+            with open(path, "w+") as f:
+                yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
+            print(f"✅ Wrote manifest for {node_filename}")
+        except Exception as e:
+            print(f"❌ Failed to generate manifest for {node_filename}, reason: {e}")
+            continue
+
+
 def get_nodes_files(root_dir: str) -> list[str]:
     result = []
 
@@ -41,18 +55,6 @@ def create_manifest(path: str) -> dict:
         manifest["COMMAND"][0]["pip_dependencies"] = pip_deps
 
     return manifest
-
-
-def main():
-    for file in get_nodes_files(NODES_DIR):
-        try:
-            manifest = create_manifest(file)
-            with open(os.path.join(os.path.dirname(file), "manifest.yml"), "w+") as f:
-                yaml.safe_dump(manifest, f, sort_keys=False, indent=2)
-            print(f"Wrote manifest for {os.path.basename(file)}")
-        except Exception as e:
-            # print(f"Failed to generate manifest for {file}, reason: {e}")
-            continue
 
 
 if __name__ == "__main__":
