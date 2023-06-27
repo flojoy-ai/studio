@@ -2,8 +2,8 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Text, useMantineTheme } from "@mantine/core";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import { IconButton } from "@src/feature/common/IconButton";
-import { TabActions } from "@src/feature/common/TabActions";
+import IconButton from "@src/feature/common/IconButton";
+import TabActions from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -34,6 +34,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  BezierEdge,
 } from "reactflow";
 import Sidebar from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -95,6 +96,11 @@ const FlowChartTab = () => {
   const sidebarCustomContent = useMemo(
     () => <SidebarCustomContent onAddNode={addNewNode} />,
     [addNewNode]
+  );
+  const manifestMap = useMemo(() => getManifestCmdsMap(), []);
+  const toggleSidebar = useCallback(
+    () => setIsSidebarOpen((prev) => !prev),
+    []
   );
 
   const handleNodeRemove = useCallback(
@@ -251,28 +257,33 @@ const FlowChartTab = () => {
     selectedNode,
   });
 
+  const plusIcon = useMemo(
+    () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
+    [theme]
+  );
+
+  const minusIcon = useMemo(
+    () => <IconMinus size={16} color={theme.colors.accent1[0]} />,
+    [theme]
+  );
+
   return (
     <Layout>
       <TabActions>
         <IconButton
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          onClick={toggleSidebar}
+          icon={plusIcon}
           data-testid="add-node-button"
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
-        <IconButton
-          onClick={() => clearCanvas()}
-          icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
-          ml="auto"
-          h="100%"
-        >
+        <IconButton onClick={clearCanvas} icon={minusIcon} ml="auto" h="100%">
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
       </TabActions>
       <Sidebar
         sections={CMND_TREE}
-        manifestMap={getManifestCmdsMap()}
+        manifestMap={manifestMap}
         leafNodeClickHandler={addNewNode}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}

@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, Box, clsx, createStyles } from "@mantine/core";
+import { Box, clsx, createStyles } from "@mantine/core";
 import HandleComponent from "@src/feature/flow_chart_panel/components/HandleComponent";
 import NodeWrapper from "@src/feature/flow_chart_panel/components/NodeWrapper";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";

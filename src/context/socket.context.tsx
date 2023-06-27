@@ -1,4 +1,4 @@
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
@@ -86,7 +86,7 @@ export const SocketContextProvider = ({
       });
       setSocket(ws);
     }
-  }, []);
+  });
   return (
     <SocketContext.Provider
       value={{

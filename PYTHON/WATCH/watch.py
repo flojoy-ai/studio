@@ -139,13 +139,19 @@ class FlowScheduler:
             except Exception:
                 pass
 
-        dependencies = self.topology.get_job_dependencies(job_id, original=True)
+        previous_job_ids = self.topology.get_job_dependencies(job_id, original=True)
+        previous_jobs = self.topology.get_job_dependencies_with_label(
+            job_id, original=True
+        )
 
         print(
             " enqueue job:",
             self.topology.get_label(job_id),
             "dependencies:",
-            [self.topology.get_label(dep_id, original=True) for dep_id in dependencies],
+            [
+                self.topology.get_label(dep_id, original=True)
+                for dep_id in previous_job_ids
+            ],
         )
 
         self.job_service.enqueue_job(
@@ -154,8 +160,8 @@ class FlowScheduler:
             job_id=job_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
-            previous_job_ids=[],
-            input_job_ids=dependencies,
+            previous_job_ids=previous_job_ids,
+            previous_jobs=previous_jobs,
         )
 
     def wait_for_job(self, job_id):
@@ -194,6 +200,7 @@ class FlowScheduler:
 
 def reactflow_to_networkx(elems, edges):
     nx_graph: nx.DiGraph = nx.DiGraph()
+    dict_node_inputs: dict[str, list] = dict()
     for i in range(len(elems)):
         el = elems[i]
         node_id = el["id"]
@@ -202,6 +209,7 @@ def reactflow_to_networkx(elems, edges):
         ctrls = data["ctrls"] if "ctrls" in data else {}
         inputs = data["inputs"] if "inputs" in data else {}
         label = data["label"] if "label" in data else {}
+        dict_node_inputs[node_id] = inputs
         nx_graph.add_node(
             node_id,
             pos=(el["position"]["x"], el["position"]["y"]),
@@ -218,7 +226,15 @@ def reactflow_to_networkx(elems, edges):
         u = e["source"]
         v = e["target"]
         label = e["sourceHandle"]
-        nx_graph.add_edge(u, v, label=label, id=_id)
+        target_label_id = e["targetHandle"]
+        v_inputs = dict_node_inputs[v]
+        target_input = list(
+            filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
+        )
+        target_label = "default"
+        if len(target_input) > 0:
+            target_label = target_input[0].get("name")
+        nx_graph.add_edge(u, v, label=label, target_label=target_label, id=_id)
 
     nx.draw(nx_graph, with_labels=True)
 

@@ -50,6 +50,7 @@ worker-manager/node_modules
 /**/.idea/*
 .vscode/*
 !.vscode/launch.json
+!.vscode/extensions.json
 
 src/data/*.json
 src/feature/flow_chart_panel/manifest/pythonFunctions.json
@@ -57,3 +58,5 @@ src/feature/flow_chart_panel/manifest/pythonFunctions.json
 .coverage
 coverage.xml
 
+.nyc_output/out.json
+coverage-cy
