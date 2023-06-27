@@ -103,6 +103,9 @@ def flowchart_to_nx_graph(flowchart):
         target_label = "default"
         if len(target_input) > 0:
             target_label = target_input[0].get("name")
+        logger.debug(
+            f"Adding edge, inputs: {v_inputs}, chosen label: {target_label}, target_label_id: {target_label_id}"
+        )
         nx_graph.add_edge(u, v, label=label, target_label=target_label, id=_id)
 
     nx.draw(nx_graph, with_labels=True)
@@ -171,7 +174,8 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
                 )
                 logger.debug(f"Package: {package['name']} is missing!")
                 missing_packages.append(pckg_str)
-    if len(missing_packages) > 0:
+
+    if missing_packages:
         socket_msg["PRE_JOB_OP"][
             "output"
         ] = f"{', '.join(missing_packages)} packages will be installed with pip!"
