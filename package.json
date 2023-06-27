@@ -60,7 +60,7 @@
     "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
     "rq-flojoy": "python3 PYTHON/worker.py flojoy",
-    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto  \"npm:start\" \"npm:rq-flojoy\" \"npm:backend\"",
+    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto  \"npm:start\" \"npm:rq-flojoy\" \"npm:backend:debug\"",
     "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto \"npm:start\" \"python PYTHON/worker.py flojoy\" \"python manage.py\"",
     "start-project:win:debug": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto \"npm:start\" \"python PYTHON/worker.py flojoy\" \"python manage.py --log-level debug\"",
     "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-flojoy,FastAPI\" -c auto  \"npm:start\" \"npm:rq-flojoy\" \"npm:backend\"",
