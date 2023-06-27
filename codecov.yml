@@ -10,10 +10,10 @@ coverage:
 
 flag_management:
   individual_flags:
-    # - name: typescript
-    #   statuses:
-    #     - type: project
-    #       target: 30%
+    - name: typescript
+      statuses:
+        - type: project
+          target: 30%
     - name: python
       statuses:
         - type: project

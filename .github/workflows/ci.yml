@@ -68,29 +68,29 @@ jobs:
       - name: Run formatting check
         run: npm run check
 
-  # python-tests:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         submodules: recursive
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "3.10"
-  #         cache: "pip"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
 
-  #     - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt
 
-  #     - name: pytest
-  #       run: |
-  #         cd PYTHON
-  #         python -m pytest --cov --cov-report=xml
+      - name: pytest
+        run: |
+          cd PYTHON
+          python -m pytest --cov --cov-report=xml
 
-  #     - name: Codecov report
-  #       uses: codecov/codecov-action@v3
-  #       with:
-  #         flags: python
+      - name: Codecov report
+        uses: codecov/codecov-action@v3
+        with:
+          flags: python
 
   visual-tests:
     runs-on: ubuntu-latest
