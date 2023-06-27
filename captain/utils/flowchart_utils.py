@@ -66,6 +66,8 @@ def flowchart_to_nx_graph(flowchart):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
     nx_graph: nx.DiGraph = nx.DiGraph()
+    dict_node_inputs: dict[str, list] = dict()
+
     for i in range(len(elems)):
         el = elems[i]
         node_id = el["id"]
@@ -74,6 +76,7 @@ def flowchart_to_nx_graph(flowchart):
         ctrls = data.get("ctrls", {})
         inputs = data.get("inputs", {})
         label = data.get("label", {})
+        dict_node_inputs[node_id] = inputs
         node_path = data.get("path", "")
         nx_graph.add_node(
             node_id,
@@ -92,7 +95,15 @@ def flowchart_to_nx_graph(flowchart):
         u = e["source"]
         v = e["target"]
         label = e["sourceHandle"]
-        nx_graph.add_edge(u, v, label=label, id=_id)
+        target_label_id = e["targetHandle"]
+        v_inputs = dict_node_inputs[v]
+        target_input = list(
+            filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
+        )
+        target_label = "default"
+        if len(target_input) > 0:
+            target_label = target_input[0].get("name")
+        nx_graph.add_edge(u, v, label=label, target_label=target_label, id=_id)
 
     nx.draw(nx_graph, with_labels=True)
 
