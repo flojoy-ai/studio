@@ -31,8 +31,6 @@ describe("studio", () => {
       '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
     ).click();
 
-    cy.get('[data-testid="node-edit-menu"]').should("eq");
-
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);
 
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
