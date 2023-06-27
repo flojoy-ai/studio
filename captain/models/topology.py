@@ -77,10 +77,10 @@ class Topology:
         except AttributeError:
             func = getattr(module, cmd)
 
-        dependencies = self.get_job_dependencies(job_id)
+        previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
         logger.debug(
-            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id, original=True) for dep_id in dependencies]}"
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id.get('job_id'), original=True) for dep_id in previous_jobs]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
@@ -92,7 +92,7 @@ class Topology:
             job_id=job_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
-            previous_job_ids=dependencies,
+            previous_jobs=previous_jobs,
         )
 
     # also used for when the topology finishes
@@ -248,6 +248,29 @@ class Topology:
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
         return edges
+
+    def get_job_dependencies_with_label(
+        self, job_id: str, original: bool = True
+    ) -> list[dict[str, str]]:
+        graph = self.get_graph(original)
+        try:
+            return [
+                {
+                    "job_id": prev_job_id,
+                    "input_name": self.get_input_name(prev_job_id, job_id, original),
+                }
+                for prev_job_id in list(graph.predecessors(job_id))
+            ]
+        except Exception:
+            return []
+
+    def get_input_name(
+        self, source_job_id: str, target_job_id: str, original: bool = False
+    ) -> str:
+        graph = self.get_graph(original)
+        edge_data = graph.get_edge_data(source_job_id, target_job_id)
+        label = "" if edge_data is None else edge_data.get("target_label", "")
+        return label
 
     def remove_dependency(self, job_id, succ_id):
         if self.working_graph.has_edge(job_id, succ_id):

@@ -92,7 +92,7 @@ class JobService:
         job_id,
         iteration_id,
         ctrls,
-        previous_job_ids,
+        previous_jobs,
     ):
         if Job.exists(job_id, self.redis_dao.r):
             job = Job.fetch(job_id, connection=self.redis_dao.r)
@@ -105,7 +105,7 @@ class JobService:
             job_id=iteration_id,
             kwargs={
                 "ctrls": ctrls,
-                "previous_job_ids": previous_job_ids,
+                "previous_jobs": previous_jobs,
                 "jobset_id": jobset_id,
                 "node_id": job_id,
                 "job_id": iteration_id,

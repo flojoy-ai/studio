@@ -1,5 +1,5 @@
 import logging
-import sys
+import sys, os
 
 
 """NOTE: If you want to print the output of the RQ worker, then in the command line add PRINT_WORKER_OUTPUT=True"""
@@ -28,6 +28,8 @@ def get_log_level():
     log_level = "info"
     if "--log-level" in sys.argv:
         log_level = sys.argv[sys.argv.index("--log-level") + 1]
+    elif os.environ.get("DEBUG", False):
+        log_level = "debug"
     return map_to_int[log_level]
 
 
