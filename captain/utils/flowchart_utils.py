@@ -2,6 +2,7 @@ import io
 import json
 import networkx as nx
 from multiprocessing import Process
+from PYTHON.services.job_service import JobService
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
 from redis import Redis
@@ -30,14 +31,14 @@ def run_worker(index):
     worker.work()
 
 
-def create_topology(request: PostWFC, worker_processes):
-    graph = flowchart_to_nx_graph(json.loads(request.fc))
+def create_topology(fc, node_delay, max_runtime, worker_processes):
+    graph = flowchart_to_nx_graph(fc)
     return Topology(
         graph,
         "",
         worker_processes=worker_processes,
-        node_delay=request.nodeDelay,
-        max_runtime=request.maximumRuntime,
+        node_delay=node_delay,
+        max_runtime=max_runtime,
     )
 
 
@@ -92,11 +93,7 @@ def flowchart_to_nx_graph(flowchart):
 
     return nx_graph
 
-# clears memory used by some worker nodes 
-def clear_memory():
-    SmallMemory().clear_memory()
-
 # run code for cleaning up memory and preparing next topology to be ran
 # add more stuff if needed here: 
-def prepare_for_next_run():
-    clear_memory()
+def prepare_for_next_run(nodes):
+    JobService("flojoy").reset(nodes)

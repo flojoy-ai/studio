@@ -50,12 +50,16 @@ async def write_and_run_flowchart(request: PostWFC):
         return
     asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
 
+    fc = json.loads(request.fc)
+    node_delay = request.nodeDelay
+    max_runtime = request.maximumRuntime
+
     # prepare for next topology run, clear memory 
-    prepare_for_next_run()
+    prepare_for_next_run(fc["nodes"])
 
     # create the topology
     manager.running_topology = create_topology(
-        request, manager.worker_processes
+        fc, node_delay, max_runtime, manager.worker_processes
     )
 
     # get the amount of workers needed
