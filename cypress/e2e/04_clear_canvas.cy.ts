@@ -31,7 +31,7 @@ describe("studio", () => {
   it("clear canvas test", () => {
     cy.visit("/").wait(1000);
 
-    cy.get('[data-testid="clear-canvas-btn"]').click();
+    cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.eyesCheckWindow({
       tag: "dark flow page without any nodes",

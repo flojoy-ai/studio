@@ -2,7 +2,7 @@
 
 require("cypress-xpath");
 
-describe("studio", () => {
+describe("Modify settings in control bar", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },

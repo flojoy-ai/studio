@@ -13,7 +13,7 @@ describe("Verify node containers", () => {
     });
   });
 
-  it("Verify node containers", () => {
+  it("Verify node containers tabs", () => {
     cy.visit("/").wait(1000);
 
     // Click add node

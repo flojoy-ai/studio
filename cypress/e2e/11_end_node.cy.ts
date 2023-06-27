@@ -31,7 +31,7 @@ describe("studio", () => {
     cy.visit("/").wait(1000);
 
     // Click clear canvas button
-    cy.get('[data-testid="clear-canvas-btn"]').click();
+    cy.get('[data-testid="clear-canvas-button"]').click();
 
     // Click add node
     cy.get('[data-testid="add-node-button"]').click();

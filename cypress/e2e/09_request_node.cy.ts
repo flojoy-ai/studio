@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 require("cypress-xpath");
-describe(" node", () => {
+describe(" Requesting node", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -13,7 +13,7 @@ describe(" node", () => {
     });
   });
 
-  it("should open flojoy studio's main page", () => {
+  it("request node btn test", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
