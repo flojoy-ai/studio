@@ -1,7 +1,7 @@
 import os
 import yaml
 from types import ModuleType
-from build_ast import get_pip_dependencies, make_manifest_ast
+from build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
 from manifest import make_manifest_for
 
 
@@ -48,7 +48,12 @@ def create_manifest(path: str) -> dict:
 
     filename = os.path.basename(path)[:-3]
     func = getattr(module, filename)
-    manifest = make_manifest_for("ARITHMETIC", func)
+
+    node_type = get_node_type(tree)
+    if not node_type:
+        node_type = "DEFAULT"
+
+    manifest = make_manifest_for(node_type, func)
 
     pip_deps = get_pip_dependencies(tree)
     if pip_deps:

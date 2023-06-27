@@ -89,25 +89,30 @@ def make_manifest_ast(path: str) -> ast.Module:
     return tree
 
 
-def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
+def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
     flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
     # Differentiates between @flojoy and @flojoy(deps={...})
-    decorator = find(
+    return find(
         flojoy_node.decorator_list,
         lambda d: isinstance(d, ast.Call)
         and isinstance(d.func, ast.Name)
         and d.func.id == "flojoy",
     )
 
-    # If it's just @flojoy then there are no dependencies
+
+def get_flojoy_decorator_param(tree: ast.Module, name: str) -> Optional[ast.keyword]:
+    decorator = get_flojoy_decorator(tree)
     if not decorator:
         return None
 
-    # Look for the deps keyword
-    kw = find(decorator.keywords, lambda k: k.arg == "deps")
+    return find(decorator.keywords, lambda k: k.arg == name)
+
+
+def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
+    kw = get_flojoy_decorator_param(tree, "deps")
 
     if not kw:
         return None
@@ -122,6 +127,15 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
         deps.append({"name": package.value, "v": ver.value})
 
     return deps
+
+
+def get_node_type(tree: ast.Module) -> Optional[str]:
+    kw = get_flojoy_decorator_param(tree, "node_type")
+    if not kw:
+        return None
+    if not isinstance(kw.value, ast.Constant):
+        raise ValueError("Node type must be a string")
+    return kw.value.value
 
 
 def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:
