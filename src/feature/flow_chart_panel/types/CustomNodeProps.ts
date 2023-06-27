@@ -23,6 +23,7 @@ export type ElementsData = {
   failed?: boolean;
   ctrls: CtrlData;
   inputs?: Array<{ name: string; id: string; type: string }>;
+  outputs?: Array<{ name: string; id: string; type: string }>;
   selected?: boolean;
   pip_dependencies?: {
     name: string;
