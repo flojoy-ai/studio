@@ -129,10 +129,12 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
 
             create_output(field.name, output_type)
     else:
-        raise TypeError(
-            "Return type must be a DataContainer or a DataClass consisting"
-            f"of only DataContainers as fields, got {return_type}"
-        )
+        # Terminators are special, they don't have outputs
+        if not node_type == "TERMINATOR":
+            raise TypeError(
+                "Return type must be a DataContainer or a DataClass consisting"
+                f"of only DataContainers as fields, got {return_type}"
+            )
 
     manifest["outputs"] = outputs
 

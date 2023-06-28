@@ -6,6 +6,7 @@ import os, sys
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
+from flojoy.flojoy_instruction import FLOJOY_INSTRUCTION
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
@@ -145,6 +146,8 @@ class Topology:
             self.mark_job_failure(job_id)
             return
 
+        logger.debug(f"result: {job_result.get(FLOJOY_INSTRUCTION.FLOW_TO_DIRECTIONS)}")
+
         # process instruction to flow through specified directions
         next_nodes_from_dependencies = set()
         for direction_ in get_next_directions(job_result):
@@ -178,8 +181,13 @@ class Topology:
     # NOTE doesn't actually remove the node, just its edges/dependencies corresponding to the label/direction
     def remove_edges_and_get_next(self, job_id, label_direction, next_nodes: set):
         successors = list(self.working_graph.successors(job_id))
+        logger.debug(f"successors: {successors}")
+        logger.debug(
+            f"in degree of nodes: {[f'{n} {self.working_graph.in_degree(n)}' for n in successors]}"
+        )
         self.remove_dependencies(job_id, label_direction)
         for d_id in successors:
+            logger.debug(f"in loop: {d_id} ({self.working_graph.in_degree(d_id)})")
             if d_id in self.finished_jobs:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
@@ -213,7 +221,7 @@ class Topology:
     def is_cancelled(self):
         return self.cancelled
 
-    def mark_job_success(self, job_id, next_nodes, label="main"):
+    def mark_job_success(self, job_id, next_nodes, label="default"):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
@@ -239,17 +247,21 @@ class Topology:
             )
         return job_id
 
-    def remove_dependencies(self, job_id, label="main"):
+    def remove_dependencies(self, job_id, label="default"):
         edges = self.get_edges_by_label(job_id, label)
         for edge in edges:
             self.remove_dependency(edge[0], edge[1])
 
     def get_edges_by_label(self, job_id, label):
+        logger.debug(f"label: {label}")
         edges = self.working_graph.edges(job_id)
+        logger.debug(f"edges 1: {edges}")
         edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
+        logger.debug(f"edges 2: {edges}")
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
+        logger.debug(f"edges 3: {edges}")
         return edges
 
     def remove_dependency(self, job_id, succ_id):

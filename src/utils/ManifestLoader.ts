@@ -9,6 +9,9 @@ const nodeElementSchema = z.object({
   inputs: z.optional(
     z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
   ),
+  outputs: z.optional(
+    z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+  ),
   parameters: z.optional(
     z.record(
       z.string(),

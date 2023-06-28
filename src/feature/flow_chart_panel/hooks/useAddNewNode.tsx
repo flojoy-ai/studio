@@ -44,6 +44,7 @@ export const useAddNewNode = (
       const type = node.type;
       const params = node.parameters;
       const inputs = node.inputs;
+      const outputs = node.outputs;
       const uiComponentId = node.ui_component_id;
       const pip_dependencies = node.pip_dependencies;
       const path = NodeFunctionsMap[`${funcName}.py`]?.path ?? "";
@@ -84,6 +85,7 @@ export const useAddNewNode = (
           type,
           ctrls: nodeParams,
           inputs,
+          outputs,
           pip_dependencies,
           path,
         },

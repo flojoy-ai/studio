@@ -2,14 +2,11 @@ import { Fragment } from "react";
 import { Handle, HandleType, Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { v4 as uuidV4 } from "uuid";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 
 const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
-  const sourceParams =
-    data.inputs?.filter((input) => (input.type as HandleType) === "source") ??
-    [];
-  const targetParams =
-    data.inputs?.filter((input) => (input.type as HandleType) === "target") ??
-    [];
+  const outputs = data.outputs ?? [];
+  const inputs = data.inputs ?? [];
 
   return (
     <Fragment>
@@ -20,66 +17,33 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
        *  otherwise render one source handle
        *
        */}
-
-      {sourceParams.length ? (
-        sourceParams.map((param, index) => (
-          <Handle
-            key={`${param.id}_${uuidV4()}`}
-            type={param.type as HandleType}
-            position={Position.Right}
-            style={{
-              right: "-2px",
-              left: index >= 2 ? "0" : "auto",
-              margin: "auto",
-              bottom: `${(sourceParams.length - 1 - index) * 80}px`,
-              gap: "5px",
-              borderRadius: 0,
-              minHeight: 10,
-              display: "flex",
-              alignItems: "center",
-              background: "transparent",
-              border: 0,
-            }}
-            id={param.id}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                pointerEvents: "none",
-              }}
-            >
-              <div
-                style={{
-                  height: 15,
-                  width: 15,
-                  backgroundColor: "#000",
-                  border: "1px solid #fff",
-                }}
-              ></div>
-              <div
-                style={{
-                  paddingLeft: "8px",
-                  transform: "translateX(-63px)",
-                }}
-              >
-                {param.name}
-              </div>
-            </div>
-          </Handle>
-        ))
-      ) : (
+      {inputs.map((param, i) => (
         <Handle
-          type="source"
-          position={Position.Right}
+          key={`input-${data.id}-${param.name}`}
+          position={Position.Left}
+          type="target"
           style={{
-            borderRadius: 0,
-            height: 15,
-            width: 15,
+            left: -15,
+            top: 30 * i,
           }}
-          id="main"
-        />
-      )}
+          id={param.id}
+        >
+          {param.name !== "default" ? param.name : ""}
+        </Handle>
+      ))}
+      {outputs.map((param, i) => (
+        <Handle
+          key={`output-${data.id}-${param.name}`}
+          position={Position.Right}
+          type="source"
+          style={{
+            right: -15,
+          }}
+          id={param.id}
+        >
+          {param.name !== "default" ? param.name : ""}
+        </Handle>
+      ))}
       {/**
        *
        * Rendering target handle.
@@ -87,67 +51,6 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
        *  otherwise render one target handle
        *
        */}
-
-      {targetParams.length ? (
-        targetParams.map((param, index) => (
-          <Handle
-            key={`${param.id}_${uuidV4()}`}
-            type={param.type as HandleType}
-            position={Position.Left}
-            style={{
-              left: "-9px",
-              right: index >= 2 ? "0" : "auto",
-              margin: "auto",
-              bottom: `${(targetParams.length - 1 - index) * 80}px`,
-              gap: "5px",
-              borderRadius: 0,
-              minHeight: 10,
-              display: "flex",
-              alignItems: "center",
-              background: "transparent",
-              border: 0,
-            }}
-            id={param.id}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                pointerEvents: "none",
-              }}
-            >
-              <div
-                style={{
-                  height: 15,
-                  left: "-9px",
-                  width: 15,
-                  backgroundColor: "#000",
-                  border: "1px solid #fff",
-                }}
-              ></div>
-              <div
-                style={{
-                  paddingLeft: "8px",
-                }}
-              >
-                {param.name}
-              </div>
-            </div>
-          </Handle>
-        ))
-      ) : (
-        <Handle
-          type="target"
-          position={Position.Left}
-          style={{
-            borderRadius: 0,
-            height: 15,
-            width: 15,
-            left: "-9px",
-          }}
-          id={`${data.func}_target`}
-        />
-      )}
     </Fragment>
   );
 };

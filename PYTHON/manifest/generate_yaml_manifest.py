@@ -51,7 +51,7 @@ def create_manifest(path: str) -> dict:
 
     node_type = get_node_type(tree)
     if not node_type:
-        node_type = "DEFAULT"
+        node_type = "default"
 
     manifest = make_manifest_for(node_type, func)
 

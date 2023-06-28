@@ -104,7 +104,9 @@ def flowchart_to_nx_graph(flowchart):
         if len(target_input) > 0:
             target_label = target_input[0].get("name")
         logger.debug(
-            f"Adding edge, inputs: {v_inputs}, chosen label: {target_label}, target_label_id: {target_label_id}"
+            f"Adding edge from {u} to {v}\n,"
+            f"inputs: {v_inputs}, chosen label: {target_label},\n"
+            f"target_label_id: {target_label_id}"
         )
         nx_graph.add_edge(u, v, label=label, target_label=target_label, id=_id)
 
