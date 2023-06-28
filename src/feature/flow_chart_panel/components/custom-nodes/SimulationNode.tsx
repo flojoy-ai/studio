@@ -28,9 +28,11 @@ const useStyles = createStyles((theme) => {
 });
 
 const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
+const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
+  const params = data.inputs ?? [];
   const params = data.inputs ?? [];
 
   let selectShadow = "";
@@ -42,6 +44,7 @@ const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
   }
 
   return (
+    <NodeWrapper data={data} handleRemove={handleRemove}>
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
@@ -64,14 +67,6 @@ const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
               {data.label}
             </Text>
           </Box>
-          {/* <Box */}
-          {/*   display="flex" */}
-          {/*   h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"} */}
-          {/*   sx={{ */}
-          {/*     flexDirection: "column", */}
-          {/*   }} */}
-          {/* ></Box> */}
-
           <HandleComponent data={data} />
         </Box>
       </Box>

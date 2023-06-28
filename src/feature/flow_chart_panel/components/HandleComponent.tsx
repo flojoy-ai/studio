@@ -27,6 +27,9 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
        * Rendering source handle.
        *  If it has multiple handles render them
        *  otherwise render one source handle
+       * Rendering source handle.
+       *  If it has multiple handles render them
+       *  otherwise render one source handle
        *
        */}
       <Box className={classes.handleWrapper} left={-6}>
