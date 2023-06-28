@@ -1,4 +1,7 @@
 import { Anchor, Button, createStyles, Flex } from "@mantine/core";
+import { AddNewNode } from "../hooks/useAddNewNode";
+import { useMemo } from "react";
+import { NodeElement } from "@src/utils/ManifestLoader";
 
 const useStyles = createStyles((theme) => {
   const accent =
@@ -37,10 +40,14 @@ const useStyles = createStyles((theme) => {
 });
 
 type SidebarCustomContentProps = {
-  onAddNode: (key: string) => void;
+  onAddNode: AddNewNode;
+  nodesManifest: NodeElement[];
 };
 
-const SidebarCustomContent = ({ onAddNode }: SidebarCustomContentProps) => {
+const SidebarCustomContent = ({
+  onAddNode,
+  nodesManifest,
+}: SidebarCustomContentProps) => {
   const { classes } = useStyles();
   return (
     <Flex
@@ -50,7 +57,11 @@ const SidebarCustomContent = ({ onAddNode }: SidebarCustomContentProps) => {
       className={classes.container}
     >
       <RequestNode classes={classes} />
-      <EndNode classes={classes} onAddNode={onAddNode} />
+      <EndNode
+        classes={classes}
+        onAddNode={onAddNode}
+        nodesManifest={nodesManifest}
+      />
     </Flex>
   );
 };
@@ -73,21 +84,30 @@ const RequestNode = ({ classes }: { classes: Record<string, string> }) => {
 
 type EndNodeProps = {
   classes: Record<string, string>;
-  onAddNode: (key: string) => void;
+  onAddNode: AddNewNode;
+  nodesManifest: NodeElement[];
 };
 
-const EndNode = ({ classes, onAddNode }: EndNodeProps) => {
-  const cmdKey = "END";
+const EndNode = ({ classes, onAddNode, nodesManifest }: EndNodeProps) => {
+  const nodeKey = "END";
+  const endNode = useMemo(
+    () => nodesManifest.find((n) => n.key === nodeKey),
+    [nodesManifest]
+  );
   return (
-    <button
-      data-testid="end-node-btn"
-      className={classes.endNode}
-      onClick={() => {
-        onAddNode(cmdKey);
-      }}
-    >
-      {cmdKey}
-    </button>
+    <>
+      {endNode ? (
+        <button
+          data-testid="end-node-btn"
+          className={classes.endNode}
+          onClick={() => {
+            onAddNode(endNode);
+          }}
+        >
+          {endNode.key}
+        </button>
+      ) : null}
+    </>
   );
 };
 

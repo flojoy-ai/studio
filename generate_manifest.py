@@ -1,54 +1,57 @@
 import json
-from os import listdir
-from os.path import isfile, join
 import yaml
+import os
 
-full_path = "PYTHON/nodes/MANIFEST"
-
-manifest = {"_v": 0, "commands": list(), "parameters": dict()}
-
-
-def open_prev_manifest():
-    try:
-        with open("src/data/manifests-latest.json", "r") as get_manifest:
-            jsonify_manifest = json.load(get_manifest)
-            return jsonify_manifest
-    except:
-        return False
+Path = os.path
+NODES_DIR = Path.join("PYTHON", "nodes")
+FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
 
 
-prev_manifest = open_prev_manifest()
+def browse_directories(dir_path: str):
+    result = {}
+    result["name"] = (
+        "ROOT" if os.path.basename(dir_path) == "nodes" else Path.basename(dir_path)
+    )
+    if result["name"] != "ROOT":
+        result["key"] = result["name"].upper().replace(" ", "_")
+    result["children"] = []
+    entries = sorted(
+        os.scandir(dir_path), key=lambda e: e.name
+    )  # Sort entries alphabetically
 
-all_files = [f for f in listdir(full_path) if (isfile(join(full_path, f)))]
-for mf in all_files:
-    allowed_file_ext = [".manifest.yaml", ".manifest.yml"]
-    if any(ext in mf for ext in allowed_file_ext):
-        with open(join(full_path, mf), "r") as f:
-            read_file = f.read()
-            s = yaml.load(read_file, Loader=yaml.FullLoader)
-            # Command always has to be a scalar list
-            for item in s["COMMAND"]:
-                exclude_property = ["parameters"]
-                func_name = item["key"]
-                manifest["commands"].append(
-                    {x: item[x] for x in item if x not in exclude_property}
-                )
-                if "parameters" in item:
-                    manifest["parameters"][func_name] = item["parameters"]
+    for entry in entries:
+        if entry.is_dir():
+            if (
+                entry.name.startswith(".")
+                or entry.name.startswith("_")
+                or entry.name == "assets"
+                or entry.name == "MANIFEST"
+                or "examples" in entry.path
+                or "a1-[autogen]" in entry.path
+                or "appendix" in entry.path
+            ):
+                continue
+            subdir = browse_directories(entry.path)
+            result["children"].append(subdir)
+        elif entry.is_file() and entry.name.endswith(".py"):
+            continue
+    if len(result["children"]) == 0:
+        manifest_path = Path.join(dir_path, "manifest.yml")
+        if not Path.exists(manifest_path):
+            manifest_path = Path.join(dir_path, "manifest.yaml")
+        with open(manifest_path, "r") as mf:
+            m = mf.read()
+            mf.close()
+            parsed = yaml.load(m, Loader=yaml.FullLoader)
+            m_c = parsed["COMMAND"][0]
+            result = m_c
+        result["children"] = None
 
-if prev_manifest != False:
-    if len(manifest["commands"]) != len(prev_manifest["commands"]):
-        jsonify_prev_manifest = json.dumps(obj=prev_manifest, indent=4)
-        prev_file = open(
-            "src/data/manifests_v." + str(prev_manifest["_v"]) + ".json", "w"
-        )
-        prev_file.write(jsonify_prev_manifest)
-        prev_file.close()
-        manifest["_v"] = prev_manifest["_v"] + 1
-    else:
-        manifest["_v"] = prev_manifest["_v"]
+    return result
 
-jsonify = json.dumps(obj=manifest, indent=4)
-result = open("src/data/manifests-latest.json", "w")
-result.write(jsonify)
-result.close()
+
+if __name__ == "__main__":
+    map = browse_directories(FULL_PATH)
+    with open("src/data/manifests-latest.json", "w") as f:
+        f.write(json.dumps(map, indent=3))
+        f.close()

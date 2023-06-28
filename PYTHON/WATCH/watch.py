@@ -1,13 +1,8 @@
-import json
-import os
-import sys
-import time
-import traceback
-import warnings
-
+import json, os, sys, time, traceback, warnings
 import matplotlib.cbook
 import networkx as nx
 from flojoy import get_next_directions, get_next_nodes
+from importlib import import_module
 
 warnings.filterwarnings("ignore", category=matplotlib.cbook.mplDeprecation)
 
@@ -15,7 +10,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from services.job_service import JobService
-from utils.dynamic_module_import import get_module_func, create_map
+from utils.dynamic_module_import import get_module_func
 from utils.topology import Topology
 
 ENV_CI = "CI"
@@ -23,10 +18,6 @@ ENV_CI = "CI"
 
 class FlowScheduler:
     def __init__(self, scheduler_job_id, fc, extraParams, jobsetId=None) -> None:
-        # print("sjid", scheduler_job_id)
-        # print("fc", fc)
-        # print("ep", extraParams)
-        # print("jsid", jobsetId)
         self.scheduler_job_id = scheduler_job_id
         self.jobset_id = jobsetId
         self.flow_chart = fc
@@ -132,12 +123,17 @@ class FlowScheduler:
         node = self.nx_graph.nodes[job_id]
         cmd = node["cmd"]
         cmd_mock = node["cmd"] + "_MOCK"
-        func = get_module_func(cmd, cmd)
-        if self.is_ci:
-            try:
-                func = get_module_func(cmd, cmd_mock)
-            except Exception:
-                pass
+        node_path = node.get("node_path") or ""
+        node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+        if node_path != "":
+            module = import_module(node_path)
+        else:
+            module = get_module_func(cmd)
+        func_name = cmd_mock if self.is_ci else cmd
+        try:
+            func = getattr(module, func_name)
+        except AttributeError:
+            func = getattr(module, cmd)
 
         previous_job_ids = self.topology.get_job_dependencies(job_id, original=True)
         previous_jobs = self.topology.get_job_dependencies_with_label(
@@ -206,10 +202,11 @@ def reactflow_to_networkx(elems, edges):
         node_id = el["id"]
         data = el["data"]
         cmd = el["data"]["func"]
-        ctrls = data["ctrls"] if "ctrls" in data else {}
-        inputs = data["inputs"] if "inputs" in data else {}
-        label = data["label"] if "label" in data else {}
+        ctrls = data.get("ctrls", {})
+        inputs = data.get("inputs", {})
+        label = data.get("label", {})
         dict_node_inputs[node_id] = inputs
+        node_path = data.get("path", "")
         nx_graph.add_node(
             node_id,
             pos=(el["position"]["x"], el["position"]["y"]),
@@ -218,6 +215,7 @@ def reactflow_to_networkx(elems, edges):
             inputs=inputs,
             label=label,
             cmd=cmd,
+            node_path=node_path,
         )
 
     for i in range(len(edges)):
@@ -229,7 +227,11 @@ def reactflow_to_networkx(elems, edges):
         target_label_id = e["targetHandle"]
         v_inputs = dict_node_inputs[v]
         target_input = list(
-            filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
+            filter(
+                lambda input, target_id=target_label_id: input.get("id", "")
+                == target_id,
+                v_inputs,
+            )
         )
         target_label = "default"
         if len(target_input) > 0:

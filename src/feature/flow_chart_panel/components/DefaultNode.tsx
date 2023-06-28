@@ -1,4 +1,4 @@
-import { Text, Box, clsx, createStyles } from "@mantine/core";
+import { Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";
@@ -76,13 +76,13 @@ export const useNodeStyles = createStyles((theme) => {
   };
 });
 
-const DefaultNode = ({ data }: CustomNodeProps) => {
+const DefaultNode = ({ data, handleRemove }: CustomNodeProps) => {
   const { classes } = useNodeStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected ? classes.defaultShadow : "",
@@ -103,7 +103,7 @@ const DefaultNode = ({ data }: CustomNodeProps) => {
               flexDirection: "column",
             }}
           >
-            <HandleComponent data={data} inputs={params} />
+            <HandleComponent data={data} />
           </Box>
         </Box>
       </Box>

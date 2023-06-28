@@ -20,8 +20,11 @@ export const ErrorPage = ({ error, resetErrorBoundary }: ErrorPageProps) => (
     >
       Try Again
     </Button>
-    <Text align="center" style={{ marginTop: "1rem" }}>
-      {error.message}
+    <Text color="red" style={{ marginTop: "1rem" }}>
+      <Text align="center" style={{ textAlign: "center" }}>
+        <b>{error.message}</b>
+      </Text>
+      <pre>{error.stack}</pre>
     </Text>
   </Container>
 );

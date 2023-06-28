@@ -9,8 +9,8 @@ from common.CONSTANTS import (
     KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
 )
-from dao.redis_dao import RedisDao
-from node_sdk.small_memory import SmallMemory
+from PYTHON.dao.redis_dao import RedisDao
+from PYTHON.node_sdk.small_memory import SmallMemory
 from rq import Queue
 from rq.command import send_stop_job_command
 from rq.exceptions import InvalidJobOperation, NoSuchJobError
@@ -21,8 +21,11 @@ def report_failure(job, connection, type, value, traceback):
     print(job, connection, type, value, traceback)
 
 
+# NOTE: this is used both in fastAPI backend (/captain) and Django backend (/server)
+# however, most of these methods are redundant in fastAPI backend.
+# TODO: if we completely get rid of old backend, figure out which methods are needed
 class JobService:
-    def __init__(self, queue_name, maximum_runtime=3000):
+    def __init__(self, queue_name, maximum_runtime: float = 3000):
         self.redis_dao = RedisDao()
         self.queue = Queue(
             queue_name, connection=self.redis_dao.r, default_timeout=maximum_runtime
@@ -32,14 +35,14 @@ class JobService:
         all_jobs = self.redis_dao.get_redis_obj(KEY_RQ_WORKER_JOBS)
         return all_jobs
 
-    def delete_all_rq_worker_jobs(self, nodes):
-        for node in nodes:
+    def delete_all_rq_worker_jobs(self, nodes: list[str]):
+        for node_id in nodes:
             try:
-                job = Job.fetch(node.get("id", ""), connection=self.redis_dao.r)
+                job = Job.fetch(node_id, connection=self.redis_dao.r)
             except NoSuchJobError:
                 continue
             except Exception:
-                print(" Failed to cancel job: ", node.get("id", "") + ", ignoring..")
+                print(" Failed to cancel job: ", node_id + ", ignoring..")
                 continue
             if job is not None:
                 print("Deleting job: ", job.get_id())
@@ -73,7 +76,8 @@ class JobService:
                     KEY_FLOJOY_WATCH_JOBS, job_id.decode("utf-8")
                 )
             for job_id in self.queue.failed_job_registry.get_job_ids():
-                self.queue.delete(job_id)
+                if job_id:
+                    self.queue.remove(job_id)
 
     def add_to_redis_obj(self, key: str, value: dict):
         self.redis_dao.set_redis_obj(key, value)
