@@ -40,8 +40,8 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
               style={{
                 position: "static",
                 border: "1px solid lightgray",
-                width: 15,
-                height: 15,
+                width: 12,
+                height: 12,
                 borderRadius: 0,
               }}
             />
@@ -63,8 +63,8 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
               style={{
                 position: "static",
                 border: "1px solid lightgray",
-                width: 15,
-                height: 15,
+                width: 12,
+                height: 12,
                 borderRadius: 0,
               }}
             />
