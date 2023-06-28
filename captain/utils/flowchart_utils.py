@@ -133,6 +133,8 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     # get the amount of workers needed
     spawn_workers(manager)
 
+    time.sleep(0.7) # OPTIONAL wait for workers to spawn
+
     nodes = fc["nodes"]
     missing_packages = []
     socket_msg = WorkerJobResponse(
