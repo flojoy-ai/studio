@@ -64,15 +64,15 @@ const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
               {data.label}
             </Text>
           </Box>
-          <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <HandleComponent data={data} />
-          </Box>
+          {/* <Box */}
+          {/*   display="flex" */}
+          {/*   h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"} */}
+          {/*   sx={{ */}
+          {/*     flexDirection: "column", */}
+          {/*   }} */}
+          {/* ></Box> */}
+
+          <HandleComponent data={data} />
         </Box>
       </Box>
     </NodeWrapper>

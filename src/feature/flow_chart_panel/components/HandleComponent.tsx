@@ -1,12 +1,24 @@
 import { Fragment } from "react";
-import { Handle, HandleType, Position } from "reactflow";
+import { Handle, Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
-import { v4 as uuidV4 } from "uuid";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { Box, createStyles, Flex } from "@mantine/core";
+
+const useStyles = createStyles((theme) => ({
+  handleWrapper: {
+    position: "absolute",
+    height: "100%",
+    display: "flex",
+    top: 0,
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+  },
+}));
 
 const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
+
+  const { classes } = useStyles();
 
   return (
     <Fragment>
@@ -17,33 +29,51 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
        *  otherwise render one source handle
        *
        */}
-      {inputs.map((param, i) => (
-        <Handle
-          key={`input-${data.id}-${param.name}`}
-          position={Position.Left}
-          type="target"
-          style={{
-            left: -15,
-            top: 30 * i,
-          }}
-          id={param.id}
-        >
-          {param.name !== "default" ? param.name : ""}
-        </Handle>
-      ))}
-      {outputs.map((param, i) => (
-        <Handle
-          key={`output-${data.id}-${param.name}`}
-          position={Position.Right}
-          type="source"
-          style={{
-            right: -15,
-          }}
-          id={param.id}
-        >
-          {param.name !== "default" ? param.name : ""}
-        </Handle>
-      ))}
+      <Box className={classes.handleWrapper} left={-6}>
+        {inputs.map((param) => (
+          <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
+            <Handle
+              position={Position.Left}
+              type="target"
+              id={param.id}
+              // Needs to be inline style for it to actually override the default react flow styles...
+              style={{
+                position: "static",
+                border: "1px solid lightgray",
+                width: 15,
+                height: 15,
+                borderRadius: 0,
+              }}
+            />
+            <Box mb={12} ml={4}>
+              {param.name !== "default" ? param.name : ""}
+            </Box>
+          </Flex>
+        ))}
+      </Box>
+
+      <Box className={classes.handleWrapper} right={-10}>
+        {outputs.map((param) => (
+          <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
+            <Handle
+              position={Position.Right}
+              type="source"
+              id={param.id}
+              // Needs to be inline style for it to actually override the default react flow styles...
+              style={{
+                position: "static",
+                border: "1px solid lightgray",
+                width: 15,
+                height: 15,
+                borderRadius: 0,
+              }}
+            />
+            <Box mb={12} ml={4}>
+              {param.name !== "default" ? param.name : ""}
+            </Box>
+          </Flex>
+        ))}
+      </Box>
       {/**
        *
        * Rendering target handle.
