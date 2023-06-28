@@ -1,9 +1,8 @@
-import { Fragment } from "react";
 import { Handle, Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { Box, createStyles, Flex } from "@mantine/core";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   handleWrapper: {
     position: "absolute",
     height: "100%",
@@ -21,14 +20,7 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
   const { classes } = useStyles();
 
   return (
-    <Fragment>
-      {/**
-       *
-       * Rendering source handle.
-       *  If it has multiple handles render them
-       *  otherwise render one source handle
-       *
-       */}
+    <>
       <Box className={classes.handleWrapper} left={-6}>
         {inputs.map((param) => (
           <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
@@ -74,14 +66,7 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
           </Flex>
         ))}
       </Box>
-      {/**
-       *
-       * Rendering target handle.
-       *  If it has multiple handles render them
-       *  otherwise render one target handle
-       *
-       */}
-    </Fragment>
+    </>
   );
 };
 
