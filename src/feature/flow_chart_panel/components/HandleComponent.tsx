@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Handle, Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { Box, createStyles, Flex } from "@mantine/core";
@@ -21,17 +20,7 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
   const { classes } = useStyles();
 
   return (
-    <Fragment>
-      {/**
-       *
-       * Rendering source handle.
-       *  If it has multiple handles render them
-       *  otherwise render one source handle
-       * Rendering source handle.
-       *  If it has multiple handles render them
-       *  otherwise render one source handle
-       *
-       */}
+    <>
       <Box className={classes.handleWrapper} left={-6}>
         {inputs.map((param) => (
           <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
@@ -62,7 +51,6 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
               position={Position.Right}
               type="source"
               id={param.id}
-              // Needs to be inline style for it to actually override the default react flow styles...
               style={{
                 position: "static",
                 border: "1px solid lightgray",
@@ -77,14 +65,7 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
           </Flex>
         ))}
       </Box>
-      {/**
-       *
-       * Rendering target handle.
-       *  If it has multiple handles render them
-       *  otherwise render one target handle
-       *
-       */}
-    </Fragment>
+    </>
   );
 };
 

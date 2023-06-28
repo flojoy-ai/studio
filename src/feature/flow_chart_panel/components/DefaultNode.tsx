@@ -1,5 +1,4 @@
 import { Box, clsx, createStyles } from "@mantine/core";
-import { Box, clsx, createStyles } from "@mantine/core";
 import { memo } from "react";
 import { useFlowChartState } from "../../../hooks/useFlowChartState";
 import HandleComponent from "../components/HandleComponent";

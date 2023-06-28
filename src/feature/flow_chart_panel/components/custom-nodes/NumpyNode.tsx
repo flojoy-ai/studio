@@ -32,11 +32,9 @@ const useStyles = createStyles((theme) => {
 });
 
 const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
-const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs ?? [];
   const params = data.inputs ?? [];
 
   let selectShadow = "";
@@ -45,7 +43,6 @@ const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
   }
   const operatorIcon = <NumpySvg className={classes.operatorIcon} />;
   return (
-    <NodeWrapper data={data} handleRemove={handleRemove}>
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(

@@ -16,15 +16,12 @@ const useStyles = createStyles((theme) => {
 });
 
 const TerminatorNode = ({ data, handleRemove }: CustomNodeProps) => {
-const TerminatorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs ?? [];
-  const params = data.inputs ?? [];
 
   return (
-    <NodeWrapper data={data} handleRemove={handleRemove}>
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(

@@ -55,7 +55,6 @@ const chartElemMap: { [func: string]: JSX.Element } = {
 };
 
 const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
-const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
@@ -79,7 +78,6 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper data={data} handleRemove={handleRemove}>
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
