@@ -89,20 +89,16 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   };
 
   const handleSendAPI = () => {
-    if (apiKey === null || apiKey.trim() === "") {
-      console.error("There is no API Key");
-    } else {
-      notifications.show({
-        id: "set-api-key",
-        loading: true,
-        title: "Setting your API key",
-        message: "Setting your API key, please be patient",
-        autoClose: false,
-        withCloseButton: false,
-      });
-      sendApiKeyToDjango(apiKey);
-      setApiKey("");
-    }
+    notifications.show({
+      id: "set-api-key",
+      loading: true,
+      title: "Setting your API key",
+      message: "Setting your API key, please be patient",
+      autoClose: false,
+      withCloseButton: false,
+    });
+    sendApiKeyToDjango(apiKey);
+    setApiKey("");
   };
   return (
     <>

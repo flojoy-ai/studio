@@ -100,22 +100,18 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
   };
 
   const handleS3Key = () => {
-    if (s3AccessKey === null || s3AccessKey.trim() === "") {
-      console.error("There is no API Key");
-    } else {
-      notifications.show({
-        id: "set-s3-key",
-        loading: true,
-        title: "Setting your AWS S3 key",
-        message: "Setting your AWS S3 key, please be patient",
-        autoClose: false,
-        withCloseButton: false,
-      });
-      sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
-      setS3Name("");
-      setS3SecretKey("");
-      setS3AccessKey("");
-    }
+    notifications.show({
+      id: "set-s3-key",
+      loading: true,
+      title: "Setting your AWS S3 key",
+      message: "Setting your AWS S3 key, please be patient",
+      autoClose: false,
+      withCloseButton: false,
+    });
+    sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
+    setS3Name("");
+    setS3SecretKey("");
+    setS3AccessKey("");
   };
 
   const handleClose = () => {
