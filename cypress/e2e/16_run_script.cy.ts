@@ -22,10 +22,6 @@ describe("playing script", () => {
     });
   });
 
-  // The interactions use typical Cypress calls,
-  // but the verifications use one-line snapshot calls with Applitools Eyes.
-  // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
-  // Traditional assertions that scrape the page for text values are not needed here.
   it("show results after pressing play on main homepage", () => {
     cy.visit("/").wait(1000);
 
@@ -60,15 +56,18 @@ describe("playing script", () => {
       fully: true,
     });
 
-    // Testing cancelling script
+    // Testing cancelling script (ctrl + p)
     cy.get("body").type("{ctrl}p");
+    cy.get('[data-testid="btn-cancel"]').click();
 
+    cy.wait(2000);
+
+    // Testing cancelling script (meta + p)
+    cy.get("body").type("{meta}p");
     cy.get('[data-testid="btn-cancel"]').click();
   });
 
-  // This method performs cleanup after each test.
   afterEach(() => {
-    // Close Eyes to tell the server it should display the results.
     cy.eyesClose();
   });
 });

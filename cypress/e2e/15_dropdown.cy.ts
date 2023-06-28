@@ -26,8 +26,16 @@ describe("studio", () => {
   it("drop down wrapper", () => {
     cy.visit("/").wait(1000);
 
+    //test dark mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
+    cy.wait(1000);
+    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
 
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // test light mode
+    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
+    cy.wait(1000);
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
   });
 
