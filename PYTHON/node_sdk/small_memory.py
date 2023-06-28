@@ -21,7 +21,6 @@ class SmallMemory:
             RedisDao.get_instance().delete_redis_object(self.tracing_key)
         except Exception:
             print(Exception, traceback.format_exc())
-            pass
 
     def write_to_memory(self, job_id, key, value):
         """

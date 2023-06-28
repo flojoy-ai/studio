@@ -1,23 +1,22 @@
 import os
 import sys
+from typing import Any, Callable
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.abspath(os.path.join(dir_path, os.pardir)))
 
 from common.CONSTANTS import (
     KEY_ALL_JOBEST_IDS,
-    KEY_FLOJOY_WATCH_JOBS,
     KEY_RQ_WORKER_JOBS,
 )
 from PYTHON.dao.redis_dao import RedisDao
 from PYTHON.node_sdk.small_memory import SmallMemory
 from rq import Queue
-from rq.command import send_stop_job_command
-from rq.exceptions import InvalidJobOperation, NoSuchJobError
+from rq.exceptions import NoSuchJobError
 from rq.job import Job, NoSuchJobError
 
 
-def report_failure(job, connection, type, value, traceback):
+def report_failure(job: Job, connection: Any, type: Any, value: Any, traceback: Any):
     print(job, connection, type, value, traceback)
 
 
@@ -25,7 +24,7 @@ def report_failure(job, connection, type, value, traceback):
 # however, most of these methods are redundant in fastAPI backend.
 # TODO: if we completely get rid of old backend, figure out which methods are needed
 class JobService:
-    def __init__(self, queue_name, maximum_runtime: float = 3000):
+    def __init__(self, queue_name: str, maximum_runtime: float = 3000):
         self.redis_dao = RedisDao()
         self.queue = Queue(
             queue_name, connection=self.redis_dao.r, default_timeout=maximum_runtime
@@ -44,13 +43,10 @@ class JobService:
             except Exception:
                 print(" Failed to cancel job: ", node_id + ", ignoring..")
                 continue
-            if job is not None:
-                print("Deleting job: ", job.get_id())
+            if job:
+                print("Deleting job: ", job.id)
                 job.delete()
         self.redis_dao.delete_redis_object(KEY_RQ_WORKER_JOBS)
-
-    def add_flojoy_watch_job_id(self, flojoy_watch_job_id):
-        self.redis_dao.add_to_list(KEY_FLOJOY_WATCH_JOBS, flojoy_watch_job_id)
 
     def delete_all_jobset_data(self):
         all_running_jobest_ids = self.redis_dao.get_list(KEY_ALL_JOBEST_IDS)
@@ -58,28 +54,10 @@ class JobService:
             jobset_node_keys = f"{jobset_id}_ALL_NODES"
             self.redis_dao.delete_redis_object(jobset_node_keys)
 
-    def add_jobset_id(self, jobset_id):
+    def add_jobset_id(self, jobset_id: str):
         self.redis_dao.add_to_list(KEY_ALL_JOBEST_IDS, jobset_id)
 
-    def stop_flojoy_watch_jobs(self):
-        jobs = self.redis_dao.get_list(KEY_FLOJOY_WATCH_JOBS)
-        if len(jobs) > 0:
-            for job_id in jobs:
-                try:
-                    send_stop_job_command(
-                        connection=self.redis_dao.r, job_id=job_id.decode("utf-8")
-                    )
-                # if job is currently not executing (e.g. finished, etc.), ignore the exception
-                except (InvalidJobOperation, NoSuchJobError):
-                    pass
-                self.redis_dao.remove_item_from_list(
-                    KEY_FLOJOY_WATCH_JOBS, job_id.decode("utf-8")
-                )
-            for job_id in self.queue.failed_job_registry.get_job_ids():
-                if job_id:
-                    self.queue.remove(job_id)
-
-    def add_to_redis_obj(self, key: str, value: dict):
+    def add_to_redis_obj(self, key: str, value: dict[str, Any]):
         self.redis_dao.set_redis_obj(key, value)
 
     def get_jobset_data(self, key: str):
@@ -87,12 +65,12 @@ class JobService:
 
     def enqueue_job(
         self,
-        func,
-        jobset_id,
-        job_id,
-        iteration_id,
-        ctrls,
-        previous_jobs,
+        func: Any,
+        jobset_id: str,
+        job_id: str,
+        iteration_id: str,
+        ctrls: dict[str, Any],
+        previous_jobs: list[Any],
     ):
         if Job.exists(job_id, self.redis_dao.r):
             job = Job.fetch(job_id, connection=self.redis_dao.r)
@@ -116,18 +94,17 @@ class JobService:
 
         return job
 
-    def add_job(self, job_id, jobset_id):
+    def add_job(self, job_id: str, jobset_id: str):
         self.redis_dao.add_to_list(f"{jobset_id}_ALL_NODES", job_id)
 
-    def fetch_job(self, job_id):
+    def fetch_job(self, job_id: str):
         try:
             return Job.fetch(job_id, connection=self.redis_dao.r)
-        except (Exception, NoSuchJobError) as err:
+        except Exception:
             print("Error in job fetching for job id: ", job_id)
             return None
 
-    def reset(self, nodes):
-        self.stop_flojoy_watch_jobs()
+    def reset(self, nodes: list[Any]):
         self.delete_all_rq_worker_jobs(nodes)
         self.delete_all_jobset_data()
         SmallMemory().clear_memory()

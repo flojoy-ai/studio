@@ -9,5 +9,9 @@ if __name__ == "__main__":
         port=8000,
         log_level="debug" if is_debug_mode else "info",
         reload=True,
-        reload_excludes=[os.path.join(os.getcwd(), p) for p in __ignore_list],
+        reload_excludes=[
+            os.path.join(os.getcwd(), p)
+            for p in __ignore_list
+            if os.path.exists(os.path.join(os.getcwd(), p))
+        ],
     )
