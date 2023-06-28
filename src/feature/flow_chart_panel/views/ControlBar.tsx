@@ -290,6 +290,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
       className={classes.cancelButton}
       onClick={cancelFC}
       data-cy="btn-cancel"
+      data-testid="btn-cancel"
       title="Cancel Run"
       style={{ borderRadius: 8 }}
     >
