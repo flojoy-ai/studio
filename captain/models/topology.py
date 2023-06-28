@@ -132,8 +132,9 @@ class Topology:
                 job_id, job_result, success=True
             )  # TODO: handle in case of failure
 
-        logger.debug(f"Starting next jobs: {next_jobs}")
-        self.run_jobs(next_jobs)
+        if next_jobs:
+            logger.debug(f"Starting next jobs: {next_jobs}")
+            self.run_jobs(next_jobs)
 
     def process_job_result(
         self, job_id: str, job_result: dict[str, Any], success: bool

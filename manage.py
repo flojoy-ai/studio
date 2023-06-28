@@ -1,13 +1,17 @@
-import uvicorn, os
+import uvicorn, sys, os
 
-is_debug_mode = os.environ.get("DEBUG", False)
 __ignore_list = ["venv"]
 
 if __name__ == "__main__":
-    uvicorn.run(
+    log_level = (
+        sys.argv[sys.argv.index("--log-level") + 1]
+        if "--log-level" in sys.argv
+        else "info"
+    )
+    uvicorn.run(  # type:ignore
         "captain.main:app",
         port=8000,
-        log_level="debug" if is_debug_mode else "info",
+        log_level=log_level,
         reload=True,
         reload_excludes=[
             os.path.join(os.getcwd(), p)
