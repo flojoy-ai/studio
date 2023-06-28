@@ -36,6 +36,7 @@ const ParamField = ({
     case "float":
       return (
         <NumberInput
+          data-testid="float-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseFloat(value) : value}
           precision={7}
@@ -45,6 +46,7 @@ const ParamField = ({
     case "int":
       return (
         <NumberInput
+          data-testid="int-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value) : value}
         />
@@ -59,6 +61,7 @@ const ParamField = ({
     case "array":
       return (
         <TextInput
+          data-testid="array-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value}
         />
@@ -66,6 +69,7 @@ const ParamField = ({
     case "boolean":
       return (
         <Checkbox
+          data-testid="boolean-input"
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
           checked={value}
@@ -74,6 +78,7 @@ const ParamField = ({
     case "select":
       return (
         <Select
+          data-testid="select-input"
           onChange={(val) => handleChange(val as string)}
           data={options ?? []}
           value={value}
