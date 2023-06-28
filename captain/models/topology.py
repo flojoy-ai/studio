@@ -146,11 +146,22 @@ class Topology:
             self.mark_job_failure(job_id)
             return
 
-        logger.debug(f"result: {job_result.get(FLOJOY_INSTRUCTION.FLOW_TO_DIRECTIONS)}")
+        logger.debug(f"job id: {job_id}")
 
         # process instruction to flow through specified directions
+
         next_nodes_from_dependencies = set()
-        for direction_ in get_next_directions(job_result):
+        next_directions = get_next_directions(job_result)
+        # In this case, the node did not explicitly supply what
+        # its output directions should be
+        # ex: Conditionals and Loops only want to continue in one direction out of the two
+        # If the node doesn't explicitly specify this then we just continue in all directions
+        if not next_directions:
+            next_directions = self.get_outputs(job_id)
+
+        logger.debug(f"out_edges: {self.get_outputs(job_id)}")
+
+        for direction_ in next_directions:
             direction = direction_.lower()
             self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
@@ -321,6 +332,12 @@ class Topology:
                 f"get_label: job_id {job_id} not found in original: {original}"
             )
         return job_id
+
+    def get_outputs(self, job_id):
+        out = self.original_graph.out_edges(job_id)
+        return list(
+            set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
+        )
 
     def get_graph(self, original):
         return self.original_graph if original else self.working_graph
