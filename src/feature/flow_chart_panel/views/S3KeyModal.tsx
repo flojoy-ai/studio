@@ -112,6 +112,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
         withCloseButton: false,
       });
       sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
+      setS3Name("");
       setS3SecretKey("");
       setS3AccessKey("");
     }
