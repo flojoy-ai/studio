@@ -70,7 +70,7 @@ const ParamField = ({
     case "boolean":
       return (
         <Checkbox
-          data-cy="boolean-input"
+          data-teatid="boolean-input"
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
           checked={value}

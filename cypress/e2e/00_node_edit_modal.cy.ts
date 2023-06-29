@@ -92,7 +92,7 @@ describe("studio", () => {
 
     cy.get('[data-testid="node-wrapper"]').click();
 
-    cy.get('[data-cy="boolean-input"]').click();
+    cy.get('[data-testid="boolean-input"]').click();
 
     cy.get('[data-testid="clear-canvas-button"]').click();
 
@@ -128,7 +128,7 @@ describe("studio", () => {
 
     cy.get('[data-testid="sidebar-close"]').click();
 
-    cy.get('[data-testid="node-wrapper"]').contains("FEEDBACK").click();
+    cy.get('[data-testid="node-wrapper"]').contains("FEEDBACK").click({ multiple: true });
 
     cy.get('[data-testid="node_reference-input"]').each(($element) => {
       cy.get($element).click();
