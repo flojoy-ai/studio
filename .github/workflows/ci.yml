@@ -129,5 +129,5 @@ jobs:
       - name: Codecov report
         uses: codecov/codecov-action@v3
         with:
-          file: coverage-cy/coverage-final.json
+          file: coverage-cy\coverage-final.json
           flags: cypress
