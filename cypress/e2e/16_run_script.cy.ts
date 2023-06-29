@@ -58,13 +58,13 @@ describe("playing script", () => {
 
     // Testing cancelling script (ctrl + p)
     cy.get("body").type("{ctrl}p");
-    cy.get('[data-testid="btn-cancel"]').click();
+    cy.get('[data-cy="btn-cancel"]').click();
 
-    cy.wait(2000);
+    cy.wait(5000);
 
     // Testing cancelling script (meta + p)
     cy.get("body").type("{meta}p");
-    cy.get('[data-testid="btn-cancel"]').click();
+    cy.get('[data-cy="btn-cancel"]').click();
   });
 
   afterEach(() => {
