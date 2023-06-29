@@ -92,7 +92,7 @@ describe("studio", () => {
 
     cy.get('[data-testid="node-wrapper"]').click();
 
-    cy.get('[data-testid="boolean-input"]').click();
+    cy.get('[data-cy="boolean-input"]').click();
 
     cy.get('[data-testid="clear-canvas-button"]').click();
 
@@ -132,7 +132,6 @@ describe("studio", () => {
 
     cy.get('[data-testid="node_reference-input"]').each(($element) => {
       cy.get($element).click();
-      // cy.contains('div', 'LINSPACE').click();
       cy.get('[data-testid="node-edit-modal-params"]')
         .contains("LINSPACE")
         .click();
