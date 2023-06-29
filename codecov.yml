@@ -1,6 +1,6 @@
 codecov:
   notify:
-    after_n_builds: 3
+    after_n_builds: 2
     wait_for_ci: yes
 
 coverage:
@@ -10,11 +10,11 @@ coverage:
 
 flag_management:
   individual_flags:
-    - name: typescript
-      statuses:
-        - type: project
-          target: 30%
-    - name: python
+    # - name: typescript
+    #   statuses:
+    #     - type: project
+    #       target: 30%
+    # - name: python
       statuses:
         - type: project
           target: 30%
