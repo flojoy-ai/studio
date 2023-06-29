@@ -129,5 +129,5 @@ jobs:
       - name: Codecov report
         uses: codecov/codecov-action@v3
         with:
-          file: .nyc_output\out.json --cov --cov-report=xml
+          file: .nyc_output\out.json
           flags: cypress
