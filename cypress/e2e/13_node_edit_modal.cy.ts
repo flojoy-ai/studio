@@ -39,9 +39,104 @@ describe("studio", () => {
 
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
+      cy.contains("div", "square").click();
     });
 
-    // cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
+    cy.get('[data-testid="add-node-button"]').click();
+
+    cy.get('[data-testid="sidebar-input"]').type("argrelmax");
+
+    cy.get("button").contains("ARGRELMAX").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
+    cy.get('[data-testid="data-label-design"]').contains("ARGRELMAX").click();
+
+    cy.get('[data-testid="int-input"]').each(($element) => {
+      cy.get($element).type(3);
+    });
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
+    cy.get('[data-testid="add-node-button"]').click();
+
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+
+    cy.get('[data-testid="sidebar-input"]').type("open");
+
+    cy.get("button").contains("OPEN_IMAGE").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
+    cy.get('[data-testid="node-wrapper"]').click();
+
+    cy.get('[data-testid="string-input"]').each(($element) => {
+      cy.get($element).type("image path");
+    });
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
+    cy.get('[data-testid="add-node-button"]').click();
+
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+
+    cy.get('[data-testid="sidebar-input"]').type("fft");
+
+    cy.get("button").contains("FFT").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
+    cy.get('[data-testid="node-wrapper"]').click();
+
+    cy.get('[data-testid="boolean-input"]').click();
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
+    cy.get('[data-testid="add-node-button"]').click();
+
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+
+    cy.get('[data-testid="sidebar-input"]').type("extract");
+
+    cy.get("button").contains("EXTRACT_COLUMN").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
+    cy.get('[data-testid="node-wrapper"]').click();
+
+    cy.get('[data-testid="array-input"]').type("[1,2,3,4]");
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
+    cy.get('[data-testid="add-node-button"]').click();
+
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+
+    cy.get('[data-testid="sidebar-input"]').type("feedback");
+
+    cy.get("button").contains("FEEDBACK").click();
+
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+
+    cy.get('[data-testid="sidebar-input"]').type("linspace");
+
+    cy.get("button").contains("LINSPACE").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
+    cy.get('[data-testid="node-wrapper"]').contains("FEEDBACK").click();
+
+    cy.get('[data-testid="node_reference-input"]').each(($element) => {
+      cy.get($element).click();
+      // cy.contains('div', 'LINSPACE').click();
+      cy.get('[data-testid="node-edit-modal-params"]')
+        .contains("LINSPACE")
+        .click();
+    });
   });
 
   // This method performs cleanup after each test.

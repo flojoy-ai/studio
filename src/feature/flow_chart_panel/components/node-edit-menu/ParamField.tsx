@@ -54,6 +54,7 @@ const ParamField = ({
     case "string":
       return (
         <TextInput
+          data-testid="string-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value}
         />
@@ -87,6 +88,7 @@ const ParamField = ({
     case "node_reference":
       return (
         <Select
+          data-testid="node_reference-input"
           onChange={(val) => handleChange(val as string)}
           data={nodeReferenceOptions ?? []}
           value={value}
