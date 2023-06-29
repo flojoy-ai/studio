@@ -33,7 +33,15 @@ describe("studio", () => {
 
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);
 
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="float-input"]').each(($element) => {
+      cy.get($element).type(3);
+    });
+
+    cy.get('[data-testid="select-input"]').each(($element) => {
+      cy.get($element).click();
+    });
+
+    // cy.get('[data-testid="node-edit-modal-close-btn"]').click();
   });
 
   // This method performs cleanup after each test.
