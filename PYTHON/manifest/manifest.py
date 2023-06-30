@@ -2,9 +2,9 @@ import inspect
 from types import UnionType
 from typing import Any, Callable, Literal, Union, get_args
 from dataclasses import fields, is_dataclass
-from flojoy import DataContainer
+from flojoy import DataContainer, DefaultParams
 
-ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str]]
+ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str], DefaultParams]
 
 
 def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any]:
@@ -64,7 +64,10 @@ def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any
         # Case 3: Some class that inherits from DataContainer
         elif is_datacontainer(param_type):
             create_input(name, param_type.__name__)
-        # Case 4: Literal type which becomes a select param
+        # Case 4: Ignore DefaultParams
+        elif is_default_param(param_type):
+            pass
+        # Case 5: Literal type which becomes a select param
         elif is_outer_type(param_type, Literal):
             params[name] = {
                 "type": "select",
@@ -151,7 +154,8 @@ def is_union(t):
 
 def is_datacontainer(t):
     return inspect.isclass(t) and issubclass(t, DataContainer)
-
+def is_default_param(t:Any):
+    return inspect.isclass(t) and issubclass(t, DefaultParams)
 
 def get_union_types(union):
     if hasattr(union, "__args__"):

@@ -44,7 +44,10 @@ def browse_directories(dir_path: str):
         try:
             c_m = create_manifest(Path.join(dir_path, f"{Path.basename(dir_path)}.py"))
             result = c_m["COMMAND"][0]
-        except Exception:
+            print("============================generated manifest for : ", f"{Path.basename(dir_path)}.py")
+        except Exception as e:
+            if "CONDITIONAL" in Path.basename(dir_path):
+                print("error in generating manifest: ", e)
             with open(manifest_path, "r") as mf:
                 m = mf.read()
                 mf.close()
