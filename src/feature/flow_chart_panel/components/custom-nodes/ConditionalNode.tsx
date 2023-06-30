@@ -66,7 +66,7 @@ const ConditionalNode = ({ data }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Box>
+          <Box data-testid="data-label-design">
             <Box mt={25}>
               <NodeLabel label={data.label} />
             </Box>

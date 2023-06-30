@@ -29,39 +29,92 @@ describe("Set custom node visual tests", () => {
 
     cy.get('[data-testid="clear-canvas-button"]').click();
 
-    // get all custom nodes
-    // CONDITIONAL NODE
+    // GET ALL CUSTOM NODES
+
+    // conditional node
     cy.get('[data-testid="add-node-button"]').click();
     cy.xpath("//div[contains(text(), 'Logic gates')]").click();
     cy.contains("button", "CONDITIONAL").click();
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.get('[data-testid="node-wrapper"]').contains("CONDITIONAL").click();
+    cy.get('[data-testid="data-label-design"]').contains("CONDITIONAL").click();
+    // check if selected operator is displayed on node box
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", ">").click();
     });
+
+    cy.get('[data-testid="conditional-operator-type"]').and(($div) => {
+      expect($div.text()).to.contain(">");
+    });
+
     cy.eyesCheckWindow({
       tag: "dark flow page with conditional node select",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-modal-close-btn"]', {}).click();
 
-    cy.get('[data-testid="add-node-button"]').click();
-    cy.xpath("//div[contains(text(), 'Generators')]").click();
-    cy.xpath("//button[.='CONSTANT']").click();
-    cy.xpath("//button[.='CONSTANT']").click();
-    cy.get('[data-testid="sidebar-close"]').click();
+    // cy.get('[data-testid="add-node-button"]').click();
+    // cy.xpath("//div[contains(text(), 'Generators')]").click();
+    // cy.xpath("//button[.='CONSTANT']").click();
+    // cy.xpath("//button[.='CONSTANT']").click();
+    // cy.get('[data-testid="sidebar-close"]').click();
 
-    cy.get('[data-testid="add-node-button"]').click();
-    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
-    cy.xpath("//button[.='LINE']").click();
-    cy.xpath("//button[.='LINE']").click();
-    cy.get('[data-testid="sidebar-close"]').click();
+    // cy.get('[data-testid="add-node-button"]').click();
+    // cy.xpath("//div[contains(text(), 'Visualizers')]").click();
+    // cy.xpath("//button[.='LINE']").click();
+    // cy.xpath("//button[.='LINE']").click();
+    // cy.get('[data-testid="sidebar-close"]').click();
 
     cy.eyesCheckWindow({
       tag: "dark flow page with conditional node",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    // creating loop node
+    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="sidebar-input"]').type("loop");
+    cy.contains("button", "LOOP").click();
+    cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="node-wrapper"]').click();
+    cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
+    cy.get('[data-testid="int-input"]').eq(0).type(10);
+    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with loop node",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    // creating numpy node
+    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="sidebar-input"]').type("tensorinv");
+    cy.contains("button", "TENSORINV").click();
+    cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="data-label-design"]').contains("TENSORINV").click();
+    cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
+    cy.get('[data-testid="int-input"]').eq(0).type(2);
+    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+
+    // CREATING SCIPY NODE
+    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+    cy.get('[data-testid="sidebar-input"]').type("argrelmax");
+    cy.contains("button", "ARGRELMAX").click();
+    cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="data-label-design"]').contains("ARGRELMAX").click();
+    cy.get('[data-testid="int-input"]').each(($element) => {
+      cy.get($element).type(3);
+    });
+    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "dark flow page with numpy and scipy node",
       target: "window",
       layout: layoutRegions,
       fully: true,
@@ -85,7 +138,7 @@ describe("Set custom node visual tests", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.eyesCheckWindow({
-      tag: "light flow page with conditional node",
+      tag: "light flow page with numpy and scipy nodes",
       target: "window",
       layout: layoutRegions,
       fully: true,
