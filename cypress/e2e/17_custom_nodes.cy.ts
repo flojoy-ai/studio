@@ -55,17 +55,17 @@ describe("Set custom node visual tests", () => {
     });
     cy.get('[data-testid="node-edit-modal-close-btn"]', {}).click();
 
-    // cy.get('[data-testid="add-node-button"]').click();
-    // cy.xpath("//div[contains(text(), 'Generators')]").click();
-    // cy.xpath("//button[.='CONSTANT']").click();
-    // cy.xpath("//button[.='CONSTANT']").click();
-    // cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="add-node-button"]').click();
+    cy.xpath("//div[contains(text(), 'Generators')]").click();
+    cy.xpath("//button[.='CONSTANT']").click();
+    cy.xpath("//button[.='CONSTANT']").click();
+    cy.get('[data-testid="sidebar-close"]').click();
 
-    // cy.get('[data-testid="add-node-button"]').click();
-    // cy.xpath("//div[contains(text(), 'Visualizers')]").click();
-    // cy.xpath("//button[.='LINE']").click();
-    // cy.xpath("//button[.='LINE']").click();
-    // cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="add-node-button"]').click();
+    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
+    cy.xpath("//button[.='LINE']").click();
+    cy.xpath("//button[.='LINE']").click();
+    cy.get('[data-testid="sidebar-close"]').click();
 
     cy.eyesCheckWindow({
       tag: "dark flow page with conditional node",
@@ -73,16 +73,36 @@ describe("Set custom node visual tests", () => {
       layout: layoutRegions,
       fully: true,
     });
+    // Switch to light mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with conditional node",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    cy.get('[data-testid="clear-canvas-button"]').click();
 
     // creating loop node
     cy.get('[data-testid="add-node-button"]').click();
-    cy.get('[data-testid="sidebar-input"]').type("loop");
+    cy.xpath("//div[contains(text(), 'Logic gates')]").click();
     cy.contains("button", "LOOP").click();
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').click();
     cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
     cy.get('[data-testid="int-input"]').eq(0).type(10);
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with loop node",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+    // Switch to dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.eyesCheckWindow({
       tag: "dark flow page with loop node",
