@@ -48,12 +48,12 @@ def create_manifest(path: str) -> dict:
 
     filename = os.path.basename(path)[:-3]
     func = getattr(module, filename)
-
+    node_name = os.path.basename(path).replace(".py", "")
     node_type = get_node_type(tree)
     if not node_type:
         node_type = "default"
 
-    manifest = make_manifest_for(node_type, func)
+    manifest = make_manifest_for(node_name, node_type, func)
 
     pip_deps = get_pip_dependencies(tree)
     if pip_deps:

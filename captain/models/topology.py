@@ -6,17 +6,22 @@ import os
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
-from flojoy.flojoy_instruction import FLOJOY_INSTRUCTION
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
 from typing import Any, cast
-
+import json
 lock = asyncio.Lock()
 
-
+def dump_str(result: Any, limit: int | None = None):
+    result_str = str(result)
+    return (
+        result_str
+        if limit is None or len(result_str) <= limit
+        else result_str[:limit] + "..."
+    )
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
@@ -153,13 +158,16 @@ class Topology:
 
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
-        for direction_ in get_next_directions(job_result):
-            direction = direction_.lower()
-            self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
+        if job_result and get_next_directions(job_result):
+            logger.debug(f"job result: {job_result.keys()}, directions: {get_next_directions(job_result)}")
+            for direction_ in get_next_directions(job_result):
+                direction = direction_.lower()
+                self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
         # process instruction to flow to specified nodes
         nodes_to_add: list[str] = []
         next_nodes = get_next_nodes(job_result)
+        logger.debug(f"next node: {next_nodes}")
         if next_nodes:
             nodes_to_add += [node_id for node_id in next_nodes]
 

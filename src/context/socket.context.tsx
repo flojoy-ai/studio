@@ -44,7 +44,7 @@ export const SocketContext = createContext<{ states: States } | null>(null);
 const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = process.env.VITE_SOCKET_PORT
   ? Number(process.env.VITE_SOCKET_PORT)
-  : 8000;
+  : 8001;
 
 export const SocketContextProvider = ({
   children,

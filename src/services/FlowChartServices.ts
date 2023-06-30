@@ -9,7 +9,7 @@ const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = process.env.VITE_BACKEND_PORT
   ? +process.env.VITE_BACKEND_PORT
-  : 8000;
+  : 8001;
 const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 // Note that you have to update the nodes/edges of the

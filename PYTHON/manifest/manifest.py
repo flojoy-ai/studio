@@ -4,10 +4,22 @@ from typing import Any, Callable, Literal, Union, get_args
 from dataclasses import fields, is_dataclass
 from flojoy import DataContainer, DefaultParams
 
-ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str], DefaultParams]
+ALLOWED_PARAM_TYPES = [
+    int,
+    float,
+    str,
+    bool,
+    list[int],
+    list[float],
+    list[str],
+    DefaultParams,
+]
+SPECIAL_NODES = ["LOOP", "CONDITIONAL", "GOTO"]
 
 
-def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any]:
+def make_manifest_for(
+    node_name: str, node_type: str, func: Callable[..., Any]
+) -> dict[str, Any]:
     manifest: dict[str, Any] = {
         "name": func.__name__,
         "key": func.__name__,
@@ -94,6 +106,8 @@ def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any
     outputs = []
 
     create_output = create_io(outputs)
+    if not sig.return_annotation:
+        return {"COMMAND": [manifest]}
 
     # Do a similar thing for the return type
     return_type = sig.return_annotation
@@ -118,26 +132,35 @@ def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any
     # Multiple outputs
     elif is_dataclass(return_type):
         for field in fields(return_type):
-            if not issubclass(field.type, DataContainer):
+            if (not inspect.isclass(field.type) and node_name not in SPECIAL_NODES) or (
+                inspect.isclass(field.type)
+                and not issubclass(field.type, DataContainer)
+            ):
                 raise TypeError(
                     "Return type must be a DataContainer or a DataClass"
-                    "consisting of only DataContainers as fields, got {return_type}"
+                    f"consisting of only DataContainers as fields, got {return_type} for {node_name}"
                 )
+            try:
 
-            output_type = (
-                union_type_str(field.type)
-                if is_union(field.type)
-                else field.type.__name__
-            )
+                output_type = (
+                    union_type_str(field.type)
+                    if is_union(field.type)
+                    else field.type.__name__
+                )
+            except Exception:
+                if node_name in SPECIAL_NODES:
+                    output_type = "Any"
+                else:
+                    raise
 
             create_output(field.name, output_type)
-    else:
-        # Terminators are special, they don't have outputs
-        if not node_type == "TERMINATOR":
-            raise TypeError(
-                "Return type must be a DataContainer or a DataClass consisting"
-                f"of only DataContainers as fields, got {return_type}"
-            )
+    # else:
+    #     # Terminators are special, they don't have outputs
+    #     if node_type != "TERMINATOR":
+    #         raise TypeError(
+    #             "Return type must be a DataContainer or a DataClass consisting"
+    #             f"of only DataContainers as fields, got {return_type}"
+    #         )
 
     manifest["outputs"] = outputs
 
@@ -154,8 +177,11 @@ def is_union(t):
 
 def is_datacontainer(t):
     return inspect.isclass(t) and issubclass(t, DataContainer)
-def is_default_param(t:Any):
+
+
+def is_default_param(t: Any):
     return inspect.isclass(t) and issubclass(t, DefaultParams)
+
 
 def get_union_types(union):
     if hasattr(union, "__args__"):
