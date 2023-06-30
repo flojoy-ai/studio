@@ -175,10 +175,12 @@
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "extension": [
-      ".tsx"
+      ".tsx",
+      ".ts"
     ],
     "include": [
-      "src/**/*.tsx"
+      "src/**/*.tsx",
+      "src/**/*.ts"
     ],
     "exclude": [
       "src/__tests__",
