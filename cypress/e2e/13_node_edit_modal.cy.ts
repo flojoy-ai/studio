@@ -31,23 +31,31 @@ describe("studio", () => {
       '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
     ).click();
 
+    // Check if there are 5 parameters for SINE node
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);
 
+    // Modify float parameters
     cy.get('[data-testid="float-input"]').each(($element) => {
       cy.get($element).type(3);
     });
 
+    // Modify select parameters
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", "square").click();
     });
 
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
 
+    // Click clear canvas button
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
 
+    // Add ARGRELMAX node
     cy.get('[data-testid="sidebar-input"]').type("argrelmax");
 
     cy.get("button").contains("ARGRELMAX").click();
@@ -56,14 +64,20 @@ describe("studio", () => {
 
     cy.get('[data-testid="data-label-design"]').contains("ARGRELMAX").click();
 
+    // Modify int parameters
     cy.get('[data-testid="int-input"]').each(($element) => {
       cy.get($element).type(3);
     });
 
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
 
+    // Clear input box and add OPEN_IMAGE node
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
 
     cy.get('[data-testid="sidebar-input"]').type("open");
@@ -74,56 +88,78 @@ describe("studio", () => {
 
     cy.get('[data-testid="node-wrapper"]').click();
 
+    // Modify string parameter
     cy.get('[data-testid="string-input"]').each(($element) => {
       cy.get($element).type("image path");
     });
 
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
 
+    // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
 
     cy.get('[data-testid="sidebar-input"]').type("fft");
 
+    // Add FFT node
     cy.get("button").contains("FFT").click();
 
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();
 
+    // Modify boolean parameter
     cy.get('[data-cy="boolean-input"]').click({ multiple: true });
 
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
 
+    // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
 
     cy.get('[data-testid="sidebar-input"]').type("extract");
 
+    // Add EXTRACT_COLUMN node
     cy.get("button").contains("EXTRACT_COLUMN").click();
 
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();
 
+    // Modify array parameter
     cy.get('[data-testid="array-input"]').type("[1,2,3,4]");
 
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
 
+    // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
 
     cy.get('[data-testid="sidebar-input"]').type("feedback");
 
+    // Add FEEDBACK node
     cy.get("button").contains("FEEDBACK").click();
 
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
 
     cy.get('[data-testid="sidebar-input"]').type("linspace");
 
+    // Add LINSPACE node
     cy.get("button").contains("LINSPACE").click();
 
     cy.get('[data-testid="sidebar-close"]').click();
@@ -132,12 +168,17 @@ describe("studio", () => {
       .contains("FEEDBACK")
       .click({ multiple: true });
 
+    // Modify node_reference parameter
     cy.get('[data-testid="node_reference-input"]').each(($element) => {
       cy.get($element).click();
       cy.get('[data-testid="node-edit-modal-params"]')
         .contains("LINSPACE")
         .click();
     });
+
+    // Light mode / Dark mode
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
   });
 
   // This method performs cleanup after each test.

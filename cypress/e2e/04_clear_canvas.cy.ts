@@ -31,6 +31,7 @@ describe("studio", () => {
   it("clear canvas test", () => {
     cy.visit("/").wait(1000);
 
+    // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
     cy.eyesCheckWindow({

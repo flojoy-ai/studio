@@ -30,8 +30,10 @@ describe("studio", () => {
   it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
 
+    // Hover file button
     cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
+    // Select Keyboard shortcut option
     cy.get('[data-testid="btn-keyboardshortcut"]').click();
 
     cy.eyesCheckWindow({
@@ -43,6 +45,7 @@ describe("studio", () => {
 
     cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
 
+    // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get('[data-testid="file-btn"]').trigger("mouseover");

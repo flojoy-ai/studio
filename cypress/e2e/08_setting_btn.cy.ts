@@ -32,6 +32,7 @@ describe("Modify settings in control bar", () => {
   it("setting btn test", () => {
     cy.visit("/").wait(1000);
 
+    // Click the setting button
     cy.get('[data-testid="btn-setting"]').click();
 
     cy.eyesCheckWindow({

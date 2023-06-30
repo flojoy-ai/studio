@@ -23,14 +23,14 @@ describe("studio", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("node modal test", () => {
     cy.visit("/").wait(1000);
 
-    // Click clear canvas button
     cy.get(
       '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
     ).click();
 
+    // Click expand button
     cy.get('[data-testid="expand-button"]').click();
 
     cy.eyesCheckWindow({

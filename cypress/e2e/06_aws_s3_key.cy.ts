@@ -30,8 +30,10 @@ describe("studio", () => {
   it("aws s3 key test", () => {
     cy.visit("/").wait(1000);
 
+    // Hover file button
     cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
+    // Select Set S3 Key option
     cy.get('[data-testid="btn-s3key"]').click();
 
     cy.eyesCheckWindow({
@@ -41,10 +43,12 @@ describe("studio", () => {
       fully: true,
     });
 
+    // Input for S3 Key
     cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
     cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
     cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
 
+    // Click submit button
     cy.get('[data-testid="s3-submit-btn"]').click();
 
     cy.eyesCheckWindow({
@@ -63,6 +67,7 @@ describe("studio", () => {
       fully: true,
     });
 
+    // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get('[data-testid="file-btn"]').trigger("mouseover");

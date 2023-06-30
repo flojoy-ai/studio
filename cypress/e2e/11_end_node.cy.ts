@@ -27,7 +27,7 @@ describe("studio", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("end node test", () => {
     cy.visit("/").wait(1000);
 
     // Click clear canvas button
