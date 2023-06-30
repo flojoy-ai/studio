@@ -7,7 +7,7 @@ export default defineConfig({
     video: false,
     baseUrl: "http://localhost:3000/",
     setupNodeEvents(on, config) {
-      return require('./cypress/plugins/index.ts')(on, config)
+      return require("./cypress/plugins/index.ts")(on, config);
     },
     requestTimeout: 30000,
     numTestsKeptInMemory: 0,
