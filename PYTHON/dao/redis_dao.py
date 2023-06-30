@@ -3,6 +3,7 @@ from redis import Redis
 import os
 import numpy as np
 import pandas as pd
+from typing import Any, cast
 
 MAX_LIST_SIZE = 1000
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
@@ -23,16 +24,14 @@ class RedisDao:
 
     def set_np_array(self, memo_key: str, value: np.ndarray):
         encoded = self.serialize_np(value)
-        return self.r.set(memo_key, encoded)
+        self.r.set(memo_key, encoded)
 
     def set_pandas_dataframe(self, key: str, dframe: pd.DataFrame):
         encode = dframe.to_json()
         self.r.set(key, encode)
-        return
 
     def set_str(self, key: str, value: str):
         self.r.set(key, value)
-        return
 
     def get_pd_dataframe(self, key: str):
         encoded = self.r.get(key)
@@ -40,48 +39,49 @@ class RedisDao:
         read_json = pd.read_json(decode)
         return read_json.head()
 
-    def get_np_array(self, memo_key: str, np_meta_data: dict):
+    def get_np_array(self, memo_key: str, np_meta_data: dict[str, str]):
         encoded = self.r.get(memo_key)
-        decode = self.desirialize_np(encoded, np_meta_data)
-        return decode
+        if encoded:
+            return self.desirialize_np(encoded, np_meta_data)
+        return []
 
     def get_str(self, key: str):
         encoded = self.r.get(key)
         return encoded.decode("utf-8") if encoded is not None else None
 
-    def get_redis_obj(self, key: str):
-        get_obj = self.r.get(key)
-        parse_obj = json.loads(get_obj) if get_obj is not None else {}
-        return parse_obj
+    def get_redis_obj(self, key: str) -> dict[str, Any]:
+        r_obj = self.r.get(key)
 
-    def set_redis_obj(self, key: str, value: dict):
+        if r_obj:
+            return cast(dict[str, Any], json.loads(r_obj))
+        return {}
+
+    def set_redis_obj(self, key: str, value: dict[str, Any]):
         dump = json.dumps(value)
         self.r.set(key, dump)
 
-    def delete_redis_object(self, key):
+    def delete_redis_object(self, key: str):
         self.r.delete(key)
 
-    def get_list(self, key):
+    def get_list(self, key: str):
         return self.r.lrange(key, 0, MAX_LIST_SIZE)
 
-    def add_to_list(self, key, value):
+    def add_to_list(self, key: str, value: Any):
         self.r.lpush(key, value)
 
-    def remove_item_from_list(self, key, item):
+    def remove_item_from_list(self, key: str, item: Any):
         self.r.lrem(key, 1, item)
 
-    def add_to_set(self, key, value):
+    def add_to_set(self, key: str, value: Any):
         self.r.sadd(key, value)
 
-    def get_set_list(self, key):
+    def get_set_list(self, key: str):
         return self.r.smembers(key)
 
     def serialize_np(self, np_array: np.ndarray):
         return np_array.ravel().tostring()
 
-    def desirialize_np(self, encoded: str, np_meta_data: dict):
-        if encoded is None:
-            return []
+    def desirialize_np(self, encoded: bytes, np_meta_data: dict[str, str]):
         d_type = np_meta_data.get("d_type", "")
         dimensions = np_meta_data.get("dimensions", [])
         shapes_in_int = [int(shape) for shape in dimensions]

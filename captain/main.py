@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from captain.routes import flowchart, key, ws
-from captain.utils.config import REDIS_HOST, REDIS_PORT
 from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
