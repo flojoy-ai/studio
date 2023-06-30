@@ -184,14 +184,29 @@
     ],
     "exclude": [
       "src/__tests__",
+      "src/hooks/__mocks__",
+      "src/utils/__mocks__",
+      "src/utils/CustomError.ts",
       " src/feature/controls_panel/",
       " src/feature/results_panel/",
       "src/feature/flow_chart_panel/components/nodes/PieChart.tsx",
       "src/feature/flow_chart_panel/components/nodes/BoxPlot.tsx",
+      "src/feature/flow_chart_panel/components/ClearCanvasBtn.tsx",
+      "src/feature/flow_chart_panel/types",
+      "src/feature/flow_chart_panel/views/CustomEdge.tsx",
+      "src/feature/common/types",
+      "src/feature/common/CustomFonts.tsx",
+      "src/feature/common/EditSwitch.tsx",
+      "src/feature/common/MantineThemeColorsOverride.tsx",
+      "src/assets/HistoryIconSVG.tsx",
+      "src/assets/SaveAsIconSVG.tsx",
+      "src/assets/ModalCloseSvg.tsx",
+      "src/assets/VectorIconSVG.tsx",
       "src/web-socket",
       "src/App.tsx",
       "src/index.tsx",
-      "src/ErrorPage.tsx"
+      "src/ErrorPage.tsx",
+      "src/vite-env.d.ts"
     ],
     "all": true
   }
