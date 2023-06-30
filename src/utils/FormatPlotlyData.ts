@@ -1,7 +1,7 @@
 import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
 import { MantineTheme } from "@mantine/core";
 import { PlotData } from "plotly.js";
-import { DataContainer } from "@src/feature/results_panel/types/ResultsType";
+import { DataContainer } from "@src/feature/common/types/ResultsType";
 
 const NUM_OF_COLUMNS = 2;
 const NUM_OF_ROWS = 20;

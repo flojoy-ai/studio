@@ -12,7 +12,7 @@ import { IconSearch } from "@tabler/icons-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import CloseIconSvg from "@src/utils/SidebarCloseSvg";
+import CloseIconSvg from "@src/assets/SidebarCloseSvg";
 import { createStyles } from "@mantine/core";
 import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";

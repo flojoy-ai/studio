@@ -1,4 +1,4 @@
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { ResultIO } from "@src/feature/common/types/ResultsType";
 import { Node } from "reactflow";
 import { ElementsData } from "./CustomNodeProps";
 
