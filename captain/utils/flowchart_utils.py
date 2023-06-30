@@ -126,10 +126,6 @@ def prepare_for_next_run():
     clear_memory()
 
 
-def report_failure(job, connection, type, value, traceback):
-    print(job, connection, type, value, traceback)
-
-
 async def run_flow_chart(manager: Manager):
     # run the flowchart
     if manager.running_topology:

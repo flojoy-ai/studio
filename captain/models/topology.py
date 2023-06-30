@@ -12,7 +12,7 @@ from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
 from typing import Any, cast
-import json
+
 lock = asyncio.Lock()
 
 def dump_str(result: Any, limit: int | None = None):
@@ -158,11 +158,10 @@ class Topology:
 
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
-        if job_result and get_next_directions(job_result):
-            logger.debug(f"job result: {job_result.keys()}, directions: {get_next_directions(job_result)}")
-            for direction_ in get_next_directions(job_result):
-                direction = direction_.lower()
-                self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
+        logger.debug(f"job result: {job_result.keys()}, directions: {get_next_directions(job_result)}")
+        for direction_ in get_next_directions(job_result):
+            direction = direction_.lower()
+            self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
         # process instruction to flow to specified nodes
         nodes_to_add: list[str] = []
@@ -201,6 +200,7 @@ class Topology:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
+
 
     def restart(self, job_id: str):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
