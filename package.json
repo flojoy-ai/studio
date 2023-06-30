@@ -181,13 +181,15 @@
       "src/**/*.tsx"
     ],
     "exclude": [
-      "assets/",
       "src/__tests__",
       " src/feature/controls_panel/",
       " src/feature/results_panel/",
       "src/feature/flow_chart_panel/components/nodes/PieChart.tsx",
       "src/feature/flow_chart_panel/components/nodes/BoxPlot.tsx",
-      "src/web-socket"
+      "src/web-socket",
+      "src/App.tsx",
+      "src/index.tsx",
+      "src/ErrorPage.tsx"
     ],
     "all": true
   }

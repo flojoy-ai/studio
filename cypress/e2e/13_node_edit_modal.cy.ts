@@ -178,7 +178,6 @@ describe("studio", () => {
 
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
-
   });
 
   // This method performs cleanup after each test.
