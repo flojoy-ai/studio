@@ -73,7 +73,9 @@ def make_manifest_ast(path: str) -> ast.Module:
 
     if not flojoy_node.returns or not isinstance(flojoy_node.returns, ast.Name):
         raise ValueError(
-            "Flojoy node must have a dataclass or DataContainer return type hint"
+            "Flojoy node must have a dataclass or DataContainer return type hint",
+            f"path: {path}",
+            f"node: {flojoy_node}"
         )
 
     # Then get rid of all the other dataclasses

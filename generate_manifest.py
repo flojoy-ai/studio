@@ -1,6 +1,8 @@
 import json
 import yaml
 import os
+from typing import Any, Union
+from PYTHON.manifest.generate_yaml_manifest import create_manifest
 
 Path = os.path
 NODES_DIR = Path.join("PYTHON", "nodes")
@@ -8,7 +10,7 @@ FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
 
 
 def browse_directories(dir_path: str):
-    result = {}
+    result: dict[str, Union[str, list[Any], None]] = {}
     result["name"] = (
         "ROOT" if os.path.basename(dir_path) == "nodes" else Path.basename(dir_path)
     )
@@ -39,12 +41,17 @@ def browse_directories(dir_path: str):
         manifest_path = Path.join(dir_path, "manifest.yml")
         if not Path.exists(manifest_path):
             manifest_path = Path.join(dir_path, "manifest.yaml")
-        with open(manifest_path, "r") as mf:
-            m = mf.read()
-            mf.close()
-            parsed = yaml.load(m, Loader=yaml.FullLoader)
-            m_c = parsed["COMMAND"][0]
-            result = m_c
+        try:
+            c_m = create_manifest(Path.join(dir_path, f"{Path.basename(dir_path)}.py"))
+            result = c_m["COMMAND"][0]
+        except Exception:
+            with open(manifest_path, "r") as mf:
+                m = mf.read()
+                mf.close()
+                parsed = yaml.load(m, Loader=yaml.FullLoader)
+                m_c = parsed["COMMAND"][0]
+                result = m_c
+        result['type'] = Path.basename(Path.dirname(dir_path))
         result["children"] = None
 
     return result

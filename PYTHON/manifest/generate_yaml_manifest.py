@@ -1,8 +1,8 @@
 import os
 import yaml
 from types import ModuleType
-from build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
-from manifest import make_manifest_for
+from .build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
+from .manifest import make_manifest_for
 
 
 NODES_DIR = "../nodes"

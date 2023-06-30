@@ -7,7 +7,7 @@ from flojoy import DataContainer
 ALLOWED_PARAM_TYPES = [int, float, str, bool, list[int], list[float], list[str]]
 
 
-def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
+def make_manifest_for(node_type: str, func: Callable[..., Any]) -> dict[str, Any]:
     manifest: dict[str, Any] = {
         "name": func.__name__,
         "key": func.__name__,

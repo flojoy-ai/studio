@@ -11,7 +11,7 @@ export const nodeConfigs = {
   default: DefaultNode,
   ARITHMETIC: ArithmeticNode,
   SIMULATION: SimulationNode,
-  PLOTLY_VISOR: VisorNode,
+  PLOTLY: VisorNode,
   CONDITIONAL: ConditionalNode,
   TERMINATOR: TerminatorNode,
   SAMPLE_IMAGE: DefaultNode,
