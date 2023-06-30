@@ -5,24 +5,38 @@ codecov:
 
 coverage:
   status:
-    project: off
+    project:
+    python:
+      target: 30%
+      flags:
+        - python
+    cypress:
+      target: 30%
+      flags:
+        - cypress
     patch: off
 
-flag_management:
-  individual_flags:
-    # - name: typescript
-    #   statuses:
-    #     - type: project
-    #       target: 30%
-    - name: python
-      statuses:
-        - type: project
-          target: 30%
-    - name: cypress
-      statuses:
-        - type: project
-          target: 30%
+# flag_management:
+#   individual_flags:
+#     # - name: typescript
+#     #   statuses:
+#     #     - type: project
+#     #       target: 30%
+#     - name: python
+#       statuses:
+#         - type: project
+#           target: 30%
+#     - name: cypress
+#       statuses:
+#         - type: project
+#           target: 30%
+
 comment:
   layout: "reach, diff, flags, files"
   behaviour: default
   required_changes: no
+# flags:
+#   cypress:
+#     paths:
+#       - coverage-cy/coverage-final.json
+#     carryforward: false
