@@ -1,5 +1,5 @@
 import ast
-from typing import Optional, Any, Callable
+from typing import Optional, Any, Callable, Tuple
 
 SELECTED_IMPORTS = ["flojoy", "dataclasses", "typing"]
 
@@ -57,7 +57,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
 
-def make_manifest_ast(path: str) -> ast.Module:
+def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
     with open(path) as f:
         tree = ast.parse(f.read())
 
@@ -71,22 +71,30 @@ def make_manifest_ast(path: str) -> ast.Module:
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
-    if not flojoy_node.returns or not isinstance(flojoy_node.returns, ast.Name):
+    if not flojoy_node.returns:
         raise ValueError(
             "Flojoy node must have a dataclass or DataContainer return type hint"
         )
+    node_name = flojoy_node.name
 
     # Then get rid of all the other dataclasses
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
-    return_type = flojoy_node.returns.id
+
+    # This handles the case where the return type is a union, we can ignore
+    # all of the class defs in this case
+    if isinstance(flojoy_node.returns, ast.BinOp):
+        return_type = None
+    else:
+        return_type = flojoy_node.returns.id
+
     tree.body = [
         node
         for node in tree.body
         if node and (not isinstance(node, ast.ClassDef) or node.name == return_type)
     ]
 
-    return tree
+    return (node_name, tree)
 
 
 def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
