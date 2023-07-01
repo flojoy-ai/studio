@@ -10,9 +10,9 @@ import NumpyNode from "@src/feature/flow_chart_panel/components/custom-nodes/Num
 export const nodeConfigs = {
   default: DefaultNode,
   ARITHMETIC: ArithmeticNode,
-  SIMULATION: SimulationNode,
+  SIMULATIONS: SimulationNode,
   PLOTLY: VisorNode,
-  CONDITIONAL: ConditionalNode,
+  CONDITIONALS: ConditionalNode,
   TERMINATOR: TerminatorNode,
   SAMPLE_IMAGE: DefaultNode,
   AI_OBJECT_DETECTION: DefaultNode,

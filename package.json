@@ -57,7 +57,7 @@
     "build": "vite build",
     "open": "concurrently \"http-server -a localhost -p 3000\" \"open http://localhost:3000\"",
     "backend": "python3 manage.py",
-    "backend:debug":"python3 manage.py --log-level debug",
+    "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
     "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend\"",
     "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,RQ-Flojoy,FastAPI\" -c auto \"npm:start\" \"python PYTHON/worker.py flojoy\" \"python manage.py\"",

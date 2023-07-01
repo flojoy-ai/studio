@@ -15,6 +15,7 @@ from typing import Any, cast
 
 lock = asyncio.Lock()
 
+
 def dump_str(result: Any, limit: int | None = None):
     result_str = str(result)
     return (
@@ -22,6 +23,8 @@ def dump_str(result: Any, limit: int | None = None):
         if limit is None or len(result_str) <= limit
         else result_str[:limit] + "..."
     )
+
+
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
@@ -158,7 +161,7 @@ class Topology:
 
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
-        logger.debug(f"job result: {job_result.keys()}, directions: {get_next_directions(job_result)}")
+
         for direction_ in get_next_directions(job_result):
             direction = direction_.lower()
             self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
@@ -166,7 +169,7 @@ class Topology:
         # process instruction to flow to specified nodes
         nodes_to_add: list[str] = []
         next_nodes = get_next_nodes(job_result)
-        logger.debug(f"next node: {next_nodes}")
+
         if next_nodes:
             nodes_to_add += [node_id for node_id in next_nodes]
 
@@ -195,12 +198,10 @@ class Topology:
         successors: list[str] = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
         for d_id in successors:
-            logger.debug(f"in loop: {d_id} ({self.working_graph.in_degree(d_id)})")
             if d_id in self.finished_jobs:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
-
 
     def restart(self, job_id: str):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
@@ -230,7 +231,9 @@ class Topology:
     def is_cancelled(self):
         return self.cancelled
 
-    def mark_job_success(self, job_id: str, next_nodes: set[str], label: str = "main"):
+    def mark_job_success(
+        self, job_id: str, next_nodes: set[str], label: str = "default"
+    ):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
@@ -256,20 +259,17 @@ class Topology:
             )
         return job_id
 
-    def remove_dependencies(self, job_id: str, label: str = "main"):
+    def remove_dependencies(self, job_id: str, label: str = "default"):
         edges = self.get_edges_by_label(job_id, label)
         for edge in edges:
             self.remove_dependency(edge[0], edge[1])
 
     def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
         edges = self.working_graph.edges(job_id)
-        logger.debug(f"edges 1: {edges}")
         edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
-        logger.debug(f"edges 2: {edges}")
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
-        logger.debug(f"edges 3: {edges}")
         return edges
 
     def get_job_dependencies_with_label(
@@ -281,6 +281,7 @@ class Topology:
                 {
                     "job_id": prev_job_id,
                     "input_name": self.get_input_name(prev_job_id, job_id, original),
+                    "edge": graph.get_edge_data(prev_job_id, job_id).get("label", ""),
                 }
                 for prev_job_id in list(graph.predecessors(job_id))
             ]

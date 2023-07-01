@@ -8,6 +8,9 @@ Path = os.path
 NODES_DIR = Path.join("PYTHON", "nodes")
 FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
 
+__failed_nodes = []
+__generated_nodes = []
+
 
 def browse_directories(dir_path: str):
     result: dict[str, Union[str, list[Any], None]] = {}
@@ -44,17 +47,18 @@ def browse_directories(dir_path: str):
         try:
             c_m = create_manifest(Path.join(dir_path, f"{Path.basename(dir_path)}.py"))
             result = c_m["COMMAND"][0]
-            print("============================generated manifest for : ", f"{Path.basename(dir_path)}.py")
+            __generated_nodes.append(f"{Path.basename(dir_path)}.py")
         except Exception as e:
-            if "GOTO" in Path.basename(dir_path):
-                print("error in generating manifest: ", e)
+            # print("execption for: ", f"{Path.basename(dir_path)}.py", e)
+            __failed_nodes.append(f"{Path.basename(dir_path)}.py")
             with open(manifest_path, "r") as mf:
                 m = mf.read()
                 mf.close()
                 parsed = yaml.load(m, Loader=yaml.FullLoader)
                 m_c = parsed["COMMAND"][0]
                 result = m_c
-        result['type'] = Path.basename(Path.dirname(dir_path))
+        if result.get("type", None) is None:
+            result["type"] = Path.basename(Path.dirname(dir_path))
         result["children"] = None
 
     return result
@@ -62,6 +66,8 @@ def browse_directories(dir_path: str):
 
 if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
+    print(f"Successfully generated manifest from {__generated_nodes.__len__()} nodes !")
+    print(f"Failed to generate manifest from {__failed_nodes.__len__()} nodes !")
     with open("src/data/manifests-latest.json", "w") as f:
         f.write(json.dumps(map, indent=3))
         f.close()

@@ -12,13 +12,14 @@ ALLOWED_PARAM_TYPES = [
     list[int],
     list[float],
     list[str],
+    list[int | float | str],
     DefaultParams,
 ]
 SPECIAL_NODES = ["LOOP", "CONDITIONAL", "GOTO"]
 
 
 def make_manifest_for(
-    node_name: str, node_type: str, func: Callable[..., Any]
+    node_name: str, node_type: str | None, func: Callable[..., Any]
 ) -> dict[str, Any]:
     manifest: dict[str, Any] = {
         "name": func.__name__,
@@ -94,7 +95,9 @@ def make_manifest_for(
                 )
 
             params[name] = {
-                "type": get_full_type_name(param_type),
+                "type": "node_reference"
+                if node_name == "GOTO"
+                else get_full_type_name(param_type),
                 "default": default_value,
             }
 
@@ -130,6 +133,33 @@ def make_manifest_for(
     elif issubclass(return_type, DataContainer):
         create_output("default", return_type.__name__)
     # Multiple outputs
+    elif hasattr(return_type, "__total__") and return_type.__total__:
+        # Get the defined attributes and their type annotations
+        attributes = return_type.__annotations__
+
+        for attribute, annotation in attributes.items():
+            if (not inspect.isclass(annotation) and node_name not in SPECIAL_NODES) or (
+                inspect.isclass(annotation)
+                and not issubclass(annotation, DataContainer)
+            ):
+                raise TypeError(
+                    "Return type must be a DataContainer or a DataClass"
+                    f"consisting of only DataContainers as fields, got {return_type} for {node_name}"
+                )
+            try:
+                output_type = (
+                    union_type_str(annotation)
+                    if is_union(annotation)
+                    else annotation.__name__
+                )
+            except Exception:
+                if node_name in SPECIAL_NODES:
+                    output_type = "Any"
+                else:
+                    raise
+
+            create_output(attribute, output_type)
+
     elif is_dataclass(return_type):
         for field in fields(return_type):
             if (not inspect.isclass(field.type) and node_name not in SPECIAL_NODES) or (
@@ -141,7 +171,6 @@ def make_manifest_for(
                     f"consisting of only DataContainers as fields, got {return_type} for {node_name}"
                 )
             try:
-
                 output_type = (
                     union_type_str(field.type)
                     if is_union(field.type)

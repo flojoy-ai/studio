@@ -172,5 +172,3 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
 
 class NotEncodable(Exception):
     pass
-
-
