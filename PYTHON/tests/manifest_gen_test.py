@@ -118,7 +118,7 @@ class ManifestGenerationTest(unittest.TestCase):
             ]
         }
 
-    def test_optional(self):
+    def test_manifest_with_optionals(self):
         manifest = get_manifest("optionals.py")
         assert manifest == {
             "COMMAND": [
