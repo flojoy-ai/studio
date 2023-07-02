@@ -2,7 +2,7 @@ from .build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
 import inspect
 from inspect import Parameter
 from types import UnionType, NoneType, ModuleType
-from typing import Any, Callable, Literal, Optional, Union, get_args
+from typing import Any, Callable, Literal, Optional, Type, Union, get_args
 from dataclasses import fields, is_dataclass
 from flojoy import DataContainer
 
@@ -16,6 +16,56 @@ ALLOWED_PARAM_TYPES = [
     list[str],
     NoneType,
 ]
+
+
+class ManifestBuilder:
+    def __init__(self):
+        self.manifest = {}
+        self.inputs = []
+        self.parameters = {}
+        self.outputs = []
+
+    def with_name(self, name: str):
+        self.manifest["name"] = name
+        return self
+
+    def with_key(self, key: str):
+        self.manifest["key"] = key
+        return self
+
+    def with_type(self, node_type: str):
+        self.manifest["type"] = node_type
+        return self
+
+    def with_input(self, name: str, input_type: Type):
+        self.inputs.append({"name": name, "id": name, "type": type_str(input_type)})
+        return self
+
+    def with_param(self, name: str, param_type: Type, default: Any):
+        self.parameters[name] = {"type": type_str(param_type), "default": default}
+        return self
+
+    def with_select(self, name: str, options: list[Any], default: Any):
+        self.parameters[name] = {
+            "type": "select",
+            "options": options,
+            "default": default,
+        }
+        return self
+
+    def with_output(self, name: str, output_type: Type):
+        self.outputs.append({"name": name, "id": name, "type": type_str(output_type)})
+        return self
+
+    def build(self):
+        if self.inputs:
+            self.manifest["inputs"] = self.inputs
+        if self.parameters:
+            self.manifest["parameters"] = self.parameters
+        if self.outputs:
+            self.manifest["outputs"] = self.outputs
+
+        return {"COMMAND": [self.manifest]}
 
 
 def create_manifest(path: str) -> dict:
@@ -43,26 +93,16 @@ def create_manifest(path: str) -> dict:
 
 
 def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
-    manifest: dict[str, Any] = {
-        "name": func.__name__,
-        "key": func.__name__,
-        "type": node_type,
-    }
-    inputs = []
-    params = {}
+    mb = (
+        ManifestBuilder()
+        .with_name(func.__name__)
+        .with_key(func.__name__)
+        .with_type(node_type)
+    )
 
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
-        populate_inputs(name, param, inputs, params)
-
-    if inputs:
-        manifest["inputs"] = inputs
-    if params:
-        manifest["parameters"] = params
-
-    outputs = []
-
-    create_output = create_io(outputs)
+        populate_inputs(name, param, mb)
 
     # Do a similar thing for the return type
     return_type = sig.return_annotation
@@ -75,15 +115,15 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
 
         # Obviously if the union contains DataContainer, it's just Any
         if DataContainer in union_types:
-            create_output("default", "any")
+            mb = mb.with_output("default", Any)
         else:
-            create_output("default", union_type_str(return_type))
+            mb = mb.with_output("default", return_type)
     # Single untyped output
     elif return_type == DataContainer:
-        create_output("default", "any")
+        mb = mb.with_output("default", Any)
     # Single typed output
     elif issubclass(return_type, DataContainer):
-        create_output("default", return_type.__name__)
+        mb = mb.with_output("default", return_type)
     # Multiple outputs
     elif is_dataclass(return_type):
         for field in fields(return_type):
@@ -93,13 +133,7 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                     "consisting of only DataContainers as fields, got {return_type}"
                 )
 
-            output_type = (
-                union_type_str(field.type)
-                if is_union(field.type)
-                else field.type.__name__
-            )
-
-            create_output(field.name, output_type)
+            mb = mb.with_output(field.name, field.type)
     else:
         # Terminators are special, they don't have outputs
         if not node_type == "TERMINATOR":
@@ -108,14 +142,10 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                 f"of only DataContainers as fields, got {return_type}"
             )
 
-    manifest["outputs"] = outputs
-
-    return {"COMMAND": [manifest]}
+    return mb.build()
 
 
-def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> None:
-    create_input = create_io(inputs)
-
+def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
 
@@ -128,9 +158,9 @@ def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> 
         if len(dc_types) == len(union_types):
             # Obviously if the union contains DataContainer, it's just Any
             if DataContainer in dc_types:
-                create_input(name, "any")
+                mb = mb.with_input(name, Any)
             else:
-                create_input(name, union_type_str(param_type))
+                mb = mb.with_input(name, param_type)
         # Case 1.2: Union of other types
         elif not dc_types:
             if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
@@ -138,11 +168,7 @@ def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> 
                     f"Union types must be one of {ALLOWED_PARAM_TYPES},"
                     f"got {union_types}"
                 )
-
-            params[name] = {
-                "type": union_type_str(param_type),
-                "default": default_value,
-            }
+            mb = mb.with_param(name, param_type, default_value)
         else:
             raise TypeError(
                 "Type union must either contain all DataContainers"
@@ -150,13 +176,12 @@ def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> 
             )
     # Case 2: Any DataContainer
     elif param_type == DataContainer:
-        create_input(name, "any")
+        mb = mb.with_input(name, Any)
     # Case 3: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
-        create_input(name, param_type.__name__)
+        mb = mb.with_input(name, param_type)
     elif is_outer_type(param_type, Optional):
         inner_type = param_type.__args__[0]
-        print(inner_type)
 
         # Recurse with the inner type, treating it as if the optional wasn't there
         populate_inputs(
@@ -164,34 +189,18 @@ def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> 
             Parameter(
                 name, kind=param.kind, default=param.default, annotation=inner_type
             ),
-            inputs,
-            params,
+            mb,
         )
     # Case 4: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        params[name] = {
-            "type": "select",
-            "options": param_type.__args__,
-            "default": default_value,
-        }
+        mb = mb.with_select(name, param_type.__args__, default_value)
     else:
         if param_type not in ALLOWED_PARAM_TYPES:
             raise TypeError(
                 f"Parameter types must be one of {ALLOWED_PARAM_TYPES},"
                 f"got {param_type}"
             )
-
-        params[name] = {
-            "type": get_full_type_name(param_type),
-            "default": default_value,
-        }
-
-
-def create_io(arr):
-    def func(name: str, input_type: str):
-        arr.append({"name": name, "id": name, "type": input_type})
-
-    return func
+        mb = mb.with_param(name, param_type, default_value)
 
 
 def is_outer_type(t, outer_type):
@@ -224,3 +233,7 @@ def get_full_type_name(t):
 
 def union_type_str(union):
     return "|".join([get_full_type_name(t) for t in get_union_types(union)])
+
+
+def type_str(t):
+    return union_type_str(t) if is_union(t) else get_full_type_name(t)

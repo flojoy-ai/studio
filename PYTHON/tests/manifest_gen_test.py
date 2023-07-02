@@ -22,7 +22,7 @@ class ManifestGenerationTest(unittest.TestCase):
                     "type": "TEST_TYPE",
                     "inputs": [
                         {"name": "default", "id": "default", "type": "OrderedPair"},
-                        {"name": "other", "id": "other", "type": "any"},
+                        {"name": "other", "id": "other", "type": "Any"},
                     ],
                     "parameters": {"some_param": {"type": "int", "default": None}},
                     "outputs": [
@@ -63,7 +63,7 @@ class ManifestGenerationTest(unittest.TestCase):
                         "foo": {"type": "list[int]", "default": None},
                         "bar": {"type": "str", "default": None},
                     },
-                    "outputs": [{"name": "default", "id": "default", "type": "any"}],
+                    "outputs": [{"name": "default", "id": "default", "type": "Any"}],
                 }
             ]
         }
@@ -100,9 +100,9 @@ class ManifestGenerationTest(unittest.TestCase):
                     "type": "TEST_TYPE",
                     "inputs": [
                         {"name": "a", "id": "a", "type": "Matrix|DataFrame|Image"},
-                        {"name": "b", "id": "b", "type": "any"},
+                        {"name": "b", "id": "b", "type": "Any"},
                         {"name": "c", "id": "c", "type": "Matrix|DataFrame|Image"},
-                        {"name": "d", "id": "d", "type": "any"},
+                        {"name": "d", "id": "d", "type": "Any"},
                     ],
                     "parameters": {
                         "foo": {"type": "str|int", "default": "bar"},
@@ -129,7 +129,7 @@ class ManifestGenerationTest(unittest.TestCase):
                     "inputs": [
                         {"name": "a", "id": "a", "type": "OrderedPair|OrderedTriple"},
                         {"name": "b", "id": "b", "type": "Matrix"},
-                        {"name": "c", "id": "c", "type": "any"},
+                        {"name": "c", "id": "c", "type": "Any"},
                     ],
                     "parameters": {
                         "foo": {"type": "str|int", "default": None},
