@@ -132,8 +132,8 @@ class ManifestGenerationTest(unittest.TestCase):
                         {"name": "c", "id": "c", "type": "any"},
                     ],
                     "parameters": {
-                        "foo": {"type": "str|int|NoneType", "default": None},
-                        "bar": {"type": "list[int]|NoneType", "default": None},
+                        "foo": {"type": "str|int", "default": None},
+                        "bar": {"type": "list[int]", "default": None},
                     },
                     "outputs": [
                         {

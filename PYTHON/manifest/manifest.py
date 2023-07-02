@@ -130,7 +130,7 @@ def populate_inputs(name: str, param: Parameter, inputs: list, params: dict) -> 
             if DataContainer in dc_types:
                 create_input(name, "any")
             else:
-                create_input(name, union_type_str(param_type, ignore_none=True))
+                create_input(name, union_type_str(param_type))
         # Case 1.2: Union of other types
         elif not dc_types:
             if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
@@ -206,12 +206,12 @@ def is_datacontainer(t):
     return inspect.isclass(t) and issubclass(t, DataContainer)
 
 
-def get_union_types(union, ignore_none=False):
+def get_union_types(union):
     if hasattr(union, "__args__"):
         types = union.__args__
     else:
         types = get_args(union)
-    return [t for t in types if not ignore_none or t != NoneType]
+    return [t for t in types if t != NoneType]
 
 
 def get_full_type_name(t):
@@ -222,7 +222,5 @@ def get_full_type_name(t):
         return t.__name__
 
 
-def union_type_str(union, ignore_none=False):
-    return "|".join(
-        [get_full_type_name(t) for t in get_union_types(union, ignore_none=ignore_none)]
-    )
+def union_type_str(union):
+    return "|".join([get_full_type_name(t) for t in get_union_types(union)])
