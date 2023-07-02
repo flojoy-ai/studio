@@ -88,9 +88,6 @@ def create_manifest(path: str) -> dict:
     return manifest
 
 
-# TODO: Refactor to use builder pattern, should be cleaner
-
-
 def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
     mb = (
         ManifestBuilder()
@@ -156,6 +153,7 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
         # Case 1.1: Union of DataContainers
         if len(dc_types) == len(union_types):
             # Obviously if the union contains DataContainer, it's just Any
+
             if DataContainer in dc_types:
                 mb = mb.with_input(name, Any)
             else:
