@@ -2,7 +2,7 @@ import inspect
 from types import UnionType
 from typing import Any, Callable, Literal, Union, get_args
 from dataclasses import fields, is_dataclass
-from flojoy import DataContainer, DefaultParams
+from flojoy import DataContainer
 
 ALLOWED_PARAM_TYPES = [
     int,
@@ -18,8 +18,18 @@ ALLOWED_PARAM_TYPES = [
 SPECIAL_NODES = ["LOOP", "CONDITIONAL", "GOTO"]
 
 
+def create_io(arr: list[Any]):
+    def func(name: str, input_type: str):
+        arr.append({"name": name, "id": name, "type": input_type})
+
+    return func
+
+
 def make_manifest_for(
-    node_name: str, node_type: str | None, func: Callable[..., Any]
+    node_name: str,
+    node_type: str | None,
+    param_map: dict[str, str],
+    func: Callable[..., Any],
 ) -> dict[str, Any]:
     manifest: dict[str, Any] = {
         "name": func.__name__,
@@ -29,15 +39,16 @@ def make_manifest_for(
     inputs = []
     params = {}
 
-    def create_io(arr):
-        def func(name: str, input_type: str):
-            arr.append({"name": name, "id": name, "type": input_type})
-
-        return func
-
     create_input = create_io(inputs)
 
+    for param_name, param_annotation in param_map.items():
+        has_union = (
+            True
+            if "Union" in param_annotation or param_annotation.split("|").__len__() > 1
+            else False
+        )
     sig = inspect.signature(func)
+
     for name, param in sig.parameters.items():
         param_type = param.annotation
         default_value = param.default if param.default is not param.empty else None
@@ -209,7 +220,7 @@ def is_datacontainer(t):
 
 
 def is_default_param(t: Any):
-    return inspect.isclass(t) and issubclass(t, DefaultParams)
+    return inspect.isclass(t) and issubclass(t)
 
 
 def get_union_types(union):

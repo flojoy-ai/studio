@@ -1,7 +1,12 @@
 import os
 import yaml
 from types import ModuleType
-from .build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
+from .build_ast import (
+    get_pip_dependencies,
+    get_node_type,
+    make_manifest_ast,
+    get_parameters_hashmap,
+)
 from .manifest import make_manifest_for
 
 
@@ -49,8 +54,9 @@ def create_manifest(path: str) -> dict:
     filename = os.path.basename(path)[:-3]
     func = getattr(module, filename)
     node_type = get_node_type(tree)
+    param_map = get_parameters_hashmap(tree)
 
-    manifest = make_manifest_for(filename, node_type, func)
+    manifest = make_manifest_for(filename, node_type, param_map, func)
 
     pip_deps = get_pip_dependencies(tree)
     if pip_deps:

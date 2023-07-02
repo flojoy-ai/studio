@@ -1,7 +1,8 @@
 import ast
 from typing import Optional, Any, Callable
+from flojoy import DataContainer
 
-SELECTED_IMPORTS = ["flojoy", "dataclasses", "typing"]
+SELECTED_IMPORTS = ["flojoy"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):
@@ -23,11 +24,6 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
     def visit_Module(self, node: ast.Module):
         node.body = [self.visit(n) for n in node.body]
         return node
-
-    def visit_Import(self, node: ast.Import):
-        if node.names[0].name in SELECTED_IMPORTS:
-            return node
-        return None
 
     def visit_ImportFrom(self, node: ast.ImportFrom):
         if node.module in SELECTED_IMPORTS:
@@ -113,6 +109,28 @@ def get_flojoy_decorator_param(tree: ast.Module, name: str) -> Optional[ast.keyw
         return None
 
     return find(decorator.keywords, lambda k: k.arg == name)
+
+
+def get_parameters_hashmap(tree: ast.Module):
+    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    if not flojoy_node:
+        raise ValueError("No flojoy node found in file")
+    args = flojoy_node.args.args
+    hashmap: dict[str, str] = {}
+    for arg in args:
+        try:
+            ann = arg.annotation.attr
+            hashmap[arg.arg] = ann
+
+        except Exception:
+            ann = arg.annotation.id
+            hashmap[arg.arg] = ann
+        finally:
+            continue
+    for key, val in hashmap.items():
+        if val == DataContainer.__name__:
+            print(f"key {key} has val of datacontainer")
+    return hashmap
 
 
 def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:

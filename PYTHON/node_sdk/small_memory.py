@@ -1,6 +1,6 @@
 import traceback
-import os, sys
 from PYTHON.dao.redis_dao import RedisDao
+from typing import Any
 
 
 class SmallMemory:
@@ -10,19 +10,19 @@ class SmallMemory:
 
     tracing_key = "ALL_MEMORY_KEYS"
 
-    def add_to_tracing_list(self, memory_key):
+    def add_to_tracing_list(self, memory_key: str):
         RedisDao.get_instance().add_to_set(self.tracing_key, memory_key)
 
     def clear_memory(self):
         all_traced_keys = RedisDao.get_instance().get_set_list(self.tracing_key)
         try:
             for key in all_traced_keys:
-                RedisDao.get_instance().delete_redis_object(key)
+                RedisDao.get_instance().delete_redis_object(key.decode("utf-8"))
             RedisDao.get_instance().delete_redis_object(self.tracing_key)
         except Exception:
             print(Exception, traceback.format_exc())
 
-    def write_to_memory(self, job_id, key, value):
+    def write_to_memory(self, job_id: str, key: str, value: Any):
         """
         Stores object in internal DB.
         The memory will be available for the duration the jobset is running.
@@ -70,7 +70,7 @@ class SmallMemory:
                     f"SmallMemory currently does not support '{v_type}' type data!"
                 )
 
-    def read_memory(self, job_id, key):
+    def read_memory(self, job_id: str, key: str):
         """
         Reads object stored in internal DB by the given key. The memory is job specific.
         """
@@ -90,7 +90,7 @@ class SmallMemory:
             case _:
                 return None
 
-    def delete_object(self, job_id, key):
+    def delete_object(self, job_id: str, key: str):
         """
         Removes object stored in internal DB by the given key. The memory is job specific.
         """

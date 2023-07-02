@@ -22,7 +22,7 @@ class RedisDao:
             RedisDao._instance = RedisDao()
         return RedisDao._instance
 
-    def set_np_array(self, memo_key: str, value: np.ndarray):
+    def set_np_array(self, memo_key: str, value: Any):
         encoded = self.serialize_np(value)
         self.r.set(memo_key, encoded)
 
@@ -39,7 +39,7 @@ class RedisDao:
         read_json = pd.read_json(decode)
         return read_json.head()
 
-    def get_np_array(self, memo_key: str, np_meta_data: dict[str, str]):
+    def get_np_array(self, memo_key: str, np_meta_data: dict[str, str]) -> list[Any]:
         encoded = self.r.get(memo_key)
         if encoded:
             return self.desirialize_np(encoded, np_meta_data)
@@ -81,8 +81,10 @@ class RedisDao:
     def serialize_np(self, np_array: np.ndarray):
         return np_array.ravel().tostring()
 
-    def desirialize_np(self, encoded: bytes, np_meta_data: dict[str, str]):
+    def desirialize_np(self, encoded: bytes, np_meta_data: dict[str, str]) -> list[Any]:
         d_type = np_meta_data.get("d_type", "")
         dimensions = np_meta_data.get("dimensions", [])
         shapes_in_int = [int(shape) for shape in dimensions]
-        return np.fromstring(encoded, dtype=d_type).reshape(*shapes_in_int)
+        return np.fromstring(encoded, dtype=d_type).reshape(
+            *shapes_in_int
+        )  # type:ignore
