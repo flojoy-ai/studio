@@ -2,7 +2,7 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import NodeWrapper from "../NodeWrapper";
-import { Box, clsx, createStyles } from "@mantine/core";
+import { Text, Box, clsx, createStyles } from "@mantine/core";
 import { useNodeStyles } from "../DefaultNode";
 import { ScipySvg } from "@src/assets/ArithmeticSVG";
 
@@ -58,7 +58,13 @@ const ScipyNode = ({ data }: CustomNodeProps) => {
           }}
         >
           <Box data-testid="data-label-design">
-            <Box>{data.label}</Box>
+          <Text
+              weight={600}
+              size="xl"
+              sx={{ letterSpacing: 1, fontFamily: "Open Sans" }}
+            >
+              {data.label}
+            </Text>
           </Box>
           {/* <AddBGTemplate /> */}
           {operatorIcon}

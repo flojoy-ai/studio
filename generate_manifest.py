@@ -25,17 +25,37 @@ for mf in all_files:
     if any(ext in mf for ext in allowed_file_ext):
         with open(join(full_path, mf), "r") as f:
             read_file = f.read()
-            s = yaml.load(read_file, Loader=yaml.FullLoader)
-            # Command always has to be a scalar list
-            for item in s["COMMAND"]:
-                exclude_property = ["parameters"]
-                func_name = item["key"]
-                manifest["commands"].append(
-                    {x: item[x] for x in item if x not in exclude_property}
-                )
-                if "parameters" in item:
-                    manifest["parameters"][func_name] = item["parameters"]
-
+            try:
+                s = yaml.load(read_file, Loader=yaml.FullLoader)
+                # Command always has to be a scalar list
+                for item in s["COMMAND"]:
+                    exclude_property = ["parameters"]
+                    func_name = item["key"]
+                    manifest["commands"].append(
+                        {x: item[x] for x in item if x not in exclude_property}
+                    )
+                    if "parameters" in item:
+                        manifest["parameters"][func_name] = item["parameters"]
+            except TypeError:
+                print('attempting safer load for', mf)
+                s = yaml.safe_load(read_file)
+                for key in s:
+                    val = s[key]
+                    if ':' not in val:
+                        continue
+                    s[key] = tmp = {}
+                    for x in val.split():
+                        x = x.split(':', 1)
+                        tmp[x[0]] = x[1]
+                s["COMMAND"] = [s["COMMAND"]]
+                for item in s["COMMAND"]:
+                    exclude_property = ["parameters"]
+                    func_name = item["key"]
+                    manifest["commands"].append(
+                        {x: item[x] for x in item if x not in exclude_property}
+                    )
+                    if "parameters" in item:
+                        manifest["parameters"][func_name] = item["parameters"]
 if prev_manifest != False:
     if len(manifest["commands"]) != len(prev_manifest["commands"]):
         jsonify_prev_manifest = json.dumps(obj=prev_manifest, indent=4)
