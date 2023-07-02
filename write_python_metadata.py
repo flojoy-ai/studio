@@ -10,11 +10,17 @@ pattern = "*.py"
 # List to store the file paths
 file_paths: list[str] = []
 badbadnotgood = ["VCTR.py", "__init__.py", ".DS_Store"]
-
+ignore_folders = [
+    "venv",
+]
 # Walk through all the directories and subdirectories
 for root, dirs, files in os.walk(nodes_dir):
     for file in files:
         # Check if the file matches the pattern
+        if any(
+            folder_name in os.path.join(root, file) for folder_name in ignore_folders
+        ):
+            continue
         if fnmatch.fnmatch(file, pattern):
             # If it matches, add the full path to the list
             if file not in badbadnotgood:
