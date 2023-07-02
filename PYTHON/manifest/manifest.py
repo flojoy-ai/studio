@@ -2,7 +2,7 @@ from .build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
 import inspect
 from inspect import Parameter
 from types import UnionType, NoneType, ModuleType
-from typing import Any, Callable, Literal, Optional, Type, Union, get_args
+from typing import Any, Callable, Literal, Optional, Type, Union, get_args, get_origin
 from dataclasses import fields, is_dataclass
 from flojoy import DataContainer
 
@@ -111,15 +111,15 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
 
         # Obviously if the union contains DataContainer, it's just Any
         if DataContainer in union_types:
-            mb = mb.with_output("default", Any)
+            mb.with_output("default", Any)
         else:
-            mb = mb.with_output("default", return_type)
+            mb.with_output("default", return_type)
     # Single untyped output
     elif return_type == DataContainer:
-        mb = mb.with_output("default", Any)
+        mb.with_output("default", Any)
     # Single typed output
     elif issubclass(return_type, DataContainer):
-        mb = mb.with_output("default", return_type)
+        mb.with_output("default", return_type)
     # Multiple outputs
     elif is_dataclass(return_type):
         for field in fields(return_type):
@@ -129,7 +129,7 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
                     "consisting of only DataContainers as fields, got {return_type}"
                 )
 
-            mb = mb.with_output(field.name, field.type)
+            mb.with_output(field.name, field.type)
     else:
         # Terminators are special, they don't have outputs
         if not node_type == "TERMINATOR":
@@ -145,59 +145,62 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
 
-    # Case 1: Union type
     if is_union(param_type):
         union_types = [t for t in get_union_types(param_type) if t != NoneType]
         dc_types = [t for t in union_types if is_datacontainer(t)]
 
-        # Case 1.1: Union of DataContainers
+        # If the union only contains 1 type, that means it was an Optional
+        # So we just recurse with the inner type.
+        if len(union_types) == 1:
+            inner_type = param_type.__args__[0]
+
+            # Recurse with the inner type, treating it as if the optional wasn't there
+            populate_inputs(
+                name,
+                Parameter(
+                    name, kind=param.kind, default=param.default, annotation=inner_type
+                ),
+                mb,
+            )
+            return
+
+        # Case 2.1: Union of DataContainers
         if len(dc_types) == len(union_types):
             # Obviously if the union contains DataContainer, it's just Any
 
             if DataContainer in dc_types:
-                mb = mb.with_input(name, Any)
+                mb.with_input(name, Any)
             else:
-                mb = mb.with_input(name, param_type)
-        # Case 1.2: Union of other types
+                mb.with_input(name, param_type)
+        # Case 2.2: Union of other types
         elif not dc_types:
             if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
                 raise TypeError(
                     f"Union types must be one of {ALLOWED_PARAM_TYPES},"
                     f"got {union_types}"
                 )
-            mb = mb.with_param(name, param_type, default_value)
+            mb.with_param(name, param_type, default_value)
         else:
             raise TypeError(
                 "Type union must either contain all DataContainers"
                 "or no DataContainers at all."
             )
-    # Case 2: Any DataContainer
+    # Case 3: Any DataContainer
     elif param_type == DataContainer:
-        mb = mb.with_input(name, Any)
-    # Case 3: Some class that inherits from DataContainer
+        mb.with_input(name, Any)
+    # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
-        mb = mb.with_input(name, param_type)
-    elif is_outer_type(param_type, Optional):
-        inner_type = param_type.__args__[0]
-
-        # Recurse with the inner type, treating it as if the optional wasn't there
-        populate_inputs(
-            name,
-            Parameter(
-                name, kind=param.kind, default=param.default, annotation=inner_type
-            ),
-            mb,
-        )
-    # Case 4: Literal type which becomes a select param
+        mb.with_input(name, param_type)
+    # Case 5: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        mb = mb.with_select(name, param_type.__args__, default_value)
+        mb.with_select(name, param_type.__args__, default_value)
     else:
         if param_type not in ALLOWED_PARAM_TYPES:
             raise TypeError(
                 f"Parameter types must be one of {ALLOWED_PARAM_TYPES},"
                 f"got {param_type}"
             )
-        mb = mb.with_param(name, param_type, default_value)
+        mb.with_param(name, param_type, default_value)
 
 
 def is_outer_type(t, outer_type):
@@ -208,15 +211,16 @@ def is_union(t):
     return is_outer_type(t, Union) or isinstance(t, UnionType)
 
 
+def is_optional(t):
+    return get_origin(t) is Union and type(None) in get_args(t)
+
+
 def is_datacontainer(t):
     return inspect.isclass(t) and issubclass(t, DataContainer)
 
 
 def get_union_types(union):
-    if hasattr(union, "__args__"):
-        types = union.__args__
-    else:
-        types = get_args(union)
+    types = get_args(union)
     return [t for t in types if t != NoneType]
 
 

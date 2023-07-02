@@ -5,11 +5,11 @@ import numpy as np
 
 @flojoy(node_type="TEST_TYPE")
 def OPTIONALS(
-    a: Optional[OrderedPair | OrderedTriple],
-    b: Optional[Matrix],
-    c: Optional[DataContainer],
-    foo: Optional[str | int],
-    bar: Optional[list[int]],
+    a: Optional[OrderedPair | OrderedTriple] = None,
+    b: Optional[Matrix] = None,
+    c: Optional[DataContainer] = None,
+    foo: Optional[str | int] = None,
+    bar: Optional[list[int]] = None,
 ) -> OrderedPair:
     q = np.array([])
     return OrderedPair(x=q, y=q)

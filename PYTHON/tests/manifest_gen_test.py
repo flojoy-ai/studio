@@ -146,6 +146,45 @@ class ManifestGenerationTest(unittest.TestCase):
             ]
         }
 
+    def test_manifest_with_selects(self):
+        manifest = get_manifest("selects.py")
+        assert manifest == {
+            "COMMAND": [
+                {
+                    "name": "SELECTS",
+                    "key": "SELECTS",
+                    "type": "TEST_TYPE",
+                    "inputs": [
+                        {"name": "default", "id": "default", "type": "Any"},
+                    ],
+                    "parameters": {
+                        "option1": {
+                            "type": "select",
+                            "options": ("a", "b", "c"),
+                            "default": "a",
+                        },
+                        "option2": {
+                            "type": "select",
+                            "options": ("d", "e", "f"),
+                            "default": None,
+                        },
+                        "option3": {
+                            "type": "select",
+                            "options": (1, 2, 3),
+                            "default": 3,
+                        },
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                        }
+                    ],
+                }
+            ]
+        }
+
 
 if __name__ == "__main__":
     unittest.main()
