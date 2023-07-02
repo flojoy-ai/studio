@@ -14,7 +14,6 @@ ALLOWED_PARAM_TYPES = [
     list[int],
     list[float],
     list[str],
-    NoneType,
 ]
 
 
