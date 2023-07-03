@@ -2,6 +2,8 @@ name: CI
 
 on:
   push:
+    paths-ignore:
+      - "PYTHON/nodes"
   pull_request:
     branches:
       - main
@@ -83,7 +85,6 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: pytest
-        exclude: PYTHON/nodes/
         run: |
           cd PYTHON
           python -m pytest --cov --cov-report=xml
