@@ -4,7 +4,7 @@ import networkx as nx
 from multiprocessing import Process
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from typing import Any, cast
+from typing import Any
 from rq.queue import Queue
 from multiprocessing import Process
 
@@ -143,14 +143,14 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     manager.running_topology.cleanup()
 
     # get the amount of workers needed
-    # spawn_workers(manager)
+    spawn_workers(manager)
 
-    # time.sleep(0.7)  # OPTIONAL wait for workers to spawn
+    time.sleep(0.7)  # OPTIONAL wait for workers to spawn
 
     nodes = fc["nodes"]
     missing_packages = []
     socket_msg = WorkerJobResponse(
-        jobset_id=cast(str, request.jobsetId),
+        jobset_id=request.jobsetId,
         dict_item={
             "PRE_JOB_OP": {"isRunning": True, "output": ""},
         },

@@ -16,15 +16,6 @@ from typing import Any, cast
 lock = asyncio.Lock()
 
 
-def dump_str(result: Any, limit: int | None = None):
-    result_str = str(result)
-    return (
-        result_str
-        if limit is None or len(result_str) <= limit
-        else result_str[:limit] + "..."
-    )
-
-
 class Topology:
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
@@ -162,7 +153,17 @@ class Topology:
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
 
-        for direction_ in get_next_directions(job_result):
+        next_directions = get_next_directions(job_result)
+        # In this case, the node did not explicitly supply what
+        # its output directions should be
+        # ex: Conditionals and Loops only want to continue in one direction out of the two
+        # If the node doesn't explicitly specify this then we just continue in all directions
+        if not next_directions:
+            next_directions: list[str] = self.get_outputs(job_id)
+
+        logger.debug(f"out_edges: {self.get_outputs(job_id)}")
+
+        for direction_ in next_directions:
             direction = direction_.lower()
             self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
@@ -368,6 +369,12 @@ class Topology:
                         queue.append(neighbour)
 
         return max_independant
+
+    def get_outputs(self, job_id: str):
+        out = self.original_graph.out_edges(job_id)
+        return list(
+            set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
+        )
 
     def cleanup(self):
         self.job_service.reset(list(self.original_graph.nodes))

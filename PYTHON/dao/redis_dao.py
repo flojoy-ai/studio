@@ -42,7 +42,7 @@ class RedisDao:
     def get_np_array(self, memo_key: str, np_meta_data: dict[str, str]) -> list[Any]:
         encoded = self.r.get(memo_key)
         if encoded:
-            return self.desirialize_np(encoded, np_meta_data)
+            return self.deserialize_np(encoded, np_meta_data)
         return []
 
     def get_str(self, key: str):
@@ -81,7 +81,7 @@ class RedisDao:
     def serialize_np(self, np_array: np.ndarray):
         return np_array.ravel().tostring()
 
-    def desirialize_np(self, encoded: bytes, np_meta_data: dict[str, str]) -> list[Any]:
+    def deserialize_np(self, encoded: bytes, np_meta_data: dict[str, str]) -> list[Any]:
         d_type = np_meta_data.get("d_type", "")
         dimensions = np_meta_data.get("dimensions", [])
         shapes_in_int = [int(shape) for shape in dimensions]
