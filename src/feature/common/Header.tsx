@@ -3,7 +3,6 @@ import {
   Header as MantineHeader,
   createStyles,
   getBreakpointValue,
-  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
 import { memo } from "react";
@@ -49,18 +48,6 @@ const tabs = [
     shortText: "Script",
     testId: "script-btn",
   },
-  {
-    to: "/controls",
-    fullText: "Ctrl Panel",
-    shortText: "Ctrl",
-    testId: "ctrls-btn",
-  },
-  {
-    to: "/debug",
-    fullText: "Debug",
-    shortText: "Debug",
-    testId: "debug-btn",
-  },
 ];
 
 const Header = () => {
@@ -68,12 +55,6 @@ const Header = () => {
   const { classes } = useStyles();
   const navigate = useNavigate();
 
-  useKeyboardShortcut("shift", "C", () => {
-    navigate("/controls");
-  });
-  useKeyboardShortcut("shift", "B", () => {
-    navigate("/debug");
-  });
   useKeyboardShortcut("shift", "S", () => {
     navigate("/");
   });

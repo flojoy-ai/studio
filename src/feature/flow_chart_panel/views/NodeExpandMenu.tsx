@@ -1,5 +1,5 @@
 import { Box } from "@mantine/core";
-import { ResultIO } from "@src/feature/results_panel/types/ResultsType";
+import { ResultIO } from "@src/feature/common/types/ResultsType";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Node, useOnSelectionChange } from "reactflow";
 import { ElementsData } from "../types/CustomNodeProps";

@@ -4,6 +4,7 @@ import {
   UnstyledButton,
   UnstyledButtonProps,
 } from "@mantine/core";
+import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -25,12 +26,7 @@ type IconButtonProps = {
   children: React.ReactNode;
 } & UnstyledButtonProps;
 
-export const IconButton = ({
-  onClick,
-  icon,
-  children,
-  ...props
-}: IconButtonProps) => {
+const IconButton = ({ onClick, icon, children, ...props }: IconButtonProps) => {
   const { classes } = useStyles();
 
   return (
@@ -41,3 +37,5 @@ export const IconButton = ({
     </UnstyledButton>
   );
 };
+
+export default memo(IconButton);
