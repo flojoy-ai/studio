@@ -1,42 +1,25 @@
 codecov:
   notify:
     after_n_builds: 2
-    wait_for_ci: yes
+    wait_for_ci: false
 
 coverage:
   status:
-    project:
-    python:
-      target: 30%
-      flags:
-        - python
-    cypress:
-      target: 30%
-      flags:
-        - cypress
-    patch: off
-
-# flag_management:
-#   individual_flags:
-#     # - name: typescript
-#     #   statuses:
-#     #     - type: project
-#     #       target: 30%
-#     - name: python
-#       statuses:
-#         - type: project
-#           target: 30%
-#     - name: cypress
-#       statuses:
-#         - type: project
-#           target: 30%
+    patch: false
+    project: false
+flag_management:
+  individual_flags:
+  - name: cypress
+    statuses:
+    - target: 30.0
+      type: project
+  - name: python
+    statuses:
+    - target: 30.0
+      type: project
 
 comment:
   layout: "reach, diff, flags, files"
   behaviour: default
   required_changes: no
-# flags:
-#   cypress:
-#     paths:
-#       - coverage-cy/coverage-final.json
-#     carryforward: false
+
