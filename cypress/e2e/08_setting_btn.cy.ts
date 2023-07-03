@@ -44,9 +44,15 @@ describe("Modify settings in control bar", () => {
 
     // Retrieve node delay and maximum time
     cy.get('[data-testid="settings-input"]').eq(0).clear();
-    cy.get('[data-testid="settings-input"]').eq(0).type("0.5");
+    cy.get('[data-testid="settings-input"]')
+      .eq(0)
+      .type(0.5)
+      .should("have.value", "0.50");
     cy.get('[data-testid="settings-input"]').eq(1).clear();
-    cy.get('[data-testid="settings-input"]').eq(1).type("100");
+    cy.get('[data-testid="settings-input"]')
+      .eq(1)
+      .type(100)
+      .should("have.value", "1000");
 
     cy.eyesCheckWindow({
       tag: "dark flow page with settings modal with input",

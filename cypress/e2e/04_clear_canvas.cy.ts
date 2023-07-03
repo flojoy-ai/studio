@@ -40,6 +40,9 @@ describe("studio", () => {
       layout: layoutRegions,
       fully: true,
     });
+
+    // Verify there aren't any nodes
+    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
   });
 
   // This method performs cleanup after each test.

@@ -36,13 +36,15 @@ describe("studio", () => {
 
     // Modify float parameters
     cy.get('[data-testid="float-input"]').each(($element) => {
-      cy.get($element).type(3);
+      cy.get($element).type("{selectall}{backspace}");
+      cy.get($element).type(3).should("have.value", 3);
     });
 
     // Modify select parameters
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", "square").click();
+      cy.get($element).should("have.value", "square");
     });
 
     // Light mode / Dark mode
@@ -66,7 +68,8 @@ describe("studio", () => {
 
     // Modify int parameters
     cy.get('[data-testid="int-input"]').each(($element) => {
-      cy.get($element).type(3);
+      cy.get($element).type("{selectall}{backspace}");
+      cy.get($element).type(3).should("have.value", 3);
     });
 
     // Light mode / Dark mode
@@ -90,7 +93,8 @@ describe("studio", () => {
 
     // Modify string parameter
     cy.get('[data-testid="string-input"]').each(($element) => {
-      cy.get($element).type("image path");
+      cy.get($element).type("{selectall}{backspace}");
+      cy.get($element).type("image path").should("have.value", "image path");
     });
 
     // Light mode / Dark mode
@@ -137,7 +141,9 @@ describe("studio", () => {
     cy.get('[data-testid="node-wrapper"]').click();
 
     // Modify array parameter
-    cy.get('[data-testid="array-input"]').type("[1,2,3,4]");
+    cy.get('[data-testid="array-input"]')
+      .type("[1,2,3,4]")
+      .should("have.value", "[1,2,3,4]");
 
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
@@ -174,6 +180,7 @@ describe("studio", () => {
       cy.get('[data-testid="node-edit-modal-params"]')
         .contains("LINSPACE")
         .click();
+      cy.get($element).should("have.value", "LINSPACE");
     });
 
     // Light mode / Dark mode
