@@ -33,13 +33,6 @@ describe("studio", () => {
     // Hover file button
     cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with dropdown bar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
     // Click Set API Key option
     cy.get('[data-testid="btn-apikey"]').click();
 

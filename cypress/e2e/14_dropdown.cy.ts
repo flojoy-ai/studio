@@ -24,19 +24,40 @@ describe("studio", () => {
   // Traditional assertions that scrape the page for text values are not needed here.
 
   it("drop down wrapper", () => {
+    const layoutRegions = [
+      { selector: '[data-cy="app-status"]' },
+      { selector: '[data-cy="btn-play"]' },
+    ];
+
     cy.visit("/").wait(1000);
 
     //test dark mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.wait(1000);
-    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
+    cy.eyesCheckWindow({
+      tag: "dark flow page with dropdown bar",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
 
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // test light mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.wait(1000);
-    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
+    cy.eyesCheckWindow({
+      tag: "light flow page with dropdown bar",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
   });
 
   // This method performs cleanup after each test.
