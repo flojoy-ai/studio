@@ -17,8 +17,7 @@ flag_management:
       statuses:
         - target: 30.0
           type: project
-
 comment:
   layout: "reach, diff, flags, files"
-  behaviour: default
-  required_changes: no
+  # behaviour: default
+  # required_changes: no
