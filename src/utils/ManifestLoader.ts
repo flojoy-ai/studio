@@ -113,6 +113,11 @@ const CMND_TREE: CommandSection = {
           key: "PREDICT_TIME_SERIES",
           children: null,
         },
+        {
+          title: "OpenAI",
+          key: "OPENAI",
+          children: null,
+        },
       ],
     },
     {
