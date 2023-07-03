@@ -2,8 +2,6 @@ name: CI
 
 on:
   push:
-    paths:
-      - "!PYTHON/nodes/**"
   pull_request:
     branches:
       - main
@@ -53,7 +51,7 @@ jobs:
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest --cov --cov-report=xml
+          python -m pytest --cov --cov-report=xml --omit ./nodes/
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
