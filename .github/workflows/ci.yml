@@ -51,7 +51,7 @@ jobs:
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest --cov-config=.coveragerc --cov --cov-report=xml
+          python -m pytest --cov-config=../../.coveragerc --cov --cov-report=xml
 
       - name: Codecov report
         uses: codecov/codecov-action@v3

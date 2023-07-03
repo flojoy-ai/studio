@@ -28,15 +28,17 @@ describe("studio", () => {
 
     //test dark mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.wait(1000);
-    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
 
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // test light mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.wait(1000);
-    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseout");
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
   });
 
   // This method performs cleanup after each test.
