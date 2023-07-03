@@ -9,17 +9,16 @@ coverage:
     project: false
 flag_management:
   individual_flags:
-  - name: cypress
-    statuses:
-    - target: 30.0
-      type: project
-  - name: python
-    statuses:
-    - target: 30.0
-      type: project
+    - name: cypress
+      statuses:
+        - target: 30.0
+          type: project
+    - name: python
+      statuses:
+        - target: 30.0
+          type: project
 
 comment:
   layout: "reach, diff, flags, files"
   behaviour: default
   required_changes: no
-
