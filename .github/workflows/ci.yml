@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-    paths-ignore:
-      - "PYTHON/nodes"
+    paths:
+      - "!PYTHON/nodes/**"
   pull_request:
     branches:
       - main
