@@ -35,7 +35,7 @@ describe("[Description of the test]", () => {
       // The name of the application under test.
       // All tests for the same app should share the same app name.
       // Set this name wisely: Applitools features rely on a shared app name across tests.
-      appName: "[Name of the repository that you are testing]",
+      appName: "[Name of the repository that is being tested]",
 
       // The name of the test case for the given application.
       // Additional unique characteristics of the test may also be specified as part of the test name,
@@ -49,7 +49,7 @@ describe("[Description of the test]", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("[Name of our test file]", () => {
+  it("[Name of the test file]", () => {
     // Test your component
   });
 
@@ -72,7 +72,7 @@ describe("[Description of the test]", () => {
     { selector: '[data-cy="btn-play"]' },
   ];
 
-  it("[Name of our test file]", () => {
+  it("[Name of the test file]", () => {
     // Test your component
   });
 });
@@ -95,7 +95,7 @@ For more information, visit [here](https://docs.cypress.io/guides/end-to-end-tes
 ```ts
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("Verify clear canvas button", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -150,4 +150,12 @@ describe("studio", () => {
 
 # Writing comments
 
-Make sure to describe your e2e test in 1-2 sentences in `[Description of the test]` and `[Test description]` sections.
+Make sure to describe your e2e test in 1-2 sentences in `[Description of the test]` and 1 sentence for `[Name of the test file]` sections.
+
+```ts
+describe("[Description of the test]", () => {
+  it("[Name of the test file]", () => {
+    // Test
+  });
+});
+```
