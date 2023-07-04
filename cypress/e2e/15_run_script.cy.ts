@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+//** Tests script run/cancellation for default app and captures the results as snapshots in light/dark mode.*/
+
 describe("playing script", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
@@ -22,7 +24,7 @@ describe("playing script", () => {
     });
   });
 
-  it("show results after pressing play on main homepage", () => {
+  it("script test on main page", () => {
     cy.visit("/").wait(1000);
 
     //click on play button

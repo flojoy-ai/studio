@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+//** Tests basic toggle functionality for dropdown menu and captures the results as snapshots in light/dark mode.*/
+
 describe("Verify node modal", () => {
   // This method performs setup before each test.
   beforeEach(() => {

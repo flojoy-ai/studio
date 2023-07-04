@@ -2,7 +2,9 @@
 
 require("cypress-xpath");
 
-describe("Set plotly viz node visual tests", () => {
+//** Captures all plotly component nodes in light/dark mode.*/
+
+describe("Set plotly node visual tests", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -24,7 +26,7 @@ describe("Set plotly viz node visual tests", () => {
     });
   });
 
-  it("plotly nodes viz test", () => {
+  it("plotly nodes visual test", () => {
     cy.visit("/").wait(1000);
 
     cy.get('[data-testid="clear-canvas-button"]').click();
