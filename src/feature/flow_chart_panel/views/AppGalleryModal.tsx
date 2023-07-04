@@ -60,8 +60,21 @@ export const AppGalleryModal = () => {
           </Modal.Header>
           <hr className={classes.hr} />
           <Modal.Body>
-            <h3>Fundamentals</h3>
-            <AppGalleryElement />
+            <div>
+              <h3 style={{ paddingLeft: "20px" }}>Fundamentals</h3>
+              <AppGalleryElement />
+            </div>
+            <div>
+              <h3 style={{ paddingLeft: "20px" }}>AI/ML</h3>
+            </div>
+            <div>
+              <h3 style={{ paddingLeft: "20px" }}>I/O</h3>
+            </div>
+            <div>
+              <h3 style={{ paddingLeft: "20px" }}>
+                Digital signal processing & simulation
+              </h3>
+            </div>
           </Modal.Body>
         </Modal.Content>
       </Modal.Body>
