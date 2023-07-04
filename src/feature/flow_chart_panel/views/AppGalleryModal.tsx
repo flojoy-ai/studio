@@ -66,14 +66,17 @@ export const AppGalleryModal = () => {
             </div>
             <div>
               <h3 style={{ paddingLeft: "20px" }}>AI/ML</h3>
+              <AppGalleryElement />
             </div>
             <div>
               <h3 style={{ paddingLeft: "20px" }}>I/O</h3>
+              <AppGalleryElement />
             </div>
             <div>
               <h3 style={{ paddingLeft: "20px" }}>
                 Digital signal processing & simulation
               </h3>
+              <AppGalleryElement />
             </div>
           </Modal.Body>
         </Modal.Content>
