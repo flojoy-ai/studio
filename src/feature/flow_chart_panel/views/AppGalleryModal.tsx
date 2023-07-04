@@ -3,6 +3,7 @@ import { Modal } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useSettings } from "@hooks/useSettings";
 import { memo } from "react";
+import AppGalleryElement from "@feature/flow_chart_panel/views/AppGalleryElement";
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -17,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     inset: 0,
     padding: 0,
   },
-  closeBtn:{
+  closeBtn: {
     marginTop: 6,
     marginRight: 8,
   },
@@ -53,13 +54,14 @@ export const AppGalleryModal = () => {
       <Modal.Overlay />
       <Modal.Body>
         <Modal.Content className={classes.content}>
-          <Modal.CloseButton className={classes.closeBtn}/>
+          <Modal.CloseButton className={classes.closeBtn} />
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
           </Modal.Header>
           <hr className={classes.hr} />
           <Modal.Body>
             <h3>Fundamentals</h3>
+            <AppGalleryElement />
           </Modal.Body>
         </Modal.Content>
       </Modal.Body>
