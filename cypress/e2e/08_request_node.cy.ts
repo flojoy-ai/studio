@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 require("cypress-xpath");
-describe(" Requesting node", () => {
+describe("Requesting node", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },

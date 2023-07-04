@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("Verify clear canvas button", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },

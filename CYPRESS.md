@@ -21,7 +21,7 @@ Now, you are ready to use applitools in cypress.
 
 ```ts
 /// <reference types="cypress" />
-describe("studio", () => {
+describe("[Description of the test]", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -66,7 +66,7 @@ describe("studio", () => {
 ```ts
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("[Description of the test]", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -147,3 +147,7 @@ describe("studio", () => {
   });
 });
 ```
+
+# Writing comments
+
+Make sure to describe your e2e test in 1-2 sentences in `[Description of the test]` and `[Test description]` sections.

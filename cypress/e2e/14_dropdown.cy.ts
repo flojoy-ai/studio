@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("Verify drop down button", () => {
   // This method performs setup before each test.
   beforeEach(() => {
     // Open Eyes to start visual testing.

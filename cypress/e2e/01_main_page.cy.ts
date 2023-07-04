@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("main page", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -26,7 +26,7 @@ describe("studio", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("should open flojoy studio's main page", () => {
+  it("main page", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
