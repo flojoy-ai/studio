@@ -1,7 +1,7 @@
 import { createStyles, Input } from "@mantine/core";
 import { Modal } from "@mantine/core";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { useSettings } from "@src/hooks/useSettings";
+import { useFlowChartState } from "@hooks/useFlowChartState";
+import { useSettings } from "@hooks/useSettings";
 import { memo } from "react";
 
 const useStyles = createStyles((theme) => ({
