@@ -83,7 +83,7 @@ class Topology:
         previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
         logger.debug(
-            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id.get('job_id'), original=True) for dep_id in previous_jobs]}"
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep.get('job_id', ''), original=True) for dep in previous_jobs]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
@@ -153,13 +153,13 @@ class Topology:
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
 
-        next_directions = get_next_directions(job_result)
+        next_directions: list[str] | None = get_next_directions(job_result)
         # In this case, the node did not explicitly supply what
         # its output directions should be
         # ex: Conditionals and Loops only want to continue in one direction out of the two
         # If the node doesn't explicitly specify this then we just continue in all directions
         if not next_directions:
-            next_directions: list[str] = self.get_outputs(job_id)
+            next_directions = self.get_outputs(job_id)
 
         logger.debug(f"out_edges: {self.get_outputs(job_id)}")
 
