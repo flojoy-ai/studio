@@ -1,26 +1,45 @@
 import { memo } from "react";
 import { createStyles, Image, Flex, Button } from "@mantine/core";
+import { create } from "domain";
 
-const AppGalleryElement = () => {
+interface Element{
+  linkText: string,
+  link: string,
+  elementTitle: string,
+  imagePath: string,
+}
+
+export const AppGalleryElementStyles = createStyles((theme) => ({
+  elementTitle: { marginBottom: 0 },
+  link: {},
+  elementLayout: {
+    mih: 50,
+    gap: "md",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "column",
+    flexWrap: "wrap",
+  },
+}));
+export const AppGalleryElement = ( {
+  linkText,
+  link, 
+  elementTitle,
+  imagePath } : Element
+) => {
+  const { classes } = AppGalleryElementStyles();
   return (
-    <Flex
-      mih={50}
-      gap="md"
-      justify="flex-start"
-      align="flex-start"
-      direction="column"
-      wrap="wrap"
-    >
+    <Flex className={classes.elementLayout}>
       <Image
         height={120}
         width={200}
-        src="42.png"
+        src={imagePath}
         alt="With custom placeholder"
       />
-      <h4>Intro to LOOPS</h4>
-      <a href="google.ca">google</a>
+      <h4 className={classes.elementTitle}>{elementTitle}</h4>
+      <a href={link} className={classes.link}>
+        {linkText}
+      </a>
     </Flex>
   );
 };
-
-export default memo(AppGalleryElement);
