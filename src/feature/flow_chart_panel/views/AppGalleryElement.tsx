@@ -5,15 +5,20 @@ const AppGalleryElement = () => {
   return (
     <Flex
       mih={50}
-      bg="rgba(0, 0, 0, .3)"
       gap="md"
       justify="flex-start"
       align="flex-start"
       direction="column"
       wrap="wrap"
     >
-      <Button> Button 1 </Button>
-      <Button> Button 2 </Button>
+      <Image
+        height={120}
+        width={200}
+        src="42.png"
+        alt="With custom placeholder"
+      />
+      <h4>Intro to LOOPS</h4>
+      <a href="google.ca">google</a>
     </Flex>
   );
 };
