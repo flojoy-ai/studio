@@ -32,23 +32,20 @@ describe("studio", () => {
 
     // Click expand button
     cy.get('[data-testid="expand-button"]').click();
-
     cy.eyesCheckWindow({
       tag: "dark flow page with Histogram node modal",
       target: "window",
       fully: true,
     });
-
     cy.get('[data-testid="node-modal-closebtn"]').click();
 
+    // Test in light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get(
       '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
     ).click();
-
     cy.get('[data-testid="expand-button"]').click();
-
     cy.eyesCheckWindow({
       tag: "light flow page with Histogram node modal",
       target: "window",

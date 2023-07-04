@@ -32,64 +32,51 @@ describe("studio", () => {
 
     // Hover file button
     cy.get('[data-testid="file-btn"]').trigger("mouseover");
-
     // Click Set API Key option
     cy.get('[data-testid="btn-apikey"]').click();
-
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-
     // Input for API Key
     cy.get('[data-testid="api-key-input"]').type("TestAPIKeyInput");
-
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal with input",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-
     // Click submit button
     cy.get('[data-testid="api-key-input-btn"]').click();
-
     cy.eyesCheckWindow({
       tag: "dark flow page with apikey modal after submit",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-
     cy.get('[data-testid="api-key-close-btn"]').click();
 
     // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get('[data-testid="file-btn"]').trigger("mouseover");
-
     cy.get('[data-testid="btn-apikey"]').click();
-
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-
     cy.get('[data-testid="api-key-input"]').type("TestAPIKeyInput");
-
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal with input",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
-
     cy.get('[data-testid="api-key-input-btn"]').click();
-
     cy.eyesCheckWindow({
       tag: "light flow page with apikey modal after submit",
       target: "window",
