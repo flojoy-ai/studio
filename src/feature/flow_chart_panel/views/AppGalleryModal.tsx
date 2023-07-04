@@ -17,6 +17,10 @@ const useStyles = createStyles((theme) => ({
     inset: 0,
     padding: 0,
   },
+  closeBtn:{
+    marginTop: 6,
+    marginRight: 8,
+  },
   header: {
     paddingTop: 0,
   },
@@ -27,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: 20,
   },
   hr: {
-    width: 500,
+    width: "93%",
   },
 }));
 
@@ -49,11 +53,11 @@ export const AppGalleryModal = () => {
       <Modal.Overlay />
       <Modal.Body>
         <Modal.Content className={classes.content}>
-          <Modal.CloseButton />
+          <Modal.CloseButton className={classes.closeBtn}/>
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
-            <hr className={classes.hr} />
           </Modal.Header>
+          <hr className={classes.hr} />
           <Modal.Body>
             <h3>Fundamentals</h3>
           </Modal.Body>
