@@ -286,9 +286,7 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
-cd PYTHON/manifest
 $venvCmd && python3 generate_yaml_manifest.py
-cd ../..
 
 feedback $? 'Generated yaml manifests for Python nodes' 'Error occurred while generating yaml manifests. Check errors printed above!'
 

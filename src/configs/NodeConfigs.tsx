@@ -13,7 +13,7 @@ export const nodeConfigs = {
   SIMULATIONS: SimulationNode,
   PLOTLY: VisorNode,
   CONDITIONALS: ConditionalNode,
-  TERMINATOR: TerminatorNode,
+  TERMINATORS: TerminatorNode,
   SAMPLE_IMAGE: DefaultNode,
   AI_OBJECT_DETECTION: DefaultNode,
   SCIPY_STATS: ScipyNode,
