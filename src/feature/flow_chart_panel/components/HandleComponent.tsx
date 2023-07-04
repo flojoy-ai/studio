@@ -23,21 +23,25 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
     <>
       <Box className={classes.handleWrapper} left={-6}>
         {inputs.map((param) => (
-          <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
+          <Flex
+            key={`input-${data.id}-${param.name}`}
+            align="center"
+            pos="relative"
+          >
             <Handle
               position={Position.Left}
               type="target"
               id={param.id}
               // Needs to be inline style for it to actually override the default react flow styles...
               style={{
-                position: "static",
                 border: "1px solid lightgray",
                 width: 12,
                 height: 12,
                 borderRadius: 0,
+                left: 0,
               }}
             />
-            <Box mb={12} ml={4}>
+            <Box pos="absolute" left={20} bottom={-12}>
               {param.name !== "default" ? param.name : ""}
             </Box>
           </Flex>
@@ -46,23 +50,27 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
 
       <Box className={classes.handleWrapper} right={-10}>
         {outputs.map((param) => (
-          <Flex key={`input-${data.id}-${param.name}`} mt={4} align="center">
+          <Flex
+            key={`input-${data.id}-${param.name}`}
+            align="center"
+            pos="relative"
+          >
+            <Box pos="absolute" right={20}>
+              {param.name !== "default" ? param.name : ""}
+            </Box>
             <Handle
               position={Position.Right}
               type="source"
               id={param.id}
               // Needs to be inline style for it to actually override the default react flow styles...
               style={{
-                position: "static",
                 border: "1px solid lightgray",
                 width: 12,
                 height: 12,
                 borderRadius: 0,
+                right: 4,
               }}
             />
-            <Box mb={12} ml={4}>
-              {param.name !== "default" ? param.name : ""}
-            </Box>
           </Flex>
         ))}
       </Box>

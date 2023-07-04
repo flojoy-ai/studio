@@ -1,11 +1,9 @@
 import os
 import yaml
-from types import ModuleType
-from build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
-from manifest import make_manifest_for
+from PYTHON.manifest import create_manifest
 
 
-NODES_DIR = "../nodes"
+NODES_DIR = "PYTHON/nodes"
 
 
 def main():
@@ -38,28 +36,6 @@ def get_nodes_files(root_dir: str) -> list[str]:
             result.append(file_path)
 
     return result
-
-
-def create_manifest(path: str) -> dict:
-    tree = make_manifest_ast(path)
-    code = compile(tree, filename="<unknown>", mode="exec")
-    module = ModuleType("node_module")
-    exec(code, module.__dict__)
-
-    filename = os.path.basename(path)[:-3]
-    func = getattr(module, filename)
-
-    node_type = get_node_type(tree)
-    if not node_type:
-        node_type = "default"
-
-    manifest = make_manifest_for(node_type, func)
-
-    pip_deps = get_pip_dependencies(tree)
-    if pip_deps:
-        manifest["COMMAND"][0]["pip_dependencies"] = pip_deps
-
-    return manifest
 
 
 if __name__ == "__main__":

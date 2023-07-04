@@ -15,6 +15,7 @@ type ParamFieldProps = {
   }[];
 };
 
+// TODO: Add support for unions on the frontend
 const ParamField = ({
   nodeCtrls,
   nodeId,
@@ -54,7 +55,8 @@ const ParamField = ({
           value={value as string}
         />
       );
-    case "array":
+    case "list[int]":
+    case "list[str]":
       return (
         <TextInput
           onChange={(e) => handleChange(e.currentTarget.value)}
