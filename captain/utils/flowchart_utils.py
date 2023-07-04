@@ -1,17 +1,18 @@
 import io, time, asyncio
 import json, os, sys
 import networkx as nx
-from multiprocessing import Process
+from multiprocessing import Process, SimpleQueue
+from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from typing import Any, cast
-from rq.queue import Queue
+from typing import Any, Callable, cast
+# from rq.queue import Queue
 from multiprocessing import Process
 
-try:
-    from rq_win import WindowsWorker as Worker
-except ImportError:
-    from rq.worker import Worker
+# try:
+#     from rq_win import WindowsWorker as Worker
+# except ImportError:
+#     from rq.worker import Worker
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
@@ -20,21 +21,28 @@ from .status_codes import STATUS_CODES
 from PYTHON.dao.redis_dao import RedisDao
 from PYTHON.node_sdk.small_memory import SmallMemory
 from captain.types.worker import WorkerJobResponse
+import traceback
 
 
-def run_worker():
-    if (
-        os.environ.get("DEBUG", None) is None
-        or os.environ.get("DEBUG", None) == "False"
-    ):
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-    queue = Queue("flojoy", connection=RedisDao().r)
-    worker = Worker([queue], connection=RedisDao().r)
-    worker.work()
+def run_worker(task_queue, imported_functions):
+    try:
+        if (
+            os.environ.get("DEBUG", None) is None
+            or os.environ.get("DEBUG", None) == "False"
+        ):
+            text_trap = io.StringIO()
+            sys.stdout = text_trap
+        # queue = Queue("flojoy", connection=RedisDao().r)
+        # worker = Worker([queue], connection=RedisDao().r)
+        # worker.work()
+        logger.debug("Starting worker")
+        worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
+        worker.run()
+    except Exception as e:
+        print(f"Error in worker: {traceback.format_exc()}", flush=True)
 
 
-def create_topology(request: PostWFC, worker_processes: list[Process]):
+def create_topology(request: PostWFC, worker_processes: list[Process], task_queue: SimpleQueue, cleanup_func: Callable):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
@@ -42,11 +50,12 @@ def create_topology(request: PostWFC, worker_processes: list[Process]):
         worker_processes=worker_processes,
         node_delay=request.nodeDelay,
         max_runtime=request.maximumRuntime,
+        task_queue=task_queue,
+        cleanup_func=cleanup_func,
     )
 
-
 # spawns a set amount of RQ workers to execute jobs (node functions)
-def spawn_workers(manager: Manager):
+def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
@@ -55,7 +64,7 @@ def spawn_workers(manager: Manager):
     logger.info(f"Spawning {worker_number} workers")
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
-        worker_process = Process(target=run_worker)
+        worker_process = Process(target=run_worker, args=(manager.task_queue, imported_functions,))
         worker_process.daemon = True
         worker_process.start()
         manager.worker_processes.append(worker_process)
@@ -124,14 +133,18 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
+
+    # Create new task queue
+    manager.task_queue = SimpleQueue()
+
     # create the topology
-    manager.running_topology = create_topology(request, manager.worker_processes)
+    manager.running_topology = create_topology(request, manager.worker_processes, manager.task_queue, manager.clear_worker_processes)
 
     # Delete all rq jobs and cleanup memory
     manager.running_topology.cleanup()
 
     # get the amount of workers needed
-    spawn_workers(manager)
+    spawn_workers(manager, manager.running_topology.pre_import_functions())
 
     time.sleep(0.7)  # OPTIONAL wait for workers to spawn
 

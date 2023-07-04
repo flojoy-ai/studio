@@ -1,17 +1,18 @@
 import asyncio
 from copy import deepcopy
 import logging
-from multiprocessing import Process
+from multiprocessing import Process, SimpleQueue
 import os
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
+from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
-from typing import Any, cast
+from typing import Any, cast, Callable
 
 lock = asyncio.Lock()
 
@@ -24,6 +25,8 @@ class Topology:
         graph: nx.DiGraph,
         jobset_id: str,
         worker_processes: list[Process],
+        task_queue: SimpleQueue,
+        cleanup_func: Callable,
         node_delay: float = 0,
         max_runtime: float = 3000,
     ):
@@ -38,6 +41,8 @@ class Topology:
         self.cancelled = False
         self.worker_processes = worker_processes
         self.time_start = 0
+        self.task_queue = task_queue
+        self.cleanup_func = cleanup_func
 
     # initial and main logic of topology
     async def run(self):
@@ -62,6 +67,29 @@ class Topology:
             ):
                 next_jobs.append(job_id)
         return next_jobs
+
+    # TODO move this to utils, makes more sense there
+    def pre_import_functions(self):
+        functions = {}
+        for node_id in cast(list[str], self.original_graph.nodes):
+            node = cast(dict[str, Any], self.original_graph.nodes[node_id]) 
+            cmd: str = node["cmd"]
+            cmd_mock: str = node["cmd"] + "_MOCK"
+            node_path: str = node.get("node_path", "")
+            node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+            if node_path != "":
+                module = import_module(node_path)
+            else:
+                module = get_module_func(cmd)
+            func_name = cmd_mock if self.is_ci else cmd
+            try:
+                func = getattr(module, func_name)
+            except AttributeError:
+                func = getattr(module, cmd)
+
+            functions[node_id] = func
+        return functions
+
 
     async def run_job(self, job_id: str):
         async with lock:
@@ -89,17 +117,25 @@ class Topology:
         logger.debug(f"{job_id} queued at {time.time()}")
 
         # enqueue job to worker and get the AsyncResult
-        self.job_service.enqueue_job(
-            func=func,
-            jobset_id=self.jobset_id,
+        # self.job_service.enqueue_job(
+        #     func=func,
+        #     jobset_id=self.jobset_id,
+        #     job_id=job_id,
+        #     iteration_id=job_id,
+        #     ctrls=node["ctrls"],
+        #     previous_jobs=previous_jobs,
+        # )
+        self.task_queue.put(JobInfo(
             job_id=job_id,
+            jobset_id=self.jobset_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
             previous_jobs=previous_jobs,
-        )
+        ))
 
     # also used for when the topology finishes
     def cancel(self):
+        logger.debug("Topology cancelled")
         self.cancelled = True
         self.kill_workers()
 
@@ -212,7 +248,13 @@ class Topology:
 
     def kill_workers(self):
         for worker_process in self.worker_processes:
+            logger.debug("Killing worker process")
             worker_process.terminate()
+            worker_process.join()
+            logger.debug("Worker process killed")
+
+        # clear list of worker processes from manager
+        self.cleanup_func()
 
     # also used for when the topology is finished
     def is_cancelled(self):

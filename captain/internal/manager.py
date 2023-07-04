@@ -1,10 +1,11 @@
 from fastapi import WebSocket
-from multiprocessing import Process
+from multiprocessing import Process, SimpleQueue
 from captain.utils.logger import logger
 from captain.models.topology import Topology
 from typing import Any, Union
 import json
 from captain.types.worker import WorkerJobResponse
+
 
 """ Acts as a bridge between backend components """
 
@@ -15,6 +16,10 @@ class Manager(object):
         self.running_topology: Topology | None = None  # holds the topology
         self.worker_processes: list[Process] = []
         self.debug_mode = False
+        self.task_queue: SimpleQueue = SimpleQueue()
+    
+    def clear_worker_processes(self):
+        self.worker_processes.clear()
 
 
 class ConnectionManager:
