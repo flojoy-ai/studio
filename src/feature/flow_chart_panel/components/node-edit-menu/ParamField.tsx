@@ -22,17 +22,16 @@ type ParamFieldProps = {
     value: string;
   }[];
 };
-//
-// const useStyles = createStyles((theme) => {
-//   return {
-//     input: {
-//       backgroundColor: "gray",
-//     },
-//     root: {
-//       color: "gray",
-//     },
-//   };
-// });
+const useStyles = createStyles((theme) => {
+  return {
+    switch: {
+      color:
+        theme.colorScheme === "light"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[0],
+    },
+  };
+});
 
 const ParamField = ({
   nodeId,
@@ -52,7 +51,7 @@ const ParamField = ({
     });
   };
   const theme = useMantineTheme();
-  //const { classes } = useStyles();
+  const { classes } = useStyles();
 
   switch (type) {
     case "float":
@@ -87,21 +86,14 @@ const ParamField = ({
       );
     case "boolean":
       return (
-        <MantineProvider
-          theme={{
-            colors: {
-              accent1: theme.colors.accent1,
-              accent2: theme.colors.accent2,
-            },
-          }}
-        >
+        <MantineProvider>
           <Switch
             onChange={(e) => handleChange(e.currentTarget.checked)}
             label={JSON.stringify(value)}
             onLabel="T"
             offLabel="F"
             size="md"
-            color="accent1.1"
+            color="gray"
           />
         </MantineProvider>
       );
