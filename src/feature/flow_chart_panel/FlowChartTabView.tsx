@@ -14,7 +14,7 @@ import {
   getManifestCmdsMap,
   getManifestParams,
 } from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { IconMinus, IconPlus, IconApps } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
@@ -46,6 +46,7 @@ import { CustomNodeProps } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
+import { AppGalleryModal } from "./views/AppGalleryModal";
 
 localforage.config({
   name: "react-flow",
@@ -54,8 +55,13 @@ localforage.config({
 
 const FlowChartTab = () => {
   const manifestParams: ManifestParams = getManifestParams();
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
-    useFlowChartState();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setRfInstance,
+    isGalleryOpen,
+    setIsGalleryOpen,
+  } = useFlowChartState();
 
   const theme = useMantineTheme();
 
@@ -267,6 +273,15 @@ const FlowChartTab = () => {
     [theme]
   );
 
+  const galleryIcon = useMemo(
+    () => <IconApps size={16} color={theme.colors.accent1[0]} />,
+    [theme]
+  );
+
+  const handleGalleryState = () => {
+    setIsGalleryOpen(true);
+  };
+
   return (
     <Layout>
       <TabActions>
@@ -277,6 +292,10 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
+        <IconButton onClick={handleGalleryState} icon={galleryIcon}>
+          <Text size="sm">App Gallery</Text>
+        </IconButton>
+        <AppGalleryModal />
         <IconButton onClick={clearCanvas} icon={minusIcon} ml="auto" h="100%">
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
@@ -290,6 +309,7 @@ const FlowChartTab = () => {
         customContent={sidebarCustomContent}
         appTab={"FlowChart"}
       />
+
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 150px)" }}
