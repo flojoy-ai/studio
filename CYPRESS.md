@@ -13,7 +13,7 @@ To connect any visual tests results from cypress to applitools:
 2. click user-info icon on the very top right ⇒ click on “**My API Key”.** The key should be present if you are in the system.
 3. Next, within studio repository, search for `applitools.config.js` and paste the key over `APPLITOOLS_API_KEY`.
 
-`Note: **DO NOT PUSH** applitools.config.js **TO DEVELOP BRANCH**`
+`Note: DO NOT PUSH applitools.config.js TO DEVELOP/MAIN BRANCH`
 
 Now, you are ready to use applitools in cypress.
 
