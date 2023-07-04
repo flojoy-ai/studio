@@ -23,16 +23,24 @@ const useStyles = createStyles((theme) => ({
     marginRight: 8,
   },
   header: {
+    position: "sticky",
+    display: "relative",
     paddingTop: 0,
   },
   title: {
     display: "relative",
     font: "Inter",
+    width: "60%",
     fontSize: 35,
     paddingLeft: 20,
   },
   hr: {
-    width: "93%",
+    position: "absolute",
+    margin: 0,
+    width: "90%",
+    bottom: 0,
+    marginLeft: "2%",
+    marginRight: "5%",
   },
 }));
 
@@ -57,8 +65,8 @@ export const AppGalleryModal = () => {
           <Modal.CloseButton className={classes.closeBtn} />
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
+            <hr className={classes.hr} />
           </Modal.Header>
-          <hr className={classes.hr} />
           <Modal.Body>
             <div>
               <h3 style={{ paddingLeft: "20px" }}>Fundamentals</h3>
