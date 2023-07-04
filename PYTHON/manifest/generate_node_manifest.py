@@ -181,7 +181,14 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
                 mb.with_input(name, Any)
             else:
                 mb.with_input(name, param_type)
-        # # Case 2.2: Union of other types
+        # Case 2.2: Union of other types
+        elif not dc_types:
+            if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
+                raise TypeError(
+                    f"Union types must be one of {ALLOWED_PARAM_TYPES},"
+                    f"got {union_types}"
+                )
+            mb.with_param(name, param_type, default_value)
         else:
             raise TypeError(
                 "Type union must either contain all DataContainers"
@@ -191,7 +198,8 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
     elif param_type == DataContainer:
         mb.with_input(name, Any)
     elif is_special_type(param_type):
-        mb.with_param(name, param_type, default=param_type.default.ref)
+        default_value = default_value.ref
+        mb.with_param(name, param_type, default=default_value)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
         mb.with_input(name, param_type)
