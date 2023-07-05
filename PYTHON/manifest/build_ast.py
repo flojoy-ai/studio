@@ -37,9 +37,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
     def visit_ClassDef(self, node: ast.ClassDef) -> Any:
-        if "output" in node.name.lower():
-            return node
-        return None
+        return node
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
         if not self.has_decorator(node, "flojoy"):
@@ -75,12 +73,13 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
 
     node_name = flojoy_node.name
     return_type = None
+
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
         print(f"⚠️ {node_name} has no return type hint, will have no output!")
     else:
         # This handles the case where the return type is a union, we can ignore
         # all of the class defs in this case
-        if not isinstance(flojoy_node.returns, ast.BinOp):
+        if flojoy_node.returns and not isinstance(flojoy_node.returns, ast.BinOp):
             return_type = flojoy_node.returns.id
 
     # Then get rid of all the other dataclasses

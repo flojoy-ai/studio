@@ -61,7 +61,6 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs ?? [];
 
-  // TODO: Investigate why this keeps making it rerender
   const {
     states: { programResults },
   } = useSocket();
@@ -104,12 +103,7 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
             <HandleComponent data={data} />
           </Box>
         ) : (
-          <Box
-            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
-            style={{
-              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-            }}
-          >
+          <Box className={clsx(classes.visorNode, nodeClasses.nodeContainer)}>
             {chartElemMap[data.func]}
             <HandleComponent data={data} />
           </Box>

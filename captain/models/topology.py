@@ -11,7 +11,7 @@ from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
-from typing import Any, cast
+from typing import Any, cast, Tuple
 
 lock = asyncio.Lock()
 
@@ -278,25 +278,40 @@ class Topology:
     ) -> list[dict[str, str]]:
         graph = self.get_graph(original)
         try:
-            return [
-                {
-                    "job_id": prev_job_id,
-                    "input_name": self.get_input_name(prev_job_id, job_id, original),
-                    "edge": graph.get_edge_data(prev_job_id, job_id).get("label", ""),
-                }
-                for prev_job_id in list(graph.predecessors(job_id))
-            ]
+            deps = []
+            for prev_job_id in list(graph.predecessors(job_id)):
+                input_name, multiple = self.get_input_info(
+                    prev_job_id, job_id, original
+                )
+                deps.append(
+                    {
+                        "job_id": prev_job_id,
+                        "input_name": input_name,
+                        "multiple": multiple,
+                        "edge": graph.get_edge_data(prev_job_id, job_id).get(
+                            "label", ""
+                        ),
+                    }
+                )
+            logger.debug(f"deps: {deps}")
+            return deps
         except Exception:
             return []
 
-    def get_input_name(
+    def get_input_info(
         self, source_job_id: str, target_job_id: str, original: bool = False
-    ) -> str:
+    ) -> Tuple[str, bool]:
         graph = self.get_graph(original)
         edge_data = graph.get_edge_data(source_job_id, target_job_id)
+
+        target_label = ""
+        multiple = False
+
         if edge_data:
-            return edge_data.get("target_label", "")
-        return ""
+            target_label = edge_data.get("target_label", "")
+            multiple = edge_data.get("multiple", False)
+
+        return target_label, multiple
 
     def remove_dependency(self, job_id: str, succ_id: str):
         if self.working_graph.has_edge(job_id, succ_id):

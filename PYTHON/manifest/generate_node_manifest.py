@@ -50,11 +50,18 @@ class ManifestBuilder:
         self.manifest["type"] = node_type
         return self
 
-    def with_input(self, name: str, input_type: str):
-        self.inputs.append({"name": name, "id": name, "type": type_str(input_type)})
+    def with_input(self, name: str, input_type: Type, multiple: bool = False):
+        self.inputs.append(
+            {
+                "name": name,
+                "id": name,
+                "type": type_str(input_type),
+                "multiple": multiple,
+            }
+        )
         return self
 
-    def with_param(self, name: str, param_type: str, default: Any):
+    def with_param(self, name: str, param_type: Type, default: Any):
         self.parameters[name] = {"type": type_str(param_type), "default": default}
         return self
 
@@ -139,7 +146,7 @@ def make_manifest_for(
             else:
                 if not issubclass(value, DataContainer):
                     raise TypeError(
-                        "Return type must be a DataContainer or a typing.TyedDict"
+                        "Return type must be a DataContainer or a typing.TypedDict"
                         f"consisting of only DataContainers as fields, got {return_type}"
                     )
 
@@ -148,7 +155,9 @@ def make_manifest_for(
     return mb.build()
 
 
-def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
+def populate_inputs(
+    name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
+) -> None:
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
 
@@ -168,6 +177,7 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
                     name, kind=param.kind, default=param.default, annotation=inner_type
                 ),
                 mb,
+                multiple=multiple,
             )
             return
 
@@ -176,9 +186,9 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
             # Obviously if the union contains DataContainer, it's just Any
 
             if DataContainer in dc_types:
-                mb.with_input(name, Any)
+                mb.with_input(name, Any, multiple=multiple)
             else:
-                mb.with_input(name, param_type)
+                mb.with_input(name, param_type, multiple=multiple)
         # Case 2.2: Union of other types
         elif not dc_types:
             if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
@@ -194,14 +204,35 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
             )
     # Case 3: Any DataContainer
     elif param_type == DataContainer:
-        mb.with_input(name, Any)
+        mb.with_input(name, Any, multiple=multiple)
     elif is_special_type(param_type):
-        default_value = default_value.unwrap()
+        default_value = None if default_value is None else default_value.unwrap()
         mb.with_param(name, param_type, default=default_value)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
-        mb.with_input(name, param_type)
-    # Case 5: Literal type which becomes a select param
+        mb.with_input(name, param_type, multiple=multiple)
+    # Case 5: Some kind of list
+    elif is_outer_type(param_type, list):
+        inner_type = param_type.__args__[0]
+        # If it's a list of datacontainers we mark it as multiple
+        # and recurse with the inner type
+        if is_datacontainer(inner_type) or is_union_of_datacontainers(inner_type):
+            populate_inputs(
+                name,
+                Parameter(
+                    name, kind=param.kind, default=param.default, annotation=inner_type
+                ),
+                mb,
+                multiple=True,
+            )
+            return
+        if param_type not in ALLOWED_PARAM_TYPES:
+            raise TypeError(
+                f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or special types like NodeReference,"
+                f"got {param_type}"
+            )
+        mb.with_param(name, param_type, default_value)
+    # Case 6: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
         mb.with_select(name, list(param_type.__args__), default_value)
     else:
@@ -225,6 +256,10 @@ def is_outer_type(t: Any, outer_type: Any):
 
 def is_union(t: Any):
     return is_outer_type(t, Union) or isinstance(t, UnionType)
+
+
+def is_union_of_datacontainers(t):
+    return is_union(t) and all([is_datacontainer(t) for t in get_union_types(t)])
 
 
 def is_optional(t: Any):
