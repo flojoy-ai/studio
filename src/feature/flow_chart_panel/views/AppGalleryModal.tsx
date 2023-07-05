@@ -1,9 +1,10 @@
-import { createStyles, Input } from "@mantine/core";
+import { Box, createStyles, Input } from "@mantine/core";
 import { Modal } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useSettings } from "@hooks/useSettings";
 import { memo } from "react";
 import { AppGalleryElement } from "@feature/flow_chart_panel/views/AppGalleryElement";
+import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -48,6 +49,12 @@ const useStyles = createStyles((theme) => ({
 export const AppGalleryModal = () => {
   const { classes } = useStyles();
   const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
+  const subjectList = [
+    "fundamentals",
+    "AI/ML",
+    "I/O",
+    "Digital signal processing & simulation",
+  ];
 
   const onClose = () => {
     setIsGalleryOpen(false);
@@ -69,117 +76,9 @@ export const AppGalleryModal = () => {
           </Modal.Header>
           <hr className={classes.hr} />
           <Modal.Body>
-            <h3 className={classes.subjectTitle}>Fundamentals</h3>
-            <div className={classes.categoryElement}>
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-            </div>
-            <h3 className={classes.subjectTitle}>AI/ML</h3>
-            <div className={classes.categoryElement}>
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-            </div>
-            <h3 className={classes.subjectTitle}>I/O</h3>
-            <div className={classes.categoryElement}>
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-            </div>
-
-            <h3 className={classes.subjectTitle}>
-              Digital signal processing & simulation
-            </h3>
-            <div className={classes.categoryElement}>
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-              <AppGalleryElement
-                linkText="Generate a random number once per second"
-                link="google.ca"
-                elementTitle="Intro to LOOPS"
-                imagePath="42.png"
-              />
-            </div>
+            {subjectList.map((sub, key) => {
+              return <AppGalleryLayout subject={sub} key={key} />;
+            })}
           </Modal.Body>
         </Modal.Content>
       </Modal.Body>

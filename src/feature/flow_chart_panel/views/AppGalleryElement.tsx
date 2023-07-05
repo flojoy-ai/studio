@@ -1,19 +1,12 @@
-import { memo } from "react";
-import {
-  createStyles,
-  Image,
-  Flex,
-  UnstyledButton,
-  Button,
-} from "@mantine/core";
-import { create } from "domain";
+import { createStyles, Image, Flex, UnstyledButton } from "@mantine/core";
 import { IconBrandYoutube } from "@tabler/icons-react";
 
-interface Element {
+export interface AppGalleryElementProps {
   linkText: string;
   link: string;
   elementTitle: string;
   imagePath: string;
+  youtubeLink?: string;
 }
 
 export const AppGalleryElementStyles = createStyles((theme) => ({
@@ -30,7 +23,6 @@ export const AppGalleryElementStyles = createStyles((theme) => ({
   image: {
     height: 120,
     width: 200,
-    alt: "With custom placeholder",
   },
   textLine: {
     display: "flex",
@@ -41,20 +33,21 @@ export const AppGalleryElement = ({
   link,
   elementTitle,
   imagePath,
-}: Element) => {
+  youtubeLink = "https://www.youtube.com",
+}: AppGalleryElementProps) => {
   const { classes } = AppGalleryElementStyles();
   return (
     <Flex className={classes.elementLayout}>
-      <Image className={classes.image} src={imagePath} />
+      <Image height={120} width={200} fit="contain" src={imagePath} />
       <div className={classes.textLine}>
         <h4 className={classes.elementTitle}>{elementTitle}</h4>
         <UnstyledButton
           component="a"
           target="_blank"
-          href="https://www.youtube.com"
+          href={youtubeLink}
           style={{ paddingLeft: "4%" }}
         >
-          <IconBrandYoutube></IconBrandYoutube>
+          <IconBrandYoutube />
         </UnstyledButton>
       </div>
       <a href={link} className={classes.link}>
