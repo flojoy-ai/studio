@@ -75,7 +75,7 @@ def flowchart_to_nx_graph(flowchart):
         cmd = el["data"]["func"]
         ctrls = data.get("ctrls", {})
         inputs = data.get("inputs", {})
-        label = data.get("label", {})
+        label = data.get("label", "")
         dict_node_inputs[node_id] = inputs
         node_path = data.get("path", "")
         nx_graph.add_node(
@@ -97,18 +97,24 @@ def flowchart_to_nx_graph(flowchart):
         label = e["sourceHandle"]
         target_label_id = e["targetHandle"]
         v_inputs = dict_node_inputs[v]
-        target_input = list(
-            filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
+        target_input = next(
+            filter(lambda input: input.get("id", "") == target_label_id, v_inputs), None
         )
+        logger.debug(f"----target_input----\n${target_input}")
         target_label = "default"
-        if len(target_input) > 0:
-            target_label = target_input[0].get("name")
+        multiple = False
+        if target_input:
+            target_label = target_input.get("name", "default")
+            multiple = target_input.get("multiple", False)
+
         logger.debug(
             f"Adding edge from {u} to {v}\n,"
             f"inputs: {v_inputs}, chosen label: {target_label},\n"
             f"target_label_id: {target_label_id}"
         )
-        nx_graph.add_edge(u, v, label=label, target_label=target_label, id=_id)
+        nx_graph.add_edge(
+            u, v, label=label, target_label=target_label, id=_id, multiple=multiple
+        )
 
     nx.draw(nx_graph, with_labels=True)
 

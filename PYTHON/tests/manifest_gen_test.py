@@ -228,6 +228,21 @@ class ManifestGenerationTest(unittest.TestCase):
             ],
         }
 
+    def test_end(self):
+        manifest = get_manifest("end_test.py")
+        assert manifest == {
+            "name": "END",
+            "key": "END",
+            "inputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "Any",
+                    "multiple": False,
+                },
+            ],
+        }
+
 
 if __name__ == "__main__":
     unittest.main()

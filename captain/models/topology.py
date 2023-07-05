@@ -293,7 +293,7 @@ class Topology:
                         ),
                     }
                 )
-
+            logger.debug(f"deps: {deps}")
             return deps
         except Exception:
             return []
@@ -309,7 +309,7 @@ class Topology:
 
         if edge_data:
             target_label = edge_data.get("target_label", "")
-            multiple = edge_data.get("multiple", "")
+            multiple = edge_data.get("multiple", False)
 
         return target_label, multiple
 

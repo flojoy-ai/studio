@@ -40,6 +40,8 @@ import { ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
+import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
+import { notifications } from "@mantine/notifications";
 
 localforage.config({
   name: "react-flow",
@@ -172,7 +174,22 @@ const FlowChartTab = () => {
     [setEdges]
   );
   const onConnect: OnConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection) =>
+      setEdges((eds) => {
+        const [sourceType, targetType] = getEdgeTypes(connection);
+        if (isCompatibleType(sourceType, targetType)) {
+          return addEdge(connection, eds);
+        }
+
+        notifications.show({
+          id: "type-error",
+          color: "red",
+          title: "Type Error",
+          message: `Source type ${sourceType} and target type ${targetType} are not compatible`,
+          autoClose: true,
+          withCloseButton: true,
+        });
+      }),
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(

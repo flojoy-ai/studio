@@ -7,7 +7,14 @@ const nodeElementSchema = z.object({
   key: z.string(),
   type: z.string(),
   inputs: z.optional(
-    z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+    z.array(
+      z.object({
+        name: z.string(),
+        id: z.string(),
+        type: z.string(),
+        multiple: z.optional(z.boolean()),
+      })
+    )
   ),
   outputs: z.optional(
     z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))

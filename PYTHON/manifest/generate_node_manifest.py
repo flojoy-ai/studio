@@ -211,6 +211,7 @@ def populate_inputs(
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
         mb.with_input(name, param_type, multiple=multiple)
+    # Case 5: Some kind of list
     elif is_outer_type(param_type, list):
         inner_type = param_type.__args__[0]
         # If it's a list of datacontainers we mark it as multiple
@@ -231,7 +232,7 @@ def populate_inputs(
                 f"got {param_type}"
             )
         mb.with_param(name, param_type, default_value)
-    # Case 5: Literal type which becomes a select param
+    # Case 6: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
         mb.with_select(name, list(param_type.__args__), default_value)
     else:
