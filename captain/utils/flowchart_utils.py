@@ -210,7 +210,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         asyncio.create_task(run_flow_chart(manager=manager))
 
 
-def stream_response(proc:Popen[bytes]):
+def stream_response(proc: Popen[bytes]):
     while True:
         line = proc.stdout.readline() or proc.stderr.readline()
         if not line:

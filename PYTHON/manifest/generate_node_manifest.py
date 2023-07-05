@@ -210,7 +210,8 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
                 f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or special types like NodeReference,"
                 f"got {param_type}"
             )
-        mb.with_param(name, param_type, default_value)
+        if param_type != DefaultParams:
+            mb.with_param(name, param_type, default_value)
 
 
 def is_special_type(param_type: Any):

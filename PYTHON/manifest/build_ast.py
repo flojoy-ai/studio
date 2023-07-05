@@ -3,6 +3,7 @@ from typing import Optional, Any, Callable, Tuple
 
 
 SELECTED_IMPORTS = ["flojoy", "typing"]
+NO_OUTPUT_NODES = ["GOTO", "END"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):
@@ -74,7 +75,7 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
 
     node_name = flojoy_node.name
     return_type = None
-    if not flojoy_node.returns:
+    if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
         print(f"⚠️ {node_name} has no return type hint, will have no output!")
     else:
         # This handles the case where the return type is a union, we can ignore
