@@ -344,6 +344,7 @@ cd $CWD
 # Leave commented until tested?
 
 # Checking for YOLOV3 Weights
+<<<<<<< .merge_file_6q091D
  CWD="$PWD"
  FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
  if test -f "$FILE"; then
@@ -353,6 +354,17 @@ cd $CWD
     wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
     echo ''
  fi
+=======
+# CWD="$PWD"
+# FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
+# if test -f "$FILE"; then
+#    info_msg "$FILE exists."
+# else
+#    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
+#    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
+#    echo ''
+# fi
+>>>>>>> .merge_file_dniGuX
 
 sleep 1
 
