@@ -36,27 +36,30 @@ export const AppGalleryElement = ({
   youtubeLink = "https://www.youtube.com",
 }: AppGalleryElementProps) => {
   const { classes } = AppGalleryElementStyles();
+
   return (
-    <Flex className={classes.elementLayout}>
-      <Image height={120} width={200} fit="contain" src={imagePath} />
-      <div className={classes.textLine}>
-        <h4 className={classes.elementTitle}>
-          {elementTitle}
-          <div>
-            <UnstyledButton
-              component="a"
-              target="_blank"
-              href={youtubeLink}
-              style={{ height: 0 }}
-            >
-              <IconBrandYoutube />
-            </UnstyledButton>
-          </div>
-        </h4>
-      </div>
-      <a href={link} className={classes.link}>
-        {linkText}
-      </a>
-    </Flex>
+    <UnstyledButton>
+      <Flex className={classes.elementLayout}>
+        <Image height={120} width={200} fit="contain" src={imagePath} />
+        <div className={classes.textLine}>
+          <h4 className={classes.elementTitle}>
+            {elementTitle}
+            <div>
+              <UnstyledButton
+                component="a"
+                target="_blank"
+                href={youtubeLink}
+                style={{ height: 0 }}
+              >
+                <IconBrandYoutube />
+              </UnstyledButton>
+            </div>
+          </h4>
+        </div>
+        <a href={link} className={classes.link}>
+          {linkText}
+        </a>
+      </Flex>
+    </UnstyledButton>
   );
 };
