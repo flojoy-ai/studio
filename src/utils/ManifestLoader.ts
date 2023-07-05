@@ -118,6 +118,11 @@ const CMND_TREE: CommandSection = {
           key: "OPENAI",
           children: null,
         },
+        {
+          title: "StabilityAI",
+          key: "STABILITYAI",
+          children: null,
+        },
       ],
     },
     {
