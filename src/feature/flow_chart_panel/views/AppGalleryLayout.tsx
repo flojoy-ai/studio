@@ -23,13 +23,13 @@ export const AppGalleryLayout = ({ subject }: { subject: string }) => {
           elementTitle="Intro to LOOPS"
           linkText="Generate a random number once"
           link="https://www.google.ca"
-          imagePath="../../../public/assets/logo.png"
+          imagePath="../../../public/assets/appGallery/8.png"
         />
         <AppGalleryElement
           elementTitle="Intro into Signals"
           linkText="Generate waveforms of different shapes"
           link="https://www.google.ca"
-          imagePath="../../../public/assets/logo.png"
+          imagePath="../../../public/assets/appGallery/7.png"
         />
       </Box>
     </div>
