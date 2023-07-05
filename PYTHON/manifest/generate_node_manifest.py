@@ -198,7 +198,7 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
     elif param_type == DataContainer:
         mb.with_input(name, Any)
     elif is_special_type(param_type):
-        default_value = default_value.ref
+        default_value = default_value.unwrap()
         mb.with_param(name, param_type, default=default_value)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
