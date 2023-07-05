@@ -89,20 +89,16 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   };
 
   const handleSendAPI = () => {
-    if (apiKey === null || apiKey.trim() === "") {
-      console.error("There is no API Key");
-    } else {
-      notifications.show({
-        id: "set-api-key",
-        loading: true,
-        title: "Setting your API key",
-        message: "Setting your API key, please be patient",
-        autoClose: false,
-        withCloseButton: false,
-      });
-      sendApiKeyToDjango(apiKey);
-      setApiKey("");
-    }
+    notifications.show({
+      id: "set-api-key",
+      loading: true,
+      title: "Setting your API key",
+      message: "Setting your API key, please be patient",
+      autoClose: false,
+      withCloseButton: false,
+    });
+    sendApiKeyToDjango(apiKey);
+    setApiKey("");
   };
   return (
     <>
@@ -120,15 +116,20 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
             <FamilyHistoryIconSvg size={20} />
             <div className={classes.titleText}>API Key</div>
           </div>
-          <Modal.CloseButton className={classes.closeBtn} />
+          <Modal.CloseButton
+            data-testid="api-key-close-btn"
+            className={classes.closeBtn}
+          />
           <div className={classes.submitButtonLine}>
             <Input
+              data-testid="api-key-input"
               type="text"
               onChange={handleApiKeyChange}
               value={apiKey}
               className={classes.inputBox}
             />
             <Button
+              data-testid="api-key-input-btn"
               disabled={!apiKey}
               onClick={handleSendAPI}
               className={classes.submitBtn}

@@ -85,7 +85,7 @@ const NodeEditModal = ({
           onClick={() => setIsEditMode(false)}
           className={classes.closeButton}
         >
-          <IconX size={18} />
+          <IconX size={18} data-testid="node-edit-modal-close-btn" />
         </Box>
         <Box p="0px 16px 24px 16px">
           <div key={node.id}>
@@ -100,7 +100,11 @@ const NodeEditModal = ({
             </Box>
             {Object.entries(manifestParams[node.data.func]).map(
               ([name, param]) => (
-                <div key={node.id + name} id="undrag">
+                <div
+                  key={node.id + name}
+                  id="undrag"
+                  data-testid="node-edit-modal-params"
+                >
                   <p
                     className={classes.paramName}
                   >{`${name.toUpperCase()}:`}</p>

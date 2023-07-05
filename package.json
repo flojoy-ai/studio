@@ -175,14 +175,21 @@
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
     "extension": [
-      ".tsx"
+      ".tsx",
+      ".ts"
     ],
     "include": [
-      "src/**/*.tsx"
+      "src/**/*.tsx",
+      "src/**/*.ts"
     ],
     "exclude": [
-      "assets/",
-      "test/"
+      "src/__tests__",
+      "src/hooks/__mocks__",
+      "src/utils/__mocks__",
+      "src/feature/controls_panel/",
+      "src/feature/results_panel/",
+      "src/web-socket",
+      "src/vite-env.d.ts"
     ],
     "all": true
   }

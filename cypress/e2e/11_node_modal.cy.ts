@@ -1,10 +1,8 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
+//** Tests basic toggle functionality for dropdown menu and captures the results as snapshots in light/dark mode.*/
+
+describe("Verify node modal", () => {
   // This method performs setup before each test.
   beforeEach(() => {
     // Open Eyes to start visual testing.
@@ -26,42 +24,33 @@ describe("main page", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+
+  it("node modal test", () => {
     cy.visit("/").wait(1000);
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
-    // This nodeid value is from src/data/RECIPES.ts
     cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
+      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
     ).click();
 
+    // Click expand button
+    cy.get('[data-testid="expand-button"]').click();
     cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
+      tag: "dark flow page with Histogram node modal",
       target: "window",
-      layout: layoutRegions,
       fully: true,
     });
+    cy.get('[data-testid="node-modal-closebtn"]').click();
 
-    // Click add new node button
-    cy.get('[data-testid="add-node-button"]').click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
+    // Test in light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get(
+      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
+    ).click();
+    cy.get('[data-testid="expand-button"]').click();
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "light flow page with Histogram node modal",
       target: "window",
-      layout: layoutRegions,
       fully: true,
     });
   });

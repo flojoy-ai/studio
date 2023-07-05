@@ -100,21 +100,18 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
   };
 
   const handleS3Key = () => {
-    if (s3AccessKey === null || s3AccessKey.trim() === "") {
-      console.error("There is no API Key");
-    } else {
-      notifications.show({
-        id: "set-s3-key",
-        loading: true,
-        title: "Setting your AWS S3 key",
-        message: "Setting your AWS S3 key, please be patient",
-        autoClose: false,
-        withCloseButton: false,
-      });
-      sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
-      setS3SecretKey("");
-      setS3AccessKey("");
-    }
+    notifications.show({
+      id: "set-s3-key",
+      loading: true,
+      title: "Setting your AWS S3 key",
+      message: "Setting your AWS S3 key, please be patient",
+      autoClose: false,
+      withCloseButton: false,
+    });
+    sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
+    setS3Name("");
+    setS3SecretKey("");
+    setS3AccessKey("");
   };
 
   const handleClose = () => {
@@ -124,7 +121,6 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
   return (
     <>
       <Modal.Root
-        data-testid="user_S3_Key_modal"
         opened={isOpen}
         onClose={handleClose}
         aria-labelledby="S3 Key modal"
@@ -137,11 +133,15 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <FamilyHistoryIconSvg size={20} />
             <div className={classes.titleText}>Set S3 Key</div>
           </div>
-          <Modal.CloseButton className={classes.closeBtn} />
+          <Modal.CloseButton
+            data-testid="s3-close-btn"
+            className={classes.closeBtn}
+          />
           <div className={classes.userInputContainer}>
             <h4 style={{ marginBottom: 0 }}>Name:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_name_input"
                 type="text"
                 onChange={handleNameChange}
                 value={s3Name}
@@ -151,6 +151,7 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <h4 style={{ marginBottom: 0 }}>Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_access_input"
                 type="text"
                 onChange={handleS3AccessKeyChange}
                 value={s3AccessKey}
@@ -160,12 +161,14 @@ const S3KeyModal = ({ isOpen, onClose }: S3KeyModelProps) => {
             <h4 style={{ marginBottom: 0 }}>Secret Access Key:</h4>
             <div className={classes.submitButtonLine}>
               <Input
+                data-testid="s3_secret_input"
                 type="text"
                 onChange={handleS3SecretKeyChange}
                 value={s3SecretKey}
                 className={classes.inputBox}
               />
               <Button
+                data-testid="s3-submit-btn"
                 disabled={!s3SecretKey}
                 onClick={handleS3Key}
                 className={classes.submitBtn}

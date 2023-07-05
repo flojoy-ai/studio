@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
+describe("Verify Keyboard shortcut modal", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -26,40 +26,34 @@ describe("main page", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+
+  it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
 
+    // Hover file button
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    // Select Keyboard shortcut option
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page",
+      tag: "dark flow page with keyboardshorcut modal",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
-    // This nodeid value is from src/data/RECIPES.ts
-    cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
-    ).click();
+    cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
-    // Click add new node button
-    cy.get('[data-testid="add-node-button"]').click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
+    // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "light flow page with keyboardshorcut modal",
       target: "window",
       layout: layoutRegions,
       fully: true,

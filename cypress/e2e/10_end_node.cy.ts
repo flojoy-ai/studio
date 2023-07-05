@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
+describe("Verify end node", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -26,40 +26,24 @@ describe("main page", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+
+  it("end node test", () => {
     cy.visit("/").wait(1000);
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    // Click clear canvas button
+    cy.get('[data-testid="clear-canvas-button"]').click();
 
-    // This nodeid value is from src/data/RECIPES.ts
-    cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
-    ).click();
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
-    // Click add new node button
+    // Click add node
     cy.get('[data-testid="add-node-button"]').click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
 
-    cy.get('[data-testid="darkmode-toggle"]').click();
+    // Click end node
+    cy.get('[data-testid="end-node-btn"]').click();
+
+    // close sidebar
+    cy.get('[data-testid="sidebar-close"]').click();
+
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "dark flow page with end node",
       target: "window",
       layout: layoutRegions,
       fully: true,

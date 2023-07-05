@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
+describe("Verify S3 key test", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -26,40 +26,78 @@ describe("main page", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+
+  it("aws s3 key test", () => {
     cy.visit("/").wait(1000);
 
+    // Hover file button
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    // Select Set S3 Key option
+    cy.get('[data-testid="btn-s3key"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page",
+      tag: "dark flow page with AWS S3 key modal",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
-    // This nodeid value is from src/data/RECIPES.ts
-    cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
-    ).click();
+    // Input for S3 Key
+    cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
+    cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
+    cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
+
+    // Click submit button
+    cy.get('[data-testid="s3-submit-btn"]').click();
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
+      tag: "dark flow page with AWS S3 key modal submit",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
-    // Click add new node button
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="s3-close-btn"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
+      tag: "dark flow page with AWS S3 key modal closed",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
+    // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-s3key"]').click();
+
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "light flow page with AWS S3 key modal",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    cy.get('[data-testid="s3_name_input"]').type("TestS3Name");
+    cy.get('[data-testid="s3_access_input"]').type("TestS3AccessKey");
+    cy.get('[data-testid="s3_secret_input"]').type("TestS3SecretKey");
+
+    cy.get('[data-testid="s3-submit-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with AWS S3 key modal submit",
+      target: "window",
+      layout: layoutRegions,
+      fully: true,
+    });
+
+    cy.get('[data-testid="s3-close-btn"]').click();
+
+    cy.eyesCheckWindow({
+      tag: "light flow page with AWS S3 key modal closed",
       target: "window",
       layout: layoutRegions,
       fully: true,
