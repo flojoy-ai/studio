@@ -15,7 +15,7 @@ import {
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import CloseIconSvg from "@src/utils/SidebarCloseSvg";
+import CloseIconSvg from "@src/assets/SidebarCloseSvg";
 import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 

@@ -1,10 +1,23 @@
-from .build_ast import get_pip_dependencies, get_node_type, make_manifest_ast
+from .build_ast import (
+    get_pip_dependencies,
+    get_node_type,
+    make_manifest_ast,
+)
 import inspect
 from inspect import Parameter
 from types import UnionType, NoneType, ModuleType
-from typing import Any, Callable, Literal, Optional, Type, Union, get_args, get_origin
-from dataclasses import fields, is_dataclass
-from flojoy import DataContainer
+from typing import (
+    Any,
+    Callable,
+    Type,
+    Union,
+    get_args,
+    get_origin,
+    is_typeddict,
+    Literal,
+)
+
+from flojoy import DataContainer, DefaultParams, NodeReference, Array
 
 ALLOWED_PARAM_TYPES = [
     int,
@@ -15,14 +28,15 @@ ALLOWED_PARAM_TYPES = [
     list[float],
     list[str],
 ]
+SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 
 
 class ManifestBuilder:
     def __init__(self):
-        self.manifest = {}
-        self.inputs = []
-        self.parameters = {}
-        self.outputs = []
+        self.manifest: dict[str, Any] = {}
+        self.inputs: list[Any] = []
+        self.parameters: dict[str, Any] = {}
+        self.outputs: list[Any] = []
 
     def with_name(self, name: str):
         self.manifest["name"] = name
@@ -36,11 +50,11 @@ class ManifestBuilder:
         self.manifest["type"] = node_type
         return self
 
-    def with_input(self, name: str, input_type: Type):
+    def with_input(self, name: str, input_type: str):
         self.inputs.append({"name": name, "id": name, "type": type_str(input_type)})
         return self
 
-    def with_param(self, name: str, param_type: Type, default: Any):
+    def with_param(self, name: str, param_type: str, default: Any):
         self.parameters[name] = {"type": type_str(param_type), "default": default}
         return self
 
@@ -52,7 +66,7 @@ class ManifestBuilder:
         }
         return self
 
-    def with_output(self, name: str, output_type: Type):
+    def with_output(self, name: str, output_type: Type[Any]):
         self.outputs.append({"name": name, "id": name, "type": type_str(output_type)})
         return self
 
@@ -64,10 +78,10 @@ class ManifestBuilder:
         if self.outputs:
             self.manifest["outputs"] = self.outputs
 
-        return {"COMMAND": [self.manifest]}
+        return self.manifest
 
 
-def create_manifest(path: str) -> dict:
+def create_manifest(path: str) -> dict[str, Any]:
     node_name, tree = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
@@ -75,26 +89,23 @@ def create_manifest(path: str) -> dict:
 
     func = getattr(module, node_name)
 
-    node_type = get_node_type(tree)
-    if not node_type:
-        node_type = "default"
+    manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
 
-    manifest = make_manifest_for(node_type, func)
+    node_type = get_node_type(tree)
+    if node_type:
+        manifest["type"] = node_type
 
     pip_deps = get_pip_dependencies(tree)
     if pip_deps:
-        manifest["COMMAND"][0]["pip_dependencies"] = pip_deps
+        manifest["pip_dependencies"] = pip_deps
 
     return manifest
 
 
-def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
-    mb = (
-        ManifestBuilder()
-        .with_name(func.__name__)
-        .with_key(func.__name__)
-        .with_type(node_type)
-    )
+def make_manifest_for(
+    func: Callable[..., Any], is_special_node: bool = False
+) -> dict[str, Any]:
+    mb = ManifestBuilder().with_name(func.__name__).with_key(func.__name__)
 
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
@@ -121,22 +132,18 @@ def make_manifest_for(node_type: str, func: Callable) -> dict[str, Any]:
     elif issubclass(return_type, DataContainer):
         mb.with_output("default", return_type)
     # Multiple outputs
-    elif is_dataclass(return_type):
-        for field in fields(return_type):
-            if not issubclass(field.type, DataContainer):
-                raise TypeError(
-                    "Return type must be a DataContainer or a Dataclass"
-                    "consisting of only DataContainers as fields, got {return_type}"
-                )
+    elif is_typeddict(return_type):
+        for attr, value in dict(return_type.__annotations__).items():
+            if is_special_node:
+                mb.with_output(name=attr, output_type=value)
+            else:
+                if not issubclass(value, DataContainer):
+                    raise TypeError(
+                        "Return type must be a DataContainer or a typing.TyedDict"
+                        f"consisting of only DataContainers as fields, got {return_type}"
+                    )
 
-            mb.with_output(field.name, field.type)
-    else:
-        # Terminators are special, they don't have outputs
-        if not node_type == "TERMINATOR":
-            raise TypeError(
-                "Return type must be a DataContainer or a Dataclass consisting"
-                f"of only DataContainers as fields, got {return_type}"
-            )
+                mb.with_output(attr, value)
 
     return mb.build()
 
@@ -188,43 +195,52 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
     # Case 3: Any DataContainer
     elif param_type == DataContainer:
         mb.with_input(name, Any)
+    elif is_special_type(param_type):
+        default_value = default_value.unwrap()
+        mb.with_param(name, param_type, default=default_value)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
         mb.with_input(name, param_type)
     # Case 5: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        mb.with_select(name, param_type.__args__, default_value)
+        mb.with_select(name, list(param_type.__args__), default_value)
     else:
-        if param_type not in ALLOWED_PARAM_TYPES:
+        if param_type != DefaultParams and param_type not in ALLOWED_PARAM_TYPES:
             raise TypeError(
-                f"Parameter types must be one of {ALLOWED_PARAM_TYPES},"
+                f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or special types like NodeReference,"
                 f"got {param_type}"
             )
-        mb.with_param(name, param_type, default_value)
+        if param_type != DefaultParams:
+            mb.with_param(name, param_type, default_value)
 
 
-def is_outer_type(t, outer_type):
+def is_special_type(param_type: Any):
+    special_types = [NodeReference, Array]
+    return any(param_type == special_type for special_type in special_types)
+
+
+def is_outer_type(t: Any, outer_type: Any):
     return hasattr(t, "__origin__") and t.__origin__ == outer_type
 
 
-def is_union(t):
+def is_union(t: Any):
     return is_outer_type(t, Union) or isinstance(t, UnionType)
 
 
-def is_optional(t):
+def is_optional(t: Any):
     return get_origin(t) is Union and type(None) in get_args(t)
 
 
-def is_datacontainer(t):
+def is_datacontainer(t: Any):
     return inspect.isclass(t) and issubclass(t, DataContainer)
 
 
-def get_union_types(union):
+def get_union_types(union: Any):
     types = get_args(union)
     return [t for t in types if t != NoneType]
 
 
-def get_full_type_name(t):
+def get_full_type_name(t: Any) -> str:
     if hasattr(t, "__origin__"):
         arg_names = ", ".join(get_full_type_name(arg) for arg in t.__args__)
         return f"{t.__origin__.__name__}[{arg_names}]"
@@ -232,9 +248,9 @@ def get_full_type_name(t):
         return t.__name__
 
 
-def union_type_str(union):
+def union_type_str(union: Any):
     return "|".join([get_full_type_name(t) for t in get_union_types(union)])
 
 
-def type_str(t):
+def type_str(t: Any):
     return union_type_str(t) if is_union(t) else get_full_type_name(t)

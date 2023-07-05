@@ -8,7 +8,7 @@ class PostCancelFC(BaseModel):
 
 class PostWFC(BaseModel):
     fc: str
-    jobsetId: str | None = None
+    jobsetId: str
     cancelExistingJobs: bool
     nodeDelay: float
     maximumRuntime: float

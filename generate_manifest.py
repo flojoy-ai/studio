@@ -1,14 +1,18 @@
-import json
-import yaml
-import os
+import os, json
+from typing import Any, Union
+from PYTHON.manifest.generate_node_manifest import create_manifest
 
 Path = os.path
 NODES_DIR = Path.join("PYTHON", "nodes")
 FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
 
 
+__failed_nodes: list[str] = []
+__generated_nodes: list[str] = []
+
+
 def browse_directories(dir_path: str):
-    result = {}
+    result: dict[str, Union[str, list[Any], None]] = {}
     result["name"] = (
         "ROOT" if os.path.basename(dir_path) == "nodes" else Path.basename(dir_path)
     )
@@ -36,15 +40,22 @@ def browse_directories(dir_path: str):
         elif entry.is_file() and entry.name.endswith(".py"):
             continue
     if len(result["children"]) == 0:
-        manifest_path = Path.join(dir_path, "manifest.yml")
-        if not Path.exists(manifest_path):
-            manifest_path = Path.join(dir_path, "manifest.yaml")
-        with open(manifest_path, "r") as mf:
-            m = mf.read()
-            mf.close()
-            parsed = yaml.load(m, Loader=yaml.FullLoader)
-            m_c = parsed["COMMAND"][0]
-            result = m_c
+        try:
+            n_file_name = f"{Path.basename(dir_path)}.py"
+            n_path = Path.join(dir_path, n_file_name)
+            result = create_manifest(n_path)
+            __generated_nodes.append(n_file_name)
+        except Exception as e:
+            print(
+                "❌ Failed to generate manifest from ",
+                f"{Path.basename(dir_path)}.py ",
+                e,
+                "\n",
+            )
+            __failed_nodes.append(f"{Path.basename(dir_path)}.py")
+
+        if not result.get("type"):
+            result["type"] = Path.basename(Path.dirname(dir_path))
         result["children"] = None
 
     return result
@@ -52,6 +63,12 @@ def browse_directories(dir_path: str):
 
 if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
+    print(
+        f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
+    )
+    print(
+        f"⚠️ {__failed_nodes.__len__()} nodes require upgrading to align with the new API!"
+    )
     with open("src/data/manifests-latest.json", "w") as f:
         f.write(json.dumps(map, indent=3))
         f.close()

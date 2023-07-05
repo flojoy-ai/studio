@@ -15,7 +15,6 @@ type ParamFieldProps = {
   }[];
 };
 
-// TODO: Add support for unions on the frontend
 const ParamField = ({
   nodeCtrls,
   nodeId,
@@ -48,22 +47,7 @@ const ParamField = ({
           value={value !== "" ? parseInt(value as string) : value}
         />
       );
-    case "string":
-      return (
-        <TextInput
-          onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value as string}
-        />
-      );
-    case "list[int]":
-    case "list[str]":
-      return (
-        <TextInput
-          onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value as string}
-        />
-      );
-    case "boolean":
+    case "bool":
       return (
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked)}
@@ -79,7 +63,7 @@ const ParamField = ({
           value={value as string}
         />
       );
-    case "node_reference":
+    case "NodeReference":
       return (
         <Select
           onChange={(val) => handleChange(val as string)}
@@ -87,6 +71,8 @@ const ParamField = ({
           value={value as string}
         />
       );
+    case "str":
+    case "Array":
     case "unknown":
       return (
         <TextInput

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Response, status
-from flojoy.utils import set_frontier_api_key, get_frontier_api_key
+from flojoy import set_frontier_api_key, get_frontier_api_key
 
 from captain.types.key import GetKeyResponse
 

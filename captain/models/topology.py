@@ -2,16 +2,16 @@ import asyncio
 from copy import deepcopy
 import logging
 from multiprocessing import Process
-import os, sys
+import os
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
-from flojoy.flojoy_instruction import FLOJOY_INSTRUCTION
 from PYTHON.utils.dynamic_module_import import get_module_func
 from PYTHON.services.job_service import JobService
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
+from typing import Any, cast
 
 lock = asyncio.Lock()
 
@@ -22,7 +22,7 @@ class Topology:
     def __init__(
         self,
         graph: nx.DiGraph,
-        jobset_id,
+        jobset_id: str,
         worker_processes: list[Process],
         node_delay: float = 0,
         max_runtime: float = 3000,
@@ -32,7 +32,7 @@ class Topology:
         self.jobset_id = jobset_id
         self.node_delay = node_delay
         self.max_runtime = max_runtime
-        self.finished_jobs = set()
+        self.finished_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
         self.job_service = JobService("flojoy", self.max_runtime)
         self.cancelled = False
@@ -43,17 +43,19 @@ class Topology:
     async def run(self):
         self.time_start = time.time()
         async with lock:
-            next_jobs = self.collect_ready_jobs()  # get nodes with in-degree 0
+            next_jobs: list[
+                str
+            ] = self.collect_ready_jobs()  # get nodes with in-degree 0
         self.run_jobs(next_jobs)
 
-    def run_jobs(self, jobs):
+    def run_jobs(self, jobs: list[str]):
         for job_id in jobs:
             asyncio.create_task(self.run_job(job_id))
             time.sleep(self.node_delay)
 
     def collect_ready_jobs(self):
-        next_jobs = []
-        for job_id in self.original_graph.nodes:
+        next_jobs: list[str] = []
+        for job_id in cast(list[str], self.original_graph.nodes):
             if (
                 job_id not in self.finished_jobs
                 and self.original_graph.in_degree(job_id) == 0
@@ -61,12 +63,12 @@ class Topology:
                 next_jobs.append(job_id)
         return next_jobs
 
-    async def run_job(self, job_id):
+    async def run_job(self, job_id: str):
         async with lock:
-            node = self.original_graph.nodes[job_id]
-        cmd = node["cmd"]
-        cmd_mock = node["cmd"] + "_MOCK"
-        node_path = node.get("node_path") or ""
+            node = cast(dict[str, Any], self.original_graph.nodes[job_id])
+        cmd: str = node["cmd"]
+        cmd_mock: str = node["cmd"] + "_MOCK"
+        node_path: str = node.get("node_path", "")
         node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
         if node_path != "":
             module = import_module(node_path)
@@ -78,12 +80,10 @@ class Topology:
         except AttributeError:
             func = getattr(module, cmd)
 
-        dependencies = self.get_job_dependencies(job_id)
-        previous_jobs_with_label = self.get_job_dependencies_with_label(job_id)
-        logger.debug(f"labelled previous jobs: {previous_jobs_with_label}")
+        previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
         logger.debug(
-            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id, original=True) for dep_id in dependencies]}"
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep.get('job_id', ''), original=True) for dep in previous_jobs]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
@@ -95,8 +95,7 @@ class Topology:
             job_id=job_id,
             iteration_id=job_id,
             ctrls=node["ctrls"],
-            previous_job_ids=dependencies,
-            previous_jobs=previous_jobs_with_label,
+            previous_jobs=previous_jobs,
         )
 
     # also used for when the topology finishes
@@ -104,7 +103,7 @@ class Topology:
         self.cancelled = True
         self.kill_workers()
 
-    async def handle_finished_job(self, result):
+    async def handle_finished_job(self, result: dict[str, Any]):
         #
         # get the data from the worker response
         # (@flojoy wrapper is responsible for sending to this route in func)
@@ -133,10 +132,13 @@ class Topology:
                 job_id, job_result, success=True
             )  # TODO: handle in case of failure
 
-        logger.debug(f"Starting next jobs: {next_jobs}")
-        self.run_jobs(next_jobs)
+        if next_jobs:
+            logger.debug(f"Starting next jobs: {next_jobs}")
+            self.run_jobs(next_jobs)
 
-    def process_job_result(self, job_id, job_result, success):
+    def process_job_result(
+        self, job_id: str, job_result: dict[str, Any], success: bool
+    ):
         """
         process special instructions to scheduler
         """
@@ -149,9 +151,9 @@ class Topology:
         logger.debug(f"job id: {job_id}")
 
         # process instruction to flow through specified directions
+        next_nodes_from_dependencies: set[str] = set()
 
-        next_nodes_from_dependencies = set()
-        next_directions = get_next_directions(job_result)
+        next_directions: list[str] | None = get_next_directions(job_result)
         # In this case, the node did not explicitly supply what
         # its output directions should be
         # ex: Conditionals and Loops only want to continue in one direction out of the two
@@ -166,9 +168,10 @@ class Topology:
             self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
 
         # process instruction to flow to specified nodes
-        nodes_to_add = []
+        nodes_to_add: list[str] = []
         next_nodes = get_next_nodes(job_result)
-        if next_nodes is not None:
+
+        if next_nodes:
             nodes_to_add += [node_id for node_id in next_nodes]
 
         if len(nodes_to_add) > 0:
@@ -190,21 +193,18 @@ class Topology:
     # this function removes the node and checks its successors
     # for new jobs. A new job is ready when a sucessor has no dependencies.
     # NOTE doesn't actually remove the node, just its edges/dependencies corresponding to the label/direction
-    def remove_edges_and_get_next(self, job_id, label_direction, next_nodes: set):
-        successors = list(self.working_graph.successors(job_id))
-        logger.debug(f"successors: {successors}")
-        logger.debug(
-            f"in degree of nodes: {[f'{n} {self.working_graph.in_degree(n)}' for n in successors]}"
-        )
+    def remove_edges_and_get_next(
+        self, job_id: str, label_direction: str, next_nodes: set[str]
+    ):
+        successors: list[str] = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
         for d_id in successors:
-            logger.debug(f"in loop: {d_id} ({self.working_graph.in_degree(d_id)})")
             if d_id in self.finished_jobs:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
 
-    def restart(self, job_id):
+    def restart(self, job_id: str):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
 
         graph = self.original_graph
@@ -232,7 +232,9 @@ class Topology:
     def is_cancelled(self):
         return self.cancelled
 
-    def mark_job_success(self, job_id, next_nodes, label="default"):
+    def mark_job_success(
+        self, job_id: str, next_nodes: set[str], label: str = "default"
+    ):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         if self.get_cmd(job_id) == "END":
@@ -244,11 +246,11 @@ class Topology:
             return
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
-    def mark_job_failure(self, job_id):
+    def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)
         logger.debug(f"job {self.get_label(job_id)} failed")
 
-    def get_cmd(self, job_id, original=False):
+    def get_cmd(self, job_id: str, original: bool = False) -> str:
         graph = self.get_graph(original)
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("cmd", job_id)
@@ -258,47 +260,18 @@ class Topology:
             )
         return job_id
 
-    def remove_dependencies(self, job_id, label="default"):
+    def remove_dependencies(self, job_id: str, label: str = "default"):
         edges = self.get_edges_by_label(job_id, label)
         for edge in edges:
             self.remove_dependency(edge[0], edge[1])
 
-    def get_edges_by_label(self, job_id, label):
-        logger.debug(f"label: {label}")
+    def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
         edges = self.working_graph.edges(job_id)
-        logger.debug(f"edges 1: {edges}")
         edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
-        logger.debug(f"edges 2: {edges}")
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
-        logger.debug(f"edges 3: {edges}")
         return edges
-
-    def remove_dependency(self, job_id, succ_id):
-        if self.working_graph.has_edge(job_id, succ_id):
-            logger.debug(
-                f"  - remove dependency: {self.get_edge_label_string(job_id, succ_id)}"
-            )
-            self.working_graph.remove_edge(job_id, succ_id)
-
-    def get_edge_label_string(
-        self, source_job_id, target_job_id, label=None, original=False
-    ):
-        graph = self.get_graph(original)
-        if label is None:
-            edge_data = graph.get_edge_data(source_job_id, target_job_id)
-
-            label = "" if edge_data is None else edge_data.get("label", "")
-        s = self.get_label(source_job_id, original=original)
-        t = self.get_label(target_job_id, original=original)
-        return f"{s} -- {label} --> {t}"
-
-    def get_job_dependencies(self, job_id) -> list[str]:
-        try:
-            return list(self.original_graph.predecessors(job_id))
-        except Exception:
-            return []
 
     def get_job_dependencies_with_label(
         self, job_id: str, original: bool = True
@@ -309,6 +282,7 @@ class Topology:
                 {
                     "job_id": prev_job_id,
                     "input_name": self.get_input_name(prev_job_id, job_id, original),
+                    "edge": graph.get_edge_data(prev_job_id, job_id).get("label", ""),
                 }
                 for prev_job_id in list(graph.predecessors(job_id))
             ]
@@ -320,10 +294,40 @@ class Topology:
     ) -> str:
         graph = self.get_graph(original)
         edge_data = graph.get_edge_data(source_job_id, target_job_id)
-        label = "" if edge_data is None else edge_data.get("target_label", "")
-        return label
+        if edge_data:
+            return edge_data.get("target_label", "")
+        return ""
 
-    def get_label(self, job_id, original=False):
+    def remove_dependency(self, job_id: str, succ_id: str):
+        if self.working_graph.has_edge(job_id, succ_id):
+            logger.debug(
+                f"  - remove dependency: {self.get_edge_label_string(job_id, succ_id)}"
+            )
+            self.working_graph.remove_edge(job_id, succ_id)
+
+    def get_edge_label_string(
+        self,
+        source_job_id: str,
+        target_job_id: str,
+        label: str | None = None,
+        original: bool = False,
+    ):
+        graph = self.get_graph(original)
+        if label is None:
+            edge_data = graph.get_edge_data(source_job_id, target_job_id)
+
+            label = "" if edge_data is None else edge_data.get("label", "")
+        s = self.get_label(source_job_id, original=original)
+        t = self.get_label(target_job_id, original=original)
+        return f"{s} -- {label} --> {t}"
+
+    def get_job_dependencies(self, job_id: str) -> list[str]:
+        try:
+            return list(self.original_graph.predecessors(job_id))
+        except Exception:
+            return []
+
+    def get_label(self, job_id: str, original: bool = False) -> str:
         graph = self.get_graph(original)
         if graph.has_node(job_id):
             return graph.nodes[job_id].get("label", job_id)
@@ -333,13 +337,7 @@ class Topology:
             )
         return job_id
 
-    def get_outputs(self, job_id):
-        out = self.original_graph.out_edges(job_id)
-        return list(
-            set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
-        )
-
-    def get_graph(self, original):
+    def get_graph(self, original: bool):
         return self.original_graph if original else self.working_graph
 
     # this function will get the maximum amount of independant nodes during the topological sort of the graph.
@@ -350,7 +348,7 @@ class Topology:
     # assuming LOOP is the only dependency of all the nodes,
     # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
-    def get_maximum_workers(self, maximum_capacity=4):
+    def get_maximum_workers(self, maximum_capacity: int = 4):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
         queue = deque()
@@ -362,7 +360,7 @@ class Topology:
             max_independant = max(n, max_independant)
             if max_independant >= maximum_capacity:
                 return maximum_capacity
-            for i in range(n):
+            for _ in range(n):
                 job_id = queue.popleft()
                 successors = temp_graph.successors(job_id)
                 temp_graph.remove_node(job_id)
@@ -371,6 +369,12 @@ class Topology:
                         queue.append(neighbour)
 
         return max_independant
+
+    def get_outputs(self, job_id: str):
+        out = self.original_graph.out_edges(job_id)
+        return list(
+            set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
+        )
 
     def cleanup(self):
         self.job_service.reset(list(self.original_graph.nodes))

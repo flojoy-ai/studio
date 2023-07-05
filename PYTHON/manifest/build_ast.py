@@ -1,7 +1,9 @@
 import ast
 from typing import Optional, Any, Callable, Tuple
 
-SELECTED_IMPORTS = ["flojoy", "dataclasses", "typing"]
+
+SELECTED_IMPORTS = ["flojoy", "typing"]
+NO_OUTPUT_NODES = ["GOTO", "END"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):
@@ -34,10 +36,10 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
             return node
         return None
 
-    def visit_ClassDef(self, node: ast.ClassDef):
-        if not self.has_decorator(node, "dataclass"):
-            return None
-        return node
+    def visit_ClassDef(self, node: ast.ClassDef) -> Any:
+        if "output" in node.name.lower():
+            return node
+        return None
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
         if not self.has_decorator(node, "flojoy"):
@@ -53,7 +55,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
 
         return node
 
-    def generic_visit(self, node):
+    def generic_visit(self, node: ast.Module):
         return None
 
 
@@ -71,22 +73,19 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
-    if not flojoy_node.returns:
-        raise ValueError(
-            "Flojoy node must have a dataclass or DataContainer return type hint"
-        )
     node_name = flojoy_node.name
+    return_type = None
+    if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
+        print(f"⚠️ {node_name} has no return type hint, will have no output!")
+    else:
+        # This handles the case where the return type is a union, we can ignore
+        # all of the class defs in this case
+        if not isinstance(flojoy_node.returns, ast.BinOp):
+            return_type = flojoy_node.returns.id
 
     # Then get rid of all the other dataclasses
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
-
-    # This handles the case where the return type is a union, we can ignore
-    # all of the class defs in this case
-    if isinstance(flojoy_node.returns, ast.BinOp):
-        return_type = None
-    else:
-        return_type = flojoy_node.returns.id
 
     tree.body = [
         node
@@ -113,10 +112,19 @@ def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
 
 def get_flojoy_decorator_param(tree: ast.Module, name: str) -> Optional[ast.keyword]:
     decorator = get_flojoy_decorator(tree)
+
     if not decorator:
         return None
-
     return find(decorator.keywords, lambda k: k.arg == name)
+
+
+def get_node_type(tree: ast.Module) -> Optional[str]:
+    kw = get_flojoy_decorator_param(tree, "node_type")
+    if not kw:
+        return None
+    if not isinstance(kw.value, ast.Constant):
+        raise ValueError("Node type must be a string")
+    return kw.value.value
 
 
 def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
@@ -128,22 +136,13 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
     if not isinstance(kw.value, ast.Dict):
         raise ValueError("Pip dependencies must be a dictionary")
 
-    deps = []
+    deps: list[Any] = []
     for package, ver in zip(kw.value.keys, kw.value.values):
         if not isinstance(package, ast.Constant) or not isinstance(ver, ast.Constant):
             raise ValueError("Pip dependencies must be a dictionary of strings")
         deps.append({"name": package.value, "v": ver.value})
 
     return deps
-
-
-def get_node_type(tree: ast.Module) -> Optional[str]:
-    kw = get_flojoy_decorator_param(tree, "node_type")
-    if not kw:
-        return None
-    if not isinstance(kw.value, ast.Constant):
-        raise ValueError("Node type must be a string")
-    return kw.value.value
 
 
 def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:
