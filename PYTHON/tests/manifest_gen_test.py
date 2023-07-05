@@ -19,8 +19,18 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "BASIC",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "default", "id": "default", "type": "OrderedPair"},
-                {"name": "other", "id": "other", "type": "Any"},
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                },
+                {
+                    "name": "other",
+                    "id": "other",
+                    "type": "Any",
+                    "multiple": False,
+                },
             ],
             "parameters": {"some_param": {"type": "int", "default": None}},
             "outputs": [{"name": "default", "id": "default", "type": "OrderedPair"}],
@@ -34,8 +44,13 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "EXTRA_DEPS",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "mat", "id": "mat", "type": "Matrix"},
-                {"name": "data", "id": "data", "type": "DataFrame"},
+                {
+                    "name": "mat",
+                    "id": "mat",
+                    "type": "Matrix",
+                    "multiple": False,
+                },
+                {"name": "data", "id": "data", "type": "DataFrame", "multiple": False},
             ],
             "outputs": [{"name": "default", "id": "default", "type": "Image"}],
             "pip_dependencies": [{"name": "tensorflow", "v": "2.12.0"}],
@@ -60,7 +75,9 @@ class ManifestGenerationTest(unittest.TestCase):
             "name": "DEFAULT_NODE",
             "key": "DEFAULT_NODE",
             "type": "default",
-            "inputs": [{"name": "default", "id": "default", "type": "Any"}],
+            "inputs": [
+                {"name": "default", "id": "default", "type": "Any", "multiple": False}
+            ],
             "outputs": [{"name": "default", "id": "default", "type": "Any"}],
         }
 
@@ -71,7 +88,12 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "DEFAULT_VALUES",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "default", "id": "default", "type": "OrderedTriple"},
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedTriple",
+                    "multiple": False,
+                },
             ],
             "parameters": {
                 "foo": {"type": "str", "default": "bar"},
@@ -87,10 +109,20 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "UNIONS",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "a", "id": "a", "type": "Matrix|DataFrame|Image"},
-                {"name": "b", "id": "b", "type": "Any"},
-                {"name": "c", "id": "c", "type": "Matrix|DataFrame|Image"},
-                {"name": "d", "id": "d", "type": "Any"},
+                {
+                    "name": "a",
+                    "id": "a",
+                    "type": "Matrix|DataFrame|Image",
+                    "multiple": False,
+                },
+                {"name": "b", "id": "b", "type": "Any", "multiple": False},
+                {
+                    "name": "c",
+                    "id": "c",
+                    "type": "Matrix|DataFrame|Image",
+                    "multiple": False,
+                },
+                {"name": "d", "id": "d", "type": "Any", "multiple": False},
             ],
             "parameters": {
                 "foo": {"type": "str|int", "default": "bar"},
@@ -111,9 +143,14 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "OPTIONALS",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "a", "id": "a", "type": "OrderedPair|OrderedTriple"},
-                {"name": "b", "id": "b", "type": "Matrix"},
-                {"name": "c", "id": "c", "type": "Any"},
+                {
+                    "name": "a",
+                    "id": "a",
+                    "type": "OrderedPair|OrderedTriple",
+                    "multiple": False,
+                },
+                {"name": "b", "id": "b", "type": "Matrix", "multiple": False},
+                {"name": "c", "id": "c", "type": "Any", "multiple": False},
             ],
             "parameters": {
                 "foo": {"type": "str|int", "default": None},
@@ -135,7 +172,7 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "SELECTS",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "default", "id": "default", "type": "Any"},
+                {"name": "default", "id": "default", "type": "Any", "multiple": False}
             ],
             "parameters": {
                 "option1": {
@@ -159,6 +196,34 @@ class ManifestGenerationTest(unittest.TestCase):
                     "name": "default",
                     "id": "default",
                     "type": "Any",
+                }
+            ],
+        }
+
+    def test_manifest_with_multi_inputs(self):
+        manifest = get_manifest("multiple_inputs.py")
+        assert manifest == {
+            "name": "MULTIPLE_INPUTS",
+            "key": "MULTIPLE_INPUTS",
+            "type": "TEST_TYPE",
+            "inputs": [
+                {
+                    "name": "a",
+                    "id": "a",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                },
+                {"name": "b", "id": "b", "type": "OrderedPair", "multiple": True},
+                {"name": "c", "id": "c", "type": "Matrix|DataFrame", "multiple": True},
+            ],
+            "parameters": {
+                "foo": {"type": "list[int]", "default": None},
+            },
+            "outputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "Matrix",
                 }
             ],
         }

@@ -37,9 +37,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
     def visit_ClassDef(self, node: ast.ClassDef) -> Any:
-        if "output" in node.name.lower():
-            return node
-        return None
+        return node
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
         if not self.has_decorator(node, "flojoy"):
