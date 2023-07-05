@@ -46,14 +46,12 @@ def browse_directories(dir_path: str):
             result = create_manifest(n_path)
             __generated_nodes.append(n_file_name)
         except Exception as e:
-            if "FEEDBACK" in dir_path:
-                print(
-                    "❌ Failed to generate manifest from ",
-                    f"{Path.basename(dir_path)}.py ",
-                    e,
-                    "\n",
-                )
-
+            print(
+                "❌ Failed to generate manifest from ",
+                f"{Path.basename(dir_path)}.py ",
+                e,
+                "\n",
+            )
             __failed_nodes.append(f"{Path.basename(dir_path)}.py")
 
         if not result.get("type"):

@@ -89,7 +89,7 @@ def create_manifest(path: str) -> dict[str, Any]:
 
     func = getattr(module, node_name)
 
-    manifest = make_manifest_for(func)
+    manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
 
     node_type = get_node_type(tree)
     if node_type:
@@ -133,9 +133,7 @@ def make_manifest_for(
         mb.with_output("default", return_type)
     # Multiple outputs
     elif is_typeddict(return_type):
-        for attr, value in vars(return_type).items():
-            if attr.startswith("_"):
-                continue
+        for attr, value in dict(return_type.__annotations__).items():
             if is_special_node:
                 mb.with_output(name=attr, output_type=value)
             else:
@@ -205,7 +203,7 @@ def populate_inputs(name: str, param: Parameter, mb: ManifestBuilder) -> None:
         mb.with_input(name, param_type)
     # Case 5: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        mb.with_select(name, param_type.__args__, default_value)
+        mb.with_select(name, list(param_type.__args__), default_value)
     else:
         if param_type != DefaultParams and param_type not in ALLOWED_PARAM_TYPES:
             raise TypeError(

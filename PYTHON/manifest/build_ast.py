@@ -111,7 +111,7 @@ def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
 
 def get_flojoy_decorator_param(tree: ast.Module, name: str) -> Optional[ast.keyword]:
     decorator = get_flojoy_decorator(tree)
-    
+
     if not decorator:
         return None
     return find(decorator.keywords, lambda k: k.arg == name)
