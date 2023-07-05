@@ -10,7 +10,7 @@ export interface AppGalleryElementProps {
 }
 
 export const AppGalleryElementStyles = createStyles((theme) => ({
-  elementTitle: { marginBottom: 0 },
+  elementTitle: { display: "flex", marginBottom: 0, gap: "2vw" },
   link: {},
   elementLayout: {
     mih: 50,
@@ -40,15 +40,19 @@ export const AppGalleryElement = ({
     <Flex className={classes.elementLayout}>
       <Image height={120} width={200} fit="contain" src={imagePath} />
       <div className={classes.textLine}>
-        <h4 className={classes.elementTitle}>{elementTitle}</h4>
-        <UnstyledButton
-          component="a"
-          target="_blank"
-          href={youtubeLink}
-          style={{ paddingLeft: "4%" }}
-        >
-          <IconBrandYoutube />
-        </UnstyledButton>
+        <h4 className={classes.elementTitle}>
+          {elementTitle}
+          <div>
+            <UnstyledButton
+              component="a"
+              target="_blank"
+              href={youtubeLink}
+              style={{ height: 0 }}
+            >
+              <IconBrandYoutube />
+            </UnstyledButton>
+          </div>
+        </h4>
       </div>
       <a href={link} className={classes.link}>
         {linkText}

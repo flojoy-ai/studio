@@ -24,6 +24,8 @@ const useStyles = createStyles((theme) => ({
     marginRight: 8,
   },
   header: {
+    position: "sticky",
+    display: "relative",
     paddingTop: 0,
   },
   title: {
@@ -31,9 +33,15 @@ const useStyles = createStyles((theme) => ({
     font: "Inter",
     fontSize: 35,
     paddingLeft: 20,
+    width: "60%",
   },
   hr: {
-    width: "93%",
+    position: "absolute",
+    margin: 0,
+    width: "90%",
+    bottom: 0,
+    marginLeft: "2%",
+    marginRight: "5%",
   },
   categoryElement: {
     display: "flex",
@@ -73,8 +81,8 @@ export const AppGalleryModal = () => {
           <Modal.CloseButton className={classes.closeBtn} />
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
+            <hr className={classes.hr} />
           </Modal.Header>
-          <hr className={classes.hr} />
           <Modal.Body>
             {subjectList.map((sub, key) => {
               return <AppGalleryLayout subject={sub} key={key} />;
