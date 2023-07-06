@@ -20,7 +20,6 @@ export const useAddNewNode = (
   getNodeFuncCount: (func: string) => number
 ) => {
   const [center] = useAtom(centerPositionAtom);
-  console.log(center);
 
   const getNodePosition = () => {
     return {
