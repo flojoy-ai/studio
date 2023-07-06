@@ -1,13 +1,13 @@
 import { NodeElement } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "../types/CustomNodeProps";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
-
-const LAST_NODE_POSITION_KEY = "last_node_position:flojoy";
+import { centerPositionAtom } from "@src/hooks/useFlowChartState";
+import { useAtom } from "jotai";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -19,6 +19,9 @@ export const useAddNewNode = (
   ) => void,
   getNodeFuncCount: (func: string) => number
 ) => {
+  const [center] = useAtom(centerPositionAtom);
+  console.log(center);
+
   const getNodePosition = () => {
     return {
       x: 50 + Math.random() * 200,
@@ -26,19 +29,13 @@ export const useAddNewNode = (
     };
   };
 
-  const lastNodePosition = localStorage.getItem(LAST_NODE_POSITION_KEY)
-    ? JSON.parse(localStorage.getItem(LAST_NODE_POSITION_KEY) || "")
-    : getNodePosition();
-
-  useEffect(() => {
-    return () => localStorage.setItem(LAST_NODE_POSITION_KEY, "");
-  }, []);
+  const pos = center ?? getNodePosition();
 
   return useCallback(
     (node: NodeElement) => {
       const nodePosition = {
-        x: lastNodePosition.x + 100,
-        y: lastNodePosition.y + 30,
+        x: pos.x + (Math.random() - 0.5) * 30,
+        y: pos.y + (Math.random() - 0.5) * 30,
       };
       const funcName = node.key;
       const type = node.type;
@@ -92,12 +89,8 @@ export const useAddNewNode = (
         position: nodePosition,
       };
       setNodes((els) => els.concat(newNode));
-      localStorage.setItem(
-        LAST_NODE_POSITION_KEY,
-        JSON.stringify(nodePosition)
-      );
       sendEventToMix("Node Added", newNode.data.label);
     },
-    [setNodes, getNodeFuncCount]
+    [setNodes, getNodeFuncCount, pos]
   );
 };

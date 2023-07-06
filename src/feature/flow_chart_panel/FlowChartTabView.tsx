@@ -42,6 +42,7 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
+import { CenterObserver } from "./components/CenterObserver";
 
 localforage.config({
   name: "react-flow",
@@ -325,8 +326,10 @@ const FlowChartTab = () => {
           />
 
           <FlowChartKeyboardShortcuts />
+          <CenterObserver />
 
           <ReactFlow
+            id="flow-chart"
             style={{
               position: "fixed",
               height: "100%",
@@ -344,6 +347,7 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
+            fitView
           >
             <MiniMap
               style={{

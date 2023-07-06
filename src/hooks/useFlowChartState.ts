@@ -35,12 +35,6 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 
-export interface RfSpatialInfoType {
-  x: number;
-  y: number;
-  zoom: number;
-}
-
 const failedNodeAtom = atomWithImmer<string>("");
 const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
@@ -54,6 +48,9 @@ const s3AccessKeyAtom = atomWithImmer<string>("");
 const s3SecretKeyAtom = atomWithImmer<string>("");
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
+export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
+  undefined
+);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
