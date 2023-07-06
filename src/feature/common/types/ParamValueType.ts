@@ -4,6 +4,7 @@ export type ParamValueType =
   | "int"
   | "list[int]"
   | "list[str]"
+  | "list[float]"
   | "Array"
   | "bool"
   | "select"

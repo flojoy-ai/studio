@@ -72,6 +72,9 @@ const ParamField = ({
         />
       );
     case "str":
+    case "list[int]":
+    case "list[float]":
+    case "list[str]":
     case "Array":
     case "unknown":
       return (
