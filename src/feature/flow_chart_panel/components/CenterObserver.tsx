@@ -1,27 +1,31 @@
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
-import { useOnViewportChange, useReactFlow, Viewport } from "reactflow";
+import { useOnViewportChange, useStoreApi } from "reactflow";
 
 export const CenterObserver = () => {
   const [, setCenter] = useAtom(centerPositionAtom);
-  const rfInstance = useReactFlow();
+  const store = useStoreApi();
 
   useOnViewportChange({
-    onEnd: (viewport: Viewport) => {
-      const flowChart = document.getElementById("flow-chart");
-      if (!flowChart) {
-        throw new Error("flow-chart not found when trying to get the center");
-      }
-      const rect = flowChart.getBoundingClientRect();
-      const projected = rfInstance.project({ x: rect.x / 2, y: rect.y / 2 });
-      const offset = {
-        x: 450 * (2 - viewport.zoom),
-        y: 150 * (2 - viewport.zoom),
-      };
+    onEnd: (_) => {
+      const {
+        height,
+        width,
+        transform: [transformX, transformY, zoomLevel],
+      } = store.getState();
+      const zoomMultiplier = 1 / zoomLevel;
+
+      // Figure out the center of the current viewport
+      const centerX =
+        -transformX * zoomMultiplier + (width * zoomMultiplier) / 2;
+      const centerY =
+        -transformY * zoomMultiplier + (height * zoomMultiplier) / 2;
+
       const newCenter = {
-        x: projected.x + offset.x,
-        y: projected.y + offset.y,
+        x: centerX,
+        y: centerY,
       };
+
       setCenter(newCenter);
     },
   });
