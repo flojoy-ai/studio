@@ -18,8 +18,7 @@ from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import importlib
 from .status_codes import STATUS_CODES
-from PYTHON.dao.redis_dao import RedisDao
-from PYTHON.node_sdk.small_memory import SmallMemory
+from flojoy.node_sdk.small_memory import SmallMemory
 from captain.types.worker import WorkerJobResponse
 import traceback
 

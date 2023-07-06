@@ -7,7 +7,7 @@ import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
-from PYTHON.services.job_service import JobService
+from flojoy.services.job_service import JobService
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx

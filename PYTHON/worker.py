@@ -5,7 +5,7 @@ try:
 except ImportError:
     from rq import Worker
 import os, io, sys, debugpy
-from dao.redis_dao import RedisDao
+from flojoy.dao.redis_dao import RedisDao
 
 sys.path.append(os.path.abspath(os.getcwd()))
 

@@ -10,7 +10,7 @@ from flojoy.utils import set_frontier_api_key, set_frontier_s3_key
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
 
-from PYTHON.services.job_service import JobService
+from flojoy.services.job_service import JobService
 from .utils.send_to_socket import send_msg_to_socket
 
 

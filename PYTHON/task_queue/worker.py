@@ -1,7 +1,7 @@
 from multiprocessing import SimpleQueue
 import pickle
 from typing import Any
-from PYTHON.dao.redis_dao import RedisDao
+from flojoy.dao.redis_dao import RedisDao
 from captain.types.worker import JobInfo
 from rq.job import Job
 
