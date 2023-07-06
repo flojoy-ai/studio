@@ -44,9 +44,7 @@ class ConnectionManager:
         if not isinstance(message, WorkerJobResponse):
             return
         socket_id = message.jobsetId
-        for _id, connection in self.active_connections_map.items():
-            if _id != socket_id:
-                return
+        for _, connection in self.active_connections_map.items():
             try:
                 await connection.send_text(json.dumps(message))
             except RuntimeError:
