@@ -191,17 +191,17 @@ def populate_inputs(
                 mb.with_input(name, param_type, multiple=multiple)
         # Case 2.2: Union of other types
         elif not dc_types:
-            if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
-                raise TypeError(
-                    f"Union types must be one of {ALLOWED_PARAM_TYPES},"
-                    f"got {union_types}"
-                )
-            mb.with_param(name, param_type, default_value)
+            raise TypeError("Union types are not allowed for regular parameters")
+            # Union for parameters is disabled for now
+
+            # if not all([t in ALLOWED_PARAM_TYPES for t in union_types]):
+            #     raise TypeError(
+            #         f"Union types must be one of {ALLOWED_PARAM_TYPES},"
+            #         f"got {union_types}"
+            #     )
+            # mb.with_param(name, param_type, default_value)
         else:
-            raise TypeError(
-                "Type union must either contain all DataContainers"
-                "or no DataContainers at all."
-            )
+            raise TypeError("Type union must either contain all DataContainers")
     # Case 3: Any DataContainer
     elif param_type == DataContainer:
         mb.with_input(name, Any, multiple=multiple)
