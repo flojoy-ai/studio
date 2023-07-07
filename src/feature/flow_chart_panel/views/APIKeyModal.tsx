@@ -16,8 +16,7 @@ interface APIKeyModelProps {
 const useStyles = createStyles((theme) => ({
   container: {
     display: "relative",
-    justifyContent: "center",
-    alignItems: "center",
+    paddingLeft: "3%",
     border: `1px solid ${theme.colors.accent5[0]}`,
     gap: 43,
     height: 700,
@@ -30,26 +29,24 @@ const useStyles = createStyles((theme) => ({
   },
   title: {
     display: "flex",
-    gap: 9.7,
+    gap: 10,
     fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Inter",
-    marginTop: "9%",
-    marginLeft: "8.5%",
+    marginTop: "13%",
     marginBottom: "1%",
   },
   titleText: {
-    marginTop: -2.3
+    marginTop: -2.3,
   },
   userInputContainer: {
     display: "relative",
     marginLeft: 40,
     marginTop: 0,
   },
-  submitButtonLine: {
+  oneSubmitButtonLine: {
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    marginLeft: 5,
     gap: 4,
     color: theme.colors.accent1[0],
   },
@@ -80,6 +77,13 @@ const useStyles = createStyles((theme) => ({
       width: 270,
       backgroundColor: theme.colors.modal[0],
     },
+  },
+  s3Container: {
+    marginLeft: 0,
+  },
+  s3SubmitBtn: {
+    marginLeft: 274,
+    marginTop: 5,
   },
 }));
 const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
@@ -143,7 +147,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         opened={isOpen}
         onClose={handleClose}
         aria-labelledby="API Key modal"
-        size={550}
+        size={470}
         centered
       >
         <Modal.Overlay />
@@ -157,7 +161,30 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               data-testid="api-key-close-btn"
               className={classes.closeBtn}
             />
-            <div className={classes.submitButtonLine}>
+            <div className={classes.oneSubmitButtonLine}>
+              <Input
+                data-testid="api-key-input"
+                type="text"
+                onChange={handleApiKeyChange}
+                value={apiKey}
+                className={classes.inputBox}
+              />
+              <Button
+                data-testid="api-key-input-btn"
+                disabled={!apiKey}
+                onClick={handleSendAPI}
+                className={classes.submitBtn}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
+          <div>
+            <div className={classes.title}>
+              <FamilyHistoryIconSvg size={20} />
+              <div className={classes.titleText}>OpenAI API Key</div>
+            </div>
+            <div className={classes.oneSubmitButtonLine}>
               <Input
                 data-testid="api-key-input"
                 type="text"
@@ -180,65 +207,36 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               <FamilyHistoryIconSvg size={20} />
               <div className={classes.titleText}>Set S3 Key</div>
             </div>
-            <div className={classes.userInputContainer}>
+            <div className={classes.s3Container}>
               <h4 style={{ marginBottom: 0 }}>Name:</h4>
-              <div className={classes.submitButtonLine}>
-                <Input
-                  data-testid="s3_name_input"
-                  type="text"
-                  onChange={handleNameChange}
-                  value={s3Name}
-                  className={classes.inputBox}
-                />
-              </div>
-              <h4 style={{ marginBottom: 0 }}>Access Key:</h4>
-              <div className={classes.submitButtonLine}>
-                <Input
-                  data-testid="s3_access_input"
-                  type="text"
-                  onChange={handleS3AccessKeyChange}
-                  value={s3AccessKey}
-                  className={classes.inputBox}
-                />
-              </div>
-              <h4 style={{ marginBottom: 0 }}>Secret Access Key:</h4>
-              <div className={classes.submitButtonLine}>
-                <Input
-                  data-testid="s3_secret_input"
-                  type="text"
-                  onChange={handleS3SecretKeyChange}
-                  value={s3SecretKey}
-                  className={classes.inputBox}
-                />
-                <Button
-                  data-testid="s3-submit-btn"
-                  disabled={!s3SecretKey}
-                  onClick={handleS3Key}
-                  className={classes.submitBtn}
-                >
-                  Submit
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className={classes.title}>
-              <FamilyHistoryIconSvg size={20} />
-              <div className={classes.titleText}>OpenAI API Key</div>
-            </div>
-            <div className={classes.submitButtonLine}>
               <Input
-                data-testid="api-key-input"
+                data-testid="s3_name_input"
                 type="text"
-                onChange={handleApiKeyChange}
-                value={apiKey}
+                onChange={handleNameChange}
+                value={s3Name}
+                className={classes.inputBox}
+              />
+              <h4 style={{ marginBottom: 0 }}>Access Key:</h4>
+              <Input
+                data-testid="s3_access_input"
+                type="text"
+                onChange={handleS3AccessKeyChange}
+                value={s3AccessKey}
+                className={classes.inputBox}
+              />
+              <h4 style={{ marginBottom: 0 }}>Secret Access Key:</h4>
+              <Input
+                data-testid="s3_secret_input"
+                type="text"
+                onChange={handleS3SecretKeyChange}
+                value={s3SecretKey}
                 className={classes.inputBox}
               />
               <Button
-                data-testid="api-key-input-btn"
-                disabled={!apiKey}
-                onClick={handleSendAPI}
-                className={classes.submitBtn}
+                data-testid="s3-submit-btn"
+                disabled={!s3SecretKey}
+                onClick={handleS3Key}
+                className={classes.s3SubmitBtn}
               >
                 Submit
               </Button>
