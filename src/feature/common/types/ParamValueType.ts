@@ -1,9 +1,12 @@
 export type ParamValueType =
-  | "string"
+  | "str"
   | "float"
   | "int"
-  | "array"
-  | "boolean"
+  | "list[int]"
+  | "list[str]"
+  | "list[float]"
+  | "Array"
+  | "bool"
   | "select"
-  | "node_reference"
+  | "NodeReference"
   | "unknown";

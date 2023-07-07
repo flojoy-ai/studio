@@ -20,13 +20,11 @@ function fallbackRender({ error, resetErrorBoundary }) {
 }
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ErrorBoundary fallbackRender={fallbackRender}>
-        <SocketContextProvider>
-          <App />
-        </SocketContextProvider>
-      </ErrorBoundary>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <ErrorBoundary fallbackRender={fallbackRender}>
+      <SocketContextProvider>
+        <App />
+      </SocketContextProvider>
+    </ErrorBoundary>
+  </BrowserRouter>
 );

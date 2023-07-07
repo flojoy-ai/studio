@@ -1,13 +1,13 @@
 import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
+import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 
 type ParamFieldProps = {
   nodeId: string;
-  paramId: string;
-  functionName: string;
+  nodeCtrls: ElementsData["ctrls"][""];
   type: ParamValueType;
-  value: any;
+  value: ElementsData["ctrls"][""]["value"];
   options?: string[];
   nodeReferenceOptions?: {
     label: string;
@@ -16,9 +16,8 @@ type ParamFieldProps = {
 };
 
 const ParamField = ({
+  nodeCtrls,
   nodeId,
-  paramId,
-  functionName,
   type,
   value,
   options,
@@ -26,9 +25,8 @@ const ParamField = ({
 }: ParamFieldProps) => {
   const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const handleChange = (value: string | boolean) => {
-    updateCtrlInputDataForNode(nodeId, paramId, {
-      functionName,
-      param: paramId,
+    updateCtrlInputDataForNode(nodeId, {
+      ...nodeCtrls,
       value,
     });
   };
@@ -37,7 +35,7 @@ const ParamField = ({
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
-          value={value !== "" ? parseFloat(value) : value}
+          value={value !== "" ? parseFloat(value as string) : value}
           precision={7}
           removeTrailingZeros
         />
@@ -46,29 +44,15 @@ const ParamField = ({
       return (
         <NumberInput
           onChange={(x) => handleChange(x.toString())}
-          value={value !== "" ? parseInt(value) : value}
+          value={value !== "" ? parseInt(value as string) : value}
         />
       );
-    case "string":
-      return (
-        <TextInput
-          onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value}
-        />
-      );
-    case "array":
-      return (
-        <TextInput
-          onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value}
-        />
-      );
-    case "boolean":
+    case "bool":
       return (
         <Checkbox
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
-          checked={value}
+          checked={value as boolean}
         />
       );
     case "select":
@@ -76,22 +60,27 @@ const ParamField = ({
         <Select
           onChange={(val) => handleChange(val as string)}
           data={options ?? []}
-          value={value}
+          value={value as string}
         />
       );
-    case "node_reference":
+    case "NodeReference":
       return (
         <Select
           onChange={(val) => handleChange(val as string)}
           data={nodeReferenceOptions ?? []}
-          value={value}
+          value={value as string}
         />
       );
+    case "str":
+    case "list[int]":
+    case "list[float]":
+    case "list[str]":
+    case "Array":
     case "unknown":
       return (
         <TextInput
           onChange={(e) => handleChange(e.currentTarget.value)}
-          value={value}
+          value={value as string}
         />
       );
     default:

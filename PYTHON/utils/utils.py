@@ -172,20 +172,3 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
 
 class NotEncodable(Exception):
     pass
-
-
-def compare_values(first_value, second_value, operator):
-    bool_ = None
-    if operator == "<=":
-        bool_ = first_value <= second_value
-    elif operator == ">":
-        bool_ = first_value > second_value
-    elif operator == "<":
-        bool_ = first_value < second_value
-    elif operator == ">=":
-        bool_ = first_value >= second_value
-    elif operator == "!=":
-        bool_ = first_value != second_value
-    else:
-        bool_ = first_value == second_value
-    return bool_

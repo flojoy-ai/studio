@@ -30,11 +30,11 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const ArithmeticNode = ({ data }: CustomNodeProps) => {
+const ArithmeticNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   let operatorIcon: JSX.Element;
   switch (data.func) {
@@ -52,7 +52,7 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
   }
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected
@@ -69,15 +69,7 @@ const ArithmeticNode = ({ data }: CustomNodeProps) => {
         >
           <AddBGTemplate />
           {operatorIcon}
-          <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <HandleComponent data={data} inputs={params} />
-          </Box>
+          <HandleComponent data={data} />
         </Box>
       </Box>
     </NodeWrapper>

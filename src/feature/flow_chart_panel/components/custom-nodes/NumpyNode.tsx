@@ -31,11 +31,11 @@ const useStyles = createStyles((theme) => {
   };
 });
 
-const NumpyNode = ({ data }: CustomNodeProps) => {
+const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+  const params = data.inputs ?? [];
 
   let selectShadow = "";
   if (runningNode === data.id || data.selected) {
@@ -43,7 +43,7 @@ const NumpyNode = ({ data }: CustomNodeProps) => {
   }
   const operatorIcon = <NumpySvg className={classes.operatorIcon} />;
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           selectShadow,
@@ -59,17 +59,8 @@ const NumpyNode = ({ data }: CustomNodeProps) => {
           <Box data-testid="data-label-design">
             <Box>{data.label}</Box>
           </Box>
-          {/* <AddBGTemplate /> */}
           {operatorIcon}
-          <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <HandleComponent data={data} inputs={params} />
-          </Box>
+          <HandleComponent data={data} />
         </Box>
       </Box>
     </NodeWrapper>
