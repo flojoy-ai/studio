@@ -152,6 +152,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   const handleClose = () => {
     setS3Container(false);
     setCloudApiKey("");
+    setOpenAIApiKey("");
     setS3Name("");
     setS3AccessKey("");
     setS3SecretKey("");
@@ -217,9 +218,13 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
           />
           <Tabs className={classes.tabs} defaultValue="cloud" orientation="vertical" onTabChange={(tab) => handleS3Container(tab)}>
             <Tabs.List>
-              <Tabs.Tab value="cloud">Flojoy Cloud API</Tabs.Tab>
-              <Tabs.Tab value="openai">OpenAI API</Tabs.Tab>
-              <Tabs.Tab value="s3">AWS S3 API</Tabs.Tab>
+              <Tabs.Tab value="cloud"
+              data-testid="cloud-tab"
+              >Flojoy Cloud API</Tabs.Tab>
+              <Tabs.Tab value="openai" 
+              data-testid="openai-tab">OpenAI API</Tabs.Tab>
+              <Tabs.Tab value="s3"
+              data-testid="s3-tab">AWS S3 API</Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value="cloud">
@@ -229,14 +234,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               </div>
               <div className={classes.oneSubmitButtonLine}>
                 <Input
-                  data-testid="api-key-input"
+                  data-testid="cloud-api-key-input"
                   type="text"
                   onChange={handleCloudApiKeyChange}
                   value={cloudApiKey}
                   className={classes.inputBox}
                 />
                 <Button
-                  data-testid="api-key-input-btn"
+                  data-testid="cloud-input-btn"
                   disabled={!cloudApiKey}
                   onClick={handleCloudSendAPI}
                   className={classes.submitBtn}
@@ -252,14 +257,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               </div>
               <div className={classes.oneSubmitButtonLine}>
                 <Input
-                  data-testid="api-key-input"
+                  data-testid="openai-api-key-input"
                   type="text"
                   onChange={handleOpenAIApiKeyChange}
                   value={openAIApiKey}
                   className={classes.inputBox}
                 />
                 <Button
-                  data-testid="api-key-input-btn"
+                  data-testid="openai-input-btn"
                   disabled={!openAIApiKey}
                   onClick={handleOpenAIAPI}
                   className={classes.submitBtn}
