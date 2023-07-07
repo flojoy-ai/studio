@@ -7,7 +7,11 @@ import yaml
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from flojoy.utils import set_frontier_cloud_api, set_frontier_openai_api, set_frontier_s3_key
+from flojoy.utils import (
+    set_frontier_cloud_api,
+    set_frontier_openai_api,
+    set_frontier_s3_key,
+)
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -89,6 +93,7 @@ def set_cloud_api_key(request):
     }
     return Response(response, status=200)
 
+
 @api_view(["POST"])
 def set_openai_api_key(request):
     key = request.data
@@ -99,6 +104,7 @@ def set_openai_api_key(request):
         "data": api_key,
     }
     return Response(response, status=200)
+
 
 @api_view(["POST"])
 def set_s3_key(request):

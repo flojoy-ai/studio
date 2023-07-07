@@ -15,7 +15,7 @@ interface APIKeyModelProps {
 }
 
 const useStyles = createStyles((theme, s3Container: boolean) => ({
-  tabs:{
+  tabs: {
     marginTop: "10%",
     marginLeft: "2%",
   },
@@ -83,7 +83,7 @@ const useStyles = createStyles((theme, s3Container: boolean) => ({
       backgroundColor: theme.colors.modal[0],
     },
   },
-  s3Title:{
+  s3Title: {
     display: "flex",
     gap: 10,
     fontSize: 20,
@@ -113,18 +113,24 @@ const useStyles = createStyles((theme, s3Container: boolean) => ({
   },
 }));
 const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
-  const { cloudApiKey, setCloudApiKey, openAIApiKey, setOpenAIApiKey, s3Container, setS3Container } = useFlowChartState();
+  const {
+    cloudApiKey,
+    setCloudApiKey,
+    openAIApiKey,
+    setOpenAIApiKey,
+    s3Container,
+    setS3Container,
+  } = useFlowChartState();
   const { classes } = useStyles(s3Container);
   const [s3Name, setS3Name] = useState<string>("");
   const { s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
     useFlowChartState();
 
   const handleS3Container = (tab) => {
-    if (tab == "s3"){
+    if (tab == "s3") {
       setS3Container(true);
       console.log(s3Container);
-    }
-    else{
+    } else {
       setS3Container(false);
     }
   };
@@ -213,18 +219,25 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         <Modal.Overlay />
         <Modal.Content className={classes.container}>
           <Modal.CloseButton
-                  data-testid="api-key-close-btn"
-                  className={classes.closeBtn}
+            data-testid="api-key-close-btn"
+            className={classes.closeBtn}
           />
-          <Tabs className={classes.tabs} defaultValue="cloud" orientation="vertical" onTabChange={(tab) => handleS3Container(tab)}>
+          <Tabs
+            className={classes.tabs}
+            defaultValue="cloud"
+            orientation="vertical"
+            onTabChange={(tab) => handleS3Container(tab)}
+          >
             <Tabs.List>
-              <Tabs.Tab value="cloud"
-              data-testid="cloud-tab"
-              >Flojoy Cloud API</Tabs.Tab>
-              <Tabs.Tab value="openai" 
-              data-testid="openai-tab">OpenAI API</Tabs.Tab>
-              <Tabs.Tab value="s3"
-              data-testid="s3-tab">AWS S3 API</Tabs.Tab>
+              <Tabs.Tab value="cloud" data-testid="cloud-tab">
+                Flojoy Cloud API
+              </Tabs.Tab>
+              <Tabs.Tab value="openai" data-testid="openai-tab">
+                OpenAI API
+              </Tabs.Tab>
+              <Tabs.Tab value="s3" data-testid="s3-tab">
+                AWS S3 API
+              </Tabs.Tab>
             </Tabs.List>
 
             <Tabs.Panel value="cloud">
