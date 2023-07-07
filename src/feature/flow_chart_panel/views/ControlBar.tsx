@@ -18,7 +18,6 @@ import {
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
