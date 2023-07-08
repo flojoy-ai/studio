@@ -11,7 +11,7 @@ export interface AppGalleryElementProps {
 
 export const AppGalleryElementStyles = createStyles((theme) => ({
   elementTitle: { display: "flex", marginBottom: 0, gap: "2vw" },
-  link: {},
+  link: { textDecoration: "none" },
   elementLayout: {
     mih: 50,
     gap: "md",
@@ -19,10 +19,13 @@ export const AppGalleryElementStyles = createStyles((theme) => ({
     alignItems: "flex-start",
     flexDirection: "column",
     flexWrap: "wrap",
+    textAlign: "left",
   },
   image: {
     height: 120,
     width: 200,
+    position: "absolute",
+    float: "left",
   },
   textLine: {
     display: "flex",

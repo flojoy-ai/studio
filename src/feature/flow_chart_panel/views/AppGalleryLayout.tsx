@@ -11,6 +11,7 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: "2%",
     marginBottom: "10%",
     marginRight: "2%",
+    paddingTop: "1%",
   },
   subjectTitle: {
     paddingLeft: "2%",
@@ -26,7 +27,7 @@ export const AppGalleryLayout = ({
 }) => {
   const { classes } = useStyles();
   const subjectKey = {
-    fundamentals: "fundamentals",
+    fundamentals: "Fundamentals",
     AI: "AI/ML",
     IO: "I/O",
     DSP: "Digital signal processing & simulation",
