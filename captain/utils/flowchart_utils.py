@@ -18,7 +18,7 @@ from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import importlib
 from .status_codes import STATUS_CODES
-from flojoy.node_sdk.small_memory import SmallMemory
+from flojoy.small_memory import SmallMemory
 from captain.types.worker import WorkerJobResponse
 import traceback
 
@@ -31,9 +31,6 @@ def run_worker(task_queue, imported_functions):
         ):
             text_trap = io.StringIO()
             sys.stdout = text_trap
-        # queue = Queue("flojoy", connection=RedisDao().r)
-        # worker = Worker([queue], connection=RedisDao().r)
-        # worker.work()
         logger.debug("Starting worker")
         worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
         worker.run()

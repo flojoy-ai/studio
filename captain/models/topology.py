@@ -7,7 +7,7 @@ import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
-from flojoy.services.job_service import JobService
+from flojoy.job_service import JobService
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
@@ -37,7 +37,7 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
-        self.job_service = JobService("flojoy", self.max_runtime)
+        self.job_service = JobService(self.max_runtime)
         self.cancelled = False
         self.worker_processes = worker_processes
         self.time_start = 0
@@ -396,4 +396,4 @@ class Topology:
         return max_independant
 
     def cleanup(self):
-        self.job_service.reset(list(self.original_graph.nodes))
+        self.job_service.reset()
