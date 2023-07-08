@@ -57,12 +57,7 @@ const useStyles = createStyles((theme) => ({
 export const AppGalleryModal = () => {
   const { classes } = useStyles();
   const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
-  const subjectList = [
-    "fundamentals",
-    "AI/ML",
-    "I/O",
-    "Digital signal processing & simulation",
-  ];
+  const subjectList = ["fundamentals", "AI", "IO", "DSP"];
 
   const onClose = () => {
     setIsGalleryOpen(false);
@@ -85,7 +80,7 @@ export const AppGalleryModal = () => {
           </Modal.Header>
           <Modal.Body>
             {subjectList.map((sub, key) => {
-              return <AppGalleryLayout subject={sub} key={key} />;
+              return <AppGalleryLayout subject={sub} key={key} topKey={key} />;
             })}
           </Modal.Body>
         </Modal.Content>

@@ -9,7 +9,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { IconMinus, IconPlus, IconApps } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
@@ -51,7 +51,6 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const manifestParams: ManifestParams = getManifestParams();
   const {
     isSidebarOpen,
     setIsSidebarOpen,
