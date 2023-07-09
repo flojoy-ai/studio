@@ -3,12 +3,13 @@ from pydantic import BaseModel
 
 # this Job class is used by the custom task queue
 class JobInfo:
-    def __init__(self, job_id: str, jobset_id: str, iteration_id: str, ctrls: dict[str, Any], previous_jobs: list[dict[str, str]]):
+    def __init__(self, job_id: str = '', jobset_id: str = '', iteration_id: str = '', ctrls: dict[str, Any] = {}, previous_jobs: list[dict[str, str]] = [], terminate: bool = False):
         self.job_id = job_id
         self.jobset_id = jobset_id
         self.iteration_id = iteration_id
         self.ctrls = ctrls
         self.previous_jobs = previous_jobs
+        self.terminate = terminate
 
 class NodeResults(BaseModel):
     cmd: str

@@ -1,7 +1,9 @@
+from queue import Queue
+from threading import Thread
 from fastapi import WebSocket
-from multiprocessing import Process, SimpleQueue
 from captain.utils.logger import logger
 from captain.models.topology import Topology
+from captain.types.worker import JobInfo
 from typing import Any, Union
 import json
 from captain.types.worker import WorkerJobResponse
@@ -14,13 +16,11 @@ class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None  # holds the topology
-        self.worker_processes: list[Process] = []
         self.debug_mode = False
-        self.task_queue: SimpleQueue = SimpleQueue()
+        self.task_queue: Queue = Queue()
     
-    def clear_worker_processes(self):
-        self.worker_processes.clear()
-
+    def end_worker_threads(self):
+        self.task_queue.put(JobInfo(terminate=True))
 
 class ConnectionManager:
     def __init__(self):

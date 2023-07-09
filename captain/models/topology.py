@@ -1,8 +1,8 @@
 import asyncio
 from copy import deepcopy
 import logging
-from multiprocessing import Process, SimpleQueue
 import os
+from queue import Queue
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
@@ -24,8 +24,7 @@ class Topology:
         self,
         graph: nx.DiGraph,
         jobset_id: str,
-        worker_processes: list[Process],
-        task_queue: SimpleQueue,
+        task_queue: Queue,
         cleanup_func: Callable,
         node_delay: float = 0,
         max_runtime: float = 3000,
@@ -39,7 +38,6 @@ class Topology:
         self.is_ci = os.getenv(key="CI", default=False)
         self.job_service = JobService(self.max_runtime)
         self.cancelled = False
-        self.worker_processes = worker_processes
         self.time_start = 0
         self.task_queue = task_queue
         self.cleanup_func = cleanup_func
@@ -137,7 +135,7 @@ class Topology:
     def cancel(self):
         logger.debug("Topology cancelled")
         self.cancelled = True
-        self.kill_workers()
+        self.finalizer()
 
     async def handle_finished_job(self, result: dict[str, Any]):
         #
@@ -246,14 +244,8 @@ class Topology:
             except Exception:
                 pass
 
-    def kill_workers(self):
-        for worker_process in self.worker_processes:
-            logger.debug("Killing worker process")
-            worker_process.terminate()
-            worker_process.join()
-            logger.debug("Worker process killed")
-
-        # clear list of worker processes from manager
+    def finalizer(self):
+        # run provided clean up function
         self.cleanup_func()
 
     # also used for when the topology is finished

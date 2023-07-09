@@ -1,14 +1,12 @@
 import io, time, asyncio
+from queue import Queue
+from threading import Thread
 import json, os, sys
 import networkx as nx
-from multiprocessing import Process, SimpleQueue
 from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
 from typing import Any, Callable, cast
-# from rq.queue import Queue
-from multiprocessing import Process
-
 # try:
 #     from rq_win import WindowsWorker as Worker
 # except ImportError:
@@ -38,12 +36,11 @@ def run_worker(task_queue, imported_functions):
         print(f"Error in worker: {traceback.format_exc()}", flush=True)
 
 
-def create_topology(request: PostWFC, worker_processes: list[Process], task_queue: SimpleQueue, cleanup_func: Callable):
+def create_topology(request: PostWFC, task_queue: Queue, cleanup_func: Callable):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
         jobset_id=request.jobsetId,
-        worker_processes=worker_processes,
         node_delay=request.nodeDelay,
         max_runtime=request.maximumRuntime,
         task_queue=task_queue,
@@ -60,10 +57,9 @@ def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     logger.info(f"Spawning {worker_number} workers")
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
-        worker_process = Process(target=run_worker, args=(manager.task_queue, imported_functions,))
+        worker_process = Thread(target=run_worker, args=(manager.task_queue, imported_functions,))
         worker_process.daemon = True
         worker_process.start()
-        manager.worker_processes.append(worker_process)
 
 
 # converts the dict to a networkx graph
@@ -131,10 +127,14 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     fc = json.loads(request.fc)
 
     # Create new task queue
-    manager.task_queue = SimpleQueue()
+    manager.task_queue = Queue()
+
+    # define clean up function
+    def clean_up_function():
+        manager.end_worker_threads()
 
     # create the topology
-    manager.running_topology = create_topology(request, manager.worker_processes, manager.task_queue, manager.clear_worker_processes)
+    manager.running_topology = create_topology(request, manager.task_queue, cleanup_func=clean_up_function)
 
     # Delete all rq jobs and cleanup memory
     manager.running_topology.cleanup()
