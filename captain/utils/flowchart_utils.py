@@ -23,12 +23,13 @@ import traceback
 
 def run_worker(task_queue, imported_functions):
     try:
-        if (
-            os.environ.get("DEBUG", None) is None
-            or os.environ.get("DEBUG", None) == "False"
-        ):
-            text_trap = io.StringIO()
-            sys.stdout = text_trap
+        # TODO: Figure out a way to make this work with python threads (previously this was a Python Process)
+        # if (
+        #     os.environ.get("DEBUG", None) is None
+        #     or os.environ.get("DEBUG", None) == "False"
+        # ):
+        #     text_trap = io.StringIO()
+        #     sys.stdout = text_trap
         logger.debug("Starting worker")
         worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
         worker.run()
@@ -55,6 +56,7 @@ def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     worker_number = manager.running_topology.get_maximum_workers()
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
+    manager.thread_count = worker_number
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
         worker_process = Thread(target=run_worker, args=(manager.task_queue, imported_functions,))

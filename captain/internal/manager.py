@@ -18,9 +18,12 @@ class Manager(object):
         self.running_topology: Topology | None = None  # holds the topology
         self.debug_mode = False
         self.task_queue: Queue = Queue()
+        self.thread_count = 0
     
+    # TODO: For some unknown mystical reason, this method doesn't kill the last thread...
     def end_worker_threads(self):
-        self.task_queue.put(JobInfo(terminate=True))
+        for _ in range(self.thread_count):
+            self.task_queue.put(JobInfo(terminate=True))
 
 class ConnectionManager:
     def __init__(self):
