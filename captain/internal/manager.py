@@ -23,7 +23,7 @@ class Manager(object):
     # TODO: For some unknown mystical reason, this method doesn't kill the last thread...
     def end_worker_threads(self):
         for _ in range(self.thread_count):
-            self.task_queue.put(JobInfo(terminate=True))
+            self.task_queue.put(JobInfo(terminate=True)) # poison pill
 
 class ConnectionManager:
     def __init__(self):

@@ -16,7 +16,7 @@ from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import importlib
 from .status_codes import STATUS_CODES
-from flojoy.small_memory import SmallMemory
+from flojoy.job_service import JobService
 from captain.types.worker import WorkerJobResponse
 import traceback
 
@@ -102,15 +102,9 @@ def flowchart_to_nx_graph(flowchart):
     return nx_graph
 
 
-# clears memory used by some worker nodes
+# clears memory used by some worker nodes and job results
 def clear_memory():
-    SmallMemory().clear_memory()
-
-
-# run code for cleaning up memory and preparing next topology to be ran
-# add more stuff if needed here:
-def prepare_for_next_run():
-    clear_memory()
+    JobService().reset()
 
 
 def report_failure(job, connection, type, value, traceback):
@@ -128,23 +122,23 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
 
+    def clean_up_function():
+        manager.end_worker_threads()
+        clear_memory()
+
+    # clean up before next run
+    clean_up_function()
+
     # Create new task queue
     manager.task_queue = Queue()
 
-    # define clean up function
-    def clean_up_function():
-        manager.end_worker_threads()
-
-    # create the topology
-    manager.running_topology = create_topology(request, manager.task_queue, cleanup_func=clean_up_function)
-
-    # Delete all rq jobs and cleanup memory
-    manager.running_topology.cleanup()
+    # Create the topology
+    manager.running_topology = create_topology(request, manager.task_queue, cleanup_func=clean_up_function) # pass clean up func for when topology ends
 
     # get the amount of workers needed
     spawn_workers(manager, manager.running_topology.pre_import_functions())
 
-    time.sleep(0.7)  # OPTIONAL wait for workers to spawn
+    # time.sleep(0.7)  # OPTIONAL wait for workers to spawn
 
     nodes = fc["nodes"]
     missing_packages = []
