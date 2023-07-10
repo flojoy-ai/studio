@@ -14,7 +14,7 @@ const downloadBlob = (blob: Blob, filename: string) => {
 
 const SaveFlowChartBtn = () => {
   const downloadResult = async () => {
-    const flowChartDiv = document.getElementById("react-flow-chart");
+    const flowChartDiv = document.getElementById("flow-chart");
     if (!flowChartDiv) {
       alert("No flow chart found on current page!");
       return;

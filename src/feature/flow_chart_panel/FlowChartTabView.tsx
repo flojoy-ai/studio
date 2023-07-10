@@ -305,7 +305,7 @@ const FlowChartTab = () => {
           <FlowChartKeyboardShortcuts />
 
           <ReactFlow
-            id="react-flow-chart"
+            id="flow-chart"
             style={{
               position: "fixed",
               height: "100%",
