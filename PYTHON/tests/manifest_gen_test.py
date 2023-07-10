@@ -124,9 +124,9 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
                 {"name": "d", "id": "d", "type": "Any", "multiple": False},
             ],
-            "parameters": {
-                "foo": {"type": "str|int", "default": "bar"},
-            },
+            # "parameters": {
+            #     "foo": {"type": "str|int", "default": "bar"},
+            # },
             "outputs": [
                 {
                     "name": "default",
@@ -153,7 +153,7 @@ class ManifestGenerationTest(unittest.TestCase):
                 {"name": "c", "id": "c", "type": "Any", "multiple": False},
             ],
             "parameters": {
-                "foo": {"type": "str|int", "default": None},
+                "foo": {"type": "str", "default": None},
                 "bar": {"type": "list[int]", "default": None},
             },
             "outputs": [

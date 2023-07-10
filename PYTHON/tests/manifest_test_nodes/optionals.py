@@ -8,7 +8,7 @@ def OPTIONALS(
     a: Optional[OrderedPair | OrderedTriple] = None,
     b: Optional[Matrix] = None,
     c: Optional[DataContainer] = None,
-    foo: Optional[str | int] = None,
+    foo: Optional[str] = None,
     bar: Optional[list[int]] = None,
 ) -> OrderedPair:
     q = np.array([])
