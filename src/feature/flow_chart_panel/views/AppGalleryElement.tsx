@@ -3,10 +3,8 @@ import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { IconBrandYoutube } from "@tabler/icons-react";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { AppGalleryModal } from "./AppGalleryModal";
-import raw from "./flojoy.json";
-import { ElementsData } from "../types/CustomNodeProps";
 import { ReactFlowJsonObject } from "reactflow";
+import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 
 export interface AppGalleryElementProps {
   linkText: string;
@@ -14,6 +12,7 @@ export interface AppGalleryElementProps {
   elementTitle: string;
   imagePath: string;
   youtubeLink?: string;
+  appPath?: string;
 }
 
 export const AppGalleryElementStyles = createStyles((theme) => ({
@@ -44,6 +43,7 @@ export const AppGalleryElement = ({
   elementTitle,
   imagePath,
   youtubeLink = "https://www.youtube.com",
+  appPath = "flojoy",
 }: AppGalleryElementProps) => {
   const { classes } = AppGalleryElementStyles();
   const { loadFlowExportObject } = useFlowChartGraph();
@@ -51,9 +51,8 @@ export const AppGalleryElement = ({
   const { setIsGalleryOpen } = useFlowChartState();
 
   const open = async () => {
-    const file = "flojoy";
-    const raw = await import(`./${file}.json`);
-    const flow = raw.rfInstance as ReactFlowJsonObject;
+    const raw = await import(`../../../utils/app-gallery-apps/${appPath}.json`);
+    const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     loadFlowExportObject(flow);
     setIsGalleryOpen(false);

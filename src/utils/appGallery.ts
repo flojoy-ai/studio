@@ -124,6 +124,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "FFT",
       imagePath: "../../../public/assets/appGallery/FFT.png",
       youtubeLink: "",
+      appPath: "fft",
     },
   ],
 };

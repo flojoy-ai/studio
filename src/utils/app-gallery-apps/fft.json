@@ -1,0 +1,459 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+                "type": "default",
+                "data": {
+                    "id": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "default",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 131.05060402280617,
+                    "y": 332.2195561169542
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 131.05060402280617,
+                    "y": 332.2195561169542
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+                    "label": "SINE",
+                    "func": "SINE",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": 1
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 465.8729517979642,
+                    "y": 232.73063756313297
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 465.8729517979642,
+                    "y": 232.73063756313297
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+                    "label": "SINE 1",
+                    "func": "SINE",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "amplitude": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "SINE",
+                            "param": "amplitude",
+                            "value": "0.5"
+                        },
+                        "frequency": {
+                            "type": "float",
+                            "default": 1,
+                            "functionName": "SINE",
+                            "param": "frequency",
+                            "value": 1
+                        },
+                        "offset": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "SINE",
+                            "param": "offset",
+                            "value": 0
+                        },
+                        "phase": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "SINE",
+                            "param": "phase",
+                            "value": 0
+                        },
+                        "waveform": {
+                            "type": "select",
+                            "default": "sine",
+                            "options": [
+                                "sine",
+                                "square",
+                                "triangle",
+                                "sawtooth"
+                            ],
+                            "functionName": "SINE",
+                            "param": "waveform",
+                            "value": "sine"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 454.5791450829271,
+                    "y": 488.5731369693229
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 454.5791450829271,
+                    "y": 488.5731369693229
+                },
+                "dragging": true
+            },
+            {
+                "width": 99,
+                "height": 130,
+                "id": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+                    "label": "ADD",
+                    "func": "ADD",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 761.2995555587786,
+                    "y": 342.6431492716158
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 761.2995555587786,
+                    "y": 342.6431492716158
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+                "type": "SIGNAL_PROCESSING",
+                "data": {
+                    "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+                    "label": "FFT",
+                    "func": "FFT",
+                    "type": "SIGNAL_PROCESSING",
+                    "ctrls": {
+                        "window": {
+                            "type": "select",
+                            "default": "hann",
+                            "options": [
+                                "boxcar",
+                                "triang",
+                                "blackman",
+                                "hamming",
+                                "hann",
+                                "bartlett",
+                                "flattop",
+                                "parzen",
+                                "bohman",
+                                "blackmanharris",
+                                "nuttall",
+                                "barthann",
+                                "cosine",
+                                "exponential",
+                                "tukey",
+                                "taylor",
+                                "lanczos"
+                            ],
+                            "functionName": "FFT",
+                            "param": "window",
+                            "value": "blackman"
+                        },
+                        "real_signal": {
+                            "type": "bool",
+                            "default": true,
+                            "functionName": "FFT",
+                            "param": "real_signal",
+                            "value": false
+                        },
+                        "sample_rate": {
+                            "type": "int",
+                            "default": 1,
+                            "functionName": "FFT",
+                            "param": "sample_rate",
+                            "value": "800"
+                        },
+                        "display": {
+                            "type": "bool",
+                            "default": true,
+                            "functionName": "FFT",
+                            "param": "display",
+                            "value": true
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/FFT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1077.8159311850482,
+                    "y": 333.47740435186597
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1077.8159311850482,
+                    "y": 333.47740435186597
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 130,
+                "id": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
+                "type": "TERMINATORS",
+                "data": {
+                    "id": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATORS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": 1512.6675060177693,
+                    "y": 343.502648631045
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": 1512.6675060177693,
+                    "y": 343.502648631045
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+                "sourceHandle": "default",
+                "target": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94default-SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2fdefault"
+            },
+            {
+                "source": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
+                "sourceHandle": "default",
+                "target": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94default-SINE-15e699fe-e9e0-452d-9206-8313c657c051default"
+            },
+            {
+                "source": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
+                "sourceHandle": "default",
+                "target": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+                "targetHandle": "a",
+                "id": "reactflow__edge-SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2fdefault-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079da"
+            },
+            {
+                "source": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
+                "sourceHandle": "default",
+                "target": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+                "targetHandle": "b",
+                "id": "reactflow__edge-SINE-15e699fe-e9e0-452d-9206-8313c657c051default-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079db"
+            },
+            {
+                "source": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+                "sourceHandle": "default",
+                "target": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+                "targetHandle": "default",
+                "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default"
+            },
+            {
+                "source": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+                "sourceHandle": "default",
+                "target": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
+                "targetHandle": "default",
+                "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9bedefault"
+            }
+        ],
+        "viewport": {
+            "x": -370.442494324109,
+            "y": 122.55885385221723,
+            "zoom": 1.093090475044996
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

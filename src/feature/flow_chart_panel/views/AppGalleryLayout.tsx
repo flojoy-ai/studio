@@ -3,7 +3,7 @@ import {
   AppGalleryElement,
   AppGalleryElementProps,
 } from "@feature/flow_chart_panel/views/AppGalleryElement";
-import { AppGalleryData, GalleryData } from "@src/utils/appGallery";
+import { AppGalleryData } from "@src/utils/appGallery";
 
 const useStyles = createStyles((theme) => ({
   categoryElement: {
@@ -20,23 +20,24 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const AppGalleryLayout = ({
-  subject,
+  subjectKey,
   topKey,
 }: {
-  subject: string;
+  subjectKey: string;
   topKey: number;
 }) => {
   const { classes } = useStyles();
-  const subjectKey = {
+  const subjectName = {
     fundamentals: "Fundamentals",
     AI: "AI/ML",
     IO: "I/O",
     DSP: "Digital signal processing & simulation",
   };
-  const elements: AppGalleryElementProps[] = AppGalleryData[subject];
+  const elements: AppGalleryElementProps[] = AppGalleryData[subjectKey];
+
   return (
     <div>
-      <h3 className={classes.subjectTitle}>{subjectKey[subject]}</h3>
+      <h3 className={classes.subjectTitle}>{subjectName[subjectKey]}</h3>
       <Box className={classes.categoryElement}>
         {elements.map((element, key) => {
           return (
@@ -46,6 +47,7 @@ export const AppGalleryLayout = ({
               link={element.link}
               elementTitle={element.elementTitle}
               imagePath={element.imagePath}
+              appPath={element.appPath}
             />
           );
         })}
