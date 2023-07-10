@@ -37,6 +37,7 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
@@ -232,6 +233,48 @@ const LoadButton = () => {
   );
 };
 
+type ExportResultButtonProps = {
+  results: ResultsType | null;
+  disabled: boolean;
+};
+
+const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
+  const downloadResult = async () => {
+    if (!results) return;
+    const json = JSON.stringify(results, null, 2);
+    const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
+    if ("showSaveFilePicker" in window) {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "output.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+
+      await writableStream.write(blob);
+      await writableStream.close();
+    } else {
+      downloadBlob(blob, "output.txt");
+    }
+  };
+
+  return (
+    <button
+      onClick={downloadResult}
+      className={disabled ? "disabled" : ""}
+      disabled={disabled}
+      style={{ display: "flex", gap: 11 }}
+    >
+      <SaveIconSvg />
+      Export Result
+    </button>
+  );
+};
+
 type CancelButtonProps = {
   cancelFC: () => void;
 };
@@ -365,7 +408,11 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  
+  const exportResultDisabled =
+    programResults === null ||
+    programResults.io === undefined ||
+    programResults.io.length === 0;
+
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
@@ -401,6 +448,10 @@ const ControlBar = () => {
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+        <ExportResultButton
+          results={programResults}
+          disabled={exportResultDisabled}
+        />
         <SaveFlowChartBtn />
         <button
           data-testid="btn-keyboardshortcut"
