@@ -39,6 +39,7 @@ import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
+import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -451,6 +452,7 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
+        <SaveFlowChartBtn />
         <button
           data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}
