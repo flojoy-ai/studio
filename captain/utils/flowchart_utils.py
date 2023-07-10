@@ -7,10 +7,6 @@ from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
 from typing import Any, Callable, cast
-# try:
-#     from rq_win import WindowsWorker as Worker
-# except ImportError:
-#     from rq.worker import Worker
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
@@ -48,7 +44,7 @@ def create_topology(request: PostWFC, task_queue: Queue, cleanup_func: Callable)
         cleanup_func=cleanup_func,
     )
 
-# spawns a set amount of RQ workers to execute jobs (node functions)
+# spawns a set amount of workers to execute jobs (node functions)
 def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
@@ -179,7 +175,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         if installation_succeed:
             socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
             socket_msg["PRE_JOB_OP"]["isRunning"] = False
-            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RQ_RUN_IN_PROCESS"],)
+            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RUN_IN_PROCESS"],)
             await manager.ws.broadcast(socket_msg)
             logger.debug(
                 f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
@@ -194,7 +190,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             await manager.ws.broadcast(socket_msg)
     else:
         socket_msg["PRE_JOB_OP"]["isRunning"] = False
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RQ_RUN_IN_PROCESS"]
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
         await manager.ws.broadcast(socket_msg)
         logger.debug(
             f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
