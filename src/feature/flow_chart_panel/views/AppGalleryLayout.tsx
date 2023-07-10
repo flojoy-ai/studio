@@ -12,6 +12,7 @@ const useStyles = createStyles((theme) => ({
     marginBottom: "10%",
     marginRight: "2%",
     paddingTop: "1%",
+    gap: 12,
   },
   subjectTitle: {
     paddingLeft: "2%",

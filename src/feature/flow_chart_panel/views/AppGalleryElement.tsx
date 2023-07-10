@@ -10,25 +10,25 @@ export interface AppGalleryElementProps {
 }
 
 export const AppGalleryElementStyles = createStyles((theme) => ({
-  elementTitle: { display: "flex", marginBottom: 0, gap: "2vw" },
-  link: { textDecoration: "none" },
+  elementTitle: {
+    display: "flex",
+    marginBottom: 0,
+    marginLeft: 3,
+    width: "8.3vw",
+  },
+  link: {
+    textDecoration: "none",
+    width: "8.5vw",
+    marginLeft: 3,
+  },
   elementLayout: {
     mih: 50,
-    gap: "md",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "column",
+    width: "8.5vw",
     flexWrap: "wrap",
     textAlign: "left",
   },
-  image: {
-    height: 120,
-    width: 200,
-    position: "absolute",
-    float: "left",
-  },
-  textLine: {
-    display: "flex",
+  icon: {
+    marginLeft: "auto",
   },
 }));
 export const AppGalleryElement = ({
@@ -41,28 +41,19 @@ export const AppGalleryElement = ({
   const { classes } = AppGalleryElementStyles();
 
   return (
-    <UnstyledButton>
-      <Flex className={classes.elementLayout}>
-        <Image height={120} width={200} fit="contain" src={imagePath} />
-        <div className={classes.textLine}>
-          <h4 className={classes.elementTitle}>
-            {elementTitle}
-            <div>
-              <UnstyledButton
-                component="a"
-                target="_blank"
-                href={youtubeLink}
-                style={{ height: 0 }}
-              >
-                <IconBrandYoutube />
-              </UnstyledButton>
-            </div>
-          </h4>
+    <Flex className={classes.elementLayout}>
+      <Image height={120} width={"8.5vw"} fit="contain" src={imagePath} />
+      <h4 className={classes.elementTitle}>
+        {elementTitle}
+        <div className={classes.icon}>
+          <UnstyledButton component="a" target="_blank" href={youtubeLink}>
+            <IconBrandYoutube />
+          </UnstyledButton>
         </div>
-        <a href={link} className={classes.link}>
-          {linkText}
-        </a>
-      </Flex>
-    </UnstyledButton>
+      </h4>
+      <a href={link} className={classes.link}>
+        {linkText}
+      </a>
+    </Flex>
   );
 };
