@@ -18,7 +18,6 @@ import {
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
@@ -38,6 +37,7 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
@@ -233,6 +233,48 @@ const LoadButton = () => {
   );
 };
 
+type ExportResultButtonProps = {
+  results: ResultsType | null;
+  disabled: boolean;
+};
+
+const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
+  const downloadResult = async () => {
+    if (!results) return;
+    const json = JSON.stringify(results, null, 2);
+    const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
+    if ("showSaveFilePicker" in window) {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "output.txt",
+        types: [
+          {
+            description: "Text file",
+            accept: { "text/plain": [".txt"] },
+          },
+        ],
+      });
+      const writableStream = await handle.createWritable();
+
+      await writableStream.write(blob);
+      await writableStream.close();
+    } else {
+      downloadBlob(blob, "output.txt");
+    }
+  };
+
+  return (
+    <button
+      onClick={downloadResult}
+      className={disabled ? "disabled" : ""}
+      disabled={disabled}
+      style={{ display: "flex", gap: 11 }}
+    >
+      <SaveIconSvg />
+      Export Result
+    </button>
+  );
+};
+
 type CancelButtonProps = {
   cancelFC: () => void;
 };
@@ -248,6 +290,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
       className={classes.cancelButton}
       onClick={cancelFC}
       data-cy="btn-cancel"
+      data-testid="btn-cancel"
       title="Cancel Run"
       style={{ borderRadius: 8 }}
     >
@@ -259,7 +302,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
 
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, setProgramResults, serverStatus } = states;
+  const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
@@ -365,6 +408,10 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
+  const exportResultDisabled =
+    programResults === null ||
+    programResults.io === undefined ||
+    programResults.io.length === 0;
 
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
@@ -383,6 +430,7 @@ const ControlBar = () => {
       )}
       <Dropdown dropdownBtn={<FileButton />}>
         <button
+          data-testid="btn-apikey"
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -390,6 +438,7 @@ const ControlBar = () => {
           Set API key
         </button>
         <button
+          data-testid="btn-s3key"
           onClick={() => setIsS3KeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
@@ -399,12 +448,13 @@ const ControlBar = () => {
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+        <ExportResultButton
+          results={programResults}
+          disabled={exportResultDisabled}
+        />
         <SaveFlowChartBtn />
-        <button style={{ display: "flex", gap: 10.77 }}>
-          <HistoryIconSvg />
-          History
-        </button>
         <button
+          data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}
           style={{ display: "flex", gap: 10.11 }}
         >
@@ -414,6 +464,7 @@ const ControlBar = () => {
       </Dropdown>
 
       <UnstyledButton
+        data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
         className={classes.settingsButton}
       >
@@ -446,7 +497,10 @@ const FileButton = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <button className={clsx(classes.button, classes.fileButton)}>
+    <button
+      data-testid="file-btn"
+      className={clsx(classes.button, classes.fileButton)}
+    >
       <Text>File</Text>
       <IconCaretDown
         size={14}
