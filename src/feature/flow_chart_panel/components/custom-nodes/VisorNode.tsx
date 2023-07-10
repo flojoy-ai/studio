@@ -54,14 +54,13 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   COMPOSITE: <CompositePlot />,
 };
 
-const VisorNode = ({ data }: CustomNodeProps) => {
+const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { runningNode, failedNode } = useFlowChartState();
   const params = data.inputs ?? [];
 
-  // TODO: Investigate why this keeps making it rerender
   const {
     states: { programResults },
   } = useSocket();
@@ -78,7 +77,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected
@@ -88,7 +87,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         )}
       >
         {result && plotlyResultData ? (
-          <>
+          <Box className={nodeClasses.nodeContainer}>
             <PlotlyComponent
               data={plotlyResultData}
               id={data.id}
@@ -101,33 +100,12 @@ const VisorNode = ({ data }: CustomNodeProps) => {
               isThumbnail
             />
 
-            <Box
-              display="flex"
-              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-              <HandleComponent data={data} inputs={params} />
-            </Box>
-          </>
+            <HandleComponent data={data} />
+          </Box>
         ) : (
-          <Box
-            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
-            style={{
-              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-            }}
-          >
+          <Box className={clsx(classes.visorNode, nodeClasses.nodeContainer)}>
             {chartElemMap[data.func]}
-            <Box
-              display="flex"
-              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-              <HandleComponent data={data} inputs={params} />
-            </Box>
+            <HandleComponent data={data} />
           </Box>
         )}
       </Box>

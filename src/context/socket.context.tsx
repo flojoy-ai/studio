@@ -2,6 +2,7 @@ import { ResultsType } from "@src/feature/common/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+import { v4 as UUID } from "uuid";
 
 type States = {
   programResults: ResultsType | null;
@@ -70,8 +71,9 @@ export const SocketContextProvider = ({
   useEffect(() => {
     if (!socket) {
       console.log("Creating new WebSocket connection to backend");
+      const socketId = UUID();
       const ws = new WebSocketServer({
-        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
+        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/${socketId}`,
         pingResponse: handleStateChange("serverStatus"),
         onNodeResultsReceived: setProgramResults,
         runningNode: handleStateChange("runningNode"),

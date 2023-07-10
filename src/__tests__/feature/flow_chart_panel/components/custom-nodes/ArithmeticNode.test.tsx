@@ -2,8 +2,17 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import ArithmeticNode from "@src/feature/flow_chart_panel/components/custom-nodes/ArithmeticNode";
 import { CustomNodeProps } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 
+const handleRemove = jest.fn();
 const props: CustomNodeProps = {
-  data: { id: "test-id", label: "test", func: "test", type: "test", ctrls: {} },
+  data: {
+    id: "test-id",
+    label: "test",
+    func: "test",
+    type: "test",
+    ctrls: {},
+    path: "",
+  },
+  handleRemove,
 };
 
 jest.mock("@hooks/useFlowChartState");
@@ -16,7 +25,6 @@ jest.mock("@feature/flow_chart_panel/components/HandleComponent", () => {
 });
 
 jest.mock("@src/hooks/useSocket");
-
 describe("ArithmeticNode", () => {
   it("checks the snapshot", () => {
     const { container } = renderWithTheme(<ArithmeticNode {...props} />);
@@ -33,7 +41,10 @@ describe("ArithmeticNode", () => {
 
     if (funcName !== "default") {
       const { getByTestId } = renderWithTheme(
-        <ArithmeticNode data={{ ...props.data, func: funcName }} />
+        <ArithmeticNode
+          data={{ ...props.data, func: funcName }}
+          handleRemove={handleRemove}
+        />
       );
       component = getByTestId(testId);
     } else {

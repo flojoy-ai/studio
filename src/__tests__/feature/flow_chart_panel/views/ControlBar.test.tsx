@@ -5,6 +5,8 @@ import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 // Mock useFlowChartState hook
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useControlsState");
+jest.mock("@src/utils/ManifestLoader");
+
 // Mock useSocket hook
 jest.mock("@src/hooks/useSocket");
 jest.mock("react-modal");
