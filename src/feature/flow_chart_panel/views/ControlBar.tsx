@@ -37,7 +37,6 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/common/types/ResultsType";
 import S3KeyModal from "./S3KeyModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
@@ -366,11 +365,7 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled =
-    programResults === null ||
-    programResults.io === undefined ||
-    programResults.io.length === 0;
-
+  
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
