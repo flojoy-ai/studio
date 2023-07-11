@@ -122,13 +122,7 @@ def flowchart_to_nx_graph(flowchart):
 
 # clears memory used by some worker nodes and job results
 def clear_memory():
-    SmallMemory().clear_memory()
-
-
-# run code for cleaning up memory and preparing next topology to be ran
-# add more stuff if needed here:
-def prepare_for_next_run():
-    clear_memory()
+    JobService().reset()
 
 
 def report_failure(job, connection, type, value, traceback):
