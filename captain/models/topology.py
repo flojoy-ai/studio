@@ -179,10 +179,20 @@ class Topology:
 
         logger.debug(f"processing job result for: {self.get_label(job_id)}")
         if not success:
+            logger.debug(f"{job_id} job failed")
             self.mark_job_failure(job_id)
-            return
+            return []
 
         logger.debug(f"job id: {job_id}")
+
+        # if the job is an end node, then we are done
+        if self.get_cmd(job_id) == "END":
+            self.is_finished = True
+            logger.debug(
+                f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
+            )
+            self.cancel()
+            return
 
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
@@ -270,14 +280,7 @@ class Topology:
         self, job_id: str, next_nodes: set[str], label: str = "default"
     ):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
-        self.finished_jobs.add(job_id)
-        if self.get_cmd(job_id) == "END":
-            self.is_finished = True
-            logger.debug(
-                f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
-            )
-            self.cancel()
-            return
+        self.finished_jobs.add(job_id)    
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def mark_job_failure(self, job_id: str):
