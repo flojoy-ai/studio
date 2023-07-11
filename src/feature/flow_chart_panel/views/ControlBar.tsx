@@ -18,7 +18,6 @@ import {
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
@@ -39,6 +38,11 @@ import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
+<<<<<<< HEAD
+=======
+import S3KeyModal from "./S3KeyModal";
+import SaveFlowChartBtn from "./SaveFlowChartBtn";
+>>>>>>> develop
 
 const useStyles = createStyles((theme) => {
   return {
@@ -443,6 +447,7 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
+        <SaveFlowChartBtn />
         <button
           data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}

@@ -138,15 +138,7 @@ const FlowChartTab = () => {
   );
 
   const onInit: OnInit = (rfIns) => {
-    const flowSize = 1107;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.fitView();
-
-    rfIns.setViewport({
-      x: xPosition,
-      y: 61,
-      zoom: 0.7,
-    });
 
     setRfInstance(rfIns.toObject());
   };
@@ -313,6 +305,7 @@ const FlowChartTab = () => {
           <FlowChartKeyboardShortcuts />
 
           <ReactFlow
+            id="flow-chart"
             style={{
               position: "fixed",
               height: "100%",
