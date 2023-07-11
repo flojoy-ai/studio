@@ -1,5 +1,5 @@
 export const NOISY_SINE = {
-  "nodes": [
+  nodes: [
     {
       "width": 130,
       "height": 130,
@@ -432,7 +432,7 @@ export const NOISY_SINE = {
       "dragging": true
     }
   ],
-  "edges": [
+  edges: [
     {
       "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
       "sourceHandle": "default",
