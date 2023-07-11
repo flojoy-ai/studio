@@ -10,7 +10,7 @@ import {
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { components } from "react-select";
+import { darkTheme, lightTheme } from "@feature/common/theme";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -23,16 +23,15 @@ type ParamFieldProps = {
     value: string;
   }[];
 };
-const useStyles = createStyles((theme) => {
-  return {
-    switch: {
-      color:
-        theme.colorScheme === "light"
-          ? theme.colors.accent1[0]
-          : theme.colors.accent2[0],
+
+const useStyles = createStyles((theme) => ({
+  theme: {
+    colors: {
+      accent: theme.colors.switch_accent,
     },
-  };
-});
+    primaryColor: "accent",
+  },
+}));
 
 const ParamField = ({
   nodeCtrls,
@@ -49,6 +48,8 @@ const ParamField = ({
       value,
     });
   };
+
+  const { colorScheme } = useMantineTheme();
 
   switch (type) {
     case "float":
@@ -72,15 +73,13 @@ const ParamField = ({
         <MantineProvider
           inherit
           theme={{
-            components: {
-              Switch: {
-                styles: () => ({
-                  track: {
-                    backgroundColor: "red",
-                  },
-                }),
-              },
+            colors: {
+              accent:
+                colorScheme === "dark"
+                  ? darkTheme.colors.switch_accent
+                  : lightTheme.colors.switch_accent,
             },
+            primaryColor: "accent",
           }}
         >
           <Switch

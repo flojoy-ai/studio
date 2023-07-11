@@ -33,6 +33,18 @@ export const darkTheme: MantineThemeOverride = {
     accent5: ["#303030", "rgba(237, 237, 237, 0.2)"],
     accent6: ["#ff7b61", "#ff3b15"],
     accent7: ["#007bff", "#4c83bf"],
+    switch_accent: [
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+      "#8FF7FF",
+    ],
   },
 };
 
@@ -62,5 +74,17 @@ export const lightTheme: MantineThemeOverride = {
     accent5: ["#303030", "rgba(237, 237, 237, 0.2)"],
     accent6: ["#ff7b61", "#ff3b15"],
     accent7: ["#007bff", "#4c83bf"],
+    switch_accent: [
+      "#EAE5FF",
+      "#C3B8FF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+      "#9D8AFF",
+    ],
   },
 };
