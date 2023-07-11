@@ -1,5 +1,5 @@
 export const NOISY_SINE = {
-  nodes: [
+  "nodes": [
     {
       "width": 130,
       "height": 130,
@@ -79,46 +79,6 @@ export const NOISY_SINE = {
       "positionAbsolute": {
         "x": 776.7590765313249,
         "y": -33.14686027271438
-      },
-      "dragging": true
-    },
-    {
-      "width": 130,
-      "height": 130,
-      "id": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "type": "SIMULATIONS",
-      "data": {
-        "id": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATIONS",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
-        "selected": false
-      },
-      "position": {
-        "x": 775.3305051027536,
-        "y": 183.99599687014285
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 775.3305051027536,
-        "y": 183.99599687014285
       },
       "dragging": true
     },
@@ -382,22 +342,103 @@ export const NOISY_SINE = {
         "y": 335.8151686044447
       },
       "dragging": true
+    },
+    {
+      "width": 130,
+      "height": 130,
+      "id": "RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691",
+      "type": "SIMULATIONS",
+      "data": {
+        "id": "RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691",
+        "label": "RAND",
+        "func": "RAND",
+        "type": "SIMULATIONS",
+        "ctrls": {
+          "distribution": {
+            "type": "select",
+            "default": "normal",
+            "options": [
+              "normal",
+              "uniform",
+              "poisson"
+            ],
+            "functionName": "RAND",
+            "param": "distribution",
+            "value": "uniform"
+          },
+          "lower_bound": {
+            "type": "float",
+            "default": 0,
+            "functionName": "RAND",
+            "param": "lower_bound",
+            "value": 0
+          },
+          "upper_bound": {
+            "type": "float",
+            "default": 1,
+            "functionName": "RAND",
+            "param": "upper_bound",
+            "value": "2"
+          },
+          "normal_mean": {
+            "type": "float",
+            "default": 0,
+            "functionName": "RAND",
+            "param": "normal_mean",
+            "value": 0
+          },
+          "normal_standard_deviation": {
+            "type": "float",
+            "default": 1,
+            "functionName": "RAND",
+            "param": "normal_standard_deviation",
+            "value": 1
+          },
+          "poisson_events": {
+            "type": "float",
+            "default": 1,
+            "functionName": "RAND",
+            "param": "poisson_events",
+            "value": 1
+          }
+        },
+        "inputs": [
+          {
+            "name": "default",
+            "id": "default",
+            "type": "OrderedPair",
+            "multiple": false
+          }
+        ],
+        "outputs": [
+          {
+            "name": "default",
+            "id": "default",
+            "type": "OrderedPair|Scalar"
+          }
+        ],
+        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
+        "selected": true
+      },
+      "position": {
+        "x": 782.1532025503109,
+        "y": 182.1491545203296
+      },
+      "selected": true,
+      "positionAbsolute": {
+        "x": 782.1532025503109,
+        "y": 182.1491545203296
+      },
+      "dragging": true
     }
   ],
-  edges: [
+  "edges": [
     {
       "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
       "sourceHandle": "default",
       "target": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
       "targetHandle": "default",
       "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-SINE-db665d87-c2af-4acd-916b-b97a815e69a7default"
-    },
-    {
-      "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-      "sourceHandle": "default",
-      "target": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "targetHandle": "default",
-      "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87eddefault"
     },
     {
       "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
@@ -412,13 +453,6 @@ export const NOISY_SINE = {
       "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
       "targetHandle": "a",
       "id": "reactflow__edge-SINE-db665d87-c2af-4acd-916b-b97a815e69a7default-ADD-b4cb003b-f34d-419e-bc95-452ab539c1eca"
-    },
-    {
-      "source": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "sourceHandle": "default",
-      "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "targetHandle": "b",
-      "id": "reactflow__edge-RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87eddefault-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecb"
     },
     {
       "source": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
@@ -454,8 +488,22 @@ export const NOISY_SINE = {
       "target": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
       "targetHandle": "default",
       "id": "reactflow__edge-SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507adefault-END-aa17356b-c7af-408e-8c56-531a3fe595d1default"
+    },
+    {
+      "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
+      "sourceHandle": "default",
+      "target": "RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691",
+      "targetHandle": "default",
+      "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691default"
+    },
+    {
+      "source": "RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691",
+      "sourceHandle": "default",
+      "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
+      "targetHandle": "b",
+      "id": "reactflow__edge-RAND-4eaa4dfb-6dd0-47f8-90da-21991c217691default-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecb"
     }
-  ]
+  ],
 };
 
 export const LOOP_APP = {
