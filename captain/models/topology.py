@@ -12,7 +12,7 @@ from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
-from typing import Any, cast, Callable
+from typing import Any, Tuple, cast, Callable
 
 lock = asyncio.Lock()
 
@@ -109,7 +109,7 @@ class Topology:
         previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
         logger.debug(
-            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id.get('job_id'), original=True) for dep_id in previous_jobs]}"
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id.get('job_id', ''), original=True) for dep_id in previous_jobs]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
