@@ -15,18 +15,19 @@ export const useSidebarStyles = createStyles((theme) => ({
     display: "block",
     width: "90%",
     padding: `${theme.spacing.xs} ${theme.spacing.xs}`,
-    color: "black",
+    // color: "black",
     fontSize: theme.fontSizes.sm,
     margin: "0px 20px 10px 20px",
-
     borderRadius: 2,
-    backgroundColor: theme.colors.accent1[0],
+    border: '2px solid rgba(103, 9, 182, 0.95)',
+    // backgroundColor: "#C3A8ff",
+    backgroundColor: "rgba(103, 9, 182, 0.01)",
   },
   title: {
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[6]
-        : theme.colors.gray[0],
+    color: "rgba(103, 9, 182, 0.95)"
+      // theme.colorScheme === "dark"
+      //   ? theme.colors.dark[6]
+      //   : theme.colors.gpderay[0],
   },
   chevron: {
     transition: "transform 200ms ease",
@@ -76,7 +77,7 @@ const SidebarSection = ({
         data-cy="sidebar-section-btn"
       >
         <Group position="apart" spacing={0}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: "flex", alignItems: "center"}}>
             <Box ml="md" className={classes.title}>
               {title}
             </Box>
