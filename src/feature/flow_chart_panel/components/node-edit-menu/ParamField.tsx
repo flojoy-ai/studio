@@ -10,6 +10,7 @@ import {
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { components } from "react-select";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -48,8 +49,6 @@ const ParamField = ({
       value,
     });
   };
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
 
   switch (type) {
     case "float":
@@ -70,14 +69,24 @@ const ParamField = ({
       );
     case "bool":
       return (
-        <MantineProvider>
+        <MantineProvider
+          inherit
+          theme={{
+            components: {
+              Switch: {
+                styles: (theme) => ({
+                  backgroundColor: "#ffffff",
+                }),
+              },
+            },
+          }}
+        >
           <Switch
             onChange={(e) => handleChange(e.currentTarget.checked)}
             label={JSON.stringify(value)}
             onLabel="T"
             offLabel="F"
             size="md"
-            color="gray"
           />
         </MantineProvider>
       );
