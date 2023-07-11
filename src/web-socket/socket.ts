@@ -61,12 +61,12 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.pingResponse(data[ResponseEnum.systemStatus]);
             if (
-              data[ResponseEnum.systemStatus] === IServerStatus.RQ_RUN_COMPLETE
+              data[ResponseEnum.systemStatus] === IServerStatus.RUN_COMPLETE
             ) {
               this.pingResponse(IServerStatus.STANDBY);
             }
             if (
-              [IServerStatus.RQ_RUN_COMPLETE, IServerStatus.STANDBY].includes(
+              [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY].includes(
                 data[ResponseEnum.systemStatus]
               )
             ) {

@@ -1,10 +1,13 @@
+from queue import Queue
+from threading import Thread
 from fastapi import WebSocket
-from multiprocessing import Process
 from captain.utils.logger import logger
 from captain.models.topology import Topology
+from captain.types.worker import JobInfo
 from typing import Any, Union
 import json
 from captain.types.worker import WorkerJobResponse
+
 
 """ Acts as a bridge between backend components """
 
@@ -13,9 +16,14 @@ class Manager(object):
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None  # holds the topology
-        self.worker_processes: list[Process] = []
         self.debug_mode = False
-
+        self.task_queue: Queue = Queue()
+        self.thread_count = 0
+    
+    # TODO: For some unknown mystical reason, this method doesn't kill the last thread...
+    def end_worker_threads(self):
+        for _ in range(self.thread_count):
+            self.task_queue.put(JobInfo(terminate=True)) # poison pill
 
 class ConnectionManager:
     def __init__(self):
@@ -39,9 +47,7 @@ class ConnectionManager:
         if not isinstance(message, WorkerJobResponse):
             return
         socket_id = message.jobsetId
-        for _id, connection in self.active_connections_map.items():
-            if _id != socket_id:
-                return
+        for _, connection in self.active_connections_map.items():
             try:
                 await connection.send_text(json.dumps(message))
             except RuntimeError:

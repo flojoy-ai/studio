@@ -1,64 +1,63 @@
 import io, time, asyncio
+from queue import Queue
+from threading import Thread
 import json, os, sys
 import networkx as nx
-from multiprocessing import Process
+from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from typing import Any
-from rq.queue import Queue
-from multiprocessing import Process
-
-try:
-    from rq_win import WindowsWorker as Worker
-except ImportError:
-    from rq.worker import Worker
+from typing import Any, Callable, cast
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import importlib
 from .status_codes import STATUS_CODES
-from PYTHON.dao.redis_dao import RedisDao
-from PYTHON.node_sdk.small_memory import SmallMemory
+from flojoy.job_service import JobService
 from captain.types.worker import WorkerJobResponse
+import traceback
 
 
-def run_worker():
-    if (
-        os.environ.get("DEBUG", None) is None
-        or os.environ.get("DEBUG", None) == "False"
-    ):
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-    queue = Queue("flojoy", connection=RedisDao().r)
-    worker = Worker([queue], connection=RedisDao().r)
-    worker.work()
+def run_worker(task_queue, imported_functions):
+    try:
+        # TODO: Figure out a way to make this work with python threads (previously this was a Python Process)
+        # if (
+        #     os.environ.get("DEBUG", None) is None
+        #     or os.environ.get("DEBUG", None) == "False"
+        # ):
+        #     text_trap = io.StringIO()
+        #     sys.stdout = text_trap
+        logger.debug("Starting worker")
+        worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
+        worker.run()
+    except Exception as e:
+        print(f"Error in worker: {traceback.format_exc()}", flush=True)
 
 
-def create_topology(request: PostWFC, worker_processes: list[Process]):
+def create_topology(request: PostWFC, task_queue: Queue, cleanup_func: Callable):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
         jobset_id=request.jobsetId,
-        worker_processes=worker_processes,
         node_delay=request.nodeDelay,
         max_runtime=request.maximumRuntime,
+        task_queue=task_queue,
+        cleanup_func=cleanup_func,
     )
 
-
-# spawns a set amount of RQ workers to execute jobs (node functions)
-def spawn_workers(manager: Manager):
+# spawns a set amount of workers to execute jobs (node functions)
+def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
     worker_number = manager.running_topology.get_maximum_workers()
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
+    manager.thread_count = worker_number
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
-        worker_process = Process(target=run_worker)
+        worker_process = Thread(target=run_worker, args=(manager.task_queue, imported_functions,))
         worker_process.daemon = True
         worker_process.start()
-        manager.worker_processes.append(worker_process)
 
 
 # converts the dict to a networkx graph
@@ -121,7 +120,7 @@ def flowchart_to_nx_graph(flowchart):
     return nx_graph
 
 
-# clears memory used by some worker nodes
+# clears memory used by some worker nodes and job results
 def clear_memory():
     SmallMemory().clear_memory()
 
@@ -130,6 +129,10 @@ def clear_memory():
 # add more stuff if needed here:
 def prepare_for_next_run():
     clear_memory()
+
+
+def report_failure(job, connection, type, value, traceback):
+    print(job, connection, type, value, traceback)
 
 
 async def run_flow_chart(manager: Manager):
@@ -142,16 +145,24 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
-    # create the topology
-    manager.running_topology = create_topology(request, manager.worker_processes)
 
-    # Delete all rq jobs and cleanup memory
-    manager.running_topology.cleanup()
+    def clean_up_function():
+        manager.end_worker_threads()
+        clear_memory()
+
+    # clean up before next run
+    clean_up_function()
+
+    # Create new task queue
+    manager.task_queue = Queue()
+
+    # Create the topology
+    manager.running_topology = create_topology(request, manager.task_queue, cleanup_func=clean_up_function) # pass clean up func for when topology ends
 
     # get the amount of workers needed
-    spawn_workers(manager)
+    spawn_workers(manager, manager.running_topology.pre_import_functions())
 
-    time.sleep(0.7)  # OPTIONAL wait for workers to spawn
+    # time.sleep(0.7)  # OPTIONAL wait for workers to spawn
 
     nodes = fc["nodes"]
     missing_packages = []
@@ -193,7 +204,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         if installation_succeed:
             socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
             socket_msg["PRE_JOB_OP"]["isRunning"] = False
-            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RQ_RUN_IN_PROCESS"],)
+            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RUN_IN_PROCESS"],)
             await manager.ws.broadcast(socket_msg)
             logger.debug(
                 f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
@@ -208,7 +219,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             await manager.ws.broadcast(socket_msg)
     else:
         socket_msg["PRE_JOB_OP"]["isRunning"] = False
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RQ_RUN_IN_PROCESS"]
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
         await manager.ws.broadcast(socket_msg)
         logger.debug(
             f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
