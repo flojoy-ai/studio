@@ -74,8 +74,10 @@ const ParamField = ({
           theme={{
             components: {
               Switch: {
-                styles: (theme) => ({
-                  backgroundColor: "#ffffff",
+                styles: () => ({
+                  input:{
+                    backgroundColor: "#ffffff"
+                  }
                 }),
               },
             },
