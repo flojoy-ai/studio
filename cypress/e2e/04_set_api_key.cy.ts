@@ -61,7 +61,7 @@ describe("Verify Set API modal", () => {
     cy.get('[data-testid="openai-tab"]').click();
 
     // Input for API Key
-    cy.get('[data-testid="openai-api-key-input"]').type("TestAPIKeyInput");
+    cy.get('[data-testid="openai-api-key-input"]').type("OPENAIAPIKeyInput");
     cy.eyesCheckWindow({
       tag: "dark flow page with openai api key input",
       target: "window",
