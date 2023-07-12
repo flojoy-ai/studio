@@ -1,17 +1,18 @@
 import asyncio
 from copy import deepcopy
 import logging
-from multiprocessing import Process
 import os
+from queue import Queue
 import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
-from PYTHON.services.job_service import JobService
+from flojoy.job_service import JobService
+from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
 from importlib import import_module
-from typing import Any, cast, Tuple
+from typing import Any, Tuple, cast, Callable
 
 lock = asyncio.Lock()
 
@@ -23,7 +24,8 @@ class Topology:
         self,
         graph: nx.DiGraph,
         jobset_id: str,
-        worker_processes: list[Process],
+        task_queue: Queue[Any],
+        cleanup_func: Callable[..., Any],
         node_delay: float = 0,
         max_runtime: float = 3000,
     ):
@@ -34,10 +36,11 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
-        self.job_service = JobService("flojoy", self.max_runtime)
+        self.job_service = JobService(self.max_runtime)
         self.cancelled = False
-        self.worker_processes = worker_processes
         self.time_start = 0
+        self.task_queue = task_queue
+        self.cleanup_func = cleanup_func
 
     # initial and main logic of topology
     async def run(self):
@@ -63,45 +66,52 @@ class Topology:
                 next_jobs.append(job_id)
         return next_jobs
 
+    # TODO move this to utils, makes more sense there
+    def pre_import_functions(self):
+        functions: dict[str, Any] = {}
+        for node_id in cast(list[str], self.original_graph.nodes):
+            node = cast(dict[str, Any], self.original_graph.nodes[node_id])
+            cmd: str = node["cmd"]
+            node_path: str = node.get("node_path", "")
+            node_path = (
+                node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+            )
+            if node_path != "":
+                module = import_module(node_path)
+            else:
+                module = get_module_func(cmd)
+            func = getattr(module, cmd)
+
+            functions[node_id] = func
+        return functions
+
     async def run_job(self, job_id: str):
         async with lock:
             node = cast(dict[str, Any], self.original_graph.nodes[job_id])
-        cmd: str = node["cmd"]
-        cmd_mock: str = node["cmd"] + "_MOCK"
-        node_path: str = node.get("node_path", "")
-        node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
-        if node_path != "":
-            module = import_module(node_path)
-        else:
-            module = get_module_func(cmd)
-        func_name = cmd_mock if self.is_ci else cmd
-        try:
-            func = getattr(module, func_name)
-        except AttributeError:
-            func = getattr(module, cmd)
 
         previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
         logger.debug(
-            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep.get('job_id', ''), original=True) for dep in previous_jobs]}"
+            f" enqueue job: {self.get_label(job_id)}, dependencies: {[self.get_label(dep_id.get('job_id', ''), original=True) for dep_id in previous_jobs]}"
         )
 
         logger.debug(f"{job_id} queued at {time.time()}")
 
-        # enqueue job to worker and get the AsyncResult
-        self.job_service.enqueue_job(
-            func=func,
-            jobset_id=self.jobset_id,
-            job_id=job_id,
-            iteration_id=job_id,
-            ctrls=node["ctrls"],
-            previous_jobs=previous_jobs,
+        self.task_queue.put(
+            JobInfo(
+                job_id=job_id,
+                jobset_id=self.jobset_id,
+                iteration_id=job_id,
+                ctrls=node["ctrls"],
+                previous_jobs=previous_jobs,
+            )
         )
 
     # also used for when the topology finishes
     def cancel(self):
+        logger.debug("Topology cancelled")
         self.cancelled = True
-        self.kill_workers()
+        self.finalizer()
 
     async def handle_finished_job(self, result: dict[str, Any]):
         #
@@ -145,10 +155,20 @@ class Topology:
 
         logger.debug(f"processing job result for: {self.get_label(job_id)}")
         if not success:
+            logger.debug(f"{job_id} job failed")
             self.mark_job_failure(job_id)
-            return
+            return []
 
         logger.debug(f"job id: {job_id}")
+
+        # if the job is an end node, then we are done
+        if self.get_cmd(job_id) == "END":
+            self.is_finished = True
+            logger.debug(
+                f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
+            )
+            self.cancel()
+            return
 
         # process instruction to flow through specified directions
         next_nodes_from_dependencies: set[str] = set()
@@ -224,9 +244,9 @@ class Topology:
             except Exception:
                 pass
 
-    def kill_workers(self):
-        for worker_process in self.worker_processes:
-            worker_process.terminate()
+    def finalizer(self):
+        # run provided clean up function
+        self.cleanup_func()
 
     # also used for when the topology is finished
     def is_cancelled(self):
@@ -237,13 +257,6 @@ class Topology:
     ):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
-        if self.get_cmd(job_id) == "END":
-            self.is_finished = True
-            logger.debug(
-                f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
-            )
-            self.cancel()
-            return
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def mark_job_failure(self, job_id: str):
@@ -392,4 +405,4 @@ class Topology:
         )
 
     def cleanup(self):
-        self.job_service.reset(list(self.original_graph.nodes))
+        self.job_service.reset()

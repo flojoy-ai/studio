@@ -19,7 +19,6 @@ If you'd like to run Flojoy as an Electron app:
 
 ```
 BACKEND_IMAGE_TAG=latest
-RQ_WORKER_IMAGE_TAG=latest
 WATCH_IMAGE_TAG=latest
 ```
 

@@ -18,10 +18,10 @@ export const useSidebarStyles = createStyles((theme) => ({
     // color: "black",
     fontSize: theme.fontSizes.sm,
     margin: "0px 20px 10px 20px",
-    // borderRadius: 2,
-    // border: '2px solid rgba(103, 9, 182, 0.95)',
-    // // backgroundColor: "#C3A8ff",
-    // backgroundColor: "rgba(103, 9, 182, 0.01)",
+    borderRadius: 2,
+    border: '2px solid rgba(103, 9, 182, 0.95)',
+    // backgroundColor: "#C3A8ff",
+    backgroundColor: "rgba(103, 9, 182, 0.01)",
   },
   title: {
     color: "rgba(103, 9, 182, 0.95)"
@@ -70,7 +70,19 @@ const SidebarSection = ({
   }
 
   const categoryColors = (category: string) => {
-    if (category == "AI_ML" || category == "Generate" || category == "Visualize"){
+    if (category == "AI_ML" || category == "GENERATORS" || category == "VISUALIZERS"){
+      return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
+    }
+    else if (category == "EXTRACTORS" || category == "TRANSFORMERS" || category == "LOADERS"){
+      return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
+    }
+    else if (category == "INSTRUMENTS"){
+      return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
+    }
+    else if (category == "LOGIC_GATES") {
+      return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
+    }
+    else if (category == "NUMPY" || category == "SCIPY"){
       return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
     }
   }
