@@ -1,5 +1,4 @@
 from queue import Queue
-from threading import Thread
 from fastapi import WebSocket
 from captain.utils.logger import logger
 from captain.models.topology import Topology
@@ -17,13 +16,14 @@ class Manager(object):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None  # holds the topology
         self.debug_mode = False
-        self.task_queue: Queue = Queue()
+        self.task_queue: Queue[Any] = Queue()
         self.thread_count = 0
-    
+
     # TODO: For some unknown mystical reason, this method doesn't kill the last thread...
     def end_worker_threads(self):
         for _ in range(self.thread_count):
-            self.task_queue.put(JobInfo(terminate=True)) # poison pill
+            self.task_queue.put(JobInfo(terminate=True))  # poison pill
+
 
 class ConnectionManager:
     def __init__(self):

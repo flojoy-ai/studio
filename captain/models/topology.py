@@ -24,8 +24,8 @@ class Topology:
         self,
         graph: nx.DiGraph,
         jobset_id: str,
-        task_queue: Queue,
-        cleanup_func: Callable,
+        task_queue: Queue[Any],
+        cleanup_func: Callable[..., Any],
         node_delay: float = 0,
         max_runtime: float = 3000,
     ):
@@ -68,43 +68,26 @@ class Topology:
 
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
-        functions = {}
+        functions: dict[str, Any] = {}
         for node_id in cast(list[str], self.original_graph.nodes):
-            node = cast(dict[str, Any], self.original_graph.nodes[node_id]) 
+            node = cast(dict[str, Any], self.original_graph.nodes[node_id])
             cmd: str = node["cmd"]
-            cmd_mock: str = node["cmd"] + "_MOCK"
             node_path: str = node.get("node_path", "")
-            node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+            node_path = (
+                node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
+            )
             if node_path != "":
                 module = import_module(node_path)
             else:
                 module = get_module_func(cmd)
-            func_name = cmd_mock if self.is_ci else cmd
-            try:
-                func = getattr(module, func_name)
-            except AttributeError:
-                func = getattr(module, cmd)
+            func = getattr(module, cmd)
 
             functions[node_id] = func
         return functions
 
-
     async def run_job(self, job_id: str):
         async with lock:
             node = cast(dict[str, Any], self.original_graph.nodes[job_id])
-        cmd: str = node["cmd"]
-        cmd_mock: str = node["cmd"] + "_MOCK"
-        node_path: str = node.get("node_path", "")
-        node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
-        if node_path != "":
-            module = import_module(node_path)
-        else:
-            module = get_module_func(cmd)
-        func_name = cmd_mock if self.is_ci else cmd
-        try:
-            func = getattr(module, func_name)
-        except AttributeError:
-            func = getattr(module, cmd)
 
         previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
@@ -114,22 +97,15 @@ class Topology:
 
         logger.debug(f"{job_id} queued at {time.time()}")
 
-        # enqueue job to worker and get the AsyncResult
-        # self.job_service.enqueue_job(
-        #     func=func,
-        #     jobset_id=self.jobset_id,
-        #     job_id=job_id,
-        #     iteration_id=job_id,
-        #     ctrls=node["ctrls"],
-        #     previous_jobs=previous_jobs,
-        # )
-        self.task_queue.put(JobInfo(
-            job_id=job_id,
-            jobset_id=self.jobset_id,
-            iteration_id=job_id,
-            ctrls=node["ctrls"],
-            previous_jobs=previous_jobs,
-        ))
+        self.task_queue.put(
+            JobInfo(
+                job_id=job_id,
+                jobset_id=self.jobset_id,
+                iteration_id=job_id,
+                ctrls=node["ctrls"],
+                previous_jobs=previous_jobs,
+            )
+        )
 
     # also used for when the topology finishes
     def cancel(self):
@@ -280,7 +256,7 @@ class Topology:
         self, job_id: str, next_nodes: set[str], label: str = "default"
     ):
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
-        self.finished_jobs.add(job_id)    
+        self.finished_jobs.add(job_id)
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def mark_job_failure(self, job_id: str):

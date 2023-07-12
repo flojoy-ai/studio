@@ -15,4 +15,3 @@ Used for CORS configuration
 """
 # TODO - get from env variables
 origins = ["http://localhost:3000"]
-
