@@ -6,6 +6,7 @@ import {
   useMantineTheme,
   createStyles,
   MantineProvider,
+  getStylesRef,
 } from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
@@ -25,11 +26,18 @@ type ParamFieldProps = {
 };
 
 const useStyles = createStyles((theme) => ({
-  theme: {
-    colors: {
-      accent: theme.colors.switch_accent,
+  input: {
+    [`&:checked + .${getStylesRef("track")}`]: {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[2],
+      borderColor:
+        theme.colorScheme === "dark" ? theme.colors.dark : theme.colors.gray[1],
     },
-    primaryColor: "accent",
+  },
+  track: {
+    ref: getStylesRef("track"),
   },
 }));
 
@@ -49,7 +57,7 @@ const ParamField = ({
     });
   };
 
-  const { colorScheme } = useMantineTheme();
+  const { classes } = useStyles();
 
   switch (type) {
     case "float":
@@ -70,26 +78,12 @@ const ParamField = ({
       );
     case "bool":
       return (
-        <MantineProvider
-          inherit
-          theme={{
-            colors: {
-              accent:
-                colorScheme === "dark"
-                  ? darkTheme.colors.switch_accent
-                  : lightTheme.colors.switch_accent,
-            },
-            primaryColor: "accent",
-          }}
-        >
-          <Switch
-            onChange={(e) => handleChange(e.currentTarget.checked)}
-            label={JSON.stringify(value)}
-            onLabel="T"
-            offLabel="F"
-            size="md"
-          />
-        </MantineProvider>
+        <Switch
+          onChange={(e) => handleChange(e.currentTarget.checked)}
+          label={JSON.stringify(value)}
+          size="md"
+          classNames={classes}
+        />
       );
     case "select":
       return (
