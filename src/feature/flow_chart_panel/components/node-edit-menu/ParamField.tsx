@@ -3,15 +3,12 @@ import {
   Select,
   TextInput,
   Switch,
-  useMantineTheme,
   createStyles,
-  MantineProvider,
   getStylesRef,
 } from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { darkTheme, lightTheme } from "@feature/common/theme";
 
 type ParamFieldProps = {
   nodeId: string;
