@@ -18,10 +18,10 @@ export const useSidebarStyles = createStyles((theme) => ({
     // color: "black",
     fontSize: theme.fontSizes.sm,
     margin: "0px 20px 10px 20px",
-    borderRadius: 2,
-    border: '2px solid rgba(103, 9, 182, 0.95)',
-    // backgroundColor: "#C3A8ff",
-    backgroundColor: "rgba(103, 9, 182, 0.01)",
+    // borderRadius: 2,
+    // border: '2px solid rgba(103, 9, 182, 0.95)',
+    // // backgroundColor: "#C3A8ff",
+    // backgroundColor: "rgba(103, 9, 182, 0.01)",
   },
   title: {
     color: "rgba(103, 9, 182, 0.95)"
@@ -69,6 +69,12 @@ const SidebarSection = ({
     return null;
   }
 
+  const categoryColors = (category: string) => {
+    if (category == "AI_ML" || category == "Generate" || category == "Visualize"){
+      return <div style={{  borderRadius: 2, border: '2px solid rgba(103, 9, 182, 0.95)', backgroundColor: "rgba(103, 9, 182, 0.01)",}}>{category}</div>
+    }
+  }
+
   return (
     <>
       <UnstyledButton
@@ -78,8 +84,8 @@ const SidebarSection = ({
       >
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center"}}>
-            <Box ml="md" className={classes.title}>
-              {title}
+            <Box ml="md">
+              {categoryColors(title)}
             </Box>
           </Box>
           <ChevronIcon
