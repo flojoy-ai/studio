@@ -121,8 +121,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setS3Container,
   } = useFlowChartState();
   const { classes } = useStyles(s3Container);
-  const { s3Name, setS3Name, s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
-    useFlowChartState();
+  const {
+    s3Name,
+    setS3Name,
+    s3AccessKey,
+    setS3AccessKey,
+    s3SecretKey,
+    setS3SecretKey,
+  } = useFlowChartState();
 
   const handleS3Container = (tab) => {
     if (tab == "s3") {
