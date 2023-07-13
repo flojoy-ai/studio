@@ -3,10 +3,7 @@ import { ChangeEvent, memo, useState } from "react";
 import { Modal, createStyles, Button, Input, Tabs } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {
-  sendApiKeyToDjango,
-  sendS3KeyToDjango,
-} from "@src/services/FlowChartServices";
+import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
 
 interface APIKeyModelProps {
   isOpen: boolean;
@@ -119,9 +116,6 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setOpenAIApiKey,
     s3Container,
     setS3Container,
-  } = useFlowChartState();
-  const { classes } = useStyles(s3Container);
-  const {
     s3Name,
     setS3Name,
     s3AccessKey,
@@ -129,11 +123,11 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     s3SecretKey,
     setS3SecretKey,
   } = useFlowChartState();
+  const { classes } = useStyles(s3Container);
 
   const handleS3Container = (tab) => {
     if (tab == "s3") {
       setS3Container(true);
-      console.log(s3Container);
     } else {
       setS3Container(false);
     }
@@ -178,20 +172,23 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       autoClose: false,
       withCloseButton: false,
     });
-    sendApiKeyToDjango(cloudApiKey, "cloud");
+    sendApiKeyToDjango({ key: cloudApiKey }, "set-cloud-api");
     setCloudApiKey("");
   };
 
   const handleS3Key = () => {
     notifications.show({
-      id: "set-s3-key",
+      id: "set-api-key",
       loading: true,
       title: "Setting your AWS S3 key",
       message: "Setting your AWS S3 key, please be patient",
       autoClose: false,
       withCloseButton: false,
     });
-    sendS3KeyToDjango(s3Name, s3AccessKey, s3SecretKey);
+    sendApiKeyToDjango(
+      { name: s3Name, accessKey: s3AccessKey, secretKey: s3SecretKey },
+      "set-s3-key"
+    );
     setS3Name("");
     setS3SecretKey("");
     setS3AccessKey("");
@@ -206,7 +203,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       autoClose: false,
       withCloseButton: false,
     });
-    sendApiKeyToDjango(openAIApiKey, "openai");
+    sendApiKeyToDjango({ key: openAIApiKey }, "set-openai-api");
     setOpenAIApiKey("");
   };
 
