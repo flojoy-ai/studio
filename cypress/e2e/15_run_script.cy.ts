@@ -28,7 +28,7 @@ describe("playing script", () => {
     cy.visit("/").wait(1000);
 
     //click on play button
-    cy.get('[data-testid="btn-play"]').click();
+    cy.get('[data-cy="btn-play"]').click();
 
     // // snap home page during script play
     cy.eyesCheckWindow({

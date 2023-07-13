@@ -38,7 +38,6 @@ import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
-import S3KeyModal from "./S3KeyModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
 const useStyles = createStyles((theme) => {
@@ -437,14 +436,6 @@ const ControlBar = () => {
           <FamilyHistoryIconSvg size={14} />
           Set API key
         </button>
-        <button
-          data-testid="btn-s3key"
-          onClick={() => setIsS3KeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          AWS S3 key
-        </button>
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
@@ -482,10 +473,6 @@ const ControlBar = () => {
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
-      />
-      <S3KeyModal
-        isOpen={isS3KeyModelOpen}
-        onClose={() => setIsS3KeyModelOpen(false)}
       />
     </Box>
   );
