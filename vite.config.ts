@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import EnvironmentPlugin from "vite-plugin-environment";
 import eslint from "vite-plugin-eslint";
+import istanbul from "vite-plugin-istanbul";
 import path from "path";
 
 import { rmSync } from "node:fs";
@@ -20,6 +21,9 @@ export default defineConfig(({ command }) => {
   return {
     plugins: [
       react(),
+      istanbul({
+        include: ["src/**/*.ts", "src/**/*.tsx"],
+      }),
       EnvironmentPlugin("all"),
       eslint({ emitWarning: true }),
       electron([

@@ -2,8 +2,8 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Text, useMantineTheme } from "@mantine/core";
 import { nodeConfigs } from "@src/configs/NodeConfigs";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import { IconButton } from "@src/feature/common/IconButton";
-import { TabActions } from "@src/feature/common/TabActions";
+import IconButton from "@src/feature/common/IconButton";
+import TabActions from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -138,15 +138,7 @@ const FlowChartTab = () => {
   );
 
   const onInit: OnInit = (rfIns) => {
-    const flowSize = 1107;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.fitView();
-
-    rfIns.setViewport({
-      x: xPosition,
-      y: 61,
-      zoom: 0.7,
-    });
 
     setRfInstance(rfIns.toObject());
   };
@@ -257,19 +249,30 @@ const FlowChartTab = () => {
     selectedNode,
   });
 
+  const plusIcon = useMemo(
+    () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
+    [theme]
+  );
+
+  const minusIcon = useMemo(
+    () => <IconMinus size={16} color={theme.colors.accent1[0]} />,
+    [theme]
+  );
+
   return (
     <Layout>
       <TabActions>
         <IconButton
           onClick={toggleSidebar}
-          icon={<IconPlus size={16} color={theme.colors.accent1[0]} />}
+          icon={plusIcon}
           data-testid="add-node-button"
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
         <IconButton
+          data-testid="clear-canvas-button"
           onClick={clearCanvas}
-          icon={<IconMinus size={16} color={theme.colors.accent1[0]} />}
+          icon={minusIcon}
           ml="auto"
           h="100%"
         >
@@ -302,6 +305,7 @@ const FlowChartTab = () => {
           <FlowChartKeyboardShortcuts />
 
           <ReactFlow
+            id="flow-chart"
             style={{
               position: "fixed",
               height: "100%",

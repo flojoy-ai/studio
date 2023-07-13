@@ -12,7 +12,7 @@ import { IconSearch } from "@tabler/icons-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import CloseIconSvg from "@src/utils/SidebarCloseSvg";
+import CloseIconSvg from "@src/assets/SidebarCloseSvg";
 import { createStyles } from "@mantine/core";
 import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
@@ -202,12 +202,14 @@ const Sidebar = ({
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <Box className={classes.expandCollapseButtonContainer}>
           <UnstyledButton
+            data-testid="sidebar-expand-btn"
             onClick={() => setExpand(!expand)}
             className={classes.uiButton}
           >
             <IconArrowAutofitDown />
           </UnstyledButton>
           <UnstyledButton
+            data-testid="sidebar-collapse-btn"
             onClick={() => setCollapse(!collapse)}
             className={classes.uiButton}
           >

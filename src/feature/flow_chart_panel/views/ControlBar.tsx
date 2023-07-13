@@ -16,9 +16,8 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/utils/cancel_icon";
+import CancelIconSvg from "@src/assets/CancelIcon";
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import HistoryIconSvg from "@src/assets/HistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
@@ -38,8 +37,8 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/results_panel/types/ResultsType";
-import S3KeyModal from "./S3KeyModal";
+import { ResultsType } from "@src/feature/common/types/ResultsType";
+import SaveFlowChartBtn from "./SaveFlowChartBtn";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -290,6 +289,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
       className={classes.cancelButton}
       onClick={cancelFC}
       data-cy="btn-cancel"
+      data-testid="btn-cancel"
       title="Cancel Run"
       style={{ borderRadius: 8 }}
     >
@@ -429,18 +429,12 @@ const ControlBar = () => {
       )}
       <Dropdown dropdownBtn={<FileButton />}>
         <button
+          data-testid="btn-apikey"
           onClick={() => setIsAPIKeyModelOpen(true)}
           style={{ display: "flex", gap: 7.5 }}
         >
           <FamilyHistoryIconSvg size={14} />
           Set API key
-        </button>
-        <button
-          onClick={() => setIsS3KeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          AWS S3 key
         </button>
         <LoadButton />
         <SaveButton saveFile={saveFile} />
@@ -449,11 +443,9 @@ const ControlBar = () => {
           results={programResults}
           disabled={exportResultDisabled}
         />
-        <button style={{ display: "flex", gap: 10.77 }}>
-          <HistoryIconSvg />
-          History
-        </button>
+        <SaveFlowChartBtn />
         <button
+          data-testid="btn-keyboardshortcut"
           onClick={() => setIsKeyboardShortcutOpen(true)}
           style={{ display: "flex", gap: 10.11 }}
         >
@@ -463,6 +455,7 @@ const ControlBar = () => {
       </Dropdown>
 
       <UnstyledButton
+        data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
         className={classes.settingsButton}
       >
@@ -481,10 +474,6 @@ const ControlBar = () => {
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
       />
-      <S3KeyModal
-        isOpen={isS3KeyModelOpen}
-        onClose={() => setIsS3KeyModelOpen(false)}
-      />
     </Box>
   );
 };
@@ -495,7 +484,10 @@ const FileButton = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <button className={clsx(classes.button, classes.fileButton)}>
+    <button
+      data-testid="file-btn"
+      className={clsx(classes.button, classes.fileButton)}
+    >
       <Text>File</Text>
       <IconCaretDown
         size={14}

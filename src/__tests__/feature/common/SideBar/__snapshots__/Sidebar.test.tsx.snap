@@ -100,6 +100,7 @@ exports[`Sidebar should render the component correctly 1`] = `
           >
             <button
               class="mantine-UnstyledButton-root mantine-1b5exya"
+              data-testid="sidebar-expand-btn"
               type="button"
             >
               <svg
@@ -127,6 +128,7 @@ exports[`Sidebar should render the component correctly 1`] = `
             </button>
             <button
               class="mantine-UnstyledButton-root mantine-1b5exya"
+              data-testid="sidebar-collapse-btn"
               type="button"
             >
               <svg

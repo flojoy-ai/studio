@@ -1,4 +1,5 @@
 import { useMantineTheme } from "@mantine/styles";
+import { memo } from "react";
 
 const SaveIconSvg = () => {
   const theme = useMantineTheme();
@@ -35,4 +36,4 @@ const SaveIconSvg = () => {
   );
 };
 
-export default SaveIconSvg;
+export default memo(SaveIconSvg);

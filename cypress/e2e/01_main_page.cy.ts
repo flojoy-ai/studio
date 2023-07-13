@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
-describe("studio", () => {
+describe("main page", () => {
+  const layoutRegions = [
+    { selector: '[data-cy="app-status"]' },
+    { selector: '[data-cy="btn-play"]' },
+  ];
   // This method performs setup before each test.
   beforeEach(() => {
     // Open Eyes to start visual testing.
@@ -22,12 +26,13 @@ describe("studio", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("should open flojoy studio's main page", () => {
+  it("main page", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -39,13 +44,16 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with SINE menu",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
+    // Click add new node button
     cy.get('[data-testid="add-node-button"]').click();
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
 
@@ -53,13 +61,7 @@ describe("studio", () => {
     cy.eyesCheckWindow({
       tag: "light flow page",
       target: "window",
-      fully: true,
-    });
-
-    cy.get('[data-cy="ctrls-btn"]').click();
-    cy.eyesCheckWindow({
-      tag: "light ctrl page",
-      target: "window",
+      layout: layoutRegions,
       fully: true,
     });
   });

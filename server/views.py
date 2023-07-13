@@ -7,7 +7,9 @@ import yaml
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from flojoy.utils import set_frontier_api_key, set_frontier_s3_key
+from flojoy.utils import (
+    set_frontier_api_key,
+)
 
 sys.path.insert(0, os.path.abspath("PYTHON"))
 from .services.pre_job_service import prepare_jobs
@@ -79,10 +81,22 @@ def worker_response(request):
 
 
 @api_view(["POST"])
-def set_user_api_key(request):
+def set_cloud_api_key(request):
     key = request.data
     api_key = key["key"]
-    set_frontier_api_key(api_key)
+    set_frontier_api_key({"CLOUD_API_KEY": api_key}, "CLOUD")
+
+    response = {
+        "data": api_key,
+    }
+    return Response(response, status=200)
+
+
+@api_view(["POST"])
+def set_openai_api_key(request):
+    key = request.data
+    api_key = key["key"]
+    set_frontier_api_key({"OPENAI_API_KEY": api_key}, "OPENAI")
 
     response = {
         "data": api_key,
@@ -96,7 +110,14 @@ def set_s3_key(request):
     s3_name = key["name"]
     access_key = key["accessKey"]
     secret_key = key["secretKey"]
-    set_frontier_s3_key(s3_name, access_key, secret_key)
+    set_frontier_api_key(
+        {
+            f"{s3_name}accessKey": access_key,
+            f"{s3_name}secretKey": secret_key,
+        },
+        "S3",
+        s3_name,
+    )
 
     response = {
         "name": s3_name,

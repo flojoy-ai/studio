@@ -6,7 +6,7 @@ import PlotlyComponent from "../../common/PlotlyComponent";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import { makePlotlyData } from "@src/utils/format_plotly_data";
+import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 
@@ -178,6 +178,8 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
+      <Modal.CloseButton data-testid="node-modal-closebtn" />
+
       <Flex gap="xl">
         <Box>
           <Button
