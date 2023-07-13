@@ -54,7 +54,6 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "open": "concurrently \"http-server -a localhost -p 3000\" \"open http://localhost:3000\"",
     "backend": "python3 manage.py",
     "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",

@@ -259,8 +259,6 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
-feedback $? 'Generated yaml manifests for Python nodes' 'Error occurred while generating yaml manifests. Check errors printed above!'
-
 $venvCmd && python3 generate_manifest.py
 
 feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
@@ -310,9 +308,9 @@ sleep 1
 
 # start project services
 if [ $test_ci = true ]; then
-   start_project_cmd='npm run start-project:ci' && npm run open
+   start_project_cmd='npm run start-project:ci'
 else 
-   start_project_cmd='npm run start-project' && npm run open
+   start_project_cmd='npm run start-project'
 fi
 
 if [ $isDebugMode = true ]; then
