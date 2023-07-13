@@ -19,6 +19,18 @@ const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
+export type CLOUD_OPENAI_TYPE = {
+  key: string;
+};
+
+export type S3_TYPE = {
+  name: string;
+  accessKey: string;
+  secretKey: string;
+};
+
+export type API_TYPE = CLOUD_OPENAI_TYPE | S3_TYPE;
+
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
@@ -27,7 +39,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const sendApiKeyToDjango = async (body: object, endpoint: string) => {
+export const sendApiKeyToDjango = async (body: API_TYPE, endpoint: string) => {
   try {
     const response = await fetch(`${API_URI}/api/${endpoint}`, {
       method: "POST",

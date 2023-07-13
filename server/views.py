@@ -112,7 +112,6 @@ def set_s3_key(request):
     secret_key = key["secretKey"]
     set_frontier_api_key(
         {
-            f"{s3_name}": s3_name,
             f"{s3_name}accessKey": access_key,
             f"{s3_name}secretKey": secret_key,
         },
