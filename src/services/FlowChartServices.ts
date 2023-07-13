@@ -27,44 +27,9 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const sendCloudApiKeyToDjango = async (apiKey: string) => {
+export const sendApiKeyToDjango = async (apiKey: string, apiFor: string) => {
   try {
-    const response = await fetch(`${API_URI}/api/set-cloud-api`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ key: apiKey }),
-    });
-
-    if (response.ok) {
-      const responseData = await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully set the API Key",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the API Key",
-        autoClose: 5000,
-      });
-    }
-  } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the API Key",
-      autoClose: 5000,
-    });
-  }
-};
-export const sendOpenAIApiKeyToDjango = async (apiKey: string) => {
-  try {
-    const response = await fetch(`${API_URI}/api/set-openai-api`, {
+    const response = await fetch(`${API_URI}/api/set-${apiFor}-api`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

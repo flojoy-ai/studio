@@ -4,8 +4,7 @@ import { Modal, createStyles, Button, Input, Tabs } from "@mantine/core";
 import { Notifications, notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import {
-  sendCloudApiKeyToDjango,
-  sendOpenAIApiKeyToDjango,
+  sendApiKeyToDjango,
   sendS3KeyToDjango,
 } from "@src/services/FlowChartServices";
 
@@ -122,8 +121,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setS3Container,
   } = useFlowChartState();
   const { classes } = useStyles(s3Container);
-  const [s3Name, setS3Name] = useState<string>("");
-  const { s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
+  const { s3Name, setS3Name, s3AccessKey, setS3AccessKey, s3SecretKey, setS3SecretKey } =
     useFlowChartState();
 
   const handleS3Container = (tab) => {
@@ -174,7 +172,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       autoClose: false,
       withCloseButton: false,
     });
-    sendCloudApiKeyToDjango(cloudApiKey);
+    sendApiKeyToDjango(cloudApiKey, "cloud");
     setCloudApiKey("");
   };
 
@@ -202,7 +200,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       autoClose: false,
       withCloseButton: false,
     });
-    sendOpenAIApiKeyToDjango(openAIApiKey);
+    sendApiKeyToDjango(openAIApiKey, "openai");
     setOpenAIApiKey("");
   };
 
