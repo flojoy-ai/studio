@@ -1,7 +1,5 @@
 channels==4.0.0
 daphne==4.0.0
-Django==4.1.2
-django-cors-headers==3.13.0
 flojoy==0.1.5.dev1
 matplotlib==3.5.2
 networkx==2.8.4
@@ -11,7 +9,6 @@ plotly==5.8.2
 python-box==6.0
 PyYAML==6.0
 scipy==1.9.3
-scikit-learn==1.2.2
 uptime==3.0.1
 schedule==1.2.0
 djangorestframework==3.14.0
