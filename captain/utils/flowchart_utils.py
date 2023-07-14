@@ -12,7 +12,7 @@ from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import importlib
 from .status_codes import STATUS_CODES
-from flojoy.job_service import JobService
+from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
 import traceback
 
@@ -127,7 +127,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
 
 # clears memory used by some worker nodes and job results
 def clear_memory():
-    JobService().reset()
+    clear_flojoy_memory()
 
 
 async def run_flow_chart(manager: Manager):
