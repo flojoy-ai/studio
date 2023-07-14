@@ -69,22 +69,17 @@ class Topology:
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
-        processed = set()
         for node_id in cast(list[str], self.original_graph.nodes):
             # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
-            if cmd in processed or cmd_mock in processed:
-                continue
             module = get_module_func(cmd)
             func_name = cmd_mock if self.is_ci else cmd
             try:
                 func = getattr(module, func_name)
-                processed.add(func_name)
             except AttributeError:
                 func = getattr(module, cmd)
-                processed.add(cmd)
 
             # check if the func has an init function, and initialize it if it does to the specified node id
             try:
