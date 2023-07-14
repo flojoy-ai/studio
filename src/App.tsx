@@ -128,29 +128,31 @@ const App = () => {
         withNormalizeCSS
         theme={theme === "dark" ? darkTheme : lightTheme}
       >
-        <KBarProvider actions={actions}>
-          <KBarPortal>
-            <KBarPositioner>
-              <KBarAnimator>
-                <KBarSearch />
-                <RenderResults />
-              </KBarAnimator>
-            </KBarPositioner>
-          </KBarPortal>
-          <GlobalStyles />
-          <PreJobOperationShow
-            opened={isPrejobModalOpen}
-            outputs={preJobOperation.output}
-            close={closePreJobModal}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
+        <div className={theme === "dark" ? "dark" : "light"}>
+          <KBarProvider actions={actions}>
+            <KBarPortal>
+              <KBarPositioner>
+                <KBarAnimator>
+                  <KBarSearch />
+                  <RenderResults />
+                </KBarAnimator>
+              </KBarPositioner>
+            </KBarPortal>
+            <GlobalStyles />
+            <PreJobOperationShow
+              opened={isPrejobModalOpen}
+              outputs={preJobOperation.output}
+              close={closePreJobModal}
             />
-          </Routes>
-        </KBarProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<FlowChartTab />}
+                errorElement={<ErrorBoundary />}
+              />
+            </Routes>
+          </KBarProvider>
+        </div>
       </MantineProvider>
     </ColorSchemeProvider>
   );

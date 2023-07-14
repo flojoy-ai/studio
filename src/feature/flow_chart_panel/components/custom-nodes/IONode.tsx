@@ -1,3 +1,4 @@
+import { useMantineTheme } from "@mantine/core";
 import { memo } from "react";
 import { CustomNodeProps } from "../../types/CustomNodeProps";
 import HandleComponent from "../HandleComponent";
@@ -5,36 +6,33 @@ import NodeWrapper from "../NodeWrapper";
 import { nodeStatusAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 import clsx from "clsx";
-import { NumpySvg } from "@src/assets/ArithmeticSVG";
+import { DodecahedronSVG } from "@src/assets/DodecahedronSVG";
 
-const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
+const IONode = ({ data, handleRemove }: CustomNodeProps) => {
   const [{ runningNode, failedNode }] = useAtom(nodeStatusAtom);
 
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-60 h-40 border-2 border-blue-500 rounded-2xl flex justify-center items-center bg-accent1/5",
+          "w-48 h-48 flex flex-col items-center",
           data.id === runningNode || data.selected
-            ? "shadow-around shadow-blue-500"
+            ? "shadow-around shadow-accent4"
             : "",
           data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
       >
-        <div className="flex flex-col items-center">
-          <NumpySvg className="w-16 h-16" />
-          <h2 className="font-sans  text-2xl tracking-wider text-blue-500">
-            <span>np.</span>
-            <span className="font-extrabold">{data.label}</span>
-          </h2>
-        </div>
+        <DodecahedronSVG />
+        <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent4">
+          {data.label}
+        </h2>
         <HandleComponent
           data={data}
-          className="!border-blue-500 !bg-white dark:!bg-black"
+          className="!border-accent4 !bg-white dark:!bg-black"
         />
       </div>
     </NodeWrapper>
   );
 };
 
-export default memo(NumpyNode);
+export default memo(IONode);

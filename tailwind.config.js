@@ -53,11 +53,15 @@ module.exports = {
         },
         accent2: "rgb(var(--color-accent2) / <alpha-value>)",
         accent3: "rgb(var(--color-accent3) / <alpha-value>)",
+        accent4: "rgb(var(--color-accent4) / <alpha-value>)",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        around: "0px 0px 12px 2px var(--tw-shadow)",
       },
       keyframes: {
         "accordion-down": {

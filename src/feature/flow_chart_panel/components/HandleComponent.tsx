@@ -1,6 +1,7 @@
 import { Handle, Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { Box, createStyles, Flex } from "@mantine/core";
+import { twMerge } from "tailwind-merge";
 
 const useStyles = createStyles(() => ({
   handleWrapper: {
@@ -13,7 +14,13 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
+const HandleComponent = ({
+  data,
+  className,
+}: {
+  data: CustomNodeProps["data"];
+  className: string;
+}) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
 
@@ -33,13 +40,8 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
               type="target"
               id={param.id}
               // Needs to be inline style for it to actually override the default react flow styles...
-              style={{
-                border: "1px solid lightgray",
-                width: 12,
-                height: 12,
-                borderRadius: 0,
-                left: 0,
-              }}
+              className={twMerge("!w-3 !h-3 !border-2", className)}
+              style={{ left: 1 }}
             />
             <Box pos="absolute" left={20} bottom={-12}>
               {param.name !== "default" ? param.name : ""}
@@ -63,13 +65,8 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
               type="source"
               id={param.id}
               // Needs to be inline style for it to actually override the default react flow styles...
-              style={{
-                border: "1px solid lightgray",
-                width: 12,
-                height: 12,
-                borderRadius: 0,
-                right: 4,
-              }}
+              className={twMerge("!w-3 !h-3 !border-2", className)}
+              style={{ right: 5 }}
             />
           </Flex>
         ))}

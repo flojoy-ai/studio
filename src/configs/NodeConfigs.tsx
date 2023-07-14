@@ -6,17 +6,20 @@ import VisorNode from "@src/feature/flow_chart_panel/components/custom-nodes/Vis
 import DefaultNode from "@src/feature/flow_chart_panel/components/DefaultNode";
 import ScipyNode from "@src/feature/flow_chart_panel/components/custom-nodes/ScipyNode";
 import NumpyNode from "@src/feature/flow_chart_panel/components/custom-nodes/NumpyNode";
+import DataNode from "@src/feature/flow_chart_panel/components/custom-nodes/DataNode";
+import ETLNode from "@src/feature/flow_chart_panel/components/custom-nodes/ETLNode";
+import IONode from "@src/feature/flow_chart_panel/components/custom-nodes/IONode";
 
 export const nodeConfigs = {
-  default: DefaultNode,
+  default: ETLNode,
   ARITHMETIC: ArithmeticNode,
-  SIMULATIONS: SimulationNode,
+  SIMULATIONS: DataNode,
   PLOTLY: VisorNode,
   CONDITIONALS: ConditionalNode,
-  TERMINATORS: TerminatorNode,
+  TERMINATORS: IONode,
   SAMPLE_IMAGE: DefaultNode,
   AI_OBJECT_DETECTION: DefaultNode,
   SCIPY_STATS: ScipyNode,
   SCIPY_SIGNAL: ScipyNode,
-  NUMPY_LINALG: NumpyNode,
+  LINALG: NumpyNode,
 };

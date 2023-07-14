@@ -40,6 +40,7 @@
     --color-accent1-hover: 175 159 255;
     --color-accent2: 46 131 255;
     --color-accent3: 255 169 39;
+    --color-accent4: 240 95 168;
   }
 
   .dark {
@@ -77,6 +78,7 @@
     --color-accent1-hover: 212 251 255;
     --color-accent2: 123 97 255;
     --color-accent3: 255 201 63;
+    --color-accent4: 240 95 168;
   }
 }
 
