@@ -71,9 +71,8 @@ class Topology:
         functions = {}
         processed = set()
         for node_id in cast(list[str], self.original_graph.nodes):
-
             # get the node function
-            node = cast(dict[str, Any], self.original_graph.nodes[node_id]) 
+            node = cast(dict[str, Any], self.original_graph.nodes[node_id])
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
             if cmd in processed or cmd_mock in processed:
@@ -86,11 +85,13 @@ class Topology:
             except AttributeError:
                 func = getattr(module, cmd)
                 processed.add(cmd)
-            
+
             # check if the func has an init function, and initialize it if it does to the specified node id
-            try: 
+            try:
                 init_func = get_node_init_function(func)
-                init_func.run(node_id) # node id is used to specify storage: each node of the same type will have its own storage
+                init_func.run(
+                    node_id
+                )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass
 

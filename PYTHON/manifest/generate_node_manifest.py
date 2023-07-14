@@ -29,7 +29,7 @@ ALLOWED_PARAM_TYPES = [
     list[str],
 ]
 
-SPECIAL_TYPES = [NodeReference, Array] 
+SPECIAL_TYPES = [NodeReference, Array]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 
