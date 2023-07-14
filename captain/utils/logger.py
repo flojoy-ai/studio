@@ -1,9 +1,6 @@
 import logging
 import sys
 
-
-"""NOTE: If you want to print the output of the RQ worker, then in the command line add PRINT_WORKER_OUTPUT=True"""
-
 logger = logging.getLogger("fastapi-dev")
 
 

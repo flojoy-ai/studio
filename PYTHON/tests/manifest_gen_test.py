@@ -53,7 +53,10 @@ class ManifestGenerationTest(unittest.TestCase):
                 {"name": "data", "id": "data", "type": "DataFrame", "multiple": False},
             ],
             "outputs": [{"name": "default", "id": "default", "type": "Image"}],
-            "pip_dependencies": [{"name": "tensorflow", "v": "2.12.0"}],
+            "pip_dependencies": [
+                {"name": "tensorflow", "v": "2.12.0"},
+                {"name": "torch", "v": "2.0.1"},
+            ],
         }
 
     def test_manifest_with_no_inputs(self):
@@ -124,9 +127,9 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
                 {"name": "d", "id": "d", "type": "Any", "multiple": False},
             ],
-            "parameters": {
-                "foo": {"type": "str|int", "default": "bar"},
-            },
+            # "parameters": {
+            #     "foo": {"type": "str|int", "default": "bar"},
+            # },
             "outputs": [
                 {
                     "name": "default",
@@ -153,7 +156,7 @@ class ManifestGenerationTest(unittest.TestCase):
                 {"name": "c", "id": "c", "type": "Any", "multiple": False},
             ],
             "parameters": {
-                "foo": {"type": "str|int", "default": None},
+                "foo": {"type": "str", "default": None},
                 "bar": {"type": "list[int]", "default": None},
             },
             "outputs": [

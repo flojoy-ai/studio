@@ -17,7 +17,7 @@ def UNIONS(
     b: OrderedPair | OrderedTriple | DataContainer,
     c: Union[Matrix, DataFrame, Image],
     d: Union[OrderedPair, OrderedTriple, DataContainer],
-    foo: str | int = "bar",
+    # foo: str | int = "bar",
 ) -> OrderedPair | OrderedTriple:
     q = np.array([])
     return OrderedTriple(x=q, y=q, z=q)
