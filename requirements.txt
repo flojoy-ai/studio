@@ -21,3 +21,4 @@ pytest-cov==4.1.0
 uvicorn[standard]==0.22.0
 fastapi==0.95.2
 debugpy
+keyring==24.2.0
