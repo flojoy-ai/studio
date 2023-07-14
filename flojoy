@@ -359,7 +359,7 @@ sleep 1
 
 # start project services
 if [ $test_ci = true ]; then
-   start_project_cmd='npm run start-project:ci'
+   start_project_cmd='DBUS_SESSION_BUS_ADDRESS="autolaunch:" npm run start-project:ci'
 else 
    start_project_cmd='npm run start-project' 
 fi
