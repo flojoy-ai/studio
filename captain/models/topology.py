@@ -7,8 +7,8 @@ import time
 from collections import deque
 from flojoy import get_next_directions, get_next_nodes
 from PYTHON.utils.dynamic_module_import import get_module_func
-from flojoy.job_service import JobService
-from flojoy.node_init import node_init
+from flojoy.node_init import NoInitFunctionError
+from flojoy.utils import clear_flojoy_memory, get_node_init_function
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
@@ -37,7 +37,6 @@ class Topology:
         self.max_runtime = max_runtime
         self.finished_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
-        self.job_service = JobService(self.max_runtime)
         self.cancelled = False
         self.time_start = 0
         self.task_queue = task_queue
@@ -70,27 +69,29 @@ class Topology:
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
+        processed = set()
         for node_id in cast(list[str], self.original_graph.nodes):
+
+            # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id]) 
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
-            node_path: str = node.get("node_path", "")
-            node_path = node_path.replace("\\", "/").replace("/", ".").replace(".py", "")
-            if node_path != "":
-                module = import_module(node_path)
-            else:
-                module = get_module_func(cmd)
+            if cmd in processed or cmd_mock in processed:
+                continue
+            module = get_module_func(cmd)
             func_name = cmd_mock if self.is_ci else cmd
             try:
                 func = getattr(module, func_name)
+                processed.add(func_name)
             except AttributeError:
                 func = getattr(module, cmd)
+                processed.add(cmd)
             
-            # check if the module has an init function, and initialize it if it does
+            # check if the func has an init function, and initialize it if it does to the specified node id
             try: 
-                init_func = getattr(module, "flojoy_node_init")
-                node_init(init_func, node_id) # type: ignore
-            except AttributeError:
+                init_func = get_node_init_function(func)
+                init_func.run(node_id) # node id is used to specify storage: each node of the same type will have its own storage
+            except NoInitFunctionError:
                 pass
 
             functions[node_id] = func
@@ -437,4 +438,4 @@ class Topology:
         )
 
     def cleanup(self):
-        self.job_service.reset()
+        clear_flojoy_memory()
