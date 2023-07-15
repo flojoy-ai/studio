@@ -17,7 +17,7 @@ from typing import (
     Literal,
 )
 
-from flojoy import DataContainer, DefaultParams, NodeReference, Array
+from flojoy import DataContainer, DefaultParams, NodeReference, Array, NodeInitContainer
 
 ALLOWED_PARAM_TYPES = [
     int,
@@ -28,6 +28,9 @@ ALLOWED_PARAM_TYPES = [
     list[float],
     list[str],
 ]
+
+SPECIAL_TYPES = [NodeReference, Array]
+
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 
 
@@ -235,6 +238,9 @@ def populate_inputs(
     # Case 6: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
         mb.with_select(name, list(param_type.__args__), default_value)
+    # Case 7: Node init container, skip
+    elif param_type == NodeInitContainer:
+        return
     else:
         if param_type != DefaultParams and param_type not in ALLOWED_PARAM_TYPES:
             raise TypeError(
@@ -246,8 +252,7 @@ def populate_inputs(
 
 
 def is_special_type(param_type: Any):
-    special_types = [NodeReference, Array]
-    return any(param_type == special_type for special_type in special_types)
+    return any(param_type == special_type for special_type in SPECIAL_TYPES)
 
 
 def is_outer_type(t: Any, outer_type: Any):

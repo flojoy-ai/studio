@@ -1,4 +1,11 @@
-import { Checkbox, NumberInput, Select, TextInput } from "@mantine/core";
+import {
+  NumberInput,
+  Select,
+  TextInput,
+  Switch,
+  createStyles,
+  getStylesRef,
+} from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
@@ -15,6 +22,22 @@ type ParamFieldProps = {
   }[];
 };
 
+const useStyles = createStyles((theme) => ({
+  input: {
+    [`&:checked + .${getStylesRef("track")}`]: {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[0]
+          : theme.colors.accent2[2],
+      borderColor:
+        theme.colorScheme === "dark" ? theme.colors.dark : theme.colors.gray[1],
+    },
+  },
+  track: {
+    ref: getStylesRef("track"),
+  },
+}));
+
 const ParamField = ({
   nodeCtrls,
   nodeId,
@@ -30,6 +53,9 @@ const ParamField = ({
       value,
     });
   };
+
+  const { classes } = useStyles();
+
   switch (type) {
     case "float":
       return (
@@ -49,10 +75,11 @@ const ParamField = ({
       );
     case "bool":
       return (
-        <Checkbox
+        <Switch
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
-          checked={value as boolean}
+          size="md"
+          classNames={classes}
         />
       );
     case "select":

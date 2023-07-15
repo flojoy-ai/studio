@@ -6,7 +6,6 @@ type PlayTimeIconProps = {
 };
 
 const PlayBtnIcon = ({ color }: PlayTimeIconProps) => {
-  const theme = useMantineTheme();
   return (
     <div>
       <svg
