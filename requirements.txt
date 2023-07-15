@@ -1,6 +1,6 @@
 channels==4.0.0
 daphne==4.0.0
-flojoy==0.1.5.dev1
+flojoy==0.1.5.dev3
 matplotlib==3.5.2
 networkx==2.8.4
 numpy==1.23.0
