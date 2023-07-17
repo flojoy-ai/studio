@@ -92,7 +92,6 @@ export type Result = {
     data: OverridePlotData;
     layout?: Partial<Layout>;
   };
-  data: DataContainer;
 };
 
 export interface ResultsType {
