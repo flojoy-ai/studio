@@ -1,1 +1,1 @@
-import "@applitools/eyes-cypress";
+
