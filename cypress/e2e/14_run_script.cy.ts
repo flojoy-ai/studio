@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
-describe("Verify clear canvas button", () => {
+//** Tests script run/cancellation for default app and captures the results as snapshots in light/dark mode.*/
+
+describe("playing script", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
   // // This method performs setup before each test.
   // beforeEach(() => {
   //   // Open Eyes to start visual testing.
@@ -23,32 +24,55 @@ describe("Verify clear canvas button", () => {
   //   });
   // });
 
-  // The interactions use typical Cypress calls,
-  // but the verifications use one-line snapshot calls with Applitools Eyes.
-  // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
-  // Traditional assertions that scrape the page for text values are not needed here.
-
-  it("clear canvas test", () => {
+  it("script test on main page", () => {
     cy.visit("/").wait(1000);
 
-    // Clear canvas
-    cy.get('[data-testid="clear-canvas-button"]').click();
+    //click on play button
+    cy.get('[data-cy="btn-play"]').click();
 
+    // // snap home page during script play
     // cy.eyesCheckWindow({
-    //   tag: "dark flow page without any nodes",
+    //   tag: "dark flow page during script run",
     //   target: "window",
     //   layout: layoutRegions,
     //   fully: true,
     // });
     cy.percySnapshot();
 
-    // Verify there aren't any nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
+    // wait until script is done
+    cy.wait(7000);
+    cy.percySnapshot();
+
+    // snap home page after script is over
+    // cy.eyesCheckWindow({
+    //   tag: "dark flow page after script finishes",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+    cy.percySnapshot();
+
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page after script finishes",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
+
+    // Testing cancelling script (ctrl + p)
+    cy.get("body").type("{ctrl}p");
+    cy.get('[data-cy="btn-cancel"]').click();
+
+    cy.wait(5000);
+
+    // Testing cancelling script (meta + p)
+    cy.get("body").type("{meta}p");
+    cy.get('[data-cy="btn-cancel"]').click();
   });
 
-  // // This method performs cleanup after each test.
   // afterEach(() => {
-  //   // Close Eyes to tell the server it should display the results.
   //   cy.eyesClose();
   // });
 });

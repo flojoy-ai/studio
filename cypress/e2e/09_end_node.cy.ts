@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
 
-describe("Verify clear canvas button", () => {
+describe("Verify end node", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
   // // This method performs setup before each test.
   // beforeEach(() => {
   //   // Open Eyes to start visual testing.
@@ -28,22 +27,28 @@ describe("Verify clear canvas button", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("end node test", () => {
     cy.visit("/").wait(1000);
 
-    // Clear canvas
+    // Click clear canvas button
     cy.get('[data-testid="clear-canvas-button"]').click();
 
+    // Click add node
+    cy.get('[data-testid="add-node-button"]').click();
+
+    // Click end node
+    cy.get('[data-testid="end-node-btn"]').click();
+
+    // close sidebar
+    cy.get('[data-testid="sidebar-close"]').click();
+    cy.percySnapshot();
+
     // cy.eyesCheckWindow({
-    //   tag: "dark flow page without any nodes",
+    //   tag: "dark flow page with end node",
     //   target: "window",
     //   layout: layoutRegions,
     //   fully: true,
     // });
-    cy.percySnapshot();
-
-    // Verify there aren't any nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
   });
 
   // // This method performs cleanup after each test.

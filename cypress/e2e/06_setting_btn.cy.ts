@@ -1,11 +1,12 @@
 /// <reference types="cypress" />
 
-describe("Verify clear canvas button", () => {
+require("cypress-xpath");
+
+describe("Modify settings in control bar", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
   // // This method performs setup before each test.
   // beforeEach(() => {
   //   // Open Eyes to start visual testing.
@@ -28,22 +29,53 @@ describe("Verify clear canvas button", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("setting btn test", () => {
     cy.visit("/").wait(1000);
 
-    // Clear canvas
-    cy.get('[data-testid="clear-canvas-button"]').click();
+    // Click the setting button
+    cy.get('[data-testid="btn-setting"]').click();
+    cy.percySnapshot();
 
     // cy.eyesCheckWindow({
-    //   tag: "dark flow page without any nodes",
+    //   tag: "dark flow page with setting modal",
     //   target: "window",
     //   layout: layoutRegions,
     //   fully: true,
     // });
+
+    // Retrieve node delay and maximum time
+    cy.get('[data-testid="settings-input"]').eq(0).clear();
+    cy.get('[data-testid="settings-input"]')
+      .eq(0)
+      .type(0.5)
+      .should("have.value", "0.50");
+    cy.get('[data-testid="settings-input"]').eq(1).clear();
+    cy.get('[data-testid="settings-input"]')
+      .eq(1)
+      .type(100)
+      .should("have.value", "1000");
+      cy.percySnapshot();
+
+    // cy.eyesCheckWindow({
+    //   tag: "dark flow page with settings modal with input",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
+
+    cy.get('[data-testid="settings-close-btn"]').click();
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="btn-setting"]').click();
     cy.percySnapshot();
 
-    // Verify there aren't any nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with setting modal",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
   });
 
   // // This method performs cleanup after each test.

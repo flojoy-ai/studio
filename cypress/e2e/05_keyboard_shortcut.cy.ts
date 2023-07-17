@@ -1,11 +1,10 @@
 /// <reference types="cypress" />
 
-describe("Verify clear canvas button", () => {
+describe("Verify Keyboard shortcut modal", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
   // // This method performs setup before each test.
   // beforeEach(() => {
   //   // Open Eyes to start visual testing.
@@ -28,22 +27,37 @@ describe("Verify clear canvas button", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
 
-    // Clear canvas
-    cy.get('[data-testid="clear-canvas-button"]').click();
+    // Hover file button
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
 
+    // Select Keyboard shortcut option
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+    cy.percySnapshot();
     // cy.eyesCheckWindow({
-    //   tag: "dark flow page without any nodes",
+    //   tag: "dark flow page with keyboardshorcut modal",
     //   target: "window",
     //   layout: layoutRegions,
     //   fully: true,
     // });
-    cy.percySnapshot();
 
-    // Verify there aren't any nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
+    cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
+
+    // Switch to light mode and test the same thing
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+
+    cy.get('[data-testid="btn-keyboardshortcut"]').click();
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with keyboardshorcut modal",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
   });
 
   // // This method performs cleanup after each test.

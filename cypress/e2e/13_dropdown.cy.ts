@@ -1,12 +1,9 @@
 /// <reference types="cypress" />
 
-describe("Verify clear canvas button", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
+//** Tests basic toggle functionality for dropdown menu and captures the results as snapshots in light/dark mode.*/
 
-  // // This method performs setup before each test.
+describe("Verify drop down button", () => {
+  // This method performs setup before each test.
   // beforeEach(() => {
   //   // Open Eyes to start visual testing.
   //   // Each test should open its own Eyes for its own snapshots.
@@ -28,22 +25,43 @@ describe("Verify clear canvas button", () => {
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
 
-  it("clear canvas test", () => {
+  it("drop down wrapper", () => {
+    const layoutRegions = [
+      { selector: '[data-cy="app-status"]' },
+      { selector: '[data-cy="btn-play"]' },
+    ];
+
     cy.visit("/").wait(1000);
 
-    // Clear canvas
-    cy.get('[data-testid="clear-canvas-button"]').click();
-
+    //test dark mode
+    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
+    cy.percySnapshot();
     // cy.eyesCheckWindow({
-    //   tag: "dark flow page without any nodes",
+    //   tag: "dark flow page with dropdown bar",
     //   target: "window",
     //   layout: layoutRegions,
     //   fully: true,
     // });
-    cy.percySnapshot();
 
-    // Verify there aren't any nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
+
+    cy.get('[data-testid="darkmode-toggle"]').click();
+
+    // test light mode
+    cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with dropdown bar",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
+
+    cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
+      "mouseout"
+    );
   });
 
   // // This method performs cleanup after each test.
