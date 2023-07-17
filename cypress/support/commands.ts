@@ -35,3 +35,4 @@
 //     }
 //   }
 // }
+import '@percy/cypress';
