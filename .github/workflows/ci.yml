@@ -1,11 +1,11 @@
 name: CI
 
 on:
-  # push:
+  push:
   pull_request:
     branches:
       - main
-      # - develop
+      - develop
 
 env:
   APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
@@ -60,7 +60,7 @@ jobs:
 
   visual-tests:
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
         with:
