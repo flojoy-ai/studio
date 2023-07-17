@@ -169,7 +169,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             continue
         for package in node["data"]["pip_dependencies"]:
             try:
-                module = pkg_resources.get_distribution(package['name'])
+                module = pkg_resources.get_distribution(package["name"])
                 socket_msg["PRE_JOB_OP"][
                     "output"
                 ] = f"Package: {module} is already installed!"
