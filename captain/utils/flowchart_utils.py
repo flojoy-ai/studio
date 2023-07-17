@@ -10,7 +10,7 @@ from typing import Any, Callable
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
-import importlib
+import pkg_resources
 from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
@@ -169,7 +169,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             continue
         for package in node["data"]["pip_dependencies"]:
             try:
-                module = importlib.import_module(package["name"])
+                module = pkg_resources.get_distribution(package['name'])
                 socket_msg["PRE_JOB_OP"][
                     "output"
                 ] = f"Package: {module} is already installed!"
