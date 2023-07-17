@@ -5,14 +5,17 @@ import os
 from queue import Queue
 import time
 from collections import deque
-from flojoy import get_next_directions, get_next_nodes
+from flojoy import (
+    get_next_directions,
+    get_next_nodes,
+    NoInitFunctionError,
+    get_node_init_function,
+    clear_flojoy_memory,
+)
 from PYTHON.utils.dynamic_module_import import get_module_func
-from flojoy.node_init import NoInitFunctionError
-from flojoy.utils import clear_flojoy_memory, get_node_init_function
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
-from importlib import import_module
 from typing import Any, Tuple, cast, Callable
 
 lock = asyncio.Lock()

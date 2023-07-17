@@ -80,6 +80,7 @@ const ParamField = ({
           label={JSON.stringify(value)}
           size="md"
           classNames={classes}
+          checked={Boolean(value)}
         />
       );
     case "select":
