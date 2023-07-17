@@ -7,7 +7,8 @@ describe("Verify Add and Delete node", () => {
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
+  eyes.setParentBranchName(<main>)
+  eyes.setBranchName(<develop>)
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",

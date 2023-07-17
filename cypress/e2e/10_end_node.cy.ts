@@ -7,6 +7,10 @@ describe("Verify end node", () => {
   ];
   // This method performs setup before each test.
   beforeEach(() => {
+    
+    eyes.setParentBranchName(<main>)
+    eyes.setBranchName(<develop>)
+
     // Open Eyes to start visual testing.
     // Each test should open its own Eyes for its own snapshots.
     cy.eyesOpen({
