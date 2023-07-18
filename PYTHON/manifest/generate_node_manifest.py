@@ -5,11 +5,13 @@ from .build_ast import (
 )
 import inspect
 from inspect import Parameter
+from docstring_parser.numpydoc import NumpydocParser, ParamSection
 from types import UnionType, NoneType, ModuleType
 from typing import (
     Any,
     Callable,
     Type,
+    Optional,
     Union,
     get_args,
     get_origin,
@@ -32,11 +34,25 @@ SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 
 
 class ManifestBuilder:
-    def __init__(self):
+    def __init__(self, docstring: str | None):
         self.manifest: dict[str, Any] = {}
         self.inputs: list[Any] = []
         self.parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
+
+        doc_parser = NumpydocParser()
+        doc_parser.add_section(ParamSection("Inputs", "inputs"))
+        self.docstring = doc_parser.parse(docstring) if docstring else None
+        self.param_descriptions = None
+        self.return_descriptions = None
+        if self.docstring is not None:
+            self.param_descriptions = {
+                p.arg_name: p.description for p in self.docstring.params
+            }
+            self.return_descriptions = {
+                p.return_name: p.description for p in self.docstring.many_returns
+            }
+            print(self.return_descriptions)
 
     def with_name(self, name: str):
         self.manifest["name"] = name
@@ -50,19 +66,29 @@ class ManifestBuilder:
         self.manifest["type"] = node_type
         return self
 
-    def with_input(self, name: str, input_type: Type, multiple: bool = False):
+    def with_input(
+        self,
+        name: str,
+        input_type: Type,
+        multiple: bool = False,
+    ):
         self.inputs.append(
             {
                 "name": name,
                 "id": name,
                 "type": type_str(input_type),
                 "multiple": multiple,
+                "desc": self._get_param_desc(name),
             }
         )
         return self
 
     def with_param(self, name: str, param_type: Type, default: Any):
-        self.parameters[name] = {"type": type_str(param_type), "default": default}
+        self.parameters[name] = {
+            "type": type_str(param_type),
+            "default": default,
+            "desc": self._get_param_desc(name),
+        }
         return self
 
     def with_select(self, name: str, options: list[Any], default: Any):
@@ -70,11 +96,19 @@ class ManifestBuilder:
             "type": "select",
             "options": options,
             "default": default,
+            "desc": self._get_param_desc(name),
         }
         return self
 
-    def with_output(self, name: str, output_type: Type[Any]):
-        self.outputs.append({"name": name, "id": name, "type": type_str(output_type)})
+    def with_output(self, name: str, output_type: Type[Any], named: bool = False):
+        self.outputs.append(
+            {
+                "name": name,
+                "id": name,
+                "type": type_str(output_type),
+                "desc": self._get_return_desc(name, named=named),
+            }
+        )
         return self
 
     def build(self):
@@ -86,6 +120,22 @@ class ManifestBuilder:
             self.manifest["outputs"] = self.outputs
 
         return self.manifest
+
+    def _get_param_desc(self, param: str) -> Optional[str]:
+        if self.param_descriptions:
+            return self.param_descriptions.get(param)
+        return None
+
+    def _get_return_desc(self, param: str, named: bool) -> Optional[str]:
+        # If the return type is not named, then the return_name would just be None
+        # So just get the single return description out of the return value
+        if not named and self.docstring and self.docstring.returns:
+            return self.docstring.returns.description
+
+        if self.return_descriptions:
+            return self.return_descriptions.get(param)
+
+        return None
 
 
 def create_manifest(path: str) -> dict[str, Any]:
@@ -112,7 +162,7 @@ def create_manifest(path: str) -> dict[str, Any]:
 def make_manifest_for(
     func: Callable[..., Any], is_special_node: bool = False
 ) -> dict[str, Any]:
-    mb = ManifestBuilder().with_name(func.__name__).with_key(func.__name__)
+    mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
 
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
@@ -142,7 +192,7 @@ def make_manifest_for(
     elif is_typeddict(return_type):
         for attr, value in dict(return_type.__annotations__).items():
             if is_special_node:
-                mb.with_output(name=attr, output_type=value)
+                mb.with_output(name=attr, output_type=value, named=True)
             else:
                 if not issubclass(value, DataContainer):
                     raise TypeError(
@@ -150,7 +200,7 @@ def make_manifest_for(
                         f"consisting of only DataContainers as fields, got {return_type}"
                     )
 
-                mb.with_output(attr, value)
+                mb.with_output(attr, value, named=True)
 
     return mb.build()
 

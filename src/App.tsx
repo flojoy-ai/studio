@@ -128,7 +128,7 @@ const App = () => {
         withNormalizeCSS
         theme={theme === "dark" ? darkTheme : lightTheme}
       >
-        <div className={theme === "dark" ? "dark" : "light"}>
+        <div className={theme === "dark" ? "dark" : "light"} id="tw-theme-root">
           <KBarProvider actions={actions}>
             <KBarPortal>
               <KBarPositioner>

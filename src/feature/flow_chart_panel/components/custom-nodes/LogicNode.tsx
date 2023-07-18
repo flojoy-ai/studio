@@ -14,11 +14,16 @@ const LogicNode = ({
 }: CustomNodeProps & { children?: React.ReactNode }) => {
   const [{ runningNode, failedNode }] = useAtom(nodeStatusAtom);
 
+  const input = data.inputs?.[0];
+  if (!input) {
+    throw new Error("Logic node must have an input");
+  }
+
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-24 h-24 border-2 border-accent3 rounded-xl flex justify-center items-center bg-accent3/5 rotate-45",
+          "flex h-24 w-24 rotate-45 items-center justify-center rounded-xl border-2 border-accent3 bg-accent3/5",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent3"
             : "",
@@ -27,13 +32,13 @@ const LogicNode = ({
       >
         {children ?? (
           <>
-            <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent3 -rotate-45">
+            <h2 className="-rotate-45 font-sans text-2xl font-extrabold tracking-wider text-accent3">
               {data.label}
             </h2>
             <CustomHandle
               position={Position.Bottom}
               type="target"
-              id={data.inputs?.[0].id}
+              param={input}
               colorClass="!border-accent3"
               style={{ left: 3, bottom: -3 }}
             />

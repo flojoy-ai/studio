@@ -14,7 +14,7 @@ const IONode = ({ data, handleRemove }: CustomNodeProps) => {
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-48 h-48 flex flex-col items-center",
+          "flex h-48 w-48 flex-col items-center",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent4"
             : "",
@@ -22,7 +22,7 @@ const IONode = ({ data, handleRemove }: CustomNodeProps) => {
         )}
       >
         <DodecahedronSVG />
-        <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent4">
+        <h2 className="font-sans text-2xl font-extrabold tracking-wider text-accent4">
           {data.label}
         </h2>
         <HandleComponent data={data} colorClass="!border-accent4" />

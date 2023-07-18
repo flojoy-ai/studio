@@ -13,14 +13,14 @@ const DataNode = ({ data, handleRemove }: CustomNodeProps) => {
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-52 h-24 border-2 border-accent2 rounded-full flex justify-center items-center",
+          "flex h-24 w-52 items-center justify-center rounded-full border-2 border-accent2",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent2"
             : "",
           data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
       >
-        <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent2">
+        <h2 className="font-sans text-2xl font-extrabold tracking-wider text-accent2">
           {data.label}
         </h2>
         <HandleComponent data={data} colorClass="!border-accent2" />

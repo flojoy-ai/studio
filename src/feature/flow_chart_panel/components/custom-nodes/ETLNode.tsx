@@ -23,7 +23,7 @@ const ETLNode = ({
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-40 h-40 border-2 border-accent1 rounded-2xl flex justify-center items-center bg-accent1/5",
+          "flex h-40 w-40 items-center justify-center rounded-2xl border-2 border-accent1 bg-accent1/5",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent1"
             : "",
@@ -35,7 +35,7 @@ const ETLNode = ({
         }}
       >
         {children ?? (
-          <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent1">
+          <h2 className="font-sans text-2xl font-extrabold tracking-wider text-accent1">
             {data.label}
           </h2>
         )}

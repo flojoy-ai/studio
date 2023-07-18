@@ -21,7 +21,7 @@ export const nodeConfigs = {
   LABJACK: IONode,
   PHIDGET: IONode,
   SERIAL: IONode,
-  SCIPY_STATS: ScipyNode,
-  SCIPY_SIGNAL: ScipyNode,
+  STATS: ScipyNode,
+  SIGNAL: ScipyNode,
   LINALG: NumpyNode,
 };

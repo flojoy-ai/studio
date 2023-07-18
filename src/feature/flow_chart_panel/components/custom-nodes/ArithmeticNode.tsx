@@ -24,7 +24,7 @@ const ArithmeticNode = ({ data, handleRemove }: CustomNodeProps) => {
 
   return (
     <ETLNode width={72} height={72} data={data} handleRemove={handleRemove}>
-      <h2 className="font-sans font-semibold text-4xl tracking-wider text-accent1">
+      <h2 className="font-sans text-4xl font-semibold tracking-wider text-accent1">
         {operator}
       </h2>
     </ETLNode>

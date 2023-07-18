@@ -15,13 +15,13 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
 
   return (
     <LogicNode data={data} handleRemove={handleRemove}>
-      <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent3 -rotate-45">
+      <h2 className="-rotate-45 font-sans text-2xl font-extrabold tracking-wider text-accent3">
         {data.label}
       </h2>
       <CustomHandle
         position={Position.Bottom}
         type="target"
-        id={input.id}
+        param={input}
         colorClass="!border-accent3"
         style={{ left: 3, bottom: -3 }}
       />
@@ -29,7 +29,7 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
       <CustomHandle
         position={Position.Top}
         type="source"
-        id={output1.id}
+        param={output1}
         colorClass="!border-accent3"
         style={{
           top: -6,
@@ -38,7 +38,7 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
       <CustomHandle
         position={Position.Right}
         type="target"
-        id={output2.id}
+        param={output2}
         colorClass="!border-accent3"
         style={{ right: -6 }}
       />

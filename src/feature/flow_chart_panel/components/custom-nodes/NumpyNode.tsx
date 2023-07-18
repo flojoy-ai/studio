@@ -14,7 +14,7 @@ const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "w-60 h-40 border-2 border-blue-500 rounded-2xl flex justify-center items-center bg-accent1/5",
+          "flex h-40 w-60 items-center justify-center rounded-2xl border-2 border-blue-500 bg-accent1/5",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-blue-500"
             : "",
@@ -22,7 +22,7 @@ const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
         )}
       >
         <div className="flex flex-col items-center">
-          <NumpySvg className="w-16 h-16" />
+          <NumpySvg className="h-16 w-16" />
           <h2 className="font-sans text-2xl tracking-wider text-blue-500">
             <span>np.</span>
             <span className="font-extrabold">{data.label}</span>

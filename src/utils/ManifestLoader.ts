@@ -13,6 +13,7 @@ const nodeElementSchema = z.object({
         id: z.string(),
         type: z.string(),
         multiple: z.optional(z.boolean()),
+        desc: z.nullable(z.string()),
       })
     )
   ),
@@ -28,6 +29,7 @@ const nodeElementSchema = z.object({
           z.union([z.string(), z.number(), z.boolean(), z.null()])
         ),
         options: z.optional(z.array(z.string())),
+        desc: z.nullable(z.string()),
       })
     )
   ),

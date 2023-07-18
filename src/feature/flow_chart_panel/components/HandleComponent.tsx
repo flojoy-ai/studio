@@ -1,7 +1,6 @@
-import { Handle, Position } from "reactflow";
+import { Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { Box, createStyles, Flex } from "@mantine/core";
-import { twMerge } from "tailwind-merge";
 import { CustomHandle } from "./CustomHandle";
 
 const useStyles = createStyles(() => ({
@@ -39,13 +38,10 @@ const HandleComponent = ({
             <CustomHandle
               position={Position.Left}
               type="target"
-              id={param.id}
+              param={param}
               colorClass={colorClass}
               style={{ left: 1 }}
             />
-            {/* <Box pos="absolute" left={20} bottom={-12}> */}
-            {/*   {param.name !== "default" ? param.name : ""} */}
-            {/* </Box> */}
           </Flex>
         ))}
       </Box>
@@ -57,13 +53,10 @@ const HandleComponent = ({
             align="center"
             pos="relative"
           >
-            {/* <Box pos="absolute" right={20}> */}
-            {/*   {param.name !== "default" ? param.name : ""} */}
-            {/* </Box> */}
             <CustomHandle
               position={Position.Right}
               type="source"
-              id={param.id}
+              param={param}
               colorClass={colorClass}
               style={{ right: 5 }}
             />

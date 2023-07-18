@@ -7,6 +7,7 @@ import { Box, Title, createStyles } from "@mantine/core";
 import { memo, useEffect } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
+import { ParamTooltip } from "../ParamTooltip";
 
 const useStyles = createStyles((theme) => ({
   modal: {
@@ -94,7 +95,13 @@ const NodeEditModal = ({ node, otherNodes }: NodeEditModalProps) => {
             </Box>
             {Object.entries(node.data.ctrls).map(([name, param]) => (
               <div key={node.id + name} id="undrag">
-                <p className={classes.paramName}>{`${name.toUpperCase()}:`}</p>
+                <ParamTooltip
+                  param={{ name, type: param.type, desc: param.desc }}
+                  offsetX={-288}
+                  offsetY={0}
+                >
+                  <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
+                </ParamTooltip>
                 <ParamField
                   nodeId={node.id}
                   nodeCtrls={node.data.ctrls[name]}
