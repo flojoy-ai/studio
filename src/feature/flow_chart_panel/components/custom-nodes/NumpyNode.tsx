@@ -23,15 +23,12 @@ const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
       >
         <div className="flex flex-col items-center">
           <NumpySvg className="w-16 h-16" />
-          <h2 className="font-sans  text-2xl tracking-wider text-blue-500">
+          <h2 className="font-sans text-2xl tracking-wider text-blue-500">
             <span>np.</span>
             <span className="font-extrabold">{data.label}</span>
           </h2>
         </div>
-        <HandleComponent
-          data={data}
-          className="!border-blue-500 !bg-white dark:!bg-black"
-        />
+        <HandleComponent data={data} colorClass="!border-blue-500" />
       </div>
     </NodeWrapper>
   );

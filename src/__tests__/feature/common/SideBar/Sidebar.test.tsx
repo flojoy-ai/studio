@@ -40,7 +40,6 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
           leafNodeClickHandler={addNewNode}
           isSideBarOpen={isSCRIPTSideBarOpen}
           setSideBarStatus={setSCRIPTSideBarStatus}
-          appTab={"FlowChart"}
         />
       </>
     );

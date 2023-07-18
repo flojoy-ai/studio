@@ -1,10 +1,41 @@
-import os, json
+import os
+import json
 from typing import Any, Union
 from PYTHON.manifest.generate_node_manifest import create_manifest
 
 Path = os.path
 NODES_DIR = Path.join("PYTHON", "nodes")
 FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
+
+NAME_MAP = {
+    "AI_ML": "AI & ML",
+    "EXTRACTORS": "Extract",
+    "GENERATORS": "Generate",
+    "INSTRUMENTS": "I/O",
+    "LOGIC_GATES": "Logic",
+    "LOADERS": "Load",
+    "TRANSFORMERS": "Transform",
+    "VISUALIZERS": "Visualize",
+    "NUMPY": "numpy",
+    "LINALG": "np.linalg",
+    "RANDOM": "np.rand",
+    "SCIPY": "scipy",
+    "SIGNAL": "sp.signal",
+    "STATS": "sp.stats",
+}
+
+ORDERING = [
+    "AI_ML",
+    "GENERATORS",
+    "VISUALIZERS",
+    "EXTRACTORS",
+    "TRANSFORMERS",
+    "LOADERS",
+    "INSTRUMENTS",
+    "LOGIC_GATES",
+    "NUMPY",
+    "SCIPY",
+]
 
 
 __failed_nodes: list[str] = []
@@ -13,11 +44,14 @@ __generated_nodes: list[str] = []
 
 def browse_directories(dir_path: str):
     result: dict[str, Union[str, list[Any], None]] = {}
+    basename = Path.basename(dir_path)
     result["name"] = (
-        "ROOT" if os.path.basename(dir_path) == "nodes" else Path.basename(dir_path)
+        "ROOT"
+        if os.path.basename(dir_path) == "nodes"
+        else NAME_MAP.get(basename, basename)
     )
     if result["name"] != "ROOT":
-        result["key"] = result["name"].upper().replace(" ", "_")
+        result["key"] = basename
     result["children"] = []
     entries = sorted(
         os.scandir(dir_path), key=lambda e: e.name
@@ -61,8 +95,17 @@ def browse_directories(dir_path: str):
     return result
 
 
+def sort_order(element):
+    try:
+        return ORDERING.index(element["key"])
+    except ValueError:
+        return len(ORDERING)
+
+
 if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
+    map["children"].sort(key=sort_order)  # type: ignore
+
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
     )

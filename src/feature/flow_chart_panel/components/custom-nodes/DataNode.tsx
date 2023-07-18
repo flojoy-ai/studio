@@ -1,4 +1,3 @@
-import { useMantineTheme } from "@mantine/core";
 import { memo } from "react";
 import { CustomNodeProps } from "../../types/CustomNodeProps";
 import HandleComponent from "../HandleComponent";
@@ -24,10 +23,7 @@ const DataNode = ({ data, handleRemove }: CustomNodeProps) => {
         <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent2">
           {data.label}
         </h2>
-        <HandleComponent
-          data={data}
-          className="!border-accent2 !bg-white dark:!bg-black"
-        />
+        <HandleComponent data={data} colorClass="!border-accent2" />
       </div>
     </NodeWrapper>
   );

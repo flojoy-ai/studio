@@ -301,7 +301,6 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
-        appTab={"FlowChart"}
       />
       <ReactFlowProvider>
         <div

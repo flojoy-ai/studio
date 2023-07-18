@@ -9,31 +9,23 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
     throw new Error("LoopNode must have 1 inputs and 2 outputs");
   }
 
-  const input1 = data.inputs[0];
-  const input2 = data.inputs[1];
+  const input = data.inputs[0];
   const output1 = data.outputs[0];
   const output2 = data.outputs[1];
-  const operator = data.ctrls["operator_type"].value as string;
 
   return (
     <LogicNode data={data} handleRemove={handleRemove}>
       <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent3 -rotate-45">
-        {operator}
+        {data.label}
       </h2>
       <CustomHandle
         position={Position.Bottom}
         type="target"
-        id={input1.id}
+        id={input.id}
         colorClass="!border-accent3"
-        style={{ bottom: -6 }}
+        style={{ left: 3, bottom: -3 }}
       />
-      <CustomHandle
-        position={Position.Left}
-        type="target"
-        id={input2.id}
-        colorClass="!border-accent3"
-        style={{ left: -6 }}
-      />
+
       <CustomHandle
         position={Position.Top}
         type="source"

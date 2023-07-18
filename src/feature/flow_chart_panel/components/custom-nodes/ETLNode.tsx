@@ -6,7 +6,17 @@ import { nodeStatusAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 import clsx from "clsx";
 
-const ETLNode = ({ data, handleRemove }: CustomNodeProps) => {
+const ETLNode = ({
+  data,
+  width,
+  height,
+  handleRemove,
+  children,
+}: CustomNodeProps & {
+  children?: React.ReactNode;
+  width?: number;
+  height?: number;
+}) => {
   const [{ runningNode, failedNode }] = useAtom(nodeStatusAtom);
 
   return (
@@ -19,14 +29,17 @@ const ETLNode = ({ data, handleRemove }: CustomNodeProps) => {
             : "",
           data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
+        style={{
+          width,
+          height,
+        }}
       >
-        <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent1">
-          {data.label}
-        </h2>
-        <HandleComponent
-          data={data}
-          className="!border-accent1 !bg-white dark:!bg-black"
-        />
+        {children ?? (
+          <h2 className="font-sans font-extrabold text-2xl tracking-wider text-accent1">
+            {data.label}
+          </h2>
+        )}
+        <HandleComponent data={data} colorClass="!border-accent1" />
       </div>
     </NodeWrapper>
   );
