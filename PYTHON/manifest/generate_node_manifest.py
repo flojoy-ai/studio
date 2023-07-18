@@ -52,7 +52,6 @@ class ManifestBuilder:
             self.return_descriptions = {
                 p.return_name: p.description for p in self.docstring.many_returns
             }
-            print(self.return_descriptions)
 
     def with_name(self, name: str):
         self.manifest["name"] = name
