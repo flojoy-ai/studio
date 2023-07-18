@@ -63,6 +63,7 @@ def browse_directories(dir_path: str):
                 entry.name.startswith(".")
                 or entry.name.startswith("_")
                 or entry.name == "assets"
+                or entry.name == "utils"
                 or entry.name == "MANIFEST"
                 or "examples" in entry.path
                 or "a1-[autogen]" in entry.path
