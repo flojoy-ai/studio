@@ -18,7 +18,14 @@ const nodeElementSchema = z.object({
     )
   ),
   outputs: z.optional(
-    z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+    z.array(
+      z.object({
+        name: z.string(),
+        id: z.string(),
+        type: z.string(),
+        desc: z.nullable(z.string()),
+      })
+    )
   ),
   parameters: z.optional(
     z.record(

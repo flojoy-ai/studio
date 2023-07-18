@@ -41,6 +41,7 @@ export const ParamTooltip = ({
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    setTooltipOpen(false);
   };
 
   if (!children) {
@@ -85,7 +86,14 @@ export const ParamTooltip = ({
                 </code>
               ))}
               <div className="py-2" />
-              <div>{param.desc ?? "No description."}</div>
+              <div>
+                {param.desc?.split("\n").map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                )) ?? "No description."}
+              </div>
             </div>,
             document.getElementById("tw-theme-root") ?? document.body
           )

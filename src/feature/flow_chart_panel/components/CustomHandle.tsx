@@ -10,7 +10,7 @@ type CustomHandleProps = HandleProps &
       name: string;
       type: string;
       id: string;
-      desc?: string;
+      desc: string | null;
     };
   };
 
