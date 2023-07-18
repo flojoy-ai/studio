@@ -45,8 +45,9 @@ async def cancel_fc(req: PostCancelFC):
 async def write_and_run_flowchart(request: PostWFC):
     # create message for front-end to indicate we are running pre-job operations
     if request.jobsetId is None:
-        logger.debug("No jobsetId provided, skipping signal_prejob_op")
+        logger.debug("No jobsetId provided")
         return
+    
     asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
     asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))
 

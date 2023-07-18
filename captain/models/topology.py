@@ -25,8 +25,8 @@ class Topology:
         self,
         graph: nx.DiGraph,
         jobset_id: str,
-        task_queue: Queue[Any],
-        cleanup_func: Callable[..., Any],
+        task_queue: Queue[Any] = Queue(),
+        cleanup_func: Callable[..., Any] = lambda: None,
         node_delay: float = 0,
         max_runtime: float = 3000,
     ):
