@@ -17,6 +17,7 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
+  Node,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -218,7 +219,7 @@ const FlowChartTab = () => {
 
   const selectAllNodesShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = true;
       });
     });
@@ -226,7 +227,7 @@ const FlowChartTab = () => {
 
   const deselectAllNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = false;
       });
     });
@@ -234,7 +235,7 @@ const FlowChartTab = () => {
 
   const deselectNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         if (selectedNode !== null && node.id === selectedNode.id) {
           node.selected = false;
         }
@@ -314,6 +315,10 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
+            nodes={nodes}
+            setNodes={(nodes: Node<ElementsData>[]) => {
+              setNodes(nodes);
+            }}
           />
 
           <FlowChartKeyboardShortcuts />
