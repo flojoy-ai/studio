@@ -82,7 +82,6 @@ const NodeEditModal = ({
   setNodes,
 }: NodeEditModalProps) => {
   const [isTitleEditable, setIsTitleEditable] = useState(false);
-  const [hasParams, setHasParams] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
   const { classes } = useStyles();
   const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
@@ -122,11 +121,6 @@ const NodeEditModal = ({
   };
 
   useEffect(() => {
-    if (Object.keys(node.data.ctrls).length) {
-      setHasParams(true);
-    } else {
-      setHasParams(false);
-    }
     setNewTitle(node.data.label);
   }, [node.data.id]);
 
@@ -188,12 +182,7 @@ const NodeEditModal = ({
                 </>
               )}
             </Box>
-            {nodeParamChanged && (
-              <div className={classes.replayScriptNotice}>
-                <i>{replayNotice}</i>
-              </div>
-            )}
-            {hasParams ? (
+            {Object.keys(node.data.ctrls).length > 0 ? (
               <>
                 {Object.entries(node.data.ctrls).map(([name, param]) => (
                   <div key={node.id + name} id="undrag">
