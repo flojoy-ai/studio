@@ -27,6 +27,7 @@ import {
   OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
+  Controls,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -364,6 +365,7 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
+            <Controls />
           </ReactFlow>
 
           <NodeExpandMenu
