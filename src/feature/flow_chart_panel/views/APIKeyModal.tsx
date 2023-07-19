@@ -125,7 +125,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     sendApiKeyToDjango({ key: apiKey }, "set-cloud-api");
     setApiKey("");
   };
-
+  if (!isOpen) return null;
   return (
     <div
       className="relative z-10"
@@ -137,47 +137,58 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       <div className="fixed inset-0 z-10 w-full overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
-            <div className="bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div
+              className="bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
+              id="defaultModal"
+            >
               <div className="sm:flex sm:items-start">
+                <button
+                  type="button"
+                  className="absolute right-5 top-3 text-right"
+                  onClick={handleClose}
+                >
+                  x
+                </button>
                 <div className="my-5 text-center sm:ml-5 sm:mt-0 sm:text-left">
                   <h3
-                    className="mb-4 flex text-base font-semibold leading-6 text-gray-300"
+                    className="mb-4 ml-4 flex text-base font-semibold leading-6 text-gray-300"
                     id="modal-title"
                   >
                     Environment Variable
                   </h3>
-                  <div className="inline-block">
+                  <div className="ml-4 inline-block">
                     <span className="text-accent1 sm:text-sm">Key:</span>
-                    <input 
-                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-60 rounded-md sm:text-sm focus:ring-1" 
-                    type="text" 
-                    name="APIKey" 
-                    placeholder="e.g. CLIENT_KEY" />
+                    <input
+                      className="mt-1 block w-60 rounded-md border-slate-900 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-300 sm:text-sm"
+                      type="text"
+                      name="APIKey"
+                      placeholder="e.g. CLIENT_KEY"
+                    />
                   </div>
                   <div className="ml-8 inline-block">
                     <span className="text-accent1 sm:text-sm">Value:</span>
-                    <input 
-                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-80 rounded-md sm:text-sm focus:ring-1" 
-                    type="text" 
-                    name="APIValue" 
+                    <input
+                      className="mt-1 block w-72 rounded-md border-slate-900 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-300 sm:text-sm"
+                      type="text"
+                      name="APIValue"
                     />
                   </div>
                 </div>
               </div>
-
-              <button
-                type="button"
-                className="ml-5 mr-2 inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
-              >
-                List of Keys
-              </button>
-              <button
-                type="button"
-                className="ml-56 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              >
-                Submit
-              </button>
-
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  className="ml-2.5 mr-24 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
+                >
+                  List of Keys
+                </button>
+                <button
+                  type="button"
+                  className="ml-72 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </div>
         </div>

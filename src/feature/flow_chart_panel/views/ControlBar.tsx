@@ -304,7 +304,6 @@ const ControlBar = () => {
   const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
-  const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
