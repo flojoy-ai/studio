@@ -134,7 +134,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       aria-modal="true"
     >
       <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"></div>
-      <div className="fixed inset-0 z-10 overflow-y-auto">
+      <div className="fixed inset-0 z-10 w-full overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div className="bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -148,19 +148,18 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                   </h3>
                   <div className="inline-block">
                     <span className="text-accent1 sm:text-sm">Key:</span>
-                    <input
-                      className="mt-1 block w-full rounded-md border border-slate-900 py-2 pl-9 pr-3 shadow-sm placeholder:italic placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                      placeholder="e.g. CLIENT_KEY"
-                      type="text"
-                      name="search"
-                    />
+                    <input 
+                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-60 rounded-md sm:text-sm focus:ring-1" 
+                    type="text" 
+                    name="APIKey" 
+                    placeholder="e.g. CLIENT_KEY" />
                   </div>
                   <div className="ml-4 inline-block">
                     <span className="text-accent1 sm:text-sm">Value:</span>
-                    <input
-                      className="mt-1 block w-full rounded-md border border-slate-900 py-2 pl-9 pr-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                      type="text"
-                      name="search"
+                    <input 
+                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-60 rounded-md sm:text-sm focus:ring-1" 
+                    type="text" 
+                    name="APIValue" 
                     />
                   </div>
                 </div>
