@@ -44,8 +44,7 @@ const rfInstanceAtom = atomWithImmer<
 const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
 const apiKeyAtom = atomWithImmer<string>("");
-const s3AccessKeyAtom = atomWithImmer<string>("");
-const s3SecretKeyAtom = atomWithImmer<string>("");
+const apiValueAtom = atomWithImmer<string>("");
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
@@ -61,8 +60,7 @@ export function useFlowChartState() {
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
   const [apiKey, setApiKey] = useAtom(apiKeyAtom);
-  const [s3AccessKey, setS3AccessKey] = useAtom(s3AccessKeyAtom);
-  const [s3SecretKey, setS3SecretKey] = useAtom(s3SecretKeyAtom);
+  const [apiValue, setApiValue] = useAtom(apiValueAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
@@ -81,13 +79,11 @@ export function useFlowChartState() {
     setFailedNode,
     apiKey,
     setApiKey,
+    apiValue,
+    setApiValue,
     nodeParamChanged,
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
-    s3AccessKey,
-    setS3AccessKey,
-    s3SecretKey,
-    setS3SecretKey,
   };
 }

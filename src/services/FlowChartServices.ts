@@ -2,7 +2,6 @@ import { Settings } from "@src/hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
-
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 
 const flowKey = "flow-joy";
@@ -18,6 +17,12 @@ const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
+export type CLOUD_OPENAI_TYPE = {
+  key: string;
+};
+
+export type API_TYPE = CLOUD_OPENAI_TYPE;
+
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   if (rfInstance) {
     const flowObj = rfInstance;
@@ -25,17 +30,15 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const sendApiKeyToDjango = async (apiKey: string) => {
+export const sendApiKeyToDjango = async (body: API_TYPE, endpoint: string) => {
   try {
-    const response = await fetch(
-      `${API_URI}/key/?` +
-        new URLSearchParams({
-          api_key: apiKey,
-        }).toString(),
-      {
-        method: "POST",
-      }
-    );
+    const response = await fetch(`${API_URI}/api/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
     if (response.ok) {
       await response.json();
@@ -62,44 +65,7 @@ export const sendApiKeyToDjango = async (apiKey: string) => {
     });
   }
 };
-export const sendS3KeyToDjango = async (
-  s3keyname: string,
-  s3AccessKey: string,
-  s3SecretKey: string
-) => {
-  try {
-    const response = await fetch(`${API_URI}/s3/set-s3-key`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: s3keyname,
-        accessKey: s3AccessKey,
-        secretKey: s3SecretKey,
-      }),
-    });
 
-    if (response.ok) {
-      await response.json();
-      notifications.update({
-        id: "set-s3-key",
-        title: "Successful!",
-        message: "Successfully set the Access Key",
-        autoClose: 5000,
-      });
-    } else {
-      throw new Error("Unable to process the response");
-    }
-  } catch (error) {
-    notifications.update({
-      id: "set-s3-key",
-      title: "Failed!",
-      message: "Failed to set the Access Key",
-      autoClose: 5000,
-    });
-  }
-};
 export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
