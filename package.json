@@ -37,7 +37,6 @@
     "jotai-immer": "^0.2.0",
     "js-yaml": "^4.1.0",
     "just-clone": "^6.2.0",
-    "kbar": "^0.1.0-beta.40",
     "localforage": "^1.10.0",
     "lucide-react": "^0.260.0",
     "mixpanel-browser": "^2.47.0",
