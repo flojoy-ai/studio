@@ -69,7 +69,7 @@ class Topology:
         for job_id in cast(list[str], self.working_graph.nodes):
             if (
                 job_id not in self.finished_jobs
-                and self.working_graph.in_degree(job_id) == 0
+                and self.original_graph.in_degree(job_id) == 0
             ):
                 next_jobs.append(job_id)
         return next_jobs
@@ -122,7 +122,7 @@ class Topology:
                 previous_jobs=previous_jobs,
             )
         )
-        if node["cmd"] == "LOOP":
+        if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
 
     # also used for when the topology finishes
@@ -131,6 +131,9 @@ class Topology:
         self.cancelled = True
         self.queued_jobs.clear()
         self.finalizer()
+
+    def is_cancelled(self):
+        return self.cancelled
 
     async def handle_finished_job(self, result: dict[str, Any]):
         #
@@ -419,6 +422,12 @@ class Topology:
         return list(
             set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
         )
+
+    def is_loop_node(self, job_id: str):
+        node = cast(
+            dict[str, Any], self.original_graph.nodes[job_id]
+        )  # working graph is modified after each node run so it's safe to use original graph to retrieve the node
+        return bool(node and node["cmd"] == "LOOP")
 
     def cleanup(self):
         clear_flojoy_memory()

@@ -15,6 +15,7 @@ from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
 import traceback
+from captain.utils.broadcast import signal_standby
 
 
 def run_worker(task_queue: Queue[Any], imported_functions: dict[str, Any]):
@@ -145,13 +146,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         manager.end_worker_threads()
         clear_memory()
         if is_finished:
-            socket_msg = WorkerJobResponse(
-                jobset_id=request.jobsetId,
-                sys_status=STATUS_CODES["STANDBY"],
-                failed_nodes=[],
-                running_node="",
-            )
-            asyncio.create_task(manager.ws.broadcast(socket_msg))
+            asyncio.create_task(signal_standby(manager, request.jobsetId))
 
     # clean up before next run
     clean_up_function()
