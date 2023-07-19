@@ -5,7 +5,6 @@ import NumpyNode from "@src/feature/flow_chart_panel/components/custom-nodes/Num
 import DataNode from "@src/feature/flow_chart_panel/components/custom-nodes/DataNode";
 import ETLNode from "@src/feature/flow_chart_panel/components/custom-nodes/ETLNode";
 import IONode from "@src/feature/flow_chart_panel/components/custom-nodes/IONode";
-import LogicNode from "@src/feature/flow_chart_panel/components/custom-nodes/LogicNode";
 import LoopNode from "@src/feature/flow_chart_panel/components/custom-nodes/LoopNode";
 import ArithmeticNode from "@src/feature/flow_chart_panel/components/custom-nodes/ArithmeticNode";
 
@@ -16,7 +15,6 @@ export const nodeConfigs = {
   PLOTLY: VisorNode,
   CONDITIONALS: ConditionalNode,
   LOOPS: LoopNode,
-  TERMINATORS: LogicNode,
   KEITHLEY: IONode,
   LABJACK: IONode,
   PHIDGET: IONode,

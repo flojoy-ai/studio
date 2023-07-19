@@ -286,40 +286,6 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 96,
-      height: 96,
-      id: "END-7c126f65-f59a-4851-a2bb-a6757e71c333",
-      type: "TERMINATORS",
-      data: {
-        id: "END-7c126f65-f59a-4851-a2bb-a6757e71c333",
-        label: "END",
-        func: "END",
-        type: "TERMINATORS",
-        ctrls: {},
-        inputs: [
-          {
-            name: "default",
-            id: "default",
-            type: "Any",
-            multiple: false,
-            desc: null,
-          },
-        ],
-        path: "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-        selected: false,
-      },
-      position: {
-        x: 774.3152088816768,
-        y: 40.42517340359069,
-      },
-      selected: false,
-      positionAbsolute: {
-        x: 774.3152088816768,
-        y: 40.42517340359069,
-      },
-      dragging: true,
-    },
-    {
       width: 72,
       height: 72,
       id: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
@@ -369,8 +335,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 380,
-      height: 293,
+      width: 250,
+      height: 159,
       id: "HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f",
       type: "PLOTLY",
       data: {
@@ -411,8 +377,8 @@ export const NOISY_SINE = {
       dragging: true,
     },
     {
-      width: 380,
-      height: 293,
+      width: 225,
+      height: 226,
       id: "SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13",
       type: "PLOTLY",
       data: {
@@ -510,25 +476,12 @@ export const NOISY_SINE = {
       targetHandle: "default",
       id: "reactflow__edge-ADD-98a98f19-2a03-42b6-b681-155f757af16fdefault-SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13default",
     },
-    {
-      source: "HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f",
-      sourceHandle: "default",
-      target: "END-7c126f65-f59a-4851-a2bb-a6757e71c333",
-      targetHandle: "default",
-      id: "reactflow__edge-HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642fdefault-END-7c126f65-f59a-4851-a2bb-a6757e71c333default",
-    },
-    {
-      source: "SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13",
-      sourceHandle: "default",
-      target: "END-7c126f65-f59a-4851-a2bb-a6757e71c333",
-      targetHandle: "default",
-      id: "reactflow__edge-SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13default-END-7c126f65-f59a-4851-a2bb-a6757e71c333default",
-    },
   ],
+
   viewport: {
-    x: -245.41604644889367,
-    y: 253.3329229170674,
-    zoom: 0.5,
+    x: 592.1671685175859,
+    y: 199.096563414574,
+    zoom: 0.8336308269937585,
   },
 };
 

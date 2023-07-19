@@ -5,6 +5,7 @@ import { CustomHandle } from "../CustomHandle";
 import LogicNode from "./LogicNode";
 
 export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
+  console.log("data", data);
   if (!data.inputs || !data.outputs) {
     throw new Error("LoopNode must have 1 inputs and 2 outputs");
   }
@@ -37,7 +38,7 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
       />
       <CustomHandle
         position={Position.Right}
-        type="target"
+        type="source"
         param={output2}
         colorClass="!border-accent3"
         style={{ right: -6 }}

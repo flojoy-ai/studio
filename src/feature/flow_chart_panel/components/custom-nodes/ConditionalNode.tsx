@@ -4,9 +4,9 @@ import { CustomNodeProps } from "../../types/CustomNodeProps";
 import { CustomHandle } from "../CustomHandle";
 import LogicNode from "./LogicNode";
 
-export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
+export const ConditionalNode = ({ data, handleRemove }: CustomNodeProps) => {
   if (!data.inputs || !data.outputs) {
-    throw new Error("LoopNode must have 1 inputs and 2 outputs");
+    throw new Error("ConditionalNode must have 2 inputs and 2 outputs");
   }
 
   const input1 = data.inputs[0];
@@ -54,4 +54,4 @@ export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
   );
 };
 
-export default memo(LoopNode);
+export default memo(ConditionalNode);

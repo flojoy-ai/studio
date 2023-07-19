@@ -19,7 +19,7 @@ const HandleComponent = ({
   colorClass,
 }: {
   data: CustomNodeProps["data"];
-  colorClass: string;
+  colorClass?: string;
 }) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
@@ -39,7 +39,7 @@ const HandleComponent = ({
               position={Position.Left}
               type="target"
               param={param}
-              colorClass={colorClass}
+              colorClass={colorClass ?? ""}
               style={{ left: 1 }}
             />
           </Flex>
@@ -57,7 +57,7 @@ const HandleComponent = ({
               position={Position.Right}
               type="source"
               param={param}
-              colorClass={colorClass}
+              colorClass={colorClass ?? ""}
               style={{ right: 5 }}
             />
           </Flex>

@@ -72,7 +72,7 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
       result
         ? makePlotlyData(result.result.default_fig.data, theme, true)
         : undefined,
-    [result, theme.colorScheme]
+    [result, theme]
   );
 
   return (

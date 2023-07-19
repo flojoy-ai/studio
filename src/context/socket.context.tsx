@@ -3,6 +3,7 @@ import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
+import { SOCKET_URL } from "@src/data/constants";
 
 type States = {
   programResults: ResultsType | null;
@@ -41,11 +42,6 @@ const DEFAULT_STATES = {
 
 export const SocketContext = createContext<{ states: States } | null>(null);
 
-const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-const BACKEND_PORT = process.env.VITE_SOCKET_PORT
-  ? Number(process.env.VITE_SOCKET_PORT)
-  : 8000;
-
 export const SocketContextProvider = ({
   children,
 }: {
@@ -73,7 +69,7 @@ export const SocketContextProvider = ({
       console.log("Creating new WebSocket connection to backend");
       const socketId = UUID();
       const ws = new WebSocketServer({
-        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/${socketId}`,
+        url: `${SOCKET_URL}/${socketId}`,
         pingResponse: handleStateChange("serverStatus"),
         onNodeResultsReceived: setProgramResults,
         runningNode: handleStateChange("runningNode"),

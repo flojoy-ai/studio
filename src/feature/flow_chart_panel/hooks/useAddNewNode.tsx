@@ -73,7 +73,7 @@ export const useAddNewNode = (
 
       const newNode = {
         id: nodeId,
-        type: uiComponentId || type,
+        type: uiComponentId ?? type,
         data: {
           id: nodeId,
           label: nodeLabel,

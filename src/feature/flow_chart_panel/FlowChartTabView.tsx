@@ -80,15 +80,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    nodesManifest,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -98,19 +91,11 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(
-    () => (
-      <SidebarCustomContent
-        onAddNode={addNewNode}
-        nodesManifest={nodesManifest}
-      />
-    ),
-    [addNewNode, nodesManifest]
-  );
+  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    []
+    [setIsSidebarOpen]
   );
 
   const handleNodeRemove = useCallback(
