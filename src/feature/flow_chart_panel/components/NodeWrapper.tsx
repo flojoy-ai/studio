@@ -35,6 +35,7 @@ const NodeWrapper = ({
   return (
     <Box
       data-testid="node-wrapper"
+      className="node-wrapper"
       pos="relative"
       onClick={() => setIsEditMode(true)}
     >

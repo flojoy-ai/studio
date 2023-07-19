@@ -34,5 +34,4 @@ const LoadIconSvg = () => {
     </div>
   );
 };
-
 export default LoadIconSvg;

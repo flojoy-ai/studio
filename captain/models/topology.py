@@ -158,7 +158,7 @@ class Topology:
             self.run_jobs(next_jobs)
 
     def process_job_result(
-        self, job_id: str, job_result: dict[str, Any], success: bool
+        self, job_id: str, job_result: dict[str, Any] | None, success: bool
     ):
         """
         process special instructions to scheduler
@@ -168,6 +168,7 @@ class Topology:
         if not success:
             logger.debug(f"{job_id} job failed")
             self.mark_job_failure(job_id)
+            self.cancelled = True
             return []
 
         logger.debug(f"job id: {job_id}")

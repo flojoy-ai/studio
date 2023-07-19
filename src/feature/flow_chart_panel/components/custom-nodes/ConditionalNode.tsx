@@ -1,69 +1,57 @@
-import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, Text, clsx } from "@mantine/core";
 import { memo } from "react";
-import { useNodeStyles } from "../DefaultNode";
-import { NodeLabel } from "../NodeLabel";
-import NodeWrapper from "../NodeWrapper";
+import { Position } from "reactflow";
+import { CustomNodeProps } from "../../types/CustomNodeProps";
+import { CustomHandle } from "../CustomHandle";
+import LogicNode from "./LogicNode";
 
-const ConditionalNode = ({ data, handleRemove }: CustomNodeProps) => {
-  const { classes } = useNodeStyles();
+export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
+  if (!data.inputs || !data.outputs) {
+    throw new Error("LoopNode must have 1 inputs and 2 outputs");
+  }
 
-  const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs ?? [];
+  const input1 = data.inputs[0];
+  const input2 = data.inputs[1];
+  const output1 = data.outputs[0];
+  const output2 = data.outputs[1];
+  const operator = data.ctrls["operator_type"].value as string;
 
   return (
-    <NodeWrapper data={data} handleRemove={handleRemove}>
-      <Box
-        className={clsx(
-          runningNode === data.id || data.selected ? classes.defaultShadow : "",
-          failedNode === data.id ? classes.failShadow : ""
-        )}
-      >
-        <Box
-          className={clsx(classes.nodeContainer, classes.defaultNode)}
-          style={{
-            ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-          }}
-        >
-          <Box>
-            <Box mt={25}>
-              <NodeLabel label={data.label} />
-            </Box>
-            <Box>
-              {data.func === "CONDITIONAL" && (
-                <>
-                  <Text
-                    mt={20}
-                    sx={{ textAlign: "center" }}
-                    data-testid="conditional-operator-type"
-                  >
-                    x {data["ctrls"]["operator_type"]["value"]} y
-                  </Text>
-                </>
-              )}
-              {data.func === "TIMER" && (
-                <Text data-testid="timer-value">
-                  {data["ctrls"][`TIMER_${data.label}_sleep_time`]["value"]}s
-                </Text>
-              )}
-            </Box>
-          </Box>
-
-          <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 32 : "fit-content"}
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <HandleComponent data={data} />
-          </Box>
-        </Box>
-      </Box>
-    </NodeWrapper>
+    <LogicNode data={data} handleRemove={handleRemove}>
+      <h2 className="-rotate-45 font-sans text-2xl font-extrabold tracking-wider text-accent3">
+        {operator}
+      </h2>
+      <CustomHandle
+        position={Position.Bottom}
+        type="target"
+        param={input1}
+        colorClass="!border-accent3"
+        style={{ bottom: -6 }}
+      />
+      <CustomHandle
+        position={Position.Left}
+        type="target"
+        param={input2}
+        colorClass="!border-accent3"
+        style={{ left: -6 }}
+      />
+      <CustomHandle
+        position={Position.Top}
+        type="source"
+        param={output1}
+        colorClass="!border-accent3"
+        style={{
+          top: -6,
+        }}
+      />
+      <CustomHandle
+        position={Position.Right}
+        type="target"
+        param={output2}
+        colorClass="!border-accent3"
+        style={{ right: -6 }}
+      />
+    </LogicNode>
   );
 };
 
-export default memo(ConditionalNode);
+export default memo(LoopNode);

@@ -35,8 +35,13 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 
-const failedNodeAtom = atomWithImmer<string>("");
-const runningNodeAtom = atomWithImmer<string>("");
+export const failedNodeAtom = atom<string>("");
+export const runningNodeAtom = atom<string>("");
+export const nodeStatusAtom = atom((get) => ({
+  runningNode: get(runningNodeAtom),
+  failedNode: get(failedNodeAtom),
+}));
+
 const showLogsAtom = atomWithImmer<boolean>(false);
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined

@@ -59,7 +59,6 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs ?? [];
 
   const {
     states: { programResults },
@@ -100,12 +99,12 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
               isThumbnail
             />
 
-            <HandleComponent data={data} />
+            <HandleComponent data={data} colorClass="!border-accent1" />
           </Box>
         ) : (
           <Box className={clsx(classes.visorNode, nodeClasses.nodeContainer)}>
             {chartElemMap[data.func]}
-            <HandleComponent data={data} />
+            <HandleComponent data={data} colorClass="!border-accent1" />
           </Box>
         )}
       </Box>

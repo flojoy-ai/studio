@@ -45,9 +45,21 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
 
         # Line numbers and col offset must be preserved for compiler to be happy
         if node.body:
-            node.body = [
-                ast.Pass(lineno=node.body[0].lineno, col_offset=node.body[0].col_offset)
-            ]
+            new_body: list[ast.stmt]
+            match node.body[0]:
+                # Has a docstring
+                case ast.Expr(value=ast.Constant(value=_)):
+                    new_body = [node.body[0]]
+                # Doesn't have a docstring
+                case _:
+                    new_body = [
+                        ast.Pass(
+                            lineno=node.body[0].lineno,
+                            col_offset=node.body[0].col_offset,
+                        )
+                    ]
+
+            node.body = new_body
         else:
             node.body = [ast.Pass(lineno=node.lineno, col_offset=node.col_offset)]
 

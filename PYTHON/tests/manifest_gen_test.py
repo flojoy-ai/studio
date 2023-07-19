@@ -24,16 +24,27 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "default",
                     "type": "OrderedPair",
                     "multiple": False,
+                    "desc": None,
                 },
                 {
                     "name": "other",
                     "id": "other",
                     "type": "Any",
                     "multiple": False,
+                    "desc": None,
                 },
             ],
-            "parameters": {"some_param": {"type": "int", "default": None}},
-            "outputs": [{"name": "default", "id": "default", "type": "OrderedPair"}],
+            "parameters": {
+                "some_param": {"type": "int", "default": None, "desc": None}
+            },
+            "outputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedPair",
+                    "desc": None,
+                }
+            ],
         }
 
     def test_node_manifest_with_deps(self):
@@ -49,10 +60,19 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "mat",
                     "type": "Matrix",
                     "multiple": False,
+                    "desc": None,
                 },
-                {"name": "data", "id": "data", "type": "DataFrame", "multiple": False},
+                {
+                    "name": "data",
+                    "id": "data",
+                    "type": "DataFrame",
+                    "multiple": False,
+                    "desc": None,
+                },
             ],
-            "outputs": [{"name": "default", "id": "default", "type": "Image"}],
+            "outputs": [
+                {"name": "default", "id": "default", "type": "Image", "desc": None}
+            ],
             "pip_dependencies": [
                 {"name": "tensorflow", "v": "2.12.0"},
                 {"name": "torch", "v": "2.0.1"},
@@ -65,10 +85,12 @@ class ManifestGenerationTest(unittest.TestCase):
             "name": "NO_INPUTS",
             "key": "NO_INPUTS",
             "parameters": {
-                "foo": {"type": "list[int]", "default": None},
-                "bar": {"type": "str", "default": None},
+                "foo": {"type": "list[int]", "default": None, "desc": None},
+                "bar": {"type": "str", "default": None, "desc": None},
             },
-            "outputs": [{"name": "default", "id": "default", "type": "Any"}],
+            "outputs": [
+                {"name": "default", "id": "default", "type": "Any", "desc": None}
+            ],
         }
 
     def test_manifest_with_node_type(self):
@@ -79,9 +101,17 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "DEFAULT_NODE",
             "type": "default",
             "inputs": [
-                {"name": "default", "id": "default", "type": "Any", "multiple": False}
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "Any",
+                    "multiple": False,
+                    "desc": None,
+                }
             ],
-            "outputs": [{"name": "default", "id": "default", "type": "Any"}],
+            "outputs": [
+                {"name": "default", "id": "default", "type": "Any", "desc": None}
+            ],
         }
 
     def test_manifest_with_default_param_values(self):
@@ -96,13 +126,21 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "default",
                     "type": "OrderedTriple",
                     "multiple": False,
+                    "desc": None,
                 },
             ],
             "parameters": {
-                "foo": {"type": "str", "default": "bar"},
-                "nums": {"type": "list[int]", "default": [1, 2, 3]},
+                "foo": {"type": "str", "default": "bar", "desc": None},
+                "nums": {"type": "list[int]", "default": [1, 2, 3], "desc": None},
             },
-            "outputs": [{"name": "default", "id": "default", "type": "OrderedTriple"}],
+            "outputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedTriple",
+                    "desc": None,
+                }
+            ],
         }
 
     def test_manifest_with_unions(self):
@@ -117,15 +155,29 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "a",
                     "type": "Matrix|DataFrame|Image",
                     "multiple": False,
+                    "desc": None,
                 },
-                {"name": "b", "id": "b", "type": "Any", "multiple": False},
+                {
+                    "name": "b",
+                    "id": "b",
+                    "type": "Any",
+                    "multiple": False,
+                    "desc": None,
+                },
                 {
                     "name": "c",
                     "id": "c",
                     "type": "Matrix|DataFrame|Image",
                     "multiple": False,
+                    "desc": None,
                 },
-                {"name": "d", "id": "d", "type": "Any", "multiple": False},
+                {
+                    "name": "d",
+                    "id": "d",
+                    "type": "Any",
+                    "multiple": False,
+                    "desc": None,
+                },
             ],
             # "parameters": {
             #     "foo": {"type": "str|int", "default": "bar"},
@@ -135,6 +187,7 @@ class ManifestGenerationTest(unittest.TestCase):
                     "name": "default",
                     "id": "default",
                     "type": "OrderedPair|OrderedTriple",
+                    "desc": None,
                 }
             ],
         }
@@ -151,19 +204,33 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "a",
                     "type": "OrderedPair|OrderedTriple",
                     "multiple": False,
+                    "desc": None,
                 },
-                {"name": "b", "id": "b", "type": "Matrix", "multiple": False},
-                {"name": "c", "id": "c", "type": "Any", "multiple": False},
+                {
+                    "name": "b",
+                    "id": "b",
+                    "type": "Matrix",
+                    "multiple": False,
+                    "desc": None,
+                },
+                {
+                    "name": "c",
+                    "id": "c",
+                    "type": "Any",
+                    "multiple": False,
+                    "desc": None,
+                },
             ],
             "parameters": {
-                "foo": {"type": "str", "default": None},
-                "bar": {"type": "list[int]", "default": None},
+                "foo": {"type": "str", "default": None, "desc": None},
+                "bar": {"type": "list[int]", "default": None, "desc": None},
             },
             "outputs": [
                 {
                     "name": "default",
                     "id": "default",
                     "type": "OrderedPair",
+                    "desc": None,
                 }
             ],
         }
@@ -175,31 +242,36 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "SELECTS",
             "type": "TEST_TYPE",
             "inputs": [
-                {"name": "default", "id": "default", "type": "Any", "multiple": False}
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "Any",
+                    "multiple": False,
+                    "desc": None,
+                }
             ],
             "parameters": {
                 "option1": {
                     "type": "select",
                     "options": ["a", "b", "c"],
                     "default": "a",
+                    "desc": None,
                 },
                 "option2": {
                     "type": "select",
                     "options": ["d", "e", "f"],
                     "default": None,
+                    "desc": None,
                 },
                 "option3": {
                     "type": "select",
                     "options": [1, 2, 3],
                     "default": 3,
+                    "desc": None,
                 },
             },
             "outputs": [
-                {
-                    "name": "default",
-                    "id": "default",
-                    "type": "Any",
-                }
+                {"name": "default", "id": "default", "type": "Any", "desc": None}
             ],
         }
 
@@ -215,19 +287,28 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "a",
                     "type": "OrderedPair",
                     "multiple": False,
+                    "desc": None,
                 },
-                {"name": "b", "id": "b", "type": "OrderedPair", "multiple": True},
-                {"name": "c", "id": "c", "type": "Matrix|DataFrame", "multiple": True},
+                {
+                    "name": "b",
+                    "id": "b",
+                    "type": "OrderedPair",
+                    "multiple": True,
+                    "desc": None,
+                },
+                {
+                    "name": "c",
+                    "id": "c",
+                    "type": "Matrix|DataFrame",
+                    "multiple": True,
+                    "desc": None,
+                },
             ],
             "parameters": {
-                "foo": {"type": "list[int]", "default": None},
+                "foo": {"type": "list[int]", "default": None, "desc": None},
             },
             "outputs": [
-                {
-                    "name": "default",
-                    "id": "default",
-                    "type": "Matrix",
-                }
+                {"name": "default", "id": "default", "type": "Matrix", "desc": None}
             ],
         }
 
@@ -242,6 +323,81 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "default",
                     "type": "Any",
                     "multiple": False,
+                    "desc": None,
+                },
+            ],
+        }
+
+    def test_docstring(self):
+        manifest = get_manifest("docstring.py")
+        assert manifest == {
+            "name": "DOCSTRING",
+            "key": "DOCSTRING",
+            "type": "TEST_TYPE",
+            "inputs": [
+                {
+                    "name": "a",
+                    "id": "a",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                    "desc": "Does something cool\nover multiple lines",
+                },
+                {
+                    "name": "b",
+                    "id": "b",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                    "desc": "Does another cool thing",
+                },
+            ],
+            "parameters": {
+                "foo": {"type": "int", "default": None, "desc": "A number"},
+                "bar": {"type": "str", "default": None, "desc": "A string"},
+            },
+            "outputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedPair",
+                    "desc": "The sum of cool things",
+                }
+            ],
+        }
+
+    def test_docstring_multi_return(self):
+        manifest = get_manifest("docstring_multi_return.py")
+        assert manifest == {
+            "name": "DOCSTRING_MULTI_RETURN",
+            "key": "DOCSTRING_MULTI_RETURN",
+            "type": "TEST_TYPE",
+            "inputs": [
+                {
+                    "name": "a",
+                    "id": "a",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                    "desc": None,
+                },
+                {
+                    "name": "b",
+                    "id": "b",
+                    "type": "OrderedPair",
+                    "multiple": False,
+                    "desc": None,
+                },
+            ],
+            "outputs": [
+                {
+                    "name": "output1",
+                    "id": "output1",
+                    "type": "OrderedPair",
+                    "desc": "Thing 1",
+                },
+                {
+                    "name": "output2",
+                    "id": "output2",
+                    "type": "OrderedTriple",
+                    "desc": "Thing 2",
                 },
             ],
         }

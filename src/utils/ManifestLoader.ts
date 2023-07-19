@@ -13,11 +13,19 @@ const nodeElementSchema = z.object({
         id: z.string(),
         type: z.string(),
         multiple: z.optional(z.boolean()),
+        desc: z.nullable(z.string()),
       })
     )
   ),
   outputs: z.optional(
-    z.array(z.object({ name: z.string(), id: z.string(), type: z.string() }))
+    z.array(
+      z.object({
+        name: z.string(),
+        id: z.string(),
+        type: z.string(),
+        desc: z.nullable(z.string()),
+      })
+    )
   ),
   parameters: z.optional(
     z.record(
@@ -28,6 +36,7 @@ const nodeElementSchema = z.object({
           z.union([z.string(), z.number(), z.boolean(), z.null()])
         ),
         options: z.optional(z.array(z.string())),
+        desc: z.nullable(z.string()),
       })
     )
   ),
