@@ -1,6 +1,7 @@
-import { Handle, Position } from "reactflow";
+import { Position } from "reactflow";
 import { CustomNodeProps } from "../types/CustomNodeProps";
 import { Box, createStyles, Flex } from "@mantine/core";
+import { CustomHandle } from "./CustomHandle";
 
 const useStyles = createStyles(() => ({
   handleWrapper: {
@@ -13,7 +14,13 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
+const HandleComponent = ({
+  data,
+  colorClass,
+}: {
+  data: CustomNodeProps["data"];
+  colorClass?: string;
+}) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
 
@@ -28,22 +35,13 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
             align="center"
             pos="relative"
           >
-            <Handle
+            <CustomHandle
               position={Position.Left}
               type="target"
-              id={param.id}
-              // Needs to be inline style for it to actually override the default react flow styles...
-              style={{
-                border: "1px solid lightgray",
-                width: 12,
-                height: 12,
-                borderRadius: 0,
-                left: 0,
-              }}
+              param={param}
+              colorClass={colorClass ?? ""}
+              style={{ left: 1 }}
             />
-            <Box pos="absolute" left={20} bottom={-12}>
-              {param.name !== "default" ? param.name : ""}
-            </Box>
           </Flex>
         ))}
       </Box>
@@ -55,21 +53,12 @@ const HandleComponent = ({ data }: { data: CustomNodeProps["data"] }) => {
             align="center"
             pos="relative"
           >
-            <Box pos="absolute" right={20}>
-              {param.name !== "default" ? param.name : ""}
-            </Box>
-            <Handle
+            <CustomHandle
               position={Position.Right}
               type="source"
-              id={param.id}
-              // Needs to be inline style for it to actually override the default react flow styles...
-              style={{
-                border: "1px solid lightgray",
-                width: 12,
-                height: 12,
-                borderRadius: 0,
-                right: 4,
-              }}
+              param={param}
+              colorClass={colorClass ?? ""}
+              style={{ right: 5 }}
             />
           </Flex>
         ))}

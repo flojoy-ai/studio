@@ -17,6 +17,7 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
+  Node,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -26,6 +27,7 @@ import {
   OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
+  Controls,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -78,15 +80,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    nodesManifest,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -96,19 +91,11 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(
-    () => (
-      <SidebarCustomContent
-        onAddNode={addNewNode}
-        nodesManifest={nodesManifest}
-      />
-    ),
-    [addNewNode, nodesManifest]
-  );
+  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    []
+    [setIsSidebarOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -218,7 +205,7 @@ const FlowChartTab = () => {
 
   const selectAllNodesShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = true;
       });
     });
@@ -226,7 +213,7 @@ const FlowChartTab = () => {
 
   const deselectAllNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = false;
       });
     });
@@ -234,7 +221,7 @@ const FlowChartTab = () => {
 
   const deselectNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         if (selectedNode !== null && node.id === selectedNode.id) {
           node.selected = false;
         }
@@ -301,7 +288,6 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
-        appTab={"FlowChart"}
       />
       <ReactFlowProvider>
         <div
@@ -314,6 +300,10 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
+            nodes={nodes}
+            setNodes={(nodes: Node<ElementsData>[]) => {
+              setNodes(nodes);
+            }}
           />
 
           <FlowChartKeyboardShortcuts />
@@ -360,6 +350,7 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
+            <Controls />
           </ReactFlow>
 
           <NodeExpandMenu

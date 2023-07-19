@@ -10,11 +10,12 @@ from typing import Any, Callable
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
-import importlib
+import pkg_resources
 from .status_codes import STATUS_CODES
-from flojoy.job_service import JobService
+from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
 import traceback
+from captain.utils.broadcast import signal_standby
 
 
 def run_worker(task_queue: Queue[Any], imported_functions: dict[str, Any]):
@@ -127,7 +128,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
 
 # clears memory used by some worker nodes and job results
 def clear_memory():
-    JobService().reset()
+    clear_flojoy_memory()
 
 
 async def run_flow_chart(manager: Manager):
@@ -141,9 +142,11 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
 
-    def clean_up_function():
+    def clean_up_function(is_finished: bool = False):
         manager.end_worker_threads()
         clear_memory()
+        if is_finished:
+            asyncio.create_task(signal_standby(manager, request.jobsetId))
 
     # clean up before next run
     clean_up_function()
@@ -169,7 +172,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             continue
         for package in node["data"]["pip_dependencies"]:
             try:
-                module = importlib.import_module(package["name"])
+                module = pkg_resources.get_distribution(package["name"])
                 socket_msg["PRE_JOB_OP"][
                     "output"
                 ] = f"Package: {module} is already installed!"

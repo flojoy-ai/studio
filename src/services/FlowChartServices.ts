@@ -4,13 +4,9 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { API_URI } from "@src/data/constants";
 
 const flowKey = "flow-joy";
-const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-const BACKEND_PORT = process.env.VITE_BACKEND_PORT
-  ? +process.env.VITE_BACKEND_PORT
-  : 8000;
-const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.

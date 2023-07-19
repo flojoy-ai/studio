@@ -13,13 +13,18 @@ async def broadcast_worker_response(manager: Manager, request_dict: dict):
     await manager.ws.broadcast(worker_response)
 
 
-async def signal_prejob_op(manager: Manager, jobsetId: str):
+async def signal_prejob_op(manager: Manager, jobset_id: str):
     msg = WorkerJobResponse(
-        jobset_id=jobsetId, sys_status=STATUS_CODES["RUN_PRE_JOB_OP"]
+        jobset_id=jobset_id, sys_status=STATUS_CODES["RUN_PRE_JOB_OP"]
     )
     await manager.ws.broadcast(msg)
 
 
-async def signal_standby(manager: Manager, jobsetId: str):
-    msg = WorkerJobResponse(jobset_id=jobsetId, sys_status=STATUS_CODES["STANDBY"])
+async def signal_standby(manager: Manager, jobset_id: str):
+    msg = WorkerJobResponse(
+        jobset_id=jobset_id,
+        sys_status=STATUS_CODES["STANDBY"],
+        failed_nodes=[],
+        running_node="",
+    )
     await manager.ws.broadcast(msg)
