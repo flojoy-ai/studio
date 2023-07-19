@@ -30,16 +30,17 @@ const useStyles = createStyles((theme) => ({
     fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Inter",
-    marginTop: "5%",
-    marginLeft: "6.5%",
+    marginTop: "7%",
+    marginLeft: "5.6%",
+    marginBottom: "-2%",
   },
   titleText: {
     marginTop: -2.3,
   },
   oneSubmitButtonLine: {
     display: "flex",
-    marginLeft: "4.2%",
-    marginTop: "5%",
+    marginLeft: "5.6%",
+    marginTop: "4%",
     gap: 4,
     color: theme.colors.accent1[0],
   },
@@ -47,9 +48,26 @@ const useStyles = createStyles((theme) => ({
     display: "relative",
     marginRight: 15,
   },
+  lastLine: {
+    display: "flex",
+    marginLeft: "5.7%",
+    marginTop: "3.5%",
+  },
   submitBtn: {
-    marginLeft: "78.4%",
-    marginTop: "4%",
+    marginLeft: "56.2%",
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.accent1[0]
+        : theme.colors.accent2[0],
+    color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.accent1[3]
+          : theme.colors.accent2[2],
+    },
+  },
+  listBtn: {
     backgroundColor:
       theme.colorScheme === "dark"
         ? theme.colors.accent1[0]
@@ -153,14 +171,23 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               />
             </div>
           </div>
-          <Button
-            data-testid="cloud-input-btn"
-            disabled={!apiKey && !apiValue}
-            onClick={handleSendAPI}
-            className={classes.submitBtn}
-          >
-            Submit
-          </Button>
+          <div className={classes.lastLine}>
+            <Button
+              data-testid="cloud-input-btn"
+              onClick={handleSendAPI}
+              className={classes.listBtn}
+            >
+              List of Keys
+            </Button>
+            <Button
+              data-testid="cloud-input-btn"
+              disabled={!(apiKey && apiValue)}
+              onClick={handleSendAPI}
+              className={classes.submitBtn}
+            >
+              Submit
+            </Button>
+          </div>
         </Modal.Content>
       </Modal.Root>
       <Notifications />
