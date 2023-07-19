@@ -136,10 +136,10 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       <div className="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 w-full overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-          <div className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+          <div className="relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
             <div className="bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
-                <div className="my-5 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <div className="my-5 text-center sm:ml-5 sm:mt-0 sm:text-left">
                   <h3
                     className="mb-4 flex text-base font-semibold leading-6 text-gray-300"
                     id="modal-title"
@@ -154,10 +154,10 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                     name="APIKey" 
                     placeholder="e.g. CLIENT_KEY" />
                   </div>
-                  <div className="ml-4 inline-block">
+                  <div className="ml-8 inline-block">
                     <span className="text-accent1 sm:text-sm">Value:</span>
                     <input 
-                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-60 rounded-md sm:text-sm focus:ring-1" 
+                    className="mt-1 px-3 py-2 border-slate-900 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-300 focus:ring-sky-300 block w-80 rounded-md sm:text-sm focus:ring-1" 
                     type="text" 
                     name="APIValue" 
                     />
@@ -167,16 +167,17 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
 
               <button
                 type="button"
-                className="ml-4 mr-2 inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
+                className="ml-5 mr-2 inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
               >
                 List of Keys
               </button>
               <button
                 type="button"
-                className=" ml-56 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                className="ml-56 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
                 Submit
               </button>
+
             </div>
           </div>
         </div>
