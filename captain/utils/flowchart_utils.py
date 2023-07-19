@@ -141,9 +141,17 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
 
-    def clean_up_function():
+    def clean_up_function(is_finished: bool = False):
         manager.end_worker_threads()
         clear_memory()
+        if is_finished:
+            socket_msg = WorkerJobResponse(
+                jobset_id=request.jobsetId,
+                sys_status=STATUS_CODES["STANDBY"],
+                failed_nodes=[],
+                running_node="",
+            )
+            asyncio.create_task(manager.ws.broadcast(socket_msg))
 
     # clean up before next run
     clean_up_function()

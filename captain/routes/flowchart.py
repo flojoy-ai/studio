@@ -65,7 +65,7 @@ signal a job has been finished.
 async def worker_response(
     request: Request,
 ):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
-    if manager.running_topology is None or manager.running_topology.is_cancelled():
+    if manager.running_topology is None or manager.running_topology.cancelled:
         logger.debug("Flowchart is cancelled, ignoring worker response")
         return Response(status_code=200)
 
@@ -80,7 +80,7 @@ async def worker_response(
     if "FAILED_NODES" in request_dict:
         job_id = request_dict.get("FAILED_NODES", "")
         manager.running_topology.process_job_result(
-            job_id=job_id, job_result={}, success=False
+            job_id=job_id, job_result=None, success=False
         )
 
     if "NODE_RESULTS" in request_dict:

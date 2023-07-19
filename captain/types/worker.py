@@ -9,15 +9,15 @@ class JobInfo:
         job_id: str = "",
         jobset_id: str = "",
         iteration_id: str = "",
-        ctrls: dict[str, Any] = {},
-        previous_jobs: list[dict[str, str]] = [],
+        ctrls: dict[str, Any] | None = None,
+        previous_jobs: list[dict[str, str]] | None = None,
         terminate: bool = False,
     ):
         self.job_id = job_id
         self.jobset_id = jobset_id
         self.iteration_id = iteration_id
-        self.ctrls = ctrls
-        self.previous_jobs = previous_jobs
+        self.ctrls = ctrls or {}
+        self.previous_jobs = previous_jobs or []
         self.terminate = terminate
 
 
@@ -40,16 +40,16 @@ class WorkerJobResponse(dict):
         self,
         jobset_id: str,
         sys_status: str | None = None,
-        failed_nodes: list[str] = [],
-        running_nodes: str = "",
+        failed_nodes: list[str] | None = None,
+        running_node: str = "",
         dict_item: dict[str, Any] = {},
     ):
         self["jobsetId"] = jobset_id
         if sys_status:
             self["SYSTEM_STATUS"] = sys_status
         self["type"] = "worker_response"
-        self["FAILED_NODES"] = failed_nodes
-        self["RUNNING_NODES"] = running_nodes
+        self["FAILED_NODES"] = failed_nodes or []
+        self["RUNNING_NODE"] = running_node
         for k, item in dict_item.items():
             self[k] = item
 
