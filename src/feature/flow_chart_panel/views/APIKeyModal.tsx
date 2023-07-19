@@ -168,13 +168,13 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
 
               <button
                 type="button"
-                className="inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
+                className="ml-4 mr-2 inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
               >
                 List of Keys
               </button>
               <button
                 type="button"
-                className="ml-72 inline-flex w-10 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                className=" ml-56 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
                 Submit
               </button>
