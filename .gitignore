@@ -60,3 +60,5 @@ coverage.xml
 
 .nyc_output/out.json
 coverage-cy
+
+test/*
