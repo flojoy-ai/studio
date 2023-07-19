@@ -80,7 +80,7 @@ async def worker_response(
     if "FAILED_NODES" in request_dict:
         job_id = request_dict.get("FAILED_NODES", "")
         manager.running_topology.process_job_result(
-            job_id=job_id, job_result={}, success=False
+            job_id=job_id, job_result=None, success=False
         )
 
     if "NODE_RESULTS" in request_dict:
