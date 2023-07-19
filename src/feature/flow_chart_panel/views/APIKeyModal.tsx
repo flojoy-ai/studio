@@ -165,20 +165,19 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                   </div>
                 </div>
               </div>
-              <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  type="button"
-                  className="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                >
-                  Cancel
-                </button>
-              </div>
+
+              <button
+                type="button"
+                className="inline-flex rounded-md bg-teal-400 px-3 py-2 text-sm font-semibold text-white shadow-sm"
+              >
+                List of Keys
+              </button>
+              <button
+                type="button"
+                className="ml-72 inline-flex w-10 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
