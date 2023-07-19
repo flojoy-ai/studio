@@ -2,22 +2,13 @@ import { useEffect, useState } from "react";
 
 import { useDisclosure } from "@mantine/hooks";
 import { GlobalStyles } from "./feature/common/Global";
-import {
-  KBarAnimator,
-  KBarPortal,
-  KBarPositioner,
-  KBarProvider,
-  KBarSearch,
-  KBarResults,
-  useMatches,
-} from "kbar";
 
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
-import { useRouteError, useNavigate, Route, Routes } from "react-router-dom";
+import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
@@ -35,58 +26,11 @@ function ErrorBoundary() {
   );
 }
 
-function RenderResults() {
-  const { results } = useMatches();
-
-  return (
-    <KBarResults
-      items={results}
-      onRender={({ item, active }) =>
-        typeof item === "string" ? (
-          <div>{item}</div>
-        ) : (
-          <div
-            style={{
-              background: active ? "#eee" : "transparent",
-            }}
-          >
-            {item.name}
-          </div>
-        )
-      }
-    />
-  );
-}
-
 const App = () => {
   const {
     states: { runningNode, failedNode, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const navigate = useNavigate();
-  const actions = [
-    {
-      id: "main",
-      name: "main",
-      shortcut: [""],
-      keywords: "",
-      perform: () => navigate("/"),
-    },
-    {
-      id: "ctrl",
-      name: "ctrl",
-      shortcut: [""],
-      keywords: "",
-      perform: () => navigate("/controls"),
-    },
-    {
-      id: "debug",
-      name: "debug",
-      shortcut: [""],
-      keywords: "",
-      perform: () => navigate("/debug"),
-    },
-  ];
   const { setRunningNode, setFailedNode, setIsSidebarOpen } =
     useFlowChartState();
   const [
@@ -129,29 +73,19 @@ const App = () => {
         theme={theme === "dark" ? darkTheme : lightTheme}
       >
         <div className={theme === "dark" ? "dark" : "light"} id="tw-theme-root">
-          <KBarProvider actions={actions}>
-            <KBarPortal>
-              <KBarPositioner>
-                <KBarAnimator>
-                  <KBarSearch />
-                  <RenderResults />
-                </KBarAnimator>
-              </KBarPositioner>
-            </KBarPortal>
-            <GlobalStyles />
-            <PreJobOperationShow
-              opened={isPrejobModalOpen}
-              outputs={preJobOperation.output}
-              close={closePreJobModal}
+          <GlobalStyles />
+          <PreJobOperationShow
+            opened={isPrejobModalOpen}
+            outputs={preJobOperation.output}
+            close={closePreJobModal}
+          />
+          <Routes>
+            <Route
+              path="/"
+              element={<FlowChartTab />}
+              errorElement={<ErrorBoundary />}
             />
-            <Routes>
-              <Route
-                path="/"
-                element={<FlowChartTab />}
-                errorElement={<ErrorBoundary />}
-              />
-            </Routes>
-          </KBarProvider>
+          </Routes>
         </div>
       </MantineProvider>
     </ColorSchemeProvider>
