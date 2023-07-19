@@ -1,22 +1,27 @@
 import json
+import os
 from captain.precompilation.flojoy_script_builder import FlojoyScriptBuilder
-from captain.precompilation.precompilation_utils import create_topology, get_missing_pip_packages, import_app_nodes
+from captain.precompilation.precompilation_utils import create_topology
+from captain.precompilation.templates import get_missing_pip_packages
 from captain.types.flowchart import PostWFC
 from flojoy.utils import clear_flojoy_memory
 
 
-def precompile(request: PostWFC, path_to_nodes_module: str, is_ci: bool = False) -> str:
+def precompile(request: PostWFC, path_to_output: str, is_ci: bool = False):
 
-    # Step 0 : pre-compile operations
+    # Step 0 : pre-precompile operations
     sw = FlojoyScriptBuilder()
     flowchart_as_dict = json.loads(request.fc)
     topology = create_topology(flowchart_as_dict, request.jobsetId, request.nodeDelay, request.maximumRuntime)
     clear_flojoy_memory()
 
     # Step 1: add necessary pip packages
-    sw.install_missing_pip_packages(json.loads(flowchart_as_dict['nodes']))
+    sw.install_missing_pip_packages(flowchart_as_dict['nodes'])
 
     # Step 2 : get imports for node functions
-    sw.import_app_nodes(topology, path_to_nodes_module, is_ci)
+    sw.import_app_nodes(topology, path_to_output, is_ci)
 
-    sw.write_to_file("test.py")
+    # Step 3 : get execution order of nodes in flowchart
+    
+
+    sw.write_to_file(os.path.join(path_to_output, "test.py"))

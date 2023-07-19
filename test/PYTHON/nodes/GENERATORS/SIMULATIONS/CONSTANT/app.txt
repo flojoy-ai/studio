@@ -1,0 +1,145 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 210,
+                "height": 130,
+                "id": "END-06a4da40-a0ae-44ad-873b-9b65d096880a",
+                "type": "TERMINATOR",
+                "data": {
+                    "id": "END-06a4da40-a0ae-44ad-873b-9b65d096880a",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATOR",
+                    "ctrls": {},
+                    "selected": false
+                },
+                "position": {
+                    "x": 1386.4285714285716,
+                    "y": 595.4285714285714
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1386.4285714285716,
+                    "y": 595.4285714285714
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957",
+                "type": "PLOTLY_VISOR",
+                "data": {
+                    "id": "BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957",
+                    "label": "BIG NUMBER",
+                    "func": "BIG_NUMBER",
+                    "type": "PLOTLY_VISOR",
+                    "ctrls": {
+                        "suffix": {
+                            "functionName": "BIG_NUMBER",
+                            "param": "suffix",
+                            "value": ""
+                        },
+                        "prefix": {
+                            "functionName": "BIG_NUMBER",
+                            "param": "prefix",
+                            "value": ""
+                        },
+                        "relative_delta": {
+                            "functionName": "BIG_NUMBER",
+                            "param": "relative_delta",
+                            "value": true
+                        },
+                        "title": {
+                            "functionName": "BIG_NUMBER",
+                            "param": "title",
+                            "value": ""
+                        }
+                    },
+                    "selected": false
+                },
+                "position": {
+                    "x": 797.9265644225578,
+                    "y": 508.7311569539935
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 797.9265644225578,
+                    "y": 508.7311569539935
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "CONSTANT-910cbc4f-ec37-4d77-878a-643d40f38b84",
+                "type": "SIMULATION",
+                "data": {
+                    "id": "CONSTANT-910cbc4f-ec37-4d77-878a-643d40f38b84",
+                    "label": "2.0",
+                    "func": "CONSTANT",
+                    "type": "SIMULATION",
+                    "ctrls": {
+                        "constant": {
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": "2.0"
+                        }
+                    },
+                    "selected": false
+                },
+                "position": {
+                    "x": 497.9265644225577,
+                    "y": 591.5882998111363
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 497.9265644225577,
+                    "y": 591.5882998111363
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957",
+                "sourceHandle": "main",
+                "target": "END-06a4da40-a0ae-44ad-873b-9b65d096880a",
+                "targetHandle": "END",
+                "id": "reactflow__edge-BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957main-END-06a4da40-a0ae-44ad-873b-9b65d096880aEND"
+            },
+            {
+                "source": "CONSTANT-910cbc4f-ec37-4d77-878a-643d40f38b84",
+                "sourceHandle": "main",
+                "target": "BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957",
+                "targetHandle": "BIG_NUMBER",
+                "id": "reactflow__edge-CONSTANT-910cbc4f-ec37-4d77-878a-643d40f38b84main-BIG_NUMBER-5d523fca-e2c2-4144-a091-d3d2e6482957BIG_NUMBER"
+            }
+        ],
+        "viewport": {
+            "x": 383.94248946966945,
+            "y": 121.85910915060867,
+            "zoom": 1.1608238532718647
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

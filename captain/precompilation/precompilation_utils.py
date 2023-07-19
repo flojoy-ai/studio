@@ -30,22 +30,3 @@ def extract_pip_packages(nodes: list):
     return packages
 
 
-def get_missing_pip_packages(packages: list):
-    missing_packages = []
-    for package in packages:
-        try:
-            importlib.import_module(package)
-        except ImportError:
-            missing_packages.append(package)
-
-    if len(missing_packages) > 0:
-        cmd = ["pip", "install"] + packages
-        proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
-        resp = ""
-        while proc.poll() is None:
-            stream = stream_response(proc)
-            for line in stream:
-                resp = line.decode(encoding="utf-8") + '\n'
-        return_code = proc.returncode
-        if return_code != 0: # if not success 
-            raise Exception(resp)

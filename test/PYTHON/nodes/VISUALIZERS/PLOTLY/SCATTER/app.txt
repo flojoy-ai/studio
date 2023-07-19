@@ -1,0 +1,481 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                "type": "SAMPLE_DATASETS",
+                "data": {
+                    "id": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                    "label": "PLOTLY DATASET",
+                    "func": "PLOTLY_DATASET",
+                    "type": "SAMPLE_DATASETS",
+                    "ctrls": {
+                        "dataset_key": {
+                            "type": "select",
+                            "default": "wind",
+                            "options": [
+                                "wind",
+                                "iris",
+                                "carshare",
+                                "tips",
+                                "election",
+                                "experiment",
+                                "gapminder",
+                                "medals_long",
+                                "medals_wide",
+                                "stocks"
+                            ],
+                            "functionName": "PLOTLY_DATASET",
+                            "param": "dataset_key",
+                            "value": "iris"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SAMPLE_DATASETS\\PLOTLY_DATASET\\PLOTLY_DATASET.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 96.7381246005109,
+                    "y": 778.0447835342841
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 96.7381246005109,
+                    "y": 778.0447835342841
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "LINSPACE-a64efc87-8757-466c-b903-f0f556303dbe",
+                "type": "default",
+                "data": {
+                    "id": "LINSPACE-a64efc87-8757-466c-b903-f0f556303dbe",
+                    "label": "LINSPACE",
+                    "func": "LINSPACE",
+                    "type": "default",
+                    "ctrls": {
+                        "start": {
+                            "type": "float",
+                            "default": 10,
+                            "functionName": "LINSPACE",
+                            "param": "start",
+                            "value": 10
+                        },
+                        "end": {
+                            "type": "float",
+                            "default": 0,
+                            "functionName": "LINSPACE",
+                            "param": "end",
+                            "value": 0
+                        },
+                        "step": {
+                            "type": "int",
+                            "default": 1000,
+                            "functionName": "LINSPACE",
+                            "param": "step",
+                            "value": 1000
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\LINSPACE\\LINSPACE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 124.47121112924117,
+                    "y": 69.80390115946057
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 124.47121112924117,
+                    "y": 69.80390115946057
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                    "label": "TIMESERIES",
+                    "func": "TIMESERIES",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "start_date": {
+                            "type": "str",
+                            "default": "2023-01-01",
+                            "functionName": "TIMESERIES",
+                            "param": "start_date",
+                            "value": "2023-01-01"
+                        },
+                        "end_date": {
+                            "type": "str",
+                            "default": "2023-07-20",
+                            "functionName": "TIMESERIES",
+                            "param": "end_date",
+                            "value": "2023-07-20"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "DataFrame"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 97.2082941714267,
+                    "y": 295.30525026292963
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 97.2082941714267,
+                    "y": 295.30525026292963
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "row": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "row",
+                            "value": "10"
+                        },
+                        "column": {
+                            "type": "int",
+                            "default": 2,
+                            "functionName": "MATRIX",
+                            "param": "column",
+                            "value": "10"
+                        }
+                    },
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\MATRIX\\MATRIX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 107.17107103989554,
+                    "y": 547.4990642631835
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 107.17107103989554,
+                    "y": 547.4990642631835
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                "type": "PLOTLY",
+                "data": {
+                    "id": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                    "label": "SCATTER",
+                    "func": "SCATTER",
+                    "type": "PLOTLY",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 390.21358494564254,
+                    "y": 475.08598948716053
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 390.21358494564254,
+                    "y": 475.08598948716053
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                "type": "PLOTLY",
+                "data": {
+                    "id": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                    "label": "SCATTER 1",
+                    "func": "SCATTER",
+                    "type": "PLOTLY",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 811.8934636655582,
+                    "y": 675.522722190246
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 811.8934636655582,
+                    "y": 675.522722190246
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                "type": "PLOTLY",
+                "data": {
+                    "id": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                    "label": "SCATTER 2",
+                    "func": "SCATTER",
+                    "type": "PLOTLY",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 784.1301537094139,
+                    "y": 236.15086212531742
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 784.1301537094139,
+                    "y": 236.15086212531742
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631a",
+                "type": "PLOTLY",
+                "data": {
+                    "id": "SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631a",
+                    "label": "SCATTER 3",
+                    "func": "SCATTER",
+                    "type": "PLOTLY",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\SCATTER\\SCATTER.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 399.57597716039686,
+                    "y": -0.14382278524794856
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 399.57597716039686,
+                    "y": -0.14382278524794856
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 130,
+                "id": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                "type": "TERMINATORS",
+                "data": {
+                    "id": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATORS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\LOGIC_GATES\\TERMINATORS\\END\\END.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1304.312408118375,
+                    "y": 329.9324838900597
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1304.312408118375,
+                    "y": 329.9324838900597
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LINSPACE-a64efc87-8757-466c-b903-f0f556303dbe",
+                "sourceHandle": "default",
+                "target": "SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631a",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINSPACE-a64efc87-8757-466c-b903-f0f556303dbedefault-SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631adefault"
+            },
+            {
+                "source": "TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395",
+                "sourceHandle": "default",
+                "target": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                "targetHandle": "default",
+                "id": "reactflow__edge-TIMESERIES-a11c4d23-595e-4325-91ab-6901e4626395default-SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82default"
+            },
+            {
+                "source": "MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8",
+                "sourceHandle": "default",
+                "target": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-MATRIX-8f1eae39-3d4b-4382-a18a-8db31ab0e1a8default-SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5default"
+            },
+            {
+                "source": "PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34",
+                "sourceHandle": "default",
+                "target": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PLOTLY_DATASET-686a1fd9-8dab-4de2-80d6-21386dc65e34default-SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0fdefault"
+            },
+            {
+                "source": "SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631a",
+                "sourceHandle": "default",
+                "target": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCATTER-fac44ad1-a863-4a6c-87f6-b43c5ca4631adefault-END-fc54d745-26c4-42ba-be36-eafbe5f5a240default"
+            },
+            {
+                "source": "SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82",
+                "sourceHandle": "default",
+                "target": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCATTER-a4744b2a-78e6-4874-a2ae-177e1dd6aa82default-END-fc54d745-26c4-42ba-be36-eafbe5f5a240default"
+            },
+            {
+                "source": "SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5",
+                "sourceHandle": "default",
+                "target": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCATTER-8f064bb5-af44-44fd-82f4-9a948f3695b5default-END-fc54d745-26c4-42ba-be36-eafbe5f5a240default"
+            },
+            {
+                "source": "SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0f",
+                "sourceHandle": "default",
+                "target": "END-fc54d745-26c4-42ba-be36-eafbe5f5a240",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SCATTER-bbfa1109-425d-457f-8f4f-bd6477f6ed0fdefault-END-fc54d745-26c4-42ba-be36-eafbe5f5a240default"
+            }
+        ],
+        "viewport": {
+            "x": -296.35399545928726,
+            "y": 66.8470830817738,
+            "zoom": 0.8744723800359967
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

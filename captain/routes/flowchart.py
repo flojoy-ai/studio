@@ -15,6 +15,7 @@ from captain.utils.broadcast import (
 from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
 from captain.utils.config import manager
 from captain.utils.logger import logger
+from captain.precompilation import precompile
 
 router = APIRouter(tags=["flowchart"])
 
@@ -48,6 +49,8 @@ async def write_and_run_flowchart(request: PostWFC):
         logger.debug("No jobsetId provided")
         return
     
+    if request.precompile:
+        precompile(request=request, path_to_output="test", is_ci=False)
     asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
     asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))
 

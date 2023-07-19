@@ -5,6 +5,29 @@ NODES_DIR = "PYTHON/nodes" # default flojoy nodes path TODO make this configurab
 mapping = {} # IMPORTANT NOTE: use custom mapping for precompilation
 
 
+def get_module_path(file_name: str, custom_map: dict | None = None) -> str:
+
+    cur_mapping = {}
+
+    # use global mapping if custom not provided
+    if not custom_map:
+        cur_mapping = mapping
+    else:
+        cur_mapping = custom_map
+    
+    # make mapping if not already made
+    if not cur_mapping:
+        create_map(return_map=True)
+        cur_mapping = mapping
+
+    file_path = cur_mapping.get(file_name)
+
+    if file_path is not None:
+        return file_path
+    
+    else:
+        raise Exception(f"File {file_name} not found in subdirectories of {NODES_DIR}")
+
 def get_module_func(file_name: str, custom_map: dict | None = None):
 
     cur_mapping = {}
