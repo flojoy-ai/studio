@@ -3,6 +3,8 @@ import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { API_TYPE } from "@src/hooks/useFlowChartState";
+import { useState } from "react";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -17,10 +19,6 @@ const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
-export type API_TYPE = {
-  key: string;
-  value: string;
-};
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   if (rfInstance) {

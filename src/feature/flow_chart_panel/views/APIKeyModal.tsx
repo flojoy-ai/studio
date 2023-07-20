@@ -3,7 +3,10 @@ import { ChangeEvent, memo } from "react";
 import { createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
+import {
+  // GetApiKeyFromFastAPI,
+  sendApiKeyToFastAPI,
+} from "@src/services/FlowChartServices";
 
 interface APIKeyModelProps {
   isOpen: boolean;
@@ -127,6 +130,50 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setApiKey("");
     setApiValue("");
   };
+  const flowKey = "flow-joy";
+  const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
+  const BACKEND_PORT = process.env.VITE_BACKEND_PORT
+    ? +process.env.VITE_BACKEND_PORT
+    : 8000;
+  const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
+
+  const handleGetAPI = async () => {
+    try {
+      const response = await fetch(`${API_URI}/key/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        
+        notifications.update({
+          id: "set-api-key",
+          title: "Successful!",
+          message: "Successfully set the API Key",
+          autoClose: 5000,
+        });
+      } else {
+        notifications.update({
+          id: "set-api-key",
+          title: "Failed!",
+          message: "Failed to set the API Key",
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      notifications.update({
+        id: "set-api-key",
+        title: "Failed!",
+        message: "Failed to set the API Key",
+        autoClose: 5000,
+      });
+    }
+  };
+
   if (!isOpen) return null;
   return (
     <div

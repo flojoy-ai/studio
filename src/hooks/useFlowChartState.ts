@@ -35,6 +35,11 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 
+export type API_TYPE = {
+  key: string;
+  value: string;
+};
+
 export const failedNodeAtom = atom<string>("");
 export const runningNodeAtom = atom<string>("");
 export const nodeStatusAtom = atom((get) => ({
