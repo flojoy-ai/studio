@@ -138,7 +138,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 ">
           <div className="relative transform overflow-hidden rounded-lg border-2 border-gray-500 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
             <div
-              className="h-52 h-52 bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
+              className="h-52 bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
               id="defaultModal"
             >
               <div className="sm:flex sm:items-start">
