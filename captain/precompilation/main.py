@@ -21,7 +21,7 @@ def precompile(request: PostWFC, path_to_output: str, is_ci: bool = False):
     # Step 2 : get imports for node functions
     sw.import_app_nodes(topology, path_to_output, is_ci)
 
-    # Step 3 : get execution order of nodes in flowchart
-    
+    # Step 3 : insert node execution logic
+    # sw.insert_node_execution_logic(topology)
 
     sw.write_to_file(os.path.join(path_to_output, "test.py"))

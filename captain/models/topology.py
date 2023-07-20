@@ -66,6 +66,14 @@ class Topology:
                 next_jobs.append(job_id)
         return next_jobs
 
+    # def get_execution_order(self):
+    #     '''
+    #     Performs topological sort and gets the execution order,
+    #     for LOOPS
+    #     '''
+        
+
+
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
