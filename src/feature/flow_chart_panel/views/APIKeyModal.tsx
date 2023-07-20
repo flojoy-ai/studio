@@ -152,12 +152,15 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                   x
                 </button>
                 <div className="my-5 text-center sm:ml-5 sm:mt-0 sm:text-left">
-                  <h3
-                    className="mb-4 ml-4 flex text-base font-semibold leading-6 text-gray-300"
-                    id="modal-title"
-                  >
-                    Environment Variable
-                  </h3>
+                  <div className="ml-3 flex">
+                    <FamilyHistoryIconSvg size={22} />
+                    <h2
+                      className="mb-2.5 ml-2 flex text-xl font-semibold text-black dark:text-white"
+                      id="modal-title"
+                    >
+                      Environment Variable
+                    </h2>
+                  </div>
                   <div className="ml-4 inline-block">
                     <span className="text-accent1 sm:text-sm">Key:</span>
                     <input
@@ -182,15 +185,16 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               <div className="flex justify-center">
                 <button
                   type="button"
-                  className="ml-2.5 mr-24 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
+                  className="ml-2.5 mr-24 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
                 >
                   List of Keys
                 </button>
                 <button
                   type="button"
-                  className="ml-72 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  onClick={handleSendAPI}
-                  // disabled={!(apiKey && apiValue)}
+                  className="ml-72 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
+                  // onClick={handleSendAPI}
+                  style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
+                  disabled={!(apiKey && apiValue)}
                 >
                   Submit
                 </button>
