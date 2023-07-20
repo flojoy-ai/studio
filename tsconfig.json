@@ -21,7 +21,8 @@
       "@src/*": ["src/*"],
       "@feature/*": ["src/feature/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@/*": ["./src/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"

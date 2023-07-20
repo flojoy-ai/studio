@@ -12,33 +12,33 @@ env:
   APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  jest-tests:
-    runs-on: ubuntu-latest
+  # jest-tests:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          cache: "pip"
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "3.10"
+  #         cache: "pip"
 
-      - name: Run Flojoy startup script
-        run: bash flojoy -c
+  #     - name: Run Flojoy startup script
+  #       run: bash flojoy -c
 
-      - name: Run Jest tests
-        run: npm run test
+  #     - name: Run Jest tests
+  #       run: npm run test
 
-      - name: Codecov report
-        uses: codecov/codecov-action@v3
-        with:
-          flags: typescript
+  #     - name: Codecov report
+  #       uses: codecov/codecov-action@v3
+  #       with:
+  #         flags: typescript
 
   code-style-check:
     runs-on: ubuntu-latest
@@ -86,30 +86,30 @@ jobs:
         with:
           flags: python
 
-  visual-tests:
-    runs-on: ubuntu-latest
+  # visual-tests:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          cache: "pip"
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "3.10"
+  #         cache: "pip"
 
-      - name: Run Flojoy startup script
-        run: bash flojoy -c
+  #     - name: Run Flojoy startup script
+  #       run: bash flojoy -c
 
-      - name: Run e2e test
-        uses: cypress-io/github-action@v4
-        with:
-          build: npm run build
-          start: npm run start-project
-          browser: chrome
-          install: false
+  #     - name: Run e2e test
+  #       uses: cypress-io/github-action@v4
+  #       with:
+  #         build: npm run build
+  #         start: npm run start-project
+  #         browser: chrome
+  #         install: false

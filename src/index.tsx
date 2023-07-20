@@ -1,6 +1,6 @@
-import React from "react";
 import App from "./App";
 import { SocketContextProvider } from "./context/socket.context";
+import "./global.css";
 import "./index.css";
 // default styling
 import { createRoot } from "react-dom/client";
