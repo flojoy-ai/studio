@@ -4,7 +4,6 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { API_TYPE } from "@src/hooks/useFlowChartState";
-import { useState } from "react";
 
 const flowKey = "flow-joy";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
@@ -18,7 +17,6 @@ const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 // This is to prevent unnecessary re-rendering which would happen
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
-
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   if (rfInstance) {
@@ -53,6 +51,43 @@ export const sendApiKeyToFastAPI = async (body: API_TYPE) => {
         autoClose: 5000,
       });
     }
+  } catch (error) {
+    notifications.update({
+      id: "set-api-key",
+      title: "Failed!",
+      message: "Failed to set the API Key",
+      autoClose: 5000,
+    });
+  }
+};
+
+export const getApiKeyToFastAPI = async () => {
+  try {
+    const response = await fetch(`${API_URI}/key/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+
+    // if (response.ok) {
+    //   const data = await response.json();
+    //   notifications.update({
+    //     id: "set-api-key",
+    //     title: "Successful!",
+    //     message: "Successfully set the API Key",
+    //     autoClose: 5000,
+    //   });
+    //   return data;
+    // } else {
+    //   notifications.update({
+    //     id: "set-api-key",
+    //     title: "Failed!",
+    //     message: "Failed to set the API Key",
+    //     autoClose: 5000,
+    //   });
+    // }
   } catch (error) {
     notifications.update({
       id: "set-api-key",

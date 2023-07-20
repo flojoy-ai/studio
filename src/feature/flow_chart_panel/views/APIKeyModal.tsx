@@ -4,6 +4,7 @@ import { createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import {
+  getApiKeyToFastAPI,
   // GetApiKeyFromFastAPI,
   sendApiKeyToFastAPI,
 } from "@src/services/FlowChartServices";
@@ -130,48 +131,9 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setApiKey("");
     setApiValue("");
   };
-  const flowKey = "flow-joy";
-  const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-  const BACKEND_PORT = process.env.VITE_BACKEND_PORT
-    ? +process.env.VITE_BACKEND_PORT
-    : 8000;
-  const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
-  const handleGetAPI = async () => {
-    try {
-      const response = await fetch(`${API_URI}/key/`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        
-        notifications.update({
-          id: "set-api-key",
-          title: "Successful!",
-          message: "Successfully set the API Key",
-          autoClose: 5000,
-        });
-      } else {
-        notifications.update({
-          id: "set-api-key",
-          title: "Failed!",
-          message: "Failed to set the API Key",
-          autoClose: 5000,
-        });
-      }
-    } catch (error) {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the API Key",
-        autoClose: 5000,
-      });
-    }
+  const handleGetAPI = () => {
+    getApiKeyToFastAPI();
   };
 
   if (!isOpen) return null;
@@ -233,13 +195,14 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                 <button
                   type="button"
                   className="ml-2.5 mr-24 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
+                  onClick={handleGetAPI}
                 >
                   List of Keys
                 </button>
                 <button
                   type="button"
                   className="ml-72 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
-                  // onClick={handleSendAPI}
+                  onClick={handleSendAPI}
                   style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
                   disabled={!(apiKey && apiValue)}
                 >
