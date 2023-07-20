@@ -1,9 +1,0 @@
-[
-  { "title": "butterworth/butterworth.txt", "test_id": "withdefaultParam" },
-  { "title": "FIR/FIR.txt", "test_id": "withdefaultParam" },
-  { "title": "feedback/Feedback_node.txt", "test_id": "withdefaultParam" },
-  {
-    "title": "sample-example/function-generator.txt",
-    "test_id": "withdefaultParam"
-  }
-]

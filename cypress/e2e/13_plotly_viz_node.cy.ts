@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
+require("cypress-xpath");
+
+//** Captures all plotly component nodes in light/dark mode.*/
+
+describe("Set plotly node visual tests", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -22,44 +26,45 @@ describe("main page", () => {
     });
   });
 
-  // The interactions use typical Cypress calls,
-  // but the verifications use one-line snapshot calls with Applitools Eyes.
-  // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
-  // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+  it("plotly nodes visual test", () => {
     cy.visit("/").wait(1000);
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.get('[data-testid="clear-canvas-button"]').click();
 
-    // This nodeid value is from src/data/RECIPES.ts
-    cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
-    ).click();
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-
-    // Click add new node button
     cy.get('[data-testid="add-node-button"]').click();
+    //Select container Visualizers
+    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
+
+    // get all viz nodes
+    cy.xpath("//button[.='SCATTER3D']").click();
+    cy.xpath("//button[.='LINE']").click();
+    cy.xpath("//button[.='HISTOGRAM']").click();
+    cy.xpath("//button[.='IMAGE']").click();
+    cy.xpath("//button[.='COMPOSITE']").click();
+    cy.xpath("//button[.='BAR']").click();
+    cy.xpath("//button[.='BIG_NUMBER']").click();
+    cy.xpath("//button[.='SURFACE3D']").click();
+    cy.xpath("//button[.='PROPHET_PLOT']").click();
+    cy.xpath("//button[.='SCATTER']").click();
+    cy.xpath("//button[.='PROPHET_COMPONENTS']").click();
+    cy.xpath("//button[.='TABLE']").click();
+    cy.xpath("//button[.='MATRIX_VIEW']").click();
+    cy.xpath("//button[.='ARRAY_VIEW']").click();
+
+    cy.get('[data-testid="sidebar-close"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
+      tag: "dark flow page with Scatter3d node",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
+    // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
+
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "light flow page with Scatter3d node",
       target: "window",
       layout: layoutRegions,
       fully: true,

@@ -139,7 +139,7 @@ const NodeEditModal = ({
           onClick={() => setIsEditMode(false)}
           className={classes.closeButton}
         >
-          <IconX size={18} />
+          <IconX size={18} data-testid="node-edit-modal-close-btn" />
         </Box>
         <Box p="0px 16px 24px 16px">
           <div key={node.id}>

@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
-describe("main page", () => {
+require("cypress-xpath");
+
+describe("Modify settings in control bar", () => {
   const layoutRegions = [
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
@@ -26,40 +28,47 @@ describe("main page", () => {
   // but the verifications use one-line snapshot calls with Applitools Eyes.
   // If the page ever changes, then Applitools will detect the changes and highlight them in the Eyes Test Manager.
   // Traditional assertions that scrape the page for text values are not needed here.
-  it("main page", () => {
+
+  it("setting btn test", () => {
     cy.visit("/").wait(1000);
 
+    // Click the setting button
+    cy.get('[data-testid="btn-setting"]').click();
+
     cy.eyesCheckWindow({
-      tag: "dark flow page",
+      tag: "dark flow page with setting modal",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
-    // This nodeid value is from src/data/RECIPES.ts
-    cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
-    ).click();
+    // Retrieve node delay and maximum time
+    cy.get('[data-testid="settings-input"]').eq(0).clear();
+    cy.get('[data-testid="settings-input"]')
+      .eq(0)
+      .type(0.5)
+      .should("have.value", "0.50");
+    cy.get('[data-testid="settings-input"]').eq(1).clear();
+    cy.get('[data-testid="settings-input"]')
+      .eq(1)
+      .type(100)
+      .should("have.value", "1000");
 
     cy.eyesCheckWindow({
-      tag: "dark flow page with SINE menu",
+      tag: "dark flow page with settings modal with input",
       target: "window",
       layout: layoutRegions,
       fully: true,
     });
 
-    // Click add new node button
-    cy.get('[data-testid="add-node-button"]').click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.get('[data-testid="settings-close-btn"]').click();
 
     cy.get('[data-testid="darkmode-toggle"]').click();
+
+    cy.get('[data-testid="btn-setting"]').click();
+
     cy.eyesCheckWindow({
-      tag: "light flow page",
+      tag: "light flow page with setting modal",
       target: "window",
       layout: layoutRegions,
       fully: true,

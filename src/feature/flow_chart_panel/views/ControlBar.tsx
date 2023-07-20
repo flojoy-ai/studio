@@ -483,10 +483,6 @@ const ControlBar = () => {
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
       />
-      <S3KeyModal
-        isOpen={isS3KeyModelOpen}
-        onClose={() => setIsS3KeyModelOpen(false)}
-      />
     </Box>
   );
 };

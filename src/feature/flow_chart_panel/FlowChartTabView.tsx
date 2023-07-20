@@ -129,7 +129,7 @@ const FlowChartTab = () => {
           ];
         })
       ),
-    []
+    [handleNodeRemove]
   );
 
   const onInit: OnInit = (rfIns) => {
@@ -199,7 +199,13 @@ const FlowChartTab = () => {
     setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-  }, [selectedNode]);
+  }, [
+    selectedNode,
+    setNodeFilePath,
+    setNodeLabel,
+    setNodeType,
+    setPythonString,
+  ]);
 
   const proOptions = { hideAttribution: true };
 
@@ -278,7 +284,13 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
-        <IconButton onClick={clearCanvas} icon={minusIcon} ml="auto" h="100%">
+        <IconButton
+          data-testid="clear-canvas-button"
+          onClick={clearCanvas}
+          icon={minusIcon}
+          ml="auto"
+          h="100%"
+        >
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
       </TabActions>

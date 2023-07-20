@@ -97,7 +97,7 @@ const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
       size={1030}
     >
       <Button
-        data-testid="closeButton"
+        data-testid="keyboard_shortcut-closebtn"
         onClick={onClose}
         className={classes.closeButton}
       ></Button>
