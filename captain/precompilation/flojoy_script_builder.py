@@ -104,6 +104,9 @@ class FlojoyScriptBuilder:
         self.acb("get_missing_pip_packages(packages)")
 
     def import_app_nodes(self, topology: Topology, path_to_output: str, is_ci: bool):
+        self.imports.add("import sys")
+        self.imports.add("import os")
+        self.acb("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
         imported = set() # keep track of imported files
         for node in topology.original_graph.nodes:
             # -- get node module and check if CI --
@@ -127,6 +130,7 @@ class FlojoyScriptBuilder:
             module_path = module_path.replace(".", os.path.sep)
             module_dir = module_path[: module_path.rfind(os.path.sep)]
             shutil.copytree(module_dir, os.path.join(path_to_output, module_dir))
+            imported.add(module_dir)
             # ------------------------------------------------
 
             # -- check imports of module, and import any missing files recursively (only from nodes/) --
@@ -135,27 +139,33 @@ class FlojoyScriptBuilder:
             while len(stack) > 0:
                 module = stack.pop()
                 for node in ast.walk(module):
+
                     if not (
                         isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom)
                     ):
                         continue
-
                     module_name = node.module if isinstance(node, ast.ImportFrom) else node.names[0].name
                     if module_name is None:
                         raise ValueError("module name is None")
-                    if module_name.startswith("nodes."):
-                        path = (
-                            "PYTHON"
-                            + os.path.sep
-                            + module_name.replace(".", os.path.sep)
-                            + ".py"
-                        )
-                        if path in imported:
-                            continue
-                        shutil.copy(path, os.path.join(path_to_output, path))
-                        imported.add(path)
-                        with open(path, "r") as f:
-                            stack.append(ast.parse(f.read()))
+                    if not module_name.startswith("nodes."):
+                        continue
+
+                    path = (
+                        "PYTHON"
+                        + os.path.sep
+                        + module_name.replace(".", os.path.sep)
+                        + ".py"
+                    )
+                    if path in imported:
+                        continue
+                    destination_path = os.path.join(path_to_output, path)
+                    destination_dir = os.path.dirname(destination_path)
+                    if not os.path.exists(destination_dir):
+                        os.makedirs(destination_dir)
+                    shutil.copy(path, destination_path)
+                    imported.add(path)
+                    with open(path, "r") as f:
+                        stack.append(ast.parse(f.read()))
             # ------------------------------------------------------------------------------------------
 
             # -- import module --
