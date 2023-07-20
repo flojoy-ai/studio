@@ -1,7 +1,6 @@
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import Sidebar from "@src/feature/common/Sidebar/Sidebar";
 import { useAddNewNode } from "@src/feature/flow_chart_panel/hooks/useAddNewNode";
-import { getManifestCmdsMap } from "@src/utils/ManifestLoader";
 import { fireEvent } from "@testing-library/react";
 import { useState } from "react";
 
@@ -10,13 +9,7 @@ class ResizeObserver {
   unobserve() {}
 }
 
-jest.mock("@src/utils/ManifestLoader", () => {
-  return {
-    Commands: {},
-    FUNCTION_PARAMETERS: {},
-    getManifestCmdsMap: jest.fn(),
-  };
-});
+jest.mock("@src/utils/ManifestLoader");
 
 window.ResizeObserver = ResizeObserver as any;
 
@@ -43,12 +36,10 @@ jest.doMock("@src/feature/common/Sidebar/Sidebar", () => {
           Add Node
         </button>
         <Sidebar
-          sections={{ title: "ROOT", children: [] }}
-          manifestMap={getManifestCmdsMap()}
+          sections={{ name: "ROOT", children: [] }}
           leafNodeClickHandler={addNewNode}
           isSideBarOpen={isSCRIPTSideBarOpen}
           setSideBarStatus={setSCRIPTSideBarStatus}
-          appTab={"FlowChart"}
         />
       </>
     );

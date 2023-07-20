@@ -1,4 +1,5 @@
 import { Anchor, Button, createStyles, Flex } from "@mantine/core";
+import { REQUEST_NODE_URL } from "@src/data/constants";
 
 const useStyles = createStyles((theme) => {
   const accent =
@@ -23,34 +24,19 @@ const useStyles = createStyles((theme) => {
     span: {
       color: theme.colors.accent1[0],
     },
-    endNode: {
-      outline: "0",
-      border: `2px solid ${theme.colors.accent1[0]}`,
-      background: "transparent",
-      color: theme.colors.accent1[0],
-      padding: `${theme.spacing.xs}`,
-      cursor: "pointer",
-      margin: "5px",
-      fontFamily: "monospace",
-    },
   };
 });
 
-type SidebarCustomContentProps = {
-  onAddNode: (key: string) => void;
-};
-
-const SidebarCustomContent = ({ onAddNode }: SidebarCustomContentProps) => {
+const SidebarCustomContent = () => {
   const { classes } = useStyles();
   return (
     <Flex
       justify={"space-around"}
       align={"center"}
-      py={4}
+      py={8}
       className={classes.container}
     >
       <RequestNode classes={classes} />
-      <EndNode classes={classes} onAddNode={onAddNode} />
     </Flex>
   );
 };
@@ -62,32 +48,12 @@ const RequestNode = ({ classes }: { classes: Record<string, string> }) => {
         style={{
           textDecoration: "none",
         }}
-        href="https://toqo276pj36.typeform.com/to/F5rSHVu1"
+        href={REQUEST_NODE_URL}
         target="_blank"
       >
         <span className={classes.span}>Request a Node</span>
       </Anchor>
     </Button>
-  );
-};
-
-type EndNodeProps = {
-  classes: Record<string, string>;
-  onAddNode: (key: string) => void;
-};
-
-const EndNode = ({ classes, onAddNode }: EndNodeProps) => {
-  const cmdKey = "END";
-  return (
-    <button
-      data-testid="end-node-btn"
-      className={classes.endNode}
-      onClick={() => {
-        onAddNode(cmdKey);
-      }}
-    >
-      {cmdKey}
-    </button>
   );
 };
 

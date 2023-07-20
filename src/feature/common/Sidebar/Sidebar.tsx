@@ -5,19 +5,21 @@ import {
   UnstyledButton,
   Box,
   useMantineTheme,
+  createStyles,
 } from "@mantine/core";
-import { IconArrowAutofitUp, IconArrowAutofitDown } from "@tabler/icons-react";
-
-import { IconSearch } from "@tabler/icons-react";
+import {
+  IconArrowAutofitUp,
+  IconArrowAutofitDown,
+  IconSearch,
+} from "@tabler/icons-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
 import CloseIconSvg from "@src/assets/SidebarCloseSvg";
-import { createStyles } from "@mantine/core";
-import { CommandManifestMap, CommandSection } from "@src/utils/ManifestLoader";
+import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 
-type leafClickHandler = (key: string) => void;
+export type LeafClickHandler = (elem: NodeElement) => void;
 
 const useSidebarStyles = createStyles((theme) => {
   const accent =
@@ -102,15 +104,12 @@ const useSidebarStyles = createStyles((theme) => {
   };
 });
 
-export type AppTab = "FlowChart" | "Control" | "Result";
-type SidebarCustomProps = {
+type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: CommandSection;
-  leafNodeClickHandler: leafClickHandler;
-  manifestMap: CommandManifestMap;
+  sections: NodeSection;
+  leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
-  appTab: AppTab;
 };
 
 const Sidebar = ({
@@ -118,10 +117,8 @@ const Sidebar = ({
   setSideBarStatus,
   sections,
   leafNodeClickHandler,
-  manifestMap,
   customContent,
-  appTab,
-}: SidebarCustomProps) => {
+}: SidebarProps) => {
   const theme = useMantineTheme();
 
   const [query, setQuery] = useState("");
@@ -145,7 +142,7 @@ const Sidebar = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
   const setFocus = () => {
-    inputRef.current && inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -219,13 +216,11 @@ const Sidebar = ({
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}
-          manifestMap={manifestMap}
           node={sections}
           query={query}
           matchedParent={false}
           expand={expand}
           collapse={collapse}
-          appTab={appTab}
         />
       </Navbar.Section>
     </Navbar>

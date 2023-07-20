@@ -61,6 +61,7 @@ test_ci=false
 initSubmodule=true
 enableSentry=true
 enableTelemetry=false
+isDebugMode=false
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 feedback()
@@ -76,35 +77,12 @@ feedback()
    fi
 }
 
-wait_for_redis()
-{
-   info_msg "Waiting for Redis server to start..."
-
-   ATTEMPTS=0
-   MAX_ATTEMPTS=20
-   while [ $ATTEMPTS -lt $MAX_ATTEMPTS ]; do
-     redis-cli ping >> /dev/null 2>&1
-     if [ $? == 0 ]; then
-         feedback 0 'Redis server started succesfully...' ''
-       break
-     else
-       sleep 1
-       ATTEMPTS=$((ATTEMPTS+1))
-     fi
-   done
-
-   if [ $ATTEMPTS -eq $MAX_ATTEMPTS ]; then
-     feedback 1 '' "Could not start Redis after $ATTEMPTS attempts..."
-   fi
-}
-
 # Help function
 
 helpFunction()
 {
    echo ""
-   echo "Usage: $0 -n -p -r -s -S -t -T -v venv-path"
-   echo  " -r: shuts down existing Redis server and spins up a fresh one"
+   echo "Usage: $0 -n -p -s -S -t -T -d -v venv-path"
    echo  " -v: path to a Python virtual environment"
    echo  " -n: To NOT install npm packages"
    echo  " -p: To NOT install python packages"
@@ -112,6 +90,7 @@ helpFunction()
    echo  " -S: To NOT enable Sentry"
    echo  " -t: To enable local CI tests"
    echo  " -T: To enable Telemetry"
+   echo  " -d: To enable debug mode"
    echo 1 # Exit script after printing help
 }
 
@@ -126,10 +105,6 @@ do
         ;;
         -p)
         initPythonPackages=false
-        shift
-        ;;
-        -r)
-        initRedis=true
         shift
         ;;
         -v)
@@ -155,6 +130,10 @@ do
         ;;
         -s)
         initSubmodule=false # don't update submodules, prevents overwriting local changes
+        shift
+        ;;
+        -d)
+        isDebugMode=true
         shift
         ;;
         *) # unknown option
@@ -282,41 +261,11 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 $venvCmd && python3 generate_manifest.py
 
-feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
+feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
 if [ $is_ci = true ];then
    exit 0
 fi
-
-# initializing new Redis Instance
-if [ "$initRedis" ]
-then
-   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-cli SHUTDOWN; sleep 2; redis-cli FLUSHALL; exit"
-   feedback $? 'Successfully shut down existing Redis server and cleared Redis memory...' 'Failed to shut down Redis server. redis-cli error: check if redis-cli is running or Redis is installed in your local machine'
-   info_msg 'Spinning up a fresh Redis server...'
-   npx ttab -a iTerm2 -t 'Redis-CLI' "redis-server"
-   wait_for_redis
-else
-   if [ $is_ci = false ]; then
-      redis-cli ping >> /dev/null 2>&1
-      if [ $? != 0 ]; then
-         info_msg "Redis is not running, trying to start Redis server..."
-         npx ttab -t 'Redis' "redis-server"
-         wait_for_redis
-      fi
-   fi
-fi
-
-# Closing All RQ Workers
-$venvCmd && python3 close-all-rq-workers.py >/dev/null
-feedback $? 'Closed all existing rq workers (if any).' 'Error occured while closing all existing rq workers (if any): seems like rq package is not installed! Try running this script without -p argument to install required python packages.'
-
-# SHowing RQ WOrker Info
-
-info_msg 'Rq info after closing:'
-$venvCmd && rq info
-echo ''
-
 
 # Setup Sentry env var
 if [ $enableSentry = true ]
@@ -359,11 +308,16 @@ sleep 1
 
 # start project services
 if [ $test_ci = true ]; then
-   start_project_cmd='DBUS_SESSION_BUS_ADDRESS="autolaunch:" npm run start-project:ci'
+   start_project_cmd='npm run start-project:ci'
 else 
-   start_project_cmd='npm run start-project' 
+   start_project_cmd='npm run start-project'
 fi
- # start project services
+
+if [ $isDebugMode = true ]; then
+   start_project_cmd='npm run start-project:debug'
+fi
+
+# start project services
 if [ -n "$venvCmd" ]; then
    $venvCmd && $start_project_cmd 
 else

@@ -8,12 +8,7 @@ import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
-import {
-  CMND_TREE,
-  ManifestParams,
-  getManifestCmdsMap,
-  getManifestParams,
-} from "@src/utils/ManifestLoader";
+import { nodeSection } from "@src/utils/ManifestLoader";
 import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
@@ -22,6 +17,7 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
+  Node,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -31,21 +27,24 @@ import {
   OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
+  Controls,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  BezierEdge,
 } from "reactflow";
-import Sidebar from "../common/Sidebar/Sidebar";
+import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { CustomNodeProps } from "./types/CustomNodeProps";
+import { ElementsData } from "./types/CustomNodeProps";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
+import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
+import { notifications } from "@mantine/notifications";
+import { CenterObserver } from "./components/CenterObserver";
 
 localforage.config({
   name: "react-flow",
@@ -53,7 +52,6 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const manifestParams: ManifestParams = getManifestParams();
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
     useFlowChartState();
 
@@ -93,14 +91,11 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(
-    () => <SidebarCustomContent onAddNode={addNewNode} />,
-    [addNewNode]
-  );
-  const manifestMap = useMemo(() => getManifestCmdsMap(), []);
+  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
+
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    []
+    [setIsSidebarOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -128,18 +123,17 @@ const FlowChartTab = () => {
         Object.entries(nodeConfigs).map(([key, CustomNode]) => {
           return [
             key,
-            ({ data }: CustomNodeProps) => (
-              <CustomNode data={{ ...data, handleRemove: handleNodeRemove }} />
+            (props: { data: ElementsData }) => (
+              <CustomNode data={props.data} handleRemove={handleNodeRemove} />
             ),
           ];
         })
       ),
-    []
+    [handleNodeRemove]
   );
 
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView();
-
     setRfInstance(rfIns.toObject());
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
@@ -159,7 +153,22 @@ const FlowChartTab = () => {
     [setEdges]
   );
   const onConnect: OnConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
+    (connection) =>
+      setEdges((eds) => {
+        const [sourceType, targetType] = getEdgeTypes(connection);
+        if (isCompatibleType(sourceType, targetType)) {
+          return addEdge(connection, eds);
+        }
+
+        notifications.show({
+          id: "type-error",
+          color: "red",
+          title: "Type Error",
+          message: `Source type ${sourceType} and target type ${targetType} are not compatible`,
+          autoClose: true,
+          withCloseButton: true,
+        });
+      }),
     [setEdges]
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
@@ -190,13 +199,19 @@ const FlowChartTab = () => {
     setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-  }, [selectedNode]);
+  }, [
+    selectedNode,
+    setNodeFilePath,
+    setNodeLabel,
+    setNodeType,
+    setPythonString,
+  ]);
 
   const proOptions = { hideAttribution: true };
 
   const selectAllNodesShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = true;
       });
     });
@@ -204,7 +219,7 @@ const FlowChartTab = () => {
 
   const deselectAllNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = false;
       });
     });
@@ -212,7 +227,7 @@ const FlowChartTab = () => {
 
   const deselectNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         if (selectedNode !== null && node.id === selectedNode.id) {
           node.selected = false;
         }
@@ -280,13 +295,11 @@ const FlowChartTab = () => {
         </IconButton>
       </TabActions>
       <Sidebar
-        sections={CMND_TREE}
-        manifestMap={manifestMap}
-        leafNodeClickHandler={addNewNode}
+        sections={nodeSection}
+        leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
-        appTab={"FlowChart"}
       />
       <ReactFlowProvider>
         <div
@@ -299,10 +312,14 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
-            manifestParams={manifestParams}
+            nodes={nodes}
+            setNodes={(nodes: Node<ElementsData>[]) => {
+              setNodes(nodes);
+            }}
           />
 
           <FlowChartKeyboardShortcuts />
+          <CenterObserver />
 
           <ReactFlow
             id="flow-chart"
@@ -323,6 +340,7 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
+            fitView
           >
             <MiniMap
               style={{
@@ -344,6 +362,7 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
+            <Controls />
           </ReactFlow>
 
           <NodeExpandMenu

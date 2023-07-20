@@ -30,12 +30,5 @@ function check_dependencies {
       return "$npm_missing"
       exit 1
     }
-
-    $MEMURAI_CMD = Get-Command memurai.exe -ErrorAction SilentlyContinue
-
-    if (!$MEMURAI_CMD) {
-        return "Memurai is not installed on your machine which is an alternative to Redis for Windows and required for this project. Please download and install it to run this project. It can be downloaded from here: https://www.memurai.com/get-memurai"
-        exit 1
-    }
     return ''
 }

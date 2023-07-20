@@ -61,6 +61,7 @@ $initPythonPackages = $true
 $initSubmodule = $true
 $enableSentry = $true
 $enableTelemetry = $false
+$isDebugMode = $false
 
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -83,13 +84,14 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -s -S -T -v venv"
+  Write-Host "Usage: $0 -n -p -s -S -T -v venv -d"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
   Write-Host  " -s: To NOT update submodules"
   Write-Host  " -S: To NOT enable Sentry"
   Write-Host  " -T: To enable Telemetry"
   Write-Host  " -v: To use virtual env"
+  Write-Host  " -d: To enable debug mode"
 }
 
 # Assign command-line arguments to a variable
@@ -126,6 +128,11 @@ while ($arguments) {
   }
   elseif ($key -ceq "-T") {
     $enableTelemetry = $true
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-d") {
+    $isDebugMode = $true
     $index = $index + 1
     continue
   }
@@ -251,6 +258,7 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
+
 # Setup Sentry env var
 if ( $enableSentry -eq $true ) {
   info_msg "Sentry will be enabled!"
@@ -270,53 +278,16 @@ else {
   $Env:FLOJOY_ENABLE_TELEMETRY = 0
 }
 
-
-info_msg 'Checking if Memurai is running...'
-& memurai-cli.exe ping 2>$1 > $null
-$is_running = $LastExitCode
-
-if ($is_running -eq 0) {
-  success_msg 'Memurai is up and running...'
-}
-else {
-  info_msg "Memurai is not running, trying to start Memurai service..."
-  & memurai.exe --service-start > $null
-  feedback $? 'Started Memurai successfully...' 'Failed to start Memurai. Please try running following command to start Memurai: "memurai.exe --service-start"'
-}
-
-
-# Check for rq-win package
-& pip show rq-win 2>$1 > $null
-$is_installed = $LastExitCode
-if ($is_installed -ne 0) {
-  info_msg 'Installing rq-win package to run RQ Worker on Windows...'
-  $install_cmd = 'pip install git+https://github.com/michaelbrooks/rq-win.git#egg=rq-win'
-  Invoke-Expression $install_cmd 2>$1 | Out-Null
-  if ($LastExitCode -eq 0) {
-    feedback $true 'Installed rq-win package successfully!' ''
-  }
-  else {
-    feedback $false '' 'Failed to install rq-win package try running following command to install it manually: "pip install git+https://github.com/michaelbrooks/rq-win.git#egg=rq-win"'
-  }
-}
-
-if (!$venvPath) {
-  # Get Python scripts path
-  $python_scripts_path = & python .\get_script_dir.py
-  feedback $? 'Script path found for Python...' "Couldn't find script path for Python site-packages. Make sure you installed all required Python packages or run this script without -p argument to install packages automatically."
-  info_msg 'Checking if Python Scripts path is available in Path environment...'
-  $existingPath = $Env:PATH
-  # Check if the path already exists in the variable
-  if ($existingPath -split $([System.IO.Path]::PathSeparator) -contains $python_scripts_path) {
-    feedback $true "The Python Scripts path is already present in the Path environment variable..." ""
-  }
-  else {
-    info_msg "Adding Scipts path to Path environment..."
-    $Env:PATH = "$python_scripts_path$([System.IO.Path]::PathSeparator)$Env:PATH"
-    feedback $? "Scripts path added successfully!" "Failed to add Scripts path please add following path to Path environment and run this script again. $python_scripts_path"
-  }
-}
-
 # Start the project
 info_msg 'Starting the project...'
-& npm run start-project:win
+if ($isDebugMode -eq $true) {
+  info_msg "Debug mode will be enabled!"
+  $Env:DEBUG = $true
+  $startProjectCmd = "npm run start-project:win:debug"
+}
+else {
+  $Env:DEBUG = $false
+  $startProjectCmd = "npm run start-project:win"
+
+}
+Invoke-Expression $startProjectCmd

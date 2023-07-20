@@ -4,14 +4,9 @@ import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { API_URI } from "@src/data/constants";
 
 const flowKey = "flow-joy";
-const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-// const BACKEND_PORT = process.env.VITE_BACKEND_PORT
-//   ? Number(process.env.VITE_BACKEND_PORT)
-//   : 8000;
-const BACKEND_PORT = +process.env.VITE_BACKEND_PORT! || 8000;
-const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -32,7 +27,6 @@ export type S3_TYPE = {
 export type API_TYPE = CLOUD_OPENAI_TYPE | S3_TYPE;
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
-  // console.warn("saveFlowChartToLocalStorage:", rfInstance);
   if (rfInstance) {
     const flowObj = rfInstance;
     localforage.setItem(flowKey, flowObj);
@@ -50,7 +44,7 @@ export const sendApiKeyToDjango = async (body: API_TYPE, endpoint: string) => {
     });
 
     if (response.ok) {
-      const responseData = await response.json();
+      await response.json();
       notifications.update({
         id: "set-api-key",
         title: "Successful!",
@@ -80,7 +74,7 @@ export function saveAndRunFlowChartInServer({
   jobId,
   settings,
 }: {
-  rfInstance?: ReactFlowJsonObject<ElementsData, any>;
+  rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
   settings: Settings[];
 }) {
@@ -93,7 +87,8 @@ export function saveAndRunFlowChartInServer({
         fc: fcStr,
         jobsetId: jobId,
         cancelExistingJobs: true,
-        extraParams: settings.reduce((obj, setting) => {
+        ...settings.reduce((obj, setting) => {
+          //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
           obj[setting.key] = setting.value;
           return obj;
         }, {}),
@@ -104,7 +99,7 @@ export function saveAndRunFlowChartInServer({
 }
 
 export function cancelFlowChartRun(
-  rfInstance: ReactFlowJsonObject<ElementsData, any>,
+  rfInstance: ReactFlowJsonObject<ElementsData>,
   jobId: string
 ) {
   if (rfInstance) {
