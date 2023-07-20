@@ -1,9 +1,9 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import { ChangeEvent, memo } from "react";
-import { Modal, createStyles, Button, Input } from "@mantine/core";
-import { Notifications, notifications } from "@mantine/notifications";
+import { createStyles } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { sendApiKeyToDjango } from "@src/services/FlowChartServices";
+import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
 
 interface APIKeyModelProps {
   isOpen: boolean;
@@ -98,7 +98,6 @@ const useStyles = createStyles((theme) => ({
 }));
 const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   const { apiKey, setApiKey, apiValue, setApiValue } = useFlowChartState();
-  const { classes } = useStyles();
 
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
@@ -110,6 +109,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
 
   const handleClose = () => {
     setApiKey("");
+    setApiValue("");
     onClose();
   };
 
@@ -122,8 +122,10 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       autoClose: false,
       withCloseButton: false,
     });
-    sendApiKeyToDjango({ key: apiKey }, "set-cloud-api");
+    console.log("Sending data...");
+    sendApiKeyToFastAPI({ key: apiKey, value: apiValue });
     setApiKey("");
+    setApiValue("");
   };
   if (!isOpen) return null;
   return (
@@ -163,6 +165,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                       type="text"
                       name="APIKey"
                       placeholder="e.g. CLIENT_KEY"
+                      onChange={handleApiKeyChange}
                     />
                   </div>
                   <div className="ml-8 inline-block">
@@ -171,6 +174,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                       className="mt-1 block w-72 rounded-md border-slate-900 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-300 sm:text-sm"
                       type="text"
                       name="APIValue"
+                      onChange={handleApiValueChange}
                     />
                   </div>
                 </div>
@@ -185,6 +189,8 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                 <button
                   type="button"
                   className="ml-72 inline-flex rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  onClick={handleSendAPI}
+                  // disabled={!(apiKey && apiValue)}
                 >
                   Submit
                 </button>
