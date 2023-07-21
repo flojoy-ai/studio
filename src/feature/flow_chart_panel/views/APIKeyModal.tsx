@@ -1,5 +1,5 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { ChangeEvent, memo } from "react";
+import { ChangeEvent, memo, ClipboardEvent } from "react";
 import { createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -107,6 +107,17 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     setApiKey(e.target.value);
   };
 
+  const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
+    const val = e.clipboardData.getData("text");
+    if (val.includes("=")) {
+      const apiKey = val.split("=")[0];
+      const apiVal = val.split("=")[1];
+      setApiKey(apiKey);
+      setApiValue(apiVal);
+    }
+    e.preventDefault();
+  };
+
   const handleApiValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiValue(e.target.value);
   };
@@ -171,6 +182,8 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                       name="APIKey"
                       id="APIValue"
                       placeholder="e.g. CLIENT_KEY"
+                      value={apiKey || ""}
+                      onPaste={splitOnCopy}
                       onChange={handleApiKeyChange}
                     />
                   </div>
@@ -182,7 +195,8 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                       className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
                       type="text"
                       name="APIValue"
-                      id="APIValue"
+                      value={apiValue || ""}
+                      onPaste={splitOnCopy}
                       onChange={handleApiValueChange}
                     />
                   </div>
