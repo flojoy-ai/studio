@@ -6,8 +6,7 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 
-const initialNodes: Node<ElementsData>[] =
-  NOISY_SINE.nodes as Node<ElementsData>[];
+const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);

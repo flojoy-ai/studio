@@ -15,6 +15,7 @@ const elementData: ElementsData = {
       param: "first_param",
       value: "10",
       type: "int",
+      desc: null,
     },
   },
   func: "Rand",

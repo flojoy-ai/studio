@@ -11,11 +11,6 @@ const props: NodeModalProps = {
     cmd: "test",
     id: "test-1",
     result: {
-      data: {
-        type: "ordered_pair",
-        x: [],
-        y: [],
-      },
       default_fig: {
         data: [],
       },
