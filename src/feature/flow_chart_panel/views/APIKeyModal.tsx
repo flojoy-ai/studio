@@ -118,15 +118,6 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
   };
 
   const handleSendAPI = () => {
-    notifications.show({
-      id: "set-api-key",
-      loading: true,
-      title: `Setting your ${apiKey} key`,
-      message: `Setting your ${apiKey} key, please be patient`,
-      autoClose: false,
-      withCloseButton: false,
-    });
-    console.log("Sending data...");
     sendApiKeyToFastAPI({ key: apiKey, value: apiValue });
     setApiKey("");
     setApiValue("");
@@ -147,9 +138,9 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
       <div className="fixed inset-0 z-10 overflow-y-auto">
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 ">
-          <div className="relative transform overflow-hidden rounded-lg border-2 border-gray-500 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+          <div className="relative transform overflow-hidden rounded-xl border-2 border-gray-500 text-left shadow-2xl transition-all sm:my-8 sm:h-full sm:w-full sm:max-w-2xl">
             <div
-              className="h-52 bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
+              className="max-h-96 bg-modal px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
               id="defaultModal"
             >
               <div className="sm:flex sm:items-start">
@@ -167,25 +158,31 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                       className="mb-2.5 ml-2 flex text-xl font-semibold text-black dark:text-white"
                       id="modal-title"
                     >
-                      Environment Variable
+                      Environment Variables
                     </h2>
                   </div>
                   <div className="ml-4 inline-block">
-                    <span className="text-accent1 sm:text-sm">Key:</span>
+                    <span className="font-semibold text-accent1 sm:text-sm">
+                      Key:
+                    </span>
                     <input
-                      className="mt-1 block w-60 rounded-md border-slate-900 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-300 sm:text-sm"
+                      className="mt-1 block w-60 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none sm:text-sm"
                       type="text"
                       name="APIKey"
+                      id="APIValue"
                       placeholder="e.g. CLIENT_KEY"
                       onChange={handleApiKeyChange}
                     />
                   </div>
                   <div className="ml-8 inline-block">
-                    <span className="text-accent1 sm:text-sm">Value:</span>
+                    <span className="font-semibold text-accent1 sm:text-sm">
+                      Value:
+                    </span>
                     <input
-                      className="mt-1 block w-72 rounded-md border-slate-900 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-300 sm:text-sm"
+                      className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
                       type="text"
                       name="APIValue"
+                      id="APIValue"
                       onChange={handleApiValueChange}
                     />
                   </div>
@@ -208,6 +205,22 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                 >
                   Submit
                 </button>
+              </div>
+              <hr className="mt-3.5 h-3" />
+            </div>
+            <div className=" -mt-5 max-h-80 overflow-y-auto bg-modal px-4">
+              <div className="relative ml-5 overflow-y-scroll">
+                <h2 className="mb-2.5 ml-4 flex text-xl font-semibold text-black dark:text-white">
+                  Generated Keys
+                </h2>
+                <div className="ml-0.5 flex">
+                  <h2 className="mb-2.5 ml-4 flex text-base font-semibold text-black dark:text-white">
+                    Key:
+                  </h2>
+                  <h2 className="mb-2.5 ml-4 flex text-base font-semibold text-black dark:text-white">
+                    Value:
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
