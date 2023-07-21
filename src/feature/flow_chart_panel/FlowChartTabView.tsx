@@ -45,6 +45,7 @@ import { Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
+import { CommandMenu } from "../command/CommandMenu";
 
 localforage.config({
   name: "react-flow",
@@ -377,6 +378,7 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
+      <CommandMenu />
     </Layout>
   );
 };
