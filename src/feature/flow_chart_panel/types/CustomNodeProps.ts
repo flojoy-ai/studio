@@ -26,6 +26,7 @@ export type ElementsData = {
     name: string;
     id: string;
     type: string;
+    multiple: boolean;
     desc: string | null;
   }>;
   outputs?: Array<{
