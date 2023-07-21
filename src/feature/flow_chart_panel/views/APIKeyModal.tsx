@@ -179,8 +179,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                     <input
                       className="mt-1 block w-60 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none sm:text-sm"
                       type="text"
-                      name="APIKey"
-                      id="APIValue"
+                      id="APIKey"
                       placeholder="e.g. CLIENT_KEY"
                       value={apiKey || ""}
                       onPaste={splitOnCopy}
@@ -194,7 +193,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                     <input
                       className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
                       type="text"
-                      name="APIValue"
+                      id="APIValue"
                       value={apiValue || ""}
                       onPaste={splitOnCopy}
                       onChange={handleApiValueChange}
