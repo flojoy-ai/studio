@@ -17,6 +17,7 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
+  Node,
   NodeDragHandler,
   NodeTypes,
   OnConnect,
@@ -26,6 +27,7 @@ import {
   OnNodesDelete,
   ReactFlow,
   ReactFlowProvider,
+  Controls,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -44,6 +46,7 @@ import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
+import { CommandMenu } from "../command/CommandMenu";
 
 localforage.config({
   name: "react-flow",
@@ -84,15 +87,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    nodesManifest,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -102,19 +98,11 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(
-    () => (
-      <SidebarCustomContent
-        onAddNode={addNewNode}
-        nodesManifest={nodesManifest}
-      />
-    ),
-    [addNewNode, nodesManifest]
-  );
+  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    []
+    [setIsSidebarOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -148,20 +136,11 @@ const FlowChartTab = () => {
           ];
         })
       ),
-    []
+    [handleNodeRemove]
   );
 
   const onInit: OnInit = (rfIns) => {
-    const flowSize = 1107;
-    const xPosition = windowWidth > flowSize ? (windowWidth - flowSize) / 2 : 0;
     rfIns.fitView();
-
-    rfIns.setViewport({
-      x: xPosition,
-      y: 61,
-      zoom: 0.7,
-    });
-
     setRfInstance(rfIns.toObject());
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
@@ -227,13 +206,19 @@ const FlowChartTab = () => {
     setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-  }, [selectedNode]);
+  }, [
+    selectedNode,
+    setNodeFilePath,
+    setNodeLabel,
+    setNodeType,
+    setPythonString,
+  ]);
 
   const proOptions = { hideAttribution: true };
 
   const selectAllNodesShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = true;
       });
     });
@@ -241,7 +226,7 @@ const FlowChartTab = () => {
 
   const deselectAllNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         node.selected = false;
       });
     });
@@ -249,7 +234,7 @@ const FlowChartTab = () => {
 
   const deselectNodeShortcut = () => {
     setNodes((nodes) => {
-      nodes.map((node) => {
+      nodes.forEach((node) => {
         if (selectedNode !== null && node.id === selectedNode.id) {
           node.selected = false;
         }
@@ -315,11 +300,13 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
-        <IconButton onClick={handleGalleryState} icon={galleryIcon}>
-          <Text size="sm">App Gallery</Text>
-        </IconButton>
-        <AppGalleryModal />
-        <IconButton onClick={clearCanvas} icon={minusIcon} ml="auto" h="100%">
+        <IconButton
+          data-testid="clear-canvas-button"
+          onClick={clearCanvas}
+          icon={minusIcon}
+          ml="auto"
+          h="100%"
+        >
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
       </TabActions>
@@ -329,7 +316,6 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
-        appTab={"FlowChart"}
       />
 
       <ReactFlowProvider>
@@ -343,6 +329,10 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
+            nodes={nodes}
+            setNodes={(nodes: Node<ElementsData>[]) => {
+              setNodes(nodes);
+            }}
           />
 
           <FlowChartKeyboardShortcuts />
@@ -389,6 +379,7 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
+            <Controls />
           </ReactFlow>
 
           <NodeExpandMenu
@@ -403,6 +394,7 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
+      <CommandMenu />
     </Layout>
   );
 };

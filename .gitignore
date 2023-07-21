@@ -8,13 +8,12 @@
 /node_modules
 /.pnp
 .pnp.js
+dist-electron/*
 
 # testing
 /coverage
 /cypress/screenshots/
 
-# production
-/build
 
 # gitpod config to prevent unwanted installations
 .gitpod.yml 

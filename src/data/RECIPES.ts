@@ -1,992 +1,488 @@
 export const NOISY_SINE = {
   nodes: [
     {
-      "width": 130,
-      "height": 130,
-      "id": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
-      "type": "SIMULATIONS",
-      "data": {
-        "id": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
-        "label": "SINE",
-        "func": "SINE",
-        "type": "SIMULATIONS",
-        "ctrls": {
-          "amplitude": {
-            "type": "float",
-            "default": 1,
-            "functionName": "SINE",
-            "param": "amplitude",
-            "value": 1
-          },
-          "frequency": {
-            "type": "float",
-            "default": 1,
-            "functionName": "SINE",
-            "param": "frequency",
-            "value": 1
-          },
-          "offset": {
-            "type": "float",
-            "default": 0,
-            "functionName": "SINE",
-            "param": "offset",
-            "value": 0
-          },
-          "phase": {
-            "type": "float",
-            "default": 0,
-            "functionName": "SINE",
-            "param": "phase",
-            "value": 0
-          },
-          "waveform": {
-            "type": "select",
-            "default": "sine",
-            "options": [
-              "sine",
-              "square",
-              "triangle",
-              "sawtooth"
-            ],
-            "functionName": "SINE",
-            "param": "waveform",
-            "value": "sine"
-          }
-        },
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
-        "selected": false
-      },
-      "position": {
-        "x": 776.7590765313249,
-        "y": -33.14686027271438
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 776.7590765313249,
-        "y": -33.14686027271438
-      },
-      "dragging": true
-    },
-    {
-      "width": 130,
-      "height": 130,
-      "id": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "type": "SIMULATIONS",
-      "data": {
-        "id": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-        "label": "RAND",
-        "func": "RAND",
-        "type": "SIMULATIONS",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
-        "selected": false
-      },
-      "position": {
-        "x": 775.3305051027536,
-        "y": 183.99599687014285
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 775.3305051027536,
-        "y": 183.99599687014285
-      },
-      "dragging": true
-    },
-    {
-      "width": 150,
-      "height": 150,
-      "id": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-      "type": "default",
-      "data": {
-        "id": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-        "label": "LINSPACE",
-        "func": "LINSPACE",
-        "type": "default",
-        "ctrls": {
-          "start": {
-            "type": "float",
-            "default": 10,
-            "functionName": "LINSPACE",
-            "param": "start",
-            "value": 10
-          },
-          "end": {
-            "type": "float",
-            "default": 0,
-            "functionName": "LINSPACE",
-            "param": "end",
-            "value": 0
-          },
-          "step": {
-            "type": "int",
-            "default": 1000,
-            "functionName": "LINSPACE",
-            "param": "step",
-            "value": 1000
-          }
-        },
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-        "selected": false
-      },
-      "position": {
-        "x": 415.6162193884677,
-        "y": 171.138854013
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 415.6162193884677,
-        "y": 171.138854013
-      },
-      "dragging": true
-    },
-    {
-      "width": 130,
-      "height": 130,
-      "id": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
-      "type": "SIMULATIONS",
-      "data": {
-        "id": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
-        "label": "2.0",
-        "func": "CONSTANT",
-        "type": "SIMULATIONS",
-        "ctrls": {
-          "constant": {
-            "type": "float",
-            "default": 3,
-            "functionName": "CONSTANT",
-            "param": "constant",
-            "value": "2.0"
-          }
-        },
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
-        "selected": false
-      },
-      "position": {
-        "x": 777.034632942326,
-        "y": 399.72607622902814
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 777.034632942326,
-        "y": 399.72607622902814
-      },
-      "dragging": true
-    },
-    {
-      "width": 210,
-      "height": 130,
-      "id": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-      "type": "TERMINATORS",
-      "data": {
-        "id": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-        "label": "END",
-        "func": "END",
-        "type": "TERMINATORS",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "Any",
-            "multiple": false
-          }
-        ],
-        "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-        "selected": false
-      },
-      "position": {
-        "x": 1740.0479664071067,
-        "y": 178.93847492277808
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 1740.0479664071067,
-        "y": 178.93847492277808
-      },
-      "dragging": true
-    },
-    {
-      "width": 99,
-      "height": 130,
-      "id": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "type": "ARITHMETIC",
-      "data": {
-        "id": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-        "label": "ADD",
-        "func": "ADD",
-        "type": "ARITHMETIC",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "a",
-            "id": "a",
-            "type": "OrderedPair",
-            "multiple": false
-          },
-          {
-            "name": "b",
-            "id": "b",
-            "type": "OrderedPair",
-            "multiple": true
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair"
-          }
-        ],
-        "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
-        "selected": false
-      },
-      "position": {
-        "x": 1087.9891474596368,
-        "y": 195.25915121516448
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 1087.9891474596368,
-        "y": 195.25915121516448
-      },
-      "dragging": true
-    },
-    {
-      "width": 380,
-      "height": 293,
-      "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-      "type": "PLOTLY",
-      "data": {
-        "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-        "label": "HISTOGRAM",
-        "func": "HISTOGRAM",
-        "type": "PLOTLY",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair|DataFrame|Matrix",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "Plotly"
-          }
-        ],
-        "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
-        "selected": false
-      },
-      "position": {
-        "x": 1301.9835116897505,
-        "y": -28.568299803888863
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 1301.9835116897505,
-        "y": -28.568299803888863
-      },
-      "dragging": true
-    },
-    {
-      "width": 380,
-      "height": 293,
-      "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-      "type": "PLOTLY",
-      "data": {
-        "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-        "label": "SCATTER",
-        "func": "SCATTER",
-        "type": "PLOTLY",
-        "ctrls": {},
-        "inputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "OrderedPair|DataFrame|Matrix",
-            "multiple": false
-          }
-        ],
-        "outputs": [
-          {
-            "name": "default",
-            "id": "default",
-            "type": "Plotly"
-          }
-        ],
-        "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-        "selected": false
-      },
-      "position": {
-        "x": 1321.42749430047,
-        "y": 335.8151686044447
-      },
-      "selected": false,
-      "positionAbsolute": {
-        "x": 1321.42749430047,
-        "y": 335.8151686044447
-      },
-      "dragging": true
-    }
-  ],
-  edges: [
-    {
-      "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-      "sourceHandle": "default",
-      "target": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
-      "targetHandle": "default",
-      "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-SINE-db665d87-c2af-4acd-916b-b97a815e69a7default"
-    },
-    {
-      "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-      "sourceHandle": "default",
-      "target": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "targetHandle": "default",
-      "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87eddefault"
-    },
-    {
-      "source": "LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3",
-      "sourceHandle": "default",
-      "target": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
-      "targetHandle": "default",
-      "id": "reactflow__edge-LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3default-CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3default"
-    },
-    {
-      "source": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
-      "sourceHandle": "default",
-      "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "targetHandle": "a",
-      "id": "reactflow__edge-SINE-db665d87-c2af-4acd-916b-b97a815e69a7default-ADD-b4cb003b-f34d-419e-bc95-452ab539c1eca"
-    },
-    {
-      "source": "RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87ed",
-      "sourceHandle": "default",
-      "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "targetHandle": "b",
-      "id": "reactflow__edge-RAND-fa14a1b1-d49b-4b36-ad29-dcb0ab4a87eddefault-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecb"
-    },
-    {
-      "source": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
-      "sourceHandle": "default",
-      "target": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "targetHandle": "b",
-      "id": "reactflow__edge-CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3default-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecb"
-    },
-    {
-      "source": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "sourceHandle": "default",
-      "target": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-      "targetHandle": "default",
-      "id": "reactflow__edge-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecdefault-SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507adefault"
-    },
-    {
-      "source": "ADD-b4cb003b-f34d-419e-bc95-452ab539c1ec",
-      "sourceHandle": "default",
-      "target": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-      "targetHandle": "default",
-      "id": "reactflow__edge-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecdefault-HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82default"
-    },
-    {
-      "source": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-      "sourceHandle": "default",
-      "target": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-      "targetHandle": "default",
-      "id": "reactflow__edge-HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82default-END-aa17356b-c7af-408e-8c56-531a3fe595d1default"
-    },
-    {
-      "source": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-      "sourceHandle": "default",
-      "target": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-      "targetHandle": "default",
-      "id": "reactflow__edge-SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507adefault-END-aa17356b-c7af-408e-8c56-531a3fe595d1default"
-    }
-  ]
-};
-
-export const LOOP_APP = {
-  elements: [
-    {
-      id: "LINSPACE-userGeneratedNode_1646432683694",
+      width: 208,
+      height: 96,
+      id: "CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4",
+      type: "SIMULATIONS",
       data: {
-        id: "LINSPACE-userGeneratedNode_1646432683694",
-        label: "LINSPACE",
-        func: "LINSPACE",
-        type: "SIMULATION",
+        id: "CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4",
+        label: "2.0",
+        func: "CONSTANT",
+        type: "SIMULATIONS",
         ctrls: {
-          LINSPACE_LINSPACE_start: {
-            functionName: "LINSPACE",
-            param: "start",
-            value: 1,
-          },
-          LINSPACE_LINSPACE_end: {
-            functionName: "LINSPACE",
-            param: "end",
-            value: 14,
-          },
-          LINSPACE_LINSPACE_step: {
-            functionName: "LINSPACE",
-            param: "step",
-            value: 3,
-          },
-        },
-      },
-      position: {
-        x: -61,
-        y: 268,
-      },
-      type: "default",
-    },
-    {
-      id: "LOOP-userGeneratedNode_1646417604301",
-      data: {
-        id: "LOOP-userGeneratedNode_1646417604301",
-        label: "LOOP",
-        func: "LOOP",
-        type: "LOOP",
-        ctrls: {
-          LOOP_LOOP_initial_count: {
-            value: 0,
-            param: "initial_count",
-          },
-          LOOP_LOOP_iteration_count: {
-            value: 2,
-            param: "iteration_count",
-          },
-          LOOP_LOOP_step: {
-            value: 1,
-            param: "step",
+          constant: {
+            type: "float",
+            default: 3,
+            desc: null,
+            functionName: "CONSTANT",
+            param: "constant",
+            value: "2.0",
           },
         },
         inputs: [
           {
-            name: "end",
-            id: "end",
-          },
-          {
-            name: "body",
-            id: "body",
+            name: "default",
+            id: "default",
+            type: "Vector",
+            multiple: false,
+            desc: null,
           },
         ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair",
+            desc: null,
+          },
+        ],
+        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/CONSTANT/CONSTANT.py",
+        selected: false,
       },
       position: {
-        x: 265,
-        y: 281,
+        x: -190.17482079016278,
+        y: 258.2780339752998,
       },
-      type: "default",
+      selected: false,
+      positionAbsolute: {
+        x: -190.17482079016278,
+        y: 258.2780339752998,
+      },
+      dragging: true,
     },
     {
-      id: "RAND-userGeneratedNode_1646417371398",
+      width: 150,
+      height: 180,
+      id: "LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818c",
+      type: "default",
       data: {
-        id: "RAND-userGeneratedNode_1646417371398",
+        id: "LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818c",
+        label: "LINSPACE",
+        func: "LINSPACE",
+        type: "default",
+        ctrls: {
+          start: {
+            type: "float",
+            default: 10,
+            desc: null,
+            functionName: "LINSPACE",
+            param: "start",
+            value: 10,
+          },
+          end: {
+            type: "float",
+            default: 0,
+            desc: null,
+            functionName: "LINSPACE",
+            param: "end",
+            value: 0,
+          },
+          step: {
+            type: "int",
+            default: 1000,
+            desc: null,
+            functionName: "LINSPACE",
+            param: "step",
+            value: 1000,
+          },
+        },
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "Vector",
+            desc: null,
+          },
+        ],
+        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+        selected: false,
+      },
+      position: {
+        x: -520.4413156421073,
+        y: -2.257275240000638,
+      },
+      selected: false,
+      positionAbsolute: {
+        x: -520.4413156421073,
+        y: -2.257275240000638,
+      },
+      dragging: true,
+    },
+    {
+      width: 208,
+      height: 96,
+      id: "RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bb",
+      type: "SIMULATIONS",
+      data: {
+        id: "RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bb",
         label: "RAND",
         func: "RAND",
-        type: "SIMULATION",
-        ctrls: {},
+        type: "SIMULATIONS",
+        ctrls: {
+          distribution: {
+            type: "select",
+            default: "normal",
+            options: ["normal", "uniform", "poisson"],
+            desc: "the distribution over the random samples",
+            functionName: "RAND",
+            param: "distribution",
+            value: "normal",
+          },
+          lower_bound: {
+            type: "float",
+            default: 0,
+            desc: "the lower bound of the output interval",
+            functionName: "RAND",
+            param: "lower_bound",
+            value: 0,
+          },
+          upper_bound: {
+            type: "float",
+            default: 1,
+            desc: "the upper bound of the output interval",
+            functionName: "RAND",
+            param: "upper_bound",
+            value: 1,
+          },
+          normal_mean: {
+            type: "float",
+            default: 0,
+            desc: 'the mean or "center" of the normal distribution',
+            functionName: "RAND",
+            param: "normal_mean",
+            value: 0,
+          },
+          normal_standard_deviation: {
+            type: "float",
+            default: 1,
+            desc: 'the spread or "width" of the normal distribution',
+            functionName: "RAND",
+            param: "normal_standard_deviation",
+            value: 1,
+          },
+          poisson_events: {
+            type: "float",
+            default: 1,
+            desc: "the expected number of events occurring in a fixed time-interval when distribution is poisson",
+            functionName: "RAND",
+            param: "poisson_events",
+            value: 1,
+          },
+        },
+        inputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair|Vector",
+            multiple: false,
+            desc: "Optional input to use as the x-axis for the random samples",
+          },
+        ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair|Scalar",
+            desc: "OrderedPair if there's an input\nx: the x-axis of the input\ny: the random samples\n\nScalar if there is no input\nc: the random number",
+          },
+        ],
+        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
+        selected: false,
       },
       position: {
-        x: 550,
-        y: 619,
+        x: -191.52928284478674,
+        y: -173.74564966466045,
       },
-      type: "default",
+      selected: false,
+      positionAbsolute: {
+        x: -191.52928284478674,
+        y: -173.74564966466045,
+      },
+      dragging: true,
     },
     {
-      id: "RAND-userGeneratedNode_1646417371399",
+      width: 208,
+      height: 96,
+      id: "SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319",
+      type: "SIMULATIONS",
       data: {
-        id: "RAND-userGeneratedNode_1646417371399",
-        label: "RAND",
-        func: "RAND",
-        type: "SIMULATION",
-        ctrls: {},
+        id: "SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319",
+        label: "SINE",
+        func: "SINE",
+        type: "SIMULATIONS",
+        ctrls: {
+          amplitude: {
+            type: "float",
+            default: 1,
+            desc: null,
+            functionName: "SINE",
+            param: "amplitude",
+            value: 1,
+          },
+          frequency: {
+            type: "float",
+            default: 1,
+            desc: null,
+            functionName: "SINE",
+            param: "frequency",
+            value: 1,
+          },
+          offset: {
+            type: "float",
+            default: 0,
+            desc: null,
+            functionName: "SINE",
+            param: "offset",
+            value: 0,
+          },
+          phase: {
+            type: "float",
+            default: 0,
+            desc: null,
+            functionName: "SINE",
+            param: "phase",
+            value: 0,
+          },
+          waveform: {
+            type: "select",
+            default: "sine",
+            options: ["sine", "square", "triangle", "sawtooth"],
+            desc: null,
+            functionName: "SINE",
+            param: "waveform",
+            value: "sine",
+          },
+        },
+        inputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair|Vector",
+            multiple: false,
+            desc: null,
+          },
+        ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair",
+            desc: null,
+          },
+        ],
+        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/SINE/SINE.py",
+        selected: false,
       },
       position: {
-        x: 550,
-        y: 619,
+        x: -190.70972669002396,
+        y: 44.58416603872439,
       },
-      type: "default",
+      selected: false,
+      positionAbsolute: {
+        x: -190.70972669002396,
+        y: 44.58416603872439,
+      },
+      dragging: true,
     },
     {
-      id: "MULTIPLY-userGeneratedNode_1646417352715",
+      width: 72,
+      height: 72,
+      id: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      type: "ARITHMETIC",
       data: {
-        id: "MULTIPLY-userGeneratedNode_1646417352715",
-        label: "MULTIPLY",
-        func: "MULTIPLY",
+        id: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+        label: "ADD",
+        func: "ADD",
         type: "ARITHMETIC",
         ctrls: {},
         inputs: [
           {
-            name: "y",
-            id: "multiply_y",
+            name: "a",
+            id: "a",
+            type: "OrderedPair|Scalar|Vector",
+            multiple: false,
+            desc: null,
+          },
+          {
+            name: "b",
+            id: "b",
+            type: "OrderedPair|Scalar|Vector",
+            multiple: true,
+            desc: null,
           },
         ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "OrderedPair|Scalar|Vector",
+            desc: null,
+          },
+        ],
+        path: "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+        selected: false,
       },
       position: {
-        x: 715,
-        y: 495,
+        x: 154.98253469015648,
+        y: 59.45537768698523,
       },
-      type: "default",
+      selected: false,
+      positionAbsolute: {
+        x: 154.98253469015648,
+        y: 59.45537768698523,
+      },
+      dragging: true,
     },
     {
-      id: "CONDITIONAL-userGeneratedNode_1646435677929",
+      width: 250,
+      height: 159,
+      id: "HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f",
+      type: "PLOTLY",
       data: {
-        id: "CONDITIONAL-userGeneratedNode_1646435677929",
-        label: "CONDITIONAL",
-        func: "CONDITIONAL",
-        type: "COMPARATOR",
-        ctrls: {
-          CONDITIONAL_CONDITIONAL_operator_type: {
-            param: "operator_type",
-            value: ">",
-          },
-        },
+        id: "HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f",
+        label: "HISTOGRAM",
+        func: "HISTOGRAM",
+        type: "PLOTLY",
+        ctrls: {},
         inputs: [
           {
-            name: "x",
-            id: "first",
-          },
-          {
-            name: "y",
-            id: "second",
+            name: "default",
+            id: "default",
+            type: "OrderedPair|DataFrame|Matrix",
+            multiple: false,
+            desc: null,
           },
         ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "Plotly",
+            desc: null,
+          },
+        ],
+        path: "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
+        selected: false,
       },
       position: {
-        x: 900,
-        y: 426,
+        x: 295.78796849302887,
+        y: -206.33312583215297,
       },
-      type: "default",
+      selected: false,
+      positionAbsolute: {
+        x: 295.78796849302887,
+        y: -206.33312583215297,
+      },
+      dragging: true,
     },
     {
-      id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
+      width: 225,
+      height: 226,
+      id: "SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13",
+      type: "PLOTLY",
       data: {
-        id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-        label: "Line",
-        func: "LINE",
-        type: "PLOTLY_VISOR",
+        id: "SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13",
+        label: "SCATTER",
+        func: "SCATTER",
+        type: "PLOTLY",
         ctrls: {},
-      },
-      position: {
-        x: 901,
-        y: 212,
-      },
-    },
-    {
-      id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      data: {
-        id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-        label: "Bar",
-        func: "BAR",
-        type: "PLOTLY_VISOR",
-        ctrls: {},
-      },
-      position: {
-        x: 907,
-        y: -16,
-      },
-    },
-    {
-      source: "LINSPACE-userGeneratedNode_1646432683694",
-      sourceHandle: null,
-      target: "LOOP-userGeneratedNode_1646417604301",
-      targetHandle: null,
-      id: "LINSPACE-userGeneratedNode_1646432683694null-LOOP-userGeneratedNode_1646417604301null",
-      type: "default",
-    },
-    {
-      source: "LOOP-userGeneratedNode_1646417604301",
-      targetHandle: null,
-      target: "RAND-userGeneratedNode_1646417371398",
-      sourceHandle: "body",
-      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-RAND-userGeneratedNode_1646417371398null",
-      type: "default",
-    },
-    {
-      source: "LOOP-userGeneratedNode_1646417604301",
-      sourceHandle: "body",
-      target: "MULTIPLY-userGeneratedNode_1646417352715",
-      targetHandle: null,
-      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-MULTIPLY-userGeneratedNode_1646417352715null",
-      type: "default",
-    },
-    {
-      source: "LOOP-userGeneratedNode_1646417604301",
-      sourceHandle: "body",
-      target: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: null,
-      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-CONDITIONAL-userGeneratedNode_1646435677929null",
-      type: "default",
-    },
-    {
-      source: "RAND-userGeneratedNode_1646417371398",
-      sourceHandle: null,
-      target: "MULTIPLY-userGeneratedNode_1646417352715",
-      targetHandle: "multiply_y",
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-MULTIPLY-userGeneratedNode_1646417352715null",
-      type: "default",
-    },
-    {
-      source: "MULTIPLY-userGeneratedNode_1646417352715",
-      sourceHandle: null,
-      target: "RAND-userGeneratedNode_1646417371399",
-      targetHandle: null,
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-RAND-userGeneratedNode_1646417371399null",
-      type: "default",
-    },
-    {
-      source: "RAND-userGeneratedNode_1646417371399",
-      sourceHandle: null,
-      target: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: null,
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-CONDITIONAL-userGeneratedNode_1646435677929null",
-      type: "default",
-    },
-    {
-      source: "LOOP-userGeneratedNode_1646417604301",
-      sourceHandle: "end",
-      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      targetHandle: null,
-      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
-      type: "default",
-    },
-    {
-      source: "LOOP-userGeneratedNode_1646417604301",
-      sourceHandle: "end",
-      target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      targetHandle: null,
-      id: "reactflow__edge-LOOP-userGeneratedNode_1646417604301null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
-      type: "default",
-    },
-  ],
-  position: [0, 0],
-  zoom: 1,
-};
-
-export const CONDITIONAL = {
-  elements: [
-    {
-      id: "2.0-userGeneratedNode_1646435677928",
-      data: {
-        id: "2.0-userGeneratedNode_1646435677928",
-        label: "2.0",
-        func: "CONSTANT",
-        type: "SIMULATION",
-        ctrls: {
-          "CONSTANT_2.0_constant": {
-            functionName: "CONSTANT",
-            param: "constant",
-            value: "3",
-          },
-        },
-      },
-      position: {
-        x: 96,
-        y: 46,
-      },
-      type: "default",
-    },
-    {
-      id: "2.0-userGeneratedNode_1646435677929",
-      data: {
-        id: "2.0-userGeneratedNode_1646435677929",
-        label: "2.0",
-        func: "CONSTANT",
-        type: "SIMULATION",
-        ctrls: {
-          "CONSTANT_2.0_constant": {
-            functionName: "CONSTANT",
-            param: "constant",
-            value: "4",
-          },
-        },
-      },
-      position: {
-        x: 145,
-        y: 400,
-      },
-      type: "default",
-    },
-    {
-      id: "CONDITIONAL-userGeneratedNode_1646435677929",
-      data: {
-        id: "CONDITIONAL-userGeneratedNode_1646435677929",
-        label: "CONDITIONAL",
-        func: "CONDITIONAL",
-        type: "COMPARATOR",
-        ctrls: {
-          CONDITIONAL_CONDITIONAL_operator_type: {
-            param: "operator_type",
-            value: ">",
-          },
-        },
         inputs: [
           {
-            name: "x",
-            id: "first",
-          },
-          {
-            name: "y",
-            id: "second",
+            name: "default",
+            id: "default",
+            type: "OrderedPair|DataFrame|Matrix",
+            multiple: false,
+            desc: null,
           },
         ],
-      },
-      position: {
-        x: 500,
-        y: 218,
-      },
-      type: "default",
-    },
-    {
-      id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      data: {
-        id: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-        label: "Line",
-        func: "LINE",
-        type: "PLOTLY_VISOR",
-        ctrls: {},
-      },
-      position: {
-        x: 1203,
-        y: 308,
-      },
-    },
-    {
-      id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      data: {
-        id: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-        label: "Bar",
-        func: "BAR",
-        type: "PLOTLY_VISOR",
-        ctrls: {},
-      },
-      position: {
-        x: 1157,
-        y: -48,
-      },
-    },
-    {
-      id: "TIMER-userGeneratedNode_1646435677929",
-      data: {
-        id: "TIMER-userGeneratedNode_1646435677929",
-        label: "TIMER",
-        func: "TIMER",
-        type: "TIMER",
-        ctrls: {
-          TIMER_TIMER_sleep_time: {
-            param: "sleep_time",
-            value: 3,
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "Plotly",
+            desc: null,
           },
-        },
+        ],
+        path: "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+        selected: false,
       },
       position: {
-        x: 256,
-        y: 146,
+        x: 317.9877014717527,
+        y: 150.6166652187465,
       },
-    },
-    {
-      id: "RAND-userGeneratedNode_1646417371398",
-      data: {
-        id: "RAND-userGeneratedNode_1646417371398",
-        label: "RAND",
-        func: "RAND",
-        type: "SIMULATION",
-        ctrls: {},
+      selected: false,
+      positionAbsolute: {
+        x: 317.9877014717527,
+        y: 150.6166652187465,
       },
-      position: {
-        x: 887,
-        y: 393,
-      },
-      type: "default",
-    },
-    {
-      id: "RAND-userGeneratedNode_1646417371399",
-      data: {
-        id: "RAND-userGeneratedNode_1646417371399",
-        label: "RAND",
-        func: "RAND",
-        type: "SIMULATION",
-        ctrls: {},
-      },
-      position: {
-        x: 897,
-        y: 59,
-      },
-      type: "default",
-    },
-    {
-      source: "2.0-userGeneratedNode_1646435677928",
-      sourceHandle: null,
-      target: "TIMER-userGeneratedNode_1646435677929",
-      targetHandle: null,
-      animated: false,
-      id: "reactflow__edge-2.0-userGeneratedNode_1646435677928null-TIMER-userGeneratedNode_1646435677929null",
-    },
-    {
-      source: "TIMER-userGeneratedNode_1646435677929",
-      sourceHandle: null,
-      target: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: "first",
-      animated: false,
-      id: "reactflow__edge-TIMER-userGeneratedNode_1646435677929null-CONDITIONAL-userGeneratedNode_1646435677929null",
-    },
-    {
-      source: "2.0-userGeneratedNode_1646435677929",
-      sourceHandle: null,
-      target: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: "second",
-      animated: false,
-      id: "reactflow__edge-2.0-userGeneratedNode_1646435677929null-CONDITIONAL-userGeneratedNode_1646435677929null",
-    },
-    {
-      target: "RAND-userGeneratedNode_1646417371398",
-      sourceHandle: null,
-      source: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: null,
-      animated: false,
-      label: "True",
-      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371398null",
-    },
-    {
-      target: "RAND-userGeneratedNode_1646417371399",
-      sourceHandle: null,
-      source: "CONDITIONAL-userGeneratedNode_1646435677929",
-      targetHandle: null,
-      animated: false,
-      label: "False",
-      id: "reactflow__edge-CONDITIONAL-userGeneratedNode_1646435677929null-RAND-userGeneratedNode_1646417371399null",
-    },
-    {
-      target: "LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9b",
-      sourceHandle: null,
-      source: "RAND-userGeneratedNode_1646417371398",
-      targetHandle: null,
-      animated: false,
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371398null-LINE-bdff1fc7-4e1d-4a3a-aa0b-d86fe514fa9bnull",
-    },
-    {
-      target: "BAR-6106326f-ff85-4940-9f5b-018381e2e2ce",
-      sourceHandle: null,
-      source: "RAND-userGeneratedNode_1646417371399",
-      targetHandle: null,
-      animated: false,
-      id: "reactflow__edge-RAND-userGeneratedNode_1646417371399null-BAR-6106326f-ff85-4940-9f5b-018381e2e2cenull",
+      dragging: true,
     },
   ],
-  position: [0, 0],
-  zoom: 0.8,
-};
+  edges: [
+    {
+      source: "LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818c",
+      sourceHandle: "default",
+      target: "RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bb",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818cdefault-RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bbdefault",
+    },
+    {
+      source: "LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818c",
+      sourceHandle: "default",
+      target: "SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818cdefault-SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319default",
+    },
+    {
+      source: "LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818c",
+      sourceHandle: "default",
+      target: "CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-fc15be40-8333-4dc3-99cd-3e097593818cdefault-CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4default",
+    },
+    {
+      source: "RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bb",
+      sourceHandle: "default",
+      target: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      targetHandle: "a",
+      id: "reactflow__edge-RAND-d2ec3ac8-17b0-486e-83f3-9a4f8581b3bbdefault-ADD-98a98f19-2a03-42b6-b681-155f757af16fa",
+    },
+    {
+      source: "SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319",
+      sourceHandle: "default",
+      target: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      targetHandle: "b",
+      id: "reactflow__edge-SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319default-ADD-98a98f19-2a03-42b6-b681-155f757af16fb",
+    },
+    {
+      source: "CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4",
+      sourceHandle: "default",
+      target: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      targetHandle: "b",
+      id: "reactflow__edge-CONSTANT-59bbd80d-6fed-4b07-aeea-0636b544d3b4default-ADD-98a98f19-2a03-42b6-b681-155f757af16fb",
+    },
+    {
+      source: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      sourceHandle: "default",
+      target: "HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f",
+      targetHandle: "default",
+      id: "reactflow__edge-ADD-98a98f19-2a03-42b6-b681-155f757af16fdefault-HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642fdefault",
+    },
+    {
+      source: "ADD-98a98f19-2a03-42b6-b681-155f757af16f",
+      sourceHandle: "default",
+      target: "SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13",
+      targetHandle: "default",
+      id: "reactflow__edge-ADD-98a98f19-2a03-42b6-b681-155f757af16fdefault-SCATTER-79c51e80-786c-464d-a33f-467bd57d5e13default",
+    },
+  ],
 
-export const OBJECT_DETECTION = {
-  elements: [
-    {
-      id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-      type: "default",
-      position: {
-        x: 1136.6444964153716,
-        y: 132.0527524900669,
-      },
-      data: {
-        id: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-        label: "Object Detection",
-        func: "OBJECT_DETECTION",
-        type: "SIMULATION",
-        ctrls: {},
-      },
-    },
-    {
-      id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-      type: "default",
-      position: {
-        x: 228.09710889449232,
-        y: 129.01818849474336,
-      },
-      data: {
-        id: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-        label: "File Loader",
-        func: "LOCAL_FILE",
-        type: "LOADER",
-        ctrls: {
-          LOCAL_FILE_file_file_type: {
-            functionName: "LOCAL_FILE",
-            param: "file_type",
-            value: "image",
-          },
-          LOCAL_FILE_file_op_type: {
-            functionName: "LOCAL_FILE",
-            param: "op_type",
-            value: "OD",
-          },
-          LOCAL_FILE_file_path: {
-            functionName: "LOCAL_FILE",
-            param: "path",
-            value: "",
-          },
-        },
-      },
-    },
-    {
-      source: "LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68c",
-      sourceHandle: "main",
-      target: "OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1ad",
-      targetHandle: "OBJECT_DETECTION",
-      id: "reactflow__edge-LOCAL_FILE-731a1e1b-446e-4780-92bb-fb46d538b68cmain-OBJECT_DETECTION-de29f22f-0a28-4341-8720-c46f69deb1adOBJECT_DETECTION",
-    },
-  ],
-  position: [0, 0],
-  zoom: 1,
+  viewport: {
+    x: 592.1671685175859,
+    y: 199.096563414574,
+    zoom: 0.8336308269937585,
+  },
 };
 
 export const EMPTY_CANVAS = {

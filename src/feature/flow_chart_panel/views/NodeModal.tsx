@@ -9,6 +9,7 @@ import { NodeModalProps } from "../types/NodeModalProps";
 import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
+import { NODES_REPO } from "@src/data/constants";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
@@ -158,8 +159,7 @@ const NodeModal = ({
 
   useKeyboardShortcut("ctrl", "e", closeModal);
   useKeyboardShortcut("meta", "e", closeModal);
-  const GLINK = "https://github.com/flojoy-io/nodes/blob/main";
-  const LINK = `${GLINK}/${nodeFilePath
+  const LINK = `${NODES_REPO}/${nodeFilePath
     .replace("\\", "/")
     .replace("PYTHON/nodes/", "")}`;
 
@@ -178,11 +178,13 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
+      <Modal.CloseButton data-testid="node-modal-closebtn" />
+
       <Flex gap="xl">
         <Box>
           <Button
             size="md"
-            classNames={{ root: classes.buttonStyle1 }}
+            classNames={{ root: classes.buttonStyle2 }}
             component="a"
             href={LINK}
             target="_blank"
@@ -208,7 +210,7 @@ const NodeModal = ({
         >
           Function Type:{" "}
           <code style={{ color: `${theme.colors.accent1[0]}` }}>
-            {nodeType === "PLOTLY_VISOR" ? nodeType.split("_")[1] : nodeType}
+            {nodeType}
           </code>
         </h3>
       )}

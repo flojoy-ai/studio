@@ -1,72 +1,77 @@
 import io, time, asyncio
-import json, os, sys
+from queue import Queue
+from threading import Thread
+import json, os
 import networkx as nx
-from multiprocessing import Process
+from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from typing import Any
-from rq.queue import Queue
-from multiprocessing import Process
-
-try:
-    from rq_win import WindowsWorker as Worker
-except ImportError:
-    from rq.worker import Worker
+from typing import Any, Callable
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger
 from subprocess import Popen, PIPE
-import importlib
+import pkg_resources
 from .status_codes import STATUS_CODES
-from PYTHON.dao.redis_dao import RedisDao
-from PYTHON.node_sdk.small_memory import SmallMemory
+from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
+import traceback
+from captain.utils.broadcast import signal_standby
 
 
-def run_worker():
-    if (
-        os.environ.get("DEBUG", None) is None
-        or os.environ.get("DEBUG", None) == "False"
-    ):
-        text_trap = io.StringIO()
-        sys.stdout = text_trap
-    queue = Queue("flojoy", connection=RedisDao().r)
-    worker = Worker([queue], connection=RedisDao().r)
-    worker.work()
+def run_worker(task_queue: Queue[Any], imported_functions: dict[str, Any]):
+    try:
+        # TODO: Figure out a way to make this work with python threads (previously this was a Python Process)
+        # if (
+        #     os.environ.get("DEBUG", None) is None
+        #     or os.environ.get("DEBUG", None) == "False"
+        # ):
+        #     text_trap = io.StringIO()
+        #     sys.stdout = text_trap
+        logger.debug("Starting worker")
+        worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
+        worker.run()
+    except Exception as e:
+        print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
 
 
-def create_topology(request: PostWFC, worker_processes: list[Process]):
+def create_topology(
+    request: PostWFC, task_queue: Queue[Any], cleanup_func: Callable[..., Any]
+):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
         jobset_id=request.jobsetId,
-        worker_processes=worker_processes,
         node_delay=request.nodeDelay,
         max_runtime=request.maximumRuntime,
+        task_queue=task_queue,
+        cleanup_func=cleanup_func,
     )
 
 
-# spawns a set amount of RQ workers to execute jobs (node functions)
-def spawn_workers(manager: Manager):
+# spawns a set amount of workers to execute jobs (node functions)
+def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
     worker_number = manager.running_topology.get_maximum_workers()
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
+    manager.thread_count = worker_number
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
-        worker_process = Process(target=run_worker)
+        worker_process = Thread(
+            target=run_worker, args=(manager.task_queue, imported_functions)
+        )
         worker_process.daemon = True
         worker_process.start()
-        manager.worker_processes.append(worker_process)
 
 
 # converts the dict to a networkx graph
-def flowchart_to_nx_graph(flowchart):
+def flowchart_to_nx_graph(flowchart: dict[str, Any]):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
     nx_graph: nx.DiGraph = nx.DiGraph()
-    dict_node_inputs: dict[str, list] = dict()
+    dict_node_inputs: dict[str, list[Any]] = dict()
 
     for i in range(len(elems)):
         el = elems[i]
@@ -121,15 +126,9 @@ def flowchart_to_nx_graph(flowchart):
     return nx_graph
 
 
-# clears memory used by some worker nodes
+# clears memory used by some worker nodes and job results
 def clear_memory():
-    SmallMemory().clear_memory()
-
-
-# run code for cleaning up memory and preparing next topology to be ran
-# add more stuff if needed here:
-def prepare_for_next_run():
-    clear_memory()
+    clear_flojoy_memory()
 
 
 async def run_flow_chart(manager: Manager):
@@ -142,16 +141,23 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
     fc = json.loads(request.fc)
-    # create the topology
-    manager.running_topology = create_topology(request, manager.worker_processes)
 
-    # Delete all rq jobs and cleanup memory
-    manager.running_topology.cleanup()
+    def clean_up_function(is_finished: bool = False):
+        manager.end_worker_threads()
+        clear_memory()
+        if is_finished:
+            asyncio.create_task(signal_standby(manager, request.jobsetId))
 
-    # get the amount of workers needed
-    spawn_workers(manager)
+    # clean up before next run
+    clean_up_function()
 
-    time.sleep(0.7)  # OPTIONAL wait for workers to spawn
+    # Create new task queue
+    manager.task_queue = Queue()
+
+    # Create the topology
+    manager.running_topology = create_topology(
+        request, manager.task_queue, cleanup_func=clean_up_function
+    )  # pass clean up func for when topology ends
 
     nodes = fc["nodes"]
     missing_packages = []
@@ -166,7 +172,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             continue
         for package in node["data"]["pip_dependencies"]:
             try:
-                module = importlib.import_module(package["name"])
+                module = pkg_resources.get_distribution(package["name"])
                 socket_msg["PRE_JOB_OP"][
                     "output"
                 ] = f"Package: {module} is already installed!"
@@ -191,9 +197,11 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         )
         logger.debug(f"installing packages was successfull? {installation_succeed}")
         if installation_succeed:
+            # get the amount of workers needed
+            spawn_workers(manager, manager.running_topology.pre_import_functions())
             socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
             socket_msg["PRE_JOB_OP"]["isRunning"] = False
-            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RQ_RUN_IN_PROCESS"],)
+            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RUN_IN_PROCESS"],)
             await manager.ws.broadcast(socket_msg)
             logger.debug(
                 f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
@@ -207,8 +215,10 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
     else:
+        # get the amount of workers needed
+        spawn_workers(manager, manager.running_topology.pre_import_functions())
         socket_msg["PRE_JOB_OP"]["isRunning"] = False
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RQ_RUN_IN_PROCESS"]
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
         await manager.ws.broadcast(socket_msg)
         logger.debug(
             f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"

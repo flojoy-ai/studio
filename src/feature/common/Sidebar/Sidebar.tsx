@@ -104,14 +104,12 @@ const useSidebarStyles = createStyles((theme) => {
   };
 });
 
-export type AppTab = "FlowChart" | "Control" | "Result";
-type SidebarCustomProps = {
+type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
   sections: NodeSection;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
-  appTab: AppTab;
 };
 
 const Sidebar = ({
@@ -120,8 +118,7 @@ const Sidebar = ({
   sections,
   leafNodeClickHandler,
   customContent,
-  appTab,
-}: SidebarCustomProps) => {
+}: SidebarProps) => {
   const theme = useMantineTheme();
 
   const [query, setQuery] = useState("");
@@ -202,12 +199,14 @@ const Sidebar = ({
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
         <Box className={classes.expandCollapseButtonContainer}>
           <UnstyledButton
+            data-testid="sidebar-expand-btn"
             onClick={() => setExpand(!expand)}
             className={classes.uiButton}
           >
             <IconArrowAutofitDown />
           </UnstyledButton>
           <UnstyledButton
+            data-testid="sidebar-collapse-btn"
             onClick={() => setCollapse(!collapse)}
             className={classes.uiButton}
           >
@@ -222,7 +221,6 @@ const Sidebar = ({
           matchedParent={false}
           expand={expand}
           collapse={collapse}
-          appTab={appTab}
         />
       </Navbar.Section>
     </Navbar>
