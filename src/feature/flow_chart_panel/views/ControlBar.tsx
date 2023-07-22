@@ -4,7 +4,6 @@ import {
   clsx,
   createStyles,
   useMantineTheme,
-  UnstyledButton,
 } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
@@ -21,7 +20,6 @@ import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
-import SettingsIconSvg from "@src/assets/SettingsIconSVG";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { memo, useEffect, useState, useCallback } from "react";
@@ -39,6 +37,7 @@ import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
+import { Settings } from "lucide-react";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -462,13 +461,13 @@ const ControlBar = () => {
         </button>
       </Dropdown>
 
-      <UnstyledButton
+      <div
         data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
         className={classes.settingsButton}
       >
-        <SettingsIconSvg />
-      </UnstyledButton>
+        <Settings className="stroke-accent1" />
+      </div>
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}
