@@ -204,13 +204,6 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
               <div className="flex justify-center">
                 <button
                   type="button"
-                  className="ml-2.5 mr-24 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
-                  onClick={handleGetAPI}
-                >
-                  List of Keys
-                </button>
-                <button
-                  type="button"
                   className="ml-72 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
                   onClick={handleSendAPI}
                   style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
