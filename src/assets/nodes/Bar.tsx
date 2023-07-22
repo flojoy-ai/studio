@@ -12,9 +12,9 @@ const Bar = () => {
       <path
         d="M0.5 6C0.5 2.96244 2.96243 0.5 6 0.5H119C122.038 0.5 124.5 2.96243 124.5 6V119.796C124.5 122.834 122.038 125.296 119 125.296H6C2.96243 125.296 0.5 122.834 0.5 119.796V6Z"
         className="fill-accent1 stroke-accent1"
-        fill-opacity="0.05"
+        fillOpacity="0.05"
       />
-      <g clip-path="url(#clip0_5_159)">
+      <g clipPath="url(#clip0_5_159)">
         <path
           d="M32.4212 92.7522H22V107.919H32.4212V92.7522Z"
           className="fill-accent1"

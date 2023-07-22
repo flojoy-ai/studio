@@ -12,9 +12,9 @@ const LineChart = () => {
       <path
         d="M0.5 6C0.5 2.96244 2.96243 0.5 6 0.5H119C122.038 0.5 124.5 2.96243 124.5 6V119.796C124.5 122.834 122.038 125.296 119 125.296H6C2.96243 125.296 0.5 122.834 0.5 119.796V6Z"
         className="fill-accent1 stroke-accent1"
-        fill-opacity="0.05"
+        fillOpacity="0.05"
       />
-      <g clip-path="url(#clip0_5_188)">
+      <g clipPath="url(#clip0_5_188)">
         <path
           d="M111.767 66.8638L97.2327 76.7416L83.2441 66.4731L69.2556 80.1248L55.267 65.5529L41.2784 95.6368L27.2898 89.718L13.1364 98.7087"
           className="stroke-accent1"

@@ -12,30 +12,30 @@ const Histogram = () => {
       <path
         d="M0.5 6C0.5 2.96244 2.96243 0.5 6 0.5H119C122.038 0.5 124.5 2.96243 124.5 6V119.796C124.5 122.834 122.038 125.296 119 125.296H6C2.96243 125.296 0.5 122.834 0.5 119.796V6Z"
         className="fill-accent1 stroke-accent1"
-        fill-opacity="0.05"
+        fillOpacity="0.05"
       />
       <path d="M32 58H22V108H32V58Z" className="fill-accent1" />
       <path
         d="M42.4212 49H32V107.869H42.4212V49Z"
         className="fill-accent1"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <path
         d="M62 77H52V108H62V77Z"
         className="fill-accent1"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <path d="M52 85H42V108H52V85Z" className="fill-accent1" />
       <path d="M72 99H62V108H72V99Z" className="fill-accent1" />
       <path
         d="M82 68H72V108H82V68Z"
         className="fill-accent1"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <path
         d="M102 52H92V108H102V52Z"
         className="fill-accent1"
-        fill-opacity="0.5"
+        fillOpacity="0.5"
       />
       <path d="M92 81H82V108H92V81Z" className="fill-accent1" />
       <path
