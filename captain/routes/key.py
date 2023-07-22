@@ -10,7 +10,6 @@ router = APIRouter(tags=["key"])
 async def set_key(data: dict):
     apiKey = data["key"]
     apiValue = data["value"]
-    print("This is apikey and value: ", apiKey, apiValue)
     set_frontier_api_key(apiKey, apiValue)
     return Response(status_code=200)
 
