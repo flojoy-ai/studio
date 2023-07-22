@@ -90,8 +90,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     run: |
-          echo "Running additional steps for 'main' branch"
-          echo ${{ github.event.pull_request.base.ref }}
+      echo "Running additional steps for 'main' branch"
+      echo ${{ github.event.pull_request.base.ref }}
 
     # steps:
     #   - uses: actions/checkout@v3
