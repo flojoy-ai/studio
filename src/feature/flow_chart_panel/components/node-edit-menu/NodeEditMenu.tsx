@@ -3,27 +3,24 @@ import { ElementsData } from "../../types/CustomNodeProps";
 import { Node, useOnSelectionChange } from "reactflow";
 import NodeEditModal from "./NodeEditModal";
 import { Box } from "@mantine/core";
-import { ManifestParams } from "@src/utils/ManifestLoader";
 
 type NodeEditMenuProps = {
   selectedNode: Node<ElementsData> | null;
   unSelectedNodes: Node<ElementsData>[] | null; //used in ParamField.tsx for references
-  manifestParams: ManifestParams;
+  nodes: Node<ElementsData>[];
+  setNodes: (nodes: Node<ElementsData>[]) => void;
 };
 
 export const NodeEditMenu = ({
   selectedNode,
   unSelectedNodes,
-  manifestParams,
+  nodes,
+  setNodes,
 }: NodeEditMenuProps) => {
   const { isEditMode, setIsEditMode } = useFlowChartState();
 
-  const canEditNode = selectedNode
-    ? Object.keys(selectedNode.data.ctrls).length > 0
-    : false;
-
   const onSelectionChange = () => {
-    if (!selectedNode || !canEditNode) {
+    if (!selectedNode) {
       setIsEditMode(false);
     }
   };
@@ -31,11 +28,12 @@ export const NodeEditMenu = ({
 
   return (
     <Box pos="relative">
-      {selectedNode && canEditNode && isEditMode && (
+      {selectedNode && isEditMode && (
         <NodeEditModal
           node={selectedNode}
           otherNodes={unSelectedNodes}
-          manifestParams={manifestParams}
+          nodes={nodes}
+          setNodes={setNodes}
         />
       )}
     </Box>

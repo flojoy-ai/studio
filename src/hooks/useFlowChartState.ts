@@ -4,13 +4,10 @@ import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 
-export interface CtrlManifestParam {
-  functionName: string;
-  param: string;
+export type CtrlManifestParam = ElementsData["ctrls"][""] & {
   nodeId: string;
   id: string;
-  type?: string;
-}
+};
 export interface PlotManifestParam {
   node: string;
   plot?: PlotType;
@@ -38,14 +35,13 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 
-export interface RfSpatialInfoType {
-  x: number;
-  y: number;
-  zoom: number;
-}
+export const failedNodeAtom = atom<string>("");
+export const runningNodeAtom = atom<string>("");
+export const nodeStatusAtom = atom((get) => ({
+  runningNode: get(runningNodeAtom),
+  failedNode: get(failedNodeAtom),
+}));
 
-const failedNodeAtom = atomWithImmer<string>("");
-const runningNodeAtom = atomWithImmer<string>("");
 const showLogsAtom = atomWithImmer<boolean>(false);
 const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
@@ -59,6 +55,9 @@ const s3SecretKeyAtom = atomWithImmer<string>("");
 const s3ContainerAtom = atomWithImmer<boolean>(false);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
+export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
+  undefined
+);
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {

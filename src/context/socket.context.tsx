@@ -2,6 +2,8 @@ import { ResultsType } from "@src/feature/common/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
+import { v4 as UUID } from "uuid";
+import { SOCKET_URL } from "@src/data/constants";
 
 type States = {
   programResults: ResultsType | null;
@@ -20,11 +22,11 @@ type States = {
 export enum IServerStatus {
   OFFLINE = "🛑 server offline",
   CONNECTING = "Connecting to server...",
-  RQ_RUN_IN_PROCESS = "🏃‍♀️ running script...",
-  RQ_RUN_COMPLETE = "🤙 python script run successful",
-  MISSING_RQ_RESULTS = "👽 no result found",
-  JOB_IN_RQ = "🎠 queuing python job= ",
-  RQ_RESULTS_RETURNED = "🔔 new results - check LOGS",
+  RUN_IN_PROCESS = "🏃‍♀️ running script...",
+  RUN_COMPLETE = "🤙 python script run successful",
+  MISSING_RESULTS = "👽 no result found",
+  JOB_IN_QUEUE = "🎠 queuing python job= ",
+  RESULTS_RETURNED = "🔔 new results - check LOGS",
   STANDBY = "🐢 awaiting a new job",
   SERVER_ONLINE = "🏁 node server online",
   NO_RUNS_YET = "⛷️ No runs yet",
@@ -39,11 +41,6 @@ const DEFAULT_STATES = {
 };
 
 export const SocketContext = createContext<{ states: States } | null>(null);
-
-const SOCKET_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
-const BACKEND_PORT = process.env.VITE_SOCKET_PORT
-  ? Number(process.env.VITE_SOCKET_PORT)
-  : 8000;
 
 export const SocketContextProvider = ({
   children,
@@ -70,8 +67,9 @@ export const SocketContextProvider = ({
   useEffect(() => {
     if (!socket) {
       console.log("Creating new WebSocket connection to backend");
+      const socketId = UUID();
       const ws = new WebSocketServer({
-        url: `ws://${SOCKET_HOST}:${BACKEND_PORT}/ws/socket-server/`,
+        url: `${SOCKET_URL}/${socketId}`,
         pingResponse: handleStateChange("serverStatus"),
         onNodeResultsReceived: setProgramResults,
         runningNode: handleStateChange("runningNode"),

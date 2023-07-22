@@ -1,79 +1,37 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
-import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { memo } from "react";
+import { CustomNodeProps } from "../../types/CustomNodeProps";
+import HandleComponent from "../HandleComponent";
 import NodeWrapper from "../NodeWrapper";
-import { Box, clsx, createStyles } from "@mantine/core";
-import { useNodeStyles } from "../DefaultNode";
+import { nodeStatusAtom } from "@src/hooks/useFlowChartState";
+import { useAtom } from "jotai";
+import clsx from "clsx";
 import { NumpySvg } from "@src/assets/ArithmeticSVG";
-const useStyles = createStyles((theme) => {
-  const accent =
-    theme.colorScheme === "light"
-      ? theme.colors.accent7[0]
-      : theme.colors.accent7[0];
-  return {
-    numpyNode: {
-      width: 180,
-      height: 130,
-      borderRadius: 6,
-      flexDirection: "column",
-      justifyContent: "center",
-      border: `1px solid ${accent}`,
-      color: accent,
-      backgroundColor: accent + "27",
-    },
-    operatorIcon: {
-      position: "absolute",
-      right: -8,
-      bottom: -8,
-      height: 55,
-      width: 55,
-    },
-  };
-});
 
-const NumpyNode = ({ data }: CustomNodeProps) => {
-  const nodeClasses = useNodeStyles().classes;
-  const { classes } = useStyles();
-  const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs || [];
+const NumpyNode = ({ data, handleRemove }: CustomNodeProps) => {
+  const [{ runningNode, failedNode }] = useAtom(nodeStatusAtom);
 
-  let selectShadow = "";
-  if (runningNode === data.id || data.selected) {
-    selectShadow = nodeClasses.numpyShadow;
-  }
-  const operatorIcon = <NumpySvg className={classes.operatorIcon} />;
   return (
-    <NodeWrapper data={data}>
-      <Box
+    <NodeWrapper data={data} handleRemove={handleRemove}>
+      <div
         className={clsx(
-          selectShadow,
-          failedNode === data.id ? nodeClasses.failShadow : ""
+          "flex h-40 w-60 items-center justify-center rounded-2xl border-2 border-blue-500 bg-accent1/5",
+          data.id === runningNode || data.selected
+            ? "shadow-around shadow-blue-500"
+            : "",
+          data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
       >
-        <Box
-          className={clsx(nodeClasses.nodeContainer, classes.numpyNode)}
-          sx={{
-            ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-          }}
-        >
-          <Box data-testid="data-label-design">
-            <Box>{data.label}</Box>
-          </Box>
-          {/* <AddBGTemplate /> */}
-          {operatorIcon}
-          <Box
-            display="flex"
-            h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-            sx={{
-              flexDirection: "column",
-            }}
-          >
-            <HandleComponent data={data} inputs={params} />
-          </Box>
-        </Box>
-      </Box>
+        <div className="flex flex-col items-center">
+          <NumpySvg className="h-16 w-16" />
+          <h2 className="font-sans text-2xl tracking-wider text-blue-500">
+            <span>np.</span>
+            <span className="font-extrabold">{data.label}</span>
+          </h2>
+        </div>
+        <HandleComponent data={data} colorClass="!border-blue-500" />
+      </div>
     </NodeWrapper>
   );
 };
 
-export default NumpyNode;
+export default memo(NumpyNode);

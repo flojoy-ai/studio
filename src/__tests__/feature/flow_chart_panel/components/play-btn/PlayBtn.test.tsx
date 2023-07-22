@@ -2,6 +2,8 @@ import { fireEvent, screen } from "@testing-library/react";
 import PlayBtn from "@src/feature/flow_chart_panel/components/play-btn/PlayBtn";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 
+jest.mock("@src/utils/ManifestLoader");
+
 describe("PlayBtn component", () => {
   it("renders correctly with default props", () => {
     renderWithTheme(<PlayBtn onPlay={jest.fn()} />);

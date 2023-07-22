@@ -2,6 +2,8 @@ import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import SimulationNode from "@src/feature/flow_chart_panel/components/custom-nodes/SimulationNode";
 
+const handleRemove = jest.fn();
+
 const props: CustomNodeProps = {
   data: {
     id: "test-id",
@@ -9,14 +11,17 @@ const props: CustomNodeProps = {
     func: "test",
     type: "test",
     ctrls: {},
+    path: "",
     inputs: [
       {
         id: "test",
         name: "test",
         type: "test",
+        desc: null,
       },
     ],
   },
+  handleRemove,
 };
 
 jest.mock("@src/hooks/useFlowChartState");

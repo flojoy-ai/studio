@@ -7,22 +7,22 @@ import { useSocket } from "@src/hooks/useSocket";
 import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import { memo, useMemo, JSX } from "react";
 import { useNodeStyles } from "../DefaultNode";
-import Scatter3D from "../nodes/3DScatter";
-import Surface3D from "../nodes/3DSurface";
-import BarChart from "../nodes/Bar";
-import BigNumber from "../nodes/BigNumber";
-import BoxPlot from "../nodes/BoxPlot";
-import Histogram from "../nodes/Histogram";
-import PlotlyImage from "../nodes/Image";
-import LineChart from "../nodes/LineChart";
-import Scatter from "../nodes/Scatter";
-import PlotlyTable from "../nodes/Table";
+import Scatter3D from "@src/assets/nodes/3DScatter";
+import Surface3D from "@src/assets/nodes/3DSurface";
+import BarChart from "@src/assets/nodes/Bar";
+import BigNumber from "@src/assets/nodes/BigNumber";
+import BoxPlot from "@src/assets/nodes/BoxPlot";
+import Histogram from "@src/assets/nodes/Histogram";
+import PlotlyImage from "@src/assets/nodes/Image";
+import LineChart from "@src/assets/nodes/LineChart";
+import Scatter from "@src/assets/nodes/Scatter";
+import PlotlyTable from "@src/assets/nodes/Table";
 import NodeWrapper from "../NodeWrapper";
-import ArrayView from "../nodes/ArrayView";
-import ProphetPlot from "../nodes/ProphetPlot";
-import ProphetComponents from "../nodes/ProphetComponents";
-import CompositePlot from "../nodes/CompositePlot";
-import MatrixView from "../nodes/MatrixView";
+import ArrayView from "@src/assets/nodes/ArrayView";
+import ProphetPlot from "@src/assets/nodes/ProphetPlot";
+import ProphetComponents from "@src/assets/nodes/ProphetComponents";
+import CompositePlot from "@src/assets/nodes/CompositePlot";
+import MatrixView from "@src/assets/nodes/MatrixView";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -54,14 +54,12 @@ const chartElemMap: { [func: string]: JSX.Element } = {
   COMPOSITE: <CompositePlot />,
 };
 
-const VisorNode = ({ data }: CustomNodeProps) => {
+const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   const nodeClasses = useNodeStyles().classes;
   const { classes } = useStyles();
   const theme = useMantineTheme();
   const { runningNode, failedNode } = useFlowChartState();
-  const params = data.inputs ?? [];
 
-  // TODO: Investigate why this keeps making it rerender
   const {
     states: { programResults },
   } = useSocket();
@@ -74,11 +72,11 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       result
         ? makePlotlyData(result.result.default_fig.data, theme, true)
         : undefined,
-    [result, theme.colorScheme]
+    [result, theme]
   );
 
   return (
-    <NodeWrapper data={data}>
+    <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
         className={clsx(
           runningNode === data.id || data.selected
@@ -88,7 +86,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
         )}
       >
         {result && plotlyResultData ? (
-          <>
+          <Box className={nodeClasses.nodeContainer}>
             <PlotlyComponent
               data={plotlyResultData}
               id={data.id}
@@ -101,33 +99,12 @@ const VisorNode = ({ data }: CustomNodeProps) => {
               isThumbnail
             />
 
-            <Box
-              display="flex"
-              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-              <HandleComponent data={data} inputs={params} />
-            </Box>
-          </>
+            <HandleComponent data={data} colorClass="!border-accent1" />
+          </Box>
         ) : (
-          <Box
-            className={clsx(classes.visorNode, nodeClasses.nodeContainer)}
-            style={{
-              ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
-            }}
-          >
+          <Box className={clsx(classes.visorNode, nodeClasses.nodeContainer)}>
             {chartElemMap[data.func]}
-            <Box
-              display="flex"
-              h={params.length > 0 ? (params.length + 1) * 40 : "fit-content"}
-              sx={{
-                flexDirection: "column",
-              }}
-            >
-              <HandleComponent data={data} inputs={params} />
-            </Box>
+            <HandleComponent data={data} colorClass="!border-accent1" />
           </Box>
         )}
       </Box>

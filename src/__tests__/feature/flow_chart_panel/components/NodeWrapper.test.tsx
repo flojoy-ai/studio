@@ -4,7 +4,6 @@ import { useSocket } from "@src/hooks/useSocket";
 import { fireEvent } from "@testing-library/react";
 import { renderWithTheme } from "@src/__tests__/__utils__/utils";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 
 jest.mock("@src/hooks/useFlowChartState");
 jest.mock("@src/hooks/useSocket");
@@ -15,18 +14,22 @@ const elementData: ElementsData = {
       functionName: "node-123",
       param: "first_param",
       value: "10",
+      type: "int",
+      desc: null,
     },
   },
   func: "Rand",
   id: "test-123",
   label: "Rand",
   type: "Default",
+  path: "to/node/node.py",
 };
+const handleRemove = jest.fn();
 
 describe("NodeWrapper component", () => {
   it("Should render the component and match snapshot.", () => {
     const { container } = renderWithTheme(
-      <NodeWrapper data={elementData}>
+      <NodeWrapper data={elementData} handleRemove={handleRemove}>
         <div></div>
       </NodeWrapper>
     );
@@ -44,7 +47,7 @@ describe("NodeWrapper component", () => {
       failedNode: "test-123",
     });
     const { getByTestId } = renderWithTheme(
-      <NodeWrapper data={elementData}>
+      <NodeWrapper data={elementData} handleRemove={handleRemove}>
         <div></div>
       </NodeWrapper>
     );

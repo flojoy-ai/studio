@@ -4,17 +4,19 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
+import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 
-const initialNodes: Node<ElementsData>[] =
-  NOISY_SINE.nodes as Node<ElementsData>[];
+const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
+const nodesManifestAtom = atomWithImmer<NodeElement[]>([]);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+  const [nodesManifest, setNodesManifest] = useAtom(nodesManifestAtom);
 
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
@@ -48,21 +50,46 @@ export const useFlowChartGraph = () => {
     });
   }, [selectedNode]);
 
+  /**
+   * Creates a node mapping from nodeSection
+   */
+  const addNodesToManifest = useCallback((arr) => {
+    if (!Array.isArray(arr)) {
+      return;
+    }
+    let nodes: NodeElement[] = [];
+    arr.forEach((child) => {
+      if (child.children === null) {
+        nodes = [...nodes, child];
+      } else {
+        const n = addNodesToManifest(child.children);
+        if (n) {
+          nodes = [...nodes, ...n];
+        }
+      }
+    });
+    return nodes;
+  }, []);
+
+  useEffect(() => {
+    const allNodes = addNodesToManifest(nodeSection.children);
+    if (allNodes) {
+      setNodesManifest(allNodes);
+    }
+  }, []);
+
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    paramId: string,
     inputData: ElementsData["ctrls"][""]
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
         if (node.data.func === "CONSTANT") {
-          node.data.ctrls = {
-            [paramId]: inputData,
-          };
+          node.data.ctrls[inputData.param].value = inputData.value;
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
         } else {
-          node.data.ctrls[paramId] = inputData;
+          node.data.ctrls[inputData.param].value = inputData.value;
         }
       }
     });
@@ -88,5 +115,6 @@ export const useFlowChartGraph = () => {
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
     loadFlowExportObject,
+    nodesManifest,
   };
 };

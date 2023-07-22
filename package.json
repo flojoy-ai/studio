@@ -4,16 +4,33 @@
   "private": true,
   "homepage": "./",
   "author": "Jack Parmer <jack.parmer@proton.me>",
-  "main": "electron/main.js",
+  "main": "dist-electron/main/index.js",
   "dependencies": {
     "@applitools/eyes-cypress": "^3.32.2",
     "@mantine/core": "^6.0.11",
     "@mantine/hooks": "^6.0.11",
     "@mantine/notifications": "^6.0.11",
     "@plotly/d3": "^3.8.1",
+    "@radix-ui/react-alert-dialog": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@radix-ui/react-dropdown-menu": "^2.0.5",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-progress": "^1.0.3",
+    "@radix-ui/react-scroll-area": "^1.0.4",
+    "@radix-ui/react-select": "^1.2.2",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
+    "@radix-ui/react-toast": "^1.1.4",
     "@tabler/icons-react": "^2.17.0",
     "@tisoap/react-flow-smart-edge": "^3.0.0",
+    "class-variance-authority": "^0.6.1",
+    "clsx": "^1.2.1",
+    "cmdk": "^0.2.0",
     "cors": "^2.8.5",
+    "electron-updater": "^5.3.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "express": "^4.18.2",
     "html-to-image": "^1.11.11",
     "http-proxy-middleware": "^2.0.6",
@@ -23,17 +40,16 @@
     "jotai-immer": "^0.2.0",
     "js-yaml": "^4.1.0",
     "just-clone": "^6.2.0",
-    "kbar": "^0.1.0-beta.40",
     "localforage": "^1.10.0",
+    "lucide-react": "^0.260.0",
     "mixpanel-browser": "^2.47.0",
     "plotly.js": "file:./bauhaus/plotly.js-2.23.2.tgz",
     "rc-slider": "^10.1.1",
-    "react": "^18.2.0",
     "react-dial-knob": "file:./bauhaus/react-dial-knob-1.3.0.tgz",
-    "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
     "react-error-boundary": "^4.0.7",
     "react-grid-layout": "^1.3.4",
+    "react-hook-form": "^7.45.1",
     "react-json-tree": "^0.18.0",
     "react-modal": "^3.16.1",
     "react-plotly.js": "^2.6.0",
@@ -45,6 +61,7 @@
     "reactflow": "^11.7.0",
     "redis": "^4.6.6",
     "styled-components": "^5.3.10",
+    "tailwind-merge": "^1.13.2",
     "upath": "^2.0.1",
     "use-file-picker": "^1.6.1",
     "uuid": "^9.0.0",
@@ -55,15 +72,15 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
-    "open": "concurrently \"http-server -a localhost -p 3000\" \"open http://localhost:3000\"",
-    "backend": "python3 manage.py runserver",
+    "build": "tsc && vite build && electron-builder",
+    "backend": "python3 manage.py",
+    "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
-    "rq-watch": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python3 PYTHON/rq_worker.py flojoy-watch",
-    "rq-flojoy": "OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES python3 PYTHON/rq_worker.py flojoy",
-    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
-    "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"python manage.py runserver\" \"python PYTHON/rq_worker.py flojoy-watch\" \"python PYTHON/rq_worker.py flojoy\"",
-    "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,Django,RQ-watch,RQ-flojoy\" -c auto  \"npm:start\" \"npm:backend\" \"npm:rq-watch\" \"npm:rq-flojoy\"",
+    "start-project": "concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend\"",
+    "start-project:win": "concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto \"npm:start\" \"python manage.py\"",
+    "start-project:win:debug": "concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto \"npm:start\" \"python manage.py --log-level debug\"",
+    "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend\"",
+    "start-project:debug": "DEBUG=true concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend:debug\"",
     "format": "npx prettier --write . && black . --extend-exclude '/(node_modules)/'",
     "check": "npx prettier --check . && black . --extend-exclude '/(node_modules)/' --check",
     "e2e": "CI=true cypress run --browser chrome",
@@ -80,61 +97,8 @@
     "update-submodule": "git submodule update --remote --recursive",
     "cy:run:report": "nyc --reporter=html cypress run"
   },
-  "build": {
-    "appId": "io.flojoy.desktop",
-    "productName": "Flojoy-Desktop",
-    "asar": true,
-    "icon": "electron/assets/favicon.ico",
-    "files": [
-      "build/**/*",
-      "electron/**/*",
-      "package.json"
-    ],
-    "extraResources": [
-      {
-        "from": "docker-compose-prod.yml",
-        "to": "docker-compose-prod.yml"
-      }
-    ],
-    "mac": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "dmg"
-      ],
-      "darkModeSupport": true
-    },
-    "linux": {
-      "icon": "electron/assets/favicon.icns",
-      "target": [
-        "deb",
-        "tar.gz"
-      ]
-    },
-    "win": {
-      "icon": "electron/assets/favicon.ico",
-      "target": [
-        "portable"
-      ]
-    },
-    "extraMetadata": {
-      "main": "electron/main.js"
-    },
-    "extends": null
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.10.7",
+    "@cypress/code-coverage": "^3.11.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -154,6 +118,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "@vitejs/plugin-react-swc": "^3.3.0",
+    "autoprefixer": "^10.4.14",
     "concurrently": "^8.2.0",
     "cypress": "^12.11.0",
     "cypress-xpath": "^2.0.1",
@@ -162,16 +127,27 @@
     "electron-builder": "^24.4.0",
     "eslint": "^8.40.0",
     "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "nyc": "^15.1.0",
+    "postcss": "^8.4.26",
     "prettier": "2.8.8",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.6",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^4.9.5",
     "vite": "^4.3.4",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite-plugin-electron": "^0.11.2",
+    "vite-plugin-electron-renderer": "^0.14.1",
+    "vite-plugin-environment": "^1.1.3",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-istanbul": "^4.1.0"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",

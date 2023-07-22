@@ -7,6 +7,7 @@ import NodeButtons from "./node-edit-menu/NodeButtons";
 
 const NodeWrapper = ({
   data,
+  handleRemove,
   children,
 }: CustomNodeProps & {
   children: React.ReactNode;
@@ -34,11 +35,16 @@ const NodeWrapper = ({
   return (
     <Box
       data-testid="node-wrapper"
+      className="node-wrapper"
       pos="relative"
       onClick={() => setIsEditMode(true)}
     >
       {data.selected && (
-        <NodeButtons data={data} setIsExpandMode={setIsExpandMode} />
+        <NodeButtons
+          data={data}
+          handleRemove={handleRemove}
+          setIsExpandMode={setIsExpandMode}
+        />
       )}
       {runError && <ErrorPopup message={runError.message} />}
       {children}

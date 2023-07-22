@@ -31,7 +31,8 @@ const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, id, isThumbnail } = props;
   const defaultPlotLayout = usePlotLayout();
   const Plot = createPlotlyComponent(Plotly);
-  const isMatrix = data[0]?.header?.values.length === 0;
+  const isMatrix = data[0]?.header?.values?.length === 0;
+  const is3dPlot = data[0]?.type === "surface" || data[0]?.type === "scatter3d";
 
   useEffect(() => {
     if (!window) {
@@ -53,7 +54,7 @@ const PlotlyComponent = (props: PlotProps) => {
         ...(isThumbnail && isMatrix && getSizeForMatrix()),
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false, staticPlot: isThumbnail }}
+      config={{ displayModeBar: false, staticPlot: isThumbnail && !is3dPlot }}
       style={isMatrix && isThumbnail ? getSizeForMatrix() : style}
     />
   );
