@@ -1,10 +1,4 @@
-import {
-  Box,
-  Text,
-  clsx,
-  createStyles,
-  useMantineTheme,
-} from "@mantine/core";
+import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -38,6 +32,8 @@ import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { Settings } from "lucide-react";
+import { Button } from "@src/components/ui/button";
+import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -45,7 +41,7 @@ const useStyles = createStyles((theme) => {
       display: "flex",
       alignItems: "center",
       padding: "10px",
-      gap: "16px",
+      gap: "8px",
     },
 
     button: {
@@ -461,13 +457,15 @@ const ControlBar = () => {
         </button>
       </Dropdown>
 
-      <div
+      <Button
         data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
-        className={classes.settingsButton}
+        size="icon"
+        variant="ghost"
       >
         <Settings className="stroke-accent1" />
-      </div>
+      </Button>
+      <DarkModeToggle />
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}
