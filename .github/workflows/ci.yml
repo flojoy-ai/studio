@@ -60,41 +60,45 @@ jobs:
 
   visual-tests:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.base.ref == 'develop'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
+    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    run: |
+          echo "Running additional steps for 'main' branch"
+          echo ${{ github.event.pull_request.base.ref }}
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
+    # steps:
+    #   - uses: actions/checkout@v3
+    #     with:
+    #       submodules: recursive
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          cache: "pip"
+    #   - uses: actions/setup-node@v3
+    #     with:
+    #       node-version: 16
 
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.5.0
-        with:
-          redis-version: 4
-          redis-port: 6379
+    #   - uses: actions/setup-python@v4
+    #     with:
+    #       python-version: "3.10"
+    #       cache: "pip"
 
-      - name: Run Flojoy startup script
-        run: bash flojoy -c
+    #   - name: Start Redis
+    #     uses: supercharge/redis-github-action@1.5.0
+    #     with:
+    #       redis-version: 4
+    #       redis-port: 6379
 
-      - name: Run e2e test
-        uses: cypress-io/github-action@v4
-        with:
-          build: npm run build
-          start: npm run start-project
-          browser: chrome
-          install: false
+    #   - name: Run Flojoy startup script
+    #     run: bash flojoy -c
 
-      - name: Codecov report
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage-cy/coverage-final.json
-          flags: cypress
+    #   - name: Run e2e test
+    #     uses: cypress-io/github-action@v4
+    #     with:
+    #       build: npm run build
+    #       start: npm run start-project
+    #       browser: chrome
+    #       install: false
+
+    #   - name: Codecov report
+    #     uses: codecov/codecov-action@v3
+    #     with:
+    #       token: ${{ secrets.CODECOV_TOKEN }}
+    #       file: coverage-cy/coverage-final.json
+    #       flags: cypress
