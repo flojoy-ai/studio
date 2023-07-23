@@ -126,7 +126,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage-cy/coverage-final.json
           flags: cypress
-
-
-
-
