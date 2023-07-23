@@ -12,34 +12,6 @@ env:
   APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  # jest-tests:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         submodules: recursive
-
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "3.10"
-  #         cache: "pip"
-
-  #     - name: Run Flojoy startup script
-  #       run: bash flojoy -c
-
-  #     - name: Run Jest tests
-  #       run: npm run test
-
-  #     - name: Codecov report
-  #       uses: codecov/codecov-action@v3
-  #       with:
-  #         flags: typescript
-
   code-style-check:
     runs-on: ubuntu-latest
     steps:
@@ -88,7 +60,7 @@ jobs:
 
   visual-tests:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/develop' }}
+    if: ${{ github.ref == 'refs/heads/set-applitools-test-to-run-only-in-dev' }}
     steps:
       - uses: actions/checkout@v3
         with:
