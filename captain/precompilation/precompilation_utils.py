@@ -1,19 +1,24 @@
-import importlib
-from subprocess import PIPE, Popen
 from typing import Any
+from flojoy import clear_flojoy_memory
 from captain.models.topology import Topology
-from captain.utils.flowchart_utils import flowchart_to_nx_graph, stream_response
+from captain.precompilation.templates.classes.LightTopology import LightTopology
+from captain.utils.flowchart_utils import flowchart_to_nx_graph
 
 
-def create_topology(topology_dict : dict[str, Any], jobset_id: str, node_delay: float, max_runtime: float):
+def create_light_topology(topology_dict : dict[str, Any], jobset_id: str, node_delay: float, max_runtime: float):
     graph = flowchart_to_nx_graph(topology_dict)
-    return Topology(
+    node_id_to_func = get_node_id_to_func(graph)
+    return LightTopology(
         graph=graph,
         jobset_id=jobset_id,
-        node_delay=node_delay,
-        max_runtime=max_runtime,
+        node_id_to_func=node_id_to_func,
+        cleanup_func=clear_flojoy_memory,
     )
 
+# this is in utils, do not make method inside of class for this since 
+# it needs to be as light as possible
+def get_graph_nodes(topology: LightTopology):
+    return topology.original_graph.nodes
 
 def extract_pip_packages(nodes: list):
     packages = []
@@ -28,5 +33,13 @@ def extract_pip_packages(nodes: list):
             )
             packages.append(pckg_str)
     return packages
+
+def get_node_id_to_func(graph):
+    '''
+    TODO: Currently, create topology object and get node_id_to_func from there.
+    This is not ideal, very hacky.
+    '''
+    topology = Topology(graph, "")
+    return topology.pre_import_functions()
 
 

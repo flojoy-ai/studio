@@ -1,16 +1,14 @@
 import ast
 from collections import deque
-import importlib
 import inspect
 import os
 import shutil
-from subprocess import PIPE, Popen
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
 
-from captain.models.topology import Topology
 from captain.precompilation.precompilation_utils import extract_pip_packages
-from captain.precompilation.templates.get_missing_pip_packages import (
+from captain.precompilation.templates.classes.LightTopology import LightTopology
+from captain.precompilation.templates.functions.get_missing_pip_packages import (
     get_missing_pip_packages,
 )
 
@@ -23,6 +21,21 @@ class FlojoyScriptBuilder:
         self.items = []
         self.indent_level = 0
         self.imports = set()
+
+    def add_import(self, import_string: str, alias: str | None = None, from_string: str | None = None):
+        '''
+        imports modules that aren't imported otherwise but necessary
+        '''
+        if from_string:
+            if alias:
+                self.imports.add(f"from {from_string} import {import_string} as {alias}")
+            else:
+                self.imports.add(f"from {from_string} import {import_string}")
+        else:
+            if alias:
+                self.imports.add(f"import {import_string} as {alias}")
+            else:
+                self.imports.add(f"import {import_string}")
 
     def afc(self, item: Any):
         '''
@@ -43,7 +56,7 @@ class FlojoyScriptBuilder:
         formatted = ["\t" * self.indent_level + line for line in block.splitlines()]
         self.items += formatted
 
-    def mkl(self, name: str, items: Any):
+    def al(self, name: str, items: Any):
         '''
         Make a list
         '''
@@ -62,6 +75,14 @@ class FlojoyScriptBuilder:
         Reduce indent level
         '''
         self.indent_level = max(0, self.indent_level - 1)
+    
+    def ad(self, name: str, dict: dict):
+        '''
+        Add a dict
+        '''
+        self.acb(f"{name} = {{}}")
+        for node in dict:
+            self.acb(f"{name}['{node}'] = '{dict[node]}'")
 
     def ami(self, item):
         '''
@@ -100,27 +121,33 @@ class FlojoyScriptBuilder:
     def install_missing_pip_packages(self, nodes: list):
         packages = extract_pip_packages(nodes)
         self.afc(get_missing_pip_packages)
-        self.mkl("packages", packages)
+        self.al("packages", packages)
         self.acb("get_missing_pip_packages(packages)")
 
-    def import_app_nodes(self, topology: Topology, path_to_output: str, is_ci: bool):
+    def import_app_nodes(self, graph_nodes, path_to_output: str, is_ci: bool):
+        '''
+        Import app nodes and return node-to-function mapping
+        '''
+        node_id_to_func = {}
         self.imports.add("import sys")
         self.imports.add("import os")
         self.acb("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
         imported = set() # keep track of imported files
-        for node in topology.original_graph.nodes:
+        for node in graph_nodes:
             # -- get node module and check if CI --
-            node = cast(dict[str, Any], topology.original_graph.nodes[node])
+            node = cast(dict[str, Any], graph_nodes[node])
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
             func_module = get_module_func(cmd)
+            node_id_to_func[node] = getattr(func_module, cmd).__name__
             ci_available = False
             if is_ci:
                 try:
-                    getattr(
+                    func_mock = getattr(
                         func_module, cmd_mock
                     )  # test to see if mock function exists
                     ci_available = True
+                    node_id_to_func[node] = func_mock.__name__
                 except AttributeError:
                     pass
             # ---------------------------------------
@@ -175,3 +202,9 @@ class FlojoyScriptBuilder:
             else:
                 self.acb(f"from {module_dir} import {cmd}")
             # ------------------
+
+        # add node_to_func to script (mapping of node_ids to function names)
+        self.al("node_id_to_func", node_id_to_func)
+    
+    def add_execution_logic(self, topology):
+

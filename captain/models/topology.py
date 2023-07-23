@@ -21,6 +21,10 @@ lock = asyncio.Lock()
 
 
 class Topology:
+    '''
+    Holds information of the flowchart and the state of the topology.
+    Used for running the flowchart and handles the logic.
+    '''
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
     def __init__(
