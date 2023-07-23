@@ -11,8 +11,6 @@ describe("playing script", () => {
   beforeEach(() => {
     // Open Eyes to start visual testing.
     // Each test should open its own Eyes for its own snapshots.
-    eyes.setParentBranchName(<main>)
-    eyes.setBranchName(<develop>)
     cy.eyesOpen({
       // The name of the application under test.
       // All tests for the same app should share the same app name.

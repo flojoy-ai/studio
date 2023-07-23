@@ -5,8 +5,6 @@ describe("Verify Set API modal", () => {
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-  eyes.setParentBranchName(<main>)
-  eyes.setBranchName(<develop>)
   // This method performs setup before each test.
   beforeEach(() => {
     // Open Eyes to start visual testing.

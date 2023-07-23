@@ -7,9 +7,6 @@ describe("Verify node containers", () => {
     { selector: '[data-cy="btn-play"]' },
   ];
   beforeEach(() => {
-    eyes.setParentBranchName(<main>)
-    eyes.setBranchName(<develop>)
-    
     cy.eyesOpen({
       appName: "studio",
       testName: Cypress.currentTest.title,
