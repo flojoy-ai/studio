@@ -2,8 +2,6 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -62,7 +60,7 @@ jobs:
 
   visual-tests:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    if: ${{ github.event.pull_request.base.ref == 'main' && github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/checkout@v3
         with:
