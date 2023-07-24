@@ -300,6 +300,10 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
+        <IconButton onClick={handleGalleryState} icon={galleryIcon}>
+          <Text size="sm">App Gallery</Text>
+        </IconButton>
+        <AppGalleryModal />
         <IconButton
           data-testid="clear-canvas-button"
           onClick={clearCanvas}
