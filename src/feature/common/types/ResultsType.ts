@@ -90,7 +90,7 @@ export type ResultIO = {
 export type Result = {
   default_fig: {
     data: OverridePlotData;
-    layout?: Partial<Layout>;
+    layout: Partial<Layout> | undefined;
   };
 };
 
