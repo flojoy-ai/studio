@@ -12,7 +12,7 @@ describe("Verify node modal", () => {
     cy.visit("/").wait(1000);
 
     cy.get(
-      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
+      '[data-testid="rf__node-HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f"]'
     ).click();
 
     // Click expand button
@@ -28,10 +28,8 @@ describe("Verify node modal", () => {
     // Test in light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
-    cy.get(
-      '[data-testid="rf__node-HISTOGRAM-09639bfa-f3be-4fdd-94a6-32aa1580f51f"]'
-    ).click();
     cy.get('[data-testid="expand-button"]').click();
+    
     cy.percySnapshot();
     // cy.eyesCheckWindow({
     //   tag: "light flow page with Histogram node modal",

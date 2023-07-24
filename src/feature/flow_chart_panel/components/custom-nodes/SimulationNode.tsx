@@ -55,7 +55,7 @@ const SimulationNode = ({ data, handleRemove }: CustomNodeProps) => {
             ...(params.length > 0 && { padding: "0px 0px 8px 0px" }),
           }}
         >
-          <Box data-testid="data-label-design">
+          <Box>
             <Text
               weight={600}
               size="xl"
