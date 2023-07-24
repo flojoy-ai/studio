@@ -13,7 +13,7 @@ const DataNode = ({ data, handleRemove }: CustomNodeProps) => {
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "flex h-24 w-52 items-center justify-center rounded-full border-2 border-accent2",
+          "flex w-52 items-center justify-center rounded-full border-2 border-accent2 px-2 py-8 text-center",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent2"
             : "",

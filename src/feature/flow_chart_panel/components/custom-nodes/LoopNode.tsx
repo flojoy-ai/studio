@@ -5,7 +5,6 @@ import { CustomHandle } from "../CustomHandle";
 import LogicNode from "./LogicNode";
 
 export const LoopNode = ({ data, handleRemove }: CustomNodeProps) => {
-  console.log("data", data);
   if (!data.inputs || !data.outputs) {
     throw new Error("LoopNode must have 1 inputs and 2 outputs");
   }

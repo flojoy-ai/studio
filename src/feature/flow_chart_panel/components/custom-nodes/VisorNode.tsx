@@ -23,6 +23,7 @@ import ProphetPlot from "@src/assets/nodes/ProphetPlot";
 import ProphetComponents from "@src/assets/nodes/ProphetComponents";
 import CompositePlot from "@src/assets/nodes/CompositePlot";
 import MatrixView from "@src/assets/nodes/MatrixView";
+import { twMerge } from "tailwind-merge";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -55,8 +56,6 @@ const chartElemMap: { [func: string]: JSX.Element } = {
 };
 
 const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
-  const nodeClasses = useNodeStyles().classes;
-  const { classes } = useStyles();
   const theme = useMantineTheme();
   const { runningNode, failedNode } = useFlowChartState();
 
@@ -78,15 +77,16 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
-        className={clsx(
-          runningNode === data.id || data.selected
-            ? nodeClasses.defaultShadow
-            : "",
-          failedNode === data.id ? nodeClasses.failShadow : ""
+        className={twMerge(
+          "shadow-around shadow-accent1",
+          // data.id === runningNode || data.selected
+          //   ? "shadow-around shadow-accent1"
+          //   : "",
+          data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
       >
         {result && plotlyResultData ? (
-          <Box className={nodeClasses.nodeContainer}>
+          <div>
             <PlotlyComponent
               data={plotlyResultData}
               id={data.id}
@@ -100,12 +100,12 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
             />
 
             <HandleComponent data={data} colorClass="!border-accent1" />
-          </Box>
+          </div>
         ) : (
-          <Box className={clsx(classes.visorNode, nodeClasses.nodeContainer)}>
+          <div>
             {chartElemMap[data.func]}
             <HandleComponent data={data} colorClass="!border-accent1" />
-          </Box>
+          </div>
         )}
       </Box>
     </NodeWrapper>
