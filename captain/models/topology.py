@@ -9,8 +9,8 @@ from flojoy import (
     get_next_directions,
     NoInitFunctionError,
     get_node_init_function,
-    clear_flojoy_memory,
 )
+from flojoy.utils import clear_flojoy_memory
 from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
