@@ -1,12 +1,11 @@
 import HandleComponent from "@feature/flow_chart_panel/components/HandleComponent";
 import { CustomNodeProps } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Box, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import { clsx, useMantineTheme } from "@mantine/core";
 import PlotlyComponent from "@src/feature/common/PlotlyComponent";
 import { useSocket } from "@src/hooks/useSocket";
 import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import { memo, useMemo, JSX } from "react";
-import { useNodeStyles } from "../DefaultNode";
 import Scatter3D from "@src/assets/nodes/3DScatter";
 import Surface3D from "@src/assets/nodes/3DSurface";
 import BarChart from "@src/assets/nodes/Bar";
@@ -23,19 +22,6 @@ import ProphetPlot from "@src/assets/nodes/ProphetPlot";
 import ProphetComponents from "@src/assets/nodes/ProphetComponents";
 import CompositePlot from "@src/assets/nodes/CompositePlot";
 import MatrixView from "@src/assets/nodes/MatrixView";
-import { twMerge } from "tailwind-merge";
-
-const useStyles = createStyles((theme) => {
-  return {
-    visorNode: {
-      background: "transparent",
-      color:
-        theme.colorScheme === "light"
-          ? theme.colors.accent1[0]
-          : theme.colors.accent2[0],
-    },
-  };
-});
 
 const chartElemMap: { [func: string]: JSX.Element } = {
   SCATTER: <Scatter />,
@@ -76,7 +62,7 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
 
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
-      <Box
+      <div
         className={clsx(
           "rounded-xl",
           data.id === runningNode || data.selected
@@ -107,7 +93,7 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
             <HandleComponent data={data} colorClass="!border-accent1" />
           </div>
         )}
-      </Box>
+      </div>
     </NodeWrapper>
   );
 };
