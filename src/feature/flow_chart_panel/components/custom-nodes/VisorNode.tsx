@@ -77,11 +77,11 @@ const VisorNode = ({ data, handleRemove }: CustomNodeProps) => {
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <Box
-        className={twMerge(
-          "shadow-around shadow-accent1",
-          // data.id === runningNode || data.selected
-          //   ? "shadow-around shadow-accent1"
-          //   : "",
+        className={clsx(
+          "rounded-xl",
+          data.id === runningNode || data.selected
+            ? "shadow-around shadow-accent1"
+            : "",
           data.id === failedNode ? "shadow-around shadow-red-700" : ""
         )}
       >
