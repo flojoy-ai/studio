@@ -2,4 +2,4 @@ from pydantic import BaseModel
 
 
 class GetKeyResponse(BaseModel):
-    key: str
+    key: str | list[dict[str, str]]

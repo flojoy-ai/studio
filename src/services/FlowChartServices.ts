@@ -10,7 +10,7 @@ const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = process.env.VITE_BACKEND_PORT
   ? +process.env.VITE_BACKEND_PORT
   : 8000;
-const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
+export const API_URI = "http://" + BACKEND_HOST + ":" + BACKEND_PORT;
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -36,6 +36,7 @@ export const sendApiKeyToFastAPI = async (body: API_TYPE) => {
     });
 
     if (response.ok) {
+      console.log("sending data.....");
       await response.json();
       notifications.update({
         id: "set-api-key",
@@ -51,43 +52,6 @@ export const sendApiKeyToFastAPI = async (body: API_TYPE) => {
         autoClose: 5000,
       });
     }
-  } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the API Key",
-      autoClose: 5000,
-    });
-  }
-};
-
-export const getApiKeyToFastAPI = async () => {
-  try {
-    const response = await fetch(`${API_URI}/key/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-
-    // if (response.ok) {
-    //   const data = await response.json();
-    //   notifications.update({
-    //     id: "set-api-key",
-    //     title: "Successful!",
-    //     message: "Successfully set the API Key",
-    //     autoClose: 5000,
-    //   });
-    //   return data;
-    // } else {
-    //   notifications.update({
-    //     id: "set-api-key",
-    //     title: "Failed!",
-    //     message: "Failed to set the API Key",
-    //     autoClose: 5000,
-    //   });
-    // }
   } catch (error) {
     notifications.update({
       id: "set-api-key",

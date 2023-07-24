@@ -1,17 +1,14 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { ChangeEvent, memo, ClipboardEvent } from "react";
+import { ChangeEvent, memo, ClipboardEvent, useState } from "react";
 import { createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import {
-  getApiKeyToFastAPI,
-  // GetApiKeyFromFastAPI,
-  sendApiKeyToFastAPI,
-} from "@src/services/FlowChartServices";
-
+import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
+import { Icon, IconEye, IconEyeOff } from "@tabler/icons-react";
 interface APIKeyModelProps {
   isOpen: boolean;
   onClose: () => void;
+  fetchCredentials: () => void;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -100,8 +97,14 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
-const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
-  const { apiKey, setApiKey, apiValue, setApiValue } = useFlowChartState();
+const APIKeyModal = ({
+  isOpen,
+  onClose,
+  fetchCredentials,
+}: APIKeyModelProps) => {
+  const { apiKey, setApiKey, apiValue, setApiValue, credentials } =
+    useFlowChartState();
+  const [showPassword, setShowPassword] = useState({});
 
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
@@ -132,10 +135,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
     sendApiKeyToFastAPI({ key: apiKey, value: apiValue });
     setApiKey("");
     setApiValue("");
-  };
-
-  const handleGetAPI = () => {
-    getApiKeyToFastAPI();
+    fetchCredentials();
   };
 
   if (!isOpen) return null;
@@ -192,7 +192,7 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                     </span>
                     <input
                       className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
-                      type="text"
+                      type="password"
                       id="APIValue"
                       value={apiValue || ""}
                       onPaste={splitOnCopy}
@@ -219,14 +219,43 @@ const APIKeyModal = ({ isOpen, onClose }: APIKeyModelProps) => {
                 <h2 className="mb-2.5 ml-4 flex text-xl font-semibold text-black dark:text-white">
                   Generated Keys
                 </h2>
-                <div className="ml-0.5 flex">
-                  <h2 className="mb-2.5 ml-4 flex text-base font-semibold text-black dark:text-white">
-                    Key:
-                  </h2>
-                  <h2 className="mb-2.5 ml-4 flex text-base font-semibold text-black dark:text-white">
-                    Value:
-                  </h2>
-                </div>
+                {credentials &&
+                  credentials.map((credential) => (
+                    <div
+                      key={credential.id}
+                      className="overflow-x-none mb-3 ml-0.5 flex w-11/12 rounded-md border border-solid border-gray-600"
+                    >
+                      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-black dark:text-white">
+                        {credential.username}
+                      </p>
+                      <button
+                        key={credential.id}
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <IconEyeOff
+                            className="flex stroke-gray-600"
+                            size={40}
+                            strokeWidth={1.5}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        ) : (
+                          <IconEye
+                            className="flex stroke-gray-600"
+                            size={40}
+                            strokeWidth={1.5}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        )}
+                      </button>
+                      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-gray-600">
+                        {showPassword ? credential.password : "*".repeat(15)}
+                      </p>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

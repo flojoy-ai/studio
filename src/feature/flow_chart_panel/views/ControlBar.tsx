@@ -11,6 +11,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
+  API_URI,
   cancelFlowChartRun,
   saveAndRunFlowChartInServer,
   saveFlowChartToLocalStorage,
@@ -302,13 +303,13 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, programResults, setProgramResults, serverStatus } = states;
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState<boolean>(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, setNodeParamChanged } =
+  const { rfInstance, setRfInstance, setNodeParamChanged, setCredentials } =
     useFlowChartState();
   const { ctrlsManifest } = useControlsState();
 
@@ -401,6 +402,18 @@ const ControlBar = () => {
     }
   };
 
+  const fetchCredentials = () => {
+    fetch(`${API_URI}/key/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setCredentials(data.key))
+      .catch((err) => console.log(err));
+  };
+
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
@@ -419,6 +432,11 @@ const ControlBar = () => {
     setIsAPIKeyModelOpen(false);
   }, [setIsAPIKeyModelOpen]);
 
+  const handleAPIKeyModalOpen = () => {
+    setIsAPIKeyModelOpen(true);
+    fetchCredentials();
+  };
+
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
@@ -429,7 +447,7 @@ const ControlBar = () => {
       <Dropdown dropdownBtn={<FileButton />}>
         <button
           data-testid="btn-apikey"
-          onClick={() => setIsAPIKeyModelOpen(true)}
+          onClick={handleAPIKeyModalOpen}
           style={{ display: "flex", gap: 7.5 }}
         >
           <FamilyHistoryIconSvg size={14} />
@@ -472,6 +490,7 @@ const ControlBar = () => {
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
+        fetchCredentials={fetchCredentials}
       />
     </Box>
   );
