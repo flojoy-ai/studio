@@ -34,7 +34,7 @@ const NodeWrapper = ({
   return (
     <div
       data-testid="node-wrapper"
-      className="node-wrapper relative"
+      className="relative"
       onClick={() => setIsEditMode(true)}
     >
       {data.selected && (

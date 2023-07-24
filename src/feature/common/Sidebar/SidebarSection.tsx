@@ -42,7 +42,7 @@ const SidebarSection = ({
     <>
       <button
         onClick={() => setOpened((o) => !o)}
-        className={`mb-3 flex max-h-10 w-11/12 items-center px-2 py-2.5 text-${color} bg-${color}/5 border border-${color}`}
+        className={`mb-2 flex max-h-10 w-11/12 items-center px-2 py-2.5 text-${color} bg-${color}/10 border border-${color} rounded-sm`}
         data-cy="sidebar-section-btn"
       >
         {icon}
