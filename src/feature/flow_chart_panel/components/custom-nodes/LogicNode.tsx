@@ -18,6 +18,7 @@ const LogicNode = ({
   if (!input) {
     throw new Error("Logic node must have an input");
   }
+  const output = data.outputs?.[0];
 
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
@@ -42,6 +43,15 @@ const LogicNode = ({
               colorClass="!border-accent3"
               style={{ left: 3, bottom: -3 }}
             />
+            {output && (
+              <CustomHandle
+                position={Position.Right}
+                type="target"
+                param={input}
+                colorClass="!border-accent3"
+                style={{ right: -3, top: 3 }}
+              />
+            )}
           </>
         )}
       </div>
