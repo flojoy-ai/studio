@@ -15,6 +15,16 @@ module.exports = {
     "bg-accent2",
     "bg-accent3",
     "bg-accent4",
+    "bg-accent1/5",
+    "bg-accent2/5",
+    "bg-accent3/5",
+    "bg-accent4/5",
+    "bg-blue-500/5",
+    "bg-accent1/10",
+    "bg-accent2/10",
+    "bg-accent3/10",
+    "bg-accent4/10",
+    "bg-blue-500/10",
   ],
   theme: {
     container: {
