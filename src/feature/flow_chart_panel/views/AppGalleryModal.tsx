@@ -1,10 +1,9 @@
-import { Box, createStyles, Input } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { Modal } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { useSettings } from "@hooks/useSettings";
 import { memo } from "react";
-import { AppGalleryElement } from "@feature/flow_chart_panel/views/AppGalleryElement";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
+import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -79,6 +78,7 @@ export const AppGalleryModal = () => {
             <hr className={classes.hr} />
           </Modal.Header>
           <Modal.Body>
+            <AppGallerySearch />
             {subjectKeyList.map((sub, key) => {
               return (
                 <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />
@@ -90,5 +90,3 @@ export const AppGalleryModal = () => {
     </Modal.Root>
   );
 };
-
-export default memo(AppGalleryModal);

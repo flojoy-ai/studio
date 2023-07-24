@@ -4,6 +4,7 @@ import {
   AppGalleryElementProps,
 } from "@feature/flow_chart_panel/views/AppGalleryElement";
 import { AppGalleryData } from "@src/utils/appGallery";
+import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
 
 const useStyles = createStyles((theme) => ({
   categoryElement: {
@@ -37,8 +38,8 @@ export const AppGalleryLayout = ({
 
   return (
     <div>
-      <h3 className={classes.subjectTitle}>{subjectName[subjectKey]}</h3>
-      <Box className={classes.categoryElement}>
+      <h3 class="pl-10 pt-3">{subjectName[subjectKey]}</h3>
+      <div class="mb-10 mr-10 flex gap-7 pl-10 pt-5">
         {elements.map((element, key) => {
           return (
             <AppGalleryElement
@@ -51,7 +52,7 @@ export const AppGalleryLayout = ({
             />
           );
         })}
-      </Box>
+      </div>
     </div>
   );
 };

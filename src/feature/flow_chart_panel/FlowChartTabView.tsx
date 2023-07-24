@@ -300,6 +300,10 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
+        <IconButton onClick={handleGalleryState} icon={galleryIcon}>
+          <Text size="sm"> App Gallery </Text>
+        </IconButton>
+        <AppGalleryModal />
         <IconButton
           data-testid="clear-canvas-button"
           onClick={clearCanvas}
@@ -310,6 +314,7 @@ const FlowChartTab = () => {
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
       </TabActions>
+
       <Sidebar
         sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
