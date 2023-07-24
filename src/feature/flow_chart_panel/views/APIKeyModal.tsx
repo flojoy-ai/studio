@@ -1,10 +1,10 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { ChangeEvent, memo, ClipboardEvent, useState } from "react";
+import { ChangeEvent, memo, ClipboardEvent, useRef } from "react";
 import { createStyles } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
-import { Icon, IconEye, IconEyeOff } from "@tabler/icons-react";
+import APICredentialsInfo from "./APICredentials/APICredentialsInfo";
 interface APIKeyModelProps {
   isOpen: boolean;
   onClose: () => void;
@@ -104,7 +104,7 @@ const APIKeyModal = ({
 }: APIKeyModelProps) => {
   const { apiKey, setApiKey, apiValue, setApiValue, credentials } =
     useFlowChartState();
-  const [showPassword, setShowPassword] = useState({});
+  const ref = useRef(null);
 
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
@@ -137,6 +137,13 @@ const APIKeyModal = ({
     setApiValue("");
     fetchCredentials();
   };
+
+  const isDisabled = !(apiKey && apiValue);
+  const buttonClass = `ml-80 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold dark:text-gray-900 shadow-sm ${
+    isDisabled
+      ? "opacity-50 cursor-not-allowed"
+      : "hover:bg-accent1-hover"
+  }`;
 
   if (!isOpen) return null;
   return (
@@ -177,7 +184,7 @@ const APIKeyModal = ({
                       Key:
                     </span>
                     <input
-                      className="mt-1 block w-60 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:outline-none sm:text-sm"
+                      className="focus:border-gray-500focus:outline-none mt-1 block w-60 rounded-md border-2 border-solid border-gray-600 px-3 py-2 placeholder-slate-400 shadow-sm sm:text-sm"
                       type="text"
                       id="APIKey"
                       placeholder="e.g. CLIENT_KEY"
@@ -191,7 +198,7 @@ const APIKeyModal = ({
                       Value:
                     </span>
                     <input
-                      className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-500 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
+                      className="mt-1 block w-72 rounded-md border-2 border-solid border-gray-600 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-gray-500 focus:outline-none sm:text-sm"
                       type="password"
                       id="APIValue"
                       value={apiValue || ""}
@@ -202,60 +209,35 @@ const APIKeyModal = ({
                 </div>
               </div>
               <div className="flex justify-center">
-                <button
-                  type="button"
-                  className="ml-72 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent1-hover dark:text-gray-900"
-                  onClick={handleSendAPI}
-                  style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
-                  disabled={!(apiKey && apiValue)}
-                >
-                  Submit
-                </button>
+                <div className=" ml-44">
+                  <button
+                    type="button"
+                    className={buttonClass}
+                    onClick={handleSendAPI}
+                    style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
+                    disabled={isDisabled}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
               <hr className="mt-3.5 h-3" />
             </div>
             <div className=" -mt-5 max-h-80 overflow-y-auto bg-modal px-4">
-              <div className="relative ml-5 overflow-y-scroll">
+              <div className="relative ml-6">
                 <h2 className="mb-2.5 ml-4 flex text-xl font-semibold text-black dark:text-white">
                   Generated Keys
                 </h2>
-                {credentials &&
+                <div className="ml-3.5 pr-6">
+                {credentials.length > 0 &&
                   credentials.map((credential) => (
-                    <div
+                    <APICredentialsInfo
                       key={credential.id}
-                      className="overflow-x-none mb-3 ml-0.5 flex w-11/12 rounded-md border border-solid border-gray-600"
-                    >
-                      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-black dark:text-white">
-                        {credential.username}
-                      </p>
-                      <button
-                        key={credential.id}
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? (
-                          <IconEyeOff
-                            className="flex stroke-gray-600"
-                            size={40}
-                            strokeWidth={1.5}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        ) : (
-                          <IconEye
-                            className="flex stroke-gray-600"
-                            size={40}
-                            strokeWidth={1.5}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        )}
-                      </button>
-                      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-gray-600">
-                        {showPassword ? credential.password : "*".repeat(15)}
-                      </p>
-                    </div>
+                      credentialKey={credential.id}
+                      credential={credential}
+                    />
                   ))}
+                </div>
               </div>
             </div>
           </div>

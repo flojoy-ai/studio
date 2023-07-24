@@ -303,7 +303,8 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, programResults, setProgramResults, serverStatus } = states;
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState<boolean>(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
+    useState<boolean>(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
