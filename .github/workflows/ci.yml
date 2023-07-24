@@ -8,8 +8,9 @@ on:
       - develop
 
 env:
-  APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-  APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  # APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+  # APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
   # jest-tests:

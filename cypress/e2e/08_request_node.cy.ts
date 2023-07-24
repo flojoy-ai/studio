@@ -2,17 +2,6 @@
 
 require("cypress-xpath");
 describe("Requesting node", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
-  beforeEach(() => {
-    cy.eyesOpen({
-      appName: "studio",
-      testName: Cypress.currentTest.title,
-    });
-  });
-
   it("request node btn test", () => {
     cy.visit("/").wait(1000);
 
@@ -34,9 +23,5 @@ describe("Requesting node", () => {
       layout: layoutRegions,
       fully: true,
     });
-  });
-
-  afterEach(() => {
-    cy.eyesClose();
   });
 });

@@ -3,18 +3,6 @@
 require("cypress-xpath");
 
 describe("Verify Add and Delete node", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
-
-  beforeEach(() => {
-    cy.eyesOpen({
-      appName: "studio",
-      testName: Cypress.currentTest.title,
-    });
-  });
-
   it("Verify Add and Delete node", () => {
     cy.visit("/").wait(1000);
 
@@ -59,8 +47,5 @@ describe("Verify Add and Delete node", () => {
       "not.exist",
       "//div[contains(text(), 'LOADER')]"
     );
-  });
-  afterEach(() => {
-    cy.eyesClose();
   });
 });

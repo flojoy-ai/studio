@@ -2,17 +2,6 @@
 
 require("cypress-xpath");
 describe("Verify node containers", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
-  beforeEach(() => {
-    cy.eyesOpen({
-      appName: "studio",
-      testName: Cypress.currentTest.title,
-    });
-  });
-
   it("Verify node containers tabs", () => {
     cy.visit("/").wait(1000);
 
@@ -128,8 +117,5 @@ describe("Verify node containers", () => {
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'Visualizers')]").click();
-  });
-  afterEach(() => {
-    cy.eyesClose();
   });
 });
