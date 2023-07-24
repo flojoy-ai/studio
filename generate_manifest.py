@@ -37,7 +37,6 @@ ALLOWED_TYPES = [
     "INSTRUMENTS",
     "LOGIC_GATES",
     "CONDITIONALS",
-    "LOOPS",
     "NUMPY",
     "SCIPY",
 ]

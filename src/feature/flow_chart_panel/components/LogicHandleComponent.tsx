@@ -35,22 +35,24 @@ export const LogicHandleComponent = ({
       </>
     );
   } else if (inputs.length === 2) {
-    <>
-      <CustomHandle
-        position={Position.Bottom}
-        type="target"
-        param={inputs[0]}
-        colorClass={colorClass}
-        style={{ bottom: -6 }}
-      />
-      <CustomHandle
-        position={Position.Left}
-        type="target"
-        param={inputs[1]}
-        colorClass={colorClass}
-        style={{ left: -6 }}
-      />
-    </>;
+    inputHandles = (
+      <>
+        <CustomHandle
+          position={Position.Bottom}
+          type="target"
+          param={inputs[0]}
+          colorClass={colorClass}
+          style={{ bottom: -6 }}
+        />
+        <CustomHandle
+          position={Position.Left}
+          type="target"
+          param={inputs[1]}
+          colorClass={colorClass}
+          style={{ left: -6 }}
+        />
+      </>
+    );
   }
 
   if (!outputs || outputs.length === 0) {
