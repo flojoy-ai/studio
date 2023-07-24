@@ -1,7 +1,5 @@
 import { memo } from "react";
-import { Position } from "reactflow";
 import { CustomNodeProps } from "../../types/CustomNodeProps";
-import { CustomHandle } from "../CustomHandle";
 import LogicNode from "./LogicNode";
 
 export const ConditionalNode = ({ data, handleRemove }: CustomNodeProps) => {
