@@ -14,12 +14,7 @@ describe("Modify settings in control bar", () => {
     // Click the setting button
     cy.get('[data-testid="btn-setting"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with setting modal",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("dark flow page with setting modal");
 
     // Retrieve node delay and maximum time
     cy.get('[data-testid="settings-input"]').eq(0).clear();
@@ -33,12 +28,7 @@ describe("Modify settings in control bar", () => {
       .type(100)
       .should("have.value", "1000");
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with settings modal with input",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("dark flow page with settings modal with input");
 
     cy.get('[data-testid="settings-close-btn"]').click();
 
@@ -46,11 +36,6 @@ describe("Modify settings in control bar", () => {
 
     cy.get('[data-testid="btn-setting"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "light flow page with setting modal",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("light flow page with setting modal");
   });
 });

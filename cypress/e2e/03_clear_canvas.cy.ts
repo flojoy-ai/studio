@@ -12,12 +12,7 @@ describe("Verify clear canvas button", () => {
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page without any nodes",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("dark flow page without any nodes");
 
     // Verify there aren't any nodes
     cy.get('[data-testid="node-wrapper"]').should("have.length", 0);

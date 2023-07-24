@@ -15,12 +15,7 @@ describe("Verify Keyboard shortcut modal", () => {
     // Select Keyboard shortcut option
     cy.get('[data-testid="btn-keyboardshortcut"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with keyboardshorcut modal",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("dark flow page with keyboardshorcut modal");
 
     cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
 
@@ -31,11 +26,6 @@ describe("Verify Keyboard shortcut modal", () => {
 
     cy.get('[data-testid="btn-keyboardshortcut"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "light flow page with keyboardshorcut modal",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("light flow page with keyboardshorcut modal");
   });
 });
