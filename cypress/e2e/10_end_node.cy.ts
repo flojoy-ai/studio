@@ -20,12 +20,12 @@ describe("Verify end node", () => {
 
     // close sidebar
     cy.get('[data-testid="sidebar-close"]').click();
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with end node",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "dark flow page with end node",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
   });
 });

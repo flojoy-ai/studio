@@ -9,21 +9,17 @@ describe("Verify drop down button", () => {
   // Traditional assertions that scrape the page for text values are not needed here.
 
   it("drop down wrapper", () => {
-    const layoutRegions = [
-      { selector: '[data-cy="app-status"]' },
-      { selector: '[data-cy="btn-play"]' },
-    ];
-
     cy.visit("/").wait(1000);
 
     //test dark mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.eyesCheckWindow({
-      tag: "dark flow page with dropdown bar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "dark flow page with dropdown bar",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
 
     cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
       "mouseout"
@@ -33,12 +29,13 @@ describe("Verify drop down button", () => {
 
     // test light mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.eyesCheckWindow({
-      tag: "light flow page with dropdown bar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with dropdown bar",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
 
     cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
       "mouseout"

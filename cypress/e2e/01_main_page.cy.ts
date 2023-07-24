@@ -19,7 +19,7 @@ describe("main page", () => {
 
     // Click add new node button
     cy.get('[data-testid="add-node-button"]').click();
-    cy.percySnapshot("dark flow page with add node sidebar",);
+    cy.percySnapshot("dark flow page with add node sidebar");
 
     cy.get('[data-testid="darkmode-toggle"]').click();
     cy.percySnapshot("light flow page");

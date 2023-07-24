@@ -41,12 +41,12 @@ describe("Set plotly node visual tests", () => {
 
     // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
-
-    cy.eyesCheckWindow({
-      tag: "light flow page with Scatter3d node",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "light flow page with Scatter3d node",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
   });
 });
