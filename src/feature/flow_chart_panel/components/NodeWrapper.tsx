@@ -1,4 +1,3 @@
-import { Box } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import React, { useEffect, useState } from "react";
@@ -33,10 +32,9 @@ const NodeWrapper = ({
   }, [failedNode, data.id, states?.failureReason]);
 
   return (
-    <Box
+    <div
       data-testid="node-wrapper"
-      className="node-wrapper"
-      pos="relative"
+      className="node-wrapper relative"
       onClick={() => setIsEditMode(true)}
     >
       {data.selected && (
@@ -48,7 +46,7 @@ const NodeWrapper = ({
       )}
       {runError && <ErrorPopup message={runError.message} />}
       {children}
-    </Box>
+    </div>
   );
 };
 
