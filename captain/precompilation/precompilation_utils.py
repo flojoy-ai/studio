@@ -12,7 +12,6 @@ def create_light_topology(topology_dict : dict[str, Any], jobset_id: str, node_d
         graph=graph,
         jobset_id=jobset_id,
         node_id_to_func=node_id_to_func,
-        cleanup_func=clear_flojoy_memory,
     )
 
 # this is in utils, do not make method inside of class for this since 

@@ -1,6 +1,8 @@
 from copy import deepcopy
+import json
 from typing import Any, Callable, Dict, Tuple
 from flojoy import get_next_directions
+from flojoy.job_result_utils import get_frontend_res_obj_from_result
 import networkx as nx
 
 class LightTopology:
@@ -15,7 +17,6 @@ class LightTopology:
             graph: nx.DiGraph,
             jobset_id: str,
             node_id_to_func: Dict[str, Callable[..., Any]],
-            cleanup_func: Callable[..., Any],
             is_ci: bool = False,
     ):
         self.working_graph = deepcopy(graph)
@@ -24,16 +25,20 @@ class LightTopology:
             list()
         ) 
         self.is_ci = is_ci
-        self.cleanup_func = cleanup_func
         self.jobset_id = jobset_id
         self.res_store = {}
         self.is_finished = False
         self.node_id_to_func = node_id_to_func
+    
+    def write_results(self):
+        with open("results.json", "w") as f:
+            f.write(json.dumps(self.res_store))
 
-    def run(self) -> None:
+    def run(self):
         next_jobs = self.get_initial_source_nodes()
         for next_job in next_jobs:
             self.run_job(next_job)
+        return self
     
     def get_initial_source_nodes(self) -> list[str]:
         next_jobs: list[str] = []
@@ -48,9 +53,9 @@ class LightTopology:
         node: dict = self.working_graph.nodes[job_id]
         previous_jobs: list[dict] = self.get_job_dependencies_with_label(job_id, original=True)
         job = { 
+            'node_id':job_id,
             'job_id':job_id,
             'jobset_id':self.jobset_id,
-            'iteration_id':job_id,
             'ctrls': node["ctrls"],
             'previous_jobs':previous_jobs,
         }
@@ -59,12 +64,9 @@ class LightTopology:
             raise ValueError(f"Function {job_id} not found in imported functions")
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
-        result : dict = func(**job)
-        job_result = result["NODE_RESULTS"].get("result", None)
-        if "FAILED_NODES" in result:
-            job_id = result.get("FAILED_NODES", "")
-            self.process_job_result(job_id, None, success=False)
-        next_jobs = self.process_job_result(job_id, job_result, success=True)
+        job_result : dict = get_frontend_res_obj_from_result(func(**job))
+        self.res_store[job_id] = job_result
+        next_jobs = self.process_job_result(job_id, job_result)
         if next_jobs is None:
             return
         for next_job in next_jobs:
@@ -108,8 +110,7 @@ class LightTopology:
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def finish(self):
-        self.cancelled = True
-        self.cleanup_func(self.is_finished)
+        self.is_finished = True
 
     def restart(self, job_id: str):
         if self.loop_nodes:
@@ -125,11 +126,8 @@ class LightTopology:
         self.working_graph.add_edges_from(original_edges)
 
     def process_job_result(
-            self, job_id: str, job_result, success: bool
+            self, job_id: str, job_result
     ) -> list[str] | None:
-        if not success:
-            self.finish()
-            return None
         next_nodes_from_dependencies = set()
         next_directions = get_next_directions(job_result)
         if not next_directions:
@@ -144,7 +142,6 @@ class LightTopology:
             self.working_graph.out_degree(job_id) == 0
             and not self.loop_nodes
         ):
-            self.is_finished = True
             self.finish()
         else:
             nodes_to_add.append(self.loop_nodes[-1])
