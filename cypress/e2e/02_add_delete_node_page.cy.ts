@@ -1,6 +1,12 @@
 /// <reference types="cypress" />
+
 require("cypress-xpath");
+
 describe("Verify Add and Delete node", () => {
+  const layoutRegions = [
+    { selector: '[data-cy="app-status"]' },
+    { selector: '[data-cy="btn-play"]' },
+  ];
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",
@@ -8,12 +14,13 @@ describe("Verify Add and Delete node", () => {
     });
   });
 
-  it("should open flojoy studio's main page", () => {
+  it("Verify Add and Delete node", () => {
     cy.visit("/").wait(1000);
 
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click add node
@@ -22,6 +29,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with add node sidebar",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     //Select container Loaders
@@ -33,6 +41,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page with node loader",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     // Click on added container LOADER
@@ -42,6 +51,7 @@ describe("Verify Add and Delete node", () => {
     cy.eyesCheckWindow({
       tag: "dark flow page",
       target: "window",
+      layout: layoutRegions,
       fully: true,
     });
     cy.xpath("//div[contains(text(), 'LOADER')]").should(

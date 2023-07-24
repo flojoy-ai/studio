@@ -1,20 +1,21 @@
 codecov:
   notify:
     after_n_builds: 2
-    wait_for_ci: yes
+    wait_for_ci: true
 
 coverage:
   status:
-    project: off
-    patch: off
-
+    patch: false
+    project: false
 flag_management:
   individual_flags:
-    - name: typescript
+    - name: cypress
       statuses:
-        - type: project
-          target: 30%
+        - target: 30.0
+          type: project
     - name: python
       statuses:
-        - type: project
-          target: 30%
+        - target: 30.0
+          type: project
+comment:
+  layout: "reach, diff, flags, files"

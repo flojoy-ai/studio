@@ -1,4 +1,7 @@
-export const NOISY_SINE = {
+import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { ReactFlowJsonObject } from "reactflow";
+
+export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
   nodes: [
     {
       width: 208,

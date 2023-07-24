@@ -54,6 +54,7 @@ exports[`Controls should render correctly: __main__ 1`] = `
     </div>
     <button
       class="mantine-UnstyledButton-root mantine-ahyxcr"
+      data-testid="btn-setting"
       type="button"
     >
       <svg

@@ -178,6 +178,8 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
+      <Modal.CloseButton data-testid="node-modal-closebtn" />
+
       <Flex gap="xl">
         <Box>
           <Button

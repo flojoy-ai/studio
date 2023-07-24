@@ -10,6 +10,7 @@
     "src/**/*.cy.ts",
     "src/**/*.cy.tsx",
     "src/**/*.d.ts",
-    "src/reportWebVitals.ts"
+    "src/reportWebVitals.ts",
+    "src/web-socket/socket.ts"
   ]
 }
