@@ -1,8 +1,10 @@
 from copy import deepcopy
 import json
+import time
 from typing import Any, Callable, Dict, Tuple
 from flojoy import get_next_directions
 from flojoy.job_result_utils import get_frontend_res_obj_from_result
+from flojoy.utils import PlotlyJSONEncoder
 import networkx as nx
 
 class LightTopology:
@@ -29,10 +31,11 @@ class LightTopology:
         self.res_store = {}
         self.is_finished = False
         self.node_id_to_func = node_id_to_func
+        self.time_start = time.time()
     
     def write_results(self):
         with open("results.json", "w") as f:
-            f.write(json.dumps(self.res_store))
+            f.write(json.dumps(self.res_store, cls=PlotlyJSONEncoder))
 
     def run(self):
         next_jobs = self.get_initial_source_nodes()
@@ -110,6 +113,7 @@ class LightTopology:
         self.remove_edges_and_get_next(job_id, label, next_nodes)
 
     def finish(self):
+        print("took ", time.time() - self.time_start, " seconds")
         self.is_finished = True
 
     def restart(self, job_id: str):

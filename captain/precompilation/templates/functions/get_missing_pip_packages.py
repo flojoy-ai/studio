@@ -17,3 +17,5 @@ def get_missing_pip_packages(packages: list):
         return_code = proc.returncode
         if return_code != 0: # if not success 
             raise Exception(resp)
+        
+    return missing_packages

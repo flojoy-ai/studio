@@ -2,12 +2,14 @@ import ast
 from collections import deque
 from copy import copy
 import inspect
+import json
 import os
 import shutil
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
 from captain.precompilation.precompilation_utils import extract_pip_packages
 from captain.precompilation.templates.classes.LightTopology import LightTopology
+from captain.precompilation.templates.functions.flowchart_to_nx_graph import flowchart_to_nx_graph
 from captain.precompilation.templates.functions.get_missing_pip_packages import (
     get_missing_pip_packages,
 )
@@ -130,10 +132,9 @@ class FlojoyScriptBuilder:
                     self.imports.add(f"from {module} import {alias.name}")
 
     def write_to_file(self):
-        '''
-        Create the final string with all the import statements and code items 
-        and write to file
-        '''
+        """
+        Create the final script string string and output it
+        """
         all_items = list(self.imports) + self.items
         final_string = HEADER + "\n" + "\n".join(all_items)
         filename = os.path.join(self.path_to_output, "script.py")
@@ -141,6 +142,7 @@ class FlojoyScriptBuilder:
             f.write(python_minifier.minify(final_string))
 
     def install_missing_pip_packages(self, nodes: list):
+        
         packages = extract_pip_packages(nodes)
         self.afc(get_missing_pip_packages)
         self.al("packages", packages)
@@ -268,3 +270,22 @@ class FlojoyScriptBuilder:
 
         # add node_to_func to script (mapping of node_ids to function names)
         self.ad("node_id_to_func", node_id_to_func, no_string=True)
+    
+    def run_write_flowchart(self, fc: str, jobset_id: str):
+        #   -- add some necessary imports --
+        self.ai("json")
+        self.ai(import_string="networkx", alias="nx")
+        self.ai(from_string="flojoy.utils", import_string="set_offline")
+        #   --------------------------------
+        #   -- add the flowchart and run it --
+        self.acb("set_offline()")
+        self.afc(flowchart_to_nx_graph)
+        self.afc(LightTopology)
+        self.acb(f"LightTopology(\n\
+        flowchart_to_nx_graph(json.loads({repr(fc)})),\n\
+        '{jobset_id}',\n\
+        node_id_to_func,\n\
+        {self.is_ci},\n\
+        ).run().write_results()\
+        ")
+        #   ----------------------------------

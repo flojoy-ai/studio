@@ -33,23 +33,7 @@ def precompile(request: PostWFC, path_to_output: str, is_ci: bool = False):
     sw.import_app_nodes(get_graph_nodes(light_topology))
 
     # Step 3: add the flowchart, run it, and write 
-    #   -- Add some necessary imports --
-    sw.ai("json")
-    sw.ai(import_string="networkx", alias="nx")
-    sw.ai(from_string="flojoy.utils", import_string="set_offline")
-    #   --------------------------------
-    #   -- Add the flowchart and run it --
-    sw.acb("set_offline()")
-    sw.afc(flowchart_to_nx_graph)
-    sw.afc(LightTopology)
-    sw.acb(f"LightTopology(\n\
-    flowchart_to_nx_graph(json.loads({json.dumps(request.fc)})),\n\
-    '{request.jobsetId}',\n\
-    node_id_to_func,\n\
-    {is_ci},\n\
-    ).run().write_results()\
-    ")
-    #   ----------------------------------
+    sw.run_write_flowchart(request.fc, request.jobsetId)
 
     # Step 4: uninstall added pip packages
     sw.uninstall_pip_packages()
