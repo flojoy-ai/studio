@@ -61,3 +61,4 @@ coverage.xml
 coverage-cy
 
 test/*
+build/*
