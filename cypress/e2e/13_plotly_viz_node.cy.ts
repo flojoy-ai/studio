@@ -12,8 +12,8 @@ describe("Set plotly node visual tests", () => {
 
     cy.get('[data-testid="add-node-button"]').click();
     //Select container Visualizers
-    cy.xpath("//div[contains(text(), 'Visualizers')]").click();
-
+    cy.xpath("//div[contains(text(), 'Visualize')]").click();
+    cy.xpath("//div[contains(text(), 'PLOTLY')]").click();
     // get all viz nodes
     cy.xpath("//button[.='SCATTER3D']").click();
     cy.xpath("//button[.='LINE']").click();
@@ -27,17 +27,19 @@ describe("Set plotly node visual tests", () => {
     cy.xpath("//button[.='SCATTER']").click();
     cy.xpath("//button[.='PROPHET_COMPONENTS']").click();
     cy.xpath("//button[.='TABLE']").click();
+
+    cy.xpath("//div[contains(text(), 'DATA_STRUCTURE')]").click();
     cy.xpath("//button[.='MATRIX_VIEW']").click();
     cy.xpath("//button[.='ARRAY_VIEW']").click();
 
     cy.get('[data-testid="sidebar-close"]').click();
-
-    cy.eyesCheckWindow({
-      tag: "dark flow page with Scatter3d node",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot();
+    // cy.eyesCheckWindow({
+    //   tag: "dark flow page with Scatter3d node",
+    //   target: "window",
+    //   layout: layoutRegions,
+    //   fully: true,
+    // });
 
     // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();

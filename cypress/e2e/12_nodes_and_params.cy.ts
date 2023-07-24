@@ -7,7 +7,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Click clear canvas button
     cy.get(
-      '[data-testid="rf__node-SINE-2cd08316-0a0c-4c13-9b1d-382ba4d74cbd"]'
+      '[data-testid="rf__node-SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319"]'
     ).click();
     // Check if there are 5 parameters for SINE node
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);
@@ -30,10 +30,10 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="add-node-button"]').click();
     // Add ARGRELMAX node
-    cy.get('[data-testid="sidebar-input"]').type("argrelmax");
-    cy.get("button").contains("ARGRELMAX").click();
+    cy.get('[data-testid="sidebar-input"]').type("bspline");
+    cy.get("button").contains("BSPLINE").click();
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.get('[data-testid="data-label-design"]').contains("ARGRELMAX").click();
+    cy.get('[data-testid="node-wrapper"]').contains("BSPLINE").click();
     // Modify int parameters
     cy.get('[data-testid="int-input"]').each(($element) => {
       cy.get($element).type("{selectall}{backspace}");
@@ -52,7 +52,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').click();
     // Modify string parameter
-    cy.get('[data-testid="string-input"]').each(($element) => {
+    cy.get('[data-testid="object-input"]').each(($element) => {
       cy.get($element).type("{selectall}{backspace}");
       cy.get($element).type("image path").should("have.value", "image path");
     });
@@ -70,7 +70,10 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').click();
     // Modify boolean parameter
-    cy.get('[data-cy="boolean-input"]').click({ multiple: true });
+    cy.get('[data-testid="boolean-input"]').click({
+      multiple: true,
+      force: true,
+    });
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
@@ -85,7 +88,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').click();
     // Modify array parameter
-    cy.get('[data-testid="array-input"]')
+    cy.get('[data-testid="object-input"]')
       .type("[1,2,3,4]")
       .should("have.value", "[1,2,3,4]");
     // Light mode / Dark mode
@@ -106,7 +109,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]')
       .contains("FEEDBACK")
-      .click({ multiple: true });
+      .click({ multiple: true, force: true });
     // Modify node_reference parameter
     cy.get('[data-testid="node_reference-input"]').each(($element) => {
       cy.get($element).click();
@@ -125,19 +128,18 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="add-node-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
-    cy.xpath("//div[contains(text(), 'Logic gates')]").click();
-    cy.contains("button", "CONDITIONAL").click();
+    cy.get('[data-testid="sidebar-input"]').type("conditional");
+    cy.contains("button", new RegExp("CONDITIONAL", "g")).click();
     cy.get('[data-testid="sidebar-close"]').click();
 
-    cy.get('[data-testid="data-label-design"]').contains("CONDITIONAL").click();
+    cy.get('[data-testid="node-wrapper"]').click();
     // check if selected operator is displayed on node box
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", ">").click();
+      cy.get($element).should("have.value", ">");
     });
-    cy.get('[data-testid="conditional-operator-type"]').and(($div) => {
-      expect($div.text()).to.contain(">");
-    });
+
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
     // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
@@ -147,23 +149,29 @@ describe("Verify nodes and its parameters", () => {
 
     // creating loop node
     cy.get('[data-testid="add-node-button"]').click();
-    // cy.xpath("//div[contains(text(), 'Logic gates')]").click();
-    cy.contains("button", "LOOP").click();
+    // Clear input box
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+    cy.get('[data-testid="sidebar-input"]').type("loop");
+
+    cy.contains("button", new RegExp("LOOP", "g")).click();
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.xpath("//div[contains(text(), 'LOOP')]").click();
-    cy.get('[data-testid="node-wrapper"]');
+
+    cy.get('[data-testid="node-wrapper"]').click();
     cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
     cy.get('[data-testid="int-input"]').eq(0).type(10);
+
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="clear-canvas-button"]').click();
     // Switch to dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // creating numpy node
     cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("tensorinv");
     cy.contains("button", "TENSORINV").click();
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.get('[data-testid="data-label-design"]').contains("TENSORINV").click();
+    cy.get('[data-testid="node-wrapper"]').click();
     cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
     cy.get('[data-testid="int-input"]').eq(0).type(2);
     cy.get('[data-testid="node-edit-modal-close-btn"]').click();
