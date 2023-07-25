@@ -12,7 +12,7 @@ describe("main page", () => {
 
     // This nodeid value is from src/data/RECIPES.ts
     cy.get(
-      '[data-testid="rf__node-SINE-c5df4e56-5ab8-447e-8ad9-6b7514ddb319"]'
+      '[data-testid="rf__node-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08"]'
     ).click();
 
     cy.percySnapshot("dark flow page with SINE menu");

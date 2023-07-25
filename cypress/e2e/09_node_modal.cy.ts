@@ -12,17 +12,12 @@ describe("Verify node modal", () => {
     cy.visit("/").wait(1000);
 
     cy.get(
-      '[data-testid="rf__node-HISTOGRAM-00c89b9a-1c2d-4e73-b176-9e13c641642f"]'
+      '[data-testid="rf__node-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08"]'
     ).click();
 
     // Click expand button
     cy.get('[data-testid="expand-button"]').click();
-    cy.percySnapshot("dark mode with histogram expand button clicked");
-    // cy.eyesCheckWindow({
-    //   tag: "dark flow page with Histogram node modal",
-    //   target: "window",
-    //   fully: true,
-    // });
+    cy.percySnapshot("dark mode with SINE expand button clicked");
     cy.get('[data-testid="node-modal-closebtn"]').click();
 
     // Test in light mode
@@ -30,7 +25,7 @@ describe("Verify node modal", () => {
 
     cy.get('[data-testid="expand-button"]').click();
 
-    cy.percySnapshot("light mode with histogram expand button clicked");
+    cy.percySnapshot("light mode with SINE expand button clicked");
     // cy.eyesCheckWindow({
     //   tag: "light flow page with Histogram node modal",
     //   target: "window",
