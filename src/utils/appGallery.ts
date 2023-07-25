@@ -81,6 +81,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Arduino",
       imagePath: "../../../public/assets/appGallery/arduino.png",
       youtubeLink: "",
+      appPath: "arduino"
     },
     {
       linkText: "Record and log temperatures",
