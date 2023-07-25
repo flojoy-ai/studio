@@ -63,7 +63,7 @@ jobs:
 
   visual-tests:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    # if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -88,12 +88,18 @@ jobs:
         run: bash flojoy -c
 
       - name: Run e2e test
-        uses: cypress-io/github-action@v4
-        with:
-          build: npm run build
-          start: npm run start-project
-          browser: chrome
-          install: false
+      - run: npm install --save-dev @percy/cli
+      - run: npx percy exec -- cypress run
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+
+        # uses: cypress-io/github-action@v4
+        # with:
+        #   build: npm run build
+        #   start: npm run start-project
+        #   browser: chrome
+        #   install: false
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
