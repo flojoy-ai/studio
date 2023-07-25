@@ -71,6 +71,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Object identification",
       imagePath: "../../../public/assets/appGallery/objectIdentification.png",
       youtubeLink: "",
+      appPath: "objectDetection"
     },
   ],
   IO: [
