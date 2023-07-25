@@ -26,10 +26,5 @@ describe("Verify node modal", () => {
     cy.get('[data-testid="expand-button"]').click();
 
     cy.percySnapshot("light mode with SINE expand button clicked");
-    // cy.eyesCheckWindow({
-    //   tag: "light flow page with Histogram node modal",
-    //   target: "window",
-    //   fully: true,
-    // });
   });
 });
