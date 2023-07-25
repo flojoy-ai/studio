@@ -84,13 +84,10 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
-          start: npm run start-project
+          wait-on: 'http://localhost:3000'
+          command: npx percy exec -- cypress run
           browser: chrome
           install: false
-        
-      - run: |
-          npm install --save-dev @percy/cli
-          npx percy exec -- cypress run
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
