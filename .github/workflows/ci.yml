@@ -84,7 +84,7 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
-          start: bash flojoy
+          start: npm start
           build: npm run build
           wait-on: 'http://localhost:3000'
           command: npx percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
