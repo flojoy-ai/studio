@@ -13,6 +13,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to LOOPS",
       imagePath: "../../../public/assets/appGallery/introToLoops.png",
       youtubeLink: "",
+      appPath: "randomNumber",
     },
     {
       linkText: "Generate waveforms of different shapes",
@@ -20,6 +21,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to signals",
       imagePath: "../../../public/assets/appGallery/introToSignals.png",
       youtubeLink: "",
+      appPath: "oscilator"
     },
     {
       linkText: "Apply a butterworth filter on a sample image",
@@ -27,6 +29,8 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to images",
       imagePath: "../../../public/assets/appGallery/introToImages.png",
       youtubeLink: "",
+      appPath: "butterworth"
+
     },
     {
       linkText: "Stream data to your Flojoy Cloud account",
@@ -34,6 +38,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Stream to Flojoy Cloud",
       imagePath: "../../../public/assets/appGallery/flojoyCloud.png",
       youtubeLink: "",
+      //appPath: "cloud"
     },
   ],
   AI: [
@@ -50,6 +55,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Time series forecasting",
       imagePath: "../../../public/assets/appGallery/timeSeries.png",
       youtubeLink: "",
+      appPath: "prophet"
     },
     {
       linkText: "Estimate object depth with the DINOv2 node",
