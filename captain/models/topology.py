@@ -196,11 +196,13 @@ class Topology:
 
         logger.debug(f"out_edges to follow: {next_directions}")
 
-        for direction_ in next_directions:
+        for i, direction_ in enumerate(next_directions):
             direction = direction_.lower()
             if direction == "end" and self.loop_nodes:
                 self.loop_nodes.pop()
             self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
+            if i == len(next_directions) - 1:
+                self.working_graph.remove_node(job_id)
 
         nodes_to_add: list[str] = []
 
@@ -276,7 +278,6 @@ class Topology:
         logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
         self.finished_jobs.add(job_id)
         self.remove_edges_and_get_next(job_id, label, next_nodes)
-        self.working_graph.remove_node(job_id)
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)
