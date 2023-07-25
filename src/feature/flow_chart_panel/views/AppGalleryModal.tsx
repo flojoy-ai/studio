@@ -25,7 +25,7 @@ const useStyles = createStyles((theme) => ({
   header: {
     position: "sticky",
     display: "relative",
-    paddingTop: 0,
+    paddingTop: 10,
   },
   title: {
     display: "relative",

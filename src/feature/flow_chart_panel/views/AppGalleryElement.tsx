@@ -50,7 +50,7 @@ export const AppGalleryElement = ({
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const { setIsGalleryOpen } = useFlowChartState();
 
-  const open = async () => {
+  const onClick = async () => {
     const raw = await import(`../../../utils/app-gallery-apps/${appPath}.json`);
     const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
@@ -59,7 +59,7 @@ export const AppGalleryElement = ({
   };
 
   return (
-    <UnstyledButton onClick={open}>
+    <UnstyledButton onClick={onClick}>
       <Flex className={classes.elementLayout}>
         <Image height={120} width={"8.5vw"} fit="contain" src={imagePath} />
         <h4 className={classes.elementTitle}>

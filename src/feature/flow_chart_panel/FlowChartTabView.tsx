@@ -47,6 +47,7 @@ import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
+import { Turnstone } from "turnstone";
 
 localforage.config({
   name: "react-flow",
