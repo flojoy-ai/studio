@@ -11,7 +11,6 @@ describe("Verify Add and Delete node", () => {
 
     cy.get('[data-testid="add-node-button"]').click();
 
-    cy.percySnapshot("dark flow page with add node sidebar");
     //Select container Loaders
     cy.xpath("//div[contains(text(), 'Load')]").click();
     //Select container Loaders
@@ -24,7 +23,6 @@ describe("Verify Add and Delete node", () => {
     // Click on added container LOADER
     cy.get('[data-testid="node-wrapper"]').click();
     //Delete node LOADER
-    cy.get(".tabler-icon-x[width='24']").click({force:true});
-    cy.percySnapshot("dark flow page");
+    cy.get(".tabler-icon-x[width='24']").click({ force: true });
   });
 });
