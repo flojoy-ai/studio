@@ -1,11 +1,4 @@
-import {
-  Box,
-  Text,
-  clsx,
-  createStyles,
-  useMantineTheme,
-  UnstyledButton,
-} from "@mantine/core";
+import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -21,7 +14,6 @@ import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
-import SettingsIconSvg from "@src/assets/SettingsIconSVG";
 import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { memo, useEffect, useState, useCallback } from "react";
@@ -38,8 +30,10 @@ import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { ResultsType } from "@src/feature/common/types/ResultsType";
-import S3KeyModal from "./S3KeyModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
+import { Settings } from "lucide-react";
+import { Button } from "@src/components/ui/button";
+import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -47,7 +41,7 @@ const useStyles = createStyles((theme) => {
       display: "flex",
       alignItems: "center",
       padding: "10px",
-      gap: "16px",
+      gap: "8px",
     },
 
     button: {
@@ -463,13 +457,15 @@ const ControlBar = () => {
         </button>
       </Dropdown>
 
-      <UnstyledButton
+      <Button
         data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
-        className={classes.settingsButton}
+        size="icon"
+        variant="ghost"
       >
-        <SettingsIconSvg />
-      </UnstyledButton>
+        <Settings className="stroke-accent1" />
+      </Button>
+      <DarkModeToggle />
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
         onClose={handleKeyboardShortcutModalClose}

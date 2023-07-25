@@ -35,6 +35,13 @@ export default defineConfig(({ command }) => {
               console.log(
                 /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App"
               );
+            } else if (process.env.FLOJOY_USE_WAYLAND) {
+              options.startup([
+                ".",
+                "--no-sandbox",
+                "--enable-features=UseOzonePlatform",
+                "--ozone-platform=wayland",
+              ]);
             } else {
               options.startup();
             }

@@ -11,35 +11,6 @@ import { ParamTooltip } from "../ParamTooltip";
 import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
-  modal: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    zIndex: 10,
-    height: "calc(100vh - 300px)",
-    width: 324,
-    padding: "8px 8px",
-    backgroundColor: theme.colors.modal[0],
-    boxShadow:
-      theme.colorScheme === "dark" ? "none" : "0px 0px 8px 0px rgba(0,0,0,0.3)",
-    overflowY: "scroll",
-    "&::-webkit-scrollbar": {
-      width: "8px",
-      backgroundColor: "transparent",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "transparent",
-    },
-    "&:hover": {
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor:
-          theme.colorScheme === "dark"
-            ? theme.colors.accent1[0]
-            : theme.colors.accent2[2],
-        borderRadius: "4px",
-      },
-    },
-  },
   title: {
     fontWeight: 700,
     margin: 0,
@@ -81,7 +52,7 @@ const NodeEditModal = ({
   nodes,
   setNodes,
 }: NodeEditModalProps) => {
-  const [isTitleEditable, setIsTitleEditable] = useState(false);
+  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
   const { classes } = useStyles();
   const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
@@ -93,7 +64,7 @@ const NodeEditModal = ({
     [];
 
   const handleTitleChange = (value: string) => {
-    setIsTitleEditable(false);
+    setIsRenamingTitle(false);
     if (value === node.data.label) {
       return;
     }
@@ -134,7 +105,7 @@ const NodeEditModal = ({
 
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <Box className={classes.modal}>
+      <div className="absolute right-10 top-10 z-10 rounded-xl border border-accent1 bg-modal p-2">
         <Box
           onClick={() => setIsEditMode(false)}
           className={classes.closeButton}
@@ -144,7 +115,7 @@ const NodeEditModal = ({
         <Box p="0px 16px 24px 16px">
           <div key={node.id}>
             <Box className={classes.titleContainer}>
-              {isTitleEditable ? (
+              {isRenamingTitle ? (
                 <>
                   <TextInput
                     id={"title_input"}
@@ -170,7 +141,7 @@ const NodeEditModal = ({
                   </Title>
                   <IconPencil
                     onClick={() => {
-                      setIsTitleEditable(true);
+                      setIsRenamingTitle(true);
                     }}
                     size={18}
                     style={{
@@ -214,7 +185,7 @@ const NodeEditModal = ({
             )}
           </div>
         </Box>
-      </Box>
+      </div>
     </Draggable>
   );
 };

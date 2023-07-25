@@ -7,7 +7,6 @@ describe("Verify Add and Delete node", () => {
     { selector: '[data-cy="app-status"]' },
     { selector: '[data-cy="btn-play"]' },
   ];
-
   beforeEach(() => {
     cy.eyesOpen({
       appName: "studio",
