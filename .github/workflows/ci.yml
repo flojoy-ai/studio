@@ -84,9 +84,8 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
-          build: npm run build
           start: npm run start-project
-          command: npx percy exec -- cypress run --spec 'cypress/integration/ui-integration/user-context-retainment.spec.js' --config video=false,screenshotOnRunFailure=false
+          command: npx percy exec -- cypress run
           browser: chrome
           install: false
 
