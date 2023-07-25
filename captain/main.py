@@ -1,9 +1,11 @@
+import os
 from fastapi import FastAPI
 from captain.routes import flowchart, key, ws
 from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
 from captain.utils.logger import logger, logger_setup
+from flojoy.utils import set_debug_on, set_debug_off
 
 # init node mapping
 create_map()
@@ -28,3 +30,7 @@ app.include_router(key.router)
 @app.on_event("startup")
 async def startup_event():
     logger_setup(logger)
+    if os.environ.get("DEBUG", "false").lower() == "true":
+        set_debug_on()
+    else:
+        set_debug_off()

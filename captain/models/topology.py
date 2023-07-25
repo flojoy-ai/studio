@@ -10,7 +10,7 @@ from flojoy import (
     NoInitFunctionError,
     get_node_init_function,
 )
-from flojoy.utils import clear_flojoy_memory
+from flojoy.utils import clear_flojoy_memory # for some reason, cant import from flojoy directly...
 from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger

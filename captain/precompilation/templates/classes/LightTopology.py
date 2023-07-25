@@ -144,11 +144,11 @@ class LightTopology:
         nodes_to_add = []
         if (
             self.working_graph.out_degree(job_id) == 0
-            and not self.loop_nodes
         ):
-            self.finish()
-        else:
-            nodes_to_add.append(self.loop_nodes[-1])
+            if len(self.loop_nodes) == 0:
+                self.finish()
+            else:
+                nodes_to_add.append(self.loop_nodes[-1])
         for node_id in nodes_to_add:
             self.restart(node_id)
         for node_id in nodes_to_add:
