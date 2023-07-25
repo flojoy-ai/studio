@@ -82,8 +82,9 @@ jobs:
         run: bash flojoy -c
 
       - name: Run e2e test
-        run: npm install --save-dev @percy/cli
-        run: npx percy exec -- cypress run 
+        run: |
+          npm install --save-dev @percy/cli
+          npx percy exec -- cypress run
 
         # uses: cypress-io/github-action@v4
         # with:
