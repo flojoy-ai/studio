@@ -10,7 +10,7 @@ from flojoy import (
     NoInitFunctionError,
     get_node_init_function,
 )
-from flojoy.utils import clear_flojoy_memory # for some reason, cant import from
+from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
 from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
@@ -21,10 +21,11 @@ lock = asyncio.Lock()
 
 
 class Topology:
-    '''
+    """
     Holds information of the flowchart and the state of the topology.
     Used for running the flowchart and handles the logic.
-    '''
+    """
+
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
     def __init__(
@@ -83,8 +84,6 @@ class Topology:
     #     Performs topological sort and gets the execution order,
     #     for LOOPS
     #     '''
-        
-
 
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
@@ -148,10 +147,10 @@ class Topology:
         return self.cancelled
 
     async def handle_finished_job(self, result: dict[str, Any]):
-        '''
+        """
         get the data from the worker response
         (flojoy package is responsible for sending to /worker_response endpoint)
-        '''
+        """
         if self.cancelled:
             logger.debug("Received job, but skipping since topology is cancelled")
             return
@@ -213,13 +212,18 @@ class Topology:
             if direction == "end" and self.loop_nodes:
                 self.loop_nodes.pop()
             next_nodes = self.remove_edges_and_get_next(job_id, direction)
-            next_nodes_from_dependencies = next_nodes_from_dependencies.union(next_nodes)
+            next_nodes_from_dependencies = next_nodes_from_dependencies.union(
+                next_nodes
+            )
 
-        logger.debug("After removing edges of node, next nodes are: " + str(next_nodes_from_dependencies))
+        logger.debug(
+            "After removing edges of node, next nodes are: "
+            + str(next_nodes_from_dependencies)
+        )
 
         nodes_to_add: list[str] = []
 
-        # -- verify if the flowchart is done running -- 
+        # -- verify if the flowchart is done running --
         if (
             self.queued_jobs.__len__() == 0
             and next_nodes_from_dependencies.__len__() == 0
@@ -250,14 +254,11 @@ class Topology:
 
         return list(next_nodes_from_dependencies)
 
-    
-    def remove_edges_and_get_next(
-        self, job_id: str, label_direction: str = 'default'
-    ):
-        '''
+    def remove_edges_and_get_next(self, job_id: str, label_direction: str = "default"):
+        """
         this function removes the node edges and checks its successors
         for new jobs. A new job is ready when a sucessor has no dependencies.
-        '''
+        """
         self.finished_jobs.add(job_id)
         successors: list[str] = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
