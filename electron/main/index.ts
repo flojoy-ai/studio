@@ -57,7 +57,6 @@ async function createWindow() {
       // Consider using contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
-      contextIsolation: false,
     },
     show: false,
   });
@@ -87,7 +86,6 @@ async function createWindow() {
   // Apply electron-updater
   update(win);
 }
-
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
