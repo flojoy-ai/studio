@@ -34,7 +34,7 @@ class FlojoyScriptBuilder:
         self.path_to_output = path_to_output
         self.is_ci = is_ci
 
-    def ai(
+    def add_import(
         self,
         import_string: str = "",
         alias: str | None = None,
@@ -58,7 +58,7 @@ class FlojoyScriptBuilder:
             else:
                 self.imports.add(f"import {import_string}")
 
-    def afc(self, item: Any):
+    def add_function_or_class(self, item: Any):
         """
         Add a function or class
         """
@@ -68,48 +68,48 @@ class FlojoyScriptBuilder:
             "\t" * self.indent_level + line for line in source_code_lines
         ]
         self.items += source_code_lines
-        self.ami(item)
+        self.add_module_import(item)
 
-    def acb(self, block: str):
+    def add_code_block(self, block: str):
         """
         Add a code block
         """
         formatted = ["\t" * self.indent_level + line for line in block.splitlines()]
         self.items += formatted
 
-    def al(self, name: str, items: Any):
+    def add_list(self, name: str, items: Any):
         """
         Make a list
         """
-        self.acb(f"{name} = []")
+        self.add_code_block(f"{name} = []")
         for item in items:
-            self.acb(f"{name}.append({item})")
+            self.add_code_block(f"{name}.append({item})")
 
-    def ii(self):
+    def increase_indent(self):
         """
         Increase indent level
         """
         self.indent_level += 1
 
-    def ri(self):
+    def reduce_indent(self):
         """
         Reduce indent level
         """
         self.indent_level = max(0, self.indent_level - 1)
 
-    def ad(self, name: str, dict: dict, no_string: bool = False):
+    def add_dict(self, name: str, dict: dict, no_string: bool = False):
         """
         Add a dict
         """
-        self.acb(f"{name} = {{}}")
+        self.add_code_block(f"{name} = {{}}")
 
         for node in dict:
             if no_string:
-                self.acb(f"{name}['{node}'] = {dict[node]}")
+                self.add_code_block(f"{name}['{node}'] = {dict[node]}")
             else:
-                self.acb(f"{name}['{node}'] = '{dict[node]}'")
+                self.add_code_block(f"{name}['{node}'] = '{dict[node]}'")
 
-    def ami(self, item):
+    def add_module_import(self, item):
         """
         Add module imports
         """
@@ -136,10 +136,10 @@ class FlojoyScriptBuilder:
                     self.imports.add(f"from {module} import {alias.name}")
 
     def remove_debug_prints_and_set_offline(self):
-        self.ai(from_string="flojoy.utils", import_string="set_offline")
-        self.ai(from_string="flojoy.utils", import_string="set_debug_off")
-        self.acb("set_offline()")
-        self.acb("set_debug_off()")
+        self.add_import(from_string="flojoy.utils", import_string="set_offline")
+        self.add_import(from_string="flojoy.utils", import_string="set_debug_off")
+        self.add_code_block("set_offline()")
+        self.add_code_block("set_debug_off()")
 
     def write_to_file(self):
         """
@@ -153,16 +153,16 @@ class FlojoyScriptBuilder:
 
     def install_missing_pip_packages(self, nodes: list):
         packages = extract_pip_packages(nodes)
-        self.afc(get_missing_pip_packages)
-        self.al("packages", packages)
-        self.acb("missing_pip_packages=get_missing_pip_packages(packages)")
+        self.add_function_or_class(get_missing_pip_packages)
+        self.add_list("packages", packages)
+        self.add_code_block("missing_pip_packages=get_missing_pip_packages(packages)")
 
     def uninstall_pip_packages(self):
         """
         Uninstall missing pip packages returned by install_missing_pip_packages()
         """
-        self.afc(remove_missing_pip_packages)
-        self.acb("remove_missing_pip_packages(missing_pip_packages)")
+        self.add_function_or_class(remove_missing_pip_packages)
+        self.add_code_block("remove_missing_pip_packages(missing_pip_packages)")
 
     def import_app_nodes(self, graph_nodes):
         """
@@ -195,7 +195,7 @@ class FlojoyScriptBuilder:
         node_id_to_func = {}
         self.imports.add("import sys")
         self.imports.add("import os")
-        self.acb("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
+        self.add_code_block("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
         imported = set()  # keep track of imported files
         for node_id in graph_nodes:
             # -- get node module and check if CI --
@@ -274,24 +274,24 @@ class FlojoyScriptBuilder:
             # -- import module --
             module_path = module_path.replace(os.path.sep, ".")
             if ci_available:
-                self.acb(f"from {module_path[:-3]} import {cmd_mock} as {cmd}")
+                self.add_code_block(f"from {module_path[:-3]} import {cmd_mock} as {cmd}")
             else:
-                self.acb(f"from {module_path[:-3]} import {cmd}")
+                self.add_code_block(f"from {module_path[:-3]} import {cmd}")
             # ------------------
 
         # add node_to_func to script (mapping of node_ids to function names)
-        self.ad("node_id_to_func", node_id_to_func, no_string=True)
+        self.add_dict("node_id_to_func", node_id_to_func, no_string=True)
 
     def run_write_flowchart(self, fc: str, jobset_id: str):
         #   -- add some necessary imports --
-        self.ai("json")
-        self.ai(import_string="networkx", alias="nx")
+        self.add_import("json")
+        self.add_import(import_string="networkx", alias="nx")
         #   --------------------------------
         #   -- add the flowchart and run it --
-        self.acb("set_offline()")
-        self.afc(flowchart_to_nx_graph)
-        self.afc(LightTopology)
-        self.acb(
+        self.add_code_block("set_offline()")
+        self.add_function_or_class(flowchart_to_nx_graph)
+        self.add_function_or_class(LightTopology)
+        self.add_code_block(
             f"LightTopology(\n\
         flowchart_to_nx_graph(json.loads({repr(fc)})),\n\
         '{jobset_id}',\n\
