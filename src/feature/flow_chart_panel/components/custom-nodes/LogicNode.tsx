@@ -4,8 +4,7 @@ import NodeWrapper from "../NodeWrapper";
 import { nodeStatusAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 import clsx from "clsx";
-import { CustomHandle } from "../CustomHandle";
-import { Position } from "reactflow";
+import { LogicHandleComponent } from "../LogicHandleComponent";
 
 const LogicNode = ({
   data,
@@ -13,11 +12,6 @@ const LogicNode = ({
   children,
 }: CustomNodeProps & { children?: React.ReactNode }) => {
   const [{ runningNode, failedNode }] = useAtom(nodeStatusAtom);
-
-  const input = data.inputs?.[0];
-  if (!input) {
-    throw new Error("Logic node must have an input");
-  }
 
   return (
     <NodeWrapper data={data} handleRemove={handleRemove}>
@@ -31,19 +25,11 @@ const LogicNode = ({
         )}
       >
         {children ?? (
-          <>
-            <h2 className="-rotate-45 font-sans text-2xl font-extrabold tracking-wider text-accent3">
-              {data.label}
-            </h2>
-            <CustomHandle
-              position={Position.Bottom}
-              type="target"
-              param={input}
-              colorClass="!border-accent3"
-              style={{ left: 3, bottom: -3 }}
-            />
-          </>
+          <h2 className="-rotate-45 font-sans text-2xl font-extrabold tracking-wider text-accent3">
+            {data.label}
+          </h2>
         )}
+        <LogicHandleComponent data={data} colorClass="!border-accent3" />
       </div>
     </NodeWrapper>
   );

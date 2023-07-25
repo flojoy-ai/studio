@@ -1,4 +1,3 @@
-import { Box, Text, createStyles } from "@mantine/core";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import React, { useEffect, useState } from "react";
@@ -30,13 +29,12 @@ const NodeWrapper = ({
     return () => {
       setRunError(null);
     };
-  }, [failedNode, states?.failureReason]);
+  }, [failedNode, data.id, states?.failureReason]);
 
   return (
-    <Box
+    <div
       data-testid="node-wrapper"
-      className="node-wrapper"
-      pos="relative"
+      className="relative"
       onClick={() => setIsEditMode(true)}
     >
       {data.selected && (
@@ -48,50 +46,20 @@ const NodeWrapper = ({
       )}
       {runError && <ErrorPopup message={runError.message} />}
       {children}
-    </Box>
+    </div>
   );
 };
 
 export default NodeWrapper;
 
-const useStyles = createStyles((theme) => {
-  return {
-    popupContainer: {
-      position: "absolute",
-      top: -50,
-      left: "50%",
-      right: "50%",
-      transform: "translate(-50%, -50%)",
-      backgroundColor: "#dcf8c6",
-      borderRadius: theme.radius.sm,
-      margin: "10px 0",
-      padding: 10,
-      width: "max-content",
-      maxWidth: 500,
-      zIndex: 100,
-      color: theme.black,
-      fontWeight: 600,
-    },
-    popupArrow: {
-      borderStyle: "solid",
-      borderWidth: "10px 10px 0 10px",
-      borderColor: "#dcf8c6 transparent transparent transparent",
-      height: 0,
-      width: 0,
-      position: "absolute",
-      bottom: -10,
-      left: "50%",
-      marginLeft: -10,
-    },
-  };
-});
-
 const ErrorPopup = ({ message }: { message: string }) => {
-  const { classes } = useStyles();
   return (
-    <Box className={classes.popupContainer} data-testid="node-error-popup">
-      <Text fz="lg">{message}</Text>
-      <Box className={classes.popupArrow} />
-    </Box>
+    <div
+      className="absolute -top-14 left-1/2 right-1/2 z-50 my-3 w-max max-w-md -translate-x-1/2 -translate-y-1/2 rounded-md border-2 border-red-400 p-3 font-semibold"
+      data-testid="node-error-popup"
+    >
+      <p className="text-lg text-gray-900 dark:text-gray-50">{message}</p>
+      <div className="absolute -bottom-2 left-1/2 -ml-2 h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-red-400" />
+    </div>
   );
 };

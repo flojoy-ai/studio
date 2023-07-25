@@ -342,6 +342,11 @@ const ControlBar = () => {
   };
 
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (globalThis.IS_ELECTRON) {
+      saveFile(nodes, edges);
+      return;
+    }
+
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
 
