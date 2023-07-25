@@ -17,6 +17,7 @@ const props: CustomNodeProps = {
         id: "test",
         name: "test",
         type: "test",
+        multiple: false,
         desc: null,
       },
     ],

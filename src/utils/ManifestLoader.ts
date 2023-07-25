@@ -12,7 +12,7 @@ const nodeElementSchema = z.object({
         name: z.string(),
         id: z.string(),
         type: z.string(),
-        multiple: z.optional(z.boolean()),
+        multiple: z.boolean(),
         desc: z.nullable(z.string()),
       })
     )
