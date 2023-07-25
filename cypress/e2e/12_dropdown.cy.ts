@@ -13,13 +13,7 @@ describe("Verify drop down button", () => {
 
     //test dark mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.percySnapshot();
-    // cy.eyesCheckWindow({
-    //   tag: "dark flow page with dropdown bar",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("dark flow page with dropdown bar");
 
     cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
       "mouseout"
@@ -29,13 +23,7 @@ describe("Verify drop down button", () => {
 
     // test light mode
     cy.get('[data-testid="dropdown-wrapper"]').trigger("mouseover");
-    cy.percySnapshot();
-    // cy.eyesCheckWindow({
-    //   tag: "light flow page with dropdown bar",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("light flow page with dropdown bar");
 
     cy.get('[data-testid="dropdown-wrapper"]', { timeout: 1000 }).trigger(
       "mouseout"

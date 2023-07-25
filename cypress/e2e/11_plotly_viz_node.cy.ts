@@ -33,22 +33,10 @@ describe("Set plotly node visual tests", () => {
     cy.xpath("//button[.='ARRAY_VIEW']").click();
 
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.percySnapshot();
-    // cy.eyesCheckWindow({
-    //   tag: "dark flow page with Scatter3d node",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("dark flow page with viz nodes");
 
     // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
-    cy.percySnapshot();
-    // cy.eyesCheckWindow({
-    //   tag: "light flow page with Scatter3d node",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("light flow page with viz nodes");
   });
 });

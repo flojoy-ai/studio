@@ -8,34 +8,15 @@ describe("playing script", () => {
 
     //click on play button
     cy.get('[data-cy="btn-play"]').click();
-    cy.percySnapshot();
+    cy.percySnapshot("dark flow page during script run");
     // // snap home page during script play
-    // cy.eyesCheckWindow({
-    //   tag: "dark flow page during script run",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
 
     // wait until script is done
     cy.wait(7000);
-    cy.percySnapshot();
-    // snap home page after script is over
-    // cy.eyesCheckWindow({
-    //   tag: "dark flow page after script finishes",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("dark flow page after script finishes");
 
     cy.get('[data-testid="darkmode-toggle"]').click();
-    cy.percySnapshot();
-    // cy.eyesCheckWindow({
-    //   tag: "light flow page after script finishes",
-    //   target: "window",
-    //   layout: layoutRegions,
-    //   fully: true,
-    // });
+    cy.percySnapshot("light flow page after script finishes");
 
     // Testing cancelling script (ctrl + p)
     cy.get("body").type("{ctrl}p");

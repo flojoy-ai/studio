@@ -156,7 +156,11 @@ const NodeEditModal = ({
             {Object.keys(node.data.ctrls).length > 0 ? (
               <>
                 {Object.entries(node.data.ctrls).map(([name, param]) => (
-                  <div key={node.id + name} id="undrag" data-testid="node-edit-modal-params">
+                  <div
+                    key={node.id + name}
+                    id="undrag"
+                    data-testid="node-edit-modal-params"
+                  >
                     <ParamTooltip
                       param={{ name, type: param.type, desc: param.desc }}
                       offsetX={-288}

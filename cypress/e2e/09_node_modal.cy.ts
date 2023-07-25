@@ -17,7 +17,7 @@ describe("Verify node modal", () => {
 
     // Click expand button
     cy.get('[data-testid="expand-button"]').click();
-    cy.percySnapshot();
+    cy.percySnapshot("dark mode with histogram expand button clicked");
     // cy.eyesCheckWindow({
     //   tag: "dark flow page with Histogram node modal",
     //   target: "window",
@@ -29,8 +29,8 @@ describe("Verify node modal", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get('[data-testid="expand-button"]').click();
-    
-    cy.percySnapshot();
+
+    cy.percySnapshot("light mode with histogram expand button clicked");
     // cy.eyesCheckWindow({
     //   tag: "light flow page with Histogram node modal",
     //   target: "window",
