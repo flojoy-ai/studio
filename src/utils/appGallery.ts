@@ -48,6 +48,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Image captioning",
       imagePath: "../../../public/assets/appGallery/imageCaptioning.png",
       youtubeLink: "",
+      appPath: "imageCaptioning"
     },
     {
       linkText: "Predict future events with the Prophet node",
