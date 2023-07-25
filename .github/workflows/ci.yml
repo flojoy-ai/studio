@@ -84,6 +84,7 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
+          build: npm run build
           start: npm run start-project
           command: npx percy exec -- cypress run
           browser: chrome
