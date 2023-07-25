@@ -7,6 +7,8 @@ export const DodecahedronSVG = ({ ...props }: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       baseProfile="full"
       version="1.1"
+      width={144}
+      height={144}
       viewBox="188.93394406829535 74.5448010340054 416.60086186340976 466.42259795444556"
       {...props}
     >

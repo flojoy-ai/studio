@@ -1,4 +1,5 @@
 import { app, BrowserWindow, shell, ipcMain } from "electron";
+import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
@@ -34,6 +35,10 @@ if (!app.requestSingleInstanceLock()) {
 // This warning only shows in development mode
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+
+contextMenu({
+  showSaveImageAs: true,
+});
 
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload

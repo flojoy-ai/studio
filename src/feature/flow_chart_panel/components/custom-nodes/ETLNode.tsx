@@ -23,7 +23,7 @@ const ETLNode = ({
     <NodeWrapper data={data} handleRemove={handleRemove}>
       <div
         className={clsx(
-          "flex h-40 w-40 items-center justify-center rounded-2xl border-2 border-accent1 bg-accent1/5",
+          "flex h-40 w-40 items-center justify-center rounded-2xl border-2 border-accent1 bg-accent1/5 text-center",
           data.id === runningNode || data.selected
             ? "shadow-around shadow-accent1"
             : "",
