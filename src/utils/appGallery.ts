@@ -38,7 +38,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Stream to Flojoy Cloud",
       imagePath: "../../../public/assets/appGallery/flojoyCloud.png",
       youtubeLink: "",
-      //appPath: "cloud"
+      appPath: "cloud"
     },
   ],
   AI: [
