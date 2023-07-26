@@ -2,14 +2,14 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import PlotlyComponent from "../../common/PlotlyComponent";
+import { PlotlyComponent, makePlotlyData } from "flojoy/components";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import { makePlotlyData } from "@src/utils/FormatPlotlyData";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO } from "@src/data/constants";
+import { useMemo } from "react";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
@@ -231,7 +231,10 @@ const NodeModal = ({
           {nd?.result && (
             <PlotlyComponent
               id={nd.id}
-              data={makePlotlyData(nd.result.default_fig.data, theme)}
+              data={makePlotlyData(
+                nd.result.default_fig.data,
+                theme.colorScheme
+              )}
               layout={{
                 ...nd.result.default_fig.layout,
                 title: nd.result.default_fig.layout?.title ?? nodeLabel,
@@ -241,6 +244,7 @@ const NodeModal = ({
                 height: 635,
                 width: 630,
               }}
+              theme={theme.colorScheme}
             />
           )}
         </div>
