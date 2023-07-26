@@ -1,5 +1,7 @@
 import networkx as nx
 from typing import Any
+
+
 def flowchart_to_nx_graph(flowchart: dict[str, Any]):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]

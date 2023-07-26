@@ -1,4 +1,4 @@
-import { createStyles, Input } from "@mantine/core";
+import { createStyles, Input, Switch } from "@mantine/core";
 import { Modal } from "@mantine/core";
 import { useSettings } from "@src/hooks/useSettings";
 
@@ -112,15 +112,26 @@ export const SettingsModal = ({
               className={classes.listItem}
             >
               <div>{setting.title}:</div>
-              {setting.type === "numerical-input" && (
+
+              {setting.type === "number" && (
                 <Input
                   data-testid="settings-input"
-                  placeholder="Search"
+                  placeholder="Enter value"
                   radius="sm"
-                  type="number"
-                  value={setting.value}
+                  type={setting.type}
+                  value={setting.value as number}
                   onChange={(e) =>
                     updateSettingList(setting.key, Number(e.target.value))
+                  }
+                />
+              )}
+
+              {setting.type === "switch" && (
+                <Switch
+                  data-testid="settings-switch"
+                  checked={setting.value as boolean}
+                  onChange={(e) =>
+                    updateSettingList(setting.key, e.currentTarget.checked)
                   }
                 />
               )}

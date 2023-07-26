@@ -8,6 +8,6 @@ def remove_missing_pip_packages(missing_packages: list):
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         resp = ""
         return_code = proc.returncode
-        if return_code != 0: # if not success 
+        if return_code != 0:  # if not success
             raise Exception(resp)
     return missing_packages

@@ -8,9 +8,9 @@
       "name": "test",
       "type": "python",
       "request": "launch",
-      "module": "test.test",
-    },
-    
+      "module": "test.test"
+    }
+
     // {
     //   "name": "FastAPI debug",
     //   "type": "python",

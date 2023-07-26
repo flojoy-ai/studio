@@ -197,7 +197,6 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         )
         logger.debug(f"installing packages was successfull? {installation_succeed}")
         if installation_succeed:
-            
             # get the amount of workers needed
             spawn_workers(manager, manager.running_topology.pre_import_functions())
             socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"

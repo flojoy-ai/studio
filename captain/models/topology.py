@@ -10,7 +10,7 @@ from flojoy import (
     NoInitFunctionError,
     get_node_init_function,
 )
-from flojoy.utils import clear_flojoy_memory # for some reason, cant import from flojoy directly...
+from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
 from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
@@ -21,10 +21,11 @@ lock = asyncio.Lock()
 
 
 class Topology:
-    '''
+    """
     Holds information of the flowchart and the state of the topology.
     Used for running the flowchart and handles the logic.
-    '''
+    """
+
     # TODO: Properly type all the variables and maybe get rid of deepcopy?
     # TODO: Remove unnecessary logger.debug statements
     def __init__(
@@ -83,8 +84,6 @@ class Topology:
     #     Performs topological sort and gets the execution order,
     #     for LOOPS
     #     '''
-        
-
 
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
@@ -148,10 +147,10 @@ class Topology:
         return self.cancelled
 
     async def handle_finished_job(self, result: dict[str, Any]):
-        #
-        # get the data from the worker response
-        # (@flojoy wrapper is responsible for sending to this route in func)
-
+        """
+        get the data from the worker response
+        (flojoy package is responsible for sending to /worker_response endpoint)
+        """
         if self.cancelled:
             logger.debug("Received job, but skipping since topology is cancelled")
             return
@@ -212,13 +211,22 @@ class Topology:
             direction = direction_.lower()
             if direction == "end" and self.loop_nodes:
                 self.loop_nodes.pop()
-            self.mark_job_success(job_id, next_nodes_from_dependencies, direction)
+            next_nodes = self.remove_edges_and_get_next(job_id, direction)
+            next_nodes_from_dependencies = next_nodes_from_dependencies.union(
+                next_nodes
+            )
+
+        logger.debug(
+            "After removing edges of node, next nodes are: "
+            + str(next_nodes_from_dependencies)
+        )
 
         nodes_to_add: list[str] = []
 
+        # -- verify if the flowchart is done running --
         if (
-            self.working_graph.out_degree(job_id) == 0
-            and self.queued_jobs.__len__() == 0
+            self.queued_jobs.__len__() == 0
+            and next_nodes_from_dependencies.__len__() == 0
         ):
             if not self.loop_nodes:
                 self.is_finished = True
@@ -229,10 +237,11 @@ class Topology:
                 return
             else:
                 nodes_to_add.append(self.loop_nodes[-1])
+        # ---------------------------------------------
 
         if nodes_to_add:
             logger.debug(
-                f"Adding nodes to graph: {[self.get_label(n_id, original=True) for n_id in nodes_to_add]}",
+                f"Restarting the following nodes: {[self.get_label(n_id, original=True) for n_id in nodes_to_add]}",
             )
         for node_id in nodes_to_add:
             self.restart(node_id)
@@ -245,18 +254,22 @@ class Topology:
 
         return list(next_nodes_from_dependencies)
 
-    # this function removes the node and checks its successors
-    # for new jobs. A new job is ready when a sucessor has no dependencies.
-    def remove_edges_and_get_next(
-        self, job_id: str, label_direction: str, next_nodes: set[str]
-    ):
+    def remove_edges_and_get_next(self, job_id: str, label_direction: str = "default"):
+        """
+        this function removes the node edges and checks its successors
+        for new jobs. A new job is ready when a sucessor has no dependencies.
+        """
+        self.finished_jobs.add(job_id)
         successors: list[str] = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
+        next_nodes = set()
         for d_id in successors:
             if d_id in self.finished_jobs:
                 continue
             if self.working_graph.in_degree(d_id) == 0:
                 next_nodes.add(d_id)
+        logger.debug("next nodes: " + str(next_nodes))
+        return next_nodes
 
     def restart(self, job_id: str):
         logger.debug(f" *** restarting job: {self.get_label(job_id, original=True)}")
@@ -281,14 +294,6 @@ class Topology:
     def finalizer(self):
         # run provided clean up function
         self.cleanup_func(self.is_finished)
-
-    def mark_job_success(
-        self, job_id: str, next_nodes: set[str], label: str = "default"
-    ):
-        logger.debug(f"  job finished: {self.get_label(job_id)}, label: {label}")
-        self.finished_jobs.add(job_id)
-        self.remove_edges_and_get_next(job_id, label, next_nodes)
-        self.working_graph.remove_node(job_id)
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)

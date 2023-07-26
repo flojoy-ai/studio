@@ -274,7 +274,9 @@ class FlojoyScriptBuilder:
             # -- import module --
             module_path = module_path.replace(os.path.sep, ".")
             if ci_available:
-                self.add_code_block(f"from {module_path[:-3]} import {cmd_mock} as {cmd}")
+                self.add_code_block(
+                    f"from {module_path[:-3]} import {cmd_mock} as {cmd}"
+                )
             else:
                 self.add_code_block(f"from {module_path[:-3]} import {cmd}")
             # ------------------
