@@ -78,6 +78,9 @@ jobs:
 
       - name: Run Flojoy startup script
         run: bash flojoy -c
+      
+      - name: Set DISPLAY environment variable
+        run: export DISPLAY=:0
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4
@@ -87,8 +90,6 @@ jobs:
           command: npx percy exec -- cypress run
           browser: chrome
           install: false
-        env:
-          DISPLAY: DISPLAY=:0
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
