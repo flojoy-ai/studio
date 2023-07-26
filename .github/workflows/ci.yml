@@ -11,6 +11,7 @@ on:
 
 env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  DISPLAY: DISPLAY=:0
 
 jobs:
   code-style-check:
