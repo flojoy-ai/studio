@@ -97,6 +97,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "USB camera",
       imagePath: "../../../public/assets/appGallery/usbCamera.png",
       youtubeLink: "",
+      appPath: "webcam"
     },
     {
       linkText: "Precisely position anything",
