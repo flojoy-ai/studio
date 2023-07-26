@@ -1,4 +1,4 @@
-import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import { OverridePlotData } from "flojoy/types"
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { Layout } from "plotly.js";
 
