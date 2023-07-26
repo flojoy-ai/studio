@@ -89,6 +89,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "LabJack",
       imagePath: "../../../public/assets/appGallery/labjack.png",
       youtubeLink: "",
+      appPath: "labjack"
     },
     {
       linkText: "Capture real-time images",
