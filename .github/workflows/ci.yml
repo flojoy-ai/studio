@@ -11,7 +11,6 @@ on:
 
 env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-  DISPLAY=:0
   # APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
   # APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
@@ -81,6 +80,9 @@ jobs:
 
       - name: Run Flojoy startup script
         run: bash flojoy -c
+      
+      - name: Set DISPLAY environment variable
+        run: echo "DISPLAY=:0" >> $GITHUB_ENV
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4
