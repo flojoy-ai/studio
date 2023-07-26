@@ -123,6 +123,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "FIR filter",
       imagePath: "../../../public/assets/appGallery/FIR.png",
       youtubeLink: "",
+      appPath: "fir"
     },
     {
       linkText: "Solve the Schrödinger with different starting conditions",
