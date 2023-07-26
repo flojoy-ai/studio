@@ -89,6 +89,7 @@ jobs:
           command: npx percy exec -- cypress run
           browser: chrome
           install: false
+        env: DISPLAY=:0
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
