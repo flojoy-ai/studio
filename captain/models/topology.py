@@ -79,12 +79,6 @@ class Topology:
                 next_jobs.append(job_id)
         return next_jobs
 
-    # def get_execution_order(self):
-    #     '''
-    #     Performs topological sort and gets the execution order,
-    #     for LOOPS
-    #     '''
-
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
@@ -281,8 +275,6 @@ class Topology:
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
         ]
-        original_nodes = sub_graph.nodes
-        self.working_graph.add_nodes_from((n, graph.nodes[n]) for n in original_nodes)
         self.working_graph.add_edges_from(original_edges)
 
         self.finished_jobs.remove(job_id)
