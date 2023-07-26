@@ -1,0 +1,576 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 150,
+                "id": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
+                "type": "LOOPS",
+                "data": {
+                    "id": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
+                    "label": "LOOP",
+                    "func": "LOOP",
+                    "type": "LOOPS",
+                    "ctrls": {
+                        "num_loops": {
+                            "type": "int",
+                            "default": -1,
+                            "functionName": "LOOP",
+                            "param": "num_loops",
+                            "value": "15"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "body",
+                            "id": "body",
+                            "type": "Any"
+                        },
+                        {
+                            "name": "end",
+                            "id": "end",
+                            "type": "Any"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\LOGIC_GATES\\LOOPS\\LOOP\\LOOP.py",
+                    "selected": true
+                },
+                "position": {
+                    "x": -120.5168017191627,
+                    "y": 215.79596215972782
+                },
+                "selected": true,
+                "positionAbsolute": {
+                    "x": -120.5168017191627,
+                    "y": 215.79596215972782
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
+                "type": "LOOPS",
+                "data": {
+                    "id": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
+                    "label": "GOTO",
+                    "func": "GOTO",
+                    "type": "LOOPS",
+                    "ctrls": {
+                        "goto_node_id": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "functionName": "GOTO",
+                            "param": "goto_node_id",
+                            "value": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\LOGIC_GATES\\LOOPS\\GOTO\\GOTO.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1258.0674029322674,
+                    "y": 80.81660196613069
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1258.0674029322674,
+                    "y": 80.81660196613069
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
+                    "label": "100",
+                    "func": "CONSTANT",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "constant": {
+                            "type": "float",
+                            "default": 3,
+                            "functionName": "CONSTANT",
+                            "param": "constant",
+                            "value": "100"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\CONSTANT\\CONSTANT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 233.2840998939468,
+                    "y": 257.4687143861847
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 233.2840998939468,
+                    "y": 257.4687143861847
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
+                "type": "SIGNAL_PROCESSING",
+                "data": {
+                    "id": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
+                    "label": "PID",
+                    "func": "PID",
+                    "type": "SIGNAL_PROCESSING",
+                    "ctrls": {
+                        "Kp": {
+                            "type": "float",
+                            "default": 5,
+                            "functionName": "PID",
+                            "param": "Kp",
+                            "value": 5
+                        },
+                        "Ki": {
+                            "type": "float",
+                            "default": 0.0143,
+                            "functionName": "PID",
+                            "param": "Ki",
+                            "value": 0.0143
+                        },
+                        "Kd": {
+                            "type": "float",
+                            "default": 356.25,
+                            "functionName": "PID",
+                            "param": "Kd",
+                            "value": 356.25
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\TRANSFORMERS\\SIGNAL_PROCESSING\\PID\\PID.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 677.7645079422954,
+                    "y": 81.60321798273725
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 677.7645079422954,
+                    "y": 81.60321798273725
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
+                    "label": "SECOND ORDER SYSTEM",
+                    "func": "SECOND_ORDER_SYSTEM",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "d1": {
+                            "type": "float",
+                            "default": 250,
+                            "functionName": "SECOND_ORDER_SYSTEM",
+                            "param": "d1",
+                            "value": 250
+                        },
+                        "d2": {
+                            "type": "float",
+                            "default": 100,
+                            "functionName": "SECOND_ORDER_SYSTEM",
+                            "param": "d2",
+                            "value": 100
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\SECOND_ORDER_SYSTEM\\SECOND_ORDER_SYSTEM.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 978.4912585306391,
+                    "y": 87.6001248789845
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 978.4912585306391,
+                    "y": 87.6001248789845
+                },
+                "dragging": true
+            },
+            {
+                "width": 130,
+                "height": 130,
+                "id": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
+                "type": "SIMULATIONS",
+                "data": {
+                    "id": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
+                    "label": "FEEDBACK",
+                    "func": "FEEDBACK",
+                    "type": "SIMULATIONS",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "functionName": "FEEDBACK",
+                            "param": "referred_node",
+                            "value": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\FEEDBACK\\FEEDBACK.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 232.12842821463732,
+                    "y": -2.0336450690984975
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 232.12842821463732,
+                    "y": -2.0336450690984975
+                },
+                "dragging": true
+            },
+            {
+                "width": 99,
+                "height": 130,
+                "id": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
+                "type": "ARITHMETIC",
+                "data": {
+                    "id": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
+                    "label": "SUBTRACT",
+                    "func": "SUBTRACT",
+                    "type": "ARITHMETIC",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "a",
+                            "id": "a",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        },
+                        {
+                            "name": "b",
+                            "id": "b",
+                            "type": "OrderedPair",
+                            "multiple": true
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\TRANSFORMERS\\ARITHMETIC\\SUBTRACT\\SUBTRACT.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 462.9560157284769,
+                    "y": 114.87540487187692
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 462.9560157284769,
+                    "y": 114.87540487187692
+                },
+                "dragging": true
+            },
+            {
+                "width": 380,
+                "height": 293,
+                "id": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
+                "type": "PLOTLY",
+                "data": {
+                    "id": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
+                    "label": "LINE",
+                    "func": "LINE",
+                    "type": "PLOTLY",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair|DataFrame|Matrix",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Plotly"
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\LINE\\LINE.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 646.7443796856828,
+                    "y": 431.78879240282043
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 646.7443796856828,
+                    "y": 431.78879240282043
+                },
+                "dragging": true
+            },
+            {
+                "width": 210,
+                "height": 130,
+                "id": "END-c14d955a-8357-4341-8221-caf9f2832174",
+                "type": "TERMINATORS",
+                "data": {
+                    "id": "END-c14d955a-8357-4341-8221-caf9f2832174",
+                    "label": "END",
+                    "func": "END",
+                    "type": "TERMINATORS",
+                    "ctrls": {},
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Any",
+                            "multiple": false
+                        }
+                    ],
+                    "path": "PYTHON/nodes\\LOGIC_GATES\\TERMINATORS\\END\\END.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": 1058.3707129617164,
+                    "y": 465.2386207280347
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 1058.3707129617164,
+                    "y": 465.2386207280347
+                },
+                "dragging": true
+            },
+            {
+                "width": 150,
+                "height": 150,
+                "id": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
+                "type": "INTERNAL_MEMORY",
+                "data": {
+                    "id": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
+                    "label": "DS LOAD",
+                    "func": "DS_LOAD",
+                    "type": "INTERNAL_MEMORY",
+                    "ctrls": {
+                        "referred_node": {
+                            "type": "NodeReference",
+                            "default": null,
+                            "functionName": "DS_LOAD",
+                            "param": "referred_node",
+                            "value": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622"
+                        }
+                    },
+                    "inputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair",
+                            "multiple": false
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "OrderedPair"
+                        }
+                    ],
+                    "path": "",
+                    "selected": false
+                },
+                "position": {
+                    "x": 226.90231299211854,
+                    "y": 460.341992432171
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": 226.90231299211854,
+                    "y": 460.341992432171
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [
+            {
+                "source": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
+                "sourceHandle": "body",
+                "target": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3body-CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5default"
+            },
+            {
+                "source": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
+                "sourceHandle": "body",
+                "target": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3body-FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718ddefault"
+            },
+            {
+                "source": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
+                "sourceHandle": "default",
+                "target": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1default-PID-cee43c6b-237d-45f8-98d0-319f48acaebfdefault"
+            },
+            {
+                "source": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
+                "sourceHandle": "default",
+                "target": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
+                "targetHandle": "default",
+                "id": "reactflow__edge-PID-cee43c6b-237d-45f8-98d0-319f48acaebfdefault-SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622default"
+            },
+            {
+                "source": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
+                "sourceHandle": "default",
+                "target": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
+                "targetHandle": "default",
+                "id": "reactflow__edge-SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622default-GOTO-077af2ac-636b-4abb-a574-33e669e64457default"
+            },
+            {
+                "source": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
+                "sourceHandle": "default",
+                "target": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
+                "targetHandle": "a",
+                "id": "reactflow__edge-FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718ddefault-SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1a"
+            },
+            {
+                "source": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
+                "sourceHandle": "default",
+                "target": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
+                "targetHandle": "b",
+                "id": "reactflow__edge-CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5default-SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1b"
+            },
+            {
+                "source": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
+                "sourceHandle": "default",
+                "target": "END-c14d955a-8357-4341-8221-caf9f2832174",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9default-END-c14d955a-8357-4341-8221-caf9f2832174default"
+            },
+            {
+                "source": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
+                "sourceHandle": "end",
+                "target": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
+                "targetHandle": "default",
+                "id": "reactflow__edge-LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3end-DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49default"
+            },
+            {
+                "source": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
+                "sourceHandle": "default",
+                "target": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
+                "targetHandle": "default",
+                "id": "reactflow__edge-DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49default-LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9default"
+            }
+        ],
+        "viewport": {
+            "x": -296.35399545928726,
+            "y": 66.8470830817738,
+            "zoom": 0.8744723800359967
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

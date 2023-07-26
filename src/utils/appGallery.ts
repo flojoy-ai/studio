@@ -105,6 +105,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Stepper motor",
       imagePath: "../../../public/assets/appGallery/stepperMotor.png",
       youtubeLink: "",
+      appPath: "stepper"
     },
   ],
   DSP: [
@@ -114,6 +115,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "PID controller",
       imagePath: "../../../public/assets/appGallery/PID.png",
       youtubeLink: "",
+      appPath: "pid"
     },
     {
       linkText: "Apply an FIR filter to an input signal",
