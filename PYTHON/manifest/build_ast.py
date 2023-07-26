@@ -1,5 +1,5 @@
 import ast
-from typing import Optional, Any, Callable, Tuple
+from typing import Optional, Any, Callable, Tuple, cast
 
 
 SELECTED_IMPORTS = ["flojoy", "typing"]
@@ -22,6 +22,17 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
 
         return False
 
+    def get_flojoy_decorator(self, node: ast.FunctionDef):
+        return [
+            decorator
+            for decorator in node.decorator_list
+            if isinstance(decorator, ast.Name)
+            and decorator.id == "flojoy"
+            or isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == "flojoy"
+        ]
+
     def visit_Module(self, node: ast.Module):
         node.body = [self.visit(n) for n in node.body]
         return node
@@ -43,25 +54,26 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         if not self.has_decorator(node, "flojoy"):
             return None
 
-        # Line numbers and col offset must be preserved for compiler to be happy
-        if node.body:
-            new_body: list[ast.stmt]
-            match node.body[0]:
-                # Has a docstring
-                case ast.Expr(value=ast.Constant(value=_)):
-                    new_body = [node.body[0]]
-                # Doesn't have a docstring
-                case _:
-                    new_body = [
-                        ast.Pass(
-                            lineno=node.body[0].lineno,
-                            col_offset=node.body[0].col_offset,
-                        )
-                    ]
+        if len(node.decorator_list) > 1:
+            # Keep only the '@flojoy' decorator if there are multiple decorators.
+            # Some decorators, like '@run_in_venv', create virtual environments, which we
+            # don't want to generate when creating the manifest.
+            node.decorator_list = cast(list[ast.expr], self.get_flojoy_decorator(node))
 
-            node.body = new_body
+        if node.body:
+            new_body = (
+                [node.body[0]]
+                if isinstance(node.body[0], ast.Expr)
+                else [
+                    ast.Pass(
+                        lineno=node.body[0].lineno, col_offset=node.body[0].col_offset
+                    )
+                ]
+            )
         else:
-            node.body = [ast.Pass(lineno=node.lineno, col_offset=node.col_offset)]
+            new_body = [ast.Pass(lineno=node.lineno, col_offset=node.col_offset)]
+
+        node.body = cast(list[ast.stmt], new_body)
 
         return node
 
