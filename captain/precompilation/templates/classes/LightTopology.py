@@ -26,18 +26,20 @@ class LightTopology:
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
         self.loop_nodes = list()
+        self.queued_amt = 0
         self.is_ci = is_ci
         self.jobset_id = jobset_id
         self.res_store = {}
         self.is_finished = False
         self.node_id_to_func = node_id_to_func
-        self.time_start = time.time()
+        self.time_start = 0
 
     def write_results(self):
         with open("results.json", "w") as f:
             f.write(json.dumps(self.res_store, cls=PlotlyJSONEncoder))
 
     def run(self):
+        self.time_start = time.time()
         next_jobs = self.get_initial_source_nodes()
         for next_job in next_jobs:
             self.run_job(next_job)
@@ -47,11 +49,11 @@ class LightTopology:
         next_jobs: list[str] = []
         for job_id in self.working_graph.nodes:
             if self.original_graph.in_degree(job_id) == 0:
+                self.queued_amt += 1
                 next_jobs.append(job_id)
         return next_jobs
 
     def run_job(self, job_id: str):
-        print(f"At {job_id}")
         node: dict = self.working_graph.nodes[job_id]
         previous_jobs: list[dict] = self.get_job_dependencies_with_label(
             job_id, original=True
@@ -107,11 +109,12 @@ class LightTopology:
         next_nodes = set()
         for d_id in successors:
             if self.working_graph.in_degree(d_id) == 0:
+                self.queued_amt += 1
                 next_nodes.add(d_id)
         return next_nodes
 
     def finish(self):
-        print("took ", time.time() - self.time_start, " seconds")
+        print("took ", time.time() - self.time_start, " seconds", flush=True)
         self.is_finished = True
 
     def restart(self, job_id: str):
@@ -128,6 +131,7 @@ class LightTopology:
         self.working_graph.add_edges_from(original_edges)
 
     def process_job_result(self, job_id: str, job_result) -> list[str] | None:
+        self.queued_amt -= 1
         next_nodes_from_dependencies = set()
         next_directions = get_next_directions(job_result)
         if not next_directions:
@@ -140,17 +144,15 @@ class LightTopology:
                 job_id, next_nodes_from_dependencies, direction
             )
             next_nodes_from_dependencies.update(next_nodes)
-        nodes_to_add = []
-        if len(next_nodes_from_dependencies) == 0:
+        loop_node = None
+        if len(next_nodes_from_dependencies) == 0 and self.queued_amt == 0:
             if len(self.loop_nodes) == 0:
                 self.finish()
             else:
-                nodes_to_add.append(self.loop_nodes[-1])
-        for node_id in nodes_to_add:
-            self.restart(node_id)
-        for node_id in nodes_to_add:
-            if self.working_graph.in_degree(node_id) == 0:
-                next_nodes_from_dependencies.add(node_id)
+                loop_node = self.loop_nodes[-1]
+        if loop_node:
+            self.restart(loop_node)
+            next_nodes_from_dependencies.add(loop_node)
         return list(next_nodes_from_dependencies)
 
     def is_loop_node(self, job_id: str) -> bool:
