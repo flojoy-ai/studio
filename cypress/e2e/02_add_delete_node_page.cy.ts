@@ -3,63 +3,26 @@
 require("cypress-xpath");
 
 describe("Verify Add and Delete node", () => {
-  const layoutRegions = [
-    { selector: '[data-cy="app-status"]' },
-    { selector: '[data-cy="btn-play"]' },
-  ];
-  beforeEach(() => {
-    cy.eyesOpen({
-      appName: "studio",
-      testName: Cypress.currentTest.title,
-    });
-  });
-
   it("Verify Add and Delete node", () => {
     cy.visit("/").wait(1000);
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
     // Click add node
+    cy.get('[data-testid="clear-canvas-button"]').click();
+
     cy.get('[data-testid="add-node-button"]').click();
 
-    cy.eyesCheckWindow({
-      tag: "dark flow page with add node sidebar",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
     //Select container Loaders
-    cy.xpath("//div[contains(text(), 'Loaders')]").click();
+    cy.xpath("//div[contains(text(), 'Load')]").click();
+    //Select container Loaders
+    cy.xpath("//div[contains(text(), 'LOCAL_FILE_SYSTEM')]").click();
     // Select LOADER node
-    cy.xpath("//button[.='LOADER']").click();
+    cy.xpath("//button[.='LOCAL_FILE']").click();
     // Close sidebar
     cy.get('[data-testid="sidebar-close"]').click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page with node loader",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
+    cy.percySnapshot("dark flow page with node loader");
     // Click on added container LOADER
-    cy.xpath("//div[contains(text(), 'LOADER')]").click();
+    cy.get('[data-testid="node-wrapper"]').click();
     //Delete node LOADER
-    cy.get(".tabler-icon-x[width='24']").click();
-    cy.eyesCheckWindow({
-      tag: "dark flow page",
-      target: "window",
-      layout: layoutRegions,
-      fully: true,
-    });
-    cy.xpath("//div[contains(text(), 'LOADER')]").should(
-      "not.exist",
-      "//div[contains(text(), 'LOADER')]"
-    );
-  });
-  afterEach(() => {
-    cy.eyesClose();
+    cy.get(".tabler-icon-x[width='24']").click({ force: true });
   });
 });

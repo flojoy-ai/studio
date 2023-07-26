@@ -38,6 +38,7 @@ export default defineConfig(({ command }) => {
             } else if (process.env.FLOJOY_USE_WAYLAND) {
               options.startup([
                 ".",
+                "--no-sandbox",
                 "--enable-features=UseOzonePlatform",
                 "--ozone-platform=wayland",
               ]);

@@ -78,6 +78,7 @@ const ParamField = ({
     case "bool":
       return (
         <Switch
+          data-testid="boolean-input"
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
           size="md"
@@ -111,6 +112,7 @@ const ParamField = ({
     case "unknown":
       return (
         <TextInput
+          data-testid="object-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value as string}
         />
