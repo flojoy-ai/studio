@@ -79,6 +79,9 @@ jobs:
 
       - name: Run Flojoy startup script
         run: bash flojoy -c
+      
+      - name: Echo Display
+        run: echo $DISPLAY
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4
