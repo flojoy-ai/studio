@@ -11,6 +11,7 @@ on:
 
 env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  DISPLAY=:0
   # APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
   # APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 
@@ -89,7 +90,6 @@ jobs:
           command: npx percy exec -- cypress run
           browser: chrome
           install: false
-        env: DISPLAY=:0
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
