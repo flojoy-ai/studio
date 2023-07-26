@@ -126,8 +126,6 @@ class LightTopology:
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
         ]
-        original_nodes = sub_graph.nodes
-        self.working_graph.add_nodes_from((n, graph.nodes[n]) for n in original_nodes)
         self.working_graph.add_edges_from(original_edges)
 
     def process_job_result(self, job_id: str, job_result) -> list[str] | None:
