@@ -81,7 +81,7 @@ jobs:
         run: bash flojoy -c
 
       - name: X server
-        run: Xvfb -screen 0 1024x768x24 :99 &
+        run: Xvfb -screen 0 1024x768x24 :0 &
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4
