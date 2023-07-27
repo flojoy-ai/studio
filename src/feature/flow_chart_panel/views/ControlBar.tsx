@@ -4,7 +4,6 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
-  API_URI,
   cancelFlowChartRun,
   saveAndRunFlowChartInServer,
   saveFlowChartToLocalStorage,
@@ -35,6 +34,7 @@ import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
+import { API_URI } from "@src/data/constants";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -493,10 +493,7 @@ const ControlBar = () => {
       <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
-<<<<<<< HEAD
         fetchCredentials={fetchCredentials}
-=======
->>>>>>> develop
       />
     </Box>
   );

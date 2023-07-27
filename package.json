@@ -29,11 +29,8 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "cors": "^2.8.5",
-<<<<<<< HEAD
-=======
     "electron-context-menu": "^3.6.1",
     "electron-updater": "^5.3.0",
->>>>>>> develop
     "eslint-plugin-react-hooks": "^4.6.0",
     "express": "^4.18.2",
     "flojoy": "github:flojoy-io/types",
