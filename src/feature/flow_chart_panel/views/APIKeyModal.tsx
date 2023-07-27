@@ -5,130 +5,14 @@ import { notifications } from "@mantine/notifications";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
 import APICredentialsInfo from "./APICredentials/APICredentialsInfo";
+import { Button } from "@src/components/ui/button";
 interface APIKeyModelProps {
   isOpen: boolean;
   onClose: () => void;
   fetchCredentials: () => void;
 }
 
-const useStyles = createStyles((theme) => ({
-  tabs: {
-    marginTop: "10%",
-    marginLeft: "2%",
-  },
-  container: {
-    display: "relative",
-    border: `1px solid ${theme.colors.accent5[0]}`,
-    gap: 43,
-    height: 230,
-    backgroundColor: theme.colors.modal[1],
-    borderRadius: 10,
-    boxShadow:
-      theme.colorScheme === "light"
-        ? `0px 4px 8px 2px ${theme.colors.accent5[1]}`
-        : "none",
-  },
 
-  title: {
-    display: "flex",
-    gap: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-    fontFamily: "Inter",
-    marginTop: "7%",
-    marginLeft: "5.6%",
-    marginBottom: "-2%",
-  },
-  titleText: {
-    marginTop: -2.3,
-  },
-  oneSubmitButtonLine: {
-    display: "flex",
-    marginLeft: "5.6%",
-    marginTop: "4%",
-    gap: 4,
-    color: theme.colors.accent1[0],
-  },
-  inputDiv: {
-    display: "relative",
-    marginRight: 15,
-  },
-  lastLine: {
-    display: "flex",
-    marginLeft: "5.7%",
-    marginTop: "3.5%",
-  },
-  submitBtn: {
-    marginLeft: "56.2%",
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.accent1[0]
-        : theme.colors.accent2[0],
-    color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[3]
-          : theme.colors.accent2[2],
-    },
-  },
-  listBtn: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.accent1[0]
-        : theme.colors.accent2[0],
-    color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[3]
-          : theme.colors.accent2[2],
-    },
-  },
-  closeBtn: {
-    position: "absolute",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.title[0]
-        : theme.colors.gray[9],
-    top: 10,
-    right: 15,
-  },
-  inputBox: {
-    input: {
-      width: 240,
-      backgroundColor: theme.colors.modal[0],
-    },
-  },
-  s3Title: {
-    display: "flex",
-    gap: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-    fontFamily: "Inter",
-    marginTop: "5%",
-    marginLeft: "15%",
-  },
-  s3ContainerCSS: {
-    marginLeft: "15%",
-    marginTop: -15,
-  },
-  s3SubmitBtn: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.accent1[0]
-        : theme.colors.accent2[0],
-    color: theme.colorScheme === "dark" ? theme.colors.modal[1] : "none",
-    "&:hover": {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[3]
-          : theme.colors.accent2[2],
-    },
-    marginLeft: 185,
-    marginTop: 5,
-  },
-}));
 const APIKeyModal = ({
   isOpen,
   onClose,
@@ -136,6 +20,11 @@ const APIKeyModal = ({
 }: APIKeyModelProps) => {
   const { apiKey, setApiKey, apiValue, setApiValue, credentials } =
     useFlowChartState();
+  const ref = useRef(null);
+
+  const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setApiKey(e.target.value);
+  };
 
   const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
     const val = e.clipboardData.getData("text");
@@ -166,7 +55,7 @@ const APIKeyModal = ({
   };
 
   const isDisabled = !(apiKey && apiValue);
-  const buttonClass = `ml-80 inline-flex rounded-md bg-accent1 px-3 py-2 text-sm font-semibold dark:text-gray-900 shadow-sm ${
+  const buttonClass = `ml-80 inline-flex rounded-md bg-red px-3 py-2 text-sm font-semibold dark:text-gray-900 shadow-sm ${
     isDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-accent1-hover"
   }`;
 
@@ -215,6 +104,7 @@ const APIKeyModal = ({
                       placeholder="e.g. CLIENT_KEY"
                       value={apiKey || ""}
                       onPaste={splitOnCopy}
+                      onChange={handleApiKeyChange}
                     />
                   </div>
                   <div className="ml-8 inline-block">
@@ -227,21 +117,20 @@ const APIKeyModal = ({
                       id="APIValue"
                       value={apiValue || ""}
                       onPaste={splitOnCopy}
+                      onChange={handleApiValueChange}
                     />
                   </div>
                 </div>
               </div>
               <div className="flex justify-center">
-                <div className=" ml-44">
-                  <button
-                    type="button"
-                    className={buttonClass}
+                <div className="ml-44">
+                  <Button
+                    // className={buttonClass}
                     onClick={handleSendAPI}
-                    style={{ opacity: !(apiKey && apiValue) ? 0.5 : 1 }}
                     disabled={isDisabled}
                   >
                     Submit
-                  </button>
+                  </Button>
                 </div>
               </div>
               <hr className="mt-3.5 h-3" />
