@@ -35,7 +35,25 @@ import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import { API_URI } from "@src/data/constants";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 const useStyles = createStyles((theme) => {
   return {
     controls: {
@@ -221,10 +239,14 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
+    <Button
+      className="gap-11.77 flex"
+      onClick={openFileSelector}
+      style={{ display: "flex", gap: 11.77 }}
+    >
       <LoadIconSvg />
       Load
-    </button>
+    </Button>
   );
 };
 
@@ -445,15 +467,24 @@ const ControlBar = () => {
       ) : (
         <CancelButton cancelFC={cancelFC} />
       )}
+
       <Dropdown dropdownBtn={<FileButton />}>
-        <button
+        {/* <button
           data-testid="btn-apikey"
           onClick={handleAPIKeyModalOpen}
           style={{ display: "flex", gap: 7.5 }}
         >
           <FamilyHistoryIconSvg size={14} />
           Set API key
-        </button>
+        </button> */}
+        {/* <Button data-testid="btn-apikey" className="flex">
+          <div className="-ml-24 flex gap-2">
+            <FamilyHistoryIconSvg size={14} />
+            Set API key
+          </div>
+        </Button> */}
+        <APIKeyModal/>
+        
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
@@ -490,11 +521,11 @@ const ControlBar = () => {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
-      <APIKeyModal
+      {/* <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
         fetchCredentials={fetchCredentials}
-      />
+      /> */}
     </Box>
   );
 };
