@@ -1,6 +1,5 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Text, useMantineTheme } from "@mantine/core";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import IconButton from "@src/feature/common/IconButton";
 import TabActions from "@src/feature/common/TabActions";
@@ -19,7 +18,6 @@ import {
   MiniMap,
   Node,
   NodeDragHandler,
-  NodeTypes,
   OnConnect,
   OnEdgesChange,
   OnInit,
@@ -45,6 +43,8 @@ import { Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
+import { CommandMenu } from "../command/CommandMenu";
+import useNodeTypes from "./hooks/useNodeTypes";
 
 localforage.config({
   name: "react-flow",
@@ -52,8 +52,13 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance } =
-    useFlowChartState();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setRfInstance,
+    setIsEditMode,
+    setIsExpandMode,
+  } = useFlowChartState();
 
   const theme = useMantineTheme();
 
@@ -80,15 +85,8 @@ const FlowChartTab = () => {
     setNodeType,
   } = useFlowChartTabState();
 
-  const {
-    nodes,
-    setNodes,
-    edges,
-    setEdges,
-    selectedNode,
-    unSelectedNodes,
-    nodesManifest,
-  } = useFlowChartGraph();
+  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
+    useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -98,19 +96,11 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(
-    () => (
-      <SidebarCustomContent
-        onAddNode={addNewNode}
-        nodesManifest={nodesManifest}
-      />
-    ),
-    [addNewNode, nodesManifest]
-  );
+  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    []
+    [setIsSidebarOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -132,21 +122,15 @@ const FlowChartTab = () => {
   // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
   // Has to be passed through the data prop because passing as a regular prop doesn't work
   // for whatever reason.
-  const nodeTypes: NodeTypes = useMemo(
-    () =>
-      Object.fromEntries(
-        Object.entries(nodeConfigs).map(([key, CustomNode]) => {
-          return [
-            key,
-            (props: { data: ElementsData }) => (
-              <CustomNode data={props.data} handleRemove={handleNodeRemove} />
-            ),
-          ];
-        })
-      ),
-    []
-  );
-
+  const nodeTypes = useNodeTypes({
+    handleRemove: handleNodeRemove,
+    handleClickExpand: () => {
+      setIsModalOpen(true);
+      setIsExpandMode(true);
+    },
+    wrapperOnClick: () => setIsEditMode(true),
+    theme: theme.colorScheme,
+  });
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView();
     setRfInstance(rfIns.toObject());
@@ -214,7 +198,13 @@ const FlowChartTab = () => {
     setPythonString(nodeFileData.metadata ?? "");
     setNodeLabel(selectedNode.data.label);
     setNodeType(selectedNode.data.type);
-  }, [selectedNode]);
+  }, [
+    selectedNode,
+    setNodeFilePath,
+    setNodeLabel,
+    setNodeType,
+    setPythonString,
+  ]);
 
   const proOptions = { hideAttribution: true };
 
@@ -293,7 +283,13 @@ const FlowChartTab = () => {
         >
           <Text size="sm">Add Python Function</Text>
         </IconButton>
-        <IconButton onClick={clearCanvas} icon={minusIcon} ml="auto" h="100%">
+        <IconButton
+          data-testid="clear-canvas-button"
+          onClick={clearCanvas}
+          icon={minusIcon}
+          ml="auto"
+          h="100%"
+        >
           <Text size="sm">Clear Canvas</Text>
         </IconButton>
       </TabActions>
@@ -380,6 +376,7 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
+      <CommandMenu />
     </Layout>
   );
 };

@@ -60,6 +60,7 @@ const ParamField = ({
     case "float":
       return (
         <NumberInput
+          data-testid="float-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseFloat(value as string) : value}
           precision={7}
@@ -69,6 +70,7 @@ const ParamField = ({
     case "int":
       return (
         <NumberInput
+          data-testid="int-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value as string) : value}
         />
@@ -76,6 +78,7 @@ const ParamField = ({
     case "bool":
       return (
         <Switch
+          data-testid="boolean-input"
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
           size="md"
@@ -86,6 +89,7 @@ const ParamField = ({
     case "select":
       return (
         <Select
+          data-testid="select-input"
           onChange={(val) => handleChange(val as string)}
           data={options ?? []}
           value={value as string}
@@ -94,6 +98,7 @@ const ParamField = ({
     case "NodeReference":
       return (
         <Select
+          data-testid="node_reference-input"
           onChange={(val) => handleChange(val as string)}
           data={nodeReferenceOptions ?? []}
           value={value as string}
@@ -107,6 +112,7 @@ const ParamField = ({
     case "unknown":
       return (
         <TextInput
+          data-testid="object-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value as string}
         />
