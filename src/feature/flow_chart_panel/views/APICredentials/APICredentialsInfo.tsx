@@ -27,7 +27,7 @@ const APICredentialsInfo = ({
         {showPassword ? (
           <IconEyeOff
             className="-mt-1.5 flex stroke-gray-600"
-            size={40}
+            size={19}
             strokeWidth={1.5}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -35,7 +35,7 @@ const APICredentialsInfo = ({
         ) : (
           <IconEye
             className="-mt-1.5 flex stroke-gray-600"
-            size={40}
+            size={19}
             strokeWidth={1.5}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -46,7 +46,7 @@ const APICredentialsInfo = ({
         {showPassword ? credential.password : "*".repeat(15)}
       </p>
       <button type="button">
-        <IconDotsVertical className="stroke-gray-600" size={20}/>
+        <IconDotsVertical className="stroke-gray-600" size={20} />
       </button>
     </div>
   );

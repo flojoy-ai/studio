@@ -483,8 +483,11 @@ const ControlBar = () => {
             Set API key
           </div>
         </Button> */}
-        <APIKeyModal/>
-        
+        <APIKeyModal
+          handleAPIKeyModalOpen={handleAPIKeyModalOpen}
+          fetchCredentials={fetchCredentials}
+        />
+
         <LoadButton />
         <SaveButton saveFile={saveFile} />
         <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
