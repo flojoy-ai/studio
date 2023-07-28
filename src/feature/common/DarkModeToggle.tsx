@@ -20,7 +20,12 @@ export const DarkModeToggle = () => {
     //     <Sun className="stroke-accent1" />
     //   )}
     // </Button>
-    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="darkmode-toggle">
+    <Button
+      size="icon"
+      variant="ghost"
+      onClick={toggleTheme}
+      data-testid="darkmode-toggle"
+    >
       {/* Toggle theme to {theme === "light" ? "dark" : "light"} */}
       {theme === "dark" ? (
         <Moon className="stroke-accent1" />

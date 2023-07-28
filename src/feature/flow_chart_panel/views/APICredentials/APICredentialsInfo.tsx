@@ -17,7 +17,6 @@ const APICredentialsInfo = ({
   credentialKey,
   credential,
 }: APICredentialsInfoProps) => {
-
   const { credentials, setCredentials } = useFlowChartState();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -26,14 +25,14 @@ const APICredentialsInfo = ({
       key={credentialKey}
       className="overflow-x-none mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-600"
     >
-      <p className="max:w-10 my-1.5 ml-5 text-base font-semibold text-black dark:text-white">
+      <p className="my-2.5 ml-5 flex w-52 text-base font-semibold text-black dark:text-white">
         {credential.username}
       </p>
-      <div className="flex">
+      <div className="ml-36 mt-2.5 flex">
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? (
             <IconEyeOff
-              className="mr-4 stroke-gray-600"
+              className="-mt-3 mr-4 stroke-gray-600"
               size={19}
               strokeWidth={1.5}
               strokeLinecap="round"
@@ -41,7 +40,7 @@ const APICredentialsInfo = ({
             />
           ) : (
             <IconEye
-              className="mr-4 stroke-gray-600"
+              className="-mt-3 mr-4 stroke-gray-600"
               size={19}
               strokeWidth={1.5}
               strokeLinecap="round"
@@ -49,8 +48,10 @@ const APICredentialsInfo = ({
             />
           )}
         </button>
-        <p className="mr-1 text-base font-semibold text-gray-600">
-          <div>{showPassword ? credential.password : "*".repeat(15)}</div>
+        <p className="mr-1 overflow-hidden text-base font-semibold text-gray-600">
+          <div className=" w-24 overflow-x-auto">
+            {showPassword ? credential.password : "*".repeat(15)}
+          </div>
         </p>
         <Select>
           <SelectTrigger className="mr-4 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
