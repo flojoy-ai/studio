@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface APIKeyModelProps {
   handleAPIKeyModalOpen: () => void;
@@ -128,21 +129,23 @@ const APIKeyModal = ({
           <Button onClick={handleSendAPI}>Submit</Button>
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
-        <div className="-mt-5 max-h-80 overflow-y-auto">
+        <div className="-mt-5 max-h-80 ">
           <div className="relative ml-5">
             <h2 className="mb-2.5 flex text-xl font-semibold text-black dark:text-white">
               Generated Keys
             </h2>
-            <div className=" pr-3">
-              {credentials.length > 0 &&
-                credentials.map((credential) => (
-                  <APICredentialsInfo
-                    key={credential.id}
-                    credentialKey={credential.id}
-                    credential={credential}
-                  />
-                ))}
-            </div>
+            <ScrollArea className="h-[260px] w-[570px] rounded-md border p-4">
+              <div className="pr-3">
+                {credentials.length > 0 &&
+                  credentials.map((credential) => (
+                    <APICredentialsInfo
+                      key={credential.id}
+                      credentialKey={credential.id}
+                      credential={credential}
+                    />
+                  ))}
+              </div>
+            </ScrollArea>
           </div>
         </div>
       </DialogContent>

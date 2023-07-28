@@ -8,25 +8,25 @@ export const DarkModeToggle = () => {
   const { toggleTheme, theme } = useTheme();
 
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={() => toggleColorScheme()}
-      data-testid="darkmode-toggle"
-    >
-      {colorScheme === "dark" ? (
-        <Moon className="stroke-accent1" />
-      ) : (
-        <Sun className="stroke-accent1" />
-      )}
-    </Button>
-    // <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="darkmode-toggle">
-    //   {/* Toggle theme to {theme === "light" ? "dark" : "light"} */}
-    //   {theme === "dark" ? (
+    // <Button
+    //   size="icon"
+    //   variant="ghost"
+    //   onClick={() => toggleColorScheme()}
+    //   data-testid="darkmode-toggle"
+    // >
+    //   {colorScheme === "dark" ? (
     //     <Moon className="stroke-accent1" />
     //   ) : (
     //     <Sun className="stroke-accent1" />
     //   )}
     // </Button>
+    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="darkmode-toggle">
+      {/* Toggle theme to {theme === "light" ? "dark" : "light"} */}
+      {theme === "dark" ? (
+        <Moon className="stroke-accent1" />
+      ) : (
+        <Sun className="stroke-accent1" />
+      )}
+    </Button>
   );
 };

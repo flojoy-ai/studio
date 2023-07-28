@@ -5,17 +5,20 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@src/components/ui/select";
 import { Button } from "@src/components/ui/button";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 export interface APICredentialsInfoProps {
   credentialKey: string;
   credential: any;
 }
+
 const APICredentialsInfo = ({
   credentialKey,
   credential,
 }: APICredentialsInfoProps) => {
+
+  const { credentials, setCredentials } = useFlowChartState();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
@@ -23,10 +26,10 @@ const APICredentialsInfo = ({
       key={credentialKey}
       className="overflow-x-none mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-600"
     >
-      <p className="my-2.5 ml-5 flex text-base font-semibold text-black dark:text-white">
+      <p className="max:w-10 my-1.5 ml-5 text-base font-semibold text-black dark:text-white">
         {credential.username}
       </p>
-      <div className="absolute right-4 mt-2.5 flex">
+      <div className="flex">
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? (
             <IconEyeOff
