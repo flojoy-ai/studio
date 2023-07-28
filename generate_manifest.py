@@ -22,6 +22,7 @@ NAME_MAP = {
     "SCIPY": "scipy",
     "SIGNAL": "sp.signal",
     "STATS": "sp.stats",
+    "GAMES": "Games",
 }
 
 # Types that are allowed in the manifest, this is for styling in the frontend.
@@ -38,6 +39,7 @@ ALLOWED_TYPES = [
     "LOGIC_GATES",
     "CONDITIONALS",
     "NUMPY",
+    "GAMES",
     "SCIPY",
 ]
 
@@ -53,6 +55,7 @@ ORDERING = [
     "LOGIC_GATES",
     "NUMPY",
     "SCIPY",
+    "GAMES",
 ]
 
 __failed_nodes: list[str] = []
