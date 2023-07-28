@@ -29,6 +29,6 @@ export function useFlowChartTabState() {
     setNodeLabel,
     setNodeType,
     setNodeFilePath,
-    setPythonString
+    setPythonString,
   };
 }
