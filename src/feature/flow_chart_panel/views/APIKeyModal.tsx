@@ -26,7 +26,6 @@ const APIKeyModal = ({
 }: APIKeyModelProps) => {
   const { apiKey, setApiKey, apiValue, setApiValue, credentials } =
     useFlowChartState();
-  // const ref = useRef(null);
 
   const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setApiKey(e.target.value);
@@ -175,7 +174,7 @@ const APIKeyModal = ({
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[700px]">
+      <DialogContent className="bg-modal sm:max-w-[700px]">
         <DialogHeader>
           <DialogTitle
             className="mb-2.5 ml-2 flex gap-2 text-xl font-semibold text-black dark:text-white"
