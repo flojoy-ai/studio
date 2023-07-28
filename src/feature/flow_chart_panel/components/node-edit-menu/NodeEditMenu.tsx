@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "../../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { Node, useOnSelectionChange } from "reactflow";
 import NodeEditModal from "./NodeEditModal";
 import { Box } from "@mantine/core";

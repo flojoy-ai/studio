@@ -29,7 +29,7 @@ import APIKeyModal from "./APIKeyModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
@@ -228,13 +228,13 @@ const LoadButton = () => {
 };
 
 type ExportResultButtonProps = {
-  results: ResultsType | null;
+  results: NodeResult[];
   disabled: boolean;
 };
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   const downloadResult = async () => {
-    if (!results) return;
+    if (!results.length) return;
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
     if ("showSaveFilePicker" in window) {
@@ -299,7 +299,6 @@ const ControlBar = () => {
   const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
   const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
-  const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -380,7 +379,7 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults({ io: [] });
+      setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
@@ -407,10 +406,7 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled =
-    programResults === null ||
-    programResults.io === undefined ||
-    programResults.io.length === 0;
+  const exportResultDisabled = programResults.length == 0;
 
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
@@ -435,14 +431,6 @@ const ControlBar = () => {
         >
           <FamilyHistoryIconSvg size={14} />
           Set API key
-        </button>
-        <button
-          data-testid="btn-s3key"
-          onClick={() => setIsS3KeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          AWS S3 key
         </button>
         <LoadButton />
         <SaveButton saveFile={saveFile} />
