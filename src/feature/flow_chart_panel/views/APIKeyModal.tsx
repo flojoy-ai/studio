@@ -228,7 +228,7 @@ const APIKeyModal = ({
             <h2 className="mb-2.5 flex text-xl font-semibold text-black dark:text-white">
               Generated Keys
             </h2>
-            <div className="pr-6">
+            <div className=" pr-3">
               {credentials.length > 0 &&
                 credentials.map((credential) => (
                   <APICredentialsInfo

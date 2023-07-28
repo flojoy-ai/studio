@@ -16,38 +16,36 @@ const APICredentialsInfo = ({
       key={credentialKey}
       className="overflow-x-none mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-600"
     >
-      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-black dark:text-white">
+      <p className="my-2.5 ml-5 flex text-base font-semibold text-black dark:text-white">
         {credential.username}
       </p>
-      <button
-        type="button"
-        onClick={() => setShowPassword(!showPassword)}
-        className="ml-4"
-      >
-        {showPassword ? (
-          <IconEyeOff
-            className="-mt-1.5 flex stroke-gray-600"
-            size={19}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        ) : (
-          <IconEye
-            className="-mt-1.5 flex stroke-gray-600"
-            size={19}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        )}
-      </button>
-      <p className="my-2.5 ml-5 flex overflow-x-hidden text-base font-semibold text-gray-600">
-        {showPassword ? credential.password : "*".repeat(15)}
-      </p>
-      <button type="button">
-        <IconDotsVertical className="stroke-gray-600" size={20} />
-      </button>
+      <div className="absolute right-3 mt-2.5 flex">
+        <button type="button" onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? (
+            <IconEyeOff
+              className="mr-4 stroke-gray-600"
+              size={19}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ) : (
+            <IconEye
+              className="mr-4 stroke-gray-600"
+              size={19}
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          )}
+        </button>
+        <p className="mr-1 text-base font-semibold text-gray-600">
+          <div>{showPassword ? credential.password : "*".repeat(15)}</div>
+        </p>
+        <button type="button">
+          <IconDotsVertical className="-mt-1 stroke-gray-600" size={20} />
+        </button>
+      </div>
     </div>
   );
 };
