@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { IconDotsVertical, IconEye, IconEyeOff } from "@tabler/icons-react";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@src/components/ui/select";
+import { Button } from "@src/components/ui/button";
 export interface APICredentialsInfoProps {
   credentialKey: string;
   credential: any;
@@ -19,7 +26,7 @@ const APICredentialsInfo = ({
       <p className="my-2.5 ml-5 flex text-base font-semibold text-black dark:text-white">
         {credential.username}
       </p>
-      <div className="absolute right-3 mt-2.5 flex">
+      <div className="absolute right-4 mt-2.5 flex">
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? (
             <IconEyeOff
@@ -42,9 +49,17 @@ const APICredentialsInfo = ({
         <p className="mr-1 text-base font-semibold text-gray-600">
           <div>{showPassword ? credential.password : "*".repeat(15)}</div>
         </p>
-        <button type="button">
-          <IconDotsVertical className="-mt-1 stroke-gray-600" size={20} />
-        </button>
+        <Select>
+          <SelectTrigger className="mr-4 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
+            <Button variant={"ghost"} size={"icon"}>
+              <IconDotsVertical className="stroke-gray-600 " size={20} />
+            </Button>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="delete">Delete</SelectItem>
+            <SelectItem value="edit">Edit</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

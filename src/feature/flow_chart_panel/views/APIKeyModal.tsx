@@ -213,7 +213,7 @@ const APIKeyModal = ({
               id="APIValue"
               type="password"
               value={apiValue || ""}
-              className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
+              className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
               onPaste={splitOnCopy}
               onChange={handleApiValueChange}
             />
