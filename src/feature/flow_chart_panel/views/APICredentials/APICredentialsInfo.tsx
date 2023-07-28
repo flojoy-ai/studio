@@ -8,6 +8,7 @@ import {
 } from "@src/components/ui/select";
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 export interface APICredentialsInfoProps {
   credentialKey: string;
   credential: any;
@@ -49,9 +50,10 @@ const APICredentialsInfo = ({
           )}
         </button>
         <p className="mr-1 overflow-hidden text-base font-semibold text-gray-600">
-          <div className=" w-24 overflow-x-auto">
+          <ScrollArea className="w-[101px]">
             {showPassword ? credential.password : "*".repeat(15)}
-          </div>
+            <ScrollBar className="h-[7px]" orientation="horizontal"></ScrollBar>
+          </ScrollArea>
         </p>
         <Select>
           <SelectTrigger className="mr-4 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
