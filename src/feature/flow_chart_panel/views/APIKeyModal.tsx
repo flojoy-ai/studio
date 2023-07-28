@@ -170,25 +170,25 @@ const APIKeyModal = ({
         >
           <div className="-ml-24 flex gap-2">
             <FamilyHistoryIconSvg size={14} />
-            Set API key
+            <div className="-mt-0.5">Set API key</div>
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-modal sm:max-w-[700px]">
+      <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
           <DialogTitle
-            className="mb-2.5 ml-2 flex gap-2 text-xl font-semibold text-black dark:text-white"
+            className="ml-2 flex gap-2 text-xl font-semibold text-black dark:text-white"
             id="modal-title"
           >
             <FamilyHistoryIconSvg size={20} />
-            Environment Variables
+            <div className="-mt-0.5">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
-        <div className="gap-4 py-4 sm:flex">
-          <div className="ml-4 inline-block items-center gap-4">
+        <div className="py-1 sm:flex">
+          <div className="ml-3 inline-block items-center gap-4">
             <Label
               htmlFor="APIKey"
-              className="text-right font-semibold text-accent1 sm:text-sm"
+              className="text-right font-semibold text-black dark:text-white sm:text-sm"
             >
               Key:
             </Label>
@@ -197,7 +197,7 @@ const APIKeyModal = ({
               type="text"
               placeholder="e.g CLIENT_KEY"
               value={apiKey || ""}
-              className=" mt-1 w-64 text-black shadow-sm sm:text-sm"
+              className=" mt-1 w-64 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
               onPaste={splitOnCopy}
               onChange={handleApiKeyChange}
             />
@@ -205,7 +205,7 @@ const APIKeyModal = ({
           <div className="ml-8 inline-block items-center gap-4">
             <Label
               htmlFor="APIValue"
-              className="text-right font-semibold text-accent1 sm:text-sm"
+              className="text-right font-semibold text-black dark:text-white sm:text-sm"
             >
               Value:
             </Label>
@@ -213,24 +213,22 @@ const APIKeyModal = ({
               id="APIValue"
               type="password"
               value={apiValue || ""}
-              className="mt-1 w-72 text-black shadow-sm sm:text-sm"
+              className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
               onPaste={splitOnCopy}
               onChange={handleApiValueChange}
             />
           </div>
         </div>
-        <DialogFooter>
-          <Button type="submit" onClick={handleSendAPI}>
-            Save changes
-          </Button>
+        <DialogFooter className="px-3">
+          <Button onClick={handleSendAPI}>Submit</Button>
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
-        <div className=" -mt-5 max-h-80 overflow-y-auto bg-modal px-4">
-          <div className="relative ml-6">
-            <h2 className="mb-2.5 ml-4 flex text-xl font-semibold text-black dark:text-white">
+        <div className="-mt-5 max-h-80 overflow-y-auto">
+          <div className="relative ml-5">
+            <h2 className="mb-2.5 flex text-xl font-semibold text-black dark:text-white">
               Generated Keys
             </h2>
-            <div className="ml-3.5 pr-6">
+            <div className="pr-6">
               {credentials.length > 0 &&
                 credentials.map((credential) => (
                   <APICredentialsInfo

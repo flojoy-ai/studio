@@ -35,25 +35,7 @@ import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import { API_URI } from "@src/data/constants";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 const useStyles = createStyles((theme) => {
   return {
     controls: {

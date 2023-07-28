@@ -60,15 +60,6 @@ jobs:
         with:
           flags: python
 
-<<<<<<< HEAD
-  # visual-tests:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         submodules: recursive
-=======
   visual-tests:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.base.ref == 'main' }}
@@ -76,29 +67,19 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
->>>>>>> develop
 
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-  #     - uses: actions/setup-python@v4
-  #       with:
-  #         python-version: "3.10"
-  #         cache: "pip"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
 
-  #     - name: Run Flojoy startup script
-  #       run: bash flojoy -c
+      - name: Run Flojoy startup script
+        run: bash flojoy -c
 
-<<<<<<< HEAD
-  #     - name: Run e2e test
-  #       uses: cypress-io/github-action@v4
-  #       with:
-  #         build: npm run build
-  #         start: npm run start-project
-  #         browser: chrome
-  #         install: false
-=======
       # In certain Linux environments, you may experience connection errors with your X11 server. In this case, we may need to start Xvfb with the following command.
       # This is necessary to avoid using 8-bit color depth with Xvfb, which will prevent Chrome or Electron from crashing.
       # https://docs.cypress.io/guides/continuous-integration/introduction#Xvfb
@@ -120,4 +101,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage-cy/coverage-final.json
           flags: cypress
->>>>>>> develop
