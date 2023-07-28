@@ -50,7 +50,7 @@ const useNodeTypes = ({
         })
       ),
     // Including incoming props like handleRemove and handleClickExpand in dependency list would cause
-    // infinite re-render, so exeption for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
+    // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
     // to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [programResults, failedNode, runningNode, failureReason, theme]
