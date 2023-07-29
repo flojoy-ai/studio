@@ -1,11 +1,9 @@
 import os
 import json
 from typing import Any, Optional, Union
-from PYTHON.manifest.generate_node_manifest import create_manifest
+from manifest.generate_node_manifest import create_manifest
 
-Path = os.path
-NODES_DIR = Path.join("PYTHON", "nodes")
-FULL_PATH = Path.abspath(Path.join(Path.curdir, NODES_DIR))
+FULL_PATH = "PYTHON/nodes"
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
@@ -61,7 +59,7 @@ __generated_nodes: list[str] = []
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
-    basename = Path.basename(dir_path)
+    basename = os.path.basename(dir_path)
     result["name"] = (
         "ROOT"
         if os.path.basename(dir_path) == "nodes"
@@ -95,18 +93,18 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             continue
     if not result["children"]:
         try:
-            n_file_name = f"{Path.basename(dir_path)}.py"
-            n_path = Path.join(dir_path, n_file_name)
+            n_file_name = f"{os.path.basename(dir_path)}.py"
+            n_path = os.path.join(dir_path, n_file_name)
             result = create_manifest(n_path)
             __generated_nodes.append(n_file_name)
         except Exception as e:
             print(
                 "❌ Failed to generate manifest from ",
-                f"{Path.basename(dir_path)}.py ",
+                f"{os.path.basename(dir_path)}.py ",
                 e,
                 "\n",
             )
-            __failed_nodes.append(f"{Path.basename(dir_path)}.py")
+            __failed_nodes.append(f"{os.path.basename(dir_path)}.py")
 
         if not result.get("type"):
             result["type"] = cur_type
