@@ -52,4 +52,6 @@ If you might be interested in using Flojoy in a context where the AGPL license i
 
 # Architecture diagram
 
-![image](https://user-images.githubusercontent.com/1865834/228073014-4be8ef9c-8437-488c-a6c7-daf4ac18547a.png)
+![backend-architecture](https://github.com/flojoy-ai/studio/assets/69379081/ed72cea2-17bb-4aa3-a26d-7eec19b24685)
+
+
