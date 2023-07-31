@@ -36,7 +36,6 @@ export const postEnvironmentVariable = async (body: EnvVarType) => {
     });
 
     if (response.ok) {
-      console.log("sending data.....");
       await response.json();
       notifications.update({
         id: "set-api-key",
@@ -62,7 +61,7 @@ export const postEnvironmentVariable = async (body: EnvVarType) => {
   }
 };
 
-export const modifyEnvironmentVariable = async (body: EnvVarType) => {
+export const editEnvironmentVariable = async (body: EnvVarType) => {
   try {
     const response = await fetch(`${API_URI}/env/modify`, {
       method: "POST",
@@ -73,7 +72,6 @@ export const modifyEnvironmentVariable = async (body: EnvVarType) => {
     });
 
     if (response.ok) {
-      console.log("sending data.....");
       await response.json();
       notifications.update({
         id: "set-api-key",

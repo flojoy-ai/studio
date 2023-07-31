@@ -10,22 +10,22 @@ import {
 } from "@src/components/ui/dialog";
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
-import { modifyEnvironmentVariable } from "@src/services/FlowChartServices";
+import { editEnvironmentVariable } from "@src/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
 
 export interface EnvVarCredentialsModifyInfoProps {
   credentialKey: string;
 }
 
-const EnvVarModify = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
-  const [ modifyEnv, setmodifyEnv ] = useState<string>("")
+const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
+  const [modifyEnv, setmodifyEnv] = useState<string>("");
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setmodifyEnv(e.target.value);
   };
 
   const handleModify = () => {
-    modifyEnvironmentVariable({ key: credentialKey, value: modifyEnv});
+    editEnvironmentVariable({ key: credentialKey, value: modifyEnv });
     setmodifyEnv("");
   };
 
@@ -48,7 +48,13 @@ const EnvVarModify = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
             <Label htmlFor="name" className="text-right">
               New Value:
             </Label>
-            <Input id="modifyEnv" placeholder="New Value" className="col-span-3" value={modifyEnv} onChange={handleEnvVarValueChange}/>
+            <Input
+              id="modifyEnv"
+              placeholder="New Value"
+              className="col-span-3"
+              value={modifyEnv}
+              onChange={handleEnvVarValueChange}
+            />
           </div>
         </div>
         <DialogFooter>
@@ -61,4 +67,4 @@ const EnvVarModify = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
   );
 };
 
-export default EnvVarModify;
+export default EnvVarEdit;

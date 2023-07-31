@@ -25,6 +25,7 @@ async def get_env_var():
         )
     return GetKeyResponse(env_var=env_vars)
 
+
 @router.post("/env/modify")
 async def modify_env_var(data: dict[str, str]):
     key = data["key"]
