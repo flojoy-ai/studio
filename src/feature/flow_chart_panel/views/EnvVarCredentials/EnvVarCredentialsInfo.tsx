@@ -8,6 +8,7 @@ import {
 } from "@src/components/ui/select";
 import { Button } from "@src/components/ui/button";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
+import EnvVarModify from "./EnvVarModify";
 export interface EnvVarCredentialsInfoProps {
   credentialKey: string;
   credentialValue: string;
@@ -60,7 +61,7 @@ const EnvVarCredentialsInfo = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="delete">Delete</SelectItem>
-            <SelectItem value="edit">Edit</SelectItem>
+            <EnvVarModify credentialKey={credentialKey} />
           </SelectContent>
         </Select>
       </div>

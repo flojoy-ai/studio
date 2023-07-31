@@ -62,6 +62,43 @@ export const postEnvironmentVariable = async (body: EnvVarType) => {
   }
 };
 
+export const modifyEnvironmentVariable = async (body: EnvVarType) => {
+  try {
+    const response = await fetch(`${API_URI}/env/modify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      console.log("sending data.....");
+      await response.json();
+      notifications.update({
+        id: "set-api-key",
+        title: "Successful!",
+        message: "Successfully set the Environment Variable",
+        autoClose: 5000,
+      });
+    } else {
+      notifications.update({
+        id: "set-api-key",
+        title: "Failed!",
+        message: "Failed to set the Environment Variable",
+        autoClose: 5000,
+      });
+    }
+  } catch (error) {
+    notifications.update({
+      id: "set-api-key",
+      title: "Failed!",
+      message: "Failed to set the Environment Variable",
+      autoClose: 5000,
+    });
+  }
+};
+
 export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
