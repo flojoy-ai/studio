@@ -17,7 +17,6 @@ const EnvVarCredentialsInfo = ({
   credentialKey,
   credential,
 }: EnvVarCredentialsInfoProps) => {
-  // const { credentials, setCredentials } = useFlowChartState();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (

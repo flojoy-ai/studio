@@ -1,5 +1,5 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { memo, ChangeEvent, ClipboardEvent } from "react";
+import { memo, ChangeEvent, ClipboardEvent, useState } from "react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { sendEnvVarToFastAPI } from "@src/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
@@ -25,8 +25,11 @@ const EnvVarModal = ({
   handleEnvVarModalOpen,
   fetchCredentials,
 }: EnvVarModalProps) => {
-  const { envVarKey, setEnvVarKey, envVarValue, setEnvVarValue, credentials } =
+  const { credentials } =
     useFlowChartState();
+
+  const [envVarKey, setEnvVarKey] = useState<string>("");
+  const [envVarValue, setEnvVarValue] = useState<string>("");
 
   const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEnvVarKey(e.target.value);
@@ -139,7 +142,6 @@ const EnvVarModal = ({
                 {credentials.length > 0 &&
                   credentials.map((credential) => (
                     <EnvVarCredentialsInfo
-                      key={credential.id}
                       credentialKey={credential.id}
                       credential={credential}
                     />
