@@ -12,7 +12,7 @@ interface IThemeContext {
   toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<IThemeContext>({
+const ThemeContext = createContext<IThemeContext>({
   theme: "light",
   toggleTheme: () => console.warn("no theme provider"),
 } as IThemeContext);
@@ -25,14 +25,16 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<string>("light");
 
   const toggleTheme = useCallback(() => {
-    const toggleTheme = theme === "light" ? "dark" : "light";
-    setTheme(toggleTheme);
-    window.localStorage.setItem("theme", toggleTheme);
+    const toggled = theme === "dark" ? "dark" : "light";
+    setTheme(toggled);
+    window.localStorage.setItem("theme", toggled);
   }, [theme]);
 
   useEffect(() => {
     const localTheme = window.localStorage.getItem("theme");
-    localTheme && setTheme(localTheme);
+    if (localTheme) {
+      setTheme(localTheme);
+    }
   }, []);
 
   useEffect(() => {

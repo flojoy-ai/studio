@@ -10,22 +10,21 @@ import { Button } from "@src/components/ui/button";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 export interface EnvVarCredentialsInfoProps {
   credentialKey: string;
-  credential: any;
+  credentialValue: string;
 }
 
 const EnvVarCredentialsInfo = ({
   credentialKey,
-  credential,
+  credentialValue,
 }: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
   return (
     <div
       key={credentialKey}
       className="overflow-x-none mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-600"
     >
       <p className="my-2.5 ml-5 flex w-52 text-base font-semibold text-black dark:text-white">
-        {credential.username}
+        {credentialKey}
       </p>
       <div className="ml-36 mt-2.5 flex">
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
@@ -49,7 +48,7 @@ const EnvVarCredentialsInfo = ({
         </button>
         <p className="mr-1 overflow-hidden text-base font-semibold text-gray-600">
           <ScrollArea className="w-[101px]">
-            {showPassword ? credential.password : "*".repeat(15)}
+            {showPassword ? credentialValue : "*".repeat(15)}
             <ScrollBar className="h-[7px]" orientation="horizontal"></ScrollBar>
           </ScrollArea>
         </p>

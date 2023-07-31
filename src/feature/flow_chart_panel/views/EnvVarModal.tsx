@@ -25,14 +25,16 @@ const EnvVarModal = ({
   handleEnvVarModalOpen,
   fetchCredentials,
 }: EnvVarModalProps) => {
-  const { credentials } =
-    useFlowChartState();
-
+  const { credentials } = useFlowChartState();
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
 
   const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEnvVarKey(e.target.value);
+  };
+
+  const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEnvVarValue(e.target.value);
   };
 
   const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
@@ -44,10 +46,6 @@ const EnvVarModal = ({
       setEnvVarValue(envVarVal);
     }
     e.preventDefault();
-  };
-
-  const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEnvVarValue(e.target.value);
   };
 
   // const handleClose = () => {
@@ -63,7 +61,7 @@ const EnvVarModal = ({
     fetchCredentials();
   };
 
-  // const isDisabled = !(apiKey && apiValue);
+  // const isDisabled = !(envVarKey && envVarValue);
   // const buttonClass = `ml-80 inline-flex rounded-md bg-red px-3 py-2 text-sm font-semibold dark:text-gray-900 shadow-sm ${
   //   isDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-accent1-hover"
   // }`;
@@ -139,11 +137,11 @@ const EnvVarModal = ({
             </h2>
             <ScrollArea className="h-[260px] w-[570px] rounded-md border p-4">
               <div className="pr-3">
-                {credentials.length > 0 &&
-                  credentials.map((credential) => (
+                {Object.keys(credentials).length > 0 &&
+                  Object.keys(credentials).map((key) => (
                     <EnvVarCredentialsInfo
-                      credentialKey={credential.id}
-                      credential={credential}
+                      credentialKey={key}
+                      credentialValue={credentials[key]}
                     />
                   ))}
               </div>

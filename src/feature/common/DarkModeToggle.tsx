@@ -23,7 +23,10 @@ export const DarkModeToggle = () => {
     <Button
       size="icon"
       variant="ghost"
-      onClick={toggleTheme}
+      onClick={() => {
+        toggleColorScheme();
+        toggleTheme();
+      }}
       data-testid="darkmode-toggle"
     >
       {/* Toggle theme to {theme === "light" ? "dark" : "light"} */}

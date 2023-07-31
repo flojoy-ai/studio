@@ -3,7 +3,6 @@ import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
-import { API_TYPE } from "@src/hooks/useFlowChartState";
 import { API_URI } from "@src/data/constants";
 
 const flowKey = "flow-joy";
@@ -14,6 +13,11 @@ const flowKey = "flow-joy";
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
+export type EnvVarType = {
+  key: string;
+  value: string;
+};
+
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   if (rfInstance) {
     const flowObj = rfInstance;
@@ -21,7 +25,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const postEnvironmentVariable = async (body: API_TYPE) => {
+export const postEnvironmentVariable = async (body: EnvVarType) => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
@@ -37,14 +41,14 @@ export const postEnvironmentVariable = async (body: API_TYPE) => {
       notifications.update({
         id: "set-api-key",
         title: "Successful!",
-        message: "Successfully set the API Key",
+        message: "Successfully set the Environment Variable",
         autoClose: 5000,
       });
     } else {
       notifications.update({
         id: "set-api-key",
         title: "Failed!",
-        message: "Failed to set the API Key",
+        message: "Failed to set the Environment Variable",
         autoClose: 5000,
       });
     }
@@ -52,7 +56,7 @@ export const postEnvironmentVariable = async (body: API_TYPE) => {
     notifications.update({
       id: "set-api-key",
       title: "Failed!",
-      message: "Failed to set the API Key",
+      message: "Failed to set the Environment Variable",
       autoClose: 5000,
     });
   }
