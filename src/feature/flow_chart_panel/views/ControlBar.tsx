@@ -10,7 +10,6 @@ import {
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import CancelIconSvg from "@src/assets/CancelIcon";
-import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
@@ -25,7 +24,7 @@ import { ElementsData } from "../types/CustomNodeProps";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
-import APIKeyModal from "./APIKeyModal";
+import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
@@ -304,7 +303,7 @@ const ControlBar = () => {
   const { socketId, programResults, setProgramResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
-  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
+  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -433,12 +432,12 @@ const ControlBar = () => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
 
-  const handleAPIKeyModalClose = useCallback(() => {
-    setIsAPIKeyModelOpen(false);
-  }, [setIsAPIKeyModelOpen]);
+  const handleEnvVarModalClose = useCallback(() => {
+    setIsEnvVarModalOpen(false);
+  }, [setIsEnvVarModalOpen]);
 
-  const handleAPIKeyModalOpen = () => {
-    setIsAPIKeyModelOpen(true);
+  const handleEnvVarModalOpen = () => {
+    setIsEnvVarModalOpen(true);
     fetchCredentials();
   };
 
@@ -465,8 +464,8 @@ const ControlBar = () => {
             Set API key
           </div>
         </Button> */}
-        <APIKeyModal
-          handleAPIKeyModalOpen={handleAPIKeyModalOpen}
+        <EnvVarModal
+          handleEnvVarModalOpen={handleEnvVarModalOpen}
           fetchCredentials={fetchCredentials}
         />
 

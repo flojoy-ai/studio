@@ -53,8 +53,8 @@ const rfInstanceAtom = atomWithImmer<
 >(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
-const apiKeyAtom = atomWithImmer<string>("");
-const apiValueAtom = atomWithImmer<string>("");
+const envVarKeyAtom = atomWithImmer<string>("");
+const envVarValueAtom = atomWithImmer<string>("");
 const credentialsAtom = atomWithImmer<any>({});
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
@@ -70,8 +70,8 @@ export function useFlowChartState() {
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
-  const [apiKey, setApiKey] = useAtom(apiKeyAtom);
-  const [apiValue, setApiValue] = useAtom(apiValueAtom);
+  const [envVarKey, setEnvVarKey] = useAtom(envVarKeyAtom);
+  const [envVarValue, setEnvVarValue] = useAtom(envVarValueAtom);
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
@@ -89,10 +89,10 @@ export function useFlowChartState() {
     setRunningNode,
     failedNode,
     setFailedNode,
-    apiKey,
-    setApiKey,
-    apiValue,
-    setApiValue,
+    envVarKey,
+    setEnvVarKey,
+    envVarValue,
+    setEnvVarValue,
     credentials,
     setCredentials,
     nodeParamChanged,

@@ -1,8 +1,8 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import { memo, ChangeEvent, ClipboardEvent } from "react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { sendApiKeyToFastAPI } from "@src/services/FlowChartServices";
-import APICredentialsInfo from "./APICredentials/APICredentialsInfo";
+import { sendEnvVarToFastAPI } from "@src/services/FlowChartServices";
+import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
 import { Button } from "@src/components/ui/button";
 import {
   Dialog,
@@ -16,35 +16,35 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface APIKeyModelProps {
-  handleAPIKeyModalOpen: () => void;
+interface EnvVarModalProps {
+  handleEnvVarModalOpen: () => void;
   fetchCredentials: () => void;
 }
 
-const APIKeyModal = ({
-  handleAPIKeyModalOpen,
+const EnvVarModal = ({
+  handleEnvVarModalOpen,
   fetchCredentials,
-}: APIKeyModelProps) => {
-  const { apiKey, setApiKey, apiValue, setApiValue, credentials } =
+}: EnvVarModalProps) => {
+  const { envVarKey, setEnvVarKey, envVarValue, setEnvVarValue, credentials } =
     useFlowChartState();
 
-  const handleApiKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setApiKey(e.target.value);
+  const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEnvVarKey(e.target.value);
   };
 
   const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
     const val = e.clipboardData.getData("text");
     if (val.includes("=")) {
-      const apiKey = val.split("=")[0];
-      const apiVal = val.split("=")[1];
-      setApiKey(apiKey);
-      setApiValue(apiVal);
+      const envVarKey = val.split("=")[0];
+      const envVarVal = val.split("=")[1];
+      setEnvVarKey(envVarKey);
+      setEnvVarValue(envVarVal);
     }
     e.preventDefault();
   };
 
-  const handleApiValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setApiValue(e.target.value);
+  const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEnvVarValue(e.target.value);
   };
 
   // const handleClose = () => {
@@ -53,10 +53,10 @@ const APIKeyModal = ({
   //   onClose();
   // };
 
-  const handleSendAPI = () => {
-    sendApiKeyToFastAPI({ key: apiKey, value: apiValue });
-    setApiKey("");
-    setApiValue("");
+  const handleSendEnvVar = () => {
+    sendEnvVarToFastAPI({ key: envVarKey, value: envVarValue });
+    setEnvVarKey("");
+    setEnvVarValue("");
     fetchCredentials();
   };
 
@@ -72,11 +72,11 @@ const APIKeyModal = ({
         <Button
           data-testid="btn-apikey"
           className="flex"
-          onClick={handleAPIKeyModalOpen}
+          onClick={handleEnvVarModalOpen}
         >
           <div className="-ml-24 flex gap-2">
             <FamilyHistoryIconSvg size={14} />
-            <div className="-mt-0.5">Set API key</div>
+            <div className="-mt-0.5">Set Env Var</div>
           </div>
         </Button>
       </DialogTrigger>
@@ -93,40 +93,40 @@ const APIKeyModal = ({
         <div className="py-1 sm:flex">
           <div className="ml-3 inline-block items-center gap-4">
             <Label
-              htmlFor="APIKey"
+              htmlFor="EnvVarKey"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
             >
               Key:
             </Label>
             <Input
-              id="APIKey"
+              id="EnvVarKey"
               type="text"
               placeholder="e.g CLIENT_KEY"
-              value={apiKey || ""}
+              value={envVarKey || ""}
               className=" mt-1 w-64 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
               onPaste={splitOnCopy}
-              onChange={handleApiKeyChange}
+              onChange={handleEnvVarKeyChange}
             />
           </div>
           <div className="ml-8 inline-block items-center gap-4">
             <Label
-              htmlFor="APIValue"
+              htmlFor="EnvVarValue"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
             >
               Value:
             </Label>
             <Input
-              id="APIValue"
+              id="EnvVarValue"
               type="password"
-              value={apiValue || ""}
+              value={envVarValue || ""}
               className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
               onPaste={splitOnCopy}
-              onChange={handleApiValueChange}
+              onChange={handleEnvVarValueChange}
             />
           </div>
         </div>
         <DialogFooter className="px-3">
-          <Button onClick={handleSendAPI}>Add</Button>
+          <Button onClick={handleSendEnvVar}>Add</Button>
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
         <div className="-mt-5 max-h-80 ">
@@ -138,7 +138,7 @@ const APIKeyModal = ({
               <div className="pr-3">
                 {credentials.length > 0 &&
                   credentials.map((credential) => (
-                    <APICredentialsInfo
+                    <EnvVarCredentialsInfo
                       key={credential.id}
                       credentialKey={credential.id}
                       credential={credential}
@@ -153,4 +153,4 @@ const APIKeyModal = ({
   );
 };
 
-export default memo(APIKeyModal);
+export default memo(EnvVarModal);

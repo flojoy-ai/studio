@@ -7,17 +7,16 @@ import {
   SelectTrigger,
 } from "@src/components/ui/select";
 import { Button } from "@src/components/ui/button";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
-export interface APICredentialsInfoProps {
+export interface EnvVarCredentialsInfoProps {
   credentialKey: string;
   credential: any;
 }
 
-const APICredentialsInfo = ({
+const EnvVarCredentialsInfo = ({
   credentialKey,
   credential,
-}: APICredentialsInfoProps) => {
+}: EnvVarCredentialsInfoProps) => {
   // const { credentials, setCredentials } = useFlowChartState();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -71,4 +70,4 @@ const APICredentialsInfo = ({
   );
 };
 
-export default APICredentialsInfo;
+export default EnvVarCredentialsInfo;
