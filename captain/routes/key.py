@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Response, status
-from flojoy import set_frontier_api_key, get_credentials
+from flojoy import set_env_var_key, get_credentials
 from captain.types.key import GetKeyResponse
 
 
@@ -10,7 +10,7 @@ router = APIRouter(tags=["env"])
 async def set_env_var(data: dict[str, str]):
     apiKey = data["key"]
     apiValue = data["value"]
-    set_frontier_api_key(apiKey, apiValue)
+    set_env_var_key(apiKey, apiValue)
     return Response(status_code=200)
 
 
