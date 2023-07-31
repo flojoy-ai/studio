@@ -408,14 +408,14 @@ const ControlBar = () => {
   };
 
   const fetchCredentials = () => {
-    fetch(`${API_URI}/key/`, {
+    fetch(`${API_URI}/env/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data) => setCredentials(data.key))
+      .then((data) => setCredentials(data.env_var))
       .catch((err) => console.log(err));
   };
 

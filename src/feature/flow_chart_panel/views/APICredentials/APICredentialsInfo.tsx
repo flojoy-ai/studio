@@ -18,7 +18,7 @@ const APICredentialsInfo = ({
   credentialKey,
   credential,
 }: APICredentialsInfoProps) => {
-  const { credentials, setCredentials } = useFlowChartState();
+  // const { credentials, setCredentials } = useFlowChartState();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (

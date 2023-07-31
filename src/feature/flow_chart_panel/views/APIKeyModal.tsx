@@ -126,7 +126,7 @@ const APIKeyModal = ({
           </div>
         </div>
         <DialogFooter className="px-3">
-          <Button onClick={handleSendAPI}>Submit</Button>
+          <Button onClick={handleSendAPI}>Add</Button>
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
         <div className="-mt-5 max-h-80 ">

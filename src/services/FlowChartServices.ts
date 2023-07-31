@@ -23,7 +23,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
 
 export const sendApiKeyToFastAPI = async (body: API_TYPE) => {
   try {
-    const response = await fetch(`${API_URI}/key/`, {
+    const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
