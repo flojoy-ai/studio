@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
 import { ReactFlowJsonObject } from "reactflow";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
 import Turnstone from "turnstone";
+import { SearchIcon } from "lucide-react";
 
 interface listBox {
   name: string;
@@ -67,7 +68,9 @@ const listbox: listBox[] = [
 const style = {
   //input: "w-full border rounded border-gray-500 bg-gray-800 px-7 py-3 pl-10 outline-none",
   input:
-    "w-full h-12 border bg-stone-800 dark:bg-stone-800 border-slate-300 py-2 pl-10 pr-7 text-xl outline-none rounded",
+    "w-full h-12 border bg-modal border-slate-300 py-2 pl-10 pr-7 text-xl outline-none rounded",
+  inputFocus:
+    "w-full h-12 border bg-modal dark:bg-stone-800 border-accent1-hover py-2 pl-10 pr-7 text-xl outline-none rounded",
   listbox:
     "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
   item: "cursor-pointer overflow-hidden overflow-ellipsis",
@@ -78,10 +81,10 @@ const style = {
 };
 
 export const AppGallerySearch = () => {
-  const [input, setInput] = useState("");
-  const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
+  const [focus, setFocus] = useState(false);
+  const [data, setData] = useState<object[]>([]);
+  const onBlur = () => setFocus(false);
+  const onFocus = () => setFocus(true);
 
   const { loadFlowExportObject } = useFlowChartGraph();
   const { setIsGalleryOpen } = useFlowChartState();
@@ -89,7 +92,7 @@ export const AppGallerySearch = () => {
 
   const handleSelect = async (selectItem: nodeName) => {
     const response = await fetch(
-      `https://raw.githubusercontent.com/flojoy-io/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
+      `https://raw.githubusercontent.com/flojoy-ai/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
     );
     const raw = await response.json();
     const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
@@ -97,6 +100,23 @@ export const AppGallerySearch = () => {
     loadFlowExportObject(flow);
     setIsGalleryOpen(false);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
+      );
+      const json = await response.json();
+      setData(json.filter((obj) => obj["type"] === "dir"));
+    };
+
+    fetchData().catch(console.error);
+    console.log(data);
+  }, []);
+
+  const displayIconStyle = focus
+    ? "text-accent1-hover"
+    : "incline-flex text-stone-500";
 
   return (
     <div className="relative top-2">
@@ -114,6 +134,9 @@ export const AppGallerySearch = () => {
       {/*    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"*/}
       {/*  ></path>*/}
       {/*</svg>*/}
+      <span className="absolute left-2 top-3 z-10 w-6 items-center justify-center">
+        <SearchIcon className={displayIconStyle} />
+      </span>
       <Turnstone
         id="autocomplete"
         placeholder="Search node name"
@@ -123,6 +146,8 @@ export const AppGallerySearch = () => {
         styles={style}
         onEnter={handleSelect}
         onSelect={handleSelect}
+        onBlur={onBlur}
+        onFocus={onFocus}
         matchText={true}
       />
     </div>
