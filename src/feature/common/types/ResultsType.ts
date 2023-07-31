@@ -1,4 +1,4 @@
-import { OverridePlotData } from "@src/feature/common/PlotlyComponent";
+import { OverridePlotData } from "flojoy/types";
 import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
 import { Layout } from "plotly.js";
 
@@ -90,7 +90,7 @@ export type ResultIO = {
 export type Result = {
   default_fig: {
     data: OverridePlotData;
-    layout?: Partial<Layout>;
+    layout: Partial<Layout> | undefined;
   };
 };
 

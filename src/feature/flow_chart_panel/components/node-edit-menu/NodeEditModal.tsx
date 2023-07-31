@@ -7,7 +7,7 @@ import { Box, Title, createStyles, TextInput } from "@mantine/core";
 import { memo, useEffect, useState } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
-import { ParamTooltip } from "../ParamTooltip";
+import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
@@ -156,10 +156,14 @@ const NodeEditModal = ({
             {Object.keys(node.data.ctrls).length > 0 ? (
               <>
                 {Object.entries(node.data.ctrls).map(([name, param]) => (
-                  <div key={node.id + name} id="undrag">
+                  <div
+                    key={node.id + name}
+                    id="undrag"
+                    data-testid="node-edit-modal-params"
+                  >
                     <ParamTooltip
                       param={{ name, type: param.type, desc: param.desc }}
-                      offsetX={-288}
+                      offsetX={30}
                       offsetY={0}
                     >
                       <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>

@@ -1,6 +1,5 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { Text, useMantineTheme } from "@mantine/core";
-import { nodeConfigs } from "@src/configs/NodeConfigs";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import IconButton from "@src/feature/common/IconButton";
 import TabActions from "@src/feature/common/TabActions";
@@ -19,7 +18,6 @@ import {
   MiniMap,
   Node,
   NodeDragHandler,
-  NodeTypes,
   OnConnect,
   OnEdgesChange,
   OnInit,
@@ -48,6 +46,7 @@ import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import { Turnstone } from "turnstone";
+import useNodeTypes from "./hooks/useNodeTypes";
 
 localforage.config({
   name: "react-flow",
@@ -61,6 +60,8 @@ const FlowChartTab = () => {
     setRfInstance,
     isGalleryOpen,
     setIsGalleryOpen,
+    setIsEditMode,
+    setIsExpandMode,
   } = useFlowChartState();
 
   const theme = useMantineTheme();
@@ -125,21 +126,15 @@ const FlowChartTab = () => {
   // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
   // Has to be passed through the data prop because passing as a regular prop doesn't work
   // for whatever reason.
-  const nodeTypes: NodeTypes = useMemo(
-    () =>
-      Object.fromEntries(
-        Object.entries(nodeConfigs).map(([key, CustomNode]) => {
-          return [
-            key,
-            (props: { data: ElementsData }) => (
-              <CustomNode data={props.data} handleRemove={handleNodeRemove} />
-            ),
-          ];
-        })
-      ),
-    [handleNodeRemove]
-  );
-
+  const nodeTypes = useNodeTypes({
+    handleRemove: handleNodeRemove,
+    handleClickExpand: () => {
+      setIsModalOpen(true);
+      setIsExpandMode(true);
+    },
+    wrapperOnClick: () => setIsEditMode(true),
+    theme: theme.colorScheme,
+  });
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView();
     setRfInstance(rfIns.toObject());
