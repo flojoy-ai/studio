@@ -248,7 +248,7 @@ if ($initNodePackages) {
 
 # jsonify python functions
 
-& python write_python_metadata.py
+& python scripts/write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
