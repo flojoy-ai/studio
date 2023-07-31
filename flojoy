@@ -253,13 +253,13 @@ fi
 
 # jsonify python functions
 
-$venvCmd && python3 write_python_metadata.py
+$venvCmd && python3 scripts/write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-$venvCmd && python3 generate_manifest.py
+$venvCmd && python3 PYTHON/generate_manifest.py
 
 feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
