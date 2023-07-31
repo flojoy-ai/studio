@@ -17,8 +17,6 @@ async def set_env_var(data: dict[str, str]):
 @router.get("/env/", response_model=GetKeyResponse)
 async def get_env_var():
     env_vars: list[dict[str, str]] | None = get_credentials()
-    for keys in env_vars:
-        print(keys)
     if env_vars is None:
         return HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="No key found!"
