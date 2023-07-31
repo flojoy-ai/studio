@@ -1,7 +1,7 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import { memo, ChangeEvent, ClipboardEvent, useState } from "react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { sendEnvVarToFastAPI } from "@src/services/FlowChartServices";
+import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
 import { Button } from "@src/components/ui/button";
 import {
@@ -57,7 +57,7 @@ const EnvVarModal = ({
   // };
 
   const handleSendEnvVar = () => {
-    sendEnvVarToFastAPI({ key: envVarKey, value: envVarValue });
+    postEnvironmentVariable({ key: envVarKey, value: envVarValue });
     setEnvVarKey("");
     setEnvVarValue("");
     fetchCredentials();

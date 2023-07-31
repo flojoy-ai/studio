@@ -21,7 +21,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const sendEnvVarToFastAPI = async (body: API_TYPE) => {
+export const postEnvironmentVariable = async (body: API_TYPE) => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
