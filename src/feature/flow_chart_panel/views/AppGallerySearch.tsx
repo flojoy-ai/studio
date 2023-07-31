@@ -5,7 +5,7 @@ import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
 import Turnstone from "turnstone";
-import { SearchIcon } from "lucide-react";
+import { SearchIcon, XIcon } from "lucide-react";
 
 interface listBox {
   name: string;
@@ -68,15 +68,16 @@ const listbox: listBox[] = [
 const style = {
   //input: "w-full border rounded border-gray-500 bg-gray-800 px-7 py-3 pl-10 outline-none",
   input:
-    "w-full h-12 border bg-modal border-slate-300 py-2 pl-10 pr-7 text-xl outline-none rounded",
+    "w-half h-10 border bg-stone-800 border-slate-300 py-2 pl-10 pr-7 text-xl outline-none rounded z-3",
   inputFocus:
-    "w-full h-12 border bg-modal dark:bg-stone-800 border-accent1-hover py-2 pl-10 pr-7 text-xl outline-none rounded",
+    "w-half h-10 border bg-stone-800 dark:bg-stone-800 border-accent1-hover py-2 pl-10 pr-7 text-xl outline-none rounded z-3",
   listbox:
     "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
   item: "cursor-pointer overflow-hidden overflow-ellipsis",
   highlightedItem:
     "cursor-pointer rounded overflow-hidden bg-cyan-100 text-stone-700",
   match: "font-semibold",
+  typeahead: "text-crystal-500",
   groupHeading: "cursor-default px-1.5 uppercase text-purple-300",
 };
 
@@ -91,14 +92,14 @@ export const AppGallerySearch = () => {
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
   const handleSelect = async (selectItem: nodeName) => {
-    const response = await fetch(
-      `https://raw.githubusercontent.com/flojoy-ai/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
-    );
-    const raw = await response.json();
-    const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
-    setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
-    loadFlowExportObject(flow);
-    setIsGalleryOpen(false);
+    // const response = await fetch(
+    //   `https://raw.githubusercontent.com/flojoy-ai/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
+    // );
+    // const raw = await response.json();
+    // const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
+    // setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
+    // loadFlowExportObject(flow);
+    if (selectItem) setIsGalleryOpen(false);
   };
 
   useEffect(() => {
@@ -117,9 +118,10 @@ export const AppGallerySearch = () => {
   const displayIconStyle = focus
     ? "text-accent1-hover"
     : "incline-flex text-stone-500";
+  const Clear = () => <XIcon />;
 
   return (
-    <div className="relative top-2">
+    <div className="relative right-12 top-1">
       {/*<svg*/}
       {/*  className="absolute left-2 top-3 w-6 text-white"*/}
       {/*  fill="none"*/}
@@ -134,7 +136,7 @@ export const AppGallerySearch = () => {
       {/*    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"*/}
       {/*  ></path>*/}
       {/*</svg>*/}
-      <span className="absolute left-2 top-3 z-10 w-6 items-center justify-center">
+      <span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">
         <SearchIcon className={displayIconStyle} />
       </span>
       <Turnstone
@@ -149,6 +151,7 @@ export const AppGallerySearch = () => {
         onBlur={onBlur}
         onFocus={onFocus}
         matchText={true}
+        Clear={Clear}
       />
     </div>
   );

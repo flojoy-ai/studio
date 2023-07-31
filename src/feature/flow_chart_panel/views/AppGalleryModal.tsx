@@ -75,10 +75,10 @@ export const AppGalleryModal = () => {
           <Modal.CloseButton className={classes.closeBtn} />
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
+            <AppGallerySearch />
             <hr className={classes.hr} />
           </Modal.Header>
           <Modal.Body>
-            <AppGallerySearch />
             {subjectKeyList.map((sub, key) => {
               return (
                 <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />
