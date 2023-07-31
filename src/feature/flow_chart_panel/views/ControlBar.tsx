@@ -21,7 +21,7 @@ import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
-import { ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";

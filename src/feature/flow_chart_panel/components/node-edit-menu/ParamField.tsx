@@ -8,7 +8,7 @@ import {
 } from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 
 type ParamFieldProps = {
   nodeId: string;
