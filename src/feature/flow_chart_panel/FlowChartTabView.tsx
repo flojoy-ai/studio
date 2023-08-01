@@ -1,14 +1,11 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, useMantineTheme } from "@mantine/core";
+import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import IconButton from "@src/feature/common/IconButton";
-import TabActions from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
@@ -243,16 +240,6 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
-
-  const plusIcon = useMemo(
-    () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
-  const minusIcon = useMemo(
-    () => <IconMinus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
 
   return (
     <Layout>
