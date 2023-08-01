@@ -55,7 +55,7 @@ const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
-const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
+const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
   undefined
 );
