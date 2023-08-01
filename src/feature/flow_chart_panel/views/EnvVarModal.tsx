@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toaster } from "sonner";
+import { ScrollArea } from "@src/components/ui/scroll-area";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -56,7 +57,6 @@ const EnvVarModal = ({
       }
     }
   };
-  console.log("credentials", credentials);
 
   // const handleClose = () => {
   //   setApiKey("");
@@ -118,7 +118,7 @@ const EnvVarModal = ({
               id="EnvVarValue"
               type="password"
               value={envVarValue || ""}
-              className="mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
+              className="mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
               onPaste={(e) => handlePaste(e, "value")}
               onChange={handleEnvVarValueChange}
             />
@@ -129,17 +129,17 @@ const EnvVarModal = ({
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
         <div className="-mt-5 max-h-80 ">
-          {/* <ScrollArea className="h-80 w-full rounded-md border p-4"> */}
-          <div className="pr-3">
-            {credentials.length > 0 &&
-              credentials.map((credential) => (
-                <EnvVarCredentialsInfo
-                  key={credential.id}
-                  credential={credential}
-                />
-              ))}
-          </div>
-          {/* </ScrollArea> */}
+          <ScrollArea className="h-80 w-full rounded-md">
+            <div className="pr-3">
+              {credentials.length > 0 &&
+                credentials.map((credential) => (
+                  <EnvVarCredentialsInfo
+                    key={credential.id}
+                    credential={credential}
+                  />
+                ))}
+            </div>
+          </ScrollArea>
         </div>
         <Toaster className="absolute bottom-0 right-0" />
       </DialogContent>
