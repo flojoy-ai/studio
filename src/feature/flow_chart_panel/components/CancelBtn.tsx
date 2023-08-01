@@ -12,7 +12,7 @@ const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
 
   return (
     <Button size="sm" variant="destructive" onClick={cancelFC}>
-      <Ban />
+      <Ban size="20" />
       <div className="px-1"></div>
       <div>Cancel</div>
     </Button>

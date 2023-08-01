@@ -23,8 +23,8 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
   useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
 
   return (
-    <Button size="sm" variant="flojoy" onClick={handleClick}>
-      <Play />
+    <Button size="sm" variant="outline" onClick={handleClick}>
+      <Play size="20" />
       <div className="px-1"></div>
       <div>Play</div>
     </Button>

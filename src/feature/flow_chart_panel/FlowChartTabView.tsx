@@ -248,7 +248,7 @@ const FlowChartTab = () => {
         <Button
           onClick={toggleSidebar}
           data-testid="add-node-button"
-          variant="flojoy"
+          variant="outline"
         >
           <Joystick />
           <div className="px-1" />
@@ -259,7 +259,7 @@ const FlowChartTab = () => {
         <Button
           onClick={clearCanvas}
           data-testid="clear-canvas-button"
-          variant="flojoy"
+          variant="outline"
         >
           <Eraser />
           <div className="px-1" />
