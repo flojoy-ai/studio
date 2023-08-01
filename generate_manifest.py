@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Any, Union
+from typing import Any, Optional, Union
 from PYTHON.manifest.generate_node_manifest import create_manifest
 
 Path = os.path
@@ -24,6 +24,24 @@ NAME_MAP = {
     "STATS": "sp.stats",
 }
 
+# Types that are allowed in the manifest, this is for styling in the frontend.
+# A node will inherit the type of its parent if it is not in the allowed types.
+ALLOWED_TYPES = [
+    "AI_ML",
+    "GENERATORS",
+    "VISUALIZERS",
+    "LOADERS",
+    "EXTRACTORS",
+    "TRANSFORMERS",
+    "ARITHMETIC",
+    "INSTRUMENTS",
+    "LOGIC_GATES",
+    "CONDITIONALS",
+    "NUMPY",
+    "SCIPY",
+]
+
+# Sort order in sidebar
 ORDERING = [
     "AI_ML",
     "GENERATORS",
@@ -37,12 +55,11 @@ ORDERING = [
     "SCIPY",
 ]
 
-
 __failed_nodes: list[str] = []
 __generated_nodes: list[str] = []
 
 
-def browse_directories(dir_path: str):
+def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = Path.basename(dir_path)
     result["name"] = (
@@ -52,6 +69,7 @@ def browse_directories(dir_path: str):
     )
     if result["name"] != "ROOT":
         result["key"] = basename
+
     result["children"] = []
     entries = sorted(
         os.scandir(dir_path), key=lambda e: e.name
@@ -70,11 +88,12 @@ def browse_directories(dir_path: str):
                 or "appendix" in entry.path
             ):
                 continue
-            subdir = browse_directories(entry.path)
+            cur_type = basename if basename in ALLOWED_TYPES else cur_type
+            subdir = browse_directories(entry.path, cur_type)
             result["children"].append(subdir)
         elif entry.is_file() and entry.name.endswith(".py"):
             continue
-    if len(result["children"]) == 0:
+    if not result["children"]:
         try:
             n_file_name = f"{Path.basename(dir_path)}.py"
             n_path = Path.join(dir_path, n_file_name)
@@ -90,7 +109,7 @@ def browse_directories(dir_path: str):
             __failed_nodes.append(f"{Path.basename(dir_path)}.py")
 
         if not result.get("type"):
-            result["type"] = Path.basename(Path.dirname(dir_path))
+            result["type"] = cur_type
         result["children"] = None
 
     return result

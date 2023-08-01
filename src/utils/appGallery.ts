@@ -11,7 +11,7 @@ export const AppGalleryData: GalleryData = {
       linkText: "Generate a random number once",
       link: "https://www.google.ca",
       elementTitle: "Intro to LOOPS",
-      imagePath: "../../../public/assets/appGallery/introToLoops.png",
+      imagePath: "../../assets/appGallery/introToLoops.png",
       youtubeLink: "",
       appPath: "randomNumber",
     },
@@ -19,7 +19,7 @@ export const AppGalleryData: GalleryData = {
       linkText: "Generate waveforms of different shapes",
       link: "https://www.google.ca",
       elementTitle: "Intro to signals",
-      imagePath: "../../../public/assets/appGallery/introToSignals.png",
+      imagePath: "../../assets/appGallery/introToSignals.png",
       youtubeLink: "",
       appPath: "oscilator"
     },

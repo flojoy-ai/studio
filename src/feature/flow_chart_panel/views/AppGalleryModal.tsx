@@ -1,9 +1,10 @@
 import { createStyles } from "@mantine/core";
 import { Modal } from "@mantine/core";
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
+import { listBox } from "@feature/flow_chart_panel/views/AppGallerySearch";
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -25,7 +26,7 @@ const useStyles = createStyles((theme) => ({
   header: {
     position: "sticky",
     display: "relative",
-    paddingTop: 0,
+    paddingTop: 10,
   },
   title: {
     display: "relative",
@@ -56,10 +57,50 @@ const useStyles = createStyles((theme) => ({
 export const AppGalleryModal = () => {
   const { classes } = useStyles();
   const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
+  const [selectFields, setSelect] = useState([]);
+  const [data, setData] = useState<object[]>([]);
   const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 
   const onClose = () => {
     setIsGalleryOpen(false);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
+      );
+      const raw = await response.json();
+      const filtered = raw.filter(
+        (obj) => obj["type"] === "dir" && obj["name"] != ".github"
+      );
+      setSelect(
+        filtered.map((obj) => (
+          <option key={obj.sha} value={obj.url}>
+            {obj.name}
+          </option>
+        ))
+      );
+    };
+    fetchData().catch(console.error);
+  }, []);
+
+  const populateHeading = async (selectUrl: string) => {
+    const response = await fetch(selectUrl);
+    const raw = await response.json();
+    // const box: listBox[] = raw.map(async (obj) => {
+    //   const objResponse = await fetch(obj.url);
+    //   const rawData = await objResponse.json();
+    //   return {
+    //     name: obj.name,
+    //     displayField: "name",
+    //     data: rawData,
+    //     id: obj.name.toLowerCase(),
+    //     ratio: 5,
+    //     searchType: "startswith",
+    //   };
+    // });
+    setData(raw);
   };
 
   return (
@@ -75,10 +116,20 @@ export const AppGalleryModal = () => {
           <Modal.CloseButton className={classes.closeBtn} />
           <Modal.Header className={classes.header}>
             <Modal.Title className={classes.title}>App Gallery</Modal.Title>
+            <AppGallerySearch items={data} />
+            <select
+              onChange={(e) => {
+                console.log(`the targe value is: ${e.target.value}`);
+                populateHeading(e.target.value);
+              }}
+              className="w-30 z-10 h-10 justify-center rounded"
+              defaultValue="https://api.github.com/repos/flojoy-ai/nodes/contents/AI_ML?ref=main"
+            >
+              {selectFields}
+            </select>
             <hr className={classes.hr} />
           </Modal.Header>
           <Modal.Body>
-            <AppGallerySearch />
             {subjectKeyList.map((sub, key) => {
               return (
                 <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />

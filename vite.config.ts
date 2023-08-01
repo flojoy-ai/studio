@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, ViteDevServer } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import EnvironmentPlugin from "vite-plugin-environment";
 import eslint from "vite-plugin-eslint";
@@ -35,6 +35,13 @@ export default defineConfig(({ command }) => {
               console.log(
                 /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App"
               );
+            } else if (process.env.FLOJOY_USE_WAYLAND) {
+              options.startup([
+                ".",
+                "--no-sandbox",
+                "--enable-features=UseOzonePlatform",
+                "--ozone-platform=wayland",
+              ]);
             } else {
               options.startup();
             }
@@ -75,12 +82,21 @@ export default defineConfig(({ command }) => {
       ]),
       // Use Node.js API in the Renderer-process
       renderer(),
+      {
+        name: "watch-node-modules",
+        configureServer: (server: ViteDevServer): void => {
+          server.watcher.options = {
+            ...server.watcher.options,
+            ignored: [/node_modules\/(?!flojoy).*/, "**/.git/**", "**/venv/**"],
+          };
+        },
+      },
     ],
     server: {
       port: 3000,
       open: false,
       watch: {
-        ignored: ["**/venv/**"],
+        ignored: ["**/venv/**", "!**/node_modules/flojoy/**"],
       },
     },
     resolve: {
