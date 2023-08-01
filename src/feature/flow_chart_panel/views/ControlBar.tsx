@@ -25,10 +25,8 @@ import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-import { API_URI } from "@src/data/constants";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -357,18 +355,6 @@ const ControlBar = () => {
     }
   };
 
-  const fetchCredentials = () => {
-    fetch(`${API_URI}/env/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setCredentials(data))
-      .catch((err) => console.log(err));
-  };
-
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
@@ -380,17 +366,11 @@ const ControlBar = () => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
 
-  const handleEnvVarModalOpen = (open: boolean) => {
-    setIsEnvVarModalOpen(open);
-    fetchCredentials();
-  };
-
   return (
     <div className={classes.controls}>
       <EnvVarModal
-        handleEnvVarModalOpen={handleEnvVarModalOpen}
+        handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
-        fetchCredentials={fetchCredentials}
       />
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />

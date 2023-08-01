@@ -1,5 +1,12 @@
 import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import { memo, ChangeEvent, ClipboardEvent, useState } from "react";
+import {
+  memo,
+  ChangeEvent,
+  ClipboardEvent,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
@@ -15,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toaster } from "sonner";
 import { ScrollArea } from "@src/components/ui/scroll-area";
+import { API_URI } from "@src/data/constants";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -25,11 +33,22 @@ interface EnvVarModalProps {
 const EnvVarModal = ({
   handleEnvVarModalOpen,
   isEnvVarModalOpen,
-  fetchCredentials,
 }: EnvVarModalProps) => {
-  const { credentials } = useFlowChartState();
+  const { credentials, setCredentials } = useFlowChartState();
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
+
+  const fetchCredentials = useCallback(() => {
+    fetch(`${API_URI}/env/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setCredentials(data))
+      .catch((err) => console.log(err));
+  }, [setCredentials]);
 
   const handleEnvVarKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEnvVarKey(e.target.value);
@@ -38,6 +57,12 @@ const EnvVarModal = ({
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEnvVarValue(e.target.value);
   };
+
+  useEffect(() => {
+    if (isEnvVarModalOpen) {
+      fetchCredentials();
+    }
+  }, [isEnvVarModalOpen, fetchCredentials]);
 
   const handlePaste = (
     e: ClipboardEvent<HTMLInputElement>,
@@ -58,12 +83,6 @@ const EnvVarModal = ({
     }
   };
 
-  // const handleClose = () => {
-  //   setApiKey("");
-  //   setApiValue("");
-  //   onClose();
-  // };
-
   const handleSendEnvVar = () => {
     postEnvironmentVariable({ key: envVarKey, value: envVarValue });
     setEnvVarKey("");
@@ -71,12 +90,6 @@ const EnvVarModal = ({
     fetchCredentials();
   };
 
-  // const isDisabled = !(envVarKey && envVarValue);
-  // const buttonClass = `ml-80 inline-flex rounded-md bg-red px-3 py-2 text-sm font-semibold dark:text-gray-900 shadow-sm ${
-  //   isDisabled ? "opacity-50 cursor-not-allowed" : "hover:bg-accent1-hover"
-  // }`;
-
-  // if (!isOpen) return null;
   return (
     <Dialog open={isEnvVarModalOpen} onOpenChange={handleEnvVarModalOpen}>
       <DialogContent className="sm:max-w-[650px]">
