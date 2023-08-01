@@ -429,10 +429,10 @@ const ControlBar = () => {
       <Button
         data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
-        size="icon"
-        variant="ghost"
+        size="sm"
+        variant="outline"
       >
-        <Settings className="stroke-accent1" />
+        Settings
       </Button>
       <DarkModeToggle />
       <KeyboardShortcutModal
