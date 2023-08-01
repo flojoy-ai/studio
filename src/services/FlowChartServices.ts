@@ -3,7 +3,7 @@ import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { notifications } from "@mantine/notifications";
 
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { API_URI } from "@src/data/constants";
 
 const flowKey = "flow-joy";

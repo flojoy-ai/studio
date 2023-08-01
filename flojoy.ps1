@@ -248,13 +248,13 @@ if ($initNodePackages) {
 
 # jsonify python functions
 
-& python scripts/write_python_metadata.py
+& python .\scripts\write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-& python generate_manifest.py
+& python .\PYTHON\generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 

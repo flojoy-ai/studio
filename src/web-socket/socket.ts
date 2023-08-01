@@ -1,15 +1,21 @@
 import { IServerStatus } from "@src/context/socket.context";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 interface WebSocketServerProps {
   url: string;
-  pingResponse: any;
-  onNodeResultsReceived: any;
-  runningNode: any;
-  failedNode: any;
-  failureReason: any;
-  socketId: any;
-  onPreJobOpStarted: any;
+  onPingResponse: (value: string | number | IServerStatus) => void;
+  onNodeResultsReceived: React.Dispatch<React.SetStateAction<NodeResult[]>>;
+  handleRunningNode: (value: string) => void;
+  handleFailedNode: (value: string) => void;
+  handleFailureReason: (value: string) => void;
+  handleSocketId: (value: string) => void;
+  onPreJobOpStarted: React.Dispatch<
+    React.SetStateAction<{
+      isRunning: boolean;
+      output: string[];
+    }>
+  >;
   onClose?: (ev: CloseEvent) => void;
 }
 
@@ -23,31 +29,31 @@ enum ResponseEnum {
 }
 export class WebSocketServer {
   private server: WebSocket;
-  private pingResponse: any;
-  private onNodeResultsReceived: any;
-  private runningNode: any;
-  private failedNode: any;
-  private failureReason: any;
-  private socketId: any;
-  private onPreJobOpStarted: any;
+  private handlePingResponse: WebSocketServerProps["onPingResponse"];
+  private onNodeResultsReceived: WebSocketServerProps["onNodeResultsReceived"];
+  private handleRunningNode: WebSocketServerProps["handleRunningNode"];
+  private handleFailedNode: WebSocketServerProps["handleFailedNode"];
+  private handleFailureReason: WebSocketServerProps["handleFailureReason"];
+  private handleSocketId: WebSocketServerProps["handleSocketId"];
+  private onPreJobOpStarted: WebSocketServerProps["onPreJobOpStarted"];
   private onClose?: (ev: CloseEvent) => void;
   constructor({
     url,
-    pingResponse,
+    onPingResponse,
     onNodeResultsReceived,
-    runningNode,
-    failedNode,
-    failureReason,
-    socketId,
+    handleRunningNode,
+    handleFailedNode,
+    handleFailureReason,
+    handleSocketId,
     onClose,
     onPreJobOpStarted,
   }: WebSocketServerProps) {
-    this.pingResponse = pingResponse;
+    this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
-    this.runningNode = runningNode;
-    this.failedNode = failedNode;
-    this.failureReason = failureReason;
-    this.socketId = socketId;
+    this.handleRunningNode = handleRunningNode;
+    this.handleFailedNode = handleFailedNode;
+    this.handleFailureReason = handleFailureReason;
+    this.handleSocketId = handleSocketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
     this.onPreJobOpStarted = onPreJobOpStarted;
@@ -59,11 +65,11 @@ export class WebSocketServer {
       switch (data.type) {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {
-            this.pingResponse(data[ResponseEnum.systemStatus]);
+            this.handlePingResponse(data[ResponseEnum.systemStatus]);
             if (
               data[ResponseEnum.systemStatus] === IServerStatus.RUN_COMPLETE
             ) {
-              this.pingResponse(IServerStatus.STANDBY);
+              this.handlePingResponse(IServerStatus.STANDBY);
             }
             if (
               [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY].includes(
@@ -74,42 +80,25 @@ export class WebSocketServer {
             }
           }
           if (ResponseEnum.nodeResults in data) {
-            this.onNodeResultsReceived((prev: any) => {
-              const isExist = prev.io.find(
-                (node) => node.id === data[ResponseEnum.nodeResults].id
-              );
+            this.onNodeResultsReceived((prev) => {
               const resultIo = data[ResponseEnum.nodeResults];
-              const resultData = {
-                ...resultIo,
-                result: {
-                  ...resultIo.result,
-                  type:
-                    resultIo.result.type === "file"
-                      ? "image"
-                      : resultIo.result.type,
-                },
-              };
+              const isExist = prev.find((node) => node.id === resultIo.id);
               if (isExist) {
-                const filterResult = prev.io.filter(
+                const filterResult = prev.filter(
                   (node) => node.id !== resultIo.id
                 );
-                return {
-                  io: [...filterResult, resultData],
-                };
+                return [...filterResult, resultIo];
               }
-
-              return {
-                io: [...prev.io, resultData],
-              };
+              return [...prev, resultIo];
             });
           }
           if (ResponseEnum.runningNode in data) {
-            this.runningNode(data[ResponseEnum.runningNode]);
+            this.handleRunningNode(data[ResponseEnum.runningNode]);
           }
           if (ResponseEnum.failedNodes in data) {
-            this.failedNode(data[ResponseEnum.failedNodes]);
+            this.handleFailedNode(data[ResponseEnum.failedNodes]);
             if (ResponseEnum.failureReason in data) {
-              this.failureReason(data[ResponseEnum.failureReason]);
+              this.handleFailureReason(data[ResponseEnum.failureReason]);
             }
           }
           if (ResponseEnum.preJobOperation in data) {
@@ -122,11 +111,11 @@ export class WebSocketServer {
           }
           break;
         case "connection_established":
-          if (this.socketId) {
-            this.socketId(data.socketId);
+          if (this.handleSocketId) {
+            this.handleSocketId(data.socketId);
           }
           if (ResponseEnum.systemStatus in data) {
-            this.pingResponse(data[ResponseEnum.systemStatus]);
+            this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
           sendEventToMix(
             "Initial Status",
@@ -143,7 +132,7 @@ export class WebSocketServer {
     this.server.onerror = (event) => {
       sendEventToMix("Inital Status", "Connection Failed", "Server Status");
       console.log("Error Event: ", event);
-      this.pingResponse(IServerStatus.OFFLINE);
+      this.handlePingResponse(IServerStatus.OFFLINE);
     };
   }
   disconnect() {

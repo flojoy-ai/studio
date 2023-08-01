@@ -1,6 +1,6 @@
 channels==4.0.0
 daphne==4.0.0
-flojoy @ git+https://github.com/flojoy-io/python@main
+flojoy @ git+https://github.com/flojoy-ai/python@new-node-api
 matplotlib==3.5.2
 scikit-learn==1.2.2
 networkx==2.8.4
@@ -12,7 +12,6 @@ PyYAML==6.0
 scipy==1.9.3
 uptime==3.0.1
 schedule==1.2.0
-djangorestframework==3.14.0
 python-dotenv==0.21.0
 requests==2.28.1
 pytest==7.1.3
