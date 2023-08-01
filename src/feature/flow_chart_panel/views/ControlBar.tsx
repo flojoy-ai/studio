@@ -220,7 +220,11 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
+    <button
+      onClick={openFileSelector}
+      id="load-app-btn"
+      style={{ display: "flex", gap: 11.77 }}
+    >
       <LoadIconSvg />
       Load
     </button>
@@ -283,6 +287,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
     <button
       className={classes.cancelButton}
       onClick={cancelFC}
+      id="btn-cancel"
       data-cy="btn-cancel"
       data-testid="btn-cancel"
       title="Cancel Run"
@@ -484,6 +489,7 @@ const FileButton = () => {
   return (
     <button
       data-testid="file-btn"
+      id="file-btn"
       className={clsx(classes.button, classes.fileButton)}
     >
       <Text>File</Text>
