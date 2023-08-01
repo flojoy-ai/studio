@@ -1,44 +1,57 @@
 from fastapi import APIRouter, HTTPException, Response, status
+from typing import Optional
 from flojoy import (
-    set_env_var_key,
+    delete_env_var,
+    get_env_var,
     get_credentials,
-    edit_env_var_key,
-    delete_env_var_key,
+    set_env_var,
 )
-from captain.types.key import GetKeyResponse
 
+from captain.types.key import EnvVar
 
 router = APIRouter(tags=["env"])
 
 
-@router.post("/env/")
-async def set_env_var(data: dict[str, str]):
-    key = data["key"]
-    value = data["value"]
-    set_env_var_key(key, value)
-    return Response(status_code=200)
-
-
-@router.post("/env/edit")
-async def edit_env_var(data: dict[str, str]):
-    key = data["key"]
-    value = data["value"]
-    edit_env_var_key(key, value)
-    return Response(status_code=200)
-
-
-@router.post("/env/delete")
-async def delete_env_var(data: dict[str, str]):
-    key = data["key"]
-    delete_env_var_key(key)
-    return Response(status_code=200)
-
-
-@router.get("/env/", response_model=GetKeyResponse)
-async def get_env_vars():
-    env_vars: list[dict[str, str]] | None = get_credentials()
-    if env_vars is None:
+@router.post("/env/{key_name}")
+async def set_env_var_route(key_name: str, value: str):
+    try:
+        set_env_var(key_name, value)
+    except Exception as e:
         return HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="No key found!"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e
         )
-    return GetKeyResponse(env_var=env_vars)
+
+    return Response(status_code=200)
+
+
+@router.delete("/env/{key_name}")
+async def delete_env_var_route(key_name: str):
+    try:
+        delete_env_var(key_name)
+    except Exception as e:
+        return HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e
+        )
+    return Response(status_code=200)
+
+
+@router.get("/env/{key_name}", response_model=EnvVar)
+async def get_env_var_by_name_route(key_name: str):
+    value: Optional[str] = get_env_var(key_name)
+    if value is None:
+        return HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="No key found!"
+        )
+
+    return EnvVar(key=key_name, value=value)
+
+
+@router.get("/env/", response_model=list[EnvVar])
+async def get_env_vars_route():
+    values = get_credentials()
+    if values is None:
+        return HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="No key found!"
+        )
+
+    return values
