@@ -19,30 +19,40 @@ const useNodeTypes = ({
   const {
     states: { programResults, failedNode, runningNode, failureReason },
   } = useSocket();
+
   const nodeTypes: NodeTypes = useMemo(
     () =>
       Object.fromEntries(
         Object.entries(nodeTypesMap).map(([key, CustomNode]) => {
           return [
             key,
-            (props) => (
-              <CustomNode
-                isRunning={runningNode === props.data.id}
-                nodeError={failedNode === props.id ? failureReason : undefined}
-                plotlyFig={
-                  programResults?.io?.find((r) => r.id === props.data.id)
-                    ?.result.default_fig ?? undefined
-                }
-                nodeProps={props}
-                handleRemove={handleRemove}
-                handleClickExpand={handleClickExpand}
-                wrapperOnClick={wrapperOnClick}
-                theme={theme}
-              />
-            ),
+            (props) => {
+              const nodeResult = programResults?.find(
+                (node) => node.id === props.data.id
+              );
+              return (
+                <CustomNode
+                  isRunning={runningNode === props.data.id}
+                  nodeError={
+                    failedNode === props.id ? failureReason : undefined
+                  }
+                  plotlyFig={nodeResult?.result.plotly_fig ?? undefined}
+                  textBlob={nodeResult?.result.text_blob ?? undefined}
+                  nodeProps={props}
+                  handleRemove={handleRemove}
+                  handleClickExpand={handleClickExpand}
+                  wrapperOnClick={wrapperOnClick}
+                  theme={theme}
+                />
+              );
+            },
           ];
         })
       ),
+    // Including incoming props like handleRemove and handleClickExpand in dependency list would cause
+    // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
+    // to suppress eslint warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [programResults, failedNode, runningNode, failureReason, theme]
   );
 

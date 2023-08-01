@@ -58,6 +58,13 @@ const App = () => {
   useEffect(() => {
     sendFrontEndLoadsToMix();
   }, []);
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
   useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));

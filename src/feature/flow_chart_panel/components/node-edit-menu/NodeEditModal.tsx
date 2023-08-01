@@ -1,5 +1,5 @@
 import { Node } from "reactflow";
-import { ElementsData } from "../../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import ParamField from "./ParamField";
 import { IconPencil, IconX, IconCheck } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -10,7 +10,7 @@ import Draggable from "react-draggable";
 import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   title: {
     fontWeight: 700,
     margin: 0,

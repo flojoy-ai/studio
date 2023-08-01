@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
