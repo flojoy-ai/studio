@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "sonner";
+
 interface EnvVarModalProps {
   handleEnvVarModalOpen: () => void;
   fetchCredentials: () => void;
@@ -44,18 +44,18 @@ const EnvVarModal = ({
     e.preventDefault();
     const val = e.clipboardData.getData("text");
     if (val.includes("=")) {
-      const envVarKey = val.split("=")[0];
-      const envVarVal = val.split("=")[1];
-      setEnvVarKey(envVarKey);
-      setEnvVarValue(envVarVal);
+      const parts = val.split("=");
+      setEnvVarKey(parts[0]);
+      setEnvVarValue(parts[1]);
     } else {
       if (target === "key") {
         setEnvVarKey(val);
-      } else if (target === "value") {
+      } else {
         setEnvVarValue(val);
       }
     }
   };
+  console.log("credentials", credentials);
 
   // const handleClose = () => {
   //   setApiKey("");
@@ -100,8 +100,8 @@ const EnvVarModal = ({
             <div className="-mt-0.5">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
-        <div className="py-1 sm:flex">
-          <div className="ml-3 inline-block items-center gap-4">
+        <div className="flex justify-center gap-4 py-1 sm:flex-row">
+          <div className="inline-block items-center">
             <Label
               htmlFor="EnvVarKey"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
@@ -118,7 +118,7 @@ const EnvVarModal = ({
               onChange={handleEnvVarKeyChange}
             />
           </div>
-          <div className="ml-8 inline-block items-center gap-4">
+          <div className="inline-block items-center">
             <Label
               htmlFor="EnvVarValue"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
@@ -140,22 +140,17 @@ const EnvVarModal = ({
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
         <div className="-mt-5 max-h-80 ">
-          <div className="relative ml-5">
-            <h2 className="mb-2.5 flex text-xl font-semibold text-black dark:text-white">
-              Generated Keys
-            </h2>
-            <ScrollArea className="h-[260px] w-[570px] rounded-md border p-4">
-              <div className="pr-3">
-                {credentials.length > 0 &&
-                  credentials.map((credential) => (
-                    <EnvVarCredentialsInfo
-                      key={credential.id}
-                      credential={credential}
-                    />
-                  ))}
-              </div>
-            </ScrollArea>
+          {/* <ScrollArea className="h-80 w-full rounded-md border p-4"> */}
+          <div className="pr-3">
+            {credentials.length > 0 &&
+              credentials.map((credential) => (
+                <EnvVarCredentialsInfo
+                  key={credential.id}
+                  credential={credential}
+                />
+              ))}
           </div>
+          {/* </ScrollArea> */}
         </div>
         <Toaster className="absolute bottom-0 right-0" />
       </DialogContent>

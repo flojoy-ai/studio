@@ -389,7 +389,7 @@ const ControlBar = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setCredentials(data.env_var))
+      .then((data) => setCredentials(data))
       .catch((err) => console.log(err));
   };
 

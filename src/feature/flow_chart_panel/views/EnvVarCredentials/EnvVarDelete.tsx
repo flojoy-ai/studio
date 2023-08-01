@@ -31,7 +31,7 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
       key: credential.key,
       value: "",
     });
-    toast("My first toast", { duration: Infinity });
+    toast("Environment variable deleted", { duration: 2000 });
   };
 
   return (

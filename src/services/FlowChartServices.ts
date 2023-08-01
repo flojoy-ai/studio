@@ -13,7 +13,7 @@ const flowKey = "flow-joy";
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
-export type EnvVarType = {
+export type EnvVar = {
   key: string;
   value: string;
 };
@@ -25,7 +25,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const postEnvironmentVariable = async (body: EnvVarType) => {
+export const postEnvironmentVariable = async (body: EnvVar) => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
@@ -61,30 +61,29 @@ export const postEnvironmentVariable = async (body: EnvVarType) => {
   }
 };
 
-export const editEnvironmentVariable = async (body: EnvVarType) => {
+export const deleteEnvironmentVariable = async (body: EnvVar) => {
   try {
-    const response = await fetch(`${API_URI}/env/edit`, {
-      method: "POST",
+    const response = await fetch(`${API_URI}/env/`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
-    console.log(body);
 
     if (response.ok) {
       await response.json();
       notifications.update({
         id: "set-api-key",
         title: "Successful!",
-        message: "Successfully set the Environment Variable",
+        message: "Successfully deleted the Environment Variable",
         autoClose: 5000,
       });
     } else {
       notifications.update({
         id: "set-api-key",
         title: "Failed!",
-        message: "Failed to set the Environment Variable",
+        message: "Failed to delete the Environment Variable",
         autoClose: 5000,
       });
     }
@@ -92,45 +91,7 @@ export const editEnvironmentVariable = async (body: EnvVarType) => {
     notifications.update({
       id: "set-api-key",
       title: "Failed!",
-      message: "Failed to set the Environment Variable",
-      autoClose: 5000,
-    });
-  }
-};
-
-export const deleteEnvironmentVariable = async (body: EnvVarType) => {
-  try {
-    const response = await fetch(`${API_URI}/env/delete`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    console.log(body);
-
-    if (response.ok) {
-      console.log("sending data.....");
-      await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully set the Environment Variable",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the Environment Variable",
-        autoClose: 5000,
-      });
-    }
-  } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the Environment Variable",
+      message: "Failed to delete the Environment Variable",
       autoClose: 5000,
     });
   }

@@ -12,10 +12,10 @@ from captain.types.key import EnvVar
 router = APIRouter(tags=["env"])
 
 
-@router.post("/env/{key_name}")
-async def set_env_var_route(key_name: str, value: str):
+@router.post("/env/")
+async def set_env_var_route(env_var: EnvVar):
     try:
-        set_env_var(key_name, value)
+        set_env_var(env_var.key, env_var.value)
     except Exception as e:
         return HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=e

@@ -16,42 +16,35 @@ export interface EnvVarCredentialsInfoProps {
 
 const EnvVarCredentialsInfo = ({ credential }: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const PasswordIcon = showPassword ? IconEyeOff : IconEye;
+
   return (
     <div
       key={credential.id}
-      className="overflow-x-none mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-600"
+      className="mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-800"
     >
-      <p className="my-2.5 ml-5 flex w-52 text-base font-semibold text-black dark:text-white">
+      <p className="my-2.5 ml-5 flex text-base font-semibold text-black dark:text-white">
         {credential.key}
       </p>
-      <div className="ml-36 mt-2.5 flex">
+      <div className="ml-auto mr-4 mt-2.5 flex">
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? (
-            <IconEyeOff
-              className="-mt-3 mr-4 stroke-gray-600"
-              size={19}
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          ) : (
-            <IconEye
-              className="-mt-3 mr-4 stroke-gray-600"
-              size={19}
-              strokeWidth={1.5}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          )}
+          <PasswordIcon
+            className="-mt-3 mr-4 stroke-gray-600"
+            size={19}
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </button>
-        <div className="mr-1 overflow-hidden text-base font-semibold text-gray-600">
-          <ScrollArea className="w-[101px]">
-            {showPassword ? credential.value : "*".repeat(15)}
-            <ScrollBar className="h-[7px]" orientation="horizontal"></ScrollBar>
+        <div className="mr-2 overflow-hidden text-base font-semibold text-gray-600">
+          <ScrollArea className="w-24">
+            {showPassword ? credential.value : "•".repeat(15)}
+            <ScrollBar className="h-2" orientation="horizontal"></ScrollBar>
           </ScrollArea>
         </div>
         <Select>
-          <SelectTrigger className="mr-4 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
+          <SelectTrigger className="mr-2 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
             <Button variant={"ghost"} size={"icon"}>
               <IconDotsVertical className="stroke-gray-600 " size={20} />
             </Button>

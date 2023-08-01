@@ -10,7 +10,7 @@ import {
 } from "@src/components/ui/dialog";
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
-import { editEnvironmentVariable } from "@src/services/FlowChartServices";
+import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
 
 export interface EnvVarCredentialsEditInfoProps {
@@ -25,7 +25,7 @@ const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
   };
 
   const handleEdit = () => {
-    editEnvironmentVariable({ key: credentialKey, value: editEnv });
+    postEnvironmentVariable({ key: credentialKey, value: editEnv });
     setEditEnv("");
   };
 
