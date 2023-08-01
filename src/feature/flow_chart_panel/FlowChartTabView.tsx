@@ -44,6 +44,9 @@ import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
+import { Button } from "@src/components/ui/button";
+import { Separator } from "@src/components/ui/separator";
+import { Eraser, Joystick } from "lucide-react";
 
 localforage.config({
   name: "react-flow",
@@ -253,24 +256,32 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <TabActions>
-        <IconButton
+      <div className="py-1" />
+      <div className="flex">
+        <Button
           onClick={toggleSidebar}
-          icon={plusIcon}
           data-testid="add-node-button"
+          variant="outline"
         >
-          <Text size="sm">Add Python Function</Text>
-        </IconButton>
-        <IconButton
-          data-testid="clear-canvas-button"
+          <Joystick />
+          <div className="px-1" />
+          <div>Add Python Node</div>
+        </Button>
+
+        <div className="grow" />
+        <Button
           onClick={clearCanvas}
-          icon={minusIcon}
-          ml="auto"
-          h="100%"
+          data-testid="clear-canvas-button"
+          variant="outline"
         >
-          <Text size="sm">Clear Canvas</Text>
-        </IconButton>
-      </TabActions>
+          <Eraser />
+          <div className="px-1" />
+          <div>Clear Canvas</div>
+        </Button>
+      </div>
+      <div className="py-1" />
+      <Separator />
+
       <Sidebar
         sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
