@@ -3,7 +3,7 @@ import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";

@@ -20,7 +20,7 @@ import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/play-btn/PlayBtn";
-import { ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
@@ -28,7 +28,7 @@ import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
@@ -220,25 +220,25 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <Button
-      className="gap-11.77 flex"
+    <button
       onClick={openFileSelector}
+      id="load-app-btn"
       style={{ display: "flex", gap: 11.77 }}
     >
       <LoadIconSvg />
       Load
-    </Button>
+    </button>
   );
 };
 
 type ExportResultButtonProps = {
-  results: ResultsType | null;
+  results: NodeResult[];
   disabled: boolean;
 };
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   const downloadResult = async () => {
-    if (!results) return;
+    if (!results.length) return;
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
     if ("showSaveFilePicker" in window) {
@@ -287,6 +287,7 @@ const CancelButton = ({ cancelFC }: CancelButtonProps) => {
     <button
       className={classes.cancelButton}
       onClick={cancelFC}
+      id="btn-cancel"
       data-cy="btn-cancel"
       data-testid="btn-cancel"
       title="Cancel Run"
@@ -384,7 +385,7 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults({ io: [] });
+      setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
@@ -423,10 +424,7 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled =
-    programResults === null ||
-    programResults.io === undefined ||
-    programResults.io.length === 0;
+  const exportResultDisabled = programResults.length == 0;
 
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
@@ -450,20 +448,6 @@ const ControlBar = () => {
       )}
 
       <Dropdown dropdownBtn={<FileButton />}>
-        {/* <button
-          data-testid="btn-apikey"
-          onClick={handleAPIKeyModalOpen}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          Set API key
-        </button> */}
-        {/* <Button data-testid="btn-apikey" className="flex">
-          <div className="-ml-24 flex gap-2">
-            <FamilyHistoryIconSvg size={14} />
-            Set API key
-          </div>
-        </Button> */}
         <EnvVarModal
           handleEnvVarModalOpen={handleEnvVarModalOpen}
           fetchCredentials={fetchCredentials}
@@ -522,6 +506,7 @@ const FileButton = () => {
   return (
     <button
       data-testid="file-btn"
+      id="file-btn"
       className={clsx(classes.button, classes.fileButton)}
     >
       <Text>File</Text>

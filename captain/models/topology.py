@@ -98,7 +98,8 @@ class Topology:
             try:
                 init_func = get_node_init_function(func)
                 init_func.run(
-                    node_id
+                    node_id,
+                    node["ctrls"],
                 )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass

@@ -32,11 +32,10 @@ import {
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { ElementsData } from "./types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
@@ -67,20 +66,15 @@ const FlowChartTab = () => {
   } = useSocket();
 
   const {
-    windowWidth,
     modalIsOpen,
     closeModal,
-    nd,
     nodeLabel,
     nodeType,
     pythonString,
     setPythonString,
     nodeFilePath,
     setNodeFilePath,
-    defaultPythonFnLabel,
-    defaultPythonFnType,
     setIsModalOpen,
-    setNd,
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
@@ -92,6 +86,11 @@ const FlowChartTab = () => {
     (func: string) => {
       return nodes.filter((n) => n.data.func === func).length;
     },
+    // including nodes variable in dependency list would cause excessive re-renders
+    // as nodes variable is updated so frequently
+    // using nodes.length is more efficient for this case
+    // adding eslint-disable-next-line react-hooks/exhaustive-deps to suppress eslint warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [nodes.length]
   );
 
@@ -242,27 +241,6 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  useFlowChartTabEffects({
-    results: programResults,
-    closeModal,
-    defaultPythonFnLabel,
-    defaultPythonFnType,
-    modalIsOpen,
-    nd,
-    nodeLabel,
-    nodeType,
-    pythonString,
-    nodeFilePath,
-    setIsModalOpen,
-    setNd,
-    setNodeLabel,
-    setNodeType,
-    setPythonString,
-    setNodeFilePath,
-    windowWidth,
-    selectedNode,
-  });
-
   const plusIcon = useMemo(
     () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
     [theme]
@@ -368,7 +346,7 @@ const FlowChartTab = () => {
             selectedNode={selectedNode}
             closeModal={closeModal}
             modalIsOpen={modalIsOpen}
-            nd={nd}
+            nodeResults={programResults}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}

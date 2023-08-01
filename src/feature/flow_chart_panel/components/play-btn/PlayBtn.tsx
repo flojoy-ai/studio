@@ -5,7 +5,7 @@ import PlayBtnIconSVG from "@src/assets/PlayBtnIconSVG";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "../../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 
 interface PlayBtnProps {
   onPlay: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -86,6 +86,7 @@ const PlayBtn = ({ onPlay, style, disabled = false }: PlayBtnProps) => {
       ref={ButtonElem}
       style={style}
       onClick={handleClick}
+      id="btn-play"
       data-cy="btn-play"
       data-testid="btn-play"
       disabled={disabled}

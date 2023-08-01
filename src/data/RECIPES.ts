@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { ReactFlowJsonObject } from "reactflow";
 
 export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {

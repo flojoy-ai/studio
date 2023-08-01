@@ -1,7 +1,7 @@
 import { Button, createStyles } from "@mantine/core";
 import { Draft } from "immer";
 import { Edge, Node } from "reactflow";
-import { ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 
 const useStyles = createStyles((theme) => {
   return {
