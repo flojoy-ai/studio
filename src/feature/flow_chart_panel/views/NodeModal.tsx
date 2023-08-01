@@ -186,7 +186,7 @@ const NodeModal = ({
       />
 
       <Flex gap="xl">
-        <Box>
+        <div>
           <Button
             size="md"
             classNames={{ root: classes.buttonStyle2 }}
@@ -196,12 +196,12 @@ const NodeModal = ({
           >
             VIEW ON GITHUB
           </Button>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Button size="md" classNames={{ root: classes.buttonStyle2 }}>
             VIEW EXAMPLES
           </Button>
-        </Box>
+        </div>
       </Flex>
       {nodeLabel !== undefined && nodeType !== undefined && (
         <h3

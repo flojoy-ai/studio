@@ -106,15 +106,15 @@ const NodeEditModal = ({
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
       <div className="absolute right-10 top-10 z-10 rounded-xl border border-accent1 bg-modal p-2">
-        <Box
+        <div
           onClick={() => setIsEditMode(false)}
           className={classes.closeButton}
         >
           <IconX size={18} data-testid="node-edit-modal-close-btn" />
-        </Box>
-        <Box p="0px 16px 24px 16px">
+        </div>
+        <div p="0px 16px 24px 16px">
           <div key={node.id}>
-            <Box className={classes.titleContainer}>
+            <div className={classes.titleContainer}>
               {isRenamingTitle ? (
                 <>
                   <TextInput
@@ -152,7 +152,7 @@ const NodeEditModal = ({
                   />
                 </>
               )}
-            </Box>
+            </div>
             {Object.keys(node.data.ctrls).length > 0 ? (
               <>
                 {Object.entries(node.data.ctrls).map(([name, param]) => (
@@ -188,7 +188,7 @@ const NodeEditModal = ({
               <div>This node takes no parameters</div>
             )}
           </div>
-        </Box>
+        </div>
       </div>
     </Draggable>
   );

@@ -24,7 +24,7 @@ export const EditSwitch = () => {
   const theme = useMantineTheme();
 
   return (
-    <Box
+    <div
       className={classes.container}
       data-cy="edit-switch"
       id="edit-switch-wrapper"
@@ -40,6 +40,6 @@ export const EditSwitch = () => {
         onLabel={<IconCheck size={16} color={theme.colors.accent1[0]} />}
         id="edit-switch"
       />
-    </Box>
+    </div>
   );
 };
