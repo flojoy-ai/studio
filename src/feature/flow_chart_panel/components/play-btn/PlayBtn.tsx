@@ -86,6 +86,7 @@ const PlayBtn = ({ onPlay, style, disabled = false }: PlayBtnProps) => {
       ref={ButtonElem}
       style={style}
       onClick={handleClick}
+      id="btn-play"
       data-cy="btn-play"
       data-testid="btn-play"
       disabled={disabled}

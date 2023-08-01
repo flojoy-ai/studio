@@ -164,7 +164,6 @@
       "src/**/*.ts"
     ],
     "exclude": [
-      "src/__tests__",
       "src/hooks/__mocks__",
       "src/utils/__mocks__",
       "src/feature/controls_panel/",

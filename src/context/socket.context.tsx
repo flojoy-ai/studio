@@ -1,6 +1,6 @@
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { SetStateAction } from "jotai";
-import { createContext, Dispatch, useEffect, useState } from "react";
+import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
@@ -86,18 +86,18 @@ export const SocketContextProvider = ({
       setSocket(ws);
     }
   }, [socket]);
+  const values = useMemo(
+    () => ({
+      states: {
+        ...states,
+        programResults,
+        setProgramResults,
+        preJobOperation,
+      },
+    }),
+    [preJobOperation, programResults, states]
+  );
   return (
-    <SocketContext.Provider
-      value={{
-        states: {
-          ...states,
-          programResults,
-          setProgramResults,
-          preJobOperation,
-        },
-      }}
-    >
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
   );
 };
