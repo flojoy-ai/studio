@@ -61,14 +61,13 @@ export const postEnvironmentVariable = async (body: EnvVar) => {
   }
 };
 
-export const deleteEnvironmentVariable = async (body: EnvVar) => {
+export const deleteEnvironmentVariable = async (key: string) => {
   try {
-    const response = await fetch(`${API_URI}/env/`, {
+    const response = await fetch(`${API_URI}/env/${key}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
     });
 
     if (response.ok) {

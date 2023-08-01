@@ -100,8 +100,8 @@ const EnvVarModal = ({
             <div className="-mt-0.5">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
-        <div className="flex justify-center gap-4 py-1 sm:flex-row">
-          <div className="inline-block items-center">
+        <div className="flex gap-4 py-1 sm:flex-row">
+          <div className="inline-block flex-1">
             <Label
               htmlFor="EnvVarKey"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
@@ -113,12 +113,12 @@ const EnvVarModal = ({
               type="text"
               placeholder="e.g CLIENT_KEY"
               value={envVarKey || ""}
-              className=" mt-1 w-64 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
+              className=" mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
               onPaste={(e) => handlePaste(e, "key")}
               onChange={handleEnvVarKeyChange}
             />
           </div>
-          <div className="inline-block items-center">
+          <div className="inline-block flex-1">
             <Label
               htmlFor="EnvVarValue"
               className="text-right font-semibold text-black dark:text-white sm:text-sm"
@@ -129,7 +129,7 @@ const EnvVarModal = ({
               id="EnvVarValue"
               type="password"
               value={envVarValue || ""}
-              className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
+              className="mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
               onPaste={(e) => handlePaste(e, "value")}
               onChange={handleEnvVarValueChange}
             />

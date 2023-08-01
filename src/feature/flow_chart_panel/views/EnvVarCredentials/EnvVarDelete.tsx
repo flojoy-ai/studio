@@ -21,16 +21,9 @@ export interface EnvVarDeleteProps {
 const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
   const { setCredentials } = useFlowChartState();
 
-  const handleDelete = (credential: EnvVarCredentialType) => {
-    setCredentials((credentials) => {
-      return credentials.filter(
-        (prevCredential) => prevCredential.id !== credential.id
-      );
-    });
-    deleteEnvironmentVariable({
-      key: credential.key,
-      value: "",
-    });
+  const handleDelete = () => {
+    setCredentials((prev) => prev.filter((c) => c.key !== credential.key));
+    deleteEnvironmentVariable(credential.key);
     toast("Environment variable deleted", { duration: 2000 });
   };
 
@@ -53,7 +46,7 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
           credential
           <AlertDialogFooter>
             <AlertDialogCancel className="text-black">Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => handleDelete(credential)}>
+            <AlertDialogAction onClick={handleDelete}>
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>
