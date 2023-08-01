@@ -1,4 +1,4 @@
-import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -9,10 +9,6 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
-import LoadIconSvg from "@src/assets/LoadIconSVG";
-import SaveIconSvg from "@src/assets/SaveIconSVG";
-import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { memo, useEffect, useState, useCallback } from "react";
 import "react-tabs/style/react-tabs.css";
@@ -26,7 +22,6 @@ import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
@@ -38,8 +33,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -210,10 +203,7 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <DropdownMenuItem
-      onClick={openFileSelector}
-      id="load-app-btn"
-    >
+    <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
       Load
     </DropdownMenuItem>
   );
@@ -396,7 +386,7 @@ const ControlBar = () => {
   };
 
   return (
-    <Box className={classes.controls}>
+    <div className={classes.controls}>
       <EnvVarModal
         handleEnvVarModalOpen={handleEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
@@ -462,7 +452,7 @@ const ControlBar = () => {
         onClose={handleAPIKeyModalClose}
         fetchCredentials={fetchCredentials}
       /> */}
-    </Box>
+    </div>
   );
 };
 

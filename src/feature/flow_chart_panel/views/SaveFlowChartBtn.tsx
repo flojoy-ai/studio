@@ -1,4 +1,3 @@
-import SaveIconSVG from "@src/assets/SaveIconSVG";
 import { DropdownMenuItem } from "@src/components/ui/dropdown-menu";
 import * as htmlToImage from "html-to-image";
 
