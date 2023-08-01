@@ -37,7 +37,10 @@ const EnvVarModal = ({
     setEnvVarValue(e.target.value);
   };
 
-  const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = (
+    e: ClipboardEvent<HTMLInputElement>,
+    target: "key" | "value"
+  ) => {
     e.preventDefault();
     const val = e.clipboardData.getData("text");
     if (val.includes("=")) {
@@ -45,6 +48,12 @@ const EnvVarModal = ({
       const envVarVal = val.split("=")[1];
       setEnvVarKey(envVarKey);
       setEnvVarValue(envVarVal);
+    } else {
+      if (target === "key") {
+        setEnvVarKey(val);
+      } else if (target === "value") {
+        setEnvVarValue(val);
+      }
     }
   };
 
@@ -105,7 +114,7 @@ const EnvVarModal = ({
               placeholder="e.g CLIENT_KEY"
               value={envVarKey || ""}
               className=" mt-1 w-64 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
-              onPaste={splitOnCopy}
+              onPaste={(e) => handlePaste(e, "key")}
               onChange={handleEnvVarKeyChange}
             />
           </div>
@@ -121,7 +130,7 @@ const EnvVarModal = ({
               type="password"
               value={envVarValue || ""}
               className="mt-1 w-72 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm "
-              onPaste={splitOnCopy}
+              onPaste={(e) => handlePaste(e, "value")}
               onChange={handleEnvVarValueChange}
             />
           </div>
