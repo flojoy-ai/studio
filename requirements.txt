@@ -21,4 +21,5 @@ pytest-cov==4.1.0
 uvicorn[standard]==0.22.0
 fastapi==0.95.2
 docstring_parser==0.15
+keyring==24.2.0 
 debugpy
