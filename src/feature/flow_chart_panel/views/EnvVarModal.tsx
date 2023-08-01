@@ -137,11 +137,11 @@ const EnvVarModal = ({
             </h2>
             <ScrollArea className="h-[260px] w-[570px] rounded-md border p-4">
               <div className="pr-3">
-                {Object.keys(credentials).length > 0 &&
-                  Object.keys(credentials).map((key) => (
+                {credentials.length > 0 &&
+                  credentials.map((credential) => (
                     <EnvVarCredentialsInfo
-                      credentialKey={key}
-                      credentialValue={credentials[key]}
+                      key={credential.id}
+                      credential={credential}
                     />
                   ))}
               </div>

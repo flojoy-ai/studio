@@ -34,6 +34,11 @@ export interface CtlManifestType {
   minWidth: number;
   layout: ReactGridLayout.Layout;
 }
+export interface EnvVarCredentialType {
+  id: string;
+  key: string;
+  value: string;
+}
 
 export const failedNodeAtom = atom<string>("");
 export const runningNodeAtom = atom<string>("");
@@ -48,7 +53,7 @@ const rfInstanceAtom = atomWithImmer<
 >(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
-const credentialsAtom = atomWithImmer<{ [key: string]: string }>({});
+const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(

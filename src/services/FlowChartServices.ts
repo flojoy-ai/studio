@@ -63,15 +63,54 @@ export const postEnvironmentVariable = async (body: EnvVarType) => {
 
 export const editEnvironmentVariable = async (body: EnvVarType) => {
   try {
-    const response = await fetch(`${API_URI}/env/modify`, {
+    const response = await fetch(`${API_URI}/env/edit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
+    console.log(body);
 
     if (response.ok) {
+      await response.json();
+      notifications.update({
+        id: "set-api-key",
+        title: "Successful!",
+        message: "Successfully set the Environment Variable",
+        autoClose: 5000,
+      });
+    } else {
+      notifications.update({
+        id: "set-api-key",
+        title: "Failed!",
+        message: "Failed to set the Environment Variable",
+        autoClose: 5000,
+      });
+    }
+  } catch (error) {
+    notifications.update({
+      id: "set-api-key",
+      title: "Failed!",
+      message: "Failed to set the Environment Variable",
+      autoClose: 5000,
+    });
+  }
+};
+
+export const deleteEnvironmentVariable = async (body: EnvVarType) => {
+  try {
+    const response = await fetch(`${API_URI}/env/delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    console.log(body);
+
+    if (response.ok) {
+      console.log("sending data.....");
       await response.json();
       notifications.update({
         id: "set-api-key",

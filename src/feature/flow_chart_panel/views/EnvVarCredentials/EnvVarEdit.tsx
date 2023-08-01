@@ -13,20 +13,20 @@ import { Label } from "@src/components/ui/label";
 import { editEnvironmentVariable } from "@src/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
 
-export interface EnvVarCredentialsModifyInfoProps {
+export interface EnvVarCredentialsEditInfoProps {
   credentialKey: string;
 }
 
-const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
-  const [modifyEnv, setmodifyEnv] = useState<string>("");
+const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
+  const [editEnv, setEditEnv] = useState<string>("");
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setmodifyEnv(e.target.value);
+    setEditEnv(e.target.value);
   };
 
-  const handleModify = () => {
-    editEnvironmentVariable({ key: credentialKey, value: modifyEnv });
-    setmodifyEnv("");
+  const handleEdit = () => {
+    editEnvironmentVariable({ key: credentialKey, value: editEnv });
+    setEditEnv("");
   };
 
   return (
@@ -45,20 +45,20 @@ const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsModifyInfoProps) => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4 text-black dark:text-white">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="editEnv" className="text-right">
               New Value:
             </Label>
             <Input
-              id="modifyEnv"
+              id="editEnv"
               placeholder="New Value"
               className="col-span-3"
-              value={modifyEnv}
+              value={editEnv}
               onChange={handleEnvVarValueChange}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleModify}>
+          <Button type="submit" onClick={handleEdit}>
             Save changes
           </Button>
         </DialogFooter>
