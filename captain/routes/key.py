@@ -1,5 +1,10 @@
 from fastapi import APIRouter, HTTPException, Response, status
-from flojoy import set_env_var_key, get_credentials, edit_env_var_key, delete_env_var_key
+from flojoy import (
+    set_env_var_key,
+    get_credentials,
+    edit_env_var_key,
+    delete_env_var_key,
+)
 from captain.types.key import GetKeyResponse
 
 
@@ -13,19 +18,21 @@ async def set_env_var(data: dict[str, str]):
     set_env_var_key(key, value)
     return Response(status_code=200)
 
+
 @router.post("/env/edit")
 async def edit_env_var(data: dict[str, str]):
     key = data["key"]
     value = data["value"]
-    print(f"This is the new value for {key}: {value}")
     edit_env_var_key(key, value)
     return Response(status_code=200)
+
 
 @router.post("/env/delete")
 async def delete_env_var(data: dict[str, str]):
     key = data["key"]
     delete_env_var_key(key)
     return Response(status_code=200)
+
 
 @router.get("/env/", response_model=GetKeyResponse)
 async def get_env_vars():
