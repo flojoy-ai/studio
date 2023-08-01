@@ -112,7 +112,7 @@ const NodeEditModal = ({
         >
           <IconX size={18} data-testid="node-edit-modal-close-btn" />
         </div>
-        <div p="0px 16px 24px 16px">
+        <div className="m-2">
           <div key={node.id}>
             <div className={classes.titleContainer}>
               {isRenamingTitle ? (
