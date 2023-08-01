@@ -34,6 +34,14 @@ import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import { API_URI } from "@src/data/constants";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -155,14 +163,9 @@ const SaveButton = ({ saveFile }: SaveButtonProps) => {
   useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
-    <button
-      data-cy="btn-save"
-      onClick={() => saveFile(nodes, edges)}
-      style={{ display: "flex", gap: 10.3 }}
-    >
-      <SaveIconSvg />
+    <DropdownMenuItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
       Save
-    </button>
+    </DropdownMenuItem>
   );
 };
 
@@ -175,26 +178,13 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
 
   return (
-    <button
+    <DropdownMenuItem
       data-cy="btn-saveas"
-      style={{
-        display: "flex",
-        gap: 10.9,
-      }}
-      className={saveAsDisabled ? "disabled" : ""}
       disabled={saveAsDisabled}
-      aria-label="Save As"
-      title={
-        saveAsDisabled ? "Save As is not supported in this browser, sorry!" : ""
-      }
       onClick={() => saveFile(nodes, edges)}
     >
-      <SaveIconSvg />
-      <Text>Save As</Text>
-      <div style={{ position: "absolute", marginLeft: 110, marginTop: 1 }}>
-        <small>Ctrl + s</small>
-      </div>
-    </button>
+      Save As
+    </DropdownMenuItem>
   );
 };
 
@@ -220,14 +210,12 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button
+    <DropdownMenuItem
       onClick={openFileSelector}
       id="load-app-btn"
-      style={{ display: "flex", gap: 11.77 }}
     >
-      <LoadIconSvg />
       Load
-    </button>
+    </DropdownMenuItem>
   );
 };
 
@@ -261,15 +249,13 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   };
 
   return (
-    <button
+    <DropdownMenuItem
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
-      style={{ display: "flex", gap: 11 }}
     >
-      <SaveIconSvg />
       Export Result
-    </button>
+    </DropdownMenuItem>
   );
 };
 
@@ -404,46 +390,54 @@ const ControlBar = () => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
 
-  const handleEnvVarModalClose = useCallback(() => {
-    setIsEnvVarModalOpen(false);
-  }, [setIsEnvVarModalOpen]);
-
-  const handleEnvVarModalOpen = () => {
-    setIsEnvVarModalOpen(true);
+  const handleEnvVarModalOpen = (open: boolean) => {
+    setIsEnvVarModalOpen(open);
     fetchCredentials();
   };
 
   return (
     <Box className={classes.controls}>
+      <EnvVarModal
+        handleEnvVarModalOpen={handleEnvVarModalOpen}
+        isEnvVarModalOpen={isEnvVarModalOpen}
+        fetchCredentials={fetchCredentials}
+      />
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
       ) : (
         <CancelBtn cancelFC={cancelFC} />
       )}
 
-      <Dropdown dropdownBtn={<FileButton />}>
-        <EnvVarModal
-          handleEnvVarModalOpen={handleEnvVarModalOpen}
-          fetchCredentials={fetchCredentials}
-        />
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button variant="outline" size="sm">
+            File
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
 
-        <LoadButton />
-        <SaveButton saveFile={saveFile} />
-        <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-        <ExportResultButton
-          results={programResults}
-          disabled={exportResultDisabled}
-        />
-        <SaveFlowChartBtn />
-        <button
-          data-testid="btn-keyboardshortcut"
-          onClick={() => setIsKeyboardShortcutOpen(true)}
-          style={{ display: "flex", gap: 10.11 }}
-        >
-          <KeyBoardIconSvg />
-          Keyboard Shortcut
-        </button>
-      </Dropdown>
+          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+          <SaveButton saveFile={saveFile} />
+          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+            Set Env Var
+          </DropdownMenuItem>
+
+          <ExportResultButton
+            results={programResults}
+            disabled={exportResultDisabled}
+          />
+          <SaveFlowChartBtn />
+          <DropdownMenuItem
+            data-testid="btn-keyboardshortcut"
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+          >
+            Keyboard Shortcut
+          </DropdownMenuItem>
+          <LoadButton />
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <Button
         data-testid="btn-setting"
@@ -473,21 +467,3 @@ const ControlBar = () => {
 };
 
 export default memo(ControlBar);
-
-const FileButton = () => {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
-  return (
-    <button
-      data-testid="file-btn"
-      id="file-btn"
-      className={clsx(classes.button, classes.fileButton)}
-    >
-      <Text>File</Text>
-      <IconCaretDown
-        size={14}
-        fill={theme.colorScheme === "dark" ? theme.white : theme.black}
-      />
-    </button>
-  );
-};

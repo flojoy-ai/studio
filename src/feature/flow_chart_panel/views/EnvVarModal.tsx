@@ -10,19 +10,20 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toaster } from "sonner";
 
 interface EnvVarModalProps {
-  handleEnvVarModalOpen: () => void;
+  handleEnvVarModalOpen: (open: boolean) => void;
+  isEnvVarModalOpen: boolean;
   fetchCredentials: () => void;
 }
 
 const EnvVarModal = ({
   handleEnvVarModalOpen,
+  isEnvVarModalOpen,
   fetchCredentials,
 }: EnvVarModalProps) => {
   const { credentials } = useFlowChartState();
@@ -77,19 +78,7 @@ const EnvVarModal = ({
 
   // if (!isOpen) return null;
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button
-          data-testid="btn-apikey"
-          className="flex"
-          onClick={handleEnvVarModalOpen}
-        >
-          <div className="-ml-24 flex gap-2">
-            <FamilyHistoryIconSvg size={14} />
-            <div className="-mt-0.5">Set Env Var</div>
-          </div>
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isEnvVarModalOpen} onOpenChange={handleEnvVarModalOpen}>
       <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
           <DialogTitle
