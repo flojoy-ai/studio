@@ -9,6 +9,7 @@ import {
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "flojoy/types";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -47,7 +48,9 @@ const ParamField = ({
   nodeReferenceOptions,
 }: ParamFieldProps) => {
   const { updateCtrlInputDataForNode } = useFlowChartGraph();
+  const { setNodeParamChanged } = useFlowChartState();
   const handleChange = (value: string | boolean) => {
+    setNodeParamChanged(true);
     updateCtrlInputDataForNode(nodeId, {
       ...nodeCtrls,
       value,

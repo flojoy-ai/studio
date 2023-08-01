@@ -27,7 +27,6 @@ import { API_URI } from "@src/data/constants";
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
   isEnvVarModalOpen: boolean;
-  fetchCredentials: () => void;
 }
 
 const EnvVarModal = ({

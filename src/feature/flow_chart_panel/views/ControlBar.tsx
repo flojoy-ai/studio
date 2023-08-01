@@ -257,7 +257,7 @@ const ControlBar = () => {
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, setNodeParamChanged, setCredentials } =
+  const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
   const { ctrlsManifest } = useControlsState();
 
@@ -339,7 +339,7 @@ const ControlBar = () => {
         jobId: socketId,
         settings: settingsList.filter((setting) => setting.group === "backend"),
       });
-      setNodeParamChanged(undefined);
+      setNodeParamChanged(false);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
