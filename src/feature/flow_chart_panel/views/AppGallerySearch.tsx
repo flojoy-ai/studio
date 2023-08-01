@@ -5,12 +5,15 @@ import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
 import Turnstone from "turnstone";
-import { SearchIcon, XIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 
-interface listBox {
+interface SearchProps {
+  items: listBox[];
+}
+export interface listBox {
   name: string;
   displayField: string;
-  data: nodeName[];
+  data: object[];
   id: string;
   ratio: number;
   searchType?: "startswith" | "contains";
@@ -21,49 +24,46 @@ interface nodeName {
   parent: string;
 }
 
-const linkTest =
-  "https://raw.githubusercontent.com/flojoy-io/docs/main/docs/nodes/AI_ML/CLASSIFICATION/ACCURACY/examples/EX1/app.txt";
-
-const listbox: listBox[] = [
-  {
-    name: "AI/ML",
-    displayField: "name",
-    data: [
-      {
-        name: "ACCURACY",
-        type: "CLASSIFICATION",
-        parent: "AI/ML",
-      },
-      {
-        name: "LEAST_SQUARES",
-        type: "REGRESSION",
-        parent: "AL/ML",
-      },
-    ],
-    id: "AI",
-    ratio: 1,
-    searchType: "startswith",
-  },
-  {
-    name: "TRANSFORMERS",
-    displayField: "name",
-    data: [
-      {
-        name: "FFT",
-        type: "SIGNAL_PROCESSING",
-        parent: "TRANSFORMERS",
-      },
-      {
-        name: "ADD",
-        type: "ARITHMETIC",
-        parent: "TRANSFORMERS",
-      },
-    ],
-    id: "TRANSFORMERS",
-    ratio: 1,
-    searchType: "startswith",
-  },
-];
+// const listbox: listBox[] = [
+//   {
+//     name: "AI/ML",
+//     displayField: "name",
+//     data: [
+//       {
+//         name: "ACCURACY",
+//         type: "CLASSIFICATION",
+//         parent: "AI/ML",
+//       },
+//       {
+//         name: "LEAST_SQUARES",
+//         type: "REGRESSION",
+//         parent: "AL/ML",
+//       },
+//     ],
+//     id: "AI",
+//     ratio: 1,
+//     searchType: "startswith",
+//   },
+//   {
+//     name: "TRANSFORMERS",
+//     displayField: "name",
+//     data: [
+//       {
+//         name: "FFT",
+//         type: "SIGNAL_PROCESSING",
+//         parent: "TRANSFORMERS",
+//       },
+//       {
+//         name: "ADD",
+//         type: "ARITHMETIC",
+//         parent: "TRANSFORMERS",
+//       },
+//     ],
+//     id: "TRANSFORMERS",
+//     ratio: 1,
+//     searchType: "startswith",
+//   },
+// ];
 
 const style = {
   //input: "w-full border rounded border-gray-500 bg-gray-800 px-7 py-3 pl-10 outline-none",
@@ -81,15 +81,15 @@ const style = {
   groupHeading: "cursor-default px-1.5 uppercase text-purple-300",
 };
 
-export const AppGallerySearch = () => {
+export const AppGallerySearch = (items) => {
   const [focus, setFocus] = useState(false);
-  const [data, setData] = useState<object[]>([]);
   const onBlur = () => setFocus(false);
   const onFocus = () => setFocus(true);
 
   const { loadFlowExportObject } = useFlowChartGraph();
   const { setIsGalleryOpen } = useFlowChartState();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
+  const [testbox, setTestBox] = useState<listBox[]>([]);
 
   const handleSelect = async (selectItem: nodeName) => {
     // const response = await fetch(
@@ -102,56 +102,41 @@ export const AppGallerySearch = () => {
     if (selectItem) setIsGalleryOpen(false);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
-      );
-      const json = await response.json();
-      setData(json.filter((obj) => obj["type"] === "dir"));
-    };
-
-    fetchData().catch(console.error);
-    console.log(data);
-  }, []);
-
   const displayIconStyle = focus
     ? "text-accent1-hover"
     : "incline-flex text-stone-500";
-  const Clear = () => <XIcon />;
+
+  useEffect(() => {
+    const test: listBox[] = [
+      {
+        name: "nodes",
+        displayField: "name",
+        data: items,
+        id: "node",
+        ratio: 8,
+        searchType: "startswith",
+      },
+    ];
+    setTestBox(test);
+    console.log(test);
+  }, [items]);
 
   return (
     <div className="relative right-12 top-1">
-      {/*<svg*/}
-      {/*  className="absolute left-2 top-3 w-6 text-white"*/}
-      {/*  fill="none"*/}
-      {/*  stroke="currentColor"*/}
-      {/*  viewBox="0 0 24 24"*/}
-      {/*  xmlns="http://www.w3.org/2000/svg"*/}
-      {/*>*/}
-      {/*  <path*/}
-      {/*    stroke-linecap="round"*/}
-      {/*    stroke-linejoin="round"*/}
-      {/*    stroke-width="2"*/}
-      {/*    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"*/}
-      {/*  ></path>*/}
-      {/*</svg>*/}
       <span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">
         <SearchIcon className={displayIconStyle} />
       </span>
       <Turnstone
-        id="autocomplete"
+        id="node search"
         placeholder="Search node name"
-        noItems="No node found"
-        listbox={listbox}
-        listboxIsImmutable={true}
+        noItemsMessage="No Node Found"
+        listbox={testbox}
         styles={style}
         onEnter={handleSelect}
         onSelect={handleSelect}
         onBlur={onBlur}
         onFocus={onFocus}
         matchText={true}
-        Clear={Clear}
       />
     </div>
   );
