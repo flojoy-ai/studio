@@ -62,6 +62,7 @@
     "react-use": "^17.4.0",
     "reactflow": "^11.7.0",
     "redis": "^4.6.6",
+    "sonner": "^0.6.2",
     "styled-components": "^5.3.10",
     "tailwind-merge": "^1.13.2",
     "upath": "^2.0.1",

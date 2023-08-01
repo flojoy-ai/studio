@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
+import { Toaster } from "sonner";
 interface EnvVarModalProps {
   handleEnvVarModalOpen: () => void;
   fetchCredentials: () => void;
@@ -148,6 +148,7 @@ const EnvVarModal = ({
             </ScrollArea>
           </div>
         </div>
+        <Toaster className="absolute bottom-0 right-0" />
       </DialogContent>
     </Dialog>
   );
