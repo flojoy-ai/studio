@@ -9,7 +9,6 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/assets/CancelIcon";
 import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
 import LoadIconSvg from "@src/assets/LoadIconSVG";
 import SaveIconSvg from "@src/assets/SaveIconSVG";
@@ -19,7 +18,8 @@ import { memo, useEffect, useState, useCallback } from "react";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
-import PlayBtn from "../components/play-btn/PlayBtn";
+import PlayBtn from "../components/PlayBtn";
+import CancelBtn from "../components/CancelBtn";
 import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
@@ -273,32 +273,6 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   );
 };
 
-type CancelButtonProps = {
-  cancelFC: () => void;
-};
-
-const CancelButton = ({ cancelFC }: CancelButtonProps) => {
-  const { classes } = useStyles();
-
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("meta", "c", cancelFC);
-
-  return (
-    <button
-      className={classes.cancelButton}
-      onClick={cancelFC}
-      id="btn-cancel"
-      data-cy="btn-cancel"
-      data-testid="btn-cancel"
-      title="Cancel Run"
-      style={{ borderRadius: 8 }}
-    >
-      <CancelIconSvg fill="white" />
-      <Text>Cancel</Text>
-    </button>
-  );
-};
-
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, programResults, setProgramResults, serverStatus } = states;
@@ -442,9 +416,9 @@ const ControlBar = () => {
   return (
     <Box className={classes.controls}>
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
+        <PlayBtn onPlay={onRun} />
       ) : (
-        <CancelButton cancelFC={cancelFC} />
+        <CancelBtn cancelFC={cancelFC} />
       )}
 
       <Dropdown dropdownBtn={<FileButton />}>
