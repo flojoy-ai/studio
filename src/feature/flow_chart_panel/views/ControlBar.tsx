@@ -405,9 +405,6 @@ const ControlBar = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-
           <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
           <SaveButton saveFile={saveFile} />
           <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
