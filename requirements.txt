@@ -1,6 +1,6 @@
 channels==4.0.0
 daphne==4.0.0
-flojoy @ git+https://github.com/flojoy-ai/python@new-node-api
+flojoy @ git+https://github.com/flojoy-ai/python@main
 matplotlib==3.5.2
 scikit-learn==1.2.2
 networkx==2.8.4
