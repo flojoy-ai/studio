@@ -38,6 +38,7 @@ const EnvVarModal = ({
   };
 
   const splitOnCopy = (e: ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const val = e.clipboardData.getData("text");
     if (val.includes("=")) {
       const envVarKey = val.split("=")[0];
@@ -45,7 +46,6 @@ const EnvVarModal = ({
       setEnvVarKey(envVarKey);
       setEnvVarValue(envVarVal);
     }
-    e.preventDefault();
   };
 
   // const handleClose = () => {
