@@ -387,9 +387,6 @@ const ControlBar = () => {
         <DropdownMenuContent>
           <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
           <SaveButton saveFile={saveFile} />
-          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
-            Set Env Var
-          </DropdownMenuItem>
 
           <ExportResultButton
             results={programResults}
@@ -406,14 +403,28 @@ const ControlBar = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button
-        data-testid="btn-setting"
-        onClick={() => setIsSettingsOpen(true)}
-        size="sm"
-        variant="outline"
-      >
-        Settings
-      </Button>
+      {/* <Button */}
+      {/*   data-testid="btn-setting" */}
+      {/*   onClick={() => setIsSettingsOpen(true)} */}
+      {/*   size="sm" */}
+      {/*   variant="outline" */}
+      {/* > */}
+      {/*   Settings */}
+      {/* </Button> */}
+
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button variant="outline" size="sm">
+            Settings
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+            Environment Variables
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
       <DarkModeToggle />
       <KeyboardShortcutModal
         isOpen={isKeyboardShortcutOpen}
