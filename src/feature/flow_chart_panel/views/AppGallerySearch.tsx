@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { ReactFlowJsonObject } from "reactflow";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
 import Turnstone from "turnstone";
 import { SearchIcon } from "lucide-react";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 interface SearchProps {
   items: listBox[];
@@ -81,14 +83,14 @@ const style = {
   groupHeading: "cursor-default px-1.5 uppercase text-purple-300",
 };
 
-export const AppGallerySearch = (items) => {
+export const AppGallerySearch = ({ items }) => {
   const [focus, setFocus] = useState(false);
   const onBlur = () => setFocus(false);
   const onFocus = () => setFocus(true);
 
   const { loadFlowExportObject } = useFlowChartGraph();
-  const { setIsGalleryOpen } = useFlowChartState();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
+  const { setIsGalleryOpen } = useFlowChartState();
   const [testbox, setTestBox] = useState<listBox[]>([]);
 
   const handleSelect = async (selectItem: nodeName) => {
@@ -101,24 +103,38 @@ export const AppGallerySearch = (items) => {
     // loadFlowExportObject(flow);
     if (selectItem) setIsGalleryOpen(false);
   };
+  const fetchData = async () => {
+    console.log("the items are:");
+    console.log(items);
+    const test = await Promise.all(
+      items.map(async (item) => {
+        const response = await fetch(item.url);
+        const raw = await response.json();
+        const nodeArray = raw.map((node) => {
+          return {
+            name: node.name,
+            url: node.url,
+          };
+        });
+        return {
+          name: item.name,
+          displayField: "name",
+          data: nodeArray,
+          id: item.name.toLowerCase(),
+          ratio: 4,
+          searchType: "startswith",
+        };
+      })
+    );
+    setTestBox(test);
+  };
 
   const displayIconStyle = focus
     ? "text-accent1-hover"
     : "incline-flex text-stone-500";
 
   useEffect(() => {
-    const test: listBox[] = [
-      {
-        name: "nodes",
-        displayField: "name",
-        data: items,
-        id: "node",
-        ratio: 8,
-        searchType: "startswith",
-      },
-    ];
-    setTestBox(test);
-    console.log(test);
+    fetchData().catch(error);
   }, [items]);
 
   return (
@@ -131,6 +147,7 @@ export const AppGallerySearch = (items) => {
         placeholder="Search node name"
         noItemsMessage="No Node Found"
         listbox={testbox}
+        listboxIsImmutable={false}
         styles={style}
         onEnter={handleSelect}
         onSelect={handleSelect}

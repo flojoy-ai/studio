@@ -4,7 +4,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { IconBrandYoutube } from "@tabler/icons-react";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 
 export interface AppGalleryElementProps {
   linkText: string;

@@ -4,7 +4,10 @@ import { useFlowChartState } from "@hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
+import { Select } from "@/components/ui/select";
 import { listBox } from "@feature/flow_chart_panel/views/AppGallerySearch";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 const useStyles = createStyles((theme) => ({
   content: {
@@ -54,12 +57,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
+const ignoreDir = [".github", "MANIFEST"];
 export const AppGalleryModal = () => {
   const { classes } = useStyles();
   const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
   const [selectFields, setSelect] = useState([]);
   const [data, setData] = useState<object[]>([]);
-  const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 
   const onClose = () => {
     setIsGalleryOpen(false);
@@ -72,7 +76,7 @@ export const AppGalleryModal = () => {
       );
       const raw = await response.json();
       const filtered = raw.filter(
-        (obj) => obj["type"] === "dir" && obj["name"] != ".github"
+        (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
       );
       setSelect(
         filtered.map((obj) => (
@@ -120,7 +124,7 @@ export const AppGalleryModal = () => {
             <select
               onChange={(e) => {
                 console.log(`the targe value is: ${e.target.value}`);
-                populateHeading(e.target.value);
+                populateHeading(e.target.value).catch(error);
               }}
               className="w-30 z-10 h-10 justify-center rounded"
               defaultValue="https://api.github.com/repos/flojoy-ai/nodes/contents/AI_ML?ref=main"

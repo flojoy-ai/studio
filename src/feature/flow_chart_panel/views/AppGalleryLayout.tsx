@@ -1,4 +1,3 @@
-import { createStyles } from "@mantine/core";
 import {
   AppGalleryElement,
   AppGalleryElementProps,

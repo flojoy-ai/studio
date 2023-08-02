@@ -41,11 +41,10 @@ import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
-import { Turnstone } from "turnstone";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick } from "lucide-react";
+import { Eraser, Joystick, LayoutGrid } from "lucide-react";
 
 localforage.config({
   name: "react-flow",
@@ -104,6 +103,11 @@ const FlowChartTab = () => {
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen]
+  );
+
+  const toggleGallery = useCallback(
+    () => setIsGalleryOpen((prev) => !prev),
+    [setIsGalleryOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -258,7 +262,11 @@ const FlowChartTab = () => {
           <div className="px-1" />
           <div>Add Python Node</div>
         </Button>
-
+        <Button onClick={toggleGallery} variant="outline">
+          <LayoutGrid />
+          <div className="px-1" />
+          <div>App Gallery</div>
+        </Button>
         <div className="grow" />
         <Button
           onClick={clearCanvas}
@@ -272,6 +280,7 @@ const FlowChartTab = () => {
       </div>
       <div className="py-1" />
       <Separator />
+      <AppGalleryModal />
 
       <Sidebar
         sections={nodeSection}
