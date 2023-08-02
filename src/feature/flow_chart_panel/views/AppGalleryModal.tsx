@@ -23,6 +23,7 @@ const useStyles = createStyles((theme) => ({
     padding: 0,
   },
   closeBtn: {
+    position: "sticky",
     marginTop: 6,
     marginRight: 8,
   },

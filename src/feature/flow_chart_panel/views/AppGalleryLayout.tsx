@@ -21,7 +21,7 @@ export const AppGalleryLayout = ({
 
   return (
     <div>
-      <h3 className="pl-6 pt-3">{subjectName[subjectKey]}</h3>
+      <h3 className="pl-6 pt-4 text-xl">{subjectName[subjectKey]}</h3>
       <div className="mb-10 flex pl-6 pt-5">
         {elements.map((element, key) => {
           return (
