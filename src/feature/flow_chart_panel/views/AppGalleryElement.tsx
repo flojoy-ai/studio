@@ -1,4 +1,4 @@
-import { createStyles, Image, Flex, UnstyledButton } from "@mantine/core";
+import { Image, Flex, UnstyledButton } from "@mantine/core";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { IconBrandYoutube } from "@tabler/icons-react";
@@ -37,10 +37,9 @@ export const AppGalleryElement = ({
   return (
     <UnstyledButton onClick={onClick} className="mr-auto">
       <Flex
-        // className={classes.elementLayout}
         className="w-9/12 flex-wrap text-left"
       >
-        <Image height={120} width={"8.5vw"} fit="contain" src={imagePath} />
+        <Image height={120} width={"10vw"} fit="contain" src={imagePath} />
         <div className="mt-2 flex w-full">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
           <UnstyledButton component="a" target="_blank" href={youtubeLink}>
