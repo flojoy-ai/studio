@@ -18,6 +18,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
@@ -71,6 +72,7 @@ export const AppGalleryModal = () => {
           App Gallery
         </Button>
       </DialogTrigger>
+      <DialogClose className="bg-black"/>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
