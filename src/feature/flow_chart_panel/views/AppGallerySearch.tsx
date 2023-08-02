@@ -68,13 +68,12 @@ interface nodeName {
 // ];
 
 const style = {
-  //input: "w-full border rounded border-gray-500 bg-gray-800 px-7 py-3 pl-10 outline-none",
   input:
-    "w-half h-10 border bg-stone-800 border-slate-300 py-2 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "w-half h-10 border bg-stone-800 border-slate-300 py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
   inputFocus:
-    "w-half h-10 border bg-stone-800 dark:bg-stone-800 border-accent1-hover py-2 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "w-half h-10 border bg-stone-800 dark:bg-stone-800 border-accent1-hover py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
   listbox:
-    "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mt-2 p-2 sm:drop-shadow-xl",
+    "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mb-1.5 p-2 sm:drop-shadow-xl",
   item: "cursor-pointer overflow-hidden overflow-ellipsis",
   highlightedItem:
     "cursor-pointer rounded overflow-hidden bg-cyan-100 text-stone-700",

@@ -41,10 +41,9 @@ const useStyles = createStyles((theme) => ({
   hr: {
     position: "absolute",
     margin: 0,
-    width: "90%",
+    width: "95.2%",
     bottom: 0,
     marginLeft: "2%",
-    marginRight: "5%",
   },
   categoryElement: {
     display: "flex",
@@ -126,7 +125,7 @@ export const AppGalleryModal = () => {
                 console.log(`the targe value is: ${e.target.value}`);
                 populateHeading(e.target.value).catch(error);
               }}
-              className="w-30 z-10 h-10 justify-center rounded"
+              className="w-30 z-10 mt-1 h-10 justify-center rounded"
               defaultValue="https://api.github.com/repos/flojoy-ai/nodes/contents/AI_ML?ref=main"
             >
               {selectFields}

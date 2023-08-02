@@ -36,9 +36,7 @@ export const AppGalleryElement = ({
 
   return (
     <UnstyledButton onClick={onClick} className="mr-auto">
-      <Flex
-        className="w-9/12 flex-wrap text-left"
-      >
+      <Flex className="w-9/12 flex-wrap text-left">
         <Image height={120} width={"10vw"} fit="contain" src={imagePath} />
         <div className="mt-2 flex w-full">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
