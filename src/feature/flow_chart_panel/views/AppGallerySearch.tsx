@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { ElementsData } from "flojoy/types";
-import { ReactFlowJsonObject } from "reactflow";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
@@ -137,7 +135,7 @@ export const AppGallerySearch = ({ items }) => {
   }, [items]);
 
   return (
-    <div className="relative right-12 top-1">
+    <div className="relative top-1">
       <span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">
         <SearchIcon className={displayIconStyle} />
       </span>

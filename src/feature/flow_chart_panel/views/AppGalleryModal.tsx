@@ -1,73 +1,29 @@
-import { createStyles } from "@mantine/core";
-import { Modal } from "@mantine/core";
-import { useFlowChartState } from "@hooks/useFlowChartState";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
-import { Select } from "@/components/ui/select";
-import { listBox } from "@feature/flow_chart_panel/views/AppGallerySearch";
-import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
-
-const useStyles = createStyles((theme) => ({
-  content: {
-    marginTop: "120px",
-    display: "relative",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "8px",
-    height: "65vh",
-    boxShadow: "0px 0px 6px 0px #ffffff",
-    width: "max(400px,936px)",
-    inset: 0,
-    padding: 0,
-  },
-  closeBtn: {
-    position: "sticky",
-    marginTop: 6,
-    marginRight: 8,
-  },
-  header: {
-    position: "sticky",
-    display: "relative",
-    paddingTop: 10,
-  },
-  title: {
-    display: "relative",
-    font: "Inter",
-    fontSize: 35,
-    paddingLeft: 20,
-    width: "60%",
-  },
-  hr: {
-    position: "absolute",
-    margin: 0,
-    width: "95.2%",
-    bottom: 0,
-    marginLeft: "2%",
-  },
-  categoryElement: {
-    display: "flex",
-    paddingLeft: "2%",
-    marginBottom: "10%",
-    marginRight: "2%",
-  },
-  subjectTitle: {
-    paddingLeft: "2%",
-  },
-}));
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { LayoutGrid } from "lucide-react";
+import { ScrollArea } from "@src/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
 export const AppGalleryModal = () => {
-  const { classes } = useStyles();
-  const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
   const [selectFields, setSelect] = useState([]);
   const [data, setData] = useState<object[]>([]);
-
-  const onClose = () => {
-    setIsGalleryOpen(false);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,9 +36,9 @@ export const AppGalleryModal = () => {
       );
       setSelect(
         filtered.map((obj) => (
-          <option key={obj.sha} value={obj.url}>
+          <SelectItem key={obj.sha} value={obj.url}>
             {obj.name}
-          </option>
+          </SelectItem>
         ))
       );
     };
@@ -108,40 +64,37 @@ export const AppGalleryModal = () => {
   };
 
   return (
-    <Modal.Root
-      data-testid="app-gallery-modal"
-      opened={isGalleryOpen}
-      onClose={onClose}
-      size={1030}
-    >
-      <Modal.Overlay />
-      <Modal.Body>
-        <Modal.Content className={classes.content}>
-          <Modal.CloseButton className={classes.closeBtn} />
-          <Modal.Header className={classes.header}>
-            <Modal.Title className={classes.title}>App Gallery</Modal.Title>
-            <AppGallerySearch items={data} />
-            <select
-              onChange={(e) => {
-                console.log(`the targe value is: ${e.target.value}`);
-                populateHeading(e.target.value).catch(error);
-              }}
-              className="w-30 z-10 mt-1 h-10 justify-center rounded"
-              defaultValue="https://api.github.com/repos/flojoy-ai/nodes/contents/AI_ML?ref=main"
-            >
-              {selectFields}
-            </select>
-            <hr className={classes.hr} />
-          </Modal.Header>
-          <Modal.Body>
-            {subjectKeyList.map((sub, key) => {
-              return (
-                <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />
-              );
-            })}
-          </Modal.Body>
-        </Modal.Content>
-      </Modal.Body>
-    </Modal.Root>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <LayoutGrid />
+          App Gallery
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
+        <DialogHeader className="sticky">
+          <DialogTitle className="mt-5 flex text-black dark:text-white">
+            <div className="ml-3.5 p-2 text-3xl">App Gallery</div>
+            <div className="ml-72 flex gap-5">
+              <AppGallerySearch items={data} />
+              <div className="mt-0.5 pt-1">
+                <Select>
+                  <SelectTrigger>Node Category</SelectTrigger>
+                  <SelectGroup>
+                    <SelectContent>{selectFields}</SelectContent>
+                  </SelectGroup>
+                </Select>
+              </div>
+            </div>
+          </DialogTitle>
+          <hr />
+        </DialogHeader>
+        <ScrollArea className="h-full w-full">
+          {subjectKeyList.map((sub, key) => {
+            return <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />;
+          })}
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
   );
 };
