@@ -178,7 +178,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
                 ] = f"Package: {module} is already installed!"
                 logger.debug(f"Package: {module} is already installed!")
                 await manager.ws.broadcast(socket_msg)
-            except ImportError:
+            except Exception:
                 pckg_str = (
                     f"{package['name']}=={package['v']}"
                     if "v" in package

@@ -201,6 +201,9 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
 const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
+  const {
+    states: { setProgramResults },
+  } = useSocket();
 
   const [openFileSelector, { filesContent }] = useFilePicker({
     readAs: "Text",
@@ -216,6 +219,7 @@ const LoadButton = () => {
       const flow = parsedFileContent.rfInstance;
       setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
       loadFlowExportObject(flow);
+      setProgramResults([]);
     });
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
@@ -340,7 +344,7 @@ const ControlBar = () => {
   const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
-      downloadBlob(blob, "flojoy.txt");
+      downloadBlob(blob, "app.txt");
       sendProgramToMix(rfInstance.nodes);
     }
   };
@@ -355,7 +359,7 @@ const ControlBar = () => {
       const blob = createFileBlob(rfInstance, nodes, edges);
 
       const handle = await window.showSaveFilePicker({
-        suggestedName: "flojoy.txt",
+        suggestedName: "app.txt",
         types: [
           {
             description: "Text file",
