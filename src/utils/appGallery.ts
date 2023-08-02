@@ -9,7 +9,7 @@ export const AppGalleryData: GalleryData = {
   fundamentals: [
     {
       linkText: "Generate a random number once",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/LOGIC_GATES/LOOPS/LOOP/",
       elementTitle: "Intro to LOOPS",
       imagePath: "../../assets/appGallery/introToLoops.png",
       youtubeLink: "",
@@ -33,7 +33,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Stream data to your Flojoy Cloud account",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
       elementTitle: "Stream to Flojoy Cloud",
       imagePath: "../../../public/assets/appGallery/flojoyCloud.png",
       youtubeLink: "",
@@ -43,7 +43,7 @@ export const AppGalleryData: GalleryData = {
   AI: [
     {
       linkText: "Caption any image with this PyTorch ML model",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/",
       elementTitle: "Image captioning",
       imagePath: "../../../public/assets/appGallery/imageCaptioning.png",
       youtubeLink: "",
@@ -51,7 +51,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Predict future events with the Prophet node",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
       elementTitle: "Time series forecasting",
       imagePath: "../../../public/assets/appGallery/timeSeries.png",
       youtubeLink: "",
@@ -66,7 +66,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Estimate object depth with the YOLOv3 node",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
       elementTitle: "Object identification",
       imagePath: "../../../public/assets/appGallery/objectIdentification.png",
       youtubeLink: "",
@@ -84,7 +84,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Record and log temperatures",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
       elementTitle: "LabJack",
       imagePath: "../../../public/assets/appGallery/labjack.png",
       youtubeLink: "",
@@ -92,7 +92,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Capture real-time images",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/",
       elementTitle: "USB camera",
       imagePath: "../../../public/assets/appGallery/usbCamera.png",
       youtubeLink: "",
@@ -100,7 +100,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Precisely position anything",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
       elementTitle: "Stepper motor",
       imagePath: "../../../public/assets/appGallery/stepperMotor.png",
       youtubeLink: "",
@@ -118,7 +118,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Apply an FIR filter to an input signal",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FIR/",
       elementTitle: "FIR filter",
       imagePath: "../../../public/assets/appGallery/FIR.png",
       youtubeLink: "",
@@ -133,7 +133,7 @@ export const AppGalleryData: GalleryData = {
     },
     {
       linkText: "Apply a real-time FFT to an input signal",
-      link: "https://www.google.ca",
+      link: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
       elementTitle: "FFT",
       imagePath: "../../../public/assets/appGallery/FFT.png",
       youtubeLink: "",
