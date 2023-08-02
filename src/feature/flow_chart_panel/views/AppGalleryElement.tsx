@@ -14,29 +14,6 @@ export interface AppGalleryElementProps {
   youtubeLink?: string;
   appPath?: string;
 }
-
-export const AppGalleryElementStyles = createStyles((theme) => ({
-  elementTitle: {
-    display: "flex",
-    marginBottom: 0,
-    marginLeft: 3,
-    width: "8.3vw",
-  },
-  link: {
-    textDecoration: "none",
-    width: "8.5vw",
-    marginLeft: 3,
-  },
-  elementLayout: {
-    mih: 50,
-    width: "8.5vw",
-    flexWrap: "wrap",
-    textAlign: "left",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-}));
 export const AppGalleryElement = ({
   linkText,
   link,
@@ -45,7 +22,6 @@ export const AppGalleryElement = ({
   youtubeLink = "https://www.youtube.com",
   appPath = "flojoy",
 }: AppGalleryElementProps) => {
-  const { classes } = AppGalleryElementStyles();
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const { setIsGalleryOpen } = useFlowChartState();
@@ -59,18 +35,19 @@ export const AppGalleryElement = ({
   };
 
   return (
-    <UnstyledButton onClick={onClick}>
-      <Flex className={classes.elementLayout}>
+    <UnstyledButton onClick={onClick} className="mr-auto">
+      <Flex
+        // className={classes.elementLayout}
+        className="w-9/12 flex-wrap text-left"
+      >
         <Image height={120} width={"8.5vw"} fit="contain" src={imagePath} />
-        <h4 className={classes.elementTitle}>
-          {elementTitle}
-          <div className={classes.icon}>
-            <UnstyledButton component="a" target="_blank" href={youtubeLink}>
-              <IconBrandYoutube />
-            </UnstyledButton>
-          </div>
-        </h4>
-        <a href={link} className={classes.link}>
+        <div className="mt-2 flex w-full">
+          <h4 className="mt-1 w-full">{elementTitle}</h4>
+          <UnstyledButton component="a" target="_blank" href={youtubeLink}>
+            <IconBrandYoutube />
+          </UnstyledButton>
+        </div>
+        <a href={link} className="mt-1 w-full no-underline">
           {linkText}
         </a>
       </Flex>
