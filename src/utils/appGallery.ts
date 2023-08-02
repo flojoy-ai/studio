@@ -13,6 +13,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to LOOPS",
       imagePath: "../../assets/appGallery/introToLoops.png",
       youtubeLink: "",
+      appPath: "randomNumber",
     },
     {
       linkText: "Generate waveforms of different shapes",
@@ -20,6 +21,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to signals",
       imagePath: "../../assets/appGallery/introToSignals.png",
       youtubeLink: "",
+      appPath: "oscilator"
     },
     {
       linkText: "Apply a butterworth filter on a sample image",
@@ -27,6 +29,8 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Intro to images",
       imagePath: "../../../public/assets/appGallery/introToImages.png",
       youtubeLink: "",
+      appPath: "butterworth"
+
     },
     {
       linkText: "Stream data to your Flojoy Cloud account",
@@ -34,6 +38,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Stream to Flojoy Cloud",
       imagePath: "../../../public/assets/appGallery/flojoyCloud.png",
       youtubeLink: "",
+      appPath: "cloud"
     },
   ],
   AI: [
@@ -43,6 +48,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Image captioning",
       imagePath: "../../../public/assets/appGallery/imageCaptioning.png",
       youtubeLink: "",
+      appPath: "imageCaptioning"
     },
     {
       linkText: "Predict future events with the Prophet node",
@@ -50,6 +56,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Time series forecasting",
       imagePath: "../../../public/assets/appGallery/timeSeries.png",
       youtubeLink: "",
+      appPath: "prophet"
     },
     {
       linkText: "Estimate object depth with the DINOv2 node",
@@ -64,6 +71,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Object identification",
       imagePath: "../../../public/assets/appGallery/objectIdentification.png",
       youtubeLink: "",
+      appPath: "objectDetection"
     },
   ],
   IO: [
@@ -73,6 +81,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Arduino",
       imagePath: "../../../public/assets/appGallery/arduino.png",
       youtubeLink: "",
+      appPath: "arduino"
     },
     {
       linkText: "Record and log temperatures",
@@ -80,6 +89,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "LabJack",
       imagePath: "../../../public/assets/appGallery/labjack.png",
       youtubeLink: "",
+      appPath: "labjack"
     },
     {
       linkText: "Capture real-time images",
@@ -87,6 +97,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "USB camera",
       imagePath: "../../../public/assets/appGallery/usbCamera.png",
       youtubeLink: "",
+      appPath: "webcam"
     },
     {
       linkText: "Precisely position anything",
@@ -94,6 +105,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "Stepper motor",
       imagePath: "../../../public/assets/appGallery/stepperMotor.png",
       youtubeLink: "",
+      appPath: "stepper"
     },
   ],
   DSP: [
@@ -103,6 +115,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "PID controller",
       imagePath: "../../../public/assets/appGallery/PID.png",
       youtubeLink: "",
+      appPath: "pid"
     },
     {
       linkText: "Apply an FIR filter to an input signal",
@@ -110,6 +123,7 @@ export const AppGalleryData: GalleryData = {
       elementTitle: "FIR filter",
       imagePath: "../../../public/assets/appGallery/FIR.png",
       youtubeLink: "",
+      appPath: "fir"
     },
     {
       linkText: "Solve the Schrödinger with different starting conditions",
