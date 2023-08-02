@@ -262,11 +262,9 @@ const FlowChartTab = () => {
           <div className="px-1" />
           <div>Add Python Node</div>
         </Button>
-        <Button onClick={toggleGallery} variant="outline">
-          <LayoutGrid />
-          <div className="px-1" />
-          <div>App Gallery</div>
-        </Button>
+        <div className="ml-2">
+          <AppGalleryModal />
+        </div>
         <div className="grow" />
         <Button
           onClick={clearCanvas}
@@ -280,7 +278,6 @@ const FlowChartTab = () => {
       </div>
       <div className="py-1" />
       <Separator />
-      <AppGalleryModal />
 
       <Sidebar
         sections={nodeSection}
