@@ -66,6 +66,7 @@
     "sonner": "^0.6.2",
     "styled-components": "^5.3.10",
     "tailwind-merge": "^1.13.2",
+    "turnstone": "^2.2.0",
     "upath": "^2.0.1",
     "use-file-picker": "^1.6.1",
     "uuid": "^9.0.0",

@@ -36,6 +36,7 @@ import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
+import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
@@ -43,7 +44,7 @@ import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick } from "lucide-react";
+import { Eraser, Joystick, LayoutGrid } from "lucide-react";
 
 localforage.config({
   name: "react-flow",
@@ -55,6 +56,8 @@ const FlowChartTab = () => {
     isSidebarOpen,
     setIsSidebarOpen,
     setRfInstance,
+    isGalleryOpen,
+    setIsGalleryOpen,
     setIsEditMode,
     setIsExpandMode,
   } = useFlowChartState();
@@ -100,6 +103,11 @@ const FlowChartTab = () => {
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen]
+  );
+
+  const toggleGallery = useCallback(
+    () => setIsGalleryOpen((prev) => !prev),
+    [setIsGalleryOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -254,7 +262,11 @@ const FlowChartTab = () => {
           <div className="px-1" />
           <div>Add Python Node</div>
         </Button>
-
+        <Button onClick={toggleGallery} variant="outline">
+          <LayoutGrid />
+          <div className="px-1" />
+          <div>App Gallery</div>
+        </Button>
         <div className="grow" />
         <Button
           onClick={clearCanvas}
@@ -268,6 +280,7 @@ const FlowChartTab = () => {
       </div>
       <div className="py-1" />
       <Separator />
+      <AppGalleryModal />
 
       <Sidebar
         sections={nodeSection}
@@ -276,6 +289,7 @@ const FlowChartTab = () => {
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
       />
+
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 150px)" }}
