@@ -50,7 +50,7 @@ async def write_and_run_flowchart(request: PostWFC):
         return
 
     if request.precompile:
-        precompile(request=request, path_to_output="test", is_ci=False)
+        precompile(request=request, path_to_output="test", path_to_requirements='requirements-precompiled.txt', is_ci=False)
     else:
         asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
         asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))

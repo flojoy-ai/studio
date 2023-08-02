@@ -2,28 +2,28 @@
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
+  // "version": "0.2.0",
   "configurations": [
+  //   {
+  //     "name": "test",
+  //     "type": "python",
+  //     "request": "launch",
+  //     "module": "test.test"
+  //   }
+
     {
-      "name": "test",
+      "name": "FastAPI debug",
       "type": "python",
       "request": "launch",
-      "module": "test.test"
-    }
-
-    // {
-    //   "name": "FastAPI debug",
-    //   "type": "python",
-    //   "request": "launch",
-    //   "module": "uvicorn",
-    //   "args": [
-    //     "captain.main:app",
-    //     "--reload",
-    //     "--port",
-    //     "8000",
-    //     "--log-level",
-    //     "debug"
-    //   ]
-    // },
+      "module": "uvicorn",
+      "args": [
+        "captain.main:app",
+        "--reload",
+        "--port",
+        "8000",
+        "--log-level",
+        "debug"
+      ]
+    },
   ]
 }

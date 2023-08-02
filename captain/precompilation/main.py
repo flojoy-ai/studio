@@ -8,10 +8,10 @@ from captain.precompilation.templates.classes.LightTopology import LightTopology
 from captain.types.flowchart import PostWFC
 from flojoy.utils import clear_flojoy_memory
 
-
-def precompile(request: PostWFC, path_to_output: str, is_ci: bool = False):
+# TODO Support node init precompilation
+def precompile(request: PostWFC, path_to_output: str, path_to_requirements: str, is_ci: bool = False):
     """
-    Precompiles a flowchart into a script that can be run on a remote machine or a microcontroller.
+    Precompiles a flowchart into a script that can be run on a remote machine or a microcontroller (not yet done for microcontroller).
     """
 
     # Step 0 : pre-precompile operations
@@ -24,7 +24,8 @@ def precompile(request: PostWFC, path_to_output: str, is_ci: bool = False):
     sw.remove_debug_prints_and_set_offline()
 
     # Step 1: add necessary pip packages
-    sw.install_missing_pip_packages(flowchart_as_dict["nodes"])
+    sw.export_base_pip_packages(export_dir=path_to_output, path_to_requirements=path_to_requirements) # required pip packages for flowchart execution 
+    sw.install_missing_pip_packages(flowchart_as_dict["nodes"]) # pip packages required only by certain nodes 
 
     # Step 2: add import strings for node functions
     sw.import_app_nodes(get_graph_nodes(light_topology))

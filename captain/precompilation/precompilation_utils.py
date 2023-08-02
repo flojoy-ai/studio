@@ -1,6 +1,7 @@
 from typing import Any
 from captain.models.topology import Topology
 from captain.precompilation.templates.classes.LightTopology import LightTopology
+from captain.precompilation.templates.functions.flowchart_to_graph import flowchart_to_graph
 from captain.utils.flowchart_utils import flowchart_to_nx_graph
 
 
@@ -9,6 +10,7 @@ def create_light_topology(
 ):
     graph = flowchart_to_nx_graph(topology_dict)
     node_id_to_func = get_node_id_to_func(graph)
+    graph = flowchart_to_graph(topology_dict) # use light DiGraph class instead of networkx
     return LightTopology(
         graph=graph,
         jobset_id=jobset_id,
@@ -19,7 +21,7 @@ def create_light_topology(
 # this is in utils, do not make method inside of class for this since
 # it needs to be as light as possible
 def get_graph_nodes(topology: LightTopology):
-    return topology.original_graph.nodes
+    return topology.original_graph.get_nodes()
 
 
 def extract_pip_packages(nodes: list):

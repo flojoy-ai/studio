@@ -3,9 +3,6 @@ import json
 import time
 from typing import Any, Callable, Dict, Tuple
 from flojoy import get_next_directions
-from flojoy.job_result_utils import get_frontend_res_obj_from_result
-from flojoy.utils import PlotlyJSONEncoder
-import networkx as nx
 
 
 class LightTopology:
@@ -18,7 +15,7 @@ class LightTopology:
 
     def __init__(
         self,
-        graph: nx.DiGraph,
+        graph,
         jobset_id: str,
         node_id_to_func: Dict[str, Callable[..., Any]],
         is_ci: bool = False,
@@ -36,7 +33,7 @@ class LightTopology:
 
     def write_results(self):
         with open("results.json", "w") as f:
-            f.write(json.dumps(self.res_store, cls=PlotlyJSONEncoder))
+            f.write(json.dumps(self.res_store))
 
     def run(self):
         self.time_start = time.time()
@@ -70,7 +67,7 @@ class LightTopology:
             raise ValueError(f"Function {job_id} not found in imported functions")
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
-        job_result: dict = get_frontend_res_obj_from_result(func(**job))
+        job_result: dict = func(**job)
         self.res_store[job_id] = job_result
         next_jobs = self.process_job_result(job_id, job_result)
         if next_jobs is None:
@@ -85,7 +82,7 @@ class LightTopology:
         )
 
     def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
-        edges = self.working_graph.edges(job_id)
+        edges = self.working_graph.get_edges(job_id)
         edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
@@ -121,7 +118,7 @@ class LightTopology:
         if self.loop_nodes:
             self.loop_nodes.pop()
         graph = self.original_graph
-        sub_graph = graph.subgraph([job_id] + list(nx.descendants(graph, job_id)))
+        sub_graph = graph.subgraph([job_id] + list(self.original_graph.descendants(job_id)))
         original_edges = sub_graph.edges
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges

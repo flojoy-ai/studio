@@ -1,11 +1,12 @@
-import networkx as nx
 from typing import Any
 
+from captain.precompilation.templates.classes.DiGraph import DiGraph
 
-def flowchart_to_nx_graph(flowchart: dict[str, Any]):
+
+def flowchart_to_graph(flowchart: dict[str, Any]):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
-    nx_graph: nx.DiGraph = nx.DiGraph()
+    nx_graph: DiGraph = DiGraph()
     dict_node_inputs: dict[str, list[Any]] = dict()
     for i in range(len(elems)):
         el = elems[i]
@@ -46,5 +47,4 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         nx_graph.add_edge(
             u, v, label=label, target_label=target_label, id=_id, multiple=multiple
         )
-    nx.draw(nx_graph, with_labels=True)
     return nx_graph

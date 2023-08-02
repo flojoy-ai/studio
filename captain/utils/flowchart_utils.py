@@ -121,8 +121,6 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
             u, v, label=label, target_label=target_label, id=_id, multiple=multiple
         )
 
-    nx.draw(nx_graph, with_labels=True)
-
     return nx_graph
 
 

@@ -24,3 +24,4 @@ fastapi==0.95.2
 docstring_parser==0.15
 debugpy
 python-minifier==2.9.0
+astunparse==1.6.3

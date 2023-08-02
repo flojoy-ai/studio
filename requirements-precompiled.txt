@@ -1,0 +1,2 @@
+flojoy @ git+https://github.com/flojoy-ai/python-precompiled@main
+
