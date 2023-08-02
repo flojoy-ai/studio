@@ -1,10 +1,11 @@
 import { Image, Flex, UnstyledButton } from "@mantine/core";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { IconBrandYoutube } from "@tabler/icons-react";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "flojoy/types";
+import { YoutubeIcon } from "lucide-react";
+import { Button } from "@src/components/ui/button";
 
 export interface AppGalleryElementProps {
   linkText: string;
@@ -40,9 +41,9 @@ export const AppGalleryElement = ({
         <Image height={"15vh"} width={"12vw"} fit="fill" src={imagePath} />
         <div className="mt-2 flex w-full">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
-          <UnstyledButton component="a" target="_blank" href={youtubeLink}>
-            <IconBrandYoutube />
-          </UnstyledButton>
+          <Button variant="ghost" size="icon" className="mt-1.5 h-4">
+            <YoutubeIcon target="_blank" href={youtubeLink} />
+          </Button>
         </div>
         <a
           href={link}
