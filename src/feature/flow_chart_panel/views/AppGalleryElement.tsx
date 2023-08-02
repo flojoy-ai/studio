@@ -44,7 +44,7 @@ export const AppGalleryElement = ({
             <IconBrandYoutube />
           </UnstyledButton>
         </div>
-        <a href={link} className="mt-1 w-full text-sky-500 no-underline">
+        <a href={link} target="_blank" className="mt-1 w-full text-sky-500 no-underline">
           {linkText}
         </a>
       </Flex>

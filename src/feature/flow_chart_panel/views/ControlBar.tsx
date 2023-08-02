@@ -424,11 +424,6 @@ const ControlBar = () => {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
-      {/* <APIKeyModal
-        isOpen={isAPIKeyModelOpen}
-        onClose={handleAPIKeyModalClose}
-        fetchCredentials={fetchCredentials}
-      /> */}
     </div>
   );
 };
