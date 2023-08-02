@@ -37,8 +37,8 @@ export const AppGalleryElement = ({
 
   return (
     <UnstyledButton onClick={onClick} className="mr-auto">
-      <Flex className="w-9/12 flex-wrap text-left">
-        <Image height={"15vh"} width={"12vw"} fit="fill" src={imagePath} />
+      <div className="w-9/12 flex-wrap text-left">
+        <img className="h-[15vh] w-[12vw] object-fill" src={imagePath} />
         <div className="mt-2 flex w-full">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
           <Button variant="ghost" size="icon" className="mt-1.5 h-4">
@@ -52,7 +52,7 @@ export const AppGalleryElement = ({
         >
           {linkText}
         </a>
-      </Flex>
+      </div>
     </UnstyledButton>
   );
 };
