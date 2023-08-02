@@ -37,7 +37,7 @@ export const AppGalleryElement = ({
   return (
     <UnstyledButton onClick={onClick} className="mr-auto">
       <Flex className="w-9/12 flex-wrap text-left">
-        <Image height={120} width={"10vw"} fit="contain" src={imagePath} />
+        <Image height={"14vh"} width={"11vw"} fit="fill" src={imagePath} />
         <div className="mt-2 flex w-full">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
           <UnstyledButton component="a" target="_blank" href={youtubeLink}>
