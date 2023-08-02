@@ -1,0 +1,281 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 210,
+        "height": 130,
+        "id": "END-04176810-8104-4747-9a8f-df79d12c5298",
+        "type": "TERMINATORS",
+        "data": {
+          "id": "END-04176810-8104-4747-9a8f-df79d12c5298",
+          "label": "END",
+          "func": "END",
+          "type": "TERMINATORS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
+          "selected": false
+        },
+        "position": {
+          "x": 512.2688682914458,
+          "y": -277.4889314258646
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 512.2688682914458,
+          "y": -277.4889314258646
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
+        "type": "LABJACK",
+        "data": {
+          "id": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
+          "label": "LABJACKU3",
+          "func": "LABJACKU3",
+          "type": "LABJACK",
+          "ctrls": {
+            "sensor_number": {
+              "type": "int",
+              "default": 1,
+              "functionName": "LABJACKU3",
+              "param": "sensor_number",
+              "value": 1
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "labjackpython",
+              "v": "2.1.0"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/LABJACK/LABJACKU3/LABJACKU3.py",
+          "selected": false
+        },
+        "position": {
+          "x": 140.74505642489382,
+          "y": 105.51677834620148
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 140.74505642489382,
+          "y": 105.51677834620148
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
+        "type": "LOOPS",
+        "data": {
+          "id": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
+          "label": "GOTO",
+          "func": "GOTO",
+          "type": "LOOPS",
+          "ctrls": {
+            "goto_node_id": {
+              "type": "NodeReference",
+              "default": null,
+              "functionName": "GOTO",
+              "param": "goto_node_id",
+              "value": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde"
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/GOTO/GOTO.py",
+          "selected": false
+        },
+        "position": {
+          "x": 925.848254563315,
+          "y": 101.9860610943698
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 925.848254563315,
+          "y": 101.9860610943698
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
+        "type": "LOOPS",
+        "data": {
+          "id": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "LOOPS",
+          "ctrls": {
+            "num_loops": {
+              "type": "int",
+              "default": -1,
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": -1
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any"
+            },
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any"
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
+          "selected": false
+        },
+        "position": {
+          "x": -306.3503683140443,
+          "y": 124.1652281565726
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -306.3503683140443,
+          "y": 124.1652281565726
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
+        "type": "PLOTLY",
+        "data": {
+          "id": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
+          "label": "BAR",
+          "func": "BAR",
+          "type": "PLOTLY",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BAR/BAR.py",
+          "selected": true
+        },
+        "position": {
+          "x": 509.9694052032725,
+          "y": 64.67437309401998
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 509.9694052032725,
+          "y": 64.67437309401998
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
+        "sourceHandle": "end",
+        "target": "END-04176810-8104-4747-9a8f-df79d12c5298",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-744fed19-65b1-47c3-ad99-28db2e906bdeend-END-04176810-8104-4747-9a8f-df79d12c5298default"
+      },
+      {
+        "source": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
+        "sourceHandle": "body",
+        "target": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-744fed19-65b1-47c3-ad99-28db2e906bdebody-LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85fdefault"
+      },
+      {
+        "source": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
+        "sourceHandle": "default",
+        "target": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85fdefault-BAR-d54011a8-5b19-471e-9aad-74ce3ca62914default"
+      },
+      {
+        "source": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
+        "sourceHandle": "default",
+        "target": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
+        "targetHandle": "default",
+        "id": "reactflow__edge-BAR-d54011a8-5b19-471e-9aad-74ce3ca62914default-GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7bdefault"
+      }
+    ],
+    "viewport": {
+      "x": -358.59636577932724,
+      "y": 99.85117439980638,
+      "zoom": 1.0581352782820395
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

@@ -55,6 +55,7 @@ const editModeAtom = atomWithImmer<boolean>(false);
 const expandModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
+const isGalleryOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
   undefined
@@ -70,6 +71,7 @@ export function useFlowChartState() {
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
+  const [isGalleryOpen, setIsGalleryOpen] = useAtom(isGalleryOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   return {
@@ -91,5 +93,7 @@ export function useFlowChartState() {
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
+    isGalleryOpen,
+    setIsGalleryOpen,
   };
 }
