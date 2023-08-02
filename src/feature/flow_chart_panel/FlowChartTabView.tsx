@@ -1,14 +1,11 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, useMantineTheme } from "@mantine/core";
+import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import IconButton from "@src/feature/common/IconButton";
-import TabActions from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus, IconApps } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
@@ -32,11 +29,10 @@ import {
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
-import { useFlowChartTabEffects } from "./FlowChartTabEffects";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { ElementsData } from "./types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
@@ -47,6 +43,9 @@ import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import { Turnstone } from "turnstone";
 import useNodeTypes from "./hooks/useNodeTypes";
+import { Button } from "@src/components/ui/button";
+import { Separator } from "@src/components/ui/separator";
+import { Eraser, Joystick } from "lucide-react";
 
 localforage.config({
   name: "react-flow",
@@ -71,20 +70,15 @@ const FlowChartTab = () => {
   } = useSocket();
 
   const {
-    windowWidth,
     modalIsOpen,
     closeModal,
-    nd,
     nodeLabel,
     nodeType,
     pythonString,
     setPythonString,
     nodeFilePath,
     setNodeFilePath,
-    defaultPythonFnLabel,
-    defaultPythonFnType,
     setIsModalOpen,
-    setNd,
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
@@ -96,6 +90,11 @@ const FlowChartTab = () => {
     (func: string) => {
       return nodes.filter((n) => n.data.func === func).length;
     },
+    // including nodes variable in dependency list would cause excessive re-renders
+    // as nodes variable is updated so frequently
+    // using nodes.length is more efficient for this case
+    // adding eslint-disable-next-line react-hooks/exhaustive-deps to suppress eslint warning
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [nodes.length]
   );
 
@@ -246,70 +245,33 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  useFlowChartTabEffects({
-    results: programResults,
-    closeModal,
-    defaultPythonFnLabel,
-    defaultPythonFnType,
-    modalIsOpen,
-    nd,
-    nodeLabel,
-    nodeType,
-    pythonString,
-    nodeFilePath,
-    setIsModalOpen,
-    setNd,
-    setNodeLabel,
-    setNodeType,
-    setPythonString,
-    setNodeFilePath,
-    windowWidth,
-    selectedNode,
-  });
-
-  const plusIcon = useMemo(
-    () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
-  const minusIcon = useMemo(
-    () => <IconMinus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
-  const galleryIcon = useMemo(
-    () => <IconApps size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
-  const handleGalleryState = () => {
-    setIsGalleryOpen(true);
-  };
-
   return (
     <Layout>
-      <TabActions>
-        <IconButton
+      <div className="py-1" />
+      <div className="flex">
+        <Button
           onClick={toggleSidebar}
-          icon={plusIcon}
           data-testid="add-node-button"
+          variant="outline"
         >
-          <Text size="sm">Add Python Function</Text>
-        </IconButton>
-        <IconButton onClick={handleGalleryState} icon={galleryIcon}>
-          <Text size="sm"> App Gallery </Text>
-        </IconButton>
-        <AppGalleryModal />
-        <IconButton
-          data-testid="clear-canvas-button"
+          <Joystick />
+          <div className="px-1" />
+          <div>Add Python Node</div>
+        </Button>
+
+        <div className="grow" />
+        <Button
           onClick={clearCanvas}
-          icon={minusIcon}
-          ml="auto"
-          h="100%"
+          data-testid="clear-canvas-button"
+          variant="outline"
         >
-          <Text size="sm">Clear Canvas</Text>
-        </IconButton>
-      </TabActions>
+          <Eraser />
+          <div className="px-1" />
+          <div>Clear Canvas</div>
+        </Button>
+      </div>
+      <div className="py-1" />
+      <Separator />
 
       <Sidebar
         sections={nodeSection}
@@ -387,7 +349,7 @@ const FlowChartTab = () => {
             selectedNode={selectedNode}
             closeModal={closeModal}
             modalIsOpen={modalIsOpen}
-            nd={nd}
+            nodeResults={programResults}
             nodeLabel={nodeLabel}
             nodeType={nodeType}
             pythonString={pythonString}

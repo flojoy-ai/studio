@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "../../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { Node, useOnSelectionChange } from "reactflow";
 import NodeEditModal from "./NodeEditModal";
 import { Box } from "@mantine/core";
@@ -27,7 +27,7 @@ export const NodeEditMenu = ({
   useOnSelectionChange({ onChange: onSelectionChange });
 
   return (
-    <Box pos="relative">
+    <div pos="relative">
       {selectedNode && isEditMode && (
         <NodeEditModal
           node={selectedNode}
@@ -36,6 +36,6 @@ export const NodeEditMenu = ({
           setNodes={setNodes}
         />
       )}
-    </Box>
+    </div>
   );
 };

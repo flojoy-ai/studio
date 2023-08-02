@@ -31,9 +31,9 @@ const IconButton = ({ onClick, icon, children, ...props }: IconButtonProps) => {
 
   return (
     <UnstyledButton p={4} h="100%" onClick={onClick} {...props}>
-      <Box className={classes.container}>
-        {icon} <Box ml={4}>{children}</Box>{" "}
-      </Box>
+      <div className={classes.container}>
+        {icon} <div ml={4}>{children}</div>{" "}
+      </div>
     </UnstyledButton>
   );
 };

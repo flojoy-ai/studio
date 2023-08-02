@@ -19,7 +19,7 @@ type ServerStatusProps = {
 const ServerStatus = ({ serverStatus }: ServerStatusProps) => {
   const { classes } = useStyles();
   return (
-    <Text data-cy="app-status" className={classes.status}>
+    <Text data-cy="app-status" id="app-status" className={classes.status}>
       <code>{serverStatus}</code>
     </Text>
   );

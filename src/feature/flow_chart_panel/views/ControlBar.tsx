@@ -1,4 +1,4 @@
-import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -9,31 +9,30 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/assets/CancelIcon";
-import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
-import LoadIconSvg from "@src/assets/LoadIconSVG";
-import SaveIconSvg from "@src/assets/SaveIconSVG";
-import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
 import { memo, useEffect, useState, useCallback } from "react";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
-import PlayBtn from "../components/play-btn/PlayBtn";
-import { ElementsData } from "../types/CustomNodeProps";
+import PlayBtn from "../components/PlayBtn";
+import CancelBtn from "../components/CancelBtn";
+import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { SettingsModal } from "./SettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
-import APIKeyModal from "./APIKeyModal";
+import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import Dropdown from "@src/feature/common/Dropdown";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Settings } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -155,14 +154,9 @@ const SaveButton = ({ saveFile }: SaveButtonProps) => {
   useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
-    <button
-      data-cy="btn-save"
-      onClick={() => saveFile(nodes, edges)}
-      style={{ display: "flex", gap: 10.3 }}
-    >
-      <SaveIconSvg />
+    <DropdownMenuItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
       Save
-    </button>
+    </DropdownMenuItem>
   );
 };
 
@@ -175,26 +169,13 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
 
   return (
-    <button
+    <DropdownMenuItem
       data-cy="btn-saveas"
-      style={{
-        display: "flex",
-        gap: 10.9,
-      }}
-      className={saveAsDisabled ? "disabled" : ""}
       disabled={saveAsDisabled}
-      aria-label="Save As"
-      title={
-        saveAsDisabled ? "Save As is not supported in this browser, sorry!" : ""
-      }
       onClick={() => saveFile(nodes, edges)}
     >
-      <SaveIconSvg />
-      <Text>Save As</Text>
-      <div style={{ position: "absolute", marginLeft: 110, marginTop: 1 }}>
-        <small>Ctrl + s</small>
-      </div>
-    </button>
+      Save As
+    </DropdownMenuItem>
   );
 };
 
@@ -220,21 +201,20 @@ const LoadButton = () => {
   }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
 
   return (
-    <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
-      <LoadIconSvg />
+    <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
       Load
-    </button>
+    </DropdownMenuItem>
   );
 };
 
 type ExportResultButtonProps = {
-  results: ResultsType | null;
+  results: NodeResult[];
   disabled: boolean;
 };
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   const downloadResult = async () => {
-    if (!results) return;
+    if (!results.length) return;
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
     if ("showSaveFilePicker" in window) {
@@ -257,49 +237,22 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   };
 
   return (
-    <button
+    <DropdownMenuItem
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
-      style={{ display: "flex", gap: 11 }}
     >
-      <SaveIconSvg />
       Export Result
-    </button>
-  );
-};
-
-type CancelButtonProps = {
-  cancelFC: () => void;
-};
-
-const CancelButton = ({ cancelFC }: CancelButtonProps) => {
-  const { classes } = useStyles();
-
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("meta", "c", cancelFC);
-
-  return (
-    <button
-      className={classes.cancelButton}
-      onClick={cancelFC}
-      data-cy="btn-cancel"
-      data-testid="btn-cancel"
-      title="Cancel Run"
-      style={{ borderRadius: 8 }}
-    >
-      <CancelIconSvg fill="white" />
-      <Text>Cancel</Text>
-    </button>
+    </DropdownMenuItem>
   );
 };
 
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, programResults, setProgramResults, serverStatus } = states;
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
-  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
-  const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
+    useState<boolean>(false);
+  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -380,13 +333,13 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults({ io: [] });
+      setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
         settings: settingsList.filter((setting) => setting.group === "backend"),
       });
-      setNodeParamChanged(undefined);
+      setNodeParamChanged(false);
     } else {
       alert(
         "There is no program to send to server. \n Please add at least one node first."
@@ -407,68 +360,59 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled =
-    programResults === null ||
-    programResults.io === undefined ||
-    programResults.io.length === 0;
+  const exportResultDisabled = programResults.length == 0;
 
   const handleKeyboardShortcutModalClose = useCallback(() => {
     setIsKeyboardShortcutOpen(false);
   }, [setIsKeyboardShortcutOpen]);
 
-  const handleAPIKeyModalClose = useCallback(() => {
-    setIsAPIKeyModelOpen(false);
-  }, [setIsAPIKeyModelOpen]);
-
   return (
-    <Box className={classes.controls}>
+    <div className={classes.controls}>
+      <EnvVarModal
+        handleEnvVarModalOpen={setIsEnvVarModalOpen}
+        isEnvVarModalOpen={isEnvVarModalOpen}
+      />
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
+        <PlayBtn onPlay={onRun} />
       ) : (
-        <CancelButton cancelFC={cancelFC} />
+        <CancelBtn cancelFC={cancelFC} />
       )}
-      <Dropdown dropdownBtn={<FileButton />}>
-        <button
-          data-testid="btn-apikey"
-          onClick={() => setIsAPIKeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          Set API key
-        </button>
-        <button
-          data-testid="btn-s3key"
-          onClick={() => setIsS3KeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          AWS S3 key
-        </button>
-        <LoadButton />
-        <SaveButton saveFile={saveFile} />
-        <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-        <ExportResultButton
-          results={programResults}
-          disabled={exportResultDisabled}
-        />
-        <SaveFlowChartBtn />
-        <button
-          data-testid="btn-keyboardshortcut"
-          onClick={() => setIsKeyboardShortcutOpen(true)}
-          style={{ display: "flex", gap: 10.11 }}
-        >
-          <KeyBoardIconSvg />
-          Keyboard Shortcut
-        </button>
-      </Dropdown>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button variant="outline" size="sm">
+            File
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
+          <SaveButton saveFile={saveFile} />
+          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+            Set Env Var
+          </DropdownMenuItem>
+
+          <ExportResultButton
+            results={programResults}
+            disabled={exportResultDisabled}
+          />
+          <SaveFlowChartBtn />
+          <DropdownMenuItem
+            data-testid="btn-keyboardshortcut"
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+          >
+            Keyboard Shortcut
+          </DropdownMenuItem>
+          <LoadButton />
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       <Button
         data-testid="btn-setting"
         onClick={() => setIsSettingsOpen(true)}
-        size="icon"
-        variant="ghost"
+        size="sm"
+        variant="outline"
       >
-        <Settings className="stroke-accent1" />
+        Settings
       </Button>
       <DarkModeToggle />
       <KeyboardShortcutModal
@@ -480,29 +424,13 @@ const ControlBar = () => {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
       />
-      <APIKeyModal
+      {/* <APIKeyModal
         isOpen={isAPIKeyModelOpen}
         onClose={handleAPIKeyModalClose}
-      />
-    </Box>
+        fetchCredentials={fetchCredentials}
+      /> */}
+    </div>
   );
 };
 
 export default memo(ControlBar);
-
-const FileButton = () => {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
-  return (
-    <button
-      data-testid="file-btn"
-      className={clsx(classes.button, classes.fileButton)}
-    >
-      <Text>File</Text>
-      <IconCaretDown
-        size={14}
-        fill={theme.colorScheme === "dark" ? theme.white : theme.black}
-      />
-    </button>
-  );
-};

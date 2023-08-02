@@ -2,14 +2,17 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import { PlotlyComponent, makePlotlyData } from "flojoy/components";
+import {
+  PlotlyComponent,
+  makePlotlyData,
+  MarkDownText,
+} from "flojoy/components";
 import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO } from "@src/data/constants";
-import { useMemo } from "react";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
@@ -154,7 +157,6 @@ const NodeModal = ({
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
-
   const colorScheme = theme.colorScheme;
 
   useKeyboardShortcut("ctrl", "e", closeModal);
@@ -178,10 +180,13 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
-      <Modal.CloseButton data-testid="node-modal-closebtn" />
+      <Modal.CloseButton
+        data-testid="node-modal-closebtn"
+        id="node-modal-closebtn"
+      />
 
       <Flex gap="xl">
-        <Box>
+        <div>
           <Button
             size="md"
             classNames={{ root: classes.buttonStyle2 }}
@@ -191,12 +196,12 @@ const NodeModal = ({
           >
             VIEW ON GITHUB
           </Button>
-        </Box>
-        <Box>
+        </div>
+        <div>
           <Button size="md" classNames={{ root: classes.buttonStyle2 }}>
             VIEW EXAMPLES
           </Button>
-        </Box>
+        </div>
       </Flex>
       {nodeLabel !== undefined && nodeType !== undefined && (
         <h3
@@ -228,16 +233,20 @@ const NodeModal = ({
         </h3>
       ) : (
         <div>
-          {nd?.result && (
+          {nd.result.text_blob && (
+            <div className="h-[600px] overflow-auto whitespace-pre-wrap rounded-md bg-modal">
+              <MarkDownText text={nd.result.text_blob} />
+            </div>
+          )}
+          {nd.result.plotly_fig && (
             <PlotlyComponent
-              id={nd.id}
               data={makePlotlyData(
-                nd.result.default_fig.data,
+                nd.result.plotly_fig.data,
                 theme.colorScheme
               )}
               layout={{
-                ...nd.result.default_fig.layout,
-                title: nd.result.default_fig.layout?.title ?? nodeLabel,
+                ...nd.result.plotly_fig.layout,
+                title: nd.result.plotly_fig.layout?.title ?? nodeLabel,
               }}
               useResizeHandler
               style={{

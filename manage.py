@@ -1,4 +1,6 @@
-import uvicorn, sys, os
+import uvicorn
+import sys
+import os
 
 __ignore_list = ["venv"]
 

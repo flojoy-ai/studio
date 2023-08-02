@@ -1,13 +1,13 @@
-import { ResultsType } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { SetStateAction } from "jotai";
-import { createContext, Dispatch, useEffect, useState } from "react";
+import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 
 type States = {
-  programResults: ResultsType | null;
-  setProgramResults: Dispatch<SetStateAction<ResultsType>>;
+  programResults: NodeResult[];
+  setProgramResults: Dispatch<SetStateAction<NodeResult[]>>;
   runningNode: string;
   serverStatus: IServerStatus;
   failedNode: string;
@@ -49,7 +49,7 @@ export const SocketContextProvider = ({
 }) => {
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
-  const [programResults, setProgramResults] = useState<ResultsType>({ io: [] });
+  const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [preJobOperation, setPreJobOperation] = useState<
     States["preJobOperation"]
   >({
@@ -57,12 +57,13 @@ export const SocketContextProvider = ({
     output: [],
   });
 
-  const handleStateChange = (state: keyof States) => (value: any) => {
-    setStates((prev) => ({
-      ...prev,
-      [state]: value,
-    }));
-  };
+  const handleStateChange =
+    (state: keyof States) => (value: string | number | IServerStatus) => {
+      setStates((prev) => ({
+        ...prev,
+        [state]: value,
+      }));
+    };
 
   useEffect(() => {
     if (!socket) {
@@ -70,12 +71,12 @@ export const SocketContextProvider = ({
       const socketId = UUID();
       const ws = new WebSocketServer({
         url: `${SOCKET_URL}/${socketId}`,
-        pingResponse: handleStateChange("serverStatus"),
+        handleFailedNode: handleStateChange("failedNode"),
+        handleRunningNode: handleStateChange("runningNode"),
+        handleSocketId: handleStateChange("socketId"),
+        handleFailureReason: handleStateChange("failureReason"),
         onNodeResultsReceived: setProgramResults,
-        runningNode: handleStateChange("runningNode"),
-        failedNode: handleStateChange("failedNode"),
-        failureReason: handleStateChange("failureReason"),
-        socketId: handleStateChange("socketId"),
+        onPingResponse: handleStateChange("serverStatus"),
         onPreJobOpStarted: setPreJobOperation,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
@@ -84,19 +85,19 @@ export const SocketContextProvider = ({
       });
       setSocket(ws);
     }
-  });
+  }, [socket]);
+  const values = useMemo(
+    () => ({
+      states: {
+        ...states,
+        programResults,
+        setProgramResults,
+        preJobOperation,
+      },
+    }),
+    [preJobOperation, programResults, states]
+  );
   return (
-    <SocketContext.Provider
-      value={{
-        states: {
-          ...states,
-          programResults,
-          setProgramResults,
-          preJobOperation,
-        },
-      }}
-    >
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
   );
 };
