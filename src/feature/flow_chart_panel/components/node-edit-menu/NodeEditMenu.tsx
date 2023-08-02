@@ -27,7 +27,7 @@ export const NodeEditMenu = ({
   useOnSelectionChange({ onChange: onSelectionChange });
 
   return (
-    <Box pos="relative">
+    <div pos="relative">
       {selectedNode && isEditMode && (
         <NodeEditModal
           node={selectedNode}
@@ -36,6 +36,6 @@ export const NodeEditMenu = ({
           setNodes={setNodes}
         />
       )}
-    </Box>
+    </div>
   );
 };

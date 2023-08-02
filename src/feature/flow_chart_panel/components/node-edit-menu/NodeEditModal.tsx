@@ -1,43 +1,15 @@
 import { Node } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import ParamField from "./ParamField";
-import { IconPencil, IconX, IconCheck } from "@tabler/icons-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { Box, Title, createStyles, TextInput } from "@mantine/core";
 import { memo, useEffect, useState } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
 import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
-
-const useStyles = createStyles(() => ({
-  title: {
-    fontWeight: 700,
-    margin: 0,
-    textAlign: "center",
-  },
-  titleContainer: {
-    display: "flex",
-    alignItems: "center",
-    margin: "0 0 10px 0",
-  },
-  paramName: {
-    fontWeight: 600,
-    fontSize: 14,
-    marginTop: 16,
-    marginBottom: 4,
-  },
-  closeButton: {
-    width: "fit-content",
-    height: 18,
-    marginLeft: "auto",
-    cursor: "pointer",
-  },
-  replayScriptNotice: {
-    fontSize: 12,
-    margin: 6,
-  },
-}));
+import { Check, Pencil, X } from "lucide-react";
+import { Button } from "@src/components/ui/button";
+import { Input } from "@src/components/ui/input";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -54,10 +26,7 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { classes } = useStyles();
-  const { setIsEditMode, setNodeParamChanged, nodeParamChanged } =
-    useFlowChartState();
-  const replayNotice = "Replay the script to see your changes take effect";
+  const { setIsEditMode, nodeParamChanged } = useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -95,64 +64,60 @@ const NodeEditModal = ({
     setNewTitle(node.data.label);
   }, [node.data.id]);
 
-  useEffect(() => {
-    if (nodeParamChanged === undefined) {
-      setNodeParamChanged(false);
-    } else {
-      setNodeParamChanged(true);
-    }
-  }, [node.data.ctrls]);
-
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-10 z-10 rounded-xl border border-accent1 bg-modal p-2">
-        <Box
-          onClick={() => setIsEditMode(false)}
-          className={classes.closeButton}
-        >
-          <IconX size={18} data-testid="node-edit-modal-close-btn" />
-        </Box>
-        <Box p="0px 16px 24px 16px">
+      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-accent1 bg-modal p-4 ">
+        <div className="flex items-center">
+          <div>
+            {isRenamingTitle ? (
+              <div className="flex">
+                <Input
+                  id={"title_input"}
+                  className="w-max"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                />
+                <div className="px-1" />
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => {
+                    handleTitleChange(newTitle);
+                  }}
+                >
+                  <Check size="20" />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center">
+                <div className="text-lg font-bold">{node.data.label}</div>
+                <div className="px-1" />
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => {
+                    setIsRenamingTitle(true);
+                  }}
+                >
+                  <Pencil size="20" />
+                </Button>
+              </div>
+            )}
+          </div>
+          <div className="grow" />
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => {
+              setIsEditMode(false);
+            }}
+          >
+            <X size="20" data-testid="node-edit-modal-close-btn" />
+          </Button>
+        </div>
+
+        <div className="">
           <div key={node.id}>
-            <Box className={classes.titleContainer}>
-              {isRenamingTitle ? (
-                <>
-                  <TextInput
-                    id={"title_input"}
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                  />
-                  <IconCheck
-                    onClick={() => {
-                      handleTitleChange(newTitle);
-                    }}
-                    size={28}
-                    style={{
-                      marginLeft: "8px",
-                      marginBottom: "4px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </>
-              ) : (
-                <>
-                  <Title size="h4" className={classes.title}>
-                    {node.data.label}
-                  </Title>
-                  <IconPencil
-                    onClick={() => {
-                      setIsRenamingTitle(true);
-                    }}
-                    size={18}
-                    style={{
-                      marginLeft: "16px",
-                      marginBottom: "4px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </>
-              )}
-            </Box>
             {Object.keys(node.data.ctrls).length > 0 ? (
               <>
                 {Object.entries(node.data.ctrls).map(([name, param]) => (
@@ -179,16 +144,16 @@ const NodeEditModal = ({
                   </div>
                 ))}
                 {nodeParamChanged && (
-                  <div className={classes.replayScriptNotice}>
-                    <i>{replayNotice}</i>
+                  <div className="mt-2 text-sm">
+                    Replay the flow for the changes to take effect
                   </div>
                 )}
               </>
             ) : (
-              <div>This node takes no parameters</div>
+              <div className="mt-2 text-sm">This node takes no parameters</div>
             )}
           </div>
-        </Box>
+        </div>
       </div>
     </Draggable>
   );

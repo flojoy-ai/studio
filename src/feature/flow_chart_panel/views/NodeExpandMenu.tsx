@@ -43,7 +43,7 @@ export const NodeExpandMenu = ({
   }, [selectedNode, nodeResults]);
 
   return (
-    <Box pos="relative" data-testid="node-modal">
+    <div pos="relative" data-testid="node-modal">
       {selectedNode && isExpandMode && (
         <NodeModal
           modalIsOpen={isExpandMode}
@@ -57,6 +57,6 @@ export const NodeExpandMenu = ({
           selectedNode={selectedNode}
         />
       )}
-    </Box>
+    </div>
   );
 };

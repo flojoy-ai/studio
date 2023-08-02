@@ -1,0 +1,281 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 150,
+        "height": 180,
+        "id": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
+        "type": "LOCAL_FILE_SYSTEM",
+        "data": {
+          "id": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
+          "label": "LOCAL FILE",
+          "func": "LOCAL_FILE",
+          "type": "LOCAL_FILE_SYSTEM",
+          "ctrls": {
+            "file_path": {
+              "type": "str",
+              "default": null,
+              "desc": "path to the file to be loaded.",
+              "functionName": "LOCAL_FILE",
+              "param": "file_path",
+              "value": ""
+            },
+            "file_type": {
+              "type": "select",
+              "default": "Image",
+              "options": ["Image", "JSON", "CSV", "Excel", "XML"],
+              "desc": "type of file to load, default: image.",
+              "functionName": "LOCAL_FILE",
+              "param": "file_type",
+              "value": "Image"
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|DataFrame",
+              "desc": null
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "xlrd",
+              "v": "2.0.1"
+            },
+            {
+              "name": "lxml",
+              "v": "4.9.2"
+            }
+          ],
+          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+          "selected": false
+        },
+        "position": {
+          "x": -1048.1508143560527,
+          "y": -199.26859742159647
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -1048.1508143560527,
+          "y": -199.26859742159647
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 180,
+        "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
+        "type": "OBJECT_DETECTION",
+        "data": {
+          "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
+          "label": "OBJECT DETECTION",
+          "func": "OBJECT_DETECTION",
+          "type": "OBJECT_DETECTION",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/OBJECT_DETECTION.py",
+          "selected": false
+        },
+        "position": {
+          "x": -525.1295467566974,
+          "y": -39.469479028815755
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -525.1295467566974,
+          "y": -39.469479028815755
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+        "type": "PLOTLY",
+        "data": {
+          "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "PLOTLY",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "selected": false
+        },
+        "position": {
+          "x": -205.74803743232445,
+          "y": -34.51716044641216
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -205.74803743232445,
+          "y": -34.51716044641216
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+        "type": "PLOTLY",
+        "data": {
+          "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+          "label": "IMAGE 1",
+          "func": "IMAGE",
+          "type": "PLOTLY",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "selected": false
+        },
+        "position": {
+          "x": -579.6025302124121,
+          "y": -479.5905366074528
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -579.6025302124121,
+          "y": -479.5905366074528
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 180,
+        "id": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
+        "type": "TERMINATORS",
+        "data": {
+          "id": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
+          "label": "END",
+          "func": "END",
+          "type": "TERMINATORS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
+          "selected": false
+        },
+        "position": {
+          "x": 212.54998481893648,
+          "y": -75.17027135060144
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 212.54998481893648,
+          "y": -75.17027135060144
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
+        "sourceHandle": "default",
+        "target": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358default"
+      },
+      {
+        "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
+        "sourceHandle": "default",
+        "target": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25default"
+      },
+      {
+        "source": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
+        "sourceHandle": "default",
+        "target": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+        "targetHandle": "default",
+        "id": "reactflow__edge-OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
+      },
+      {
+        "source": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
+        "sourceHandle": "default",
+        "target": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
+        "targetHandle": "default",
+        "id": "reactflow__edge-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default-END-6f3fc9d7-c044-47a8-94cb-d54650c736e1default"
+      }
+    ],
+    "viewport": {
+      "x": 1197.596184448298,
+      "y": 304.7961088583293,
+      "zoom": 1.2943575349520495
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

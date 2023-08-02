@@ -1,14 +1,11 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { Text, useMantineTheme } from "@mantine/core";
+import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import IconButton from "@src/feature/common/IconButton";
-import TabActions from "@src/feature/common/TabActions";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
-import { IconMinus, IconPlus } from "@tabler/icons-react";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
 import { useCallback, useEffect, useMemo } from "react";
@@ -39,11 +36,15 @@ import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
+import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
+import { Button } from "@src/components/ui/button";
+import { Separator } from "@src/components/ui/separator";
+import { Eraser, Joystick, LayoutGrid } from "lucide-react";
 
 localforage.config({
   name: "react-flow",
@@ -55,6 +56,8 @@ const FlowChartTab = () => {
     isSidebarOpen,
     setIsSidebarOpen,
     setRfInstance,
+    isGalleryOpen,
+    setIsGalleryOpen,
     setIsEditMode,
     setIsExpandMode,
   } = useFlowChartState();
@@ -100,6 +103,11 @@ const FlowChartTab = () => {
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen]
+  );
+
+  const toggleGallery = useCallback(
+    () => setIsGalleryOpen((prev) => !prev),
+    [setIsGalleryOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -241,36 +249,36 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  const plusIcon = useMemo(
-    () => <IconPlus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
-  const minusIcon = useMemo(
-    () => <IconMinus size={16} color={theme.colors.accent1[0]} />,
-    [theme]
-  );
-
   return (
     <Layout>
-      <TabActions>
-        <IconButton
+      <div className="py-1" />
+      <div className="flex">
+        <Button
           onClick={toggleSidebar}
-          icon={plusIcon}
           data-testid="add-node-button"
+          variant="outline"
         >
-          <Text size="sm">Add Python Function</Text>
-        </IconButton>
-        <IconButton
-          data-testid="clear-canvas-button"
+          <Joystick />
+          <div className="px-1" />
+          <div>Add Python Node</div>
+        </Button>
+        <div className="ml-2">
+          <AppGalleryModal />
+        </div>
+        <div className="grow" />
+        <Button
           onClick={clearCanvas}
-          icon={minusIcon}
-          ml="auto"
-          h="100%"
+          data-testid="clear-canvas-button"
+          variant="outline"
         >
-          <Text size="sm">Clear Canvas</Text>
-        </IconButton>
-      </TabActions>
+          <Eraser />
+          <div className="px-1" />
+          <div>Clear Canvas</div>
+        </Button>
+      </div>
+      <div className="py-1" />
+      <Separator />
+
       <Sidebar
         sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
@@ -278,6 +286,7 @@ const FlowChartTab = () => {
         setSideBarStatus={setIsSidebarOpen}
         customContent={sidebarCustomContent}
       />
+
       <ReactFlowProvider>
         <div
           style={{ height: "calc(100vh - 150px)" }}

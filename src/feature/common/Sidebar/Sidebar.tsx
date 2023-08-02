@@ -197,7 +197,7 @@ const Sidebar = ({
       </Navbar.Section>
       {customContent}
       <Navbar.Section grow className={classes.sections} component={ScrollArea}>
-        <Box className={classes.expandCollapseButtonContainer}>
+        <div className={classes.expandCollapseButtonContainer}>
           <UnstyledButton
             data-testid="sidebar-expand-btn"
             onClick={() => setExpand(!expand)}
@@ -212,7 +212,7 @@ const Sidebar = ({
           >
             <IconArrowAutofitUp />
           </UnstyledButton>
-        </Box>
+        </div>
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}

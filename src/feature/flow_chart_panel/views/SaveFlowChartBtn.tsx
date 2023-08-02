@@ -1,4 +1,4 @@
-import SaveIconSVG from "@src/assets/SaveIconSVG";
+import { DropdownMenuItem } from "@src/components/ui/dropdown-menu";
 import * as htmlToImage from "html-to-image";
 
 const downloadBlob = (blob: Blob, filename: string) => {
@@ -43,10 +43,9 @@ const SaveFlowChartBtn = () => {
   };
 
   return (
-    <button onClick={downloadResult} style={{ display: "flex", gap: 11 }}>
-      <SaveIconSVG />
+    <DropdownMenuItem onClick={downloadResult}>
       Save Flowchart as JPEG
-    </button>
+    </DropdownMenuItem>
   );
 };
 
