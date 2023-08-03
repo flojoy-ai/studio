@@ -19,10 +19,12 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
 export const AppGalleryModal = () => {
+  const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
   const [selectFields, setSelect] = useState([]);
   const [data, setData] = useState<object[]>([]);
 
@@ -64,15 +66,22 @@ export const AppGalleryModal = () => {
     setData(raw);
   };
 
+  const setOpen = () => {
+    setIsGalleryOpen(true);
+  };
+
+  const setClose = () => {
+    setIsGalleryOpen(false);
+  };
   return (
-    <Dialog>
+    <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-2" onClick={setOpen}>
           <LayoutGrid />
           App Gallery
         </Button>
       </DialogTrigger>
-      <DialogClose className="bg-black" />
+      <DialogClose onClick={setClose}></DialogClose>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
