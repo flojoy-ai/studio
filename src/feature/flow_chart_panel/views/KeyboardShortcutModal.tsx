@@ -4,14 +4,12 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DropdownMenuItem } from "@src/components/ui/dropdown-menu";
 import { platform } from "os";
+import { ScrollArea } from "@src/components/ui/scroll-area";
 
 interface KeyboardShortcutProps {
   handleKeyboardShortcutModalOpen: (open: boolean) => void;
@@ -151,35 +149,34 @@ const KeyboardShortcutModal = ({
       onOpenChange={handleKeyboardShortcutModalOpen}
     >
       <DialogContent className="h-5/6 max-w-5xl">
-        <div data-testid="key_container" className="flex justify-center">
-          {platforms.map((platform) => {
-            return (
-              <div className="w-full" key={platform.key}>
-                <div className=" mb-4 text-2xl font-bold">
-                  <span className=" text-blue-500">For {platform.title}</span>
-                </div>
+        <ScrollArea>
+          <div data-testid="key_container" className="flex justify-center">
+            {platforms.map((platform) => {
+              return (
+                <div className="w-full" key={platform.key}>
+                  <div className=" mb-4 text-2xl font-bold">
+                    <span className=" text-gray-200">For</span>{" "}
+                    <span className=" text-blue-500">{platform.title}</span>
+                  </div>
 
-                <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 text-modal shadow-lg">
-                  {keyboardShortcuts.map((shortcut) => (
-                    <div
-                      className="flex w-full flex-row items-start justify-between rounded-sm p-6 shadow-lg"
-                      key={shortcut.command}
-                    >
-                      <span>{shortcut.command}</span>
-                      <span className="text-blue-500">
-                        {shortcut.platforms[platform.key]}
-                      </span>
-                    </div>
-                  ))}
+                  <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 text-gray-200 shadow-lg">
+                    {keyboardShortcuts.map((shortcut) => (
+                      <div
+                        className="flex w-full flex-row items-start justify-between rounded-sm p-6 shadow-lg"
+                        key={shortcut.command}
+                      >
+                        <span>{shortcut.command}</span>
+                        <span className="text-blue-500">
+                          {shortcut.platforms[platform.key]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+              );
+            })}
+          </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
