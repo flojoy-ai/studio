@@ -22,8 +22,8 @@ import {
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
 export const AppGalleryModal = () => {
-  const [selectFields, setSelect] = useState([]);
-  const [data, setData] = useState<object[]>([]);
+  const [selectFields, setSelectFields] = useState([]);
+  const [searchData, setSearchData] = useState<object[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +34,7 @@ export const AppGalleryModal = () => {
       const filtered = raw.filter(
         (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
       );
-      setSelect(
+      setSelectFields(
         filtered.map((obj) => (
           <SelectItem key={obj.sha} value={obj.url}>
             {obj.name}
@@ -48,19 +48,7 @@ export const AppGalleryModal = () => {
   const populateHeading = async (selectUrl: string) => {
     const response = await fetch(selectUrl);
     const raw = await response.json();
-    // const box: listBox[] = raw.map(async (obj) => {
-    //   const objResponse = await fetch(obj.url);
-    //   const rawData = await objResponse.json();
-    //   return {
-    //     name: obj.name,
-    //     displayField: "name",
-    //     data: rawData,
-    //     id: obj.name.toLowerCase(),
-    //     ratio: 5,
-    //     searchType: "startswith",
-    //   };
-    // });
-    setData(raw);
+    setSearchData(raw);
   };
 
   return (
@@ -76,9 +64,9 @@ export const AppGalleryModal = () => {
           <DialogTitle className="mt-5 flex text-black dark:text-white">
             <div className="ml-3.5 p-2 text-3xl">App Gallery</div>
             <div className="ml-72 flex gap-5">
-              <AppGallerySearch items={data} />
+              <AppGallerySearch items={searchData} />
               <div className="mt-0.5 pt-1">
-                <Select>
+                <Select onValueChange={populateHeading}>
                   <SelectTrigger>Node Category</SelectTrigger>
                   <SelectGroup>
                     <SelectContent>{selectFields}</SelectContent>

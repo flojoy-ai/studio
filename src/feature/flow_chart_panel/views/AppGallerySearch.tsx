@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useControlsState } from "@hooks/useControlsState";
@@ -67,17 +67,17 @@ interface nodeName {
 
 const style = {
   input:
-    "w-half h-10 border bg-stone-800 border-slate-300 py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm outline-none file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
   inputFocus:
-    "w-half h-10 border bg-stone-800 dark:bg-stone-800 border-accent1-hover py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "flex h-10 w-full rounded-md border border-input bg-accent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 border-accent1-hover",
   listbox:
-    "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mb-1.5 p-2 sm:drop-shadow-xl",
-  item: "cursor-pointer overflow-hidden overflow-ellipsis",
+    "relative w-full z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
+  item: "w-full cursor-default items-center rounded-sm py-1.5 pl-8 text-base font-normal outline-none",
   highlightedItem:
-    "cursor-pointer rounded overflow-hidden bg-cyan-100 text-stone-700",
+    "w-full cursor-default items-center rounded-sm py-1.5 pl-8 font-medium text-base outline-none bg-accent",
   match: "font-semibold",
-  typeahead: "text-crystal-500",
-  groupHeading: "cursor-default px-1.5 uppercase text-purple-300",
+  typeahead: "text-crystal-500 font-light",
+  groupHeading: "cursor-default px-1.5 uppercase text-sm text-purple-300",
 };
 
 export const AppGallerySearch = ({ items }) => {
@@ -88,9 +88,10 @@ export const AppGallerySearch = ({ items }) => {
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const { setIsGalleryOpen } = useFlowChartState();
-  const [testbox, setTestBox] = useState<listBox[]>([]);
+  const [listBoxes, setListBoxes] = useState<listBox[]>([]);
+  const turnstoneRef = useRef();
 
-  const handleSelect = async (selectItem: nodeName) => {
+  const handleSelect = async (selectItem) => {
     // const response = await fetch(
     //   `https://raw.githubusercontent.com/flojoy-ai/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
     // );
@@ -98,11 +99,18 @@ export const AppGallerySearch = ({ items }) => {
     // const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
     // setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     // loadFlowExportObject(flow);
-    if (selectItem) setIsGalleryOpen(false);
+    if (selectItem) {
+      //setIsGalleryOpen(false);
+      turnstoneRef.current?.clear();
+    }
+  };
+
+  const handleTab = (selectItem) => {
+    if (selectItem) {
+      turnstoneRef.current?.query(selectItem);
+    }
   };
   const fetchData = async () => {
-    console.log("the items are:");
-    console.log(items);
     const test = await Promise.all(
       items.map(async (item) => {
         const response = await fetch(item.url);
@@ -123,7 +131,7 @@ export const AppGallerySearch = ({ items }) => {
         };
       })
     );
-    setTestBox(test);
+    setListBoxes(test);
   };
 
   const displayIconStyle = focus
@@ -136,18 +144,20 @@ export const AppGallerySearch = ({ items }) => {
 
   return (
     <div className="relative top-1">
-      <span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">
-        <SearchIcon className={displayIconStyle} />
-      </span>
+      {/*<span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">*/}
+      {/*  <SearchIcon className={displayIconStyle} />*/}
+      {/*</span>*/}
       <Turnstone
+        ref={turnstoneRef}
         id="node search"
         placeholder="Search node name"
         noItemsMessage="No Node Found"
-        listbox={testbox}
+        listbox={listBoxes}
         listboxIsImmutable={false}
         styles={style}
         onEnter={handleSelect}
         onSelect={handleSelect}
+        onTab={handleTab}
         onBlur={onBlur}
         onFocus={onFocus}
         matchText={true}
