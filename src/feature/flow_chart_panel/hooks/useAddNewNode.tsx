@@ -48,7 +48,7 @@ export const useAddNewNode = (
 
       const nodeId = `${funcName}-${uuidv4()}`;
       if (funcName === "CONSTANT") {
-        nodeLabel = "2.0";
+        nodeLabel = "3.0";
       } else {
         const numNodes = getNodeFuncCount(funcName);
         nodeLabel = numNodes > 0 ? `${funcName} ${numNodes}` : funcName;
@@ -63,8 +63,7 @@ export const useAddNewNode = (
                 ...param,
                 functionName: funcName,
                 param: paramName,
-                value:
-                  funcName === "CONSTANT" ? nodeLabel : param.default ?? "",
+                value: param.default ?? "",
               },
             }),
             {}
