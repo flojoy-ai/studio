@@ -39,9 +39,12 @@ export const AppGalleryElement = ({
   return (
     <>
       <div className="relative w-full">
-        <Button onClick={onClick} className="relative mr-auto hover:bg-white dark:hover:bg-black h-2/3" variant="ghost">
+        <Button
+          onClick={onClick}
+          className="relative mr-auto h-2/3 hover:bg-white dark:hover:bg-black"
+          variant="ghost"
+        >
           <div className="h-full w-full text-left">
-            {/* <img height={"15vh"} width={"15.2vw"} src={imagePath} /> */}
             <Avatar className="h-10/12 w-40">
               <AvatarImage src={imagePath} />
             </Avatar>
@@ -53,7 +56,7 @@ export const AppGalleryElement = ({
             </div>
           </div>
         </Button>
-        <div className="mt-2 p-2">
+        <div className="mt-2 p-3">
           <a
             href={link}
             target="_blank"

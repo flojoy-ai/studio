@@ -67,9 +67,9 @@ interface nodeName {
 
 const style = {
   input:
-    "w-half h-10 border bg-stone-800 border-slate-300 py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "w-half h-10 border border-slate-300 py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3 bg-stone-700",
   inputFocus:
-    "w-half h-10 border bg-stone-800 dark:bg-stone-800 border-accent1-hover py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
+    "w-half h-10 border bg-stone-700 dark:bg-stone-700 border-accent1-hover py-2 mb-1.5 pl-10 pr-7 text-xl outline-none rounded z-3",
   listbox:
     "w-full bg-stone-800 sm:border sm:border-slate-300 sm:rounded text-left sm:mb-1.5 p-2 sm:drop-shadow-xl",
   item: "cursor-pointer overflow-hidden overflow-ellipsis",
@@ -127,7 +127,7 @@ export const AppGallerySearch = ({ items }) => {
   };
 
   const displayIconStyle = focus
-    ? "text-accent1-hover"
+    ? "text-stone-300"
     : "incline-flex text-stone-500";
 
   useEffect(() => {

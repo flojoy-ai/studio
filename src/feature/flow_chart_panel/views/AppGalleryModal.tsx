@@ -72,11 +72,11 @@ export const AppGalleryModal = () => {
           App Gallery
         </Button>
       </DialogTrigger>
-      <DialogClose className="bg-black"/>
+      <DialogClose className="bg-black" />
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
-            <div className="ml-3.5 p-2 text-3xl">App Gallery</div>
+            <div className="ml-6 text-3xl">App Gallery</div>
             <div className="ml-72 flex gap-5">
               <AppGallerySearch items={data} />
               <div className="mt-0.5 pt-1">
