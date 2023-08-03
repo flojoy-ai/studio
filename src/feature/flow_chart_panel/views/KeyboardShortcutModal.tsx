@@ -1,8 +1,21 @@
-import { createStyles, Modal, Button } from "@mantine/core";
-import { memo } from "react";
+import { createStyles, Modal } from "@mantine/core";
+import { memo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { DropdownMenuItem } from "@src/components/ui/dropdown-menu";
+import { platform } from "os";
+
 interface KeyboardShortcutProps {
-  isOpen: boolean;
-  onClose: () => void;
+  handleKeyboardShortcutModalOpen: (open: boolean) => void;
+  isKeyboardShortcutModalOpen: boolean;
 }
 
 //all existing styles in this file should be made using createStyles
@@ -86,46 +99,89 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const KeyboardShortcutModal = ({ isOpen, onClose }: KeyboardShortcutProps) => {
+const KeyboardShortcutModal = ({
+  handleKeyboardShortcutModalOpen,
+  isKeyboardShortcutModalOpen,
+}: KeyboardShortcutProps) => {
   const { classes } = useStyles();
+  // const [isKeyboardShortcutModalOpen, setIsKeyboardShortcutOpen] =
+  //   useState<boolean>(false);
 
+  // return (
+  //   <Modal
+  //     data-testid="keyboard_shortcut_modal"
+  //     opened={isOpen}
+  //     onClose={onClose}
+  //     size={1030}
+  //   >
+  //     <Button
+  //       data-testid="keyboard_shortcut-closebtn"
+  //       onClick={onClose}
+  //       className={classes.closeButton}
+  //     ></Button>
+
+  //     <div data-testid="key_container" className={classes.container}>
+  //       {platforms.map((platform) => {
+  //         return (
+  //           <div className={classes.column} key={platform.key}>
+  //             <div className={classes.title}>
+  //               For{" "}
+  //               <span className={classes.platformName}>{platform.title}</span>
+  //             </div>
+
+  //             <div className={classes.list}>
+  //               {keyboardShortcuts.map((shortcut) => (
+  //                 <div className={classes.listItem} key={shortcut.command}>
+  //                   <span>{shortcut.command}</span>
+  //                   <span className={classes.commandKey}>
+  //                     {shortcut.platforms[platform.key]}
+  //                   </span>
+  //                 </div>
+  //               ))}
+  //             </div>
+  //           </div>
+  //         );
+  //       })}
+  //     </div>
+  //   </Modal>
+  // );
   return (
-    <Modal
-      data-testid="keyboard_shortcut_modal"
-      opened={isOpen}
-      onClose={onClose}
-      size={1030}
+    <Dialog
+      open={isKeyboardShortcutModalOpen}
+      onOpenChange={handleKeyboardShortcutModalOpen}
     >
-      <Button
-        data-testid="keyboard_shortcut-closebtn"
-        onClick={onClose}
-        className={classes.closeButton}
-      ></Button>
+      <DialogContent className="h-5/6 max-w-5xl">
+        <div data-testid="key_container" className="flex justify-center">
+          {platforms.map((platform) => {
+            return (
+              <div className="w-full" key={platform.key}>
+                <div className=" mb-4 text-2xl font-bold">
+                  <span className=" text-blue-500">For {platform.title}</span>
+                </div>
 
-      <div data-testid="key_container" className={classes.container}>
-        {platforms.map((platform) => {
-          return (
-            <div className={classes.column} key={platform.key}>
-              <div className={classes.title}>
-                For{" "}
-                <span className={classes.platformName}>{platform.title}</span>
+                <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 text-modal shadow-lg">
+                  {keyboardShortcuts.map((shortcut) => (
+                    <div
+                      className="flex w-full flex-row items-start justify-between rounded-sm p-6 shadow-lg"
+                      key={shortcut.command}
+                    >
+                      <span>{shortcut.command}</span>
+                      <span className="text-blue-500">
+                        {shortcut.platforms[platform.key]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
+            );
+          })}
+        </div>
 
-              <div className={classes.list}>
-                {keyboardShortcuts.map((shortcut) => (
-                  <div className={classes.listItem} key={shortcut.command}>
-                    <span>{shortcut.command}</span>
-                    <span className={classes.commandKey}>
-                      {shortcut.platforms[platform.key]}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Modal>
+        <DialogFooter>
+          <Button type="submit">Save changes</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
