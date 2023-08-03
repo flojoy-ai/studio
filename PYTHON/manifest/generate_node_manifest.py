@@ -42,6 +42,7 @@ class ManifestBuilder:
         self.inputs: list[Any] = []
         self.parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
+        self.pip_dependencies: Optional[list[dict[str, str]]] = None
 
         doc_parser = NumpydocParser()
         doc_parser.add_section(ParamSection("Inputs", "inputs"))
@@ -113,6 +114,10 @@ class ManifestBuilder:
         )
         return self
 
+    def with_pip_dependencies(self, deps: list[dict[str, str]]):
+        self.pip_dependencies = deps
+        return self
+
     def build(self):
         if self.inputs:
             self.manifest["inputs"] = self.inputs
@@ -120,6 +125,8 @@ class ManifestBuilder:
             self.manifest["parameters"] = self.parameters
         if self.outputs:
             self.manifest["outputs"] = self.outputs
+        if self.pip_dependencies:
+            self.manifest["pip_dependencies"] = self.pip_dependencies
 
         return self.manifest
 
@@ -141,31 +148,38 @@ class ManifestBuilder:
 
 
 def create_manifest(path: str) -> dict[str, Any]:
-    node_name, tree = make_manifest_ast(path)
+    node_name, init_func_name, tree = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
 
     func = getattr(module, node_name)
 
-    manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
-
     node_type = get_node_type(tree)
-    if node_type:
-        manifest["type"] = node_type
-
     pip_deps = get_pip_dependencies(tree)
+
+    mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
+    if node_type:
+        mb.with_type(node_type)
     if pip_deps:
-        manifest["pip_dependencies"] = pip_deps
+        mb.with_pip_dependencies(pip_deps)
+
+    populate_manifest(func, mb, node_name in SPECIAL_NODES)
+    manifest = mb.build()
+
+    print(init_func_name)
+    if init_func_name:
+        init_func = getattr(module, init_func_name)
+        init_params = get_init_func_params(init_func.func)
+        if init_params:
+            manifest["init_params"] = init_params
 
     return manifest
 
 
-def make_manifest_for(
-    func: Callable[..., Any], is_special_node: bool = False
-) -> dict[str, Any]:
-    mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
-
+def populate_manifest(
+    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False
+):
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
         populate_inputs(name, param, mb)
@@ -204,7 +218,7 @@ def make_manifest_for(
 
                 mb.with_output(attr, value, named=True)
 
-    return mb.build()
+    return mb
 
 
 def populate_inputs(
@@ -298,6 +312,58 @@ def populate_inputs(
             )
         if param_type != DefaultParams:
             mb.with_param(name, param_type, default_value)
+
+
+def get_init_func_params(init_func: Callable) -> dict:
+    sig = inspect.signature(init_func)
+    init_params = {}
+
+    def populate(name: str, param: Parameter):
+        if name == "node_id":
+            return
+        param_type = param.annotation
+
+        if is_union(param_type):
+            union_types = [t for t in get_union_types(param_type) if t != NoneType]
+            # If the union only contains 1 type, that means it was an Optional
+            # So we just recurse with the inner type.
+            if len(union_types) == 1:
+                inner_type = param_type.__args__[0]
+
+                # Recurse with the inner type, treating it as if the optional wasn't there
+                populate(
+                    name,
+                    Parameter(
+                        name,
+                        kind=param.kind,
+                        default=param.default,
+                        annotation=inner_type,
+                    ),
+                )
+                return
+        elif is_outer_type(param_type, Literal):
+            init_params[name] = {
+                "type": type_str(param_type),
+                "options": list(param_type.__args__),
+                "default": param.default if param.default is not param.empty else None,
+                "desc": None,
+            }
+        else:
+            if param_type not in ALLOWED_PARAM_TYPES and param_type != Array:
+                raise TypeError(
+                    f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or Array"
+                    f"got {param_type}"
+                )
+            init_params[name] = {
+                "type": type_str(param_type),
+                "default": param.default if param.default is not param.empty else None,
+                "desc": None,
+            }
+
+    for name, param in sig.parameters.items():
+        populate(name, param)
+
+    return init_params
 
 
 def is_special_type(param_type: Any):

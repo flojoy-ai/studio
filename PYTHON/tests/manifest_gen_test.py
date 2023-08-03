@@ -3,7 +3,7 @@ import os
 import pytest
 import unittest
 
-TEST_NODES_PATH = os.path.join(os.getcwd(), "tests", "manifest_test_nodes")
+TEST_NODES_PATH = os.path.join(os.getcwd(), "manifest_test_nodes")
 
 
 def get_manifest(filename: str):
@@ -398,6 +398,33 @@ class ManifestGenerationTest(unittest.TestCase):
                     "id": "output2",
                     "type": "OrderedTriple",
                     "desc": "Thing 2",
+                },
+            ],
+        }
+
+    def test_node_init(self):
+        manifest = get_manifest("node_init.py")
+        assert manifest == {
+            "name": "NODE_INIT",
+            "key": "NODE_INIT",
+            "type": "TEST_TYPE",
+            "parameters": {
+                "a": {"type": "int", "default": 0, "desc": None},
+            },
+            "init_params": {
+                "foo": {"type": "str", "default": None, "desc": None},
+                "bar": {"type": "int", "default": None, "desc": None},
+                "baz": {"type": "float", "default": None, "desc": None},
+                "quux": {"type": "bool", "default": None, "desc": None},
+                "asdf": {"type": "Array", "default": None, "desc": None},
+                "s": {"type": "str", "default": "hello", "desc": None},
+            },
+            "outputs": [
+                {
+                    "name": "default",
+                    "id": "default",
+                    "type": "OrderedPair",
+                    "desc": None,
                 },
             ],
         }
