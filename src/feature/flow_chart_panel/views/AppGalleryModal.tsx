@@ -18,7 +18,6 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
@@ -81,7 +80,6 @@ export const AppGalleryModal = () => {
           App Gallery
         </Button>
       </DialogTrigger>
-      <DialogClose onClick={setClose}></DialogClose>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
