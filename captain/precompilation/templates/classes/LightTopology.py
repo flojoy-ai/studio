@@ -5,6 +5,10 @@ from typing import Any, Callable, Dict, Tuple
 from flojoy import get_next_directions
 
 
+# NOTE FOR DEVELOPERS:
+# do not use type hints with generic types (e.g. list[str])
+# and do not use type hints at all in variables, acceptable for parameters.
+# To be sure, use python 3.4 interpreter to check the type hints
 class LightTopology:
     """
     Lighter version of the Topology class. Used for the precompilation process.
@@ -42,8 +46,8 @@ class LightTopology:
             self.run_job(next_job)
         return self
 
-    def get_initial_source_nodes(self) -> list[str]:
-        next_jobs: list[str] = []
+    def get_initial_source_nodes(self) -> list:
+        next_jobs = []
         for job_id in self.working_graph.nodes:
             if self.original_graph.in_degree(job_id) == 0:
                 self.queued_amt += 1
@@ -51,8 +55,8 @@ class LightTopology:
         return next_jobs
 
     def run_job(self, job_id: str):
-        node: dict = self.working_graph.nodes[job_id]
-        previous_jobs: list[dict] = self.get_job_dependencies_with_label(
+        node = self.working_graph.nodes[job_id]
+        previous_jobs = self.get_job_dependencies_with_label(
             job_id, original=True
         )
         job = {
@@ -64,10 +68,10 @@ class LightTopology:
         }
         func = self.node_id_to_func.get(job_id, None)
         if func is None:
-            raise ValueError(f"Function {job_id} not found in imported functions")
+            raise ValueError("Function %s not found in imported functions" % job_id)
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
-        job_result: dict = func(**job)
+        job_result = func(**job)
         self.res_store[job_id] = job_result
         next_jobs = self.process_job_result(job_id, job_result)
         if next_jobs is None:
@@ -81,7 +85,7 @@ class LightTopology:
             set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
         )
 
-    def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
+    def get_edges_by_label(self, job_id: str, label: str) -> list:
         edges = self.working_graph.get_edges(job_id)
         edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
         edges = [
@@ -99,9 +103,9 @@ class LightTopology:
             self.remove_dependency(edge[0], edge[1])
 
     def remove_edges_and_get_next(
-        self, job_id: str, next_nodes: set[str], label_direction: str = "default"
+        self, job_id: str, next_nodes: set, label_direction: str = "default"
     ):
-        successors: list[str] = list(self.working_graph.successors(job_id))
+        successors = list(self.working_graph.successors(job_id))
         self.remove_dependencies(job_id, label_direction)
         next_nodes = set()
         for d_id in successors:
@@ -125,7 +129,7 @@ class LightTopology:
         ]
         self.working_graph.add_edges_from(original_edges)
 
-    def process_job_result(self, job_id: str, job_result) -> list[str] | None:
+    def process_job_result(self, job_id: str, job_result) -> list:
         self.queued_amt -= 1
         next_nodes_from_dependencies = set()
         next_directions = get_next_directions(job_result)
@@ -156,7 +160,7 @@ class LightTopology:
 
     def get_job_dependencies_with_label(
         self, job_id: str, original: bool = True
-    ) -> list[dict[str, str]]:
+    ) -> list:
         graph = self.get_graph(original)
         try:
             deps = []

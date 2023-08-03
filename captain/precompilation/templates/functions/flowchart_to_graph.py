@@ -3,11 +3,11 @@ from typing import Any
 from captain.precompilation.templates.classes.DiGraph import DiGraph
 
 
-def flowchart_to_graph(flowchart: dict[str, Any]):
+def flowchart_to_graph(flowchart: dict):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
-    nx_graph: DiGraph = DiGraph()
-    dict_node_inputs: dict[str, list[Any]] = dict()
+    nx_graph = DiGraph()
+    dict_node_inputs = dict()
     for i in range(len(elems)):
         el = elems[i]
         node_id = el["id"]

@@ -371,7 +371,7 @@ class FlojoyScriptBuilder:
         '{jobset_id}',\n\
         node_id_to_func,\n\
         {self.is_ci},\n\
-        ).run().write_results()\
+        ).run()\
         "
         )
         #   ----------------------------------
