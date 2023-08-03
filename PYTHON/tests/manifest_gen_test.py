@@ -3,7 +3,7 @@ import os
 import pytest
 import unittest
 
-TEST_NODES_PATH = os.path.join(os.getcwd(), "manifest_test_nodes")
+TEST_NODES_PATH = os.path.join(os.getcwd(), "tests", "manifest_test_nodes")
 
 
 def get_manifest(filename: str):
