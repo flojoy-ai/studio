@@ -10,6 +10,8 @@ import { notifications } from "@mantine/notifications";
 import { Check, Pencil, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { ParamList } from "./ParamList";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -24,6 +26,8 @@ const NodeEditModal = ({
   nodes,
   setNodes,
 }: NodeEditModalProps) => {
+  const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
+    useFlowChartGraph();
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
   const { setIsEditMode, nodeParamChanged } = useFlowChartState();
@@ -118,39 +122,28 @@ const NodeEditModal = ({
 
         <div className="">
           <div key={node.id}>
+            {node.data.initCtrls &&
+              Object.keys(node.data.initCtrls).length > 0 && (
+                <ParamList
+                  nodeId={node.id}
+                  ctrls={node.data.initCtrls}
+                  updateFunc={updateInitCtrlInputDataForNode}
+                />
+              )}
             {Object.keys(node.data.ctrls).length > 0 ? (
-              <>
-                {Object.entries(node.data.ctrls).map(([name, param]) => (
-                  <div
-                    key={node.id + name}
-                    id="undrag"
-                    data-testid="node-edit-modal-params"
-                  >
-                    <ParamTooltip
-                      param={{ name, type: param.type, desc: param.desc }}
-                      offsetX={30}
-                      offsetY={0}
-                    >
-                      <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
-                    </ParamTooltip>
-                    <ParamField
-                      nodeId={node.id}
-                      nodeCtrls={node.data.ctrls[name]}
-                      type={param.type as ParamValueType}
-                      value={node.data.ctrls[name].value}
-                      options={param.options}
-                      nodeReferenceOptions={nodeReferenceOptions}
-                    />
-                  </div>
-                ))}
-                {nodeParamChanged && (
-                  <div className="mt-2 text-sm">
-                    Replay the flow for the changes to take effect
-                  </div>
-                )}
-              </>
+              <ParamList
+                nodeId={node.id}
+                ctrls={node.data.ctrls}
+                updateFunc={updateCtrlInputDataForNode}
+                nodeReferenceOptions={nodeReferenceOptions}
+              />
             ) : (
               <div className="mt-2 text-sm">This node takes no parameters</div>
+            )}
+            {nodeParamChanged && (
+              <div className="mt-2 text-sm">
+                Replay the flow for the changes to take effect
+              </div>
             )}
           </div>
         </div>

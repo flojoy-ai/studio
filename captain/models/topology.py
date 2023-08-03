@@ -95,11 +95,13 @@ class Topology:
                 func = getattr(module, cmd)
 
             # check if the func has an init function, and initialize it if it does to the specified node id
+            init_ctrls = {
+                name: ctrl["value"] for name, ctrl in node["init_ctrls"].items()
+            }
             try:
                 init_func = get_node_init_function(func)
                 init_func.run(
-                    node_id,
-                    node["ctrls"],
+                    node_id, **init_ctrls
                 )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass

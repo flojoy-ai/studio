@@ -411,7 +411,7 @@ class ManifestGenerationTest(unittest.TestCase):
             "parameters": {
                 "a": {"type": "int", "default": 0, "desc": None},
             },
-            "init_params": {
+            "init_parameters": {
                 "foo": {"type": "str", "default": None, "desc": None},
                 "bar": {"type": "int", "default": None, "desc": None},
                 "baz": {"type": "float", "default": None, "desc": None},

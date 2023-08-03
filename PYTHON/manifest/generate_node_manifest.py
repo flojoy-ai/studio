@@ -167,12 +167,11 @@ def create_manifest(path: str) -> dict[str, Any]:
     populate_manifest(func, mb, node_name in SPECIAL_NODES)
     manifest = mb.build()
 
-    print(init_func_name)
     if init_func_name:
         init_func = getattr(module, init_func_name)
         init_params = get_init_func_params(init_func.func)
         if init_params:
-            manifest["init_params"] = init_params
+            manifest["init_parameters"] = init_params
 
     return manifest
 
