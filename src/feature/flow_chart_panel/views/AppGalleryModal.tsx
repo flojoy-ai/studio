@@ -18,12 +18,19 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
-export const AppGalleryModal = () => {
-  const { isGalleryOpen, setIsGalleryOpen } = useFlowChartState();
+
+type AppGalleryModalProps = {
+  isGalleryOpen: boolean;
+  setIsGalleryOpen: (open: boolean) => void;
+};
+
+export const AppGalleryModal = ({
+  isGalleryOpen,
+  setIsGalleryOpen,
+}: AppGalleryModalProps) => {
   const [selectFields, setSelect] = useState([]);
   const [data, setData] = useState<object[]>([]);
 
@@ -69,9 +76,6 @@ export const AppGalleryModal = () => {
     setIsGalleryOpen(true);
   };
 
-  const setClose = () => {
-    setIsGalleryOpen(false);
-  };
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
@@ -100,7 +104,14 @@ export const AppGalleryModal = () => {
         </DialogHeader>
         <ScrollArea className="h-full w-full">
           {subjectKeyList.map((sub, key) => {
-            return <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />;
+            return (
+              <AppGalleryLayout
+                subjectKey={sub}
+                key={key}
+                topKey={key}
+                setIsGalleryOpen={setIsGalleryOpen}
+              />
+            );
           })}
         </ScrollArea>
       </DialogContent>

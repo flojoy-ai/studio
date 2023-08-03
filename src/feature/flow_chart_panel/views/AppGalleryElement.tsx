@@ -5,7 +5,6 @@ import { ElementsData } from "flojoy/types";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 export interface AppGalleryElementProps {
   linkText: string;
@@ -14,6 +13,7 @@ export interface AppGalleryElementProps {
   imagePath: string;
   youtubeLink?: string;
   appPath?: string;
+  setIsGalleryOpen: (open: boolean) => void;
 }
 export const AppGalleryElement = ({
   linkText,
@@ -22,8 +22,8 @@ export const AppGalleryElement = ({
   imagePath,
   youtubeLink = "https://www.youtube.com",
   appPath = "flojoy",
+  setIsGalleryOpen,
 }: AppGalleryElementProps) => {
-  const { setIsGalleryOpen } = useFlowChartState();
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
