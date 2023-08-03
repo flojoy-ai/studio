@@ -142,7 +142,7 @@ const KeyboardShortcutModal = ({
       open={isKeyboardShortcutModalOpen}
       onOpenChange={handleKeyboardShortcutModalOpen}
     >
-      <DialogContent className="h-5/6 max-w-5xl">
+      <DialogContent className="h-[560px] max-w-5xl">
         <DialogHeader className="mb-2"></DialogHeader>
         <ScrollArea>
           <div data-testid="key_container" className="flex justify-center">
@@ -157,7 +157,7 @@ const KeyboardShortcutModal = ({
                   <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 text-gray-200 shadow-lg">
                     {keyboardShortcuts.map((shortcut) => (
                       <div
-                        className="flex w-full flex-row items-start justify-between rounded-sm p-4 shadow-xl"
+                        className="flex w-full flex-row items-start justify-between rounded-sm p-3 shadow-xl"
                         key={shortcut.command}
                       >
                         <span>{shortcut.command}</span>
