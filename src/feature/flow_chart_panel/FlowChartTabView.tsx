@@ -313,6 +313,7 @@ const FlowChartTab = () => {
               position: "fixed",
               height: "100%",
               width: "50%",
+              textAlign: "center",
             }}
             proOptions={proOptions}
             nodes={nodes}
