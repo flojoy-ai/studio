@@ -181,28 +181,25 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
 
 const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const {
     states: { setProgramResults },
   } = useSocket();
 
-  const [openFileSelector, { filesContent }] = useFilePicker({
+  const [openFileSelector] = useFilePicker({
     readAs: "Text",
-    accept: ".txt",
+    accept: [".txt", ".json"],
     maxFileSize: 50,
-  });
-
-  // TODO: Find out why this keeps firing when moving nodes
-  useEffect(() => {
-    // there will be only single file in the filesContent, for each will loop only once
-    filesContent.forEach((file) => {
-      const parsedFileContent = JSON.parse(file.content);
+    onFilesRejected: ({ errors }) => {
+      console.error("Errors when trying to load file: ", errors);
+    },
+    onFilesSuccessfulySelected: ({ filesContent }) => {
+      // Just pick the first file that was selected
+      const parsedFileContent = JSON.parse(filesContent[0].content);
       const flow = parsedFileContent.rfInstance;
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
       loadFlowExportObject(flow);
       setProgramResults([]);
-    });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
+    },
+  });
 
   return (
     <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
