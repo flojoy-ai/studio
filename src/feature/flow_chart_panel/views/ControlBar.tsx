@@ -10,7 +10,7 @@ import {
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import localforage from "localforage";
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
@@ -366,15 +366,15 @@ const ControlBar = () => {
   const saveAsDisabled = !("showSaveFilePicker" in window);
   const exportResultDisabled = programResults.length == 0;
 
-  const handleKeyboardShortcutModalClose = useCallback(() => {
-    setIsKeyboardShortcutOpen(false);
-  }, [setIsKeyboardShortcutOpen]);
-
   return (
     <div className={classes.controls}>
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
+      />
+      <KeyboardShortcutModal
+        handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
+        isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
       />
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
@@ -391,18 +391,11 @@ const ControlBar = () => {
         <DropdownMenuContent>
           <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
           <SaveButton saveFile={saveFile} />
-
           <ExportResultButton
             results={programResults}
             disabled={exportResultDisabled}
           />
           <SaveFlowChartBtn />
-          <DropdownMenuItem
-            data-testid="btn-keyboardshortcut"
-            onClick={() => setIsKeyboardShortcutOpen(true)}
-          >
-            Keyboard Shortcut
-          </DropdownMenuItem>
           <LoadButton />
         </DropdownMenuContent>
       </DropdownMenu>
@@ -426,14 +419,16 @@ const ControlBar = () => {
           <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
             Environment Variables
           </DropdownMenuItem>
+          <DropdownMenuItem
+            data-testid="btn-keyboardshortcut"
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+          >
+            Keyboard Shortcut
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <DarkModeToggle />
-      <KeyboardShortcutModal
-        isOpen={isKeyboardShortcutOpen}
-        onClose={handleKeyboardShortcutModalClose}
-      />
 
       <SettingsModal
         isOpen={isSettingsOpen}
