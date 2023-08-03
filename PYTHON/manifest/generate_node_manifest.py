@@ -41,6 +41,7 @@ class ManifestBuilder:
         self.manifest: dict[str, Any] = {}
         self.inputs: list[Any] = []
         self.parameters: dict[str, Any] = {}
+        self.init_parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
         self.pip_dependencies: Optional[list[dict[str, str]]] = None
 
@@ -103,6 +104,23 @@ class ManifestBuilder:
         }
         return self
 
+    def with_init_param(self, name: str, param_type: Type, default: Any):
+        self.init_parameters[name] = {
+            "type": type_str(param_type),
+            "default": default,
+            "desc": None,
+        }
+        return self
+
+    def with_init_select(self, name: str, options: list[Any], default: Any):
+        self.init_parameters[name] = {
+            "type": "select",
+            "options": options,
+            "default": default,
+            "desc": None,
+        }
+        return self
+
     def with_output(self, name: str, output_type: Type[Any], named: bool = False):
         self.outputs.append(
             {
@@ -123,6 +141,8 @@ class ManifestBuilder:
             self.manifest["inputs"] = self.inputs
         if self.parameters:
             self.manifest["parameters"] = self.parameters
+        if self.init_parameters:
+            self.manifest["init_parameters"] = self.init_parameters
         if self.outputs:
             self.manifest["outputs"] = self.outputs
         if self.pip_dependencies:
@@ -165,15 +185,12 @@ def create_manifest(path: str) -> dict[str, Any]:
         mb.with_pip_dependencies(pip_deps)
 
     populate_manifest(func, mb, node_name in SPECIAL_NODES)
-    manifest = mb.build()
 
     if init_func_name:
         init_func = getattr(module, init_func_name)
-        init_params = get_init_func_params(init_func.func)
-        if init_params:
-            manifest["init_parameters"] = init_params
+        populate_init_params(init_func.func, mb)
 
-    return manifest
+    return mb.build()
 
 
 def populate_manifest(
@@ -222,7 +239,7 @@ def populate_manifest(
 
 def populate_inputs(
     name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
-) -> None:
+):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
 
@@ -313,14 +330,14 @@ def populate_inputs(
             mb.with_param(name, param_type, default_value)
 
 
-def get_init_func_params(init_func: Callable) -> dict:
+def populate_init_params(init_func: Callable, mb: ManifestBuilder):
     sig = inspect.signature(init_func)
-    init_params = {}
 
     def populate(name: str, param: Parameter):
         if name == "node_id":
             return
         param_type = param.annotation
+        default = param.default if param.default is not param.empty else None
 
         if is_union(param_type):
             union_types = [t for t in get_union_types(param_type) if t != NoneType]
@@ -341,28 +358,24 @@ def get_init_func_params(init_func: Callable) -> dict:
                 )
                 return
         elif is_outer_type(param_type, Literal):
-            init_params[name] = {
-                "type": type_str(param_type),
-                "options": list(param_type.__args__),
-                "default": param.default if param.default is not param.empty else None,
-                "desc": None,
-            }
+            mb.with_init_select(
+                param_type,
+                list(param_type.__args__),
+                default,
+            )
         else:
             if param_type not in ALLOWED_PARAM_TYPES and param_type != Array:
                 raise TypeError(
                     f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or Array"
                     f"got {param_type}"
                 )
-            init_params[name] = {
-                "type": type_str(param_type),
-                "default": param.default if param.default is not param.empty else None,
-                "desc": None,
-            }
+            mb.with_init_param(name, param_type, default)
 
     for name, param in sig.parameters.items():
+        print("Populating", name, param)
         populate(name, param)
 
-    return init_params
+    return mb
 
 
 def is_special_type(param_type: Any):
