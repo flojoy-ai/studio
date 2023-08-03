@@ -1,12 +1,10 @@
-// import { Image, Flex, UnstyledButton } from "@mantine/core";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { useFlowChartState } from "@hooks/useFlowChartState";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 export interface AppGalleryElementProps {
   linkText: string;
@@ -15,6 +13,7 @@ export interface AppGalleryElementProps {
   imagePath: string;
   youtubeLink?: string;
   appPath?: string;
+  setIsGalleryOpen: (open: boolean) => void;
 }
 export const AppGalleryElement = ({
   linkText,
@@ -23,10 +22,10 @@ export const AppGalleryElement = ({
   imagePath,
   youtubeLink = "https://www.youtube.com",
   appPath = "flojoy",
+  setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
-  const { setIsGalleryOpen } = useFlowChartState();
 
   const onClick = async () => {
     const raw = await import(`../../../utils/app-gallery-apps/${appPath}.json`);

@@ -18,11 +18,19 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { DialogClose } from "@radix-ui/react-dialog";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
-export const AppGalleryModal = () => {
+
+type AppGalleryModalProps = {
+  isGalleryOpen: boolean;
+  setIsGalleryOpen: (open: boolean) => void;
+};
+
+export const AppGalleryModal = ({
+  isGalleryOpen,
+  setIsGalleryOpen,
+}: AppGalleryModalProps) => {
   const [selectFields, setSelect] = useState([]);
   const [data, setData] = useState<object[]>([]);
 
@@ -64,15 +72,18 @@ export const AppGalleryModal = () => {
     setData(raw);
   };
 
+  const setOpen = () => {
+    setIsGalleryOpen(true);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-2" onClick={setOpen}>
           <LayoutGrid />
           App Gallery
         </Button>
       </DialogTrigger>
-      <DialogClose className="bg-black" />
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
@@ -93,7 +104,14 @@ export const AppGalleryModal = () => {
         </DialogHeader>
         <ScrollArea className="h-full w-full">
           {subjectKeyList.map((sub, key) => {
-            return <AppGalleryLayout subjectKey={sub} key={key} topKey={key} />;
+            return (
+              <AppGalleryLayout
+                subjectKey={sub}
+                key={key}
+                topKey={key}
+                setIsGalleryOpen={setIsGalleryOpen}
+              />
+            );
           })}
         </ScrollArea>
       </DialogContent>
