@@ -16,47 +16,6 @@ export const NodeSettingsModal = ({
   isNodeSettingsModalOpen,
 }: NodeSettingsModalProps) => {
   const { settingsList, updateSettingList } = useSettings();
-  // return (
-  //   <Modal.Root
-  //     data-testid="node-settings-modal"
-  //     opened={isOpen}
-  //     onClose={onClose}
-  //     size={1030}
-  //   >
-  //     <Modal.Overlay className={classes.overlay} />
-  //     <Modal.Content
-  //       data-testid="settings-container"
-  //       className={classes.container}
-  //     >
-  //       <Modal.CloseButton
-  //         data-testid="settings-close-btn"
-  //         className={classes.closeButton}
-  //       ></Modal.CloseButton>
-  //       <div className={classes.list}>
-  //         {settingsList.map((setting) => (
-  //           <div
-  //             key={`settings-modal-${setting.key}`}
-  //             className={classes.listItem}
-  //           >
-  //             <div>{setting.title}:</div>
-  //             {setting.type === "numerical-input" && (
-  //               <Input
-  //                 data-testid="settings-input"
-  //                 placeholder="Search"
-  //                 radius="sm"
-  //                 type="number"
-  //                 value={setting.value}
-  //                 onChange={(e) =>
-  //                   updateSettingList(setting.key, Number(e.target.value))
-  //                 }
-  //               />
-  //             )}
-  //           </div>
-  //         ))}
-  //       </div>
-  //     </Modal.Content>
-  //   </Modal.Root>
-  // );
 
   return (
     <Dialog
