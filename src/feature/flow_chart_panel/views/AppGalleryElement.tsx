@@ -1,4 +1,4 @@
-import { Image, Flex, UnstyledButton } from "@mantine/core";
+// import { Image, Flex, UnstyledButton } from "@mantine/core";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@hooks/useFlowChartState";
@@ -6,6 +6,7 @@ import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export interface AppGalleryElementProps {
   linkText: string;
@@ -36,23 +37,35 @@ export const AppGalleryElement = ({
   };
 
   return (
-    <UnstyledButton onClick={onClick} className="mr-auto">
-      <Flex className="w-9/12 flex-wrap text-left">
-        <Image height={"15vh"} width={"12vw"} fit="fill" src={imagePath} />
-        <div className="mt-2 flex w-full">
-          <h4 className="mt-1 w-full">{elementTitle}</h4>
-          <Button variant="ghost" size="icon" className="mt-1.5 h-4">
-            <YoutubeIcon target="_blank" href={youtubeLink} />
-          </Button>
-        </div>
-        <a
-          href={link}
-          target="_blank"
-          className="mt-1 w-full text-sky-500 no-underline"
+    <>
+      <div className="relative w-full">
+        <Button
+          onClick={onClick}
+          className="relative mr-auto h-2/3 hover:bg-white dark:hover:bg-black"
+          variant="ghost"
         >
-          {linkText}
-        </a>
-      </Flex>
-    </UnstyledButton>
+          <div className="h-full w-full text-left">
+            <Avatar className="h-10/12 w-40">
+              <AvatarImage src={imagePath} />
+            </Avatar>
+            <div className="mt-2 flex w-full">
+              <h4 className="mt-1 w-full">{elementTitle}</h4>
+              <Button variant="ghost" size="icon" className="mt-1.5 h-4">
+                <YoutubeIcon target="_blank" href={youtubeLink} />
+              </Button>
+            </div>
+          </div>
+        </Button>
+        <div className="mt-2 p-3">
+          <a
+            href={link}
+            target="_blank"
+            className="mt-1 text-sky-500 no-underline"
+          >
+            {linkText}
+          </a>
+        </div>
+      </div>
+    </>
   );
 };
