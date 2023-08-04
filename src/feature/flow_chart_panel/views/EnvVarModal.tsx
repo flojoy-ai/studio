@@ -110,6 +110,7 @@ const EnvVarModal = ({
               Key:
             </Label>
             <Input
+              data-testid="EnvVarKeyInput"
               id="EnvVarKey"
               type="text"
               placeholder="e.g CLIENT_KEY"
@@ -127,6 +128,7 @@ const EnvVarModal = ({
               Value:
             </Label>
             <Input
+              data-testid="EnvVarValueInput"
               id="EnvVarValue"
               type="password"
               value={envVarValue || ""}
@@ -137,7 +139,9 @@ const EnvVarModal = ({
           </div>
         </div>
         <DialogFooter className="px-3">
-          <Button onClick={handleSendEnvVar}>Add</Button>
+          <Button data-testid="envModalAddBtn" onClick={handleSendEnvVar}>
+            Add
+          </Button>
         </DialogFooter>
         <hr className="mb-3 mt-1.5 h-3 " />
         <div className="-mt-5 max-h-80 ">
