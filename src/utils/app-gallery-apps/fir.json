@@ -22,12 +22,7 @@
             "filter_type": {
               "type": "select",
               "default": "lowpass",
-              "options": [
-                "lowpass",
-                "highpass",
-                "bandpass",
-                "bandstop"
-              ],
+              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
               "functionName": "FIR",
               "param": "filter_type",
               "value": "bandpass"
@@ -137,12 +132,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -225,12 +215,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -313,12 +298,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -401,12 +381,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -489,12 +464,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"

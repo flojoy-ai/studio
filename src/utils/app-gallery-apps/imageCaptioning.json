@@ -22,13 +22,7 @@
             "file_type": {
               "type": "select",
               "default": "Image",
-              "options": [
-                "Image",
-                "JSON",
-                "CSV",
-                "Excel",
-                "XML"
-              ],
+              "options": ["Image", "JSON", "CSV", "Excel", "XML"],
               "functionName": "LOCAL_FILE",
               "param": "file_type",
               "value": "Image"

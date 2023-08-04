@@ -148,11 +148,7 @@
             "distribution": {
               "type": "select",
               "default": "normal",
-              "options": [
-                "normal",
-                "uniform",
-                "poisson"
-              ],
+              "options": ["normal", "uniform", "poisson"],
               "functionName": "RAND",
               "param": "distribution",
               "value": "normal"

@@ -29,12 +29,7 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": [
-                "sine",
-                "square",
-                "triangle",
-                "sawtooth"
-              ],
+              "options": ["sine", "square", "triangle", "sawtooth"],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sawtooth"
@@ -205,12 +200,7 @@
             "btype": {
               "type": "select",
               "default": "lowpass",
-              "options": [
-                "lowpass",
-                "highpass",
-                "bandpass",
-                "bandstop"
-              ],
+              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
               "functionName": "BUTTER",
               "param": "btype",
               "value": "lowpass"
