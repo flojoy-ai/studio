@@ -8,7 +8,7 @@ import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -52,12 +52,12 @@ localforage.config({
 });
 
 const FlowChartTab = () => {
+  const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+
   const {
     isSidebarOpen,
     setIsSidebarOpen,
     setRfInstance,
-    isGalleryOpen,
-    setIsGalleryOpen,
     setIsEditMode,
     setIsExpandMode,
   } = useFlowChartState();
@@ -103,11 +103,6 @@ const FlowChartTab = () => {
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen]
-  );
-
-  const toggleGallery = useCallback(
-    () => setIsGalleryOpen((prev) => !prev),
-    [setIsGalleryOpen]
   );
 
   const handleNodeRemove = useCallback(
@@ -263,7 +258,10 @@ const FlowChartTab = () => {
           <div>Add Python Node</div>
         </Button>
         <div className="ml-2">
-          <AppGalleryModal />
+          <AppGalleryModal
+            isGalleryOpen={isGalleryOpen}
+            setIsGalleryOpen={setIsGalleryOpen}
+          />
         </div>
         <div className="grow" />
         <Button

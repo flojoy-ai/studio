@@ -10,7 +10,7 @@ import {
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import localforage from "localforage";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
@@ -18,7 +18,7 @@ import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
 import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import { SettingsModal } from "./SettingsModal";
+import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -33,6 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import WatchBtn from "../components/WatchBtn";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -256,7 +257,7 @@ const ControlBar = () => {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
@@ -373,6 +374,13 @@ const ControlBar = () => {
         handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
         isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
       />
+      <NodeSettingsModal
+        handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
+        isNodeSettingsModalOpen={isNodeSettingsOpen}
+      />
+
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
       ) : (
@@ -380,7 +388,7 @@ const ControlBar = () => {
       )}
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger data-testid="dropdown-button">
           <Button variant="outline" size="sm" id="file-btn">
             File
           </Button>
@@ -422,15 +430,16 @@ const ControlBar = () => {
           >
             Keyboard Shortcut
           </DropdownMenuItem>
+          <DropdownMenuItem
+            data-testid="btn-node-settings"
+            onClick={() => setIsNodeSettingsOpen(true)}
+          >
+            Node Settings
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <DarkModeToggle />
-
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-      />
     </div>
   );
 };

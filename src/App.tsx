@@ -18,6 +18,7 @@ import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
+import { ThemeProvider } from "@src/components/theme-provider";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -70,32 +71,37 @@ const App = () => {
   useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
-    <ColorSchemeProvider
-      colorScheme={theme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={theme === "dark" ? darkTheme : lightTheme}
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ColorSchemeProvider
+        colorScheme={theme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <div className={theme === "dark" ? "dark" : "light"} id="tw-theme-root">
-          <GlobalStyles />
-          <PreJobOperationShow
-            opened={isPrejobModalOpen}
-            outputs={preJobOperation.output}
-            close={closePreJobModal}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={theme === "dark" ? darkTheme : lightTheme}
+        >
+          <div
+            className={theme === "dark" ? "dark" : "light"}
+            id="tw-theme-root"
+          >
+            <GlobalStyles />
+            <PreJobOperationShow
+              opened={isPrejobModalOpen}
+              outputs={preJobOperation.output}
+              close={closePreJobModal}
             />
-          </Routes>
-        </div>
-      </MantineProvider>
-    </ColorSchemeProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<FlowChartTab />}
+                errorElement={<ErrorBoundary />}
+              />
+            </Routes>
+          </div>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </ThemeProvider>
   );
 };
 

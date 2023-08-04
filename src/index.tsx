@@ -13,7 +13,6 @@ import "reactflow/dist/base.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@src/ErrorPage";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./themeContext";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -25,9 +24,7 @@ root.render(
   <BrowserRouter>
     <ErrorBoundary fallbackRender={fallbackRender}>
       <SocketContextProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
+        <App />
       </SocketContextProvider>
     </ErrorBoundary>
   </BrowserRouter>

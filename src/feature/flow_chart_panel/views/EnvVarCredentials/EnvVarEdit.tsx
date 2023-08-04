@@ -12,13 +12,19 @@ import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
 import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import { ChangeEvent, useState } from "react";
+import { toast } from "sonner";
 
 export interface EnvVarCredentialsEditInfoProps {
   credentialKey: string;
+  fetchCredentials: () => void;
 }
 
-const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
+const EnvVarEdit = ({
+  credentialKey,
+  fetchCredentials,
+}: EnvVarCredentialsEditInfoProps) => {
   const [editEnv, setEditEnv] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditEnv(e.target.value);
@@ -27,12 +33,17 @@ const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
   const handleEdit = () => {
     postEnvironmentVariable({ key: credentialKey, value: editEnv });
     setEditEnv("");
+    fetchCredentials();
+    setOpen(false);
+    toast("Environment variable edited", { duration: 5000 });
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="h-full w-full border-0">
-        <Button variant="outline">Edit</Button>
+        <Button variant="outline" onClick={() => setOpen(true)}>
+          Edit
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
