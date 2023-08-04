@@ -135,7 +135,7 @@ export const AppGallerySearch = ({ items }) => {
   };
 
   const displayIconStyle = focus
-    ? "text-accent1-hover"
+    ? "text-stone-300"
     : "incline-flex text-stone-500";
 
   useEffect(() => {

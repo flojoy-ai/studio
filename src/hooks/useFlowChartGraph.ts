@@ -85,7 +85,7 @@ export const useFlowChartGraph = () => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        if (node.data.func === "CONSTANT") {
+        if (node.data.func === "CONSTANT" && inputData.param === "constant") {
           node.data.ctrls[inputData.param].value = inputData.value;
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
         } else {

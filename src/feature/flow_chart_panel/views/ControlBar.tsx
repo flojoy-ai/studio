@@ -10,15 +10,15 @@ import {
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import localforage from "localforage";
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
-import { Edge, Node, ReactFlowJsonObject } from "reactflow";
+import { Edge, Node, ReactFlowJsonObject, isNode } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
 import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import { SettingsModal } from "./SettingsModal";
+import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -181,28 +181,25 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
 
 const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const {
     states: { setProgramResults },
   } = useSocket();
 
-  const [openFileSelector, { filesContent }] = useFilePicker({
+  const [openFileSelector] = useFilePicker({
     readAs: "Text",
-    accept: ".txt",
+    accept: [".txt", ".json"],
     maxFileSize: 50,
-  });
-
-  // TODO: Find out why this keeps firing when moving nodes
-  useEffect(() => {
-    // there will be only single file in the filesContent, for each will loop only once
-    filesContent.forEach((file) => {
-      const parsedFileContent = JSON.parse(file.content);
+    onFilesRejected: ({ errors }) => {
+      console.error("Errors when trying to load file: ", errors);
+    },
+    onFilesSuccessfulySelected: ({ filesContent }) => {
+      // Just pick the first file that was selected
+      const parsedFileContent = JSON.parse(filesContent[0].content);
       const flow = parsedFileContent.rfInstance;
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
       loadFlowExportObject(flow);
       setProgramResults([]);
-    });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
+    },
+  });
 
   return (
     <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
@@ -259,7 +256,7 @@ const ControlBar = () => {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
   const { settingsList } = useSettings();
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
@@ -366,15 +363,19 @@ const ControlBar = () => {
   const saveAsDisabled = !("showSaveFilePicker" in window);
   const exportResultDisabled = programResults.length == 0;
 
-  const handleKeyboardShortcutModalClose = useCallback(() => {
-    setIsKeyboardShortcutOpen(false);
-  }, [setIsKeyboardShortcutOpen]);
-
   return (
     <div className={classes.controls}>
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
+      />
+      <KeyboardShortcutModal
+        handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
+        isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
+      />
+      <NodeSettingsModal
+        handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
+        isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
@@ -391,18 +392,11 @@ const ControlBar = () => {
         <DropdownMenuContent>
           <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
           <SaveButton saveFile={saveFile} />
-
           <ExportResultButton
             results={programResults}
             disabled={exportResultDisabled}
           />
           <SaveFlowChartBtn />
-          <DropdownMenuItem
-            data-testid="btn-keyboardshortcut"
-            onClick={() => setIsKeyboardShortcutOpen(true)}
-          >
-            Keyboard Shortcut
-          </DropdownMenuItem>
           <LoadButton />
         </DropdownMenuContent>
       </DropdownMenu>
@@ -426,19 +420,22 @@ const ControlBar = () => {
           <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
             Environment Variables
           </DropdownMenuItem>
+          <DropdownMenuItem
+            data-testid="btn-keyboardshortcut"
+            onClick={() => setIsKeyboardShortcutOpen(true)}
+          >
+            Keyboard Shortcut
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            data-testid="btn-node-settings"
+            onClick={() => setIsNodeSettingsOpen(true)}
+          >
+            Node Settings
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <DarkModeToggle />
-      <KeyboardShortcutModal
-        isOpen={isKeyboardShortcutOpen}
-        onClose={handleKeyboardShortcutModalClose}
-      />
-
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-      />
     </div>
   );
 };
