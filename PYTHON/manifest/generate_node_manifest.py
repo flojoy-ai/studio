@@ -372,7 +372,6 @@ def populate_init_params(init_func: Callable, mb: ManifestBuilder):
             mb.with_init_param(name, param_type, default)
 
     for name, param in sig.parameters.items():
-        print("Populating", name, param)
         populate(name, param)
 
     return mb
