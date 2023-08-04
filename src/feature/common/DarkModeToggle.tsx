@@ -6,16 +6,13 @@ import { useState } from "react";
 
 export const DarkModeToggle = () => {
   const { toggleColorScheme } = useMantineColorScheme();
-  const { setTheme } = useTheme();
-  const [mode, setMode] = useState<string>("dark");
+  const { theme, setTheme } = useTheme();
 
   const onClick = () => {
-    if (mode === "dark") {
+    if (theme === "dark") {
       setTheme("light");
-      setMode("light");
     } else {
       setTheme("dark");
-      setMode("dark");
     }
   };
 
@@ -29,7 +26,7 @@ export const DarkModeToggle = () => {
       }}
       data-testid="darkmode-toggle"
     >
-      {mode === "dark" ? (
+      {theme === "dark" ? (
         <Moon className="stroke-accent1" />
       ) : (
         <Sun className="stroke-accent1" />
