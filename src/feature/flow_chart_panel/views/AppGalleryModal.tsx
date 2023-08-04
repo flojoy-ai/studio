@@ -31,8 +31,8 @@ export const AppGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
 }: AppGalleryModalProps) => {
-  const [selectFields, setSelect] = useState([]);
-  const [data, setData] = useState<object[]>([]);
+  const [selectFields, setSelectFields] = useState([]);
+  const [searchData, setSearchData] = useState<object[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,8 +77,11 @@ export const AppGalleryModal = ({
           <DialogTitle className="mt-5 flex text-black dark:text-white">
             <div className="ml-6 text-3xl">App Gallery</div>
             <div className="ml-72 flex gap-5">
-              <AppGallerySearch items={searchData} />
-              <div className="mt-0.5 pt-1">
+              <AppGallerySearch
+                items={searchData}
+                setIsGalleryOpen={setIsGalleryOpen}
+              />
+              <div className="pt-1">
                 <Select onValueChange={populateHeading}>
                   <SelectTrigger>Node Category</SelectTrigger>
                   <SelectGroup>

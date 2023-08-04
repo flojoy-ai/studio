@@ -6,6 +6,8 @@ import Turnstone from "turnstone";
 import { SearchIcon } from "lucide-react";
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
+import { ReactFlowJsonObject } from "reactflow";
+import { ElementsData } from "flojoy/types";
 
 interface SearchProps {
   items: listBox[];
@@ -18,52 +20,6 @@ export interface listBox {
   ratio: number;
   searchType?: "startswith" | "contains";
 }
-interface nodeName {
-  name: string;
-  type: string;
-  parent: string;
-}
-
-// const listbox: listBox[] = [
-//   {
-//     name: "AI/ML",
-//     displayField: "name",
-//     data: [
-//       {
-//         name: "ACCURACY",
-//         type: "CLASSIFICATION",
-//         parent: "AI/ML",
-//       },
-//       {
-//         name: "LEAST_SQUARES",
-//         type: "REGRESSION",
-//         parent: "AL/ML",
-//       },
-//     ],
-//     id: "AI",
-//     ratio: 1,
-//     searchType: "startswith",
-//   },
-//   {
-//     name: "TRANSFORMERS",
-//     displayField: "name",
-//     data: [
-//       {
-//         name: "FFT",
-//         type: "SIGNAL_PROCESSING",
-//         parent: "TRANSFORMERS",
-//       },
-//       {
-//         name: "ADD",
-//         type: "ARITHMETIC",
-//         parent: "TRANSFORMERS",
-//       },
-//     ],
-//     id: "TRANSFORMERS",
-//     ratio: 1,
-//     searchType: "startswith",
-//   },
-// ];
 
 const style = {
   input:
@@ -80,38 +36,42 @@ const style = {
   groupHeading: "cursor-default px-1.5 uppercase text-sm text-purple-300",
 };
 
-export const AppGallerySearch = ({ items }) => {
+export const AppGallerySearch = ({ items, setIsGalleryOpen }) => {
   const [focus, setFocus] = useState(false);
   const onBlur = () => setFocus(false);
   const onFocus = () => setFocus(true);
 
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
-  const { setIsGalleryOpen } = useFlowChartState();
   const [listBoxes, setListBoxes] = useState<listBox[]>([]);
   const turnstoneRef = useRef();
 
   const handleSelect = async (selectItem) => {
-    // const response = await fetch(
-    //   `https://raw.githubusercontent.com/flojoy-ai/docs/main/docs/nodes/${selectItem.parent}/${selectItem.type}/${selectItem.name}/examples/EX1/app.txt`
-    // );
-    // const raw = await response.json();
-    // const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
-    // setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
-    // loadFlowExportObject(flow);
     if (selectItem) {
-      //setIsGalleryOpen(false);
-      turnstoneRef.current?.clear();
+      console.log(`the selected is: ${selectItem.name}`);
+      const response = await fetch(selectItem.url);
+      const file = await response.json();
+      console.log("the file is: ");
+      console.log(file);
+      const text = file.find((obj) => obj.name === "app.txt");
+      console.log(`the url is: ${text.download_url}`);
+      const load = await fetch(text.download_url);
+      const raw = await load.json();
+      const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
+      setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
+      loadFlowExportObject(flow);
+      setIsGalleryOpen(false);
     }
   };
 
-  const handleTab = (selectItem) => {
-    if (selectItem) {
-      turnstoneRef.current?.query(selectItem);
-    }
-  };
+  // const handleTab = (query, selectItem) => {
+  //   console.log(`the item is: ${selectItem.name}`);
+  //   if (selectItem) {
+  //     turnstoneRef.current?.query("testing");
+  //   }
+  // };
   const fetchData = async () => {
-    const test = await Promise.all(
+    const data: listBox[] = await Promise.all(
       items.map(async (item) => {
         const response = await fetch(item.url);
         const raw = await response.json();
@@ -131,7 +91,7 @@ export const AppGallerySearch = ({ items }) => {
         };
       })
     );
-    setListBoxes(test);
+    setListBoxes(data);
   };
 
   const displayIconStyle = focus
@@ -152,12 +112,11 @@ export const AppGallerySearch = ({ items }) => {
         id="node search"
         placeholder="Search node name"
         noItemsMessage="No Node Found"
+        enterKeyHint="enter"
         listbox={listBoxes}
         listboxIsImmutable={false}
         styles={style}
-        onEnter={handleSelect}
         onSelect={handleSelect}
-        onTab={handleTab}
         onBlur={onBlur}
         onFocus={onFocus}
         matchText={true}
