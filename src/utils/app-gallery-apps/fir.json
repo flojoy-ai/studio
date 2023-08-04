@@ -5,12 +5,12 @@
         "width": 150,
         "height": 150,
         "id": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
-        "type": "SIGNAL_PROCESSING",
+        "type": "TRANSFORMERS",
         "data": {
           "id": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
           "label": "FIR",
           "func": "FIR",
-          "type": "SIGNAL_PROCESSING",
+          "type": "TRANSFORMERS",
           "ctrls": {
             "sample_rate": {
               "type": "int",
@@ -22,7 +22,12 @@
             "filter_type": {
               "type": "select",
               "default": "lowpass",
-              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
+              "options": [
+                "lowpass",
+                "highpass",
+                "bandpass",
+                "bandstop"
+              ],
               "functionName": "FIR",
               "param": "filter_type",
               "value": "bandpass"
@@ -132,7 +137,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -215,7 +225,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -298,7 +313,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -381,7 +401,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -464,7 +489,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "BASIC_OSCILLATOR",
               "param": "waveform",
               "value": "sine"
@@ -566,48 +596,15 @@
         "dragging": true
       },
       {
-        "width": 210,
-        "height": 130,
-        "id": "END-9335c6e8-cab9-4475-846a-1466085dfa16",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-9335c6e8-cab9-4475-846a-1466085dfa16",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 3033.4264297751756,
-          "y": 390.3687522788513
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 3033.4264297751756,
-          "y": 390.3687522788513
-        },
-        "dragging": true
-      },
-      {
         "width": 150,
         "height": 150,
         "id": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
-        "type": "SIGNAL_PROCESSING",
+        "type": "TRANSFORMERS",
         "data": {
           "id": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
           "label": "FFT 1",
           "func": "FFT",
-          "type": "SIGNAL_PROCESSING",
+          "type": "TRANSFORMERS",
           "ctrls": {
             "window": {
               "type": "select",
@@ -690,12 +687,12 @@
         "width": 150,
         "height": 150,
         "id": "FFT-a220559c-365a-4562-aee4-10461c688970",
-        "type": "SIGNAL_PROCESSING",
+        "type": "TRANSFORMERS",
         "data": {
           "id": "FFT-a220559c-365a-4562-aee4-10461c688970",
           "label": "FFT 2",
           "func": "FFT",
-          "type": "SIGNAL_PROCESSING",
+          "type": "TRANSFORMERS",
           "ctrls": {
             "window": {
               "type": "select",
@@ -778,12 +775,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
           "label": "LINE 1",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -818,12 +815,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
           "label": "LINE 2",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -858,12 +855,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-7367f167-c5f4-4a30-a554-0ba37c959ebd",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-7367f167-c5f4-4a30-a554-0ba37c959ebd",
           "label": "LINE 3",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -898,12 +895,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08",
           "label": "LINE 3",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -938,12 +935,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39",
           "label": "LINE 4",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -1019,13 +1016,6 @@
         "id": "reactflow__edge-ADD-15b2356b-8f79-4f9b-802c-1821c0924fcedefault-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default"
       },
       {
-        "source": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
-        "sourceHandle": "default",
-        "target": "END-9335c6e8-cab9-4475-846a-1466085dfa16",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default-END-9335c6e8-cab9-4475-846a-1466085dfa16default"
-      },
-      {
         "source": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
         "sourceHandle": "default",
         "target": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
@@ -1040,13 +1030,6 @@
         "id": "reactflow__edge-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default-FFT-a220559c-365a-4562-aee4-10461c688970default"
       },
       {
-        "source": "FFT-a220559c-365a-4562-aee4-10461c688970",
-        "sourceHandle": "default",
-        "target": "END-9335c6e8-cab9-4475-846a-1466085dfa16",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-a220559c-365a-4562-aee4-10461c688970default-END-9335c6e8-cab9-4475-846a-1466085dfa16default"
-      },
-      {
         "source": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
         "sourceHandle": "default",
         "target": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
@@ -1059,13 +1042,6 @@
         "target": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
         "targetHandle": "default",
         "id": "reactflow__edge-FFT-a220559c-365a-4562-aee4-10461c688970default-LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3default"
-      },
-      {
-        "source": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
-        "sourceHandle": "default",
-        "target": "END-9335c6e8-cab9-4475-846a-1466085dfa16",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3default-END-9335c6e8-cab9-4475-846a-1466085dfa16default"
       },
       {
         "source": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",

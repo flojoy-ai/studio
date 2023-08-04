@@ -3,12 +3,12 @@
     "nodes": [
       {
         "id": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
-        "type": "PREDICT_TIME_SERIES",
+        "type": "AI_ML",
         "data": {
           "id": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
           "label": "PROPHET PREDICT",
           "func": "PROPHET_PREDICT",
-          "type": "PREDICT_TIME_SERIES",
+          "type": "AI_ML",
           "ctrls": {
             "run_forecast": {
               "type": "bool",
@@ -53,12 +53,12 @@
         "width": 130,
         "height": 130,
         "id": "TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2",
           "label": "TIMESERIES",
           "func": "TIMESERIES",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "start_date": {
               "type": "str",
@@ -100,12 +100,12 @@
         "width": 225,
         "height": 226,
         "id": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
           "label": "PROPHET COMPONENTS",
           "func": "PROPHET_COMPONENTS",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {
             "periods": {
               "type": "int",
@@ -148,12 +148,12 @@
         "width": 225,
         "height": 226,
         "id": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
           "label": "PROPHET PLOT",
           "func": "PROPHET_PLOT",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {
             "periods": {
               "type": "int",
@@ -191,39 +191,6 @@
           "y": 269.6217029641205
         },
         "dragging": true
-      },
-      {
-        "width": 210,
-        "height": 130,
-        "id": "END-19d116f5-06e8-4a8c-b5ae-59b6db539708",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-19d116f5-06e8-4a8c-b5ae-59b6db539708",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 724.5157287422192,
-          "y": 77.71454473069355
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 724.5157287422192,
-          "y": 77.71454473069355
-        },
-        "dragging": true
       }
     ],
     "edges": [
@@ -247,20 +214,6 @@
         "target": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
         "targetHandle": "default",
         "id": "reactflow__edge-PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62afdefault-PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60default"
-      },
-      {
-        "source": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
-        "sourceHandle": "default",
-        "target": "END-19d116f5-06e8-4a8c-b5ae-59b6db539708",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3default-END-19d116f5-06e8-4a8c-b5ae-59b6db539708default"
-      },
-      {
-        "source": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
-        "sourceHandle": "default",
-        "target": "END-19d116f5-06e8-4a8c-b5ae-59b6db539708",
-        "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60default-END-19d116f5-06e8-4a8c-b5ae-59b6db539708default"
       }
     ],
     "viewport": {

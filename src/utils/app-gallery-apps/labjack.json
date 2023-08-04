@@ -2,48 +2,15 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 210,
-        "height": 130,
-        "id": "END-04176810-8104-4747-9a8f-df79d12c5298",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-04176810-8104-4747-9a8f-df79d12c5298",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 512.2688682914458,
-          "y": -277.4889314258646
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 512.2688682914458,
-          "y": -277.4889314258646
-        },
-        "dragging": true
-      },
-      {
         "width": 150,
         "height": 150,
         "id": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
-        "type": "LABJACK",
+        "type": "INSTRUMENTS",
         "data": {
           "id": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
           "label": "LABJACKU3",
           "func": "LABJACKU3",
-          "type": "LABJACK",
+          "type": "INSTRUMENTS",
           "ctrls": {
             "sensor_number": {
               "type": "int",
@@ -91,54 +58,13 @@
       {
         "width": 150,
         "height": 150,
-        "id": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
-        "type": "LOOPS",
-        "data": {
-          "id": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
-          "label": "GOTO",
-          "func": "GOTO",
-          "type": "LOOPS",
-          "ctrls": {
-            "goto_node_id": {
-              "type": "NodeReference",
-              "default": null,
-              "functionName": "GOTO",
-              "param": "goto_node_id",
-              "value": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde"
-            }
-          },
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/GOTO/GOTO.py",
-          "selected": false
-        },
-        "position": {
-          "x": 925.848254563315,
-          "y": 101.9860610943698
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 925.848254563315,
-          "y": 101.9860610943698
-        },
-        "dragging": true
-      },
-      {
-        "width": 150,
-        "height": 150,
         "id": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
-        "type": "LOOPS",
+        "type": "LOGIC_GATES",
         "data": {
           "id": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
           "label": "LOOP",
           "func": "LOOP",
-          "type": "LOOPS",
+          "type": "LOGIC_GATES",
           "ctrls": {
             "num_loops": {
               "type": "int",
@@ -186,12 +112,12 @@
         "width": 225,
         "height": 226,
         "id": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
           "label": "BAR",
           "func": "BAR",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -226,13 +152,6 @@
     "edges": [
       {
         "source": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
-        "sourceHandle": "end",
-        "target": "END-04176810-8104-4747-9a8f-df79d12c5298",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LOOP-744fed19-65b1-47c3-ad99-28db2e906bdeend-END-04176810-8104-4747-9a8f-df79d12c5298default"
-      },
-      {
-        "source": "LOOP-744fed19-65b1-47c3-ad99-28db2e906bde",
         "sourceHandle": "body",
         "target": "LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85f",
         "targetHandle": "default",
@@ -244,13 +163,6 @@
         "target": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
         "targetHandle": "default",
         "id": "reactflow__edge-LABJACKU3-8bb214ab-525a-490d-b539-7811b057d85fdefault-BAR-d54011a8-5b19-471e-9aad-74ce3ca62914default"
-      },
-      {
-        "source": "BAR-d54011a8-5b19-471e-9aad-74ce3ca62914",
-        "sourceHandle": "default",
-        "target": "GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7b",
-        "targetHandle": "default",
-        "id": "reactflow__edge-BAR-d54011a8-5b19-471e-9aad-74ce3ca62914default-GOTO-b8fa97e1-9bb8-4236-ad03-12f028086a7bdefault"
       }
     ],
     "viewport": {

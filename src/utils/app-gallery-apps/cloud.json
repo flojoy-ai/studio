@@ -5,7 +5,7 @@
         "width": 150,
         "height": 181,
         "id": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
-        "type": "default",
+        "type": "LOGIC_GATES",
         "position": {
           "x": 199.83204415740659,
           "y": 241.1242907400127
@@ -14,7 +14,7 @@
           "id": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
           "label": "loop",
           "func": "LOOP",
-          "type": "LOOP",
+          "type": "LOGIC_GATES",
           "ctrls": {
             "num_loops": {
               "functionName": "LOOP",
@@ -47,12 +47,12 @@
         "width": 130,
         "height": 130,
         "id": "CONSTANT-ee40698d-60e6-4eb4-88b5-4d19e0c41138",
-        "type": "SIMULATION",
+        "type": "GENERATORS",
         "data": {
           "id": "CONSTANT-ee40698d-60e6-4eb4-88b5-4d19e0c41138",
           "label": "12",
           "func": "CONSTANT",
-          "type": "SIMULATION",
+          "type": "GENERATORS",
           "ctrls": {
             "constant": {
               "functionName": "CONSTANT",
@@ -105,69 +105,15 @@
         "dragging": true
       },
       {
-        "width": 150,
-        "height": 150,
-        "id": "GOTO-d1e8f8ee-4907-4fd5-9d89-2f65351c2263",
-        "type": "LOOP",
-        "data": {
-          "id": "GOTO-d1e8f8ee-4907-4fd5-9d89-2f65351c2263",
-          "label": "Goto Loop",
-          "func": "GOTO",
-          "type": "LOOP",
-          "ctrls": {
-            "goto_node_id": {
-              "functionName": "GOTO",
-              "param": "goto_node_id",
-              "value": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb"
-            }
-          },
-          "selected": false
-        },
-        "position": {
-          "x": 1314.5272324794553,
-          "y": 311.04162375361295
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1314.5272324794553,
-          "y": 311.04162375361295
-        },
-        "dragging": true
-      },
-      {
-        "width": 210,
-        "height": 130,
-        "id": "END-12d90ef2-4084-4532-94f2-dde2ba198b79",
-        "type": "TERMINATOR",
-        "data": {
-          "id": "END-12d90ef2-4084-4532-94f2-dde2ba198b79",
-          "label": "Terminate",
-          "func": "END",
-          "type": "TERMINATOR",
-          "ctrls": {},
-          "selected": false
-        },
-        "position": {
-          "x": 478.0211151222852,
-          "y": -26.63223441103102
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 478.0211151222852,
-          "y": -26.63223441103102
-        },
-        "dragging": true
-      },
-      {
         "width": 130,
         "height": 130,
         "id": "FEEDBACK-bce3a2a9-20e8-4841-8404-1d91fcfac4f0",
-        "type": "SIMULATION",
+        "type": "GENERATORS",
         "data": {
           "id": "FEEDBACK-bce3a2a9-20e8-4841-8404-1d91fcfac4f0",
           "label": "FeedBack",
           "func": "FEEDBACK",
-          "type": "SIMULATION",
+          "type": "GENERATORS",
           "ctrls": {
             "referred_node": {
               "functionName": "FEEDBACK",
@@ -192,12 +138,12 @@
         "width": 150,
         "height": 150,
         "id": "LOADER-0ade6235-d420-468c-89af-bc408aee3a24",
-        "type": "CLOUD_DATABASE",
+        "type": "LOADERS",
         "data": {
           "id": "LOADER-0ade6235-d420-468c-89af-bc408aee3a24",
           "label": "LOADER",
           "func": "LOADER",
-          "type": "CLOUD_DATABASE",
+          "type": "LOADERS",
           "ctrls": {
             "measurement_uuid": {
               "functionName": "LOADER",
@@ -222,12 +168,12 @@
         "width": 130,
         "height": 130,
         "id": "CONSTANT-a17e1542-74ca-4999-985f-e69f71750b1a",
-        "type": "SIMULATION",
+        "type": "GENERATORS",
         "data": {
           "id": "CONSTANT-a17e1542-74ca-4999-985f-e69f71750b1a",
           "label": "-1",
           "func": "CONSTANT",
-          "type": "SIMULATION",
+          "type": "GENERATORS",
           "ctrls": {
             "constant": {
               "functionName": "CONSTANT",
@@ -252,12 +198,12 @@
         "width": 130,
         "height": 130,
         "id": "CONSTANT-dae9c5e6-fa8a-4f2c-8d56-f77445749237",
-        "type": "SIMULATION",
+        "type": "GENERATORS",
         "data": {
           "id": "CONSTANT-dae9c5e6-fa8a-4f2c-8d56-f77445749237",
           "label": "42",
           "func": "CONSTANT",
-          "type": "SIMULATION",
+          "type": "GENERATORS",
           "ctrls": {
             "constant": {
               "functionName": "CONSTANT",
@@ -288,13 +234,6 @@
         "id": "reactflow__edge-LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fbbody-CONSTANT-ee40698d-60e6-4eb4-88b5-4d19e0c41138CONSTANT"
       },
       {
-        "source": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",
-        "sourceHandle": "end",
-        "target": "END-12d90ef2-4084-4532-94f2-dde2ba198b79",
-        "targetHandle": "END",
-        "id": "reactflow__edge-LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fbend-END-12d90ef2-4084-4532-94f2-dde2ba198b79END"
-      },
-      {
         "source": "CONSTANT-ee40698d-60e6-4eb4-88b5-4d19e0c41138",
         "sourceHandle": "main",
         "target": "FEEDBACK-bce3a2a9-20e8-4841-8404-1d91fcfac4f0",
@@ -314,13 +253,6 @@
         "target": "LOADER-0ade6235-d420-468c-89af-bc408aee3a24",
         "targetHandle": "LOADER",
         "id": "reactflow__edge-ADD-0758c6a8-52b4-4b5b-9c46-2a83bdef2a04main-LOADER-0ade6235-d420-468c-89af-bc408aee3a24LOADER"
-      },
-      {
-        "source": "LOADER-0ade6235-d420-468c-89af-bc408aee3a24",
-        "sourceHandle": "main",
-        "target": "GOTO-d1e8f8ee-4907-4fd5-9d89-2f65351c2263",
-        "targetHandle": "GOTO",
-        "id": "reactflow__edge-LOADER-0ade6235-d420-468c-89af-bc408aee3a24main-GOTO-d1e8f8ee-4907-4fd5-9d89-2f65351c2263GOTO"
       },
       {
         "source": "LOOP-faed7bdc-f766-4742-b48f-d31a7b8083fb",

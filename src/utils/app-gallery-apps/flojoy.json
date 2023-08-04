@@ -5,12 +5,12 @@
         "width": 130,
         "height": 130,
         "id": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "SINE-db665d87-c2af-4acd-916b-b97a815e69a7",
           "label": "SINE",
           "func": "SINE",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "amplitude": {
               "type": "float",
@@ -43,7 +43,12 @@
             "waveform": {
               "type": "select",
               "default": "sine",
-              "options": ["sine", "square", "triangle", "sawtooth"],
+              "options": [
+                "sine",
+                "square",
+                "triangle",
+                "sawtooth"
+              ],
               "functionName": "SINE",
               "param": "waveform",
               "value": "sine"
@@ -136,12 +141,12 @@
         "width": 130,
         "height": 130,
         "id": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "CONSTANT-a357c1d7-0a1e-459b-bc03-faa48026e0e3",
           "label": "2.0",
           "func": "CONSTANT",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "constant": {
               "type": "float",
@@ -177,39 +182,6 @@
         "positionAbsolute": {
           "x": 777.034632942326,
           "y": 399.72607622902814
-        },
-        "dragging": true
-      },
-      {
-        "width": 210,
-        "height": 130,
-        "id": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 1740.0479664071067,
-          "y": 178.93847492277808
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1740.0479664071067,
-          "y": 178.93847492277808
         },
         "dragging": true
       },
@@ -263,12 +235,12 @@
         "width": 250,
         "height": 159,
         "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
           "label": "HISTOGRAM",
           "func": "HISTOGRAM",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -303,12 +275,12 @@
         "width": 225,
         "height": 226,
         "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
           "label": "SCATTER",
           "func": "SCATTER",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -382,20 +354,6 @@
         "target": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
         "targetHandle": "default",
         "id": "reactflow__edge-ADD-b4cb003b-f34d-419e-bc95-452ab539c1ecdefault-HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82default"
-      },
-      {
-        "source": "HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82",
-        "sourceHandle": "default",
-        "target": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-        "targetHandle": "default",
-        "id": "reactflow__edge-HISTOGRAM-d53932d3-1dce-4320-a135-906b046cbe82default-END-aa17356b-c7af-408e-8c56-531a3fe595d1default"
-      },
-      {
-        "source": "SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507a",
-        "sourceHandle": "default",
-        "target": "END-aa17356b-c7af-408e-8c56-531a3fe595d1",
-        "targetHandle": "default",
-        "id": "reactflow__edge-SCATTER-8ac7a273-ef5f-4780-bc57-6c62c5ce507adefault-END-aa17356b-c7af-408e-8c56-531a3fe595d1default"
       }
     ],
     "viewport": {
