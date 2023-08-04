@@ -24,14 +24,14 @@ const KeyboardShortcutModal = ({
               return (
                 <div className="w-full" key={platform.key}>
                   <div className=" mb-4 text-2xl font-bold">
-                    <span className=" ml-2 text-gray-200">For</span>{" "}
+                    <span className=" ml-2">For</span>{" "}
                     <span className=" text-blue-500">{platform.title}</span>
                   </div>
 
-                  <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 text-gray-200 shadow-lg">
+                  <div className="border-1 flex w-full flex-col items-start gap-2 rounded-lg border-solid border-modal bg-modal p-6 shadow-md">
                     {keyboardShortcuts.map((shortcut) => (
                       <div
-                        className="flex w-full flex-row items-start justify-between rounded-sm p-3 shadow-xl"
+                        className="flex w-full flex-row items-start justify-between rounded-sm p-3 shadow-lg"
                         key={shortcut.command}
                       >
                         <span>{shortcut.command}</span>
