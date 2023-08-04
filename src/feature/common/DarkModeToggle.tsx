@@ -7,7 +7,8 @@ export const DarkModeToggle = () => {
   const { toggleColorScheme } = useMantineColorScheme();
   const { theme, setTheme } = useTheme();
 
-  const onClick = () => {
+  const toggleTheme = () => {
+    toggleColorScheme();
     if (theme === "dark") {
       setTheme("light");
     } else {
@@ -19,10 +20,7 @@ export const DarkModeToggle = () => {
     <Button
       size="icon"
       variant="ghost"
-      onClick={() => {
-        toggleColorScheme();
-        onClick();
-      }}
+      onClick={toggleTheme}
       data-testid="darkmode-toggle"
     >
       {theme === "dark" ? (
