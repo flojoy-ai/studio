@@ -43,7 +43,7 @@ export const AppGalleryElement = ({
           className="relative h-2/3 hover:bg-white dark:hover:bg-black"
           variant="ghost"
         >
-          <div className="h-11/12 -ml-5 w-11/12 rounded-md border border-white hover:border-black dark:border-black hover:dark:border-white">
+          <div className="h-11/12 -ml-5 w-11/12 rounded-md border border-gray-50 hover:border-gray-900 dark:border-gray-900 hover:dark:border-gray-50">
             <Avatar className="h-11/12 my-2 ml-2 w-11/12">
               <AvatarImage src={imagePath} />
             </Avatar>
