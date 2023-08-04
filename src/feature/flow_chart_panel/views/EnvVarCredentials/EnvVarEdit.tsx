@@ -15,9 +15,13 @@ import { ChangeEvent, useState } from "react";
 
 export interface EnvVarCredentialsEditInfoProps {
   credentialKey: string;
+  fetchCredentials: () => void;
 }
 
-const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
+const EnvVarEdit = ({
+  credentialKey,
+  fetchCredentials,
+}: EnvVarCredentialsEditInfoProps) => {
   const [editEnv, setEditEnv] = useState<string>("");
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +31,7 @@ const EnvVarEdit = ({ credentialKey }: EnvVarCredentialsEditInfoProps) => {
   const handleEdit = () => {
     postEnvironmentVariable({ key: credentialKey, value: editEnv });
     setEditEnv("");
+    fetchCredentials();
   };
 
   return (

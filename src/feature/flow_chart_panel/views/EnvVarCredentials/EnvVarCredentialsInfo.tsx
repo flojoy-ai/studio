@@ -11,9 +11,13 @@ import EnvVarDelete from "./EnvVarDelete";
 import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
 export interface EnvVarCredentialsInfoProps {
   credential: EnvVarCredentialType;
+  fetchCredentials: () => void;
 }
 
-const EnvVarCredentialsInfo = ({ credential }: EnvVarCredentialsInfoProps) => {
+const EnvVarCredentialsInfo = ({
+  credential,
+  fetchCredentials,
+}: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
@@ -58,7 +62,10 @@ const EnvVarCredentialsInfo = ({ credential }: EnvVarCredentialsInfoProps) => {
           </SelectTrigger>
           <SelectContent>
             <EnvVarDelete credential={credential} />
-            <EnvVarEdit credentialKey={credential.key} />
+            <EnvVarEdit
+              credentialKey={credential.key}
+              fetchCredentials={fetchCredentials}
+            />
           </SelectContent>
         </Select>
       </div>
