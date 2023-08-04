@@ -40,18 +40,18 @@ export const AppGalleryElement = ({
       <div className="relative w-full ">
         <Button
           onClick={onClick}
-          className="relative mr-auto h-2/3 hover:bg-white dark:hover:bg-black"
+          className="relative h-2/3 hover:bg-white dark:hover:bg-black"
           variant="ghost"
         >
-          <div className="h-full w-full rounded-md border border-white hover:border-black dark:border-black hover:dark:border-white">
+          <div className="h-11/12 -ml-5 w-11/12 rounded-md border border-white hover:border-black dark:border-black hover:dark:border-white">
             <Avatar className="h-11/12 my-2 ml-2 w-11/12">
               <AvatarImage src={imagePath} />
             </Avatar>
           </div>
         </Button>
-        <div className="mb-2 ml-4 flex w-11/12 text-left">
+        <div className="mb-2 ml-4 flex w-10/12 text-left">
           <h4 className="mt-1 w-full">{elementTitle}</h4>
-          <Button variant="ghost" size="icon" className="mt-1.5 h-4">
+          <Button variant="ghost" size="icon" className="mt-2 h-4">
             <YoutubeIcon target="_blank" href={youtubeLink} />
           </Button>
         </div>
