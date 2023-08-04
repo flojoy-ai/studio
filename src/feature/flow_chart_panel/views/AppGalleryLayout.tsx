@@ -7,9 +7,11 @@ import { AppGalleryData } from "@src/utils/appGallery";
 export const AppGalleryLayout = ({
   subjectKey,
   topKey,
+  setIsGalleryOpen,
 }: {
   subjectKey: string;
   topKey: number;
+  setIsGalleryOpen: (open: boolean) => void;
 }) => {
   const subjectName = {
     fundamentals: "Fundamentals",
@@ -32,6 +34,7 @@ export const AppGalleryLayout = ({
               elementTitle={element.elementTitle}
               imagePath={element.imagePath}
               appPath={element.appPath}
+              setIsGalleryOpen={setIsGalleryOpen}
             />
           );
         })}
