@@ -5,12 +5,12 @@
         "width": 150,
         "height": 180,
         "id": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
-        "type": "LOCAL_FILE_SYSTEM",
+        "type": "LOADERS",
         "data": {
           "id": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
           "label": "LOCAL FILE",
           "func": "LOCAL_FILE",
-          "type": "LOCAL_FILE_SYSTEM",
+          "type": "LOADERS",
           "ctrls": {
             "file_path": {
               "type": "str",
@@ -66,12 +66,12 @@
         "width": 150,
         "height": 180,
         "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
-        "type": "OBJECT_DETECTION",
+        "type": "AI_ML",
         "data": {
           "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
           "label": "OBJECT DETECTION",
           "func": "OBJECT_DETECTION",
-          "type": "OBJECT_DETECTION",
+          "type": "AI_ML",
           "ctrls": {},
           "inputs": [
             {
@@ -108,12 +108,12 @@
         "width": 225,
         "height": 226,
         "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
           "label": "IMAGE",
           "func": "IMAGE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -150,12 +150,12 @@
         "width": 225,
         "height": 226,
         "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
           "label": "IMAGE 1",
           "func": "IMAGE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -187,40 +187,6 @@
           "y": -479.5905366074528
         },
         "dragging": true
-      },
-      {
-        "width": 150,
-        "height": 180,
-        "id": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 212.54998481893648,
-          "y": -75.17027135060144
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 212.54998481893648,
-          "y": -75.17027135060144
-        },
-        "dragging": true
       }
     ],
     "edges": [
@@ -244,13 +210,6 @@
         "target": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
         "targetHandle": "default",
         "id": "reactflow__edge-OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
-      },
-      {
-        "source": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
-        "sourceHandle": "default",
-        "target": "END-6f3fc9d7-c044-47a8-94cb-d54650c736e1",
-        "targetHandle": "default",
-        "id": "reactflow__edge-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default-END-6f3fc9d7-c044-47a8-94cb-d54650c736e1default"
       }
     ],
     "viewport": {
