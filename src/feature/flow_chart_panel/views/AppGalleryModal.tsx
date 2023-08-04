@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
 import { Button } from "@/components/ui/button";
@@ -22,17 +22,31 @@ import {
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
 
-type AppGalleryModalProps = {
+export interface GithubJSON {
+  name: string;
+  path: string;
+  sha: string;
+  size: number;
+  url: string;
+  html_url: string;
+  git_url: string;
+  download_url?: string;
+  type: string;
+  links: object[];
+}
+
+interface AppGalleryModalProps {
   isGalleryOpen: boolean;
   setIsGalleryOpen: (open: boolean) => void;
-};
+}
 
 export const AppGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
 }: AppGalleryModalProps) => {
   const [selectFields, setSelectFields] = useState([]);
-  const [searchData, setSearchData] = useState<object[]>([]);
+  const [searchData, setSearchData] = useState<GithubJSON[]>([]);
+  const turnStoneRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,12 +70,17 @@ export const AppGalleryModal = ({
 
   const populateHeading = async (selectUrl: string) => {
     const response = await fetch(selectUrl);
-    const raw = await response.json();
-    setSearchData(raw);
+    const raw: GithubJSON[] = await response.json();
+    const filtered = raw.filter((obj) => obj["type"] === "dir");
+    setSearchData(filtered);
   };
 
   const setOpen = () => {
     setIsGalleryOpen(true);
+  };
+
+  const clearField = () => {
+    turnStoneRef.current?.clear();
   };
 
   return (
@@ -73,17 +92,21 @@ export const AppGalleryModal = ({
         </Button>
       </DialogTrigger>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
-        <DialogHeader className="sticky">
+        <DialogHeader className="sticky z-20">
           <DialogTitle className="mt-5 flex text-black dark:text-white">
             <div className="ml-6 text-3xl">App Gallery</div>
             <div className="ml-72 flex gap-5">
               <AppGallerySearch
                 items={searchData}
                 setIsGalleryOpen={setIsGalleryOpen}
+                turnStoneRef={turnStoneRef}
               />
               <div className="pt-1">
-                <Select onValueChange={populateHeading}>
-                  <SelectTrigger>Node Category</SelectTrigger>
+                <Select
+                  onValueChange={populateHeading}
+                  onOpenChange={clearField}
+                >
+                  <SelectTrigger>Search Category</SelectTrigger>
                   <SelectGroup>
                     <SelectContent>{selectFields}</SelectContent>
                   </SelectGroup>
