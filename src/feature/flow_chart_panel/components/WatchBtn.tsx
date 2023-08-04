@@ -1,6 +1,6 @@
 import { Button } from "@src/components/ui/button";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { Ban, Watch } from "lucide-react";
+import { Ban, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "flojoy/types";
@@ -29,7 +29,7 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
 
   return !isWatching ? (
     <Button size="sm" variant="outline" onClick={handleClick}>
-      <Watch size="20" />
+      <Eye size="20" />
       <div className="px-1"></div>
       <div>Watch</div>
     </Button>
