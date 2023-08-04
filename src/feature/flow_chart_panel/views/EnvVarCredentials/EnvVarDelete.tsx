@@ -24,7 +24,7 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
   const handleDelete = () => {
     setCredentials((prev) => prev.filter((c) => c.key !== credential.key));
     deleteEnvironmentVariable(credential.key);
-    toast("Environment variable deleted", { duration: 2000 });
+    toast("Environment variable deleted", { duration: 5000 });
   };
 
   return (
@@ -35,17 +35,14 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-black">
-              Are you absolutely sure?
-            </AlertDialogTitle>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your
               key and remove your data from our servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          credential
           <AlertDialogFooter>
-            <AlertDialogCancel className="text-black">Cancel</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete}>
               Continue
             </AlertDialogAction>
