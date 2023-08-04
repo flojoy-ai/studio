@@ -8,6 +8,7 @@ export const DarkModeToggle = () => {
   const { theme, setTheme } = useTheme();
 
   const onClick = () => {
+    toggleColorScheme();
     if (theme === "dark") {
       setTheme("light");
     } else {
@@ -19,10 +20,7 @@ export const DarkModeToggle = () => {
     <Button
       size="icon"
       variant="ghost"
-      onClick={() => {
-        toggleColorScheme();
-        onClick();
-      }}
+      onClick={onClick}
       data-testid="darkmode-toggle"
     >
       {theme === "dark" ? (
