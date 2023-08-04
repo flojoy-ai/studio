@@ -21,7 +21,6 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
   const { nodeParamChanged } = useFlowChartState();
   const { nodes, edges } = useFlowChartGraph();
   const [isWatching, setIsWatching] = useState(false);
-  const [runOnceRightAfterToggle, setRunOnceRightAfterToggle] = useState(false);
 
   useEffect(() => {
     if (isWatching && nodeParamChanged) {
@@ -30,17 +29,8 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
     }
   }, [nodeParamChanged, isWatching]);
 
-  useEffect(() => {
-    if (isWatching && runOnceRightAfterToggle) {
-      cancelFC();
-      playFC(nodes, edges);
-      setRunOnceRightAfterToggle(false);
-    }
-  }, [runOnceRightAfterToggle, isWatching]);
-
   const handleClick = () => {
     setIsWatching(!isWatching);
-    setRunOnceRightAfterToggle(true);
   };
 
   return (
