@@ -27,7 +27,7 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
       size="sm"
       variant="outline"
       onClick={handleClick}
-      disabled={nodes.length === 0}
+      disabled={!nodes.length}
     >
       <Play size="20" />
       <div className="px-1"></div>
