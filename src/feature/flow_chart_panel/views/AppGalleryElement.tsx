@@ -37,24 +37,24 @@ export const AppGalleryElement = ({
 
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative w-full ">
         <Button
           onClick={onClick}
           className="relative mr-auto h-2/3 hover:bg-white dark:hover:bg-black"
           variant="ghost"
         >
-          <div className="h-full w-full text-left">
+          <div className="h-full w-full border text-left hover:border-white">
             <Avatar className="h-10/12 w-40">
               <AvatarImage src={imagePath} />
             </Avatar>
-            <div className="mt-2 flex w-full">
-              <h4 className="mt-1 w-full">{elementTitle}</h4>
-              <Button variant="ghost" size="icon" className="mt-1.5 h-4">
-                <YoutubeIcon target="_blank" href={youtubeLink} />
-              </Button>
-            </div>
           </div>
         </Button>
+        <div className="mb-2 flex w-full">
+          <h4 className="mt-1 w-full">{elementTitle}</h4>
+          <Button variant="ghost" size="icon" className="mt-1.5 h-4">
+            <YoutubeIcon target="_blank" href={youtubeLink} />
+          </Button>
+        </div>
         <div className="mt-2 p-3">
           <a
             href={link}
