@@ -7,7 +7,7 @@ import { useState } from "react";
 export const DarkModeToggle = () => {
   const { toggleColorScheme } = useMantineColorScheme();
   const { setTheme } = useTheme();
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState<string>("dark");
 
   const onClick = () => {
     if (mode === "dark") {
