@@ -18,7 +18,7 @@ Flojoy is released under the [AGPLv3 license](https://www.gnu.org/licenses/agpl-
 
 The Flojoy copyright is owned by Flojoy Inc, and contributors are asked to sign a Contributor License Agreement (based on the Oracle CLA) that grants the company the non-exclusive right to re-license the contribution in the future. For example, the project could be re-licensed to one of the more permissive licenses above (eg MIT or BSD).
 
-If you might be interested in using Flojoy in a context where the AGPL license is prohibitive, [please get in touch](mailto:jp@flojoy.io) or [contact sales](https://www.flojoy.ai/contact-sales).
+If interested in using Flojoy in a context where the AGPL license is prohibitive, [please get in touch](mailto:jp@flojoy.io) or [contact sales](https://www.flojoy.ai/contact-sales).
 
 # Architecture diagram
 
