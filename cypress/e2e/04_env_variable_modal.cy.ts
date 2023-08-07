@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { text } from "stream/consumers";
+
 describe("Verify Env Variable Modal", () => {
   // The interactions use typical Cypress calls,
   // but the verifications use one-line snapshot calls with Applitools Eyes.
@@ -22,13 +24,30 @@ describe("Verify Env Variable Modal", () => {
 
     cy.percySnapshot("dark flow page with key input");
 
-    cy.get('[data-testid="EnvVarValueInput"]').click().type("CypressTestValue");
+    cy.get('[data-testid="EnvVarValueInput"]').click().type("CypressTest");
 
     cy.percySnapshot("dark flow page with value input");
 
     cy.get('[data-testid="envModalAddBtn"]').click();
 
-    // Verify there aren't any nodes
-    // cy.get('[data-testid="node-wrapper"]').should("have.length", 0);
+    cy.get('[data-testid="credentialName"]') // Use the appropriate data-testid value
+      .each((container) => {
+        if(container.text().includes("CypressTest")){
+          cy.wrap(container).find('[data-testid="passWordIconView"]').click();
+          cy.wrap(container).find('[data-testid="envVarModifyBtn"]').click();
+          cy.get('[data-testid="envVarEditBtn"]').click();
+          cy.get('[data-tesid="editEnvInput"]').click().type("CypressModify");
+          cy.get('[data-testid="envVarEditSubmit"]').click();
+          cy.get('[data-testid="envVarDeleteBtn"]').click();
+          cy.get('[data-testid="envVarDeleteCancel"]').click();
+          cy.get('[data-testid="envVarDeleteContinue"]').click();
+        }
+      });
+
+    const textToCopy = "CypressTest=123"
+    // cy.get('[data-testid="EnvVarKeyInput"]').invoke("val", textToCopy);
+    cy.get('[data-testid="EnvVarKeyInput"]').paste(textToCopy)
+
+    // cy.get('[data-testid="passWordIconView"]').click({multiple:true});
   });
 });
