@@ -1,8 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 import { useControlsState } from "@hooks/useControlsState";
 import Turnstone from "turnstone";
-import { SearchIcon } from "lucide-react";
 import { Simulate } from "react-dom/test-utils";
 import error = Simulate.error;
 import { ReactFlowJsonObject } from "reactflow";
@@ -31,9 +30,9 @@ interface turnStoneData {
 
 const style = {
   input:
-    "flex h-10 w-full rounded-md font-medium border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm outline-none file:font-medium focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+    "h-10 w-full rounded-md font-medium border border-input bg-background px-3 py-2 text-sm ring-offset-background outline-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
   inputFocus:
-    "flex h-10 w-full font-medium rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 border-accent1-hover",
+    "h-10 w-full font-medium rounded-md border border-accent1-hover bg-background px-3 py-2 text-sm ring-offset-background file:bg-transparent focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 ",
   listbox:
     "relative w-full min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
   item: "w-full cursor-default items-center rounded-sm py-1.5 pl-8 text-base font-normal outline-none",
@@ -50,10 +49,6 @@ export const AppGallerySearch = ({
   setIsGalleryOpen,
   turnStoneRef,
 }: SearchProps) => {
-  const [focus, setFocus] = useState(false);
-  const onBlur = () => setFocus(false);
-  const onFocus = () => setFocus(true);
-
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
   const [listBoxes, setListBoxes] = useState<ListBox[]>([]);
@@ -101,20 +96,12 @@ export const AppGallerySearch = ({
     setListBoxes(data);
   };
 
-  // TODO: add back the search icon
-  // const displayIconStyle = focus
-  //   ? "text-stone-300"
-  //   : "incline-flex text-stone-500";
-
   useEffect(() => {
     fetchData().catch(error);
   }, [items]);
 
   return (
-    <div className="relative top-1">
-      {/*<span className="absolute left-2 top-2 z-10 w-6 items-center justify-center">*/}
-      {/*  <SearchIcon className={displayIconStyle} />*/}
-      {/*</span>*/}
+    <div className="relative top-1 w-full">
       <Turnstone
         ref={turnStoneRef}
         id="node search"
@@ -125,8 +112,6 @@ export const AppGallerySearch = ({
         listboxIsImmutable={false}
         styles={style}
         onSelect={handleSelect}
-        onBlur={onBlur}
-        onFocus={onFocus}
         matchText={true}
       />
     </div>

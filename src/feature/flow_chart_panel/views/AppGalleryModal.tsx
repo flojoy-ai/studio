@@ -48,6 +48,7 @@ export const AppGalleryModal = ({
   const [searchData, setSearchData] = useState<GithubJSON[]>([]);
   const turnStoneRef = useRef();
 
+  // fetches the root of the nodes directory in the main branch
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -68,19 +69,17 @@ export const AppGalleryModal = ({
     fetchData().catch(console.error);
   }, []);
 
-  const populateHeading = async (selectUrl: string) => {
+  // This functions fetches the category selected by the user and clears the input
+  const onValueChange = async (selectUrl: string) => {
     const response = await fetch(selectUrl);
     const raw: GithubJSON[] = await response.json();
     const filtered = raw.filter((obj) => obj["type"] === "dir");
     setSearchData(filtered);
+    turnStoneRef.current?.clear();
   };
 
   const setOpen = () => {
     setIsGalleryOpen(true);
-  };
-
-  const clearField = () => {
-    turnStoneRef.current?.clear();
   };
 
   return (
@@ -93,25 +92,22 @@ export const AppGalleryModal = ({
       </DialogTrigger>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky z-20">
-          <DialogTitle className="mt-5 flex text-black dark:text-white">
+          <DialogTitle className="mt-5 flex flex-row justify-between text-black dark:text-white">
             <div className="ml-6 text-3xl">App Gallery</div>
-            <div className="ml-72 flex gap-5">
-              <AppGallerySearch
-                items={searchData}
-                setIsGalleryOpen={setIsGalleryOpen}
-                turnStoneRef={turnStoneRef}
-              />
-              <div className="pt-1">
-                <Select
-                  onValueChange={populateHeading}
-                  onOpenChange={clearField}
-                >
-                  <SelectTrigger>Search Category</SelectTrigger>
+            <div className="flex basis-2/5 gap-3">
+              <div className="w-1/3 pt-1">
+                <Select onValueChange={onValueChange}>
+                  <SelectTrigger className=" text-sm">Category</SelectTrigger>
                   <SelectGroup>
                     <SelectContent>{selectFields}</SelectContent>
                   </SelectGroup>
                 </Select>
               </div>
+              <AppGallerySearch
+                items={searchData}
+                setIsGalleryOpen={setIsGalleryOpen}
+                turnStoneRef={turnStoneRef}
+              />
             </div>
           </DialogTitle>
           <hr />
