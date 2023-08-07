@@ -27,15 +27,17 @@ const EnvVarCredentialsInfo = ({
 
   return (
     <div
-      data-testid="credentialName"
       key={credential.id}
       className="mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-800"
     >
       <div className="px-2.5" />
-      <div className="py-2.5 font-semibold text-gray-800 dark:text-gray-200">
-        {credential.key}
-      </div>
-      <div className="ml-auto mr-4 flex items-center">
+      <div
+        data-testid="credentialName"
+        className="ml-auto mr-4 flex items-center"
+      >
+        <div className="py-2.5 font-semibold text-gray-800 dark:text-gray-200">
+          {credential.key}
+        </div>
         <button type="button" onClick={toggleShowPassword}>
           <PasswordIcon
             data-testid="passWordIconView"
