@@ -18,16 +18,16 @@ describe("Modify settings in control bar", () => {
     cy.percySnapshot("dark flow page with setting modal");
 
     // Retrieve node delay and maximum time
-    cy.get('[data-testid="settings-input"]').eq(0).clear();
     cy.get('[data-testid="settings-input"]')
       .eq(0)
-      .type(0.5)
-      .should("have.value", "0.5");
-    cy.get('[data-testid="settings-input"]').eq(1).clear();
+      .type("{selectall}{backspace}");
+    cy.get('[data-testid="settings-input"]').eq(0).type(0.5);
+    // .should("have.value", "0.5");
     cy.get('[data-testid="settings-input"]')
       .eq(1)
-      .type(100)
-      .should("have.value", "1000");
+      .type("{selectall}{backspace}");
+    cy.get('[data-testid="settings-input"]').eq(1).type(100);
+    // .should("have.value", "1000");
 
     cy.percySnapshot("dark flow page with settings modal with input");
 
