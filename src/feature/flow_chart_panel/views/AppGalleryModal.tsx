@@ -18,6 +18,8 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
@@ -44,30 +46,9 @@ export const AppGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
 }: AppGalleryModalProps) => {
-  const [selectFields, setSelectFields] = useState([]);
+  const [selectFields, setSelectFields] = useState<GithubJSON[]>([]);
   const [searchData, setSearchData] = useState<GithubJSON[]>([]);
   const turnStoneRef = useRef();
-
-  // fetches the root of the nodes directory in the main branch
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
-      );
-      const raw = await response.json();
-      const filtered = raw.filter(
-        (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
-      );
-      setSelectFields(
-        filtered.map((obj) => (
-          <SelectItem key={obj.sha} value={obj.url}>
-            {obj.name}
-          </SelectItem>
-        ))
-      );
-    };
-    fetchData().catch(console.error);
-  }, []);
 
   // This functions fetches the category selected by the user and clears the input
   const onValueChange = async (selectUrl: string) => {
@@ -81,6 +62,43 @@ export const AppGalleryModal = ({
   const setOpen = () => {
     setIsGalleryOpen(true);
   };
+
+  // fetches the root of the nodes directory in the main branch
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
+      );
+      const raw = await response.json();
+      const filtered = raw.filter(
+        (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
+      );
+      setSelectFields(filtered);
+    };
+
+    // const initData = async () => {
+    //   for (const obj of selectFields) {
+    //     const response = await fetch(obj.url);
+    //     const raw = await response.json();
+    //     console.log("the raw is: ");
+    //     console.log(raw);
+    //     const filtered = raw.filter((obj) => obj["type"] === "dir");
+    //     setSearchData([...searchData, ...filtered]);
+    //     console.log("the current search data is: ");
+    //     console.log(searchData);
+    //   }
+    // };
+    // const chain = async () => {
+    //   try {
+    //     await fetchData();
+    //     await initData();
+    //   } catch (e) {
+    //     console.error();
+    //   }
+    // };
+    // chain().catch(error);
+    fetchData().catch(error);
+  }, []);
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
@@ -99,7 +117,13 @@ export const AppGalleryModal = ({
                 <Select onValueChange={onValueChange}>
                   <SelectTrigger className="text-sm">Category</SelectTrigger>
                   <SelectGroup>
-                    <SelectContent>{selectFields}</SelectContent>
+                    <SelectContent>
+                      {selectFields.map((obj) => (
+                        <SelectItem key={obj.sha} value={obj.url}>
+                          {obj.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </SelectGroup>
                 </Select>
               </div>
