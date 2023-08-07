@@ -10,9 +10,9 @@ import {
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import localforage from "localforage";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
-import { Edge, Node, ReactFlowJsonObject, isNode } from "reactflow";
+import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
@@ -33,6 +33,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import WatchBtn from "../components/WatchBtn";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -377,6 +378,9 @@ const ControlBar = () => {
         handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
+
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
       ) : (
@@ -384,8 +388,8 @@ const ControlBar = () => {
       )}
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button variant="outline" size="sm">
+        <DropdownMenuTrigger data-testid="dropdown-button">
+          <Button variant="outline" size="sm" id="file-btn">
             File
           </Button>
         </DropdownMenuTrigger>

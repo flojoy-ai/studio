@@ -5,12 +5,12 @@
         "width": 150,
         "height": 150,
         "id": "LOCAL_FILE-37e74f08-bfb2-49d1-bec2-d962fda0f0a6",
-        "type": "LOCAL_FILE_SYSTEM",
+        "type": "LOADERS",
         "data": {
           "id": "LOCAL_FILE-37e74f08-bfb2-49d1-bec2-d962fda0f0a6",
           "label": "LOCAL FILE",
           "func": "LOCAL_FILE",
-          "type": "LOCAL_FILE_SYSTEM",
+          "type": "LOADERS",
           "ctrls": {
             "file_path": {
               "type": "str",
@@ -63,12 +63,12 @@
         "width": 150,
         "height": 150,
         "id": "NLP_CONNECT_VIT_GPT2-f4c9d884-68df-45a4-a06a-9c56750ff1c1",
-        "type": "IMAGE_CAPTIONING",
+        "type": "AI_ML",
         "data": {
           "id": "NLP_CONNECT_VIT_GPT2-f4c9d884-68df-45a4-a06a-9c56750ff1c1",
           "label": "NLP CONNECT VIT GPT2",
           "func": "NLP_CONNECT_VIT_GPT2",
-          "type": "IMAGE_CAPTIONING",
+          "type": "AI_ML",
           "ctrls": {},
           "inputs": [
             {
@@ -103,12 +103,12 @@
         "width": 380,
         "height": 293,
         "id": "TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbb",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbb",
           "label": "TABLE",
           "func": "TABLE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -140,48 +140,15 @@
         "dragging": true
       },
       {
-        "width": 210,
-        "height": 130,
-        "id": "END-16e2a698-7f97-4237-8225-86cb042f4cae",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-16e2a698-7f97-4237-8225-86cb042f4cae",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 2044.4309477737384,
-          "y": 257.69988533229866
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 2044.4309477737384,
-          "y": 257.69988533229866
-        },
-        "dragging": true
-      },
-      {
         "width": 380,
         "height": 293,
         "id": "IMAGE-ec76f3cf-6397-45cf-a1e0-ce43c89a9327",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "IMAGE-ec76f3cf-6397-45cf-a1e0-ce43c89a9327",
           "label": "IMAGE",
           "func": "IMAGE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -227,13 +194,6 @@
         "target": "TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbb",
         "targetHandle": "default",
         "id": "reactflow__edge-NLP_CONNECT_VIT_GPT2-f4c9d884-68df-45a4-a06a-9c56750ff1c1default-TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbbdefault"
-      },
-      {
-        "source": "TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbb",
-        "sourceHandle": "default",
-        "target": "END-16e2a698-7f97-4237-8225-86cb042f4cae",
-        "targetHandle": "default",
-        "id": "reactflow__edge-TABLE-15ab5a91-a962-4f8e-ba9c-8a159d576dbbdefault-END-16e2a698-7f97-4237-8225-86cb042f4caedefault"
       },
       {
         "source": "LOCAL_FILE-37e74f08-bfb2-49d1-bec2-d962fda0f0a6",
