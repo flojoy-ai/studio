@@ -389,7 +389,7 @@ const ControlBar = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger data-testid="dropdown-button">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" id="file-btn">
             File
           </Button>
         </DropdownMenuTrigger>
