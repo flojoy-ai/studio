@@ -12,7 +12,8 @@ describe("Modify settings in control bar", () => {
     cy.visit("/").wait(1000);
 
     // Click the setting button
-    cy.get('[data-testid="btn-setting"]').click();
+    cy.get('[data-testid="settings-btn"]').click();
+    cy.get('[data-testid="btn-node-settings"]').click();
 
     cy.percySnapshot("dark flow page with setting modal");
 
@@ -21,7 +22,7 @@ describe("Modify settings in control bar", () => {
     cy.get('[data-testid="settings-input"]')
       .eq(0)
       .type(0.5)
-      .should("have.value", "0.50");
+      .should("have.value", "0.5");
     cy.get('[data-testid="settings-input"]').eq(1).clear();
     cy.get('[data-testid="settings-input"]')
       .eq(1)
@@ -30,11 +31,14 @@ describe("Modify settings in control bar", () => {
 
     cy.percySnapshot("dark flow page with settings modal with input");
 
-    cy.get('[data-testid="settings-close-btn"]').click();
+    cy.get('button:contains("x")').click({ force: true });
 
+    //check the light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
-    cy.get('[data-testid="btn-setting"]').click();
+    //Click the settings btn
+    cy.get('[data-testid="settings-btn"]').click();
+    cy.get('[data-testid="btn-node-settings"]').click();
 
     cy.percySnapshot("light flow page with setting modal");
   });
