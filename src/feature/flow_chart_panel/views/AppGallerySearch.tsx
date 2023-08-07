@@ -40,7 +40,7 @@ const style = {
     "w-full cursor-default items-center rounded-sm py-1.5 pl-8 font-medium text-base outline-none bg-accent",
   match: "font-bold",
   typeahead: "text-crystal-500 font-light",
-  groupHeading: "cursor-default px-1.5 uppercase text-sm text-purple-300",
+  groupHeading: "cursor-default px-1.5 uppercase text-sm text-accent1-hover",
   noItems: "cursor-default text-center my-10 text-sm font-medium",
 };
 

@@ -97,7 +97,7 @@ export const AppGalleryModal = ({
             <div className="flex basis-2/5 gap-3">
               <div className="w-1/3 pt-1">
                 <Select onValueChange={onValueChange}>
-                  <SelectTrigger className=" text-sm">Category</SelectTrigger>
+                  <SelectTrigger className="text-sm">Category</SelectTrigger>
                   <SelectGroup>
                     <SelectContent>{selectFields}</SelectContent>
                   </SelectGroup>
