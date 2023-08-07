@@ -41,7 +41,11 @@ const EnvVarEdit = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="h-full w-full border-0">
-        <Button data-testid="envVarEditBtn" variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          data-testid="envVarEditBtn"
+          variant="outline"
+          onClick={() => setOpen(true)}
+        >
           Edit
         </Button>
       </DialogTrigger>
@@ -70,7 +74,11 @@ const EnvVarEdit = ({
           </div>
         </div>
         <DialogFooter>
-          <Button data-testid="envVarEditSubmit" type="submit" onClick={handleEdit}>
+          <Button
+            data-testid="envVarEditSubmit"
+            type="submit"
+            onClick={handleEdit}
+          >
             Save changes
           </Button>
         </DialogFooter>

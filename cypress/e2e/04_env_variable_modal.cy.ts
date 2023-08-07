@@ -32,7 +32,7 @@ describe("Verify Env Variable Modal", () => {
 
     cy.get('[data-testid="credentialName"]') // Use the appropriate data-testid value
       .each((container) => {
-        if(container.text().includes("CypressTest")){
+        if (container.text().includes("CypressTest")) {
           cy.wrap(container).find('[data-testid="passWordIconView"]').click();
           cy.wrap(container).find('[data-testid="envVarModifyBtn"]').click();
           cy.get('[data-testid="envVarEditBtn"]').click();
@@ -44,9 +44,9 @@ describe("Verify Env Variable Modal", () => {
         }
       });
 
-    const textToCopy = "CypressTest=123"
+    const textToCopy = "CypressTest=123";
     // cy.get('[data-testid="EnvVarKeyInput"]').invoke("val", textToCopy);
-    cy.get('[data-testid="EnvVarKeyInput"]').paste(textToCopy)
+    cy.get('[data-testid="EnvVarKeyInput"]').paste(textToCopy);
 
     // cy.get('[data-testid="passWordIconView"]').click({multiple:true});
   });
