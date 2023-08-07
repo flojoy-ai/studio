@@ -2,250 +2,208 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 150,
-        "height": 150,
-        "id": "LINSPACE-cc55781a-14c8-4405-8fd1-0157351b3486",
-        "type": "default",
+        "width": 96,
+        "height": 96,
+        "id": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+        "type": "LOGIC_GATES",
         "data": {
-          "id": "LINSPACE-cc55781a-14c8-4405-8fd1-0157351b3486",
-          "label": "LINSPACE",
-          "func": "LINSPACE",
-          "type": "default",
+          "id": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "LOGIC_GATES",
           "ctrls": {
-            "start": {
-              "type": "float",
-              "default": 10,
-              "functionName": "LINSPACE",
-              "param": "start",
-              "value": "0"
-            },
-            "end": {
-              "type": "float",
-              "default": 0,
-              "functionName": "LINSPACE",
-              "param": "end",
-              "value": "2000"
-            },
-            "step": {
+            "num_loops": {
               "type": "int",
-              "default": 1000,
-              "functionName": "LINSPACE",
-              "param": "step",
-              "value": "2000"
+              "default": -1,
+              "desc": "number of times to iterate through body nodes default is `-1` meaning infinity.",
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": "100"
             }
           },
-          "outputs": [
+          "inputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair"
+              "type": "Any",
+              "multiple": false,
+              "desc": null
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-          "selected": true
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any",
+              "desc": null
+            },
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
+          "selected": false
         },
         "position": {
-          "x": 138.41459532216834,
-          "y": 31.355021442009637
+          "x": 153.08826345429478,
+          "y": 125.76028881809133
         },
-        "selected": true,
+        "selected": false,
         "positionAbsolute": {
-          "x": 138.41459532216834,
-          "y": 31.355021442009637
+          "x": 153.08826345429478,
+          "y": 125.76028881809133
         }
       },
       {
-        "width": 225,
-        "height": 226,
-        "id": "SCATTER-d643dc2a-27ca-4a4d-ae0c-3e044691ad5f",
+        "width": 380,
+        "height": 293,
+        "id": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
         "type": "VISUALIZERS",
         "data": {
-          "id": "SCATTER-d643dc2a-27ca-4a4d-ae0c-3e044691ad5f",
-          "label": "SCATTER",
-          "func": "SCATTER",
+          "id": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
+          "label": "BIG NUMBER",
+          "func": "BIG_NUMBER",
           "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix",
-              "multiple": false
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-          "selected": false
-        },
-        "position": {
-          "x": 802.0633136463221,
-          "y": 393.44619318359895
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 802.0633136463221,
-          "y": 393.44619318359895
-        },
-        "dragging": true
-      },
-      {
-        "width": 250,
-        "height": 159,
-        "id": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
-          "label": "HISTOGRAM",
-          "func": "HISTOGRAM",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix",
-              "multiple": false
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
-          "selected": false
-        },
-        "position": {
-          "x": 765.7818094931146,
-          "y": -90.07080747236009
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 765.7818094931146,
-          "y": -90.07080747236009
-        },
-        "dragging": true
-      },
-      {
-        "width": 130,
-        "height": 130,
-        "id": "RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60a",
-        "type": "GENERATORS",
-        "data": {
-          "id": "RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60a",
-          "label": "RAND",
-          "func": "RAND",
-          "type": "GENERATORS",
           "ctrls": {
-            "distribution": {
-              "type": "select",
-              "default": "normal",
-              "options": ["normal", "uniform", "poisson"],
-              "functionName": "RAND",
-              "param": "distribution",
-              "value": "normal"
+            "suffix": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "functionName": "BIG_NUMBER",
+              "param": "suffix",
+              "value": ""
             },
-            "lower_bound": {
-              "type": "float",
-              "default": 0,
-              "functionName": "RAND",
-              "param": "lower_bound",
-              "value": "0"
+            "prefix": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "functionName": "BIG_NUMBER",
+              "param": "prefix",
+              "value": ""
             },
-            "upper_bound": {
-              "type": "float",
-              "default": 1,
-              "functionName": "RAND",
-              "param": "upper_bound",
-              "value": "1"
+            "title": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "functionName": "BIG_NUMBER",
+              "param": "title",
+              "value": ""
             },
-            "normal_mean": {
-              "type": "float",
-              "default": 0,
-              "functionName": "RAND",
-              "param": "normal_mean",
-              "value": "0"
-            },
-            "normal_standard_deviation": {
-              "type": "float",
-              "default": 1,
-              "functionName": "RAND",
-              "param": "normal_standard_deviation",
-              "value": "5"
-            },
-            "poisson_events": {
-              "type": "float",
-              "default": 1,
-              "functionName": "RAND",
-              "param": "poisson_events",
-              "value": "1"
+            "relative_delta": {
+              "type": "bool",
+              "default": true,
+              "desc": null,
+              "functionName": "BIG_NUMBER",
+              "param": "relative_delta",
+              "value": true
             }
           },
           "inputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair",
-              "multiple": false
+              "type": "OrderedPair|Scalar",
+              "multiple": false,
+              "desc": null
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "OrderedPair|Scalar"
+              "type": "Plotly",
+              "desc": null
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/RAND/RAND.py",
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BIG_NUMBER/BIG_NUMBER.py",
           "selected": false
         },
         "position": {
-          "x": 467.51371757072974,
-          "y": 45.4986744596863
+          "x": 821.3726227277857,
+          "y": -56.51459992169677
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 467.51371757072974,
-          "y": 45.4986744596863
+          "x": 821.3726227277857,
+          "y": -56.51459992169677
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 180,
+        "id": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
+        "type": "default",
+        "data": {
+          "id": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
+          "label": "LOOP INDEX",
+          "func": "LOOP_INDEX",
+          "type": "default",
+          "ctrls": {
+            "loop_node": {
+              "type": "NodeReference",
+              "default": null,
+              "desc": "The LOOP node to track the loop index from.",
+              "functionName": "LOOP_INDEX",
+              "param": "loop_node",
+              "value": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7"
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|Scalar",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Scalar",
+              "desc": "The loop index in Scalar form."
+            }
+          ],
+          "path": "PYTHON/nodes\\LOGIC_GATES\\LOOP_TOOLS\\LOOP_INDEX\\LOOP_INDEX.py",
+          "selected": false
+        },
+        "position": {
+          "x": 472.5656805220707,
+          "y": 3.5093485056772806
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 472.5656805220707,
+          "y": 3.5093485056772806
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LINSPACE-cc55781a-14c8-4405-8fd1-0157351b3486",
-        "sourceHandle": "default",
-        "target": "RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60a",
+        "source": "LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7",
+        "sourceHandle": "body",
+        "target": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
         "targetHandle": "default",
-        "id": "reactflow__edge-LINSPACE-cc55781a-14c8-4405-8fd1-0157351b3486default-RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60adefault"
+        "id": "reactflow__edge-LOOP-e209afec-0fe8-41e1-a665-d055e0179cc7body-LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526adefault"
       },
       {
-        "source": "RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60a",
+        "source": "LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526a",
         "sourceHandle": "default",
-        "target": "HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4",
+        "target": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
         "targetHandle": "default",
-        "id": "reactflow__edge-RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60adefault-HISTOGRAM-c5469532-dd28-4465-b8b0-524174db86e4default"
-      },
-      {
-        "source": "RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60a",
-        "sourceHandle": "default",
-        "target": "SCATTER-d643dc2a-27ca-4a4d-ae0c-3e044691ad5f",
-        "targetHandle": "default",
-        "id": "reactflow__edge-RAND-1fe43d0a-6b15-49d0-b6e0-35c61744a60adefault-SCATTER-d643dc2a-27ca-4a4d-ae0c-3e044691ad5fdefault"
+        "id": "reactflow__edge-LOOP_INDEX-908a6860-ae5a-4be7-bff4-bb92070f526adefault-BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851default"
       }
     ],
     "viewport": {
-      "x": -373.4542219202399,
-      "y": 120.20973884288571,
-      "zoom": 1.101977389476256
+      "x": 555.0976680981258,
+      "y": 214.4419430555007,
+      "zoom": 0.8287213244976164
     }
   },
   "ctrlsManifest": [
