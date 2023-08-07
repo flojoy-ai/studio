@@ -27,7 +27,7 @@ const EnvVarCredentialsInfo = ({
 
   return (
     <div
-      data-cy="credentialName"
+      data-testid="credentialName"
       key={credential.id}
       className="mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-800"
     >
