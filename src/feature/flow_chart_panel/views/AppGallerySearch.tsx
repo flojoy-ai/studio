@@ -97,6 +97,7 @@ export const AppGallerySearch = ({ items }) => {
     // const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
     // setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     // loadFlowExportObject(flow);
+    // if (selectItem) setIsGalleryOpen(false);
   };
   const fetchData = async () => {
     console.log("the items are:");

@@ -27,7 +27,7 @@ export const NodeEditMenu = ({
   useOnSelectionChange({ onChange: onSelectionChange });
 
   return (
-    <div pos="relative">
+    <div className="relative">
       {selectedNode && isEditMode && (
         <NodeEditModal
           node={selectedNode}
