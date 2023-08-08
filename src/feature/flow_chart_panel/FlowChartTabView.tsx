@@ -35,7 +35,7 @@ import { useAddNewNode } from "./hooks/useAddNewNode";
 import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
 import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
@@ -45,8 +45,6 @@ import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
-
-export const ACTIONS_HEIGHT = 56;
 
 localforage.config({
   name: "react-flow",

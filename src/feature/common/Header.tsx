@@ -4,6 +4,7 @@ import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import ControlBar from "../flow_chart_panel/views/ControlBar";
 import { useWindowSize } from "react-use";
+import { HEADER_HEIGHT } from "./Layout";
 
 const tabs = [
   {
@@ -13,8 +14,6 @@ const tabs = [
     testId: "script-btn",
   },
 ];
-
-export const HEADER_HEIGHT = 70;
 
 const Header = () => {
   const theme = useMantineTheme();

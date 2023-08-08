@@ -1,12 +1,12 @@
 import Header from "./Header";
 import { useSocket } from "@src/hooks/useSocket";
-import { HEADER_HEIGHT } from "./Header";
-import { ACTIONS_HEIGHT } from "../flow_chart_panel/FlowChartTabView";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
+export const HEADER_HEIGHT = 70;
+export const ACTIONS_HEIGHT = 56;
 const SERVER_STATUS_HEIGHT = 30;
 
 export const LAYOUT_TOP_HEIGHT =
