@@ -3,7 +3,6 @@ import {
   ScrollArea,
   Input,
   UnstyledButton,
-  Box,
   useMantineTheme,
   createStyles,
 } from "@mantine/core";
@@ -18,6 +17,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import CloseIconSvg from "@src/assets/SidebarCloseSvg";
 import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
+import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
 
 export type LeafClickHandler = (elem: NodeElement) => void;
 
@@ -27,8 +27,8 @@ const useSidebarStyles = createStyles((theme) => {
   return {
     navbarView: {
       position: "absolute",
-      top: "150px",
-      height: "calc(100vh - 150px)",
+      top: LAYOUT_TOP_HEIGHT,
+      height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
       backgroundColor: theme.colors.modal[0],
       boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
       transition: "500ms",
@@ -37,10 +37,10 @@ const useSidebarStyles = createStyles((theme) => {
     navbarHidden: {
       position: "absolute",
       left: "-100%",
-      top: "150px",
+      top: LAYOUT_TOP_HEIGHT,
       backgroundColor: theme.colors.modal[0],
       boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-      height: "calc(100vh - 150px)",
+      height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
       transition: "300ms",
       zIndex: 50,
     },

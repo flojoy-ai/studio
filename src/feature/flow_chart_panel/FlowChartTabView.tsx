@@ -46,6 +46,8 @@ import { Separator } from "@src/components/ui/separator";
 import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 
+export const ACTIONS_HEIGHT = 56;
+
 localforage.config({
   name: "react-flow",
   storeName: "flows",
@@ -246,8 +248,8 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div className="py-1" />
-      <div className="sm:px-8">
+      <div className="sm:px-8" style={{ height: ACTIONS_HEIGHT }}>
+        <div className="py-1" />
         <div className="flex">
           <IconButton
             icon={Workflow}

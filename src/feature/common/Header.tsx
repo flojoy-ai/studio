@@ -14,6 +14,8 @@ const tabs = [
   },
 ];
 
+export const HEADER_HEIGHT = 70;
+
 const Header = () => {
   const theme = useMantineTheme();
 
@@ -22,7 +24,7 @@ const Header = () => {
   const large = width > getBreakpointValue(theme.breakpoints.sm);
 
   return (
-    <div className="">
+    <div style={{ height: HEADER_HEIGHT }}>
       <div className="flex gap-4">
         <Logo />
         {tabs.map((t) => (
