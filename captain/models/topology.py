@@ -11,7 +11,7 @@ from flojoy import (
     get_node_init_function,
 )
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
-from PYTHON.utils.dynamic_module_import import get_module_func
+from flojoy.node_utils.nodes_map import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx

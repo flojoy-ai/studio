@@ -173,17 +173,17 @@ function createFlojoyDirectoryWithYmlFile {
     Set-Content $FILE "PATH: $CWD"
     feedback $? "Created new $FOLDER directory with flojoy.yaml file." "Failed to create file in the home directory, check the permission or sign in as root user"
   }
-
+  
   $CREDENTIALS_FILE = "$FOLDER/credentials.txt"
-  touch $CREDENTIALS_FILE
   if (-not (Test-Path $CREDENTIALS_FILE)) {
-    warning_msg " Warning: Credentials are not set for your project! You can set credentials by creating a file named 'credentials' in the directory '~/.flojoy' and adding your credentials to the file."
+    New-Item $CREDENTIALS_FILE -ItemType File | Out-Null
+    warning_msg " Warning: Credentials are not set for your project! Created an empty credentials.txt file. You can add your credentials to this file in $CREDENTIALS_FILE."
   }
   else {
     $FRONTIER_API_KEY_PATTERN = "FRONTIER_API_KEY:"
     $FRONTIER_API_KEY = Select-String $CREDENTIALS_FILE -Pattern $FRONTIER_API_KEY_PATTERN -Quiet
     if (-not $FRONTIER_API_KEY) {
-      warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials' file: FRONTIER_API_KEY:<your key>"
+      warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials.txt' file: FRONTIER_API_KEY:<your key>"
     }
   }
 }
@@ -255,7 +255,7 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
-& python .\PYTHON\generate_manifest.py
+& python .\scripts\generate_node_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
