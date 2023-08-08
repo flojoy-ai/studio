@@ -164,7 +164,9 @@ createFlojoyDirectoryWithYmlFile()
       mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
       feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
    fi
+
    CREDENTIALS_FILE=$FOLDER/credentials.txt
+   
    if test -f "$CREDENTIALS_FILE"; then
       if ! grep -q 'FRONTIER_API_KEY' "$CREDENTIALS_FILE" >/dev/null 2>&1; then
          warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials.txt' file: FRONTIER_API_KEY:<your key>"   
