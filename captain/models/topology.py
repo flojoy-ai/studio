@@ -10,6 +10,7 @@ from flojoy import (
     NoInitFunctionError,
     get_node_init_function,
 )
+
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
 from flojoy.node_utils.nodes_map import get_module_func
 from captain.types.worker import JobInfo
@@ -18,7 +19,6 @@ import networkx as nx
 from typing import Any, Tuple, cast, Callable
 
 lock = asyncio.Lock()
-
 
 class Topology:
     """
