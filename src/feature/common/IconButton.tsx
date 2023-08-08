@@ -32,7 +32,7 @@ const IconButton = ({ onClick, icon, children, ...props }: IconButtonProps) => {
   return (
     <UnstyledButton p={4} h="100%" onClick={onClick} {...props}>
       <div className={classes.container}>
-        {icon} <div ml={4}>{children}</div>{" "}
+        {icon} <div className="ml-4">{children}</div>{" "}
       </div>
     </UnstyledButton>
   );

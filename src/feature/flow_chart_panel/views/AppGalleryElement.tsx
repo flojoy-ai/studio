@@ -39,6 +39,7 @@ export const AppGalleryElement = ({
     <>
       <div className="relative w-full ">
         <Button
+          data-testid="gallery-element-btn"
           onClick={onClick}
           className="relative h-2/3 hover:bg-white dark:hover:bg-black"
           variant="ghost"

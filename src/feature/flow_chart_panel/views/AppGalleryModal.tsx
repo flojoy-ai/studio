@@ -54,23 +54,23 @@ export const AppGalleryModal = ({
     fetchData().catch(console.error);
   }, []);
 
-  const populateHeading = async (selectUrl: string) => {
-    const response = await fetch(selectUrl);
-    const raw = await response.json();
-    // const box: listBox[] = raw.map(async (obj) => {
-    //   const objResponse = await fetch(obj.url);
-    //   const rawData = await objResponse.json();
-    //   return {
-    //     name: obj.name,
-    //     displayField: "name",
-    //     data: rawData,
-    //     id: obj.name.toLowerCase(),
-    //     ratio: 5,
-    //     searchType: "startswith",
-    //   };
-    // });
-    setData(raw);
-  };
+  // const populateHeading = async (selectUrl: string) => {
+  //   const response = await fetch(selectUrl);
+  //   const raw = await response.json();
+  //   // const box: listBox[] = raw.map(async (obj) => {
+  //   //   const objResponse = await fetch(obj.url);
+  //   //   const rawData = await objResponse.json();
+  //   //   return {
+  //   //     name: obj.name,
+  //   //     displayField: "name",
+  //   //     data: rawData,
+  //   //     id: obj.name.toLowerCase(),
+  //   //     ratio: 5,
+  //   //     searchType: "startswith",
+  //   //   };
+  //   // });
+  //   setData(raw);
+  // };
 
   const setOpen = () => {
     setIsGalleryOpen(true);
@@ -79,7 +79,12 @@ export const AppGalleryModal = ({
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2" onClick={setOpen}>
+        <Button
+          data-testid="app-gallery-btn"
+          variant="outline"
+          className="gap-2"
+          onClick={setOpen}
+        >
           <LayoutGrid />
           App Gallery
         </Button>

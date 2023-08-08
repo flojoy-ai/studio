@@ -41,7 +41,11 @@ const EnvVarEdit = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="h-full w-full border-0">
-        <Button variant="outline" onClick={() => setOpen(true)}>
+        <Button
+          data-testid="env-var-edit-btn"
+          variant="outline"
+          onClick={() => setOpen(true)}
+        >
           Edit
         </Button>
       </DialogTrigger>
@@ -61,6 +65,7 @@ const EnvVarEdit = ({
             </Label>
             <Input
               id="editEnv"
+              data-tesid="edit-env-input"
               placeholder="New Value"
               className="col-span-3"
               value={editEnv}
@@ -69,7 +74,11 @@ const EnvVarEdit = ({
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleEdit}>
+          <Button
+            data-testid="env-var-edit-submit"
+            type="submit"
+            onClick={handleEdit}
+          >
             Save changes
           </Button>
         </DialogFooter>

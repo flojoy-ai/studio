@@ -87,7 +87,6 @@ export const AppGallerySearch = ({ items }) => {
 
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
-  const { setIsGalleryOpen } = useFlowChartState();
   const [testbox, setTestBox] = useState<listBox[]>([]);
 
   const handleSelect = async (selectItem: nodeName) => {
@@ -98,7 +97,7 @@ export const AppGallerySearch = ({ items }) => {
     // const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, any>;
     // setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     // loadFlowExportObject(flow);
-    if (selectItem) setIsGalleryOpen(false);
+    // if (selectItem) setIsGalleryOpen(false);
   };
   const fetchData = async () => {
     console.log("the items are:");
