@@ -20,6 +20,7 @@ from typing import Any, Tuple, cast, Callable
 
 lock = asyncio.Lock()
 
+
 class Topology:
     """
     Holds information of the flowchart and the state of the topology.
