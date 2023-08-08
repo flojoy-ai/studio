@@ -389,7 +389,7 @@ const ControlBar = () => {
 
       <DropdownMenu>
         <DropdownMenuTrigger data-testid="dropdown-button">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" id="file-btn">
             File
           </Button>
         </DropdownMenuTrigger>
@@ -405,23 +405,17 @@ const ControlBar = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <Button */}
-      {/*   data-testid="btn-setting" */}
-      {/*   onClick={() => setIsSettingsOpen(true)} */}
-      {/*   size="sm" */}
-      {/*   variant="outline" */}
-      {/* > */}
-      {/*   Settings */}
-      {/* </Button> */}
-
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button variant="outline" size="sm">
+          <Button data-testid="settings-btn" variant="outline" size="sm">
             Settings
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+          <DropdownMenuItem
+            data-testid="env-variable-moda-btn"
+            onClick={() => setIsEnvVarModalOpen(true)}
+          >
             Environment Variables
           </DropdownMenuItem>
           <DropdownMenuItem
