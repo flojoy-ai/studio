@@ -1,9 +1,9 @@
-import { Button } from "@src/components/ui/button";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { Play } from "lucide-react";
+import { IconButton } from "@src/feature/common/IconButton";
 
 interface PlayBtnProps {
   onPlay: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -23,17 +23,20 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
   useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
 
   return (
-    <Button
+    <IconButton
+      icon={Play}
+      iconProps={{
+        className: "stroke-foreground",
+        size: 18,
+      }}
       size="sm"
       variant="outline"
       id="btn-play"
       onClick={handleClick}
       disabled={nodes.length === 0}
     >
-      <Play size="20" />
-      <div className="px-1"></div>
-      <div>Play</div>
-    </Button>
+      Play
+    </IconButton>
   );
 };
 

@@ -365,7 +365,7 @@ const ControlBar = () => {
   const exportResultDisabled = programResults.length == 0;
 
   return (
-    <div className={classes.controls}>
+    <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
@@ -379,65 +379,60 @@ const ControlBar = () => {
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
 
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
-
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
       ) : (
         <CancelBtn cancelFC={cancelFC} />
       )}
+      <div className="px-0.5" />
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <div className="flex">
+        <DropdownMenu>
+          <DropdownMenuTrigger data-testid="dropdown-button">
+            <Button variant="ghost" size="sm" id="file-btn">
+              File
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <SaveAsButton
+              saveFile={saveFileAs}
+              saveAsDisabled={saveAsDisabled}
+            />
+            <SaveButton saveFile={saveFile} />
+            <ExportResultButton
+              results={programResults}
+              disabled={exportResultDisabled}
+            />
+            <SaveFlowChartBtn />
+            <LoadButton />
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger data-testid="dropdown-button">
-          <Button variant="outline" size="sm" id="file-btn">
-            File
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-          <SaveButton saveFile={saveFile} />
-          <ExportResultButton
-            results={programResults}
-            disabled={exportResultDisabled}
-          />
-          <SaveFlowChartBtn />
-          <LoadButton />
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      {/* <Button */}
-      {/*   data-testid="btn-setting" */}
-      {/*   onClick={() => setIsSettingsOpen(true)} */}
-      {/*   size="sm" */}
-      {/*   variant="outline" */}
-      {/* > */}
-      {/*   Settings */}
-      {/* </Button> */}
-
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button variant="outline" size="sm">
-            Settings
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
-            Environment Variables
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-keyboardshortcut"
-            onClick={() => setIsKeyboardShortcutOpen(true)}
-          >
-            Keyboard Shortcut
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-node-settings"
-            onClick={() => setIsNodeSettingsOpen(true)}
-          >
-            Node Settings
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Button variant="ghost" size="sm">
+              Settings
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+              Environment Variables
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              data-testid="btn-keyboardshortcut"
+              onClick={() => setIsKeyboardShortcutOpen(true)}
+            >
+              Keyboard Shortcut
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              data-testid="btn-node-settings"
+              onClick={() => setIsNodeSettingsOpen(true)}
+            >
+              Node Settings
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
       <DarkModeToggle />
     </div>

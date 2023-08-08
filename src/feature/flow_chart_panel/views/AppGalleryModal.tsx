@@ -18,6 +18,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
+import { IconButton } from "@src/feature/common/IconButton";
 
 const subjectKeyList = ["fundamentals", "AI", "IO", "DSP"];
 const ignoreDir = [".github", "MANIFEST"];
@@ -79,10 +80,9 @@ export const AppGalleryModal = ({
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2" onClick={setOpen}>
-          <LayoutGrid />
+        <IconButton icon={LayoutGrid} variant="ghost" onClick={setOpen}>
           App Gallery
-        </Button>
+        </IconButton>
       </DialogTrigger>
       <DialogContent className="h-4/5 max-w-5xl items-center justify-center rounded-lg shadow-2xl">
         <DialogHeader className="sticky">

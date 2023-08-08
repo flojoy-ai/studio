@@ -44,7 +44,8 @@ import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick, LayoutGrid } from "lucide-react";
+import { Eraser, Joystick, Workflow } from "lucide-react";
+import { IconButton } from "../common/IconButton";
 
 localforage.config({
   name: "react-flow",
@@ -248,31 +249,27 @@ const FlowChartTab = () => {
     <Layout>
       <div className="py-1" />
       <div className="flex">
-        <Button
+        <IconButton
+          icon={Workflow}
           onClick={toggleSidebar}
           data-testid="add-node-button"
-          variant="outline"
+          variant="ghost"
         >
-          <Joystick />
-          <div className="px-1" />
-          <div>Add Python Node</div>
-        </Button>
-        <div className="ml-2">
-          <AppGalleryModal
-            isGalleryOpen={isGalleryOpen}
-            setIsGalleryOpen={setIsGalleryOpen}
-          />
-        </div>
+          Add Node
+        </IconButton>
+        <AppGalleryModal
+          isGalleryOpen={isGalleryOpen}
+          setIsGalleryOpen={setIsGalleryOpen}
+        />
         <div className="grow" />
-        <Button
+        <IconButton
+          icon={Eraser}
           onClick={clearCanvas}
           data-testid="clear-canvas-button"
-          variant="outline"
+          variant="ghost"
         >
-          <Eraser />
-          <div className="px-1" />
-          <div>Clear Canvas</div>
-        </Button>
+          Clear Canvas
+        </IconButton>
       </div>
       <div className="py-1" />
       <Separator />
