@@ -256,7 +256,7 @@ const ControlBar = () => {
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const { classes } = useStyles();
-  const { settingsList } = useSettings();
+  const { settings } = useSettings();
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
@@ -339,7 +339,7 @@ const ControlBar = () => {
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
-        settings: settingsList.filter((setting) => setting.group === "backend"),
+        settings: settings.filter((setting) => setting.group === "backend"),
       });
       setNodeParamChanged(false);
     } else {
@@ -405,15 +405,6 @@ const ControlBar = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <Button */}
-      {/*   data-testid="btn-setting" */}
-      {/*   onClick={() => setIsSettingsOpen(true)} */}
-      {/*   size="sm" */}
-      {/*   variant="outline" */}
-      {/* > */}
-      {/*   Settings */}
-      {/* </Button> */}
-
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button variant="outline" size="sm">
@@ -434,7 +425,7 @@ const ControlBar = () => {
             data-testid="btn-node-settings"
             onClick={() => setIsNodeSettingsOpen(true)}
           >
-            Node Settings
+            Runtime Settings
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
