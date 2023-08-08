@@ -21,5 +21,4 @@ uvicorn[standard]==0.22.0
 fastapi==0.95.2
 docstring_parser==0.15
 keyring==24.2.0 
-keyrings.alt==5.0.0
 debugpy
