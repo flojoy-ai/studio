@@ -42,9 +42,8 @@ import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
-import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick, Workflow } from "lucide-react";
+import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 
 localforage.config({
@@ -248,31 +247,33 @@ const FlowChartTab = () => {
   return (
     <Layout>
       <div className="py-1" />
-      <div className="flex">
-        <IconButton
-          icon={Workflow}
-          onClick={toggleSidebar}
-          data-testid="add-node-button"
-          variant="ghost"
-        >
-          Add Node
-        </IconButton>
-        <AppGalleryModal
-          isGalleryOpen={isGalleryOpen}
-          setIsGalleryOpen={setIsGalleryOpen}
-        />
-        <div className="grow" />
-        <IconButton
-          icon={Eraser}
-          onClick={clearCanvas}
-          data-testid="clear-canvas-button"
-          variant="ghost"
-        >
-          Clear Canvas
-        </IconButton>
+      <div className="sm:px-8">
+        <div className="flex">
+          <IconButton
+            icon={Workflow}
+            onClick={toggleSidebar}
+            data-testid="add-node-button"
+            variant="ghost"
+          >
+            Add Node
+          </IconButton>
+          <AppGalleryModal
+            isGalleryOpen={isGalleryOpen}
+            setIsGalleryOpen={setIsGalleryOpen}
+          />
+          <div className="grow" />
+          <IconButton
+            icon={Eraser}
+            onClick={clearCanvas}
+            data-testid="clear-canvas-button"
+            variant="ghost"
+          >
+            Clear Canvas
+          </IconButton>
+        </div>
+        <div className="py-1" />
+        <Separator />
       </div>
-      <div className="py-1" />
-      <Separator />
 
       <Sidebar
         sections={nodeSection}
