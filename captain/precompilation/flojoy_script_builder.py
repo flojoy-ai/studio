@@ -55,13 +55,14 @@ def minify(file: str):
     Minify python file
     """
     return python_minifier.minify(file)
+
 # ------------------------------------------------------
 # ------------------------------------------------------
 
 # Applies each function to file. Order matters, turn on (True) or off (False) as needed
 filters_for_files = [
     (convert_numpy_to_ulab, True),
-    (minify, True),
+    (minify, False),
 ]
 
 class FlojoyScriptBuilder:
@@ -73,6 +74,7 @@ class FlojoyScriptBuilder:
         self.items = []
         self.indent_level = 0
         self.imports = set()
+        self.func_or_classes = set()
         self.path_to_output = path_to_output
         self.is_ci = is_ci
         self.filters_for_files = filters_for_files
@@ -120,6 +122,8 @@ class FlojoyScriptBuilder:
 
         if add_modules:
             self._add_module_import(item)
+        
+        self.func_or_classes.add(item.__name__)
 
     def _add_code_block(self, block: str):
         """
@@ -183,18 +187,29 @@ class FlojoyScriptBuilder:
                 for alias in node.names:
                     self.imports.add(f"from {module} import {alias.name}")
 
-    def _apply_file_filters(self, files: list[str]):
+    def _apply_file_filters(self, file: str):
         """
         Apply filters to file.
         """
-        new_files = ["" for _ in files]
-        for i in range(len(files)):
-            new_file = files[i]
-            for (filter, to_apply) in self.filters_for_files:
-                if to_apply:
-                    new_file = filter(new_file)
-            new_files[i] = new_file
-        return new_files
+        new_file = file
+        for (filter, to_apply) in self.filters_for_files:
+            if to_apply:
+                new_file = filter(new_file)
+        return new_file
+    
+    def apply_filters_to_py_files_in_output_dir(self):
+        """
+        Walk through the directory and apply all the file filters to python files
+        """
+        for root, dirs, files in os.walk(self.path_to_output):
+            for file in files:
+                if file.endswith(".py"):
+                    file_path = os.path.join(root, file)
+                    with open(file_path, "r") as f:
+                        file_str = f.read()
+                    file_str = self._apply_file_filters(file_str)
+                    with open(file_path, "w") as f:
+                        f.write(file_str)
 
     def remove_debug_prints_and_set_offline(self):
         self._add_import(from_string="flojoy.utils", import_string="set_offline")
@@ -208,7 +223,6 @@ class FlojoyScriptBuilder:
         """
         all_items = list(self.imports) + self.items
         final_string = HEADER + "\n" + "\n".join(all_items)
-        final_string = self._apply_file_filters([final_string])[0]
         filename = os.path.join(self.path_to_output, "script.py")
         with open(filename, "w") as f:
             f.write(final_string)
@@ -244,7 +258,6 @@ class FlojoyScriptBuilder:
         def filter_and_output(from_path, to_path):
             with open(from_path, "r") as f:
                 file_str = f.read()
-            file_str = self._apply_file_filters([file_str])[0]
             with open(to_path, "w") as f:
                 f.write(file_str)
 
@@ -264,6 +277,7 @@ class FlojoyScriptBuilder:
                             filter_and_output(file_path, file_path)
 
         node_id_to_func = {}
+        node_id_to_params = {} # micropython doesn't have an inspect module
         self.imports.add("import sys")
         self.imports.add("import os")
         self._add_code_block("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
@@ -275,6 +289,7 @@ class FlojoyScriptBuilder:
             cmd_mock: str = node["cmd"] + "_MOCK"
             func_module = get_module_func(cmd)
             node_id_to_func[node_id] = getattr(func_module, cmd).__name__
+            node_id_to_params[node_id] = set(inspect.signature(getattr(func_module, cmd)).parameters.keys())
             ci_available = False
             if self.is_ci:
                 try:
@@ -354,6 +369,9 @@ class FlojoyScriptBuilder:
 
         # add node_to_func to script (mapping of node_ids to function names)
         self._add_dict("node_id_to_func", node_id_to_func, no_string=True)
+        
+        # add node_to_params to script (mapping of node_ids to function parameters)
+        self._add_dict("node_id_to_params", node_id_to_params, no_string=True)
 
     def run_write_flowchart(self, fc: str, jobset_id: str):
         #   -- add some necessary imports --

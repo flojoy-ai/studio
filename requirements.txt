@@ -1,6 +1,6 @@
 channels==4.0.0
 daphne==4.0.0
-flojoy==0.1.5.dev12
+flojoy @ git+https://github.com/flojoy-ai/python@main
 matplotlib==3.5.2
 scikit-learn==1.2.2
 networkx==2.8.4
@@ -25,3 +25,4 @@ docstring_parser==0.15
 debugpy
 python-minifier==2.9.0
 astunparse==1.6.3
+

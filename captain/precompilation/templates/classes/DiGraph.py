@@ -1,3 +1,8 @@
+try:
+    import ujson # micropython json equivalent
+except ImportError:
+    import json as ujson
+
 class DiGraph:
     """
     This is a class that represents a directed graph.
@@ -7,6 +12,13 @@ class DiGraph:
         self.nodes = dict()
         self.edges = dict()
         self.edges_reverse = dict()
+
+    def copy(self):
+        copy = DiGraph() # type: ignore
+        copy.nodes = ujson.loads(ujson.dumps(self.nodes))
+        copy.edges = ujson.loads(ujson.dumps(self.edges))
+        copy.edges_reverse = ujson.loads(ujson.dumps(self.edges_reverse))
+        return copy
 
     def add_node(self, node_id: str, **kwargs):
         self.nodes[node_id] = kwargs

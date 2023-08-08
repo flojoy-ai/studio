@@ -1,17 +1,17 @@
-from copy import deepcopy
-import json
+try:
+    import ujson # micropython json equivalent
+except ImportError:
+    import json as ujson
 import time
 from typing import Any, Callable, Dict, Tuple
 from flojoy import get_next_directions
 
-
 # NOTE FOR DEVELOPERS:
-# do not use type hints with generic types (e.g. list[str])
-# and do not use type hints at all in variables, acceptable for parameters.
-# To be sure, use python 3.4 interpreter to check the type hints
+# DO NOT use type hints. Some type hints are already present, but try to avoid adding more.
+# To be sure, use python 3.4 interpreter since it's the most similar to micropython
 class LightTopology:
     """
-    Lighter version of the Topology class. Used for the precompilation process.
+    Lighter version of the Topology class meant to run on micropython. Used for the precompilation process.
     Its purpose is to implement event-driven logic without
     asynchronous programming, and reduce the size of the precompiled script.
     For comments and documentation, see Topology class.
@@ -24,8 +24,8 @@ class LightTopology:
         node_id_to_func: Dict[str, Callable[..., Any]],
         is_ci: bool = False,
     ):
-        self.working_graph = deepcopy(graph)
-        self.original_graph = deepcopy(graph)
+        self.working_graph = graph.copy()
+        self.original_graph = graph.copy()
         self.loop_nodes = list()
         self.queued_amt = 0
         self.is_ci = is_ci
@@ -37,7 +37,7 @@ class LightTopology:
 
     def write_results(self):
         with open("results.json", "w") as f:
-            f.write(json.dumps(self.res_store))
+            f.write(ujson.dumps(self.res_store))
 
     def run(self):
         self.time_start = time.time()

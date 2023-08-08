@@ -25,15 +25,16 @@ def precompile(request: PostWFC, path_to_output: str, path_to_requirements: str,
 
     # Step 1: add necessary pip packages
     sw.export_base_pip_packages(export_dir=path_to_output, path_to_requirements=path_to_requirements) # required pip packages for flowchart execution 
-    sw.install_missing_pip_packages(flowchart_as_dict["nodes"]) # pip packages required only by certain nodes 
+    # sw.install_missing_pip_packages(flowchart_as_dict["nodes"]) # pip packages required only by certain nodes 
 
     # Step 2: add import strings for node functions
     sw.import_app_nodes(get_graph_nodes(light_topology))
 
-    # Step 3: add the flowchart, run it, and write
+    # Step 3: add the flowchart, and the code to run it
     sw.run_write_flowchart(request.fc, request.jobsetId)
 
-    # Step 4: uninstall added pip packages
-    sw.uninstall_pip_packages()
-
+    # Step 4: output files
     sw.write_to_file()
+
+    #Step 5: apply file filters
+    sw.apply_filters_to_py_files_in_output_dir()
