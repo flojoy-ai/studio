@@ -129,7 +129,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("conditional");
-    cy.contains("button", new RegExp("CONDITIONAL", "g")).click();
+    cy.contains("button", /^CONDITIONAL$/).click();
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();
@@ -148,20 +148,19 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // creating loop node
-    // cy.get('[data-testid="add-node-button"]').click();
-    // // Clear input box
-    // cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
-    // cy.get('[data-testid="sidebar-input"]').type("loop");
+    cy.get('[data-testid="add-node-button"]').click();
+    // Clear input box
+    cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
+    cy.get('[data-testid="sidebar-input"]').type("loop");
+    cy.contains("button", /^LOOP$/).click();
+    cy.get('[data-testid="sidebar-close"]').click();
 
-    // cy.contains("button", new RegExp("LOOP", "g")).click();
-    // cy.get('[data-testid="sidebar-close"]').click();
+    cy.get('[data-testid="node-wrapper"]').click();
+    cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
+    cy.get('[data-testid="int-input"]').eq(0).type(10);
 
-    // cy.get('[data-testid="node-wrapper"]').click();
-    // cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
-    // cy.get('[data-testid="int-input"]').eq(0).type(10);
-
-    // cy.get('[data-testid="node-edit-modal-close-btn"]').click();
-    // cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="clear-canvas-button"]').click();
     // Switch to dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
