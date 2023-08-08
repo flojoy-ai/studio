@@ -413,7 +413,7 @@ const ControlBar = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem
-            data-testid="envVariablesModalBtn"
+            data-testid="env-variable-moda-btn"
             onClick={() => setIsEnvVarModalOpen(true)}
           >
             Environment Variables

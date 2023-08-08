@@ -10,5 +10,7 @@ describe("Command test", () => {
       key: "k",
       metaKey: true,
     });
+
+    cy.percySnapshot("dark flow page with command bar open (meta)");
   });
 });
