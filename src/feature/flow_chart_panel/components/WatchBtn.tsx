@@ -35,7 +35,11 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
 
   return (
     <div className="flex items-center space-x-2">
-      <Switch checked={isWatching} onCheckedChange={handleClick} />
+      <Switch
+        checked={isWatching}
+        onCheckedChange={handleClick}
+        data-testid="watch-mode-toggle"
+      />
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
