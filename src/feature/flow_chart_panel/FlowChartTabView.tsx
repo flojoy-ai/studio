@@ -30,7 +30,6 @@ import {
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
@@ -98,7 +97,6 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
@@ -280,7 +278,6 @@ const FlowChartTab = () => {
         leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
-        customContent={sidebarCustomContent}
       />
 
       <ReactFlowProvider>
