@@ -7,18 +7,15 @@ describe("Checking app gallery feature", () => {
     cy.visit("/").wait(1000);
 
     cy.get(`[data-testid="app-gallery-btn"]`).click();
+    // Select "Intro to LOOPS"
+    cy.get('[data-testid="gallery-element-btn"]').eq(0).click();
 
-    cy.percySnapshot("App Gallery Layout");
+    // center screen
+    cy.get("body").type("{cmd}1");
+    // capture that corresponding snapshot has been generated correctly
+    cy.percySnapshot("Correctly generated app");
 
-    
-    // // Upload the file
-    // cy.get("body")
-    //   .get("input[type=file]")
-    //   .selectFile("cypress/fixtures/load_test.txt", { force: true });
-
-    // cy.percySnapshot("Flow page after loading app");
-
-    // // Check that the app contains exactly 1 node
-    // cy.get('[data-testid="node-wrapper"]').should("have.length", 1);
+    // Check that app contains exactly 3 nodes
+    cy.get('[data-testid="node-wrapper"]').should("have.length", 3);
   });
 });
