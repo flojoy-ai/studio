@@ -19,12 +19,12 @@ export const NodeEditMenu = ({
 }: NodeEditMenuProps) => {
   const { isEditMode, setIsEditMode } = useFlowChartState();
 
-  const onSelectionChange = () => {
-    if (!selectedNode) {
-      setIsEditMode(false);
-    }
-  };
-  useOnSelectionChange({ onChange: onSelectionChange });
+  // const onSelectionChange = () => {
+  //   if (!selectedNode) {
+  //     setIsEditMode(false);
+  //   }
+  // };
+  // useOnSelectionChange({ onChange: onSelectionChange });
 
   return (
     <div className="relative">

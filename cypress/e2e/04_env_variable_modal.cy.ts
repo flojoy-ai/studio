@@ -30,7 +30,7 @@ describe("Verify Env Variable Modal", () => {
 
     cy.get('[data-testid="envModalAddBtn"]').click();
 
-    cy.get('[data-testid="credentialName"]', {timeout: 10000}).should("exist").each((container) => {
+    cy.get('[data-testid="credentialName"]').each((container) => {
         if (container.text().includes("CypressTest")) {
           cy.wrap(container).find('[data-testid="passWordIconView"]').click();
           cy.wrap(container).find('[data-testid="envVarModifyBtn"]').click();
