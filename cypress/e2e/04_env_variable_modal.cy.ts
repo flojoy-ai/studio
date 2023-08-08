@@ -31,17 +31,17 @@ describe("Verify Env Variable Modal", () => {
     cy.get('[data-testid="envModalAddBtn"]').click();
 
     cy.get('[data-testid="credentialName"]').each((container) => {
-        if (container.text().includes("CypressTest")) {
-          cy.wrap(container).find('[data-testid="passWordIconView"]').click();
-          cy.wrap(container).find('[data-testid="envVarModifyBtn"]').click();
-          cy.get('[data-testid="envVarEditBtn"]').click();
-          cy.get('[data-tesid="editEnvInput"]').click().type("CypressModify");
-          cy.get('[data-testid="envVarEditSubmit"]').click();
-          cy.get('[data-testid="envVarDeleteBtn"]').click();
-          cy.get('[data-testid="envVarDeleteCancel"]').click();
-          cy.get('[data-testid="envVarDeleteContinue"]').click();
-        }
-      });
+      if (container.text().includes("CypressTest")) {
+        cy.wrap(container).find('[data-testid="passWordIconView"]').click();
+        cy.wrap(container).find('[data-testid="envVarModifyBtn"]').click();
+        cy.get('[data-testid="envVarEditBtn"]').click();
+        cy.get('[data-tesid="editEnvInput"]').click().type("CypressModify");
+        cy.get('[data-testid="envVarEditSubmit"]').click();
+        cy.get('[data-testid="envVarDeleteBtn"]').click();
+        cy.get('[data-testid="envVarDeleteCancel"]').click();
+        cy.get('[data-testid="envVarDeleteContinue"]').click();
+      }
+    });
 
     const textToCopy = "CypressTest=123";
     // cy.get('[data-testid="EnvVarKeyInput"]').invoke("val", textToCopy);

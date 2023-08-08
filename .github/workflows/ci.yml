@@ -35,18 +35,6 @@ jobs:
 
       - name: Run formatting check
         run: npm run check
-  
-  # create-credentials-file:
-  #     runs-on: ubuntu-latest
- 
-  #     steps:
-  #     - name: Make envfile
-  #       uses: home/runner/.flojoy
-  #         directory: <directory_name>
-  #         file_name: credentials.txt
-  #         fail_on_empty: false
-  #         sort_keys: false
-
 
   python-tests:
     runs-on: ubuntu-latest

@@ -14,6 +14,5 @@ import "./13_flowchart_cancel.cy";
 import "./14_flowchart_watch_mode.cy";
 import "./15_flowchart_user.cy";
 import "./16_command_menu.cy";
-import "./17_shortcut.cy";
-import "./18_load_app.cy";
-import "./19_app_gallery.cy";
+import "./17_load_app.cy";
+import "./18_app_gallery.cy";

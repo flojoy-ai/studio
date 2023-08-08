@@ -38,5 +38,41 @@ describe("Testing flowchart user with keyboard shortcuts", () => {
       key: "p",
       ctrlKey: true,
     });
+    //press selectAll shortcut (meta)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "a",
+      metaKey: true,
+    });
+    cy.percySnapshot("dark flow page with all selected nodes (meta)");
+    //press deselectAll shortcut (meta)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "0",
+      metaKey: true,
+    });
+    cy.percySnapshot("dark flow page with no selected nodes (meta)");
+    //press deselectAll shortcut (ctrl)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "0",
+      ctrlKey: true,
+    });
+    cy.percySnapshot("dark flow page with no selected nodes (ctrl)");
+    //press selectAll shortcut (ctrl)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "a",
+      ctrlKey: true,
+    });
+    cy.percySnapshot("dark flow page with all selected nodes (ctrl)");
+    //press deselectNode shortcut (ctrl)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "9",
+      ctrlKey: true,
+    });
+    cy.percySnapshot("dark flow page with one deselect node (ctrl)");
+    //press deselectNode shortcut (meta)
+    cy.get('[data-testid="react-flow"]').trigger("keydown", {
+      key: "9",
+      metaKey: true,
+    });
+    cy.percySnapshot("dark flow page with one deselect node (meta)");
   });
 });

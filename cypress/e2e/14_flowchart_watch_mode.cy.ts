@@ -28,7 +28,9 @@ describe("Testing flowchart watch mode", () => {
       .type("{selectall}{backspace}")
       .type(10);
 
-    cy.percySnapshot("dark flow page after modifying a parameter in watch mode");
+    cy.percySnapshot(
+      "dark flow page after modifying a parameter in watch mode"
+    );
 
     cy.wait(2000).get('[data-testid="darkmode-toggle"]').click();
     cy.percySnapshot("light flow page after flowchart runs");
