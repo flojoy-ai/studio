@@ -7,6 +7,8 @@ import error = Simulate.error;
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { GithubJSON } from "@feature/flow_chart_panel/views/AppGalleryModal";
+import { startup } from "vite-plugin-electron";
+import exit = startup.exit;
 
 export interface ListBox {
   name: string;
@@ -77,6 +79,8 @@ export const AppGallerySearch = ({
       items.map(async (item) => {
         const response = await fetch(item.url);
         const raw = await response.json();
+        console.log("the raw is: ");
+        console.log(raw);
         const nodeArray: turnStoneData[] = raw.map((node) => {
           return {
             name: node.name,
@@ -88,7 +92,7 @@ export const AppGallerySearch = ({
           displayField: "name",
           data: nodeArray,
           id: item.name.toLowerCase(),
-          ratio: 4,
+          ratio: 1,
           searchType: "startswith",
         };
       })
@@ -113,6 +117,7 @@ export const AppGallerySearch = ({
         styles={style}
         onSelect={handleSelect}
         matchText={true}
+        maxItems={10}
       />
     </div>
   );

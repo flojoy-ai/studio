@@ -60,45 +60,43 @@ export const AppGalleryModal = ({
   };
 
   const setOpen = () => {
+    console.log("use effect");
+    fetchData().catch(error);
     setIsGalleryOpen(true);
+    console.log(searchData);
   };
 
-  // fetches the root of the nodes directory in the main branch
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
-      );
-      const raw = await response.json();
-      const filtered = raw.filter(
-        (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
-      );
-      setSelectFields(filtered);
-    };
+  const fetchData = async () => {
+    const response = await fetch(
+      "https://api.github.com/repos/flojoy-ai/nodes/contents/?ref=main"
+    );
+    const raw = await response.json();
+    const filtered = raw.filter(
+      (obj) => obj["type"] === "dir" && !ignoreDir.includes(obj["name"])
+    );
+    setSelectFields(filtered);
+  };
 
-    // const initData = async () => {
-    //   for (const obj of selectFields) {
-    //     const response = await fetch(obj.url);
-    //     const raw = await response.json();
-    //     console.log("the raw is: ");
-    //     console.log(raw);
-    //     const filtered = raw.filter((obj) => obj["type"] === "dir");
-    //     setSearchData([...searchData, ...filtered]);
-    //     console.log("the current search data is: ");
-    //     console.log(searchData);
-    //   }
-    // };
-    // const chain = async () => {
-    //   try {
-    //     await fetchData();
-    //     await initData();
-    //   } catch (e) {
-    //     console.error();
-    //   }
-    // };
-    // chain().catch(error);
-    fetchData().catch(error);
-  }, []);
+  // const initData = async () => {
+  //   let rep: Response[] = [];
+  //   for (const obj of selectFields) {
+  //     const response = await fetch(obj.url);
+  //     rep = [...rep, response];
+  //   }
+  //   const raw = rep.map((obj) => obj.json());
+  //   Promise.all(raw).then((values) => {
+  //     const flattened = values.flat();
+  //     const filtered = flattened.filter((value) => value.type === "dir");
+  //     console.log("the filtered is: ");
+  //     setSearchData(filtered);
+  //     console.log(filtered);
+  //     // console.log("the search data is: ");
+  //     // console.log(searchData);
+  //   });
+  // };
+
+  // fetches the root of the nodes directory in the main branch
+  // useEffect(() => {}, []);
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
