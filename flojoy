@@ -170,7 +170,8 @@ createFlojoyDirectoryWithYmlFile()
       mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
       feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
    fi
-   CREDENTIALS_FILE=$FOLDER/credentials
+   CREDENTIALS_FILE=$FOLDER/credentials.txt
+   touch $CREDENTIALS_FILE
    if ! test -f "$CREDENTIALS_FILE"; then
       warning_msg " Warning: Credentials are not set for your project! You can set credentials by creating a file named 'credentials' in the directory '~/.flojoy' and adding your credentials to the file."
 
