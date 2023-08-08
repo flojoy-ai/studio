@@ -9,6 +9,7 @@ import { ElementsData } from "flojoy/types";
 import { GithubJSON } from "@feature/flow_chart_panel/views/AppGalleryModal";
 import { startup } from "vite-plugin-electron";
 import exit = startup.exit;
+import placeholder from "cypress/types/lodash/fp/placeholder";
 
 export interface ListBox {
   name: string;
@@ -23,6 +24,8 @@ interface SearchProps {
   items: GithubJSON[];
   setIsGalleryOpen: (open: boolean) => void;
   turnStoneRef: React.MutableRefObject<undefined>;
+  disabled: boolean;
+  placeHolder: string;
 }
 
 interface turnStoneData {
@@ -50,6 +53,8 @@ export const AppGallerySearch = ({
   items,
   setIsGalleryOpen,
   turnStoneRef,
+  disabled,
+  placeHolder,
 }: SearchProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
@@ -109,7 +114,7 @@ export const AppGallerySearch = ({
       <Turnstone
         ref={turnStoneRef}
         id="node search"
-        placeholder="Search node name"
+        placeholder={placeHolder}
         noItemsMessage="No Node Found"
         enterKeyHint="enter"
         listbox={listBoxes}
@@ -118,6 +123,7 @@ export const AppGallerySearch = ({
         onSelect={handleSelect}
         matchText={true}
         maxItems={10}
+        disabled={disabled}
       />
     </div>
   );

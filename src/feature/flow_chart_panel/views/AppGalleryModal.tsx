@@ -48,10 +48,12 @@ export const AppGalleryModal = ({
 }: AppGalleryModalProps) => {
   const [selectFields, setSelectFields] = useState<GithubJSON[]>([]);
   const [searchData, setSearchData] = useState<GithubJSON[]>([]);
+  const [searchDisabled, setSearchDisabled] = useState<boolean>(true);
   const turnStoneRef = useRef();
 
   // This functions fetches the category selected by the user and clears the input
   const onValueChange = async (selectUrl: string) => {
+    setSearchDisabled(false);
     const response = await fetch(selectUrl);
     const raw: GithubJSON[] = await response.json();
     const filtered = raw.filter((obj) => obj["type"] === "dir");
@@ -76,27 +78,6 @@ export const AppGalleryModal = ({
     );
     setSelectFields(filtered);
   };
-
-  // const initData = async () => {
-  //   let rep: Response[] = [];
-  //   for (const obj of selectFields) {
-  //     const response = await fetch(obj.url);
-  //     rep = [...rep, response];
-  //   }
-  //   const raw = rep.map((obj) => obj.json());
-  //   Promise.all(raw).then((values) => {
-  //     const flattened = values.flat();
-  //     const filtered = flattened.filter((value) => value.type === "dir");
-  //     console.log("the filtered is: ");
-  //     setSearchData(filtered);
-  //     console.log(filtered);
-  //     // console.log("the search data is: ");
-  //     // console.log(searchData);
-  //   });
-  // };
-
-  // fetches the root of the nodes directory in the main branch
-  // useEffect(() => {}, []);
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
@@ -129,6 +110,10 @@ export const AppGalleryModal = ({
                 items={searchData}
                 setIsGalleryOpen={setIsGalleryOpen}
                 turnStoneRef={turnStoneRef}
+                disabled={searchDisabled}
+                placeHolder={
+                  searchDisabled ? "Select a Category" : "Search Node Name"
+                }
               />
             </div>
           </DialogTitle>
