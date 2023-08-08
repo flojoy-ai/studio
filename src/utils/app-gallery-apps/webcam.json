@@ -5,12 +5,12 @@
         "width": 150,
         "height": 150,
         "id": "CAMERA-29dc2b2f-b87c-46a3-9ddc-11e685de3206",
-        "type": "WEB_CAM",
+        "type": "INSTRUMENTS",
         "data": {
           "id": "CAMERA-29dc2b2f-b87c-46a3-9ddc-11e685de3206",
           "label": "CAMERA",
           "func": "CAMERA",
-          "type": "WEB_CAM",
+          "type": "INSTRUMENTS",
           "ctrls": {
             "camera_ind": {
               "type": "int",
@@ -70,48 +70,15 @@
         "dragging": true
       },
       {
-        "width": 210,
-        "height": 130,
-        "id": "END-238f7854-48d7-4171-bfe7-d376550d8ba5",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-238f7854-48d7-4171-bfe7-d376550d8ba5",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": true
-        },
-        "position": {
-          "x": 1628.0823470465116,
-          "y": -29.451507877603746
-        },
-        "selected": true,
-        "positionAbsolute": {
-          "x": 1628.0823470465116,
-          "y": -29.451507877603746
-        },
-        "dragging": true
-      },
-      {
         "width": 225,
         "height": 226,
         "id": "IMAGE-cd503f68-87fd-478a-b577-baa959f3df08",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "IMAGE-cd503f68-87fd-478a-b577-baa959f3df08",
           "label": "IMAGE",
           "func": "IMAGE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -150,13 +117,6 @@
         "target": "IMAGE-cd503f68-87fd-478a-b577-baa959f3df08",
         "targetHandle": "default",
         "id": "reactflow__edge-CAMERA-29dc2b2f-b87c-46a3-9ddc-11e685de3206default-IMAGE-cd503f68-87fd-478a-b577-baa959f3df08default"
-      },
-      {
-        "source": "IMAGE-cd503f68-87fd-478a-b577-baa959f3df08",
-        "sourceHandle": "default",
-        "target": "END-238f7854-48d7-4171-bfe7-d376550d8ba5",
-        "targetHandle": "default",
-        "id": "reactflow__edge-IMAGE-cd503f68-87fd-478a-b577-baa959f3df08default-END-238f7854-48d7-4171-bfe7-d376550d8ba5default"
       }
     ],
     "viewport": {

@@ -148,6 +148,7 @@ const EnvVarModal = ({
                   <EnvVarCredentialsInfo
                     key={credential.id}
                     credential={credential}
+                    fetchCredentials={fetchCredentials}
                   />
                 ))}
             </div>

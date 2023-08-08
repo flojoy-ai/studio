@@ -5,12 +5,12 @@
         "width": 150,
         "height": 150,
         "id": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
-        "type": "LOOPS",
+        "type": "LOGIC_GATES",
         "data": {
           "id": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",
           "label": "LOOP",
           "func": "LOOP",
-          "type": "LOOPS",
+          "type": "LOGIC_GATES",
           "ctrls": {
             "num_loops": {
               "type": "int",
@@ -55,56 +55,15 @@
         "dragging": true
       },
       {
-        "width": 150,
-        "height": 150,
-        "id": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
-        "type": "LOOPS",
-        "data": {
-          "id": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
-          "label": "GOTO",
-          "func": "GOTO",
-          "type": "LOOPS",
-          "ctrls": {
-            "goto_node_id": {
-              "type": "NodeReference",
-              "default": null,
-              "functionName": "GOTO",
-              "param": "goto_node_id",
-              "value": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3"
-            }
-          },
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes\\LOGIC_GATES\\LOOPS\\GOTO\\GOTO.py",
-          "selected": false
-        },
-        "position": {
-          "x": 1258.0674029322674,
-          "y": 80.81660196613069
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1258.0674029322674,
-          "y": 80.81660196613069
-        },
-        "dragging": true
-      },
-      {
         "width": 130,
         "height": 130,
         "id": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5",
           "label": "100",
           "func": "CONSTANT",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "constant": {
               "type": "float",
@@ -147,12 +106,12 @@
         "width": 150,
         "height": 150,
         "id": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
-        "type": "SIGNAL_PROCESSING",
+        "type": "TRANSFORMERS",
         "data": {
           "id": "PID-cee43c6b-237d-45f8-98d0-319f48acaebf",
           "label": "PID",
           "func": "PID",
-          "type": "SIGNAL_PROCESSING",
+          "type": "TRANSFORMERS",
           "ctrls": {
             "Kp": {
               "type": "float",
@@ -209,12 +168,12 @@
         "width": 130,
         "height": 130,
         "id": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
           "label": "SECOND ORDER SYSTEM",
           "func": "SECOND_ORDER_SYSTEM",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "d1": {
               "type": "float",
@@ -264,12 +223,12 @@
         "width": 130,
         "height": 130,
         "id": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
           "label": "FEEDBACK",
           "func": "FEEDBACK",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "referred_node": {
               "type": "NodeReference",
@@ -358,12 +317,12 @@
         "width": 380,
         "height": 293,
         "id": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
-        "type": "PLOTLY",
+        "type": "VISUALIZERS",
         "data": {
           "id": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
           "label": "LINE",
           "func": "LINE",
-          "type": "PLOTLY",
+          "type": "VISUALIZERS",
           "ctrls": {},
           "inputs": [
             {
@@ -395,48 +354,15 @@
         "dragging": true
       },
       {
-        "width": 210,
-        "height": 130,
-        "id": "END-c14d955a-8357-4341-8221-caf9f2832174",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-c14d955a-8357-4341-8221-caf9f2832174",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes\\LOGIC_GATES\\TERMINATORS\\END\\END.py",
-          "selected": false
-        },
-        "position": {
-          "x": 1058.3707129617164,
-          "y": 465.2386207280347
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 1058.3707129617164,
-          "y": 465.2386207280347
-        },
-        "dragging": true
-      },
-      {
         "width": 150,
         "height": 150,
         "id": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
-        "type": "INTERNAL_MEMORY",
+        "type": "LOADERS",
         "data": {
           "id": "DS_LOAD-1cfd0ec3-cbf0-4316-b2f0-2654e5a54e49",
           "label": "DS LOAD",
           "func": "DS_LOAD",
-          "type": "INTERNAL_MEMORY",
+          "type": "LOADERS",
           "ctrls": {
             "referred_node": {
               "type": "NodeReference",
@@ -506,13 +432,6 @@
         "id": "reactflow__edge-PID-cee43c6b-237d-45f8-98d0-319f48acaebfdefault-SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622default"
       },
       {
-        "source": "SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622",
-        "sourceHandle": "default",
-        "target": "GOTO-077af2ac-636b-4abb-a574-33e669e64457",
-        "targetHandle": "default",
-        "id": "reactflow__edge-SECOND_ORDER_SYSTEM-f97650dd-54de-4204-be2d-a04451e4b622default-GOTO-077af2ac-636b-4abb-a574-33e669e64457default"
-      },
-      {
         "source": "FEEDBACK-7dce3ba5-d2e2-4b60-8a2c-06218b5f718d",
         "sourceHandle": "default",
         "target": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
@@ -525,13 +444,6 @@
         "target": "SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1",
         "targetHandle": "b",
         "id": "reactflow__edge-CONSTANT-763b863d-7a28-4264-8f33-3e02c65f85d5default-SUBTRACT-3a3c4ed2-1ec0-433a-b6d6-d9819a2a02c1b"
-      },
-      {
-        "source": "LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9",
-        "sourceHandle": "default",
-        "target": "END-c14d955a-8357-4341-8221-caf9f2832174",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LINE-ed3aba7c-7235-43dd-baeb-6ad9dbc763b9default-END-c14d955a-8357-4341-8221-caf9f2832174default"
       },
       {
         "source": "LOOP-67e6ac26-cc23-4159-8659-ef0577421ee3",

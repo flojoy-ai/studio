@@ -1,11 +1,8 @@
 import { Node } from "reactflow";
 import { ElementsData } from "flojoy/types";
-import ParamField from "./ParamField";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
-import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
 import { Check, Pencil, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";

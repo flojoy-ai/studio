@@ -59,12 +59,12 @@
         "width": 130,
         "height": 130,
         "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
           "label": "SINE",
           "func": "SINE",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "amplitude": {
               "type": "float",
@@ -136,12 +136,12 @@
         "width": 130,
         "height": 130,
         "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
-        "type": "SIMULATIONS",
+        "type": "GENERATORS",
         "data": {
           "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
           "label": "SINE 1",
           "func": "SINE",
-          "type": "SIMULATIONS",
+          "type": "GENERATORS",
           "ctrls": {
             "amplitude": {
               "type": "float",
@@ -259,12 +259,12 @@
         "width": 150,
         "height": 150,
         "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
-        "type": "SIGNAL_PROCESSING",
+        "type": "TRANSFORMERS",
         "data": {
           "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
           "label": "FFT",
           "func": "FFT",
-          "type": "SIGNAL_PROCESSING",
+          "type": "TRANSFORMERS",
           "ctrls": {
             "window": {
               "type": "select",
@@ -342,39 +342,6 @@
           "y": 333.47740435186597
         },
         "dragging": true
-      },
-      {
-        "width": 210,
-        "height": 130,
-        "id": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
-        "type": "TERMINATORS",
-        "data": {
-          "id": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
-          "label": "END",
-          "func": "END",
-          "type": "TERMINATORS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false
-            }
-          ],
-          "path": "PYTHON/nodes/LOGIC_GATES/TERMINATORS/END/END.py",
-          "selected": true
-        },
-        "position": {
-          "x": 1512.6675060177693,
-          "y": 343.502648631045
-        },
-        "selected": true,
-        "positionAbsolute": {
-          "x": 1512.6675060177693,
-          "y": 343.502648631045
-        },
-        "dragging": true
       }
     ],
     "edges": [
@@ -412,13 +379,6 @@
         "target": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
         "targetHandle": "default",
         "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default"
-      },
-      {
-        "source": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
-        "sourceHandle": "default",
-        "target": "END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9be",
-        "targetHandle": "default",
-        "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-END-8c46c4ea-3bf6-4662-81cd-e8b237a9f9bedefault"
       }
     ],
     "viewport": {

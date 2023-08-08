@@ -1,10 +1,14 @@
 import { AppGalleryElementProps } from "@feature/flow_chart_panel/views/AppGalleryElement";
+
+type AppGalleryData = Omit<AppGalleryElementProps, "setIsGalleryOpen">;
+
 export interface GalleryData {
-  fundamentals: AppGalleryElementProps[];
-  AI: AppGalleryElementProps[];
-  IO: AppGalleryElementProps[];
-  DSP: AppGalleryElementProps[];
+  fundamentals: AppGalleryData[];
+  AI: AppGalleryData[];
+  IO: AppGalleryData[];
+  DSP: AppGalleryData[];
 }
+
 export const AppGalleryData: GalleryData = {
   fundamentals: [
     {
