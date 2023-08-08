@@ -8,7 +8,7 @@ describe("Testing flowchart cancel", () => {
 
     //click on play button
     cy.get('[data-cy="btn-play"]').click();
-    cy.wait(1000).get('[data-cy="btn-cancel"]').click();
+    cy.get('[data-cy="btn-cancel"]').click();
 
     // center screen
     cy.wait(1000).get('[data-testid="react-flow"]').trigger("keydown", {
