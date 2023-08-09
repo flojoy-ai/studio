@@ -13,7 +13,6 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
-  Node,
   NodeDragHandler,
   OnConnect,
   OnEdgesChange,
@@ -31,11 +30,9 @@ import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
-import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
@@ -45,6 +42,7 @@ import { Separator } from "@src/components/ui/separator";
 import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
+import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 
 localforage.config({
   name: "react-flow",
@@ -53,13 +51,14 @@ localforage.config({
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+  const [nodeModalOpen, setNodeModalOpen] = useState(false);
 
   const {
+    isEditMode,
     isSidebarOpen,
     setIsSidebarOpen,
     setRfInstance,
     setIsEditMode,
-    setIsExpandMode,
   } = useFlowChartState();
 
   const theme = useMantineTheme();
@@ -69,15 +68,12 @@ const FlowChartTab = () => {
   } = useSocket();
 
   const {
-    modalIsOpen,
-    closeModal,
     nodeLabel,
     nodeType,
     pythonString,
     setPythonString,
     nodeFilePath,
     setNodeFilePath,
-    setIsModalOpen,
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
@@ -125,10 +121,6 @@ const FlowChartTab = () => {
   // for whatever reason.
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
-    handleClickExpand: () => {
-      setIsModalOpen(true);
-      setIsExpandMode(true);
-    },
     wrapperOnClick: () => setIsEditMode(true),
     theme: theme.colorScheme,
   });
@@ -243,6 +235,9 @@ const FlowChartTab = () => {
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
+  const nodeToEdit =
+    nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
+
   return (
     <Layout>
       <div className="sm:px-8" style={{ height: ACTIONS_HEIGHT }}>
@@ -293,9 +288,9 @@ const FlowChartTab = () => {
             }
             unSelectedNodes={unSelectedNodes}
             nodes={nodes}
-            setNodes={(nodes: Node<ElementsData>[]) => {
-              setNodes(nodes);
-            }}
+            setNodes={setNodes}
+            setNodeModalOpen={() => setNodeModalOpen(true)}
+            handleDelete={handleNodeRemove}
           />
 
           <FlowChartKeyboardShortcuts />
@@ -348,8 +343,8 @@ const FlowChartTab = () => {
 
           <NodeExpandMenu
             selectedNode={selectedNode}
-            closeModal={closeModal}
-            modalIsOpen={modalIsOpen}
+            closeModal={() => setNodeModalOpen(false)}
+            modalIsOpen={nodeModalOpen}
             nodeResults={programResults}
             nodeLabel={nodeLabel}
             nodeType={nodeType}

@@ -17,7 +17,6 @@ import { NODES_REPO } from "@src/data/constants";
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
     borderRadius: 17,
-    height: "700px",
   },
   header: {
     padding: "65px 80px 30px 80px",

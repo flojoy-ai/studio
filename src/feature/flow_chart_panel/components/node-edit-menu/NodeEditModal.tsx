@@ -7,7 +7,7 @@ import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
 import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
-import { Check, Pencil, X } from "lucide-react";
+import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 
@@ -16,6 +16,8 @@ type NodeEditModalProps = {
   otherNodes: Node<ElementsData>[] | null;
   nodes: Node<ElementsData>[];
   setNodes: (nodes: Node<ElementsData>[]) => void;
+  setNodeModalOpen: (open: boolean) => void;
+  handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
 
 const NodeEditModal = ({
@@ -23,6 +25,8 @@ const NodeEditModal = ({
   otherNodes,
   nodes,
   setNodes,
+  setNodeModalOpen,
+  handleDelete,
 }: NodeEditModalProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
@@ -85,7 +89,7 @@ const NodeEditModal = ({
                     handleTitleChange(newTitle);
                   }}
                 >
-                  <Check size="20" />
+                  <Check size={20} />
                 </Button>
               </div>
             ) : (
@@ -99,21 +103,31 @@ const NodeEditModal = ({
                     setIsRenamingTitle(true);
                   }}
                 >
-                  <Pencil size="20" />
+                  <Pencil size={20} />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => {
+                    setNodeModalOpen(true);
+                  }}
+                >
+                  <Info size={20} />
                 </Button>
               </div>
             )}
           </div>
           <div className="grow" />
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => {
-              setIsEditMode(false);
-            }}
-          >
-            <X size="20" data-testid="node-edit-modal-close-btn" />
-          </Button>
+
+          {!isRenamingTitle && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => handleDelete(node.id, node.data.label)}
+            >
+              <TrashIcon size={20} />
+            </Button>
+          )}
         </div>
 
         <div className="">
