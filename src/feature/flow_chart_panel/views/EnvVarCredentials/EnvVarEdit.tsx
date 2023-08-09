@@ -17,14 +17,17 @@ import { toast } from "sonner";
 export interface EnvVarCredentialsEditInfoProps {
   credentialKey: string;
   fetchCredentials: () => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 const EnvVarEdit = ({
   credentialKey,
   fetchCredentials,
+  open,
+  setOpen,
 }: EnvVarCredentialsEditInfoProps) => {
   const [editEnv, setEditEnv] = useState<string>("");
-  const [open, setOpen] = useState<boolean>(false);
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditEnv(e.target.value);
@@ -40,15 +43,6 @@ const EnvVarEdit = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="h-full w-full border-0">
-        <Button
-          data-testid="env-var-edit-btn"
-          variant="outline"
-          onClick={() => setOpen(true)}
-        >
-          Edit
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-black dark:text-white">
