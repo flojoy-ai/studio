@@ -30,7 +30,7 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { setIsEditMode, nodeParamChanged } = useFlowChartState();
+  const { nodeParamChanged } = useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -70,14 +70,14 @@ const NodeEditModal = ({
 
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-accent1 bg-modal p-4 ">
+      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-gray-800 bg-modal p-4 ">
         <div className="flex items-center">
           <div>
             {isRenamingTitle ? (
               <div className="flex">
                 <Input
-                  id={"title_input"}
-                  className="w-max"
+                  id="title_input"
+                  className="w-max bg-modal"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                 />
