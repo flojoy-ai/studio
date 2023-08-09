@@ -66,9 +66,13 @@ export const GalleryElement = ({
               Load
             </Button>
 
-            <Button variant="outline" size="sm" className="">
-              <YoutubeIcon target="_blank" href={galleryApp.youtubeLink} />
-            </Button>
+            {galleryApp.youtubeLink && (
+              <a href={galleryApp.youtubeLink} target="_blank">
+                <Button variant="outline" size="sm" className="">
+                  <YoutubeIcon />
+                </Button>
+              </a>
+            )}
           </div>
         </div>
       </div>

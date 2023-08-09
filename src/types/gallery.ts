@@ -5,7 +5,7 @@ export const GalleryApp = z.object({
   description: z.string(),
   appPath: z.string(),
   imagePath: z.string(),
-  youtubeLink: z.string(),
+  youtubeLink: z.optional(z.string()),
   relevantNodes: z.array(
     z.object({
       name: z.string(),
