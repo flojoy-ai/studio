@@ -36,7 +36,6 @@ import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { Layout } from "../common/Layout";
-import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
@@ -44,7 +43,8 @@ import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick, LayoutGrid } from "lucide-react";
+import { Eraser, Joystick } from "lucide-react";
+import { GalleryModal } from "@src/components/gallery/GalleryModal";
 
 localforage.config({
   name: "react-flow",
@@ -251,14 +251,14 @@ const FlowChartTab = () => {
         <Button
           onClick={toggleSidebar}
           data-testid="add-node-button"
+          className="gap-2"
           variant="outline"
         >
           <Joystick />
-          <div className="px-1" />
           <div>Add Python Node</div>
         </Button>
         <div className="ml-2">
-          <AppGalleryModal
+          <GalleryModal
             isGalleryOpen={isGalleryOpen}
             setIsGalleryOpen={setIsGalleryOpen}
           />
