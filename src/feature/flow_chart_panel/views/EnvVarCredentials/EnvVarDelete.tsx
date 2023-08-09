@@ -31,7 +31,9 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
     <div>
       <AlertDialog>
         <AlertDialogTrigger asChild className="h-full w-full border-0">
-          <Button variant="outline">Delete</Button>
+          <Button data-testid="env-var-delete-btn" variant="outline">
+            Delete
+          </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -42,8 +44,13 @@ const EnvVarDelete = ({ credential }: EnvVarDeleteProps) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete}>
+            <AlertDialogCancel data-testid="env-var-delete-cancel">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              data-testid="env-var-delete-continue"
+              onClick={handleDelete}
+            >
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>

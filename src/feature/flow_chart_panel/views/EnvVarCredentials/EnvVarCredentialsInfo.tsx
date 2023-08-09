@@ -27,6 +27,7 @@ const EnvVarCredentialsInfo = ({
 
   return (
     <div
+      data-testid="credential-name"
       key={credential.id}
       className="mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-800"
     >
@@ -37,6 +38,7 @@ const EnvVarCredentialsInfo = ({
       <div className="ml-auto mr-4 flex items-center">
         <button type="button" onClick={toggleShowPassword}>
           <PasswordIcon
+            data-testid="password-icon-view"
             className="stroke-gray-600"
             size={20}
             strokeWidth={1.5}
@@ -56,7 +58,11 @@ const EnvVarCredentialsInfo = ({
         </div>
         <Select>
           <SelectTrigger className="mr-2 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
-            <Button variant={"ghost"} size={"icon"}>
+            <Button
+              data-testid="env-var-modify-btn"
+              variant={"ghost"}
+              size={"icon"}
+            >
               <IconDotsVertical className="stroke-gray-600 " size={20} />
             </Button>
           </SelectTrigger>
