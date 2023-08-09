@@ -62,7 +62,7 @@ def minify(file: str):
 # Applies each function to file. Order matters, turn on (True) or off (False) as needed
 filters_for_files = [
     (convert_numpy_to_ulab, True),
-    (minify, False),
+    (minify, True),
 ]
 
 class FlojoyScriptBuilder:

@@ -76,6 +76,7 @@ class LightTopology:
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
         job_result = func(**job)
+        print('ran job', job_id, 'with result', job_result)
         self.res_store[job_id] = job_result
         next_jobs = self.process_job_result(job_id, job_result)
         if next_jobs is None:
