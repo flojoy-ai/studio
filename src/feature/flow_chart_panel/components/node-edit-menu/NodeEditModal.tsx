@@ -89,12 +89,12 @@ const NodeEditModal = ({
                     handleTitleChange(newTitle);
                   }}
                 >
-                  <Check size={20} />
+                  <Check size={20} className="stroke-muted-foreground" />
                 </Button>
               </div>
             ) : (
               <div className="flex items-center">
-                <div className="text-lg font-bold">{node.data.label}</div>
+                <div className="text-lg font-semibold">{node.data.label}</div>
                 <div className="px-1" />
                 <Button
                   size="icon"
@@ -103,7 +103,7 @@ const NodeEditModal = ({
                     setIsRenamingTitle(true);
                   }}
                 >
-                  <Pencil size={20} />
+                  <Pencil size={20} className="stroke-muted-foreground" />
                 </Button>
                 <Button
                   size="icon"
@@ -112,7 +112,7 @@ const NodeEditModal = ({
                     setNodeModalOpen(true);
                   }}
                 >
-                  <Info size={20} />
+                  <Info size={20} className="stroke-muted-foreground" />
                 </Button>
               </div>
             )}
@@ -125,48 +125,46 @@ const NodeEditModal = ({
               variant="ghost"
               onClick={() => handleDelete(node.id, node.data.label)}
             >
-              <TrashIcon size={20} />
+              <TrashIcon size={20} className="stroke-muted-foreground" />
             </Button>
           )}
         </div>
 
-        <div className="">
-          <div key={node.id}>
-            {Object.keys(node.data.ctrls).length > 0 ? (
-              <>
-                {Object.entries(node.data.ctrls).map(([name, param]) => (
-                  <div
-                    key={node.id + name}
-                    id="undrag"
-                    data-testid="node-edit-modal-params"
+        <div>
+          {Object.keys(node.data.ctrls).length > 0 ? (
+            <>
+              {Object.entries(node.data.ctrls).map(([name, param]) => (
+                <div
+                  key={node.id + name}
+                  id="undrag"
+                  data-testid="node-edit-modal-params"
+                >
+                  <ParamTooltip
+                    param={{ name, type: param.type, desc: param.desc }}
+                    offsetX={30}
+                    offsetY={0}
                   >
-                    <ParamTooltip
-                      param={{ name, type: param.type, desc: param.desc }}
-                      offsetX={30}
-                      offsetY={0}
-                    >
-                      <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
-                    </ParamTooltip>
-                    <ParamField
-                      nodeId={node.id}
-                      nodeCtrls={node.data.ctrls[name]}
-                      type={param.type as ParamValueType}
-                      value={node.data.ctrls[name].value}
-                      options={param.options}
-                      nodeReferenceOptions={nodeReferenceOptions}
-                    />
-                  </div>
-                ))}
-                {nodeParamChanged && (
-                  <div className="mt-2 text-sm">
-                    Replay the flow for the changes to take effect
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="mt-2 text-sm">This node takes no parameters</div>
-            )}
-          </div>
+                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
+                  </ParamTooltip>
+                  <ParamField
+                    nodeId={node.id}
+                    nodeCtrls={node.data.ctrls[name]}
+                    type={param.type as ParamValueType}
+                    value={node.data.ctrls[name].value}
+                    options={param.options}
+                    nodeReferenceOptions={nodeReferenceOptions}
+                  />
+                </div>
+              ))}
+              {nodeParamChanged && (
+                <div className="mt-2 text-sm">
+                  Replay the flow for the changes to take effect
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="mt-2 text-sm">This node takes no parameters</div>
+          )}
         </div>
       </div>
     </Draggable>
