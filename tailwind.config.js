@@ -5,9 +5,6 @@ module.exports = {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    fontFamily: {
-      sans: ['"Open Sans"', "sans-serif", ...defaultTheme.fontFamily.sans],
-    },
     container: {
       center: true,
       padding: "2rem",
@@ -16,6 +13,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Open Sans"', "sans-serif", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

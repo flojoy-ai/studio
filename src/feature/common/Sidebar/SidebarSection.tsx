@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Collapse } from "@mantine/core";
+import { Collapse } from "@mantine/core";
 import { Children } from "react";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";

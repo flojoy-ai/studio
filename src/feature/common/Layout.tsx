@@ -6,7 +6,7 @@ type LayoutProps = {
 };
 
 export const HEADER_HEIGHT = 70;
-export const ACTIONS_HEIGHT = 56;
+export const ACTIONS_HEIGHT = 57;
 const SERVER_STATUS_HEIGHT = 30;
 
 export const LAYOUT_TOP_HEIGHT =

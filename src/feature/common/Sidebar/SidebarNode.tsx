@@ -157,7 +157,7 @@ const SidebarNode = ({
           <button
             key={command.key}
             className={twMerge(
-              "mb-1.5 flex max-h-10 w-11/12 items-center justify-between rounded-sm border px-2 py-2.5 font-mono",
+              "font-mono mb-1.5 flex max-h-10 w-11/12 items-center justify-between rounded-sm border px-2 py-2.5",
               sidebarVariants({
                 variant: categoryMap[category ?? "TRANSFORMERS"] ?? "ETL",
               })
