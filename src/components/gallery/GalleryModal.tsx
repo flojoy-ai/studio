@@ -61,20 +61,21 @@ export const GalleryModal = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="h-4/5 max-w-5xl">
-        <DialogHeader className="sticky">
+      <DialogContent className="flex h-4/5 max-w-5xl flex-col">
+        <DialogHeader>
           <DialogTitle>
             <div className="text-3xl">App Gallery</div>
           </DialogTitle>
+          <div className="py-1" />
+          <Input
+            placeholder="Search"
+            value={searchQuery}
+            className="sticky"
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+          />
         </DialogHeader>
-
-        <Input
-          placeholder="Search"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-          }}
-        />
 
         <ScrollArea className="">
           {filteredData
