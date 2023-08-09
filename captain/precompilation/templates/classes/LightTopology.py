@@ -119,7 +119,7 @@ class LightTopology:
         return next_nodes
 
     def finish(self):
-        print("took ", time.time() - self.time_start, " seconds", flush=True)
+        print("took ", time.time() - self.time_start, " seconds")
         self.is_finished = True
 
     def restart(self, job_id: str):
