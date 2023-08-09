@@ -7,7 +7,7 @@ import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
 import { ParamTooltip } from "flojoy/components";
 import { notifications } from "@mantine/notifications";
-import { Check, Pencil, X } from "lucide-react";
+import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 
@@ -16,6 +16,8 @@ type NodeEditModalProps = {
   otherNodes: Node<ElementsData>[] | null;
   nodes: Node<ElementsData>[];
   setNodes: (nodes: Node<ElementsData>[]) => void;
+  setNodeModalOpen: (open: boolean) => void;
+  handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
 
 const NodeEditModal = ({
@@ -23,10 +25,12 @@ const NodeEditModal = ({
   otherNodes,
   nodes,
   setNodes,
+  setNodeModalOpen,
+  handleDelete,
 }: NodeEditModalProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { setIsEditMode, nodeParamChanged } = useFlowChartState();
+  const { nodeParamChanged } = useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -66,14 +70,14 @@ const NodeEditModal = ({
 
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-accent1 bg-modal p-4 ">
+      <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
         <div className="flex items-center">
           <div>
             {isRenamingTitle ? (
               <div className="flex">
                 <Input
-                  id={"title_input"}
-                  className="w-max"
+                  id="title_input"
+                  className="w-max bg-modal"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                 />
@@ -85,12 +89,12 @@ const NodeEditModal = ({
                     handleTitleChange(newTitle);
                   }}
                 >
-                  <Check size="20" />
+                  <Check size={20} className="stroke-muted-foreground" />
                 </Button>
               </div>
             ) : (
               <div className="flex items-center">
-                <div className="text-lg font-bold">{node.data.label}</div>
+                <div className="text-lg font-semibold">{node.data.label}</div>
                 <div className="px-1" />
                 <Button
                   size="icon"
@@ -99,60 +103,68 @@ const NodeEditModal = ({
                     setIsRenamingTitle(true);
                   }}
                 >
-                  <Pencil size="20" />
+                  <Pencil size={20} className="stroke-muted-foreground" />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => {
+                    setNodeModalOpen(true);
+                  }}
+                >
+                  <Info size={20} className="stroke-muted-foreground" />
                 </Button>
               </div>
             )}
           </div>
           <div className="grow" />
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => {
-              setIsEditMode(false);
-            }}
-          >
-            <X size="20" data-testid="node-edit-modal-close-btn" />
-          </Button>
+
+          {!isRenamingTitle && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => handleDelete(node.id, node.data.label)}
+            >
+              <TrashIcon size={20} className="stroke-muted-foreground" />
+            </Button>
+          )}
         </div>
 
-        <div className="">
-          <div key={node.id}>
-            {Object.keys(node.data.ctrls).length > 0 ? (
-              <>
-                {Object.entries(node.data.ctrls).map(([name, param]) => (
-                  <div
-                    key={node.id + name}
-                    id="undrag"
-                    data-testid="node-edit-modal-params"
+        <div>
+          {Object.keys(node.data.ctrls).length > 0 ? (
+            <>
+              {Object.entries(node.data.ctrls).map(([name, param]) => (
+                <div
+                  key={node.id + name}
+                  id="undrag"
+                  data-testid="node-edit-modal-params"
+                >
+                  <ParamTooltip
+                    param={{ name, type: param.type, desc: param.desc }}
+                    offsetX={30}
+                    offsetY={0}
                   >
-                    <ParamTooltip
-                      param={{ name, type: param.type, desc: param.desc }}
-                      offsetX={30}
-                      offsetY={0}
-                    >
-                      <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
-                    </ParamTooltip>
-                    <ParamField
-                      nodeId={node.id}
-                      nodeCtrls={node.data.ctrls[name]}
-                      type={param.type as ParamValueType}
-                      value={node.data.ctrls[name].value}
-                      options={param.options}
-                      nodeReferenceOptions={nodeReferenceOptions}
-                    />
-                  </div>
-                ))}
-                {nodeParamChanged && (
-                  <div className="mt-2 text-sm">
-                    Replay the flow for the changes to take effect
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="mt-2 text-sm">This node takes no parameters</div>
-            )}
-          </div>
+                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200">{`${name.toUpperCase()}:`}</p>
+                  </ParamTooltip>
+                  <ParamField
+                    nodeId={node.id}
+                    nodeCtrls={node.data.ctrls[name]}
+                    type={param.type as ParamValueType}
+                    value={node.data.ctrls[name].value}
+                    options={param.options}
+                    nodeReferenceOptions={nodeReferenceOptions}
+                  />
+                </div>
+              ))}
+              {nodeParamChanged && (
+                <div className="mt-2 text-sm">
+                  Replay the flow for the changes to take effect
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="mt-2 text-sm">This node takes no parameters</div>
+          )}
         </div>
       </div>
     </Draggable>

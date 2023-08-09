@@ -19,44 +19,6 @@ import { cn } from "@src/lib/utils";
 
 export type LeafClickHandler = (elem: NodeElement) => void;
 
-const useSidebarStyles = createStyles((theme) => {
-  const accent =
-    theme.colorScheme === "dark" ? theme.colors.accent1 : theme.colors.accent2;
-  return {
-    sectionsInner: {
-      paddingTop: theme.spacing.xl,
-      paddingBottom: theme.spacing.xl,
-    },
-
-    button: {
-      outline: "0",
-      border: `1px solid ${accent[0]}`,
-      backgroundColor: accent[0],
-      color: accent[0],
-      padding: "8px 12px 8px 12px",
-      cursor: "pointer",
-      margin: "5px 5px",
-    },
-
-    closeButton: {
-      cursor: "pointer",
-      borderRadius: 32,
-      padding: 8,
-      transition: "50ms ease-in-out",
-      "&:hover": {
-        backgroundColor: accent[0] + "4f",
-      },
-      "& div": {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: 9,
-        height: 9,
-      },
-    },
-  };
-});
-
 type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -74,7 +36,6 @@ const Sidebar = ({
   const theme = useMantineTheme();
 
   const [query, setQuery] = useState("");
-  const { classes } = useSidebarStyles();
 
   // These being booleans don't actually mean anything,
   // They just need to be values that can easily be changed in order

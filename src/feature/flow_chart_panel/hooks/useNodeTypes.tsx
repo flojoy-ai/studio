@@ -5,14 +5,12 @@ import { NodeTypes } from "reactflow";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
-  handleClickExpand: () => void;
   wrapperOnClick: () => void;
   theme: "light" | "dark";
 };
 
 const useNodeTypes = ({
   handleRemove,
-  handleClickExpand,
   wrapperOnClick,
   theme,
 }: UseNodeTypesProps) => {
@@ -40,7 +38,6 @@ const useNodeTypes = ({
                   textBlob={nodeResult?.result.text_blob ?? undefined}
                   nodeProps={props}
                   handleRemove={handleRemove}
-                  handleClickExpand={handleClickExpand}
                   wrapperOnClick={wrapperOnClick}
                   theme={theme}
                 />
