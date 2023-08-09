@@ -144,7 +144,7 @@ const NodeEditModal = ({
                     offsetX={30}
                     offsetY={0}
                   >
-                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
+                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200">{`${name.toUpperCase()}:`}</p>
                   </ParamTooltip>
                   <ParamField
                     nodeId={node.id}
