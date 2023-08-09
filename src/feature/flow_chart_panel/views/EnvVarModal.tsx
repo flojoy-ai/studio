@@ -1,4 +1,3 @@
-import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import {
   memo,
   ChangeEvent,

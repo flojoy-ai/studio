@@ -7,10 +7,10 @@ import {
   makePlotlyData,
   MarkDownText,
 } from "flojoy/components";
-import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
+import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
 
