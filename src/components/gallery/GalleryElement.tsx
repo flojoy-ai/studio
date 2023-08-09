@@ -46,6 +46,7 @@ export const GalleryElement = ({
             {galleryApp.relevantNodes.map((node) => (
               <a
                 href={node.docs}
+                key={node.name}
                 target="_blank"
                 className="rounded-md bg-muted p-1 text-sm"
               >

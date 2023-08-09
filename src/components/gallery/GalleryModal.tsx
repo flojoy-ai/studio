@@ -45,7 +45,7 @@ export const GalleryModal = ({
         ),
       ])
     );
-  }, [searchQuery, data]);
+  }, [searchQuery]);
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
@@ -87,6 +87,7 @@ export const GalleryModal = ({
                 <div className="grid grid-cols-2">
                   {v.map((app) => (
                     <GalleryElement
+                      key={app.title}
                       galleryApp={app}
                       setIsGalleryOpen={setIsGalleryOpen}
                     />
