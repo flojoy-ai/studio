@@ -279,8 +279,7 @@ class FlojoyScriptBuilder:
         node_id_to_func = {}
         node_id_to_params = {} # micropython doesn't have an inspect module
         self.imports.add("import sys")
-        self.imports.add("import os")
-        self._add_code_block("sys.path.append(os.path.join(sys.path[0], 'PYTHON'))")
+        self._add_code_block("sys.path.append('PYTHON')") # resolve imports inside the PYTHON folder (nodes)
         imported = set()  # keep track of imported files
         for node_id in graph_nodes:
             # -- get node module and check if CI --
@@ -388,6 +387,7 @@ class FlojoyScriptBuilder:
         flowchart_to_graph(json.loads({repr(fc)})),\n\
         '{jobset_id}',\n\
         node_id_to_func,\n\
+        node_id_to_params,\n\
         {self.is_ci},\n\
         ).run()\
         "

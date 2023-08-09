@@ -36,9 +36,12 @@ def flowchart_to_graph(flowchart: dict):
         label = e["sourceHandle"]
         target_label_id = e["targetHandle"]
         v_inputs = dict_node_inputs[v]
-        target_input = next(
-            filter(lambda input: input.get("id", "") == target_label_id, v_inputs), None
-        )
+        try:
+            target_input = next(
+                filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
+            )
+        except: 
+            target_input = None
         target_label = "default"
         multiple = False
         if target_input:

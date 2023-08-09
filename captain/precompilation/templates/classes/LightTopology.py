@@ -22,17 +22,19 @@ class LightTopology:
         graph,
         jobset_id: str,
         node_id_to_func: Dict[str, Callable[..., Any]],
+        node_id_to_params: Dict[str, set] = dict(),
         is_ci: bool = False,
     ):
         self.working_graph = graph.copy()
         self.original_graph = graph.copy()
-        self.loop_nodes = list()
+        self.loop_nodes = []
         self.queued_amt = 0
         self.is_ci = is_ci
         self.jobset_id = jobset_id
         self.res_store = {}
         self.is_finished = False
         self.node_id_to_func = node_id_to_func
+        self.node_id_to_params = node_id_to_params
         self.time_start = 0
 
     def write_results(self):
@@ -59,14 +61,16 @@ class LightTopology:
         previous_jobs = self.get_job_dependencies_with_label(
             job_id, original=True
         )
+        params = self.node_id_to_params[job_id]
         job = {
             "node_id": job_id,
             "job_id": job_id,
             "jobset_id": self.jobset_id,
             "ctrls": node["ctrls"],
             "previous_jobs": previous_jobs,
+            "function_parameters": params,
         }
-        func = self.node_id_to_func.get(job_id, None)
+        func = self.node_id_to_func[job_id]
         if func is None:
             raise ValueError("Function %s not found in imported functions" % job_id)
         if self.is_loop_node(job_id):
