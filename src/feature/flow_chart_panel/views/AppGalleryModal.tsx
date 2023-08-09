@@ -56,8 +56,8 @@ export const AppGalleryModal = ({
   const onValueChange = async (name: string) => {
     setSearchDisabled(false);
     setCategory(name);
-    const selectUrl = selectFields.find((obj) => obj.name === name);
-    const response = await fetch(selectUrl?.url);
+    const selectUrl = selectFields.find((obj) => obj.name === name)?.url ?? "";
+    const response = await fetch(selectUrl);
     const raw: GithubJSON[] = await response.json();
     const filtered = raw.filter((obj) => obj["type"] === "dir");
     setSearchData(filtered);
