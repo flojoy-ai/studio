@@ -27,6 +27,7 @@ import { ScrollArea } from "@src/components/ui/scroll-area";
 import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
+import { Key } from "lucide-react";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -102,12 +103,9 @@ const EnvVarModal = ({
     <Dialog open={isEnvVarModalOpen} onOpenChange={handleEnvVarModalOpen}>
       <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
-          <DialogTitle
-            className="ml-2 flex gap-2 text-xl font-semibold text-black dark:text-white"
-            id="modal-title"
-          >
-            <FamilyHistoryIconSvg size={20} />
-            <div className="-mt-0.5">Environment Variables</div>
+          <DialogTitle className="flex items-center gap-2" id="modal-title">
+            <Key size="20" />
+            <div className="">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
         <div className="flex gap-4 py-1 sm:flex-row">
