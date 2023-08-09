@@ -129,7 +129,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("conditional");
-    cy.contains("button", new RegExp("CONDITIONAL", "g")).click();
+    cy.contains("button", /^CONDITIONAL$/).click();
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();
@@ -152,8 +152,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("loop");
-
-    cy.contains("button", new RegExp("LOOP", "g")).click();
+    cy.contains("button", /^LOOP$/).click();
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();

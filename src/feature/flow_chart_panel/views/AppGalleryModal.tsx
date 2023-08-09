@@ -85,7 +85,12 @@ export const AppGalleryModal = ({
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2" onClick={setOpen}>
+        <Button
+          data-testid="app-gallery-btn"
+          variant="outline"
+          className="gap-2"
+          onClick={setOpen}
+        >
           <LayoutGrid />
           App Gallery
         </Button>

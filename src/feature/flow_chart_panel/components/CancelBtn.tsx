@@ -11,7 +11,12 @@ const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
   useKeyboardShortcut("meta", "c", cancelFC);
 
   return (
-    <Button size="sm" variant="destructive" id="btn-cancel" onClick={cancelFC}>
+    <Button
+      data-cy="btn-cancel"
+      size="sm"
+      variant="destructive"
+      onClick={cancelFC}
+    >
       <Ban size="20" />
       <div className="px-1"></div>
       <div>Cancel</div>

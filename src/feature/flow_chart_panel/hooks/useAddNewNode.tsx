@@ -57,7 +57,7 @@ export const useAddNewNode = (
 
       const nodeParams = params
         ? Object.entries(params).reduce(
-            (prev: ElementsData["ctrls"], [paramName, param]) => ({
+            (prev, [paramName, param]) => ({
               ...prev,
               [paramName]: {
                 ...param,
