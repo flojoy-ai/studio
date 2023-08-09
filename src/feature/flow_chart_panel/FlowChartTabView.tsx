@@ -225,11 +225,9 @@ const FlowChartTab = () => {
     });
   };
 
-  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortcut());
   useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
 
-  useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
   useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
