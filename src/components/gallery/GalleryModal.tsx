@@ -13,6 +13,7 @@ import { Separator } from "../ui/separator";
 import { GalleryElement } from "./GalleryElement";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
+import { IconButton } from "@src/feature/common/IconButton";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -50,15 +51,14 @@ export const GalleryModal = ({
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <Button
+        <IconButton
+          icon={LayoutGrid}
           data-testid="app-gallery-btn"
-          variant="outline"
-          className="gap-2"
+          variant="ghost"
           onClick={setOpen}
         >
-          <LayoutGrid />
           App Gallery
-        </Button>
+        </IconButton>
       </DialogTrigger>
 
       <DialogContent className="flex h-4/5 max-w-5xl flex-col">

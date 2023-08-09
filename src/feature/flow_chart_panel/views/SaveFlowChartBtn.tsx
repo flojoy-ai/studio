@@ -1,4 +1,4 @@
-import { DropdownMenuItem } from "@src/components/ui/dropdown-menu";
+import { MenubarItem } from "@src/components/ui/menubar";
 import * as htmlToImage from "html-to-image";
 
 const downloadBlob = (blob: Blob, filename: string) => {
@@ -43,9 +43,7 @@ const SaveFlowChartBtn = () => {
   };
 
   return (
-    <DropdownMenuItem onClick={downloadResult}>
-      Save Flowchart as JPEG
-    </DropdownMenuItem>
+    <MenubarItem onClick={downloadResult}>Save Flowchart as JPEG</MenubarItem>
   );
 };
 

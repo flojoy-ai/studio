@@ -27,13 +27,15 @@ import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import WatchBtn from "../components/WatchBtn";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@src/components/ui/menubar";
 
 const useStyles = createStyles((theme) => {
   return {
@@ -155,9 +157,9 @@ const SaveButton = ({ saveFile }: SaveButtonProps) => {
   useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
-    <DropdownMenuItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
+    <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
       Save
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -170,13 +172,13 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
 
   return (
-    <DropdownMenuItem
+    <MenubarItem
       data-cy="btn-saveas"
       disabled={saveAsDisabled}
       onClick={() => saveFile(nodes, edges)}
     >
       Save As
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -203,9 +205,9 @@ const LoadButton = () => {
   });
 
   return (
-    <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
+    <MenubarItem onClick={openFileSelector} id="load-app-btn">
       Load
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -239,13 +241,13 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   };
 
   return (
-    <DropdownMenuItem
+    <MenubarItem
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
     >
       Export Result
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -365,21 +367,21 @@ const ControlBar = () => {
   const exportResultDisabled = programResults.length == 0;
 
   return (
-    <div className={classes.controls}>
+    <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
       />
+
       <KeyboardShortcutModal
         handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
         isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
       />
+
       <NodeSettingsModal
         handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
-
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
@@ -387,51 +389,56 @@ const ControlBar = () => {
         <CancelBtn cancelFC={cancelFC} />
       )}
 
-      <DropdownMenu>
-        <DropdownMenuTrigger data-testid="dropdown-button">
-          <Button variant="outline" size="sm" id="file-btn">
-            File
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-          <SaveButton saveFile={saveFile} />
-          <ExportResultButton
-            results={programResults}
-            disabled={exportResultDisabled}
-          />
-          <SaveFlowChartBtn />
-          <LoadButton />
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="px-0.5" />
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <div className="px-0.5" />
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button data-testid="settings-btn" variant="outline" size="sm">
-            Settings
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem
-            data-testid="env-variable-moda-btn"
-            onClick={() => setIsEnvVarModalOpen(true)}
-          >
-            Environment Variables
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-keyboardshortcut"
-            onClick={() => setIsKeyboardShortcutOpen(true)}
-          >
-            Keyboard Shortcut
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-node-settings"
-            onClick={() => setIsNodeSettingsOpen(true)}
-          >
-            Runtime Settings
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex">
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">File</MenubarTrigger>
+            <MenubarContent>
+              <SaveAsButton
+                saveFile={saveFileAs}
+                saveAsDisabled={saveAsDisabled}
+              />
+              <SaveButton saveFile={saveFile} />
+              <ExportResultButton
+                results={programResults}
+                disabled={exportResultDisabled}
+              />
+              <SaveFlowChartBtn />
+              <LoadButton />
+            </MenubarContent>
+          </MenubarMenu>
+
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">
+              Settings
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem
+                data-testid="env-variable-moda-btn"
+                onClick={() => setIsEnvVarModalOpen(true)}
+              >
+                Environment Variables
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-keyboardshortcut"
+                onClick={() => setIsKeyboardShortcutOpen(true)}
+              >
+                Keyboard Shortcut
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-node-settings"
+                onClick={() => setIsNodeSettingsOpen(true)}
+              >
+                Node Settings
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </div>
 
       <DarkModeToggle />
     </div>

@@ -30,20 +30,20 @@ import {
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
+import { AppGalleryModal } from "./views/AppGalleryModal";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
-import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick } from "lucide-react";
+import { Eraser, Workflow } from "lucide-react";
+import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 
 localforage.config({
@@ -98,7 +98,6 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
@@ -246,43 +245,40 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div className="py-1" />
-      <div className="flex">
-        <Button
-          onClick={toggleSidebar}
-          data-testid="add-node-button"
-          className="gap-2"
-          variant="outline"
-        >
-          <Joystick />
-          <div>Add Python Node</div>
-        </Button>
-        <div className="ml-2">
+      <div className="sm:px-8" style={{ height: ACTIONS_HEIGHT }}>
+        <div className="py-1" />
+        <div className="flex">
+          <IconButton
+            icon={Workflow}
+            onClick={toggleSidebar}
+            data-testid="add-node-button"
+            variant="ghost"
+          >
+            Add Node
+          </IconButton>
           <GalleryModal
             isGalleryOpen={isGalleryOpen}
             setIsGalleryOpen={setIsGalleryOpen}
           />
+          <div className="grow" />
+          <IconButton
+            icon={Eraser}
+            onClick={clearCanvas}
+            data-testid="clear-canvas-button"
+            variant="ghost"
+          >
+            Clear Canvas
+          </IconButton>
         </div>
-        <div className="grow" />
-        <Button
-          onClick={clearCanvas}
-          data-testid="clear-canvas-button"
-          variant="outline"
-        >
-          <Eraser />
-          <div className="px-1" />
-          <div>Clear Canvas</div>
-        </Button>
+        <div className="py-1" />
+        <Separator />
       </div>
-      <div className="py-1" />
-      <Separator />
 
       <Sidebar
         sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
-        customContent={sidebarCustomContent}
       />
 
       <ReactFlowProvider>
