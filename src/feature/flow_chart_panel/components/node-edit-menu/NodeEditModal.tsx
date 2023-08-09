@@ -70,7 +70,7 @@ const NodeEditModal = ({
 
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-gray-800 bg-modal p-4 ">
+      <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
         <div className="flex items-center">
           <div>
             {isRenamingTitle ? (
@@ -144,7 +144,7 @@ const NodeEditModal = ({
                     offsetX={30}
                     offsetY={0}
                   >
-                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
+                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200">{`${name.toUpperCase()}:`}</p>
                   </ParamTooltip>
                   <ParamField
                     nodeId={node.id}

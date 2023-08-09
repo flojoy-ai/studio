@@ -5,6 +5,7 @@ import {
   Switch,
   createStyles,
   getStylesRef,
+  useMantineTheme,
 } from "@mantine/core";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
@@ -47,6 +48,7 @@ const ParamField = ({
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
+  const theme = useMantineTheme();
   const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const { setNodeParamChanged } = useFlowChartState();
   const handleChange = (value: string | boolean) => {
@@ -68,6 +70,13 @@ const ParamField = ({
           value={value !== "" ? parseFloat(value as string) : value}
           precision={7}
           removeTrailingZeros
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "int":
@@ -76,6 +85,13 @@ const ParamField = ({
           data-testid="int-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value as string) : value}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "bool":
@@ -87,6 +103,13 @@ const ParamField = ({
           size="md"
           classNames={classes}
           checked={Boolean(value)}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "select":
@@ -96,6 +119,22 @@ const ParamField = ({
           onChange={(val) => handleChange(val as string)}
           data={options ?? []}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+            item: {
+              "&[data-selected]": {
+                "&, &:hover": {
+                  backgroundColor: theme.colors.accent1[0],
+                  color:
+                    theme.colorScheme === "dark" ? theme.black : theme.white,
+                },
+              },
+            },
+          }}
         />
       );
     case "NodeReference":
@@ -105,6 +144,13 @@ const ParamField = ({
           onChange={(val) => handleChange(val as string)}
           data={nodeReferenceOptions ?? []}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "str":
@@ -118,6 +164,13 @@ const ParamField = ({
           data-testid="object-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     default:

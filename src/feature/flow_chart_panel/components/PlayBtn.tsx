@@ -32,7 +32,7 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
       disabled={nodes.length === 0}
       className="gap-2"
     >
-      <Play size="18" />
+      <Play size={18} />
       Play
     </Button>
   );
