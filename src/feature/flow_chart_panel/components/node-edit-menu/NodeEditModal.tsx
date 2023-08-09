@@ -70,7 +70,7 @@ const NodeEditModal = ({
 
   return (
     <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-48 z-10 min-w-[320px] rounded-xl border border-gray-800 bg-modal p-4 ">
+      <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-800 bg-modal p-4 ">
         <div className="flex items-center">
           <div>
             {isRenamingTitle ? (
