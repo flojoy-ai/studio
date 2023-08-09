@@ -1,3 +1,4 @@
+import "flojoy/styles/styles.css";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
@@ -39,11 +40,12 @@ import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Workflow } from "lucide-react";
+import { Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/components/theme-provider";
+import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 
 localforage.config({
   name: "react-flow",
@@ -199,31 +201,31 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const selectAllNodesShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        node.selected = true;
-      });
-    });
-  };
-
-  const deselectAllNodeShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        node.selected = false;
-      });
-    });
-  };
-
-  const deselectNodeShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        if (selectedNode !== null && node.id === selectedNode.id) {
-          node.selected = false;
-        }
-      });
-    });
-  };
+  // const selectAllNodesShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       node.selected = true;
+  //     });
+  //   });
+  // };
+  //
+  // const deselectAllNodeShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       node.selected = false;
+  //     });
+  //   });
+  // };
+  //
+  // const deselectNodeShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       if (selectedNode !== null && node.id === selectedNode.id) {
+  //         node.selected = false;
+  //       }
+  //     });
+  //   });
+  // };
 
   // useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
   // useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
@@ -231,8 +233,8 @@ const FlowChartTab = () => {
   // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  const nodeToEdit =
-    nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
+  // const nodeToEdit =
+  //   nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
   return (
     <Layout>
@@ -252,14 +254,7 @@ const FlowChartTab = () => {
             setIsGalleryOpen={setIsGalleryOpen}
           />
           <div className="grow" />
-          <IconButton
-            icon={Eraser}
-            onClick={clearCanvas}
-            data-testid="clear-canvas-button"
-            variant="ghost"
-          >
-            Clear Canvas
-          </IconButton>
+          <ClearCanvasBtn clearCanvas={clearCanvas} />
         </div>
         <div className="py-1" />
         <Separator />
