@@ -7,6 +7,7 @@ import {
 } from "@src/components/ui/dialog";
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
+import { Separator } from "@src/components/ui/separator";
 import { useSettings } from "@src/hooks/useSettings";
 
 interface NodeSettingsModalProps {
@@ -29,14 +30,15 @@ export const NodeSettingsModal = ({
         <DialogHeader className="text-left">
           <DialogTitle>Runtime Settings</DialogTitle>
           <DialogDescription>
-            Applies to flow chart runs (when the play button is clicked)
+            Applies when the flowchart is running.
           </DialogDescription>
         </DialogHeader>
+
         {settings.map((setting) => (
           <div key={`settings-modal-${setting.key}`}>
-            <Label htmlFor={setting.key} className="font-medium">
-              {setting.title}
-            </Label>
+            <Separator />
+            <div className="py-1" />
+            <Label className="font-semibold">{setting.title}</Label>
             <div className="text-sm text-muted-foreground">{setting.desc}</div>
             <Input
               name={setting.key}
