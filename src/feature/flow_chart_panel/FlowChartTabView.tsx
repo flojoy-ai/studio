@@ -42,8 +42,8 @@ import { Separator } from "@src/components/ui/separator";
 import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
-import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { Toaster } from "sonner";
+import { useTheme } from "@src/components/theme-provider";
 
 localforage.config({
   name: "react-flow",
@@ -54,15 +54,12 @@ const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
 
-  const {
-    isEditMode,
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    setIsEditMode,
-  } = useFlowChartState();
+  const { theme } = useTheme();
 
-  const theme = useMantineTheme();
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setIsEditMode } =
+    useFlowChartState();
+
+  const mantineTheme = useMantineTheme();
 
   const {
     states: { programResults },
@@ -123,7 +120,7 @@ const FlowChartTab = () => {
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
     wrapperOnClick: () => setIsEditMode(true),
-    theme: theme.colorScheme,
+    theme: mantineTheme.colorScheme,
   });
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView();
@@ -277,7 +274,7 @@ const FlowChartTab = () => {
         setSideBarStatus={setIsSidebarOpen}
       />
 
-      <Toaster />
+      <Toaster theme={theme} />
 
       <ReactFlowProvider>
         <div
@@ -324,17 +321,17 @@ const FlowChartTab = () => {
             <MiniMap
               style={{
                 backgroundColor:
-                  theme.colorScheme === "light"
+                  mantineTheme.colorScheme === "light"
                     ? "rgba(0, 0, 0, 0.1)"
                     : "rgba(255, 255, 255, 0.1)",
               }}
               nodeColor={
-                theme.colorScheme === "light"
+                mantineTheme.colorScheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
                   : "rgba(255, 255, 255, 0.25)"
               }
               maskColor={
-                theme.colorScheme === "light"
+                mantineTheme.colorScheme === "light"
                   ? "rgba(0, 0, 0, 0.05)"
                   : "rgba(255, 255, 255, 0.05)"
               }
