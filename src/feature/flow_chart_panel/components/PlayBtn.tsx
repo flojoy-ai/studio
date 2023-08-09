@@ -3,7 +3,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { Play } from "lucide-react";
-import { IconButton } from "@src/feature/common/IconButton";
+import { Button } from "@src/components/ui/button";
 
 interface PlayBtnProps {
   onPlay: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -23,21 +23,18 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
   useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
 
   return (
-    <IconButton
-      icon={Play}
-      iconProps={{
-        className: "stroke-foreground",
-        size: 18,
-      }}
+    <Button
       data-cy="btn-play"
       size="sm"
-      variant="outline"
+      variant="default"
       id="btn-play"
       onClick={handleClick}
       disabled={nodes.length === 0}
+      className="gap-2"
     >
+      <Play size="18" />
       Play
-    </IconButton>
+    </Button>
   );
 };
 
