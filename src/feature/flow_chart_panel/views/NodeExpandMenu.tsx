@@ -43,7 +43,7 @@ export const NodeExpandMenu = ({
   }, [selectedNode, nodeResults]);
 
   return (
-    <div pos="relative" data-testid="node-modal">
+    <div className="relative" data-testid="node-modal">
       {selectedNode && isExpandMode && (
         <NodeModal
           modalIsOpen={isExpandMode}

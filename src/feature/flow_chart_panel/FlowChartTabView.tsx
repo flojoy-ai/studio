@@ -44,6 +44,7 @@ import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
+import { GalleryModal } from "@src/components/gallery/GalleryModal";
 
 localforage.config({
   name: "react-flow",
@@ -255,7 +256,7 @@ const FlowChartTab = () => {
           >
             Add Node
           </IconButton>
-          <AppGalleryModal
+          <GalleryModal
             isGalleryOpen={isGalleryOpen}
             setIsGalleryOpen={setIsGalleryOpen}
           />

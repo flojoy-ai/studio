@@ -409,13 +409,16 @@ const ControlBar = () => {
         </DropdownMenu>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" size="sm">
+          <DropdownMenuTrigger data-testid="dropdown-button">
+            <Button variant="ghost" size="sm" data-testid="settings-btn">
               Settings
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
+            <DropdownMenuItem
+              data-testid="env-variable-moda-btn"
+              onClick={() => setIsEnvVarModalOpen(true)}
+            >
               Environment Variables
             </DropdownMenuItem>
             <DropdownMenuItem

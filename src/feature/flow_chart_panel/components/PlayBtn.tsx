@@ -29,6 +29,7 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
         className: "stroke-foreground",
         size: 18,
       }}
+      data-cy="btn-play"
       size="sm"
       variant="outline"
       id="btn-play"

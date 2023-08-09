@@ -15,6 +15,7 @@ const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
       icon={Ban}
       size="sm"
       variant="default"
+      data-cy="btn-cancel"
       id="btn-cancel"
       onClick={cancelFC}
     >
