@@ -3,7 +3,7 @@ import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -225,11 +225,11 @@ const FlowChartTab = () => {
     });
   };
 
-  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
-  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
-
-  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
-  useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
+  // useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
+  // useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
+  //
+  // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
+  // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;

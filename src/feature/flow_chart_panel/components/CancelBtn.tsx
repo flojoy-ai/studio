@@ -1,5 +1,5 @@
 import { IconButton } from "@src/feature/common/IconButton";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { Ban } from "lucide-react";
 
 type CancelBtnProps = {
@@ -7,8 +7,8 @@ type CancelBtnProps = {
 };
 
 const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("meta", "c", cancelFC);
+  // useKeyboardShortcut("ctrl", "c", cancelFC);
+  // useKeyboardShortcut("meta", "c", cancelFC);
 
   return (
     <IconButton

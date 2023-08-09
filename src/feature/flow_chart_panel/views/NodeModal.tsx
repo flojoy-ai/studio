@@ -158,8 +158,8 @@ const NodeModal = ({
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
   const colorScheme = theme.colorScheme;
 
-  useKeyboardShortcut("ctrl", "e", closeModal);
-  useKeyboardShortcut("meta", "e", closeModal);
+  // useKeyboardShortcut("ctrl", "e", closeModal);
+  // useKeyboardShortcut("meta", "e", closeModal);
 
   const path = nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "");
 

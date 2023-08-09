@@ -1,4 +1,4 @@
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "flojoy/types";
@@ -19,8 +19,8 @@ const PlayBtn = ({ onPlay }: PlayBtnProps) => {
     }
   };
 
-  useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
-  useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
+  // useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
+  // useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
 
   return (
     <Button

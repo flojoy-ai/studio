@@ -153,8 +153,8 @@ type SaveButtonProps = {
 
 const SaveButton = ({ saveFile }: SaveButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
-  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
     <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
