@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { AppGalleryLayout } from "@feature/flow_chart_panel/views/AppGalleryLayout";
 import { AppGallerySearch } from "@feature/flow_chart_panel/views/AppGallerySearch";
 import { Button } from "@/components/ui/button";
@@ -49,12 +49,15 @@ export const AppGalleryModal = ({
   const [selectFields, setSelectFields] = useState<GithubJSON[]>([]);
   const [searchData, setSearchData] = useState<GithubJSON[]>([]);
   const [searchDisabled, setSearchDisabled] = useState<boolean>(true);
+  const [category, setCategory] = useState<string>("Category");
   const turnStoneRef = useRef();
 
   // This functions fetches the category selected by the user and clears the input
-  const onValueChange = async (selectUrl: string) => {
+  const onValueChange = async (name: string) => {
     setSearchDisabled(false);
-    const response = await fetch(selectUrl);
+    setCategory(name);
+    const selectUrl = selectFields.find((obj) => obj.name === name);
+    const response = await fetch(selectUrl?.url);
     const raw: GithubJSON[] = await response.json();
     const filtered = raw.filter((obj) => obj["type"] === "dir");
     setSearchData(filtered);
@@ -62,10 +65,10 @@ export const AppGalleryModal = ({
   };
 
   const setOpen = () => {
-    console.log("use effect");
     fetchData().catch(error);
     setIsGalleryOpen(true);
-    console.log(searchData);
+    setSearchDisabled(true);
+    setCategory("Category");
   };
 
   const fetchData = async () => {
@@ -94,11 +97,11 @@ export const AppGalleryModal = ({
             <div className="flex basis-2/5 gap-3">
               <div className="w-1/3 pt-1">
                 <Select onValueChange={onValueChange}>
-                  <SelectTrigger className="text-sm">Category</SelectTrigger>
+                  <SelectTrigger className="text-sm">{category}</SelectTrigger>
                   <SelectGroup>
                     <SelectContent>
                       {selectFields.map((obj) => (
-                        <SelectItem key={obj.sha} value={obj.url}>
+                        <SelectItem key={obj.sha} value={obj.name}>
                           {obj.name}
                         </SelectItem>
                       ))}
