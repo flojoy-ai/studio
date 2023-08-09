@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@src/components/ui/dialog";
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
@@ -38,7 +37,7 @@ const EnvVarEdit = ({
     setEditEnv("");
     fetchCredentials();
     setOpen(false);
-    toast("Environment variable edited", { duration: 5000 });
+    toast("Environment variable edited");
   };
 
   return (

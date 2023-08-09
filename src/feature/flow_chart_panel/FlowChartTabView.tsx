@@ -43,6 +43,7 @@ import { Eraser, Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
+import { Toaster } from "sonner";
 
 localforage.config({
   name: "react-flow",
@@ -275,6 +276,8 @@ const FlowChartTab = () => {
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
       />
+
+      <Toaster />
 
       <ReactFlowProvider>
         <div

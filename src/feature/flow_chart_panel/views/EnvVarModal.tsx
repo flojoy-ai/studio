@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Toaster } from "sonner";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
@@ -125,7 +124,7 @@ const EnvVarModal = ({
               type="text"
               placeholder="e.g CLIENT_KEY"
               value={envVarKey || ""}
-              className=" mt-1 shadow-sm dark:bg-neutral-800 sm:text-sm"
+              className="mt-1 shadow-sm dark:bg-neutral-800 sm:text-sm"
               onPaste={(e) => handlePaste(e, "key")}
               onChange={handleEnvVarKeyChange}
             />
@@ -155,21 +154,18 @@ const EnvVarModal = ({
         </DialogFooter>
         <hr />
         <div className="max-h-80 ">
-          <ScrollArea className="h-80 w-full rounded-md pr-3 last:border-b-0">
+          <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
             {credentials.map((credential) => (
-              <div className="ml-0.5 border-b-[1px] border-b-gray-800 last:border-b-0 odd:bg-gray-900/40">
-                <EnvVarCredentialsInfo
-                  key={credential.id}
-                  credential={credential}
-                  setSelectedCredential={setSelectedCredential}
-                  setEditModalOpen={setEditModalOpen}
-                  setDeleteModalOpen={setDeleteModalOpen}
-                />
-              </div>
+              <EnvVarCredentialsInfo
+                key={credential.id}
+                credential={credential}
+                setSelectedCredential={setSelectedCredential}
+                setEditModalOpen={setEditModalOpen}
+                setDeleteModalOpen={setDeleteModalOpen}
+              />
             ))}
           </ScrollArea>
         </div>
-        <Toaster className="absolute bottom-0 right-0" />
         {selectedCredential && (
           <>
             <EnvVarDelete
