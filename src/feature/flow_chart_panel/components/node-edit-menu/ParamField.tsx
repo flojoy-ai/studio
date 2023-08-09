@@ -125,6 +125,15 @@ const ParamField = ({
                 borderColor: theme.colors.accent1[0],
               },
             },
+            item: {
+              "&[data-selected]": {
+                "&, &:hover": {
+                  backgroundColor: theme.colors.accent1[0],
+                  color:
+                    theme.colorScheme === "dark" ? theme.black : theme.white,
+                },
+              },
+            },
           }}
         />
       );
