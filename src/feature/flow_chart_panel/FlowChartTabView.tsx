@@ -35,7 +35,6 @@ import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
-import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
@@ -43,7 +42,7 @@ import { Separator } from "@src/components/ui/separator";
 import { Workflow } from "lucide-react";
 import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/components/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 
@@ -152,13 +151,8 @@ const FlowChartTab = () => {
           return addEdge(connection, eds);
         }
 
-        notifications.show({
-          id: "type-error",
-          color: "red",
-          title: "Type Error",
-          message: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-          autoClose: true,
-          withCloseButton: true,
+        toast.message("Type error", {
+          description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
         });
       }),
     [setEdges]

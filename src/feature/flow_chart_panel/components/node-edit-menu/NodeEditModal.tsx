@@ -6,10 +6,10 @@ import { memo, useEffect, useState } from "react";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
 import { ParamTooltip } from "flojoy/components";
-import { notifications } from "@mantine/notifications";
-import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
+import { Check, Info, Pencil, TrashIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
+import { toast } from "sonner";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -45,13 +45,8 @@ const NodeEditModal = ({
       (n) => n.data.label === value && n.data.id !== node.data.id
     );
     if (isDuplicate) {
-      notifications.show({
-        id: "label-change-error",
-        color: "red",
-        title: "Cannot change label",
-        message: `There is another node with the same label: ${value}`,
-        autoClose: 5000,
-        withCloseButton: true,
+      toast.message("Cannot change label", {
+        description: `There is another node with the same label: ${value}`,
       });
       return;
     }
