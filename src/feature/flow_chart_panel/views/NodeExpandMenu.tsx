@@ -1,11 +1,10 @@
-import { Box } from "@mantine/core";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { Node, useOnSelectionChange } from "reactflow";
+// import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { Node } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import NodeModal from "./NodeModal";
 import { useEffect, useState } from "react";
-import { useFlowChartTabState } from "../FlowChartTabState";
+// import { useFlowChartTabState } from "../FlowChartTabState";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
@@ -40,7 +39,7 @@ export const NodeExpandMenu = ({
 
   useEffect(() => {
     setNodeResult(
-      nodeResults.find((node) => node.id === selectedNode?.id) ?? null,
+      nodeResults.find((node) => node.id === selectedNode?.id) ?? null
     );
   }, [selectedNode, nodeResults]);
 

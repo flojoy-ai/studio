@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -41,10 +40,10 @@ export const GalleryModal = ({
             app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             app.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
             app.relevantNodes.some((node) =>
-              node.name.toLowerCase().includes(searchQuery.toLowerCase()),
-            ),
+              node.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
         ),
-      ]),
+      ])
     );
   }, [searchQuery]);
 
@@ -79,7 +78,7 @@ export const GalleryModal = ({
 
         <ScrollArea className="">
           {filteredData
-            .filter(([_, v]) => v.length > 0)
+            .filter(([, v]) => v.length > 0)
             .map(([k, v]) => (
               <div key={k}>
                 <div className="text-3xl font-bold">{k}</div>
