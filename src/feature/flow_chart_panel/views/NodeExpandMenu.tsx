@@ -5,6 +5,7 @@ import { Node, useOnSelectionChange } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import NodeModal from "./NodeModal";
 import { useEffect, useState } from "react";
+import { useFlowChartTabState } from "../FlowChartTabState";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
@@ -18,6 +19,7 @@ type NodeExpandMenuProps = {
 };
 
 export const NodeExpandMenu = ({
+  modalIsOpen,
   closeModal,
   nodeLabel,
   nodeType,
@@ -26,27 +28,27 @@ export const NodeExpandMenu = ({
   pythonString,
   nodeFilePath,
 }: NodeExpandMenuProps) => {
-  const { isExpandMode, setIsExpandMode } = useFlowChartState();
+  // const { isExpandMode, setIsExpandMode } = useFlowChartState();
   const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
-  const onSelectionChange = () => {
-    if (!selectedNode) {
-      setIsExpandMode(false);
-    }
-  };
+  // const onSelectionChange = () => {
+  //   if (!selectedNode) {
+  //     setIsExpandMode(false);
+  //   }
+  // };
 
-  useOnSelectionChange({ onChange: onSelectionChange });
+  // useOnSelectionChange({ onChange: onSelectionChange });
 
   useEffect(() => {
     setNodeResult(
-      nodeResults.find((node) => node.id === selectedNode?.id) ?? null
+      nodeResults.find((node) => node.id === selectedNode?.id) ?? null,
     );
   }, [selectedNode, nodeResults]);
 
   return (
     <div className="relative" data-testid="node-modal">
-      {selectedNode && isExpandMode && (
+      {selectedNode && (
         <NodeModal
-          modalIsOpen={isExpandMode}
+          modalIsOpen={modalIsOpen}
           closeModal={closeModal}
           nodeLabel={nodeLabel}
           nodeType={nodeType}

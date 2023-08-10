@@ -1,9 +1,10 @@
+import "flojoy/styles/styles.css";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -13,7 +14,6 @@ import {
   ConnectionLineType,
   EdgeTypes,
   MiniMap,
-  Node,
   NodeDragHandler,
   OnConnect,
   OnEdgesChange,
@@ -30,21 +30,21 @@ import {
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
 import { useFlowChartTabState } from "./FlowChartTabState";
-import SidebarCustomContent from "./components/SidebarCustomContent";
 import { useAddNewNode } from "./hooks/useAddNewNode";
-import { ElementsData } from "flojoy/types";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { Layout } from "../common/Layout";
-import { AppGalleryModal } from "./views/AppGalleryModal";
+import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
-import { notifications } from "@mantine/notifications";
 import { CenterObserver } from "./components/CenterObserver";
 import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
-import { Button } from "@src/components/ui/button";
 import { Separator } from "@src/components/ui/separator";
-import { Eraser, Joystick, LayoutGrid } from "lucide-react";
+import { Workflow } from "lucide-react";
+import { IconButton } from "../common/IconButton";
+import { GalleryModal } from "@src/components/gallery/GalleryModal";
+import { toast, Toaster } from "sonner";
+import { useTheme } from "@src/components/theme-provider";
+import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 
 localforage.config({
   name: "react-flow",
@@ -53,31 +53,26 @@ localforage.config({
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+  const [nodeModalOpen, setNodeModalOpen] = useState(false);
 
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    setIsEditMode,
-    setIsExpandMode,
-  } = useFlowChartState();
+  const { theme } = useTheme();
 
-  const theme = useMantineTheme();
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setIsEditMode } =
+    useFlowChartState();
+
+  const mantineTheme = useMantineTheme();
 
   const {
     states: { programResults },
   } = useSocket();
 
   const {
-    modalIsOpen,
-    closeModal,
     nodeLabel,
     nodeType,
     pythonString,
     setPythonString,
     nodeFilePath,
     setNodeFilePath,
-    setIsModalOpen,
     setNodeLabel,
     setNodeType,
   } = useFlowChartTabState();
@@ -94,31 +89,30 @@ const FlowChartTab = () => {
     // using nodes.length is more efficient for this case
     // adding eslint-disable-next-line react-hooks/exhaustive-deps to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [nodes.length]
+    [nodes.length],
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
-  const sidebarCustomContent = useMemo(() => <SidebarCustomContent />, []);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
-    [setIsSidebarOpen]
+    [setIsSidebarOpen],
   );
 
   const handleNodeRemove = useCallback(
     (nodeId: string, nodeLabel: string) => {
       setNodes((prev) => prev.filter((node) => node.id !== nodeId));
       setEdges((prev) =>
-        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+        prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
       sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
     },
-    [setNodes, setEdges]
+    [setNodes, setEdges],
   );
 
   const edgeTypes: EdgeTypes = useMemo(
     () => ({ default: SmartBezierEdge }),
-    []
+    [],
   );
   // Attach a callback to each of the custom nodes.
   // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
@@ -126,12 +120,8 @@ const FlowChartTab = () => {
   // for whatever reason.
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
-    handleClickExpand: () => {
-      setIsModalOpen(true);
-      setIsExpandMode(true);
-    },
     wrapperOnClick: () => setIsEditMode(true),
-    theme: theme.colorScheme,
+    theme: mantineTheme.colorScheme,
   });
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView();
@@ -147,11 +137,11 @@ const FlowChartTab = () => {
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes]
+    [setNodes],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
-    [setEdges]
+    [setEdges],
   );
   const onConnect: OnConnect = useCallback(
     (connection) =>
@@ -161,16 +151,11 @@ const FlowChartTab = () => {
           return addEdge(connection, eds);
         }
 
-        notifications.show({
-          id: "type-error",
-          color: "red",
-          title: "Type Error",
-          message: `Source type ${sourceType} and target type ${targetType} are not compatible`,
-          autoClose: true,
-          withCloseButton: true,
+        toast.message("Type error", {
+          description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
         });
       }),
-    [setEdges]
+    [setEdges],
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
@@ -179,10 +164,10 @@ const FlowChartTab = () => {
       });
       const selectedNodeIds = nodes.map((node) => node.id);
       setNodes((prev) =>
-        prev.filter((node) => !selectedNodeIds.includes(node.id))
+        prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
     },
-    [setNodes]
+    [setNodes],
   );
 
   const clearCanvas = useCallback(() => {
@@ -210,80 +195,73 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  const selectAllNodesShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        node.selected = true;
-      });
-    });
-  };
+  // const selectAllNodesShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       node.selected = true;
+  //     });
+  //   });
+  // };
+  //
+  // const deselectAllNodeShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       node.selected = false;
+  //     });
+  //   });
+  // };
+  //
+  // const deselectNodeShortcut = () => {
+  //   setNodes((nodes) => {
+  //     nodes.forEach((node) => {
+  //       if (selectedNode !== null && node.id === selectedNode.id) {
+  //         node.selected = false;
+  //       }
+  //     });
+  //   });
+  // };
 
-  const deselectAllNodeShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        node.selected = false;
-      });
-    });
-  };
+  // useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
+  // useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
+  //
+  // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
+  // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  const deselectNodeShortcut = () => {
-    setNodes((nodes) => {
-      nodes.forEach((node) => {
-        if (selectedNode !== null && node.id === selectedNode.id) {
-          node.selected = false;
-        }
-      });
-    });
-  };
-
-  useKeyboardShortcut("ctrl", "a", () => selectAllNodesShortcut());
-  useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
-  useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
-
-  useKeyboardShortcut("meta", "a", () => selectAllNodesShortcut());
-  useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
-  useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
+  // const nodeToEdit =
+  //   nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
   return (
     <Layout>
-      <div className="py-1" />
-      <div className="flex">
-        <Button
-          onClick={toggleSidebar}
-          data-testid="add-node-button"
-          variant="outline"
-        >
-          <Joystick />
-          <div className="px-1" />
-          <div>Add Python Node</div>
-        </Button>
-        <div className="ml-2">
-          <AppGalleryModal
+      <div className="sm:px-8" style={{ height: ACTIONS_HEIGHT }}>
+        <div className="py-1" />
+        <div className="flex">
+          <IconButton
+            icon={Workflow}
+            onClick={toggleSidebar}
+            data-testid="add-node-button"
+            variant="ghost"
+          >
+            Add Node
+          </IconButton>
+          <GalleryModal
             isGalleryOpen={isGalleryOpen}
             setIsGalleryOpen={setIsGalleryOpen}
           />
+          <div className="grow" />
+          <ClearCanvasBtn clearCanvas={clearCanvas} />
         </div>
-        <div className="grow" />
-        <Button
-          onClick={clearCanvas}
-          data-testid="clear-canvas-button"
-          variant="outline"
-        >
-          <Eraser />
-          <div className="px-1" />
-          <div>Clear Canvas</div>
-        </Button>
+        <div className="py-1" />
+        <Separator />
       </div>
-      <div className="py-1" />
-      <Separator />
 
       <Sidebar
         sections={nodeSection}
         leafNodeClickHandler={addNewNode as LeafClickHandler}
         isSideBarOpen={isSidebarOpen}
         setSideBarStatus={setIsSidebarOpen}
-        customContent={sidebarCustomContent}
       />
+
+      <Toaster theme={theme} />
 
       <ReactFlowProvider>
         <div
@@ -297,9 +275,9 @@ const FlowChartTab = () => {
             }
             unSelectedNodes={unSelectedNodes}
             nodes={nodes}
-            setNodes={(nodes: Node<ElementsData>[]) => {
-              setNodes(nodes);
-            }}
+            setNodes={setNodes}
+            setNodeModalOpen={() => setNodeModalOpen(true)}
+            handleDelete={handleNodeRemove}
           />
 
           <FlowChartKeyboardShortcuts />
@@ -330,17 +308,17 @@ const FlowChartTab = () => {
             <MiniMap
               style={{
                 backgroundColor:
-                  theme.colorScheme === "light"
+                  mantineTheme.colorScheme === "light"
                     ? "rgba(0, 0, 0, 0.1)"
                     : "rgba(255, 255, 255, 0.1)",
               }}
               nodeColor={
-                theme.colorScheme === "light"
+                mantineTheme.colorScheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
                   : "rgba(255, 255, 255, 0.25)"
               }
               maskColor={
-                theme.colorScheme === "light"
+                mantineTheme.colorScheme === "light"
                   ? "rgba(0, 0, 0, 0.05)"
                   : "rgba(255, 255, 255, 0.05)"
               }
@@ -352,8 +330,8 @@ const FlowChartTab = () => {
 
           <NodeExpandMenu
             selectedNode={selectedNode}
-            closeModal={closeModal}
-            modalIsOpen={modalIsOpen}
+            closeModal={() => setNodeModalOpen(false)}
+            modalIsOpen={nodeModalOpen}
             nodeResults={programResults}
             nodeLabel={nodeLabel}
             nodeType={nodeType}

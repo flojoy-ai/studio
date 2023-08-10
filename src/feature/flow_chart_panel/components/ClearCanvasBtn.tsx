@@ -1,52 +1,47 @@
-import { Button, createStyles } from "@mantine/core";
-import { Draft } from "immer";
-import { Edge, Node } from "reactflow";
-import { ElementsData } from "flojoy/types";
-
-const useStyles = createStyles((theme) => {
-  return {
-    button: {
-      width: "fit-content",
-      height: "43px",
-      margin: "10px",
-      boxSizing: "border-box",
-      backgroundColor: "transparent",
-      color: theme.colors.red[8],
-      border: `1px solid ${theme.colors.red[8]}`,
-      cursor: "pointer",
-      zIndex: 100,
-      fontWeight: 600,
-      "&:hover": {
-        backgroundColor: theme.colors.red[8] + "36",
-      },
-    },
-  };
-});
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@src/components/ui/alert-dialog";
+import { Button } from "@src/components/ui/button";
+import { Eraser } from "lucide-react";
 
 type ClearCanvasBtnProps = {
-  setNodes: (
-    update:
-      | Node<ElementsData>[]
-      | ((draft: Draft<Node<ElementsData>>[]) => void)
-  ) => void;
-  setEdges: (update: Edge[] | ((draft: Draft<Edge>[]) => void)) => void;
+  clearCanvas: () => void;
 };
 
-export const ClearCanvasBtn = ({ setNodes, setEdges }: ClearCanvasBtnProps) => {
-  const { classes } = useStyles();
-
-  const deleteAllNodes = () => {
-    setNodes([]);
-    setEdges([]);
-  };
-
+export const ClearCanvasBtn = ({ clearCanvas }: ClearCanvasBtnProps) => {
   return (
-    <Button
-      data-testid="clear-canvas-btn"
-      className={classes.button}
-      onClick={deleteAllNodes}
-    >
-      Clear Canvas
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button
+          data-testid="clear-canvas-btn"
+          className="gap-2"
+          variant="ghost"
+        >
+          <Eraser />
+          Clear Canvas
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will remove everything on the
+            flowchart.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={clearCanvas}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

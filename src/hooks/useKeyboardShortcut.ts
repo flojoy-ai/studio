@@ -4,7 +4,7 @@ export type Motifier = "ctrl" | "alt" | "shift" | "meta";
 const useKeyboardShortcut = (
   motifier: Motifier,
   shortcut: string,
-  callback: () => void
+  callback: () => void,
 ) => {
   const callbackRef = useRef(callback);
   useLayoutEffect(() => {
@@ -40,7 +40,7 @@ const useKeyboardShortcut = (
           break;
       }
     },
-    [shortcut]
+    [shortcut],
   );
 
   useEffect(() => {

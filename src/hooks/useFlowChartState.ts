@@ -52,19 +52,17 @@ const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
-const expandModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
-  undefined
+  undefined,
 );
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
-  const [isExpandMode, setIsExpandMode] = useAtom(expandModeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
@@ -77,8 +75,6 @@ export function useFlowChartState() {
     setRfInstance,
     isEditMode,
     setIsEditMode,
-    isExpandMode,
-    setIsExpandMode,
     showLogs,
     setShowLogs,
     runningNode,

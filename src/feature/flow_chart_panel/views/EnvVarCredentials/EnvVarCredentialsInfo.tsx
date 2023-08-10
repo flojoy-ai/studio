@@ -1,41 +1,55 @@
 import { useState } from "react";
-import { IconDotsVertical, IconEye, IconEyeOff } from "@tabler/icons-react";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-} from "@src/components/ui/select";
+import { MoreVertical, Eye, EyeOff } from "lucide-react";
 import { Button } from "@src/components/ui/button";
-import EnvVarEdit from "./EnvVarEdit";
-import EnvVarDelete from "./EnvVarDelete";
 import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
-export interface EnvVarCredentialsInfoProps {
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@src/components/ui/dropdown-menu";
+
+export type EnvVarCredentialsInfoProps = {
   credential: EnvVarCredentialType;
-  fetchCredentials: () => void;
-}
+  setSelectedCredential: (credential: EnvVarCredentialType) => void;
+  setDeleteModalOpen: (open: boolean) => void;
+  setEditModalOpen: (open: boolean) => void;
+};
 
 const EnvVarCredentialsInfo = ({
   credential,
-  fetchCredentials,
+  setSelectedCredential,
+  setDeleteModalOpen,
+  setEditModalOpen,
 }: EnvVarCredentialsInfoProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const PasswordIcon = showPassword ? IconEyeOff : IconEye;
+  const PasswordIcon = showPassword ? EyeOff : Eye;
+
+  const handleDeleteClick = () => {
+    setSelectedCredential(credential);
+    setDeleteModalOpen(true);
+  };
+
+  const handleEditClick = () => {
+    setSelectedCredential(credential);
+    setEditModalOpen(true);
+  };
 
   return (
     <div
       data-testid="credential-name"
       key={credential.id}
-      className="mb-3 ml-0.5 flex w-full rounded-md border border-solid border-gray-800"
+      className="mt-1 flex w-full rounded-md bg-modal py-1"
     >
       <div className="px-2.5" />
       <div className="py-2.5 font-semibold text-gray-800 dark:text-gray-200">
         {credential.key}
       </div>
-      <div className="ml-auto mr-4 flex items-center">
+      <div className="ml-auto mr-6 flex items-center gap-x-2">
         <button type="button" onClick={toggleShowPassword}>
           <PasswordIcon
             data-testid="password-icon-view"
@@ -46,34 +60,42 @@ const EnvVarCredentialsInfo = ({
             strokeLinejoin="round"
           />
         </button>
-        <div className="px-2" />
-        <div className="mr-2 flex w-24 items-center font-semibold text-gray-600">
+        <div className="flex w-24 items-center font-semibold text-gray-600">
           {showPassword ? (
-            <span className="inline-block w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-semibold">
+            <span className="inline-block w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm font-medium">
               {credential.value}
             </span>
           ) : (
-            "•".repeat(15)
+            <span className="tracking-wider">{"•".repeat(15)}</span>
           )}
         </div>
-        <Select>
-          <SelectTrigger className="mr-2 mt-0.5 h-5 w-0 border-transparent p-0 focus:ring-transparent">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button
               data-testid="env-var-modify-btn"
               variant={"ghost"}
               size={"icon"}
             >
-              <IconDotsVertical className="stroke-gray-600 " size={20} />
+              <MoreVertical className="stroke-gray-600" size={20} />
             </Button>
-          </SelectTrigger>
-          <SelectContent>
-            <EnvVarDelete credential={credential} />
-            <EnvVarEdit
-              credentialKey={credential.key}
-              fetchCredentials={fetchCredentials}
-            />
-          </SelectContent>
-        </Select>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="min-w-[80px]">
+            <DropdownMenuItem
+              data-testid="env-var-edit-btn"
+              onClick={handleEditClick}
+              className="cursor-pointer"
+            >
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              data-testid="env-var-delete-btn"
+              onClick={handleDeleteClick}
+              className="cursor-pointer"
+            >
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

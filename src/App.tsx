@@ -67,8 +67,8 @@ const App = () => {
     }
   }, [theme]);
 
-  useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
-  useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
