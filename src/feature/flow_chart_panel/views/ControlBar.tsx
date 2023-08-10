@@ -274,7 +274,7 @@ const ControlBar = () => {
   const exportResultDisabled = programResults.length == 0;
 
   return (
-    <div className="flex items-center gap-2 p-2.5">
+    <div className="flex items-center gap-2 p-2.5" >
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}

@@ -23,7 +23,7 @@ const Header = () => {
   const large = width > getBreakpointValue(theme.breakpoints.sm);
 
   return (
-    <div style={{ height: HEADER_HEIGHT }}>
+    <div style={{ height: HEADER_HEIGHT }} className="">
       <div className="flex gap-4">
         <Logo />
         {tabs.map((t) => (
