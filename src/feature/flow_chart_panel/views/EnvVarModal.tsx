@@ -55,7 +55,9 @@ const EnvVarModal = ({
       },
     })
       .then((res) => res.json())
-      .then((data) => setCredentials(data))
+      .then((data) => {
+        setCredentials(data);
+      })
       .catch((err) => console.log(err));
   }, [setCredentials]);
 
@@ -164,7 +166,7 @@ const EnvVarModal = ({
           <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
             {credentials.map((credential) => (
               <EnvVarCredentialsInfo
-                key={credential.id}
+                key={credential.key}
                 credential={credential}
                 setSelectedCredential={setSelectedCredential}
                 setEditModalOpen={setEditModalOpen}
