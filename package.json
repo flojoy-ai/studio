@@ -24,7 +24,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
     "@radix-ui/react-tooltip": "^1.0.6",
-    "@tisoap/react-flow-smart-edge": "^3.0.0",
+    "@tisoap/react-flow-smart-edge": "file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
