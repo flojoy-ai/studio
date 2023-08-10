@@ -304,7 +304,7 @@ sleep 1
 if [ $test_ci = true ]; then
    start_project_cmd='npm run start-project:ci'
 else 
-   start_project_cmd='npm run start-project'
+   start_project_cmd='npm run tauri dev'
 fi
 
 if [ $isDebugMode = true ]; then

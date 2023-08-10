@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "./",
+  "type": "module",
   "author": "Jack Parmer <jack.parmer@proton.me>",
-  "main": "dist-electron/main/index.js",
   "dependencies": {
     "@mantine/core": "^6.0.18",
     "@mantine/hooks": "^6.0.18",
@@ -24,6 +24,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-toast": "^1.1.4",
     "@radix-ui/react-tooltip": "^1.0.6",
+    "@tauri-apps/api": "^1.4.0",
     "@tisoap/react-flow-smart-edge": "file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -67,8 +68,10 @@
     "zod-validation-error": "^1.3.1"
   },
   "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build && electron-builder",
+    "preview": "vite preview",
+    "dev": "vite",
+    "tauri": "tauri",
+    "build": "tsc && vite build",
     "backend": "python3 manage.py",
     "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator",
@@ -98,6 +101,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@percy/cli": "^1.26.3",
     "@percy/cypress": "^3.1.2",
+    "@tauri-apps/cli": "^1.4.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
