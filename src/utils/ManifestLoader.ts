@@ -2,8 +2,9 @@ import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
 import nodeSectionJSON from "@src/data/manifests-latest.json";
 
-const nodeElementSchema = z.object({
+const NodeElement = z.object({
   name: z.string(),
+  entryType: z.literal("leaf").default("leaf"),
   key: z.string(),
   type: z.string(),
   inputs: z.optional(
@@ -57,47 +58,53 @@ const nodeElementSchema = z.object({
     z.array(z.object({ name: z.string(), v: z.optional(z.string()) })),
   ),
   ui_component_id: z.optional(z.string()),
-  children: z.null(),
+  // children: z.null(),
 });
 
-export type NodeElement = z.infer<typeof nodeElementSchema>;
+export type NodeElement = z.infer<typeof NodeElement>;
 
-export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
-  childSchema: ChildType,
-) {
-  return z.object({
-    name: z.string(),
-    key: z.optional(z.string()),
-    type: z.optional(z.string()),
-    children: z.array(childSchema),
-  });
-}
-const subCategorySchema =
-  createSubCategorySchema<typeof nodeElementSchema>(nodeElementSchema);
+const NodeSection = z.object({
+  name: z.literal("ROOT"),
+  entryType: z.literal("section").default("section"),
+  children: z.array(
+    z.object({
+      name: z.string(),
+      entryType: z.literal("section").default("section"),
+      key: z.optional(z.string()),
+      type: z.optional(z.string()),
+      children: z.array(
+        z.union([
+          NodeElement,
+          z.object({
+            name: z.string(),
+            entryType: z.literal("section").default("section"),
+            key: z.optional(z.string()),
+            type: z.optional(z.string()),
+            children: z.array(
+              z.union([
+                NodeElement,
+                z.object({
+                  name: z.string(),
+                  entryType: z.literal("section").default("section"),
+                  key: z.optional(z.string()),
+                  type: z.optional(z.string()),
+                  children: NodeElement,
+                }),
+              ]),
+            ),
+          }),
+        ]),
+      ),
+    }),
+  ),
+});
 
-export type SubCategory = z.infer<typeof subCategorySchema>;
+export type NodeSection = z.infer<typeof NodeSection>;
 
-export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
-  element: ElementType,
-) {
-  return z.object({
-    name: z.literal("ROOT"),
-    children: z.array(
-      z.object({
-        name: z.string(),
-        key: z.optional(z.string()),
-        type: z.optional(z.string()),
-        children: z.array(createSubCategorySchema(element)),
-      }),
-    ),
-  });
-}
-const nodeSectionSchema = createSectionSchema(nodeElementSchema);
-
-export type NodeSection = z.infer<typeof nodeSectionSchema>;
 let nodeSection: NodeSection;
+
 try {
-  nodeSection = nodeSectionSchema.parse(nodeSectionJSON);
+  nodeSection = NodeSection.parse(nodeSectionJSON);
 } catch (e) {
   if (e instanceof ZodError) {
     throw fromZodError(e);
