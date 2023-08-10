@@ -241,7 +241,7 @@ const FlowChartTab = () => {
             variant="ghost"
             onClick={toggleSidebar}
           >
-            <Workflow />
+            <Workflow size={20} className="stroke-muted-foreground" />
             Add Node
           </Button>
 
