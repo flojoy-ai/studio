@@ -40,7 +40,7 @@ export const NodeExpandMenu = ({
 
   useEffect(() => {
     setNodeResult(
-      nodeResults.find((node) => node.id === selectedNode?.id) ?? null
+      nodeResults.find((node) => node.id === selectedNode?.id) ?? null,
     );
   }, [selectedNode, nodeResults]);
 

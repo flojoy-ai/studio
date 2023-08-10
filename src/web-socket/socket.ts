@@ -73,7 +73,7 @@ export class WebSocketServer {
             }
             if (
               [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY].includes(
-                data[ResponseEnum.systemStatus]
+                data[ResponseEnum.systemStatus],
               )
             ) {
               this.onPreJobOpStarted({ isRunning: false, output: [] });
@@ -85,7 +85,7 @@ export class WebSocketServer {
               const isExist = prev.find((node) => node.id === resultIo.id);
               if (isExist) {
                 const filterResult = prev.filter(
-                  (node) => node.id !== resultIo.id
+                  (node) => node.id !== resultIo.id,
                 );
                 return [...filterResult, resultIo];
               }
@@ -120,7 +120,7 @@ export class WebSocketServer {
           sendEventToMix(
             "Initial Status",
             "Connection Established",
-            "Server Status"
+            "Server Status",
           );
           break;
         default:
@@ -143,7 +143,7 @@ export class WebSocketServer {
     this.server.send(
       JSON.stringify({
         type: data,
-      })
+      }),
     );
   }
   isConnected() {

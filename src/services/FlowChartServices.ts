@@ -90,7 +90,7 @@ export function saveAndRunFlowChartInServer({
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
-  jobId: string
+  jobId: string,
 ) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);

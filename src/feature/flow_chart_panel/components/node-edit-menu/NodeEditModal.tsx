@@ -42,7 +42,7 @@ const NodeEditModal = ({
       return;
     }
     const isDuplicate = nodes.find(
-      (n) => n.data.label === value && n.data.id !== node.data.id
+      (n) => n.data.label === value && n.data.id !== node.data.id,
     );
     if (isDuplicate) {
       toast.message("Cannot change label", {

@@ -268,7 +268,7 @@ const ControlBar = () => {
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,
     nodes: Node<ElementsData>[],
-    edges: Edge[]
+    edges: Edge[],
   ) => {
     const updatedRf = {
       ...rf,
@@ -346,7 +346,7 @@ const ControlBar = () => {
       setNodeParamChanged(false);
     } else {
       alert(
-        "There is no program to send to server. \n Please add at least one node first."
+        "There is no program to send to server. \n Please add at least one node first.",
       );
     }
   };
