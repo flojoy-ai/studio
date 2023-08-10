@@ -40,10 +40,10 @@ export const GalleryModal = ({
             app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             app.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
             app.relevantNodes.some((node) =>
-              node.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
+              node.name.toLowerCase().includes(searchQuery.toLowerCase()),
+            ),
         ),
-      ])
+      ]),
     );
   }, [searchQuery]);
 

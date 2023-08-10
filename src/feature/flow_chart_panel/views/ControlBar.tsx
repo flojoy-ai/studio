@@ -175,7 +175,7 @@ const ControlBar = () => {
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,
     nodes: Node<ElementsData>[],
-    edges: Edge[]
+    edges: Edge[],
   ) => {
     const updatedRf = {
       ...rf,
@@ -253,7 +253,7 @@ const ControlBar = () => {
       setNodeParamChanged(false);
     } else {
       alert(
-        "There is no program to send to server. \n Please add at least one node first."
+        "There is no program to send to server. \n Please add at least one node first.",
       );
     }
   };
@@ -274,7 +274,7 @@ const ControlBar = () => {
   const exportResultDisabled = programResults.length == 0;
 
   return (
-    <div className="flex items-center gap-2 p-2.5" >
+    <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}

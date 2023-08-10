@@ -26,7 +26,7 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
 }
 
 export const postEnvironmentVariable = async (
-  body: EnvVar
+  body: EnvVar,
 ): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
@@ -46,7 +46,7 @@ export const postEnvironmentVariable = async (
 };
 
 export const deleteEnvironmentVariable = async (
-  key: string
+  key: string,
 ): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/${key}`, {
@@ -96,7 +96,7 @@ export function saveAndRunFlowChartInServer({
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
-  jobId: string
+  jobId: string,
 ) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
