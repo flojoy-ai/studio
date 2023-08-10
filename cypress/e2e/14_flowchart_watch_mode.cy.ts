@@ -20,7 +20,7 @@ describe("Testing flowchart watch mode", () => {
 
     // editing constant node value to test watch mode
     cy.get(
-      '[data-testid="rf__node-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11"]',
+      '[data-testid="rf__node-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11"]'
     ).click();
     cy.percySnapshot("dark flow page with CONSTANT menu");
     cy.get('[data-testid="float-input"]')
@@ -29,7 +29,7 @@ describe("Testing flowchart watch mode", () => {
       .type(10);
 
     cy.percySnapshot(
-      "dark flow page after modifying a parameter in watch mode",
+      "dark flow page after modifying a parameter in watch mode"
     );
 
     cy.wait(2000).get('[data-testid="darkmode-toggle"]').click();

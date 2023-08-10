@@ -67,7 +67,7 @@ const Sidebar = ({
       // className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
       className={cn(
         "absolute z-50 bg-modal sm:w-96",
-        isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
+        isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300"
       )}
     >
       <Navbar.Section className="absolute right-2 top-2">
