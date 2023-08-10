@@ -66,26 +66,31 @@ const Sidebar = ({
       data-testid="sidebar"
       style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       className={cn(
-        "absolute z-50 bg-modal sm:w-96",
+        "absolute z-50 w-96 bg-modal p-4",
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
-      <div
-        className="cursor-pointer rounded-xl p-1"
+      <Button
+        variant="ghost"
+        size="icon"
         onClick={() => setSideBarStatus(false)}
       >
         <XIcon size={20} className="stroke-muted-foreground" />
-      </div>
+      </Button>
+
+      <div className="py-1" />
+
       <Input
         data-testid="sidebar-input"
         name="sidebar-input"
         placeholder="Search"
         type="search"
-        className="mt-8"
         value={query}
         onChange={handleQueryChange}
       />
+
       <div className="py-1" />
+
       <div className="flex items-end">
         <a
           href={REQUEST_NODE_URL}
@@ -117,9 +122,10 @@ const Sidebar = ({
           </button>
         </div>
       </div>
+
       {sections.children.map((levelOne) => {
         return (
-          <div>
+          <div className="pl-2">
             <Collapsible>
               <CollapsibleTrigger>{levelOne.name}</CollapsibleTrigger>
               <CollapsibleContent>
@@ -128,7 +134,7 @@ const Sidebar = ({
                     {levelOne.children.map((levelTwo) => {
                       if (levelTwo.entryType === "section") {
                         return (
-                          <div className="pl-2 text-sky-200">
+                          <div className="pl-4 text-sky-200">
                             <Collapsible>
                               <CollapsibleTrigger>
                                 Section {levelTwo.name}
@@ -138,14 +144,14 @@ const Sidebar = ({
                                 {levelTwo.children.map((levelThree) => {
                                   if (levelThree.entryType === "section") {
                                     return (
-                                      <div className="pl-4 text-red-500">
+                                      <div className="pl-6 text-red-500">
                                         More section {levelThree.name}
                                       </div>
                                     );
                                   } else {
                                     return (
                                       <div
-                                        className="pl-4"
+                                        className="pl-6"
                                         onClick={() =>
                                           leafNodeClickHandler(levelThree)
                                         }
@@ -160,7 +166,7 @@ const Sidebar = ({
                           </div>
                         );
                       } else {
-                        return <div className="pl-2">Leaf</div>;
+                        return <div className="pl-4">Leaf</div>;
                       }
                     })}
                   </>
