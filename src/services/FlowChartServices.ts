@@ -3,6 +3,7 @@ import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "flojoy/types";
 import { API_URI } from "@src/data/constants";
+import { Result } from "@src/types/result";
 
 const flowKey = "flow-joy";
 
@@ -24,7 +25,9 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const postEnvironmentVariable = async (body: EnvVar) => {
+export const postEnvironmentVariable = async (
+  body: EnvVar
+): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
@@ -33,16 +36,18 @@ export const postEnvironmentVariable = async (body: EnvVar) => {
       },
       body: JSON.stringify(body),
     });
-
     if (response.ok) {
-      await response.json();
+      return { ok: true, data: null };
     }
   } catch (error) {
-    console.log(error);
+    return { ok: false, error: error };
   }
+  return { ok: false, error: "Something went wrong" };
 };
 
-export const deleteEnvironmentVariable = async (key: string) => {
+export const deleteEnvironmentVariable = async (
+  key: string
+): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/${key}`, {
       method: "DELETE",
@@ -52,11 +57,12 @@ export const deleteEnvironmentVariable = async (key: string) => {
     });
 
     if (response.ok) {
-      await response.json();
+      return { ok: true, data: null };
     }
   } catch (error) {
-    console.log(error);
+    return { ok: false, error: error };
   }
+  return { ok: false, error: "Something went wrong" };
 };
 
 export function saveAndRunFlowChartInServer({
@@ -90,7 +96,7 @@ export function saveAndRunFlowChartInServer({
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
-  jobId: string,
+  jobId: string
 ) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);

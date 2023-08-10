@@ -27,6 +27,7 @@ import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
+import { toast } from "sonner";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -74,7 +75,7 @@ const EnvVarModal = ({
 
   const handlePaste = (
     e: ClipboardEvent<HTMLInputElement>,
-    target: "key" | "value",
+    target: "key" | "value"
   ) => {
     e.preventDefault();
     const val = e.clipboardData.getData("text");
@@ -91,11 +92,20 @@ const EnvVarModal = ({
     }
   };
 
-  const handleSendEnvVar = () => {
-    postEnvironmentVariable({ key: envVarKey, value: envVarValue });
-    setEnvVarKey("");
-    setEnvVarValue("");
-    fetchCredentials();
+  const handleSendEnvVar = async () => {
+    const result = await postEnvironmentVariable({
+      key: envVarKey,
+      value: envVarValue,
+    });
+
+    if (result.ok) {
+      toast("Environment variable added");
+      setEnvVarKey("");
+      setEnvVarValue("");
+      fetchCredentials();
+    } else {
+      toast("Error adding environment variable");
+    }
   };
 
   return (
