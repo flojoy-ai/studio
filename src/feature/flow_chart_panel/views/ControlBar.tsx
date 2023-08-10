@@ -1,4 +1,3 @@
-import { createStyles } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -21,109 +20,20 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Button } from "@src/components/ui/button";
+// import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import WatchBtn from "../components/WatchBtn";
-
-const useStyles = createStyles((theme) => {
-  return {
-    controls: {
-      display: "flex",
-      alignItems: "center",
-      padding: "10px",
-      gap: "8px",
-    },
-
-    button: {
-      padding: "5px",
-      cursor: "pointer",
-      borderRadius: 2,
-      fontSize: "14px",
-      textDecoration: "none",
-      background: "transparent",
-      color: theme.colors.title[0],
-      border: "none",
-    },
-
-    addButton: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "4px",
-    },
-
-    addButtonPlus: {
-      fontSize: "20px",
-      color: theme.colors.accent1[0],
-    },
-
-    cancelButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "5px",
-      height: "33px",
-      width: "85px",
-      cursor: "pointer",
-      color: theme.colors.red[7],
-      border: `1px solid ${theme.colors.red[3]}`,
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[2],
-      transition: "transform ease-in 0.1s",
-
-      "&:hover": {
-        backgroundColor: theme.colors.red[8],
-        color: theme.white,
-      },
-
-      "&:hover > svg > g": {
-        fill: theme.white,
-      },
-
-      "&:active": {
-        transform: "scale(0.8)",
-      },
-    },
-
-    fileButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-
-    editContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      paddingRight: "4px",
-    },
-    dropDownIcon: {
-      borderRadius: 20,
-    },
-    settingsButton: {
-      padding: 6,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      "&:hover": {
-        backgroundColor: theme.colors.accent1[0] + "2f",
-      },
-    },
-  };
-});
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@src/components/ui/menubar";
 
 localforage.config({
   name: "react-flow",
@@ -151,13 +61,13 @@ type SaveButtonProps = {
 
 const SaveButton = ({ saveFile }: SaveButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
-  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
-    <DropdownMenuItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
+    <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
       Save
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -170,13 +80,13 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
 
   return (
-    <DropdownMenuItem
+    <MenubarItem
       data-cy="btn-saveas"
       disabled={saveAsDisabled}
       onClick={() => saveFile(nodes, edges)}
     >
       Save As
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -203,9 +113,9 @@ const LoadButton = () => {
   });
 
   return (
-    <DropdownMenuItem onClick={openFileSelector} id="load-app-btn">
+    <MenubarItem onClick={openFileSelector} id="load-app-btn">
       Load
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -239,13 +149,13 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   };
 
   return (
-    <DropdownMenuItem
+    <MenubarItem
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
     >
       Export Result
-    </DropdownMenuItem>
+    </MenubarItem>
   );
 };
 
@@ -255,8 +165,7 @@ const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
-  const { classes } = useStyles();
-  const { settingsList } = useSettings();
+  const { settings } = useSettings();
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
@@ -266,7 +175,7 @@ const ControlBar = () => {
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,
     nodes: Node<ElementsData>[],
-    edges: Edge[]
+    edges: Edge[],
   ) => {
     const updatedRf = {
       ...rf,
@@ -339,12 +248,12 @@ const ControlBar = () => {
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
-        settings: settingsList.filter((setting) => setting.group === "backend"),
+        settings: settings.filter((setting) => setting.group === "backend"),
       });
       setNodeParamChanged(false);
     } else {
       alert(
-        "There is no program to send to server. \n Please add at least one node first."
+        "There is no program to send to server. \n Please add at least one node first.",
       );
     }
   };
@@ -365,21 +274,21 @@ const ControlBar = () => {
   const exportResultDisabled = programResults.length == 0;
 
   return (
-    <div className={classes.controls}>
+    <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
         handleEnvVarModalOpen={setIsEnvVarModalOpen}
         isEnvVarModalOpen={isEnvVarModalOpen}
       />
+
       <KeyboardShortcutModal
         handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
         isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
       />
+
       <NodeSettingsModal
         handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
-
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
@@ -387,57 +296,56 @@ const ControlBar = () => {
         <CancelBtn cancelFC={cancelFC} />
       )}
 
-      <DropdownMenu>
-        <DropdownMenuTrigger data-testid="dropdown-button">
-          <Button variant="outline" size="sm" id="file-btn">
-            File
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-          <SaveButton saveFile={saveFile} />
-          <ExportResultButton
-            results={programResults}
-            disabled={exportResultDisabled}
-          />
-          <SaveFlowChartBtn />
-          <LoadButton />
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="px-0.5" />
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <div className="px-0.5" />
 
-      {/* <Button */}
-      {/*   data-testid="btn-setting" */}
-      {/*   onClick={() => setIsSettingsOpen(true)} */}
-      {/*   size="sm" */}
-      {/*   variant="outline" */}
-      {/* > */}
-      {/*   Settings */}
-      {/* </Button> */}
+      <div className="flex">
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">File</MenubarTrigger>
+            <MenubarContent>
+              <SaveAsButton
+                saveFile={saveFileAs}
+                saveAsDisabled={saveAsDisabled}
+              />
+              <SaveButton saveFile={saveFile} />
+              <ExportResultButton
+                results={programResults}
+                disabled={exportResultDisabled}
+              />
+              <SaveFlowChartBtn />
+              <LoadButton />
+            </MenubarContent>
+          </MenubarMenu>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button variant="outline" size="sm">
-            Settings
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setIsEnvVarModalOpen(true)}>
-            Environment Variables
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-keyboardshortcut"
-            onClick={() => setIsKeyboardShortcutOpen(true)}
-          >
-            Keyboard Shortcut
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            data-testid="btn-node-settings"
-            onClick={() => setIsNodeSettingsOpen(true)}
-          >
-            Node Settings
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">
+              Settings
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem
+                data-testid="env-variable-moda-btn"
+                onClick={() => setIsEnvVarModalOpen(true)}
+              >
+                Environment Variables
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-keyboardshortcut"
+                onClick={() => setIsKeyboardShortcutOpen(true)}
+              >
+                Keyboard Shortcut
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-node-settings"
+                onClick={() => setIsNodeSettingsOpen(true)}
+              >
+                Node Settings
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </div>
 
       <DarkModeToggle />
     </div>

@@ -4,6 +4,7 @@ import HeaderTab from "./HeaderTab";
 import { Logo } from "./Logo";
 import ControlBar from "../flow_chart_panel/views/ControlBar";
 import { useWindowSize } from "react-use";
+import { HEADER_HEIGHT } from "./Layout";
 
 const tabs = [
   {
@@ -22,7 +23,7 @@ const Header = () => {
   const large = width > getBreakpointValue(theme.breakpoints.sm);
 
   return (
-    <div className="">
+    <div style={{ height: HEADER_HEIGHT }} className="">
       <div className="flex gap-4">
         <Logo />
         {tabs.map((t) => (

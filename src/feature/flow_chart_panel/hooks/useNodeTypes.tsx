@@ -5,14 +5,12 @@ import { NodeTypes } from "reactflow";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
-  handleClickExpand: () => void;
   wrapperOnClick: () => void;
   theme: "light" | "dark";
 };
 
 const useNodeTypes = ({
   handleRemove,
-  handleClickExpand,
   wrapperOnClick,
   theme,
 }: UseNodeTypesProps) => {
@@ -28,7 +26,7 @@ const useNodeTypes = ({
             key,
             (props) => {
               const nodeResult = programResults?.find(
-                (node) => node.id === props.data.id
+                (node) => node.id === props.data.id,
               );
               return (
                 <CustomNode
@@ -40,20 +38,19 @@ const useNodeTypes = ({
                   textBlob={nodeResult?.result.text_blob ?? undefined}
                   nodeProps={props}
                   handleRemove={handleRemove}
-                  handleClickExpand={handleClickExpand}
                   wrapperOnClick={wrapperOnClick}
                   theme={theme}
                 />
               );
             },
           ];
-        })
+        }),
       ),
     // Including incoming props like handleRemove and handleClickExpand in dependency list would cause
     // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
     // to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [programResults, failedNode, runningNode, failureReason, theme]
+    [programResults, failedNode, runningNode, failureReason, theme],
   );
 
   return nodeTypes;

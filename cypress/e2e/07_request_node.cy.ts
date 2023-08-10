@@ -9,7 +9,6 @@ describe("Requesting node", () => {
     cy.get('[data-testid="add-node-button"]').click();
 
     // Click request node
-    // cy.get('[data-testid="request-node-btn"]').click();
     cy.get('[data-testid="request-node-btn"]');
 
     cy.percySnapshot("new page with node request form");

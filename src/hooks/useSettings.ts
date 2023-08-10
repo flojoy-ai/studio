@@ -1,46 +1,47 @@
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+import { atomWithImmer } from "jotai-immer";
 
-export type Settings = {
+type SettingsGroup = "frontend" | "backend";
+
+export type Setting = {
   title: string;
   key: string;
-  type: string;
-  group: string;
-  value: string | number;
+  group: SettingsGroup;
+  desc: string;
+  value: number;
 };
 
-const settingsListDefault = atom([
+const settingsListDefault = atomWithImmer<Setting[]>([
   {
-    title: "Node Delay (seconds)",
+    title: "Node Delay",
     key: "nodeDelay",
-    type: "numerical-input",
     group: "backend",
+    desc: "Delay before running the next node in seconds",
     value: 0,
   },
   {
-    title: "Maximum Runtime (seconds)",
+    title: "Maximum Runtime",
     key: "maximumRuntime",
-    type: "numerical-input",
     group: "backend",
+    desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
 ]);
 
 export const useSettings = () => {
-  const [settingsList, setSettingsList] = useAtom(settingsListDefault);
+  const [settings, setSettings] = useAtom(settingsListDefault);
 
-  const updateSettingList = (key: string, value: number) => {
-    setSettingsList((prev) => {
-      return prev.map((setting) => {
-        if (setting.key === key) {
-          return { ...setting, value };
-        }
-        return setting;
-      });
+  const updateSettings = (key: string, value: number) => {
+    setSettings((prev) => {
+      const setting = prev.find((s) => s.key === key);
+      if (setting) {
+        setting.value = value;
+      }
     });
   };
 
   return {
-    settingsList,
-    updateSettingList,
+    settings,
+    updateSettings,
   };
 };

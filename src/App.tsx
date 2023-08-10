@@ -14,7 +14,7 @@ import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
@@ -32,8 +32,7 @@ const App = () => {
     states: { runningNode, failedNode, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const { setRunningNode, setFailedNode, setIsSidebarOpen } =
-    useFlowChartState();
+  const { setRunningNode, setFailedNode } = useFlowChartState();
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
@@ -67,8 +66,8 @@ const App = () => {
     }
   }, [theme]);
 
-  useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
-  useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

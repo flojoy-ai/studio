@@ -1,9 +1,9 @@
-import { Settings } from "@src/hooks/useSettings";
+import { Setting } from "../hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
-import { notifications } from "@mantine/notifications";
 import { ElementsData } from "flojoy/types";
 import { API_URI } from "@src/data/constants";
+import { Result } from "@src/types/result";
 
 const flowKey = "flow-joy";
 
@@ -25,7 +25,9 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const postEnvironmentVariable = async (body: EnvVar) => {
+export const postEnvironmentVariable = async (
+  body: EnvVar,
+): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
@@ -34,34 +36,18 @@ export const postEnvironmentVariable = async (body: EnvVar) => {
       },
       body: JSON.stringify(body),
     });
-
     if (response.ok) {
-      await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully set the Environment Variable",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the Environment Variable",
-        autoClose: 5000,
-      });
+      return { ok: true, data: null };
     }
   } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the Environment Variable",
-      autoClose: 5000,
-    });
+    return { ok: false, error: error };
   }
+  return { ok: false, error: "Something went wrong" };
 };
 
-export const deleteEnvironmentVariable = async (key: string) => {
+export const deleteEnvironmentVariable = async (
+  key: string,
+): Promise<Result<null, unknown>> => {
   try {
     const response = await fetch(`${API_URI}/env/${key}`, {
       method: "DELETE",
@@ -71,29 +57,12 @@ export const deleteEnvironmentVariable = async (key: string) => {
     });
 
     if (response.ok) {
-      await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully deleted the Environment Variable",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to delete the Environment Variable",
-        autoClose: 5000,
-      });
+      return { ok: true, data: null };
     }
   } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to delete the Environment Variable",
-      autoClose: 5000,
-    });
+    return { ok: false, error: error };
   }
+  return { ok: false, error: "Something went wrong" };
 };
 
 export function saveAndRunFlowChartInServer({
@@ -103,7 +72,7 @@ export function saveAndRunFlowChartInServer({
 }: {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
-  settings: Settings[];
+  settings: Setting[];
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
@@ -127,7 +96,7 @@ export function saveAndRunFlowChartInServer({
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
-  jobId: string
+  jobId: string,
 ) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);

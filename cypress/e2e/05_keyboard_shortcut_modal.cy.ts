@@ -9,20 +9,20 @@ describe("Verify Keyboard shortcut modal", () => {
   it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
 
-    // Hover file button
-    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+    // Click settings button
+    cy.get('[data-testid="settings-btn"]').click();
 
     // Select Keyboard shortcut option
     cy.get('[data-testid="btn-keyboardshortcut"]').click();
 
     cy.percySnapshot("dark flow page with keyboardshorcut modal");
 
-    cy.get('[data-testid="keyboard_shortcut-closebtn"]').click({ force: true });
+    cy.get('button:contains("x")').click({ force: true });
 
     // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
 
-    cy.get('[data-testid="file-btn"]').trigger("mouseover");
+    cy.get('[data-testid="settings-btn"]').click();
 
     cy.get('[data-testid="btn-keyboardshortcut"]').click();
 

@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@src/components/ui/dialog";
 import { Input } from "@src/components/ui/input";
 import { Label } from "@src/components/ui/label";
@@ -17,34 +16,40 @@ import { toast } from "sonner";
 export interface EnvVarCredentialsEditInfoProps {
   credentialKey: string;
   fetchCredentials: () => void;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 const EnvVarEdit = ({
   credentialKey,
   fetchCredentials,
+  open,
+  setOpen,
 }: EnvVarCredentialsEditInfoProps) => {
   const [editEnv, setEditEnv] = useState<string>("");
-  const [open, setOpen] = useState<boolean>(false);
 
   const handleEnvVarValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditEnv(e.target.value);
   };
 
-  const handleEdit = () => {
-    postEnvironmentVariable({ key: credentialKey, value: editEnv });
-    setEditEnv("");
-    fetchCredentials();
-    setOpen(false);
-    toast("Environment variable edited", { duration: 5000 });
+  const handleEdit = async () => {
+    const result = await postEnvironmentVariable({
+      key: credentialKey,
+      value: editEnv,
+    });
+
+    if (result.ok) {
+      toast("Environment variable edited");
+      setEditEnv("");
+      fetchCredentials();
+      setOpen(false);
+    } else {
+      toast("Error editing environment variable");
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild className="h-full w-full border-0">
-        <Button variant="outline" onClick={() => setOpen(true)}>
-          Edit
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-black dark:text-white">
@@ -61,6 +66,7 @@ const EnvVarEdit = ({
             </Label>
             <Input
               id="editEnv"
+              data-tesid="edit-env-input"
               placeholder="New Value"
               className="col-span-3"
               value={editEnv}
@@ -69,7 +75,11 @@ const EnvVarEdit = ({
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleEdit}>
+          <Button
+            data-testid="env-var-edit-submit"
+            type="submit"
+            onClick={handleEdit}
+          >
             Save changes
           </Button>
         </DialogFooter>

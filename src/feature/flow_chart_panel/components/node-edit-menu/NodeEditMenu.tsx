@@ -1,6 +1,6 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "flojoy/types";
-import { Node, useOnSelectionChange } from "reactflow";
+import { Node } from "reactflow";
 import NodeEditModal from "./NodeEditModal";
 
 type NodeEditMenuProps = {
@@ -8,6 +8,8 @@ type NodeEditMenuProps = {
   unSelectedNodes: Node<ElementsData>[] | null; //used in ParamField.tsx for references
   nodes: Node<ElementsData>[];
   setNodes: (nodes: Node<ElementsData>[]) => void;
+  setNodeModalOpen: (open: boolean) => void;
+  handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
 
 export const NodeEditMenu = ({
@@ -15,15 +17,10 @@ export const NodeEditMenu = ({
   unSelectedNodes,
   nodes,
   setNodes,
+  setNodeModalOpen,
+  handleDelete,
 }: NodeEditMenuProps) => {
-  const { isEditMode, setIsEditMode } = useFlowChartState();
-
-  const onSelectionChange = () => {
-    if (!selectedNode) {
-      setIsEditMode(false);
-    }
-  };
-  useOnSelectionChange({ onChange: onSelectionChange });
+  const { isEditMode } = useFlowChartState();
 
   return (
     <div className="relative">
@@ -33,6 +30,8 @@ export const NodeEditMenu = ({
           otherNodes={unSelectedNodes}
           nodes={nodes}
           setNodes={setNodes}
+          setNodeModalOpen={setNodeModalOpen}
+          handleDelete={handleDelete}
         />
       )}
     </div>

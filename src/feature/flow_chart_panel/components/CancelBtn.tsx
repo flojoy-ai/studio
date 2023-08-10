@@ -1,5 +1,5 @@
-import { Button } from "@src/components/ui/button";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { Button } from "@mantine/core";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { Ban } from "lucide-react";
 
 type CancelBtnProps = {
@@ -7,14 +7,20 @@ type CancelBtnProps = {
 };
 
 const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("meta", "c", cancelFC);
+  // useKeyboardShortcut("ctrl", "c", cancelFC);
+  // useKeyboardShortcut("meta", "c", cancelFC);
 
   return (
-    <Button size="sm" variant="destructive" id="btn-cancel" onClick={cancelFC}>
-      <Ban size="20" />
-      <div className="px-1"></div>
-      <div>Cancel</div>
+    <Button
+      data-testid="btn-cancel"
+      data-cy="btn-cancel"
+      id="btn-cancel"
+      onClick={cancelFC}
+      className="gap-2"
+      variant="ghost"
+    >
+      <Ban />
+      Cancel
     </Button>
   );
 };
