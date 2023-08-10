@@ -1,11 +1,5 @@
-import {
-  Navbar,
-  ScrollArea,
-  Input,
-  useMantineTheme,
-  createStyles,
-} from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { Navbar, ScrollArea, Input, useMantineTheme } from "@mantine/core";
+import { Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
@@ -89,7 +83,7 @@ const Sidebar = ({
           data-testid="sidebar-input"
           name="sidebar-input"
           placeholder="Search"
-          icon={<IconSearch size={18} />}
+          icon={<Search size={18} />}
           radius="sm"
           type="search"
           className="mt-8"

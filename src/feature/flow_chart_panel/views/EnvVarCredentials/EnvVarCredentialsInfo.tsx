@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconDotsVertical, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { MoreVertical, Eye, EyeOff } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { EnvVarCredentialType } from "@src/hooks/useFlowChartState";
 import {
@@ -27,7 +27,7 @@ const EnvVarCredentialsInfo = ({
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const PasswordIcon = showPassword ? IconEyeOff : IconEye;
+  const PasswordIcon = showPassword ? EyeOff : Eye;
 
   const handleDeleteClick = () => {
     setSelectedCredential(credential);
@@ -76,7 +76,7 @@ const EnvVarCredentialsInfo = ({
               variant={"ghost"}
               size={"icon"}
             >
-              <IconDotsVertical className="stroke-gray-600" size={20} />
+              <MoreVertical className="stroke-gray-600" size={20} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="min-w-[80px]">

@@ -3,7 +3,7 @@ import { atomWithImmer } from "jotai-immer";
 
 type SettingsGroup = "frontend" | "backend";
 
-type Setting = {
+export type Setting = {
   title: string;
   key: string;
   group: SettingsGroup;

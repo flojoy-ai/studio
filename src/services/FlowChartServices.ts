@@ -1,7 +1,6 @@
-import { Settings } from "@src/hooks/useSettings";
+import { Setting } from "../hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
-import { notifications } from "@mantine/notifications";
 import { ElementsData } from "flojoy/types";
 import { API_URI } from "@src/data/constants";
 
@@ -37,27 +36,9 @@ export const postEnvironmentVariable = async (body: EnvVar) => {
 
     if (response.ok) {
       await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully set the Environment Variable",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the Environment Variable",
-        autoClose: 5000,
-      });
     }
   } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the Environment Variable",
-      autoClose: 5000,
-    });
+    console.log(error);
   }
 };
 
@@ -72,27 +53,9 @@ export const deleteEnvironmentVariable = async (key: string) => {
 
     if (response.ok) {
       await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully deleted the Environment Variable",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to delete the Environment Variable",
-        autoClose: 5000,
-      });
     }
   } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to delete the Environment Variable",
-      autoClose: 5000,
-    });
+    console.log(error);
   }
 };
 
@@ -103,7 +66,7 @@ export function saveAndRunFlowChartInServer({
 }: {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
-  settings: Settings[];
+  settings: Setting[];
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
