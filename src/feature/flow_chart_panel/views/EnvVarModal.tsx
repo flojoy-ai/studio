@@ -77,7 +77,7 @@ const EnvVarModal = ({
 
   const handlePaste = (
     e: ClipboardEvent<HTMLInputElement>,
-    target: "key" | "value"
+    target: "key" | "value",
   ) => {
     e.preventDefault();
     const val = e.clipboardData.getData("text");

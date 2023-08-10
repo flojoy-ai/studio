@@ -34,7 +34,7 @@ export function update(win: Electron.BrowserWindow) {
   ipcMain.handle("check-update", async () => {
     if (!app.isPackaged) {
       const error = new Error(
-        "The update feature is only available after the package."
+        "The update feature is only available after the package.",
       );
       return { message: error.message, error };
     }
@@ -61,7 +61,7 @@ export function update(win: Electron.BrowserWindow) {
       () => {
         // feedback update downloaded message
         event.sender.send("update-downloaded");
-      }
+      },
     );
   });
 
@@ -73,7 +73,7 @@ export function update(win: Electron.BrowserWindow) {
 
 function startDownload(
   callback: (error: Error | null, info: ProgressInfo | null) => void,
-  complete: (event: UpdateDownloadedEvent) => void
+  complete: (event: UpdateDownloadedEvent) => void,
 ) {
   autoUpdater.on("download-progress", (info) => callback(null, info));
   autoUpdater.on("error", (error) => callback(error, null));

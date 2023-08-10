@@ -15,9 +15,9 @@ export const useAddNewNode = (
   setNodes: (
     update:
       | Node<ElementsData>[]
-      | ((draft: Draft<Node<ElementsData>>[]) => void)
+      | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
-  getNodeFuncCount: (func: string) => number
+  getNodeFuncCount: (func: string) => number,
 ) => {
   const [center] = useAtom(centerPositionAtom);
 
@@ -57,7 +57,7 @@ export const useAddNewNode = (
       nodeLabel = nodeLabel.replaceAll("_", " ");
 
       const createCtrls = (
-        params?: NodeElement["parameters"]
+        params?: NodeElement["parameters"],
       ): ElementsData["ctrls"] => {
         if (!params) {
           return {};
@@ -73,7 +73,7 @@ export const useAddNewNode = (
               value: param.default ?? "",
             },
           }),
-          {}
+          {},
         );
       };
 
@@ -100,6 +100,6 @@ export const useAddNewNode = (
       setNodes((els) => els.concat(newNode));
       sendEventToMix("Node Added", newNode.data.label);
     },
-    [setNodes, getNodeFuncCount, pos]
+    [setNodes, getNodeFuncCount, pos],
   );
 };

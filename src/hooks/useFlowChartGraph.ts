@@ -39,7 +39,7 @@ export const useFlowChartGraph = () => {
       setEdges(flow.edges || []);
       return true;
     },
-    [setNodes, setEdges]
+    [setNodes, setEdges],
   );
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export const useFlowChartGraph = () => {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["ctrls"][string]
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
@@ -95,7 +95,7 @@ export const useFlowChartGraph = () => {
 
   const updateInitCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["initCtrls"][string]
+    inputData: ElementsData["initCtrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
