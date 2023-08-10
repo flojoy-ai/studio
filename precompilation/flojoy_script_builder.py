@@ -12,7 +12,6 @@ from precompilation.config import (
     FILES_GROUPS_TO_BE_OUTPUTTED,
     FILTERS_FOR_FILES,
     HEADER,
-    PATH_TO_MPY_CROSS_COMPILER,
 )
 from precompilation.precompilation_utils import extract_pip_packages
 from precompilation.templates.classes.DiGraph import DiGraph
@@ -367,6 +366,9 @@ class FlojoyScriptBuilder:
                         shutil.copytree(entry.path, output_path)
 
     def run_write_flowchart(self, fc: str, jobset_id: str):
+        """
+        Add the code responsible for running the flowchart
+        """
         #   -- add some necessary imports --
         self._add_import("json")
         #   --------------------------------

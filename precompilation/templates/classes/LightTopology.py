@@ -79,6 +79,7 @@ class LightTopology:
         print('ran job', job_id, 'with result', job_result)
         self.res_store[job_id] = job_result
         next_jobs = self.process_job_result(job_id, job_result)
+        self.queued_amt += len(next_jobs)
         if next_jobs is None:
             return
         for next_job in next_jobs:
@@ -115,7 +116,6 @@ class LightTopology:
         next_nodes = set()
         for d_id in successors:
             if self.working_graph.in_degree(d_id) == 0:
-                self.queued_amt += 1
                 next_nodes.add(d_id)
         return next_nodes
 
@@ -127,8 +127,8 @@ class LightTopology:
         if self.loop_nodes:
             self.loop_nodes.pop()
         graph = self.original_graph
-        sub_graph = graph.subgraph([job_id] + list(self.original_graph.descendants(job_id)))
-        original_edges = sub_graph.edges
+        sub_graph = graph.subgraph([job_id] + self.original_graph.descendants(job_id))
+        original_edges = sub_graph.get_all_edges()
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
         ]

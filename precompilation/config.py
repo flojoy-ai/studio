@@ -40,7 +40,9 @@ These files groups (located in precompilation/templates/) are outputted to the o
 The container below defines which file groups are allowed to be outputted.
 NOTE: the output paths are relative to self.path_to_output
 """
-FILES_GROUPS_TO_BE_OUTPUTTED = FileGroupContainer({"typing": ""})
+FILES_GROUPS_TO_BE_OUTPUTTED = FileGroupContainer(
+    {"typing": ""},
+)
 """
 ________________________________________________________
 """

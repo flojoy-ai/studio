@@ -53,5 +53,5 @@ def precompile(
     sw.apply_filters_to_py_files_in_output_dir()
 
     # Step 7: compile to mpy
-    sw.compile_to_mpy() # TODO: setup for this is too complicated and it's not
+    # sw.compile_to_mpy() # TODO: setup for this is too complicated and it's not
                         # even necessary to run on microcontroller

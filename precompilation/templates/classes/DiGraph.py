@@ -44,6 +44,9 @@ class DiGraph:
     def get_edges(self, source: str) -> list:
         return [(source, destination) for destination in self.edges.get(source, dict()).keys()]
     
+    def get_all_edges(self) -> list:
+        return [(source, destination) for source in self.edges.keys() for destination in self.edges[source].keys()]
+    
     def get_nodes(self) -> dict:
         return self.nodes
 
@@ -77,5 +80,5 @@ class DiGraph:
         return subgraph
     
     def add_edges_from(self, other):
-        for source, target in other.edges:
-            self.add_edge(source, target, **other.get_edge_data(source, target))
+        for source, target, data in other:
+            self.add_edge(source, target, **data)
