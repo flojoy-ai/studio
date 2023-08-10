@@ -56,7 +56,7 @@ export const GalleryModal = ({
           className="gap-2"
           variant="ghost"
         >
-          <LayoutGrid />
+          <LayoutGrid size={20} className="stroke-muted-foreground" />
           App Gallery
         </Button>
       </DialogTrigger>

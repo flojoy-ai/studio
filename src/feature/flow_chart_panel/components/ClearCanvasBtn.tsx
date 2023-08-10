@@ -25,7 +25,7 @@ export const ClearCanvasBtn = ({ clearCanvas }: ClearCanvasBtnProps) => {
           className="gap-2"
           variant="ghost"
         >
-          <Eraser />
+          <Eraser className="stroke-muted-foreground" size={20} />
           Clear Canvas
         </Button>
       </AlertDialogTrigger>
