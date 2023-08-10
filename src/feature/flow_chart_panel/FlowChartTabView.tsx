@@ -40,11 +40,11 @@ import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Workflow } from "lucide-react";
-import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/components/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
+import { Button } from "@src/components/ui/button";
 
 localforage.config({
   name: "react-flow",
@@ -235,14 +235,16 @@ const FlowChartTab = () => {
       <div className="" style={{ height: ACTIONS_HEIGHT }}>
         <div className="py-1" />
         <div className="flex">
-          <IconButton
-            icon={Workflow}
-            onClick={toggleSidebar}
+          <Button
             data-testid="add-node-button"
+            className="gap-2"
             variant="ghost"
+            onClick={toggleSidebar}
           >
+            <Workflow />
             Add Node
-          </IconButton>
+          </Button>
+
           <GalleryModal
             isGalleryOpen={isGalleryOpen}
             setIsGalleryOpen={setIsGalleryOpen}
