@@ -7,21 +7,26 @@ import shutil
 import subprocess
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
-from captain.precompilation.config import EXTRA_FILES_DIR, FILES_GROUPS_TO_BE_OUTPUTTED, FILTERS_FOR_FILES, HEADER
-from captain.precompilation.precompilation_utils import extract_pip_packages
-from captain.precompilation.templates.classes.DiGraph import DiGraph
-from captain.precompilation.templates.classes.LightTopology import LightTopology
-from captain.precompilation.templates.functions.flowchart_to_graph import (
+from precompilation.config import (
+    EXTRA_FILES_DIR,
+    FILES_GROUPS_TO_BE_OUTPUTTED,
+    FILTERS_FOR_FILES,
+    HEADER,
+    PATH_TO_MPY_CROSS_COMPILER,
+)
+from precompilation.precompilation_utils import extract_pip_packages
+from precompilation.templates.classes.DiGraph import DiGraph
+from precompilation.templates.classes.LightTopology import LightTopology
+from precompilation.templates.functions.flowchart_to_graph import (
     flowchart_to_graph,
 )
-from captain.precompilation.templates.functions.get_missing_pip_packages import (
+from precompilation.templates.functions.get_missing_pip_packages import (
     get_missing_pip_packages,
 )
-from captain.precompilation.templates.functions.remove_missing_pip_packages import (
+from precompilation.templates.functions.remove_missing_pip_packages import (
     remove_missing_pip_packages,
 )
-from captain.precompilation.utils.path.absolute_path import get_absolute_path
-
+from precompilation.utils.path.absolute_path import get_absolute_path
 
 
 class FlojoyScriptBuilder:
@@ -80,7 +85,7 @@ class FlojoyScriptBuilder:
 
         if add_modules:
             self._add_module_import(item)
-        
+
         self.func_or_classes.add(item.__name__)
 
     def _add_code_block(self, block: str):
@@ -150,11 +155,11 @@ class FlojoyScriptBuilder:
         Apply filters to file.
         """
         new_file = file
-        for (filter, to_apply) in FILTERS_FOR_FILES:
+        for filter, to_apply in FILTERS_FOR_FILES:
             if to_apply:
                 new_file = filter(new_file)
         return new_file
-    
+
     def apply_filters_to_py_files_in_output_dir(self):
         """
         Walk through the directory and apply all the file filters to python files
@@ -166,8 +171,9 @@ class FlojoyScriptBuilder:
                     with open(file_path, "r") as f:
                         file_str = f.read()
                     file_str = self._apply_file_filters(file_str)
-                    with open(file_path, "w") as f:
-                        f.write(file_str)
+                    if file_str: # if file_str is empty, don't write to file
+                        with open(file_path, "w") as f:
+                            f.write(file_str)
 
     def remove_debug_prints_and_set_offline(self):
         self._add_import(from_string="flojoy.utils", import_string="set_offline")
@@ -181,7 +187,7 @@ class FlojoyScriptBuilder:
         """
         all_items = list(self.imports) + self.items
         final_string = HEADER + "\n" + "\n".join(all_items)
-        filename = os.path.join(self.path_to_output, "script.py")
+        filename = os.path.join(get_absolute_path(self.path_to_output), "script.py")
         with open(filename, "w") as f:
             f.write(final_string)
 
@@ -189,7 +195,9 @@ class FlojoyScriptBuilder:
         """
         Export base pip packages to export_dir
         """
-        subprocess.run(['pip', 'install', '--target', export_dir, '-r', path_to_requirements])
+        subprocess.run(
+            ["pip", "install", "--target", export_dir, "-r", path_to_requirements]
+        )
 
     def install_missing_pip_packages(self, nodes: list):
         """
@@ -235,9 +243,11 @@ class FlojoyScriptBuilder:
                             filter_and_output(file_path, file_path)
 
         node_id_to_func = {}
-        node_id_to_params = {} # micropython doesn't have an inspect module
+        node_id_to_params = {}  # micropython doesn't have an inspect module
         self.imports.add("import sys")
-        self._add_code_block("sys.path.append('PYTHON')") # resolve imports inside the PYTHON folder (nodes)
+        self._add_code_block(
+            "sys.path.append('PYTHON')"
+        )  # resolve imports inside the PYTHON folder (nodes)
         imported = set()  # keep track of imported files
         for node_id in graph_nodes:
             # -- get node module and check if CI --
@@ -246,7 +256,9 @@ class FlojoyScriptBuilder:
             cmd_mock: str = node["cmd"] + "_MOCK"
             func_module = get_module_func(cmd)
             node_id_to_func[node_id] = getattr(func_module, cmd).__name__
-            node_id_to_params[node_id] = set(inspect.signature(getattr(func_module, cmd)).parameters.keys())
+            node_id_to_params[node_id] = set(
+                inspect.signature(getattr(func_module, cmd)).parameters.keys()
+            )
             ci_available = False
             if self.is_ci:
                 try:
@@ -326,10 +338,9 @@ class FlojoyScriptBuilder:
 
         # add node_to_func to script (mapping of node_ids to function names)
         self._add_dict("node_id_to_func", node_id_to_func, no_string=True)
-        
+
         # add node_to_params to script (mapping of node_ids to function parameters)
         self._add_dict("node_id_to_params", node_id_to_params, no_string=True)
-
 
     def write_extra_files(self):
         """
@@ -339,20 +350,21 @@ class FlojoyScriptBuilder:
         """
         for dir in os.scandir(EXTRA_FILES_DIR):
             if not dir.is_dir():
-                raise Exception("All entries in /templates/extra_files must be \
-                                directories.")
+                raise Exception(
+                    "All entries in /templates/extra_files must be \
+                                directories."
+                )
             file_group = dir.name
             if file_group in FILES_GROUPS_TO_BE_OUTPUTTED:
                 output_path = os.path.join(
                     get_absolute_path(self.path_to_output),
-                    FILES_GROUPS_TO_BE_OUTPUTTED.get_output_dir_of(file_group)
+                    FILES_GROUPS_TO_BE_OUTPUTTED.get_output_dir_of(file_group),
                 )
                 for entry in os.scandir(dir.path):
                     if entry.is_file():
                         shutil.copy(entry.path, output_path)
                     elif entry.is_dir():
                         shutil.copytree(entry.path, output_path)
-
 
     def run_write_flowchart(self, fc: str, jobset_id: str):
         #   -- add some necessary imports --
@@ -375,3 +387,21 @@ class FlojoyScriptBuilder:
         "
         )
         #   ----------------------------------
+    
+    def compile_to_mpy(self):
+        """
+        Compile each file in output directory to mpy
+        """
+        for root, _, files in os.walk(self.path_to_output):
+            for file in files:
+                if file.endswith(".py"):
+                    file_path = os.path.join(root, file)
+                    subprocess.run(["mpy-cross", file_path])
+                    os.remove(file_path) # delete old .py file
+
+    def validate_output_dir(self):
+        """
+        Check if output directory does not exist yet. Raise error if it does.
+        """
+        if os.path.exists(get_absolute_path(self.path_to_output)):
+            raise Exception("Output directory already exists.")

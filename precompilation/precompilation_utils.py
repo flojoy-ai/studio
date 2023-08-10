@@ -1,8 +1,8 @@
 from typing import Any
-from captain.models.topology import Topology
-from captain.precompilation.templates.classes.LightTopology import LightTopology
-from captain.precompilation.templates.functions.flowchart_to_graph import flowchart_to_graph
-from captain.utils.flowchart_utils import flowchart_to_nx_graph
+from precompilation.templates.classes.LightTopology import LightTopology
+from precompilation.templates.functions.flowchart_to_graph import flowchart_to_graph
+from captain.models.topology import Topology # TODO: a little hacky, find workaround
+from captain.utils.flowchart_utils import flowchart_to_nx_graph # TODO: a little hacky, find workaround
 
 
 def create_light_topology(
@@ -10,7 +10,9 @@ def create_light_topology(
 ):
     graph = flowchart_to_nx_graph(topology_dict)
     node_id_to_func = get_node_id_to_func(graph)
-    graph = flowchart_to_graph(topology_dict) # use light DiGraph class instead of networkx
+    graph = flowchart_to_graph(
+        topology_dict
+    )  # use light DiGraph class instead of networkx
     return LightTopology(
         graph=graph,
         jobset_id=jobset_id,

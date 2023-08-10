@@ -15,7 +15,7 @@ from captain.utils.broadcast import (
 from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
 from captain.utils.config import manager
 from captain.utils.logger import logger
-from captain.precompilation import precompile
+from precompilation import precompile
 
 router = APIRouter(tags=["flowchart"])
 
@@ -50,7 +50,15 @@ async def write_and_run_flowchart(request: PostWFC):
         return
 
     if request.precompile:
-        precompile(request=request, path_to_output="test", path_to_requirements='requirements-precompiled.txt', is_ci=False)
+        precompile(
+            fc=request.fc,
+            jobset_id=request.jobsetId,
+            node_delay=request.nodeDelay,
+            maximum_runtime=request.maximumRuntime, 
+            path_to_output="test", 
+            path_to_requirements='requirements-precompiled.txt', 
+            is_ci=False
+        )
     else:
         asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
         asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))

@@ -1,6 +1,6 @@
 from typing import Any
 
-from captain.precompilation.templates.classes.DiGraph import DiGraph
+from precompilation.templates.classes.DiGraph import DiGraph
 
 
 def flowchart_to_graph(flowchart: dict):
@@ -40,7 +40,7 @@ def flowchart_to_graph(flowchart: dict):
             target_input = next(
                 filter(lambda input: input.get("id", "") == target_label_id, v_inputs)
             )
-        except: 
+        except:
             target_input = None
         target_label = "default"
         multiple = False
