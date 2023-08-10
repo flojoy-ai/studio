@@ -18,8 +18,8 @@ export const Layout = ({ children }: LayoutProps) => {
   } = useSocket();
 
   return (
-    <div className="mx-8">
-      <div className="">
+    <div>
+      <div className="mx-8">
         <div
           data-cy="app-status"
           id="app-status"
