@@ -7,7 +7,7 @@ import {
   makePlotlyData,
   MarkDownText,
 } from "flojoy/components";
-import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
+import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -161,9 +161,7 @@ const NodeModal = ({
 
   useKeyboardShortcut("ctrl", "e", closeModal);
   useKeyboardShortcut("meta", "e", closeModal);
-  const LINK = `${NODES_REPO}/${nodeFilePath
-    .replace("\\", "/")
-    .replace("PYTHON/nodes/", "")}`;
+  const LINK = `${NODES_REPO}/flojoy_nodes/${nodeFilePath}`;
 
   return (
     <Modal

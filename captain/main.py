@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from captain.routes import flowchart, key, ws
 from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
-from flojoy.node_utils.nodes_map import create_map
 from captain.utils.logger import logger, logger_setup
+from flojoy_nodes.utils import create_map
 
-# init node mapping
+# create nodes mapping
 create_map()
 
 app = FastAPI()

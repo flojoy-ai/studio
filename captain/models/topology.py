@@ -12,11 +12,11 @@ from flojoy import (
 )
 
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
-from flojoy.node_utils.nodes_map import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
 from typing import Any, Tuple, cast, Callable
+from flojoy_nodes.utils import get_module_func
 
 lock = asyncio.Lock()
 
@@ -87,13 +87,11 @@ class Topology:
             # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
             cmd: str = node["cmd"]
-            cmd_mock: str = node["cmd"] + "_MOCK"
             module = get_module_func(cmd)
-            func_name = cmd_mock if self.is_ci else cmd
             try:
-                func = getattr(module, func_name)
-            except AttributeError:
                 func = getattr(module, cmd)
+            except AttributeError:
+                raise AttributeError(f"Function {cmd} not found.")
 
             # check if the func has an init function, and initialize it if it does to the specified node id
             try:
