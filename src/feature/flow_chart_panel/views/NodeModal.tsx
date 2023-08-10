@@ -10,14 +10,13 @@ import {
 import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
-import { NODES_REPO } from "@src/data/constants";
+import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
     borderRadius: 17,
-    height: "700px",
   },
   header: {
     padding: "65px 80px 30px 80px",
@@ -159,9 +158,15 @@ const NodeModal = ({
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
   const colorScheme = theme.colorScheme;
 
-  useKeyboardShortcut("ctrl", "e", closeModal);
-  useKeyboardShortcut("meta", "e", closeModal);
-  const LINK = `${NODES_REPO}/flojoy_nodes/${nodeFilePath}`;
+  // useKeyboardShortcut("ctrl", "e", closeModal);
+  // useKeyboardShortcut("meta", "e", closeModal);
+
+  const link = `${NODES_REPO}/flojoy_nodes/${nodeFilePath}`;
+
+  const docsLink = `${DOCS_LINK}/nodes/${nodeFilePath
+    .split("/")
+    .slice(0, -1)
+    .join("/")}`;
 
   return (
     <Modal
@@ -189,14 +194,20 @@ const NodeModal = ({
             size="md"
             classNames={{ root: classes.buttonStyle2 }}
             component="a"
-            href={LINK}
+            href={link}
             target="_blank"
           >
             VIEW ON GITHUB
           </Button>
         </div>
         <div>
-          <Button size="md" classNames={{ root: classes.buttonStyle2 }}>
+          <Button
+            size="md"
+            classNames={{ root: classes.buttonStyle2 }}
+            component="a"
+            href={docsLink}
+            target="_blank"
+          >
             VIEW EXAMPLES
           </Button>
         </div>
@@ -240,7 +251,7 @@ const NodeModal = ({
             <PlotlyComponent
               data={makePlotlyData(
                 nd.result.plotly_fig.data,
-                theme.colorScheme
+                theme.colorScheme,
               )}
               layout={{
                 ...nd.result.plotly_fig.layout,

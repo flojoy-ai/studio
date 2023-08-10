@@ -2,7 +2,6 @@ import App from "./App";
 import { SocketContextProvider } from "./context/socket.context";
 import "./global.css";
 import "./index.css";
-import "flojoy/styles/styles.css";
 // default styling
 import { createRoot } from "react-dom/client";
 import "reactflow/dist/style.css";
@@ -27,5 +26,5 @@ root.render(
         <App />
       </SocketContextProvider>
     </ErrorBoundary>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

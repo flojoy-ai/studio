@@ -33,7 +33,7 @@ export default defineConfig(({ command }) => {
           onstart(options) {
             if (process.env.VSCODE_DEBUG) {
               console.log(
-                /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App"
+                /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App",
               );
             } else if (process.env.FLOJOY_USE_WAYLAND) {
               options.startup([
@@ -53,7 +53,7 @@ export default defineConfig(({ command }) => {
               outDir: "dist-electron/main",
               rollupOptions: {
                 external: Object.keys(
-                  "dependencies" in pkg ? pkg.dependencies : {}
+                  "dependencies" in pkg ? pkg.dependencies : {},
                 ),
               },
             },
@@ -73,7 +73,7 @@ export default defineConfig(({ command }) => {
               outDir: "dist-electron/preload",
               rollupOptions: {
                 external: Object.keys(
-                  "dependencies" in pkg ? pkg.dependencies : {}
+                  "dependencies" in pkg ? pkg.dependencies : {},
                 ),
               },
             },

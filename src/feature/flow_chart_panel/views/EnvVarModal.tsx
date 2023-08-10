@@ -1,4 +1,3 @@
-import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
 import {
   memo,
   ChangeEvent,
@@ -7,7 +6,10 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import {
+  EnvVarCredentialType,
+  useFlowChartState,
+} from "@src/hooks/useFlowChartState";
 import { postEnvironmentVariable } from "@src/services/FlowChartServices";
 import EnvVarCredentialsInfo from "./EnvVarCredentials/EnvVarCredentialsInfo";
 import { Button } from "@src/components/ui/button";
@@ -20,9 +22,11 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Toaster } from "sonner";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { API_URI } from "@src/data/constants";
+import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
+import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
+import { Key } from "lucide-react";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -36,6 +40,11 @@ const EnvVarModal = ({
   const { credentials, setCredentials } = useFlowChartState();
   const [envVarKey, setEnvVarKey] = useState<string>("");
   const [envVarValue, setEnvVarValue] = useState<string>("");
+  const [selectedCredential, setSelectedCredential] = useState<
+    EnvVarCredentialType | undefined
+  >(undefined);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
   const fetchCredentials = useCallback(() => {
     fetch(`${API_URI}/env/`, {
@@ -65,7 +74,7 @@ const EnvVarModal = ({
 
   const handlePaste = (
     e: ClipboardEvent<HTMLInputElement>,
-    target: "key" | "value"
+    target: "key" | "value",
   ) => {
     e.preventDefault();
     const val = e.clipboardData.getData("text");
@@ -93,12 +102,9 @@ const EnvVarModal = ({
     <Dialog open={isEnvVarModalOpen} onOpenChange={handleEnvVarModalOpen}>
       <DialogContent className="sm:max-w-[650px]">
         <DialogHeader>
-          <DialogTitle
-            className="ml-2 flex gap-2 text-xl font-semibold text-black dark:text-white"
-            id="modal-title"
-          >
-            <FamilyHistoryIconSvg size={20} />
-            <div className="-mt-0.5">Environment Variables</div>
+          <DialogTitle className="flex items-center gap-2" id="modal-title">
+            <Key size="20" />
+            <div className="">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
         <div className="flex gap-4 py-1 sm:flex-row">
@@ -115,7 +121,7 @@ const EnvVarModal = ({
               type="text"
               placeholder="e.g CLIENT_KEY"
               value={envVarKey || ""}
-              className=" mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
+              className="mt-1 shadow-sm dark:bg-neutral-800 sm:text-sm"
               onPaste={(e) => handlePaste(e, "key")}
               onChange={handleEnvVarKeyChange}
             />
@@ -143,22 +149,35 @@ const EnvVarModal = ({
             Add
           </Button>
         </DialogFooter>
-        <hr className="mb-3 mt-1.5 h-3 " />
-        <div className="-mt-5 max-h-80 ">
-          <ScrollArea className="h-80 w-full rounded-md">
-            <div className="pr-3">
-              {credentials.length > 0 &&
-                credentials.map((credential) => (
-                  <EnvVarCredentialsInfo
-                    key={credential.id}
-                    credential={credential}
-                    fetchCredentials={fetchCredentials}
-                  />
-                ))}
-            </div>
+        <hr />
+        <div className="max-h-80 ">
+          <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
+            {credentials.map((credential) => (
+              <EnvVarCredentialsInfo
+                key={credential.id}
+                credential={credential}
+                setSelectedCredential={setSelectedCredential}
+                setEditModalOpen={setEditModalOpen}
+                setDeleteModalOpen={setDeleteModalOpen}
+              />
+            ))}
           </ScrollArea>
         </div>
-        <Toaster className="absolute bottom-0 right-0" />
+        {selectedCredential && (
+          <>
+            <EnvVarDelete
+              credential={selectedCredential}
+              open={deleteModalOpen}
+              setOpen={setDeleteModalOpen}
+            />
+            <EnvVarEdit
+              open={editModalOpen}
+              setOpen={setEditModalOpen}
+              credentialKey={selectedCredential.key}
+              fetchCredentials={fetchCredentials}
+            />
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );

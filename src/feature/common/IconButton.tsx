@@ -1,41 +1,28 @@
-import {
-  Box,
-  createStyles,
-  UnstyledButton,
-  UnstyledButtonProps,
-} from "@mantine/core";
-import { memo } from "react";
+import { Button, ButtonProps } from "@src/components/ui/button";
+import { cn } from "@src/lib/utils";
+import { LucideIcon, LucideProps } from "lucide-react";
 
-const useStyles = createStyles((theme) => ({
-  container: {
-    display: "flex",
-    alignItems: "center",
-    height: "100%",
-    padding: 4,
-    borderRadius: 4,
-    transition: "150ms ease-in-out",
-    "&:hover": {
-      backgroundColor: theme.colors.accent4[1],
-    },
-  },
-}));
-
-type IconButtonProps = {
-  onClick: () => void;
-  icon: JSX.Element;
-  children: React.ReactNode;
-} & UnstyledButtonProps;
-
-const IconButton = ({ onClick, icon, children, ...props }: IconButtonProps) => {
-  const { classes } = useStyles();
-
-  return (
-    <UnstyledButton p={4} h="100%" onClick={onClick} {...props}>
-      <div className={classes.container}>
-        {icon} <div className="ml-4">{children}</div>{" "}
-      </div>
-    </UnstyledButton>
-  );
+type IconButtonProps = ButtonProps & {
+  icon: LucideIcon;
+  iconProps?: LucideProps;
 };
 
-export default memo(IconButton);
+export const IconButton = ({
+  icon: Icon,
+  iconProps,
+  children,
+  ...props
+}: IconButtonProps) => {
+  const size = iconProps?.size ?? 20;
+
+  return (
+    <Button {...props}>
+      <Icon
+        className={cn("stroke-muted-foreground", iconProps?.className)}
+        size={size}
+      />
+      <div className="px-1" />
+      {children}
+    </Button>
+  );
+};

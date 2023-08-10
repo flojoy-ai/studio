@@ -1,5 +1,6 @@
 export const BACKEND_DEFAULT_PORT = 8000;
 export const NODES_REPO = "https://github.com/flojoy-io/nodes/blob/main";
+export const DOCS_LINK = "https://docs.flojoy.io";
 const BACKEND_HOST = process.env.VITE_SOCKET_HOST || "127.0.0.1";
 const BACKEND_PORT = process.env.VITE_BACKEND_PORT
   ? +process.env.VITE_BACKEND_PORT
