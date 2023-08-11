@@ -232,40 +232,40 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
-        <div className="py-1" />
-        <div className="flex">
-          <Button
-            data-testid="add-node-button"
-            className="gap-2"
-            variant="ghost"
-            onClick={toggleSidebar}
-          >
-            <Workflow size={20} className="stroke-muted-foreground" />
-            Add Node
-          </Button>
-
-          <GalleryModal
-            isGalleryOpen={isGalleryOpen}
-            setIsGalleryOpen={setIsGalleryOpen}
-          />
-          <div className="grow" />
-          <ClearCanvasBtn clearCanvas={clearCanvas} />
-        </div>
-        <div className="py-1" />
-        <Separator />
-      </div>
-
-      <Sidebar
-        sections={nodeSection}
-        leafNodeClickHandler={addNewNode as LeafClickHandler}
-        isSideBarOpen={isSidebarOpen}
-        setSideBarStatus={setIsSidebarOpen}
-      />
-
-      <Toaster theme={theme} />
-
       <ReactFlowProvider>
+        <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
+          <div className="py-1" />
+          <div className="flex">
+            <Button
+              data-testid="add-node-button"
+              className="gap-2"
+              variant="ghost"
+              onClick={toggleSidebar}
+            >
+              <Workflow size={20} className="stroke-muted-foreground" />
+              Add Node
+            </Button>
+
+            <GalleryModal
+              isGalleryOpen={isGalleryOpen}
+              setIsGalleryOpen={setIsGalleryOpen}
+            />
+            <div className="grow" />
+            <ClearCanvasBtn clearCanvas={clearCanvas} />
+          </div>
+          <div className="py-1" />
+          <Separator />
+        </div>
+
+        <Sidebar
+          sections={nodeSection}
+          leafNodeClickHandler={addNewNode as LeafClickHandler}
+          isSideBarOpen={isSidebarOpen}
+          setSideBarStatus={setIsSidebarOpen}
+        />
+
+        <Toaster theme={theme} />
+
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
           data-testid="react-flow"
