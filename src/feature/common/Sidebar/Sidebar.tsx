@@ -137,6 +137,7 @@ const Sidebar = ({
               <Collapsible>
                 <CollapsibleTrigger>
                   <Button
+                    variant="ghost"
                     className={cn(
                       "mt-1",
                       sidebarVariants({
@@ -157,6 +158,7 @@ const Sidebar = ({
                               <Collapsible>
                                 <CollapsibleTrigger>
                                   <Button
+                                    variant="ghost"
                                     className={cn(
                                       "mt-1",
                                       sidebarVariants({
@@ -173,6 +175,7 @@ const Sidebar = ({
                                       return (
                                         <div className="pl-6">
                                           <Button
+                                            variant="ghost"
                                             className={cn(
                                               "mt-1",
                                               sidebarVariants({
@@ -189,6 +192,7 @@ const Sidebar = ({
                                       return (
                                         <div className="pl-6">
                                           <Button
+                                            variant="outline"
                                             className={cn(
                                               "mt-1",
                                               sidebarVariants({
