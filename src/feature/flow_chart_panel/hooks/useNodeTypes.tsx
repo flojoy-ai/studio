@@ -34,8 +34,8 @@ const useNodeTypes = ({
                   nodeError={
                     failedNode === props.id ? failureReason : undefined
                   }
-                  plotlyFig={nodeResult?.result.plotly_fig ?? undefined}
-                  textBlob={nodeResult?.result.text_blob ?? undefined}
+                  plotlyFig={nodeResult?.result?.plotly_fig ?? undefined}
+                  textBlob={nodeResult?.result?.text_blob ?? undefined}
                   nodeProps={props}
                   handleRemove={handleRemove}
                   wrapperOnClick={wrapperOnClick}
