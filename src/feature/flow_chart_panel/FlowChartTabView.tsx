@@ -36,7 +36,7 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-import { CommandMenu } from "../command/CommandMenu";
+// import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Workflow } from "lucide-react";
