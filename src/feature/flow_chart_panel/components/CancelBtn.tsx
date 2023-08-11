@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button } from "@/components/ui/button";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { Ban } from "lucide-react";
 
