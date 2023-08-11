@@ -70,7 +70,7 @@ const NodeSection = z.object({
     z.object({
       name: z.string(),
       entryType: z.literal("section").default("section"),
-      key: z.optional(z.string()),
+      key: z.string(),
       type: z.optional(z.string()),
       children: z.array(
         z.union([
@@ -78,7 +78,7 @@ const NodeSection = z.object({
           z.object({
             name: z.string(),
             entryType: z.literal("section").default("section"),
-            key: z.optional(z.string()),
+            key: z.string(),
             type: z.optional(z.string()),
             children: z.array(
               z.union([
@@ -86,7 +86,7 @@ const NodeSection = z.object({
                 z.object({
                   name: z.string(),
                   entryType: z.literal("section").default("section"),
-                  key: z.optional(z.string()),
+                  key: z.string(),
                   type: z.optional(z.string()),
                   children: NodeElement,
                 }),
