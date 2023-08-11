@@ -342,7 +342,7 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
-      <CommandMenu />
+      {/* <CommandMenu /> */}
     </Layout>
   );
 };
