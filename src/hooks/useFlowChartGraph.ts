@@ -80,17 +80,27 @@ export const useFlowChartGraph = () => {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["ctrls"][""]
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
+        node.data.ctrls[inputData.param].value = inputData.value;
         if (node.data.func === "CONSTANT" && inputData.param === "constant") {
-          node.data.ctrls[inputData.param].value = inputData.value;
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
-        } else {
-          node.data.ctrls[inputData.param].value = inputData.value;
         }
+      }
+    });
+  };
+
+  const updateInitCtrlInputDataForNode = (
+    nodeId: string,
+    inputData: ElementsData["initCtrls"][string],
+  ) => {
+    setNodes((element) => {
+      const node = element.find((e) => e.id === nodeId);
+      if (node) {
+        node.data.initCtrls[inputData.param].value = inputData.value;
       }
     });
   };
@@ -114,6 +124,7 @@ export const useFlowChartGraph = () => {
     unSelectedNodes,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
+    updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     nodesManifest,
   };

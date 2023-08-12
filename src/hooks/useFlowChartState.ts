@@ -35,7 +35,6 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 export interface EnvVarCredentialType {
-  id: string;
   key: string;
   value: string;
 }
