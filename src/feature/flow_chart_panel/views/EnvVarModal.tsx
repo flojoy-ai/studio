@@ -27,6 +27,7 @@ import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
+import { toast } from "sonner";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -54,7 +55,9 @@ const EnvVarModal = ({
       },
     })
       .then((res) => res.json())
-      .then((data) => setCredentials(data))
+      .then((data) => {
+        setCredentials(data);
+      })
       .catch((err) => console.log(err));
   }, [setCredentials]);
 
@@ -91,11 +94,20 @@ const EnvVarModal = ({
     }
   };
 
-  const handleSendEnvVar = () => {
-    postEnvironmentVariable({ key: envVarKey, value: envVarValue });
-    setEnvVarKey("");
-    setEnvVarValue("");
-    fetchCredentials();
+  const handleSendEnvVar = async () => {
+    const result = await postEnvironmentVariable({
+      key: envVarKey,
+      value: envVarValue,
+    });
+
+    if (result.ok) {
+      toast("Environment variable added");
+      setEnvVarKey("");
+      setEnvVarValue("");
+      fetchCredentials();
+    } else {
+      toast("Error adding environment variable");
+    }
   };
 
   return (
@@ -154,7 +166,7 @@ const EnvVarModal = ({
           <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
             {credentials.map((credential) => (
               <EnvVarCredentialsInfo
-                key={credential.id}
+                key={credential.key}
                 credential={credential}
                 setSelectedCredential={setSelectedCredential}
                 setEditModalOpen={setEditModalOpen}

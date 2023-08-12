@@ -5,7 +5,7 @@ const data: GalleryData = {
     {
       title: "Intro to LOOPS",
       description: "Generate a random number once",
-      imagePath: "../../assets/appGallery/introToLoops.png",
+      imagePath: "/assets/appGallery/introToLoops.png",
       appPath: "randomNumber",
       youtubeLink: "https://youtube.com",
       relevantNodes: [
@@ -18,21 +18,21 @@ const data: GalleryData = {
     {
       title: "Intro to signals",
       description: "Generate waveforms of different shapes",
-      imagePath: "../../assets/appGallery/introToSignals.png",
+      imagePath: "/assets/appGallery/introToSignals.png",
       appPath: "oscilator",
       relevantNodes: [],
     },
     {
       title: "Intro to images",
       description: "Apply a butterworth filter on a sample image",
-      imagePath: "../../../public/assets/appGallery/introToImages.png",
+      imagePath: "/assets/appGallery/introToImages.png",
       appPath: "butterworth",
       relevantNodes: [],
     },
     {
       title: "Stream to Flojoy Cloud",
       description: "Stream data to your Flojoy Cloud account",
-      imagePath: "../../../public/assets/appGallery/flojoyCloud.png",
+      imagePath: "/assets/appGallery/flojoyCloud.png",
       appPath: "cloud",
       relevantNodes: [
         {
@@ -46,7 +46,7 @@ const data: GalleryData = {
     {
       title: "Image captioning",
       description: "Caption any image with this PyTorch ML model",
-      imagePath: "../../../public/assets/appGallery/imageCaptioning.png",
+      imagePath: "/assets/appGallery/imageCaptioning.png",
       appPath: "imageCaptioning",
       relevantNodes: [
         {
@@ -58,7 +58,7 @@ const data: GalleryData = {
     {
       description: "Predict future events with the Prophet node",
       title: "Time series forecasting",
-      imagePath: "../../../public/assets/appGallery/timeSeries.png",
+      imagePath: "/assets/appGallery/timeSeries.png",
       appPath: "prophet",
       relevantNodes: [
         {
@@ -77,7 +77,7 @@ const data: GalleryData = {
     {
       description: "Estimate object depth with the YOLOv3 node",
       title: "Object identification",
-      imagePath: "../../../public/assets/appGallery/objectIdentification.png",
+      imagePath: "/assets/appGallery/objectIdentification.png",
       appPath: "objectDetection",
       relevantNodes: [
         {
@@ -91,14 +91,14 @@ const data: GalleryData = {
     {
       description: "Read from any analog sensor",
       title: "Arduino",
-      imagePath: "../../../public/assets/appGallery/arduino.png",
+      imagePath: "/assets/appGallery/arduino.png",
       appPath: "arduino",
       relevantNodes: [],
     },
     {
       description: "Record and log temperatures",
       title: "LabJack",
-      imagePath: "../../../public/assets/appGallery/labjack.png",
+      imagePath: "/assets/appGallery/labjack.png",
       appPath: "labjack",
       relevantNodes: [
         {
@@ -110,7 +110,7 @@ const data: GalleryData = {
     {
       description: "Capture real-time images",
       title: "USB camera",
-      imagePath: "../../../public/assets/appGallery/usbCamera.png",
+      imagePath: "/assets/appGallery/usbCamera.png",
       appPath: "webcam",
       relevantNodes: [
         {
@@ -122,7 +122,7 @@ const data: GalleryData = {
     {
       description: "Precisely position anything",
       title: "Stepper motor",
-      imagePath: "../../../public/assets/appGallery/stepperMotor.png",
+      imagePath: "/assets/appGallery/stepperMotor.png",
       appPath: "stepper",
       relevantNodes: [
         {
@@ -136,14 +136,14 @@ const data: GalleryData = {
     {
       description: "Solve this non-linear dynamic system",
       title: "PID controller",
-      imagePath: "../../../public/assets/appGallery/PID.png",
+      imagePath: "/assets/appGallery/PID.png",
       appPath: "pid",
       relevantNodes: [],
     },
     {
       description: "Apply an FIR filter to an input signal",
       title: "FIR filter",
-      imagePath: "../../../public/assets/appGallery/FIR.png",
+      imagePath: "/assets/appGallery/FIR.png",
       appPath: "fir",
       relevantNodes: [
         {
@@ -163,7 +163,7 @@ const data: GalleryData = {
     {
       description: "Apply a real-time FFT to an input signal",
       title: "FFT",
-      imagePath: "../../../public/assets/appGallery/FFT.png",
+      imagePath: "/assets/appGallery/FFT.png",
       appPath: "fft",
       relevantNodes: [
         {

@@ -33,18 +33,18 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ACTIONS_HEIGHT, Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-import { CommandMenu } from "../command/CommandMenu";
+// import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Workflow } from "lucide-react";
-import { IconButton } from "../common/IconButton";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/components/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
+import { Button } from "@src/components/ui/button";
 
 localforage.config({
   name: "react-flow",
@@ -232,40 +232,42 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      <div className="sm:px-8" style={{ height: ACTIONS_HEIGHT }}>
-        <div className="py-1" />
-        <div className="flex">
-          <IconButton
-            icon={Workflow}
-            onClick={toggleSidebar}
-            data-testid="add-node-button"
-            variant="ghost"
-          >
-            Add Node
-          </IconButton>
-          <GalleryModal
-            isGalleryOpen={isGalleryOpen}
-            setIsGalleryOpen={setIsGalleryOpen}
-          />
-          <div className="grow" />
-          <ClearCanvasBtn clearCanvas={clearCanvas} />
-        </div>
-        <div className="py-1" />
-        <Separator />
-      </div>
-
-      <Sidebar
-        sections={nodeSection}
-        leafNodeClickHandler={addNewNode as LeafClickHandler}
-        isSideBarOpen={isSidebarOpen}
-        setSideBarStatus={setIsSidebarOpen}
-      />
-
-      <Toaster theme={theme} />
-
       <ReactFlowProvider>
+        <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
+          <div className="py-1" />
+          <div className="flex">
+            <Button
+              data-testid="add-node-button"
+              className="gap-2"
+              variant="ghost"
+              onClick={toggleSidebar}
+            >
+              <Workflow size={20} className="stroke-muted-foreground" />
+              Add Node
+            </Button>
+
+            <GalleryModal
+              isGalleryOpen={isGalleryOpen}
+              setIsGalleryOpen={setIsGalleryOpen}
+            />
+            <div className="grow" />
+            <ClearCanvasBtn clearCanvas={clearCanvas} />
+          </div>
+          <div className="py-1" />
+          <Separator />
+        </div>
+
+        <Sidebar
+          sections={nodeSection}
+          leafNodeClickHandler={addNewNode as LeafClickHandler}
+          isSideBarOpen={isSidebarOpen}
+          setSideBarStatus={setIsSidebarOpen}
+        />
+
+        <Toaster theme={theme} />
+
         <div
-          style={{ height: "calc(100vh - 150px)" }}
+          style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
           data-testid="react-flow"
           data-rfinstance={JSON.stringify(nodes)}
         >
@@ -340,7 +342,7 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
-      <CommandMenu />
+      {/* <CommandMenu /> */}
     </Layout>
   );
 };

@@ -95,7 +95,9 @@ const SidebarNode = ({
       </div>
     );
   }
-  const categoryHasNode = (node.children as any[])?.every((n) => !n.children);
+  const categoryHasNode = (node.children as unknown[])?.every(
+    (n) => !n.children,
+  );
 
   if (!categoryHasNode) {
     return (
@@ -127,7 +129,7 @@ const SidebarNode = ({
     );
   }
 
-  const commands = (node.children as any[])?.filter((c) => !c.children);
+  const commands = (node.children as unknown[])?.filter((c) => !c.children);
   const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter

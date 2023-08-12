@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +12,7 @@ import { Separator } from "../ui/separator";
 import { GalleryElement } from "./GalleryElement";
 import { Input } from "../ui/input";
 import { useEffect, useState } from "react";
-import { IconButton } from "@src/feature/common/IconButton";
+import { Button } from "../ui/button";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -51,14 +50,15 @@ export const GalleryModal = ({
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
       <DialogTrigger asChild>
-        <IconButton
-          icon={LayoutGrid}
-          data-testid="app-gallery-btn"
-          variant="ghost"
+        <Button
           onClick={setOpen}
+          data-testid="app-gallery-btn"
+          className="gap-2"
+          variant="ghost"
         >
+          <LayoutGrid size={20} className="stroke-muted-foreground" />
           App Gallery
-        </IconButton>
+        </Button>
       </DialogTrigger>
 
       <DialogContent className="flex h-4/5 max-w-5xl flex-col">
@@ -79,7 +79,7 @@ export const GalleryModal = ({
 
         <ScrollArea className="">
           {filteredData
-            .filter(([_, v]) => v.length > 0)
+            .filter(([, v]) => v.length > 0)
             .map(([k, v]) => (
               <div key={k}>
                 <div className="text-3xl font-bold">{k}</div>

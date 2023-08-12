@@ -1,4 +1,4 @@
-import { IconButton } from "@src/feature/common/IconButton";
+import { Button } from "@/components/ui/button";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { Ban } from "lucide-react";
 
@@ -11,16 +11,17 @@ const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
   // useKeyboardShortcut("meta", "c", cancelFC);
 
   return (
-    <IconButton
-      icon={Ban}
-      size="sm"
-      variant="default"
+    <Button
+      data-testid="btn-cancel"
       data-cy="btn-cancel"
       id="btn-cancel"
       onClick={cancelFC}
+      className="gap-2"
+      variant="ghost"
     >
+      <Ban />
       Cancel
-    </IconButton>
+    </Button>
   );
 };
 

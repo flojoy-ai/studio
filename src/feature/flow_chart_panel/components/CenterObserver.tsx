@@ -7,7 +7,7 @@ export const CenterObserver = () => {
   const store = useStoreApi();
 
   useOnViewportChange({
-    onEnd: (_) => {
+    onEnd: () => {
       const {
         height,
         width,

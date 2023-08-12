@@ -40,6 +40,19 @@ const nodeElementSchema = z.object({
       }),
     ),
   ),
+  init_parameters: z.optional(
+    z.record(
+      z.string(),
+      z.object({
+        type: z.string(),
+        default: z.optional(
+          z.union([z.string(), z.number(), z.boolean(), z.null()]),
+        ),
+        options: z.optional(z.array(z.string())),
+        desc: z.nullable(z.string()),
+      }),
+    ),
+  ),
   pip_dependencies: z.optional(
     z.array(z.object({ name: z.string(), v: z.optional(z.string()) })),
   ),

@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 # Run all services required by Flojoy Studio
 
 success_color='\033[38;5;71m'

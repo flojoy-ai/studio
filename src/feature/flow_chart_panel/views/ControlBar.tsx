@@ -1,4 +1,3 @@
-import { createStyles } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -21,13 +20,12 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Button } from "@src/components/ui/button";
+// import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import WatchBtn from "../components/WatchBtn";
 import {
   Menubar,
@@ -36,96 +34,6 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-
-const useStyles = createStyles((theme) => {
-  return {
-    controls: {
-      display: "flex",
-      alignItems: "center",
-      padding: "10px",
-      gap: "8px",
-    },
-
-    button: {
-      padding: "5px",
-      cursor: "pointer",
-      borderRadius: 2,
-      fontSize: "14px",
-      textDecoration: "none",
-      background: "transparent",
-      color: theme.colors.title[0],
-      border: "none",
-    },
-
-    addButton: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "4px",
-    },
-
-    addButtonPlus: {
-      fontSize: "20px",
-      color: theme.colors.accent1[0],
-    },
-
-    cancelButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "5px",
-      height: "33px",
-      width: "85px",
-      cursor: "pointer",
-      color: theme.colors.red[7],
-      border: `1px solid ${theme.colors.red[3]}`,
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[2],
-      transition: "transform ease-in 0.1s",
-
-      "&:hover": {
-        backgroundColor: theme.colors.red[8],
-        color: theme.white,
-      },
-
-      "&:hover > svg > g": {
-        fill: theme.white,
-      },
-
-      "&:active": {
-        transform: "scale(0.8)",
-      },
-    },
-
-    fileButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-
-    editContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      paddingRight: "4px",
-    },
-    dropDownIcon: {
-      borderRadius: 20,
-    },
-    settingsButton: {
-      padding: 6,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      "&:hover": {
-        backgroundColor: theme.colors.accent1[0] + "2f",
-      },
-    },
-  };
-});
 
 localforage.config({
   name: "react-flow",
@@ -257,7 +165,6 @@ const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
-  const { classes } = useStyles();
   const { settings } = useSettings();
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 

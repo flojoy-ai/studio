@@ -42,7 +42,7 @@ const EnvVarCredentialsInfo = ({
   return (
     <div
       data-testid="credential-name"
-      key={credential.id}
+      key={credential.key}
       className="mt-1 flex w-full rounded-md bg-modal py-1"
     >
       <div className="px-2.5" />
