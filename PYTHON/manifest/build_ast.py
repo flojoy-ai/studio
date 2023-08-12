@@ -33,6 +33,17 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
             and decorator.func.id == "flojoy"
         ]
 
+    def get_display_decorator(self, node: ast.FunctionDef):
+        return [
+            decorator
+            for decorator in node.decorator_list
+            if isinstance(decorator, ast.Name)
+               and decorator.id == "display"
+               or isinstance(decorator, ast.Call)
+               and isinstance(decorator.func, ast.Name)
+               and decorator.func.id == "display"
+        ]
+
     def visit_Module(self, node: ast.Module):
         node.body = [self.visit(n) for n in node.body]
         return node
@@ -51,11 +62,14 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return node
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
-        if not self.has_decorator(node, "flojoy"):
+        # The case where the node is used for overloading, will ignore all other decorators
+        if self.has_decorator(node, "display"):
+            node.decorator_list = cast(list[ast.expr], self.get_display_decorator(node))
+        elif not self.has_decorator(node, "flojoy"):
             return None
 
         if len(node.decorator_list) > 1:
-            # Keep only the '@flojoy' decorator if there are multiple decorators.
+            # Keep only the '@flojoy' if there are multiple decorators.
             # Some decorators, like '@run_in_venv', create virtual environments, which we
             # don't want to generate when creating the manifest.
             node.decorator_list = cast(list[ast.expr], self.get_flojoy_decorator(node))
@@ -81,7 +95,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
 
-def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
+def make_manifest_ast(path: str) -> [str, ast.Module]:
     with open(path) as f:
         tree = ast.parse(f.read())
 
@@ -109,6 +123,9 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
     # Then get rid of all the other dataclasses
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
+    # for node in tree.body:
+    #     if node and (not isinstance(node, ast.ClassDef) or node.name == "OVERLOAD"):
+    #         overload = node
 
     tree.body = [
         node

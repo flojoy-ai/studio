@@ -3,7 +3,7 @@ import json
 from typing import Any, Optional, Union
 from manifest.generate_node_manifest import create_manifest
 
-FULL_PATH = "PYTHON/nodes"
+FULL_PATH = "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE"
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
@@ -125,7 +125,7 @@ def sort_order(element):
 
 if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
-    map["children"].sort(key=sort_order)  # type: ignore
+    #map["children"].sort(key=sort_order)  # type: ignore
 
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"

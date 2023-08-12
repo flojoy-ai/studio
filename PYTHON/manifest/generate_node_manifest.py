@@ -1,3 +1,5 @@
+import ast
+
 from .build_ast import (
     get_pip_dependencies,
     get_node_type,
@@ -42,6 +44,7 @@ class ManifestBuilder:
         self.inputs: list[Any] = []
         self.parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
+        self.overload: dict[str, Any] = {}
 
         doc_parser = NumpydocParser()
         doc_parser.add_section(ParamSection("Inputs", "inputs"))
@@ -102,6 +105,11 @@ class ManifestBuilder:
         }
         return self
 
+    def with_overload(self, name: str, values: dict[str, list[Any]], common: list[Any]):
+        self.overload["common"] = common
+        self.overload[name] = values
+        return self
+
     def with_output(self, name: str, output_type: Type[Any], named: bool = False):
         self.outputs.append(
             {
@@ -120,6 +128,8 @@ class ManifestBuilder:
             self.manifest["parameters"] = self.parameters
         if self.outputs:
             self.manifest["outputs"] = self.outputs
+        if self.overload:
+            self.manifest["overload"] = self.overload
 
         return self.manifest
 
@@ -147,6 +157,10 @@ def create_manifest(path: str) -> dict[str, Any]:
     exec(code, module.__dict__)
 
     func = getattr(module, node_name)
+    print(f"the function is: {func.__name__}")
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef) and len(node.decorator_list) == 1 and node.decorator_list[0].id == "display":
+            print(f"the name is: {node.name}")
 
     manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
 
@@ -162,11 +176,12 @@ def create_manifest(path: str) -> dict[str, Any]:
 
 
 def make_manifest_for(
-    func: Callable[..., Any], is_special_node: bool = False
+    func: Callable[..., Any], is_special_node: bool = False,
 ) -> dict[str, Any]:
     mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
 
     sig = inspect.signature(func)
+    print(f"the signature is: {sig.parameters.items()}")
     for name, param in sig.parameters.items():
         populate_inputs(name, param, mb)
 
@@ -298,6 +313,11 @@ def populate_inputs(
             )
         if param_type != DefaultParams:
             mb.with_param(name, param_type, default_value)
+            mb.with_overload(name, {type_str(param_type): ["testing"]}, ["test"])
+
+
+def populate_overload(name: str, param: Parameter, mb: ManifestBuilder) -> None:
+    match_value = param.default
 
 
 def is_special_type(param_type: Any):
