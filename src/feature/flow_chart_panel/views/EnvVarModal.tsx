@@ -16,7 +16,6 @@ import { Button } from "@src/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -207,8 +206,8 @@ const EnvVarModal = ({
             </div>
           </div>
         </div>
-        <DialogFooter></DialogFooter>
-        <hr />
+
+        <Separator />
         <ScrollArea className="h-56 w-full rounded-md last:border-b-0">
           {credentials.map((credential) => (
             <EnvVarCredentialsInfo
