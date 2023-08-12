@@ -140,7 +140,7 @@ const EnvVarModal = ({
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col">
-          <div className="text-lg font-bold">Flojoy Cloud Environment</div>
+          <div className="text-lg font-bold">Flojoy Cloud</div>
           <div className="py-1" />
           <div className="flex w-full items-center space-x-2">
             <Input
