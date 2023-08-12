@@ -1,32 +1,7 @@
 import { Connection } from "reactflow";
-import {
-  NodeElement,
-  NodeSection,
-  nodeSection,
-  SubCategory,
-} from "./ManifestLoader";
+import { NodeElement } from "./ManifestLoader";
 
 const allNodes: Map<string, NodeElement> = new Map();
-
-const populateNodes = (node: NodeSection | SubCategory) => {
-  const dfs = (
-    node: SubCategory | NodeElement,
-    map: Map<string, NodeElement>,
-  ) => {
-    if (!node.children) {
-      allNodes.set(node.key, node as NodeElement);
-      return;
-    }
-
-    for (const child of node.children) {
-      dfs(child, map);
-    }
-  };
-
-  node.children.map((c) => dfs(c, allNodes));
-};
-
-populateNodes(nodeSection);
 
 const getNodeNameFromId = (nodeId: string) => {
   return nodeId.split("-", 1)[0];
