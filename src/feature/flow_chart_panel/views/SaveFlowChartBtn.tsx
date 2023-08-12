@@ -1,4 +1,4 @@
-import SaveIconSVG from "@src/assets/SaveIconSVG";
+import { MenubarItem } from "@src/components/ui/menubar";
 import * as htmlToImage from "html-to-image";
 
 const downloadBlob = (blob: Blob, filename: string) => {
@@ -43,10 +43,7 @@ const SaveFlowChartBtn = () => {
   };
 
   return (
-    <button onClick={downloadResult} style={{ display: "flex", gap: 11 }}>
-      <SaveIconSVG />
-      Save Flowchart as JPEG
-    </button>
+    <MenubarItem onClick={downloadResult}>Save Flowchart as JPEG</MenubarItem>
   );
 };
 

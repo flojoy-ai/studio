@@ -26,5 +26,5 @@ root.render(
         <App />
       </SocketContextProvider>
     </ErrorBoundary>
-  </BrowserRouter>
+  </BrowserRouter>,
 );

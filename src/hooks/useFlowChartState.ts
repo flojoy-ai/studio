@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
@@ -34,6 +34,10 @@ export interface CtlManifestType {
   minWidth: number;
   layout: ReactGridLayout.Layout;
 }
+export interface EnvVarCredentialType {
+  key: string;
+  value: string;
+}
 
 export const failedNodeAtom = atom<string>("");
 export const runningNodeAtom = atom<string>("");
@@ -47,32 +51,21 @@ const rfInstanceAtom = atomWithImmer<
   ReactFlowJsonObject<ElementsData> | undefined
 >(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
-const expandModeAtom = atomWithImmer<boolean>(false);
-const apiKeyAtom = atomWithImmer<string>("");
-const s3NameAtom = atomWithImmer<string>("");
-const s3AccessKeyAtom = atomWithImmer<string>("");
-const s3SecretKeyAtom = atomWithImmer<string>("");
-const s3ContainerAtom = atomWithImmer<boolean>(false);
+const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
-const nodeParamChangedAtom = atom<boolean | undefined>(undefined);
+const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
-  undefined
+  undefined,
 );
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
   const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
-  const [isExpandMode, setIsExpandMode] = useAtom(expandModeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
   const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
-  const [cloudApiKey, setCloudApiKey] = useAtom(apiKeyAtom);
-  const [openAIApiKey, setOpenAIApiKey] = useAtom(apiKeyAtom);
-  const [s3Container, setS3Container] = useAtom(s3ContainerAtom);
-  const [s3Name, setS3Name] = useAtom(s3NameAtom);
-  const [s3AccessKey, setS3AccessKey] = useAtom(s3AccessKeyAtom);
-  const [s3SecretKey, setS3SecretKey] = useAtom(s3SecretKeyAtom);
+  const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
@@ -81,29 +74,17 @@ export function useFlowChartState() {
     setRfInstance,
     isEditMode,
     setIsEditMode,
-    isExpandMode,
-    setIsExpandMode,
     showLogs,
     setShowLogs,
     runningNode,
     setRunningNode,
     failedNode,
     setFailedNode,
-    cloudApiKey,
-    setCloudApiKey,
-    openAIApiKey,
-    setOpenAIApiKey,
+    credentials,
+    setCredentials,
     nodeParamChanged,
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
-    s3Name,
-    setS3Name,
-    s3AccessKey,
-    setS3AccessKey,
-    s3SecretKey,
-    setS3SecretKey,
-    s3Container,
-    setS3Container,
   };
 }

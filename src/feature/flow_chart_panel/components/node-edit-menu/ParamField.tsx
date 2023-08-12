@@ -5,16 +5,17 @@ import {
   Switch,
   createStyles,
   getStylesRef,
+  useMantineTheme,
 } from "@mantine/core";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 type ParamFieldProps = {
   nodeId: string;
-  nodeCtrls: ElementsData["ctrls"][""];
+  nodeCtrl: ElementsData["ctrls"][string];
   type: ParamValueType;
-  value: ElementsData["ctrls"][""]["value"];
+  updateFunc: (nodeId: string, data: ElementsData["ctrls"][string]) => void;
   options?: string[];
   nodeReferenceOptions?: {
     label: string;
@@ -39,22 +40,25 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ParamField = ({
-  nodeCtrls,
+  nodeCtrl,
   nodeId,
   type,
-  value,
+  updateFunc,
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const { updateCtrlInputDataForNode } = useFlowChartGraph();
+  const theme = useMantineTheme();
+  const { setNodeParamChanged } = useFlowChartState();
   const handleChange = (value: string | boolean) => {
-    updateCtrlInputDataForNode(nodeId, {
-      ...nodeCtrls,
+    setNodeParamChanged(true);
+    updateFunc(nodeId, {
+      ...nodeCtrl,
       value,
     });
   };
 
   const { classes } = useStyles();
+  const value = nodeCtrl.value;
 
   switch (type) {
     case "float":
@@ -65,6 +69,13 @@ const ParamField = ({
           value={value !== "" ? parseFloat(value as string) : value}
           precision={7}
           removeTrailingZeros
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "int":
@@ -73,16 +84,31 @@ const ParamField = ({
           data-testid="int-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value as string) : value}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "bool":
       return (
         <Switch
+          data-testid="boolean-input"
           onChange={(e) => handleChange(e.currentTarget.checked)}
           label={JSON.stringify(value)}
           size="md"
           classNames={classes}
           checked={Boolean(value)}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "select":
@@ -92,6 +118,22 @@ const ParamField = ({
           onChange={(val) => handleChange(val as string)}
           data={options ?? []}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+            item: {
+              "&[data-selected]": {
+                "&, &:hover": {
+                  backgroundColor: theme.colors.accent1[0],
+                  color:
+                    theme.colorScheme === "dark" ? theme.black : theme.white,
+                },
+              },
+            },
+          }}
         />
       );
     case "NodeReference":
@@ -101,6 +143,13 @@ const ParamField = ({
           onChange={(val) => handleChange(val as string)}
           data={nodeReferenceOptions ?? []}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     case "str":
@@ -111,8 +160,16 @@ const ParamField = ({
     case "unknown":
       return (
         <TextInput
+          data-testid="object-input"
           onChange={(e) => handleChange(e.currentTarget.value)}
           value={value as string}
+          styles={{
+            input: {
+              "&:focus": {
+                borderColor: theme.colors.accent1[0],
+              },
+            },
+          }}
         />
       );
     default:

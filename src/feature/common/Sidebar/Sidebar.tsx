@@ -1,108 +1,17 @@
-import {
-  Navbar,
-  ScrollArea,
-  Input,
-  UnstyledButton,
-  Box,
-  useMantineTheme,
-  createStyles,
-} from "@mantine/core";
-import {
-  IconArrowAutofitUp,
-  IconArrowAutofitDown,
-  IconSearch,
-} from "@tabler/icons-react";
+import { Navbar, ScrollArea, Input, useMantineTheme } from "@mantine/core";
+import { Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import CloseIconSvg from "@src/assets/SidebarCloseSvg";
 import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
+import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
+import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
+import { Button } from "@src/components/ui/button";
+import { REQUEST_NODE_URL } from "@src/data/constants";
+import { cn } from "@src/lib/utils";
 
 export type LeafClickHandler = (elem: NodeElement) => void;
-
-const useSidebarStyles = createStyles((theme) => {
-  const accent =
-    theme.colorScheme === "dark" ? theme.colors.accent1 : theme.colors.accent2;
-  return {
-    navbarView: {
-      position: "absolute",
-      top: "150px",
-      height: "calc(100vh - 150px)",
-      backgroundColor: theme.colors.modal[0],
-      boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-      transition: "500ms",
-      zIndex: 50,
-    },
-    navbarHidden: {
-      position: "absolute",
-      left: "-100%",
-      top: "150px",
-      backgroundColor: theme.colors.modal[0],
-      boxShadow: "0px 4px 11px 3px rgba(0, 0, 0, 0.25)",
-      height: "calc(100vh - 150px)",
-      transition: "300ms",
-      zIndex: 50,
-    },
-
-    sections: {
-      marginTop: theme.spacing.md,
-      marginLeft: -theme.spacing.md,
-      marginRight: -theme.spacing.md,
-    },
-
-    sectionsInner: {
-      paddingTop: theme.spacing.xl,
-      paddingBottom: theme.spacing.xl,
-    },
-
-    button: {
-      outline: "0",
-      border: `1px solid ${accent[0]}`,
-      backgroundColor: accent[0],
-      color: accent[0],
-      padding: "8px 12px 8px 12px",
-      cursor: "pointer",
-      margin: "5px 5px",
-    },
-
-    searchBox: {
-      marginTop: 30,
-    },
-
-    expandCollapseButtonContainer: {
-      display: "flex",
-      justifyContent: "end",
-      gap: 2,
-      marginBottom: 10,
-      marginRight: 12,
-    },
-
-    uiButton: {
-      transition: "0.2s ease-in-out",
-      "&:hover": {
-        color: accent[0],
-      },
-    },
-
-    closeButton: {
-      cursor: "pointer",
-      borderRadius: 32,
-      padding: 8,
-      transition: "50ms ease-in-out",
-      "&:hover": {
-        backgroundColor: accent[0] + "4f",
-      },
-      "& div": {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: 9,
-        height: 9,
-      },
-    },
-  };
-});
 
 type SidebarProps = {
   isSideBarOpen: boolean;
@@ -117,12 +26,10 @@ const Sidebar = ({
   setSideBarStatus,
   sections,
   leafNodeClickHandler,
-  customContent,
 }: SidebarProps) => {
   const theme = useMantineTheme();
 
   const [query, setQuery] = useState("");
-  const { classes } = useSidebarStyles();
 
   // These being booleans don't actually mean anything,
   // They just need to be values that can easily be changed in order
@@ -154,35 +61,32 @@ const Sidebar = ({
   return (
     <Navbar
       data-testid="sidebar"
-      height={200}
-      width={{ sm: 387 }}
+      top={LAYOUT_TOP_HEIGHT}
+      height={`calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`}
       p="md"
-      className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+      // className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+      className={cn(
+        "absolute z-50 bg-modal sm:w-96",
+        isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
+      )}
     >
-      <Navbar.Section
-        style={{
-          right: 10,
-          position: "absolute",
-          top: 5,
-        }}
-      >
-        <UnstyledButton
-          data-testid="sidebar-close"
+      <Navbar.Section className="absolute right-2 top-2">
+        <div
+          className="cursor-pointer rounded-xl p-1"
           onClick={() => setSideBarStatus(false)}
-          className={classes.closeButton}
         >
-          <CloseIconSvg />
-        </UnstyledButton>
+          <XIcon size={20} className="stroke-muted-foreground" />
+        </div>
       </Navbar.Section>
       <Navbar.Section>
         <Input
           data-testid="sidebar-input"
           name="sidebar-input"
           placeholder="Search"
-          icon={<IconSearch size={18} />}
+          icon={<Search size={18} />}
           radius="sm"
           type="search"
-          className={classes.searchBox}
+          className="mt-8"
           value={query}
           onChange={handleQueryChange}
           ref={inputRef}
@@ -194,25 +98,40 @@ const Sidebar = ({
             },
           }}
         />
+        <div className="py-1" />
+        <div className="flex items-end">
+          <a
+            href={REQUEST_NODE_URL}
+            target="_blank"
+            className="w-fit no-underline"
+          >
+            <Button
+              variant="link"
+              className="px-2 font-semibold text-muted-foreground"
+            >
+              Request a node...
+            </Button>
+          </a>
+          <div className="grow" />
+          <div className="mb-2 flex items-center">
+            <button
+              data-testid="sidebar-expand-btn"
+              onClick={() => setExpand(!expand)}
+              className="text-gray-300 duration-200 hover:text-muted-foreground"
+            >
+              <ArrowDownWideNarrow />
+            </button>
+            <button
+              data-testid="sidebar-collapse-btn"
+              onClick={() => setCollapse(!collapse)}
+              className="text-gray-300 duration-200 hover:text-muted-foreground"
+            >
+              <ArrowUpWideNarrow />
+            </button>
+          </div>
+        </div>
       </Navbar.Section>
-      {customContent}
-      <Navbar.Section grow className={classes.sections} component={ScrollArea}>
-        <Box className={classes.expandCollapseButtonContainer}>
-          <UnstyledButton
-            data-testid="sidebar-expand-btn"
-            onClick={() => setExpand(!expand)}
-            className={classes.uiButton}
-          >
-            <IconArrowAutofitDown />
-          </UnstyledButton>
-          <UnstyledButton
-            data-testid="sidebar-collapse-btn"
-            onClick={() => setCollapse(!collapse)}
-            className={classes.uiButton}
-          >
-            <IconArrowAutofitUp />
-          </UnstyledButton>
-        </Box>
+      <Navbar.Section grow className="mt-3" component={ScrollArea}>
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}

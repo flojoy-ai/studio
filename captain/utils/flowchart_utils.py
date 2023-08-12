@@ -1,7 +1,9 @@
-import io, time, asyncio
+import time
+import asyncio
 from queue import Queue
 from threading import Thread
-import json, os
+import json
+import os
 import networkx as nx
 from PYTHON.task_queue.worker import Worker
 from captain.internal.manager import Manager
@@ -79,6 +81,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         data = el["data"]
         cmd = el["data"]["func"]
         ctrls = data.get("ctrls", {})
+        init_ctrls = data.get("initCtrls", {})
         inputs = data.get("inputs", {})
         label = data.get("label", "")
         dict_node_inputs[node_id] = inputs
@@ -88,6 +91,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
             pos=(el["position"]["x"], el["position"]["y"]),
             id=el["id"],
             ctrls=ctrls,
+            init_ctrls=init_ctrls,
             inputs=inputs,
             label=label,
             cmd=cmd,
@@ -176,7 +180,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
                 ] = f"Package: {module} is already installed!"
                 logger.debug(f"Package: {module} is already installed!")
                 await manager.ws.broadcast(socket_msg)
-            except ImportError:
+            except Exception:
                 pckg_str = (
                     f"{package['name']}=={package['v']}"
                     if "v" in package

@@ -12,10 +12,10 @@ const nodeElementSchema = z.object({
         name: z.string(),
         id: z.string(),
         type: z.string(),
-        multiple: z.optional(z.boolean()),
+        multiple: z.boolean(),
         desc: z.nullable(z.string()),
-      })
-    )
+      }),
+    ),
   ),
   outputs: z.optional(
     z.array(
@@ -24,8 +24,8 @@ const nodeElementSchema = z.object({
         id: z.string(),
         type: z.string(),
         desc: z.nullable(z.string()),
-      })
-    )
+      }),
+    ),
   ),
   parameters: z.optional(
     z.record(
@@ -33,15 +33,28 @@ const nodeElementSchema = z.object({
       z.object({
         type: z.string(),
         default: z.optional(
-          z.union([z.string(), z.number(), z.boolean(), z.null()])
+          z.union([z.string(), z.number(), z.boolean(), z.null()]),
         ),
         options: z.optional(z.array(z.string())),
         desc: z.nullable(z.string()),
-      })
-    )
+      }),
+    ),
+  ),
+  init_parameters: z.optional(
+    z.record(
+      z.string(),
+      z.object({
+        type: z.string(),
+        default: z.optional(
+          z.union([z.string(), z.number(), z.boolean(), z.null()]),
+        ),
+        options: z.optional(z.array(z.string())),
+        desc: z.nullable(z.string()),
+      }),
+    ),
   ),
   pip_dependencies: z.optional(
-    z.array(z.object({ name: z.string(), v: z.optional(z.string()) }))
+    z.array(z.object({ name: z.string(), v: z.optional(z.string()) })),
   ),
   ui_component_id: z.optional(z.string()),
   children: z.null(),
@@ -50,7 +63,7 @@ const nodeElementSchema = z.object({
 export type NodeElement = z.infer<typeof nodeElementSchema>;
 
 export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
-  childSchema: ChildType
+  childSchema: ChildType,
 ) {
   return z.object({
     name: z.string(),
@@ -65,7 +78,7 @@ const subCategorySchema =
 export type SubCategory = z.infer<typeof subCategorySchema>;
 
 export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
-  element: ElementType
+  element: ElementType,
 ) {
   return z.object({
     name: z.literal("ROOT"),
@@ -75,7 +88,7 @@ export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
         key: z.optional(z.string()),
         type: z.optional(z.string()),
         children: z.array(createSubCategorySchema(element)),
-      })
+      }),
     ),
   });
 }

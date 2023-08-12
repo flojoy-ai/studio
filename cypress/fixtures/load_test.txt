@@ -1,0 +1,82 @@
+{
+    "rfInstance": {
+        "nodes": [
+            {
+                "width": 150,
+                "height": 180,
+                "id": "MATRIX-23904f11-c164-404a-acdd-c3a5e04c9253",
+                "type": "default",
+                "data": {
+                    "id": "MATRIX-23904f11-c164-404a-acdd-c3a5e04c9253",
+                    "label": "MATRIX",
+                    "func": "MATRIX",
+                    "type": "default",
+                    "ctrls": {
+                        "row": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "number of rows",
+                            "functionName": "MATRIX",
+                            "param": "row",
+                            "value": 2
+                        },
+                        "column": {
+                            "type": "int",
+                            "default": 2,
+                            "desc": "number of columns",
+                            "functionName": "MATRIX",
+                            "param": "column",
+                            "value": 2
+                        }
+                    },
+                    "initCtrls": {},
+                    "outputs": [
+                        {
+                            "name": "default",
+                            "id": "default",
+                            "type": "Matrix",
+                            "desc": "randomly generated matrix"
+                        }
+                    ],
+                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/MATRIX/MATRIX.py",
+                    "selected": false
+                },
+                "position": {
+                    "x": -118.67874180187522,
+                    "y": -9.317949322666948
+                },
+                "selected": false,
+                "positionAbsolute": {
+                    "x": -118.67874180187522,
+                    "y": -9.317949322666948
+                },
+                "dragging": true
+            }
+        ],
+        "edges": [],
+        "viewport": {
+            "x": 403.6930612231081,
+            "y": 368.1580405122279,
+            "zoom": 0.906446030681931
+        }
+    },
+    "ctrlsManifest": [
+        {
+            "type": "input",
+            "name": "Slider",
+            "id": "INPUT_PLACEHOLDER",
+            "hidden": false,
+            "minHeight": 1,
+            "minWidth": 2,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "h": 2,
+                "w": 2,
+                "minH": 1,
+                "minW": 2,
+                "i": "INPUT_PLACEHOLDER"
+            }
+        }
+    ]
+}

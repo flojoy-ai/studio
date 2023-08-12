@@ -88,7 +88,7 @@ export const SettingsModal = ({
   onClose: () => void;
 }) => {
   const { classes } = useStyles();
-  const { settingsList, updateSettingList } = useSettings();
+  const { settings, updateSettings } = useSettings();
   return (
     <Modal.Root
       data-testid="settings-modal"
@@ -106,7 +106,7 @@ export const SettingsModal = ({
           className={classes.closeButton}
         ></Modal.CloseButton>
         <div className={classes.list}>
-          {settingsList.map((setting) => (
+          {settings.map((setting) => (
             <div
               key={`settings-modal-${setting.key}`}
               className={classes.listItem}
@@ -121,7 +121,7 @@ export const SettingsModal = ({
                   type={setting.type}
                   value={setting.value as number}
                   onChange={(e) =>
-                    updateSettingList(setting.key, Number(e.target.value))
+                    updateSettings(setting.key, Number(e.target.value))
                   }
                 />
               )}
@@ -131,7 +131,7 @@ export const SettingsModal = ({
                   data-testid="settings-switch"
                   checked={setting.value as boolean}
                   onChange={(e) =>
-                    updateSettingList(setting.key, e.currentTarget.checked)
+                    updateSettings(setting.key, e.currentTarget.checked)
                   }
                 />
               )}

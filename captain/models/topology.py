@@ -104,7 +104,7 @@ class Topology:
             try:
                 init_func = get_node_init_function(func)
                 init_func.run(
-                    node_id
+                    node_id, node["init_ctrls"]
                 )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass
@@ -281,8 +281,6 @@ class Topology:
         original_edges = [
             (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
         ]
-        original_nodes = sub_graph.nodes
-        self.working_graph.add_nodes_from((n, graph.nodes[n]) for n in original_nodes)
         self.working_graph.add_edges_from(original_edges)
 
         self.finished_jobs.remove(job_id)

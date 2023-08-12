@@ -1,5 +1,9 @@
+import { contextBridge } from "electron";
+
+contextBridge.exposeInMainWorld("IS_ELECTRON", true);
+
 function domReady(
-  condition: DocumentReadyState[] = ["complete", "interactive"]
+  condition: DocumentReadyState[] = ["complete", "interactive"],
 ) {
   return new Promise((resolve) => {
     if (condition.includes(document.readyState)) {

@@ -1,4 +1,4 @@
-import { ElementsData } from "@src/feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
@@ -39,7 +39,7 @@ export const useFlowChartGraph = () => {
       setEdges(flow.edges || []);
       return true;
     },
-    [setNodes, setEdges]
+    [setNodes, setEdges],
   );
 
   useEffect(() => {
@@ -80,17 +80,27 @@ export const useFlowChartGraph = () => {
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["ctrls"][""]
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        if (node.data.func === "CONSTANT") {
-          node.data.ctrls[inputData.param].value = inputData.value;
+        node.data.ctrls[inputData.param].value = inputData.value;
+        if (node.data.func === "CONSTANT" && inputData.param === "constant") {
           node.data.label = inputData.value?.toString() ?? "CONSTANT";
-        } else {
-          node.data.ctrls[inputData.param].value = inputData.value;
         }
+      }
+    });
+  };
+
+  const updateInitCtrlInputDataForNode = (
+    nodeId: string,
+    inputData: ElementsData["initCtrls"][string],
+  ) => {
+    setNodes((element) => {
+      const node = element.find((e) => e.id === nodeId);
+      if (node) {
+        node.data.initCtrls[inputData.param].value = inputData.value;
       }
     });
   };
@@ -114,6 +124,7 @@ export const useFlowChartGraph = () => {
     unSelectedNodes,
     updateCtrlInputDataForNode,
     removeCtrlInputDataForNode,
+    updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     nodesManifest,
   };

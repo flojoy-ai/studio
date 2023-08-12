@@ -1,10 +1,9 @@
-import { Settings } from "@src/hooks/useSettings";
+import { Setting } from "../hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
-import { notifications } from "@mantine/notifications";
-
-import { ElementsData } from "@feature/flow_chart_panel/types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { API_URI } from "@src/data/constants";
+import { Result } from "@src/types/result";
 
 const flowKey = "flow-joy";
 
@@ -14,17 +13,10 @@ const flowKey = "flow-joy";
 // if the flow chart instance was updated every single time nodes/edges
 // changed (for example with a useEffect).
 
-export type CLOUD_OPENAI_TYPE = {
+export type EnvVar = {
   key: string;
+  value: string;
 };
-
-export type S3_TYPE = {
-  name: string;
-  accessKey: string;
-  secretKey: string;
-};
-
-export type API_TYPE = CLOUD_OPENAI_TYPE | S3_TYPE;
 
 export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   if (rfInstance) {
@@ -33,40 +25,44 @@ export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
   }
 }
 
-export const sendApiKeyToDjango = async (body: API_TYPE, endpoint: string) => {
+export const postEnvironmentVariable = async (
+  body: EnvVar,
+): Promise<Result<null, unknown>> => {
   try {
-    const response = await fetch(`${API_URI}/api/${endpoint}`, {
+    const response = await fetch(`${API_URI}/env/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
-
     if (response.ok) {
-      await response.json();
-      notifications.update({
-        id: "set-api-key",
-        title: "Successful!",
-        message: "Successfully set the API Key",
-        autoClose: 5000,
-      });
-    } else {
-      notifications.update({
-        id: "set-api-key",
-        title: "Failed!",
-        message: "Failed to set the API Key",
-        autoClose: 5000,
-      });
+      return { ok: true, data: null };
     }
   } catch (error) {
-    notifications.update({
-      id: "set-api-key",
-      title: "Failed!",
-      message: "Failed to set the API Key",
-      autoClose: 5000,
-    });
+    return { ok: false, error: error };
   }
+  return { ok: false, error: "Something went wrong" };
+};
+
+export const deleteEnvironmentVariable = async (
+  key: string,
+): Promise<Result<null, unknown>> => {
+  try {
+    const response = await fetch(`${API_URI}/env/${key}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      return { ok: true, data: null };
+    }
+  } catch (error) {
+    return { ok: false, error: error };
+  }
+  return { ok: false, error: "Something went wrong" };
 };
 
 export function saveAndRunFlowChartInServer({
@@ -76,7 +72,7 @@ export function saveAndRunFlowChartInServer({
 }: {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
-  settings: Settings[];
+  settings: Setting[];
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
@@ -100,7 +96,7 @@ export function saveAndRunFlowChartInServer({
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
-  jobId: string
+  jobId: string,
 ) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);

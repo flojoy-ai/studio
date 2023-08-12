@@ -1,28 +1,36 @@
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
+import { atomWithImmer } from "jotai-immer";
 
-type allowedValueTypes = string | number | boolean;
+type SettingsGroup = "frontend" | "backend";
 
-export type Settings = {
+type SettingsType = "number" | "switch";
+
+type ValueType = number | boolean;
+
+export type Setting = {
   title: string;
   key: string;
-  type: string;
-  group: string;
-  value: allowedValueTypes;
+  group: SettingsGroup;
+  desc: string;
+  type: SettingsType;
+  value: ValueType;
 };
 
-const settingsListDefault = atom([
+const settingsListDefault = atomWithImmer<Setting[]>([
   {
-    title: "Node Delay (seconds)",
+    title: "Node Delay",
     key: "nodeDelay",
-    type: "number",
     group: "backend",
+    type: "number",
+    desc: "Delay before running the next node in seconds",
     value: 0,
   },
   {
-    title: "Maximum Runtime (seconds)",
+    title: "Maximum Runtime",
     key: "maximumRuntime",
-    type: "number",
     group: "backend",
+    type: "number",
+    desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
   {
@@ -30,26 +38,25 @@ const settingsListDefault = atom([
     key: "precompile",
     type: "switch",
     group: "backend",
+    desc: "Precompile the program before running it",
     value: false,
   },
 ]);
 
 export const useSettings = () => {
-  const [settingsList, setSettingsList] = useAtom(settingsListDefault);
+  const [settings, setSettings] = useAtom(settingsListDefault);
 
-  const updateSettingList = (key: string, value: allowedValueTypes) => {
-    setSettingsList((prev) => {
-      return prev.map((setting) => {
-        if (setting.key === key) {
-          return { ...setting, value };
-        }
-        return setting;
-      });
+  const updateSettings = (key: string, value: ValueType) => {
+    setSettings((prev) => {
+      const setting = prev.find((s) => s.key === key);
+      if (setting) {
+        setting.value = value;
+      }
     });
   };
 
   return {
-    settingsList,
-    updateSettingList,
+    settings,
+    updateSettings,
   };
 };

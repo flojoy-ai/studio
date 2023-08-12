@@ -1,0 +1,140 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 225,
+        "height": 226,
+        "id": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
+          "label": "BAR",
+          "func": "BAR",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BAR/BAR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 618.6142511100182,
+          "y": -115.37358126811186
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 618.6142511100182,
+          "y": -115.37358126811186
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+          "label": "SERIAL SINGLE MEASUREMENT",
+          "func": "SERIAL_SINGLE_MEASUREMENT",
+          "type": "INSTRUMENTS",
+          "ctrls": {
+            "comport": {
+              "type": "str",
+              "default": "/dev/ttyUSB0",
+              "functionName": "SERIAL_SINGLE_MEASUREMENT",
+              "param": "comport",
+              "value": "/dev/ttyUSB0"
+            },
+            "baudrate": {
+              "type": "int",
+              "default": 9600,
+              "functionName": "SERIAL_SINGLE_MEASUREMENT",
+              "param": "baudrate",
+              "value": 9600
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "pyserial",
+              "v": "3.5"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/SERIAL_SINGLE_MEASUREMENT.py",
+          "selected": false
+        },
+        "position": {
+          "x": 263.25526904013145,
+          "y": -71.99475564115923
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 263.25526904013145,
+          "y": -71.99475564115923
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+        "sourceHandle": "default",
+        "target": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
+        "targetHandle": "default",
+        "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault-BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653default"
+      }
+    ],
+    "viewport": {
+      "x": -358.59636577932724,
+      "y": 99.85117439980638,
+      "zoom": 1.0581352782820395
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

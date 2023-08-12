@@ -1,11 +1,5 @@
-import {
-  Box,
-  createStyles,
-  Switch,
-  Text,
-  useMantineTheme,
-} from "@mantine/core";
-import { IconCheck } from "@tabler/icons-react";
+import { createStyles, Switch, Text, useMantineTheme } from "@mantine/core";
+import { Check } from "lucide-react";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const useStyles = createStyles(() => ({
@@ -24,7 +18,7 @@ export const EditSwitch = () => {
   const theme = useMantineTheme();
 
   return (
-    <Box
+    <div
       className={classes.container}
       data-cy="edit-switch"
       id="edit-switch-wrapper"
@@ -37,9 +31,9 @@ export const EditSwitch = () => {
         onChange={() => setIsEditMode(!isEditMode)}
         size="sm"
         color="gray"
-        onLabel={<IconCheck size={16} color={theme.colors.accent1[0]} />}
+        onLabel={<Check size={16} color={theme.colors.accent1[0]} />}
         id="edit-switch"
       />
-    </Box>
+    </div>
   );
 };

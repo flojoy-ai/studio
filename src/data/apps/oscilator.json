@@ -1,0 +1,442 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 150,
+        "height": 180,
+        "id": "BASIC_OSCILLATOR-e5431bde-534f-49ca-a5e2-20c9c1f7fe08",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-e5431bde-534f-49ca-a5e2-20c9c1f7fe08",
+          "label": "BASIC OSCILLATOR",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "40"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 10
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": "3"
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "1"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1227.4032746661196,
+          "y": 161.28781474974653
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1227.4032746661196,
+          "y": 161.28781474974653
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-2d820744-6626-4ad9-8560-6b61fc8f2cab",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-2d820744-6626-4ad9-8560-6b61fc8f2cab",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1785.9502659087789,
+          "y": 101.58096510045254
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1785.9502659087789,
+          "y": 101.58096510045254
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 180,
+        "id": "BASIC_OSCILLATOR-43051696-d64a-41c7-86c4-a54e4269b409",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-43051696-d64a-41c7-86c4-a54e4269b409",
+          "label": "BASIC OSCILLATOR 1",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "How many samples taken during a second",
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "40"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal",
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 10
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "triangle"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 1
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 1
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1226.786272156621,
+          "y": 451.9014240906698
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1226.786272156621,
+          "y": 451.9014240906698
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 180,
+        "id": "BASIC_OSCILLATOR-465d88d7-8e6c-4f57-ad41-afe3f6171f8a",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-465d88d7-8e6c-4f57-ad41-afe3f6171f8a",
+          "label": "BASIC OSCILLATOR 2",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "desc": "How many samples taken during a second",
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "40"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "desc": "The total amount of time of the signal",
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": 10
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sawtooth"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 1
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": 1
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "desc": null,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1232.8845002527908,
+          "y": 724.9522759759737
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1232.8845002527908,
+          "y": 724.9522759759737
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-6cb40451-953d-4c52-a366-cb2cd87d5671",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-6cb40451-953d-4c52-a366-cb2cd87d5671",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1796.0858094805985,
+          "y": 389.0929112823966
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1796.0858094805985,
+          "y": 389.0929112823966
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-e1618b34-aa6d-448d-b4cb-447176a5231b",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-e1618b34-aa6d-448d-b4cb-447176a5231b",
+          "label": "LINE 2",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": true
+        },
+        "position": {
+          "x": 1803.8834611944148,
+          "y": 668.5898762835408
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 1803.8834611944148,
+          "y": 668.5898762835408
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "BASIC_OSCILLATOR-e5431bde-534f-49ca-a5e2-20c9c1f7fe08",
+        "sourceHandle": "default",
+        "target": "LINE-2d820744-6626-4ad9-8560-6b61fc8f2cab",
+        "targetHandle": "default",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-e5431bde-534f-49ca-a5e2-20c9c1f7fe08default-LINE-2d820744-6626-4ad9-8560-6b61fc8f2cabdefault"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-43051696-d64a-41c7-86c4-a54e4269b409",
+        "sourceHandle": "default",
+        "target": "LINE-6cb40451-953d-4c52-a366-cb2cd87d5671",
+        "targetHandle": "default",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-43051696-d64a-41c7-86c4-a54e4269b409default-LINE-6cb40451-953d-4c52-a366-cb2cd87d5671default"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-465d88d7-8e6c-4f57-ad41-afe3f6171f8a",
+        "sourceHandle": "default",
+        "target": "LINE-e1618b34-aa6d-448d-b4cb-447176a5231b",
+        "targetHandle": "default",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-465d88d7-8e6c-4f57-ad41-afe3f6171f8adefault-LINE-e1618b34-aa6d-448d-b4cb-447176a5231bdefault"
+      }
+    ],
+    "viewport": {
+      "x": 981.6109629417823,
+      "y": 461.7423736731308,
+      "zoom": 1.8078304768578692
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

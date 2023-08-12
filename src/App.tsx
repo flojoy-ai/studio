@@ -14,10 +14,11 @@ import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
+import { ThemeProvider } from "@src/components/theme-provider";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -31,8 +32,7 @@ const App = () => {
     states: { runningNode, failedNode, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const { setRunningNode, setFailedNode, setIsSidebarOpen } =
-    useFlowChartState();
+  const { setRunningNode, setFailedNode } = useFlowChartState();
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
@@ -58,37 +58,49 @@ const App = () => {
   useEffect(() => {
     sendFrontEndLoadsToMix();
   }, []);
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
-  useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
-  useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
+  // useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
-    <ColorSchemeProvider
-      colorScheme={theme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={theme === "dark" ? darkTheme : lightTheme}
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ColorSchemeProvider
+        colorScheme={theme}
+        toggleColorScheme={toggleColorScheme}
       >
-        <div className={theme === "dark" ? "dark" : "light"} id="tw-theme-root">
-          <GlobalStyles />
-          <PreJobOperationShow
-            opened={isPrejobModalOpen}
-            outputs={preJobOperation.output}
-            close={closePreJobModal}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={<FlowChartTab />}
-              errorElement={<ErrorBoundary />}
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={theme === "dark" ? darkTheme : lightTheme}
+        >
+          <div
+            className={theme === "dark" ? "dark" : "light"}
+            id="tw-theme-root"
+          >
+            <GlobalStyles />
+            <PreJobOperationShow
+              opened={isPrejobModalOpen}
+              outputs={preJobOperation.output}
+              close={closePreJobModal}
             />
-          </Routes>
-        </div>
-      </MantineProvider>
-    </ColorSchemeProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<FlowChartTab />}
+                errorElement={<ErrorBoundary />}
+              />
+            </Routes>
+          </div>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </ThemeProvider>
   );
 };
 

@@ -1,21 +1,9 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
-  safelist: [
-    "border-accent1",
-    "border-accent2",
-    "border-accent3",
-    "border-accent4",
-    "text-accent1",
-    "text-accent2",
-    "text-accent3",
-    "text-accent4",
-    "bg-accent1",
-    "bg-accent2",
-    "bg-accent3",
-    "bg-accent4",
-  ],
   theme: {
     container: {
       center: true,
@@ -25,6 +13,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Open Sans"', "sans-serif", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

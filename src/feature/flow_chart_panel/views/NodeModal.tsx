@@ -2,19 +2,21 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import PlotlyComponent from "../../common/PlotlyComponent";
-import { Flex, Box, Modal, createStyles, Button } from "@mantine/core";
+import {
+  PlotlyComponent,
+  makePlotlyData,
+  MarkDownText,
+} from "flojoy/components";
+import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
-import { makePlotlyData } from "@src/utils/FormatPlotlyData";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
-import { NODES_REPO } from "@src/data/constants";
+import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {
     borderRadius: 17,
-    height: "700px",
   },
   header: {
     padding: "65px 80px 30px 80px",
@@ -154,14 +156,19 @@ const NodeModal = ({
   const { classes } = NodeModalStyles();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
-
   const colorScheme = theme.colorScheme;
 
-  useKeyboardShortcut("ctrl", "e", closeModal);
-  useKeyboardShortcut("meta", "e", closeModal);
-  const LINK = `${NODES_REPO}/${nodeFilePath
-    .replace("\\", "/")
-    .replace("PYTHON/nodes/", "")}`;
+  // useKeyboardShortcut("ctrl", "e", closeModal);
+  // useKeyboardShortcut("meta", "e", closeModal);
+
+  const path = nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "");
+
+  const link = `${NODES_REPO}/${path}`;
+
+  const docsLink = `${DOCS_LINK}/nodes/${path
+    .split("/")
+    .slice(0, -1)
+    .join("/")}`;
 
   return (
     <Modal
@@ -178,25 +185,34 @@ const NodeModal = ({
         body: classes.body,
       }}
     >
-      <Modal.CloseButton data-testid="node-modal-closebtn" />
+      <Modal.CloseButton
+        data-testid="node-modal-closebtn"
+        id="node-modal-closebtn"
+      />
 
       <Flex gap="xl">
-        <Box>
+        <div>
           <Button
             size="md"
             classNames={{ root: classes.buttonStyle2 }}
             component="a"
-            href={LINK}
+            href={link}
             target="_blank"
           >
             VIEW ON GITHUB
           </Button>
-        </Box>
-        <Box>
-          <Button size="md" classNames={{ root: classes.buttonStyle2 }}>
+        </div>
+        <div>
+          <Button
+            size="md"
+            classNames={{ root: classes.buttonStyle2 }}
+            component="a"
+            href={docsLink}
+            target="_blank"
+          >
             VIEW EXAMPLES
           </Button>
-        </Box>
+        </div>
       </Flex>
       {nodeLabel !== undefined && nodeType !== undefined && (
         <h3
@@ -228,19 +244,27 @@ const NodeModal = ({
         </h3>
       ) : (
         <div>
-          {nd?.result && (
+          {nd.result.text_blob && (
+            <div className="h-[600px] overflow-auto whitespace-pre-wrap rounded-md bg-modal">
+              <MarkDownText text={nd.result.text_blob} />
+            </div>
+          )}
+          {nd.result.plotly_fig && (
             <PlotlyComponent
-              id={nd.id}
-              data={makePlotlyData(nd.result.default_fig.data, theme)}
+              data={makePlotlyData(
+                nd.result.plotly_fig.data,
+                theme.colorScheme,
+              )}
               layout={{
-                ...nd.result.default_fig.layout,
-                title: nd.result.default_fig.layout?.title ?? nodeLabel,
+                ...nd.result.plotly_fig.layout,
+                title: nd.result.plotly_fig.layout?.title ?? nodeLabel,
               }}
               useResizeHandler
               style={{
                 height: 635,
                 width: 630,
               }}
+              theme={theme.colorScheme}
             />
           )}
         </div>

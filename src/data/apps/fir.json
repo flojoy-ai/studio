@@ -1,0 +1,1063 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 150,
+        "height": 150,
+        "id": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
+        "type": "TRANSFORMERS",
+        "data": {
+          "id": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
+          "label": "FIR",
+          "func": "FIR",
+          "type": "TRANSFORMERS",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "FIR",
+              "param": "sample_rate",
+              "value": 100
+            },
+            "filter_type": {
+              "type": "select",
+              "default": "lowpass",
+              "options": ["lowpass", "highpass", "bandpass", "bandstop"],
+              "functionName": "FIR",
+              "param": "filter_type",
+              "value": "bandpass"
+            },
+            "window": {
+              "type": "select",
+              "default": "hann",
+              "options": [
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "functionName": "FIR",
+              "param": "window",
+              "value": "hann"
+            },
+            "cutoff_low": {
+              "type": "float",
+              "default": 10,
+              "functionName": "FIR",
+              "param": "cutoff_low",
+              "value": "23"
+            },
+            "cutoff_high": {
+              "type": "float",
+              "default": 15,
+              "functionName": "FIR",
+              "param": "cutoff_high",
+              "value": "28"
+            },
+            "taps": {
+              "type": "int",
+              "default": 200,
+              "functionName": "FIR",
+              "param": "taps",
+              "value": "80"
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FIR/FIR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1938.1824901272164,
+          "y": 297.20473379383174
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1938.1824901272164,
+          "y": 297.20473379383174
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "BASIC_OSCILLATOR-acfbd611-3f27-40a4-bcc2-c49038ba2477",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-acfbd611-3f27-40a4-bcc2-c49038ba2477",
+          "label": "BASIC OSCILLATOR",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": "4"
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": "1.5"
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "10"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": "0"
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 842.6639837331884,
+          "y": -84.3923028932698
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 842.6639837331884,
+          "y": -84.3923028932698
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "BASIC_OSCILLATOR-be81c3b6-2c92-4257-8e5f-e69494b12204",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-be81c3b6-2c92-4257-8e5f-e69494b12204",
+          "label": "BASIC OSCILLATOR 1",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": "4"
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": "0.75"
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "15"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 847.7654130041697,
+          "y": 136.9928622548827
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 847.7654130041697,
+          "y": 136.9928622548827
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "BASIC_OSCILLATOR-2b6574aa-a040-42e4-bdd6-c25a39dec6a1",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-2b6574aa-a040-42e4-bdd6-c25a39dec6a1",
+          "label": "BASIC OSCILLATOR 2",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": "4"
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": "0.25"
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "20"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 855.1658398776597,
+          "y": 362.5039574339801
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 855.1658398776597,
+          "y": 362.5039574339801
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394",
+          "label": "BASIC OSCILLATOR 3",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": "4"
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": 1
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "25"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": 0
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 854.6802389067954,
+          "y": 582.4180799509707
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 854.6802389067954,
+          "y": 582.4180799509707
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "BASIC_OSCILLATOR-69fc5929-55da-4773-a4d5-b68c5b2d5c28",
+        "type": "default",
+        "data": {
+          "id": "BASIC_OSCILLATOR-69fc5929-55da-4773-a4d5-b68c5b2d5c28",
+          "label": "BASIC OSCILLATOR 4",
+          "func": "BASIC_OSCILLATOR",
+          "type": "default",
+          "ctrls": {
+            "sample_rate": {
+              "type": "int",
+              "default": 100,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "time": {
+              "type": "int",
+              "default": 10,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "time",
+              "value": "4"
+            },
+            "waveform": {
+              "type": "select",
+              "default": "sine",
+              "options": ["sine", "square", "triangle", "sawtooth"],
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "waveform",
+              "value": "sine"
+            },
+            "amplitude": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "amplitude",
+              "value": "0.5"
+            },
+            "frequency": {
+              "type": "float",
+              "default": 1,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "frequency",
+              "value": "35"
+            },
+            "offset": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "offset",
+              "value": 0
+            },
+            "phase": {
+              "type": "float",
+              "default": 0,
+              "functionName": "BASIC_OSCILLATOR",
+              "param": "phase",
+              "value": "0"
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/BASIC_OSCILLATOR/BASIC_OSCILLATOR.py",
+          "selected": false
+        },
+        "position": {
+          "x": 853.4307544948048,
+          "y": 816.5773092632212
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 853.4307544948048,
+          "y": 816.5773092632212
+        },
+        "dragging": true
+      },
+      {
+        "width": 99,
+        "height": 130,
+        "id": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "type": "ARITHMETIC",
+        "data": {
+          "id": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+          "label": "ADD",
+          "func": "ADD",
+          "type": "ARITHMETIC",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "a",
+              "id": "a",
+              "type": "OrderedPair",
+              "multiple": false
+            },
+            {
+              "name": "b",
+              "id": "b",
+              "type": "OrderedPair",
+              "multiple": true
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/ARITHMETIC/ADD/ADD.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1364.5282788608436,
+          "y": 332.3035634513908
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1364.5282788608436,
+          "y": 332.3035634513908
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
+        "type": "TRANSFORMERS",
+        "data": {
+          "id": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
+          "label": "FFT 1",
+          "func": "FFT",
+          "type": "TRANSFORMERS",
+          "ctrls": {
+            "window": {
+              "type": "select",
+              "default": "hann",
+              "options": [
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "functionName": "FFT",
+              "param": "window",
+              "value": "hann"
+            },
+            "real_signal": {
+              "type": "bool",
+              "default": true,
+              "functionName": "FFT",
+              "param": "real_signal",
+              "value": true
+            },
+            "sample_rate": {
+              "type": "int",
+              "default": 1,
+              "functionName": "FFT",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "display": {
+              "type": "bool",
+              "default": true,
+              "functionName": "FFT",
+              "param": "display",
+              "value": true
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/FFT.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1522.19219759742,
+          "y": 7.6843161498964605
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1522.19219759742,
+          "y": 7.6843161498964605
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "FFT-a220559c-365a-4562-aee4-10461c688970",
+        "type": "TRANSFORMERS",
+        "data": {
+          "id": "FFT-a220559c-365a-4562-aee4-10461c688970",
+          "label": "FFT 2",
+          "func": "FFT",
+          "type": "TRANSFORMERS",
+          "ctrls": {
+            "window": {
+              "type": "select",
+              "default": "hann",
+              "options": [
+                "boxcar",
+                "triang",
+                "blackman",
+                "hamming",
+                "hann",
+                "bartlett",
+                "flattop",
+                "parzen",
+                "bohman",
+                "blackmanharris",
+                "nuttall",
+                "barthann",
+                "cosine",
+                "exponential",
+                "tukey",
+                "taylor",
+                "lanczos"
+              ],
+              "functionName": "FFT",
+              "param": "window",
+              "value": "hann"
+            },
+            "real_signal": {
+              "type": "bool",
+              "default": true,
+              "functionName": "FFT",
+              "param": "real_signal",
+              "value": true
+            },
+            "sample_rate": {
+              "type": "int",
+              "default": 1,
+              "functionName": "FFT",
+              "param": "sample_rate",
+              "value": "100"
+            },
+            "display": {
+              "type": "bool",
+              "default": true,
+              "functionName": "FFT",
+              "param": "display",
+              "value": true
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/FFT.py",
+          "selected": false
+        },
+        "position": {
+          "x": 2320.275684711439,
+          "y": 46.99311307504968
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2320.275684711439,
+          "y": 46.99311307504968
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1843.654960686323,
+          "y": -76.74492641649647
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1843.654960686323,
+          "y": -76.74492641649647
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
+          "label": "LINE 2",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 2627.5572734025673,
+          "y": -52.79182985887951
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2627.5572734025673,
+          "y": -52.79182985887951
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-7367f167-c5f4-4a30-a554-0ba37c959ebd",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-7367f167-c5f4-4a30-a554-0ba37c959ebd",
+          "label": "LINE 3",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 2462.153489755023,
+          "y": 464.27782152861425
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 2462.153489755023,
+          "y": 464.27782152861425
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08",
+          "label": "LINE 3",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1261.5322724358994,
+          "y": 672.6646158797179
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1261.5322724358994,
+          "y": 672.6646158797179
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39",
+          "label": "LINE 4",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1668.5761784876431,
+          "y": 485.4874360913959
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1668.5761784876431,
+          "y": 485.4874360913959
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "BASIC_OSCILLATOR-acfbd611-3f27-40a4-bcc2-c49038ba2477",
+        "sourceHandle": "default",
+        "target": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "targetHandle": "a",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-acfbd611-3f27-40a4-bcc2-c49038ba2477default-ADD-15b2356b-8f79-4f9b-802c-1821c0924fcea"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-be81c3b6-2c92-4257-8e5f-e69494b12204",
+        "sourceHandle": "default",
+        "target": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "targetHandle": "b",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-be81c3b6-2c92-4257-8e5f-e69494b12204default-ADD-15b2356b-8f79-4f9b-802c-1821c0924fceb"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-2b6574aa-a040-42e4-bdd6-c25a39dec6a1",
+        "sourceHandle": "default",
+        "target": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "targetHandle": "b",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-2b6574aa-a040-42e4-bdd6-c25a39dec6a1default-ADD-15b2356b-8f79-4f9b-802c-1821c0924fceb"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394",
+        "sourceHandle": "default",
+        "target": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "targetHandle": "b",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394default-ADD-15b2356b-8f79-4f9b-802c-1821c0924fceb"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-69fc5929-55da-4773-a4d5-b68c5b2d5c28",
+        "sourceHandle": "default",
+        "target": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "targetHandle": "b",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-69fc5929-55da-4773-a4d5-b68c5b2d5c28default-ADD-15b2356b-8f79-4f9b-802c-1821c0924fceb"
+      },
+      {
+        "source": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "sourceHandle": "default",
+        "target": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-15b2356b-8f79-4f9b-802c-1821c0924fcedefault-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default"
+      },
+      {
+        "source": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "sourceHandle": "default",
+        "target": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-15b2356b-8f79-4f9b-802c-1821c0924fcedefault-FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2default"
+      },
+      {
+        "source": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
+        "sourceHandle": "default",
+        "target": "FFT-a220559c-365a-4562-aee4-10461c688970",
+        "targetHandle": "default",
+        "id": "reactflow__edge-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default-FFT-a220559c-365a-4562-aee4-10461c688970default"
+      },
+      {
+        "source": "FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2",
+        "sourceHandle": "default",
+        "target": "LINE-26ea5c67-c2cc-4329-8e31-67da38886cfa",
+        "targetHandle": "default",
+        "id": "reactflow__edge-FFT-1ee5f7c7-d72f-4d75-9804-ea9f6201edf2default-LINE-26ea5c67-c2cc-4329-8e31-67da38886cfadefault"
+      },
+      {
+        "source": "FFT-a220559c-365a-4562-aee4-10461c688970",
+        "sourceHandle": "default",
+        "target": "LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3",
+        "targetHandle": "default",
+        "id": "reactflow__edge-FFT-a220559c-365a-4562-aee4-10461c688970default-LINE-c3f1781a-b6e6-4657-9898-c88b3432f0f3default"
+      },
+      {
+        "source": "FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0",
+        "sourceHandle": "default",
+        "target": "LINE-7367f167-c5f4-4a30-a554-0ba37c959ebd",
+        "targetHandle": "default",
+        "id": "reactflow__edge-FIR-e4741c3f-334d-4e53-8a1a-db5549123ee0default-LINE-7367f167-c5f4-4a30-a554-0ba37c959ebddefault"
+      },
+      {
+        "source": "BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394",
+        "sourceHandle": "default",
+        "target": "LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08",
+        "targetHandle": "default",
+        "id": "reactflow__edge-BASIC_OSCILLATOR-5166d8a1-b3bb-466f-b708-40e013d7a394default-LINE-9b2bacf0-8051-4dc2-939c-fbe7c2639b08default"
+      },
+      {
+        "source": "ADD-15b2356b-8f79-4f9b-802c-1821c0924fce",
+        "sourceHandle": "default",
+        "target": "LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-15b2356b-8f79-4f9b-802c-1821c0924fcedefault-LINE-b545e47b-fb97-427e-8f00-5c2a5e08ba39default"
+      }
+    ],
+    "viewport": {
+      "x": -373.4542219202399,
+      "y": 120.20973884288571,
+      "zoom": 1.101977389476256
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

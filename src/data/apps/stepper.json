@@ -1,0 +1,99 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 150,
+        "height": 150,
+        "id": "STEPPER_DRIVER_TIC-deb4fca7-fc18-443d-bd70-f1455a749eff",
+        "type": "INSTRUMENTS",
+        "data": {
+          "id": "STEPPER_DRIVER_TIC-deb4fca7-fc18-443d-bd70-f1455a749eff",
+          "label": "STEPPER DRIVER TIC",
+          "func": "STEPPER_DRIVER_TIC",
+          "type": "INSTRUMENTS",
+          "ctrls": {
+            "current_limit": {
+              "type": "int",
+              "default": 30,
+              "functionName": "STEPPER_DRIVER_TIC",
+              "param": "current_limit",
+              "value": 30
+            },
+            "sleep_time": {
+              "type": "int",
+              "default": 2,
+              "functionName": "STEPPER_DRIVER_TIC",
+              "param": "sleep_time",
+              "value": 2
+            },
+            "speed": {
+              "type": "int",
+              "default": 100000,
+              "functionName": "STEPPER_DRIVER_TIC",
+              "param": "speed",
+              "value": 100000
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "ticlib",
+              "v": "0.2.2"
+            }
+          ],
+          "path": "PYTHON/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/STEPPER_DRIVER_TIC.py",
+          "selected": true
+        },
+        "position": {
+          "x": 883.1245033729516,
+          "y": -2.309719518942927
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": 883.1245033729516,
+          "y": -2.309719518942927
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [],
+    "viewport": {
+      "x": -358.59636577932724,
+      "y": 99.85117439980638,
+      "zoom": 1.0581352782820395
+    }
+  },
+  "ctrlsManifest": [
+    {
+      "type": "input",
+      "name": "Slider",
+      "id": "INPUT_PLACEHOLDER",
+      "hidden": false,
+      "minHeight": 1,
+      "minWidth": 2,
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "h": 2,
+        "w": 2,
+        "minH": 1,
+        "minW": 2,
+        "i": "INPUT_PLACEHOLDER"
+      }
+    }
+  ]
+}

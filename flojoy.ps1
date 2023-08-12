@@ -174,7 +174,8 @@ function createFlojoyDirectoryWithYmlFile {
     feedback $? "Created new $FOLDER directory with flojoy.yaml file." "Failed to create file in the home directory, check the permission or sign in as root user"
   }
 
-  $CREDENTIALS_FILE = "$FOLDER/credentials"
+  $CREDENTIALS_FILE = "$FOLDER/credentials.txt"
+  touch $CREDENTIALS_FILE
   if (-not (Test-Path $CREDENTIALS_FILE)) {
     warning_msg " Warning: Credentials are not set for your project! You can set credentials by creating a file named 'credentials' in the directory '~/.flojoy' and adding your credentials to the file."
   }
@@ -248,13 +249,13 @@ if ($initNodePackages) {
 
 # jsonify python functions
 
-& python write_python_metadata.py
+& python .\scripts\write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
 # Generate Manifest
 
-& python generate_manifest.py
+& python .\PYTHON\generate_manifest.py
 
 feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 

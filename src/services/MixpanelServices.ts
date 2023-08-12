@@ -1,7 +1,8 @@
 import mixpanel from "mixpanel-browser";
 import { Node } from "reactflow";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
-const enable = +(process.env.FLOJOY_ENABLE_TELEMETRY ?? "1");
+const enable = false;
+//const enable = +(process.env.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
 export const sendFrontEndLoadsToMix = () => {
   if (enable) {
@@ -21,7 +22,7 @@ export const sendFrontEndLoadsToMix = () => {
 export const sendProgramToMix = (
   nodes: Node[],
   runProgram = false,
-  saveProgram = true
+  saveProgram = true,
 ) => {
   if (nodes && enable) {
     const nodeList = JSON.stringify(nodes.map((node) => node.data.label));
@@ -29,7 +30,7 @@ export const sendProgramToMix = (
       sendMultipleDataEventToMix(
         "Program Saved",
         [nodeList, "disk"],
-        ["nodeList", "savedTo"]
+        ["nodeList", "savedTo"],
       );
     }
     if (runProgram) {
@@ -41,7 +42,7 @@ export const sendProgramToMix = (
 export const sendEventToMix = (
   Event: string,
   data: string,
-  dataType = "data"
+  dataType = "data",
 ) => {
   if (enable) {
     try {
@@ -56,7 +57,7 @@ export const sendEventToMix = (
 export const sendMultipleDataEventToMix = (
   Event: string,
   data: string[],
-  dataType = ["data"]
+  dataType = ["data"],
 ) => {
   if (enable) {
     try {

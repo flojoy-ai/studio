@@ -3,7 +3,7 @@ import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { ElementsData } from "../types/CustomNodeProps";
+import { ElementsData } from "flojoy/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
@@ -15,9 +15,9 @@ export const useAddNewNode = (
   setNodes: (
     update:
       | Node<ElementsData>[]
-      | ((draft: Draft<Node<ElementsData>>[]) => void)
+      | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
-  getNodeFuncCount: (func: string) => number
+  getNodeFuncCount: (func: string) => number,
 ) => {
   const [center] = useAtom(centerPositionAtom);
 
@@ -39,6 +39,7 @@ export const useAddNewNode = (
       const funcName = node.key;
       const type = node.type;
       const params = node.parameters;
+      const initParams = node.init_parameters;
       const inputs = node.inputs;
       const outputs = node.outputs;
       const uiComponentId = node.ui_component_id;
@@ -48,28 +49,36 @@ export const useAddNewNode = (
 
       const nodeId = `${funcName}-${uuidv4()}`;
       if (funcName === "CONSTANT") {
-        nodeLabel = "2.0";
+        nodeLabel = "3.0";
       } else {
         const numNodes = getNodeFuncCount(funcName);
         nodeLabel = numNodes > 0 ? `${funcName} ${numNodes}` : funcName;
       }
       nodeLabel = nodeLabel.replaceAll("_", " ");
 
-      const nodeParams = params
-        ? Object.entries(params).reduce(
-            (prev: ElementsData["ctrls"], [paramName, param]) => ({
-              ...prev,
-              [paramName]: {
-                ...param,
-                functionName: funcName,
-                param: paramName,
-                value:
-                  funcName === "CONSTANT" ? nodeLabel : param.default ?? "",
-              },
-            }),
-            {}
-          )
-        : {};
+      const createCtrls = (
+        params?: NodeElement["parameters"],
+      ): ElementsData["ctrls"] => {
+        if (!params) {
+          return {};
+        }
+
+        return Object.entries(params).reduce(
+          (prev, [paramName, param]) => ({
+            ...prev,
+            [paramName]: {
+              ...param,
+              functionName: funcName,
+              param: paramName,
+              value: param.default ?? "",
+            },
+          }),
+          {},
+        );
+      };
+
+      const nodeCtrls = createCtrls(params);
+      const initCtrls = createCtrls(initParams);
 
       const newNode = {
         id: nodeId,
@@ -79,7 +88,8 @@ export const useAddNewNode = (
           label: nodeLabel,
           func: funcName,
           type,
-          ctrls: nodeParams,
+          ctrls: nodeCtrls,
+          initCtrls: initCtrls,
           inputs,
           outputs,
           pip_dependencies,
@@ -90,6 +100,6 @@ export const useAddNewNode = (
       setNodes((els) => els.concat(newNode));
       sendEventToMix("Node Added", newNode.data.label);
     },
-    [setNodes, getNodeFuncCount, pos]
+    [setNodes, getNodeFuncCount, pos],
   );
 };

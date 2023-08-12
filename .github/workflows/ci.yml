@@ -10,8 +10,8 @@ on:
       - develop
 
 env:
-  APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-  APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  DISPLAY: :0
 
 jobs:
   code-style-check:
@@ -77,20 +77,21 @@ jobs:
           python-version: "3.10"
           cache: "pip"
 
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.5.0
-        with:
-          redis-version: 4
-          redis-port: 6379
-
       - name: Run Flojoy startup script
         run: bash flojoy -c
+
+      # In certain Linux environments, you may experience connection errors with your X11 server. In this case, we may need to start Xvfb with the following command.
+      # This is necessary to avoid using 8-bit color depth with Xvfb, which will prevent Chrome or Electron from crashing.
+      # https://docs.cypress.io/guides/continuous-integration/introduction#Xvfb
+      - name: X server
+        run: Xvfb -screen 0 1024x768x24 :0 &
 
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
           build: npm run build
           start: npm run start-project
+          command: npx percy exec -- cypress run
           browser: chrome
           install: false
 

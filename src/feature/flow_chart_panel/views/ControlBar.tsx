@@ -1,4 +1,3 @@
-import { Box, Text, clsx, createStyles, useMantineTheme } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -9,121 +8,32 @@ import {
   saveFlowChartToLocalStorage,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
-import CancelIconSvg from "@src/assets/CancelIcon";
-import FamilyHistoryIconSvg from "@src/assets/FamilyHistoryIconSVG";
-import KeyBoardIconSvg from "@src/assets/KeyboardIconSVG";
-import LoadIconSvg from "@src/assets/LoadIconSVG";
-import SaveIconSvg from "@src/assets/SaveIconSVG";
-import { IconCaretDown } from "@tabler/icons-react";
 import localforage from "localforage";
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
-import PlayBtn from "../components/play-btn/PlayBtn";
-import { ElementsData } from "../types/CustomNodeProps";
+import PlayBtn from "../components/PlayBtn";
+import CancelBtn from "../components/CancelBtn";
+import { ElementsData } from "flojoy/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
-import { SettingsModal } from "./SettingsModal";
+import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
-import APIKeyModal from "./APIKeyModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import Dropdown from "@src/feature/common/Dropdown";
+import EnvVarModal from "./EnvVarModal";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
-import { ResultsType } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Settings } from "lucide-react";
-import { Button } from "@src/components/ui/button";
+// import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-
-const useStyles = createStyles((theme) => {
-  return {
-    controls: {
-      display: "flex",
-      alignItems: "center",
-      padding: "10px",
-      gap: "8px",
-    },
-
-    button: {
-      padding: "5px",
-      cursor: "pointer",
-      borderRadius: 2,
-      fontSize: "14px",
-      textDecoration: "none",
-      background: "transparent",
-      color: theme.colors.title[0],
-      border: "none",
-    },
-
-    addButton: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "4px",
-    },
-
-    addButtonPlus: {
-      fontSize: "20px",
-      color: theme.colors.accent1[0],
-    },
-
-    cancelButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "5px",
-      height: "33px",
-      width: "85px",
-      cursor: "pointer",
-      color: theme.colors.red[7],
-      border: `1px solid ${theme.colors.red[3]}`,
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[2],
-      transition: "transform ease-in 0.1s",
-
-      "&:hover": {
-        backgroundColor: theme.colors.red[8],
-        color: theme.white,
-      },
-
-      "&:hover > svg > g": {
-        fill: theme.white,
-      },
-
-      "&:active": {
-        transform: "scale(0.8)",
-      },
-    },
-
-    fileButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-
-    editContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      paddingRight: "4px",
-    },
-    dropDownIcon: {
-      borderRadius: 20,
-    },
-    settingsButton: {
-      padding: 6,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      "&:hover": {
-        backgroundColor: theme.colors.accent1[0] + "2f",
-      },
-    },
-  };
-});
+import WatchBtn from "../components/WatchBtn";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@src/components/ui/menubar";
 
 localforage.config({
   name: "react-flow",
@@ -151,18 +61,13 @@ type SaveButtonProps = {
 
 const SaveButton = ({ saveFile }: SaveButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
-  useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-  useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
+  // useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
 
   return (
-    <button
-      data-cy="btn-save"
-      onClick={() => saveFile(nodes, edges)}
-      style={{ display: "flex", gap: 10.3 }}
-    >
-      <SaveIconSvg />
+    <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
       Save
-    </button>
+    </MenubarItem>
   );
 };
 
@@ -175,66 +80,53 @@ const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
   const { nodes, edges } = useFlowChartGraph();
 
   return (
-    <button
+    <MenubarItem
       data-cy="btn-saveas"
-      style={{
-        display: "flex",
-        gap: 10.9,
-      }}
-      className={saveAsDisabled ? "disabled" : ""}
       disabled={saveAsDisabled}
-      aria-label="Save As"
-      title={
-        saveAsDisabled ? "Save As is not supported in this browser, sorry!" : ""
-      }
       onClick={() => saveFile(nodes, edges)}
     >
-      <SaveIconSvg />
-      <Text>Save As</Text>
-      <div style={{ position: "absolute", marginLeft: 110, marginTop: 1 }}>
-        <small>Ctrl + s</small>
-      </div>
-    </button>
+      Save As
+    </MenubarItem>
   );
 };
 
 const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const { ctrlsManifest, setCtrlsManifest } = useControlsState();
+  const {
+    states: { setProgramResults },
+  } = useSocket();
 
-  const [openFileSelector, { filesContent }] = useFilePicker({
+  const [openFileSelector] = useFilePicker({
     readAs: "Text",
-    accept: ".txt",
+    accept: [".txt", ".json"],
     maxFileSize: 50,
+    onFilesRejected: ({ errors }) => {
+      console.error("Errors when trying to load file: ", errors);
+    },
+    onFilesSuccessfulySelected: ({ filesContent }) => {
+      // Just pick the first file that was selected
+      const parsedFileContent = JSON.parse(filesContent[0].content);
+      const flow = parsedFileContent.rfInstance;
+      loadFlowExportObject(flow);
+      setProgramResults([]);
+    },
   });
 
-  // TODO: Find out why this keeps firing when moving nodes
-  useEffect(() => {
-    // there will be only single file in the filesContent, for each will loop only once
-    filesContent.forEach((file) => {
-      const parsedFileContent = JSON.parse(file.content);
-      const flow = parsedFileContent.rfInstance;
-      setCtrlsManifest(parsedFileContent.ctrlsManifest || ctrlsManifest);
-      loadFlowExportObject(flow);
-    });
-  }, [filesContent, loadFlowExportObject, setCtrlsManifest]);
-
   return (
-    <button onClick={openFileSelector} style={{ display: "flex", gap: 11.77 }}>
-      <LoadIconSvg />
+    <MenubarItem onClick={openFileSelector} id="load-app-btn">
       Load
-    </button>
+    </MenubarItem>
   );
 };
 
 type ExportResultButtonProps = {
-  results: ResultsType | null;
+  results: NodeResult[];
   disabled: boolean;
 };
 
 const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   const downloadResult = async () => {
-    if (!results) return;
+    if (!results.length) return;
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
     if ("showSaveFilePicker" in window) {
@@ -257,52 +149,24 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
   };
 
   return (
-    <button
+    <MenubarItem
       onClick={downloadResult}
       className={disabled ? "disabled" : ""}
       disabled={disabled}
-      style={{ display: "flex", gap: 11 }}
     >
-      <SaveIconSvg />
       Export Result
-    </button>
-  );
-};
-
-type CancelButtonProps = {
-  cancelFC: () => void;
-};
-
-const CancelButton = ({ cancelFC }: CancelButtonProps) => {
-  const { classes } = useStyles();
-
-  useKeyboardShortcut("ctrl", "c", cancelFC);
-  useKeyboardShortcut("meta", "c", cancelFC);
-
-  return (
-    <button
-      className={classes.cancelButton}
-      onClick={cancelFC}
-      data-cy="btn-cancel"
-      data-testid="btn-cancel"
-      title="Cancel Run"
-      style={{ borderRadius: 8 }}
-    >
-      <CancelIconSvg fill="white" />
-      <Text>Cancel</Text>
-    </button>
+    </MenubarItem>
   );
 };
 
 const ControlBar = () => {
   const { states } = useSocket();
   const { socketId, programResults, setProgramResults, serverStatus } = states;
-  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] = useState(false);
-  const [isAPIKeyModelOpen, setIsAPIKeyModelOpen] = useState<boolean>(false);
-  const [isS3KeyModelOpen, setIsS3KeyModelOpen] = useState<boolean>(false);
-  const { classes } = useStyles();
-  const { settingsList } = useSettings();
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
+    useState<boolean>(false);
+  const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
+  const { settings } = useSettings();
+  const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
@@ -311,7 +175,7 @@ const ControlBar = () => {
   const createFileBlob = (
     rf: ReactFlowJsonObject<ElementsData>,
     nodes: Node<ElementsData>[],
-    edges: Edge[]
+    edges: Edge[],
   ) => {
     const updatedRf = {
       ...rf,
@@ -336,17 +200,22 @@ const ControlBar = () => {
   const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
-      downloadBlob(blob, "flojoy.txt");
+      downloadBlob(blob, "app.txt");
       sendProgramToMix(rfInstance.nodes);
     }
   };
 
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+    if (globalThis.IS_ELECTRON) {
+      saveFile(nodes, edges);
+      return;
+    }
+
     if (rfInstance) {
       const blob = createFileBlob(rfInstance, nodes, edges);
 
       const handle = await window.showSaveFilePicker({
-        suggestedName: "flojoy.txt",
+        suggestedName: "app.txt",
         types: [
           {
             description: "Text file",
@@ -375,16 +244,16 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults({ io: [] });
+      setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
-        settings: settingsList.filter((setting) => setting.group === "backend"),
+        settings: settings.filter((setting) => setting.group === "backend"),
       });
-      setNodeParamChanged(undefined);
+      setNodeParamChanged(false);
     } else {
       alert(
-        "There is no program to send to server. \n Please add at least one node first."
+        "There is no program to send to server. \n Please add at least one node first.",
       );
     }
   };
@@ -402,102 +271,85 @@ const ControlBar = () => {
     serverStatus === IServerStatus.OFFLINE;
 
   const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled =
-    programResults === null ||
-    programResults.io === undefined ||
-    programResults.io.length === 0;
-
-  const handleKeyboardShortcutModalClose = useCallback(() => {
-    setIsKeyboardShortcutOpen(false);
-  }, [setIsKeyboardShortcutOpen]);
-
-  const handleAPIKeyModalClose = useCallback(() => {
-    setIsAPIKeyModelOpen(false);
-  }, [setIsAPIKeyModelOpen]);
+  const exportResultDisabled = programResults.length == 0;
 
   return (
-    <Box className={classes.controls}>
-      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
-        <PlayBtn onPlay={onRun} disabled={playBtnDisabled} />
-      ) : (
-        <CancelButton cancelFC={cancelFC} />
-      )}
-      <Dropdown dropdownBtn={<FileButton />}>
-        <button
-          data-testid="btn-apikey"
-          onClick={() => setIsAPIKeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          Set API key
-        </button>
-        <button
-          data-testid="btn-s3key"
-          onClick={() => setIsS3KeyModelOpen(true)}
-          style={{ display: "flex", gap: 7.5 }}
-        >
-          <FamilyHistoryIconSvg size={14} />
-          AWS S3 key
-        </button>
-        <LoadButton />
-        <SaveButton saveFile={saveFile} />
-        <SaveAsButton saveFile={saveFileAs} saveAsDisabled={saveAsDisabled} />
-        <ExportResultButton
-          results={programResults}
-          disabled={exportResultDisabled}
-        />
-        <SaveFlowChartBtn />
-        <button
-          data-testid="btn-keyboardshortcut"
-          onClick={() => setIsKeyboardShortcutOpen(true)}
-          style={{ display: "flex", gap: 10.11 }}
-        >
-          <KeyBoardIconSvg />
-          Keyboard Shortcut
-        </button>
-      </Dropdown>
+    <div className="flex items-center gap-2 p-2.5">
+      <EnvVarModal
+        handleEnvVarModalOpen={setIsEnvVarModalOpen}
+        isEnvVarModalOpen={isEnvVarModalOpen}
+      />
 
-      <Button
-        data-testid="btn-setting"
-        onClick={() => setIsSettingsOpen(true)}
-        size="icon"
-        variant="ghost"
-      >
-        <Settings className="stroke-accent1" />
-      </Button>
-      <DarkModeToggle />
       <KeyboardShortcutModal
-        isOpen={isKeyboardShortcutOpen}
-        onClose={handleKeyboardShortcutModalClose}
+        handleKeyboardShortcutModalOpen={setIsKeyboardShortcutOpen}
+        isKeyboardShortcutModalOpen={isKeyboardShortcutOpen}
       />
 
-      <SettingsModal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
+      <NodeSettingsModal
+        handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
+        isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
-      <APIKeyModal
-        isOpen={isAPIKeyModelOpen}
-        onClose={handleAPIKeyModalClose}
-      />
-    </Box>
+
+      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+        <PlayBtn onPlay={onRun} />
+      ) : (
+        <CancelBtn cancelFC={cancelFC} />
+      )}
+
+      <div className="px-0.5" />
+      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <div className="px-0.5" />
+
+      <div className="flex">
+        <Menubar>
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">File</MenubarTrigger>
+            <MenubarContent>
+              <SaveAsButton
+                saveFile={saveFileAs}
+                saveAsDisabled={saveAsDisabled}
+              />
+              <SaveButton saveFile={saveFile} />
+              <ExportResultButton
+                results={programResults}
+                disabled={exportResultDisabled}
+              />
+              <SaveFlowChartBtn />
+              <LoadButton />
+            </MenubarContent>
+          </MenubarMenu>
+
+          <MenubarMenu>
+            <MenubarTrigger data-testid="dropdown-button">
+              Settings
+            </MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem
+                data-testid="env-variable-moda-btn"
+                onClick={() => setIsEnvVarModalOpen(true)}
+              >
+                Environment Variables
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-keyboardshortcut"
+                onClick={() => setIsKeyboardShortcutOpen(true)}
+              >
+                Keyboard Shortcut
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-node-settings"
+                onClick={() => setIsNodeSettingsOpen(true)}
+              >
+                Node Settings
+              </MenubarItem>
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
+      </div>
+
+      <DarkModeToggle />
+    </div>
   );
 };
 
 export default memo(ControlBar);
-
-const FileButton = () => {
-  const theme = useMantineTheme();
-  const { classes } = useStyles();
-  return (
-    <button
-      data-testid="file-btn"
-      className={clsx(classes.button, classes.fileButton)}
-    >
-      <Text>File</Text>
-      <IconCaretDown
-        size={14}
-        fill={theme.colorScheme === "dark" ? theme.white : theme.black}
-      />
-    </button>
-  );
-};

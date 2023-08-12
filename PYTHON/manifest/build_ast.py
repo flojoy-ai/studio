@@ -1,5 +1,5 @@
 import ast
-from typing import Optional, Any, Callable, Tuple
+from typing import Optional, Any, Callable, Tuple, cast
 
 
 SELECTED_IMPORTS = ["flojoy", "typing"]
@@ -7,20 +7,16 @@ NO_OUTPUT_NODES = ["GOTO", "END"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):
-    def has_decorator(
-        self, node: ast.FunctionDef | ast.ClassDef, decorator_name: str
-    ) -> bool:
-        for decorator in node.decorator_list:
-            if isinstance(decorator, ast.Name) and decorator.id == decorator_name:
-                return True
-            elif (
-                isinstance(decorator, ast.Call)
-                and isinstance(decorator.func, ast.Name)
-                and decorator.func.id == decorator_name
-            ):
-                return True
-
-        return False
+    def get_flojoy_decorator(self, node: ast.FunctionDef):
+        return [
+            decorator
+            for decorator in node.decorator_list
+            if isinstance(decorator, ast.Name)
+            and decorator.id == "flojoy"
+            or isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == "flojoy"
+        ]
 
     def visit_Module(self, node: ast.Module):
         node.body = [self.visit(n) for n in node.body]
@@ -40,28 +36,31 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return node
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
-        if not self.has_decorator(node, "flojoy"):
+        if not has_decorator(node, "flojoy") and not has_decorator(
+            node, "node_initialization"
+        ):
             return None
 
-        # Line numbers and col offset must be preserved for compiler to be happy
-        if node.body:
-            new_body: list[ast.stmt]
-            match node.body[0]:
-                # Has a docstring
-                case ast.Expr(value=ast.Constant(value=_)):
-                    new_body = [node.body[0]]
-                # Doesn't have a docstring
-                case _:
-                    new_body = [
-                        ast.Pass(
-                            lineno=node.body[0].lineno,
-                            col_offset=node.body[0].col_offset,
-                        )
-                    ]
+        if has_decorator(node, "flojoy") and len(node.decorator_list) > 1:
+            # Keep only the '@flojoy' decorator if there are multiple decorators.
+            # Some decorators, like '@run_in_venv', create virtual environments, which we
+            # don't want to generate when creating the manifest.
+            node.decorator_list = cast(list[ast.expr], self.get_flojoy_decorator(node))
 
-            node.body = new_body
+        if node.body:
+            new_body = (
+                [node.body[0]]
+                if isinstance(node.body[0], ast.Expr)
+                else [
+                    ast.Pass(
+                        lineno=node.body[0].lineno, col_offset=node.body[0].col_offset
+                    )
+                ]
+            )
         else:
-            node.body = [ast.Pass(lineno=node.lineno, col_offset=node.col_offset)]
+            new_body = [ast.Pass(lineno=node.lineno, col_offset=node.col_offset)]
+
+        node.body = cast(list[ast.stmt], new_body)
 
         return node
 
@@ -69,7 +68,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
 
-def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
+def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module]:
     with open(path) as f:
         tree = ast.parse(f.read())
 
@@ -78,12 +77,23 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
     transformer = FlojoyNodeTransformer()
     tree: ast.Module = transformer.visit(tree)
 
-    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    flojoy_node = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "flojoy"),
+    )
+
+    init_func = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "node_initialization"),
+    )
 
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
     node_name = flojoy_node.name
+    init_func_name = init_func.name if init_func else None
     return_type = None
 
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
@@ -94,7 +104,7 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
         if flojoy_node.returns and not isinstance(flojoy_node.returns, ast.BinOp):
             return_type = flojoy_node.returns.id
 
-    # Then get rid of all the other dataclasses
+    # Then get rid of all the other classes
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
 
@@ -104,11 +114,15 @@ def make_manifest_ast(path: str) -> Tuple[str, ast.Module]:
         if node and (not isinstance(node, ast.ClassDef) or node.name == return_type)
     ]
 
-    return (node_name, tree)
+    return (node_name, init_func_name, tree)
 
 
 def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
-    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    flojoy_node = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "flojoy"),
+    )
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
@@ -154,6 +168,20 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
         deps.append({"name": package.value, "v": ver.value})
 
     return deps
+
+
+def has_decorator(node: ast.FunctionDef | ast.ClassDef, decorator_name: str) -> bool:
+    for decorator in node.decorator_list:
+        if isinstance(decorator, ast.Name) and decorator.id == decorator_name:
+            return True
+        elif (
+            isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == decorator_name
+        ):
+            return True
+
+    return False
 
 
 def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:

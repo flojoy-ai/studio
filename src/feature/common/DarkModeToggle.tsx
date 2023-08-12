@@ -1,18 +1,29 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { Button } from "@src/components/ui/button";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@src/components/theme-provider";
 
 export const DarkModeToggle = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { toggleColorScheme } = useMantineColorScheme();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    toggleColorScheme();
+    if (theme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  };
 
   return (
     <Button
       size="icon"
       variant="ghost"
-      onClick={() => toggleColorScheme()}
+      onClick={toggleTheme}
       data-testid="darkmode-toggle"
     >
-      {colorScheme === "dark" ? (
+      {theme === "dark" ? (
         <Moon className="stroke-accent1" />
       ) : (
         <Sun className="stroke-accent1" />
