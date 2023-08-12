@@ -57,7 +57,7 @@ export const useAddNewNode = (
       nodeLabel = nodeLabel.replaceAll("_", " ");
 
       const createCtrls = (
-        params?: NodeElement["parameters"],
+        params?: NodeElement["parameters"]
       ): ElementsData["ctrls"] => {
         if (!params) {
           return {};
@@ -73,7 +73,7 @@ export const useAddNewNode = (
               value: param.default ?? "",
             },
           }),
-          {},
+          {}
         );
       };
 

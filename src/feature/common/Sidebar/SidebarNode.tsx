@@ -96,7 +96,7 @@ const SidebarNode = ({
     );
   }
   const categoryHasNode = (node.children as unknown[])?.every(
-    (n) => !n.children,
+    (n) => !n.children
   );
 
   if (!categoryHasNode) {
