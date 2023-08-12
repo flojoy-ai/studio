@@ -246,7 +246,7 @@ feedback $? 'Jsonified Python functions and written to JS-readable directory' 'E
 
 # Generate Manifest
 
-$venvCmd && python3 PYTHON/generate_manifest.py
+$venvCmd && python3 scripts/generate_node_manifest.py
 
 feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
 
