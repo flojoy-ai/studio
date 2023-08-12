@@ -204,19 +204,17 @@ const EnvVarModal = ({
           </Button>
         </DialogFooter>
         <hr />
-        <div className="max-h-80 ">
-          <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
-            {credentials.map((credential) => (
-              <EnvVarCredentialsInfo
-                key={credential.key}
-                credential={credential}
-                setSelectedCredential={setSelectedCredential}
-                setEditModalOpen={setEditModalOpen}
-                setDeleteModalOpen={setDeleteModalOpen}
-              />
-            ))}
-          </ScrollArea>
-        </div>
+        <ScrollArea className="h-48 w-full rounded-md last:border-b-0">
+          {credentials.map((credential) => (
+            <EnvVarCredentialsInfo
+              key={credential.key}
+              credential={credential}
+              setSelectedCredential={setSelectedCredential}
+              setEditModalOpen={setEditModalOpen}
+              setDeleteModalOpen={setDeleteModalOpen}
+            />
+          ))}
+        </ScrollArea>
         {selectedCredential && (
           <>
             <EnvVarDelete

@@ -55,6 +55,7 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
 
   const { theme } = useTheme();
+  console.log(theme);
 
   const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setIsEditMode } =
     useFlowChartState();
