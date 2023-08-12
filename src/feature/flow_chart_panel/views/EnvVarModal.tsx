@@ -161,8 +161,8 @@ const EnvVarModal = ({
           <div className="text-lg font-bold">Other Environment</div>
           <div className="py-1" />
 
-          <div className="grid w-full grid-cols-2 gap-2">
-            <div className="flex flex-col gap-1">
+          <div className="flex w-full gap-2">
+            <div className="flex grow flex-col gap-1">
               <Label
                 htmlFor="EnvVarKey"
                 className="font-semibold text-foreground"
@@ -180,7 +180,7 @@ const EnvVarModal = ({
                 onChange={handleEnvVarKeyChange}
               />
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex grow flex-col gap-1">
               <Label
                 htmlFor="EnvVarValue"
                 className="font-semibold text-foreground"
@@ -196,15 +196,20 @@ const EnvVarModal = ({
                 onChange={handleEnvVarValueChange}
               />
             </div>
+            <div className="flex shrink flex-col">
+              <div className="grow" />
+              <Button
+                data-testid="env-modal-add-btn"
+                onClick={handleSendEnvVar}
+              >
+                Add
+              </Button>
+            </div>
           </div>
         </div>
-        <DialogFooter>
-          <Button data-testid="env-modal-add-btn" onClick={handleSendEnvVar}>
-            Add
-          </Button>
-        </DialogFooter>
+        <DialogFooter></DialogFooter>
         <hr />
-        <ScrollArea className="h-48 w-full rounded-md last:border-b-0">
+        <ScrollArea className="h-56 w-full rounded-md last:border-b-0">
           {credentials.map((credential) => (
             <EnvVarCredentialsInfo
               key={credential.key}
