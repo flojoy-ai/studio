@@ -170,10 +170,10 @@ const Sidebar = ({
                                   </Button>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
-                                  {levelTwo.children.map((levelThree) => {
-                                    if (levelThree.entryType === "section") {
-                                      return (
-                                        <div className="pl-6">
+                                  <div className="flex  flex-wrap pl-6">
+                                    {levelTwo.children.map((levelThree) => {
+                                      if (levelThree.entryType === "section") {
+                                        return (
                                           <Button
                                             variant="ghost"
                                             className={cn(
@@ -186,15 +186,13 @@ const Sidebar = ({
                                           >
                                             {levelThree.key}
                                           </Button>
-                                        </div>
-                                      );
-                                    } else {
-                                      return (
-                                        <div className="pl-6">
+                                        );
+                                      } else {
+                                        return (
                                           <Button
                                             variant="outline"
                                             className={cn(
-                                              "mt-1",
+                                              "mr-1 mt-1",
                                               sidebarVariants({
                                                 variant:
                                                   categoryMap[levelOne.key],
@@ -206,10 +204,10 @@ const Sidebar = ({
                                           >
                                             {levelThree.key}
                                           </Button>
-                                        </div>
-                                      );
-                                    }
-                                  })}
+                                        );
+                                      }
+                                    })}
+                                  </div>
                                 </CollapsibleContent>
                               </Collapsible>
                             </div>
