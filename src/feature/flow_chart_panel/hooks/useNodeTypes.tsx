@@ -2,10 +2,11 @@ import { useSocket } from "@src/hooks/useSocket";
 import { nodeTypesMap } from "flojoy/components";
 import { useMemo } from "react";
 import { NodeTypes } from "reactflow";
+import { MouseEvent } from "react";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
-  wrapperOnClick: () => void;
+  wrapperOnClick: (event: MouseEvent<HTMLDivElement>) => void;
   theme: "light" | "dark";
 };
 

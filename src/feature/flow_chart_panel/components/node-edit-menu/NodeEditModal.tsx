@@ -29,9 +29,9 @@ const NodeEditModal = ({
 }: NodeEditModalProps) => {
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
-  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { nodeParamChanged } = useFlowChartState();
+  const { nodeParamChanged, isRenamingTitle, setIsRenamingTitle } =
+    useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -72,6 +72,7 @@ const NodeEditModal = ({
             {isRenamingTitle ? (
               <div className="flex">
                 <Input
+                  autoFocus={true}
                   id="title_input"
                   className="w-max bg-modal"
                   value={newTitle}
