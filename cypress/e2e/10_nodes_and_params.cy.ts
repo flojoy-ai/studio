@@ -7,7 +7,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Click clear canvas button
     cy.get(
-      '[data-testid="rf__node-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08"]',
+      '[data-testid="rf__node-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08"]'
     ).click();
     // Check if there are 5 parameters for SINE node
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);

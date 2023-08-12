@@ -27,10 +27,10 @@ export const manifestAtom = atomWithImmer<CtlManifestType[]>(initialManifests);
 const gridLayoutAtom = atomWithImmer<Layout[]>(
   initialManifests.map((ctrl) => ({
     ...ctrl.layout,
-  })),
+  }))
 );
 export const maxGridLayoutHeightAtom = atom((get) =>
-  Math.max(...get<Layout[]>(gridLayoutAtom).map((el) => el.y)),
+  Math.max(...get<Layout[]>(gridLayoutAtom).map((el) => el.y))
 );
 
 export const useControlsState = () => {
