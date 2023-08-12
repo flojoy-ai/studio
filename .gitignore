@@ -59,4 +59,5 @@ coverage.xml
 
 .nyc_output/out.json
 coverage-cy
-PYTHON/nodes/*
+PYTHON/nodes/**
+!PYTHON/nodes/.*
