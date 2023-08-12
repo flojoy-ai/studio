@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-export const Image = () => {
+const Image = () => {
   return (
     <svg
       width="225"
