@@ -1,7 +1,7 @@
 import { Setting } from "../hooks/useSettings";
 import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { API_URI } from "@src/data/constants";
 import { Result } from "@src/types/result";
 
