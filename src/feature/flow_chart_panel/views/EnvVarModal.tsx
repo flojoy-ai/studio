@@ -174,7 +174,7 @@ const EnvVarModal = ({
                 id="EnvVarKey"
                 type="text"
                 placeholder="e.g CLIENT_KEY"
-                value={envVarKey || ""}
+                value={envVarKey}
                 className="mt-1 bg-modal"
                 onPaste={(e) => handlePaste(e, "key")}
                 onChange={handleEnvVarKeyChange}
@@ -190,7 +190,7 @@ const EnvVarModal = ({
               <Input
                 data-testid="env-var-value-input"
                 id="EnvVarValue"
-                value={envVarValue || ""}
+                value={envVarValue}
                 className="mt-1 bg-modal"
                 onPaste={(e) => handlePaste(e, "value")}
                 onChange={handleEnvVarValueChange}
