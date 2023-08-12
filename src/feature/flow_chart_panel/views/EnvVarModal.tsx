@@ -198,7 +198,7 @@ const EnvVarModal = ({
             </div>
           </div>
         </div>
-        <DialogFooter className="px-3">
+        <DialogFooter>
           <Button data-testid="env-modal-add-btn" onClick={handleSendEnvVar}>
             Add
           </Button>
