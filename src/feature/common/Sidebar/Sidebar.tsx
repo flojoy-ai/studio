@@ -133,96 +133,88 @@ const Sidebar = ({
       <ScrollArea className="h-full min-w-full">
         {sections.children.map((levelOne) => {
           return (
-            <div className="pl-2">
-              <Collapsible>
-                <CollapsibleTrigger>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "mt-1",
-                      sidebarVariants({
-                        variant: categoryMap[levelOne.key],
-                      }),
-                    )}
-                  >
-                    {levelOne.key}
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  {levelOne.entryType === "section" ? (
-                    <>
-                      {levelOne.children.map((levelTwo) => {
-                        if (levelTwo.entryType === "section") {
-                          return (
-                            <div className="pl-4 text-sky-200">
-                              <Collapsible>
-                                <CollapsibleTrigger>
-                                  <Button
-                                    variant="ghost"
-                                    className={cn(
-                                      "mt-1",
-                                      sidebarVariants({
-                                        variant: categoryMap[levelOne.key],
-                                      }),
-                                    )}
-                                  >
-                                    {levelTwo.key}
-                                  </Button>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent>
-                                  <div className="flex  flex-wrap pl-6">
-                                    {levelTwo.children.map((levelThree) => {
-                                      if (levelThree.entryType === "section") {
-                                        return (
-                                          <Button
-                                            variant="ghost"
-                                            className={cn(
-                                              "mt-1",
-                                              sidebarVariants({
-                                                variant:
-                                                  categoryMap[levelOne.key],
-                                              }),
-                                            )}
-                                          >
-                                            {levelThree.key}
-                                          </Button>
-                                        );
-                                      } else {
-                                        return (
-                                          <Button
-                                            variant="outline"
-                                            className={cn(
-                                              "mr-1 mt-1",
-                                              sidebarVariants({
-                                                variant:
-                                                  categoryMap[levelOne.key],
-                                              }),
-                                            )}
-                                            onClick={() =>
-                                              leafNodeClickHandler(levelThree)
-                                            }
-                                          >
-                                            {levelThree.key}
-                                          </Button>
-                                        );
-                                      }
-                                    })}
-                                  </div>
-                                </CollapsibleContent>
-                              </Collapsible>
-                            </div>
-                          );
-                        } else {
-                          return <div className="pl-4">Leaf</div>;
-                        }
-                      })}
-                    </>
-                  ) : (
-                    <div>Leaf</div>
+            <Collapsible className="pl-2">
+              <CollapsibleTrigger>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "mt-1",
+                    sidebarVariants({
+                      variant: categoryMap[levelOne.key],
+                    }),
                   )}
-                </CollapsibleContent>
-              </Collapsible>
-            </div>
+                >
+                  {levelOne.key}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                {levelOne.entryType === "section" ? (
+                  <>
+                    {levelOne.children.map((levelTwo) => {
+                      if (levelTwo.entryType === "section") {
+                        return (
+                          <Collapsible className="pl-4">
+                            <CollapsibleTrigger>
+                              <Button
+                                variant="ghost"
+                                className={cn(
+                                  "mt-1",
+                                  sidebarVariants({
+                                    variant: categoryMap[levelOne.key],
+                                  }),
+                                )}
+                              >
+                                {levelTwo.key}
+                              </Button>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="flex flex-wrap pl-6">
+                              {levelTwo.children.map((levelThree) => {
+                                if (levelThree.entryType === "section") {
+                                  return (
+                                    <Button
+                                      variant="ghost"
+                                      className={cn(
+                                        "mt-1",
+                                        sidebarVariants({
+                                          variant: categoryMap[levelOne.key],
+                                        }),
+                                      )}
+                                    >
+                                      {levelThree.key}
+                                    </Button>
+                                  );
+                                } else {
+                                  return (
+                                    <Button
+                                      variant="outline"
+                                      className={cn(
+                                        "mr-1 mt-1",
+                                        sidebarVariants({
+                                          variant: categoryMap[levelOne.key],
+                                        }),
+                                      )}
+                                      onClick={() =>
+                                        leafNodeClickHandler(levelThree)
+                                      }
+                                    >
+                                      {levelThree.key}
+                                    </Button>
+                                  );
+                                }
+                              })}
+                            </CollapsibleContent>
+                          </Collapsible>
+                        );
+                      } else {
+                        return <div className="pl-4">Leaf</div>;
+                      }
+                    })}
+                  </>
+                ) : (
+                  <div>Leaf</div>
+                )}
+              </CollapsibleContent>
+            </Collapsible>
           );
         })}
       </ScrollArea>
