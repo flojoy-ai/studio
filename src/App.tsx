@@ -18,7 +18,7 @@ import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
-import { ThemeProvider } from "@src/components/theme-provider";
+import { ThemeProvider } from "@src/providers/theme-provider";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;

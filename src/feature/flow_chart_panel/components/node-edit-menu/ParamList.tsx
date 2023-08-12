@@ -1,6 +1,6 @@
 import { ParamValueType } from "@src/feature/common/types/ParamValueType";
-import { ParamTooltip } from "flojoy/components";
-import { ElementsData } from "flojoy/types";
+import { ParamTooltip } from "@/components/common/ParamTooltip";
+import { ElementsData } from "@/types/node";
 import ParamField from "./ParamField";
 
 type ParamListProps = {
