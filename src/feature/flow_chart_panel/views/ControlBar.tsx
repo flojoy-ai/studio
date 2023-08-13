@@ -34,6 +34,8 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
+import { Button } from "@src/components/ui/button";
+import { API_URI } from "@src/data/constants";
 
 localforage.config({
   name: "react-flow",
@@ -289,6 +291,16 @@ const ControlBar = () => {
         handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
+
+      <Button
+        onClick={async () => {
+          await fetch(`${API_URI}/update/`, {
+            method: "POST",
+          });
+        }}
+      >
+        Update
+      </Button>
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
