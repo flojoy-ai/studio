@@ -28,3 +28,12 @@ async def signal_standby(manager: Manager, jobset_id: str):
         running_node="",
     )
     await manager.ws.broadcast(msg)
+
+async def signal_max_runtime_exceeded(manager: Manager, jobset_id: str):
+    msg = WorkerJobResponse(
+        jobset_id=jobset_id,
+        sys_status=STATUS_CODES["MAXIMUM_RUNTIME_EXCEEDED"],
+        failed_nodes=[],
+        running_node="",
+    )
+    await manager.ws.broadcast(msg)
