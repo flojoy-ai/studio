@@ -1,4 +1,5 @@
 from queue import Queue
+import time
 from typing import Any, cast
 import uuid
 from flojoy.job_service import JobService
@@ -11,11 +12,12 @@ IMPORTANT NOTE: This class mimics the RQ Worker package.
 
 
 class Worker:
-    def __init__(self, task_queue: Queue[Any], imported_functions: dict[str, Any]):
+    def __init__(self, task_queue: Queue[Any], imported_functions: dict[str, Any], node_delay: float = 0):
         self.task_queue = task_queue
         self.imported_functions = imported_functions
         self.job_service = JobService()
         self.uuid = uuid.uuid4()
+        self.node_delay = node_delay
 
     def run(self):
         while True:
