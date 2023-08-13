@@ -275,6 +275,29 @@ const ControlBar = () => {
   const saveAsDisabled = !("showSaveFilePicker" in window);
   const exportResultDisabled = programResults.length == 0;
 
+  const handleUpdate = async () => {
+    const resp = await fetch(`${API_URI}/update/`, {
+      method: "GET",
+    });
+
+    const hasUpdate = await resp.json();
+
+    if (hasUpdate) {
+      toast("Update available!", {
+        action: {
+          label: "Update",
+          onClick: async () => {
+            await fetch(`${API_URI}/update/`, {
+              method: "POST",
+            });
+          },
+        },
+      });
+    } else {
+      toast("Your Flojoy Studio is update-to-date");
+    }
+  };
+
   return (
     <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
@@ -346,28 +369,7 @@ const ControlBar = () => {
               </MenubarItem>
               <MenubarItem
                 data-testid="btn-node-settings"
-                onClick={async () => {
-                  const resp = await fetch(`${API_URI}/update/`, {
-                    method: "GET",
-                  });
-
-                  const hasUpdate = await resp.json();
-
-                  if (hasUpdate) {
-                    toast("Update available!", {
-                      action: {
-                        label: "Update",
-                        onClick: async () => {
-                          await fetch(`${API_URI}/update/`, {
-                            method: "POST",
-                          });
-                        },
-                      },
-                    });
-                  } else {
-                    toast("Your Flojoy Studio is update-to-date");
-                  }
-                }}
+                onClick={handleUpdate}
               >
                 Check for update
               </MenubarItem>
