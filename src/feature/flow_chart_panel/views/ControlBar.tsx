@@ -34,8 +34,8 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-import { Button } from "@src/components/ui/button";
 import { API_URI } from "@src/data/constants";
+import { toast } from "sonner";
 
 localforage.config({
   name: "react-flow",
@@ -292,16 +292,6 @@ const ControlBar = () => {
         isNodeSettingsModalOpen={isNodeSettingsOpen}
       />
 
-      <Button
-        onClick={async () => {
-          await fetch(`${API_URI}/update/`, {
-            method: "POST",
-          });
-        }}
-      >
-        Update BROO
-      </Button>
-
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <PlayBtn onPlay={onRun} />
       ) : (
@@ -353,6 +343,33 @@ const ControlBar = () => {
                 onClick={() => setIsNodeSettingsOpen(true)}
               >
                 Node Settings
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-node-settings"
+                onClick={async () => {
+                  const resp = await fetch(`${API_URI}/update/`, {
+                    method: "GET",
+                  });
+
+                  const hasUpdate = await resp.json();
+
+                  if (hasUpdate) {
+                    toast("Update available!", {
+                      action: {
+                        label: "Update",
+                        onClick: async () => {
+                          await fetch(`${API_URI}/update/`, {
+                            method: "POST",
+                          });
+                        },
+                      },
+                    });
+                  } else {
+                    toast("Your Flojoy Studio is update-to-date");
+                  }
+                }}
+              >
+                Check for update
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
