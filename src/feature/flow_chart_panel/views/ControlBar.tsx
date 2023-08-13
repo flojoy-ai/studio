@@ -299,7 +299,7 @@ const ControlBar = () => {
           });
         }}
       >
-        Update
+        Update BROO
       </Button>
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
