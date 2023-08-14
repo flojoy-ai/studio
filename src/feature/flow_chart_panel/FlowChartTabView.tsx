@@ -197,8 +197,6 @@ const FlowChartTab = () => {
 
   const proOptions = { hideAttribution: true };
 
-  console.log(nodes);
-
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {
   //     nodes.forEach((node) => {

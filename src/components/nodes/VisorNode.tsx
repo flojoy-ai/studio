@@ -61,7 +61,7 @@ const VisorNode = (props: CustomNodeProps) => {
       <div
         className={clsx(
           "rounded-2xl bg-transparent",
-          { "shadow-around shadow-accent1": isRunning || data.selected },
+          { "shadow-around shadow-accent2": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >
@@ -81,7 +81,7 @@ const VisorNode = (props: CustomNodeProps) => {
         )}
         {textBlob && <MarkDownText text={textBlob} isThumbnail />}
         {!plotlyData && !textBlob && <>{chartElemMap[data.func]}</>}
-        <HandleComponent data={data} variant="accent1" />
+        <HandleComponent data={data} variant="accent2" />
       </div>
     </NodeWrapper>
   );
