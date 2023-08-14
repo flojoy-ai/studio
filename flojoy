@@ -240,7 +240,7 @@ if [ $initNodePackages = true ]
 then
    info_msg "Argument -n is not provided, Node packages will be installed from package.json"
    set -o pipefail
-   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
+   cd "$CWD" && npm install  2>&1
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
