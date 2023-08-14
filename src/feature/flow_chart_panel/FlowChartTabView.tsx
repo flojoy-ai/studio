@@ -66,14 +66,10 @@ const FlowChartTab = () => {
   } = useSocket();
 
   const {
-    nodeLabel,
-    nodeType,
     pythonString,
     setPythonString,
     nodeFilePath,
     setNodeFilePath,
-    setNodeLabel,
-    setNodeType,
   } = useFlowChartTabState();
 
   const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
@@ -182,19 +178,14 @@ const FlowChartTab = () => {
     const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-    setNodeLabel(selectedNode.data.label);
-    setNodeType(selectedNode.data.type);
   }, [
     selectedNode,
     setNodeFilePath,
-    setNodeLabel,
-    setNodeType,
     setPythonString,
   ]);
 
   const proOptions = { hideAttribution: true };
 
-  console.log(nodes);
 
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {
@@ -333,11 +324,9 @@ const FlowChartTab = () => {
 
           <NodeExpandMenu
             selectedNode={selectedNode}
-            closeModal={() => setNodeModalOpen(false)}
             modalIsOpen={nodeModalOpen}
+            setModalOpen={setNodeModalOpen}
             nodeResults={programResults}
-            nodeLabel={nodeLabel}
-            nodeType={nodeType}
             pythonString={pythonString}
             nodeFilePath={nodeFilePath}
           />

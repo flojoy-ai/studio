@@ -8,26 +8,17 @@ import { useEffect, useState } from "react";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
-  closeModal: () => void;
-  nodeLabel: string;
-  nodeType: string;
+  setModalOpen: (open: boolean) => void;
   nodeResults: NodeResult[];
   selectedNode: Node<ElementsData> | null;
   pythonString: string;
   nodeFilePath: string;
 };
 
-export const NodeExpandMenu = ({
-  modalIsOpen,
-  closeModal,
-  nodeLabel,
-  nodeType,
-  nodeResults,
-  selectedNode,
-  pythonString,
-  nodeFilePath,
-}: NodeExpandMenuProps) => {
-  // const { isExpandMode, setIsExpandMode } = useFlowChartState();
+export const NodeExpandMenu = ({ nodeResults, ...props }: NodeExpandMenuProps) => {
+  const {
+    selectedNode,
+  } = props;
   const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
   // const onSelectionChange = () => {
   //   if (!selectedNode) {
@@ -47,15 +38,10 @@ export const NodeExpandMenu = ({
     <div className="relative" data-testid="node-modal">
       {selectedNode && (
         <NodeModal
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
+          {...props}
           nd={nodeResult}
-          pythonString={pythonString}
-          nodeFilePath={nodeFilePath}
-          data-testid="expand-menu"
           selectedNode={selectedNode}
+          data-testid="expand-menu"
         />
       )}
     </div>
