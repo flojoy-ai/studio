@@ -55,7 +55,7 @@ const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
-  undefined,
+  undefined
 );
 localforage.config({ name: "react-flow", storeName: "flows" });
 

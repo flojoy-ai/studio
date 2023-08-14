@@ -11,7 +11,7 @@ const allNodes: Map<string, NodeElement> = new Map();
 const populateNodes = (node: NodeSection | SubCategory) => {
   const dfs = (
     node: SubCategory | NodeElement,
-    map: Map<string, NodeElement>,
+    map: Map<string, NodeElement>
   ) => {
     if (!node.children) {
       allNodes.set(node.key, node as NodeElement);
@@ -40,17 +40,17 @@ export const getEdgeTypes = (connection: Connection): [string, string] => {
     !connection.sourceHandle
   )
     throw new Error(
-      "connection.source, connection.target, connection.targetHandle, and connection.sourceHandle must all be non-null",
+      "connection.source, connection.target, connection.targetHandle, and connection.sourceHandle must all be non-null"
     );
 
   const sourceNode = allNodes.get(getNodeNameFromId(connection.source));
   const targetNode = allNodes.get(getNodeNameFromId(connection.target));
 
   const source = sourceNode?.outputs?.find(
-    (o) => o.id === connection.sourceHandle,
+    (o) => o.id === connection.sourceHandle
   );
   const target = targetNode?.inputs?.find(
-    (i) => i.id === connection.targetHandle,
+    (i) => i.id === connection.targetHandle
   );
 
   if (!source || !target) {
