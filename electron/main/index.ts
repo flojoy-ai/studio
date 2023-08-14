@@ -70,7 +70,6 @@ async function createWindow() {
     },
     show: false,
   });
-
   win.maximize();
   win.show();
 

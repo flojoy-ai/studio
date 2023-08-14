@@ -10,16 +10,13 @@
     "productName": "Flojoy Studio",
     "appName": "Flojoy Studio",
     "files": [
-      "/resources"
+      "/build/**/*"
     ],
-    "directories": {
-      "buildResources": "resources"
-    },
     "win": {
-      "icon": "/resources/appicon.ico"
+      "icon": "./build/appicon.ico"
     },
     "mac": {
-      "icon": "/resources/appicon.png"
+      "icon": "./build/appicon.png"
     }
   },
   "dependencies": {
@@ -112,7 +109,6 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.11.0",
-    "@electron-forge/cli": "^6.3.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@percy/cli": "^1.26.3",
     "@percy/cypress": "^3.1.2",
