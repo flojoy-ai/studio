@@ -20,7 +20,7 @@ const Header = () => {
 
   // Actual media query causes flickering... need to use this manual one
   const { width } = useWindowSize();
-  const large = width > getBreakpointValue(theme.breakpoints.sm);
+  const large = width > getBreakpointValue(theme.breakpoints.md);
 
   return (
     <div style={{ height: HEADER_HEIGHT }} className="">
