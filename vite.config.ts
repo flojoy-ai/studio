@@ -25,7 +25,7 @@ export default defineConfig(({ command }) => {
         include: ["src/**/*.ts", "src/**/*.tsx"],
       }),
       EnvironmentPlugin("all"),
-      eslint({ emitWarning: true }),
+      eslint({ emitWarning: false }),
       electron([
         {
           // Main-Process entry file of the Electron App.

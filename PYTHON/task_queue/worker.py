@@ -1,4 +1,5 @@
 from queue import Queue
+import time
 from typing import Any, cast
 import uuid
 from flojoy.job_service import JobService
@@ -11,11 +12,17 @@ IMPORTANT NOTE: This class mimics the RQ Worker package.
 
 
 class Worker:
-    def __init__(self, task_queue: Queue[Any], imported_functions: dict[str, Any]):
+    def __init__(
+        self,
+        task_queue: Queue[Any],
+        imported_functions: dict[str, Any],
+        node_delay: float = 0,
+    ):
         self.task_queue = task_queue
         self.imported_functions = imported_functions
         self.job_service = JobService()
         self.uuid = uuid.uuid4()
+        self.node_delay = node_delay
 
     def run(self):
         while True:
@@ -24,12 +31,12 @@ class Worker:
             try:
                 job = cast(JobInfo, queue_fetch)
             except Exception:
-                print("Error in job: wrong arguments passed. Ignoring...", flush=True)
+                logger.error("Error in job: wrong arguments passed. Ignoring...")
                 continue
 
             # check if got terminate signal
             if job.terminate:
-                print(f"Worker {self.uuid} got terminate signal.", flush=True)
+                logger.info(f"Worker {self.uuid} got terminate signal.")
                 break
 
             func = self.imported_functions.get(job.job_id, None)
@@ -58,4 +65,4 @@ class Worker:
             # For now, job result is posted inside the flojoy wrapper function
             self.task_queue.task_done()
 
-        print(f"Worker {self.uuid} has finished", flush=True)
+        logger.info(f"Worker {self.uuid} has finished")

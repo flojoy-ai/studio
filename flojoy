@@ -59,7 +59,7 @@ is_ci=false
 test_ci=false
 initSubmodule=true
 enableSentry=true
-enableTelemetry=false
+enableTelemetry=true
 isDebugMode=false
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -88,7 +88,7 @@ helpFunction()
    echo  " -s: To NOT update submodules"
    echo  " -S: To NOT enable Sentry"
    echo  " -t: To enable local CI tests"
-   echo  " -T: To enable Telemetry"
+   echo  " -T: To disable Telemetry"
    echo  " -d: To enable debug mode"
    echo 1 # Exit script after printing help
 }
@@ -116,7 +116,7 @@ do
         shift
         ;;
         -T)
-        enableTelemetry=true
+        enableTelemetry=false
         shift
         ;;
         -S)
@@ -240,7 +240,7 @@ if [ $initNodePackages = true ]
 then
    info_msg "Argument -n is not provided, Node packages will be installed from package.json"
    set -o pipefail
-   cd "$CWD" && npm install  2>&1 | grep -v 'WARN'   
+   cd "$CWD" && npm install  2>&1
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
