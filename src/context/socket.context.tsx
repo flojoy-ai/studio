@@ -95,7 +95,7 @@ export const SocketContextProvider = ({
         preJobOperation,
       },
     }),
-    [preJobOperation, programResults, states],
+    [preJobOperation, programResults, states]
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>

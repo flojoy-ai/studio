@@ -251,7 +251,7 @@ const NodeModal = ({
             <PlotlyComponent
               data={makePlotlyData(
                 nd.result.plotly_fig.data,
-                theme.colorScheme,
+                theme.colorScheme
               )}
               layout={{
                 ...nd.result.plotly_fig.layout,

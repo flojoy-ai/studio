@@ -48,9 +48,9 @@ Cypress.Commands.add(
           clipboardData: {
             getData: () => pastePayload,
           },
-        },
+        }
       );
       $destination[0].dispatchEvent(pasteEvent);
     });
-  },
+  }
 );

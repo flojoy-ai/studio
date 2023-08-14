@@ -22,7 +22,7 @@ export const sendFrontEndLoadsToMix = () => {
 export const sendProgramToMix = (
   nodes: Node[],
   runProgram = false,
-  saveProgram = true,
+  saveProgram = true
 ) => {
   if (nodes && enable) {
     const nodeList = JSON.stringify(nodes.map((node) => node.data.label));
@@ -30,7 +30,7 @@ export const sendProgramToMix = (
       sendMultipleDataEventToMix(
         "Program Saved",
         [nodeList, "disk"],
-        ["nodeList", "savedTo"],
+        ["nodeList", "savedTo"]
       );
     }
     if (runProgram) {
@@ -42,7 +42,7 @@ export const sendProgramToMix = (
 export const sendEventToMix = (
   Event: string,
   data: string,
-  dataType = "data",
+  dataType = "data"
 ) => {
   if (enable) {
     try {
@@ -57,7 +57,7 @@ export const sendEventToMix = (
 export const sendMultipleDataEventToMix = (
   Event: string,
   data: string[],
-  dataType = ["data"],
+  dataType = ["data"]
 ) => {
   if (enable) {
     try {
