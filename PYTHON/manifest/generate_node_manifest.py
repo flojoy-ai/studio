@@ -105,11 +105,6 @@ class ManifestBuilder:
         }
         return self
 
-    def with_overload(self, name: str, values: dict[str, list[Any]], common: list[Any]):
-        self.overload["common"] = common
-        self.overload[name] = values
-        return self
-
     def with_output(self, name: str, output_type: Type[Any], named: bool = False):
         self.outputs.append(
             {
@@ -312,7 +307,6 @@ def populate_inputs(
             )
         if param_type != DefaultParams:
             mb.with_param(name, param_type, default_value)
-            mb.with_overload(name, {type_str(param_type): ["testing"]}, ["test"])
 
 
 def is_special_type(param_type: Any):
@@ -361,7 +355,6 @@ def get_overload(t: list[tuple[Any]], default):
             result[param].append({value: display})
         except KeyError:
             result[param] = [{value: display}]
-    print(result)
     return result
 
 
