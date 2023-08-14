@@ -49,7 +49,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 const imgPath =
   process.platform === "darwin"
     ? join(app.getAppPath(), "/build/appicon.png")
-    : join(__dirname, "/build/appicon.ico");
+    : __dirname + "/build/appicon.png";
 app.setName("Flojoy Studio");
 
 async function createWindow() {
