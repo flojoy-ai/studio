@@ -10,6 +10,6 @@ def OPTIONALS(
     c: Optional[DataContainer] = None,
     foo: Optional[str] = None,
     bar: Optional[list[int]] = None,
-) -> OrderedPair:
+) -> Optional[OrderedPair]:
     q = np.array([])
     return OrderedPair(x=q, y=q)
