@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import HandleComponent from "@/components/common/HandleComponent";
+import { textWrap } from "@src/utils/TextWrap";
 
 const DataNode = (props: CustomNodeProps) => {
   const {
@@ -15,10 +16,13 @@ const DataNode = (props: CustomNodeProps) => {
     <NodeWrapper wrapperProps={props}>
       <div
         className={clsx(
-          "flex h-24 w-52 items-center justify-center rounded-full border-2 border-solid border-accent2",
+          "flex min-h-[96px] items-center justify-center rounded-full border-2 border-solid border-accent2 p-2",
           { "shadow-around shadow-accent2": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
+        style={{
+          width: textWrap(208, 24, data.label),
+        }}
       >
         {isRenamingTitle ? (
           <input

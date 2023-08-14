@@ -32,16 +32,16 @@ class Topology:
         self,
         graph: nx.DiGraph,
         jobset_id: str,
+        node_delay: float = 0,
         task_queue: Queue[Any] = Queue(),
         cleanup_func: Callable[..., Any] = lambda: None,
-        node_delay: float = 0,
-        max_runtime: float = 3000,
+        worker_response: Callable[..., Any] = lambda x: None,
+        final_broadcast: Callable[..., Any] = lambda: None,
     ):
         self.working_graph = deepcopy(graph)
         self.original_graph = deepcopy(graph)
         self.jobset_id = jobset_id
         self.node_delay = node_delay
-        self.max_runtime = max_runtime
         self.finished_jobs: set[str] = set()
         self.queued_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
@@ -49,10 +49,28 @@ class Topology:
         self.time_start = 0
         self.task_queue = task_queue
         self.cleanup_func = cleanup_func
+        self.worker_response = worker_response
+        self.final_broadcast = final_broadcast
         self.is_finished = False
         self.loop_nodes = (
             list()
         )  # using list instead of set as we need to maintain order
+
+    async def process_worker_response(self, request_dict: dict):
+        async with lock:
+            if self.is_cancelled():
+                logger.debug("Flowchart is cancelled, ignoring worker response")
+                return
+
+        asyncio.create_task(self.worker_response(request_dict))
+
+        if "FAILED_NODES" in request_dict:
+            job_id = request_dict.get("FAILED_NODES", "")
+            self.process_job_result(job_id=job_id, job_result=None, success=False)
+        elif "NODE_RESULTS" in request_dict:
+            job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
+            logger.debug(f"{job_id} finished at {time.time()}")
+            asyncio.create_task(self.handle_finished_job(request_dict))  # type: ignore
 
     # initial and main logic of topology
     async def run(self):
@@ -66,8 +84,6 @@ class Topology:
     def run_jobs(self, jobs: list[str]):
         for job_id in jobs:
             asyncio.create_task(self.run_job(job_id))
-            self.queued_jobs.add(job_id)
-            time.sleep(self.node_delay)
 
     def collect_ready_jobs(self):
         next_jobs: list[str] = []
@@ -118,6 +134,7 @@ class Topology:
 
         logger.debug(f"{job_id} queued at {time.time()}")
 
+        # -- queue the job --
         self.task_queue.put(
             JobInfo(
                 job_id=job_id,
@@ -127,6 +144,9 @@ class Topology:
                 previous_jobs=previous_jobs,
             )
         )
+        self.queued_jobs.add(job_id)
+        # -------------------
+
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
 
@@ -148,6 +168,8 @@ class Topology:
         if self.cancelled:
             logger.debug("Received job, but skipping since topology is cancelled")
             return
+
+        time.sleep(self.node_delay)
 
         job_id: str = result.get("NODE_RESULTS", {}).get("id", None)
         job_result = result.get("NODE_RESULTS", {}).get("result", None)
@@ -285,7 +307,8 @@ class Topology:
 
     def finalizer(self):
         # run provided clean up function
-        self.cleanup_func(self.is_finished)
+        if self.is_finished:
+            asyncio.create_task(self.final_broadcast())
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)

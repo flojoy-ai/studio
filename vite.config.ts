@@ -25,7 +25,7 @@ export default defineConfig(({ command }) => {
         include: ["src/**/*.ts", "src/**/*.tsx"],
       }),
       EnvironmentPlugin("all"),
-      eslint({ emitWarning: true }),
+      eslint({ emitWarning: false }),
       electron([
         {
           // Main-Process entry file of the Electron App.
@@ -93,7 +93,7 @@ export default defineConfig(({ command }) => {
       },
     ],
     server: {
-      port: 3000,
+      port: 5391,
       open: false,
       watch: {
         ignored: ["**/venv/**", "!**/node_modules/flojoy/**"],

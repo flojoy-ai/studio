@@ -9,3 +9,4 @@ STANDBY: 🐢 awaiting a new job
 SERVER_ONLINE: 🏁 node server online
 SERVER_OFFLINE: 🛑 node server offline - run `node server.js` in your terminal
 NO_RUNS_YET: ⛷️ No runs yet
+MAXIMUM_RUNTIME_EXCEEDED: ⏰ maximum runtime exceeded
