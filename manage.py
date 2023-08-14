@@ -1,15 +1,10 @@
 import uvicorn
-import sys
 import os
 
 __ignore_list = ["venv"]
 
 if __name__ == "__main__":
-    log_level = (
-        sys.argv[sys.argv.index("--log-level") + 1]
-        if "--log-level" in sys.argv
-        else "info"
-    )
+    log_level = os.environ.get("FASTAPI_LOG", "error")
     uvicorn.run(  # type:ignore
         "captain.main:app",
         port=8000,
