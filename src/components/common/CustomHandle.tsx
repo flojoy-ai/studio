@@ -35,7 +35,7 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
         className={clsx(
           "!h-6 !w-6 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
           handle({ variant }),
-          className
+          className,
         )}
         type={type}
         id={param?.id}
@@ -43,7 +43,7 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 HandleWrapper.displayName = "HandleWrapper";

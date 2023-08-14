@@ -11,7 +11,7 @@ module.exports = function (app) {
       target: target,
       changeOrigin: true,
       logLevel: "debug",
-    })
+    }),
   );
   app.use(
     "/cancel_fc",
@@ -19,7 +19,7 @@ module.exports = function (app) {
       target: target,
       changeOrigin: true,
       logLevel: "debug",
-    })
+    }),
   );
 
   app.use(
@@ -27,7 +27,7 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-    })
+    }),
   );
 
   app.use(
@@ -35,7 +35,7 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-    })
+    }),
   );
 
   app.use(
@@ -43,6 +43,6 @@ module.exports = function (app) {
     createProxyMiddleware({
       target: target,
       changeOrigin: true,
-    })
+    }),
   );
 };

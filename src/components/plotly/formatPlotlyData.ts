@@ -7,7 +7,7 @@ const MATRIX_COLUMNS = 4;
 export const makePlotlyData = (
   data: OverridePlotData,
   theme: "light" | "dark",
-  isThumbnail?: boolean
+  isThumbnail?: boolean,
 ) => {
   const headerFillColor = theme === "light" ? "#ffffff" : "#191919";
   const cellFillColor = "transparent";
@@ -24,7 +24,7 @@ export const makePlotlyData = (
           align: "center",
           values: isThumbnail
             ? d.header?.values?.filter(
-                (_: unknown, i: number) => i < NUM_OF_COLUMNS
+                (_: unknown, i: number) => i < NUM_OF_COLUMNS,
               )
             : d.header?.values,
           fill: {
@@ -39,14 +39,17 @@ export const makePlotlyData = (
                 ?.filter(
                   (_: unknown, i: number) =>
                     i <
-                    (d.header?.values.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS)
+                    (d.header?.values.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS),
                 )
-                .map((i: unknown) =>
-                  i?.filter(
-                    (_: unknown, index: number) =>
-                      index <
-                      (d.header?.values.length ? NUM_OF_ROWS : MATRIX_COLUMNS)
-                  )
+                .map(
+                  (i: unknown) =>
+                    i?.filter(
+                      (_: unknown, index: number) =>
+                        index <
+                        (d.header?.values.length
+                          ? NUM_OF_ROWS
+                          : MATRIX_COLUMNS),
+                    ),
                 )
             : d.cells?.values,
           fill: {
@@ -119,7 +122,7 @@ export const dataContainer2Plotly = ({
       const df = JSON.parse(dataContainer.m || "");
       const headerValues = Object.keys(df);
       const cellValues = Object.values(df).map((value) =>
-        Object.values(value as Record<string, unknown>)
+        Object.values(value as Record<string, unknown>),
       );
       return [
         {

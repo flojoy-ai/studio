@@ -31,7 +31,7 @@ export function ThemeProvider({
   const localTheme = Theme.safeParse(localStorage.getItem(storageKey));
 
   const [theme, setTheme] = useState<Theme>(
-    (localTheme.success && localTheme.data) || defaultTheme
+    (localTheme.success && localTheme.data) || defaultTheme,
   );
 
   useEffect(() => {
