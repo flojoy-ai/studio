@@ -18,7 +18,7 @@ const MarkDown = ({
       className={clsx(
         { "h-72 w-96 overflow-hidden": isThumbnail },
         "p-6",
-        containerClassName
+        containerClassName,
       )}
     >
       <ReactMarkdown skipHtml className={markDownclassName}>
