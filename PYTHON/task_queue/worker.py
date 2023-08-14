@@ -12,7 +12,12 @@ IMPORTANT NOTE: This class mimics the RQ Worker package.
 
 
 class Worker:
-    def __init__(self, task_queue: Queue[Any], imported_functions: dict[str, Any], node_delay: float = 0):
+    def __init__(
+        self,
+        task_queue: Queue[Any],
+        imported_functions: dict[str, Any],
+        node_delay: float = 0,
+    ):
         self.task_queue = task_queue
         self.imported_functions = imported_functions
         self.job_service = JobService()

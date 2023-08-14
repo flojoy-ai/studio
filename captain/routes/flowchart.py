@@ -64,7 +64,7 @@ signal a job has been finished.
 async def worker_response(
     request: Request,
 ):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
-    
+
     logger.debug("Received a response from a worker")
 
     request_json = await request.json()
@@ -75,4 +75,3 @@ async def worker_response(
         return Response(status_code=400)
 
     await manager.running_topology.process_worker_response(request_dict)
-
