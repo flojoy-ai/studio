@@ -48,7 +48,7 @@ export default defineConfig(({ command }) => {
           },
           vite: {
             build: {
-              sourcemap,
+              sourcemap: 'hidden',
               minify: isBuild,
               outDir: "dist-electron/main",
               rollupOptions: {
@@ -57,6 +57,7 @@ export default defineConfig(({ command }) => {
                 ),
               },
             },
+            logLevel: 'silent',
           },
         },
         {
@@ -68,7 +69,7 @@ export default defineConfig(({ command }) => {
           },
           vite: {
             build: {
-              sourcemap: sourcemap ? "inline" : undefined, // #332
+              sourcemap: 'hidden',
               minify: isBuild,
               outDir: "dist-electron/preload",
               rollupOptions: {
@@ -77,6 +78,7 @@ export default defineConfig(({ command }) => {
                 ),
               },
             },
+            logLevel: 'silent',
           },
         },
       ]),
@@ -109,5 +111,9 @@ export default defineConfig(({ command }) => {
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
     },
+    logLevel: 'silent',
+    build: {
+      sourcemap: 'hidden',
+    }
   };
 });
