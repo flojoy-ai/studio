@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { CustomNodeProps } from "@/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import HandleComponent from "@/components/common/HandleComponent";
+import { textWrap } from "@src/utils/TextWrap";
 
 const DefaultNode = (props: CustomNodeProps) => {
   const {
@@ -18,13 +19,13 @@ const DefaultNode = (props: CustomNodeProps) => {
     <NodeWrapper wrapperProps={props}>
       <div
         className={clsx(
-          "flex h-40 w-40 items-center justify-center rounded-2xl border-2 border-solid border-accent1 bg-accent1/5",
+          "flex min-h-[160px] items-center justify-center rounded-2xl border-2 border-solid border-accent1 bg-accent1/5 break-words p-2",
           { "shadow-around shadow-accent1": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         style={{
-          width,
-          height,
+          width: width ?? textWrap(160, 24, data.label),
+          minHeight: height,
         }}
       >
         {children ?? (
