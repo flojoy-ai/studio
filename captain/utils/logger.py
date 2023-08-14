@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 logger = logging.getLogger("fastapi-dev")
@@ -11,7 +12,11 @@ def logger_setup(logger: logging.Logger):
     handler = logging.StreamHandler()
     handler.setLevel(log_lvl)
 
-    formatter = CustomFormatter("%(levelname)-10s%(message)s")
+    if os.environ.get("FASTAPI_LOG"):
+        formatter = CustomFormatter("%(levelname)-10s%(message)s")
+    else:
+        formatter = CustomFormatter("%(message)s")
+
     handler.setFormatter(formatter)
 
     logger.addHandler(handler)
