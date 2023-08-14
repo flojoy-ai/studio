@@ -14,12 +14,13 @@ const CancelBtn = ({ cancelFC }: CancelBtnProps) => {
     <Button
       data-testid="btn-cancel"
       data-cy="btn-cancel"
+      size="sm"
       id="btn-cancel"
       onClick={cancelFC}
       className="gap-2"
       variant="ghost"
     >
-      <Ban />
+      <Ban size={18} />
       Cancel
     </Button>
   );
