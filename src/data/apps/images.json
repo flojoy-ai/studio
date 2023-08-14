@@ -1,0 +1,228 @@
+{
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 150,
+        "height": 150,
+        "id": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
+        "type": "TRANSFORMERS",
+        "data": {
+          "id": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
+          "label": "IMAGE SMOOTHING",
+          "func": "IMAGE_SMOOTHING",
+          "type": "TRANSFORMERS",
+          "ctrls": {
+            "kernel": {
+              "type": "int",
+              "default": 5,
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "kernel",
+              "value": "8"
+            },
+            "smoothing_type": {
+              "type": "select",
+              "default": "average",
+              "options": ["average", "gaussian", "median", "bilateral"],
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "smoothing_type",
+              "value": "average"
+            }
+          },
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py",
+          "selected": false
+        },
+        "position": {
+          "x": 727.3487305553774,
+          "y": 155.3525852303302
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 727.3487305553774,
+          "y": 155.3525852303302
+        },
+        "dragging": true
+      },
+      {
+        "width": 150,
+        "height": 150,
+        "id": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+        "type": "LOADERS",
+        "data": {
+          "id": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+          "label": "LOCAL FILE",
+          "func": "LOCAL_FILE",
+          "type": "LOADERS",
+          "ctrls": {
+            "file_path": {
+              "type": "str",
+              "default": null,
+              "functionName": "LOCAL_FILE",
+              "param": "file_path",
+              "value": ""
+            },
+            "file_type": {
+              "type": "select",
+              "default": "Image",
+              "options": ["Image", "JSON", "CSV", "Excel", "XML"],
+              "functionName": "LOCAL_FILE",
+              "param": "file_type",
+              "value": "Image"
+            }
+          },
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|DataFrame"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "xlrd",
+              "v": "2.0.1"
+            },
+            {
+              "name": "lxml",
+              "v": "4.9.2"
+            }
+          ],
+          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 393.7135717819896,
+          "y": 278.0915860062198
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 393.7135717819896,
+          "y": 278.0915860062198
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1045.9840067988252,
+          "y": 152.56873926010599
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1045.9840067988252,
+          "y": 152.56873926010599
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
+          "label": "IMAGE 1",
+          "func": "IMAGE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 662.8988425018024,
+          "y": 513.5775685841171
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 662.8988425018024,
+          "y": 513.5775685841171
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+        "sourceHandle": "default",
+        "target": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497default-IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736default"
+      },
+      {
+        "source": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
+        "sourceHandle": "default",
+        "target": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
+        "targetHandle": "default",
+        "id": "reactflow__edge-IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736default-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
+      },
+      {
+        "source": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+        "sourceHandle": "default",
+        "target": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497default-IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94cdefault"
+      }
+    ],
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 1
+    }
+  }
+}
