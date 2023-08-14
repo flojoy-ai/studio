@@ -5,6 +5,23 @@
   "homepage": "./",
   "author": "Jack Parmer <jack.parmer@proton.me>",
   "main": "dist-electron/main/index.js",
+  "build": {
+    "appId": "flojoy-studio-app",
+    "productName": "Flojoy Studio",
+    "appName": "Flojoy Studio",
+    "files": [
+      "/resources"
+    ],
+    "directories": {
+      "buildResources": "resources"
+    },
+    "win": {
+      "icon": "/resources/appicon.ico"
+    },
+    "mac": {
+      "icon": "/resources/appicon.png"
+    }
+  },
   "dependencies": {
     "@mantine/core": "^6.0.18",
     "@mantine/hooks": "^6.0.18",
