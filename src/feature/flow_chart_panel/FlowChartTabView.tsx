@@ -8,7 +8,7 @@ import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
-import { MouseEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -56,13 +56,8 @@ const FlowChartTab = () => {
 
   const { theme } = useTheme();
 
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    setIsEditMode,
-    setIsRenamingTitle,
-  } = useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setIsEditMode } =
+    useFlowChartState();
 
   const mantineTheme = useMantineTheme();
 
@@ -124,8 +119,7 @@ const FlowChartTab = () => {
   // for whatever reason.
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
-    wrapperOnClick: (event: MouseEvent<HTMLDivElement>) => {
-      setIsRenamingTitle(event.detail === 2);
+    wrapperOnClick: () => {
       setIsEditMode(true);
     },
     theme: mantineTheme.colorScheme,
@@ -201,8 +195,6 @@ const FlowChartTab = () => {
   ]);
 
   const proOptions = { hideAttribution: true };
-
-  console.log(nodes);
 
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {

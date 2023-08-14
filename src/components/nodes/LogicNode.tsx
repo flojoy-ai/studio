@@ -22,7 +22,10 @@ const LogicNode = (props: CustomNodeProps) => {
         )}
       >
         {children ?? (
-          <h2 className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3">
+          <h2
+            contentEditable={true}
+            className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3"
+          >
             {data.label}
           </h2>
         )}

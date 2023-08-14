@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
@@ -10,6 +10,7 @@ const DataNode = (props: CustomNodeProps) => {
     isRunning,
     nodeError,
   } = props;
+  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   return (
     <NodeWrapper wrapperProps={props}>
       <div
@@ -19,9 +20,24 @@ const DataNode = (props: CustomNodeProps) => {
           { "shadow-around shadow-red-700": nodeError },
         )}
       >
-        <h2 className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent2">
-          {data.label}
-        </h2>
+        {isRenamingTitle ? (
+          <input
+            type="text"
+            value={data.label}
+            onKeyDown={(event) => {
+              if (event.key === "enter") {
+                setIsRenamingTitle(false);
+              }
+            }}
+          />
+        ) : (
+          <h2
+            onDoubleClick={() => setIsRenamingTitle(true)}
+            className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent2"
+          >
+            {data.label}
+          </h2>
+        )}
         <HandleComponent data={data} variant="accent2" />
       </div>
     </NodeWrapper>

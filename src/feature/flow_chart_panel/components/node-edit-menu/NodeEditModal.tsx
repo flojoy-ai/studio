@@ -30,15 +30,15 @@ const NodeEditModal = ({
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { nodeParamChanged, isRenamingTitle, setIsRenamingTitle } =
-    useFlowChartState();
+  const [editRenamingTitle, setEditRenamingTitle] = useState(false);
+  const { nodeParamChanged } = useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
     [];
 
   const handleTitleChange = (value: string) => {
-    setIsRenamingTitle(false);
+    setEditRenamingTitle(false);
     if (value === node.data.label) {
       return;
     }
@@ -69,10 +69,9 @@ const NodeEditModal = ({
       <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
         <div className="flex items-center">
           <div>
-            {isRenamingTitle ? (
+            {editRenamingTitle ? (
               <div className="flex">
                 <Input
-                  autoFocus={true}
                   id="title_input"
                   className="w-max bg-modal"
                   value={newTitle}
@@ -97,7 +96,7 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    setIsRenamingTitle(true);
+                    setEditRenamingTitle(true);
                   }}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
@@ -116,7 +115,7 @@ const NodeEditModal = ({
           </div>
           <div className="grow" />
 
-          {!isRenamingTitle && (
+          {!editRenamingTitle && (
             <Button
               size="icon"
               variant="ghost"

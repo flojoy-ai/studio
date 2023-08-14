@@ -54,7 +54,6 @@ const editModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
 const nodeParamChangedAtom = atom<boolean>(false);
-const renameTitleAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
   undefined,
 );
@@ -69,7 +68,6 @@ export function useFlowChartState() {
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
-  const [isRenamingTitle, setIsRenamingTitle] = useAtom(renameTitleAtom);
 
   return {
     rfInstance,
@@ -88,7 +86,5 @@ export function useFlowChartState() {
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
-    isRenamingTitle,
-    setIsRenamingTitle,
   };
 }
