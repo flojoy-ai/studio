@@ -46,16 +46,11 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 // check if os is mac/linux or windows, use .png or .ico respectively
-// const imgPath =
-//   process.platform === "darwin"
-//     ? join(app.getAppPath(), "/resources/appicon.png")
-//     : join(app.getAppPath(), "/resources/appicon.ico");
-// const image = nativeImage.createFromPath(imgPath);
-
-// if (process.platform === "darwin") {
-//   app.dock.setIcon(image);
-// }
-// app.setName("Flojoy Studio");
+const imgPath =
+  process.platform === "darwin"
+    ? join(app.getAppPath(), "/build/appicon.png")
+    : join(__dirname, "/build/appicon.ico");
+app.setName("Flojoy Studio");
 
 async function createWindow() {
   win = new BrowserWindow({
@@ -70,6 +65,12 @@ async function createWindow() {
     },
     show: false,
   });
+
+  if (process.platform === "darwin") {
+    app.dock.setIcon(nativeImage.createFromPath(imgPath));
+  } else {
+    win.setIcon(imgPath);
+  }
   win.maximize();
   win.show();
 
