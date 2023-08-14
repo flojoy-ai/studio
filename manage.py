@@ -1,3 +1,4 @@
+import asyncio
 import uvicorn
 import os
 
@@ -5,7 +6,7 @@ __ignore_list = ["venv"]
 
 if __name__ == "__main__":
     log_level = os.environ.get("FASTAPI_LOG", "error")
-    uvicorn.run(  # type:ignore
+    uvicorn.run(
         "captain.main:app",
         port=8000,
         log_level=log_level,
