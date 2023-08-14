@@ -294,7 +294,7 @@ const ControlBar = () => {
         },
       });
     } else {
-      toast("Your Flojoy Studio is now up to date");
+      toast("Your Flojoy Studio is up to date");
     }
   };
 
