@@ -22,12 +22,7 @@
             "smoothing_type": {
               "type": "select",
               "default": "average",
-              "options": [
-                "average",
-                "gaussian",
-                "median",
-                "bilateral"
-              ],
+              "options": ["average", "gaussian", "median", "bilateral"],
               "functionName": "IMAGE_SMOOTHING",
               "param": "smoothing_type",
               "value": "average"
@@ -83,13 +78,7 @@
             "file_type": {
               "type": "select",
               "default": "Image",
-              "options": [
-                "Image",
-                "JSON",
-                "CSV",
-                "Excel",
-                "XML"
-              ],
+              "options": ["Image", "JSON", "CSV", "Excel", "XML"],
               "functionName": "LOCAL_FILE",
               "param": "file_type",
               "value": "Image"

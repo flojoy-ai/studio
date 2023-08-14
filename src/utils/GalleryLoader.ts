@@ -29,8 +29,8 @@ const data: GalleryData = {
       relevantNodes: [
         {
           name: "IMAGE",
-          docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/"
-        }
+          docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/",
+        },
       ],
     },
     {
