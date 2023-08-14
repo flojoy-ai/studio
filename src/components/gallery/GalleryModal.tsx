@@ -29,22 +29,28 @@ export const GalleryModal = ({
 
   const [searchQuery, setSearchQuery] = useState("");
   const data = getGalleryData();
-  const [filteredData, setFilteredData] = useState(Object.entries(data));
+  const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
-    setFilteredData(
-      Object.entries(data).map(([k, v]) => [
-        k,
-        v.filter(
-          (app) =>
-            app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            app.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            app.relevantNodes.some((node) =>
-              node.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-        ),
-      ])
+    const entries = Object.fromEntries(
+      Object.entries(data)
+        .map(([k, v]) => [
+          k,
+          v.filter(
+            (app) =>
+              app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              app.description
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              app.relevantNodes.some((node) =>
+                node.name.toLowerCase().includes(searchQuery.toLowerCase()),
+              ),
+          ),
+        ])
+        .filter(([, v]) => v.length > 0),
     );
+    // console.log(entries);
+    setFilteredData(entries);
   }, [searchQuery]);
 
   return (
@@ -78,9 +84,8 @@ export const GalleryModal = ({
         </DialogHeader>
 
         <ScrollArea className="">
-          {filteredData
-            .filter(([, v]) => v.length > 0)
-            .map(([k, v]) => (
+          {Object.keys(filteredData).length ? (
+            Object.entries(filteredData).map(([k, v]) => (
               <div key={k}>
                 <div className="text-3xl font-bold">{k}</div>
                 <Separator className="my-1" />
@@ -95,7 +100,24 @@ export const GalleryModal = ({
                 </div>
                 <div className="py-2" />
               </div>
-            ))}
+            ))
+          ) : (
+            <div>
+              Found no examples for{" "}
+              <span className="font-bold">{searchQuery}</span> in the App
+              Gallery.
+              <br /> Would you like to search for an example app containing{" "}
+              <span className="font-bold">{searchQuery}</span> on{" "}
+              <a
+                href={"https://docs.flojoy.ai"}
+                target="_blank"
+                className="text-accent1"
+              >
+                docs.flojoy.ai
+              </a>{" "}
+              instead?
+            </div>
+          )}
         </ScrollArea>
       </DialogContent>
     </Dialog>
