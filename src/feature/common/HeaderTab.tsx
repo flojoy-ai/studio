@@ -12,7 +12,7 @@ const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
     <Link
       to={to}
       className={cn(
-        "inline-block cursor-pointer border-b-2 border-b-accent1 bg-transparent py-6 !font-sans text-sm font-semibold uppercase tracking-[1px]"
+        "inline-block cursor-pointer border-b-2 border-b-accent1 bg-transparent py-6 !font-sans text-sm font-semibold uppercase tracking-[1px]",
       )}
       data-cy={testId}
     >
