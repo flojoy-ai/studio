@@ -29,6 +29,7 @@ async def signal_standby(manager: Manager, jobset_id: str):
     )
     await manager.ws.broadcast(msg)
 
+
 async def signal_max_runtime_exceeded(manager: Manager, jobset_id: str):
     msg = WorkerJobResponse(
         jobset_id=jobset_id,
