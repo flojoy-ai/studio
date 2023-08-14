@@ -151,16 +151,12 @@ class ManifestBuilder:
 
 
 def create_manifest(path: str) -> dict[str, Any]:
-    node_name, tree = make_manifest_ast(path)
+    node_name, tree, overload_obj = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
 
     func = getattr(module, node_name)
-    print(f"the function is: {func.__name__}")
-    for node in tree.body:
-        if isinstance(node, ast.FunctionDef) and len(node.decorator_list) == 1 and node.decorator_list[0].id == "display":
-            print(f"the name is: {node.name}")
 
     manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
 
@@ -172,6 +168,10 @@ def create_manifest(path: str) -> dict[str, Any]:
     if pip_deps:
         manifest["pip_dependencies"] = pip_deps
 
+    overload = get_overload(t=overload_obj, default=manifest["parameters"])
+    if overload:
+        manifest["overload"] = overload
+
     return manifest
 
 
@@ -181,7 +181,6 @@ def make_manifest_for(
     mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
 
     sig = inspect.signature(func)
-    print(f"the signature is: {sig.parameters.items()}")
     for name, param in sig.parameters.items():
         populate_inputs(name, param, mb)
 
@@ -316,10 +315,6 @@ def populate_inputs(
             mb.with_overload(name, {type_str(param_type): ["testing"]}, ["test"])
 
 
-def populate_overload(name: str, param: Parameter, mb: ManifestBuilder) -> None:
-    match_value = param.default
-
-
 def is_special_type(param_type: Any):
     return any(param_type == special_type for special_type in SPECIAL_TYPES)
 
@@ -357,7 +352,20 @@ def get_full_type_name(t: Any) -> str:
         return t.__name__
 
 
-def union_type_str(union: Any):
+def get_overload(t: list[tuple[Any]], default):
+    if len(t) == 0:
+        return None
+    result = {}
+    for value, display, param in t:
+        try:
+            result[param].append({value: display})
+        except KeyError:
+            result[param] = [{value: display}]
+    print(result)
+    return result
+
+
+def union_type_str(union: Any) -> str:
     return "|".join([get_full_type_name(t) for t in get_union_types(union)])
 
 

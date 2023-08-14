@@ -68,6 +68,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         elif not self.has_decorator(node, "flojoy"):
             return None
 
+        # TODO: make an error comment when a display decorator have another decorator
         if len(node.decorator_list) > 1:
             # Keep only the '@flojoy' if there are multiple decorators.
             # Some decorators, like '@run_in_venv', create virtual environments, which we
@@ -104,7 +105,17 @@ def make_manifest_ast(path: str) -> [str, ast.Module]:
     transformer = FlojoyNodeTransformer()
     tree: ast.Module = transformer.visit(tree)
 
-    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    # flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    flojoy_node = None
+    overload = []
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef) and len(node.decorator_list) == 1:
+            # can be changed later, for now, ast.Name == display, ast.Call == flojoy
+            if isinstance(node.decorator_list[0], ast.Name):
+                overload_default, overload_val = extract_arguments(node)
+                overload.append((overload_val, overload_default[:-1], overload_default[-1]))
+            elif isinstance(node.decorator_list[0], ast.Call):
+                flojoy_node = node
 
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
@@ -133,7 +144,7 @@ def make_manifest_ast(path: str) -> [str, ast.Module]:
         if node and (not isinstance(node, ast.ClassDef) or node.name == return_type)
     ]
 
-    return (node_name, tree)
+    return node_name, tree, overload
 
 
 def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
@@ -187,3 +198,14 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
 
 def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:
     return next(filter(predicate, collection), None)
+
+
+def extract_arguments(node: ast.FunctionDef) -> Tuple:
+    arg_default = []
+    for arg in node.args.args:
+        arg_name = arg.arg
+        arg_default.append(arg_name)
+    default_value = ast.literal_eval(node.args.defaults[0])
+    return (arg_default, default_value)
+
+
