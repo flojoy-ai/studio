@@ -93,7 +93,7 @@ export default defineConfig(({ command }) => {
       },
     ],
     server: {
-      port: 3000,
+      port: 5391,
       open: false,
       watch: {
         ignored: ["**/venv/**", "!**/node_modules/flojoy/**"],
