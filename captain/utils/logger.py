@@ -26,10 +26,11 @@ def get_log_level():
     map_to_int = {
         "debug": logging.DEBUG,
         "info": logging.INFO,
+        "warning": logging.WARNING,
+        "error": logging.ERROR,
+        "critical": logging.CRITICAL,
     }
-    log_level = "info"
-    if "--log-level" in sys.argv:
-        log_level = sys.argv[sys.argv.index("--log-level") + 1]
+    log_level = os.environ.get("FASTAPI_LOG", "error")
 
     return map_to_int[log_level]
 
