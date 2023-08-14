@@ -23,7 +23,7 @@ type ParamTooltipProps = {
 const getTooltipStyle = (
   element: HTMLDivElement,
   offsetX: number,
-  offsetY: number,
+  offsetY: number
 ) => {
   const TOOLTIP_WIDTH = 264; // average tooltip width
   const { top, left, right } = element.getBoundingClientRect();
@@ -85,7 +85,7 @@ export const ParamTooltip = ({
             <div
               className={clsx(
                 "pointer-events-none absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
-                { "!pointer-events-auto opacity-100": tooltipOpen },
+                { "!pointer-events-auto opacity-100": tooltipOpen }
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >
@@ -111,7 +111,7 @@ export const ParamTooltip = ({
                 )) ?? "No description."}
               </div>
             </div>,
-            document.getElementById("tw-theme-root") ?? document.body,
+            document.getElementById("tw-theme-root") ?? document.body
           )
         : null}
     </>

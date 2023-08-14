@@ -120,7 +120,7 @@ const EnvVarModal = ({
 
     if (result.ok) {
       toast(
-        "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
+        "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!"
       );
       setFlojoyCloudKey("");
       fetchCredentials();
