@@ -53,7 +53,7 @@ const VisorNode = (props: CustomNodeProps) => {
 
   const plotlyData = useMemo(
     () => (plotlyFig ? makePlotlyData(plotlyFig.data, theme, true) : null),
-    [plotlyFig, theme]
+    [plotlyFig, theme],
   );
 
   return (
@@ -62,7 +62,7 @@ const VisorNode = (props: CustomNodeProps) => {
         className={clsx(
           "rounded-2xl bg-transparent",
           { "shadow-around shadow-accent1": isRunning || data.selected },
-          { "shadow-around shadow-red-700": nodeError }
+          { "shadow-around shadow-red-700": nodeError },
         )}
       >
         {plotlyData && (

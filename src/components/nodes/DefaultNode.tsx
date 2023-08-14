@@ -20,7 +20,7 @@ const DefaultNode = (props: CustomNodeProps) => {
         className={clsx(
           "flex h-40 w-40 items-center justify-center rounded-2xl border-2 border-solid border-accent1 bg-accent1/5",
           { "shadow-around shadow-accent1": isRunning || data.selected },
-          { "shadow-around shadow-red-700": nodeError }
+          { "shadow-around shadow-red-700": nodeError },
         )}
         style={{
           width,
