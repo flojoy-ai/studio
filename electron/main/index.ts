@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, nativeImage } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
@@ -45,11 +45,17 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+const imgPath =
+  process.platform === "darwin"
+    ? join(app.getAppPath(), "/public/appicon.png")
+    : join(app.getAppPath(), "/public/appicon.ico");
+const image = nativeImage.createFromPath(imgPath);
+app.dock.setIcon(image);
 
 async function createWindow() {
   win = new BrowserWindow({
     title: "Main window",
-    icon: join(process.env.PUBLIC, "favicon.ico"),
+    icon: imgPath,
     autoHideMenuBar: app.isPackaged ? true : false,
     webPreferences: {
       preload,
@@ -60,6 +66,7 @@ async function createWindow() {
     },
     show: false,
   });
+
   win.maximize();
   win.show();
 
@@ -71,7 +78,6 @@ async function createWindow() {
   } else {
     win.loadFile(indexHtml);
   }
-
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -86,6 +92,7 @@ async function createWindow() {
   // Apply electron-updater
   update(win);
 }
+
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
