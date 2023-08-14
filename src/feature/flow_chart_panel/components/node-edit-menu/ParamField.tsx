@@ -8,7 +8,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 type ParamFieldProps = {

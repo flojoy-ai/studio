@@ -1,5 +1,5 @@
 import { Node } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";

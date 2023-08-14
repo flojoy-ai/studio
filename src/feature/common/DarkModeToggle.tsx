@@ -1,7 +1,7 @@
 import { useMantineColorScheme } from "@mantine/core";
 import { Button } from "@src/components/ui/button";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "@src/components/theme-provider";
+import { useTheme } from "@src/providers/theme-provider";
 
 export const DarkModeToggle = () => {
   const { toggleColorScheme } = useMantineColorScheme();

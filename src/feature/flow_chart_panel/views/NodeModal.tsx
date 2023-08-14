@@ -2,17 +2,15 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import {
-  PlotlyComponent,
-  makePlotlyData,
-  MarkDownText,
-} from "flojoy/components";
 import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { NodeModalProps } from "../types/NodeModalProps";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
+import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
+import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
+import MarkDownText from "@src/components/common/MarkDownText";
 
 export const NodeModalStyles = createStyles((theme) => ({
   content: {

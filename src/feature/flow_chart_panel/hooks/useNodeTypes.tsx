@@ -1,5 +1,5 @@
 import { useSocket } from "@src/hooks/useSocket";
-import { nodeTypesMap } from "flojoy/components";
+import { nodeTypesMap } from "@/components/nodes/nodeTypesMap";
 import { useMemo } from "react";
 import { NodeTypes } from "reactflow";
 

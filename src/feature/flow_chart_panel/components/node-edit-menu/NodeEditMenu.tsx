@@ -1,5 +1,5 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { Node } from "reactflow";
 import NodeEditModal from "./NodeEditModal";
 

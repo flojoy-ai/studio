@@ -1,7 +1,7 @@
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 // import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { Node } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import NodeModal from "./NodeModal";
 import { useEffect, useState } from "react";
 // import { useFlowChartTabState } from "../FlowChartTabState";

@@ -105,6 +105,7 @@ export default defineConfig(({ command }) => {
         "@hooks": path.resolve(__dirname, "src/hooks"),
         "@feature": path.resolve(__dirname, "src/feature"),
         "@/components": path.resolve(__dirname, "src/components"),
+        "@/assets": path.resolve(__dirname, "src/assets"),
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
     },
