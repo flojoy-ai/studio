@@ -26,6 +26,9 @@ async def websocket_endpoint(websocket: WebSocket, socket_id: str):
                 }
             )
         )
+        logger.critical(
+            "Flojoy Studio is running! Visit community.flojoy.ai or discord.gg/7HEBr7yG8c for help."
+        )
 
         # await for messages and send messages (no need to read from frontend, this is used to keep connection alive)
         while True:
