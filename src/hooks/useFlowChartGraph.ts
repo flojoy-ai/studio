@@ -1,4 +1,4 @@
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";

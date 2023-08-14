@@ -1,4 +1,4 @@
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { ReactFlowJsonObject } from "reactflow";
 
 export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {

@@ -1,6 +1,6 @@
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { Node } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 
 export type NodeModalProps = {
   modalIsOpen: boolean;

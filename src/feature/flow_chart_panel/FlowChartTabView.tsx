@@ -1,4 +1,3 @@
-import "flojoy/styles/styles.css";
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
@@ -42,7 +41,7 @@ import { Separator } from "@src/components/ui/separator";
 import { Workflow } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
-import { useTheme } from "@src/components/theme-provider";
+import { useTheme } from "@src/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
 
@@ -194,6 +193,8 @@ const FlowChartTab = () => {
   ]);
 
   const proOptions = { hideAttribution: true };
+
+  console.log(nodes);
 
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {
