@@ -15,7 +15,7 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";

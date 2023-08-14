@@ -19,3 +19,30 @@ code {
   outline: none;
   background: transparent;
 }
+
+.react-flow__node {
+  background: transparent !important;
+  border: none !important;
+}
+
+.react-flow__node-default {
+  width: fit-content;
+  padding: 0px;
+  font-weight: 600;
+  background: transparent !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-color: transparent !important;
+}
+
+.react-flow__node-default.selectable:focus,
+.react-flow__node-default.selectable.selected,
+.react-flow__node-default.selectable:hover {
+  box-shadow: 0 0 0 0 #ffffff !important;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}

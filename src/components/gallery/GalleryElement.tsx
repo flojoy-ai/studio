@@ -5,7 +5,7 @@ import {
   useNodesInitialized,
   useReactFlow,
 } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
