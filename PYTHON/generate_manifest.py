@@ -130,9 +130,6 @@ if __name__ == "__main__":
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
     )
-    print(
-        f"⚠️ {__failed_nodes.__len__()} nodes require upgrading to align with the new API!"
-    )
     with open("src/data/manifests-latest.json", "w") as f:
         f.write(json.dumps(map, indent=3))
         f.close()

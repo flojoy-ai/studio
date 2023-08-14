@@ -19,7 +19,6 @@ def get_module_func(file_name: str):
 
 
 def create_map():
-    print("creating a node mapping")
     for root, _, files in os.walk(NODES_DIR):
         if root == NODES_DIR:
             continue

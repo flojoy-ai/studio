@@ -24,12 +24,12 @@ class Worker:
             try:
                 job = cast(JobInfo, queue_fetch)
             except Exception:
-                print("Error in job: wrong arguments passed. Ignoring...", flush=True)
+                logger.error("Error in job: wrong arguments passed. Ignoring...")
                 continue
 
             # check if got terminate signal
             if job.terminate:
-                print(f"Worker {self.uuid} got terminate signal.", flush=True)
+                logger.info(f"Worker {self.uuid} got terminate signal.")
                 break
 
             func = self.imported_functions.get(job.job_id, None)
@@ -58,4 +58,4 @@ class Worker:
             # For now, job result is posted inside the flojoy wrapper function
             self.task_queue.task_done()
 
-        print(f"Worker {self.uuid} has finished", flush=True)
+        logger.info(f"Worker {self.uuid} has finished")
