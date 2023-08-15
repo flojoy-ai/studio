@@ -3,7 +3,6 @@ import { nodeTypesMap } from "@/components/nodes/nodeTypesMap";
 import React, { useMemo } from "react";
 import { NodeTypes } from "reactflow";
 import { MouseEvent } from "react";
-import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
@@ -15,7 +14,6 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
   const {
     states: { programResults, failedNode, runningNode, failureReason },
   } = useSocket();
-  const { nodes } = useFlowChartGraph();
 
   const nodeTypes: NodeTypes = useMemo(
     () =>
@@ -27,7 +25,6 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
               const nodeResult = programResults?.find(
                 (node) => node.id === props.data.id,
               );
-              const node = nodes.find((node) => node.id === props.data.id);
               return (
                 <CustomNode
                   isRunning={runningNode === props.data.id}
@@ -39,7 +36,6 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
                   nodeProps={props}
                   handleRemove={handleRemove}
                   theme={theme}
-                  node={node}
                 />
               );
             },

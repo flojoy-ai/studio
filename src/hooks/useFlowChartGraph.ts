@@ -106,12 +106,13 @@ export const useFlowChartGraph = () => {
     });
   };
 
-  const handleTitleChange = (value: string, node: Node<ElementsData>) => {
-    if (value === node.data.label) {
+  const handleTitleChange = (value: string, id: string) => {
+    const node = nodes.find((n) => n.data.id === id);
+    if (value === node?.data.label) {
       return;
     }
     const isDuplicate = nodes.find(
-      (n) => n.data.label === value && n.data.id !== node.data.id,
+      (n) => n.data.label === value && n.data.id !== id,
     );
     if (isDuplicate) {
       toast.message("Cannot change label", {
@@ -120,7 +121,7 @@ export const useFlowChartGraph = () => {
       return;
     }
     const updatedNodes = nodes?.map((n) => {
-      if (n.data.id === node.data.id) {
+      if (n.data.id === id) {
         return { ...n, data: { ...n.data, label: value } };
       }
       return n;

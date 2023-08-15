@@ -1,9 +1,10 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import HandleComponent from "@/components/common/HandleComponent";
 import { textWrap } from "@src/utils/TextWrap";
+import NodeInput from "@/components/common/NodeInput";
 
 const DefaultNode = (props: CustomNodeProps) => {
   const {
@@ -14,7 +15,7 @@ const DefaultNode = (props: CustomNodeProps) => {
     nodeError = null,
     children,
   } = props;
-
+  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   return (
     <NodeWrapper wrapperProps={props}>
       <div
@@ -28,11 +29,18 @@ const DefaultNode = (props: CustomNodeProps) => {
           minHeight: height,
         }}
       >
-        {children ?? (
-          <h2 className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent1">
-            {data.label}
-          </h2>
-        )}
+        {children ??
+          (isRenamingTitle ? (
+            <NodeInput
+              title={data.label}
+              id={data.id}
+              setIsRenamingTitle={setIsRenamingTitle}
+            />
+          ) : (
+            <h2 className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent1">
+              {data.label}
+            </h2>
+          ))}
         <HandleComponent data={data} variant="accent1" />
       </div>
     </NodeWrapper>

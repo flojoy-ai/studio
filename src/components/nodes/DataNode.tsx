@@ -4,18 +4,15 @@ import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import HandleComponent from "@/components/common/HandleComponent";
 import { textWrap } from "@src/utils/TextWrap";
-import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
+import NodeInput from "@/components/common/NodeInput";
 
 const DataNode = (props: CustomNodeProps) => {
   const {
     nodeProps: { data },
     isRunning,
     nodeError,
-    node,
   } = props;
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
-  const [newTitle, setNewTitle] = useState(data.label);
-  const { handleTitleChange } = useFlowChartGraph();
 
   return (
     <NodeWrapper wrapperProps={props}>
@@ -30,18 +27,10 @@ const DataNode = (props: CustomNodeProps) => {
         }}
       >
         {isRenamingTitle ? (
-          <input
-            type="text"
-            value={newTitle}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                setIsRenamingTitle(false);
-              }
-            }}
-            onChange={(e) => {
-              setNewTitle(e.target.value);
-              handleTitleChange(e.target.value, node);
-            }}
+          <NodeInput
+            title={data.label}
+            id={data.id}
+            setIsRenamingTitle={setIsRenamingTitle}
           />
         ) : (
           <h2

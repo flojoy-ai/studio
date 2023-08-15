@@ -56,7 +56,7 @@ const NodeEditModal = ({
                   variant="ghost"
                   onClick={() => {
                     setEditRenamingTitle(false);
-                    handleTitleChange(newTitle, node);
+                    handleTitleChange(newTitle, node.data.id);
                   }}
                 >
                   <Check size={20} className="stroke-muted-foreground" />

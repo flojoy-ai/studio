@@ -1,9 +1,10 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import clsx from "clsx";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import { CustomNodeProps } from "@src/types/node";
 import { ScipySvg } from "@/assets/ArithmeticSVG";
 import HandleComponent from "@/components/common/HandleComponent";
+import NodeInput from "@/components/common/NodeInput";
 
 const NumpyNode = (props: CustomNodeProps) => {
   const {
@@ -11,6 +12,7 @@ const NumpyNode = (props: CustomNodeProps) => {
     isRunning,
     nodeError,
   } = props;
+  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   return (
     <NodeWrapper wrapperProps={props}>
       <div
@@ -22,10 +24,21 @@ const NumpyNode = (props: CustomNodeProps) => {
       >
         <div className="flex flex-col items-center">
           <ScipySvg className="h-16 w-16" />
-          <h2 className="m-0 text-center font-sans text-2xl tracking-wider text-blue-500">
-            <span>sp.</span>
-            <span className="font-extrabold">{data.label}</span>
-          </h2>
+          {isRenamingTitle ? (
+            <NodeInput
+              title={data.label}
+              id={data.id}
+              setIsRenamingTitle={setIsRenamingTitle}
+            />
+          ) : (
+            <h2
+              onDoubleClick={() => setIsRenamingTitle(true)}
+              className="m-0 text-center font-sans text-2xl tracking-wider text-blue-500"
+            >
+              <span>sp.</span>
+              <span className="font-extrabold">{data.label}</span>
+            </h2>
+          )}
         </div>
         <HandleComponent data={data} variant="blue" />
       </div>

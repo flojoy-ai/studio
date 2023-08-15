@@ -88,5 +88,4 @@ export interface CustomNodeProps {
   };
   textBlob?: string;
   theme?: "light" | "dark";
-  node: Node<ElementsData>;
 }
