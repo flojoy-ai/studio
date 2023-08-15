@@ -8,7 +8,7 @@ import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import localforage from "localforage";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -25,6 +25,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  Node,
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -44,6 +45,7 @@ import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
+import { ElementsData } from "@src/types";
 
 localforage.config({
   name: "react-flow",
@@ -53,6 +55,10 @@ localforage.config({
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
+
+  // FIXME: Very strange hack to get around the fact that React
+  // runs every useEffect twice..
+  const queueEditMode = useRef(0);
 
   const { theme } = useTheme();
 
@@ -168,14 +174,24 @@ const FlowChartTab = () => {
     [setNodes],
   );
 
+  const onNodeClick = useCallback(() => {
+    queueEditMode.current = 0;
+    console.log("clicked");
+  }, []);
+
+  const onNodeRightClick = useCallback(
+    (e: React.MouseEvent, node: Node<ElementsData>) => {
+      e.preventDefault();
+      setNodes((prev) => prev.map((n) => ({ ...n, selected: n.id === node.id })));
+      queueEditMode.current = 2;
+    }, [setNodes]
+  );
+
   const clearCanvas = useCallback(() => {
     setNodes([]);
     setEdges([]);
   }, [setNodes, setEdges]);
 
-  useEffect(() => {
-    setIsEditMode(false);
-  }, [selectedNode, setIsEditMode]);
 
   useEffect(() => {
     if (selectedNode === null) {
@@ -194,6 +210,17 @@ const FlowChartTab = () => {
     setNodeType,
     setPythonString,
   ]);
+
+  // This effect gets called twice, which is why queueEditMode is an int instead of a boolean.
+  useLayoutEffect(() => {
+    console.log("bruh");
+    if (queueEditMode.current > 0) {
+      setIsEditMode(true);
+      queueEditMode.current--;
+    } else {
+      setIsEditMode(false);
+    }
+  }, [selectedNode, setIsEditMode]);
 
   const proOptions = { hideAttribution: true };
 
@@ -311,6 +338,8 @@ const FlowChartTab = () => {
             edges={edges}
             edgeTypes={edgeTypes}
             connectionLineType={ConnectionLineType.Step}
+            onNodeClick={onNodeClick}
+            onNodeContextMenu={onNodeRightClick}
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}

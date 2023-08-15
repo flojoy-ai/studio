@@ -48,7 +48,7 @@ export const useFlowChartGraph = () => {
         n.data.selected = n.selected;
       });
     });
-  }, [selectedNode]);
+  }, [selectedNode, setNodes]);
 
   /**
    * Creates a node mapping from nodeSection

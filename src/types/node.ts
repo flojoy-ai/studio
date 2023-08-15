@@ -36,14 +36,14 @@ type NodeElement = {
 type CtrlData = Record<
   string,
   NodeElement["parameters"] extends infer T
-    ? T extends Record<string, infer U>
-      ? U & {
-          functionName: string;
-          param: string;
-          value: string | boolean | number | undefined | null;
-        }
-      : never
-    : never
+  ? T extends Record<string, infer U>
+  ? U & {
+    functionName: string;
+    param: string;
+    value: string | boolean | number | undefined | null;
+  }
+  : never
+  : never
 >;
 
 export type ElementsData = {
@@ -73,7 +73,6 @@ export type ElementsData = {
 export interface CustomNodeProps {
   nodeProps: NodeProps<ElementsData>;
   handleRemove?: (nodeId: string, nodeLabel: string) => void;
-  wrapperOnClick?: () => void;
   handleClickExpand?: () => void;
   isRunning?: boolean;
   height?: number | string;

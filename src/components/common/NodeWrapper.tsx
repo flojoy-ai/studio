@@ -12,7 +12,7 @@ const NodeWrapper = ({
     <div className="relative" data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
-    </div>
+    </div >
   );
 };
 

@@ -1,3 +1,4 @@
+import React from "react";
 import App from "./App";
 import { SocketContextProvider } from "./context/socket.context";
 import "./global.css";
@@ -20,11 +21,13 @@ function fallbackRender({ error, resetErrorBoundary }) {
 }
 
 root.render(
-  <BrowserRouter>
-    <ErrorBoundary fallbackRender={fallbackRender}>
-      <SocketContextProvider>
-        <App />
-      </SocketContextProvider>
-    </ErrorBoundary>
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <ErrorBoundary fallbackRender={fallbackRender}>
+        <SocketContextProvider>
+          <App />
+        </SocketContextProvider>
+      </ErrorBoundary>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
