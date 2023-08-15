@@ -176,7 +176,6 @@ const FlowChartTab = () => {
 
   const onNodeClick = useCallback(() => {
     queueEditMode.current = 0;
-    console.log("clicked");
   }, []);
 
   const onNodeRightClick = useCallback(
@@ -217,7 +216,6 @@ const FlowChartTab = () => {
 
   // This effect gets called twice, which is why queueEditMode is an int instead of a boolean.
   useLayoutEffect(() => {
-    console.log("bruh");
     if (queueEditMode.current > 0) {
       setIsEditMode(true);
       queueEditMode.current--;
