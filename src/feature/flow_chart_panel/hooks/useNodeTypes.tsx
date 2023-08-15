@@ -1,10 +1,12 @@
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeTypesMap } from "@/components/nodes/nodeTypesMap";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { NodeTypes } from "reactflow";
+import { MouseEvent } from "react";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
+  wrapperOnClick: (event: MouseEvent<HTMLDivElement>) => void;
   theme: "light" | "dark";
 };
 

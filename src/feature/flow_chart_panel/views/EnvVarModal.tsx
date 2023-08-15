@@ -141,6 +141,14 @@ const EnvVarModal = ({
         <div className="flex flex-col">
           <div className="text-lg font-bold">Flojoy Cloud</div>
           <div className="py-1" />
+          <a
+            href={"https://cloud.flojoy.ai"} // TODO: repalce this with the ytb video link
+            target="_blank"
+            className="text-sm underline"
+          >
+            Get your Flojoy Cloud API key
+          </a>
+          <div className="py-1" />
           <div className="flex w-full items-center space-x-2">
             <Input
               type="email"
