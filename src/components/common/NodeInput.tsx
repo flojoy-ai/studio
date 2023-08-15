@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 
-interface NodeInputProps {
+type NodeInputProps {
   title: string;
   id: string;
   setIsRenamingTitle: Dispatch<SetStateAction<boolean>>;
