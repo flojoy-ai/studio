@@ -1,5 +1,5 @@
 import { OverridePlotData } from "./plotly";
-import { NodeProps, Node } from "reactflow";
+import { NodeProps } from "reactflow";
 import { Layout } from "plotly.js";
 import { MouseEvent } from "react";
 
