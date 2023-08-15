@@ -1,6 +1,8 @@
 import { OverridePlotData } from "./plotly";
 import { NodeProps } from "reactflow";
 import { Layout } from "plotly.js";
+import { MouseEvent } from "react";
+
 type NodeElement = {
   name: string;
   key: string;
@@ -73,7 +75,7 @@ export type ElementsData = {
 export interface CustomNodeProps {
   nodeProps: NodeProps<ElementsData>;
   handleRemove?: (nodeId: string, nodeLabel: string) => void;
-  wrapperOnClick?: () => void;
+  wrapperOnClick?: (event: MouseEvent<HTMLDivElement>) => void;
   handleClickExpand?: () => void;
   isRunning?: boolean;
   height?: number | string;

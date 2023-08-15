@@ -89,7 +89,7 @@ def spawn_workers(
 def flowchart_to_nx_graph(flowchart: dict[str, Any]):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
-    nx_graph: nx.DiGraph = nx.DiGraph()
+    nx_graph: nx.MultiDiGraph = nx.MultiDiGraph()
     dict_node_inputs: dict[str, list[Any]] = dict()
 
     for i in range(len(elems)):

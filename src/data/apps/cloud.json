@@ -309,13 +309,13 @@
           "selected": false
         },
         "position": {
-          "x": 465.2121140466452,
-          "y": 203.61723635844817
+          "x": 468.86116480963676,
+          "y": 209.0908125029356
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 465.2121140466452,
-          "y": 203.61723635844817
+          "x": 468.86116480963676,
+          "y": 209.0908125029356
         },
         "dragging": true
       },
@@ -351,73 +351,13 @@
           "selected": false
         },
         "position": {
-          "x": 462.3084798926543,
-          "y": -269.6834238697861
+          "x": 469.60658141863746,
+          "y": -266.0343731067944
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 462.3084798926543,
-          "y": -269.6834238697861
-        },
-        "dragging": true
-      },
-      {
-        "width": 160,
-        "height": 160,
-        "id": "LOADER-bb356104-7bae-4545-874d-9e7ea3e9fba2",
-        "type": "LOADERS",
-        "data": {
-          "id": "LOADER-bb356104-7bae-4545-874d-9e7ea3e9fba2",
-          "label": "LOADER",
-          "func": "LOADER",
-          "type": "LOADERS",
-          "ctrls": {
-            "measurement_id": {
-              "type": "str",
-              "default": null,
-              "desc": null,
-              "functionName": "LOADER",
-              "param": "measurement_id",
-              "value": ""
-            },
-            "dc_id": {
-              "type": "str",
-              "default": null,
-              "desc": null,
-              "functionName": "LOADER",
-              "param": "dc_id",
-              "value": ""
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Any",
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/LOADERS/CLOUD_DATABASE/LOADER/LOADER.py",
-          "selected": true
-        },
-        "position": {
-          "x": 572.3954104653205,
-          "y": 30.81194636286449
-        },
-        "selected": true,
-        "positionAbsolute": {
-          "x": 572.3954104653205,
-          "y": 30.81194636286449
+          "x": 469.60658141863746,
+          "y": -266.0343731067944
         },
         "dragging": true
       },
@@ -488,6 +428,66 @@
           "y": 72.89087799087366
         },
         "dragging": true
+      },
+      {
+        "width": 160,
+        "height": 160,
+        "id": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+        "type": "LOADERS",
+        "data": {
+          "id": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+          "label": "FLOJOY CLOUD UPLOAD",
+          "func": "FLOJOY_CLOUD_UPLOAD",
+          "type": "LOADERS",
+          "ctrls": {
+            "measurement_id": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "functionName": "FLOJOY_CLOUD_UPLOAD",
+              "param": "measurement_id",
+              "value": ""
+            },
+            "dc_id": {
+              "type": "str",
+              "default": null,
+              "desc": null,
+              "functionName": "FLOJOY_CLOUD_UPLOAD",
+              "param": "dc_id",
+              "value": ""
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/FLOJOY_CLOUD_UPLOAD.py",
+          "selected": false
+        },
+        "position": {
+          "x": 561.4337200278916,
+          "y": 34.468511362970105
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 561.4337200278916,
+          "y": 34.468511362970105
+        },
+        "dragging": true
       }
     ],
     "edges": [
@@ -528,13 +528,6 @@
         "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-SCATTER-55268351-79af-4a28-a22c-d85b261b9681default"
       },
       {
-        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
-        "sourceHandle": "default",
-        "target": "LOADER-bb356104-7bae-4545-874d-9e7ea3e9fba2",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-LOADER-bb356104-7bae-4545-874d-9e7ea3e9fba2default"
-      },
-      {
         "source": "LINSPACE-ff91bdbd-19d5-48aa-bca3-a11b3ffbfb9b",
         "sourceHandle": "default",
         "target": "RAND-2840aa43-5d9a-4433-823f-6a23d606a97f",
@@ -554,12 +547,19 @@
         "target": "CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11",
         "targetHandle": "default",
         "id": "reactflow__edge-LINSPACE-ff91bdbd-19d5-48aa-bca3-a11b3ffbfb9bdefault-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11default"
+      },
+      {
+        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
+        "sourceHandle": "default",
+        "target": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39default"
       }
     ],
     "viewport": {
-      "x": 659.6600738684913,
-      "y": 338.76654687783446,
-      "zoom": 0.5
+      "x": 658.4714398676938,
+      "y": 320.7174076848424,
+      "zoom": 0.6801446908048335
     }
   },
   "ctrlsManifest": [
