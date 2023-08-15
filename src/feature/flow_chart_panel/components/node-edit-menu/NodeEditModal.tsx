@@ -8,13 +8,10 @@ import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
-import { toast } from "sonner";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
   otherNodes: Node<ElementsData>[] | null;
-  nodes: Node<ElementsData>[];
-  setNodes: (nodes: Node<ElementsData>[]) => void;
   setNodeModalOpen: (open: boolean) => void;
   handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
@@ -22,43 +19,19 @@ type NodeEditModalProps = {
 const NodeEditModal = ({
   node,
   otherNodes,
-  nodes,
-  setNodes,
   setNodeModalOpen,
   handleDelete,
 }: NodeEditModalProps) => {
   const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
     useFlowChartGraph();
-  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
+  const [editRenamingTitle, setEditRenamingTitle] = useState(false);
   const { nodeParamChanged, setIsEditMode } = useFlowChartState();
+  const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
     [];
-
-  const handleTitleChange = (value: string) => {
-    setIsRenamingTitle(false);
-    if (value === node.data.label) {
-      return;
-    }
-    const isDuplicate = nodes.find(
-      (n) => n.data.label === value && n.data.id !== node.data.id,
-    );
-    if (isDuplicate) {
-      toast.message("Cannot change label", {
-        description: `There is another node with the same label: ${value}`,
-      });
-      return;
-    }
-    const updatedNodes = nodes?.map((n) => {
-      if (n.data.id === node.data.id) {
-        return { ...n, data: { ...n.data, label: value } };
-      }
-      return n;
-    });
-    setNodes(updatedNodes);
-  };
 
   useEffect(() => {
     setNewTitle(node.data.label);
@@ -69,7 +42,7 @@ const NodeEditModal = ({
       <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
         <div className="flex items-center">
           <div>
-            {isRenamingTitle ? (
+            {editRenamingTitle ? (
               <div className="flex">
                 <Input
                   id="title_input"
@@ -82,7 +55,8 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    handleTitleChange(newTitle);
+                    setEditRenamingTitle(false);
+                    handleTitleChange(newTitle, node.data.id);
                   }}
                 >
                   <Check size={20} className="stroke-muted-foreground" />
@@ -96,7 +70,7 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    setIsRenamingTitle(true);
+                    setEditRenamingTitle(true);
                   }}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
@@ -115,7 +89,7 @@ const NodeEditModal = ({
           </div>
           <div className="grow" />
 
-          {!isRenamingTitle && (
+          {!editRenamingTitle && (
             <Button
               size="icon"
               variant="ghost"

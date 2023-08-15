@@ -109,6 +109,9 @@ const FlowChartTab = () => {
 
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
+    wrapperOnClick: () => {
+      setIsEditMode(true);
+    },
     theme: mantineTheme.colorScheme,
   });
 
@@ -273,8 +276,6 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
-            nodes={nodes}
-            setNodes={setNodes}
             setNodeModalOpen={() => setNodeModalOpen(true)}
             handleDelete={handleNodeRemove}
           />
