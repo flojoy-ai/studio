@@ -38,8 +38,8 @@ class Topology:
         worker_response: Callable[..., Any] = lambda x: None,
         final_broadcast: Callable[..., Any] = lambda: None,
     ):
-        self.working_graph : nx.MultiDiGraph = deepcopy(graph)
-        self.original_graph : nx.MultiDiGraph = deepcopy(graph)
+        self.working_graph: nx.MultiDiGraph = deepcopy(graph)
+        self.original_graph: nx.MultiDiGraph = deepcopy(graph)
         self.jobset_id = jobset_id
         self.node_delay = node_delay
         self.finished_jobs: set[str] = set()
@@ -292,7 +292,9 @@ class Topology:
         if self.loop_nodes:
             self.loop_nodes.pop()
         graph = self.original_graph
-        sub_graph: nx.MultiDiGraph = graph.subgraph([job_id] + list(nx.descendants(graph, job_id)))
+        sub_graph: nx.MultiDiGraph = graph.subgraph(
+            [job_id] + list(nx.descendants(graph, job_id))
+        )
         original_edges = sub_graph.edges(data=True)
         self.working_graph.add_edges_from(original_edges)
         self.finished_jobs.remove(job_id)
@@ -446,7 +448,11 @@ class Topology:
     def get_outputs(self, job_id: str):
         out = self.working_graph.out_edges(job_id)
         return list(
-            set(edge["label"] for (u, v) in out for edge in self.working_graph.get_edge_data(u, v).values())
+            set(
+                edge["label"]
+                for (u, v) in out
+                for edge in self.working_graph.get_edge_data(u, v).values()
+            )
         )
 
     def is_loop_node(self, job_id: str):
