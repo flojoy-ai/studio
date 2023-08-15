@@ -163,7 +163,7 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
 
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, programResults, setProgramResults, serverStatus } = states;
+  const { socketId, programResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
@@ -246,7 +246,7 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults([]);
+      // setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
