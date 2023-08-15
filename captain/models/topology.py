@@ -65,7 +65,7 @@ class Topology:
         asyncio.create_task(self.worker_response(request_dict))
 
         if "FAILED_NODES" in request_dict:
-            job_id = request_dict.get("FAILED_NODES", "")
+            job_id = list(request_dict["FAILED_NODES"].keys())[0]
             self.process_job_result(job_id=job_id, job_result=None, success=False)
         elif "NODE_RESULTS" in request_dict:
             job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
@@ -98,6 +98,7 @@ class Topology:
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
+        errors = {}
         for node_id in cast(list[str], self.original_graph.nodes):
             # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
@@ -110,6 +111,15 @@ class Topology:
             except AttributeError:
                 func = getattr(module, cmd)
 
+            try:
+                preflight = getattr(module, "node_preflight")
+                try:
+                    preflight()
+                except Exception as e:
+                    errors[node_id] = str(e)
+            except AttributeError:
+                pass
+
             # check if the func has an init function, and initialize it if it does to the specified node id
             try:
                 init_func = get_node_init_function(func)
@@ -120,7 +130,7 @@ class Topology:
                 pass
 
             functions[node_id] = func
-        return functions
+        return functions, errors
 
     async def run_job(self, job_id: str):
         async with lock:

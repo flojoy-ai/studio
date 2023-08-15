@@ -215,45 +215,44 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             "output"
         ] = f"{', '.join(missing_packages)} packages will be installed with pip!"
         await manager.ws.broadcast(socket_msg)
+
         installation_succeed = await install_packages(
             missing_packages, socket_msg, manager=manager
         )
-        logger.debug(f"installing packages was successfull? {installation_succeed}")
-        if installation_succeed:
-            # get the amount of workers needed
-            spawn_workers(
-                manager,
-                manager.running_topology.pre_import_functions(),
-                request.nodeDelay,
-            )
-            socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
-            socket_msg["PRE_JOB_OP"]["isRunning"] = False
-            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RUN_IN_PROCESS"],)
-            await manager.ws.broadcast(socket_msg)
-            logger.debug(
-                f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
-            )
-            asyncio.create_task(run_flow_chart(manager=manager))
+        logger.debug(f"installing packages was successful? {installation_succeed}")
 
-        else:
+        if not installation_succeed:
             socket_msg["PRE_JOB_OP"][
                 "output"
-            ] = "Pre job opearation failed! Look at the errors printed above!"
+            ] = "Pre job operation failed! Look at the errors printed above!"
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
-    else:
-        # get the amount of workers needed
-        spawn_workers(
-            manager, manager.running_topology.pre_import_functions(), request.nodeDelay
-        )
-        socket_msg["PRE_JOB_OP"]["isRunning"] = False
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
+            return
+
+        socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successful!"
+
+    # get the amount of workers needed
+    funcs, errs = manager.running_topology.pre_import_functions()
+
+    socket_msg["PRE_JOB_OP"]["isRunning"] = False
+
+    if errs:
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
+        socket_msg["PRE_JOB_OP"]["output"] = "Preflight check failed!"
+        socket_msg["FAILED_NODES"] = errs
+
         await manager.ws.broadcast(socket_msg)
-        logger.debug(
-            f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
-        )
-        asyncio.create_task(run_flow_chart(manager=manager))
-        asyncio.create_task(cancel_when_max_time(manager, request))
+        return
+
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
+    await manager.ws.broadcast(socket_msg)
+
+    spawn_workers(manager, funcs, request.nodeDelay)
+    logger.debug(
+        f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
+    )
+    asyncio.create_task(run_flow_chart(manager=manager))
+    asyncio.create_task(cancel_when_max_time(manager, request))
 
 
 async def cancel_when_max_time(manager: Manager, request: PostWFC):

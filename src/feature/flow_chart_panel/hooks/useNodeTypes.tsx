@@ -10,7 +10,7 @@ type UseNodeTypesProps = {
 
 const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
   const {
-    states: { programResults, failedNode, runningNode, failureReason },
+    states: { programResults, failedNodes, runningNode },
   } = useSocket();
 
   const nodeTypes: NodeTypes = useMemo(
@@ -27,7 +27,7 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
                 <CustomNode
                   isRunning={runningNode === props.data.id}
                   nodeError={
-                    failedNode === props.id ? failureReason : undefined
+                    failedNodes[props.id]
                   }
                   plotlyFig={nodeResult?.result.plotly_fig ?? undefined}
                   textBlob={nodeResult?.result.text_blob ?? undefined}
@@ -44,7 +44,7 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
     // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
     // to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [programResults, failedNode, runningNode, failureReason, theme],
+    [programResults, failedNodes, runningNode, theme],
   );
 
   return nodeTypes;

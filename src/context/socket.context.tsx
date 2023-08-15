@@ -10,8 +10,7 @@ type States = {
   setProgramResults: Dispatch<SetStateAction<NodeResult[]>>;
   runningNode: string;
   serverStatus: IServerStatus;
-  failedNode: string;
-  failureReason: string;
+  failedNodes: Record<string, string>;
   socketId: string;
   preJobOperation: {
     isRunning: boolean;
@@ -35,8 +34,7 @@ export enum IServerStatus {
 const DEFAULT_STATES = {
   runningNode: "",
   serverStatus: IServerStatus.CONNECTING,
-  failedNode: "",
-  failureReason: "",
+  failedNodes: {},
   socketId: "",
 };
 
@@ -58,7 +56,7 @@ export const SocketContextProvider = ({
   });
 
   const handleStateChange =
-    (state: keyof States) => (value: string | number | IServerStatus) => {
+    (state: keyof States) => (value: string | number | Record<string, string> | IServerStatus) => {
       setStates((prev) => ({
         ...prev,
         [state]: value,
@@ -71,10 +69,9 @@ export const SocketContextProvider = ({
       const socketId = UUID();
       const ws = new WebSocketServer({
         url: `${SOCKET_URL}/${socketId}`,
-        handleFailedNode: handleStateChange("failedNode"),
+        handleFailedNodes: handleStateChange("failedNodes"),
         handleRunningNode: handleStateChange("runningNode"),
         handleSocketId: handleStateChange("socketId"),
-        handleFailureReason: handleStateChange("failureReason"),
         onNodeResultsReceived: setProgramResults,
         onPingResponse: handleStateChange("serverStatus"),
         onPreJobOpStarted: setPreJobOperation,
