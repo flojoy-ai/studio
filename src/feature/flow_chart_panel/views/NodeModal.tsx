@@ -18,7 +18,7 @@ import {
 } from "@src/components/ui/dialog";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
-import { ScrollArea } from "@src/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/theme-provider";
 
 const themeJSONTree = (theme: MantineTheme) => {
@@ -154,7 +154,9 @@ const NodeModal = ({
         <h2 className="text-lg font-semibold text-muted-foreground">
           Python code
         </h2>
-        <ScrollArea className="h-full w-full rounded-lg" horizontal>
+        <ScrollArea className="h-full w-full rounded-lg">
+          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="horizontal" />
           <SyntaxHighlighter
             language="python"
             style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
