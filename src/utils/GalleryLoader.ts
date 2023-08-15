@@ -6,7 +6,7 @@ const data: GalleryData = {
       title: "Intro to LOOPS",
       description: "Generate a random number once",
       imagePath: "/assets/appGallery/introToLoops.png",
-      appPath: "randomNumber",
+      appPath: "loop",
       relevantNodes: [
         {
           name: "LOOP",
