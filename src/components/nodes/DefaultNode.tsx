@@ -16,6 +16,7 @@ const DefaultNode = (props: CustomNodeProps) => {
     children,
   } = props;
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+
   return (
     <NodeWrapper wrapperProps={props}>
       <div
@@ -28,6 +29,7 @@ const DefaultNode = (props: CustomNodeProps) => {
           width: width ?? textWrap(160, 24, data.label),
           minHeight: height,
         }}
+        onDoubleClick={() => setIsRenamingTitle(true)}
       >
         {children ??
           (isRenamingTitle ? (

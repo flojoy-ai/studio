@@ -25,6 +25,7 @@ const DataNode = (props: CustomNodeProps) => {
         style={{
           width: textWrap(208, 24, data.label),
         }}
+        onDoubleClick={() => setIsRenamingTitle(true)}
       >
         {isRenamingTitle ? (
           <NodeInput
@@ -33,10 +34,7 @@ const DataNode = (props: CustomNodeProps) => {
             setIsRenamingTitle={setIsRenamingTitle}
           />
         ) : (
-          <h2
-            onDoubleClick={() => setIsRenamingTitle(true)}
-            className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent2"
-          >
+          <h2 className="m-0 text-center font-sans text-2xl font-extrabold tracking-wider text-accent2">
             {data.label}
           </h2>
         )}

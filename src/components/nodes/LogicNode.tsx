@@ -22,6 +22,7 @@ const LogicNode = (props: CustomNodeProps) => {
           { "shadow-around shadow-accent3": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
+        onDoubleClick={() => setIsRenamingTitle(true)}
       >
         {children ??
           (isRenamingTitle ? (
@@ -33,10 +34,7 @@ const LogicNode = (props: CustomNodeProps) => {
               />
             </div>
           ) : (
-            <h2
-              onDoubleClick={() => setIsRenamingTitle(true)}
-              className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3"
-            >
+            <h2 className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3">
               {data.label}
             </h2>
           ))}

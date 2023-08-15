@@ -22,6 +22,7 @@ const NumpyNode = (props: CustomNodeProps) => {
           { "shadow-around shadow-blue-500": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
+        onDoubleClick={() => setIsRenamingTitle(true)}
       >
         <div className="flex flex-col items-center">
           <NumpySvg className="h-16 w-16" />
@@ -32,10 +33,7 @@ const NumpyNode = (props: CustomNodeProps) => {
               setIsRenamingTitle={setIsRenamingTitle}
             />
           ) : (
-            <h2
-              onDoubleClick={() => setIsRenamingTitle(true)}
-              className="m-0 text-center font-sans text-2xl tracking-wider text-blue-500"
-            >
+            <h2 className="m-0 text-center font-sans text-2xl tracking-wider text-blue-500">
               <span>np.</span>
               <span className="font-extrabold">{data.label}</span>
             </h2>

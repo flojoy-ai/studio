@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 
 interface NodeInputProps {
@@ -11,12 +11,30 @@ const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
   const { handleTitleChange } = useFlowChartGraph();
   const [newTitle, setNewTitle] = useState<string>(title);
 
+  const ref = useRef();
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsRenamingTitle(false);
+        handleTitleChange(newTitle, id);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, [ref, newTitle]);
+
   return (
     <div>
       <input
+        ref={ref}
         type="text"
         value={newTitle}
         autoFocus={true}
+        onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             setIsRenamingTitle(false);
