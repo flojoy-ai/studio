@@ -26,9 +26,7 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
               return (
                 <CustomNode
                   isRunning={runningNode === props.data.id}
-                  nodeError={
-                    failedNodes[props.id]
-                  }
+                  nodeError={failedNodes[props.id]}
                   plotlyFig={nodeResult?.result.plotly_fig ?? undefined}
                   textBlob={nodeResult?.result.text_blob ?? undefined}
                   nodeProps={props}
