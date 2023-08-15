@@ -38,7 +38,7 @@ import { CenterObserver } from "./components/CenterObserver";
 // import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Workflow } from "lucide-react";
+import { Pencil, Workflow } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/providers/theme-provider";
@@ -119,7 +119,6 @@ const FlowChartTab = () => {
   // for whatever reason.
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
-    wrapperOnClick: () => setIsEditMode(true),
     theme: mantineTheme.colorScheme,
   });
   const onInit: OnInit = (rfIns) => {
@@ -175,6 +174,10 @@ const FlowChartTab = () => {
   }, [setNodes, setEdges]);
 
   useEffect(() => {
+    setIsEditMode(false);
+  }, [selectedNode, setIsEditMode]);
+
+  useEffect(() => {
     if (selectedNode === null) {
       return;
     }
@@ -193,8 +196,6 @@ const FlowChartTab = () => {
   ]);
 
   const proOptions = { hideAttribution: true };
-
-  console.log(nodes);
 
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {
@@ -252,6 +253,16 @@ const FlowChartTab = () => {
               setIsGalleryOpen={setIsGalleryOpen}
             />
             <div className="grow" />
+            {selectedNode && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={() => setIsEditMode(true)}
+              >
+                <Pencil size={18} className="stroke-muted-foreground" />
+                Edit Node
+              </Button>
+            )}
             <ClearCanvasBtn clearCanvas={clearCanvas} />
           </div>
           <div className="py-1" />

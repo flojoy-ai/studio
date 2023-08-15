@@ -1,9 +1,8 @@
-import { app, BrowserWindow, shell, ipcMain, nativeImage } from "electron";
+import { app, BrowserWindow, shell, ipcMain } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-import path from "upath"
 
 // The built directory structure
 //
@@ -23,18 +22,10 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
 
 const envPath = process.env.PATH ?? "";
 
-if (!envPath?.split(":").includes("usr/local/bin")) {
+if (!envPath.split(":").includes("usr/local/bin")) {
   process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
 }
   
-  const getReleativePath = (pathStr:string) =>
-    path.toUnix(path.join(__dirname, pathStr));
-  
-const APP_ICON =
-    process.platform === "win32"
-      ? getReleativePath("../../electron/assets/favicon.ico")
-      : getReleativePath("../../electron/assets/favicon.icns");  
-
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -66,6 +57,7 @@ app.setName("Flojoy Studio");
 async function createWindow() {
   win = new BrowserWindow({
     title: "Flojoy Studio",
+    icon: join(process.env.PUBLIC ?? "", "favicon.ico"),
     autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
@@ -74,7 +66,6 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
     },
-    icon: APP_ICON,
     show: false,
   });
 
