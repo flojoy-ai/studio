@@ -26,7 +26,7 @@ const NodeEditModal = ({
     useFlowChartGraph();
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
-  const { nodeParamChanged } = useFlowChartState();
+  const { nodeParamChanged, setIsEditMode } = useFlowChartState();
   const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
