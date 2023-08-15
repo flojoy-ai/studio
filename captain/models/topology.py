@@ -6,7 +6,6 @@ from queue import Queue
 import time
 from collections import deque
 from flojoy import (
-    PreflightStore,
     get_next_directions,
     NoInitFunctionError,
     get_node_init_function,
@@ -115,7 +114,7 @@ class Topology:
             preflight = next(
                 (
                     f
-                    for _, f in module.__dict__.items()
+                    for f in module.__dict__.values()
                     if callable(f) and getattr(f, "is_flojoy_preflight", False)
                 ),
                 None,
