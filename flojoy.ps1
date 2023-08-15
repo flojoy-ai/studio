@@ -177,14 +177,6 @@ function createFlojoyDirectoryWithYmlFile {
   $CREDENTIALS_FILE = "$FOLDER/credentials.txt"
   if (-not (Test-Path $CREDENTIALS_FILE)) {
     New-Item $CREDENTIALS_FILE -ItemType File | Out-Null
-    warning_msg " Warning: Credentials are not set for your project! Created an empty credentials.txt file. You can add your credentials to this file in $CREDENTIALS_FILE."
-  }
-  else {
-    $FRONTIER_API_KEY_PATTERN = "FRONTIER_API_KEY:"
-    $FRONTIER_API_KEY = Select-String $CREDENTIALS_FILE -Pattern $FRONTIER_API_KEY_PATTERN -Quiet
-    if (-not $FRONTIER_API_KEY) {
-      warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials.txt' file: FRONTIER_API_KEY:<your key>"
-    }
   }
 }
 
