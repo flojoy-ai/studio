@@ -6,6 +6,7 @@ from queue import Queue
 import time
 from collections import deque
 from flojoy import (
+    PreflightStore,
     get_next_directions,
     NoInitFunctionError,
     get_node_init_function,
@@ -111,14 +112,12 @@ class Topology:
             except AttributeError:
                 func = getattr(module, cmd)
 
-            try:
-                preflight = getattr(module, "node_preflight")
+            preflight = PreflightStore.get_function(cmd)
+            if preflight is not None:
                 try:
                     preflight()
                 except Exception as e:
                     errors[node_id] = str(e)
-            except AttributeError:
-                pass
 
             # check if the func has an init function, and initialize it if it does to the specified node id
             try:
