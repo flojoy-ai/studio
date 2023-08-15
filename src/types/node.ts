@@ -1,5 +1,5 @@
 import { OverridePlotData } from "./plotly";
-import { NodeProps } from "reactflow";
+import { NodeProps, Node } from "reactflow";
 import { Layout } from "plotly.js";
 import { MouseEvent } from "react";
 
@@ -88,4 +88,5 @@ export interface CustomNodeProps {
   };
   textBlob?: string;
   theme?: "light" | "dark";
+  node: Node<ElementsData>;
 }

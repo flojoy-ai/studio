@@ -8,13 +8,10 @@ import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
-import { toast } from "sonner";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
   otherNodes: Node<ElementsData>[] | null;
-  nodes: Node<ElementsData>[];
-  setNodes: (nodes: Node<ElementsData>[]) => void;
   setNodeModalOpen: (open: boolean) => void;
   handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
@@ -22,8 +19,6 @@ type NodeEditModalProps = {
 const NodeEditModal = ({
   node,
   otherNodes,
-  nodes,
-  setNodes,
   setNodeModalOpen,
   handleDelete,
 }: NodeEditModalProps) => {
@@ -32,33 +27,11 @@ const NodeEditModal = ({
   const [newTitle, setNewTitle] = useState(node.data.label);
   const [editRenamingTitle, setEditRenamingTitle] = useState(false);
   const { nodeParamChanged } = useFlowChartState();
+  const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
     [];
-
-  const handleTitleChange = (value: string) => {
-    setEditRenamingTitle(false);
-    if (value === node.data.label) {
-      return;
-    }
-    const isDuplicate = nodes.find(
-      (n) => n.data.label === value && n.data.id !== node.data.id,
-    );
-    if (isDuplicate) {
-      toast.message("Cannot change label", {
-        description: `There is another node with the same label: ${value}`,
-      });
-      return;
-    }
-    const updatedNodes = nodes?.map((n) => {
-      if (n.data.id === node.data.id) {
-        return { ...n, data: { ...n.data, label: value } };
-      }
-      return n;
-    });
-    setNodes(updatedNodes);
-  };
 
   useEffect(() => {
     setNewTitle(node.data.label);
@@ -82,7 +55,8 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    handleTitleChange(newTitle);
+                    setEditRenamingTitle(false);
+                    handleTitleChange(newTitle, node);
                   }}
                 >
                   <Check size={20} className="stroke-muted-foreground" />
