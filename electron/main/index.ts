@@ -25,7 +25,7 @@ const envPath = process.env.PATH ?? "";
 if (!envPath.split(":").includes("usr/local/bin")) {
   process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
 }
-  
+
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
