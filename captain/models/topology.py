@@ -340,7 +340,7 @@ class Topology:
         graph = self.get_graph(original)
         try:
             deps = []
-            for (prev_job_id, _, data) in list(graph.in_edges(job_id, data=True)):
+            for prev_job_id, _, data in list(graph.in_edges(job_id, data=True)):
                 input_name = data.get("target_label", "")
                 multiple = data.get("multiple", False)
                 edge_label = data.get("label", "")
