@@ -8,10 +8,7 @@ type UseNodeTypesProps = {
   theme: "light" | "dark";
 };
 
-const useNodeTypes = ({
-  handleRemove,
-  theme,
-}: UseNodeTypesProps) => {
+const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
   const {
     states: { programResults, failedNode, runningNode, failureReason },
   } = useSocket();

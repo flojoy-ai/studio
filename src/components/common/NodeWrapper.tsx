@@ -9,10 +9,7 @@ const NodeWrapper = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div
-      className="relative"
-      data-testid="node-wrapper"
-    >
+    <div className="relative" data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>

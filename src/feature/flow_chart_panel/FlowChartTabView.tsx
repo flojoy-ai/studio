@@ -255,11 +255,16 @@ const FlowChartTab = () => {
               setIsGalleryOpen={setIsGalleryOpen}
             />
             <div className="grow" />
-            {selectedNode &&
-              <Button variant="ghost" className="gap-2" onClick={() => setIsEditMode(true)}>
+            {selectedNode && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={() => setIsEditMode(true)}
+              >
                 <Pencil size={18} className="stroke-muted-foreground" />
                 Edit Node
-              </Button>}
+              </Button>
+            )}
             <ClearCanvasBtn clearCanvas={clearCanvas} />
           </div>
           <div className="py-1" />

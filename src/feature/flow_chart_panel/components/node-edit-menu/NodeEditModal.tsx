@@ -153,7 +153,7 @@ const NodeEditModal = ({
             )}
           </div>
           <div className="py-2" />
-          <div className='flex justify-end'>
+          <div className="flex justify-end">
             <Button
               size="icon"
               variant="ghost"
