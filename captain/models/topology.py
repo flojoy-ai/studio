@@ -112,7 +112,15 @@ class Topology:
             except AttributeError:
                 func = getattr(module, cmd)
 
-            preflight = PreflightStore.get_function(cmd)
+            preflight = next(
+                (
+                    f
+                    for _, f in module.__dict__.items()
+                    if callable(f) and getattr(f, "is_flojoy_preflight", False)
+                ),
+                None,
+            )
+
             if preflight is not None:
                 try:
                     preflight()
