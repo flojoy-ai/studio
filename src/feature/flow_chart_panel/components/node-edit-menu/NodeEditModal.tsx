@@ -5,7 +5,7 @@ import { memo, useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamList } from "./ParamList";
-import { Check, Info, Pencil, TrashIcon } from "lucide-react";
+import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
 import { toast } from "sonner";
@@ -31,7 +31,7 @@ const NodeEditModal = ({
     useFlowChartGraph();
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { nodeParamChanged } = useFlowChartState();
+  const { nodeParamChanged, setIsEditMode } = useFlowChartState();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
@@ -119,9 +119,9 @@ const NodeEditModal = ({
             <Button
               size="icon"
               variant="ghost"
-              onClick={() => handleDelete(node.id, node.data.label)}
+              onClick={() => setIsEditMode(false)}
             >
-              <TrashIcon size={20} className="stroke-muted-foreground" />
+              <X size={20} className="stroke-muted-foreground" />
             </Button>
           )}
         </div>
@@ -151,6 +151,16 @@ const NodeEditModal = ({
                 Replay the flow for the changes to take effect
               </div>
             )}
+          </div>
+          <div className="py-2" />
+          <div className="flex justify-end">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => handleDelete(node.id, node.data.label)}
+            >
+              <TrashIcon size={20} className="stroke-muted-foreground" />
+            </Button>
           </div>
         </div>
       </div>

@@ -2,18 +2,14 @@ import React from "react";
 import { CustomNodeProps } from "../../types/node";
 
 const NodeWrapper = ({
-  wrapperProps: { wrapperOnClick, nodeError },
+  wrapperProps: { nodeError },
   children,
 }: {
   wrapperProps: CustomNodeProps;
   children: React.ReactNode;
 }) => {
   return (
-    <div
-      className="relative"
-      data-testid="node-wrapper"
-      onClick={wrapperOnClick}
-    >
+    <div className="relative" data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>
