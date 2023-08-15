@@ -4,66 +4,8 @@ import { ReactFlowJsonObject } from "reactflow";
 export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
   nodes: [
     {
-      width: 150,
-      height: 180,
-      id: "LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51d",
-      type: "default",
-      data: {
-        id: "LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51d",
-        label: "LINSPACE",
-        func: "LINSPACE",
-        type: "default",
-        ctrls: {
-          start: {
-            type: "float",
-            default: 10,
-            desc: null,
-            functionName: "LINSPACE",
-            param: "start",
-            value: 10,
-          },
-          end: {
-            type: "float",
-            default: 0,
-            desc: null,
-            functionName: "LINSPACE",
-            param: "end",
-            value: 0,
-          },
-          step: {
-            type: "int",
-            default: 1000,
-            desc: null,
-            functionName: "LINSPACE",
-            param: "step",
-            value: 1000,
-          },
-        },
-        outputs: [
-          {
-            name: "default",
-            id: "default",
-            type: "Vector",
-            desc: null,
-          },
-        ],
-        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
-        selected: false,
-      },
-      position: {
-        x: -391.85240952061065,
-        y: 27.80538912976249,
-      },
-      selected: false,
-      positionAbsolute: {
-        x: -391.85240952061065,
-        y: 27.80538912976249,
-      },
-      dragging: true,
-    },
-    {
       width: 208,
-      height: 100,
+      height: 96,
       id: "CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11",
       type: "GENERATORS",
       data: {
@@ -114,7 +56,7 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
     },
     {
       width: 208,
-      height: 100,
+      height: 96,
       id: "RAND-2840aa43-5d9a-4433-823f-6a23d606a97f",
       type: "GENERATORS",
       data: {
@@ -206,7 +148,7 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
     },
     {
       width: 208,
-      height: 100,
+      height: 96,
       id: "SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08",
       type: "GENERATORS",
       data: {
@@ -338,8 +280,8 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
       dragging: true,
     },
     {
-      width: 380,
-      height: 293,
+      width: 225,
+      height: 226,
       id: "HISTOGRAM-f9483fdf-a2c0-4de2-bda5-8900acba4124",
       type: "VISUALIZERS",
       data: {
@@ -380,8 +322,8 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
       dragging: true,
     },
     {
-      width: 380,
-      height: 293,
+      width: 225,
+      height: 226,
       id: "SCATTER-55268351-79af-4a28-a22c-d85b261b9681",
       type: "VISUALIZERS",
       data: {
@@ -421,6 +363,74 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
       },
       dragging: true,
     },
+    {
+      width: 208,
+      height: 96,
+      id: "LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1c",
+      type: "GENERATORS",
+      data: {
+        id: "LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1c",
+        label: "LINSPACE",
+        func: "LINSPACE",
+        type: "GENERATORS",
+        ctrls: {
+          start: {
+            type: "float",
+            default: 10,
+            desc: "The start point of the data.",
+            functionName: "LINSPACE",
+            param: "start",
+            value: 10,
+          },
+          end: {
+            type: "float",
+            default: 0,
+            desc: "The end point of the data.",
+            functionName: "LINSPACE",
+            param: "end",
+            value: 0,
+          },
+          step: {
+            type: "int",
+            default: 1000,
+            desc: "The number of points in the vector.",
+            functionName: "LINSPACE",
+            param: "step",
+            value: 1000,
+          },
+        },
+        initCtrls: {},
+        inputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "Vector|OrderedPair",
+            multiple: false,
+            desc: "Optional input in case LINSPACE is used in a loop. Not used.",
+          },
+        ],
+        outputs: [
+          {
+            name: "default",
+            id: "default",
+            type: "Vector",
+            desc: "v: the vector between start and end with step number of points.",
+          },
+        ],
+        path: "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE/LINSPACE.py",
+        selected: false,
+      },
+      position: {
+        x: -391.47325873080206,
+        y: 67.82944032389025,
+      },
+      selected: false,
+      positionAbsolute: {
+        x: -391.47325873080206,
+        y: 67.82944032389025,
+      },
+      dragging: true,
+    },
   ],
   edges: [
     {
@@ -436,27 +446,6 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
       target: "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
       targetHandle: "b",
       id: "reactflow__edge-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11default-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6b",
-    },
-    {
-      source: "LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51d",
-      sourceHandle: "default",
-      target: "SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08",
-      targetHandle: "default",
-      id: "reactflow__edge-LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51ddefault-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08default",
-    },
-    {
-      source: "LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51d",
-      sourceHandle: "default",
-      target: "RAND-2840aa43-5d9a-4433-823f-6a23d606a97f",
-      targetHandle: "default",
-      id: "reactflow__edge-LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51ddefault-RAND-2840aa43-5d9a-4433-823f-6a23d606a97fdefault",
-    },
-    {
-      source: "LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51d",
-      sourceHandle: "default",
-      target: "CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11",
-      targetHandle: "default",
-      id: "reactflow__edge-LINSPACE-00128d5a-271a-4cbd-bbd3-005c9707f51ddefault-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11default",
     },
     {
       source: "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
@@ -479,11 +468,32 @@ export const NOISY_SINE: ReactFlowJsonObject<ElementsData> = {
       targetHandle: "default",
       id: "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-SCATTER-55268351-79af-4a28-a22c-d85b261b9681default",
     },
+    {
+      source: "LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1c",
+      sourceHandle: "default",
+      target: "SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1cdefault-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08default",
+    },
+    {
+      source: "LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1c",
+      sourceHandle: "default",
+      target: "RAND-2840aa43-5d9a-4433-823f-6a23d606a97f",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1cdefault-RAND-2840aa43-5d9a-4433-823f-6a23d606a97fdefault",
+    },
+    {
+      source: "LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1c",
+      sourceHandle: "default",
+      target: "CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11",
+      targetHandle: "default",
+      id: "reactflow__edge-LINSPACE-44bc0f90-7cef-4528-994e-338d20ef6e1cdefault-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11default",
+    },
   ],
   viewport: {
-    x: 214.98998330891988,
-    y: 200.625245322659,
-    zoom: 0.5,
+    x: 650.2773141367447,
+    y: 316.97786726909555,
+    zoom: 1.241043234520508,
   },
 };
 

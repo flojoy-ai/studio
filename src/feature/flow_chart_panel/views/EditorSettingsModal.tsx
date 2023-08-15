@@ -2,16 +2,16 @@ import { useSettings } from "@src/hooks/useSettings";
 import { SettingsModalProps } from "./SettingsModal";
 import { SettingsModal } from "./SettingsModal";
 
-export const NodeSettingsModal = (props: SettingsModalProps) => {
-  const { settings, updateSettings } = useSettings("backend");
+export const EditorSettingsModal = (props: SettingsModalProps) => {
+  const { settings, updateSettings } = useSettings("frontend");
 
   return (
     <SettingsModal
       {...props}
       settings={settings}
       updateSettings={updateSettings}
-      title="Runtime Settings"
-      description="Applies when the flowchart is running."
+      title="Editor Settings"
+      description="Applies to the Flojoy editor"
     />
   );
 };
