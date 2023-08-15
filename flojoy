@@ -172,8 +172,15 @@ createFlojoyDirectoryWithYmlFile()
 
    CREDENTIALS_FILE=$FOLDER/credentials.txt
    
-   touch "$CREDENTIALS_FILE"
+   if test -f "$CREDENTIALS_FILE"; then
+      if ! grep -q 'FRONTIER_API_KEY' "$CREDENTIALS_FILE" >/dev/null 2>&1; then
+         warning_msg " Warning: Frontier API key not set for your project! To set Frontier API key, simply follow this pattern in the '~/.flojoy/credentials.txt' file: FRONTIER_API_KEY:<your key>"   
+      fi
+   else
+      touch "$CREDENTIALS_FILE"
+   fi
 }
+
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
