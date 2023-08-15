@@ -36,6 +36,7 @@ import {
 } from "@src/components/ui/menubar";
 import { API_URI } from "@src/data/constants";
 import { toast } from "sonner";
+import { EditorSettingsModal } from "./EditorSettingsModal";
 
 localforage.config({
   name: "react-flow",
@@ -167,8 +168,9 @@ const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
-  const { settings } = useSettings();
+  const { settings } = useSettings("backend");
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
+  const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
@@ -311,8 +313,12 @@ const ControlBar = () => {
       />
 
       <NodeSettingsModal
-        handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
-        isNodeSettingsModalOpen={isNodeSettingsOpen}
+        handleSettingsModalOpen={setIsNodeSettingsOpen}
+        isSettingsModalOpen={isNodeSettingsOpen}
+      />
+      <EditorSettingsModal
+        handleSettingsModalOpen={setIsEditorSettingsOpen}
+        isSettingsModalOpen={isEditorSettingsOpen}
       />
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
@@ -360,6 +366,12 @@ const ControlBar = () => {
                 onClick={() => setIsKeyboardShortcutOpen(true)}
               >
                 Keyboard Shortcut
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-editor-settings"
+                onClick={() => setIsEditorSettingsOpen(true)}
+              >
+                Editor Settings
               </MenubarItem>
               <MenubarItem
                 data-testid="btn-node-settings"

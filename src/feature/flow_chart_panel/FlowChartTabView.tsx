@@ -44,6 +44,7 @@ import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
+import { ResizeFitter } from "./components/ResizeFitter";
 
 localforage.config({
   name: "react-flow",
@@ -113,16 +114,16 @@ const FlowChartTab = () => {
     () => ({ default: SmartBezierEdge }),
     [],
   );
-  // Attach a callback to each of the custom nodes.
-  // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
-  // Has to be passed through the data prop because passing as a regular prop doesn't work
-  // for whatever reason.
+
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
     theme: mantineTheme.colorScheme,
   });
+
   const onInit: OnInit = (rfIns) => {
-    rfIns.fitView();
+    rfIns.fitView({
+      padding: 0.8,
+    });
     setRfInstance(rfIns.toObject());
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
@@ -295,6 +296,7 @@ const FlowChartTab = () => {
           />
 
           <FlowChartKeyboardShortcuts />
+          <ResizeFitter />
           <CenterObserver />
 
           <ReactFlow
@@ -317,6 +319,9 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
+            fitViewOptions={{
+              padding: 0.8
+            }}
             fitView
           >
             <MiniMap
@@ -355,7 +360,7 @@ const FlowChartTab = () => {
         </div>
       </ReactFlowProvider>
       {/* <CommandMenu /> */}
-    </Layout>
+    </Layout >
   );
 };
 

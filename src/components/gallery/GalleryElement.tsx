@@ -39,7 +39,9 @@ export const GalleryElement = ({
   useEffect(() => {
     // fixes the issue that app is not centered in the viewport
     if (nodesInitialized) {
-      rfInstance.fitView();
+      rfInstance.fitView({
+        padding: 0.8
+      });
     }
   }, [nodesInitialized]);
 
