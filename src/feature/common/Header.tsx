@@ -13,7 +13,6 @@ const tabs = [
   },
 ];
 
-
 const md = 800;
 
 const Header = () => {

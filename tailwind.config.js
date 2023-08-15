@@ -1,5 +1,5 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import twAnimate from 'tailwindcss-animate'
+import defaultTheme from "tailwindcss/defaultTheme";
+import twAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 export default {

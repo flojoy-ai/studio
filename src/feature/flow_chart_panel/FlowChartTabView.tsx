@@ -66,12 +66,8 @@ const FlowChartTab = () => {
     states: { programResults },
   } = useSocket();
 
-  const {
-    pythonString,
-    setPythonString,
-    nodeFilePath,
-    setNodeFilePath,
-  } = useFlowChartTabState();
+  const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
+    useFlowChartTabState();
 
   const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
     useFlowChartGraph();
@@ -182,11 +178,7 @@ const FlowChartTab = () => {
     const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [
-    selectedNode,
-    setNodeFilePath,
-    setPythonString,
-  ]);
+  }, [selectedNode, setNodeFilePath, setPythonString]);
 
   const proOptions = { hideAttribution: true };
 

@@ -15,10 +15,11 @@ type NodeExpandMenuProps = {
   nodeFilePath: string;
 };
 
-export const NodeExpandMenu = ({ nodeResults, ...props }: NodeExpandMenuProps) => {
-  const {
-    selectedNode,
-  } = props;
+export const NodeExpandMenu = ({
+  nodeResults,
+  ...props
+}: NodeExpandMenuProps) => {
+  const { selectedNode } = props;
   const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
   // const onSelectionChange = () => {
   //   if (!selectedNode) {
