@@ -15,11 +15,6 @@ import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/theme-provider";
-// import resolveConfig from 'tailwindcss/resolveConfig';
-// import twConfig from 'tailwind.config';
-
-// const resolvedConfig = resolveConfig(twConfig);
-// const colors = resolvedConfig.theme!.extend!.colors;
 
 const themeJSONTree = (theme: MantineTheme) => {
   const darkJSONTree = {
