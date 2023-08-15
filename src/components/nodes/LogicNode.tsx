@@ -1,8 +1,9 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@/components/common/NodeWrapper";
 import { LogicHandleComponent } from "@/components/common/LogicHandleComponent";
+import NodeInput from "@/components/common/NodeInput";
 
 const LogicNode = (props: CustomNodeProps) => {
   const {
@@ -11,6 +12,7 @@ const LogicNode = (props: CustomNodeProps) => {
     nodeProps: { data },
     children,
   } = props;
+  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
 
   return (
     <NodeWrapper wrapperProps={props}>
@@ -21,14 +23,23 @@ const LogicNode = (props: CustomNodeProps) => {
           { "shadow-around shadow-red-700": nodeError },
         )}
       >
-        {children ?? (
-          <h2
-            contentEditable={true}
-            className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3"
-          >
-            {data.label}
-          </h2>
-        )}
+        {children ??
+          (isRenamingTitle ? (
+            <div className="-rotate-45">
+              <NodeInput
+                title={data.label}
+                id={data.id}
+                setIsRenamingTitle={setIsRenamingTitle}
+              />
+            </div>
+          ) : (
+            <h2
+              onDoubleClick={() => setIsRenamingTitle(true)}
+              className="m-0 -rotate-45 text-center font-sans text-2xl font-extrabold tracking-wider text-accent3"
+            >
+              {data.label}
+            </h2>
+          ))}
         <LogicHandleComponent data={data} variant="accent3" />
       </div>
     </NodeWrapper>
