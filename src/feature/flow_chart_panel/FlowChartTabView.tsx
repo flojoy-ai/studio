@@ -322,7 +322,6 @@ const FlowChartTab = () => {
             fitViewOptions={{
               padding: 0.8,
             }}
-            fitView
           >
             <MiniMap
               style={{
@@ -344,7 +343,7 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
-            <Controls />
+            <Controls fitViewOptions={{ padding: 0.8 }} />
           </ReactFlow>
 
           <NodeExpandMenu
