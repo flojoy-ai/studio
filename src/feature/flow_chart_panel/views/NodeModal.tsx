@@ -106,7 +106,7 @@ const NodeModal = ({
       open={modalIsOpen}
       onOpenChange={setModalOpen}
     >
-      <DialogContent className="md:max-w-3xl bg-background border-muted overflow-y-scroll max-h-screen p-12 my-12">
+      <DialogContent className="md:max-w-4xl sm:max-w-2xl bg-background border-muted overflow-y-scroll max-h-screen p-12 my-12">
         <DialogHeader>
           <DialogTitle className="text-3xl">{selectedNode?.data.func}</DialogTitle>
         </DialogHeader>
