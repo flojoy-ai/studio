@@ -172,8 +172,11 @@ createFlojoyDirectoryWithYmlFile()
 
    CREDENTIALS_FILE=$FOLDER/credentials.txt
    
-   touch "$CREDENTIALS_FILE"
+   if ! test -f "$CREDENTIALS_FILE"; then
+      touch "$CREDENTIALS_FILE"
+   fi
 }
+
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
