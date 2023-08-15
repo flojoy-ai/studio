@@ -14,7 +14,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@src/component
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
 import { ScrollArea } from "@src/components/ui/scroll-area";
+import { useTheme } from "@src/providers/theme-provider";
+// import resolveConfig from 'tailwindcss/resolveConfig';
+// import twConfig from 'tailwind.config';
 
+// const resolvedConfig = resolveConfig(twConfig);
+// const colors = resolvedConfig.theme!.extend!.colors;
 
 const themeJSONTree = (theme: MantineTheme) => {
   const darkJSONTree = {
@@ -83,6 +88,7 @@ const NodeModal = ({
   selectedNode,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
+  const { resolvedTheme } = useTheme();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
   const colorScheme = theme.colorScheme;
@@ -122,7 +128,7 @@ const NodeModal = ({
             <code>{selectedNode.data.func}</code> not run yet - Click <i>Run Script</i>.
           </h3>
         ) : (
-          <NodeModalDataViz nd={nd} theme={theme.colorScheme} selectedNode={selectedNode} />
+          <NodeModalDataViz nd={nd} theme={resolvedTheme} selectedNode={selectedNode} />
         )}
         <div className='py-0.5' />
         <h2 className="text-lg font-semibold text-muted-foreground">
