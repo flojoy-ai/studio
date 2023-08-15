@@ -3,6 +3,7 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
+import path from "upath"
 
 // The built directory structure
 //
@@ -19,6 +20,20 @@ process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? join(process.env.DIST_ELECTRON, "../public")
   : process.env.DIST;
+
+const envPath = process.env.PATH ?? "";
+
+if (!envPath?.split(":").includes("usr/local/bin")) {
+  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
+}
+  
+  const getReleativePath = (pathStr:string) =>
+    path.toUnix(path.join(__dirname, pathStr));
+  
+const APP_ICON =
+    process.platform === "win32"
+      ? getReleativePath("../../electron/assets/favicon.ico")
+      : getReleativePath("../../electron/assets/favicon.icns");  
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -45,17 +60,13 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
-// check if os is mac/linux or windows, use .png or .ico respectively
-const imgPath =
-  process.platform === "darwin"
-    ? join(app.getAppPath(), "/build/appicon.png")
-    : __dirname + "/build/appicon.png";
+
 app.setName("Flojoy Studio");
 
 async function createWindow() {
   win = new BrowserWindow({
     title: "Flojoy Studio",
-    autoHideMenuBar: app.isPackaged ? true : false,
+    autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -63,14 +74,10 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
     },
+    icon: APP_ICON,
     show: false,
   });
 
-  if (process.platform === "darwin") {
-    app.dock.setIcon(nativeImage.createFromPath(imgPath));
-  } else {
-    win.setIcon(imgPath);
-  }
   win.maximize();
   win.show();
 
