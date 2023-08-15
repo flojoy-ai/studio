@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, nativeImage } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
@@ -38,16 +38,15 @@ if (!app.requestSingleInstanceLock()) {
 }
 
 const getIcon = () => {
-  switch(process.platform){
+  switch (process.platform) {
     case "win32":
-      return join(process.env.PUBLIC ?? "", "favicon.ico")
+      return join(process.env.PUBLIC ?? "", "favicon.ico");
     case "linux":
-      return join(process.env.PUBLIC ?? "", "favicon.png")
+      return join(process.env.PUBLIC ?? "", "favicon.png");
     default:
-      return join(process.env.PUBLIC ?? "", "favicon.icns")
-
+      return join(process.env.PUBLIC ?? "", "favicon.png");
   }
-}
+};
 
 // Remove electron security warnings
 // This warning only shows in development mode
@@ -63,7 +62,6 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
-
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -80,6 +78,11 @@ async function createWindow() {
     },
     show: false,
   });
+
+  // setting icon for mac
+  if (process.platform === "darwin") {
+    app.dock.setIcon(nativeImage.createFromPath(getIcon()));
+  }
 
   win.maximize();
   win.show();
