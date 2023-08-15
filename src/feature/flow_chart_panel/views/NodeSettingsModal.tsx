@@ -11,6 +11,7 @@ export const NodeSettingsModal = (props: SettingsModalProps) => {
       settings={settings}
       updateSettings={updateSettings}
       title="Runtime Settings"
-      description="Applies when the flowchart is running." />
-  )
+      description="Applies when the flowchart is running."
+    />
+  );
 };

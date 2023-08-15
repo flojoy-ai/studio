@@ -8,7 +8,9 @@ export const ResizeFitter = () => {
   const width = useStore((state) => state.width);
   const height = useStore((state) => state.height);
 
-  const shouldResize = settings.find((setting) => setting.key === "fitViewOnResize")?.value;
+  const shouldResize = settings.find(
+    (setting) => setting.key === "fitViewOnResize",
+  )?.value;
 
   useEffect(() => {
     if (shouldResize) {

@@ -320,7 +320,7 @@ const FlowChartTab = () => {
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{
-              padding: 0.8
+              padding: 0.8,
             }}
             fitView
           >
@@ -360,7 +360,7 @@ const FlowChartTab = () => {
         </div>
       </ReactFlowProvider>
       {/* <CommandMenu /> */}
-    </Layout >
+    </Layout>
   );
 };
 
