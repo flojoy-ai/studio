@@ -194,6 +194,10 @@ const FlowChartTab = () => {
 
 
   useEffect(() => {
+    setIsEditMode(false);
+  }, [selectedNode, setIsEditMode]);
+
+  useEffect(() => {
     if (selectedNode === null) {
       return;
     }
