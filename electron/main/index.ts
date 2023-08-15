@@ -37,6 +37,18 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0);
 }
 
+const getIcon = () => {
+  switch(process.platform){
+    case "win32":
+      return join(process.env.PUBLIC ?? "", "favicon.ico")
+    case "linux":
+      return join(process.env.PUBLIC ?? "", "favicon.png")
+    default:
+      return join(process.env.PUBLIC ?? "", "favicon.icns")
+
+  }
+}
+
 // Remove electron security warnings
 // This warning only shows in development mode
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
@@ -57,7 +69,7 @@ app.setName("Flojoy Studio");
 async function createWindow() {
   win = new BrowserWindow({
     title: "Flojoy Studio",
-    icon: join(process.env.PUBLIC ?? "", "favicon.ico"),
+    icon: getIcon(),
     autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
