@@ -326,12 +326,7 @@ class Topology:
             self.remove_dependency(edge[0], edge[1])
 
     def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
-        edges = self.working_graph.edges(job_id)
-        # for (s,t) in edges:
-        #     logger.debug(f"edge: {self.get_edge_label_string(s, t)}")
-        #     res = self.working_graph.get_edge_data(s, t)
-        edges = [(s, t, edge) for (s, t) in edges for edge in\
-                 self.working_graph.get_edge_data(s, t).values()]
+        edges = self.working_graph.edges(job_id, data=True)
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
@@ -450,8 +445,6 @@ class Topology:
 
     def get_outputs(self, job_id: str):
         out = self.working_graph.out_edges(job_id)
-        # for (u,v) in out:
-        #     res = self.working_graph.get_edge_data(u, v)
         return list(
             set(edge["label"] for (u, v) in out for edge in self.working_graph.get_edge_data(u, v).values())
         )
