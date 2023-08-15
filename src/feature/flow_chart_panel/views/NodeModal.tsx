@@ -2,10 +2,9 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import { MantineTheme, useMantineTheme } from "@mantine/styles";
 import { Node } from "reactflow";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
+import { flojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
 import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
@@ -21,49 +20,25 @@ import { ElementsData } from "@src/types/node";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/theme-provider";
 
-const themeJSONTree = (theme: MantineTheme) => {
-  const darkJSONTree = {
-    scheme: "flojoy",
-    author: "Jack",
-    base00: `${theme.colors.modal[0]}`,
-    base01: `${theme.colors.accent3[0]}`,
-    base02: `${theme.colors.accent3[0]}`,
-    base03: `${theme.colors.accent2[0]}`,
-    base04: `${theme.colors.accent1[1]}`,
-    base05: `${theme.colors.accent3[0]}`,
-    base06: `${theme.colors.accent2[0]}`,
-    base07: `${theme.colors.accent2[0]}`,
-    base08: `${theme.colors.accent3[0]}`,
-    base09: `${theme.colors.accent1[0]}`,
-    base0A: `${theme.colors.accent1[1]}`,
-    base0B: `${theme.colors.accent3[0]}`,
-    base0C: `${theme.colors.text[0]}`,
-    base0D: `${theme.colors.title[0]}`,
-    base0E: `${theme.colors.accent1[0]}`,
-    base0F: `${theme.colors.accent1[0]}`,
-  };
-
-  const lightJSONTree = {
-    scheme: "flojoy",
-    author: "Jack",
-    base00: `${theme.colors.modal[0]}`,
-    base01: `${theme.colors.accent3[0]}`,
-    base02: `${theme.colors.accent3[0]}`,
-    base03: `${theme.colors.accent2[0]}`,
-    base04: `${theme.colors.accent1[0]}`,
-    base05: `${theme.colors.accent3[0]}`,
-    base06: `${theme.colors.accent2[0]}`,
-    base07: `${theme.colors.accent2[0]}`,
-    base08: `${theme.colors.accent3[0]}`,
-    base09: `${theme.colors.accent1[0]}`,
-    base0A: `${theme.colors.accent1[1]}`,
-    base0B: `${theme.colors.accent3[0]}`,
-    base0C: `${theme.colors.text[0]}`,
-    base0D: `${theme.colors.title[0]}`,
-    base0E: `${theme.colors.accent1[0]}`,
-    base0F: `${theme.colors.accent1[0]}`,
-  };
-  return { darkJSONTree, lightJSONTree };
+const jsonTheme = {
+  scheme: "flojoy",
+  author: "Jack",
+  base00: "rgb(var(--color-modal))",
+  base01: "rgb(var(--color-accent3))",
+  base02: "rgb(var(--color-accent3))",
+  base03: "rgb(var(--color-accent2))",
+  base04: "rgb(var(--color-accent1))",
+  base05: "rgb(var(--color-accent3))",
+  base06: "rgb(var(--color-accent2))",
+  base07: "rgb(var(--color-accent2))",
+  base08: "rgb(var(--color-accent3))",
+  base09: "rgb(var(--color-accent1))",
+  base0A: "rgb(var(--color-accent1))",
+  base0B: "rgb(var(--color-accent3))",
+  base0C: "rgb(var(--foreground))",
+  base0D: "rgb(var(--foreground))",
+  base0E: "rgb(var(--color-accent1))",
+  base0F: "rgb(var(--color-accent1))",
 };
 
 // Import only the languages needed to reduce bundle size
@@ -87,11 +62,7 @@ const NodeModal = ({
   pythonString,
   selectedNode,
 }: NodeModalProps) => {
-  const theme = useMantineTheme();
   const { resolvedTheme } = useTheme();
-  const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
-  const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
-  const colorScheme = theme.colorScheme;
 
   // useKeyboardShortcut("ctrl", "e", closeModal);
   // useKeyboardShortcut("meta", "e", closeModal);
@@ -157,7 +128,7 @@ const NodeModal = ({
         <ScrollArea className="h-full w-full rounded-lg" horizontal>
           <SyntaxHighlighter
             language="python"
-            style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
+            style={flojoySyntaxTheme}
           >
             {pythonString}
           </SyntaxHighlighter>
@@ -170,7 +141,7 @@ const NodeModal = ({
           <JSONTree
             data={selectedNode}
             theme={{
-              extend: colorScheme === "dark" ? darkJSONTree : lightJSONTree,
+              extend: jsonTheme
             }}
             labelRenderer={([key]) => (
               <span style={{ paddingLeft: 8 }}>{key}</span>
