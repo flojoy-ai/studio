@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction, useState, useRef, useEffect } from "react";
 import { useFlowChartGraph } from "@hooks/useFlowChartGraph";
 
-type NodeInputProps {
+type NodeInputProps = {
   title: string;
   id: string;
   setIsRenamingTitle: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 const NodeInput = ({ title, id, setIsRenamingTitle }: NodeInputProps) => {
   const { handleTitleChange } = useFlowChartGraph();
   const [newTitle, setNewTitle] = useState<string>(title);
 
-  const ref = useRef();
+  const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleClick = (event) => {
