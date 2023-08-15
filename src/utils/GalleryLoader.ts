@@ -40,7 +40,7 @@ const data: GalleryData = {
       appPath: "cloud",
       relevantNodes: [
         {
-          name: "LOADER",
+          name: "FLOJOY_CLOUD_UPLOAD", // TODO: Update this URL
           docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
         },
       ],
