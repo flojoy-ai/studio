@@ -21,7 +21,7 @@
         "DEBUG": "True",
         "FASTAPI_LOG": "debug"
       }
-    },
+    }
     // {
     //   "name": "RQ Worker",
     //   "type": "python",
