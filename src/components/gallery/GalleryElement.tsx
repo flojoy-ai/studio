@@ -1,11 +1,16 @@
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import { ReactFlowJsonObject } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import {
+  ReactFlowJsonObject,
+  useNodesInitialized,
+  useReactFlow,
+} from "reactflow";
+import { ElementsData } from "@/types";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
+import { useEffect } from "react";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -17,7 +22,11 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
+
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
+
+  const rfInstance = useReactFlow();
+  const nodesInitialized = useNodesInitialized();
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
@@ -27,13 +36,21 @@ export const GalleryElement = ({
     setIsGalleryOpen(false);
   };
 
+  useEffect(() => {
+    // fixes the issue that app is not centered in the viewport
+    if (nodesInitialized) {
+      rfInstance.fitView({
+        padding: 0.8,
+      });
+    }
+  }, [nodesInitialized]);
+
   return (
     <div data-testid="gallery-element-btn" className="min-h-40 m-1">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
-          <AvatarImage src={galleryApp.imagePath} />
+          <AvatarImage className="object-contain" src={galleryApp.imagePath} />
         </Avatar>
-
         <div className="px-2" />
 
         <div className="flex grow flex-col items-start">
@@ -62,7 +79,9 @@ export const GalleryElement = ({
               variant="outline"
               size="sm"
               className="gap-2"
-              onClick={handleAppLoad}
+              onClick={async () => {
+                await handleAppLoad();
+              }}
             >
               Load
             </Button>

@@ -16,7 +16,7 @@ export type Setting = {
   value: ValueType;
 };
 
-const settingsListDefault = atomWithImmer<Setting[]>([
+const settingsAtom = atomWithImmer<Setting[]>([
   {
     title: "Node Delay",
     key: "nodeDelay",
@@ -43,8 +43,8 @@ const settingsListDefault = atomWithImmer<Setting[]>([
   },
 ]);
 
-export const useSettings = () => {
-  const [settings, setSettings] = useAtom(settingsListDefault);
+export const useSettings = (group: "frontend" | "backend") => {
+  const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: ValueType) => {
     setSettings((prev) => {
@@ -56,7 +56,7 @@ export const useSettings = () => {
   };
 
   return {
-    settings,
+    settings: settings.filter((s) => s.group === group),
     updateSettings,
   };
 };

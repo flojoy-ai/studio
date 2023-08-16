@@ -7,8 +7,7 @@ interface WebSocketServerProps {
   onPingResponse: (value: string | number | IServerStatus) => void;
   onNodeResultsReceived: React.Dispatch<React.SetStateAction<NodeResult[]>>;
   handleRunningNode: (value: string) => void;
-  handleFailedNode: (value: string) => void;
-  handleFailureReason: (value: string) => void;
+  handleFailedNodes: (value: Record<string, string>) => void;
   handleSocketId: (value: string) => void;
   onPreJobOpStarted: React.Dispatch<
     React.SetStateAction<{
@@ -24,7 +23,6 @@ enum ResponseEnum {
   nodeResults = "NODE_RESULTS",
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
-  failureReason = "FAILURE_REASON",
   preJobOperation = "PRE_JOB_OP",
 }
 export class WebSocketServer {
@@ -32,8 +30,7 @@ export class WebSocketServer {
   private handlePingResponse: WebSocketServerProps["onPingResponse"];
   private onNodeResultsReceived: WebSocketServerProps["onNodeResultsReceived"];
   private handleRunningNode: WebSocketServerProps["handleRunningNode"];
-  private handleFailedNode: WebSocketServerProps["handleFailedNode"];
-  private handleFailureReason: WebSocketServerProps["handleFailureReason"];
+  private handleFailedNodes: WebSocketServerProps["handleFailedNodes"];
   private handleSocketId: WebSocketServerProps["handleSocketId"];
   private onPreJobOpStarted: WebSocketServerProps["onPreJobOpStarted"];
   private onClose?: (ev: CloseEvent) => void;
@@ -42,8 +39,7 @@ export class WebSocketServer {
     onPingResponse,
     onNodeResultsReceived,
     handleRunningNode,
-    handleFailedNode,
-    handleFailureReason,
+    handleFailedNodes,
     handleSocketId,
     onClose,
     onPreJobOpStarted,
@@ -51,8 +47,7 @@ export class WebSocketServer {
     this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
     this.handleRunningNode = handleRunningNode;
-    this.handleFailedNode = handleFailedNode;
-    this.handleFailureReason = handleFailureReason;
+    this.handleFailedNodes = handleFailedNodes;
     this.handleSocketId = handleSocketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
@@ -96,10 +91,7 @@ export class WebSocketServer {
             this.handleRunningNode(data[ResponseEnum.runningNode]);
           }
           if (ResponseEnum.failedNodes in data) {
-            this.handleFailedNode(data[ResponseEnum.failedNodes]);
-            if (ResponseEnum.failureReason in data) {
-              this.handleFailureReason(data[ResponseEnum.failureReason]);
-            }
+            this.handleFailedNodes(data[ResponseEnum.failedNodes]);
           }
           if (ResponseEnum.preJobOperation in data) {
             this.onPreJobOpStarted((prev) => ({

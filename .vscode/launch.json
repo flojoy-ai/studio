@@ -20,7 +20,7 @@
         "captain.main:app",
         "--reload",
         "--port",
-        "8000",
+        "5392",
         "--log-level",
         "debug"
       ]

@@ -8,7 +8,6 @@ from captain.types.flowchart import (
     PostWFC,
 )
 from captain.utils.broadcast import (
-    broadcast_worker_response,
     signal_prejob_op,
     signal_standby,
 )
@@ -78,25 +77,13 @@ signal a job has been finished.
 async def worker_response(
     request: Request,
 ):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
-    if manager.running_topology is None or manager.running_topology.is_cancelled():
-        logger.debug("Flowchart is cancelled, ignoring worker response")
-        return Response(status_code=200)
-
     logger.debug("Received a response from a worker")
 
     request_json = await request.json()
     request_dict = json.loads(request_json)
 
-    # broadcast worker response to frontend
-    asyncio.create_task(broadcast_worker_response(manager, request_dict))
+    if manager.running_topology is None:
+        logger.debug("ERROR: no running topology")
+        return Response(status_code=400)
 
-    if "FAILED_NODES" in request_dict:
-        job_id = request_dict.get("FAILED_NODES", "")
-        manager.running_topology.process_job_result(
-            job_id=job_id, job_result=None, success=False
-        )
-
-    if "NODE_RESULTS" in request_dict:
-        job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
-        logger.debug(f"{job_id} finished at {time.time()}")
-        asyncio.create_task(manager.running_topology.handle_finished_job(request_dict))  # type: ignore
+    await manager.running_topology.process_worker_response(request_dict)

@@ -1,4 +1,4 @@
-import { OverridePlotData } from "flojoy/types";
+import { OverridePlotData } from "@/types";
 import { Layout } from "plotly.js";
 
 export type ResultIO = {

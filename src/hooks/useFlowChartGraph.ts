@@ -1,10 +1,11 @@
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
+import { toast } from "sonner";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
@@ -105,6 +106,29 @@ export const useFlowChartGraph = () => {
     });
   };
 
+  const handleTitleChange = (value: string, id: string) => {
+    const node = nodes.find((n) => n.data.id === id);
+    if (value === node?.data.label) {
+      return;
+    }
+    const isDuplicate = nodes.find(
+      (n) => n.data.label === value && n.data.id !== id,
+    );
+    if (isDuplicate) {
+      toast.message("Cannot change label", {
+        description: `There is another node with the same label: ${value}`,
+      });
+      return;
+    }
+    const updatedNodes = nodes?.map((n) => {
+      if (n.data.id === id) {
+        return { ...n, data: { ...n.data, label: value } };
+      }
+      return n;
+    });
+    setNodes(updatedNodes);
+  };
+
   const removeCtrlInputDataForNode = (nodeId: string, paramId: string) => {
     setNodes((nodes) => {
       const node = nodes.find((e) => e.id === nodeId);
@@ -127,5 +151,6 @@ export const useFlowChartGraph = () => {
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     nodesManifest,
+    handleTitleChange,
   };
 };

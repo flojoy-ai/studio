@@ -1,7 +1,7 @@
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Label } from "@src/components/ui/label";
 import { Switch } from "@src/components/ui/switch";

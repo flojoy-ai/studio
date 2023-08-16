@@ -6,8 +6,7 @@ const data: GalleryData = {
       title: "Intro to LOOPS",
       description: "Generate a random number once",
       imagePath: "/assets/appGallery/introToLoops.png",
-      appPath: "randomNumber",
-      youtubeLink: "https://youtube.com",
+      appPath: "loop",
       relevantNodes: [
         {
           name: "LOOP",
@@ -26,8 +25,13 @@ const data: GalleryData = {
       title: "Intro to images",
       description: "Apply a butterworth filter on a sample image",
       imagePath: "/assets/appGallery/introToImages.png",
-      appPath: "butterworth",
-      relevantNodes: [],
+      appPath: "images",
+      relevantNodes: [
+        {
+          name: "IMAGE",
+          docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/",
+        },
+      ],
     },
     {
       title: "Stream to Flojoy Cloud",
@@ -36,7 +40,7 @@ const data: GalleryData = {
       appPath: "cloud",
       relevantNodes: [
         {
-          name: "LOADER",
+          name: "FLOJOY_CLOUD_UPLOAD", // TODO: Update this URL
           docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
         },
       ],

@@ -1,7 +1,7 @@
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { Play } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 
