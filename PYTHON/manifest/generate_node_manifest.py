@@ -203,7 +203,6 @@ def populate_manifest(
     populate_return(sig.return_annotation, mb, is_special_node)
 
 
-
 def populate_inputs(
     name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
 ):
@@ -343,10 +342,11 @@ def populate_init_params(init_func: Callable, mb: ManifestBuilder):
 
     return mb
 
+
 def populate_return(return_type: Any, mb: ManifestBuilder, is_special_node: bool):
     if is_union(return_type):
         union_types = [t for t in get_union_types(return_type) if t != NoneType]
-        
+
         if len(union_types) == 1:
             inner_type = return_type.__args__[0]
             populate_return(inner_type, mb, is_special_node)

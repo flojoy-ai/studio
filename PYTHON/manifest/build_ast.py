@@ -101,8 +101,11 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module]:
     else:
         # This handles the case where the return type is a union, we can ignore
         # all of the class defs in this case
-        if (flojoy_node.returns and not isinstance(flojoy_node.returns, ast.BinOp) 
-                                and not isinstance(flojoy_node.returns, ast.Subscript)):
+        if (
+            flojoy_node.returns
+            and not isinstance(flojoy_node.returns, ast.BinOp)
+            and not isinstance(flojoy_node.returns, ast.Subscript)
+        ):
             return_type = flojoy_node.returns.id
 
     # Then get rid of all the other classes
