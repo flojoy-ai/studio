@@ -7,16 +7,15 @@ import {
   getStylesRef,
   useMantineTheme,
 } from "@mantine/core";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { ParamValueType } from "@feature/common/types/ParamValueType";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 type ParamFieldProps = {
   nodeId: string;
-  nodeCtrls: ElementsData["ctrls"][""];
+  nodeCtrl: ElementsData["ctrls"][string];
   type: ParamValueType;
-  value: ElementsData["ctrls"][""]["value"];
+  updateFunc: (nodeId: string, data: ElementsData["ctrls"][string]) => void;
   options?: string[];
   nodeReferenceOptions?: {
     label: string;
@@ -41,25 +40,25 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const ParamField = ({
-  nodeCtrls,
+  nodeCtrl,
   nodeId,
   type,
-  value,
+  updateFunc,
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
   const theme = useMantineTheme();
-  const { updateCtrlInputDataForNode } = useFlowChartGraph();
   const { setNodeParamChanged } = useFlowChartState();
   const handleChange = (value: string | boolean) => {
     setNodeParamChanged(true);
-    updateCtrlInputDataForNode(nodeId, {
-      ...nodeCtrls,
+    updateFunc(nodeId, {
+      ...nodeCtrl,
       value,
     });
   };
 
   const { classes } = useStyles();
+  const value = nodeCtrl.value;
 
   switch (type) {
     case "float":

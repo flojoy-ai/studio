@@ -1,4 +1,3 @@
-import { createStyles } from "@mantine/core";
 import { IServerStatus } from "@src/context/socket.context";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
@@ -16,18 +15,17 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { useFilePicker } from "use-file-picker";
 import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useControlsState } from "@src/hooks/useControlsState";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { Button } from "@src/components/ui/button";
+// import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import WatchBtn from "../components/WatchBtn";
 import {
   Menubar,
@@ -36,96 +34,9 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-
-const useStyles = createStyles((theme) => {
-  return {
-    controls: {
-      display: "flex",
-      alignItems: "center",
-      padding: "10px",
-      gap: "8px",
-    },
-
-    button: {
-      padding: "5px",
-      cursor: "pointer",
-      borderRadius: 2,
-      fontSize: "14px",
-      textDecoration: "none",
-      background: "transparent",
-      color: theme.colors.title[0],
-      border: "none",
-    },
-
-    addButton: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "4px",
-    },
-
-    addButtonPlus: {
-      fontSize: "20px",
-      color: theme.colors.accent1[0],
-    },
-
-    cancelButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "5px",
-      height: "33px",
-      width: "85px",
-      cursor: "pointer",
-      color: theme.colors.red[7],
-      border: `1px solid ${theme.colors.red[3]}`,
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[2],
-      transition: "transform ease-in 0.1s",
-
-      "&:hover": {
-        backgroundColor: theme.colors.red[8],
-        color: theme.white,
-      },
-
-      "&:hover > svg > g": {
-        fill: theme.white,
-      },
-
-      "&:active": {
-        transform: "scale(0.8)",
-      },
-    },
-
-    fileButton: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-
-    editContainer: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      paddingRight: "4px",
-    },
-    dropDownIcon: {
-      borderRadius: 20,
-    },
-    settingsButton: {
-      padding: 6,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      "&:hover": {
-        backgroundColor: theme.colors.accent1[0] + "2f",
-      },
-    },
-  };
-});
+import { API_URI } from "@src/data/constants";
+import { toast } from "sonner";
+import { EditorSettingsModal } from "./EditorSettingsModal";
 
 localforage.config({
   name: "react-flow",
@@ -149,18 +60,6 @@ const downloadBlob = (blob: Blob, filename: string) => {
 
 type SaveButtonProps = {
   saveFile: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
-};
-
-const SaveButton = ({ saveFile }: SaveButtonProps) => {
-  const { nodes, edges } = useFlowChartGraph();
-  // useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-  // useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
-
-  return (
-    <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
-      Save
-    </MenubarItem>
-  );
 };
 
 type SaveAsButtonProps = {
@@ -253,13 +152,13 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
 
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, programResults, setProgramResults, serverStatus } = states;
+  const { socketId, programResults, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
-  const { classes } = useStyles();
-  const { settings } = useSettings();
+  const { settings } = useSettings("backend");
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
+  const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
@@ -290,31 +189,19 @@ const ControlBar = () => {
     });
   };
 
-  const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance) {
-      const blob = createFileBlob(rfInstance, nodes, edges);
-      downloadBlob(blob, "app.txt");
-      sendProgramToMix(rfInstance.nodes);
-    }
-  };
-
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (globalThis.IS_ELECTRON) {
-      saveFile(nodes, edges);
-      return;
-    }
-
     if (rfInstance) {
+      if (globalThis.IS_ELECTRON) {
+        const blob = createFileBlob(rfInstance, nodes, edges);
+        downloadBlob(blob, "app.json");
+        sendProgramToMix(rfInstance.nodes);
+        return;
+      }
+
       const blob = createFileBlob(rfInstance, nodes, edges);
 
       const handle = await window.showSaveFilePicker({
-        suggestedName: "app.txt",
-        types: [
-          {
-            description: "Text file",
-            accept: { "text/plain": [".txt"] },
-          },
-        ],
+        suggestedName: "app.json",
       });
       const writableStream = await handle.createWritable();
 
@@ -337,7 +224,7 @@ const ControlBar = () => {
 
       saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(rfInstance.nodes, true, false);
-      setProgramResults([]);
+      // setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
@@ -366,6 +253,31 @@ const ControlBar = () => {
   const saveAsDisabled = !("showSaveFilePicker" in window);
   const exportResultDisabled = programResults.length == 0;
 
+  const handleUpdate = async () => {
+    const resp = await fetch(`${API_URI}/update/`, {
+      method: "GET",
+    });
+
+    const hasUpdate = await resp.json();
+
+    if (hasUpdate) {
+      toast("Update available!", {
+        action: {
+          label: "Update",
+          onClick: async () => {
+            await fetch(`${API_URI}/update/`, {
+              method: "POST",
+            });
+          },
+        },
+      });
+    } else {
+      toast("Your Flojoy Studio is up to date");
+    }
+  };
+
+  console.log("bruh", serverStatus);
+
   return (
     <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
@@ -379,8 +291,12 @@ const ControlBar = () => {
       />
 
       <NodeSettingsModal
-        handleNodeSettingsModalOpen={setIsNodeSettingsOpen}
-        isNodeSettingsModalOpen={isNodeSettingsOpen}
+        handleSettingsModalOpen={setIsNodeSettingsOpen}
+        isSettingsModalOpen={isNodeSettingsOpen}
+      />
+      <EditorSettingsModal
+        handleSettingsModalOpen={setIsEditorSettingsOpen}
+        isSettingsModalOpen={isEditorSettingsOpen}
       />
 
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
@@ -402,7 +318,6 @@ const ControlBar = () => {
                 saveFile={saveFileAs}
                 saveAsDisabled={saveAsDisabled}
               />
-              <SaveButton saveFile={saveFile} />
               <ExportResultButton
                 results={programResults}
                 disabled={exportResultDisabled}
@@ -430,10 +345,22 @@ const ControlBar = () => {
                 Keyboard Shortcut
               </MenubarItem>
               <MenubarItem
+                data-testid="btn-editor-settings"
+                onClick={() => setIsEditorSettingsOpen(true)}
+              >
+                Editor Settings
+              </MenubarItem>
+              <MenubarItem
                 data-testid="btn-node-settings"
                 onClick={() => setIsNodeSettingsOpen(true)}
               >
                 Node Settings
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-node-settings"
+                onClick={handleUpdate}
+              >
+                Check for update
               </MenubarItem>
             </MenubarContent>
           </MenubarMenu>

@@ -3,7 +3,7 @@ import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
@@ -39,6 +39,7 @@ export const useAddNewNode = (
       const funcName = node.key;
       const type = node.type;
       const params = node.parameters;
+      const initParams = node.init_parameters;
       const inputs = node.inputs;
       const outputs = node.outputs;
       const uiComponentId = node.ui_component_id;
@@ -55,20 +56,29 @@ export const useAddNewNode = (
       }
       nodeLabel = nodeLabel.replaceAll("_", " ");
 
-      const nodeParams = params
-        ? Object.entries(params).reduce(
-            (prev, [paramName, param]) => ({
-              ...prev,
-              [paramName]: {
-                ...param,
-                functionName: funcName,
-                param: paramName,
-                value: param.default ?? "",
-              },
-            }),
-            {},
-          )
-        : {};
+      const createCtrls = (
+        params?: NodeElement["parameters"],
+      ): ElementsData["ctrls"] => {
+        if (!params) {
+          return {};
+        }
+
+        return Object.entries(params).reduce(
+          (prev, [paramName, param]) => ({
+            ...prev,
+            [paramName]: {
+              ...param,
+              functionName: funcName,
+              param: paramName,
+              value: param.default ?? "",
+            },
+          }),
+          {},
+        );
+      };
+
+      const nodeCtrls = createCtrls(params);
+      const initCtrls = createCtrls(initParams);
 
       const newNode = {
         id: nodeId,
@@ -78,7 +88,8 @@ export const useAddNewNode = (
           label: nodeLabel,
           func: funcName,
           type,
-          ctrls: nodeParams,
+          ctrls: nodeCtrls,
+          initCtrls: initCtrls,
           inputs,
           outputs,
           pip_dependencies,

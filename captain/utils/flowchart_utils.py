@@ -17,10 +17,16 @@ from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
 import traceback
-from captain.utils.broadcast import signal_standby
+from captain.utils.broadcast import (
+    broadcast_worker_response,
+    signal_max_runtime_exceeded,
+    signal_standby,
+)
 
 
-def run_worker(task_queue: Queue[Any], imported_functions: dict[str, Any]):
+def run_worker(
+    task_queue: Queue[Any], imported_functions: dict[str, Any], node_delay: float
+):
     try:
         # TODO: Figure out a way to make this work with python threads (previously this was a Python Process)
         # if (
@@ -30,28 +36,39 @@ def run_worker(task_queue: Queue[Any], imported_functions: dict[str, Any]):
         #     text_trap = io.StringIO()
         #     sys.stdout = text_trap
         logger.debug("Starting worker")
-        worker = Worker(task_queue=task_queue, imported_functions=imported_functions)
+        worker = Worker(
+            task_queue=task_queue,
+            imported_functions=imported_functions,
+            node_delay=node_delay,
+        )
         worker.run()
     except Exception as e:
         print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
 
 
 def create_topology(
-    request: PostWFC, task_queue: Queue[Any], cleanup_func: Callable[..., Any]
+    request: PostWFC,
+    task_queue: Queue[Any],
+    cleanup_func: Callable[..., Any],
+    worker_response: Callable[..., Any],
+    final_broadcast: Callable[..., Any],
 ):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
         jobset_id=request.jobsetId,
-        node_delay=request.nodeDelay,
-        max_runtime=request.maximumRuntime,
         task_queue=task_queue,
         cleanup_func=cleanup_func,
+        worker_response=worker_response,
+        node_delay=request.nodeDelay,
+        final_broadcast=final_broadcast,
     )
 
 
 # spawns a set amount of workers to execute jobs (node functions)
-def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
+def spawn_workers(
+    manager: Manager, imported_functions: dict[str, Any], node_delay: float = 0
+):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
@@ -62,7 +79,7 @@ def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     for _ in range(worker_number):
         worker_process = Thread(
-            target=run_worker, args=(manager.task_queue, imported_functions)
+            target=run_worker, args=(manager.task_queue, imported_functions, node_delay)
         )
         worker_process.daemon = True
         worker_process.start()
@@ -72,7 +89,7 @@ def spawn_workers(manager: Manager, imported_functions: dict[str, Any]):
 def flowchart_to_nx_graph(flowchart: dict[str, Any]):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
-    nx_graph: nx.DiGraph = nx.DiGraph()
+    nx_graph: nx.MultiDiGraph = nx.MultiDiGraph()
     dict_node_inputs: dict[str, list[Any]] = dict()
 
     for i in range(len(elems)):
@@ -81,6 +98,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         data = el["data"]
         cmd = el["data"]["func"]
         ctrls = data.get("ctrls", {})
+        init_ctrls = data.get("initCtrls", {})
         inputs = data.get("inputs", {})
         label = data.get("label", "")
         dict_node_inputs[node_id] = inputs
@@ -90,6 +108,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
             pos=(el["position"]["x"], el["position"]["y"]),
             id=el["id"],
             ctrls=ctrls,
+            init_ctrls=init_ctrls,
             inputs=inputs,
             label=label,
             cmd=cmd,
@@ -122,8 +141,6 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         nx_graph.add_edge(
             u, v, label=label, target_label=target_label, id=_id, multiple=multiple
         )
-
-    nx.draw(nx_graph, with_labels=True)
 
     return nx_graph
 
@@ -158,7 +175,11 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     # Create the topology
     manager.running_topology = create_topology(
-        request, manager.task_queue, cleanup_func=clean_up_function
+        request,
+        manager.task_queue,
+        cleanup_func=clean_up_function,
+        worker_response=lambda x: broadcast_worker_response(manager, x),
+        final_broadcast=lambda: signal_standby(manager, request.jobsetId),
     )  # pass clean up func for when topology ends
 
     nodes = fc["nodes"]
@@ -194,38 +215,52 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             "output"
         ] = f"{', '.join(missing_packages)} packages will be installed with pip!"
         await manager.ws.broadcast(socket_msg)
+
         installation_succeed = await install_packages(
             missing_packages, socket_msg, manager=manager
         )
-        logger.debug(f"installing packages was successfull? {installation_succeed}")
-        if installation_succeed:
-            # get the amount of workers needed
-            spawn_workers(manager, manager.running_topology.pre_import_functions())
-            socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successfull!"
-            socket_msg["PRE_JOB_OP"]["isRunning"] = False
-            socket_msg["SYSTEM_STATUS"] = (STATUS_CODES["RUN_IN_PROCESS"],)
-            await manager.ws.broadcast(socket_msg)
-            logger.debug(
-                f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
-            )
-            asyncio.create_task(run_flow_chart(manager=manager))
+        logger.debug(f"installing packages was successful? {installation_succeed}")
 
-        else:
+        if not installation_succeed:
             socket_msg["PRE_JOB_OP"][
                 "output"
-            ] = "Pre job opearation failed! Look at the errors printed above!"
+            ] = "Pre job operation failed! Look at the errors printed above!"
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
-    else:
-        # get the amount of workers needed
-        spawn_workers(manager, manager.running_topology.pre_import_functions())
-        socket_msg["PRE_JOB_OP"]["isRunning"] = False
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
+            return
+
+        socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successful!"
+
+    # get the amount of workers needed
+    funcs, errs = manager.running_topology.pre_import_functions()
+
+    socket_msg["PRE_JOB_OP"]["isRunning"] = False
+
+    if errs:
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
+        socket_msg["PRE_JOB_OP"]["output"] = "Preflight check failed!"
+        socket_msg["FAILED_NODES"] = errs
+
         await manager.ws.broadcast(socket_msg)
-        logger.debug(
-            f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
-        )
-        asyncio.create_task(run_flow_chart(manager=manager))
+        return
+
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
+    await manager.ws.broadcast(socket_msg)
+
+    spawn_workers(manager, funcs, request.nodeDelay)
+    logger.debug(
+        f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
+    )
+    asyncio.create_task(run_flow_chart(manager=manager))
+    asyncio.create_task(cancel_when_max_time(manager, request))
+
+
+async def cancel_when_max_time(manager: Manager, request: PostWFC):
+    await asyncio.sleep(request.maximumRuntime)
+    if manager.running_topology and not manager.running_topology.is_cancelled():
+        logger.debug("Maximum runtime exceeded, cancelling topology")
+        manager.running_topology.cancel()
+        await signal_max_runtime_exceeded(manager, request.jobsetId)
 
 
 def stream_response(proc: Popen[bytes]):

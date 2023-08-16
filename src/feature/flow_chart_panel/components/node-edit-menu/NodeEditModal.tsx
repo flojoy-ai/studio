@@ -1,21 +1,17 @@
 import { Node } from "reactflow";
-import { ElementsData } from "flojoy/types";
-import ParamField from "./ParamField";
+import { ElementsData } from "@/types";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { memo, useEffect, useState } from "react";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import Draggable from "react-draggable";
-import { ParamTooltip } from "flojoy/components";
-import { Check, Info, Pencil, TrashIcon } from "lucide-react";
+import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
+import { ParamList } from "./ParamList";
+import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
-import { toast } from "sonner";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
   otherNodes: Node<ElementsData>[] | null;
-  nodes: Node<ElementsData>[];
-  setNodes: (nodes: Node<ElementsData>[]) => void;
   setNodeModalOpen: (open: boolean) => void;
   handleDelete: (nodeId: string, nodeLabel: string) => void;
 };
@@ -23,41 +19,19 @@ type NodeEditModalProps = {
 const NodeEditModal = ({
   node,
   otherNodes,
-  nodes,
-  setNodes,
   setNodeModalOpen,
   handleDelete,
 }: NodeEditModalProps) => {
-  const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { updateInitCtrlInputDataForNode, updateCtrlInputDataForNode } =
+    useFlowChartGraph();
   const [newTitle, setNewTitle] = useState(node.data.label);
-  const { nodeParamChanged } = useFlowChartState();
+  const [editRenamingTitle, setEditRenamingTitle] = useState(false);
+  const { nodeParamChanged, setIsEditMode } = useFlowChartState();
+  const { handleTitleChange } = useFlowChartGraph();
   //converted from node to Ids here so that it will only do this when the edit menu is opened
   const nodeReferenceOptions =
     otherNodes?.map((node) => ({ label: node.data.label, value: node.id })) ??
     [];
-
-  const handleTitleChange = (value: string) => {
-    setIsRenamingTitle(false);
-    if (value === node.data.label) {
-      return;
-    }
-    const isDuplicate = nodes.find(
-      (n) => n.data.label === value && n.data.id !== node.data.id,
-    );
-    if (isDuplicate) {
-      toast.message("Cannot change label", {
-        description: `There is another node with the same label: ${value}`,
-      });
-      return;
-    }
-    const updatedNodes = nodes?.map((n) => {
-      if (n.data.id === node.data.id) {
-        return { ...n, data: { ...n.data, label: value } };
-      }
-      return n;
-    });
-    setNodes(updatedNodes);
-  };
 
   useEffect(() => {
     setNewTitle(node.data.label);
@@ -68,7 +42,7 @@ const NodeEditModal = ({
       <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
         <div className="flex items-center">
           <div>
-            {isRenamingTitle ? (
+            {editRenamingTitle ? (
               <div className="flex">
                 <Input
                   id="title_input"
@@ -81,7 +55,8 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    handleTitleChange(newTitle);
+                    setEditRenamingTitle(false);
+                    handleTitleChange(newTitle, node.data.id);
                   }}
                 >
                   <Check size={20} className="stroke-muted-foreground" />
@@ -95,7 +70,7 @@ const NodeEditModal = ({
                   size="icon"
                   variant="ghost"
                   onClick={() => {
-                    setIsRenamingTitle(true);
+                    setEditRenamingTitle(true);
                   }}
                 >
                   <Pencil size={20} className="stroke-muted-foreground" />
@@ -114,7 +89,45 @@ const NodeEditModal = ({
           </div>
           <div className="grow" />
 
-          {!isRenamingTitle && (
+          {!editRenamingTitle && (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setIsEditMode(false)}
+            >
+              <X size={20} className="stroke-muted-foreground" />
+            </Button>
+          )}
+        </div>
+
+        <div className="">
+          <div key={node.id}>
+            {node.data.initCtrls &&
+              Object.keys(node.data.initCtrls).length > 0 && (
+                <ParamList
+                  nodeId={node.id}
+                  ctrls={node.data.initCtrls}
+                  updateFunc={updateInitCtrlInputDataForNode}
+                />
+              )}
+            {Object.keys(node.data.ctrls).length > 0 ? (
+              <ParamList
+                nodeId={node.id}
+                ctrls={node.data.ctrls}
+                updateFunc={updateCtrlInputDataForNode}
+                nodeReferenceOptions={nodeReferenceOptions}
+              />
+            ) : (
+              <div className="mt-2 text-sm">This node takes no parameters</div>
+            )}
+            {nodeParamChanged && (
+              <div className="mt-2 text-sm">
+                Replay the flow for the changes to take effect
+              </div>
+            )}
+          </div>
+          <div className="py-2" />
+          <div className="flex justify-end">
             <Button
               size="icon"
               variant="ghost"
@@ -122,44 +135,7 @@ const NodeEditModal = ({
             >
               <TrashIcon size={20} className="stroke-muted-foreground" />
             </Button>
-          )}
-        </div>
-
-        <div>
-          {Object.keys(node.data.ctrls).length > 0 ? (
-            <>
-              {Object.entries(node.data.ctrls).map(([name, param]) => (
-                <div
-                  key={node.id + name}
-                  id="undrag"
-                  data-testid="node-edit-modal-params"
-                >
-                  <ParamTooltip
-                    param={{ name, type: param.type, desc: param.desc }}
-                    offsetX={30}
-                    offsetY={0}
-                  >
-                    <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200">{`${name.toUpperCase()}:`}</p>
-                  </ParamTooltip>
-                  <ParamField
-                    nodeId={node.id}
-                    nodeCtrls={node.data.ctrls[name]}
-                    type={param.type as ParamValueType}
-                    value={node.data.ctrls[name].value}
-                    options={param.options}
-                    nodeReferenceOptions={nodeReferenceOptions}
-                  />
-                </div>
-              ))}
-              {nodeParamChanged && (
-                <div className="mt-2 text-sm">
-                  Replay the flow for the changes to take effect
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="mt-2 text-sm">This node takes no parameters</div>
-          )}
+          </div>
         </div>
       </div>
     </Draggable>

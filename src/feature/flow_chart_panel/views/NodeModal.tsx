@@ -2,96 +2,24 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
-import {
-  PlotlyComponent,
-  makePlotlyData,
-  MarkDownText,
-} from "flojoy/components";
-import { Flex, Modal, createStyles, Button } from "@mantine/core";
 import { MantineTheme, useMantineTheme } from "@mantine/styles";
-import { NodeModalProps } from "../types/NodeModalProps";
+import { Node } from "reactflow";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useFlojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
-
-export const NodeModalStyles = createStyles((theme) => ({
-  content: {
-    borderRadius: 17,
-  },
-  header: {
-    padding: "65px 80px 30px 80px",
-    borderRadius: 17,
-    position: "unset",
-  },
-  title: {
-    display: "block",
-    position: "relative",
-    fontSize: 32,
-    fontWeight: 700,
-    color: `${theme.colors.title[0]}`,
-  },
-  body: {
-    padding: "10px 65px 45px",
-  },
-  close: {
-    position: "absolute",
-    iconSize: 50,
-    svg: {
-      width: 40,
-      height: 40,
-    },
-    right: 40,
-    top: 45,
-  },
-  buttonStyle1: {
-    width: 180,
-    fontSize: 14,
-    borderRadius: 35,
-    backgroundColor: `${theme.colors.accent1[0]}`,
-    borderColor: `${theme.colors.accent1[0]}`,
-    border: "1px solid",
-    color: `${
-      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[0]
-    }`,
-    "&:hover": {
-      backgroundColor: `${
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[2]
-          : theme.colors.accent1[1]
-      }`,
-      color: `${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0]
-      }`,
-    },
-  },
-  buttonStyle2: {
-    width: 180,
-    fontSize: 14,
-    borderRadius: 35,
-    color: theme.colors.accent1[0],
-    borderColor: `${theme.colors.accent1[0]}`,
-    backgroundColor: `${
-      theme.colorScheme === "dark"
-        ? theme.colors.accent4[1]
-        : theme.colors.accent1[2]
-    }`,
-    border: "1px solid",
-    "&:hover": {
-      backgroundColor: `${
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[2]
-          : theme.colors.accent1[1]
-      }`,
-      color: `${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[7]
-          : theme.colors.gray[0]
-      }`,
-    },
-  },
-}));
+import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
+import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
+import MarkDownText from "@src/components/common/MarkDownText";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@src/components/ui/dialog";
+import { NodeResult } from "@src/feature/common/types/ResultsType";
+import { ElementsData } from "@src/types/node";
+import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
+import { useTheme } from "@src/providers/theme-provider";
 
 const themeJSONTree = (theme: MantineTheme) => {
   const darkJSONTree = {
@@ -142,18 +70,25 @@ const themeJSONTree = (theme: MantineTheme) => {
 SyntaxHighlighter.registerLanguage("python", python);
 SyntaxHighlighter.registerLanguage("json", json);
 
+export type NodeModalProps = {
+  modalIsOpen: boolean;
+  setModalOpen: (open: boolean) => void;
+  nd: NodeResult | null;
+  pythonString: string;
+  nodeFilePath: string;
+  selectedNode: Node<ElementsData>;
+};
+
 const NodeModal = ({
   modalIsOpen,
-  closeModal,
-  nodeLabel,
-  nodeType,
+  setModalOpen,
   nd,
   nodeFilePath,
   pythonString,
   selectedNode,
 }: NodeModalProps) => {
   const theme = useMantineTheme();
-  const { classes } = NodeModalStyles();
+  const { resolvedTheme } = useTheme();
   const { darkFlojoy, lightFlojoy } = useFlojoySyntaxTheme();
   const { lightJSONTree, darkJSONTree } = themeJSONTree(theme);
   const colorScheme = theme.colorScheme;
@@ -171,134 +106,118 @@ const NodeModal = ({
     .join("/")}`;
 
   return (
-    <Modal
+    <Dialog
       data-testid="node-modal"
-      opened={modalIsOpen}
-      onClose={closeModal}
-      size={800}
-      title={nodeLabel}
-      classNames={{
-        content: classes.content,
-        header: classes.header,
-        title: classes.title,
-        close: classes.close,
-        body: classes.body,
-      }}
+      open={modalIsOpen}
+      onOpenChange={setModalOpen}
     >
-      <Modal.CloseButton
-        data-testid="node-modal-closebtn"
-        id="node-modal-closebtn"
-      />
-
-      <Flex gap="xl">
-        <div>
-          <Button
-            size="md"
-            classNames={{ root: classes.buttonStyle2 }}
-            component="a"
+      <DialogContent className="my-12 max-h-screen overflow-y-scroll border-muted bg-background p-12 sm:max-w-2xl md:max-w-4xl">
+        <DialogHeader>
+          <DialogTitle className="text-3xl">
+            {selectedNode?.data.func}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="flex gap-x-4">
+          <a
+            className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
             href={link}
             target="_blank"
           >
-            VIEW ON GITHUB
-          </Button>
-        </div>
-        <div>
-          <Button
-            size="md"
-            classNames={{ root: classes.buttonStyle2 }}
-            component="a"
+            View on GitHub
+          </a>
+          <a
+            className="rounded-full border border-accent1 px-6 py-2 text-sm font-semibold uppercase text-accent1 duration-200 hover:bg-accent1/10"
             href={docsLink}
             target="_blank"
           >
-            VIEW EXAMPLES
-          </Button>
+            View Examples
+          </a>
         </div>
-      </Flex>
-      {nodeLabel !== undefined && nodeType !== undefined && (
-        <h3
-          style={{
-            fontSize: 19,
-            marginBottom: 5,
-            lineHeight: 1.5,
-            marginTop: 34,
-            color: `${theme.colors.title[0]}`,
-          }}
-        >
+        <div className="py-1" />
+        <h3 className="text-gray-800 dark:text-gray-200">
           Function Type:{" "}
-          <code style={{ color: `${theme.colors.accent1[0]}` }}>
-            {nodeType}
-          </code>
+          <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-      )}
-      {!nd?.result ? (
-        <h3
-          style={{
-            fontSize: 19,
-            fontWeight: 400,
-            marginTop: 5,
-            marginBottom: 15,
-            color: `${theme.colors.text[0]}`,
-          }}
-        >
-          <code>{nodeLabel}</code> not run yet - Click <i>Run Script</i>.
-        </h3>
-      ) : (
-        <div>
-          {nd.result.text_blob && (
-            <div className="h-[600px] overflow-auto whitespace-pre-wrap rounded-md bg-modal">
-              <MarkDownText text={nd.result.text_blob} />
-            </div>
-          )}
-          {nd.result.plotly_fig && (
-            <PlotlyComponent
-              data={makePlotlyData(
-                nd.result.plotly_fig.data,
-                theme.colorScheme,
-              )}
-              layout={{
-                ...nd.result.plotly_fig.layout,
-                title: nd.result.plotly_fig.layout?.title ?? nodeLabel,
-              }}
-              useResizeHandler
-              style={{
-                height: 635,
-                width: 630,
-              }}
-              theme={theme.colorScheme}
-            />
-          )}
-        </div>
-      )}
-      <div style={{ display: "flex" }}>
-        <h2 style={{ fontSize: 22, marginTop: 2, marginBottom: 0 }}>
+        {!nd?.result ? (
+          <h3 className="text-gray-600 dark:text-gray-400">
+            <code>{selectedNode.data.func}</code> not run yet - Click{" "}
+            <i>Run Script</i>.
+          </h3>
+        ) : (
+          <NodeModalDataViz
+            nd={nd}
+            theme={resolvedTheme}
+            selectedNode={selectedNode}
+          />
+        )}
+        <div className="py-0.5" />
+        <h2 className="text-lg font-semibold text-muted-foreground">
           Python code
         </h2>
-      </div>
-      <SyntaxHighlighter
-        language="python"
-        style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
-      >
-        {pythonString}
-      </SyntaxHighlighter>
-      <h2 style={{ fontSize: 22, marginTop: 28, marginBottom: 0 }}>
-        Node data
-      </h2>
-      <div>
-        <JSONTree
-          data={selectedNode}
-          theme={{
-            extend: colorScheme === "dark" ? darkJSONTree : lightJSONTree,
-            tree: {
-              marginTop: 15,
-              padding: 20,
-            },
-          }}
-          labelRenderer={([key]) => (
-            <span style={{ paddingLeft: 8 }}>{key}</span>
-          )}
-        ></JSONTree>
-      </div>
-    </Modal>
+        <ScrollArea className="h-full w-full rounded-lg">
+          <ScrollBar orientation="vertical" />
+          <ScrollBar orientation="horizontal" />
+          <SyntaxHighlighter
+            language="python"
+            style={colorScheme === "dark" ? darkFlojoy : lightFlojoy}
+          >
+            {pythonString}
+          </SyntaxHighlighter>
+        </ScrollArea>
+        <div className="py-2" />
+        <h2 className="text-lg font-semibold text-muted-foreground">
+          Node data
+        </h2>
+        <div className="rounded-md bg-modal px-4">
+          <JSONTree
+            data={selectedNode}
+            theme={{
+              extend: colorScheme === "dark" ? darkJSONTree : lightJSONTree,
+            }}
+            labelRenderer={([key]) => (
+              <span style={{ paddingLeft: 8 }}>{key}</span>
+            )}
+          />
+        </div>
+        <div className="py-2" />
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+type NodeModalDataVizProps = {
+  nd: NodeResult;
+  selectedNode: Node<ElementsData>;
+  theme: "light" | "dark";
+};
+
+const NodeModalDataViz = ({
+  nd,
+  selectedNode,
+  theme,
+}: NodeModalDataVizProps) => {
+  return (
+    <div>
+      {nd.result.text_blob && (
+        <div className="h-[600px] overflow-auto whitespace-pre-wrap rounded-md bg-modal">
+          <MarkDownText text={nd.result.text_blob} />
+        </div>
+      )}
+      {nd.result.plotly_fig && (
+        <div className="flex justify-center">
+          <PlotlyComponent
+            data={makePlotlyData(nd.result.plotly_fig.data, theme)}
+            layout={{
+              ...nd.result.plotly_fig.layout,
+              title:
+                nd.result.plotly_fig.layout?.title ?? selectedNode.data.func,
+            }}
+            useResizeHandler
+            theme={theme}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

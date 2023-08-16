@@ -1,17 +1,14 @@
-import { Box } from "@mantine/core";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
-import { Node, useOnSelectionChange } from "reactflow";
-import { ElementsData } from "flojoy/types";
+// import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { Node } from "reactflow";
+import { ElementsData } from "@/types";
 import NodeModal from "./NodeModal";
 import { useEffect, useState } from "react";
-import { useFlowChartTabState } from "../FlowChartTabState";
+// import { useFlowChartTabState } from "../FlowChartTabState";
 
 type NodeExpandMenuProps = {
   modalIsOpen: boolean;
-  closeModal: () => void;
-  nodeLabel: string;
-  nodeType: string;
+  setModalOpen: (open: boolean) => void;
   nodeResults: NodeResult[];
   selectedNode: Node<ElementsData> | null;
   pythonString: string;
@@ -19,16 +16,10 @@ type NodeExpandMenuProps = {
 };
 
 export const NodeExpandMenu = ({
-  modalIsOpen,
-  closeModal,
-  nodeLabel,
-  nodeType,
   nodeResults,
-  selectedNode,
-  pythonString,
-  nodeFilePath,
+  ...props
 }: NodeExpandMenuProps) => {
-  // const { isExpandMode, setIsExpandMode } = useFlowChartState();
+  const { selectedNode } = props;
   const [nodeResult, setNodeResult] = useState<NodeResult | null>(null);
   // const onSelectionChange = () => {
   //   if (!selectedNode) {
@@ -48,15 +39,10 @@ export const NodeExpandMenu = ({
     <div className="relative" data-testid="node-modal">
       {selectedNode && (
         <NodeModal
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          nodeLabel={nodeLabel}
-          nodeType={nodeType}
+          {...props}
           nd={nodeResult}
-          pythonString={pythonString}
-          nodeFilePath={nodeFilePath}
-          data-testid="expand-menu"
           selectedNode={selectedNode}
+          data-testid="expand-menu"
         />
       )}
     </div>

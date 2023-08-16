@@ -16,7 +16,6 @@ import { Button } from "@src/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -27,6 +26,8 @@ import { API_URI } from "@src/data/constants";
 import EnvVarDelete from "./EnvVarCredentials/EnvVarDelete";
 import EnvVarEdit from "./EnvVarCredentials/EnvVarEdit";
 import { Key } from "lucide-react";
+import { toast } from "sonner";
+import { Separator } from "@src/components/ui/separator";
 
 interface EnvVarModalProps {
   handleEnvVarModalOpen: (open: boolean) => void;
@@ -46,6 +47,8 @@ const EnvVarModal = ({
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
+  const [flojoyCloudKey, setFlojoyCloudKey] = useState<string>("");
+
   const fetchCredentials = useCallback(() => {
     fetch(`${API_URI}/env/`, {
       method: "GET",
@@ -54,7 +57,9 @@ const EnvVarModal = ({
       },
     })
       .then((res) => res.json())
-      .then((data) => setCredentials(data))
+      .then((data) => {
+        setCredentials(data);
+      })
       .catch((err) => console.log(err));
   }, [setCredentials]);
 
@@ -91,11 +96,37 @@ const EnvVarModal = ({
     }
   };
 
-  const handleSendEnvVar = () => {
-    postEnvironmentVariable({ key: envVarKey, value: envVarValue });
-    setEnvVarKey("");
-    setEnvVarValue("");
-    fetchCredentials();
+  const handleSendEnvVar = async () => {
+    const result = await postEnvironmentVariable({
+      key: envVarKey,
+      value: envVarValue,
+    });
+
+    if (result.ok) {
+      toast("Environment variable added");
+      setEnvVarKey("");
+      setEnvVarValue("");
+      fetchCredentials();
+    } else {
+      toast("Error adding environment variable");
+    }
+  };
+
+  const handleSetCloudKey = async () => {
+    const result = await postEnvironmentVariable({
+      key: "FLOJOY_CLOUD_KEY",
+      value: flojoyCloudKey,
+    });
+
+    if (result.ok) {
+      toast(
+        "Successfully set your Flojoy Cloud API key, let's stream some data to the cloud!",
+      );
+      setFlojoyCloudKey("");
+      fetchCredentials();
+    } else {
+      toast("Error adding your Flojoy Cloud API key");
+    }
   };
 
   return (
@@ -107,62 +138,95 @@ const EnvVarModal = ({
             <div className="">Environment Variables</div>
           </DialogTitle>
         </DialogHeader>
-        <div className="flex gap-4 py-1 sm:flex-row">
-          <div className="inline-block flex-1">
-            <Label
-              htmlFor="EnvVarKey"
-              className="text-right font-semibold text-black dark:text-white sm:text-sm"
-            >
-              Key:
-            </Label>
+        <div className="flex flex-col">
+          <div className="text-lg font-bold">Flojoy Cloud</div>
+          <div className="py-1" />
+          <a
+            href={"https://cloud.flojoy.ai"} // TODO: repalce this with the ytb video link
+            target="_blank"
+            className="text-sm underline"
+          >
+            Get your Flojoy Cloud API key
+          </a>
+          <div className="py-1" />
+          <div className="flex w-full items-center space-x-2">
             <Input
-              data-testid="env-var-key-input"
-              id="EnvVarKey"
-              type="text"
-              placeholder="e.g CLIENT_KEY"
-              value={envVarKey || ""}
-              className="mt-1 shadow-sm dark:bg-neutral-800 sm:text-sm"
-              onPaste={(e) => handlePaste(e, "key")}
-              onChange={handleEnvVarKeyChange}
+              type="email"
+              value={flojoyCloudKey}
+              onChange={(e) => setFlojoyCloudKey(e.target.value)}
+              className="bg-modal"
+              placeholder="Paste your Flojoy Cloud API key here :)"
             />
+            <Button type="submit" onClick={handleSetCloudKey}>
+              Set
+            </Button>
           </div>
-          <div className="inline-block flex-1">
-            <Label
-              htmlFor="EnvVarValue"
-              className="text-right font-semibold text-black dark:text-white sm:text-sm"
-            >
-              Value:
-            </Label>
-            <Input
-              data-testid="env-var-value-input"
-              id="EnvVarValue"
-              type="password"
-              value={envVarValue || ""}
-              className="mt-1 text-black shadow-sm dark:bg-neutral-800 dark:text-white sm:text-sm"
-              onPaste={(e) => handlePaste(e, "value")}
-              onChange={handleEnvVarValueChange}
-            />
-          </div>
-        </div>
-        <DialogFooter className="px-3">
-          <Button data-testid="env-modal-add-btn" onClick={handleSendEnvVar}>
-            Add
-          </Button>
-        </DialogFooter>
-        <hr />
-        <div className="max-h-80 ">
-          <ScrollArea className="h-80 w-full rounded-md last:border-b-0">
-            {credentials.map((credential) => (
-              <EnvVarCredentialsInfo
-                key={credential.id}
-                credential={credential}
-                setSelectedCredential={setSelectedCredential}
-                setEditModalOpen={setEditModalOpen}
-                setDeleteModalOpen={setDeleteModalOpen}
+
+          <div className="py-2" />
+          <Separator />
+          <div className="py-2" />
+          <div className="text-lg font-bold">Other Environment</div>
+          <div className="py-1" />
+
+          <div className="flex w-full gap-2">
+            <div className="flex grow flex-col gap-1">
+              <Label
+                htmlFor="EnvVarKey"
+                className="font-semibold text-foreground"
+              >
+                Key Name:
+              </Label>
+              <Input
+                data-testid="env-var-key-input"
+                id="EnvVarKey"
+                type="text"
+                placeholder="e.g CLIENT_KEY"
+                value={envVarKey}
+                className="mt-1 bg-modal"
+                onPaste={(e) => handlePaste(e, "key")}
+                onChange={handleEnvVarKeyChange}
               />
-            ))}
-          </ScrollArea>
+            </div>
+            <div className="flex grow flex-col gap-1">
+              <Label
+                htmlFor="EnvVarValue"
+                className="font-semibold text-foreground"
+              >
+                Key Value:
+              </Label>
+              <Input
+                data-testid="env-var-value-input"
+                id="EnvVarValue"
+                value={envVarValue}
+                className="mt-1 bg-modal"
+                onPaste={(e) => handlePaste(e, "value")}
+                onChange={handleEnvVarValueChange}
+              />
+            </div>
+            <div className="flex shrink flex-col">
+              <div className="grow" />
+              <Button
+                data-testid="env-modal-add-btn"
+                onClick={handleSendEnvVar}
+              >
+                Add
+              </Button>
+            </div>
+          </div>
         </div>
+
+        <Separator />
+        <ScrollArea className="h-56 w-full rounded-md last:border-b-0">
+          {credentials.map((credential) => (
+            <EnvVarCredentialsInfo
+              key={credential.key}
+              credential={credential}
+              setSelectedCredential={setSelectedCredential}
+              setEditModalOpen={setEditModalOpen}
+              setDeleteModalOpen={setDeleteModalOpen}
+            />
+          ))}
+        </ScrollArea>
         {selectedCredential && (
           <>
             <EnvVarDelete

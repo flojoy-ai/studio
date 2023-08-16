@@ -7,21 +7,6 @@ NO_OUTPUT_NODES = ["GOTO", "END"]
 
 
 class FlojoyNodeTransformer(ast.NodeTransformer):
-    def has_decorator(
-        self, node: ast.FunctionDef | ast.ClassDef, decorator_name: str
-    ) -> bool:
-        for decorator in node.decorator_list:
-            if isinstance(decorator, ast.Name) and decorator.id == decorator_name:
-                return True
-            elif (
-                isinstance(decorator, ast.Call)
-                and isinstance(decorator.func, ast.Name)
-                and decorator.func.id == decorator_name
-            ):
-                return True
-
-        return False
-
     def get_flojoy_decorator(self, node: ast.FunctionDef):
         return [
             decorator
@@ -63,14 +48,18 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
 
     def visit_FunctionDef(self, node: ast.FunctionDef):
         # The case where the node is used for overloading, will ignore all other decorators
-        if self.has_decorator(node, "display"):
+        if has_decorator(node, "display"):
             node.decorator_list = cast(list[ast.expr], self.get_display_decorator(node))
-        elif not self.has_decorator(node, "flojoy"):
+        elif not has_decorator(node, "flojoy") and not has_decorator(
+                    node, "node_initialization"
+            ):
             return None
 
         # TODO: make an error comment when a display decorator have another decorator
-        if len(node.decorator_list) > 1:
             # Keep only the '@flojoy' if there are multiple decorators.
+
+        if has_decorator(node, "flojoy") and len(node.decorator_list) > 1:
+            # Keep only the '@flojoy' decorator if there are multiple decorators.
             # Some decorators, like '@run_in_venv', create virtual environments, which we
             # don't want to generate when creating the manifest.
             node.decorator_list = cast(list[ast.expr], self.get_flojoy_decorator(node))
@@ -96,7 +85,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
 
-def make_manifest_ast(path: str) -> [str, ast.Module]:
+def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module, Optional[Any]]:
     with open(path) as f:
         tree = ast.parse(f.read())
 
@@ -106,21 +95,31 @@ def make_manifest_ast(path: str) -> [str, ast.Module]:
     tree: ast.Module = transformer.visit(tree)
 
     # flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
-    flojoy_node = None
     overload = []
     for node in tree.body:
-        if isinstance(node, ast.FunctionDef) and len(node.decorator_list) == 1:
-            # can be changed later, for now, ast.Name == display, ast.Call == flojoy
-            if isinstance(node.decorator_list[0], ast.Name):
-                overload_default, overload_val = extract_arguments(node)
-                overload.append((overload_val, overload_default[:-1], overload_default[-1]))
-            elif isinstance(node.decorator_list[0], ast.Call):
-                flojoy_node = node
+        if isinstance(node, ast.FunctionDef) and has_decorator(node, "display"):
+            overload_default, overload_val = extract_arguments(node)
+            overload.append((overload_val, overload_default[:-1], overload_default[-1]))
+    if len(overload) == 0:
+        overload = None
+
+    flojoy_node = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "flojoy"),
+    )
+
+    init_func = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "node_initialization"),
+    )
 
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
     node_name = flojoy_node.name
+    init_func_name = init_func.name if init_func else None
     return_type = None
 
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
@@ -131,7 +130,7 @@ def make_manifest_ast(path: str) -> [str, ast.Module]:
         if flojoy_node.returns and not isinstance(flojoy_node.returns, ast.BinOp):
             return_type = flojoy_node.returns.id
 
-    # Then get rid of all the other dataclasses
+    # Then get rid of all the other classes
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
     # for node in tree.body:
@@ -144,11 +143,15 @@ def make_manifest_ast(path: str) -> [str, ast.Module]:
         if node and (not isinstance(node, ast.ClassDef) or node.name == return_type)
     ]
 
-    return node_name, tree, overload
+    return (node_name, init_func_name, tree, overload)
 
 
 def get_flojoy_decorator(tree: ast.Module) -> Optional[ast.Call]:
-    flojoy_node = find(tree.body, lambda node: isinstance(node, ast.FunctionDef))
+    flojoy_node = find(
+        tree.body,
+        lambda node: isinstance(node, ast.FunctionDef)
+        and has_decorator(node, "flojoy"),
+    )
     if not flojoy_node:
         raise ValueError("No flojoy node found in file")
 
@@ -194,6 +197,20 @@ def get_pip_dependencies(tree: ast.Module) -> Optional[list[dict[str, str]]]:
         deps.append({"name": package.value, "v": ver.value})
 
     return deps
+
+
+def has_decorator(node: ast.FunctionDef | ast.ClassDef, decorator_name: str) -> bool:
+    for decorator in node.decorator_list:
+        if isinstance(decorator, ast.Name) and decorator.id == decorator_name:
+            return True
+        elif (
+            isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == decorator_name
+        ):
+            return True
+
+    return False
 
 
 def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[Any]:

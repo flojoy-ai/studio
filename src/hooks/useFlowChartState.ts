@@ -1,4 +1,4 @@
-import { ElementsData } from "flojoy/types";
+import { ElementsData } from "@/types";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
@@ -35,16 +35,15 @@ export interface CtlManifestType {
   layout: ReactGridLayout.Layout;
 }
 export interface EnvVarCredentialType {
-  id: string;
   key: string;
   value: string;
 }
 
-export const failedNodeAtom = atom<string>("");
+export const failedNodeAtom = atom<Record<string, string>>({});
 export const runningNodeAtom = atom<string>("");
 export const nodeStatusAtom = atom((get) => ({
   runningNode: get(runningNodeAtom),
-  failedNode: get(failedNodeAtom),
+  failedNodes: get(failedNodeAtom),
 }));
 
 const showLogsAtom = atomWithImmer<boolean>(false);
@@ -65,7 +64,7 @@ export function useFlowChartState() {
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
-  const [failedNode, setFailedNode] = useAtom(failedNodeAtom);
+  const [failedNodes, setFailedNodes] = useAtom(failedNodeAtom);
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
@@ -79,8 +78,8 @@ export function useFlowChartState() {
     setShowLogs,
     runningNode,
     setRunningNode,
-    failedNode,
-    setFailedNode,
+    failedNodes,
+    setFailedNodes,
     credentials,
     setCredentials,
     nodeParamChanged,

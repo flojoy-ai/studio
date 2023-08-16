@@ -8,10 +8,10 @@ export type Setting = {
   key: string;
   group: SettingsGroup;
   desc: string;
-  value: number;
+  value: number | boolean;
 };
 
-const settingsListDefault = atomWithImmer<Setting[]>([
+const settingsAtom = atomWithImmer<Setting[]>([
   {
     title: "Node Delay",
     key: "nodeDelay",
@@ -26,12 +26,20 @@ const settingsListDefault = atomWithImmer<Setting[]>([
     desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
+  {
+    title: "Fit view on resize",
+    key: "fitViewOnResize",
+    group: "frontend",
+    desc: "Center the view of the flow chart automatically when the window is resized",
+    value: true,
+  },
 ]);
 
-export const useSettings = () => {
-  const [settings, setSettings] = useAtom(settingsListDefault);
+export const useSettings = (group: "frontend" | "backend") => {
+  const [settings, setSettings] = useAtom(settingsAtom);
 
-  const updateSettings = (key: string, value: number) => {
+  const updateSettings = (key: string, value: number | boolean) => {
+    console.log(key);
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {
@@ -41,7 +49,7 @@ export const useSettings = () => {
   };
 
   return {
-    settings,
+    settings: settings.filter((s) => s.group === group),
     updateSettings,
   };
 };

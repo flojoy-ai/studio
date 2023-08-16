@@ -43,8 +43,10 @@ class ManifestBuilder:
         self.manifest: dict[str, Any] = {}
         self.inputs: list[Any] = []
         self.parameters: dict[str, Any] = {}
+        self.init_parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
-        self.overload: dict[str, Any] = {}
+        self.overload: Optional[dict[str, Any]] = None
+        self.pip_dependencies: Optional[list[dict[str, str]]] = None
 
         doc_parser = NumpydocParser()
         doc_parser.add_section(ParamSection("Inputs", "inputs"))
@@ -105,6 +107,27 @@ class ManifestBuilder:
         }
         return self
 
+    def with_init_param(self, name: str, param_type: Type, default: Any):
+        self.init_parameters[name] = {
+            "type": type_str(param_type),
+            "default": default,
+            "desc": None,
+        }
+        return self
+
+    def with_init_select(self, name: str, options: list[Any], default: Any):
+        self.init_parameters[name] = {
+            "type": "select",
+            "options": options,
+            "default": default,
+            "desc": None,
+        }
+        return self
+
+    def with_overload(self, overload_list: dict[Any]):
+        self.overload = overload_list
+        return self
+
     def with_output(self, name: str, output_type: Type[Any], named: bool = False):
         self.outputs.append(
             {
@@ -116,15 +139,23 @@ class ManifestBuilder:
         )
         return self
 
+    def with_pip_dependencies(self, deps: list[dict[str, str]]):
+        self.pip_dependencies = deps
+        return self
+
     def build(self):
         if self.inputs:
             self.manifest["inputs"] = self.inputs
         if self.parameters:
             self.manifest["parameters"] = self.parameters
+        if self.init_parameters:
+            self.manifest["init_parameters"] = self.init_parameters
         if self.outputs:
             self.manifest["outputs"] = self.outputs
         if self.overload:
             self.manifest["overload"] = self.overload
+        if self.pip_dependencies:
+            self.manifest["pip_dependencies"] = self.pip_dependencies
 
         return self.manifest
 
@@ -146,35 +177,47 @@ class ManifestBuilder:
 
 
 def create_manifest(path: str) -> dict[str, Any]:
-    node_name, tree, overload_obj = make_manifest_ast(path)
+    node_name, init_func_name, tree, overload_obj = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
 
     func = getattr(module, node_name)
 
-    manifest = make_manifest_for(func, node_name in SPECIAL_NODES)
 
     node_type = get_node_type(tree)
-    if node_type:
-        manifest["type"] = node_type
-
     pip_deps = get_pip_dependencies(tree)
+
+
+    mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
+    if node_type:
+        mb.with_type(node_type)
     if pip_deps:
-        manifest["pip_dependencies"] = pip_deps
+        mb.with_pip_dependencies(pip_deps)
 
-    overload = get_overload(t=overload_obj, default=manifest["parameters"])
-    if overload:
-        manifest["overload"] = overload
+    populate_manifest(func, mb, node_name in SPECIAL_NODES)
 
-    return manifest
+    if init_func_name:
+        init_func = getattr(module, init_func_name)
+        populate_init_params(init_func.func, mb)
+
+    if overload_obj:
+        overload = get_overload(t=overload_obj)
+        mb.with_overload(overload)
+
+    return mb.build()
+
 
 
 def make_manifest_for(
     func: Callable[..., Any], is_special_node: bool = False,
 ) -> dict[str, Any]:
-    mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
 
+
+
+def populate_manifest(
+    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False
+):
     sig = inspect.signature(func)
     for name, param in sig.parameters.items():
         populate_inputs(name, param, mb)
@@ -213,12 +256,12 @@ def make_manifest_for(
 
                 mb.with_output(attr, value, named=True)
 
-    return mb.build()
+    return mb
 
 
 def populate_inputs(
     name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
-) -> None:
+):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
 
@@ -309,6 +352,53 @@ def populate_inputs(
             mb.with_param(name, param_type, default_value)
 
 
+def populate_init_params(init_func: Callable, mb: ManifestBuilder):
+    sig = inspect.signature(init_func)
+
+    def populate(name: str, param: Parameter):
+        if name == "node_id":
+            return
+        param_type = param.annotation
+        default = param.default if param.default is not param.empty else None
+
+        if is_union(param_type):
+            union_types = [t for t in get_union_types(param_type) if t != NoneType]
+            # If the union only contains 1 type, that means it was an Optional
+            # So we just recurse with the inner type.
+            if len(union_types) == 1:
+                inner_type = param_type.__args__[0]
+
+                # Recurse with the inner type, treating it as if the optional wasn't there
+                populate(
+                    name,
+                    Parameter(
+                        name,
+                        kind=param.kind,
+                        default=param.default,
+                        annotation=inner_type,
+                    ),
+                )
+                return
+        elif is_outer_type(param_type, Literal):
+            mb.with_init_select(
+                param_type,
+                list(param_type.__args__),
+                default,
+            )
+        else:
+            if param_type not in ALLOWED_PARAM_TYPES and param_type != Array:
+                raise TypeError(
+                    f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or Array"
+                    f"got {param_type}"
+                )
+            mb.with_init_param(name, param_type, default)
+
+    for name, param in sig.parameters.items():
+        populate(name, param)
+
+    return mb
+
+
 def is_special_type(param_type: Any):
     return any(param_type == special_type for special_type in SPECIAL_TYPES)
 
@@ -346,7 +436,7 @@ def get_full_type_name(t: Any) -> str:
         return t.__name__
 
 
-def get_overload(t: list[tuple[Any]], default):
+def get_overload(t: list[tuple[Any]]):
     if len(t) == 0:
         return None
     result = {}

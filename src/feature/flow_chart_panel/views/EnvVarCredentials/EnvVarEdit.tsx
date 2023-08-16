@@ -32,12 +32,20 @@ const EnvVarEdit = ({
     setEditEnv(e.target.value);
   };
 
-  const handleEdit = () => {
-    postEnvironmentVariable({ key: credentialKey, value: editEnv });
-    setEditEnv("");
-    fetchCredentials();
-    setOpen(false);
-    toast("Environment variable edited");
+  const handleEdit = async () => {
+    const result = await postEnvironmentVariable({
+      key: credentialKey,
+      value: editEnv,
+    });
+
+    if (result.ok) {
+      toast("Environment variable edited");
+      setEditEnv("");
+      fetchCredentials();
+      setOpen(false);
+    } else {
+      toast("Error editing environment variable");
+    }
   };
 
   return (

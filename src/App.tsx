@@ -14,11 +14,11 @@ import PreJobOperationShow from "./feature/common/PreJobOperationShow";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
-import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
+// import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
-import { ThemeProvider } from "@src/components/theme-provider";
+import { ThemeProvider } from "@src/providers/theme-provider";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -29,11 +29,10 @@ function ErrorBoundary() {
 
 const App = () => {
   const {
-    states: { runningNode, failedNode, preJobOperation },
+    states: { runningNode, failedNodes, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const { setRunningNode, setFailedNode, setIsSidebarOpen } =
-    useFlowChartState();
+  const { setRunningNode, setFailedNodes } = useFlowChartState();
   const [
     isPrejobModalOpen,
     { open: openPreJobModal, close: closePreJobModal },
@@ -45,8 +44,8 @@ const App = () => {
 
   useEffect(() => {
     setRunningNode(runningNode);
-    setFailedNode(failedNode);
-  }, [runningNode, failedNode, setRunningNode, setFailedNode]);
+    setFailedNodes(failedNodes);
+  }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
 
   useEffect(() => {
     if (preJobOperation.isRunning) {
