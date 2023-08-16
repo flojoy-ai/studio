@@ -3,7 +3,7 @@ import json
 from typing import Any, Optional, Union
 from manifest.generate_node_manifest import create_manifest
 
-FULL_PATH = "PYTHON/nodes/GENERATORS/SIMULATIONS/LINSPACE"
+FULL_PATH = "PYTHON/nodes/"
 
 NAME_MAP = {
     "AI_ML": "AI & ML",

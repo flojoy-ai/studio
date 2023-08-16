@@ -207,14 +207,6 @@ def create_manifest(path: str) -> dict[str, Any]:
 
     return mb.build()
 
-
-
-def make_manifest_for(
-    func: Callable[..., Any], is_special_node: bool = False,
-) -> dict[str, Any]:
-
-
-
 def populate_manifest(
     func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False
 ):
