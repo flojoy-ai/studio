@@ -310,7 +310,9 @@ else
 fi
 
 if [ $isDebugMode = true ]; then
-   start_project_cmd='npm run start-project:debug'
+   export FASTAPI_LOG=debug
+else
+   export FASTAPI_LOG=error
 fi
 
 # start project services
