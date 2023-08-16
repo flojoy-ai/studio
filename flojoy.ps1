@@ -276,11 +276,11 @@ else {
 info_msg 'Starting the project...'
 if ($isDebugMode -eq $true) {
   info_msg "Debug mode will be enabled!"
-  $Env:DEBUG = $true
+  $Env:FASTAPI_LOG = "debug"
   $startProjectCmd = "npm run start-project:win:debug"
 }
 else {
-  $Env:DEBUG = $false
+  $Env:FASTAPI_LOG = "error"
   $startProjectCmd = "npm run start-project:win"
 
 }
