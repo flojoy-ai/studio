@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { useDisclosure } from "@mantine/hooks";
 import { GlobalStyles } from "./feature/common/Global";
 
 import {
@@ -10,7 +9,7 @@ import {
 } from "@mantine/core";
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
-import PreJobOperationShow from "./feature/common/PreJobOperationShow";
+import PreJobOperationDialog from "./feature/common/PreJobOperationDialog";
 import { darkTheme, lightTheme } from "./feature/common/theme";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
@@ -33,10 +32,7 @@ const App = () => {
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const { setRunningNode, setFailedNode } = useFlowChartState();
-  const [
-    isPrejobModalOpen,
-    { open: openPreJobModal, close: closePreJobModal },
-  ] = useDisclosure(false);
+  const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
 
   const toggleColorScheme = (color?: ColorScheme) => {
     setTheme(color || (theme === "dark" ? "light" : "dark"));
@@ -49,9 +45,9 @@ const App = () => {
 
   useEffect(() => {
     if (preJobOperation.isRunning) {
-      openPreJobModal();
+      setIsPrejobModalOpen(true);
     } else {
-      closePreJobModal();
+      setIsPrejobModalOpen(false);
     }
   }, [preJobOperation]);
 
@@ -85,10 +81,10 @@ const App = () => {
             id="tw-theme-root"
           >
             <GlobalStyles />
-            <PreJobOperationShow
-              opened={isPrejobModalOpen}
+            <PreJobOperationDialog
+              open={isPrejobModalOpen}
               outputs={preJobOperation.output}
-              close={closePreJobModal}
+              setOpen={setIsPrejobModalOpen}
             />
             <Routes>
               <Route
