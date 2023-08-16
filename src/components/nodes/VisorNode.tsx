@@ -21,6 +21,7 @@ import Bar from "@/assets/nodes/Bar";
 import Table from "@/assets/nodes/Table";
 import Image from "@/assets/nodes/Image";
 import MarkDownText from "@/components/common/MarkDownText";
+import PeakFinder from "@/assets/nodes/PeakFinder";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -39,6 +40,7 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   PROPHET_COMPONENTS: <ProphetComponents />,
   COMPOSITE: <CompositePlot />,
   TEXT_VIEW: <Table />,
+  EXTREMA_DETERMINATION: <PeakFinder />
 };
 
 const VisorNode = (props: CustomNodeProps) => {
