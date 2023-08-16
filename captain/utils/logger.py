@@ -30,7 +30,8 @@ def get_log_level():
         "error": logging.ERROR,
         "critical": logging.CRITICAL,
     }
-    log_level = os.environ.get("FASTAPI_LOG", "error")
+    is_debug_mode = os.environ.get("DEBUG", False)
+    log_level = "debug" if is_debug_mode else "error"
 
     return map_to_int[log_level]
 

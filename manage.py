@@ -4,11 +4,12 @@ import os
 __ignore_list = ["venv"]
 
 if __name__ == "__main__":
-    log_level = os.environ.get("FASTAPI_LOG", "error")
+    is_debug_mode = os.environ.get("DEBUG", False)
+
     uvicorn.run(
         "captain.main:app",
         port=5392,
-        log_level=log_level,
+        log_level="debug" if is_debug_mode else "error",
         reload=True,
         reload_excludes=[
             os.path.join(os.getcwd(), p)
