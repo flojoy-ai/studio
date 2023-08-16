@@ -39,7 +39,9 @@ export const GalleryElement = ({
   useEffect(() => {
     // fixes the issue that app is not centered in the viewport
     if (nodesInitialized) {
-      rfInstance.fitView();
+      rfInstance.fitView({
+        padding: 0.8,
+      });
     }
   }, [nodesInitialized]);
 
@@ -47,7 +49,7 @@ export const GalleryElement = ({
     <div data-testid="gallery-element-btn" className="min-h-40 m-1">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
-          <AvatarImage src={galleryApp.imagePath} />
+          <AvatarImage className="object-contain" src={galleryApp.imagePath} />
         </Avatar>
         <div className="px-2" />
 

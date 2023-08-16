@@ -30,7 +30,7 @@ class Topology:
     # TODO: Remove unnecessary logger.debug statements
     def __init__(
         self,
-        graph: nx.DiGraph,
+        graph: nx.MultiDiGraph,
         jobset_id: str,
         node_delay: float = 0,
         task_queue: Queue[Any] = Queue(),
@@ -38,8 +38,8 @@ class Topology:
         worker_response: Callable[..., Any] = lambda x: None,
         final_broadcast: Callable[..., Any] = lambda: None,
     ):
-        self.working_graph = deepcopy(graph)
-        self.original_graph = deepcopy(graph)
+        self.working_graph: nx.MultiDiGraph = deepcopy(graph)
+        self.original_graph: nx.MultiDiGraph = deepcopy(graph)
         self.jobset_id = jobset_id
         self.node_delay = node_delay
         self.finished_jobs: set[str] = set()
@@ -65,7 +65,7 @@ class Topology:
         asyncio.create_task(self.worker_response(request_dict))
 
         if "FAILED_NODES" in request_dict:
-            job_id = request_dict.get("FAILED_NODES", "")
+            job_id = list(request_dict["FAILED_NODES"].keys())[0]
             self.process_job_result(job_id=job_id, job_result=None, success=False)
         elif "NODE_RESULTS" in request_dict:
             job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
@@ -98,6 +98,7 @@ class Topology:
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
         functions = {}
+        errors = {}
         for node_id in cast(list[str], self.original_graph.nodes):
             # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
@@ -110,6 +111,21 @@ class Topology:
             except AttributeError:
                 func = getattr(module, cmd)
 
+            preflight = next(
+                (
+                    f
+                    for f in module.__dict__.values()
+                    if callable(f) and getattr(f, "is_flojoy_preflight", False)
+                ),
+                None,
+            )
+
+            if preflight is not None:
+                try:
+                    preflight()
+                except Exception as e:
+                    errors[node_id] = str(e)
+
             # check if the func has an init function, and initialize it if it does to the specified node id
             try:
                 init_func = get_node_init_function(func)
@@ -120,7 +136,7 @@ class Topology:
                 pass
 
             functions[node_id] = func
-        return functions
+        return functions, errors
 
     async def run_job(self, job_id: str):
         async with lock:
@@ -292,13 +308,11 @@ class Topology:
         if self.loop_nodes:
             self.loop_nodes.pop()
         graph = self.original_graph
-        sub_graph = graph.subgraph([job_id] + list(nx.descendants(graph, job_id)))
-        original_edges = sub_graph.edges
-        original_edges = [
-            (s, t, self.original_graph.get_edge_data(s, t)) for (s, t) in original_edges
-        ]
+        sub_graph: nx.MultiDiGraph = graph.subgraph(
+            [job_id] + list(nx.descendants(graph, job_id))
+        )
+        original_edges = sub_graph.edges(data=True)
         self.working_graph.add_edges_from(original_edges)
-
         self.finished_jobs.remove(job_id)
 
         for d_id in nx.descendants(self.working_graph, job_id):
@@ -330,8 +344,7 @@ class Topology:
             self.remove_dependency(edge[0], edge[1])
 
     def get_edges_by_label(self, job_id: str, label: str) -> list[tuple[str, Any, Any]]:
-        edges = self.working_graph.edges(job_id)
-        edges = [(s, t, self.working_graph.get_edge_data(s, t)) for (s, t) in edges]
+        edges = self.working_graph.edges(job_id, data=True)
         edges = [
             (s, t, data) for (s, t, data) in edges if data.get("label", "") == label
         ]
@@ -343,18 +356,16 @@ class Topology:
         graph = self.get_graph(original)
         try:
             deps = []
-            for prev_job_id in list(graph.predecessors(job_id)):
-                input_name, multiple = self.get_input_info(
-                    prev_job_id, job_id, original
-                )
+            for prev_job_id, _, data in list(graph.in_edges(job_id, data=True)):
+                input_name = data.get("target_label", "")
+                multiple = data.get("multiple", False)
+                edge_label = data.get("label", "")
                 deps.append(
                     {
                         "job_id": prev_job_id,
                         "input_name": input_name,
                         "multiple": multiple,
-                        "edge": graph.get_edge_data(prev_job_id, job_id).get(
-                            "label", ""
-                        ),
+                        "edge": edge_label,
                     }
                 )
             logger.debug(f"deps: {deps}")
@@ -364,25 +375,26 @@ class Topology:
 
     def get_input_info(
         self, source_job_id: str, target_job_id: str, original: bool = False
-    ) -> Tuple[str, bool]:
+    ) -> list[tuple[str, bool]]:
         graph = self.get_graph(original)
         edge_data = graph.get_edge_data(source_job_id, target_job_id)
-
         target_label = ""
         multiple = False
-
+        dependencies = []
         if edge_data:
-            target_label = edge_data.get("target_label", "")
-            multiple = edge_data.get("multiple", False)
-
-        return target_label, multiple
+            for edge in edge_data.values():
+                target_label = edge.get("target_label", "")
+                multiple = edge.get("multiple", False)
+                dependencies.append((target_label, multiple))
+        return dependencies
 
     def remove_dependency(self, job_id: str, succ_id: str):
         if self.working_graph.has_edge(job_id, succ_id):
             logger.debug(
                 f"  - remove dependency: {self.get_edge_label_string(job_id, succ_id)}"
             )
-            self.working_graph.remove_edge(job_id, succ_id)
+            while self.working_graph.has_edge(job_id, succ_id):
+                self.working_graph.remove_edge(job_id, succ_id)
 
     def get_edge_label_string(
         self,
@@ -452,7 +464,11 @@ class Topology:
     def get_outputs(self, job_id: str):
         out = self.working_graph.out_edges(job_id)
         return list(
-            set(self.working_graph.get_edge_data(u, v)["label"] for (u, v) in out)
+            set(
+                edge["label"]
+                for (u, v) in out
+                for edge in self.working_graph.get_edge_data(u, v).values()
+            )
         )
 
     def is_loop_node(self, job_id: str):

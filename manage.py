@@ -1,4 +1,3 @@
-import asyncio
 import uvicorn
 import os
 
@@ -8,7 +7,7 @@ if __name__ == "__main__":
     log_level = os.environ.get("FASTAPI_LOG", "error")
     uvicorn.run(
         "captain.main:app",
-        port=8000,
+        port=5392,
         log_level=log_level,
         reload=True,
         reload_excludes=[

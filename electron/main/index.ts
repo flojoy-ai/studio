@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, shell, ipcMain, nativeImage } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
@@ -20,6 +20,12 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? join(process.env.DIST_ELECTRON, "../public")
   : process.env.DIST;
 
+const envPath = process.env.PATH ?? "";
+
+if (!envPath.split(":").includes("usr/local/bin")) {
+  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
+}
+
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
 
@@ -30,6 +36,17 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+const getIcon = () => {
+  switch (process.platform) {
+    case "win32":
+      return join(process.env.PUBLIC ?? "", "favicon.ico");
+    case "linux":
+      return join(process.env.PUBLIC ?? "", "favicon.png");
+    default:
+      return join(process.env.PUBLIC ?? "", "favicon.png");
+  }
+};
 
 // Remove electron security warnings
 // This warning only shows in development mode
@@ -45,12 +62,13 @@ let win: BrowserWindow | null = null;
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+app.setName("Flojoy Studio");
 
 async function createWindow() {
   win = new BrowserWindow({
-    title: "Main window",
-    icon: join(process.env.PUBLIC, "favicon.ico"),
-    autoHideMenuBar: app.isPackaged ? true : false,
+    title: "Flojoy Studio",
+    icon: getIcon(),
+    autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -60,6 +78,12 @@ async function createWindow() {
     },
     show: false,
   });
+
+  // setting icon for mac
+  if (process.platform === "darwin") {
+    app.dock.setIcon(nativeImage.createFromPath(getIcon()));
+  }
+
   win.maximize();
   win.show();
 
@@ -71,7 +95,6 @@ async function createWindow() {
   } else {
     win.loadFile(indexHtml);
   }
-
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -86,6 +109,7 @@ async function createWindow() {
   // Apply electron-updater
   update(win);
 }
+
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {

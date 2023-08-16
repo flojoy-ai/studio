@@ -31,8 +31,7 @@ class WorkerJobResponse(dict):
     SYSTEM_STATUS: str | None = None
     NODE_RESULTS: NodeResults | None = None
     RUNNING_NODE: str | None = None
-    FAILED_NODES: str | None = None
-    FAILURE_REASON: str | None = None
+    FAILED_NODES: dict[str, str] | None = None
     PRE_JOB_OP: dict[str, Any] | None = None
     jobsetId: str = ""
 
@@ -40,7 +39,7 @@ class WorkerJobResponse(dict):
         self,
         jobset_id: str,
         sys_status: str | None = None,
-        failed_nodes: list[str] | None = None,
+        failed_nodes: dict[str, str] | None = None,
         running_node: str = "",
         dict_item: dict[str, Any] = {},
     ):
@@ -48,7 +47,7 @@ class WorkerJobResponse(dict):
         if sys_status:
             self["SYSTEM_STATUS"] = sys_status
         self["type"] = "worker_response"
-        self["FAILED_NODES"] = failed_nodes or []
+        self["FAILED_NODES"] = failed_nodes or {}
         self["RUNNING_NODE"] = running_node
         for k, item in dict_item.items():
             self[k] = item

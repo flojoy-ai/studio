@@ -38,12 +38,13 @@ import { CenterObserver } from "./components/CenterObserver";
 // import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Workflow } from "lucide-react";
+import { Pencil, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
+import { ResizeFitter } from "./components/ResizeFitter";
 
 localforage.config({
   name: "react-flow",
@@ -56,8 +57,13 @@ const FlowChartTab = () => {
 
   const { theme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen, setRfInstance, setIsEditMode } =
-    useFlowChartState();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setRfInstance,
+    isEditMode,
+    setIsEditMode,
+  } = useFlowChartState();
 
   const mantineTheme = useMantineTheme();
 
@@ -65,16 +71,8 @@ const FlowChartTab = () => {
     states: { programResults },
   } = useSocket();
 
-  const {
-    nodeLabel,
-    nodeType,
-    pythonString,
-    setPythonString,
-    nodeFilePath,
-    setNodeFilePath,
-    setNodeLabel,
-    setNodeType,
-  } = useFlowChartTabState();
+  const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
+    useFlowChartTabState();
 
   const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
     useFlowChartGraph();
@@ -113,17 +111,19 @@ const FlowChartTab = () => {
     () => ({ default: SmartBezierEdge }),
     [],
   );
-  // Attach a callback to each of the custom nodes.
-  // This is to pass down the setNodes/setEdges functions as props for deleting nodes.
-  // Has to be passed through the data prop because passing as a regular prop doesn't work
-  // for whatever reason.
+
   const nodeTypes = useNodeTypes({
     handleRemove: handleNodeRemove,
-    wrapperOnClick: () => setIsEditMode(true),
+    wrapperOnClick: () => {
+      setIsEditMode(true);
+    },
     theme: mantineTheme.colorScheme,
   });
+
   const onInit: OnInit = (rfIns) => {
-    rfIns.fitView();
+    rfIns.fitView({
+      padding: 0.8,
+    });
     setRfInstance(rfIns.toObject());
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
@@ -182,19 +182,9 @@ const FlowChartTab = () => {
     const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-    setNodeLabel(selectedNode.data.label);
-    setNodeType(selectedNode.data.type);
-  }, [
-    selectedNode,
-    setNodeFilePath,
-    setNodeLabel,
-    setNodeType,
-    setPythonString,
-  ]);
+  }, [selectedNode, setNodeFilePath, setPythonString]);
 
   const proOptions = { hideAttribution: true };
-
-  console.log(nodes);
 
   // const selectAllNodesShortcut = () => {
   //   setNodes((nodes) => {
@@ -252,6 +242,29 @@ const FlowChartTab = () => {
               setIsGalleryOpen={setIsGalleryOpen}
             />
             <div className="grow" />
+            {selectedNode && (
+              <>
+                {!isEditMode ? (
+                  <Button
+                    variant="ghost"
+                    className="gap-2"
+                    onClick={() => setIsEditMode(true)}
+                  >
+                    <Pencil size={18} className="stroke-muted-foreground" />
+                    Edit Node
+                  </Button>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    className="gap-2"
+                    onClick={() => setIsEditMode(false)}
+                  >
+                    <X size={18} className="stroke-muted-foreground" />
+                    Cancel Edit
+                  </Button>
+                )}
+              </>
+            )}
             <ClearCanvasBtn clearCanvas={clearCanvas} />
           </div>
           <div className="py-1" />
@@ -277,13 +290,12 @@ const FlowChartTab = () => {
               nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
             }
             unSelectedNodes={unSelectedNodes}
-            nodes={nodes}
-            setNodes={setNodes}
             setNodeModalOpen={() => setNodeModalOpen(true)}
             handleDelete={handleNodeRemove}
           />
 
           <FlowChartKeyboardShortcuts />
+          <ResizeFitter />
           <CenterObserver />
 
           <ReactFlow
@@ -306,7 +318,9 @@ const FlowChartTab = () => {
             onConnect={onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
-            fitView
+            fitViewOptions={{
+              padding: 0.8,
+            }}
           >
             <MiniMap
               style={{
@@ -328,16 +342,14 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
-            <Controls />
+            <Controls fitViewOptions={{ padding: 0.8 }} />
           </ReactFlow>
 
           <NodeExpandMenu
             selectedNode={selectedNode}
-            closeModal={() => setNodeModalOpen(false)}
             modalIsOpen={nodeModalOpen}
+            setModalOpen={setNodeModalOpen}
             nodeResults={programResults}
-            nodeLabel={nodeLabel}
-            nodeType={nodeType}
             pythonString={pythonString}
             nodeFilePath={nodeFilePath}
           />

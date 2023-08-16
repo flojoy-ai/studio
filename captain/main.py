@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from captain.routes import flowchart, key, ws
+from captain.routes import flowchart, key, ws, update
 from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
@@ -23,6 +23,7 @@ app.add_middleware(
 app.include_router(ws.router)
 app.include_router(flowchart.router)
 app.include_router(key.router)
+app.include_router(update.router)
 
 
 @app.on_event("startup")
