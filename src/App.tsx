@@ -28,11 +28,11 @@ function ErrorBoundary() {
 
 const App = () => {
   const {
-    states: { runningNode, failedNode, preJobOperation },
+    states: { runningNode, failedNodes, preJobOperation },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
-  const { setRunningNode, setFailedNode } = useFlowChartState();
   const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
+  const { setRunningNode, setFailedNodes } = useFlowChartState();
 
   const toggleColorScheme = (color?: ColorScheme) => {
     setTheme(color || (theme === "dark" ? "light" : "dark"));
@@ -40,8 +40,8 @@ const App = () => {
 
   useEffect(() => {
     setRunningNode(runningNode);
-    setFailedNode(failedNode);
-  }, [runningNode, failedNode, setRunningNode, setFailedNode]);
+    setFailedNodes(failedNodes);
+  }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
 
   useEffect(() => {
     if (preJobOperation.isRunning) {
