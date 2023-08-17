@@ -27,7 +27,7 @@ const getTooltipStyle = (
 ) => {
   const TOOLTIP_WIDTH = 264; // average tooltip width
   const { top, left, right } = element.getBoundingClientRect();
-  if (left < window.innerWidth / 2) {
+  if (left < window.innerWidth * 0.4) {
     return { left: right + offsetX, top: top + offsetY };
   } else {
     return { left: left - TOOLTIP_WIDTH - offsetX, top: top + offsetY };
@@ -84,8 +84,10 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "pointer-events-none absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
-                { "!pointer-events-auto opacity-100": tooltipOpen },
+                "absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                tooltipOpen
+                  ? "pointer-events-auto block opacity-100"
+                  : "pointer-events-none hidden opacity-0",
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >

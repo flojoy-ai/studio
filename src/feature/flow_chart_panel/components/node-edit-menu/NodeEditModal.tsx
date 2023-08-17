@@ -8,6 +8,7 @@ import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
+import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -38,8 +39,13 @@ const NodeEditModal = ({
   }, [node.data.id]);
 
   return (
-    <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
+    <Draggable bounds="parent" cancel="#undrag,#title_input">
+      <div
+        className="absolute right-10 top-8 z-10 w-80 overflow-y-scroll rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800"
+        style={{
+          maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 64px)`,
+        }}
+      >
         <div className="flex items-center">
           <div>
             {editRenamingTitle ? (

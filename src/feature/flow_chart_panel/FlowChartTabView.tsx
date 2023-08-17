@@ -1,7 +1,6 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
 import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
-import { NodeEditMenu } from "@src/feature/flow_chart_panel/components/node-edit-menu/NodeEditMenu";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
@@ -45,6 +44,7 @@ import { useTheme } from "@src/providers/theme-provider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
+import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 
 localforage.config({
   name: "react-flow",
@@ -218,8 +218,8 @@ const FlowChartTab = () => {
   // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
   // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
-  // const nodeToEdit =
-  //   nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
+  const nodeToEdit =
+    nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
   return (
     <Layout>
@@ -282,17 +282,17 @@ const FlowChartTab = () => {
 
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
+          className="relative"
           data-testid="react-flow"
-          data-rfinstance={JSON.stringify(nodes)}
         >
-          <NodeEditMenu
-            selectedNode={
-              nodes.filter((n) => n.selected).length > 1 ? null : selectedNode
-            }
-            unSelectedNodes={unSelectedNodes}
-            setNodeModalOpen={() => setNodeModalOpen(true)}
-            handleDelete={handleNodeRemove}
-          />
+          {nodeToEdit && isEditMode && (
+            <NodeEditModal
+              node={nodeToEdit}
+              otherNodes={unSelectedNodes}
+              setNodeModalOpen={setNodeModalOpen}
+              handleDelete={handleNodeRemove}
+            />
+          )}
 
           <FlowChartKeyboardShortcuts />
           <ResizeFitter />

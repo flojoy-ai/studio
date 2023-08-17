@@ -1,5 +1,4 @@
 import {
-  NumberInput,
   Select,
   TextInput,
   Switch,
@@ -10,6 +9,7 @@ import {
 import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@/types";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { NumberInput } from "./NumberInput";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -60,6 +60,7 @@ const ParamField = ({
   const { classes } = useStyles();
   const value = nodeCtrl.value;
 
+  // TODO: Number inputs don't work
   switch (type) {
     case "float":
       return (
@@ -68,14 +69,6 @@ const ParamField = ({
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseFloat(value as string) : value}
           precision={7}
-          removeTrailingZeros
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
         />
       );
     case "int":
@@ -84,13 +77,6 @@ const ParamField = ({
           data-testid="int-input"
           onChange={(x) => handleChange(x.toString())}
           value={value !== "" ? parseInt(value as string) : value}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
         />
       );
     case "bool":
