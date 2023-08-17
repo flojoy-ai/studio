@@ -14,8 +14,9 @@ const MATRIX_SIZE = {
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, isThumbnail } = props;
   const { resolvedTheme: theme } = useTheme();
+  const Plot = useMemo(() => createPlotlyComponent(Plotly), []);
   const defaultPlotLayout = useMemo(() => plotLayout(theme), [theme]);
-  const Plot = createPlotlyComponent(Plotly);
+
   const isMatrix = data[0]?.header?.values?.length === 0;
   const is3dPlot = data[0]?.type === "surface" || data[0]?.type === "scatter3d";
 
