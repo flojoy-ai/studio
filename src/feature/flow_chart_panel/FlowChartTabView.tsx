@@ -278,8 +278,9 @@ const FlowChartTab = () => {
 
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
-          className="relative"
+          className="relative overflow-hidden"
           data-testid="react-flow"
+          id="flow-chart-area"
         >
           {nodeToEdit && isEditMode && (
             <NodeEditModal

@@ -7,6 +7,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { ScrollArea } from "../ui/scroll-area";
 
 type ParamTooltipProps = {
   children: React.ReactNode;
@@ -84,10 +85,10 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "absolute z-50 max-h-52 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                "absolute z-50 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
                 tooltipOpen
-                  ? "pointer-events-auto block opacity-100"
-                  : "pointer-events-none hidden opacity-0",
+                  ? "pointer-events-auto opacity-100"
+                  : "pointer-events-none opacity-0",
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >
@@ -104,16 +105,18 @@ export const ParamTooltip = ({
                 </code>
               ))}
               <div className="py-2" />
-              <div>
-                {param.desc?.split("\n").map((line) => (
-                  <span key={line}>
-                    {line}
-                    <br />
-                  </span>
-                )) ?? "No description."}
-              </div>
+              <ScrollArea viewportClass="max-h-32">
+                <div>
+                  {param.desc?.split("\n").map((line) => (
+                    <span key={line}>
+                      {line}
+                      <br />
+                    </span>
+                  )) ?? "No description."}
+                </div>
+              </ScrollArea>
             </div>,
-            document.getElementById("tw-theme-root") ?? document.body,
+            document.getElementById("flow-chart-area") ?? document.body,
           )
         : null}
     </>

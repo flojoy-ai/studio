@@ -30,7 +30,7 @@ export const ParamList = ({
           <ParamTooltip
             param={{ name, type: param.type, desc: param.desc }}
             offsetX={30}
-            offsetY={0}
+            offsetY={-192}
           >
             <p className="mb-1 mt-4 cursor-pointer text-sm font-semibold">{`${name.toUpperCase()}:`}</p>
           </ParamTooltip>
