@@ -46,3 +46,31 @@ code {
 .react-flow__edge-path {
   stroke-width: 1.5;
 }
+
+.CollapsibleContent {
+  overflow: hidden;
+}
+.CollapsibleContent[data-state="open"] {
+  animation: slideDown 225ms ease-in-out;
+}
+.CollapsibleContent[data-state="closed"] {
+  animation: slideUp 225ms ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
