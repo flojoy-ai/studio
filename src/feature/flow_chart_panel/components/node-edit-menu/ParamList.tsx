@@ -2,6 +2,7 @@ import { ParamValueType } from "@src/feature/common/types/ParamValueType";
 import { ParamTooltip } from "@/components/common/ParamTooltip";
 import { ElementsData } from "@/types/node";
 import ParamField from "./ParamField";
+import { useEffect } from "react";
 
 type ParamListProps = {
   nodeId: string;
@@ -19,6 +20,15 @@ export const ParamList = ({
   updateFunc,
   nodeReferenceOptions,
 }: ParamListProps) => {
+  useEffect(() => {
+    Object.entries(ctrls).forEach(([name, param]) => {
+      if (param.overload) {
+        console.log(`the name is: ${name}`);
+        console.log("and overload is: ");
+        console.log(param.overload);
+      }
+    });
+  }, [ctrls]);
   return (
     <>
       {Object.entries(ctrls).map(([name, param]) => (
