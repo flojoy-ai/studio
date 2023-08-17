@@ -11,10 +11,11 @@ const MATRIX_SIZE = {
   height: 260,
 };
 
+const Plot = createPlotlyComponent(Plotly);
+
 const PlotlyComponent = (props: PlotProps) => {
   const { data, layout, useResizeHandler, style, isThumbnail } = props;
   const { resolvedTheme: theme } = useTheme();
-  const Plot = useMemo(() => createPlotlyComponent(Plotly), []);
   const defaultPlotLayout = useMemo(() => plotLayout(theme), [theme]);
 
   const isMatrix = data[0]?.header?.values?.length === 0;
