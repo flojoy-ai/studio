@@ -310,7 +310,9 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger data-testid="dropdown-button">File</MenubarTrigger>
+            <MenubarTrigger id="file-btn" data-testid="dropdown-button">
+              File
+            </MenubarTrigger>
             <MenubarContent>
               <SaveAsButton
                 saveFile={saveFileAs}
