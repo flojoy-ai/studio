@@ -43,7 +43,7 @@ const NodeEditModal = ({
       <div
         className="absolute right-10 top-8 z-10 w-80 overflow-y-scroll rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800"
         style={{
-          maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 64px)`,
+          maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 96px)`,
         }}
       >
         <div className="flex items-center">
@@ -127,7 +127,7 @@ const NodeEditModal = ({
               <div className="mt-2 text-sm">This node takes no parameters</div>
             )}
             {nodeParamChanged && (
-              <div className="mt-2 text-sm">
+              <div className="mt-4 text-sm font-medium italic text-muted-foreground">
                 Replay the flow for the changes to take effect
               </div>
             )}

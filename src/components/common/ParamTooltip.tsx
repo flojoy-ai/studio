@@ -84,7 +84,7 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                "absolute z-50 max-h-52 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
                 tooltipOpen
                   ? "pointer-events-auto block opacity-100"
                   : "pointer-events-none hidden opacity-0",
