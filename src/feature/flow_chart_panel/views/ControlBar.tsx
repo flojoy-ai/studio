@@ -62,18 +62,6 @@ type SaveButtonProps = {
   saveFile: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
 };
 
-const SaveButton = ({ saveFile }: SaveButtonProps) => {
-  const { nodes, edges } = useFlowChartGraph();
-  // useKeyboardShortcut("ctrl", "s", () => saveFile(nodes, edges));
-  // useKeyboardShortcut("meta", "s", () => saveFile(nodes, edges));
-
-  return (
-    <MenubarItem data-cy="btn-save" onClick={() => saveFile(nodes, edges)}>
-      Save
-    </MenubarItem>
-  );
-};
-
 type SaveAsButtonProps = {
   saveAsDisabled: boolean;
   saveFile: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -201,31 +189,19 @@ const ControlBar = () => {
     });
   };
 
-  const saveFile = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance) {
-      const blob = createFileBlob(rfInstance, nodes, edges);
-      downloadBlob(blob, "app.txt");
-      sendProgramToMix(rfInstance.nodes);
-    }
-  };
-
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (globalThis.IS_ELECTRON) {
-      saveFile(nodes, edges);
-      return;
-    }
-
     if (rfInstance) {
+      if (globalThis.IS_ELECTRON) {
+        const blob = createFileBlob(rfInstance, nodes, edges);
+        downloadBlob(blob, "app.json");
+        sendProgramToMix(rfInstance.nodes);
+        return;
+      }
+
       const blob = createFileBlob(rfInstance, nodes, edges);
 
       const handle = await window.showSaveFilePicker({
-        suggestedName: "app.txt",
-        types: [
-          {
-            description: "Text file",
-            accept: { "text/plain": [".txt"] },
-          },
-        ],
+        suggestedName: "app.json",
       });
       const writableStream = await handle.createWritable();
 
@@ -300,6 +276,8 @@ const ControlBar = () => {
     }
   };
 
+  console.log("bruh", serverStatus);
+
   return (
     <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
@@ -334,13 +312,14 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger data-testid="dropdown-button">File</MenubarTrigger>
+            <MenubarTrigger id="file-btn" data-testid="dropdown-button">
+              File
+            </MenubarTrigger>
             <MenubarContent>
               <SaveAsButton
                 saveFile={saveFileAs}
                 saveAsDisabled={saveAsDisabled}
               />
-              <SaveButton saveFile={saveFile} />
               <ExportResultButton
                 results={programResults}
                 disabled={exportResultDisabled}

@@ -172,8 +172,11 @@ createFlojoyDirectoryWithYmlFile()
 
    CREDENTIALS_FILE=$FOLDER/credentials.txt
    
-   touch "$CREDENTIALS_FILE"
+   if ! test -f "$CREDENTIALS_FILE"; then
+      touch "$CREDENTIALS_FILE"
+   fi
 }
+
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
@@ -307,7 +310,9 @@ else
 fi
 
 if [ $isDebugMode = true ]; then
-   start_project_cmd='npm run start-project:debug'
+   export FASTAPI_LOG=debug
+else
+   export FASTAPI_LOG=error
 fi
 
 # start project services
