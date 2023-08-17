@@ -87,6 +87,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
+    @apply text-primary;
+  }
+  main {
+    @apply text-primary;
   }
 }

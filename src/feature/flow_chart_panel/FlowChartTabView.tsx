@@ -1,5 +1,4 @@
 import { useFlowChartState } from "@hooks/useFlowChartState";
-import { useMantineTheme } from "@mantine/core";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -55,7 +54,7 @@ const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
 
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
 
   const {
     isSidebarOpen,
@@ -64,8 +63,6 @@ const FlowChartTab = () => {
     isEditMode,
     setIsEditMode,
   } = useFlowChartState();
-
-  const mantineTheme = useMantineTheme();
 
   const {
     states: { programResults },
@@ -117,7 +114,6 @@ const FlowChartTab = () => {
     wrapperOnClick: () => {
       setIsEditMode(true);
     },
-    theme: mantineTheme.colorScheme,
   });
 
   const onInit: OnInit = (rfIns) => {
@@ -325,17 +321,17 @@ const FlowChartTab = () => {
             <MiniMap
               style={{
                 backgroundColor:
-                  mantineTheme.colorScheme === "light"
+                  resolvedTheme === "light"
                     ? "rgba(0, 0, 0, 0.1)"
                     : "rgba(255, 255, 255, 0.1)",
               }}
               nodeColor={
-                mantineTheme.colorScheme === "light"
+                resolvedTheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
                   : "rgba(255, 255, 255, 0.25)"
               }
               maskColor={
-                mantineTheme.colorScheme === "light"
+                resolvedTheme === "light"
                   ? "rgba(0, 0, 0, 0.05)"
                   : "rgba(255, 255, 255, 0.05)"
               }

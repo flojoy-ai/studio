@@ -28,7 +28,6 @@ const Sidebar = ({
   sections,
   leafNodeClickHandler,
 }: SidebarProps) => {
-  // const theme = useMantineTheme();
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
 
