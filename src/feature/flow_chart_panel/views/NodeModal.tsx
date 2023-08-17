@@ -128,10 +128,7 @@ const NodeModal = ({
         <ScrollArea className="h-full w-full rounded-lg">
           <ScrollBar orientation="vertical" />
           <ScrollBar orientation="horizontal" />
-          <SyntaxHighlighter
-            language="python"
-            style={flojoySyntaxTheme}
-          >
+          <SyntaxHighlighter language="python" style={flojoySyntaxTheme}>
             {pythonString}
           </SyntaxHighlighter>
         </ScrollArea>
@@ -143,7 +140,7 @@ const NodeModal = ({
           <JSONTree
             data={selectedNode}
             theme={{
-              extend: jsonTheme
+              extend: jsonTheme,
             }}
             labelRenderer={([key]) => (
               <span style={{ paddingLeft: 8 }}>{key}</span>

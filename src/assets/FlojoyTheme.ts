@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 
 type SyntaxTheme = {
   [key: string]: CSSProperties;
-}
+};
 
 export const flojoySyntaxTheme: SyntaxTheme = {
   hljs: {
