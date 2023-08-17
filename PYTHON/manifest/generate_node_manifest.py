@@ -45,7 +45,6 @@ class ManifestBuilder:
         self.parameters: dict[str, Any] = {}
         self.init_parameters: dict[str, Any] = {}
         self.outputs: list[Any] = []
-        self.overload: Optional[dict[str, Any]] = None
         self.pip_dependencies: Optional[list[dict[str, str]]] = None
 
         doc_parser = NumpydocParser()
@@ -90,20 +89,22 @@ class ManifestBuilder:
         )
         return self
 
-    def with_param(self, name: str, param_type: Type, default: Any):
+    def with_param(self, name: str, param_type: Type, default: Any, overload: Any):
         self.parameters[name] = {
             "type": type_str(param_type),
             "default": default,
             "desc": self._get_param_desc(name),
+            "overload": overload,
         }
         return self
 
-    def with_select(self, name: str, options: list[Any], default: Any):
+    def with_select(self, name: str, options: list[Any], default: Any, overload: Any):
         self.parameters[name] = {
             "type": "select",
             "options": options,
             "default": default,
             "desc": self._get_param_desc(name),
+            "overload": overload,
         }
         return self
 
@@ -122,10 +123,6 @@ class ManifestBuilder:
             "default": default,
             "desc": None,
         }
-        return self
-
-    def with_overload(self, overload_list: dict[Any]):
-        self.overload = overload_list
         return self
 
     def with_output(self, name: str, output_type: Type[Any], named: bool = False):
@@ -152,8 +149,6 @@ class ManifestBuilder:
             self.manifest["init_parameters"] = self.init_parameters
         if self.outputs:
             self.manifest["outputs"] = self.outputs
-        if self.overload:
-            self.manifest["overload"] = self.overload
         if self.pip_dependencies:
             self.manifest["pip_dependencies"] = self.pip_dependencies
 
@@ -184,10 +179,8 @@ def create_manifest(path: str) -> dict[str, Any]:
 
     func = getattr(module, node_name)
 
-
     node_type = get_node_type(tree)
     pip_deps = get_pip_dependencies(tree)
-
 
     mb = ManifestBuilder(func.__doc__).with_name(func.__name__).with_key(func.__name__)
     if node_type:
@@ -195,24 +188,30 @@ def create_manifest(path: str) -> dict[str, Any]:
     if pip_deps:
         mb.with_pip_dependencies(pip_deps)
 
-    populate_manifest(func, mb, node_name in SPECIAL_NODES)
+    if overload_obj:
+        overload = get_overload(t=overload_obj)
+    else:
+        overload = None
+
+    populate_manifest(func, mb, node_name in SPECIAL_NODES, overload)
 
     if init_func_name:
         init_func = getattr(module, init_func_name)
         populate_init_params(init_func.func, mb)
 
-    if overload_obj:
-        overload = get_overload(t=overload_obj)
-        mb.with_overload(overload)
 
     return mb.build()
 
 def populate_manifest(
-    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False
+    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False, overload=None,
 ):
     sig = inspect.signature(func)
-    for name, param in sig.parameters.items():
-        populate_inputs(name, param, mb)
+    if overload is None:
+        for name, param in sig.parameters.items():
+            populate_inputs(name, param, mb, None)
+    else:
+        for name, param in sig.parameters.items():
+            populate_inputs(name, param, mb, overload[name] if name in overload else None)
 
     # Do a similar thing for the return type
     return_type = sig.return_annotation
@@ -252,7 +251,7 @@ def populate_manifest(
 
 
 def populate_inputs(
-    name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
+    name: str, param: Parameter, mb: ManifestBuilder, overload, multiple: bool = False
 ):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
@@ -274,6 +273,7 @@ def populate_inputs(
                 ),
                 mb,
                 multiple=multiple,
+                overload=overload,
             )
             return
 
@@ -303,7 +303,7 @@ def populate_inputs(
         mb.with_input(name, Any, multiple=multiple)
     elif is_special_type(param_type):
         default_value = None if default_value is None else default_value.unwrap()
-        mb.with_param(name, param_type, default=default_value)
+        mb.with_param(name, param_type, default=default_value, overload=None)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
         mb.with_input(name, param_type, multiple=multiple)
@@ -320,6 +320,7 @@ def populate_inputs(
                 ),
                 mb,
                 multiple=True,
+                overload=overload,
             )
             return
         if param_type not in ALLOWED_PARAM_TYPES:
@@ -327,10 +328,10 @@ def populate_inputs(
                 f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or special types like NodeReference,"
                 f"got {param_type}"
             )
-        mb.with_param(name, param_type, default_value)
+        mb.with_param(name, param_type, default_value, overload)
     # Case 6: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        mb.with_select(name, list(param_type.__args__), default_value)
+        mb.with_select(name, list(param_type.__args__), default_value, overload)
     # Case 7: Node init container, skip
     elif param_type == NodeInitContainer:
         return
@@ -341,7 +342,7 @@ def populate_inputs(
                 f"got {param_type}"
             )
         if param_type != DefaultParams:
-            mb.with_param(name, param_type, default_value)
+            mb.with_param(name, param_type, default_value, overload)
 
 
 def populate_init_params(init_func: Callable, mb: ManifestBuilder):
