@@ -56,7 +56,6 @@ export class WebSocketServer {
   }
   init() {
     this.server.onmessage = (ev) => {
-      console.log("got message from socket");
       const data = JSON.parse(ev.data);
       switch (data.type) {
         case "worker_response":
