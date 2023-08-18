@@ -27,9 +27,6 @@ localforage.config({
   storeName: "flows",
 });
 
-// The following buttons are extracted into components in order to isolate the
-// rerenders due to calling useFlowChartGraph.
-
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
