@@ -42,7 +42,7 @@ const NodeEditModal = ({
   return (
     <Draggable bounds="parent" cancel="#undrag,#title_input">
       <div
-        className="absolute right-10 top-8 z-10 w-80 rounded-xl border border-gray-300 bg-modal py-4 dark:border-gray-800"
+        className="absolute right-10 top-8 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal py-4 dark:border-gray-800"
         style={{
           maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 96px)`,
         }}
@@ -71,7 +71,9 @@ const NodeEditModal = ({
               </div>
             ) : (
               <div className="flex items-center">
-                <div className="text-lg font-semibold">{node.data.label}</div>
+                <div className="max-w-[320px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-semibold">
+                  {node.data.label}
+                </div>
                 <div className="px-1" />
                 <Button
                   size="icon"
