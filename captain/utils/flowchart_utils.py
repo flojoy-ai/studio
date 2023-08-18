@@ -126,7 +126,7 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         target_input = next(
             filter(lambda input: input.get("id", "") == target_label_id, v_inputs), None
         )
-        logger.debug(f"----target_input----\n${target_input}")
+        logger.debug(f"----target_input----\n{target_input}")
         target_label = "default"
         multiple = False
         if target_input:
