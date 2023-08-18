@@ -433,11 +433,10 @@ def get_overload(t: list[tuple[Any]]):
     if len(t) == 0:
         return None
     result = {}
+    temp = {}
     for value, display, param in t:
-        try:
-            result[param].append({value: display})
-        except KeyError:
-            result[param] = [{value: display}]
+        temp[value] = display
+        result[param] = temp
     return result
 
 

@@ -2,7 +2,7 @@ import { ParamValueType } from "@src/feature/common/types/ParamValueType";
 import { ParamTooltip } from "@/components/common/ParamTooltip";
 import { ElementsData } from "@/types/node";
 import ParamField from "./ParamField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type ParamListProps = {
   nodeId: string;
@@ -20,18 +20,26 @@ export const ParamList = ({
   updateFunc,
   nodeReferenceOptions,
 }: ParamListProps) => {
+  const [filtered, setFiltered] = useState(Object.entries(ctrls));
+
   useEffect(() => {
     Object.entries(ctrls).forEach(([name, param]) => {
-      if (param.overload) {
-        console.log(`the name is: ${name}`);
-        console.log("and overload is: ");
-        console.log(param.overload);
+      const val = ctrls[name].value;
+      if (val && param.overload && param.overload[val.toString()]) {
+        const filterList = param.overload[val.toString()];
+        setFiltered(
+          filtered.filter(
+            ([filterName]) =>
+              name === filterName || filterList.includes(filterName),
+          ),
+        );
       }
     });
   }, [ctrls]);
+
   return (
     <>
-      {Object.entries(ctrls).map(([name, param]) => (
+      {filtered.map(([name, param]) => (
         <div
           key={nodeId + name}
           id="undrag"
