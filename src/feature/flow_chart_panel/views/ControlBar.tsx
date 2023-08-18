@@ -27,6 +27,7 @@ import SaveFlowChartBtn from "./SaveFlowChartBtn";
 // import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import WatchBtn from "../components/WatchBtn";
+import MicrocontollerBtn from "../components/MicrocontrollerBtn"
 import {
   Menubar,
   MenubarContent,
@@ -160,7 +161,7 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
 
-  const { rfInstance, setRfInstance, setNodeParamChanged } =
+  const { rfInstance, isMicrocontrollerMode, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
   const { ctrlsManifest } = useControlsState();
 
@@ -229,6 +230,7 @@ const ControlBar = () => {
         rfInstance: updatedRfInstance,
         jobId: socketId,
         settings: settings.filter((setting) => setting.group === "backend"),
+        isMicrocontrollerMode: isMicrocontrollerMode,
       });
       setNodeParamChanged(false);
     } else {
@@ -307,6 +309,7 @@ const ControlBar = () => {
 
       <div className="px-0.5" />
       <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      <MicrocontollerBtn/>
       <div className="px-0.5" />
 
       <div className="flex">

@@ -23,7 +23,11 @@
         "5392",
         "--log-level",
         "debug"
-      ]
+      ],
+      "env": {
+        "DEBUG": "True",
+        "FASTAPI_LOG": "debug",
+      }
     },
   ]
 }

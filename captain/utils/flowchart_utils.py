@@ -14,7 +14,7 @@ from captain.utils.logger import logger
 from subprocess import Popen, PIPE
 import pkg_resources
 from .status_codes import STATUS_CODES
-from flojoy.utils import clear_flojoy_memory
+from flojoy import clear_flojoy_memory
 from captain.types.worker import WorkerJobResponse
 import traceback
 from captain.utils.broadcast import (

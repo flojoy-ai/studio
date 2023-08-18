@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
 from captain.utils.logger import logger, logger_setup
-from flojoy.utils import set_debug_on, set_debug_off
+from flojoy import set_debug_on, set_debug_off
 
 # init node mapping
 create_map()

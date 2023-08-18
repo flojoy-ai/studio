@@ -33,14 +33,6 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
-  {
-    title: "Precompilation mode",
-    key: "precompile",
-    type: "switch",
-    group: "backend",
-    desc: "Precompile the program before running it",
-    value: false,
-  },
 ]);
 
 export const useSettings = (group: "frontend" | "backend") => {

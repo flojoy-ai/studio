@@ -69,10 +69,12 @@ export function saveAndRunFlowChartInServer({
   rfInstance,
   jobId,
   settings,
+  isMicrocontrollerMode,
 }: {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
   settings: Setting[];
+  isMicrocontrollerMode: boolean
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
@@ -88,6 +90,7 @@ export function saveAndRunFlowChartInServer({
           obj[setting.key] = setting.value;
           return obj;
         }, {}),
+        precompile: isMicrocontrollerMode,
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
