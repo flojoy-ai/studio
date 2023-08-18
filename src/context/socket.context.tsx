@@ -5,6 +5,13 @@ import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 
+export type ModalConfig = {
+  showModal?: boolean;
+  title?: string;
+  messages?: string[];
+  id?: string;
+}
+
 type States = {
   programResults: NodeResult[];
   setProgramResults: Dispatch<SetStateAction<NodeResult[]>>;
@@ -12,10 +19,7 @@ type States = {
   serverStatus: IServerStatus;
   failedNodes: Record<string, string>;
   socketId: string;
-  preJobOperation: {
-    isRunning: boolean;
-    output: string[];
-  };
+  modalConfig: ModalConfig;
 };
 
 export enum IServerStatus {
@@ -48,12 +52,9 @@ export const SocketContextProvider = ({
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
-  const [preJobOperation, setPreJobOperation] = useState<
-    States["preJobOperation"]
-  >({
-    isRunning: false,
-    output: [],
-  });
+  const [modalConfig, setModalConfig] = useState<ModalConfig>({
+    showModal: false
+  })
 
   const handleStateChange =
     (state: keyof States) =>
@@ -75,7 +76,7 @@ export const SocketContextProvider = ({
         handleSocketId: handleStateChange("socketId"),
         onNodeResultsReceived: setProgramResults,
         onPingResponse: handleStateChange("serverStatus"),
-        onPreJobOpStarted: setPreJobOperation,
+        handleModalConfig: setModalConfig,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
           setSocket(undefined);
@@ -90,10 +91,10 @@ export const SocketContextProvider = ({
         ...states,
         programResults,
         setProgramResults,
-        preJobOperation,
+        modalConfig,
       },
     }),
-    [preJobOperation, programResults, states],
+    [ programResults, states, modalConfig],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>

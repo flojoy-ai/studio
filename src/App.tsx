@@ -29,7 +29,7 @@ function ErrorBoundary() {
 
 const App = () => {
   const {
-    states: { runningNode, failedNodes, preJobOperation },
+    states: { runningNode, failedNodes, modalConfig },
   } = useSocket();
   const [theme, setTheme] = useState<ColorScheme>("dark");
   const { setRunningNode, setFailedNodes } = useFlowChartState();
@@ -46,14 +46,14 @@ const App = () => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
-
-  useEffect(() => {
-    if (preJobOperation.isRunning) {
-      openPreJobModal();
+console.log(" is modal open: ", isPrejobModalOpen, " modalConfig: ", modalConfig)
+  useEffect(()=>{
+    if (modalConfig.showModal){
+      openPreJobModal()
     } else {
-      closePreJobModal();
+      closePreJobModal()
     }
-  }, [preJobOperation]);
+  },[closePreJobModal, modalConfig, openPreJobModal])
 
   useEffect(() => {
     sendFrontEndLoadsToMix();
@@ -87,8 +87,9 @@ const App = () => {
             <GlobalStyles />
             <PreJobOperationShow
               opened={isPrejobModalOpen}
-              outputs={preJobOperation.output}
+              outputs={modalConfig.messages ?? []}
               close={closePreJobModal}
+              title = {modalConfig.title}
             />
             <Routes>
               <Route

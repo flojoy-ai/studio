@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 type PreJobOperationShowProps = {
   opened: boolean;
   outputs: string[];
+  title? : string;
   close: () => void;
 };
 
@@ -12,6 +13,7 @@ const PreJobOperationShow = ({
   outputs,
   opened,
   close,
+  title
 }: PreJobOperationShowProps) => {
   const isMobile = useMediaQuery("(max-width: 50em)");
   const theme = useMantineTheme();
@@ -27,7 +29,7 @@ const PreJobOperationShow = ({
     <Modal
       opened={opened}
       onClose={close}
-      title="Pre job operation"
+      title={title ?? ""}
       overlayProps={{
         color:
           theme.colorScheme === "dark"

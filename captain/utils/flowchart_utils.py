@@ -15,7 +15,7 @@ from subprocess import Popen, PIPE
 import pkg_resources
 from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
-from captain.types.worker import WorkerJobResponse
+from captain.types.worker import WorkerJobResponse, ModalConfig
 import traceback
 from captain.utils.broadcast import (
     broadcast_worker_response,
@@ -159,6 +159,9 @@ async def run_flow_chart(manager: Manager):
 async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
+    socket_msg = WorkerJobResponse(
+        jobset_id=request.jobsetId
+    )
     fc = json.loads(request.fc)
 
     def clean_up_function(is_finished: bool = False):
@@ -184,23 +187,16 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     nodes = fc["nodes"]
     missing_packages = []
-    socket_msg = WorkerJobResponse(
-        jobset_id=request.jobsetId,
-        dict_item={
-            "PRE_JOB_OP": {"isRunning": True, "output": ""},
-        },
-    )
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
+    print("socket_msg line 191: ", socket_msg , flush=True)
+    await manager.ws.broadcast(socket_msg)
     for node in nodes:
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
             try:
                 module = pkg_resources.get_distribution(package["name"])
-                socket_msg["PRE_JOB_OP"][
-                    "output"
-                ] = f"Package: {module} is already installed!"
                 logger.debug(f"Package: {module} is already installed!")
-                await manager.ws.broadcast(socket_msg)
             except Exception:
                 pckg_str = (
                     f"{package['name']}=={package['v']}"
@@ -211,40 +207,39 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
                 missing_packages.append(pckg_str)
 
     if missing_packages:
-        socket_msg["PRE_JOB_OP"][
-            "output"
-        ] = f"{', '.join(missing_packages)} packages will be installed with pip!"
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["INSTALLING_PACKAGES"]
         await manager.ws.broadcast(socket_msg)
-
+        socket_msg["MODAL_CONFIG"] = ModalConfig(showModal=True, messages=f"{', '.join(missing_packages)} packages will be installed with pip!")
+        await manager.ws.broadcast(socket_msg)
         installation_succeed = await install_packages(
             missing_packages, socket_msg, manager=manager
         )
         logger.debug(f"installing packages was successful? {installation_succeed}")
 
         if not installation_succeed:
-            socket_msg["PRE_JOB_OP"][
-                "output"
-            ] = "Pre job operation failed! Look at the errors printed above!"
+            socket_msg.MODAL_CONFIG["messages"] = "Pre job operation failed! Look at the errors printed above!"
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
             return
+        socket_msg.MODAL_CONFIG["messages"] = "Pre job operation successful!"
+        socket_msg.MODAL_CONFIG["showModal"] = False
+        await manager.ws.broadcast(socket_msg)
 
-        socket_msg["PRE_JOB_OP"]["output"] = "Pre job operation successful!"
-
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
+    socket_msg.MODAL_CONFIG["showModal"] = False    
+    await manager.ws.broadcast(socket_msg)
+    
     # get the amount of workers needed
     funcs, errs = manager.running_topology.pre_import_functions()
 
-    socket_msg["PRE_JOB_OP"]["isRunning"] = False
-
     if errs:
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
-        socket_msg["PRE_JOB_OP"]["output"] = "Preflight check failed!"
-        socket_msg["FAILED_NODES"] = errs
-
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
+        socket_msg["MODAL_CONFIG"]= ModalConfig(showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}")
+        socket_msg.FAILED_NODES = errs
         await manager.ws.broadcast(socket_msg)
         return
 
-    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
+    socket_msg["SYSTEM_STATUS"] =  STATUS_CODES["RUN_IN_PROCESS"]    
     await manager.ws.broadcast(socket_msg)
 
     spawn_workers(manager, funcs, request.nodeDelay)
@@ -272,7 +267,7 @@ def stream_response(proc: Popen[bytes]):
 
 
 async def install_packages(
-    missing_packages: list[str], socket_msg: dict[str, Any], manager: Manager
+    missing_packages: list[str], socket_msg: WorkerJobResponse, manager: Manager
 ):
     try:
         cmd = ["pip", "install"] + missing_packages
@@ -280,7 +275,7 @@ async def install_packages(
         while proc.poll() is None:
             stream = stream_response(proc)
             for line in stream:
-                socket_msg["PRE_JOB_OP"]["output"] = line.decode(encoding="utf-8")
+                socket_msg.MODAL_CONFIG["messages"] = line.decode(encoding="utf-8")
                 await manager.ws.broadcast(socket_msg)
         return_code = proc.returncode
         if return_code != 0:
@@ -288,6 +283,6 @@ async def install_packages(
         return True
     except Exception as e:
         output = "\n".join(e.args)
-        socket_msg["PRE_JOB_OP"]["output"] = output
+        socket_msg.MODAL_CONFIG["messages"] = output
         await manager.ws.broadcast(socket_msg)
         return False
