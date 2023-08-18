@@ -22,19 +22,23 @@ export const ParamList = ({
 }: ParamListProps) => {
   const [filtered, setFiltered] = useState(Object.entries(ctrls));
 
-  useEffect(() => {
+  const filterCtrl = () => {
     Object.entries(ctrls).forEach(([name, param]) => {
       const val = ctrls[name].value;
       if (val && param.overload && param.overload[val.toString()]) {
         const filterList = param.overload[val.toString()];
-        setFiltered(
-          filtered.filter(
-            ([filterName]) =>
-              name === filterName || filterList.includes(filterName),
-          ),
+        const filter = Object.entries(ctrls).filter(
+          ([filterName]) =>
+            name === filterName || filterList.includes(filterName),
         );
+        setFiltered(filter);
       }
     });
+  };
+
+  useEffect(() => {
+    console.log(ctrls);
+    filterCtrl();
   }, [ctrls]);
 
   return (
