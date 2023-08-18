@@ -4,10 +4,10 @@
       {
         "width": 208,
         "height": 96,
-        "id": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
+        "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "type": "AI_ML",
         "data": {
-          "id": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
+          "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
           "label": "PROPHET PREDICT",
           "func": "PROPHET_PREDICT",
           "type": "AI_ML",
@@ -41,16 +41,10 @@
           ],
           "outputs": [
             {
-              "name": "dataframe",
-              "id": "dataframe",
+              "name": "default",
+              "id": "default",
               "type": "DataFrame",
-              "desc": null
-            },
-            {
-              "name": "prophet_data",
-              "id": "prophet_data",
-              "type": "DataContainer",
-              "desc": null
+              "desc": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
             }
           ],
           "pip_dependencies": [
@@ -71,23 +65,23 @@
           "selected": false
         },
         "position": {
-          "x": 68.175672635404,
-          "y": -26.684785786134398
+          "x": 170.22990354212553,
+          "y": 112.44847772859924
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 68.175672635404,
-          "y": -26.684785786134398
+          "x": 170.22990354212553,
+          "y": 112.44847772859924
         },
         "dragging": true
       },
       {
         "width": 380,
         "height": 293,
-        "id": "PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107d",
+        "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107d",
+          "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
           "label": "PROPHET COMPONENTS",
           "func": "PROPHET_COMPONENTS",
           "type": "VISUALIZERS",
@@ -109,13 +103,6 @@
               "type": "DataFrame",
               "multiple": false,
               "desc": "the DataContainer to be visualized"
-            },
-            {
-              "name": "data",
-              "id": "data",
-              "type": "Any",
-              "multiple": false,
-              "desc": "the DataContainer that holds prophet model and forecast data in the `extra` field"
             }
           ],
           "outputs": [
@@ -130,23 +117,23 @@
           "selected": false
         },
         "position": {
-          "x": 392.3572963248263,
-          "y": -340.1109151384274
+          "x": 515.4222395732635,
+          "y": 258.7002797805195
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 392.3572963248263,
-          "y": -340.1109151384274
+          "x": 515.4222395732635,
+          "y": 258.7002797805195
         },
         "dragging": true
       },
       {
         "width": 380,
         "height": 293,
-        "id": "PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3",
+        "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3",
+          "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
           "label": "PROPHET PLOT",
           "func": "PROPHET_PLOT",
           "type": "VISUALIZERS",
@@ -168,13 +155,6 @@
               "type": "DataFrame",
               "multiple": false,
               "desc": "the DataContainer to be visualized"
-            },
-            {
-              "name": "data",
-              "id": "data",
-              "type": "Any",
-              "multiple": false,
-              "desc": "the DataContainer that holds prophet model and forecast data in the `extra` field"
             }
           ],
           "outputs": [
@@ -203,23 +183,23 @@
           "selected": false
         },
         "position": {
-          "x": 387.6945225171241,
-          "y": 123.40284034993147
+          "x": 516.843498420518,
+          "y": -210.50980433872098
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 387.6945225171241,
-          "y": 123.40284034993147
+          "x": 516.843498420518,
+          "y": -210.50980433872098
         },
         "dragging": true
       },
       {
         "width": 210,
         "height": 96,
-        "id": "TIMESERIES-304ea65c-58cd-4d44-90aa-6ee94e44c85b",
+        "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
         "type": "GENERATORS",
         "data": {
-          "id": "TIMESERIES-304ea65c-58cd-4d44-90aa-6ee94e44c85b",
+          "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
           "label": "TIMESERIES",
           "func": "TIMESERIES",
           "type": "GENERATORS",
@@ -254,57 +234,43 @@
           "selected": false
         },
         "position": {
-          "x": -299.3532197700191,
-          "y": -24.29368301216647
+          "x": -196.41512364237553,
+          "y": 109.78905503279668
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -299.3532197700191,
-          "y": -24.29368301216647
+          "x": -196.41512364237553,
+          "y": 109.78905503279668
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "TIMESERIES-304ea65c-58cd-4d44-90aa-6ee94e44c85b",
+        "source": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
         "sourceHandle": "default",
-        "target": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
+        "target": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "targetHandle": "default",
-        "id": "reactflow__edge-TIMESERIES-304ea65c-58cd-4d44-90aa-6ee94e44c85bdefault-PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99default"
+        "id": "reactflow__edge-TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ffdefault-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault"
       },
       {
-        "source": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
-        "sourceHandle": "dataframe",
-        "target": "PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107d",
+        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "sourceHandle": "default",
+        "target": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99dataframe-PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107ddefault"
+        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794default"
       },
       {
-        "source": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
-        "sourceHandle": "prophet_data",
-        "target": "PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107d",
-        "targetHandle": "data",
-        "id": "reactflow__edge-PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99prophet_data-PROPHET_COMPONENTS-1790779c-8fa5-4c01-8c27-79734226107ddata"
-      },
-      {
-        "source": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
-        "sourceHandle": "dataframe",
-        "target": "PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3",
+        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "sourceHandle": "default",
+        "target": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99dataframe-PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3default"
-      },
-      {
-        "source": "PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99",
-        "sourceHandle": "prophet_data",
-        "target": "PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3",
-        "targetHandle": "data",
-        "id": "reactflow__edge-PROPHET_PREDICT-257bed8b-06c9-4101-99ae-f050f9e93b99prophet_data-PROPHET_PLOT-9ae04ea1-75ef-46aa-8a56-f3de51cc69a3data"
+        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679cadefault"
       }
     ],
     "viewport": {
-      "x": 241.30307914563144,
-      "y": 237.88940714410813,
+      "x": 286.80307914563144,
+      "y": 397.38940714410813,
       "zoom": 0.5
     }
   },
