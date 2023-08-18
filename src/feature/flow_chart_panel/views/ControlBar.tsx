@@ -36,24 +36,13 @@ import {
 } from "@src/components/ui/menubar";
 import { API_URI } from "@src/data/constants";
 import { toast } from "sonner";
+import { saveAs } from "file-saver";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 
 localforage.config({
   name: "react-flow",
   storeName: "flows",
 });
-
-const downloadBlob = (blob: Blob, filename: string) => {
-  const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
-};
 
 // The following buttons are extracted into components in order to isolate the
 // rerenders due to calling useFlowChartGraph.
@@ -120,23 +109,8 @@ const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
     if (!results.length) return;
     const json = JSON.stringify(results, null, 2);
     const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
-    if ("showSaveFilePicker" in window) {
-      const handle = await window.showSaveFilePicker({
-        suggestedName: "output.txt",
-        types: [
-          {
-            description: "Text file",
-            accept: { "text/plain": [".txt"] },
-          },
-        ],
-      });
-      const writableStream = await handle.createWritable();
 
-      await writableStream.write(blob);
-      await writableStream.close();
-    } else {
-      downloadBlob(blob, "output.txt");
-    }
+    saveAs(blob, "output.json");
   };
 
   return (
@@ -175,7 +149,7 @@ const ControlBar = () => {
       edges,
     };
 
-    setRfInstance(updatedRf);
+    // setRfInstance(updatedRf);
 
     const fileContent = {
       rfInstance: updatedRf,
@@ -184,31 +158,13 @@ const ControlBar = () => {
 
     const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
 
-    return new Blob([fileContentJsonString], {
-      type: "text/plain;charset=utf-8",
-    });
+    return new Blob([fileContentJsonString]);
   };
 
   const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (rfInstance) {
-      if (globalThis.IS_ELECTRON) {
-        const blob = createFileBlob(rfInstance, nodes, edges);
-        downloadBlob(blob, "app.json");
-        sendProgramToMix(rfInstance.nodes);
-        return;
-      }
-
       const blob = createFileBlob(rfInstance, nodes, edges);
-
-      const handle = await window.showSaveFilePicker({
-        suggestedName: "app.json",
-      });
-      const writableStream = await handle.createWritable();
-
-      await writableStream
-        .write(blob)
-        .then(() => sendProgramToMix(rfInstance.nodes));
-      await writableStream.close();
+      saveAs(blob, "app.json");
     }
   };
 
