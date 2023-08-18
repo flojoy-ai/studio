@@ -42,7 +42,7 @@ const NodeEditModal = ({
   return (
     <Draggable bounds="parent" cancel="#undrag,#title_input">
       <div
-        className="absolute right-10 top-8 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal py-4 dark:border-gray-800"
+        className="absolute right-10 top-8 z-10 min-w-[320px] max-w-sm rounded-xl border border-gray-300 bg-modal py-4 dark:border-gray-800"
         style={{
           maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 96px)`,
         }}
@@ -71,7 +71,7 @@ const NodeEditModal = ({
               </div>
             ) : (
               <div className="flex items-center">
-                <div className="max-w-[320px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-semibold">
+                <div className="max-w-[224px] overflow-hidden overflow-ellipsis whitespace-nowrap text-lg font-semibold">
                   {node.data.label}
                 </div>
                 <div className="px-1" />
@@ -103,7 +103,7 @@ const NodeEditModal = ({
               size="icon"
               variant="ghost"
               onClick={() => setIsEditMode(false)}
-              className="mr-4"
+              className="mr-4 p-2"
             >
               <X size={20} className="stroke-muted-foreground" />
             </Button>
@@ -111,7 +111,12 @@ const NodeEditModal = ({
         </div>
 
         <ScrollArea>
-          <div className="max-h-96 pl-4 pr-8">
+          <div
+            className="pl-4 pr-8"
+            style={{
+              maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 96px - 144px)`,
+            }}
+          >
             <div key={node.id}>
               {node.data.initCtrls &&
                 Object.keys(node.data.initCtrls).length > 0 && (
