@@ -108,8 +108,8 @@ const NodeEditModal = ({
           )}
         </div>
 
-        <ScrollArea viewportClass="max-h-96">
-          <div className="pl-4 pr-8">
+        <ScrollArea>
+          <div className="max-h-96 pl-4 pr-8">
             <div key={node.id}>
               {node.data.initCtrls &&
                 Object.keys(node.data.initCtrls).length > 0 && (
@@ -139,17 +139,17 @@ const NodeEditModal = ({
             </div>
             <div className="py-2" />
           </div>
-          <div className="flex justify-end">
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => handleDelete(node.id, node.data.label)}
-              className="mr-4"
-            >
-              <TrashIcon size={20} className="stroke-muted-foreground" />
-            </Button>
-          </div>
         </ScrollArea>
+        <div className="flex justify-end">
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => handleDelete(node.id, node.data.label)}
+            className="mr-4"
+          >
+            <TrashIcon size={20} className="stroke-muted-foreground" />
+          </Button>
+        </div>
       </div>
     </Draggable>
   );
