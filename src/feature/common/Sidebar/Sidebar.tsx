@@ -66,13 +66,13 @@ const Sidebar = ({
         height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
       }}
       className={cn(
-        "absolute bottom-0 z-50 flex flex-col bg-modal p-5 sm:w-96",
+        "absolute bottom-0 z-50 flex flex-col bg-modal p-6 sm:w-96",
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
       <div className="absolute right-2 top-2">
         <div
-          className="cursor-pointer rounded-xl p-1"
+          className="cursor-pointer rounded-xl p-1 transition duration-200 hover:bg-muted"
           onClick={() => setSideBarStatus(false)}
         >
           <XIcon size={20} className="stroke-muted-foreground" />
@@ -81,7 +81,7 @@ const Sidebar = ({
       <div>
         <div
           className={cn(
-            "mt-8 flex w-[312px] items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
+            "mt-4 flex w-[316px] items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
             { "ring-2 ring-accent1": searchFocused },
           )}
         >
