@@ -105,8 +105,8 @@ export const ParamTooltip = ({
                 </code>
               ))}
               <div className="py-2" />
-              <ScrollArea viewportClass="max-h-32">
-                <div>
+              <ScrollArea>
+                <div className="max-h-32">
                   {param.desc?.split("\n").map((line) => (
                     <span key={line}>
                       {line}
