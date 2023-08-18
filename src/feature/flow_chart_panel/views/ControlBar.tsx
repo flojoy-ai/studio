@@ -1,5 +1,4 @@
 import { IServerStatus } from "@src/context/socket.context";
-import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSocket } from "@src/hooks/useSocket";
 import {
@@ -11,8 +10,7 @@ import { sendProgramToMix } from "@src/services/MixpanelServices";
 import localforage from "localforage";
 import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
-import { Edge, Node, ReactFlowJsonObject } from "reactflow";
-import { useFilePicker } from "use-file-picker";
+import { Edge, Node } from "reactflow";
 import PlayBtn from "../components/PlayBtn";
 import CancelBtn from "../components/CancelBtn";
 import { ElementsData } from "@/types";
@@ -21,10 +19,7 @@ import { NodeSettingsModal } from "./NodeSettingsModal";
 import { useSettings } from "@src/hooks/useSettings";
 import EnvVarModal from "./EnvVarModal";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import { useControlsState } from "@src/hooks/useControlsState";
-import { NodeResult } from "@src/feature/common/types/ResultsType";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-// import { Button } from "@src/components/ui/button";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import WatchBtn from "../components/WatchBtn";
 import {
@@ -36,8 +31,10 @@ import {
 } from "@src/components/ui/menubar";
 import { API_URI } from "@src/data/constants";
 import { toast } from "sonner";
-import { saveAs } from "file-saver";
 import { EditorSettingsModal } from "./EditorSettingsModal";
+import { SaveAsButton } from "./ControlBar/SaveAsButton";
+import { LoadButton } from "./ControlBar/LoadButton";
+import { ExportResultButton } from "./ControlBar/ExportResultButton";
 
 localforage.config({
   name: "react-flow",
@@ -47,86 +44,9 @@ localforage.config({
 // The following buttons are extracted into components in order to isolate the
 // rerenders due to calling useFlowChartGraph.
 
-type SaveButtonProps = {
-  saveFile: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
-};
-
-type SaveAsButtonProps = {
-  saveAsDisabled: boolean;
-  saveFile: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
-} & SaveButtonProps;
-
-const SaveAsButton = ({ saveAsDisabled, saveFile }: SaveAsButtonProps) => {
-  const { nodes, edges } = useFlowChartGraph();
-
-  return (
-    <MenubarItem
-      data-cy="btn-saveas"
-      disabled={saveAsDisabled}
-      onClick={() => saveFile(nodes, edges)}
-    >
-      Save As
-    </MenubarItem>
-  );
-};
-
-const LoadButton = () => {
-  const { loadFlowExportObject } = useFlowChartGraph();
-  const {
-    states: { setProgramResults },
-  } = useSocket();
-
-  const [openFileSelector] = useFilePicker({
-    readAs: "Text",
-    accept: [".txt", ".json"],
-    maxFileSize: 50,
-    onFilesRejected: ({ errors }) => {
-      console.error("Errors when trying to load file: ", errors);
-    },
-    onFilesSuccessfulySelected: ({ filesContent }) => {
-      // Just pick the first file that was selected
-      const parsedFileContent = JSON.parse(filesContent[0].content);
-      const flow = parsedFileContent.rfInstance;
-      loadFlowExportObject(flow);
-      setProgramResults([]);
-    },
-  });
-
-  return (
-    <MenubarItem onClick={openFileSelector} id="load-app-btn">
-      Load
-    </MenubarItem>
-  );
-};
-
-type ExportResultButtonProps = {
-  results: NodeResult[];
-  disabled: boolean;
-};
-
-const ExportResultButton = ({ results, disabled }: ExportResultButtonProps) => {
-  const downloadResult = async () => {
-    if (!results.length) return;
-    const json = JSON.stringify(results, null, 2);
-    const blob = new Blob([json], { type: "text/plain;charset=utf-8" });
-
-    saveAs(blob, "output.json");
-  };
-
-  return (
-    <MenubarItem
-      onClick={downloadResult}
-      className={disabled ? "disabled" : ""}
-      disabled={disabled}
-    >
-      Export Result
-    </MenubarItem>
-  );
-};
-
 const ControlBar = () => {
   const { states } = useSocket();
-  const { socketId, programResults, serverStatus } = states;
+  const { socketId, serverStatus } = states;
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
@@ -136,37 +56,6 @@ const ControlBar = () => {
 
   const { rfInstance, setRfInstance, setNodeParamChanged } =
     useFlowChartState();
-  const { ctrlsManifest } = useControlsState();
-
-  const createFileBlob = (
-    rf: ReactFlowJsonObject<ElementsData>,
-    nodes: Node<ElementsData>[],
-    edges: Edge[],
-  ) => {
-    const updatedRf = {
-      ...rf,
-      nodes,
-      edges,
-    };
-
-    // setRfInstance(updatedRf);
-
-    const fileContent = {
-      rfInstance: updatedRf,
-      ctrlsManifest,
-    };
-
-    const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
-
-    return new Blob([fileContentJsonString]);
-  };
-
-  const saveFileAs = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance) {
-      const blob = createFileBlob(rfInstance, nodes, edges);
-      saveAs(blob, "app.json");
-    }
-  };
 
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (rfInstance && rfInstance.nodes.length > 0) {
@@ -205,9 +94,6 @@ const ControlBar = () => {
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
-
-  const saveAsDisabled = !("showSaveFilePicker" in window);
-  const exportResultDisabled = programResults.length == 0;
 
   const handleUpdate = async () => {
     const resp = await fetch(`${API_URI}/update/`, {
@@ -270,14 +156,8 @@ const ControlBar = () => {
               File
             </MenubarTrigger>
             <MenubarContent>
-              <SaveAsButton
-                saveFile={saveFileAs}
-                saveAsDisabled={saveAsDisabled}
-              />
-              <ExportResultButton
-                results={programResults}
-                disabled={exportResultDisabled}
-              />
+              <SaveAsButton />
+              <ExportResultButton />
               <SaveFlowChartBtn />
               <LoadButton />
             </MenubarContent>
