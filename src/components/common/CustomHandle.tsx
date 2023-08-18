@@ -54,7 +54,7 @@ export const CustomHandle = ({ type, param, ...props }: CustomHandleProps) => {
       param={param}
       annotation={`(${type === "target" ? "input" : "output"})`}
       offsetX={32}
-      offsetY={-128}
+      offsetY={-288}
     >
       <HandleWrapper type={type} param={param} {...props} />
     </ParamTooltip>

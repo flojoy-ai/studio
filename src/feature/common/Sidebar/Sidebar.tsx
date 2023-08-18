@@ -1,4 +1,3 @@
-import { Navbar, ScrollArea, Input, useMantineTheme } from "@mantine/core";
 import { Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
@@ -10,6 +9,8 @@ import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { REQUEST_NODE_URL } from "@src/data/constants";
 import { cn } from "@src/lib/utils";
+import { ScrollArea } from "@src/components/ui/scroll-area";
+import { Input } from "@src/components/ui/input";
 
 export type LeafClickHandler = (elem: NodeElement) => void;
 
@@ -27,9 +28,8 @@ const Sidebar = ({
   sections,
   leafNodeClickHandler,
 }: SidebarProps) => {
-  const theme = useMantineTheme();
-
   const [query, setQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
 
   // These being booleans don't actually mean anything,
   // They just need to be values that can easily be changed in order
@@ -59,45 +59,46 @@ const Sidebar = ({
   }, [isSideBarOpen]);
 
   return (
-    <Navbar
+    <div
       data-testid="sidebar"
-      top={LAYOUT_TOP_HEIGHT}
-      height={`calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`}
-      p="md"
-      // className={isSideBarOpen ? classes.navbarView : classes.navbarHidden}
+      style={{
+        top: LAYOUT_TOP_HEIGHT,
+        height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)`,
+      }}
       className={cn(
-        "absolute z-50 bg-modal sm:w-96",
+        "absolute bottom-0 z-50 flex flex-col bg-modal p-5 sm:w-96",
         isSideBarOpen ? "left-0 duration-500" : "-left-full duration-300",
       )}
     >
-      <Navbar.Section className="absolute right-2 top-2">
+      <div className="absolute right-2 top-2">
         <div
           className="cursor-pointer rounded-xl p-1"
           onClick={() => setSideBarStatus(false)}
         >
           <XIcon size={20} className="stroke-muted-foreground" />
         </div>
-      </Navbar.Section>
-      <Navbar.Section>
-        <Input
-          data-testid="sidebar-input"
-          name="sidebar-input"
-          placeholder="Search"
-          icon={<Search size={18} />}
-          radius="sm"
-          type="search"
-          className="mt-8"
-          value={query}
-          onChange={handleQueryChange}
-          ref={inputRef}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
-        />
+      </div>
+      <div>
+        <div
+          className={cn(
+            "mt-8 flex w-[312px] items-center rounded-sm bg-background pl-2 focus:ring-2 focus:ring-accent1 focus-visible:ring-2 focus-visible:ring-accent1",
+            { "ring-2 ring-accent1": searchFocused },
+          )}
+        >
+          <Search size={18} className="stroke-muted-foreground" />
+          <Input
+            data-testid="sidebar-input"
+            name="sidebar-input"
+            placeholder="Search"
+            className="border-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+            type="search"
+            value={query}
+            onChange={handleQueryChange}
+            ref={inputRef}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setSearchFocused(false)}
+          />
+        </div>
         <div className="py-1" />
         <div className="flex items-end">
           <a
@@ -130,8 +131,8 @@ const Sidebar = ({
             </button>
           </div>
         </div>
-      </Navbar.Section>
-      <Navbar.Section grow className="mt-3" component={ScrollArea}>
+      </div>
+      <ScrollArea className="mt-3">
         <SidebarNode
           depth={0}
           leafClickHandler={leafNodeClickHandler}
@@ -141,8 +142,8 @@ const Sidebar = ({
           expand={expand}
           collapse={collapse}
         />
-      </Navbar.Section>
-    </Navbar>
+      </ScrollArea>
+    </div>
   );
 };
 
