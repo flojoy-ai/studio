@@ -1,6 +1,12 @@
 import { contextBridge } from "electron";
+import api from "../api";
 
-contextBridge.exposeInMainWorld("IS_ELECTRON", true);
+export type ContextBridgeApi = {
+  fileExists: (path: string) => boolean;
+  saveFile: (path: string, data: string) => void;
+};
+
+contextBridge.exposeInMainWorld("api", api);
 
 function domReady(
   condition: DocumentReadyState[] = ["complete", "interactive"],

@@ -1,4 +1,8 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
+import {
+  projectAtom,
+  unsavedChangesAtom,
+  useFlowChartState,
+} from "@hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -44,6 +48,7 @@ import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
+import { useAtom } from "jotai";
 
 localforage.config({
   name: "react-flow",
@@ -53,16 +58,13 @@ localforage.config({
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
+  const [project, setProject] = useAtom(projectAtom);
+  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   const { theme, resolvedTheme } = useTheme();
 
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    isEditMode,
-    setIsEditMode,
-  } = useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
+    useFlowChartState();
 
   const {
     states: { programResults },
@@ -120,7 +122,7 @@ const FlowChartTab = () => {
     rfIns.fitView({
       padding: 0.8,
     });
-    setRfInstance(rfIns.toObject());
+    setProject({ ...project, rfInstance: rfIns.toObject() });
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
     setNodes((nodes) => {
@@ -131,12 +133,16 @@ const FlowChartTab = () => {
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
+      setHasUnsavedChanges(true);
     },
-    [setNodes],
+    [setNodes, setHasUnsavedChanges],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
-    (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
-    [setEdges],
+    (changes) => {
+      setEdges((es) => applyEdgeChanges(changes, es));
+      setHasUnsavedChanges(true);
+    },
+    [setEdges, setHasUnsavedChanges],
   );
   const onConnect: OnConnect = useCallback(
     (connection) =>
