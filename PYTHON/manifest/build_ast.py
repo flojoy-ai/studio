@@ -132,9 +132,6 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module, Option
     # Then get rid of all the other classes
     # that aren't the return type of the flojoy node
     # This also filters out all of the None values
-    # for node in tree.body:
-    #     if node and (not isinstance(node, ast.ClassDef) or node.name == "OVERLOAD"):
-    #         overload = node
 
     tree.body = [
         node
