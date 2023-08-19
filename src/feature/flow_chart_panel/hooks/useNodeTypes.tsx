@@ -1,16 +1,15 @@
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeTypesMap } from "@/components/nodes/nodeTypesMap";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { NodeTypes } from "reactflow";
 import { MouseEvent } from "react";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
   wrapperOnClick: (event: MouseEvent<HTMLDivElement>) => void;
-  theme: "light" | "dark";
 };
 
-const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
+const useNodeTypes = ({ handleRemove }: UseNodeTypesProps) => {
   const {
     states: { programResults, failedNodes, runningNode },
   } = useSocket();
@@ -33,7 +32,6 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
                   textBlob={nodeResult?.result.text_blob ?? undefined}
                   nodeProps={props}
                   handleRemove={handleRemove}
-                  theme={theme}
                 />
               );
             },
@@ -44,7 +42,7 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
     // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
     // to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [programResults, failedNodes, runningNode, theme],
+    [programResults, failedNodes, runningNode],
   );
 
   return nodeTypes;

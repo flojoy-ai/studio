@@ -8,7 +8,6 @@ from captain.types.flowchart import (
     PostWFC,
 )
 from captain.utils.broadcast import (
-    signal_prejob_op,
     signal_standby,
 )
 from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
@@ -59,7 +58,6 @@ async def write_and_run_flowchart(request: PostWFC):
             is_ci=False
         )
     else:
-        asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
         asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))
 
 

@@ -46,7 +46,7 @@ echo '      ============================================================'
 echo '     ||                  Welcome to Flojoy!                      ||'
 echo '     ||                                                          ||'
 echo '     ||         For Installation, Follow the Link Below          ||' 
-echo '     ||       https://docs.flojoy.io/getting-started/install/    ||'
+echo '     ||       https://docs.flojoy.ai/getting-started/install/    ||'
 echo '     ||                                                          ||'
 echo '      ============================================================'
 echo ''
@@ -310,7 +310,9 @@ else
 fi
 
 if [ $isDebugMode = true ]; then
-   start_project_cmd='npm run start-project:debug'
+   export FASTAPI_LOG=debug
+else
+   export FASTAPI_LOG=error
 fi
 
 # start project services

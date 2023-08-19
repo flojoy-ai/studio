@@ -51,7 +51,7 @@ Write-Host "      ==============================================================
 Write-Host "     ||                     Welcome to Flojoy!                      ||" -ForegroundColor $general_color
 Write-Host "     ||                                                             ||" -ForegroundColor $general_color
 Write-Host "     ||           For Installation, Follow the Link Below           ||" -ForegroundColor $general_color
-Write-Host "     ||       https://docs.flojoy.io/getting-started/install/       ||" -ForegroundColor $general_color
+Write-Host "     ||       https://docs.flojoy.ai/getting-started/install/       ||" -ForegroundColor $general_color
 Write-Host "     ||                                                             ||" -ForegroundColor $general_color
 Write-Host "      ===============================================================" -ForegroundColor $general_color
 Write-Host ""
@@ -276,11 +276,11 @@ else {
 info_msg 'Starting the project...'
 if ($isDebugMode -eq $true) {
   info_msg "Debug mode will be enabled!"
-  $Env:DEBUG = $true
+  $Env:FASTAPI_LOG = "debug"
   $startProjectCmd = "npm run start-project:win:debug"
 }
 else {
-  $Env:DEBUG = $false
+  $Env:FASTAPI_LOG = "error"
   $startProjectCmd = "npm run start-project:win"
 
 }
