@@ -276,8 +276,6 @@ const ControlBar = () => {
     }
   };
 
-  console.log(serverStatus);
-
   return (
     <div className="flex items-center gap-2 p-2.5">
       <EnvVarModal
