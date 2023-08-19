@@ -21,6 +21,7 @@ NAME_MAP = {
     "SIGNAL": "sp.signal",
     "STATS": "sp.stats",
     "GAMES": "Games",
+    "MICROCONTROLLER": "Microcontroller Specific",
 }
 
 # Types that are allowed in the manifest, this is for styling in the frontend.
@@ -39,6 +40,7 @@ ALLOWED_TYPES = [
     "NUMPY",
     "GAMES",
     "SCIPY",
+    "MICROCONTROLLER",
 ]
 
 # Sort order in sidebar
@@ -54,6 +56,7 @@ ORDERING = [
     "NUMPY",
     "SCIPY",
     "GAMES",
+    "MICROCONTROLLER",
 ]
 
 __failed_nodes: list[str] = []
