@@ -37,7 +37,6 @@ export const ParamList = ({
   };
 
   useEffect(() => {
-    console.log(ctrls);
     filterCtrl();
   }, [ctrls]);
 

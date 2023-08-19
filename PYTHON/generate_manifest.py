@@ -125,7 +125,7 @@ def sort_order(element):
 
 if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
-    #map["children"].sort(key=sort_order)  # type: ignore
+    map["children"].sort(key=sort_order)  # type: ignore
 
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"

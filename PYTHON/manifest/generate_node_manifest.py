@@ -89,7 +89,7 @@ class ManifestBuilder:
         )
         return self
 
-    def with_param(self, name: str, param_type: Type, default: Any, overload: Any):
+    def with_param(self, name: str, param_type: Type, default: Any, overload: dict[Any] | None):
         self.parameters[name] = {
             "type": type_str(param_type),
             "default": default,
@@ -188,12 +188,9 @@ def create_manifest(path: str) -> dict[str, Any]:
     if pip_deps:
         mb.with_pip_dependencies(pip_deps)
 
-    if overload_obj:
-        overload = get_overload(t=overload_obj)
-    else:
-        overload = None
+    overload = None if overload_obj is None else get_overload(t=overload_obj)
 
-    populate_manifest(func, mb, node_name in SPECIAL_NODES, overload)
+    populate_manifest(func, mb, overload, node_name in SPECIAL_NODES)
 
     if init_func_name:
         init_func = getattr(module, init_func_name)
@@ -203,12 +200,12 @@ def create_manifest(path: str) -> dict[str, Any]:
     return mb.build()
 
 def populate_manifest(
-    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False, overload=None,
+    func: Callable[..., Any], mb: ManifestBuilder, overload: dict[Any] | None, is_special_node: bool = False,
 ):
     sig = inspect.signature(func)
     if overload is None:
         for name, param in sig.parameters.items():
-            populate_inputs(name, param, mb, None)
+            populate_inputs(name, param, mb)
     else:
         for name, param in sig.parameters.items():
             populate_inputs(name, param, mb, overload[name] if name in overload else None)
@@ -251,7 +248,7 @@ def populate_manifest(
 
 
 def populate_inputs(
-    name: str, param: Parameter, mb: ManifestBuilder, overload, multiple: bool = False
+    name: str, param: Parameter, mb: ManifestBuilder, overload: dict[Any] | None = None, multiple: bool = False
 ):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
@@ -272,8 +269,8 @@ def populate_inputs(
                     name, kind=param.kind, default=param.default, annotation=inner_type
                 ),
                 mb,
-                multiple=multiple,
                 overload=overload,
+                multiple=multiple,
             )
             return
 
@@ -319,8 +316,8 @@ def populate_inputs(
                     name, kind=param.kind, default=param.default, annotation=inner_type
                 ),
                 mb,
-                multiple=True,
                 overload=overload,
+                multiple=True,
             )
             return
         if param_type not in ALLOWED_PARAM_TYPES:
@@ -429,14 +426,11 @@ def get_full_type_name(t: Any) -> str:
         return t.__name__
 
 
-def get_overload(t: list[tuple[Any]]):
-    if len(t) == 0:
-        return None
-    result = {}
-    temp = {}
+# This generates a dict with parameter: {display value: parameters to be displayed}
+def get_overload(t: list[tuple[Any]]) -> dict[Any]:
+    result = dict()
     for value, display, param in t:
-        temp[value] = display
-        result[param] = temp
+        result.setdefault(param, {}).update({value: display})
     return result
 
 
