@@ -43,7 +43,7 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   COMPOSITE: <CompositePlot />,
   TEXT_VIEW: <Table />,
   EXTREMA_DETERMINATION: <PeakFinder />,
-  REGION_PROPERTIES: <RegionInspector />
+  REGION_PROPERTIES: <RegionInspector />,
 };
 
 const VisorNode = (props: CustomNodeProps) => {
