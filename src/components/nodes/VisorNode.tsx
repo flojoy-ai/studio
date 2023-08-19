@@ -23,6 +23,7 @@ import Image from "@/assets/nodes/Image";
 import MarkDownText from "@/components/common/MarkDownText";
 import PeakFinder from "@/assets/nodes/PeakFinder";
 import RegionInspector from "@/assets/nodes/RegionInspector";
+import { useTheme } from "@src/providers/theme-provider";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -51,13 +52,15 @@ const VisorNode = (props: CustomNodeProps) => {
     nodeError,
     isRunning,
     plotlyFig,
-    theme = "light",
     textBlob,
   } = props;
 
+  const { resolvedTheme } = useTheme();
+
   const plotlyData = useMemo(
-    () => (plotlyFig ? makePlotlyData(plotlyFig.data, theme, true) : null),
-    [plotlyFig, theme],
+    () =>
+      plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,
+    [plotlyFig, resolvedTheme],
   );
 
   return (
@@ -79,7 +82,6 @@ const VisorNode = (props: CustomNodeProps) => {
               height: 293,
               width: 380,
             }}
-            theme={theme}
             isThumbnail
           />
         )}

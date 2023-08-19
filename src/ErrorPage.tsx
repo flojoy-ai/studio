@@ -1,4 +1,4 @@
-import { Container, Button, Text, Title } from "@mantine/core";
+import { Button } from "./components/ui/button";
 
 type ErrorPageProps = {
   error: Error;
@@ -6,25 +6,26 @@ type ErrorPageProps = {
 };
 
 export const ErrorPage = ({ error, resetErrorBoundary }: ErrorPageProps) => (
-  <Container size="sm">
-    <Title align="center">Oops! Something went wrong.</Title>
-    <Text align="center" style={{ marginTop: "1rem" }}>
+  <div className="mx-auto max-w-2xl">
+    <h1 className="mt-8 text-center text-3xl font-bold">
+      Oops! Something went wrong.
+    </h1>
+    <p className="mt-4 text-center">
       Note: if the error is a Validation error, then you should check if the
       manifest file is valid.
-    </Text>
+    </p>
     <Button
-      style={{ marginTop: "2rem" }}
-      fullWidth
+      className="mx-4 mt-4 w-full border-accent1 font-semibold text-accent1 hover:bg-accent1/40 hover:text-accent1"
       onClick={resetErrorBoundary}
       variant="outline"
     >
       Try Again
     </Button>
-    <Text color="red" style={{ marginTop: "1rem" }}>
-      <Text align="center" style={{ textAlign: "center" }}>
+    <p className="mt-4 text-red-500">
+      <p className="text-center">
         <b>{error.message}</b>
-      </Text>
+      </p>
       <pre>{error.stack}</pre>
-    </Text>
-  </Container>
+    </p>
+  </div>
 );

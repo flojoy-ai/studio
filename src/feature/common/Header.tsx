@@ -13,7 +13,7 @@ const tabs = [
   },
 ];
 
-const md = 800;
+const md = 820;
 
 const Header = () => {
   // Actual media query causes flickering... need to use this manual one
@@ -21,7 +21,7 @@ const Header = () => {
   const large = width > md;
 
   return (
-    <div style={{ height: HEADER_HEIGHT }} className="">
+    <div style={{ height: HEADER_HEIGHT }}>
       <div className="flex gap-4">
         <img width={64} height={64} src="/assets/logo.png" alt="Logo" />
         {tabs.map((t) => (
