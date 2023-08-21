@@ -38,6 +38,11 @@ code {
   box-shadow: 0 0 0 0 #ffffff !important;
 }
 
+
+.react-flow__controls-button {
+  background-color: #0f0f0f;
+}
+
 .react-flow__edge-path {
   stroke-width: 1.5;
 }
