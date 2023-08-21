@@ -7,6 +7,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { ScrollArea } from "../ui/scroll-area";
 
 type ParamTooltipProps = {
   children: React.ReactNode;
@@ -27,7 +28,7 @@ const getTooltipStyle = (
 ) => {
   const TOOLTIP_WIDTH = 264; // average tooltip width
   const { top, left, right } = element.getBoundingClientRect();
-  if (left < window.innerWidth / 2) {
+  if (left < window.innerWidth * 0.4) {
     return { left: right + offsetX, top: top + offsetY };
   } else {
     return { left: left - TOOLTIP_WIDTH - offsetX, top: top + offsetY };
@@ -84,8 +85,10 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "pointer-events-none absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
-                { "!pointer-events-auto opacity-100": tooltipOpen },
+                "absolute z-50 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                tooltipOpen
+                  ? "pointer-events-auto opacity-100"
+                  : "pointer-events-none opacity-0",
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >
@@ -102,16 +105,18 @@ export const ParamTooltip = ({
                 </code>
               ))}
               <div className="py-2" />
-              <div>
-                {param.desc?.split("\n").map((line) => (
-                  <span key={line}>
-                    {line}
-                    <br />
-                  </span>
-                )) ?? "No description."}
-              </div>
+              <ScrollArea>
+                <div className="max-h-32">
+                  {param.desc?.split("\n").map((line) => (
+                    <span key={line}>
+                      {line}
+                      <br />
+                    </span>
+                  )) ?? "No description."}
+                </div>
+              </ScrollArea>
             </div>,
-            document.getElementById("tw-theme-root") ?? document.body,
+            document.getElementById("flow-chart-area") ?? document.body,
           )
         : null}
     </>

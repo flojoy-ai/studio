@@ -8,6 +8,8 @@ import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
+import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
+import { ScrollArea } from "@src/components/ui/scroll-area";
 
 type NodeEditModalProps = {
   node: Node<ElementsData>;
@@ -38,9 +40,14 @@ const NodeEditModal = ({
   }, [node.data.id]);
 
   return (
-    <Draggable bounds="main" cancel="#undrag,#title_input">
-      <div className="absolute right-10 top-24 z-10 min-w-[320px] rounded-xl border border-gray-300 bg-modal p-4 dark:border-gray-800 ">
-        <div className="flex items-center">
+    <Draggable bounds="parent" cancel="#undrag,#title_input">
+      <div
+        className="absolute right-10 top-8 z-10 w-80 rounded-xl border border-gray-300 bg-modal py-4 dark:border-gray-800"
+        style={{
+          maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px - 96px)`,
+        }}
+      >
+        <div className="flex items-center pb-2 pl-4">
           <div>
             {editRenamingTitle ? (
               <div className="flex">
@@ -94,48 +101,54 @@ const NodeEditModal = ({
               size="icon"
               variant="ghost"
               onClick={() => setIsEditMode(false)}
+              className="mr-4"
             >
               <X size={20} className="stroke-muted-foreground" />
             </Button>
           )}
         </div>
 
-        <div className="">
-          <div key={node.id}>
-            {node.data.initCtrls &&
-              Object.keys(node.data.initCtrls).length > 0 && (
+        <ScrollArea>
+          <div className="max-h-96 pl-4 pr-8">
+            <div key={node.id}>
+              {node.data.initCtrls &&
+                Object.keys(node.data.initCtrls).length > 0 && (
+                  <ParamList
+                    nodeId={node.id}
+                    ctrls={node.data.initCtrls}
+                    updateFunc={updateInitCtrlInputDataForNode}
+                  />
+                )}
+              {Object.keys(node.data.ctrls).length > 0 ? (
                 <ParamList
                   nodeId={node.id}
-                  ctrls={node.data.initCtrls}
-                  updateFunc={updateInitCtrlInputDataForNode}
+                  ctrls={node.data.ctrls}
+                  updateFunc={updateCtrlInputDataForNode}
+                  nodeReferenceOptions={nodeReferenceOptions}
                 />
+              ) : (
+                <div className="mt-2 text-sm">
+                  This node takes no parameters
+                </div>
               )}
-            {Object.keys(node.data.ctrls).length > 0 ? (
-              <ParamList
-                nodeId={node.id}
-                ctrls={node.data.ctrls}
-                updateFunc={updateCtrlInputDataForNode}
-                nodeReferenceOptions={nodeReferenceOptions}
-              />
-            ) : (
-              <div className="mt-2 text-sm">This node takes no parameters</div>
-            )}
-            {nodeParamChanged && (
-              <div className="mt-2 text-sm">
-                Replay the flow for the changes to take effect
-              </div>
-            )}
+              {nodeParamChanged && (
+                <div className="mt-4 text-sm font-medium italic text-muted-foreground">
+                  Replay the flow for the changes to take effect
+                </div>
+              )}
+            </div>
+            <div className="py-2" />
           </div>
-          <div className="py-2" />
-          <div className="flex justify-end">
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => handleDelete(node.id, node.data.label)}
-            >
-              <TrashIcon size={20} className="stroke-muted-foreground" />
-            </Button>
-          </div>
+        </ScrollArea>
+        <div className="flex justify-end">
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => handleDelete(node.id, node.data.label)}
+            className="mr-4"
+          >
+            <TrashIcon size={20} className="stroke-muted-foreground" />
+          </Button>
         </div>
       </div>
     </Draggable>

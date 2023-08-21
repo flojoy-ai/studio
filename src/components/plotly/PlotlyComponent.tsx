@@ -4,23 +4,20 @@ import Plotly from "plotly.js";
 import { plotLayout } from "./layout";
 import { useMemo } from "react";
 import { PlotProps } from "@src/types/plotly";
+import { useTheme } from "@src/providers/theme-provider";
 
 const MATRIX_SIZE = {
   width: 240,
   height: 260,
 };
 
+const Plot = createPlotlyComponent(Plotly);
+
 const PlotlyComponent = (props: PlotProps) => {
-  const {
-    data,
-    layout,
-    useResizeHandler,
-    style,
-    isThumbnail,
-    theme = "light",
-  } = props;
+  const { data, layout, useResizeHandler, style, isThumbnail } = props;
+  const { resolvedTheme: theme } = useTheme();
   const defaultPlotLayout = useMemo(() => plotLayout(theme), [theme]);
-  const Plot = createPlotlyComponent(Plotly);
+
   const isMatrix = data[0]?.header?.values?.length === 0;
   const is3dPlot = data[0]?.type === "surface" || data[0]?.type === "scatter3d";
 

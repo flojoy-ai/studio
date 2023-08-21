@@ -51,7 +51,7 @@ Write-Host "      ==============================================================
 Write-Host "     ||                     Welcome to Flojoy!                      ||" -ForegroundColor $general_color
 Write-Host "     ||                                                             ||" -ForegroundColor $general_color
 Write-Host "     ||           For Installation, Follow the Link Below           ||" -ForegroundColor $general_color
-Write-Host "     ||       https://docs.flojoy.io/getting-started/install/       ||" -ForegroundColor $general_color
+Write-Host "     ||       https://docs.flojoy.ai/getting-started/install/       ||" -ForegroundColor $general_color
 Write-Host "     ||                                                             ||" -ForegroundColor $general_color
 Write-Host "      ===============================================================" -ForegroundColor $general_color
 Write-Host ""
