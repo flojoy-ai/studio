@@ -44,6 +44,7 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   TEXT_VIEW: <Table />,
   EXTREMA_DETERMINATION: <PeakFinder />,
   REGION_PROPERTIES: <RegionInspector />,
+  HEATMAP: <Scatter />,
 };
 
 const VisorNode = (props: CustomNodeProps) => {
