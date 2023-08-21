@@ -43,7 +43,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <div
           data-cy="app-status"
           id="app-status"
-          className="flex flex-1 items-center justify-center text-sm"
+          className="flex items-center justify-center text-sm"
           style={{
             height: SERVER_STATUS_HEIGHT,
           }}

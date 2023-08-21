@@ -3,6 +3,7 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import {
   Project,
   projectAtom,
+  projectPathAtom,
   unsavedChangesAtom,
 } from "@src/hooks/useFlowChartState";
 import { ElementsData } from "@src/types";
@@ -45,17 +46,26 @@ const saveFileAs = async (
 export const SaveButton = () => {
   const { nodes, edges } = useFlowChartGraph();
   const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
-  const [project, setProject] = useAtom(projectAtom);
-  console.log(project);
+  const [project] = useAtom(projectAtom);
+  const [projectPath] = useAtom(projectPathAtom);
 
   const handleSave = () => {
-    if (!window.api.fileExists(project.path)) {
-      saveFileAs(project, nodes, edges);
-      setProject((prev) => (prev.path = project.path));
-      setHasUnsavedChanges(false);
+    if (projectPath) {
+      window.api.saveFile(
+        projectPath,
+        JSON.stringify({
+          ...project,
+          rfInstance: {
+            ...project.rfInstance,
+            nodes,
+            edges,
+          },
+        }),
+      );
     } else {
-      window.api.saveFile(project.path, JSON.stringify(project));
+      saveFileAs(project, nodes, edges);
     }
+    setHasUnsavedChanges(false);
   };
 
   return (

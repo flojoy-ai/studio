@@ -2,12 +2,21 @@ import { MenubarItem } from "@/components/ui/menubar";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useFilePicker } from "use-file-picker";
+import { useAtom } from "jotai";
+import {
+  projectAtom,
+  projectPathAtom,
+  unsavedChangesAtom,
+} from "@src/hooks/useFlowChartState";
 
 export const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
   const {
     states: { setProgramResults },
   } = useSocket();
+  const [, setProject] = useAtom(projectAtom);
+  const [, setProjectPath] = useAtom(projectPathAtom);
+  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   const [openFileSelector] = useFilePicker({
     readAs: "Text",
@@ -16,10 +25,14 @@ export const LoadButton = () => {
     onFilesRejected: ({ errors }) => {
       console.error("Errors when trying to load file: ", errors);
     },
-    onFilesSuccessfulySelected: ({ filesContent }) => {
+    onFilesSuccessfulySelected: ({ plainFiles, filesContent }) => {
+      const path = plainFiles[0].path;
       // Just pick the first file that was selected
       const parsedFileContent = JSON.parse(filesContent[0].content);
       const flow = parsedFileContent.rfInstance;
+      setProject(parsedFileContent);
+      setProjectPath(path);
+      setHasUnsavedChanges(false);
       loadFlowExportObject(flow);
       setProgramResults([]);
     },

@@ -128,19 +128,18 @@ const FlowChartTab = () => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
+      setHasUnsavedChanges(true);
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
-      setHasUnsavedChanges(true);
     },
     [setNodes, setHasUnsavedChanges],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       setEdges((es) => applyEdgeChanges(changes, es));
-      setHasUnsavedChanges(true);
     },
     [setEdges, setHasUnsavedChanges],
   );
@@ -149,6 +148,7 @@ const FlowChartTab = () => {
       setEdges((eds) => {
         const [sourceType, targetType] = getEdgeTypes(connection);
         if (isCompatibleType(sourceType, targetType)) {
+          setHasUnsavedChanges(true);
           return addEdge(connection, eds);
         }
 
@@ -167,6 +167,7 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
+      setHasUnsavedChanges(true);
     },
     [setNodes],
   );
