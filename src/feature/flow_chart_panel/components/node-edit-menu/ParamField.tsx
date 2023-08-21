@@ -81,7 +81,7 @@ const ParamField = ({
       );
     case "select":
       return (
-        <Select>
+        <Select onValueChange={(val) => handleChange(val)}>
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1">
             <SelectValue placeholder={value} />
           </SelectTrigger>
@@ -96,7 +96,7 @@ const ParamField = ({
       );
     case "NodeReference":
       return (
-        <Select>
+        <Select onValueChange={(val) => handleChange(val)}>
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 ">
             <SelectValue placeholder={value} />
           </SelectTrigger>
