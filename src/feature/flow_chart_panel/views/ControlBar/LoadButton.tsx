@@ -3,11 +3,8 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { useFilePicker } from "use-file-picker";
 import { useAtom } from "jotai";
-import {
-  projectAtom,
-  projectPathAtom,
-  unsavedChangesAtom,
-} from "@src/hooks/useFlowChartState";
+import { projectAtom, projectPathAtom } from "@src/hooks/useFlowChartState";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 export const LoadButton = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
@@ -16,7 +13,7 @@ export const LoadButton = () => {
   } = useSocket();
   const [, setProject] = useAtom(projectAtom);
   const [, setProjectPath] = useAtom(projectPathAtom);
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const [openFileSelector] = useFilePicker({
     readAs: "Text",

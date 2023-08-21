@@ -17,7 +17,7 @@ import {
 import { API_URI } from "@src/data/constants";
 import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
-import { SaveAsButton, SaveButton } from "./ControlBar/SaveAsButton";
+import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";

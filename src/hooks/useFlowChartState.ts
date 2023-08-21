@@ -48,7 +48,6 @@ export const projectAtom = atomWithImmer<Project>({
   name: "Untitled Project",
 });
 export const projectPathAtom = atom<string | undefined>(undefined);
-export const unsavedChangesAtom = atom<boolean>(false);
 
 export const failedNodeAtom = atom<Record<string, string>>({});
 export const runningNodeAtom = atom<string>("");

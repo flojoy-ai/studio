@@ -4,14 +4,15 @@ import {
   Project,
   projectAtom,
   projectPathAtom,
-  unsavedChangesAtom,
 } from "@src/hooks/useFlowChartState";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { ElementsData } from "@src/types";
 import saveAs from "file-saver";
 import { useAtom } from "jotai";
 import { Edge, Node } from "reactflow";
+import { toast } from "sonner";
 
-const createFileBlob = (
+const getFileContent = (
   project: Project,
   nodes: Node<ElementsData>[],
   edges: Edge[],
@@ -24,46 +25,50 @@ const createFileBlob = (
       edges,
     },
   };
-
-  const str = JSON.stringify(fileContent, undefined, 4);
-
-  return new Blob([str]);
+  return JSON.stringify(fileContent, undefined, 4);
 };
 
 const saveFileAs = async (
   project: Project,
   nodes: Node<ElementsData>[],
   edges: Edge[],
-) => {
+): Promise<string | undefined> => {
   if (!project.rfInstance) {
     throw new Error("Could not find flow chart instance to save");
   }
 
-  const blob = createFileBlob(project, nodes, edges);
+  const fileContent = getFileContent(project, nodes, edges);
+
+  // in electron
+  if ("api" in window) {
+    const path = await window.api.saveFileAs(fileContent);
+    return path;
+  }
+
+  const blob = new Blob([fileContent]);
   saveAs(blob, "app.json");
 };
 
 export const SaveButton = () => {
   const { nodes, edges } = useFlowChartGraph();
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const [project] = useAtom(projectAtom);
-  const [projectPath] = useAtom(projectPathAtom);
+  const [projectPath, setProjectPath] = useAtom(projectPathAtom);
 
-  const handleSave = () => {
-    if (projectPath) {
-      window.api.saveFile(
-        projectPath,
-        JSON.stringify({
-          ...project,
-          rfInstance: {
-            ...project.rfInstance,
-            nodes,
-            edges,
-          },
-        }),
-      );
+  const handleSave = async () => {
+    if (projectPath && "api" in window) {
+      const fileContent = getFileContent(project, nodes, edges);
+      window.api.saveFile(projectPath, fileContent);
+
+      toast.success("App saved!");
     } else {
-      saveFileAs(project, nodes, edges);
+      const path = await saveFileAs(project, nodes, edges);
+      setProjectPath(path);
+
+      const message = path
+        ? `Saved app to ${path}!`
+        : "Saved app successfully!";
+      toast.success(message);
     }
     setHasUnsavedChanges(false);
   };
@@ -77,13 +82,19 @@ export const SaveButton = () => {
 
 export const SaveAsButton = () => {
   const { nodes, edges } = useFlowChartGraph();
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const [, setProjectPath] = useAtom(projectPathAtom);
 
   const [project] = useAtom(projectAtom);
 
-  const handleSave = () => {
-    saveFileAs(project, nodes, edges);
+  const handleSave = async () => {
+    const path = await saveFileAs(project, nodes, edges);
+
+    setProjectPath(path);
     setHasUnsavedChanges(false);
+
+    const message = path ? `Saved app to ${path}!` : "Saved app successfully!";
+    toast.success(message);
   };
 
   return (

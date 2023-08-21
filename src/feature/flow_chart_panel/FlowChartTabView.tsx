@@ -1,8 +1,4 @@
-import {
-  projectAtom,
-  unsavedChangesAtom,
-  useFlowChartState,
-} from "@hooks/useFlowChartState";
+import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -49,6 +45,7 @@ import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 localforage.config({
   name: "react-flow",
@@ -59,7 +56,7 @@ const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const { theme, resolvedTheme } = useTheme();
 
@@ -128,18 +125,23 @@ const FlowChartTab = () => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
-      setHasUnsavedChanges(true);
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
+      if (!changes.every((c) => c.type === "select")) {
+        setHasUnsavedChanges(true);
+      }
     },
     [setNodes, setHasUnsavedChanges],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       setEdges((es) => applyEdgeChanges(changes, es));
+      if (!changes.every((c) => c.type === "select")) {
+        setHasUnsavedChanges(true);
+      }
     },
     [setEdges, setHasUnsavedChanges],
   );
@@ -148,7 +150,6 @@ const FlowChartTab = () => {
       setEdges((eds) => {
         const [sourceType, targetType] = getEdgeTypes(connection);
         if (isCompatibleType(sourceType, targetType)) {
-          setHasUnsavedChanges(true);
           return addEdge(connection, eds);
         }
 
@@ -167,7 +168,6 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
-      setHasUnsavedChanges(true);
     },
     [setNodes],
   );

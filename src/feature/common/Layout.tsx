@@ -1,8 +1,9 @@
 import { useAtom } from "jotai";
 import Header from "./Header";
 import { useSocket } from "@src/hooks/useSocket";
-import { projectAtom, unsavedChangesAtom } from "@src/hooks/useFlowChartState";
+import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ export const Layout = ({ children }: LayoutProps) => {
   } = useSocket();
 
   const [project, setProject] = useAtom(projectAtom);
-  const [hasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { hasUnsavedChanges } = useHasUnsavedChanges();
 
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });

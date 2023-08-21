@@ -9,12 +9,9 @@ import {
   SelectValue,
 } from "@src/components/ui/select";
 import { Switch } from "@src/components/ui/switch";
-import {
-  unsavedChangesAtom,
-  useFlowChartState,
-} from "@src/hooks/useFlowChartState";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
-import { useAtom } from "jotai";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -37,7 +34,7 @@ const ParamField = ({
   nodeReferenceOptions,
 }: ParamFieldProps) => {
   const { setNodeParamChanged } = useFlowChartState();
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const handleChange = (value: number | string | boolean) => {
     updateFunc(nodeId, {
       ...nodeCtrl,
