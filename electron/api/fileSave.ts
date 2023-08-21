@@ -1,9 +1,5 @@
-import { writeFileSync, existsSync } from "fs";
+import { writeFileSync } from "fs";
 import { ipcRenderer } from "electron";
-
-export function fileExists(path: string) {
-  return existsSync(path);
-}
 
 export function saveFile(path: string, data: string) {
   writeFileSync(path, data);

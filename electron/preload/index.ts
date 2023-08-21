@@ -1,11 +1,6 @@
 import { contextBridge } from "electron";
 import api from "../api";
 
-export type ContextBridgeApi = {
-  fileExists: (path: string) => boolean;
-  saveFile: (path: string, data: string) => void;
-};
-
 contextBridge.exposeInMainWorld("api", api);
 
 function domReady(
