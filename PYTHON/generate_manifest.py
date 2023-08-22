@@ -20,6 +20,8 @@ NAME_MAP = {
     "SCIPY": "scipy",
     "SIGNAL": "sp.signal",
     "STATS": "sp.stats",
+    "SKLEARN": "scikit-learn",
+    "MODEL_SELECTION": "sklearn.model_selection",
     "GAMES": "Games",
 }
 
@@ -39,6 +41,7 @@ ALLOWED_TYPES = [
     "NUMPY",
     "GAMES",
     "SCIPY",
+    "SKLEARN",
 ]
 
 # Sort order in sidebar
@@ -54,6 +57,7 @@ ORDERING = [
     "NUMPY",
     "SCIPY",
     "GAMES",
+    "SKLEARN",
 ]
 
 __failed_nodes: list[str] = []

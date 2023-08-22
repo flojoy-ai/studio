@@ -6,6 +6,7 @@ import IONode from "./IONode";
 import LogicNode from "./LogicNode";
 import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
+import SklearnNode from "./SklearnNode";
 import VisorNode from "./VisorNode";
 
 export const nodeTypesMap = {
@@ -22,4 +23,5 @@ export const nodeTypesMap = {
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
+  SKLEARN: SklearnNode,
 };
