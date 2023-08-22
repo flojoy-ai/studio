@@ -87,7 +87,7 @@ const ParamField = ({
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1">
             <SelectValue placeholder={value} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-72">
             {(options ?? []).map((option) => (
               <SelectItem key={option} value={option}>
                 {option}
@@ -102,7 +102,7 @@ const ParamField = ({
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 ">
             <SelectValue placeholder={value} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-72">
             {(nodeReferenceOptions ?? []).map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
