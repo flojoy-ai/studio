@@ -45,7 +45,7 @@ import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
-import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 localforage.config({
   name: "react-flow",
@@ -56,7 +56,7 @@ const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const { theme, resolvedTheme } = useTheme();
 
