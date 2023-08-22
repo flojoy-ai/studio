@@ -112,7 +112,8 @@ async function createWindow() {
       type: "question",
       buttons: ["Yes", "No, go back"],
       title: "Quit?",
-      message: "You have unsaved changes. Are you sure you want to exit?",
+      message:
+        "You have unsaved changes. Are you sure you want to quit Flojoy Studio?",
     });
     if (choice > 0) e.preventDefault();
   });
