@@ -1,5 +1,5 @@
 import ast
-from typing import Optional, Any, Callable, Tuple, cast
+from typing import Optional, Any, Callable, Tuple, cast, Literal
 
 
 SELECTED_IMPORTS = ["flojoy", "typing"]
@@ -29,6 +29,17 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
                and decorator.func.id == "display"
         ]
 
+    def get_decorator(self, node: ast.FunctionDef, decorator_name: Literal["display", "flojoy"]):
+        return [
+            decorator
+            for decorator in node.decorator_list
+            if isinstance(decorator, ast.Name)
+               and decorator.id == decorator_name
+               or isinstance(decorator, ast.Call)
+               and isinstance(decorator.func, ast.Name)
+               and decorator.func.id == decorator_name
+        ]
+
     def visit_Module(self, node: ast.Module):
         node.body = [self.visit(n) for n in node.body]
         return node
@@ -49,7 +60,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
     def visit_FunctionDef(self, node: ast.FunctionDef):
         # The case where the node is used for overloading, will ignore all other decorators
         if has_decorator(node, "display"):
-            node.decorator_list = cast(list[ast.expr], self.get_display_decorator(node))
+            node.decorator_list = cast(list[ast.expr], self.get_decorator(node, "display"))
         elif not has_decorator(node, "flojoy") and not has_decorator(
                     node, "node_initialization"
             ):
@@ -62,7 +73,7 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
             # Keep only the '@flojoy' decorator if there are multiple decorators.
             # Some decorators, like '@run_in_venv', create virtual environments, which we
             # don't want to generate when creating the manifest.
-            node.decorator_list = cast(list[ast.expr], self.get_flojoy_decorator(node))
+            node.decorator_list = cast(list[ast.expr], self.get_decorator(node, "flojoy"))
 
         if node.body:
             new_body = (
@@ -218,10 +229,7 @@ def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[An
 
 
 def extract_overload_arguments(node: ast.FunctionDef) -> Tuple:
-    arg_default = []
-    for arg in node.args.args:
-        arg_name = arg.arg
-        arg_default.append(arg_name)
+    arg_default = [arg.arg for arg in node.args.args]
     default_value = ast.literal_eval(node.args.defaults[0])
     return (arg_default, default_value)
 

@@ -25,7 +25,7 @@ export const ParamList = ({
   const filterCtrl = () => {
     Object.entries(ctrls).forEach(([name, param]) => {
       const val = ctrls[name].value;
-      if (val && param.overload && param.overload[val.toString()]) {
+      if (val && param.overload && val.toString() in param.overload) {
         const filterList = param.overload[val.toString()];
         const filter = Object.entries(ctrls).filter(
           ([filterName]) =>
