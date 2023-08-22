@@ -7,7 +7,11 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
 import { useEffect } from "react";
 import { useAtom } from "jotai";
-import { Project, projectAtom } from "@src/hooks/useFlowChartState";
+import {
+  Project,
+  projectAtom,
+  projectPathAtom,
+} from "@src/hooks/useFlowChartState";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 
 export interface AppGalleryElementProps {
@@ -22,6 +26,7 @@ export const GalleryElement = ({
   const { loadFlowExportObject } = useFlowChartGraph();
   const [, setProject] = useAtom(projectAtom);
   const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const [, setProjectPath] = useAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
@@ -41,6 +46,7 @@ export const GalleryElement = ({
       rfInstance: app.rfInstance,
     });
     loadFlowExportObject(app.rfInstance);
+    setProjectPath(undefined);
     setIsGalleryOpen(false);
     setHasUnsavedChanges(false);
   };

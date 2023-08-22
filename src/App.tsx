@@ -13,8 +13,6 @@ import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import { ThemeProvider } from "@src/providers/themeProvider";
-import { WarnUnsavedChangesDialog } from "./feature/common/CloseDialog";
-import { useWarnUnsavedChanges } from "./hooks/useHasUnsavedChanges";
 // import { useAtom } from "jotai";
 
 function ErrorBoundary() {
@@ -30,11 +28,6 @@ const App = () => {
   } = useSocket();
   const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
-  const {
-    warnUnsavedDialogOpen,
-    setWarnUnsavedDialogOpen,
-    warnUnsavedDialogOnConfirm,
-  } = useWarnUnsavedChanges();
   // const [hasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   useEffect(() => {
@@ -54,22 +47,11 @@ const App = () => {
     sendFrontEndLoadsToMix();
   }, []);
 
-  // window.addEventListener("beforeunload", (e) => {
-  //   e.preventDefault();
-  //   setCloseDialogOpen(true);
-  //   return (e.returnValue = "Are you sure you want to close?");
-  // });
-
   // useKeyboardShortcut("ctrl", "b", () => setIsSidebarOpen((prev) => !prev));
   // useKeyboardShortcut("meta", "b", () => setIsSidebarOpen((prev) => !prev));
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <WarnUnsavedChangesDialog
-        open={warnUnsavedDialogOpen}
-        setOpen={setWarnUnsavedDialogOpen}
-        onConfirm={warnUnsavedDialogOnConfirm}
-      />
       <div id="tw-theme-root">
         <PreJobOperationDialog
           open={isPrejobModalOpen}
