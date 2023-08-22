@@ -60,7 +60,7 @@ const handleSetUnsavedChanges = (_, value: boolean) => {
 };
 
 const handleShowSaveAsDialog = async () => {
-  const { filePath } = await dialog.showSaveDialog({
+  return await dialog.showSaveDialog({
     defaultPath: "app.json",
     filters: [
       {
@@ -69,7 +69,6 @@ const handleShowSaveAsDialog = async () => {
       },
     ],
   });
-  return filePath;
 };
 
 // Remove electron security warnings

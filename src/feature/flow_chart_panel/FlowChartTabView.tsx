@@ -39,13 +39,13 @@ import { Separator } from "@src/components/ui/separator";
 import { Pencil, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
-import { useTheme } from "@src/providers/theme-provider";
+import { useTheme } from "@src/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
-import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 
 localforage.config({
   name: "react-flow",
@@ -56,7 +56,7 @@ const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
-  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   const { theme, resolvedTheme } = useTheme();
 
@@ -99,8 +99,9 @@ const FlowChartTab = () => {
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
       sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
+      setHasUnsavedChanges(true);
     },
-    [setNodes, setEdges],
+    [setNodes, setEdges, setHasUnsavedChanges],
   );
 
   const edgeTypes: EdgeTypes = useMemo(
@@ -125,16 +126,14 @@ const FlowChartTab = () => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
+      setHasUnsavedChanges(true);
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
-      if (!changes.every((c) => c.type === "select")) {
-        setHasUnsavedChanges(true);
-      }
     },
-    [setNodes, setHasUnsavedChanges],
+    [setNodes],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
@@ -168,6 +167,7 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
+      setHasUnsavedChanges(true);
     },
     [setNodes],
   );
@@ -175,7 +175,8 @@ const FlowChartTab = () => {
   const clearCanvas = useCallback(() => {
     setNodes([]);
     setEdges([]);
-  }, [setNodes, setEdges]);
+    setHasUnsavedChanges(true);
+  }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {
     if (selectedNode === null) {

@@ -12,8 +12,9 @@ import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
-import { ThemeProvider } from "@src/providers/theme-provider";
-import { CloseDialog } from "./feature/common/CloseDialog";
+import { ThemeProvider } from "@src/providers/themeProvider";
+import { WarnUnsavedChangesDialog } from "./feature/common/CloseDialog";
+import { useWarnUnsavedChanges } from "./hooks/useHasUnsavedChanges";
 // import { useAtom } from "jotai";
 
 function ErrorBoundary() {
@@ -28,8 +29,12 @@ const App = () => {
     states: { runningNode, failedNodes, preJobOperation },
   } = useSocket();
   const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
-  const [closeDialogOpen, setCloseDialogOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
+  const {
+    warnUnsavedDialogOpen,
+    setWarnUnsavedDialogOpen,
+    warnUnsavedDialogOnConfirm,
+  } = useWarnUnsavedChanges();
   // const [hasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   useEffect(() => {
@@ -60,13 +65,17 @@ const App = () => {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <WarnUnsavedChangesDialog
+        open={warnUnsavedDialogOpen}
+        setOpen={setWarnUnsavedDialogOpen}
+        onConfirm={warnUnsavedDialogOnConfirm}
+      />
       <div id="tw-theme-root">
         <PreJobOperationDialog
           open={isPrejobModalOpen}
           outputs={preJobOperation.output}
           setOpen={setIsPrejobModalOpen}
         />
-        <CloseDialog open={closeDialogOpen} setOpen={setCloseDialogOpen} />
         <Routes>
           <Route
             path="/"

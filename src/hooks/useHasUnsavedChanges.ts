@@ -1,6 +1,6 @@
 import { atom, useAtom } from "jotai";
 
-export const unsavedChangesAtom = atom<boolean>(false);
+export const unsavedChangesAtom = atom<boolean>(true);
 
 export const useHasUnsavedChanges = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);

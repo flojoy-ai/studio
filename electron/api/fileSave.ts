@@ -6,9 +6,9 @@ export function saveFile(path: string, data: string) {
 }
 
 export async function saveFileAs(data: string): Promise<string | undefined> {
-  const path = await ipcRenderer.invoke("show-save-as-dialog");
-  if (path) {
-    saveFile(path, data);
-    return path;
+  const result = await ipcRenderer.invoke("show-save-as-dialog");
+  if (result.path) {
+    saveFile(result.path, data);
   }
+  return result;
 }

@@ -21,7 +21,7 @@ import Bar from "@/assets/nodes/Bar";
 import Table from "@/assets/nodes/Table";
 import Image from "@/assets/nodes/Image";
 import MarkDownText from "@/components/common/MarkDownText";
-import { useTheme } from "@src/providers/theme-provider";
+import { useTheme } from "@src/providers/themeProvider";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,

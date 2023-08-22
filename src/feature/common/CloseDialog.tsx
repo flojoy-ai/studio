@@ -11,9 +11,20 @@ import {
 type CloseDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  onConfirm?: () => void;
 };
 
-export const CloseDialog = ({ open, setOpen }: CloseDialogProps) => {
+export const WarnUnsavedChangesDialog = ({
+  open,
+  setOpen,
+  onConfirm,
+}: CloseDialogProps) => {
+  const handleSubmit = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-sm">
@@ -27,7 +38,9 @@ export const CloseDialog = ({ open, setOpen }: CloseDialogProps) => {
           <Button variant="outline" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button type="submit">Confirm</Button>
+          <Button type="submit" onClick={handleSubmit}>
+            Confirm
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

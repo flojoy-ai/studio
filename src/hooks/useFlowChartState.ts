@@ -44,9 +44,7 @@ export type Project = {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
 };
 
-export const projectAtom = atomWithImmer<Project>({
-  name: "Untitled Project",
-});
+export const projectAtom = atomWithImmer<Project>({});
 export const projectPathAtom = atom<string | undefined>(undefined);
 
 export const failedNodeAtom = atom<Record<string, string>>({});
