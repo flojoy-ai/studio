@@ -39,7 +39,9 @@ export const makePlotlyData = (
                 ?.filter(
                   (_: unknown, i: number) =>
                     i <
-                    (d.header?.values?.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS),
+                    (d.header?.values?.length
+                      ? NUM_OF_COLUMNS
+                      : MATRIX_COLUMNS),
                 )
                 .map(
                   (i: unknown[]) =>

@@ -79,7 +79,7 @@
     "start-project:ci": "CI=true concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend\"",
     "start-project:debug": "DEBUG=true concurrently --prefix \"[{time}-{name}]\" -n \"React,FastAPI\" -c auto  \"npm:start\" \"npm:backend:debug\"",
     "format": "npx prettier --write . && black . --extend-exclude '/(node_modules)/'",
-    "check": "npx prettier --check . && black . --extend-exclude '/(node_modules)/' --check && tsc",
+    "check": "npx prettier --check . && black . --extend-exclude '/(node_modules)/' --check && tsc --noEmit",
     "e2e": "CI=true cypress run --browser chrome",
     "cypress": "cypress open",
     "electron-dev": "electron .",

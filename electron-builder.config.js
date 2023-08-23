@@ -1,4 +1,4 @@
 module.exports = {
-  files: ['dist'],
+  files: ["dist"],
   // ...other config
-}
+};

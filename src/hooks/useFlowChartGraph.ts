@@ -41,7 +41,7 @@ export const useFlowChartGraph = () => {
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
-      if (textNodes){
+      if (textNodes) {
         setTextNodes(textNodes);
       }
       return true;
@@ -107,7 +107,7 @@ export const useFlowChartGraph = () => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        if (node.data.initCtrls){
+        if (node.data.initCtrls) {
           node.data.initCtrls[inputData.param].value = inputData.value;
         }
       }

@@ -22,8 +22,6 @@ export const sidebarVariants = cva(undefined, {
   },
 });
 
-
-
 export const categoryMap = {
   AI_ML: "DATA",
   GENERATORS: "DATA",
@@ -58,8 +56,8 @@ type SidebarNodeProps = {
 };
 
 type NodeChildren = {
-  [key:string]: string | NodeChildren | null;
-}[]
+  [key: string]: string | NodeChildren | null;
+}[];
 
 const nodeTitleMatches = (query: string, node: NodeSection) =>
   Boolean(
@@ -135,7 +133,9 @@ const SidebarNode = ({
     );
   }
 
-  const commands = (node.children as unknown as NodeChildren)?.filter((c) => !c.children);
+  const commands = (node.children as unknown as NodeChildren)?.filter(
+    (c) => !c.children,
+  );
   const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
@@ -174,14 +174,14 @@ const SidebarNode = ({
               if (query !== "") {
                 sendEventToMix(
                   "Node Searched",
-                  command.name as string ?? "",
+                  (command.name as string) ?? "",
                   "nodeTitle",
                 );
               }
               leafClickHandler(command as unknown as NodeElement);
             }}
           >
-            {command.key as string ?? command.name as string}
+            {(command.key as string) ?? (command.name as string)}
             {icon}
           </button>
         ))}
