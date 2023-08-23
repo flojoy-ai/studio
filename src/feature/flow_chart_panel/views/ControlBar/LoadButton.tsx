@@ -20,7 +20,8 @@ export const LoadButton = () => {
       // Just pick the first file that was selected
       const parsedFileContent = JSON.parse(filesContent[0].content);
       const flow = parsedFileContent.rfInstance;
-      loadFlowExportObject(flow);
+      const textNodes = parsedFileContent.textNodes;
+      loadFlowExportObject(flow, textNodes);
       setProgramResults([]);
     },
   });
