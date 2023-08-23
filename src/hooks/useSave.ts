@@ -1,4 +1,4 @@
-import { useAtom } from "jotai";
+import { useAtomValue, useAtom } from "jotai";
 import { toast } from "sonner";
 import { useFlowChartGraph } from "./useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "./useFlowChartState";
@@ -8,7 +8,7 @@ import { makeAppFileContent, saveFileAs } from "@src/lib/save";
 export const useSave = () => {
   const { nodes, edges } = useFlowChartGraph();
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
-  const [project] = useAtom(projectAtom);
+  const project = useAtomValue(projectAtom);
   const [projectPath, setProjectPath] = useAtom(projectPathAtom);
 
   const handleSave = async () => {

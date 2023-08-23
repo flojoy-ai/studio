@@ -7,7 +7,7 @@ import { ElementsData } from "@/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
-import { useAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 
 export type AddNewNode = (node: NodeElement) => void;
@@ -20,8 +20,8 @@ export const useAddNewNode = (
   ) => void,
   getNodeFuncCount: (func: string) => number,
 ) => {
-  const [center] = useAtom(centerPositionAtom);
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
+  const center = useAtomValue(centerPositionAtom);
+  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
 
   return useCallback(
     (node: NodeElement) => {

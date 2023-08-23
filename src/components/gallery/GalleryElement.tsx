@@ -6,7 +6,7 @@ import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
 import { useEffect } from "react";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import {
   Project,
   projectAtom,
@@ -24,9 +24,9 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
-  const [, setProject] = useAtom(projectAtom);
-  const [, setHasUnsavedChanges] = useAtom(unsavedChangesAtom);
-  const [, setProjectPath] = useAtom(projectPathAtom);
+  const setProject = useSetAtom(projectAtom);
+  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
+  const setProjectPath = useSetAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 

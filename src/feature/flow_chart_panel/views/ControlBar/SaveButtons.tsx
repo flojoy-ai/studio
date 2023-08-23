@@ -5,7 +5,7 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSave } from "@src/hooks/useSave";
 import { saveFileAs } from "@src/lib/save";
-import { useAtom } from "jotai";
+import { useSetAtom, useAtomValue } from "jotai";
 import { toast } from "sonner";
 
 export const SaveButton = () => {
@@ -22,9 +22,8 @@ export const SaveButton = () => {
 export const SaveAsButton = () => {
   const { nodes, edges } = useFlowChartGraph();
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
-  const [, setProjectPath] = useAtom(projectPathAtom);
-
-  const [project] = useAtom(projectAtom);
+  const setProjectPath = useSetAtom(projectPathAtom);
+  const project = useAtomValue(projectAtom);
 
   const handleSave = async () => {
     try {
