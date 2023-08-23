@@ -32,7 +32,7 @@ export const GalleryElement = ({
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
     const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, unknown>;
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
-    loadFlowExportObject(flow);
+    loadFlowExportObject(flow, raw.textNodes);
     setIsGalleryOpen(false);
   };
 
