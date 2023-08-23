@@ -1,16 +1,19 @@
-import {
+import React, {
   useState,
   useRef,
   Children,
   cloneElement,
-  isValidElement,
+  isValidElement
 } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { ScrollArea } from "../ui/scroll-area";
 
+
+type ElementProps = React.HTMLProps<HTMLElement>
+
 type ParamTooltipProps = {
-  children: React.ReactNode;
+  children: React.ReactElement<ElementProps>;
   param: {
     name: string;
     type: string;
@@ -22,7 +25,7 @@ type ParamTooltipProps = {
 };
 
 const getTooltipStyle = (
-  element: HTMLDivElement,
+  element: HTMLElement,
   offsetX: number,
   offsetY: number,
 ) => {
@@ -44,7 +47,7 @@ export const ParamTooltip = ({
 }: ParamTooltipProps) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const elemRef = useRef<HTMLDivElement>(null);
+  const elemRef = useRef<HTMLElement>(null);
 
   const onHover = () => {
     if (timeoutRef.current) {
@@ -68,7 +71,7 @@ export const ParamTooltip = ({
     throw new Error("ParamTooltip must have a child element");
   }
 
-  const child = Children.only(children);
+  const child = Children.only<React.ReactNode>(children);
 
   if (!isValidElement(child)) {
     throw new Error("Child must be a valid JSX element");
@@ -76,7 +79,7 @@ export const ParamTooltip = ({
 
   return (
     <>
-      {cloneElement<unknown>(child, {
+      {cloneElement(children, {
         ref: elemRef,
         onMouseEnter: onHover,
         onMouseLeave: onLeave,
