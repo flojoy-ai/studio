@@ -52,19 +52,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 341.04569824065663,
-                    "y": -170.78305642729816
+                    "x": 363.7748423359979,
+                    "y": -229.87883107518553
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 341.04569824065663,
-                    "y": -170.78305642729816
+                    "x": 363.7748423359979,
+                    "y": -229.87883107518553
                 },
                 "dragging": true
             },
             {
-                "width": 380,
-                "height": 293,
+                "width": 225,
+                "height": 226,
                 "id": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
                 "type": "VISUALIZERS",
                 "data": {
@@ -92,16 +92,16 @@
                         }
                     ],
                     "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": true
+                    "selected": false
                 },
                 "position": {
-                    "x": 701.1611335412875,
-                    "y": -211.78085921265713
+                    "x": 723.8902776366289,
+                    "y": -243.60166094613493
                 },
-                "selected": true,
+                "selected": false,
                 "positionAbsolute": {
-                    "x": 701.1611335412875,
-                    "y": -211.78085921265713
+                    "x": 723.8902776366289,
+                    "y": -243.60166094613493
                 },
                 "dragging": true
             },
@@ -153,65 +153,13 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 31.494157443050035,
-                    "y": -103.31907287860301
+                    "x": 54.40404553162867,
+                    "y": -140.29725973798512
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 31.494157443050035,
-                    "y": -103.31907287860301
-                },
-                "dragging": true
-            },
-            {
-                "width": 1554,
-                "height": 96,
-                "id": "TEXT-25ef8548-d311-4e54-a0b2-e1b535ee447a",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TEXT-25ef8548-d311-4e54-a0b2-e1b535ee447a",
-                    "label": "Read the docs before running the App : https://docs.flojoy.ai/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/",
-                    "func": "TEXT",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "value": {
-                            "type": "str",
-                            "default": "Hello World!",
-                            "desc": "The value set in Parameters",
-                            "functionName": "TEXT",
-                            "param": "value",
-                            "value": "Hello World!"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "_",
-                            "id": "_",
-                            "type": "Any",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "TextBlob",
-                            "desc": "text_blob: return the value being set in Parameters"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -255.3981840052611,
-                    "y": -418.67154447605344
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -255.3981840052611,
-                    "y": -418.67154447605344
+                    "x": 54.40404553162867,
+                    "y": -140.29725973798512
                 },
                 "dragging": true
             }
@@ -255,6 +203,27 @@
                 "minW": 2,
                 "i": "INPUT_PLACEHOLDER"
             }
+        }
+    ],
+    "textNodes": [
+        {
+            "id": "TextNode-6922cdd9-f858-4bfe-94d0-85b33a48f0ad",
+            "position": {
+                "x": 315.75062686339123,
+                "y": -415.10628875587315
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "Read the docs before using the App: [Serial Single Measurement Docs](https://docs.flojoy.ai/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/)\n"
+            },
+            "width": 288,
+            "height": 78,
+            "selected": true,
+            "positionAbsolute": {
+                "x": 315.75062686339123,
+                "y": -415.10628875587315
+            },
+            "dragging": false
         }
     ]
 }
