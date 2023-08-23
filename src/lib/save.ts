@@ -29,10 +29,20 @@ export const saveFileAs = async (
   }
 
   const fileContent = makeAppFileContent(project, nodes, edges);
+  const basename =
+    project.name
+      ?.split(" ")
+      .map((s) => s.toLowerCase().trim())
+      .filter((s) => s !== "")
+      .join("-") ?? "app";
+  const defaultFilename = `${basename}.json`;
 
   // in electron
   if ("api" in window) {
-    const { filePath, canceled } = await window.api.saveFileAs(fileContent);
+    const { filePath, canceled } = await window.api.saveFileAs(
+      defaultFilename,
+      fileContent,
+    );
     if (canceled) {
       throw new Error("Save was cancelled");
     }
@@ -40,5 +50,5 @@ export const saveFileAs = async (
   }
 
   const blob = new Blob([fileContent]);
-  saveAs(blob, "app.json");
+  saveAs(blob, defaultFilename);
 };

@@ -59,9 +59,9 @@ const handleSetUnsavedChanges = (_, value: boolean) => {
   global.hasUnsavedChanges = value;
 };
 
-const handleShowSaveAsDialog = async () => {
+const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
   return await dialog.showSaveDialog({
-    defaultPath: "app.json",
+    defaultPath: defaultFilename,
     filters: [
       {
         name: "json",
