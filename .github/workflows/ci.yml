@@ -14,7 +14,7 @@ env:
   DISPLAY: :0
 
 jobs:
-  code-style-check:
+  code-style-and-type-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +31,7 @@ jobs:
           cache: "pip"
 
       - name: Format dependencies
-        run: pip3 install black && npm i
+        run: pip3 install black docstring_parser==0.15 && npm i
       
       - name: Generate manifest
         run: |
