@@ -108,15 +108,6 @@ export default defineConfig(({ command }) => {
         "@/assets": path.resolve(__dirname, "src/assets"),
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
-    },
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-        },
-      },
-    },
+    }
   };
 });
