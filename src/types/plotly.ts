@@ -13,13 +13,13 @@ export type DataContainer2PlotlyProps = {
 export type OverridePlotData = Array<
   Partial<PlotData> & {
     header?: {
-      values?: unknown;
+      values?: any[];
       fill: {
         color: string;
       };
     };
     cells?: {
-      values?: unknown;
+      values?: any[];
       fill: { color: string };
     };
   }

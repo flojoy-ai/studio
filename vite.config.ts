@@ -109,5 +109,14 @@ export default defineConfig(({ command }) => {
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          entryFileNames: `assets/[name].js`,
+          chunkFileNames: `assets/[name].js`,
+          assetFileNames: `assets/[name].[ext]`
+        }
+      }
+    }
   };
 });
