@@ -85,5 +85,5 @@ export default {
       },
     },
   },
-  plugins: [twAnimate],
+  plugins: [require("@tailwindcss/typography"), twAnimate],
 };
