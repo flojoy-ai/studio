@@ -35,13 +35,15 @@ export const useFlowChartGraph = () => {
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
-    (flow: ReactFlowJsonObject<ElementsData>, textNodes: Node<TextData>[]) => {
+    (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
-      setTextNodes(textNodes);
+      if (textNodes){
+        setTextNodes(textNodes);
+      }
       return true;
     },
     [setNodes, setEdges, setTextNodes],
