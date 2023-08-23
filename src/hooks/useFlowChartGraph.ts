@@ -53,7 +53,7 @@ export const useFlowChartGraph = () => {
         n.data.selected = n.selected;
       });
     });
-  }, [selectedNode]);
+  }, [selectedNode, setNodes]);
 
   /**
    * Creates a node mapping from nodeSection
@@ -81,7 +81,7 @@ export const useFlowChartGraph = () => {
     if (allNodes) {
       setNodesManifest(allNodes);
     }
-  }, []);
+  }, [addNodesToManifest, setNodesManifest]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
@@ -100,12 +100,14 @@ export const useFlowChartGraph = () => {
 
   const updateInitCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["initCtrls"][string],
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        node.data.initCtrls[inputData.param].value = inputData.value;
+        if (node.data.initCtrls){
+          node.data.initCtrls[inputData.param].value = inputData.value;
+        }
       }
     });
   };
