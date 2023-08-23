@@ -105,12 +105,13 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module, Option
     transformer = FlojoyNodeTransformer()
     tree: ast.Module = transformer.visit(tree)
 
-    overload: list[Any] | None = []
+    overload: dict[Any] | None = dict()
+    # This generates a dict with parameter: {display value: parameters to be displayed}
     for node in tree.body:
         if isinstance(node, ast.FunctionDef) and has_decorator(node, "display"):
-            overload_default, overload_val = extract_overload_arguments(node)
-            overload.append((overload_val, overload_default[:-1], overload_default[-1]))
-    if len(overload) == 0:
+            param, value, display = extract_overload_arguments(node)
+            overload.setdefault(param, {}).update({value: display})
+    if not overload:
         overload = None
 
     flojoy_node = find(
@@ -228,9 +229,11 @@ def find(collection: list[Any], predicate: Callable[[Any], bool]) -> Optional[An
     return next(filter(predicate, collection), None)
 
 
+# overload_param contains all the parameters in the OVERLOAD function
+# default_value is the trigger value for the parameters
 def extract_overload_arguments(node: ast.FunctionDef) -> Tuple:
-    arg_default = [arg.arg for arg in node.args.args]
+    overload_param = [arg.arg for arg in node.args.args]
     default_value = ast.literal_eval(node.args.defaults[0])
-    return (arg_default, default_value)
+    return overload_param[-1], default_value, overload_param[:-1]
 
 

@@ -172,7 +172,7 @@ class ManifestBuilder:
 
 
 def create_manifest(path: str) -> dict[str, Any]:
-    node_name, init_func_name, tree, overload_obj = make_manifest_ast(path)
+    node_name, init_func_name, tree, overload = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
@@ -188,16 +188,14 @@ def create_manifest(path: str) -> dict[str, Any]:
     if pip_deps:
         mb.with_pip_dependencies(pip_deps)
 
-    overload = None if overload_obj is None else get_overload(t=overload_obj)
-
     populate_manifest(func, mb, overload, node_name in SPECIAL_NODES)
 
     if init_func_name:
         init_func = getattr(module, init_func_name)
         populate_init_params(init_func.func, mb)
 
-
     return mb.build()
+
 
 def populate_manifest(
     func: Callable[..., Any], mb: ManifestBuilder, overload: dict[Any] | None, is_special_node: bool = False,
@@ -430,14 +428,6 @@ def get_full_type_name(t: Any) -> str:
         return f"{t.__origin__.__name__}[{arg_names}]"
     else:
         return t.__name__
-
-
-# This generates a dict with parameter: {display value: parameters to be displayed}
-def get_overload(t: list[tuple[Any]]) -> dict[Any]:
-    result = dict()
-    for value, display, param in t:
-        result.setdefault(param, {}).update({value: display})
-    return result
 
 
 def union_type_str(union: Any) -> str:
