@@ -7,7 +7,7 @@ import saveAs from "file-saver";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 
 export const SaveAsButton = () => {
-  const { nodes, edges } = useFlowChartGraph();
+  const { nodes, textNodes, edges } = useFlowChartGraph();
 
   const { rfInstance } = useFlowChartState();
 
@@ -29,6 +29,7 @@ export const SaveAsButton = () => {
     const fileContent = {
       rfInstance: updatedRf,
       ctrlsManifest,
+      textNodes,
     };
 
     const fileContentJsonString = JSON.stringify(fileContent, undefined, 4);
