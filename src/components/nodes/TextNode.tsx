@@ -18,7 +18,7 @@ const LinkRenderer = (props) => {
       href={props.href}
       target="_blank"
       onClick={handleClick}
-      className="hover:text-accent1"
+      className="text-accent1 hover:text-accent1-hover"
     >
       {props.children}
     </a>
@@ -84,9 +84,9 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
       onKeyDown={(e) => e.stopPropagation()}
     />
   ) : (
-    <div className="prose relative w-72 rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-3 prose-p:mt-1 prose-p:first:mt-2">
+    <div className="prose dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mt-1 prose-p:mb-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0 relative w-72 rounded-md border p-2">
       <div
-        className={cn("absolute top-1 flex h-2 w-full justify-between", {
+        className={cn("absolute -top-8 flex h-0 w-full justify-between", {
           hidden: !selected,
         })}
       >
