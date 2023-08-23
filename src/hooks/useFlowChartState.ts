@@ -39,6 +39,15 @@ export interface EnvVarCredentialType {
   value: string;
 }
 
+export type Project = {
+  name?: string;
+  rfInstance?: ReactFlowJsonObject<ElementsData>;
+};
+
+export const projectAtom = atomWithImmer<Project>({});
+export const projectPathAtom = atom<string | undefined>(undefined);
+export const showWelcomeScreenAtom = atom<boolean>(true);
+
 export const failedNodeAtom = atom<Record<string, string>>({});
 export const runningNodeAtom = atom<string>("");
 export const nodeStatusAtom = atom((get) => ({
@@ -47,9 +56,6 @@ export const nodeStatusAtom = atom((get) => ({
 }));
 
 const showLogsAtom = atomWithImmer<boolean>(false);
-const rfInstanceAtom = atomWithImmer<
-  ReactFlowJsonObject<ElementsData> | undefined
->(undefined);
 const editModeAtom = atomWithImmer<boolean>(false);
 const credentialsAtom = atomWithImmer<EnvVarCredentialType[]>([]);
 const isSidebarOpenAtom = atom<boolean>(false);
@@ -60,7 +66,6 @@ export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
 localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
-  const [rfInstance, setRfInstance] = useAtom(rfInstanceAtom);
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
   const [runningNode, setRunningNode] = useAtom(runningNodeAtom);
@@ -70,8 +75,6 @@ export function useFlowChartState() {
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
 
   return {
-    rfInstance,
-    setRfInstance,
     isEditMode,
     setIsEditMode,
     showLogs,
