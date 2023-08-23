@@ -46,6 +46,7 @@ export type Project = {
 
 export const projectAtom = atomWithImmer<Project>({});
 export const projectPathAtom = atom<string | undefined>(undefined);
+export const showWelcomeScreenAtom = atom<boolean>(true);
 
 export const failedNodeAtom = atom<Record<string, string>>({});
 export const runningNodeAtom = atom<string>("");

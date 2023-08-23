@@ -47,6 +47,7 @@ import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
+import { WelcomeModal } from "./views/WelcomeModal";
 
 localforage.config({
   name: "react-flow",
@@ -303,6 +304,8 @@ const FlowChartTab = () => {
         />
 
         <Toaster theme={theme} />
+
+        <WelcomeModal />
 
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
