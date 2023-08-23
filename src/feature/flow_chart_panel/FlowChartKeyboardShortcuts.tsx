@@ -16,6 +16,7 @@ const FlowChartKeyboardShortcuts = () => {
   //
   const save = useSave();
   useKeyboardShortcut("ctrl", "s", save);
+  useKeyboardShortcut("meta", "s", save);
 
   return <div></div>;
 };
