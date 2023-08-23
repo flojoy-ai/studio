@@ -76,7 +76,7 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
 
   return editing ? (
     <Textarea
-      className="nodrag w-64 overflow-hidden"
+      className="nodrag w-72 overflow-hidden"
       ref={ref}
       placeholder="Enter text here"
       value={data.text}
@@ -84,7 +84,7 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
       onKeyDown={(e) => e.stopPropagation()}
     />
   ) : (
-    <div className="prose relative w-64 rounded-md border p-2">
+    <div className="prose dark:prose-invert prose-headings:mt-3 prose-headings:mb-0 prose-p:first:mt-2 prose-p:mt-1 relative w-72 rounded-md border p-2">
       <div
         className={cn("absolute top-1 flex h-2 w-full justify-between", {
           hidden: !selected,
