@@ -45,7 +45,7 @@ export const GalleryElement = ({
       name: galleryApp.title,
       rfInstance: app.rfInstance,
     });
-    loadFlowExportObject(app.rfInstance);
+    loadFlowExportObject(app.rfInstance, app.textNodes ?? []);
     setProjectPath(undefined);
     setIsGalleryOpen(false);
     setHasUnsavedChanges(false);

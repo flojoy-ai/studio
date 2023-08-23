@@ -1,8 +1,9 @@
 import { ElementsData } from "@/types";
+import { TextData } from "@src/types/node";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
-import { ReactFlowJsonObject } from "reactflow";
+import { ReactFlowJsonObject, Node } from "reactflow";
 
 export type CtrlManifestParam = ElementsData["ctrls"][""] & {
   nodeId: string;
@@ -42,6 +43,7 @@ export interface EnvVarCredentialType {
 export type Project = {
   name?: string;
   rfInstance?: ReactFlowJsonObject<ElementsData>;
+  textNodes?: Node<TextData>[];
 };
 
 export const projectAtom = atomWithImmer<Project>({});
