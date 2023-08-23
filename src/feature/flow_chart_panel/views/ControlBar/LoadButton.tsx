@@ -30,7 +30,8 @@ export const LoadButton = () => {
       setProject(parsedFileContent);
       setProjectPath(path);
       setHasUnsavedChanges(false);
-      loadFlowExportObject(flow);
+      const textNodes = parsedFileContent.textNodes;
+      loadFlowExportObject(flow, textNodes);
       setProgramResults([]);
     },
   });

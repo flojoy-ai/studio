@@ -36,7 +36,7 @@ import { CenterObserver } from "./components/CenterObserver";
 // import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Pencil, Workflow, X } from "lucide-react";
+import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
@@ -46,6 +46,7 @@ import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
 import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useAddTextNode } from "./hooks/useAddTextNode";
 
 localforage.config({
   name: "react-flow",
@@ -70,8 +71,16 @@ const FlowChartTab = () => {
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
-    useFlowChartGraph();
+  const {
+    nodes,
+    setNodes,
+    textNodes,
+    setTextNodes,
+    edges,
+    setEdges,
+    selectedNode,
+    unSelectedNodes,
+  } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -86,6 +95,7 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const addTextNode = useAddTextNode();
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
@@ -132,8 +142,9 @@ const FlowChartTab = () => {
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
+      setTextNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes],
+    [setNodes, setTextNodes],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
@@ -240,6 +251,15 @@ const FlowChartTab = () => {
               <Workflow size={20} className="stroke-muted-foreground" />
               Add Node
             </Button>
+            <Button
+              data-testid="add-node-button"
+              className="gap-2"
+              variant="ghost"
+              onClick={addTextNode}
+            >
+              <Text size={20} className="stroke-muted-foreground" />
+              Add Text
+            </Button>
 
             <GalleryModal
               isGalleryOpen={isGalleryOpen}
@@ -309,10 +329,9 @@ const FlowChartTab = () => {
               position: "fixed",
               height: "100%",
               width: "50%",
-              textAlign: "center",
             }}
             proOptions={proOptions}
-            nodes={nodes}
+            nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
             edges={edges}
             edgeTypes={edgeTypes}
