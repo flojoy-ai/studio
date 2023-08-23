@@ -38,9 +38,18 @@ code {
   box-shadow: 0 0 0 0 #ffffff !important;
 }
 
-
 .react-flow__controls-button {
-  background-color: #0f0f0f;
+  background: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-bottom: 1px solid rgb(var(--color-accent1)) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: hsl(var(--background-accent)) !important;
+}
+
+.react-flow__controls-button svg {
+  fill: currentColor !important;
 }
 
 .react-flow__edge-path {

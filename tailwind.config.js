@@ -68,6 +68,7 @@ export default {
       },
       boxShadow: {
         around: "0px 0px 12px 2px var(--tw-shadow)",
+        control: "0 0 2px 1px hsl(var(--background-accent))",
       },
       keyframes: {
         "accordion-down": {

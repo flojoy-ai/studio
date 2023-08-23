@@ -332,8 +332,8 @@ const FlowChartTab = () => {
             />
             <Controls
               fitViewOptions={{ padding: 0.8 }}
-              className="![&>*]:bg-background !bottom-40"
-            ></Controls>
+              className="!shadow-control !bottom-40"
+            />
           </ReactFlow>
 
           <NodeExpandMenu
