@@ -43,9 +43,9 @@ export const GalleryElement = ({
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
     setProject({
       name: galleryApp.title,
-      rfInstance: app.rfInstance,
+      ...app,
     });
-    loadFlowExportObject(app.rfInstance);
+    loadFlowExportObject(app.rfInstance, app.textNodes ?? []);
     setProjectPath(undefined);
     setIsGalleryOpen(false);
     setHasUnsavedChanges(false);
