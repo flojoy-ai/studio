@@ -108,6 +108,6 @@ export default defineConfig(({ command }) => {
         "@/assets": path.resolve(__dirname, "src/assets"),
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
-    }
+    },
   };
 });
