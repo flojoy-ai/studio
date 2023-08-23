@@ -6,16 +6,19 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
+import { TextData } from "@src/types/node";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
+export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const nodesManifestAtom = atomWithImmer<NodeElement[]>([]);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
+  const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
   const [nodesManifest, setNodesManifest] = useAtom(nodesManifestAtom);
 
@@ -142,6 +145,8 @@ export const useFlowChartGraph = () => {
   return {
     nodes,
     setNodes,
+    textNodes,
+    setTextNodes,
     edges,
     setEdges,
     selectedNode,

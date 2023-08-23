@@ -8,6 +8,7 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
+import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -32,10 +33,7 @@ export const useAddNewNode = (
 
   return useCallback(
     (node: NodeElement) => {
-      const nodePosition = {
-        x: pos.x + (Math.random() - 0.5) * 30,
-        y: pos.y + (Math.random() - 0.5) * 30,
-      };
+      const nodePosition = addRandomPositionOffset(pos, 30);
       const funcName = node.key;
       const type = node.type;
       const params = node.parameters;
