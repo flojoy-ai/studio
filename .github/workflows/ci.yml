@@ -32,6 +32,11 @@ jobs:
 
       - name: Format dependencies
         run: pip3 install black && npm i
+      
+      - name: Generate manifest
+        run: |
+          python3 PYTHON/generate_manifest.py
+          python3 scripts/write_python_metadata.py
 
       - name: Run formatting check
         run: npm run check
