@@ -237,7 +237,6 @@ const FlowChartTab = () => {
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
-  // TODO: ReactControl bar should sync with theme colors
   return (
     <Layout>
       <ReactFlowProvider>
@@ -329,7 +328,7 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
-            className="!fixed !text-center"
+            className="!fixed"
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
