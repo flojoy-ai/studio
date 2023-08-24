@@ -332,7 +332,7 @@ const FlowChartTab = () => {
             />
             <Controls
               fitViewOptions={{ padding: 0.8 }}
-              className="!shadow-control !bottom-40"
+              className="!bottom-40 !shadow-control"
             />
           </ReactFlow>
 

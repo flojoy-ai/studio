@@ -1,6 +1,3 @@
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
 
 *, *::after, *::before: {
   box-sizing: border-box;
@@ -42,15 +39,10 @@ code {
   box-shadow: 0 0 0 0 #ffffff !important;
 }
 
-/*@layer components {*/
-/*  .react-flow__controls-button {*/
-/*    @apply bg-background fill-foreground hover:bg-background-hover !important*/
-/*  }*/
-/*}*/
 .react-flow__controls-button {
   background: hsl(var(--controls)) !important;
   color: hsl(var(--foreground)) !important;
-  border-bottom: 1px solid hsl(var(--muted-foreground)) !important;
+  border-bottom: 1px solid hsl(var(--controls-border)) !important;
 }
 
 .react-flow__controls-button:hover {
