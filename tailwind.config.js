@@ -21,7 +21,9 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -68,6 +70,7 @@ export default {
       },
       boxShadow: {
         around: "0px 0px 12px 2px var(--tw-shadow)",
+        control: "0 0 2px 1px hsl(var(--controls-hover))",
       },
       keyframes: {
         "accordion-down": {

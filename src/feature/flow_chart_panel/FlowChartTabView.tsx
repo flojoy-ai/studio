@@ -328,11 +328,7 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
-            style={{
-              position: "fixed",
-              height: "100%",
-              width: "50%",
-            }}
+            className="!fixed"
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
@@ -350,12 +346,7 @@ const FlowChartTab = () => {
             }}
           >
             <MiniMap
-              style={{
-                backgroundColor:
-                  resolvedTheme === "light"
-                    ? "rgba(0, 0, 0, 0.1)"
-                    : "rgba(255, 255, 255, 0.1)",
-              }}
+              className="!bottom-40 !bg-background"
               nodeColor={
                 resolvedTheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
@@ -369,7 +360,10 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
-            <Controls fitViewOptions={{ padding: 0.8 }} />
+            <Controls
+              fitViewOptions={{ padding: 0.8 }}
+              className="!bottom-40 !shadow-control"
+            />
           </ReactFlow>
 
           <NodeExpandMenu
