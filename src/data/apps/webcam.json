@@ -108,58 +108,6 @@
           "y": -79.61282695813804
         },
         "dragging": true
-      },
-      {
-        "width": 1176,
-        "height": 96,
-        "id": "TEXT-1d835aa5-b6ed-4ea5-875f-d28a8cfd20dc",
-        "type": "GENERATORS",
-        "data": {
-          "id": "TEXT-1d835aa5-b6ed-4ea5-875f-d28a8cfd20dc",
-          "label": "Follow the docs to use the CAMERA Node: https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/",
-          "func": "TEXT",
-          "type": "GENERATORS",
-          "ctrls": {
-            "value": {
-              "type": "str",
-              "default": "Hello World!",
-              "desc": "The value set in Parameters",
-              "functionName": "TEXT",
-              "param": "value",
-              "value": "Hello World!"
-            }
-          },
-          "initCtrls": {},
-          "inputs": [
-            {
-              "name": "_",
-              "id": "_",
-              "type": "Any",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "TextBlob",
-              "desc": "text_blob: return the value being set in Parameters"
-            }
-          ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TEXT/TEXT.py",
-          "selected": true
-        },
-        "position": {
-          "x": 650.4324577897779,
-          "y": -260.12862668423503
-        },
-        "selected": true,
-        "positionAbsolute": {
-          "x": 650.4324577897779,
-          "y": -260.12862668423503
-        },
-        "dragging": true
       }
     ],
     "edges": [
@@ -194,6 +142,27 @@
         "minW": 2,
         "i": "INPUT_PLACEHOLDER"
       }
+    }
+  ],
+  "textNodes": [
+    {
+      "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
+      "position": {
+        "x": 1050,
+        "y": -250
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the [Webcam](https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/) docs before running the app."
+      },
+      "width": 288,
+      "height": 50,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 356.1024827249459,
+        "y": -339.3802187008158
+      },
+      "dragging": false
     }
   ]
 }
