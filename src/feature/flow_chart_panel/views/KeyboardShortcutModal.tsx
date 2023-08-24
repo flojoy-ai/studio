@@ -57,7 +57,7 @@ const keyboardShortcuts = [
   },
   {
     command: "Open Side Bar Panel",
-    key: "Ctrl/⌘ T",
+    key: "Ctrl/⌘ K",
   },
   {
     command: "Zoom In",

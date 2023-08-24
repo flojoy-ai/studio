@@ -1,7 +1,6 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
@@ -33,7 +32,6 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-// import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
@@ -48,6 +46,7 @@ import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 localforage.config({
   name: "react-flow",
@@ -102,6 +101,9 @@ const FlowChartTab = () => {
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen],
   );
+
+  useKeyboardShortcut("ctrl", "k", toggleSidebar);
+  useKeyboardShortcut("meta", "k", toggleSidebar);
 
   const handleNodeRemove = useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -201,38 +203,6 @@ const FlowChartTab = () => {
   }, [selectedNode, setNodeFilePath, setPythonString]);
 
   const proOptions = { hideAttribution: true };
-
-  // const selectAllNodesShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       node.selected = true;
-  //     });
-  //   });
-  // };
-  //
-  // const deselectAllNodeShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       node.selected = false;
-  //     });
-  //   });
-  // };
-  //
-  // const deselectNodeShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       if (selectedNode !== null && node.id === selectedNode.id) {
-  //         node.selected = false;
-  //       }
-  //     });
-  //   });
-  // };
-
-  // useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
-  // useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
-  //
-  // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
-  // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
