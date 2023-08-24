@@ -38,6 +38,20 @@ code {
   box-shadow: 0 0 0 0 #ffffff !important;
 }
 
+.react-flow__controls-button {
+  background: hsl(var(--controls)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-bottom: 1px solid hsl(var(--controls-border)) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: hsl(var(--controls-hover)) !important;
+}
+
+.react-flow__controls-button svg {
+  fill: currentColor !important;
+}
+
 .react-flow__edge-path {
   stroke-width: 1.5;
 }

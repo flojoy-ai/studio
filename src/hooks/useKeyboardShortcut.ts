@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 
-export type Motifier = "ctrl" | "alt" | "shift" | "meta";
+export type Modifier = "ctrl" | "alt" | "shift" | "meta";
 const useKeyboardShortcut = (
-  motifier: Motifier,
+  modifier: Modifier,
   shortcut: string,
   callback: () => void,
 ) => {
@@ -13,7 +13,8 @@ const useKeyboardShortcut = (
 
   const handleShortcut = useCallback(
     (event: KeyboardEvent) => {
-      switch (motifier) {
+      console.log(event.key);
+      switch (modifier) {
         case "ctrl":
           if (event.key === shortcut && event.ctrlKey) {
             event.preventDefault();
