@@ -3,6 +3,7 @@ try:
 except ImportError:
     import json as ujson
 
+# TODO switch to multigraph
 class DiGraph:
     """
     This is a class that represents a directed graph.

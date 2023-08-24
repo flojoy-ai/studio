@@ -26,7 +26,7 @@ You can quickly turn them on and off accordingly and change their order.
 """
 FILTERS_FOR_FILES = [
     (convert_numpy_to_ulab, True),
-    (minify, True),
+    (minify,True) 
 ]
 """
 ________________________________________________________
