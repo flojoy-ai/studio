@@ -55,6 +55,10 @@ type SidebarNodeProps = {
   icon?: React.ReactNode;
 };
 
+type NodeChildren = {
+  [key: string]: string | NodeChildren | null;
+}[];
+
 const nodeTitleMatches = (query: string, node: NodeSection) =>
   Boolean(
     query !== "" &&
@@ -95,7 +99,7 @@ const SidebarNode = ({
       </div>
     );
   }
-  const categoryHasNode = (node.children as unknown[])?.every(
+  const categoryHasNode = (node.children as unknown as NodeChildren)?.every(
     (n) => !n.children,
   );
 
@@ -129,14 +133,16 @@ const SidebarNode = ({
     );
   }
 
-  const commands = (node.children as unknown[])?.filter((c) => !c.children);
+  const commands = (node.children as unknown as NodeChildren)?.filter(
+    (c) => !c.children,
+  );
   const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
     ? commands?.filter(
         (c) =>
-          c.key?.toLocaleLowerCase().includes(lowercased) ||
-          c.name?.toLocaleLowerCase().includes(lowercased),
+          (c.key as string)?.toLocaleLowerCase().includes(lowercased) ||
+          (c.name as string)?.toLocaleLowerCase().includes(lowercased),
       )
     : commands;
 
@@ -157,7 +163,7 @@ const SidebarNode = ({
       >
         {searchMatches?.map((command) => (
           <button
-            key={command.key}
+            key={command.key as string}
             className={twMerge(
               "mb-1.5 flex max-h-10 w-11/12 items-center justify-between rounded-sm border px-2 py-2.5 font-mono",
               sidebarVariants({
@@ -168,14 +174,14 @@ const SidebarNode = ({
               if (query !== "") {
                 sendEventToMix(
                   "Node Searched",
-                  command.name ?? "",
+                  (command.name as string) ?? "",
                   "nodeTitle",
                 );
               }
               leafClickHandler(command as unknown as NodeElement);
             }}
           >
-            {command.key ?? command.name}
+            {(command.key as string) ?? (command.name as string)}
             {icon}
           </button>
         ))}
