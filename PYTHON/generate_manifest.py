@@ -102,7 +102,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             __generated_nodes.append(n_file_name)
         except Exception as e:
             print(
-                "❌ Failed to generate manifest from ",
+                "❌ Failed to generate manifest from ".encode("utf-8"),
                 f"{os.path.basename(dir_path)}.py ",
                 e,
                 "\n",
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     map["children"].sort(key=sort_order)  # type: ignore
 
     print(
-        f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
+        f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !".encode("utf-8")
     )
     with open("src/data/manifests-latest.json", "w") as f:
         f.write(json.dumps(map, indent=3))
