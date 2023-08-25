@@ -1,12 +1,11 @@
 directories:
   output: dist
   buildResources: build
-appId: io.flojoy.desktop
+appId: ai.flojoy.studio
 productName: Flojoy Studio
 icon: public/favicon.ico
 asar: true
 files:
-  - dist-studio/**/*
   - dist-electron/**/*
   
 mac:
