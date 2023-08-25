@@ -49,7 +49,6 @@ export const saveFileAs = async (
     return filePath;
   }
 
-  console.log("using browser");
   const blob = new Blob([fileContent]);
   saveAs(blob, defaultFilename);
 };
