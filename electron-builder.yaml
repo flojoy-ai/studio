@@ -1,0 +1,26 @@
+directories:
+  output: dist
+  buildResources: build
+appId: io.flojoy.desktop
+productName: Flojoy Studio
+icon: public/favicon.ico
+asar: true
+files:
+  - dist-studio/**/*
+  - dist-electron/**/*
+  
+mac:
+  icon: public/favicon.icns
+  target:
+    - dmg
+  darkModeSupport: true
+linux:
+  icon: public/favicon.icns
+  target:
+    - deb
+    - tar.gz
+win:
+  icon: public/favicon.ico
+extraMetadata:
+  main: dist-electron/main/index.js
+extends: null

@@ -111,5 +111,9 @@ export default defineConfig(({ command }) => {
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
     },
+    base: "./",
+    build: {
+      outDir: "dist-studio"    
+    }
   };
 });

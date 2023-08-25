@@ -1,4 +1,4 @@
-*, *::after, *::before: {
+*, *::after, *::before {
   box-sizing: border-box;
 }
 
@@ -10,7 +10,6 @@ code {
 .btn-noborder {
   border: none;
   padding: 0;
-  background: none;
   outline: none;
   background: transparent;
 }

@@ -18,14 +18,11 @@ import { update } from "./update";
 // │ │ └── index.js    > Electron-Main
 // │ └─┬ preload
 // │   └── index.js    > Preload-Scripts
-// ├─┬ dist
+// ├─┬ dist-studio
 // │ └── index.html    > Electron-Renderer
 //
-process.env.DIST_ELECTRON = join(__dirname, "../");
-process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-  ? join(process.env.DIST_ELECTRON, "../public")
-  : process.env.DIST;
+const WORKING_DIR = join(__dirname, "../../");
+const PUBLIC_DIR = join(WORKING_DIR, "public");
 
 const envPath = process.env.PATH ?? "";
 
@@ -47,11 +44,11 @@ if (!app.requestSingleInstanceLock()) {
 const getIcon = () => {
   switch (process.platform) {
     case "win32":
-      return join(process.env.PUBLIC ?? "", "favicon.ico");
+      return join(PUBLIC_DIR, "favicon.ico");
     case "linux":
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
     default:
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
   }
 };
 
@@ -84,7 +81,7 @@ let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(process.env.DIST, "index.html");
+const indexHtml = join(WORKING_DIR, "dist-studio", "index.html");
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -126,13 +123,13 @@ async function createWindow() {
   win.maximize();
   win.show();
 
-  if (url) {
+  if (app.isPackaged) {
+    win.loadFile(indexHtml);
+  } else {
     // electron-vite-vue#298
-    win.loadURL(url);
+    win.loadURL(url ?? "http://localhost:5391");
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
-  } else {
-    win.loadFile(indexHtml);
   }
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
