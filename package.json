@@ -71,7 +71,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && electron-builder build",
     "backend": "python3 manage.py",
     "backend:debug": "python3 manage.py --log-level debug",
     "bundle-plotly": "cd node_modules/plotly.js && npm i && npm run custom-bundle -- --traces scatter,scatter3d,surface,table,histogram,image,bar,indicator,heatmap",
@@ -85,7 +85,7 @@
     "e2e": "CI=true cypress run --browser chrome",
     "cypress": "cypress open",
     "electron-dev": "electron .",
-    "electron-package": "npm run build && electron-builder build --publish always -w",
+    "electron-package": "npm run build && electron-builder build --publish always -wml",
     "electron-package:win": "electron-builder build --win --publish always",
     "electron-package:linux": "electron-builder build --linux --publish always",
     "electron-package:mac": "electron-builder build --mac --publish always",
