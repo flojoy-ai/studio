@@ -39,7 +39,6 @@ export const useSettings = (group: "frontend" | "backend") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {
-    console.log(key);
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {
