@@ -58,6 +58,7 @@ export const GalleryElement = ({
         padding: 0.8,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized]);
 
   return (

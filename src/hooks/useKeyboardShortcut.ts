@@ -13,7 +13,6 @@ const useKeyboardShortcut = (
 
   const handleShortcut = useCallback(
     (event: KeyboardEvent) => {
-      console.log(event.key);
       switch (modifier) {
         case "ctrl":
           if (event.key === shortcut && event.ctrlKey) {

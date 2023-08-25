@@ -35,13 +35,15 @@ export const useFlowChartGraph = () => {
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
-    (flow: ReactFlowJsonObject<ElementsData>, textNodes: Node<TextData>[]) => {
+    (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
-      setTextNodes(textNodes);
+      if (textNodes) {
+        setTextNodes(textNodes);
+      }
       return true;
     },
     [setNodes, setEdges, setTextNodes],
@@ -53,7 +55,7 @@ export const useFlowChartGraph = () => {
         n.data.selected = n.selected;
       });
     });
-  }, [selectedNode]);
+  }, [selectedNode, setNodes]);
 
   /**
    * Creates a node mapping from nodeSection
@@ -81,7 +83,7 @@ export const useFlowChartGraph = () => {
     if (allNodes) {
       setNodesManifest(allNodes);
     }
-  }, []);
+  }, [addNodesToManifest, setNodesManifest]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
@@ -100,12 +102,14 @@ export const useFlowChartGraph = () => {
 
   const updateInitCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["initCtrls"][string],
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        node.data.initCtrls[inputData.param].value = inputData.value;
+        if (node.data.initCtrls) {
+          node.data.initCtrls[inputData.param].value = inputData.value;
+        }
       }
     });
   };
