@@ -18,10 +18,11 @@ import { update } from "./update";
 // │ │ └── index.js    > Electron-Main
 // │ └─┬ preload
 // │   └── index.js    > Preload-Scripts
-// ├─┬ dist-studio
+// ├─┬ studio
 // │ └── index.html    > Electron-Renderer
 //
 const WORKING_DIR = join(__dirname, "../../");
+const DIS_ELECTRON = join(WORKING_DIR, "dist-electron");
 const PUBLIC_DIR = join(WORKING_DIR, "public");
 
 const envPath = process.env.PATH ?? "";
@@ -81,7 +82,7 @@ let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(WORKING_DIR, "dist-studio", "index.html");
+const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -127,7 +128,7 @@ async function createWindow() {
     win.loadFile(indexHtml);
   } else {
     // electron-vite-vue#298
-    win.loadURL(url ?? "http://localhost:5391");
+    win.loadURL(url ?? "");
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }

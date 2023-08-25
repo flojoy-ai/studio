@@ -113,7 +113,7 @@ export default defineConfig(({ command }) => {
     },
     base: "./",
     build: {
-      outDir: "dist-studio"    
+      outDir: "dist-electron/studio"    
     }
   };
 });
