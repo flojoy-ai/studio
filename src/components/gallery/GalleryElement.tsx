@@ -1,16 +1,18 @@
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import {
-  ReactFlowJsonObject,
-  useNodesInitialized,
-  useReactFlow,
-} from "reactflow";
-import { ElementsData } from "@/types";
+import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
 import { useEffect } from "react";
+import { useSetAtom } from "jotai";
+import {
+  Project,
+  projectAtom,
+  projectPathAtom,
+} from "@src/hooks/useFlowChartState";
+import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -22,6 +24,9 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const setProject = useSetAtom(projectAtom);
+  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
+  const setProjectPath = useSetAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
@@ -30,10 +35,20 @@ export const GalleryElement = ({
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
-    const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, unknown>;
+    const app = raw as Project;
+    if (!app.rfInstance) {
+      throw new Error("Gallery app is missing flow chart data");
+    }
+
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
-    loadFlowExportObject(flow);
+    setProject({
+      name: galleryApp.title,
+      rfInstance: app.rfInstance,
+    });
+    loadFlowExportObject(app.rfInstance, app.textNodes ?? []);
+    setProjectPath(undefined);
     setIsGalleryOpen(false);
+    setHasUnsavedChanges(false);
   };
 
   useEffect(() => {
@@ -43,6 +58,7 @@ export const GalleryElement = ({
         padding: 0.8,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized]);
 
   return (

@@ -1,4 +1,4 @@
-import { useFlowChartState } from "@hooks/useFlowChartState";
+import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 // import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
@@ -36,14 +36,18 @@ import { CenterObserver } from "./components/CenterObserver";
 // import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Pencil, Workflow, X } from "lucide-react";
+import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast, Toaster } from "sonner";
-import { useTheme } from "@src/providers/theme-provider";
+import { useTheme } from "@src/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
 import { ResizeFitter } from "./components/ResizeFitter";
 import NodeEditModal from "./components/node-edit-menu/NodeEditModal";
+import { useAtom } from "jotai";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useAddTextNode } from "./hooks/useAddTextNode";
+import { WelcomeModal } from "./views/WelcomeModal";
 
 localforage.config({
   name: "react-flow",
@@ -53,16 +57,13 @@ localforage.config({
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
+  const [project, setProject] = useAtom(projectAtom);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
 
   const { theme, resolvedTheme } = useTheme();
 
-  const {
-    isSidebarOpen,
-    setIsSidebarOpen,
-    setRfInstance,
-    isEditMode,
-    setIsEditMode,
-  } = useFlowChartState();
+  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
+    useFlowChartState();
 
   const {
     states: { programResults },
@@ -71,8 +72,16 @@ const FlowChartTab = () => {
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
 
-  const { nodes, setNodes, edges, setEdges, selectedNode, unSelectedNodes } =
-    useFlowChartGraph();
+  const {
+    nodes,
+    setNodes,
+    textNodes,
+    setTextNodes,
+    edges,
+    setEdges,
+    selectedNode,
+    unSelectedNodes,
+  } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -87,6 +96,7 @@ const FlowChartTab = () => {
   );
 
   const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const addTextNode = useAddTextNode();
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
@@ -100,8 +110,9 @@ const FlowChartTab = () => {
         prev.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
       );
       sendEventToMix("Node Deleted", nodeLabel, "nodeTitle");
+      setHasUnsavedChanges(true);
     },
-    [setNodes, setEdges],
+    [setNodes, setEdges, setHasUnsavedChanges],
   );
 
   const edgeTypes: EdgeTypes = useMemo(
@@ -120,23 +131,30 @@ const FlowChartTab = () => {
     rfIns.fitView({
       padding: 0.8,
     });
-    setRfInstance(rfIns.toObject());
+    setProject({ ...project, rfInstance: rfIns.toObject() });
   };
   const handleNodeDrag: NodeDragHandler = (_, node) => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
       nodes[nodeIndex] = node;
+      setHasUnsavedChanges(true);
     });
   };
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
+      setTextNodes((ns) => applyNodeChanges(changes, ns));
     },
-    [setNodes],
+    [setNodes, setTextNodes],
   );
   const onEdgesChange: OnEdgesChange = useCallback(
-    (changes) => setEdges((es) => applyEdgeChanges(changes, es)),
-    [setEdges],
+    (changes) => {
+      setEdges((es) => applyEdgeChanges(changes, es));
+      if (!changes.every((c) => c.type === "select")) {
+        setHasUnsavedChanges(true);
+      }
+    },
+    [setEdges, setHasUnsavedChanges],
   );
   const onConnect: OnConnect = useCallback(
     (connection) =>
@@ -161,6 +179,7 @@ const FlowChartTab = () => {
       setNodes((prev) =>
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
+      setHasUnsavedChanges(true);
     },
     [setNodes],
   );
@@ -168,7 +187,8 @@ const FlowChartTab = () => {
   const clearCanvas = useCallback(() => {
     setNodes([]);
     setEdges([]);
-  }, [setNodes, setEdges]);
+    setHasUnsavedChanges(true);
+  }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {
     if (selectedNode === null) {
@@ -232,6 +252,15 @@ const FlowChartTab = () => {
               <Workflow size={20} className="stroke-muted-foreground" />
               Add Node
             </Button>
+            <Button
+              data-testid="add-node-button"
+              className="gap-2"
+              variant="ghost"
+              onClick={addTextNode}
+            >
+              <Text size={20} className="stroke-muted-foreground" />
+              Add Text
+            </Button>
 
             <GalleryModal
               isGalleryOpen={isGalleryOpen}
@@ -276,6 +305,8 @@ const FlowChartTab = () => {
 
         <Toaster theme={theme} />
 
+        <WelcomeModal />
+
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
           className="relative overflow-hidden"
@@ -297,14 +328,9 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
-            style={{
-              position: "fixed",
-              height: "100%",
-              width: "50%",
-              textAlign: "center",
-            }}
+            className="!fixed"
             proOptions={proOptions}
-            nodes={nodes}
+            nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
             edges={edges}
             edgeTypes={edgeTypes}
@@ -320,12 +346,7 @@ const FlowChartTab = () => {
             }}
           >
             <MiniMap
-              style={{
-                backgroundColor:
-                  resolvedTheme === "light"
-                    ? "rgba(0, 0, 0, 0.1)"
-                    : "rgba(255, 255, 255, 0.1)",
-              }}
+              className="!bottom-40 !bg-background"
               nodeColor={
                 resolvedTheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
@@ -339,7 +360,10 @@ const FlowChartTab = () => {
               zoomable
               pannable
             />
-            <Controls fitViewOptions={{ padding: 0.8 }} />
+            <Controls
+              fitViewOptions={{ padding: 0.8 }}
+              className="!bottom-40 !shadow-control"
+            />
           </ReactFlow>
 
           <NodeExpandMenu

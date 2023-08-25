@@ -47,8 +47,19 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt && npm i
+
+      - name: Generate manifest
+        run: |
+          python3 PYTHON/generate_manifest.py
+          python3 scripts/write_python_metadata.py
+
+      - name: Typescript check
+        run: npx tsc --noEmit
 
       - name: pytest
         run: |

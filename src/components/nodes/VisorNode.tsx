@@ -21,9 +21,11 @@ import Bar from "@/assets/nodes/Bar";
 import Table from "@/assets/nodes/Table";
 import Image from "@/assets/nodes/Image";
 import MarkDownText from "@/components/common/MarkDownText";
+import { useTheme } from "@src/providers/themeProvider";
 import PeakFinder from "@/assets/nodes/PeakFinder";
 import RegionInspector from "@/assets/nodes/RegionInspector";
-import { useTheme } from "@src/providers/theme-provider";
+import TextView from "@src/assets/nodes/TextView";
+import Heatmap from "@src/assets/nodes/Heatmap";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -41,9 +43,10 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   PROPHET_PLOT: <ProphetPlot />,
   PROPHET_COMPONENTS: <ProphetComponents />,
   COMPOSITE: <CompositePlot />,
-  TEXT_VIEW: <Table />,
+  TEXT_VIEW: <TextView />,
   EXTREMA_DETERMINATION: <PeakFinder />,
   REGION_PROPERTIES: <RegionInspector />,
+  HEATMAP: <Heatmap />,
 };
 
 const VisorNode = (props: CustomNodeProps) => {

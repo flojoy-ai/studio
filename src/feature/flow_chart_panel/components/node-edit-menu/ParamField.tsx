@@ -11,6 +11,7 @@ import {
 import { Switch } from "@src/components/ui/switch";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -33,17 +34,18 @@ const ParamField = ({
   nodeReferenceOptions,
 }: ParamFieldProps) => {
   const { setNodeParamChanged } = useFlowChartState();
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const handleChange = (value: number | string | boolean) => {
-    setNodeParamChanged(true);
     updateFunc(nodeId, {
       ...nodeCtrl,
       value,
     });
+    setNodeParamChanged(true);
+    setHasUnsavedChanges(true);
   };
 
   const value = nodeCtrl.value;
 
-  // TODO: Number inputs don't work
   switch (type) {
     case "float":
       return (
@@ -81,11 +83,11 @@ const ParamField = ({
       );
     case "select":
       return (
-        <Select>
+        <Select onValueChange={handleChange}>
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1">
             <SelectValue placeholder={value} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-72">
             {(options ?? []).map((option) => (
               <SelectItem key={option} value={option}>
                 {option}
@@ -96,11 +98,11 @@ const ParamField = ({
       );
     case "NodeReference":
       return (
-        <Select>
+        <Select onValueChange={handleChange}>
           <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 ">
             <SelectValue placeholder={value} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-72">
             {(nodeReferenceOptions ?? []).map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}

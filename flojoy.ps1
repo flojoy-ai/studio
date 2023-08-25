@@ -62,6 +62,7 @@ $initSubmodule = $true
 $enableSentry = $true
 $enableTelemetry = $false
 $isDebugMode = $false
+$isRemoteMode = $false
 
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -84,7 +85,7 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -s -S -T -v venv -d"
+  Write-Host "Usage: $0 -n -p -s -S -T -v venv -d -r"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
   Write-Host  " -s: To NOT update submodules"
@@ -92,6 +93,7 @@ function helpFunction {
   Write-Host  " -T: To enable Telemetry"
   Write-Host  " -v: To use virtual env"
   Write-Host  " -d: To enable debug mode"
+  Write-Host  " -r: To start studio in remote mode without electron"
 }
 
 # Assign command-line arguments to a variable
@@ -123,6 +125,11 @@ while ($arguments) {
   }
   elseif ($key -ceq "-s") {
     $initSubmodule = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-r") {
+    $isRemoteMode = $true
     $index = $index + 1
     continue
   }
@@ -270,6 +277,14 @@ if ( $enableTelemetry -eq $true ) {
 else {
   info_msg "Telemetry will be disabled!"
   $Env:FLOJOY_ENABLE_TELEMETRY = 0
+}
+# setup deploy environment
+if ( $isRemoteMode -eq $true ) {
+  info_msg "Electron will be disabled!"
+  $Env:DEPLOY_ENV = "remote"
+}
+else {
+  $Env:DEPLOY_ENV = "local"
 }
 
 # Start the project

@@ -1,4 +1,11 @@
-import { app, BrowserWindow, shell, ipcMain, nativeImage } from "electron";
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  nativeImage,
+  dialog,
+} from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
@@ -48,6 +55,22 @@ const getIcon = () => {
   }
 };
 
+const handleSetUnsavedChanges = (_, value: boolean) => {
+  global.hasUnsavedChanges = value;
+};
+
+const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
+  return await dialog.showSaveDialog({
+    defaultPath: defaultFilename,
+    filters: [
+      {
+        name: "json",
+        extensions: ["json"],
+      },
+    ],
+  });
+};
+
 // Remove electron security warnings
 // This warning only shows in development mode
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
@@ -77,6 +100,22 @@ async function createWindow() {
       nodeIntegration: true,
     },
     show: false,
+  });
+
+  global.hasUnsavedChanges = true;
+
+  win.on("close", (e) => {
+    if (!global.hasUnsavedChanges) {
+      return;
+    }
+    const choice = dialog.showMessageBoxSync(win!, {
+      type: "question",
+      buttons: ["Yes", "No, go back"],
+      title: "Quit?",
+      message:
+        "You have unsaved changes. Are you sure you want to quit Flojoy Studio?",
+    });
+    if (choice > 0) e.preventDefault();
   });
 
   // setting icon for mac
@@ -110,7 +149,11 @@ async function createWindow() {
   update(win);
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
+  ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   win = null;

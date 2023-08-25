@@ -4,7 +4,7 @@ import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@src/components/ui/button";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";
 import {
@@ -15,6 +15,7 @@ import {
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
+import { useAtom } from "jotai";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -22,31 +23,36 @@ const FlowControlButtons = () => {
 
   const { settings } = useSettings("backend");
 
-  const { rfInstance, setRfInstance, setNodeParamChanged } =
-    useFlowChartState();
+  const { setNodeParamChanged } = useFlowChartState();
+
+  const [project, setProject] = useAtom(projectAtom);
 
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
   const cancelFC = () => {
-    if (rfInstance && rfInstance.nodes.length > 0) {
-      cancelFlowChartRun(rfInstance, socketId);
+    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
+      cancelFlowChartRun(project.rfInstance, socketId);
     } else {
       alert("There is no running job on server.");
     }
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance && rfInstance.nodes.length > 0) {
+    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
       const updatedRfInstance = {
-        ...rfInstance,
+        ...project.rfInstance,
         nodes,
         edges,
       };
-      setRfInstance(updatedRfInstance);
+
+      setProject({
+        ...project,
+        rfInstance: updatedRfInstance,
+      });
 
       saveFlowChartToLocalStorage(updatedRfInstance);
-      sendProgramToMix(rfInstance.nodes, true, false);
+      sendProgramToMix(project.rfInstance.nodes, true, false);
       // setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
