@@ -25,6 +25,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Run startup script
+        run: bash flojoy -c
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
