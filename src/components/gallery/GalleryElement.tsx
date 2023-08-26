@@ -13,6 +13,7 @@ import {
   projectPathAtom,
 } from "@src/hooks/useFlowChartState";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
+import { useSocket } from "@src/hooks/useSocket";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -32,6 +33,8 @@ export const GalleryElement = ({
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
+  const { states } = useSocket();
+  const { setProgramResults } = states;
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
@@ -49,6 +52,7 @@ export const GalleryElement = ({
     setProjectPath(undefined);
     setIsGalleryOpen(false);
     setHasUnsavedChanges(false);
+    setProgramResults([]);
   };
 
   useEffect(() => {

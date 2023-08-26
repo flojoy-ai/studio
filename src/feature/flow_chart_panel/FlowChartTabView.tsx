@@ -64,9 +64,8 @@ const FlowChartTab = () => {
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
 
-  const {
-    states: { programResults },
-  } = useSocket();
+  const { states } = useSocket();
+  const { programResults, setProgramResults } = states;
 
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
@@ -190,6 +189,7 @@ const FlowChartTab = () => {
     setNodes([]);
     setEdges([]);
     setHasUnsavedChanges(true);
+    setProgramResults([]);
   }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {
