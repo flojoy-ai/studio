@@ -8,7 +8,6 @@ import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";
 import {
-  saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
 } from "@src/services/FlowChartServices";
@@ -52,7 +51,6 @@ const FlowControlButtons = () => {
         rfInstance: updatedRfInstance,
       });
 
-      saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(project.rfInstance.nodes, true, false);
       // setProgramResults([]);
       saveAndRunFlowChartInServer({
