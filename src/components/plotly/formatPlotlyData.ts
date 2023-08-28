@@ -1,7 +1,7 @@
 import { DataContainer2PlotlyProps, OverridePlotData } from "@src/types/plotly";
 
-const NUM_OF_COLUMNS = 2;
-const NUM_OF_ROWS = 20;
+const NUM_OF_COLUMNS = 4;
+const NUM_OF_ROWS = 5;
 const MATRIX_COLUMNS = 4;
 
 export const makePlotlyData = (
@@ -15,6 +15,15 @@ export const makePlotlyData = (
 
   const accentColor = theme === "dark" ? "#99f5ff" : "#7b61ff";
   return data.map((d, d_index) => {
+    // if (
+    //   d.header?.values?.length &&
+    //   d.header.values.length > NUM_OF_COLUMNS &&
+    //   d.type === "table"
+    // ) {
+    //   console.log(d.header.values.length);
+    //   console.log(d.cells?.values?.some((i) => i.length > NUM_OF_ROWS));
+    //   console.log("this worked!");
+    // }
     return {
       ...d,
       ...(d.type === "table" && {
