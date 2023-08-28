@@ -98,6 +98,11 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module]:
 
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
         print(f"⚠️ {node_name} has no return type hint, will have no output!")
+    elif (
+        isinstance(flojoy_node.returns, ast.Constant)
+        and flojoy_node.returns.value is None
+    ):
+        pass
     else:
         # This handles the case where the return type is a union, we can ignore
         # all of the class defs in this case
