@@ -1,4 +1,5 @@
 {
+  "name": "Stream to Flojoy Cloud",
   "rfInstance": {
     "nodes": [
       {
@@ -278,90 +279,6 @@
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
-        "id": "HISTOGRAM-f9483fdf-a2c0-4de2-bda5-8900acba4124",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "HISTOGRAM-f9483fdf-a2c0-4de2-bda5-8900acba4124",
-          "label": "HISTOGRAM",
-          "func": "HISTOGRAM",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
-          "selected": false
-        },
-        "position": {
-          "x": 468.86116480963676,
-          "y": 209.0908125029356
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 468.86116480963676,
-          "y": 209.0908125029356
-        },
-        "dragging": true
-      },
-      {
-        "width": 380,
-        "height": 293,
-        "id": "SCATTER-55268351-79af-4a28-a22c-d85b261b9681",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "SCATTER-55268351-79af-4a28-a22c-d85b261b9681",
-          "label": "SCATTER",
-          "func": "SCATTER",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly",
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
-          "selected": false
-        },
-        "position": {
-          "x": 469.60658141863746,
-          "y": -266.0343731067944
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 469.60658141863746,
-          "y": -266.0343731067944
-        },
-        "dragging": true
-      },
-      {
         "width": 208,
         "height": 96,
         "id": "LINSPACE-ff91bdbd-19d5-48aa-bca3-a11b3ffbfb9b",
@@ -432,10 +349,10 @@
       {
         "width": 160,
         "height": 160,
-        "id": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+        "id": "FLOJOY_CLOUD_UPLOAD-4cbdf58e-2adc-4274-ab56-4564e504c2c2",
         "type": "LOADERS",
         "data": {
-          "id": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+          "id": "FLOJOY_CLOUD_UPLOAD-4cbdf58e-2adc-4274-ab56-4564e504c2c2",
           "label": "FLOJOY CLOUD UPLOAD",
           "func": "FLOJOY_CLOUD_UPLOAD",
           "type": "LOADERS",
@@ -446,14 +363,6 @@
               "desc": null,
               "functionName": "FLOJOY_CLOUD_UPLOAD",
               "param": "measurement_id",
-              "value": ""
-            },
-            "dc_id": {
-              "type": "str",
-              "default": null,
-              "desc": null,
-              "functionName": "FLOJOY_CLOUD_UPLOAD",
-              "param": "dc_id",
               "value": ""
             }
           },
@@ -472,20 +381,106 @@
               "name": "default",
               "id": "default",
               "type": "Any",
-              "desc": null
+              "desc": "The input DataContainer will be returned as it is"
             }
           ],
           "path": "PYTHON/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/FLOJOY_CLOUD_UPLOAD.py",
           "selected": false
         },
         "position": {
-          "x": 561.4337200278916,
-          "y": 34.468511362970105
+          "x": 557.7547054557998,
+          "y": 15.548986302770658
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 561.4337200278916,
-          "y": 34.468511362970105
+          "x": 557.7547054557998,
+          "y": 15.548986302770658
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "SCATTER-8d1b541c-bc20-4f5a-9edf-fc869a2ee455",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "SCATTER-8d1b541c-bc20-4f5a-9edf-fc869a2ee455",
+          "label": "SCATTER",
+          "func": "SCATTER",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Scatter visualization"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/SCATTER/SCATTER.py",
+          "selected": false
+        },
+        "position": {
+          "x": 564.6301175004844,
+          "y": -279.30453618751875
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 564.6301175004844,
+          "y": -279.30453618751875
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "HISTOGRAM-00373548-4394-4e07-b3f2-5bb477cab49f",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "HISTOGRAM-00373548-4394-4e07-b3f2-5bb477cab49f",
+          "label": "HISTOGRAM",
+          "func": "HISTOGRAM",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Histogram visualization"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/HISTOGRAM/HISTOGRAM.py",
+          "selected": false
+        },
+        "position": {
+          "x": 562.3195835589048,
+          "y": 223.00863334171498
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 562.3195835589048,
+          "y": 223.00863334171498
         },
         "dragging": true
       }
@@ -507,25 +502,11 @@
         "selected": false
       },
       {
-        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
-        "sourceHandle": "default",
-        "target": "HISTOGRAM-f9483fdf-a2c0-4de2-bda5-8900acba4124",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-HISTOGRAM-f9483fdf-a2c0-4de2-bda5-8900acba4124default"
-      },
-      {
         "source": "SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08",
         "sourceHandle": "default",
         "target": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
         "targetHandle": "a",
         "id": "reactflow__edge-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08default-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6a"
-      },
-      {
-        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
-        "sourceHandle": "default",
-        "target": "SCATTER-55268351-79af-4a28-a22c-d85b261b9681",
-        "targetHandle": "default",
-        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-SCATTER-55268351-79af-4a28-a22c-d85b261b9681default"
       },
       {
         "source": "LINSPACE-ff91bdbd-19d5-48aa-bca3-a11b3ffbfb9b",
@@ -551,9 +532,23 @@
       {
         "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
         "sourceHandle": "default",
-        "target": "FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39",
+        "target": "FLOJOY_CLOUD_UPLOAD-4cbdf58e-2adc-4274-ab56-4564e504c2c2",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-FLOJOY_CLOUD_UPLOAD-bec4ce62-becd-4507-8495-9a060514fe39default"
+        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-FLOJOY_CLOUD_UPLOAD-4cbdf58e-2adc-4274-ab56-4564e504c2c2default"
+      },
+      {
+        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
+        "sourceHandle": "default",
+        "target": "SCATTER-8d1b541c-bc20-4f5a-9edf-fc869a2ee455",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-SCATTER-8d1b541c-bc20-4f5a-9edf-fc869a2ee455default"
+      },
+      {
+        "source": "ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6",
+        "sourceHandle": "default",
+        "target": "HISTOGRAM-00373548-4394-4e07-b3f2-5bb477cab49f",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-a3c1e32a-5032-4bed-8814-29f803ace0b6default-HISTOGRAM-00373548-4394-4e07-b3f2-5bb477cab49fdefault"
       }
     ],
     "viewport": {
@@ -561,24 +556,5 @@
       "y": 320.7174076848424,
       "zoom": 0.6801446908048335
     }
-  },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ]
+  }
 }

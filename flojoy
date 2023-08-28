@@ -259,7 +259,7 @@ $venvCmd && python3 scripts/write_python_metadata.py
 
 feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
 
-# Generate Manifest
+# Generate Manifest, will exit the script if it fails
 
 $venvCmd && python3 PYTHON/generate_manifest.py
 
