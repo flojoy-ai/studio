@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "studio"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+flojoy = {git = "https://github.com/flojoy-ai/python", rev = "main"}
+fastapi = "^0.103.0"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+pyyaml = "^6.0.1"
+numpy = "^1.25.2"
+networkx = "^3.1"
+pandas = "^2.0.3"
+docstring-parser = "^0.15"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
