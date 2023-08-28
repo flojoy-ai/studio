@@ -483,7 +483,7 @@ scipy = "^1.11.2"
 type = "git"
 url = "https://github.com/flojoy-ai/python"
 reference = "main"
-resolved_reference = "c239577cc59cea3c115eb9c52afc7850336ed817"
+resolved_reference = "4242b91eb73dfa6819e8eaddab2492c8eb124390"
 
 [[package]]
 name = "fsspec"
