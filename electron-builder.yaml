@@ -7,7 +7,23 @@ icon: public/favicon.ico
 asar: true
 files:
   - dist-electron/**/*
-  
+
+extraResources:
+  - from: "scripts/backend.ps1"
+    to: "backend/backend.ps1"
+  - from: "scripts/backend.sh"
+    to: "backend/backend.sh"
+  - from: "captain"
+    to: "backend/captain"
+  - from: "PYTHON"
+    to: "backend/PYTHON"
+  - from: "manage.py"
+    to: "backend/manage.py"
+  - from: "requirements.txt"
+    to: "backend/requirements.txt"
+  - from: "STATUS_CODES.yml"
+    to: "backend/STATUS_CODES.yml"
+
 mac:
   icon: public/favicon.icns
   target:

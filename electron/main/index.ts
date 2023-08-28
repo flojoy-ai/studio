@@ -10,6 +10,8 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
+import { killSubProcess, runBackend } from "./backend";
+import { ChildProcess } from "node:child_process";
 
 // The built directory structure
 //
@@ -77,7 +79,7 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
-
+let backendProcess: ChildProcess | undefined;
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
@@ -106,6 +108,17 @@ async function createWindow() {
     if (!global.hasUnsavedChanges) {
       return;
     }
+    if (global.initializingBackend) {
+      const choice = dialog.showMessageBoxSync(win!, {
+        type: "warning",
+        buttons: ["Yes", "No, go back"],
+        title: "Quit?",
+        message:
+          "Backend initialization is underway. Are you sure you want to quit?",
+      });
+      if (choice > 0) e.preventDefault();
+      return;
+    }
     const choice = dialog.showMessageBoxSync(win!, {
       type: "question",
       buttons: ["Yes", "No, go back"],
@@ -125,13 +138,36 @@ async function createWindow() {
   win.show();
 
   if (app.isPackaged) {
+    global.initializingBackend = true;
     win.loadFile(indexHtml);
+    dialog.showMessageBox(win, {
+      icon: getIcon(),
+      message: "Initializing backend..",
+      detail:
+        "Initilization can take few minutes for the first time. Please be patient!",
+    });
+    const { script, success } = await runBackend(WORKING_DIR);
+    if (success) {
+      global.initializingBackend = false;
+      backendProcess = script;
+      dialog.showMessageBox(win, {
+        message: "Backend is up and running!",
+        detail: "Backend is initialized successfully...",
+        icon: getIcon(),
+      });
+    } else {
+      dialog.showErrorBox(
+        "Backend initialization failed",
+        "Failed to initialize backend. Please relunch the app...",
+      );
+    }
   } else {
     // electron-vite-vue#298
     win.loadURL(url ?? "");
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
+
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -153,7 +189,10 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on("window-all-closed", () => {
+app.on("window-all-closed", async () => {
+  if (backendProcess) {
+    await killSubProcess(backendProcess);
+  }
   win = null;
   if (process.platform !== "darwin") app.quit();
 });

@@ -1,15 +1,16 @@
-import uvicorn
-import os
 
 __ignore_list = ["venv"]
 
 if __name__ == "__main__":
-    log_level = os.environ.get("FASTAPI_LOG", "error")
+    import uvicorn
+    import os
+    log_level = os.environ.get("FASTAPI_LOG", "info")
+    is_dev = os.environ.get("DEPLOY_STATUS", 'dev') == "dev"
     uvicorn.run(
         "captain.main:app",
         port=5392,
         log_level=log_level,
-        reload=True,
+        reload=is_dev,
         reload_excludes=[
             os.path.join(os.getcwd(), p)
             for p in __ignore_list
