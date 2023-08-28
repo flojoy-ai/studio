@@ -32,7 +32,8 @@ describe("Modify settings in control bar", () => {
 
     cy.percySnapshot("dark flow page with settings modal with input");
 
-    cy.get('button:contains("x")').click({ force: true, multiple: true });
+    // Click close button
+    cy.get('[role="dialog"] > button').click();
 
     //check the light mode
     cy.get('[data-testid="darkmode-toggle"]').click();

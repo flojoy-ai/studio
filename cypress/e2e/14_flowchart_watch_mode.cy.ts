@@ -23,6 +23,7 @@ describe("Testing flowchart watch mode", () => {
     cy.get(
       '[data-testid="rf__node-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11"]',
     ).click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     cy.percySnapshot("dark flow page with CONSTANT menu");
     cy.get('[data-testid="float-input"]')
       .eq(0)

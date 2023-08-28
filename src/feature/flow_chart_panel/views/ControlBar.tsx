@@ -83,7 +83,7 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="file-btn">
+            <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
             <MenubarContent>

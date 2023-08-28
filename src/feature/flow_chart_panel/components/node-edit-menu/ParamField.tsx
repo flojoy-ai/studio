@@ -104,9 +104,9 @@ const ParamField = ({
         <Select onValueChange={handleChange}>
           <SelectTrigger
             className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
-            data-testid="select-input"
+            data-testid="node-reference-input"
           >
-            <SelectValue placeholder={value} data-testid="select-input-value" />
+            <SelectValue placeholder={value} />
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {(nodeReferenceOptions ?? []).map((option) => (

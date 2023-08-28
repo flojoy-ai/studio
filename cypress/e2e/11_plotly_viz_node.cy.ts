@@ -10,6 +10,7 @@ describe("Set plotly node visual tests", () => {
     cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
 
     cy.get('[data-testid="add-node-button"]').click();
     //Select container Visualizers

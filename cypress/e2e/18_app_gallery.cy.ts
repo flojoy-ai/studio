@@ -9,7 +9,7 @@ describe("Checking app gallery feature", () => {
 
     cy.get(`[data-testid="app-gallery-btn"]`).click();
     // Select "Intro to LOOPS"
-    cy.get('[data-testid="gallery-element-btn"]').eq(0).click();
+    cy.get('[data-testid="gallery-load-button"]').eq(0).click();
 
     // center screen
     cy.get("body").type("{cmd}1");
@@ -17,6 +17,6 @@ describe("Checking app gallery feature", () => {
     cy.percySnapshot("Correctly generated app");
 
     // Check that app contains exactly 3 nodes
-    cy.get('[data-testid="node-wrapper"]').should("have.length", 3);
+    cy.get('[data-testid="node-wrapper"]').should("have.length", 7);
   });
 });

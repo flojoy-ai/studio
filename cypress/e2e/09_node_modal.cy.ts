@@ -20,7 +20,9 @@ describe("Verify node modal", () => {
     // Click expand button
     cy.get('[data-testid="node-info-button"]').click();
     cy.percySnapshot("dark mode with SINE expand button clicked");
-    cy.get('button:contains("x")').click({ force: true, multiple: true });
+
+    // Click close button
+    cy.get('[role="dialog"] > button').click();
 
     // Test in light mode
     cy.get('[data-testid="darkmode-toggle"]').click();

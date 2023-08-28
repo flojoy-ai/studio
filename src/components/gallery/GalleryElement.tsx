@@ -66,7 +66,7 @@ export const GalleryElement = ({
   }, [nodesInitialized]);
 
   return (
-    <div data-testid="gallery-element-btn" className="min-h-40 m-1">
+    <div className="min-h-40 m-1">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
           <AvatarImage className="object-contain" src={galleryApp.imagePath} />
@@ -99,6 +99,7 @@ export const GalleryElement = ({
               variant="outline"
               size="sm"
               className="gap-2"
+              data-testid="gallery-load-button"
               onClick={async () => {
                 await handleAppLoad();
               }}

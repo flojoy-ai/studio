@@ -22,23 +22,23 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", "square").click();
-      cy.get($element.children('[data-testid="select-input-value"]')).should(
-        "have.value",
-        "square",
-      );
+      cy.get($element.children("span")).should("have.text", "square");
     });
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-close-button"]').click();
 
     // Click clear canvas button
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
+
     cy.get('[data-testid="add-node-button"]').click();
-    // Add ARGRELMAX node
+    // Add BSPLINE node
     cy.get('[data-testid="sidebar-input"]').type("bspline");
     cy.get("button").contains("BSPLINE").click();
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').contains("BSPLINE").click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     // Modify int parameters
     cy.get('[data-testid="int-input"]').each(($element) => {
       cy.get($element).type("{selectall}{backspace}");
@@ -49,6 +49,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     cy.get('[data-testid="add-node-button"]').click();
     // Clear input box and add OPEN_IMAGE node
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
@@ -66,6 +67,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     cy.get('[data-testid="add-node-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
@@ -84,6 +86,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     cy.get('[data-testid="add-node-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
@@ -101,6 +104,7 @@ describe("Verify nodes and its parameters", () => {
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     cy.get('[data-testid="add-node-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
@@ -116,18 +120,19 @@ describe("Verify nodes and its parameters", () => {
       .contains("FEEDBACK")
       .click({ multiple: true, force: true });
     // Modify node_reference parameter
-    cy.get('[data-testid="node_reference-input"]').each(($element) => {
+    cy.get('[data-testid="node-reference-input"]').each(($element) => {
       cy.get($element).click();
-      cy.get('[data-testid="node-edit-modal-params"]')
+      cy.get("[data-radix-popper-content-wrapper]")
         .contains("LINSPACE")
         .click();
-      cy.get($element).should("have.value", "LINSPACE");
+      cy.get($element.children("span")).should("have.text", "LINSPACE");
     });
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     // GET ALL CUSTOM NODES
     // conditional node
     cy.get('[data-testid="add-node-button"]').click();
@@ -141,15 +146,17 @@ describe("Verify nodes and its parameters", () => {
     // check if selected operator is displayed on node box
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
-      cy.contains("div", ">").click();
-      cy.get($element).should("have.value", ">");
+      cy.get("[data-radix-popper-content-wrapper]").contains(">").click();
+      // cy.contains("div", ">").click();
+      cy.get($element).children("span").should("have.text", ">");
     });
 
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-close-button"]').click();
     // Switch to light mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // creating loop node
@@ -161,11 +168,13 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="sidebar-close"]').click();
 
     cy.get('[data-testid="node-wrapper"]').click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
     cy.get('[data-testid="int-input"]').eq(0).type(10);
 
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-close-button"]').click();
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
     // Switch to dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();
 
@@ -176,9 +185,10 @@ describe("Verify nodes and its parameters", () => {
     cy.contains("button", "TENSORINV").click();
     cy.get('[data-testid="sidebar-close"]').click();
     cy.get('[data-testid="node-wrapper"]').click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     cy.get('[data-testid="int-input"]').eq(0).type("{selectall}{backspace}");
     cy.get('[data-testid="int-input"]').eq(0).type(2);
-    cy.get('[data-testid="node-edit-modal-close-btn"]').click();
+    cy.get('[data-testid="node-edit-close-button"]').click();
 
     cy.get('[data-testid="darkmode-toggle"]').click();
   });
