@@ -59,10 +59,19 @@ type NodeChildren = {
   [key: string]: string | NodeChildren | null;
 }[];
 
-const nodeTitleMatches = (query: string, node: NodeSection) =>
+const matchesQuery = (s: string | undefined, query: string) =>
   Boolean(
     query !== "" &&
-      node.name?.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+      s
+        ?.toLocaleLowerCase()
+        .split("_")
+        .join("")
+        .includes(
+          query
+            .toLocaleLowerCase()
+            .split(/[\s_]+/)
+            .join(""),
+        ),
   );
 
 const SidebarNode = ({
@@ -88,7 +97,7 @@ const SidebarNode = ({
             depth: 0,
             leafClickHandler,
             query,
-            matchedParent: nodeTitleMatches(query, c),
+            matchedParent: matchesQuery(c.name, query),
             expand,
             collapse,
             category: c.key,
@@ -121,7 +130,7 @@ const SidebarNode = ({
             depth: depth + 1,
             leafClickHandler,
             query,
-            matchedParent: matchedParent || nodeTitleMatches(query, c),
+            matchedParent: matchedParent || matchesQuery(c.name, query),
             expand,
             collapse,
             category,
@@ -136,13 +145,15 @@ const SidebarNode = ({
   const commands = (node.children as unknown as NodeChildren)?.filter(
     (c) => !c.children,
   );
-  const lowercased = query.toLocaleLowerCase();
+  // const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
     ? commands?.filter(
         (c) =>
-          (c.key as string)?.toLocaleLowerCase().includes(lowercased) ||
-          (c.name as string)?.toLocaleLowerCase().includes(lowercased),
+          matchesQuery(c.key as string, query) ||
+          matchesQuery(c.name as string, query),
+        // (c.key as string)?.toLocaleLowerCase().includes(lowercased) ||
+        // (c.name as string)?.toLocaleLowerCase().includes(lowercased),
       )
     : commands;
 

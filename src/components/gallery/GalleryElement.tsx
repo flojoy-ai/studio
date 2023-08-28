@@ -12,7 +12,7 @@ import {
   projectAtom,
   projectPathAtom,
 } from "@src/hooks/useFlowChartState";
-import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useSocket } from "@src/hooks/useSocket";
 
 export interface AppGalleryElementProps {
@@ -25,8 +25,8 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const setProject = useSetAtom(projectAtom);
-  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
   const setProjectPath = useSetAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();

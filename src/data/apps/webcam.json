@@ -2,8 +2,8 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 150,
-        "height": 150,
+        "width": 192,
+        "height": 192,
         "id": "CAMERA-29dc2b2f-b87c-46a3-9ddc-11e685de3206",
         "type": "INSTRUMENTS",
         "data": {
@@ -59,13 +59,13 @@
           "selected": false
         },
         "position": {
-          "x": 934.4795759482945,
-          "y": -38.568710835013746
+          "x": 917.9619063024128,
+          "y": -62.31286095096863
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 934.4795759482945,
-          "y": -38.568710835013746
+          "x": 917.9619063024128,
+          "y": -62.31286095096863
         },
         "dragging": true
       },
@@ -99,13 +99,13 @@
           "selected": false
         },
         "position": {
-          "x": 1261.9152508247892,
-          "y": -78.58047260527047
+          "x": 1267.0770225891272,
+          "y": -79.61282695813804
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1261.9152508247892,
-          "y": -78.58047260527047
+          "x": 1267.0770225891272,
+          "y": -79.61282695813804
         },
         "dragging": true
       }
@@ -120,9 +120,9 @@
       }
     ],
     "viewport": {
-      "x": -358.59636577932724,
-      "y": 99.85117439980638,
-      "zoom": 1.0581352782820395
+      "x": 815.7959874736157,
+      "y": 352.53461082817995,
+      "zoom": 0.7476193625116623
     }
   },
   "ctrlsManifest": [
@@ -142,6 +142,27 @@
         "minW": 2,
         "i": "INPUT_PLACEHOLDER"
       }
+    }
+  ],
+  "textNodes": [
+    {
+      "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
+      "position": {
+        "x": 1050,
+        "y": -250
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the [Webcam](https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/) docs before running the app."
+      },
+      "width": 288,
+      "height": 50,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 356.1024827249459,
+        "y": -339.3802187008158
+      },
+      "dragging": false
     }
   ]
 }

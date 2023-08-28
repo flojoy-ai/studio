@@ -4,7 +4,6 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import localforage from "localforage";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
@@ -47,11 +46,6 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-
-localforage.config({
-  name: "react-flow",
-  storeName: "flows",
-});
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
