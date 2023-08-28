@@ -4,7 +4,7 @@ flojoy @ git+https://github.com/flojoy-ai/python@main
 matplotlib==3.5.2
 scikit-learn==1.2.2
 networkx==2.8.4
-numpy==1.23.0
+numpy==1.25.2
 pandas==1.4.2
 plotly==5.8.2
 python-box==6.0
