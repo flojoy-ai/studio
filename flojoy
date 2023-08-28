@@ -315,6 +315,8 @@ cd $CWD
 
 sleep 1
 
+# set deploy status to dev
+export DEPLOY_STATUS=dev
 
 # start project services
 if [ $test_ci = true ]; then
