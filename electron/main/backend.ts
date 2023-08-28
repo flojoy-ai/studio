@@ -1,5 +1,5 @@
 import * as childProcess from "child_process";
-import { join } from "path";
+import { join, resolve } from "path";
 import treeKill from "tree-kill";
 
 export const runCommand = (
@@ -42,7 +42,7 @@ export const killSubProcess = (script: childProcess.ChildProcess) => {
 const successText = "Application startup complete";
 
 export const runBackend = (
-  workingDir: string,
+  workingDir: string
 ): Promise<{
   success: boolean;
   script: childProcess.ChildProcess | undefined;
@@ -68,5 +68,5 @@ const getBackendCommand = (workingDir: string) => {
   if (process.platform === "win32") {
     return `pwsh -File ${join(workingDir, "../backend/backend.ps1")}`;
   }
-  return `sh ${join(workingDir, "../backend/backend.sh")}`;
+  return `sh "${resolve(join(workingDir, "../backend/backend.sh"))}"`;
 };

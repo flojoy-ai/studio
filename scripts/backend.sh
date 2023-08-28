@@ -5,7 +5,7 @@ current_dir="$(dirname "$(readlink -f "$0")")"
 flojoy_dir="$HOME/.flojoy"
 venv_name="404fc545_flojoy"
 venv_dir="$flojoy_dir/flojoy_root_venv"
-$venv_path="$flojoy_dir/flojoy_root_venv/$venv_name"
+venv_path="$flojoy_dir/flojoy_root_venv/$venv_name"
 
 
 if [ ! -d "$flojoy_dir" ]; then
