@@ -1,5 +1,11 @@
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
+import localforage from "localforage";
+import { useEffect } from "react";
+
+const store = localforage.createInstance({
+  name: "flojoy-settings",
+});
 
 type SettingsGroup = "frontend" | "backend";
 
@@ -43,9 +49,21 @@ export const useSettings = (group: "frontend" | "backend") => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {
         setting.value = value;
+        store.setItem(key, value);
       }
     });
   };
+
+  useEffect(() => {
+    store.iterate((val, key) => {
+      setSettings((prev) => {
+        const setting = prev.find((s) => s.key === key);
+        if (setting) {
+          setting.value = val as number | boolean;
+        }
+      });
+    });
+  }, [setSettings]);
 
   return {
     settings: settings.filter((s) => s.group === group),

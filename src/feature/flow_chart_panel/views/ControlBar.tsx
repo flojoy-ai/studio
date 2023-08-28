@@ -1,4 +1,3 @@
-import localforage from "localforage";
 import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
@@ -21,11 +20,6 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-
-localforage.config({
-  name: "react-flow",
-  storeName: "flows",
-});
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
