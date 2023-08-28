@@ -13,8 +13,8 @@ export async function saveFileAs(
     "show-save-as-dialog",
     defaultFilename,
   );
-  if (result.path) {
-    saveFile(result.path, data);
+  if (result.filePath) {
+    saveFile(result.filePath, data);
   }
   return result;
 }
