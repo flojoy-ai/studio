@@ -77,7 +77,7 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="dropdown-button">
+            <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
             <MenubarContent>
@@ -90,12 +90,10 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger data-testid="dropdown-button">
-              Settings
-            </MenubarTrigger>
+            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
               <MenubarItem
-                data-testid="env-variable-moda-btn"
+                data-testid="env-var-modal-button"
                 onClick={() => setIsEnvVarModalOpen(true)}
               >
                 Environment Variables
@@ -119,7 +117,7 @@ const ControlBar = () => {
                 Node Settings
               </MenubarItem>
               <MenubarItem
-                data-testid="btn-node-settings"
+                data-testid="btn-check-for-update"
                 onClick={handleUpdate}
               >
                 Check for update

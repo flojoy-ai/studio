@@ -217,7 +217,7 @@ const FlowChartTab = () => {
               Add Node
             </Button>
             <Button
-              data-testid="add-node-button"
+              data-testid="add-text-button"
               className="gap-2"
               variant="ghost"
               onClick={addTextNode}
@@ -238,6 +238,7 @@ const FlowChartTab = () => {
                     variant="ghost"
                     className="gap-2"
                     onClick={() => setIsEditMode(true)}
+                    data-testid="toggle-edit-mode"
                   >
                     <Pencil size={18} className="stroke-muted-foreground" />
                     Edit Node

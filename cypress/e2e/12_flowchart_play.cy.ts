@@ -5,6 +5,7 @@
 describe("Testing flowchart run", () => {
   it("flowchart run test on default app", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     //click on play button
     cy.get('[data-cy="btn-play"]').click();
