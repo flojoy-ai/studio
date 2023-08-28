@@ -23,6 +23,8 @@ moto = "^4.2.0"
 sympy = "^1.12"
 openpyxl = "^3.1.2"
 lxml = "^4.9.3"
+pyarrow = "^13.0.0"
+fastparquet = "^2023.7.0"
 
 
 [tool.poetry.group.dev.dependencies]
