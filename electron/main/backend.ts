@@ -9,9 +9,7 @@ export const runCommand = (
   script: childProcess.ChildProcess;
 }> => {
   return new Promise((resolve, reject) => {
-    const script = childProcess.exec(command, {
-      env: { DEPLOY_STATUS: "prod" },
-    });
+    const script = childProcess.exec(command);
     script.stdout?.on("data", function (data) {
       if (data.toString().includes(matchText)) {
         resolve({ script });
