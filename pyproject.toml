@@ -20,6 +20,9 @@ scikit-image = "^0.21.0"
 boto3 = "^1.28.35"
 rdatasets = "^0.1.0"
 moto = "^4.2.0"
+sympy = "^1.12"
+openpyxl = "^3.1.2"
+lxml = "^4.9.3"
 
 
 [tool.poetry.group.dev.dependencies]
