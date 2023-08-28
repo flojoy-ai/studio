@@ -10,6 +10,7 @@ describe("Modify settings in control bar", () => {
 
   it("setting btn test", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Click the setting button
     cy.get('[data-testid="settings-btn"]').click();
@@ -31,7 +32,7 @@ describe("Modify settings in control bar", () => {
 
     cy.percySnapshot("dark flow page with settings modal with input");
 
-    cy.get('button:contains("x")').click({ force: true });
+    cy.get('button:contains("x")').click({ force: true, multiple: true });
 
     //check the light mode
     cy.get('[data-testid="darkmode-toggle"]').click();

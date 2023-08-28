@@ -4,11 +4,13 @@ require("cypress-xpath");
 describe("Verify nodes and its parameters", () => {
   it("testing nodes and its parameters", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Click clear canvas button
     cy.get(
       '[data-testid="rf__node-SINE-b3fe92c7-36bf-4869-b25b-51c86b125e08"]',
     ).click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     // Check if there are 5 parameters for SINE node
     cy.get('[data-testid="node-edit-modal-params"]').should("have.length", 5);
     // Modify float parameters
@@ -20,7 +22,10 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="select-input"]').each(($element) => {
       cy.get($element).click();
       cy.contains("div", "square").click();
-      cy.get($element).should("have.value", "square");
+      cy.get($element.children('[data-testid="select-input-value"]')).should(
+        "have.value",
+        "square",
+      );
     });
     // Light mode / Dark mode
     cy.get('[data-testid="darkmode-toggle"]').click();

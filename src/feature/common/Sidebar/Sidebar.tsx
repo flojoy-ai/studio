@@ -73,6 +73,7 @@ const Sidebar = ({
       <div className="absolute right-2 top-2">
         <div
           className="cursor-pointer rounded-xl p-1 transition duration-200 hover:bg-muted"
+          data-testid="sidebar-close"
           onClick={() => setSideBarStatus(false)}
         >
           <XIcon size={20} className="stroke-muted-foreground" />
@@ -109,6 +110,7 @@ const Sidebar = ({
             <Button
               variant="link"
               className="px-2 font-semibold text-muted-foreground"
+              data-testid="request-node-btn"
             >
               Request a node...
             </Button>

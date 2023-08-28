@@ -84,7 +84,10 @@ const ParamField = ({
     case "select":
       return (
         <Select onValueChange={handleChange}>
-          <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1">
+          <SelectTrigger
+            className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+            data-testid="select-input"
+          >
             <SelectValue placeholder={value} />
           </SelectTrigger>
           <SelectContent className="max-h-72">
@@ -99,8 +102,11 @@ const ParamField = ({
     case "NodeReference":
       return (
         <Select onValueChange={handleChange}>
-          <SelectTrigger className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 ">
-            <SelectValue placeholder={value} />
+          <SelectTrigger
+            className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
+            data-testid="select-input"
+          >
+            <SelectValue placeholder={value} data-testid="select-input-value" />
           </SelectTrigger>
           <SelectContent className="max-h-72">
             {(nodeReferenceOptions ?? []).map((option) => (

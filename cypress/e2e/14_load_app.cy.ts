@@ -5,6 +5,7 @@
 describe("Loading an app", () => {
   it("Can load app correctly", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Open the dropdown menu and click the load app button
     cy.get('[data-testid="dropdown-button"]').click({ force: true });

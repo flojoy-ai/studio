@@ -7,6 +7,7 @@ require("cypress-xpath");
 describe("Set plotly node visual tests", () => {
   it("plotly nodes visual test", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="clear-canvas-button"]').click();
 

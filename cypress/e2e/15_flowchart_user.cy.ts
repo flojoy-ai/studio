@@ -5,6 +5,7 @@
 describe("Testing flowchart user with keyboard shortcuts", () => {
   it("flowchart user test on default app", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="watch-mode-toggle"]').click();
     //press play shortcut (meta + p)

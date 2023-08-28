@@ -5,6 +5,7 @@
 describe("Checking app gallery feature", () => {
   it("apps can be selected properly from app gallery", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get(`[data-testid="app-gallery-btn"]`).click();
     // Select "Intro to LOOPS"

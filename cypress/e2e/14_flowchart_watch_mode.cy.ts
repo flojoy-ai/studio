@@ -5,6 +5,7 @@
 describe("Testing flowchart watch mode", () => {
   it("flowchart watch mode test on default app", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="watch-mode-toggle"]').click();
     cy.percySnapshot("dark flow page after toggling watch mode");
