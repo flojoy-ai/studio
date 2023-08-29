@@ -1,11 +1,9 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import localforage from "localforage";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
@@ -33,7 +31,6 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-// import { CommandMenu } from "../command/CommandMenu";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
@@ -48,11 +45,7 @@ import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
-
-localforage.config({
-  name: "react-flow",
-  storeName: "flows",
-});
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
@@ -65,9 +58,8 @@ const FlowChartTab = () => {
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
 
-  const {
-    states: { programResults },
-  } = useSocket();
+  const { states } = useSocket();
+  const { programResults, setProgramResults } = states;
 
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
@@ -102,6 +94,9 @@ const FlowChartTab = () => {
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen],
   );
+
+  useKeyboardShortcut("ctrl", "k", toggleSidebar);
+  useKeyboardShortcut("meta", "k", toggleSidebar);
 
   const handleNodeRemove = useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -188,6 +183,7 @@ const FlowChartTab = () => {
     setNodes([]);
     setEdges([]);
     setHasUnsavedChanges(true);
+    setProgramResults([]);
   }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {
@@ -201,38 +197,6 @@ const FlowChartTab = () => {
   }, [selectedNode, setNodeFilePath, setPythonString]);
 
   const proOptions = { hideAttribution: true };
-
-  // const selectAllNodesShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       node.selected = true;
-  //     });
-  //   });
-  // };
-  //
-  // const deselectAllNodeShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       node.selected = false;
-  //     });
-  //   });
-  // };
-  //
-  // const deselectNodeShortcut = () => {
-  //   setNodes((nodes) => {
-  //     nodes.forEach((node) => {
-  //       if (selectedNode !== null && node.id === selectedNode.id) {
-  //         node.selected = false;
-  //       }
-  //     });
-  //   });
-  // };
-
-  // useKeyboardShortcut("ctrl", "0", () => deselectAllNodeShortcut());
-  // useKeyboardShortcut("ctrl", "9", () => deselectNodeShortcut());
-  //
-  // useKeyboardShortcut("meta", "0", () => deselectAllNodeShortcut());
-  // useKeyboardShortcut("meta", "9", () => deselectNodeShortcut());
 
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
@@ -253,7 +217,7 @@ const FlowChartTab = () => {
               Add Node
             </Button>
             <Button
-              data-testid="add-node-button"
+              data-testid="add-text-button"
               className="gap-2"
               variant="ghost"
               onClick={addTextNode}
@@ -274,6 +238,7 @@ const FlowChartTab = () => {
                     variant="ghost"
                     className="gap-2"
                     onClick={() => setIsEditMode(true)}
+                    data-testid="toggle-edit-mode"
                   >
                     <Pencil size={18} className="stroke-muted-foreground" />
                     Edit Node

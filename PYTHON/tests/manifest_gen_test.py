@@ -429,6 +429,14 @@ class ManifestGenerationTest(unittest.TestCase):
             ],
         }
 
+    def test_none_return(self):
+        manifest = get_manifest("none_return.py")
+        assert manifest == {
+            "name": "NONE_RETURN",
+            "key": "NONE_RETURN",
+            "type": "TEST_TYPE",
+        }
+
 
 if __name__ == "__main__":
     unittest.main()

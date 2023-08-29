@@ -4,6 +4,7 @@ require("cypress-xpath");
 describe("Verify node containers", () => {
   it("Verify node containers tabs", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Click add node
     cy.get('[data-testid="add-node-button"]').click();

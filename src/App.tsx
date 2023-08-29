@@ -15,6 +15,7 @@ import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import BackendInitLogsDialog from "./components/electron/BackendLogDialog";
 // import { useAtom } from "jotai";
+//
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;

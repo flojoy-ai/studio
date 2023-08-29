@@ -8,7 +8,6 @@ import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";
 import {
-  saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
 } from "@src/services/FlowChartServices";
@@ -16,6 +15,7 @@ import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import { useAtom } from "jotai";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -34,7 +34,7 @@ const FlowControlButtons = () => {
     if (project.rfInstance && project.rfInstance.nodes.length > 0) {
       cancelFlowChartRun(project.rfInstance, socketId);
     } else {
-      alert("There is no running job on server.");
+      alert("is no running job on server.");
     }
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
@@ -51,7 +51,6 @@ const FlowControlButtons = () => {
         rfInstance: updatedRfInstance,
       });
 
-      saveFlowChartToLocalStorage(updatedRfInstance);
       sendProgramToMix(project.rfInstance.nodes, true, false);
       // setProgramResults([]);
       saveAndRunFlowChartInServer({
@@ -73,8 +72,8 @@ const FlowControlButtons = () => {
     onRun(nodes, edges);
   };
 
-  // useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
-  // useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
+  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
+  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
 
   return (
     <>

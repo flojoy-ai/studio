@@ -5,6 +5,7 @@
 describe("Testing flowchart user with keyboard shortcuts", () => {
   it("flowchart user test on default app", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="watch-mode-toggle"]').click();
     //press play shortcut (meta + p)
@@ -23,6 +24,7 @@ describe("Testing flowchart user with keyboard shortcuts", () => {
     cy.get(
       '[data-testid="rf__node-CONSTANT-07f3a246-5fac-45ef-941f-91e41f8b7e11"]',
     ).click();
+    cy.get('[data-testid="toggle-edit-mode"]').click();
     cy.percySnapshot("dark flow page with CONSTANT menu");
     cy.get('[data-testid="float-input"]')
       .eq(0)

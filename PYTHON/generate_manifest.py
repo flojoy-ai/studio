@@ -94,7 +94,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             result["children"].append(subdir)
         elif entry.is_file() and entry.name.endswith(".py"):
             continue
-    if not result["children"]:
+    if not result["children"] and os.listdir(dir_path):
         try:
             n_file_name = f"{os.path.basename(dir_path)}.py"
             n_path = os.path.join(dir_path, n_file_name)
@@ -127,6 +127,8 @@ if __name__ == "__main__":
     map = browse_directories(FULL_PATH)
     map["children"].sort(key=sort_order)  # type: ignore
 
+    if len(__failed_nodes) > 0:
+        raise SystemExit(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !".encode("utf-8")
     )
