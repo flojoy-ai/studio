@@ -23,21 +23,23 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
             decorator
             for decorator in node.decorator_list
             if isinstance(decorator, ast.Name)
-               and decorator.id == "display"
-               or isinstance(decorator, ast.Call)
-               and isinstance(decorator.func, ast.Name)
-               and decorator.func.id == "display"
+            and decorator.id == "display"
+            or isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == "display"
         ]
 
-    def get_decorator(self, node: ast.FunctionDef, decorator_name: Literal["display", "flojoy"]):
+    def get_decorator(
+        self, node: ast.FunctionDef, decorator_name: Literal["display", "flojoy"]
+    ):
         return [
             decorator
             for decorator in node.decorator_list
             if isinstance(decorator, ast.Name)
-               and decorator.id == decorator_name
-               or isinstance(decorator, ast.Call)
-               and isinstance(decorator.func, ast.Name)
-               and decorator.func.id == decorator_name
+            and decorator.id == decorator_name
+            or isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == decorator_name
         ]
 
     def visit_Module(self, node: ast.Module):
@@ -60,20 +62,24 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
     def visit_FunctionDef(self, node: ast.FunctionDef):
         # The case where the node is used for overloading, will ignore all other decorators
         if has_decorator(node, "display"):
-            node.decorator_list = cast(list[ast.expr], self.get_decorator(node, "display"))
+            node.decorator_list = cast(
+                list[ast.expr], self.get_decorator(node, "display")
+            )
         elif not has_decorator(node, "flojoy") and not has_decorator(
-                    node, "node_initialization"
-            ):
+            node, "node_initialization"
+        ):
             return None
 
         # TODO: make an error comment when a display decorator have another decorator
-            # Keep only the '@flojoy' if there are multiple decorators.
+        # Keep only the '@flojoy' if there are multiple decorators.
 
         if has_decorator(node, "flojoy") and len(node.decorator_list) > 1:
             # Keep only the '@flojoy' decorator if there are multiple decorators.
             # Some decorators, like '@run_in_venv', create virtual environments, which we
             # don't want to generate when creating the manifest.
-            node.decorator_list = cast(list[ast.expr], self.get_decorator(node, "flojoy"))
+            node.decorator_list = cast(
+                list[ast.expr], self.get_decorator(node, "flojoy")
+            )
 
         if node.body:
             new_body = (
@@ -96,7 +102,9 @@ class FlojoyNodeTransformer(ast.NodeTransformer):
         return None
 
 
-def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module, Optional[Any]]:
+def make_manifest_ast(
+    path: str,
+) -> Tuple[str, Optional[str], ast.Module, Optional[Any]]:
     with open(path) as f:
         tree = ast.parse(f.read())
 
@@ -235,5 +243,3 @@ def extract_overload_arguments(node: ast.FunctionDef) -> Tuple:
     overload_param = [arg.arg for arg in node.args.args]
     default_value = ast.literal_eval(node.args.defaults[0])
     return overload_param[-1], default_value, overload_param[:-1]
-
-

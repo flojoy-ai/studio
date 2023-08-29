@@ -89,7 +89,9 @@ class ManifestBuilder:
         )
         return self
 
-    def with_param(self, name: str, param_type: Type, default: Any, overload: dict[Any] | None):
+    def with_param(
+        self, name: str, param_type: Type, default: Any, overload: dict[Any] | None
+    ):
         self.parameters[name] = {
             "type": type_str(param_type),
             "default": default,
@@ -198,7 +200,10 @@ def create_manifest(path: str) -> dict[str, Any]:
 
 
 def populate_manifest(
-    func: Callable[..., Any], mb: ManifestBuilder, overload: dict[Any] | None, is_special_node: bool = False,
+    func: Callable[..., Any],
+    mb: ManifestBuilder,
+    overload: dict[Any] | None,
+    is_special_node: bool = False,
 ):
     sig = inspect.signature(func)
     if overload is None:
@@ -206,13 +211,19 @@ def populate_manifest(
             populate_inputs(name, param, mb)
     else:
         for name, param in sig.parameters.items():
-            populate_inputs(name, param, mb, overload[name] if name in overload else None)
+            populate_inputs(
+                name, param, mb, overload[name] if name in overload else None
+            )
 
     populate_return(sig.return_annotation, mb, is_special_node)
 
 
 def populate_inputs(
-    name: str, param: Parameter, mb: ManifestBuilder, overload: dict[Any] | None = None, multiple: bool = False
+    name: str,
+    param: Parameter,
+    mb: ManifestBuilder,
+    overload: dict[Any] | None = None,
+    multiple: bool = False,
 ):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
