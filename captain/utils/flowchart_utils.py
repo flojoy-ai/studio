@@ -21,6 +21,7 @@ from captain.utils.broadcast import (
     broadcast_worker_response,
     signal_max_runtime_exceeded,
     signal_standby,
+    signal_prejob_op,
 )
 
 
@@ -173,6 +174,15 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     # clean up before next run
     clean_up_function()
 
+    logger.info("BUILDING_TOPOLOGY")
+    await asyncio.create_task(
+        manager.ws.broadcast(
+            WorkerJobResponse(
+                jobset_id=request.jobsetId, sys_status=STATUS_CODES["BUILDING_TOPOLOGY"]
+            )
+        )
+    )
+
     # Create new task queue
     manager.task_queue = Queue()
 
@@ -184,6 +194,12 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         worker_response=lambda x: broadcast_worker_response(manager, x),
         final_broadcast=lambda: signal_standby(manager, request.jobsetId),
     )  # pass clean up func for when topology ends
+
+    logger.info("PREJOB_OP")
+
+    pre_job_op_start = time.time()
+    logger.debug(f"Pre job operation started at: {pre_job_op_start}")
+    await asyncio.create_task(signal_prejob_op(manager, request.jobsetId))
 
     nodes = fc["nodes"]
     missing_packages = []

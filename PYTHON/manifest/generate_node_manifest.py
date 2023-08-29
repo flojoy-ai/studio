@@ -200,41 +200,7 @@ def populate_manifest(
     for name, param in sig.parameters.items():
         populate_inputs(name, param, mb)
 
-    # Do a similar thing for the return type
-    return_type = sig.return_annotation
-
-    # Union case
-    if is_union(return_type):
-        union_types = get_union_types(return_type)
-        if not all(issubclass(t, DataContainer) for t in union_types):
-            raise TypeError("Return type union must contain all DataContainers")
-
-        # Obviously if the union contains DataContainer, it's just Any
-        if DataContainer in union_types:
-            mb.with_output("default", Any)
-        else:
-            mb.with_output("default", return_type)
-    # Single untyped output
-    elif return_type == DataContainer:
-        mb.with_output("default", Any)
-    # Single typed output
-    elif issubclass(return_type, DataContainer):
-        mb.with_output("default", return_type)
-    # Multiple outputs
-    elif is_typeddict(return_type):
-        for attr, value in dict(return_type.__annotations__).items():
-            if is_special_node:
-                mb.with_output(name=attr, output_type=value, named=True)
-            else:
-                if not issubclass(value, DataContainer):
-                    raise TypeError(
-                        "Return type must be a DataContainer or a typing.TypedDict"
-                        f"consisting of only DataContainers as fields, got {return_type}"
-                    )
-
-                mb.with_output(attr, value, named=True)
-
-    return mb
+    populate_return(sig.return_annotation, mb, is_special_node)
 
 
 def populate_inputs(
@@ -373,6 +339,48 @@ def populate_init_params(init_func: Callable, mb: ManifestBuilder):
 
     for name, param in sig.parameters.items():
         populate(name, param)
+
+    return mb
+
+
+def populate_return(return_type: Any, mb: ManifestBuilder, is_special_node: bool):
+    if return_type is None:
+        return
+    if is_union(return_type):
+        union_types = [t for t in get_union_types(return_type) if t != NoneType]
+
+        if len(union_types) == 1:
+            inner_type = return_type.__args__[0]
+            populate_return(inner_type, mb, is_special_node)
+            return
+
+        if not all(issubclass(t, DataContainer) for t in union_types):
+            raise TypeError("Return type union must contain all DataContainers")
+
+        # Obviously if the union contains DataContainer, it's just Any
+        if DataContainer in union_types:
+            mb.with_output("default", Any)
+        else:
+            mb.with_output("default", return_type)
+    # Single untyped output
+    elif return_type == DataContainer or return_type == Any:
+        mb.with_output("default", Any)
+    # Single typed output
+    elif issubclass(return_type, DataContainer):
+        mb.with_output("default", return_type)
+    # Multiple outputs
+    elif is_typeddict(return_type):
+        for attr, value in dict(return_type.__annotations__).items():
+            if is_special_node:
+                mb.with_output(name=attr, output_type=value, named=True)
+            else:
+                if not issubclass(value, DataContainer):
+                    raise TypeError(
+                        "Return type must be a DataContainer or a typing.TypedDict"
+                        f"consisting of only DataContainers as fields, got {return_type}"
+                    )
+
+                mb.with_output(attr, value, named=True)
 
     return mb
 

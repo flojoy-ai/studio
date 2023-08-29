@@ -7,6 +7,10 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
+    --controls: 0 0% 100%;
+    --controls-hover: 0 0% 90%;
+    --controls-border: 0 0% 80%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
@@ -46,6 +50,10 @@
   .dark {
     --background: 0 0% 0%;
     --foreground: 210 40% 98%;
+
+    --controls: 217.2 32.6% 17.5%;
+    --controls-hover: 0 0% 20%;
+    --controls-border: 0 0% 40%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -87,6 +95,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background;
+    @apply text-primary;
+  }
+  main {
+    @apply text-primary;
   }
 }

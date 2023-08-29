@@ -67,7 +67,9 @@ class Topology:
         if "FAILED_NODES" in request_dict:
             job_id = list(request_dict["FAILED_NODES"].keys())[0]
             self.process_job_result(job_id=job_id, job_result=None, success=False)
-        elif "NODE_RESULTS" in request_dict:
+        elif "NODE_RESULTS" in request_dict and request_dict.get(
+            "proceed_to_next", True
+        ):
             job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
             logger.debug(f"{job_id} finished at {time.time()}")
             asyncio.create_task(self.handle_finished_job(request_dict))  # type: ignore
@@ -135,6 +137,8 @@ class Topology:
                 )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass
+            except Exception as e:
+                errors[node_id] = str(e)
 
             functions[node_id] = func
         return functions, errors

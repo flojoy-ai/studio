@@ -33,7 +33,7 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
     return (
       <Handle
         className={clsx(
-          "!h-6 !w-6 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
+          "!h-5 !w-5 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
           handle({ variant }),
           className,
         )}
@@ -54,7 +54,7 @@ export const CustomHandle = ({ type, param, ...props }: CustomHandleProps) => {
       param={param}
       annotation={`(${type === "target" ? "input" : "output"})`}
       offsetX={32}
-      offsetY={-128}
+      offsetY={-288}
     >
       <HandleWrapper type={type} param={param} {...props} />
     </ParamTooltip>

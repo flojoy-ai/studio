@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { Collapse } from "@mantine/core";
 import { Children } from "react";
 import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 import { categoryMap, sidebarVariants } from "./SidebarNode";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@src/components/ui/collapsible";
 
 const bgOverrideVariants = cva(undefined, {
   variants: {
@@ -55,9 +59,8 @@ const SidebarSection = ({
   const variant = categoryMap[category ?? "TRANSFORMERS"] ?? "ETL";
 
   return (
-    <>
-      <button
-        onClick={() => setOpened((o) => !o)}
+    <Collapsible open={opened} onOpenChange={setOpened}>
+      <CollapsibleTrigger
         className={twMerge(
           "mb-2 flex max-h-10 w-11/12 items-center rounded-sm border px-2 py-2.5",
           sidebarVariants({ variant }),
@@ -74,14 +77,14 @@ const SidebarSection = ({
         >
           {title}
         </div>
-      </button>
-      <Collapse in={opened}>
+      </CollapsibleTrigger>
+      <CollapsibleContent className="CollapsibleContent">
         {/* padding according to the depth of the section */}
         <div style={{ paddingLeft: `${10 + (depth + 1) * 5}px` }}>
           {children}
         </div>
-      </Collapse>
-    </>
+      </CollapsibleContent>
+    </Collapsible>
   );
 };
 export default SidebarSection;

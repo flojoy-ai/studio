@@ -1,4 +1,4 @@
-[![main: CI](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/flojoy-io/flojoy-desktop/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/flojoy-io/studio/branch/main/graph/badge.svg?token=BIB703MANI)](https://codecov.io/gh/flojoy-io/studio)
+[![main: CI](https://github.com/flojoy-ai/flojoy-desktop/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/flojoy-ai/flojoy-desktop/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/flojoy-ai/studio/branch/main/graph/badge.svg?token=BIB703MANI)](https://codecov.io/gh/flojoy-ai/studio)
 
 # Flojoy Studio
 
@@ -10,7 +10,7 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 # Flojoy Quickstart
 
-Please refer to the following link for installation guidelines: https://docs.flojoy.io/getting-started/install/
+Please refer to the following link for installation guidelines: https://docs.flojoy.ai/getting-started/install/
 
 # License and Copyright
 

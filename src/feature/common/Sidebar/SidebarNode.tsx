@@ -55,10 +55,23 @@ type SidebarNodeProps = {
   icon?: React.ReactNode;
 };
 
-const nodeTitleMatches = (query: string, node: NodeSection) =>
+type NodeChildren = {
+  [key: string]: string | NodeChildren | null;
+}[];
+
+const matchesQuery = (s: string | undefined, query: string) =>
   Boolean(
     query !== "" &&
-      node.name?.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+      s
+        ?.toLocaleLowerCase()
+        .split("_")
+        .join("")
+        .includes(
+          query
+            .toLocaleLowerCase()
+            .split(/[\s_]+/)
+            .join(""),
+        ),
   );
 
 const SidebarNode = ({
@@ -84,7 +97,7 @@ const SidebarNode = ({
             depth: 0,
             leafClickHandler,
             query,
-            matchedParent: nodeTitleMatches(query, c),
+            matchedParent: matchesQuery(c.name, query),
             expand,
             collapse,
             category: c.key,
@@ -95,7 +108,7 @@ const SidebarNode = ({
       </div>
     );
   }
-  const categoryHasNode = (node.children as unknown[])?.every(
+  const categoryHasNode = (node.children as unknown as NodeChildren)?.every(
     (n) => !n.children,
   );
 
@@ -117,7 +130,7 @@ const SidebarNode = ({
             depth: depth + 1,
             leafClickHandler,
             query,
-            matchedParent: matchedParent || nodeTitleMatches(query, c),
+            matchedParent: matchedParent || matchesQuery(c.name, query),
             expand,
             collapse,
             category,
@@ -129,14 +142,18 @@ const SidebarNode = ({
     );
   }
 
-  const commands = (node.children as unknown[])?.filter((c) => !c.children);
-  const lowercased = query.toLocaleLowerCase();
+  const commands = (node.children as unknown as NodeChildren)?.filter(
+    (c) => !c.children,
+  );
+  // const lowercased = query.toLocaleLowerCase();
   const shouldFilter = query !== "" && !matchedParent;
   const searchMatches = shouldFilter
     ? commands?.filter(
         (c) =>
-          c.key?.toLocaleLowerCase().includes(lowercased) ||
-          c.name?.toLocaleLowerCase().includes(lowercased),
+          matchesQuery(c.key as string, query) ||
+          matchesQuery(c.name as string, query),
+        // (c.key as string)?.toLocaleLowerCase().includes(lowercased) ||
+        // (c.name as string)?.toLocaleLowerCase().includes(lowercased),
       )
     : commands;
 
@@ -157,7 +174,7 @@ const SidebarNode = ({
       >
         {searchMatches?.map((command) => (
           <button
-            key={command.key}
+            key={command.key as string}
             className={twMerge(
               "mb-1.5 flex max-h-10 w-11/12 items-center justify-between rounded-sm border px-2 py-2.5 font-mono",
               sidebarVariants({
@@ -168,14 +185,14 @@ const SidebarNode = ({
               if (query !== "") {
                 sendEventToMix(
                   "Node Searched",
-                  command.name ?? "",
+                  (command.name as string) ?? "",
                   "nodeTitle",
                 );
               }
               leafClickHandler(command as unknown as NodeElement);
             }}
           >
-            {command.key ?? command.name}
+            {(command.key as string) ?? (command.name as string)}
             {icon}
           </button>
         ))}

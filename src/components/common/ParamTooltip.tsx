@@ -1,4 +1,4 @@
-import {
+import React, {
   useState,
   useRef,
   Children,
@@ -7,9 +7,12 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { ScrollArea } from "../ui/scroll-area";
+
+type ElementProps = React.HTMLProps<HTMLElement>;
 
 type ParamTooltipProps = {
-  children: React.ReactNode;
+  children: React.ReactElement<ElementProps>;
   param: {
     name: string;
     type: string;
@@ -21,13 +24,13 @@ type ParamTooltipProps = {
 };
 
 const getTooltipStyle = (
-  element: HTMLDivElement,
+  element: HTMLElement,
   offsetX: number,
   offsetY: number,
 ) => {
   const TOOLTIP_WIDTH = 264; // average tooltip width
   const { top, left, right } = element.getBoundingClientRect();
-  if (left < window.innerWidth / 2) {
+  if (left < window.innerWidth * 0.4) {
     return { left: right + offsetX, top: top + offsetY };
   } else {
     return { left: left - TOOLTIP_WIDTH - offsetX, top: top + offsetY };
@@ -43,7 +46,7 @@ export const ParamTooltip = ({
 }: ParamTooltipProps) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const elemRef = useRef<HTMLDivElement>(null);
+  const elemRef = useRef<HTMLElement>(null);
 
   const onHover = () => {
     if (timeoutRef.current) {
@@ -67,7 +70,7 @@ export const ParamTooltip = ({
     throw new Error("ParamTooltip must have a child element");
   }
 
-  const child = Children.only(children);
+  const child = Children.only<React.ReactNode>(children);
 
   if (!isValidElement(child)) {
     throw new Error("Child must be a valid JSX element");
@@ -75,7 +78,7 @@ export const ParamTooltip = ({
 
   return (
     <>
-      {cloneElement<unknown>(child, {
+      {cloneElement(children, {
         ref: elemRef,
         onMouseEnter: onHover,
         onMouseLeave: onLeave,
@@ -84,8 +87,10 @@ export const ParamTooltip = ({
         ? createPortal(
             <div
               className={clsx(
-                "pointer-events-none absolute z-50 h-fit w-64 rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
-                { "!pointer-events-auto opacity-100": tooltipOpen },
+                "absolute z-50 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                tooltipOpen
+                  ? "pointer-events-auto opacity-100"
+                  : "pointer-events-none opacity-0",
               )}
               style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
             >
@@ -102,16 +107,18 @@ export const ParamTooltip = ({
                 </code>
               ))}
               <div className="py-2" />
-              <div>
-                {param.desc?.split("\n").map((line) => (
-                  <span key={line}>
-                    {line}
-                    <br />
-                  </span>
-                )) ?? "No description."}
-              </div>
+              <ScrollArea>
+                <div className="max-h-32">
+                  {param.desc?.split("\n").map((line) => (
+                    <span key={line}>
+                      {line}
+                      <br />
+                    </span>
+                  )) ?? "No description."}
+                </div>
+              </ScrollArea>
             </div>,
-            document.getElementById("tw-theme-root") ?? document.body,
+            document.getElementById("flow-chart-area") ?? document.body,
           )
         : null}
     </>

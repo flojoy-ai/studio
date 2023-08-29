@@ -1,15 +1,17 @@
-import {
-  NumberInput,
-  Select,
-  TextInput,
-  Switch,
-  createStyles,
-  getStylesRef,
-  useMantineTheme,
-} from "@mantine/core";
-import { ParamValueType } from "@feature/common/types/ParamValueType";
 import { ElementsData } from "@/types";
+import { ParamValueType } from "@feature/common/types/ParamValueType";
+import { Input } from "@src/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@src/components/ui/select";
+import { Switch } from "@src/components/ui/switch";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { NumberInput } from "./NumberInput";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -23,22 +25,6 @@ type ParamFieldProps = {
   }[];
 };
 
-const useStyles = createStyles((theme) => ({
-  input: {
-    [`&:checked + .${getStylesRef("track")}`]: {
-      backgroundColor:
-        theme.colorScheme === "dark"
-          ? theme.colors.accent1[0]
-          : theme.colors.accent2[2],
-      borderColor:
-        theme.colorScheme === "dark" ? theme.colors.dark : theme.colors.gray[1],
-    },
-  },
-  track: {
-    ref: getStylesRef("track"),
-  },
-}));
-
 const ParamField = ({
   nodeCtrl,
   nodeId,
@@ -47,17 +33,17 @@ const ParamField = ({
   options,
   nodeReferenceOptions,
 }: ParamFieldProps) => {
-  const theme = useMantineTheme();
   const { setNodeParamChanged } = useFlowChartState();
-  const handleChange = (value: string | boolean) => {
-    setNodeParamChanged(true);
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const handleChange = (value: number | string | boolean) => {
     updateFunc(nodeId, {
       ...nodeCtrl,
       value,
     });
+    setNodeParamChanged(true);
+    setHasUnsavedChanges(true);
   };
 
-  const { classes } = useStyles();
   const value = nodeCtrl.value;
 
   switch (type) {
@@ -65,92 +51,71 @@ const ParamField = ({
       return (
         <NumberInput
           data-testid="float-input"
-          onChange={(x) => handleChange(x.toString())}
-          value={value !== "" ? parseFloat(value as string) : value}
+          onChange={(x) => handleChange(x)}
+          value={value as number | string}
           precision={7}
-          removeTrailingZeros
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
+          floating
+          className="border-none focus-visible:ring-accent1 focus-visible:ring-offset-1"
         />
       );
     case "int":
       return (
         <NumberInput
           data-testid="int-input"
-          onChange={(x) => handleChange(x.toString())}
-          value={value !== "" ? parseInt(value as string) : value}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
+          onChange={(x) => handleChange(x)}
+          value={value as number | string}
+          className="border-none focus-visible:ring-accent1 focus-visible:ring-offset-1"
         />
       );
     case "bool":
       return (
-        <Switch
-          data-testid="boolean-input"
-          onChange={(e) => handleChange(e.currentTarget.checked)}
-          label={JSON.stringify(value)}
-          size="md"
-          classNames={classes}
-          checked={Boolean(value)}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
-        />
+        <div className="flex items-center space-x-2">
+          <Switch
+            data-testid="boolean-input"
+            onCheckedChange={(val) => handleChange(val)}
+            className="data-[state=checked]:bg-accent1"
+            checked={Boolean(value)}
+          />
+          <div>
+            {value === undefined || value === null ? "" : value.toString()}
+          </div>
+        </div>
       );
     case "select":
       return (
-        <Select
-          data-testid="select-input"
-          onChange={(val) => handleChange(val as string)}
-          data={options ?? []}
-          value={value as string}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-            item: {
-              "&[data-selected]": {
-                "&, &:hover": {
-                  backgroundColor: theme.colors.accent1[0],
-                  color:
-                    theme.colorScheme === "dark" ? theme.black : theme.white,
-                },
-              },
-            },
-          }}
-        />
+        <Select onValueChange={handleChange}>
+          <SelectTrigger
+            className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+            data-testid="select-input"
+          >
+            <SelectValue placeholder={value} />
+          </SelectTrigger>
+          <SelectContent className="max-h-72">
+            {(options ?? []).map((option) => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       );
     case "NodeReference":
       return (
-        <Select
-          data-testid="node_reference-input"
-          onChange={(val) => handleChange(val as string)}
-          data={nodeReferenceOptions ?? []}
-          value={value as string}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
-        />
+        <Select onValueChange={handleChange}>
+          <SelectTrigger
+            className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
+            data-testid="node-reference-input"
+          >
+            <SelectValue placeholder={value} />
+          </SelectTrigger>
+          <SelectContent className="max-h-72">
+            {(nodeReferenceOptions ?? []).map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       );
     case "str":
     case "list[int]":
@@ -159,17 +124,11 @@ const ParamField = ({
     case "Array":
     case "unknown":
       return (
-        <TextInput
+        <Input
           data-testid="object-input"
-          onChange={(e) => handleChange(e.currentTarget.value)}
+          className="border-none focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+          onChange={(e) => handleChange(e.target.value)}
           value={value as string}
-          styles={{
-            input: {
-              "&:focus": {
-                borderColor: theme.colors.accent1[0],
-              },
-            },
-          }}
         />
       );
     default:

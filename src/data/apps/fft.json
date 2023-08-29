@@ -3,7 +3,7 @@
     "nodes": [
       {
         "width": 150,
-        "height": 150,
+        "height": 180,
         "id": "LINSPACE-1fae0391-9694-4e08-9762-99e1d533df94",
         "type": "default",
         "data": {
@@ -56,8 +56,8 @@
         "dragging": true
       },
       {
-        "width": 130,
-        "height": 130,
+        "width": 208,
+        "height": 96,
         "id": "SINE-684e15cc-d2f7-4d09-83a2-fdddd6cefd2f",
         "type": "GENERATORS",
         "data": {
@@ -133,8 +133,8 @@
         "dragging": true
       },
       {
-        "width": 130,
-        "height": 130,
+        "width": 208,
+        "height": 96,
         "id": "SINE-15e699fe-e9e0-452d-9206-8313c657c051",
         "type": "GENERATORS",
         "data": {
@@ -210,8 +210,8 @@
         "dragging": true
       },
       {
-        "width": 99,
-        "height": 130,
+        "width": 72,
+        "height": 72,
         "id": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
         "type": "ARITHMETIC",
         "data": {
@@ -256,8 +256,8 @@
         "dragging": true
       },
       {
-        "width": 150,
-        "height": 150,
+        "width": 160,
+        "height": 160,
         "id": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
         "type": "TRANSFORMERS",
         "data": {
@@ -342,6 +342,92 @@
           "y": 333.47740435186597
         },
         "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+          "label": "LINE",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 887.034098460458,
+          "y": 579.6766864219596
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 887.034098460458,
+          "y": 579.6766864219596
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
+          "label": "LINE 1",
+          "func": "LINE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedPair|DataFrame|Matrix|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Line visualization of the input data"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/LINE/LINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 1398.2741633609771,
+          "y": 297.37851850670734
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 1398.2741633609771,
+          "y": 297.37851850670734
+        },
+        "dragging": true
       }
     ],
     "edges": [
@@ -379,12 +465,26 @@
         "target": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
         "targetHandle": "default",
         "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default"
+      },
+      {
+        "source": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
+        "sourceHandle": "default",
+        "target": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+        "targetHandle": "default",
+        "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42default"
+      },
+      {
+        "source": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
+        "sourceHandle": "default",
+        "target": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
+        "targetHandle": "default",
+        "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681default"
       }
     ],
     "viewport": {
-      "x": -370.442494324109,
-      "y": 122.55885385221723,
-      "zoom": 1.093090475044996
+      "x": 559.7566221242176,
+      "y": 237.5684501369203,
+      "zoom": 0.5038108820776545
     }
   },
   "ctrlsManifest": [

@@ -2,10 +2,12 @@
   "rfInstance": {
     "nodes": [
       {
-        "id": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
+        "width": 208,
+        "height": 96,
+        "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "type": "AI_ML",
         "data": {
-          "id": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
+          "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
           "label": "PROPHET PREDICT",
           "func": "PROPHET_PREDICT",
           "type": "AI_ML",
@@ -13,6 +15,7 @@
             "run_forecast": {
               "type": "bool",
               "default": true,
+              "desc": "If True (default case), the dataframe of the returning DataContainer\n(\"m\" parameter of the DataContainer) will be the forecasted dataframe.\nIt will also have an \"extra\" field with the key \"original\", which is\nthe original dataframe passed in.\n\nIf False, the returning dataframe will be the original data.\n\nThis node will also always have an \"extra\" field, run_forecast, which\nmatches that of the parameters passed in. This is for future nodes\nto know if a forecast has already been run.\n\nDefault = True",
               "functionName": "PROPHET_PREDICT",
               "param": "run_forecast",
               "value": true
@@ -20,89 +23,65 @@
             "periods": {
               "type": "int",
               "default": 365,
+              "desc": "The number of periods to predict out. Only used if run_forecast is True.\nDefault = 365",
               "functionName": "PROPHET_PREDICT",
               "param": "periods",
               "value": 365
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false
+              "multiple": false,
+              "desc": null
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "DataFrame"
+              "type": "DataFrame",
+              "desc": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
             }
           ],
-          "path": "PYTHON/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/PROPHET_PREDICT.py"
-        },
-        "position": {
-          "x": 44.19991981803559,
-          "y": 49.45240668102545
-        },
-        "width": 150,
-        "height": 150
-      },
-      {
-        "width": 130,
-        "height": 130,
-        "id": "TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2",
-        "type": "GENERATORS",
-        "data": {
-          "id": "TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2",
-          "label": "TIMESERIES",
-          "func": "TIMESERIES",
-          "type": "GENERATORS",
-          "ctrls": {
-            "start_date": {
-              "type": "str",
-              "default": "2023-01-01",
-              "functionName": "TIMESERIES",
-              "param": "start_date",
-              "value": "2023-01-01"
+          "pip_dependencies": [
+            {
+              "name": "prophet",
+              "v": "1.1.4"
             },
-            "end_date": {
-              "type": "str",
-              "default": "2023-07-20",
-              "functionName": "TIMESERIES",
-              "param": "end_date",
-              "value": "2023-07-20"
-            }
-          },
-          "outputs": [
             {
-              "name": "default",
-              "id": "default",
-              "type": "DataFrame"
+              "name": "holidays",
+              "v": "0.26"
+            },
+            {
+              "name": "pystan",
+              "v": "2.19.1.1"
             }
           ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TIMESERIES/TIMESERIES.py",
+          "path": "PYTHON/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/PROPHET_PREDICT.py",
           "selected": false
         },
         "position": {
-          "x": -270.66778749945627,
-          "y": 36.19707996443299
+          "x": 170.22990354212553,
+          "y": 112.44847772859924
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -270.66778749945627,
-          "y": 36.19707996443299
+          "x": 170.22990354212553,
+          "y": 112.44847772859924
         },
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
-        "id": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
+        "width": 380,
+        "height": 293,
+        "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
+          "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
           "label": "PROPHET COMPONENTS",
           "func": "PROPHET_COMPONENTS",
           "type": "VISUALIZERS",
@@ -110,47 +89,51 @@
             "periods": {
               "type": "int",
               "default": 365,
+              "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored. default is 365",
               "functionName": "PROPHET_COMPONENTS",
               "param": "periods",
               "value": 365
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Plotly"
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly visualization of the prophet model"
             }
           ],
           "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/PROPHET_COMPONENTS/PROPHET_COMPONENTS.py",
           "selected": false
         },
         "position": {
-          "x": 373.3721041848318,
-          "y": -114.45853015527874
+          "x": 515.4222395732635,
+          "y": 258.7002797805195
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 373.3721041848318,
-          "y": -114.45853015527874
+          "x": 515.4222395732635,
+          "y": 258.7002797805195
         },
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
-        "id": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
+        "width": 380,
+        "height": 293,
+        "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
+          "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
           "label": "PROPHET PLOT",
           "func": "PROPHET_PLOT",
           "type": "VISUALIZERS",
@@ -158,68 +141,137 @@
             "periods": {
               "type": "int",
               "default": 365,
+              "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored.\n\nDefault = 365",
               "functionName": "PROPHET_PLOT",
               "param": "periods",
               "value": 365
             }
           },
+          "initCtrls": {},
           "inputs": [
             {
               "name": "default",
               "id": "default",
               "type": "DataFrame",
-              "multiple": false
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
             }
           ],
           "outputs": [
             {
               "name": "default",
               "id": "default",
-              "type": "Plotly"
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly visualization of the prophet model"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "prophet",
+              "v": "1.1.4"
+            },
+            {
+              "name": "holidays",
+              "v": "0.26"
+            },
+            {
+              "name": "pystan",
+              "v": "2.19.1.1"
             }
           ],
           "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/PROPHET_PLOT/PROPHET_PLOT.py",
           "selected": false
         },
         "position": {
-          "x": 361.84400062339495,
-          "y": 269.6217029641205
+          "x": 516.843498420518,
+          "y": -210.50980433872098
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 361.84400062339495,
-          "y": 269.6217029641205
+          "x": 516.843498420518,
+          "y": -210.50980433872098
+        },
+        "dragging": true
+      },
+      {
+        "width": 210,
+        "height": 96,
+        "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
+        "type": "GENERATORS",
+        "data": {
+          "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
+          "label": "TIMESERIES",
+          "func": "TIMESERIES",
+          "type": "GENERATORS",
+          "ctrls": {
+            "start_date": {
+              "type": "str",
+              "default": "2023-01-01",
+              "desc": "The start date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "start_date",
+              "value": "2023-01-01"
+            },
+            "end_date": {
+              "type": "str",
+              "default": "2023-07-20",
+              "desc": "The end date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "end_date",
+              "value": "2023-07-20"
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "m: the resulting timeseries"
+            }
+          ],
+          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TIMESERIES/TIMESERIES.py",
+          "selected": false
+        },
+        "position": {
+          "x": -196.41512364237553,
+          "y": 109.78905503279668
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -196.41512364237553,
+          "y": 109.78905503279668
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2",
+        "source": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
         "sourceHandle": "default",
-        "target": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
+        "target": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "targetHandle": "default",
-        "id": "reactflow__edge-TIMESERIES-9938e1c3-e758-46d4-af6e-0a764e77dfd2default-PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62afdefault"
+        "id": "reactflow__edge-TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ffdefault-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault"
       },
       {
-        "source": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
+        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "sourceHandle": "default",
-        "target": "PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3",
+        "target": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62afdefault-PROPHET_COMPONENTS-38474a31-dfa1-4d2b-8834-558ecadb82e3default"
+        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794default"
       },
       {
-        "source": "PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62af",
+        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
         "sourceHandle": "default",
-        "target": "PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60",
+        "target": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-f91b407d-a959-4080-8f4f-9ccb8aaf62afdefault-PROPHET_PLOT-94b3e918-2bd3-4b08-9620-0017623eef60default"
+        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679cadefault"
       }
     ],
     "viewport": {
-      "x": -277.07893884404893,
-      "y": 103.38141914149585,
-      "zoom": 0.8175961276759318
+      "x": 286.80307914563144,
+      "y": 397.38940714410813,
+      "zoom": 0.5
     }
   },
   "ctrlsManifest": [

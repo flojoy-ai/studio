@@ -1,23 +1,23 @@
 import { useSocket } from "@src/hooks/useSocket";
 import { nodeTypesMap } from "@/components/nodes/nodeTypesMap";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { NodeTypes } from "reactflow";
 import { MouseEvent } from "react";
+import TextNode from "@src/components/nodes/TextNode";
 
 type UseNodeTypesProps = {
   handleRemove: (nodeId: string, nodeLabel: string) => void;
   wrapperOnClick: (event: MouseEvent<HTMLDivElement>) => void;
-  theme: "light" | "dark";
 };
 
-const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
+const useNodeTypes = ({ handleRemove }: UseNodeTypesProps) => {
   const {
     states: { programResults, failedNodes, runningNode },
   } = useSocket();
 
   const nodeTypes: NodeTypes = useMemo(
-    () =>
-      Object.fromEntries(
+    () => ({
+      ...Object.fromEntries(
         Object.entries(nodeTypesMap).map(([key, CustomNode]) => {
           return [
             key,
@@ -29,22 +29,23 @@ const useNodeTypes = ({ handleRemove, theme }: UseNodeTypesProps) => {
                 <CustomNode
                   isRunning={runningNode === props.data.id}
                   nodeError={failedNodes[props.id]}
-                  plotlyFig={nodeResult?.result.plotly_fig ?? undefined}
-                  textBlob={nodeResult?.result.text_blob ?? undefined}
+                  plotlyFig={nodeResult?.result?.plotly_fig ?? undefined}
+                  textBlob={nodeResult?.result?.text_blob ?? undefined}
                   nodeProps={props}
                   handleRemove={handleRemove}
-                  theme={theme}
                 />
               );
             },
           ];
         }),
       ),
+      TextNode: TextNode,
+    }),
     // Including incoming props like handleRemove and handleClickExpand in dependency list would cause
     // infinite re-render, so exception for eslint eslint-disable-next-line react-hooks/exhaustive-deps is added
     // to suppress eslint warning
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [programResults, failedNodes, runningNode, theme],
+    [programResults, failedNodes, runningNode],
   );
 
   return nodeTypes;

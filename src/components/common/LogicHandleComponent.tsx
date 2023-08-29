@@ -29,7 +29,7 @@ export const LogicHandleComponent = ({
           type="target"
           param={inputs[0]}
           variant={variant}
-          style={{ left: 3, bottom: -3 }}
+          style={{ left: 3, bottom: -6 }}
         />
       </>
     );
@@ -41,14 +41,14 @@ export const LogicHandleComponent = ({
           type="target"
           param={inputs[0]}
           variant={variant}
-          style={{ bottom: -6 }}
+          style={{ bottom: -9 }}
         />
         <CustomHandle
           position={Position.Left}
           type="target"
           param={inputs[1]}
           variant={variant}
-          style={{ left: -6 }}
+          style={{ left: -9 }}
         />
       </>
     );
@@ -64,7 +64,7 @@ export const LogicHandleComponent = ({
           type="source"
           param={outputs[0]}
           variant={variant}
-          style={{ right: -3, top: 3 }}
+          style={{ right: -6, top: 3 }}
         />
       </>
     );
@@ -77,7 +77,7 @@ export const LogicHandleComponent = ({
           param={outputs[0]}
           variant={variant}
           style={{
-            top: -6,
+            top: -9,
           }}
         />
         <CustomHandle
@@ -85,7 +85,7 @@ export const LogicHandleComponent = ({
           type="source"
           param={outputs[1]}
           variant={variant}
-          style={{ right: -6 }}
+          style={{ right: -9 }}
         />
       </>
     );
