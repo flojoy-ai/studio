@@ -3,15 +3,12 @@ import { useEffect, useState } from "react";
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PreJobOperationDialog from "./feature/common/PreJobOperationDialog";
-import {
-  useFlowChartState,
-} from "./hooks/useFlowChartState";
+import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import { ThemeProvider } from "@src/providers/themeProvider";
-
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -31,10 +28,15 @@ const App = () => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
-console.log(" is modal open: ", isPrejobModalOpen, " modalConfig: ", modalConfig)
-  useEffect(()=>{
-      setIsPrejobModalOpen(modalConfig.showModal ?? false)
-  },[modalConfig])
+  console.log(
+    " is modal open: ",
+    isPrejobModalOpen,
+    " modalConfig: ",
+    modalConfig,
+  );
+  useEffect(() => {
+    setIsPrejobModalOpen(modalConfig.showModal ?? false);
+  }, [modalConfig]);
 
   useEffect(() => {
     sendFrontEndLoadsToMix();
@@ -43,12 +45,12 @@ console.log(" is modal open: ", isPrejobModalOpen, " modalConfig: ", modalConfig
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
-      <PreJobOperationDialog
-              open={isPrejobModalOpen}
-              outputs={modalConfig.messages ?? []}
-              setOpen={setIsPrejobModalOpen}
-              title = {modalConfig.title}
-            />
+        <PreJobOperationDialog
+          open={isPrejobModalOpen}
+          outputs={modalConfig.messages ?? []}
+          setOpen={setIsPrejobModalOpen}
+          title={modalConfig.title}
+        />
         <Routes>
           <Route
             path="/"

@@ -2,7 +2,6 @@ from typing import Any, TypedDict
 from pydantic import BaseModel
 
 
-
 # this Job class is used by the custom task queue
 class JobInfo:
     def __init__(
@@ -32,7 +31,8 @@ class ModalConfig(dict):
     showModal: bool | None
     title: str | None
     messages: str | None
-    id : str | None
+    id: str | None
+
 
 class WorkerJobResponse(dict):
     SYSTEM_STATUS: str | None = None
@@ -41,7 +41,7 @@ class WorkerJobResponse(dict):
     FAILED_NODES: dict[str, str] | None = None
     PRE_JOB_OP: dict[str, Any] | None = None
     jobsetId: str = ""
-    MODAL_CONFIG : ModalConfig
+    MODAL_CONFIG: ModalConfig
 
     def __init__(
         self,
@@ -50,7 +50,7 @@ class WorkerJobResponse(dict):
         failed_nodes: dict[str, str] | None = None,
         running_node: str = "",
         dict_item: dict[str, Any] = {},
-        modal_config: ModalConfig | None = None
+        modal_config: ModalConfig | None = None,
     ):
         self["jobsetId"] = jobset_id
         if sys_status:

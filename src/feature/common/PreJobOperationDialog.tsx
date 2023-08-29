@@ -11,7 +11,7 @@ import { useEffect, useRef } from "react";
 type PreJobOperationDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  title? : string;
+  title?: string;
   outputs: string[];
 };
 
@@ -19,7 +19,7 @@ const PreJobOperationDialog = ({
   open,
   setOpen,
   outputs,
-  title
+  title,
 }: PreJobOperationDialogProps) => {
   const lastElem = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ const PreJobOperationDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-2xl md:max-w-4xl max-h-[700px] overflow-y-scroll">
+      <DialogContent className="max-h-[700px] overflow-y-scroll sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>

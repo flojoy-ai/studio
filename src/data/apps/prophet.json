@@ -1,249 +1,249 @@
 {
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 210,
-                "height": 96,
-                "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
-                "type": "GENERATORS",
-                "data": {
-                    "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
-                    "label": "TIMESERIES",
-                    "func": "TIMESERIES",
-                    "type": "GENERATORS",
-                    "ctrls": {
-                        "start_date": {
-                            "type": "str",
-                            "default": "2023-01-01",
-                            "desc": "The start date of the timeseries in the format YYYY:MM:DD.",
-                            "functionName": "TIMESERIES",
-                            "param": "start_date",
-                            "value": "2023-01-01"
-                        },
-                        "end_date": {
-                            "type": "str",
-                            "default": "2023-07-20",
-                            "desc": "The end date of the timeseries in the format YYYY:MM:DD.",
-                            "functionName": "TIMESERIES",
-                            "param": "end_date",
-                            "value": "2023-07-20"
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "desc": "m: the resulting timeseries"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -410.3431553006602,
-                    "y": -52.85412608012075
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -410.3431553006602,
-                    "y": -52.85412608012075
-                },
-                "dragging": true
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 210,
+        "height": 96,
+        "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
+        "type": "GENERATORS",
+        "data": {
+          "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
+          "label": "TIMESERIES",
+          "func": "TIMESERIES",
+          "type": "GENERATORS",
+          "ctrls": {
+            "start_date": {
+              "type": "str",
+              "default": "2023-01-01",
+              "desc": "The start date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "start_date",
+              "value": "2023-01-01"
             },
-            {
-                "width": 208,
-                "height": 96,
-                "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
-                "type": "AI_ML",
-                "data": {
-                    "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
-                    "label": "PROPHET PREDICT",
-                    "func": "PROPHET_PREDICT",
-                    "type": "AI_ML",
-                    "ctrls": {
-                        "run_forecast": {
-                            "type": "bool",
-                            "default": true,
-                            "desc": "If True (default case), the dataframe of the returning DataContainer\n(\"m\" parameter of the DataContainer) will be the forecasted dataframe.\nIt will also have an \"extra\" field with the key \"original\", which is\nthe original dataframe passed in.\n\nIf False, the returning dataframe will be the original data.\n\nThis node will also always have an \"extra\" field, run_forecast, which\nmatches that of the parameters passed in. This is for future nodes\nto know if a forecast has already been run.\n\nDefault = True",
-                            "functionName": "PROPHET_PREDICT",
-                            "param": "run_forecast",
-                            "value": true
-                        },
-                        "periods": {
-                            "type": "int",
-                            "default": 365,
-                            "desc": "The number of periods to predict out. Only used if run_forecast is True.\nDefault = 365",
-                            "functionName": "PROPHET_PREDICT",
-                            "param": "periods",
-                            "value": 365
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "multiple": false,
-                            "desc": null
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "desc": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\AI_ML\\PREDICT_TIME_SERIES\\PROPHET_PREDICT\\PROPHET_PREDICT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": -49.95156682663276,
-                    "y": -38.779822683898544
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": -49.95156682663276,
-                    "y": -38.779822683898544
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
-                    "label": "PROPHET COMPONENTS",
-                    "func": "PROPHET_COMPONENTS",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "periods": {
-                            "type": "int",
-                            "default": 365,
-                            "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored. default is 365",
-                            "functionName": "PROPHET_COMPONENTS",
-                            "param": "periods",
-                            "value": 365
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly visualization of the prophet model"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_COMPONENTS\\PROPHET_COMPONENTS.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 350.739487885802,
-                    "y": 61.20228238632404
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 350.739487885802,
-                    "y": 61.20228238632404
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
-                    "label": "PROPHET PLOT",
-                    "func": "PROPHET_PLOT",
-                    "type": "VISUALIZERS",
-                    "ctrls": {
-                        "periods": {
-                            "type": "int",
-                            "default": 365,
-                            "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored.\n\nDefault = 365",
-                            "functionName": "PROPHET_PLOT",
-                            "param": "periods",
-                            "value": 365
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly visualization of the prophet model"
-                        }
-                    ],
-                    "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_PLOT\\PROPHET_PLOT.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 360.76584864518634,
-                    "y": -315.5443598776949
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 360.76584864518634,
-                    "y": -315.5443598776949
-                },
-                "dragging": true
+            "end_date": {
+              "type": "str",
+              "default": "2023-07-20",
+              "desc": "The end date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "end_date",
+              "value": "2023-07-20"
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "outputs": [
             {
-                "source": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
-                "sourceHandle": "default",
-                "target": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
-                "targetHandle": "default",
-                "id": "reactflow__edge-TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32ddefault-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default"
-            },
-            {
-                "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
-                "sourceHandle": "default",
-                "target": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34default"
-            },
-            {
-                "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
-                "sourceHandle": "default",
-                "target": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
-                "targetHandle": "default",
-                "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefedefault"
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "m: the resulting timeseries"
             }
-        ],
-        "viewport": {
-            "x": 668.149331293115,
-            "y": 328.3535364392434,
-            "zoom": 0.6963386120144724
-        }
+          ],
+          "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
+          "selected": false
+        },
+        "position": {
+          "x": -410.3431553006602,
+          "y": -52.85412608012075
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -410.3431553006602,
+          "y": -52.85412608012075
+        },
+        "dragging": true
+      },
+      {
+        "width": 208,
+        "height": 96,
+        "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
+        "type": "AI_ML",
+        "data": {
+          "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
+          "label": "PROPHET PREDICT",
+          "func": "PROPHET_PREDICT",
+          "type": "AI_ML",
+          "ctrls": {
+            "run_forecast": {
+              "type": "bool",
+              "default": true,
+              "desc": "If True (default case), the dataframe of the returning DataContainer\n(\"m\" parameter of the DataContainer) will be the forecasted dataframe.\nIt will also have an \"extra\" field with the key \"original\", which is\nthe original dataframe passed in.\n\nIf False, the returning dataframe will be the original data.\n\nThis node will also always have an \"extra\" field, run_forecast, which\nmatches that of the parameters passed in. This is for future nodes\nto know if a forecast has already been run.\n\nDefault = True",
+              "functionName": "PROPHET_PREDICT",
+              "param": "run_forecast",
+              "value": true
+            },
+            "periods": {
+              "type": "int",
+              "default": 365,
+              "desc": "The number of periods to predict out. Only used if run_forecast is True.\nDefault = 365",
+              "functionName": "PROPHET_PREDICT",
+              "param": "periods",
+              "value": 365
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
+            }
+          ],
+          "path": "PYTHON/nodes\\AI_ML\\PREDICT_TIME_SERIES\\PROPHET_PREDICT\\PROPHET_PREDICT.py",
+          "selected": false
+        },
+        "position": {
+          "x": -49.95156682663276,
+          "y": -38.779822683898544
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -49.95156682663276,
+          "y": -38.779822683898544
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
+          "label": "PROPHET COMPONENTS",
+          "func": "PROPHET_COMPONENTS",
+          "type": "VISUALIZERS",
+          "ctrls": {
+            "periods": {
+              "type": "int",
+              "default": 365,
+              "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored. default is 365",
+              "functionName": "PROPHET_COMPONENTS",
+              "param": "periods",
+              "value": 365
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly visualization of the prophet model"
+            }
+          ],
+          "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_COMPONENTS\\PROPHET_COMPONENTS.py",
+          "selected": false
+        },
+        "position": {
+          "x": 350.739487885802,
+          "y": 61.20228238632404
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 350.739487885802,
+          "y": 61.20228238632404
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
+          "label": "PROPHET PLOT",
+          "func": "PROPHET_PLOT",
+          "type": "VISUALIZERS",
+          "ctrls": {
+            "periods": {
+              "type": "int",
+              "default": 365,
+              "desc": "The number of periods out to predict.\nOnly used if the node passed into this node (i.e. PROPHET_PREDICT) did NOT return the forecast.\nIf the forecast was included in the DataContainer, this parameter will be ignored.\n\nDefault = 365",
+              "functionName": "PROPHET_PLOT",
+              "param": "periods",
+              "value": 365
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly visualization of the prophet model"
+            }
+          ],
+          "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_PLOT\\PROPHET_PLOT.py",
+          "selected": false
+        },
+        "position": {
+          "x": 360.76584864518634,
+          "y": -315.5443598776949
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 360.76584864518634,
+          "y": -315.5443598776949
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
+        "sourceHandle": "default",
+        "target": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
+        "targetHandle": "default",
+        "id": "reactflow__edge-TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32ddefault-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default"
+      },
+      {
+        "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
+        "sourceHandle": "default",
+        "target": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
+        "targetHandle": "default",
+        "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34default"
+      },
+      {
+        "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
+        "sourceHandle": "default",
+        "target": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
+        "targetHandle": "default",
+        "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefedefault"
+      }
+    ],
+    "viewport": {
+      "x": 668.149331293115,
+      "y": 328.3535364392434,
+      "zoom": 0.6963386120144724
     }
+  }
 }

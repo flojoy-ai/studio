@@ -10,7 +10,7 @@ export type ModalConfig = {
   title?: string;
   messages?: string[];
   id?: string;
-}
+};
 
 type States = {
   programResults: NodeResult[];
@@ -53,8 +53,8 @@ export const SocketContextProvider = ({
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [modalConfig, setModalConfig] = useState<ModalConfig>({
-    showModal: false
-  })
+    showModal: false,
+  });
 
   const handleStateChange =
     (state: keyof States) =>
@@ -94,7 +94,7 @@ export const SocketContextProvider = ({
         modalConfig,
       },
     }),
-    [ programResults, states, modalConfig],
+    [programResults, states, modalConfig],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
