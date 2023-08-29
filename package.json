@@ -1,7 +1,7 @@
 {
   "name": "flojoy-desktop",
   "productName": "Flojoy Studio",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "homepage": "./",
   "author": "Jack Parmer <jp@flojoy.io>",
