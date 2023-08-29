@@ -203,7 +203,6 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     nodes = fc["nodes"]
     missing_packages = []
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
-    print("socket_msg line 191: ", socket_msg, flush=True)
     await manager.ws.broadcast(socket_msg)
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
@@ -328,7 +327,9 @@ class BroadCastNodeLogs(logging.Handler):
     def emit(self, record):
         log_entry = self.format(record)
         socket_msg = WorkerJobResponse(jobset_id=self.jobset_id)
-        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUNING_PYTHON_JOB"] + self.node_func
+        socket_msg["SYSTEM_STATUS"] = (
+            STATUS_CODES["RUNNING_PYTHON_JOB"] + self.node_func
+        )
         socket_msg["MODAL_CONFIG"] = ModalConfig(
             showModal=True, messages=log_entry, title=f"{self.node_func} logs"
         )

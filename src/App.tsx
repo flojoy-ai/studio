@@ -28,12 +28,7 @@ const App = () => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
-  console.log(
-    " is modal open: ",
-    isPrejobModalOpen,
-    " modalConfig: ",
-    modalConfig,
-  );
+
   useEffect(() => {
     setIsPrejobModalOpen(modalConfig.showModal ?? false);
   }, [modalConfig]);
