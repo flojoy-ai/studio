@@ -210,7 +210,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
         )
         handler.setFormatter(
-            logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+            logging.Formatter("%(asctime)s - %(name)s - %(message)s")
         )
         node_logger.addHandler(handler)
         if "pip_dependencies" not in node["data"]:
