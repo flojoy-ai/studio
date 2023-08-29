@@ -13,8 +13,8 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-import { API_URI } from "@src/data/constants";
-import { toast } from "sonner";
+// import { API_URI } from "@src/data/constants";
+// import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
@@ -28,28 +28,28 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
 
-  const handleUpdate = async () => {
-    const resp = await fetch(`${API_URI}/update/`, {
-      method: "GET",
-    });
-
-    const hasUpdate = await resp.json();
-
-    if (hasUpdate) {
-      toast("Update available!", {
-        action: {
-          label: "Update",
-          onClick: async () => {
-            await fetch(`${API_URI}/update/`, {
-              method: "POST",
-            });
-          },
-        },
-      });
-    } else {
-      toast("Your Flojoy Studio is up to date");
-    }
-  };
+  // const handleUpdate = async () => {
+  //   const resp = await fetch(`${API_URI}/update/`, {
+  //     method: "GET",
+  //   });
+  //
+  //   const hasUpdate = await resp.json();
+  //
+  //   if (hasUpdate) {
+  //     toast("Update available!", {
+  //       action: {
+  //         label: "Update",
+  //         onClick: async () => {
+  //           await fetch(`${API_URI}/update/`, {
+  //             method: "POST",
+  //           });
+  //         },
+  //       },
+  //     });
+  //   } else {
+  //     toast("Your Flojoy Studio is up to date");
+  //   }
+  // };
 
   return (
     <div className="flex items-center gap-2 p-2.5">
@@ -116,12 +116,12 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-check-for-update"
-                onClick={handleUpdate}
-              >
-                Check for update
-              </MenubarItem>
+              {/* <MenubarItem */}
+              {/*   data-testid="btn-check-for-update" */}
+              {/*   onClick={handleUpdate} */}
+              {/* > */}
+              {/*   Check for update */}
+              {/* </MenubarItem> */}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
