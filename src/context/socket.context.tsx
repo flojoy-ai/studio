@@ -10,6 +10,7 @@ export type ModalConfig = {
   title?: string;
   messages?: string[];
   id?: string;
+  description?: string;
 };
 
 type States = {

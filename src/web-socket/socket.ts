@@ -43,6 +43,7 @@ const getModalConfig = (
     showModal: next.showModal,
     title: next.title,
     messages,
+    description: next.description,
   };
 };
 

@@ -31,6 +31,7 @@ class ModalConfig(dict):
     showModal: bool | None
     title: str | None
     messages: str | None
+    description: str | None
     id: str | None
 
 

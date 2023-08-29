@@ -45,6 +45,7 @@ const App = () => {
           outputs={modalConfig.messages ?? []}
           setOpen={setIsPrejobModalOpen}
           title={modalConfig.title}
+          description={modalConfig.description}
         />
         <Routes>
           <Route

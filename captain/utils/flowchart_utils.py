@@ -174,11 +174,9 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     clean_up_function()
 
     logger.info("BUILDING_TOPOLOGY")
-    await asyncio.create_task(
-        manager.ws.broadcast(
-            WorkerJobResponse(
-                jobset_id=request.jobsetId, sys_status=STATUS_CODES["BUILDING_TOPOLOGY"]
-            )
+    await manager.ws.broadcast(
+        WorkerJobResponse(
+            jobset_id=request.jobsetId, sys_status=STATUS_CODES["BUILDING_TOPOLOGY"]
         )
     )
 
@@ -231,6 +229,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         await manager.ws.broadcast(socket_msg)
         socket_msg["MODAL_CONFIG"] = ModalConfig(
             showModal=True,
+            description="Installing required dependencies before running the flow chart...",
             messages=f"{', '.join(missing_packages)} packages will be installed with pip!",
         )
         await manager.ws.broadcast(socket_msg)

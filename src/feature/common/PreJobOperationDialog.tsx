@@ -12,6 +12,7 @@ type PreJobOperationDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   title?: string;
+  description?: string;
   outputs: string[];
 };
 
@@ -20,6 +21,7 @@ const PreJobOperationDialog = ({
   setOpen,
   outputs,
   title,
+  description,
 }: PreJobOperationDialogProps) => {
   const lastElem = useRef<HTMLDivElement>(null);
 
@@ -34,9 +36,7 @@ const PreJobOperationDialog = ({
       <DialogContent className="max-h-[700px] overflow-y-scroll sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>
-            Installing required dependencies before running the flow chart...
-          </DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {outputs.map((output, i) => (
           <div
