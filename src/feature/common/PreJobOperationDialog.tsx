@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 type PreJobOperationDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  title? : string;
   outputs: string[];
 };
 
@@ -18,6 +19,7 @@ const PreJobOperationDialog = ({
   open,
   setOpen,
   outputs,
+  title
 }: PreJobOperationDialogProps) => {
   const lastElem = useRef<HTMLDivElement>(null);
 
@@ -31,7 +33,7 @@ const PreJobOperationDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Pre-run operation</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
             Installing required dependencies before running the flow chart...
           </DialogDescription>
