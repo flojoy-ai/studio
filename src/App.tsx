@@ -13,6 +13,7 @@ import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import { ThemeProvider } from "@src/providers/themeProvider";
+import BackendInitLogsDialog from "./components/electron/BackendLogDialog";
 // import { useAtom } from "jotai";
 
 function ErrorBoundary() {
@@ -53,6 +54,7 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
+        <BackendInitLogsDialog />
         <PreJobOperationDialog
           open={isPrejobModalOpen}
           outputs={preJobOperation.output}

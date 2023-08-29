@@ -98,6 +98,7 @@ async function createWindow() {
       // Consider using contextBridge.exposeInMainWorld
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
+      contextIsolation: true,
     },
     show: false,
   });
@@ -138,29 +139,18 @@ async function createWindow() {
   win.show();
 
   if (app.isPackaged) {
-    global.initializingBackend = true;
     win.loadFile(indexHtml);
-    dialog.showMessageBox(win, {
-      icon: getIcon(),
-      message: "Initializing backend..",
-      detail:
-        "Initilization can take few minutes for the first time. Please be patient!",
-    });
-    const { script, success } = await runBackend(WORKING_DIR);
-    if (success) {
-      global.initializingBackend = false;
-      backendProcess = script;
-      dialog.showMessageBox(win, {
-        message: "Backend is up and running!",
-        detail: "Backend is initialized successfully...",
-        icon: getIcon(),
+    global.initializingBackend = true;
+    runBackend(WORKING_DIR, win)
+      .then(({ success, script }) => {
+        if (success) {
+          global.initializingBackend = false;
+          backendProcess = script;
+        }
+      })
+      .catch(() => {
+        global.initializingBackend = false;
       });
-    } else {
-      dialog.showErrorBox(
-        "Backend initialization failed",
-        "Failed to initialize backend. Please relunch the app...",
-      );
-    }
   } else {
     // electron-vite-vue#298
     win.loadURL(url ?? "");

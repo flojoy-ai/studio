@@ -4,23 +4,32 @@ import treeKill from "tree-kill";
 
 export const runCommand = (
   command: string,
-  matchText: string
+  matchText: string,
+  win: Electron.BrowserWindow,
 ): Promise<{
   script: childProcess.ChildProcess;
 }> => {
   return new Promise((resolve, reject) => {
     const script = childProcess.exec(command);
     script.stdout?.on("data", function (data) {
+      win.webContents.send("backend", data);
       if (data.toString().includes(matchText)) {
+        win.webContents.send("backend", "backend initialized successfully!");
         resolve({ script });
       }
     });
     script.stderr?.on("data", function (data) {
+      win.webContents.send("backend", data);
       if (data.toString().includes(matchText)) {
+        win.webContents.send("backend", "backend initialized successfully!");
         resolve({ script });
       }
     });
     script.addListener("exit", (code) => {
+      win.webContents.send(
+        "backend",
+        "Error: Failed to initialize backend try re lunching app!",
+      );
       reject({ code });
     });
   });
@@ -42,16 +51,15 @@ export const killSubProcess = (script: childProcess.ChildProcess) => {
 const successText = "Application startup complete";
 
 export const runBackend = (
-  workingDir: string
+  workingDir: string,
+  win: Electron.BrowserWindow,
 ): Promise<{
   success: boolean;
   script: childProcess.ChildProcess | undefined;
-
-  data?: string[];
 }> => {
   const backendCommand = getBackendCommand(workingDir);
   return new Promise((resolve) => {
-    runCommand(backendCommand, successText)
+    runCommand(backendCommand, successText, win)
       .then(({ script }) => {
         resolve({ success: true, script });
       })
