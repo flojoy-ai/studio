@@ -4,7 +4,7 @@ import treeKill from "tree-kill";
 
 export const runCommand = (
   command: string,
-  matchText: string,
+  matchText: string
 ): Promise<{
   script: childProcess.ChildProcess;
 }> => {
@@ -50,7 +50,6 @@ export const runBackend = (
   data?: string[];
 }> => {
   const backendCommand = getBackendCommand(workingDir);
-
   return new Promise((resolve) => {
     runCommand(backendCommand, successText)
       .then(({ script }) => {
@@ -68,5 +67,5 @@ const getBackendCommand = (workingDir: string) => {
   if (process.platform === "win32") {
     return `pwsh -File ${join(workingDir, "../backend/backend.ps1")}`;
   }
-  return `sh "${resolve(join(workingDir, "../backend/backend.sh"))}"`;
+  return `bash "${resolve(join(workingDir, "../backend/backend.sh"))}"`;
 };
