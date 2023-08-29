@@ -1,4 +1,5 @@
 {
+  "name": "FFT",
   "rfInstance": {
     "nodes": [
       {
@@ -17,21 +18,21 @@
               "default": 10,
               "functionName": "LINSPACE",
               "param": "start",
-              "value": 10
+              "value": 0
             },
             "end": {
               "type": "float",
               "default": 0,
               "functionName": "LINSPACE",
               "param": "end",
-              "value": 0
+              "value": 0.75
             },
             "step": {
               "type": "int",
               "default": 1000,
               "functionName": "LINSPACE",
               "param": "step",
-              "value": 1000
+              "value": 600
             }
           },
           "outputs": [
@@ -78,7 +79,7 @@
               "default": 1,
               "functionName": "SINE",
               "param": "frequency",
-              "value": 1
+              "value": 30
             },
             "offset": {
               "type": "float",
@@ -155,7 +156,7 @@
               "default": 1,
               "functionName": "SINE",
               "param": "frequency",
-              "value": 1
+              "value": 100
             },
             "offset": {
               "type": "float",
@@ -297,7 +298,7 @@
               "default": true,
               "functionName": "FFT",
               "param": "real_signal",
-              "value": false
+              "value": true
             },
             "sample_rate": {
               "type": "int",
@@ -333,23 +334,23 @@
           "selected": false
         },
         "position": {
-          "x": 1077.8159311850482,
-          "y": 333.47740435186597
+          "x": 1068.0232140768915,
+          "y": 313.89197013555247
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1077.8159311850482,
-          "y": 333.47740435186597
+          "x": 1068.0232140768915,
+          "y": 313.89197013555247
         },
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
-        "id": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+        "width": 225,
+        "height": 226,
+        "id": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
         "type": "VISUALIZERS",
         "data": {
-          "id": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+          "id": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
           "label": "LINE",
           "func": "LINE",
           "type": "VISUALIZERS",
@@ -376,24 +377,24 @@
           "selected": false
         },
         "position": {
-          "x": 887.034098460458,
-          "y": 579.6766864219596
+          "x": 1010.1832098880897,
+          "y": 613.1218016072371
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 887.034098460458,
-          "y": 579.6766864219596
+          "x": 1010.1832098880897,
+          "y": 613.1218016072371
         },
         "dragging": true
       },
       {
-        "width": 380,
-        "height": 293,
-        "id": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
+        "width": 225,
+        "height": 226,
+        "id": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
         "type": "VISUALIZERS",
         "data": {
-          "id": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
-          "label": "LINE 1",
+          "id": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
+          "label": "LINE 3",
           "func": "LINE",
           "type": "VISUALIZERS",
           "ctrls": {},
@@ -419,13 +420,13 @@
           "selected": false
         },
         "position": {
-          "x": 1398.2741633609771,
-          "y": 297.37851850670734
+          "x": 1482.1402605942894,
+          "y": 278.7788180524462
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 1398.2741633609771,
-          "y": 297.37851850670734
+          "x": 1482.1402605942894,
+          "y": 278.7788180524462
         },
         "dragging": true
       }
@@ -469,16 +470,16 @@
       {
         "source": "ADD-26b8771f-d073-4ee8-8bec-a69e4a23079d",
         "sourceHandle": "default",
-        "target": "LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42",
+        "target": "LINE-5477fda2-60e7-4d32-bd26-d96341435427",
         "targetHandle": "default",
-        "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-LINE-cba2fc02-158f-4cb4-8333-9f4f770f8b42default"
+        "id": "reactflow__edge-ADD-26b8771f-d073-4ee8-8bec-a69e4a23079ddefault-LINE-5477fda2-60e7-4d32-bd26-d96341435427default"
       },
       {
         "source": "FFT-ae307ae3-517d-4103-a787-02fe288d2e97",
         "sourceHandle": "default",
-        "target": "LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681",
+        "target": "LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8",
         "targetHandle": "default",
-        "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-LINE-96c9f41a-8d2e-418d-9eaf-e29e0aeb6681default"
+        "id": "reactflow__edge-FFT-ae307ae3-517d-4103-a787-02fe288d2e97default-LINE-8014db01-e88c-4650-b6e0-1be8d8afd2b8default"
       }
     ],
     "viewport": {
@@ -486,24 +487,5 @@
       "y": 237.5684501369203,
       "zoom": 0.5038108820776545
     }
-  },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ]
+  }
 }
