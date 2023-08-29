@@ -209,9 +209,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         handler = BroadCastNodeLogs(
             manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
         )
-        handler.setFormatter(
-            logging.Formatter("%(asctime)s - %(name)s - %(message)s")
-        )
+        handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
         node_logger.addHandler(handler)
         if "pip_dependencies" not in node["data"]:
             continue
