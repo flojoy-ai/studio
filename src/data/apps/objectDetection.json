@@ -1,9 +1,10 @@
 {
+  "name": "Object identification",
   "rfInstance": {
     "nodes": [
       {
-        "width": 150,
-        "height": 180,
+        "width": 160,
+        "height": 160,
         "id": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
         "type": "LOADERS",
         "data": {
@@ -63,50 +64,8 @@
         "dragging": true
       },
       {
-        "width": 150,
-        "height": 180,
-        "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
-        "type": "AI_ML",
-        "data": {
-          "id": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
-          "label": "OBJECT DETECTION",
-          "func": "OBJECT_DETECTION",
-          "type": "AI_ML",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image",
-              "multiple": false,
-              "desc": null
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image",
-              "desc": null
-            }
-          ],
-          "path": "PYTHON/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/OBJECT_DETECTION.py",
-          "selected": false
-        },
-        "position": {
-          "x": -525.1295467566974,
-          "y": -39.469479028815755
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -525.1295467566974,
-          "y": -39.469479028815755
-        },
-        "dragging": true
-      },
-      {
-        "width": 225,
-        "height": 226,
+        "width": 380,
+        "height": 293,
         "id": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
         "type": "VISUALIZERS",
         "data": {
@@ -147,8 +106,8 @@
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
+        "width": 380,
+        "height": 293,
         "id": "IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25",
         "type": "VISUALIZERS",
         "data": {
@@ -187,16 +146,58 @@
           "y": -479.5905366074528
         },
         "dragging": true
+      },
+      {
+        "width": 208,
+        "height": 96,
+        "id": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+        "type": "AI_ML",
+        "data": {
+          "id": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+          "label": "OBJECT DETECTION",
+          "func": "OBJECT_DETECTION",
+          "type": "AI_ML",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "desc": null
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "opencv-python",
+              "v": "4.8.0.72"
+            }
+          ],
+          "path": "PYTHON/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/OBJECT_DETECTION.py",
+          "selected": false
+        },
+        "position": {
+          "x": -603.4320152572054,
+          "y": -36.080992227066815
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -603.4320152572054,
+          "y": -36.080992227066815
+        },
+        "dragging": true
       }
     ],
     "edges": [
-      {
-        "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
-        "sourceHandle": "default",
-        "target": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
-        "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358default"
-      },
       {
         "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
         "sourceHandle": "default",
@@ -205,11 +206,18 @@
         "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-IMAGE-9591ea14-23d2-4d24-b104-1335600c0f25default"
       },
       {
-        "source": "OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358",
+        "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
+        "sourceHandle": "default",
+        "target": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34default"
+      },
+      {
+        "source": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
         "sourceHandle": "default",
         "target": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
         "targetHandle": "default",
-        "id": "reactflow__edge-OBJECT_DETECTION-3b13166f-2545-45ea-afc7-d333632f3358default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
+        "id": "reactflow__edge-OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
       }
     ],
     "viewport": {
@@ -217,24 +225,5 @@
       "y": 304.7961088583293,
       "zoom": 1.2943575349520495
     }
-  },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ]
+  }
 }

@@ -1,4 +1,3 @@
-import localforage from "localforage";
 import { memo, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
@@ -14,18 +13,13 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-import { API_URI } from "@src/data/constants";
-import { toast } from "sonner";
+// import { API_URI } from "@src/data/constants";
+// import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-
-localforage.config({
-  name: "react-flow",
-  storeName: "flows",
-});
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -34,28 +28,28 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
 
-  const handleUpdate = async () => {
-    const resp = await fetch(`${API_URI}/update/`, {
-      method: "GET",
-    });
-
-    const hasUpdate = await resp.json();
-
-    if (hasUpdate) {
-      toast("Update available!", {
-        action: {
-          label: "Update",
-          onClick: async () => {
-            await fetch(`${API_URI}/update/`, {
-              method: "POST",
-            });
-          },
-        },
-      });
-    } else {
-      toast("Your Flojoy Studio is up to date");
-    }
-  };
+  // const handleUpdate = async () => {
+  //   const resp = await fetch(`${API_URI}/update/`, {
+  //     method: "GET",
+  //   });
+  //
+  //   const hasUpdate = await resp.json();
+  //
+  //   if (hasUpdate) {
+  //     toast("Update available!", {
+  //       action: {
+  //         label: "Update",
+  //         onClick: async () => {
+  //           await fetch(`${API_URI}/update/`, {
+  //             method: "POST",
+  //           });
+  //         },
+  //       },
+  //     });
+  //   } else {
+  //     toast("Your Flojoy Studio is up to date");
+  //   }
+  // };
 
   return (
     <div className="flex items-center gap-2 p-2.5">
@@ -83,7 +77,7 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="dropdown-button">
+            <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
             <MenubarContent>
@@ -96,12 +90,10 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger data-testid="dropdown-button">
-              Settings
-            </MenubarTrigger>
+            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
               <MenubarItem
-                data-testid="env-variable-moda-btn"
+                data-testid="env-var-modal-button"
                 onClick={() => setIsEnvVarModalOpen(true)}
               >
                 Environment Variables
@@ -124,12 +116,12 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-node-settings"
-                onClick={handleUpdate}
-              >
-                Check for update
-              </MenubarItem>
+              {/* <MenubarItem */}
+              {/*   data-testid="btn-check-for-update" */}
+              {/*   onClick={handleUpdate} */}
+              {/* > */}
+              {/*   Check for update */}
+              {/* </MenubarItem> */}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

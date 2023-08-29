@@ -8,6 +8,7 @@ describe("Verify Keyboard shortcut modal", () => {
 
   it("keyboard shortcut test", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Click settings button
     cy.get('[data-testid="settings-btn"]').click();
@@ -17,7 +18,8 @@ describe("Verify Keyboard shortcut modal", () => {
 
     cy.percySnapshot("dark flow page with keyboardshorcut modal");
 
-    cy.get('button:contains("x")').click({ force: true });
+    // Click close button
+    cy.get('[role="dialog"] > button').click();
 
     // Switch to light mode and test the same thing
     cy.get('[data-testid="darkmode-toggle"]').click();
