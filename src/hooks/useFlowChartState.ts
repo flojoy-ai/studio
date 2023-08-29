@@ -2,7 +2,6 @@ import { ElementsData } from "@/types";
 import { TextData } from "@src/types/node";
 import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import localforage from "localforage";
 import { ReactFlowJsonObject, Node } from "reactflow";
 
 export type CtrlManifestParam = ElementsData["ctrls"][""] & {
@@ -65,7 +64,6 @@ const nodeParamChangedAtom = atom<boolean>(false);
 export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
   undefined,
 );
-localforage.config({ name: "react-flow", storeName: "flows" });
 
 export function useFlowChartState() {
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);

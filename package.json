@@ -1,10 +1,10 @@
 {
   "name": "flojoy-desktop",
   "productName": "Flojoy Studio",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "private": true,
   "homepage": "./",
-  "author": "Jack Parmer <jack.parmer@proton.me>",
+  "author": "Jack Parmer <jp@flojoy.io>",
   "main": "dist-electron/main/index.js",
   "dependencies": {
     "@plotly/d3": "^3.8.1",

@@ -344,6 +344,8 @@ def populate_init_params(init_func: Callable, mb: ManifestBuilder):
 
 
 def populate_return(return_type: Any, mb: ManifestBuilder, is_special_node: bool):
+    if return_type is None:
+        return
     if is_union(return_type):
         union_types = [t for t in get_union_types(return_type) if t != NoneType]
 
@@ -361,7 +363,7 @@ def populate_return(return_type: Any, mb: ManifestBuilder, is_special_node: bool
         else:
             mb.with_output("default", return_type)
     # Single untyped output
-    elif return_type == DataContainer:
+    elif return_type == DataContainer or return_type == Any:
         mb.with_output("default", Any)
     # Single typed output
     elif issubclass(return_type, DataContainer):

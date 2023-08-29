@@ -90,6 +90,7 @@ const NodeEditModal = ({
                   onClick={() => {
                     setNodeModalOpen(true);
                   }}
+                  data-testid="node-info-button"
                 >
                   <Info size={20} className="stroke-muted-foreground" />
                 </Button>
@@ -103,6 +104,7 @@ const NodeEditModal = ({
               size="icon"
               variant="ghost"
               onClick={() => setIsEditMode(false)}
+              data-testid="node-edit-close-button"
               className="mr-4 p-2"
             >
               <X size={20} className="stroke-muted-foreground" />
@@ -153,6 +155,7 @@ const NodeEditModal = ({
             variant="ghost"
             onClick={() => handleDelete(node.id, node.data.label)}
             className="mr-4"
+            data-testid="delete-node-button"
           >
             <TrashIcon size={20} className="stroke-muted-foreground" />
           </Button>

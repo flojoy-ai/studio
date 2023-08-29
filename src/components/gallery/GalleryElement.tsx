@@ -12,7 +12,8 @@ import {
   projectAtom,
   projectPathAtom,
 } from "@src/hooks/useFlowChartState";
-import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useSocket } from "@src/hooks/useSocket";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -24,14 +25,16 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const setProject = useSetAtom(projectAtom);
-  const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
   const setProjectPath = useSetAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
+  const { states } = useSocket();
+  const { setProgramResults } = states;
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
@@ -49,6 +52,7 @@ export const GalleryElement = ({
     setProjectPath(undefined);
     setIsGalleryOpen(false);
     setHasUnsavedChanges(false);
+    setProgramResults([]);
   };
 
   useEffect(() => {
@@ -62,7 +66,7 @@ export const GalleryElement = ({
   }, [nodesInitialized]);
 
   return (
-    <div data-testid="gallery-element-btn" className="min-h-40 m-1">
+    <div className="min-h-40 m-1">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
           <AvatarImage className="object-contain" src={galleryApp.imagePath} />
@@ -95,6 +99,7 @@ export const GalleryElement = ({
               variant="outline"
               size="sm"
               className="gap-2"
+              data-testid="gallery-load-button"
               onClick={async () => {
                 await handleAppLoad();
               }}

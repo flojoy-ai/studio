@@ -7,6 +7,7 @@ describe("main page", () => {
   // Traditional assertions that scrape the page for text values are not needed here.
   it("main page", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.percySnapshot("dark flow page");
 
