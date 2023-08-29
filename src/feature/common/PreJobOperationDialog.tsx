@@ -24,14 +24,14 @@ const PreJobOperationDialog = ({
   const lastElem = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (lastElem.current && lastElem.current.scrollIntoView) {
+    if (lastElem.current?.scrollIntoView) {
       lastElem.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [outputs.length]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-2xl md:max-w-4xl">
+      <DialogContent className="sm:max-w-2xl md:max-w-4xl max-h-[700px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>

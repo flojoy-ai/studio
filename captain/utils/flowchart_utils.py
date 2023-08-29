@@ -23,6 +23,7 @@ from captain.utils.broadcast import (
     signal_standby,
     signal_prejob_op,
 )
+import logging
 
 
 def run_worker(
@@ -160,9 +161,7 @@ async def run_flow_chart(manager: Manager):
 async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
-    socket_msg = WorkerJobResponse(
-        jobset_id=request.jobsetId
-    )
+    socket_msg = WorkerJobResponse(jobset_id=request.jobsetId)
     fc = json.loads(request.fc)
 
     def clean_up_function(is_finished: bool = False):
@@ -204,9 +203,17 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     nodes = fc["nodes"]
     missing_packages = []
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
-    print("socket_msg line 191: ", socket_msg , flush=True)
+    print("socket_msg line 191: ", socket_msg, flush=True)
     await manager.ws.broadcast(socket_msg)
     for node in nodes:
+        node_logger = logging.getLogger(node["data"]["func"])
+        handler = BroadCastNodeLogs(
+            manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
+        )
+        handler.setFormatter(
+            logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        )
+        node_logger.addHandler(handler)
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
@@ -225,7 +232,10 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     if missing_packages:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["INSTALLING_PACKAGES"]
         await manager.ws.broadcast(socket_msg)
-        socket_msg["MODAL_CONFIG"] = ModalConfig(showModal=True, messages=f"{', '.join(missing_packages)} packages will be installed with pip!")
+        socket_msg["MODAL_CONFIG"] = ModalConfig(
+            showModal=True,
+            messages=f"{', '.join(missing_packages)} packages will be installed with pip!",
+        )
         await manager.ws.broadcast(socket_msg)
         installation_succeed = await install_packages(
             missing_packages, socket_msg, manager=manager
@@ -233,7 +243,9 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         logger.debug(f"installing packages was successful? {installation_succeed}")
 
         if not installation_succeed:
-            socket_msg.MODAL_CONFIG["messages"] = "Pre job operation failed! Look at the errors printed above!"
+            socket_msg.MODAL_CONFIG[
+                "messages"
+            ] = "Pre job operation failed! Look at the errors printed above!"
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
             return
@@ -242,20 +254,22 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         await manager.ws.broadcast(socket_msg)
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
-    socket_msg.MODAL_CONFIG["showModal"] = False    
+    socket_msg.MODAL_CONFIG["showModal"] = False
     await manager.ws.broadcast(socket_msg)
-    
+
     # get the amount of workers needed
     funcs, errs = manager.running_topology.pre_import_functions()
 
     if errs:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
-        socket_msg["MODAL_CONFIG"]= ModalConfig(showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}")
+        socket_msg["MODAL_CONFIG"] = ModalConfig(
+            showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}"
+        )
         socket_msg.FAILED_NODES = errs
         await manager.ws.broadcast(socket_msg)
         return
 
-    socket_msg["SYSTEM_STATUS"] =  STATUS_CODES["RUN_IN_PROCESS"]    
+    socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
     await manager.ws.broadcast(socket_msg)
 
     spawn_workers(manager, funcs, request.nodeDelay)
@@ -302,3 +316,22 @@ async def install_packages(
         socket_msg.MODAL_CONFIG["messages"] = output
         await manager.ws.broadcast(socket_msg)
         return False
+
+
+class BroadCastNodeLogs(logging.Handler):
+    def __init__(self, manager: Manager, jobset_id: str, node_func: str):
+        super().__init__()
+        self.manager = manager
+        self.jobset_id = jobset_id
+        self.node_func = node_func
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        socket_msg = WorkerJobResponse(jobset_id=self.jobset_id)
+        socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUNING_PYTHON_JOB"] + self.node_func
+        socket_msg["MODAL_CONFIG"] = ModalConfig(
+            showModal=True, messages=log_entry, title=f"{self.node_func} logs"
+        )
+        if "Pip install complete. Spawning process for function" in log_entry:
+            socket_msg["MODAL_CONFIG"]["showModal"] = False
+        asyncio.run(self.manager.ws.broadcast(socket_msg))
