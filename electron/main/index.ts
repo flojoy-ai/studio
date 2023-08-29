@@ -117,7 +117,11 @@ async function createWindow() {
         message:
           "Backend initialization is underway. Are you sure you want to quit?",
       });
-      if (choice > 0) e.preventDefault();
+      if (choice > 0) {
+        e.preventDefault();
+      } else {
+        global.initializingBackend = false;
+      }
       return;
     }
     const choice = dialog.showMessageBoxSync(win!, {

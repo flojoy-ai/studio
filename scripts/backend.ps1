@@ -8,7 +8,7 @@ $venvName = "404fc545_flojoy"
 $venvDir = Join-Path $flojoyDir "flojoy_root_venv"
 $venvPath = Join-Path $flojoyDir "flojoy_root_venv" $venvName
 
-Write-Host "flojoy dir: $flojoyDir venv: $venvPath"
+Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) 
 {
   Write-Output "Creating $flojoyDir ..."
@@ -30,14 +30,11 @@ if (-not (Test-Path $venvPath))
   Write-Output "Virtual env created: $venvName"
 }
 & .\$venvName\Scripts\Activate.ps1
-Write-Output "$venvName is activated!"
+Write-Output "Virtual env $venvName is found and activated!"
 
 Set-Location $currentDir
 Write-Output "Installing pip dependencies..."
-& pip install -r requirements.txt | Out-Null
-if ($? -ne $true) {
-  exit
-}
+& pip install -r requirements.txt
 
 Write-Output "Package installation completed, starting backend..."
 & python .\manage.py

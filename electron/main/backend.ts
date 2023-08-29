@@ -2,6 +2,12 @@ import * as childProcess from "child_process";
 import { join, resolve } from "path";
 import treeKill from "tree-kill";
 
+const sendBackendLogToStudio = (win: Electron.BrowserWindow, data: string) => {
+  if (global.initializingBackend) {
+    win.webContents.send("backend", data);
+  }
+};
+
 export const runCommand = (
   command: string,
   matchText: string,
@@ -12,22 +18,22 @@ export const runCommand = (
   return new Promise((resolve, reject) => {
     const script = childProcess.exec(command);
     script.stdout?.on("data", function (data) {
-      win.webContents.send("backend", data);
+      sendBackendLogToStudio(win, data);
       if (data.toString().includes(matchText)) {
         win.webContents.send("backend", "backend initialized successfully!");
         resolve({ script });
       }
     });
     script.stderr?.on("data", function (data) {
-      win.webContents.send("backend", data);
+      sendBackendLogToStudio(win, data);
       if (data.toString().includes(matchText)) {
-        win.webContents.send("backend", "backend initialized successfully!");
+        sendBackendLogToStudio(win, "backend initialized successfully!");
         resolve({ script });
       }
     });
     script.addListener("exit", (code) => {
-      win.webContents.send(
-        "backend",
+      sendBackendLogToStudio(
+        win,
         "Error: Failed to initialize backend try re lunching app!",
       );
       reject({ code });
@@ -48,7 +54,7 @@ export const killSubProcess = (script: childProcess.ChildProcess) => {
   }
 };
 
-const successText = "Application startup complete";
+const successText = "Uvicorn running on";
 
 export const runBackend = (
   workingDir: string,
