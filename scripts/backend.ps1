@@ -11,7 +11,7 @@ $venvPath = Join-Path $flojoyDir "flojoy_root_venv" $venvName
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) 
 {
-  Write-Output "Creating $flojoyDir ..."
+  Write-Output "Flojoy directory doesn't exist, Creating $flojoyDir ..."
   New-Item -ItemType Directory $flojoyDir | Out-Null
 }
 Set-Location $flojoyDir
@@ -30,7 +30,7 @@ if (-not (Test-Path $venvPath))
   Write-Output "Virtual env created: $venvName"
 }
 & .\$venvName\Scripts\Activate.ps1
-Write-Output "Virtual env $venvName is found and activated!"
+Write-Output "Virtual env $venvName is activated!"
 
 Set-Location $currentDir
 Write-Output "Installing pip dependencies..."
