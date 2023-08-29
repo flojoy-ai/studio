@@ -3,13 +3,18 @@ import { useEffect, useState } from "react";
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
 import PreJobOperationDialog from "./feature/common/PreJobOperationDialog";
-import { useFlowChartState } from "./hooks/useFlowChartState";
+import {
+  // unsavedChangesAtom,
+  useFlowChartState,
+} from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 // import useKeyboardShortcut from "./hooks/useKeyboardShortcut";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
-import { ThemeProvider } from "@src/providers/theme-provider";
+import { ThemeProvider } from "@src/providers/themeProvider";
+// import { useAtom } from "jotai";
+//
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -24,6 +29,7 @@ const App = () => {
   } = useSocket();
   const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
+  // const [hasUnsavedChanges] = useAtom(unsavedChangesAtom);
 
   useEffect(() => {
     setRunningNode(runningNode);

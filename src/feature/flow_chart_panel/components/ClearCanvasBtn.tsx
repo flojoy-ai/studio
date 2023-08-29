@@ -21,7 +21,7 @@ export const ClearCanvasBtn = ({ clearCanvas }: ClearCanvasBtnProps) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          data-testid="clear-canvas-btn"
+          data-testid="clear-canvas-button"
           className="gap-2"
           variant="ghost"
         >
@@ -39,7 +39,12 @@ export const ClearCanvasBtn = ({ clearCanvas }: ClearCanvasBtnProps) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={clearCanvas}>Continue</AlertDialogAction>
+          <AlertDialogAction
+            data-testid="confirm-clear-canvas"
+            onClick={clearCanvas}
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

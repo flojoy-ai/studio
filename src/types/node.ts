@@ -73,6 +73,10 @@ export type ElementsData = {
   }[];
 };
 
+export type TextData = {
+  text: string;
+};
+
 export interface CustomNodeProps {
   nodeProps: NodeProps<ElementsData>;
   handleRemove?: (nodeId: string, nodeLabel: string) => void;

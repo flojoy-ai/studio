@@ -5,9 +5,10 @@
 describe("Loading an app", () => {
   it("Can load app correctly", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Open the dropdown menu and click the load app button
-    cy.get('[data-testid="dropdown-button"]').click({ force: true });
+    cy.get('[data-testid="file-button"]').click({ force: true });
     cy.get('[id="load-app-btn"]').click({ force: true });
 
     // Upload the file

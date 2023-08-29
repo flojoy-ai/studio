@@ -1,16 +1,19 @@
 import { useControlsState } from "@src/hooks/useControlsState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
-import {
-  ReactFlowJsonObject,
-  useNodesInitialized,
-  useReactFlow,
-} from "reactflow";
-import { ElementsData } from "@/types";
+import { useNodesInitialized, useReactFlow } from "reactflow";
 import { YoutubeIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { GalleryApp } from "@src/types/gallery";
 import { useEffect } from "react";
+import { useSetAtom } from "jotai";
+import {
+  Project,
+  projectAtom,
+  projectPathAtom,
+} from "@src/hooks/useFlowChartState";
+import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { useSocket } from "@src/hooks/useSocket";
 
 export interface AppGalleryElementProps {
   galleryApp: GalleryApp;
@@ -22,18 +25,34 @@ export const GalleryElement = ({
   setIsGalleryOpen,
 }: AppGalleryElementProps) => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const setProject = useSetAtom(projectAtom);
+  const setProjectPath = useSetAtom(projectPathAtom);
 
   const { ctrlsManifest, setCtrlsManifest } = useControlsState();
 
   const rfInstance = useReactFlow();
   const nodesInitialized = useNodesInitialized();
+  const { states } = useSocket();
+  const { setProgramResults } = states;
 
   const handleAppLoad = async () => {
     const raw = await import(`../../data/apps/${galleryApp.appPath}.json`);
-    const flow = raw.rfInstance as ReactFlowJsonObject<ElementsData, unknown>;
+    const app = raw as Project;
+    if (!app.rfInstance) {
+      throw new Error("Gallery app is missing flow chart data");
+    }
+
     setCtrlsManifest(raw.ctrlsManifest || ctrlsManifest);
-    loadFlowExportObject(flow);
+    setProject({
+      name: galleryApp.title,
+      rfInstance: app.rfInstance,
+    });
+    loadFlowExportObject(app.rfInstance, app.textNodes ?? []);
+    setProjectPath(undefined);
     setIsGalleryOpen(false);
+    setHasUnsavedChanges(false);
+    setProgramResults([]);
   };
 
   useEffect(() => {
@@ -43,10 +62,11 @@ export const GalleryElement = ({
         padding: 0.8,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodesInitialized]);
 
   return (
-    <div data-testid="gallery-element-btn" className="min-h-40 m-1">
+    <div className="min-h-40 m-1">
       <div className="flex w-full">
         <Avatar className="m-1 h-36 w-36">
           <AvatarImage className="object-contain" src={galleryApp.imagePath} />
@@ -79,6 +99,7 @@ export const GalleryElement = ({
               variant="outline"
               size="sm"
               className="gap-2"
+              data-testid="gallery-load-button"
               onClick={async () => {
                 await handleAppLoad();
               }}

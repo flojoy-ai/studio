@@ -6,16 +6,19 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
+import { TextData } from "@src/types/node";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
+export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 const nodesManifestAtom = atomWithImmer<NodeElement[]>([]);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
+  const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
   const [nodesManifest, setNodesManifest] = useAtom(nodesManifestAtom);
 
@@ -32,15 +35,18 @@ export const useFlowChartGraph = () => {
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
-    (flow: ReactFlowJsonObject<ElementsData>) => {
+    (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
+      if (textNodes) {
+        setTextNodes(textNodes);
+      }
       return true;
     },
-    [setNodes, setEdges],
+    [setNodes, setEdges, setTextNodes],
   );
 
   useEffect(() => {
@@ -49,7 +55,7 @@ export const useFlowChartGraph = () => {
         n.data.selected = n.selected;
       });
     });
-  }, [selectedNode]);
+  }, [selectedNode, setNodes]);
 
   /**
    * Creates a node mapping from nodeSection
@@ -77,7 +83,7 @@ export const useFlowChartGraph = () => {
     if (allNodes) {
       setNodesManifest(allNodes);
     }
-  }, []);
+  }, [addNodesToManifest, setNodesManifest]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
@@ -96,12 +102,14 @@ export const useFlowChartGraph = () => {
 
   const updateInitCtrlInputDataForNode = (
     nodeId: string,
-    inputData: ElementsData["initCtrls"][string],
+    inputData: ElementsData["ctrls"][string],
   ) => {
     setNodes((element) => {
       const node = element.find((e) => e.id === nodeId);
       if (node) {
-        node.data.initCtrls[inputData.param].value = inputData.value;
+        if (node.data.initCtrls) {
+          node.data.initCtrls[inputData.param].value = inputData.value;
+        }
       }
     });
   };
@@ -142,6 +150,8 @@ export const useFlowChartGraph = () => {
   return {
     nodes,
     setNodes,
+    textNodes,
+    setTextNodes,
     edges,
     setEdges,
     selectedNode,

@@ -5,12 +5,13 @@ import { text } from "stream/consumers";
 describe("Verify Env Variable Modal", () => {
   it("env variable modal test", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     cy.get('[data-testid="settings-btn"]').click();
 
     cy.percySnapshot("dark flow page with setting dropdown");
 
-    cy.get('[data-testid="env-variable-moda-btn"]').click();
+    cy.get('[data-testid="env-var-modal-button"]').click();
 
     cy.percySnapshot("dark flow page with env Modal");
 
