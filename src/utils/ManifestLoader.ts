@@ -51,6 +51,7 @@ const nodeElementSchema = z.object({
         ),
         options: z.optional(z.array(z.string())),
         desc: z.nullable(z.string()),
+        overload: z.nullable(z.record(z.string(), z.array(z.string()))),
       }),
     ),
   ),
