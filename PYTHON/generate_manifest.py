@@ -102,8 +102,8 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             __generated_nodes.append(n_file_name)
         except Exception as e:
             print(
-                "❌ Failed to generate manifest from ".encode("utf-8", "ignore").decode(
-                    "utf-8"
+                "❌ Failed to generate manifest from ".encode("ascii", "replace").decode(
+                    "ascii"
                 ),
                 f"{os.path.basename(dir_path)}.py ",
                 e,
@@ -136,8 +136,8 @@ if __name__ == "__main__":
         raise SystemExit(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !".encode(
-            "utf-8", "ignore"
+            "ascii", "replace"
         ).decode(
-            "utf-8"
+            "ascii"
         )
     )

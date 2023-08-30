@@ -99,8 +99,8 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module]:
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
         warning_text = (
             f"⚠️ {node_name} has no return type hint, will have no output!".encode(
-                "utf-8", "ignore"
-            ).decode("utf-8")
+                "ascii", "replace"
+            ).decode("ascii")
         )
         print(warning_text)
     elif (
