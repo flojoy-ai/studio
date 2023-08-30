@@ -26,7 +26,6 @@ import PeakFinder from "@/assets/nodes/PeakFinder";
 import RegionInspector from "@/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
-import { MoreHorizontal, MoreVertical } from "lucide-react";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -60,7 +59,6 @@ const VisorNode = (props: CustomNodeProps) => {
   } = props;
 
   const { resolvedTheme } = useTheme();
-  const test = true;
 
   const plotlyData = useMemo(
     () =>
@@ -78,26 +76,18 @@ const VisorNode = (props: CustomNodeProps) => {
         )}
       >
         {plotlyData && (
-          <div className="flex justify-start">
-            <PlotlyComponent
-              data={plotlyData}
-              id={data.id}
-              layout={plotlyFig?.layout ?? {}}
-              useResizeHandler
-              style={{
-                height: 293,
-                width: 380,
-              }}
-              isThumbnail
-            />
-            {test && (
-              <div className="-ml-12 flex flex-col justify-center px-4">
-                <MoreHorizontal />
-              </div>
-            )}
-          </div>
+          <PlotlyComponent
+            data={plotlyData}
+            id={data.id}
+            layout={plotlyFig?.layout ?? {}}
+            useResizeHandler
+            style={{
+              height: 293,
+              width: 380,
+            }}
+            isThumbnail={true}
+          />
         )}
-        {test && <MoreVertical />}
         {textBlob && <MarkDownText text={textBlob} isThumbnail />}
         {!plotlyData && !textBlob && <>{chartElemMap[data.func]}</>}
         <HandleComponent data={data} variant="accent2" />

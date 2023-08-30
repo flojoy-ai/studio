@@ -3,7 +3,6 @@ import { DataContainer2PlotlyProps, OverridePlotData } from "@src/types/plotly";
 const NUM_OF_COLUMNS = 4;
 const NUM_OF_ROWS = 5;
 const MATRIX_COLUMNS = 4;
-
 export const makePlotlyData = (
   data: OverridePlotData,
   theme: "light" | "dark",
@@ -14,66 +13,84 @@ export const makePlotlyData = (
   const matrixFontColor = theme === "dark" ? "#f8f9fa" : "#111111";
 
   const accentColor = theme === "dark" ? "#99f5ff" : "#7b61ff";
+  const dots = ".\t.\t.";
   return data.map((d, d_index) => {
     // if (
     //   d.header?.values?.length &&
-    //   d.header.values.length > NUM_OF_COLUMNS &&
+    //   d.header.values.length > columns &&
     //   d.type === "table"
     // ) {
     //   console.log(d.header.values.length);
-    //   console.log(d.cells?.values?.some((i) => i.length > NUM_OF_ROWS));
+    //   console.log(d.cells?.values?.some((i) => i.length > rows));
     //   console.log("this worked!");
     // }
+    if (d.type == "table") {
+      const headerValue = isThumbnail
+        ? d.header?.values?.filter(
+            (_: unknown, i: number) => i < NUM_OF_COLUMNS,
+          )
+        : d.header?.values;
+
+      const cellValue = isThumbnail
+        ? d.cells?.values
+            ?.filter(
+              (_: unknown, i: number) =>
+                i <
+                (d.header?.values?.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS),
+            )
+            .map((column: unknown[], i: number) =>
+              i ===
+                (d.header?.values?.length
+                  ? NUM_OF_COLUMNS - 1
+                  : MATRIX_COLUMNS - 1) && d.header?.values?.length
+                ? column.map(() => dots)
+                : column?.filter(
+                    (_: unknown, index: number) =>
+                      index <
+                      (d.header?.values?.length ? NUM_OF_ROWS : MATRIX_COLUMNS),
+                  ),
+            )
+        : d.cells?.values;
+
+      if (isThumbnail) {
+        if (headerValue?.length === NUM_OF_COLUMNS)
+          headerValue?.splice(-1, 1, dots);
+        if (cellValue[0]?.length === NUM_OF_ROWS)
+          cellValue?.forEach((cell) => cell.splice(-1, 1, dots));
+      }
+
+      return {
+        ...d,
+        ...{
+          ...d,
+          header: {
+            ...d.header,
+            align: "center",
+            values: headerValue,
+            fill: {
+              color: d.header?.values?.length ? headerFillColor : "transparent",
+            },
+          },
+          cells: {
+            ...d.cells,
+            align: "center",
+            values: cellValue,
+            fill: {
+              color: cellFillColor,
+            },
+            ...(!d.header?.values?.length && {
+              font: { color: matrixFontColor },
+            }),
+            ...(isThumbnail && {
+              height: 40,
+            }),
+          },
+        },
+      };
+    }
+
     return {
       ...d,
-      ...(d.type === "table" && {
-        ...d,
-        header: {
-          ...d.header,
-          align: "center",
-          values: isThumbnail
-            ? d.header?.values?.filter(
-                (_: unknown, i: number) => i < NUM_OF_COLUMNS,
-              )
-            : d.header?.values,
-          fill: {
-            color: d.header?.values?.length ? headerFillColor : "transparent",
-          },
-        },
-        cells: {
-          ...d.cells,
-          align: "center",
-          values: isThumbnail
-            ? d.cells?.values
-                ?.filter(
-                  (_: unknown, i: number) =>
-                    i <
-                    (d.header?.values?.length
-                      ? NUM_OF_COLUMNS
-                      : MATRIX_COLUMNS),
-                )
-                .map(
-                  (i: unknown[]) =>
-                    i?.filter(
-                      (_: unknown, index: number) =>
-                        index <
-                        (d.header?.values?.length
-                          ? NUM_OF_ROWS
-                          : MATRIX_COLUMNS),
-                    ),
-                )
-            : d.cells?.values,
-          fill: {
-            color: cellFillColor,
-          },
-          ...(!d.header?.values?.length && {
-            font: { color: matrixFontColor },
-          }),
-          ...(isThumbnail && {
-            height: 40,
-          }),
-        },
-      }),
       ...(d_index === 0 && {
         marker: {
           ...d.marker,

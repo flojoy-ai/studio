@@ -174,7 +174,7 @@ const NodeModalDataViz = ({
       {nd.result.plotly_fig && (
         <div className="flex justify-center">
           <PlotlyComponent
-            data={makePlotlyData(nd.result.plotly_fig.data, theme)}
+            data={makePlotlyData(nd.result.plotly_fig.data, theme, false)}
             layout={{
               ...nd.result.plotly_fig.layout,
               title:
