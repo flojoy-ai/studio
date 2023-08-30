@@ -150,10 +150,10 @@
       {
         "width": 208,
         "height": 96,
-        "id": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+        "id": "OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682c",
         "type": "AI_ML",
         "data": {
-          "id": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+          "id": "OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682c",
           "label": "OBJECT DETECTION",
           "func": "OBJECT_DETECTION",
           "type": "AI_ML",
@@ -179,20 +179,20 @@
           "pip_dependencies": [
             {
               "name": "opencv-python",
-              "v": "4.8.0.72"
+              "v": "4.8.0.76"
             }
           ],
           "path": "PYTHON/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/OBJECT_DETECTION.py",
           "selected": false
         },
         "position": {
-          "x": -603.4320152572054,
-          "y": -36.080992227066815
+          "x": -569.5666459327142,
+          "y": -50.40234490961518
         },
         "selected": false,
         "positionAbsolute": {
-          "x": -603.4320152572054,
-          "y": -36.080992227066815
+          "x": -569.5666459327142,
+          "y": -50.40234490961518
         },
         "dragging": true
       }
@@ -208,16 +208,16 @@
       {
         "source": "LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8",
         "sourceHandle": "default",
-        "target": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+        "target": "OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682c",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34default"
+        "id": "reactflow__edge-LOCAL_FILE-ad2faae4-ec8a-4831-b032-f9e7463aa6e8default-OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682cdefault"
       },
       {
-        "source": "OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34",
+        "source": "OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682c",
         "sourceHandle": "default",
         "target": "IMAGE-19594356-4c51-4ce0-9213-765b382ad903",
         "targetHandle": "default",
-        "id": "reactflow__edge-OBJECT_DETECTION-90a6c050-8d84-443f-a900-d8e45afcac34default-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
+        "id": "reactflow__edge-OBJECT_DETECTION-722b5004-1965-41c1-9c81-aa3d0da7682cdefault-IMAGE-19594356-4c51-4ce0-9213-765b382ad903default"
       }
     ],
     "viewport": {
