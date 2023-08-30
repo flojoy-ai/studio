@@ -155,6 +155,9 @@ while ($arguments) {
   }
 }
 
+
+& git pull
+
 $CWD = $PWD
 
 function createFlojoyDirectoryWithYmlFile {

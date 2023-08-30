@@ -149,7 +149,7 @@ do
     esac
 done
 
-
+git pull
 
 # checking if flojoy.yaml file exists
 
