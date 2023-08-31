@@ -4,7 +4,7 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
-import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
+import { nodeSection, Leaf as NodeElement } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 

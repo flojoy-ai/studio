@@ -1,8 +1,9 @@
+/* eslint-disable */
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
-import nodeSectionJSON from "@src/data/manifests-latest.json";
+import treeJSON from "@src/data/manifests-latest.json";
 
-const nodeElementSchema = z.object({
+const leafSchema = z.object({
   name: z.string(),
   key: z.string(),
   type: z.string(),
@@ -60,9 +61,9 @@ const nodeElementSchema = z.object({
   children: z.null(),
 });
 
-export type NodeElement = z.infer<typeof nodeElementSchema>;
+export type Leaf = z.infer<typeof leafSchema>;
 
-export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
+export function createParentSchema<ChildType extends z.ZodTypeAny>(
   childSchema: ChildType,
 ) {
   return z.object({
@@ -72,12 +73,11 @@ export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
     children: z.array(childSchema),
   });
 }
-const subCategorySchema =
-  createSubCategorySchema<typeof nodeElementSchema>(nodeElementSchema);
+const parentSchema = createParentSchema<typeof leafSchema>(leafSchema);
 
-export type SubCategory = z.infer<typeof subCategorySchema>;
+export type ParentNode = z.infer<typeof parentSchema>;
 
-export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
+export function createRootSchema<ElementType extends Zod.ZodTypeAny>(
   element: ElementType,
 ) {
   return z.object({
@@ -87,17 +87,18 @@ export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
         name: z.string(),
         key: z.optional(z.string()),
         type: z.optional(z.string()),
-        children: z.array(createSubCategorySchema(element)),
+        children: z.array(createParentSchema(element)),
       }),
     ),
   });
 }
-const nodeSectionSchema = createSectionSchema(nodeElementSchema);
+const rootSchema = createRootSchema(leafSchema);
 
-export type NodeSection = z.infer<typeof nodeSectionSchema>;
-let nodeSection: NodeSection;
+export type RootNode = z.infer<typeof rootSchema>;
+export type RootChild = z.infer<typeof rootSchema>["children"][0];
+let nodeSection: RootNode;
 try {
-  nodeSection = nodeSectionSchema.parse(nodeSectionJSON);
+  nodeSection = rootSchema.parse(treeJSON);
 } catch (e) {
   if (e instanceof ZodError) {
     throw fromZodError(e);
@@ -107,3 +108,29 @@ try {
 }
 
 export { nodeSection };
+
+export function isLeaf(obj: any): obj is Leaf {
+  return obj && obj.name && obj.key && obj.type && !obj.children;
+}
+
+export function isParentNode(obj: any): obj is ParentNode {
+  return obj && obj.name && Array.isArray(obj.children);
+}
+export interface LeafParentNode extends ParentNode {
+  children: Leaf[];
+}
+export function isLeafParentNode(obj: any): obj is LeafParentNode {
+  return (
+    obj &&
+    Array.isArray(obj.children) &&
+    obj.children.every((child) => isLeaf(child))
+  );
+}
+
+export function isRoot(obj: any): obj is RootNode {
+  return obj && obj.name === "ROOT";
+}
+
+export function isRootChild(obj: any): obj is RootChild {
+  return obj && obj.name && obj.key && obj.type && Array.isArray(obj.children);
+}

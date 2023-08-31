@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
+import { Leaf, RootNode } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
@@ -12,12 +12,12 @@ import { cn } from "@src/lib/utils";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { Input } from "@src/components/ui/input";
 
-export type LeafClickHandler = (elem: NodeElement) => void;
+export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: NodeSection;
+  sections: RootNode;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
 };
