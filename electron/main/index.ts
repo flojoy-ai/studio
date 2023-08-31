@@ -10,8 +10,10 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-import { killSubProcess, runBackend } from "./backend";
+import { runBackend } from "./backend";
 import { ChildProcess } from "node:child_process";
+import { saveNodePack } from "./node-pack-save";
+import { killSubProcess } from "./cmd";
 
 // The built directory structure
 //
@@ -79,10 +81,10 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
-let backendProcess: ChildProcess | undefined;
+const runningProcesses: ChildProcess[] = [];
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
-const preload = join(__dirname, "../preload/index.js");
+const preload = join(__dirname, `../preload/index${!app.isPackaged && "-dev"}.js`);
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
 app.setName("Flojoy Studio");
@@ -102,6 +104,7 @@ async function createWindow() {
     },
     show: false,
   });
+
 
   global.hasUnsavedChanges = true;
 
@@ -141,6 +144,36 @@ async function createWindow() {
 
   win.maximize();
   win.show();
+  // dialog
+  //   .showOpenDialog(win, {
+  //     title: "Select Download Directory",
+  //     properties: ["openDirectory"],
+  //   })
+  //   .then((result) => {
+  //     if (!result.canceled && result.filePaths.length > 0) {
+  //       const downloadPath = result.filePaths[0];
+  //       console.log(" result paths: ", result.filePaths);
+  //       console.log(" selected path: ", downloadPath);
+
+  //       // Here, you can start downloading your resources
+  //       // const file = fs.createWriteStream(path.join(downloadPath, 'resource.ext'));
+
+  //       // https.get('https://example.com/resource.ext', (response) => {
+  //       //   response.pipe(file);
+  //       //   file.on('finish', () => {
+  //       //     file.close(() => {
+  //       //       console.log('Download finished');
+  //       //     });
+  //       //   });
+  //       // }).on('error', (error) => {
+  //       //   fs.unlink(file);
+  //       //   console.log('Download failed:', error);
+  //       // });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(" error in open dialog: ", err);
+  //   });
 
   if (app.isPackaged) {
     win.loadFile(indexHtml);
@@ -149,7 +182,9 @@ async function createWindow() {
       .then(({ success, script }) => {
         if (success) {
           global.initializingBackend = false;
-          backendProcess = script;
+          if (script) {
+            runningProcesses.push(script);
+          }
         }
       })
       .catch(() => {
@@ -157,11 +192,12 @@ async function createWindow() {
       });
   } else {
     // electron-vite-vue#298
-    win.loadURL(url ?? "");
+    // win.loadURL(url ?? "");
+    win.loadFile(join(WORKING_DIR,"electron/html/studio/index.html"))
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
-
+  saveNodePack(win, getIcon());
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -177,15 +213,18 @@ async function createWindow() {
   update(win);
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
+  // await beforeWindow()
   createWindow();
 });
 
 app.on("window-all-closed", async () => {
-  if (backendProcess) {
-    await killSubProcess(backendProcess);
+  if (runningProcesses.length) {
+    for (const script of runningProcesses) {
+      await killSubProcess(script);
+    }
   }
   win = null;
   if (process.platform !== "darwin") app.quit();

@@ -62,3 +62,4 @@ coverage-cy
 PYTHON/nodes
 dist-studio
 build
+electron/html

@@ -1,56 +1,14 @@
 import * as childProcess from "child_process";
 import { join, resolve } from "path";
-import treeKill from "tree-kill";
+import { runCmd } from "./cmd";
+import type {CallBackArgs} from "../api/index"
 
-const sendBackendLogToStudio = (win: Electron.BrowserWindow, data: string) => {
+const sendBackendLogToStudio = (
+  win: Electron.BrowserWindow,
+  data: CallBackArgs
+) => {
   if (global.initializingBackend) {
     win.webContents.send("backend", data);
-  }
-};
-
-export const runCommand = (
-  command: string,
-  matchText: string,
-  win: Electron.BrowserWindow,
-): Promise<{
-  script: childProcess.ChildProcess;
-}> => {
-  return new Promise((resolve, reject) => {
-    const script = childProcess.exec(command);
-    script.stdout?.on("data", function (data) {
-      sendBackendLogToStudio(win, data);
-      if (data.toString().includes(matchText)) {
-        win.webContents.send("backend", "backend initialized successfully!");
-        resolve({ script });
-      }
-    });
-    script.stderr?.on("data", function (data) {
-      sendBackendLogToStudio(win, data);
-      if (data.toString().includes(matchText)) {
-        sendBackendLogToStudio(win, "backend initialized successfully!");
-        resolve({ script });
-      }
-    });
-    script.addListener("exit", (code) => {
-      sendBackendLogToStudio(
-        win,
-        "Error: Failed to initialize backend try re lunching app!",
-      );
-      reject({ code });
-    });
-  });
-};
-
-export const killSubProcess = (script: childProcess.ChildProcess) => {
-  if (!script.killed) {
-    return new Promise((resolve, reject) => {
-      treeKill(script.pid ?? 0, (err) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(true);
-      });
-    });
   }
 };
 
@@ -65,12 +23,26 @@ export const runBackend = (
 }> => {
   const backendCommand = getBackendCommand(workingDir);
   return new Promise((resolve) => {
-    runCommand(backendCommand, successText, win)
+    sendBackendLogToStudio(win, {
+      open:true,
+      title: "Initializing backend...",
+      description: "Initialization can take up to few minutes for first time, please be patient!",
+      output: "Running backend script..."      
+    })
+    runCmd(backendCommand, successText, win, sendBackendLogToStudio)
       .then(({ script }) => {
+        sendBackendLogToStudio(win, {
+          open: false,
+          output: "backend initialized successfully!",
+        });
         resolve({ success: true, script });
       })
       .catch((err) => {
         if (err.code > 0) {
+          sendBackendLogToStudio(win, {
+            open: true,
+            output: "Error: Failed to initialize backend try re lunching app!",
+          });
           resolve({ success: false, script: undefined });
         }
       });
