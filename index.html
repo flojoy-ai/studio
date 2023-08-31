@@ -16,44 +16,18 @@
       defer
     ></script>
     <!-- / Fathom -->
+
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <!-- Importing the Featurebase SDK -->
-    <script>
-      !(function (e, t) {
-        const a = "featurebase-sdk";
-        function n() {
-          if (!t.getElementById(a)) {
-            var e = t.createElement("script");
-            (e.id = a),
-              (e.src = "https://do.featurebase.app/js/sdk.js"),
-              t
-                .getElementsByTagName("script")[0]
-                .parentNode.insertBefore(
-                  e,
-                  t.getElementsByTagName("script")[0],
-                );
-          }
-        }
-        "function" != typeof e.Featurebase &&
-          (e.Featurebase = function () {
-            (e.Featurebase.q = e.Featurebase.q || []).push(arguments);
-          }),
-          "complete" === t.readyState || "interactive" === t.readyState
-            ? n()
-            : t.addEventListener("DOMContentLoaded", n);
-      })(window, document);
-    </script>
 
-    <script>
-      Featurebase("initialize_feedback_widget", {
-        organization: "flojoy", // required
-        theme: "light", // required
-      });
-    </script>
+    <script
+      src="https://do.featurebase.app/js/sdk.js"
+      id="featurebase-sdk"
+    ></script>
+
     <title>Flojoy Studio</title>
   </head>
   <body>
