@@ -1,6 +1,6 @@
 import { DataContainer2PlotlyProps, OverridePlotData } from "@src/types/plotly";
 
-const NUM_OF_COLUMNS = 4;
+const NUM_OF_COLUMNS = 3;
 const NUM_OF_ROWS = 5;
 const MATRIX_COLUMNS = 4;
 export const makePlotlyData = (
@@ -13,7 +13,6 @@ export const makePlotlyData = (
   const matrixFontColor = theme === "dark" ? "#f8f9fa" : "#111111";
 
   const accentColor = theme === "dark" ? "#99f5ff" : "#7b61ff";
-  const dots = ".\t.\t.";
   return data.map((d, d_index) => {
     // if (
     //   d.header?.values?.length &&
@@ -38,27 +37,21 @@ export const makePlotlyData = (
                 i <
                 (d.header?.values?.length ? NUM_OF_COLUMNS : MATRIX_COLUMNS),
             )
-            .map((column: unknown[], i: number) =>
-              i ===
-                (d.header?.values?.length
-                  ? NUM_OF_COLUMNS - 1
-                  : MATRIX_COLUMNS - 1) && d.header?.values?.length
-                ? column.map(() => dots)
-                : column?.filter(
+            .map(
+              (column: unknown[]) =>
+                column
+                  ?.filter(
                     (_: unknown, index: number) =>
                       index <
                       (d.header?.values?.length ? NUM_OF_ROWS : MATRIX_COLUMNS),
-                  ),
+                  )
+                  .map((value) => {
+                    return typeof value === "number" && d.header?.values?.length
+                      ? value.toFixed(2)
+                      : value;
+                  }),
             )
         : d.cells?.values;
-
-      if (isThumbnail) {
-        if (headerValue?.length === NUM_OF_COLUMNS)
-          headerValue?.splice(-1, 1, dots);
-        if (cellValue[0]?.length === NUM_OF_ROWS)
-          cellValue?.forEach((cell) => cell.splice(-1, 1, dots));
-      }
-
       return {
         ...d,
         ...{
@@ -197,4 +190,31 @@ export const dataContainer2Plotly = ({
       console.log("Unknown data type!!");
       return [];
   }
+};
+
+export const findFilteredPlotlyValues = (data: OverridePlotData) => {
+  const row = data[0].header?.values ? NUM_OF_ROWS : MATRIX_COLUMNS;
+  const col = data[0].header?.values ? NUM_OF_COLUMNS : MATRIX_COLUMNS;
+  const horizontalMore =
+    data[0]?.type === "table"
+      ? data.reduce((acc, cur) => {
+          if (cur.header?.values?.length && cur.header.values.length > acc) {
+            return cur.header.values.length;
+          }
+          return acc;
+        }, 0) - col
+      : 0;
+
+  const verticalMore =
+    data[0]?.type === "table"
+      ? data.reduce((dataAcc, dataCur) => {
+          if (dataCur.cells?.values) {
+            return dataCur.cells.values.reduce((acc, cur) => {
+              return Math.max(acc, cur.length, dataAcc);
+            }, 0);
+          }
+          return dataAcc;
+        }, 0) - row
+      : 0;
+  return [horizontalMore, verticalMore];
 };
