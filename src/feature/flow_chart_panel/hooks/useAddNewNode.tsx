@@ -5,11 +5,11 @@ import { Node } from "reactflow";
 import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "@/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import NodeFunctionsMap from "@src/data/pythonFunctions.json";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
 import { useAtomValue, useSetAtom } from "jotai";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
+import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -20,6 +20,7 @@ export const useAddNewNode = (
       | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
   getNodeFuncCount: (func: string) => number,
+  nodesMetadataMap: NodesMetadataMap | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
@@ -36,7 +37,9 @@ export const useAddNewNode = (
       const outputs = node.outputs;
       const uiComponentId = node.ui_component_id;
       const pip_dependencies = node.pip_dependencies;
-      const path = NodeFunctionsMap[`${funcName}.py`]?.path ?? "";
+      const path = nodesMetadataMap
+        ? nodesMetadataMap[`${funcName}.py`].path
+        : "";
       let nodeLabel: string;
 
       const nodeId = `${funcName}-${uuidv4()}`;
@@ -93,6 +96,12 @@ export const useAddNewNode = (
       setHasUnsavedChanges(true);
       sendEventToMix("Node Added", newNode.data.label);
     },
-    [setNodes, getNodeFuncCount, center, setHasUnsavedChanges],
+    [
+      setNodes,
+      getNodeFuncCount,
+      center,
+      setHasUnsavedChanges,
+      nodesMetadataMap,
+    ],
   );
 };

@@ -1,7 +1,9 @@
 import os
 import json
 from typing import Any, Optional, Union
-from manifest.generate_node_manifest import create_manifest
+from captain.utils.manifest.build_manifest import create_manifest
+
+__all__ = ["generate_manifest"]
 
 FULL_PATH = "PYTHON/nodes"
 
@@ -123,15 +125,13 @@ def sort_order(element):
         return len(ORDERING)
 
 
-if __name__ == "__main__":
-    map = browse_directories(FULL_PATH)
-    map["children"].sort(key=sort_order)  # type: ignore
+def generate_manifest():
+    nodes_map = browse_directories(FULL_PATH)
+    nodes_map["children"].sort(key=sort_order)  # type: ignore
 
     if len(__failed_nodes) > 0:
-        raise SystemExit(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
+        raise ValueError(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
     print(
         f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
     )
-    with open("src/data/manifests-latest.json", "w") as f:
-        f.write(json.dumps(map, indent=3))
-        f.close()
+    return nodes_map

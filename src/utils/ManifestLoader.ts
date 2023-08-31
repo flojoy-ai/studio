@@ -1,6 +1,5 @@
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
-import nodeSectionJSON from "@src/data/manifests-latest.json";
 
 const nodeElementSchema = z.object({
   name: z.string(),
@@ -95,15 +94,17 @@ export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
 const nodeSectionSchema = createSectionSchema(nodeElementSchema);
 
 export type NodeSection = z.infer<typeof nodeSectionSchema>;
-let nodeSection: NodeSection;
-try {
-  nodeSection = nodeSectionSchema.parse(nodeSectionJSON);
-} catch (e) {
-  if (e instanceof ZodError) {
-    throw fromZodError(e);
-  } else {
-    throw e;
-  }
-}
 
-export { nodeSection };
+const validateManifest = (manifest: NodeSection) => {
+  try {
+    nodeSectionSchema.parse(manifest);
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw e;
+    }
+  }
+};
+
+export { validateManifest };

@@ -1,8 +1,6 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
-import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { nodeSection } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -73,6 +71,8 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
+    nodeSection,
+    nodesMetadataMap,
   } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
@@ -87,7 +87,11 @@ const FlowChartTab = () => {
     [nodes.length],
   );
 
-  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const addNewNode = useAddNewNode(
+    setNodes,
+    getNodeFuncCount,
+    nodesMetadataMap,
+  );
   const addTextNode = useAddTextNode();
 
   const toggleSidebar = useCallback(
@@ -154,14 +158,19 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        const [sourceType, targetType] = getEdgeTypes(connection);
-        if (isCompatibleType(sourceType, targetType)) {
-          return addEdge(connection, eds);
-        }
+        if (nodeSection) {
+          const [sourceType, targetType] = getEdgeTypes(
+            nodeSection,
+            connection,
+          );
+          if (isCompatibleType(sourceType, targetType)) {
+            return addEdge(connection, eds);
+          }
 
-        toast.message("Type error", {
-          description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
-        });
+          toast.message("Type error", {
+            description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
+          });
+        }
       }),
     [setEdges],
   );
@@ -187,14 +196,14 @@ const FlowChartTab = () => {
   }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {
-    if (selectedNode === null) {
+    if (selectedNode === null || !nodesMetadataMap) {
       return;
     }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
+    const nodeFileData = nodesMetadataMap[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString]);
+  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
 
   const proOptions = { hideAttribution: true };
 
@@ -261,12 +270,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        <Sidebar
-          sections={nodeSection}
-          leafNodeClickHandler={addNewNode as LeafClickHandler}
-          isSideBarOpen={isSidebarOpen}
-          setSideBarStatus={setIsSidebarOpen}
-        />
+        {nodeSection && (
+          <Sidebar
+            sections={nodeSection}
+            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            isSideBarOpen={isSidebarOpen}
+            setSideBarStatus={setIsSidebarOpen}
+          />
+        )}
 
         <Toaster theme={theme} />
 

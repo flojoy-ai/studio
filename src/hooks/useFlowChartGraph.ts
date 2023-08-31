@@ -4,9 +4,11 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
-import { nodeSection, NodeElement } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
+import { API_URI } from "@src/data/constants";
+import { NodeSection, validateManifest } from "@src/utils/ManifestLoader";
+import type { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
@@ -14,14 +16,15 @@ const initialEdges: Edge[] = NOISY_SINE.edges;
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
-const nodesManifestAtom = atomWithImmer<NodeElement[]>([]);
+const nodeSectionAtom = atomWithImmer<NodeSection | null>(null);
+const nodesMetadataMapAtom = atomWithImmer<NodesMetadataMap | null>(null);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
-  const [nodesManifest, setNodesManifest] = useAtom(nodesManifestAtom);
-
+  const [nodeSection, setNodeSection] = useAtom(nodeSectionAtom);
+  const [nodesMetadataMap, setNodesMetadataMap] = useAtom(nodesMetadataMapAtom);
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
     const unSelectedNodes: Node<ElementsData>[] = [];
@@ -49,6 +52,26 @@ export const useFlowChartGraph = () => {
     [setNodes, setEdges, setTextNodes],
   );
 
+  const fetchManifest = useCallback(() => {
+    fetch(`${API_URI}/nodes/manifest`, {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((manifest) => {
+        validateManifest(manifest);
+        setNodeSection(manifest);
+      });
+  }, []);
+  const fetchMetadata = useCallback(() => {
+    fetch(`${API_URI}/nodes/metadata`, {
+      method: "GET",
+    })
+      .then((resp) => resp.json())
+      .then((metadata) => {
+        setNodesMetadataMap(metadata);
+      });
+  }, []);
+
   useEffect(() => {
     setNodes((prev) => {
       prev.forEach((n) => {
@@ -56,34 +79,10 @@ export const useFlowChartGraph = () => {
       });
     });
   }, [selectedNode, setNodes]);
-
-  /**
-   * Creates a node mapping from nodeSection
-   */
-  const addNodesToManifest = useCallback((arr) => {
-    if (!Array.isArray(arr)) {
-      return;
-    }
-    let nodes: NodeElement[] = [];
-    arr.forEach((child) => {
-      if (child.children === null) {
-        nodes = [...nodes, child];
-      } else {
-        const n = addNodesToManifest(child.children);
-        if (n) {
-          nodes = [...nodes, ...n];
-        }
-      }
-    });
-    return nodes;
-  }, []);
-
   useEffect(() => {
-    const allNodes = addNodesToManifest(nodeSection.children);
-    if (allNodes) {
-      setNodesManifest(allNodes);
-    }
-  }, [addNodesToManifest, setNodesManifest]);
+    fetchManifest();
+    fetchMetadata();
+  }, []);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
@@ -150,6 +149,8 @@ export const useFlowChartGraph = () => {
   return {
     nodes,
     setNodes,
+    nodeSection,
+    nodesMetadataMap,
     textNodes,
     setTextNodes,
     edges,
@@ -160,7 +161,6 @@ export const useFlowChartGraph = () => {
     removeCtrlInputDataForNode,
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
-    nodesManifest,
     handleTitleChange,
   };
 };

@@ -1,10 +1,5 @@
 import { Connection } from "reactflow";
-import {
-  NodeElement,
-  NodeSection,
-  nodeSection,
-  SubCategory,
-} from "./ManifestLoader";
+import { NodeElement, NodeSection, SubCategory } from "./ManifestLoader";
 
 const allNodes: Map<string, NodeElement> = new Map();
 
@@ -26,13 +21,15 @@ const populateNodes = (node: NodeSection | SubCategory) => {
   node.children.map((c) => dfs(c, allNodes));
 };
 
-populateNodes(nodeSection);
-
 const getNodeNameFromId = (nodeId: string) => {
   return nodeId.split("-", 1)[0];
 };
 
-export const getEdgeTypes = (connection: Connection): [string, string] => {
+export const getEdgeTypes = (
+  nodeSection: NodeSection,
+  connection: Connection,
+): [string, string] => {
+  populateNodes(nodeSection);
   if (
     !connection.source ||
     !connection.target ||
