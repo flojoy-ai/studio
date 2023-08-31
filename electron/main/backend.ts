@@ -29,7 +29,7 @@ export const runBackend = (
       description: "Initialization can take up to few minutes for first time, please be patient!",
       output: "Running backend script..."      
     })
-    runCmd(backendCommand, successText, win, sendBackendLogToStudio)
+    runCmd(backendCommand, successText, win, "backend", sendBackendLogToStudio)
       .then(({ script }) => {
         sendBackendLogToStudio(win, {
           open: false,

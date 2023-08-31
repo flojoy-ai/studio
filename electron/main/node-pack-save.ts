@@ -4,19 +4,24 @@ import path, { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
 
-const NODE_DIR_PATH = join(__dirname, "node_path.txt");
+const getNodesPathFile = () => {
+  const fileName = "nodes_path.txt";
+  if (process.platform === "win32") {
+    return join(process.env.APPDATA ?? "", ".flojoy", fileName);
+  }
+  return join(process.env.HOME ?? "", ".flojoy", fileName);
+};
 
 export const saveNodePack = (
   win: Electron.BrowserWindow,
   icon: string,
   update?: boolean,
 ) => {
-  if (!update && fs.existsSync(NODE_DIR_PATH)) {
+  if (!update && fs.existsSync(getNodesPathFile())) {
     return;
   }
   const defaultSavePath = getNodesDirPath();
   const savePath = getSavePath(win, icon, defaultSavePath ?? "");
-  console.log(" save path: ", savePath);
   cloneNodesRepo(savePath, win);
 };
 
@@ -70,43 +75,56 @@ const cloneNodesRepo = (location: string, win: Electron.BrowserWindow) => {
   const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
   const title = "Downloading Nodes resuorce pack!";
   const description = `Downloading nodes resource pack to ${clonePath}...`;
-  win.webContents.send("backend", {
+  sendLogToStudio(title, description)(win, {
     open: true,
-    title,
     output: description,
     clear: true,
   });
-  runCmd(cloneCmd, undefined, win, sendLogToStudio).catch(({ code }) => {
+  runCmd(
+    cloneCmd,
+    undefined,
+    win,
+    "Nodes-resource",
+    sendLogToStudio(title, description),
+  ).catch(({ code }) => {
     if (code > 0) {
-      win.webContents.send("backend", {
+      sendLogToStudio(title, description)(win, {
         open: true,
         output:
           "Error :: Failed to download nodes resource pack, see error printed above!",
       });
     } else {
-      win.webContents.send("backend",{open:false,output:""})
+      sendLogToStudio(title, description)(win, { open: false, output: "" });
       dialog.showMessageBox(win, {
         message: "Nodes resource pack downloaded successfully!",
-        type:"info"
+        type: "info",
       });
-      savePathToLocalFile(NODE_DIR_PATH, clonePath);
+      savePathToLocalFile(getNodesPathFile(), clonePath);
     }
   });
 };
 
 const getNodesDirPath = () => {
-  if (fs.existsSync(NODE_DIR_PATH)) {
-    return fs.readFileSync(NODE_DIR_PATH, { encoding: "utf-8" });
+  if (fs.existsSync(getNodesPathFile())) {
+    return fs.readFileSync(getNodesPathFile(), { encoding: "utf-8" });
   }
   return process.platform === "win32"
     ? join(process.env.HOME ?? "", "Downloads")
     : process.env.HOME;
 };
 
-const sendLogToStudio = (win: Electron.BrowserWindow, data: CallBackArgs) => {
-  win.webContents.send("backend", {
-    open: true,
-    title: "Downloading Nodes resuorce pack!",
-    output: data,
-  });
-};
+const sendLogToStudio =
+  (title: string, description: string) =>
+  (win: Electron.BrowserWindow, data: CallBackArgs) => {
+    win.webContents.send(
+      "backend",
+      typeof data === "string"
+        ? {
+            open: true,
+            title,
+            description,
+            output: data,
+          }
+        : { ...data, title, description },
+    );
+  };

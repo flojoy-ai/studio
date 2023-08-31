@@ -6,6 +6,7 @@ export const runCmd = (
   command: string,
   matchText: string | undefined,
   win: Electron.BrowserWindow,
+  serviceName: string,
   cb: (win: Electron.BrowserWindow, data: string) => void,
 ): Promise<{
   script: childProcess.ChildProcess;
@@ -14,24 +15,24 @@ export const runCmd = (
     const script = childProcess.exec(command);
     let lastOutput:string;
     script.stdout?.on("data", function (data) {
-      lastOutput = data.toString()
-      cb(win, data.toString());
+      const dataStr = `[${serviceName}] - ${data.toString()}`;
+      lastOutput = dataStr
+      cb(win, dataStr);
       if(!app.isPackaged){
         console.log("[stdout]:: ", data.string())
       }
-      if (data.toString().includes(matchText)) {
-        console.log("stdout data: ", data.toString(), " includes text: ", matchText)
+      if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }
     });
     script.stderr?.on("data", function (data) {
-      lastOutput = data.toString()
-      cb(win, data.toString());
+      const dataStr = `[${serviceName}] - ${data.toString()}`;
+      lastOutput = dataStr
+      cb(win, dataStr);
       if(!app.isPackaged){
-        console.log("[stderr]:: ", data.toString())
+        console.log("[stderr]:: ", dataStr)
       }
-      if (data.toString().includes(matchText)) {
-        console.log(" data: ", data.toString(), " includes text: ", matchText)
+      if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }
     });
@@ -40,6 +41,8 @@ export const runCmd = (
     });
   });
 };
+
+
 
 
 export const killSubProcess = (script: childProcess.ChildProcess) => {

@@ -84,7 +84,10 @@ contextMenu({
 const runningProcesses: ChildProcess[] = [];
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
-const preload = join(__dirname, `../preload/index${!app.isPackaged && "-dev"}.js`);
+const preload = join(
+  __dirname,
+  `../preload/index${!app.isPackaged && "-dev"}.js`,
+);
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
 app.setName("Flojoy Studio");
@@ -104,7 +107,6 @@ async function createWindow() {
     },
     show: false,
   });
-
 
   global.hasUnsavedChanges = true;
 
@@ -193,13 +195,15 @@ async function createWindow() {
   } else {
     // electron-vite-vue#298
     // win.loadURL(url ?? "");
-    win.loadFile(join(WORKING_DIR,"electron/html/studio/index.html"))
+    win.loadFile(join(WORKING_DIR, "electron/html/studio/index.html"));
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
-  saveNodePack(win, getIcon());
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
+    if (win) {
+      saveNodePack(win, getIcon());
+    }
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 

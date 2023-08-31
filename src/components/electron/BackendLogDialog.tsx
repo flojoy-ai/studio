@@ -24,6 +24,11 @@ const BackendInitLogsDialog = () => {
   useEffect(() => {
     // This assumes that you've exposed ipcRenderer securely via preload.js
     window.api?.receive("backend", (data) => {
+      if (typeof data === "string") {
+        setOpen(true);
+        setOutputs((p) => [...p, data]);
+        return;
+      }
       if (typeof data === "object" && data !== null) {
         setOpen(data.open);
         if (data.title) {
@@ -32,13 +37,10 @@ const BackendInitLogsDialog = () => {
         if (data.description) {
           setDescription(data.description);
         }
-        if(data.clear){
-          setOutputs([])
+        if (data.clear) {
+          setOutputs([]);
         }
         setOutputs((p) => [...p, data.output]);
-      } else {
-        setOpen(true);
-        setOutputs((p) => [...p, data]);
       }
     });
   }, []);
