@@ -105,6 +105,8 @@ const ControlBar = () => {
             <MenubarTrigger>
               <button data-featurebase-feedback>Feedback</button>
             </MenubarTrigger>
+            {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
+            <MenubarContent className="hidden" />
           </MenubarMenu>
         </Menubar>
       </div>
