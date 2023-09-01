@@ -60,6 +60,6 @@ coverage.xml
 .nyc_output/out.json
 coverage-cy
 PYTHON/nodes
-dist-studio
 build
 electron/html
+.nyc_output

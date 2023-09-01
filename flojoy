@@ -253,18 +253,6 @@ then
    feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
-# jsonify python functions
-
-$venvCmd && python3 scripts/write_python_metadata.py
-
-feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
-
-# Generate Manifest, will exit the script if it fails
-
-$venvCmd && python3 PYTHON/generate_manifest.py
-
-feedback $? 'Successfully generated JSON manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
-
 if [ $is_ci = true ];then
    exit 0
 fi
