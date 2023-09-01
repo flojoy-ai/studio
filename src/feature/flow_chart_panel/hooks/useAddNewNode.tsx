@@ -1,4 +1,4 @@
-import { NodeElement } from "@src/utils/ManifestLoader";
+import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
