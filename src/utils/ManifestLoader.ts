@@ -110,7 +110,7 @@ export { nodeSection };
 
 
 export function isLeaf(obj: TreeNode): obj is Leaf {
-  return obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children;
+  return Boolean(obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children);
 }
 
 export function isParentNode(obj: TreeNode): obj is ParentNode {
