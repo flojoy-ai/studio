@@ -36,6 +36,9 @@ jobs:
       - name: Run formatting check
         run: npm run check
 
+      - name: Typescript check
+        run: npx tsc --noEmit
+
   python-tests:
     runs-on: ubuntu-latest
     steps:
@@ -52,9 +55,6 @@ jobs:
           node-version: 16
 
       - run: pip install -r requirements.txt && npm i
-
-      - name: Typescript check
-        run: npx tsc --noEmit
 
       - name: pytest
         run: |
