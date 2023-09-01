@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
 import treeJSON from "@src/data/manifests-latest.json";
@@ -109,17 +108,18 @@ try {
 
 export { nodeSection };
 
-export function isLeaf(obj: any): obj is Leaf {
-  return obj && obj.name && obj.key && obj.type && !obj.children;
+
+export function isLeaf(obj: TreeNode): obj is Leaf {
+  return obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children;
 }
 
-export function isParentNode(obj: any): obj is ParentNode {
-  return obj && obj.name && Array.isArray(obj.children);
+export function isParentNode(obj: TreeNode): obj is ParentNode {
+  return Boolean(obj && obj.name && Array.isArray(obj.children));
 }
 export interface LeafParentNode extends ParentNode {
   children: Leaf[];
 }
-export function isLeafParentNode(obj: any): obj is LeafParentNode {
+export function isLeafParentNode(obj: TreeNode): obj is LeafParentNode {
   return (
     obj &&
     Array.isArray(obj.children) &&
@@ -127,10 +127,12 @@ export function isLeafParentNode(obj: any): obj is LeafParentNode {
   );
 }
 
-export function isRoot(obj: any): obj is RootNode {
+export function isRoot(obj: TreeNode): obj is RootNode {
   return obj && obj.name === "ROOT";
 }
 
-export function isRootChild(obj: any): obj is RootChild {
-  return obj && obj.name && obj.key && obj.type && Array.isArray(obj.children);
+export function isRootChild(obj: TreeNode): obj is RootChild {
+  return Boolean(obj?.name && (obj as RootChild)?.key && (obj as RootChild)?.type && Array.isArray(obj.children));
 }
+
+export type TreeNode = Leaf | ParentNode | LeafParentNode | RootNode | RootChild;
