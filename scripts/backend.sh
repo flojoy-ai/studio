@@ -33,5 +33,6 @@ cd "$current_dir"
 echo "Installing pip dependencies..."
 python3 -m pip install -r requirements.txt
 echo "Package installation completed, starting backend..."
+export ELECTRON_MODE=packaged
 python3 manage.py
 

@@ -107,7 +107,7 @@ async function createWindow() {
     },
     show: false,
   });
-
+  
   global.hasUnsavedChanges = true;
 
   win.on("close", (e) => {

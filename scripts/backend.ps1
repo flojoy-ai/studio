@@ -37,4 +37,5 @@ Write-Output "Installing pip dependencies..."
 & pip install -r requirements.txt
 
 Write-Output "Package installation completed, starting backend..."
+$Env:ELECTRON_MODE = "packaged"
 & python .\manage.py

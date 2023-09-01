@@ -1,6 +1,6 @@
 import { dialog } from "electron";
 import * as fs from "fs";
-import path, { join } from "path";
+import { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
 
@@ -51,7 +51,7 @@ const getSavePath = (
 
     if (selectedPaths?.length) {
       const path = selectedPaths[0];
-      return getSavePath(win, icon, path);
+      return getSavePath(win, icon, join(path, "nodes"));
     }
     return getSavePath(win, icon, savePath);
   } else {
@@ -63,15 +63,8 @@ const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
 
-const cloneNodesRepo = (location: string, win: Electron.BrowserWindow) => {
-  let clonePath = location;
-  // Check if path exists
-  if (fs.existsSync(location)) {
-    // Check if directory is empty
-    if (fs.readdirSync(location).length > 0) {
-      clonePath = path.join(location, "nodes");
-    }
-  }
+const cloneNodesRepo = (clonePath: string, win: Electron.BrowserWindow) => {
+
   const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
   const title = "Downloading Nodes resuorce pack!";
   const description = `Downloading nodes resource pack to ${clonePath}...`;
@@ -108,9 +101,7 @@ const getNodesDirPath = () => {
   if (fs.existsSync(getNodesPathFile())) {
     return fs.readFileSync(getNodesPathFile(), { encoding: "utf-8" });
   }
-  return process.platform === "win32"
-    ? join(process.env.HOME ?? "", "Downloads")
-    : process.env.HOME;
+  return join(process.env.HOME ?? "", "Downloads", "nodes");
 };
 
 const sendLogToStudio =
