@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { showWelcomeScreenAtom } from "@src/hooks/useFlowChartState";
 import { useAtom } from "jotai";
 
+import packageJson from "../../../../package.json";
+
 export function WelcomeModal() {
   const openFileSelector = useLoadApp();
   const [showWelcomeScreen, setShowWelcomeScreen] = useAtom(
@@ -20,7 +22,9 @@ export function WelcomeModal() {
     <AlertDialog open={showWelcomeScreen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Welcome to Flojoy Studio!</AlertDialogTitle>
+          <AlertDialogTitle>
+            Welcome to Flojoy Studio V{packageJson.version}
+          </AlertDialogTitle>
           <AlertDialogDescription>
             Introducing our Alpha Release: Expect exciting improvements and
             possible breaking changes as we refine and enhance the app.

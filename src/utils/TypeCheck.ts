@@ -1,15 +1,12 @@
 import { Connection } from "reactflow";
-import { NodeElement, NodeSection, SubCategory } from "./ManifestLoader";
+import { Leaf, RootNode, ParentNode } from "./ManifestLoader";
 
-const allNodes: Map<string, NodeElement> = new Map();
+const allNodes: Map<string, Leaf> = new Map();
 
-const populateNodes = (node: NodeSection | SubCategory) => {
-  const dfs = (
-    node: SubCategory | NodeElement,
-    map: Map<string, NodeElement>,
-  ) => {
+const populateNodes = (node: RootNode | ParentNode) => {
+  const dfs = (node: ParentNode | Leaf, map: Map<string, Leaf>) => {
     if (!node.children) {
-      allNodes.set(node.key, node as NodeElement);
+      allNodes.set(node.key, node);
       return;
     }
 
@@ -26,7 +23,7 @@ const getNodeNameFromId = (nodeId: string) => {
 };
 
 export const getEdgeTypes = (
-  nodeSection: NodeSection,
+  nodeSection: RootNode,
   connection: Connection,
 ): [string, string] => {
   populateNodes(nodeSection);

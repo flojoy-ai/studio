@@ -1,7 +1,7 @@
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
 
-const nodeElementSchema = z.object({
+const leafSchema = z.object({
   name: z.string(),
   key: z.string(),
   type: z.string(),
@@ -59,9 +59,9 @@ const nodeElementSchema = z.object({
   children: z.null(),
 });
 
-export type NodeElement = z.infer<typeof nodeElementSchema>;
+export type Leaf = z.infer<typeof leafSchema>;
 
-export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
+export function createParentSchema<ChildType extends z.ZodTypeAny>(
   childSchema: ChildType,
 ) {
   return z.object({
@@ -71,12 +71,11 @@ export function createSubCategorySchema<ChildType extends z.ZodTypeAny>(
     children: z.array(childSchema),
   });
 }
-const subCategorySchema =
-  createSubCategorySchema<typeof nodeElementSchema>(nodeElementSchema);
+const parentSchema = createParentSchema<typeof leafSchema>(leafSchema);
 
-export type SubCategory = z.infer<typeof subCategorySchema>;
+export type ParentNode = z.infer<typeof parentSchema>;
 
-export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
+export function createRootSchema<ElementType extends Zod.ZodTypeAny>(
   element: ElementType,
 ) {
   return z.object({
@@ -86,18 +85,19 @@ export function createSectionSchema<ElementType extends Zod.ZodTypeAny>(
         name: z.string(),
         key: z.optional(z.string()),
         type: z.optional(z.string()),
-        children: z.array(createSubCategorySchema(element)),
+        children: z.array(createParentSchema(element)),
       }),
     ),
   });
 }
-const nodeSectionSchema = createSectionSchema(nodeElementSchema);
+const rootSchema = createRootSchema(leafSchema);
 
-export type NodeSection = z.infer<typeof nodeSectionSchema>;
+export type RootNode = z.infer<typeof rootSchema>;
+export type RootChild = z.infer<typeof rootSchema>["children"][0];
 
-const validateManifest = (manifest: NodeSection) => {
+export const validateRootSchema = (schema: RootNode) => {
   try {
-    nodeSectionSchema.parse(manifest);
+    rootSchema.parse(schema);
   } catch (e) {
     if (e instanceof ZodError) {
       throw fromZodError(e);
@@ -107,4 +107,42 @@ const validateManifest = (manifest: NodeSection) => {
   }
 };
 
-export { validateManifest };
+export function isLeaf(obj: TreeNode): obj is Leaf {
+  return Boolean(
+    obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
+  );
+}
+
+export function isParentNode(obj: TreeNode): obj is ParentNode {
+  return Boolean(obj && obj.name && Array.isArray(obj.children));
+}
+export interface LeafParentNode extends ParentNode {
+  children: Leaf[];
+}
+export function isLeafParentNode(obj: TreeNode): obj is LeafParentNode {
+  return (
+    obj &&
+    Array.isArray(obj.children) &&
+    obj.children.every((child) => isLeaf(child))
+  );
+}
+
+export function isRoot(obj: TreeNode): obj is RootNode {
+  return obj && obj.name === "ROOT";
+}
+
+export function isRootChild(obj: TreeNode): obj is RootChild {
+  return Boolean(
+    obj?.name &&
+      (obj as RootChild)?.key &&
+      (obj as RootChild)?.type &&
+      Array.isArray(obj.children),
+  );
+}
+
+export type TreeNode =
+  | Leaf
+  | ParentNode
+  | LeafParentNode
+  | RootNode
+  | RootChild;
