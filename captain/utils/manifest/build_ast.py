@@ -97,7 +97,7 @@ def make_manifest_ast(path: str) -> Tuple[str, Optional[str], ast.Module]:
     return_type = None
 
     if not flojoy_node.returns and node_name not in NO_OUTPUT_NODES:
-        print(f"⚠️ {node_name} has no return type hint, will have no output!")
+        print(f"[Warning]: {node_name} has no return type hint, will have no output!")
     elif (
         isinstance(flojoy_node.returns, ast.Constant)
         and flojoy_node.returns.value is None

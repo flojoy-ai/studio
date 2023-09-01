@@ -100,7 +100,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             result = create_manifest(n_path)
         except Exception as e:
             raise ValueError(
-                f"Failed to generate manifest from {os.path.basename(dir_path)}.py {e.args[0]}"
+                f"Failed to generate manifest from {os.path.basename(dir_path)}.py {', '.join(e.args)}"
             )
 
         if not result.get("type"):
