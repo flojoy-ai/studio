@@ -109,12 +109,12 @@ export const validateRootSchema = (schema: RootNode) => {
 
 export function isLeaf(obj: TreeNode): obj is Leaf {
   return Boolean(
-    obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
+    obj?.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
   );
 }
 
 export function isParentNode(obj: TreeNode): obj is ParentNode {
-  return Boolean(obj && obj.name && Array.isArray(obj.children));
+  return Boolean(obj?.name && Array.isArray(obj.children));
 }
 export interface LeafParentNode extends ParentNode {
   children: Leaf[];

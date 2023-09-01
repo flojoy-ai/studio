@@ -45,7 +45,7 @@ import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { baseClient } from "@src/lib/base-client";
-import { NodeSection, validateManifest } from "@src/utils/ManifestLoader";
+import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
 import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const FlowChartTab = () => {
@@ -53,7 +53,7 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
-  const [nodeSection, setNodeSection] = useState<NodeSection | null>(null);
+  const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
   const [nodesMetadataMap, setNodesMetadataMap] =
     useState<NodesMetadataMap | null>(null);
 
@@ -202,7 +202,7 @@ const FlowChartTab = () => {
   const fetchManifest = useCallback(async () => {
     try {
       const res = await baseClient.get("nodes/manifest");
-      validateManifest(res.data);
+      validateRootSchema(res.data);
       setNodeSection(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
