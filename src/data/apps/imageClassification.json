@@ -1,257 +1,250 @@
 {
-    "rfInstance": {
-        "nodes": [
-            {
-                "width": 208,
-                "height": 116,
-                "id": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
-                "type": "AI_ML",
-                "data": {
-                    "id": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
-                    "label": "HUGGING FACE PIPELINE",
-                    "func": "HUGGING_FACE_PIPELINE",
-                    "type": "AI_ML",
-                    "ctrls": {
-                        "model": {
-                            "type": "str",
-                            "default": "google/vit-base-patch16-224",
-                            "desc": "The model to be used for classification.\nIf not specified, Vision Transformers (i.e. `google/vit-base-patch16-224`) are used.\nFor more information about Vision Transformers, see: https://huggingface.co/google/vit-base-patch16-224\nFor a complete list of models see: https://huggingface.co/models?pipeline_tag=image-classification",
-                            "functionName": "HUGGING_FACE_PIPELINE",
-                            "param": "model",
-                            "value": "google/vit-base-patch16-224"
-                        },
-                        "revision": {
-                            "type": "str",
-                            "default": "main",
-                            "desc": "The revision of the model to be used for classification.\nIf not specified, main is `used`. For instance see: https://huggingface.co/google/vit-base-patch16-224/commits/main",
-                            "functionName": "HUGGING_FACE_PIPELINE",
-                            "param": "revision",
-                            "value": "main"
-                        }
-                    },
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image",
-                            "multiple": false,
-                            "desc": "The input image to be classified. The image must be a PIL.Image object wrapped in a flojoy Image object."
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "DataFrame",
-                            "desc": "A DataFrame containing as columns the `label` classification label and `score`, its confidence score.\nAll scores are between 0 and 1 and sum to 1."
-                        }
-                    ],
-                    "path": "PYTHON/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/HUGGING_FACE_PIPELINE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 101.6862937753346,
-                    "y": 89.1192557532203
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 101.6862937753346,
-                    "y": 89.1192557532203
-                },
-                "dragging": true
+  "rfInstance": {
+    "nodes": [
+      {
+        "width": 208,
+        "height": 116,
+        "id": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
+        "type": "AI_ML",
+        "data": {
+          "id": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
+          "label": "HUGGING FACE PIPELINE",
+          "func": "HUGGING_FACE_PIPELINE",
+          "type": "AI_ML",
+          "ctrls": {
+            "model": {
+              "type": "str",
+              "default": "google/vit-base-patch16-224",
+              "desc": "The model to be used for classification.\nIf not specified, Vision Transformers (i.e. `google/vit-base-patch16-224`) are used.\nFor more information about Vision Transformers, see: https://huggingface.co/google/vit-base-patch16-224\nFor a complete list of models see: https://huggingface.co/models?pipeline_tag=image-classification",
+              "functionName": "HUGGING_FACE_PIPELINE",
+              "param": "model",
+              "value": "google/vit-base-patch16-224"
             },
-            {
-                "width": 160,
-                "height": 160,
-                "id": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
-                "type": "LOADERS",
-                "data": {
-                    "id": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
-                    "label": "LOCAL FILE",
-                    "func": "LOCAL_FILE",
-                    "type": "LOADERS",
-                    "ctrls": {
-                        "file_path": {
-                            "type": "str",
-                            "default": null,
-                            "desc": "path to the file to be loaded",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_path",
-                            "value": "./PYTHON/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/assets/ada_lovelace.png"
-                        },
-                        "file_type": {
-                            "type": "select",
-                            "default": "Image",
-                            "options": [
-                                "Image",
-                                "Grayscale",
-                                "JSON",
-                                "CSV",
-                                "Excel",
-                                "XML"
-                            ],
-                            "desc": "type of file to load, default = image",
-                            "functionName": "LOCAL_FILE",
-                            "param": "file_type",
-                            "value": "Image"
-                        }
-                    },
-                    "initCtrls": {},
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|DataFrame",
-                            "desc": "Image for file_type 'image'\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'"
-                        }
-                    ],
-                    "pip_dependencies": [
-                        {
-                            "name": "xlrd",
-                            "v": "2.0.1"
-                        },
-                        {
-                            "name": "lxml",
-                            "v": "4.9.2"
-                        },
-                        {
-                            "name": "openpyxl",
-                            "v": "3.0.10"
-                        },
-                        {
-                            "name": "scikit-image",
-                            "v": "0.21.0"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-                    "selected": true
-                },
-                "position": {
-                    "x": -405.26756052777466,
-                    "y": -122.64869035489248
-                },
-                "selected": true,
-                "positionAbsolute": {
-                    "x": -405.26756052777466,
-                    "y": -122.64869035489248
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
-                    "label": "TABLE",
-                    "func": "TABLE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Table visualization"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 611.2887869229049,
-                    "y": -262.3069439209832
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 611.2887869229049,
-                    "y": -262.3069439209832
-                },
-                "dragging": true
-            },
-            {
-                "width": 380,
-                "height": 293,
-                "id": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
-                "type": "VISUALIZERS",
-                "data": {
-                    "id": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
-                    "label": "IMAGE",
-                    "func": "IMAGE",
-                    "type": "VISUALIZERS",
-                    "ctrls": {},
-                    "initCtrls": {},
-                    "inputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Image|Grayscale",
-                            "multiple": false,
-                            "desc": "the DataContainer to be visualized"
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "name": "default",
-                            "id": "default",
-                            "type": "Plotly",
-                            "desc": "the DataContainer containing Plotly Image visualization of the input image"
-                        }
-                    ],
-                    "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
-                    "selected": false
-                },
-                "position": {
-                    "x": 53.6972076118181,
-                    "y": -424.18710772887835
-                },
-                "selected": false,
-                "positionAbsolute": {
-                    "x": 53.6972076118181,
-                    "y": -424.18710772887835
-                },
-                "dragging": true
+            "revision": {
+              "type": "str",
+              "default": "main",
+              "desc": "The revision of the model to be used for classification.\nIf not specified, main is `used`. For instance see: https://huggingface.co/google/vit-base-patch16-224/commits/main",
+              "functionName": "HUGGING_FACE_PIPELINE",
+              "param": "revision",
+              "value": "main"
             }
-        ],
-        "edges": [
+          },
+          "initCtrls": {},
+          "inputs": [
             {
-                "source": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
-                "sourceHandle": "default",
-                "target": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2default-HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6default"
-            },
-            {
-                "source": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
-                "sourceHandle": "default",
-                "target": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
-                "targetHandle": "default",
-                "id": "reactflow__edge-HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6default-TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848default"
-            },
-            {
-                "source": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
-                "sourceHandle": "default",
-                "target": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
-                "targetHandle": "default",
-                "id": "reactflow__edge-LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2default-IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088fdefault"
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": "The input image to be classified. The image must be a PIL.Image object wrapped in a flojoy Image object."
             }
-        ],
-        "viewport": {
-            "x": 1105.0678207150697,
-            "y": 575.2550328315427,
-            "zoom": 1.2199420644594634
-        }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "A DataFrame containing as columns the `label` classification label and `score`, its confidence score.\nAll scores are between 0 and 1 and sum to 1."
+            }
+          ],
+          "path": "PYTHON/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/HUGGING_FACE_PIPELINE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 101.6862937753346,
+          "y": 89.1192557532203
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 101.6862937753346,
+          "y": 89.1192557532203
+        },
+        "dragging": true
+      },
+      {
+        "width": 160,
+        "height": 160,
+        "id": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
+        "type": "LOADERS",
+        "data": {
+          "id": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
+          "label": "LOCAL FILE",
+          "func": "LOCAL_FILE",
+          "type": "LOADERS",
+          "ctrls": {
+            "file_path": {
+              "type": "str",
+              "default": null,
+              "desc": "path to the file to be loaded",
+              "functionName": "LOCAL_FILE",
+              "param": "file_path",
+              "value": "./PYTHON/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/assets/ada_lovelace.png"
+            },
+            "file_type": {
+              "type": "select",
+              "default": "Image",
+              "options": ["Image", "Grayscale", "JSON", "CSV", "Excel", "XML"],
+              "desc": "type of file to load, default = image",
+              "functionName": "LOCAL_FILE",
+              "param": "file_type",
+              "value": "Image"
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|DataFrame",
+              "desc": "Image for file_type 'image'\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "xlrd",
+              "v": "2.0.1"
+            },
+            {
+              "name": "lxml",
+              "v": "4.9.2"
+            },
+            {
+              "name": "openpyxl",
+              "v": "3.0.10"
+            },
+            {
+              "name": "scikit-image",
+              "v": "0.21.0"
+            }
+          ],
+          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+          "selected": true
+        },
+        "position": {
+          "x": -405.26756052777466,
+          "y": -122.64869035489248
+        },
+        "selected": true,
+        "positionAbsolute": {
+          "x": -405.26756052777466,
+          "y": -122.64869035489248
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
+          "label": "TABLE",
+          "func": "TABLE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Table visualization"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 611.2887869229049,
+          "y": -262.3069439209832
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 611.2887869229049,
+          "y": -262.3069439209832
+        },
+        "dragging": true
+      },
+      {
+        "width": 380,
+        "height": 293,
+        "id": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
+          "label": "IMAGE",
+          "func": "IMAGE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|Grayscale",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Image visualization of the input image"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/IMAGE/IMAGE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 53.6972076118181,
+          "y": -424.18710772887835
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 53.6972076118181,
+          "y": -424.18710772887835
+        },
+        "dragging": true
+      }
+    ],
+    "edges": [
+      {
+        "source": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
+        "sourceHandle": "default",
+        "target": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2default-HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6default"
+      },
+      {
+        "source": "HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6",
+        "sourceHandle": "default",
+        "target": "TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848",
+        "targetHandle": "default",
+        "id": "reactflow__edge-HUGGING_FACE_PIPELINE-160a47cc-72e8-4088-a4af-43efdc9904d6default-TABLE-b1ca06f2-ecee-4858-a075-cdfb097be848default"
+      },
+      {
+        "source": "LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2",
+        "sourceHandle": "default",
+        "target": "IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088f",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOCAL_FILE-3955f404-af77-4878-afd4-dab779ec5df2default-IMAGE-b9af5a25-af44-43cd-bc00-315e08b0088fdefault"
+      }
+    ],
+    "viewport": {
+      "x": 1105.0678207150697,
+      "y": 575.2550328315427,
+      "zoom": 1.2199420644594634
     }
+  }
 }
