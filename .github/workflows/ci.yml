@@ -60,6 +60,7 @@ jobs:
         run: |
           cd PYTHON
           python -m pytest --cov --cov-report=xml --ignore=nodes
+          cd ..
           cd captain
           python -m pytest --cov --cov-report=xml --ignore=nodes
 
