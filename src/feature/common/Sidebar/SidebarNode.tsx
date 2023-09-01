@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import {
   Leaf,
   RootNode,
@@ -7,7 +5,6 @@ import {
   ParentNode,
   isLeaf,
   isRoot,
-  isParentNode,
   isLeafParentNode,
 } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
