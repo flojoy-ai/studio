@@ -108,9 +108,10 @@ try {
 
 export { nodeSection };
 
-
 export function isLeaf(obj: TreeNode): obj is Leaf {
-  return Boolean(obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children);
+  return Boolean(
+    obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
+  );
 }
 
 export function isParentNode(obj: TreeNode): obj is ParentNode {
@@ -132,7 +133,17 @@ export function isRoot(obj: TreeNode): obj is RootNode {
 }
 
 export function isRootChild(obj: TreeNode): obj is RootChild {
-  return Boolean(obj?.name && (obj as RootChild)?.key && (obj as RootChild)?.type && Array.isArray(obj.children));
+  return Boolean(
+    obj?.name &&
+      (obj as RootChild)?.key &&
+      (obj as RootChild)?.type &&
+      Array.isArray(obj.children),
+  );
 }
 
-export type TreeNode = Leaf | ParentNode | LeafParentNode | RootNode | RootChild;
+export type TreeNode =
+  | Leaf
+  | ParentNode
+  | LeafParentNode
+  | RootNode
+  | RootChild;
