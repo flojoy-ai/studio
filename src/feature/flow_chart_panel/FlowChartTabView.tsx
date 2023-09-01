@@ -44,12 +44,18 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { baseClient } from "@src/lib/base-client";
+import { NodeSection, validateManifest } from "@src/utils/ManifestLoader";
+import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const [nodeSection, setNodeSection] = useState<NodeSection | null>(null);
+  const [nodesMetadataMap, setNodesMetadataMap] =
+    useState<NodesMetadataMap | null>(null);
 
   const { theme, resolvedTheme } = useTheme();
 
@@ -71,8 +77,6 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
-    nodeSection,
-    nodesMetadataMap,
   } = useFlowChartGraph();
 
   const getNodeFuncCount = useCallback(
@@ -194,6 +198,41 @@ const FlowChartTab = () => {
     setHasUnsavedChanges(true);
     setProgramResults([]);
   }, [setNodes, setEdges, setHasUnsavedChanges]);
+
+  const fetchManifest = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/manifest");
+      validateManifest(res.data);
+      setNodeSection(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.log("error : ");
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes manifest!",
+        {
+          duration: 15000,
+        },
+      );
+    }
+  }, []);
+  const fetchMetadata = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/metadata");
+      setNodesMetadataMap(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes meta data!",
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchManifest();
+    fetchMetadata();
+  }, []);
 
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {

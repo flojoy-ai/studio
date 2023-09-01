@@ -58,9 +58,6 @@ ORDERING = [
     "GAMES",
 ]
 
-__failed_nodes: list[str] = []
-__generated_nodes: list[str] = []
-
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
@@ -101,15 +98,10 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             n_file_name = f"{os.path.basename(dir_path)}.py"
             n_path = os.path.join(dir_path, n_file_name)
             result = create_manifest(n_path)
-            __generated_nodes.append(n_file_name)
         except Exception as e:
-            print(
-                "❌ Failed to generate manifest from ",
-                f"{os.path.basename(dir_path)}.py ",
-                e,
-                "\n",
+            raise ValueError(
+                f"Failed to generate manifest from {os.path.basename(dir_path)}.py {e.args[0]}"
             )
-            __failed_nodes.append(f"{os.path.basename(dir_path)}.py")
 
         if not result.get("type"):
             result["type"] = cur_type
@@ -128,10 +120,4 @@ def sort_order(element):
 def generate_manifest():
     nodes_map = browse_directories(FULL_PATH)
     nodes_map["children"].sort(key=sort_order)  # type: ignore
-
-    if len(__failed_nodes) > 0:
-        raise ValueError(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
-    print(
-        f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
-    )
     return nodes_map
