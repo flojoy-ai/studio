@@ -1,5 +1,4 @@
 import fnmatch
-import json
 import os
 
 nodes_dir = "PYTHON/nodes"
@@ -7,7 +6,7 @@ nodes_dir = "PYTHON/nodes"
 # The pattern to match for Python files
 pattern = "*.py"
 
-badbadnotgood = ["VCTR.py", "__init__.py", ".DS_Store"]
+badbadnotgood = ["__init__.py"]
 ignore_folders = [
     "venv",
 ]
