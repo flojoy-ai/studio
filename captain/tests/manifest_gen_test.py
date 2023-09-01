@@ -1,4 +1,4 @@
-from PYTHON.manifest.generate_node_manifest import create_manifest
+from captain.utils.manifest.build_manifest import create_manifest
 import os
 import pytest
 import unittest

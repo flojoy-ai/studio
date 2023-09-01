@@ -60,6 +60,8 @@ jobs:
         run: |
           cd PYTHON
           python -m pytest --cov --cov-report=xml --ignore=nodes
+          cd captain
+          python -m pytest --cov --cov-report=xml --ignore=nodes
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
