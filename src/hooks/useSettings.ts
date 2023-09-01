@@ -22,7 +22,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
     title: "Node Delay",
     key: "nodeDelay",
     group: "backend",
-    desc: "Delay before running the next node in seconds",
+    desc: "Delay before running the next node in milliseconds",
     value: 0,
   },
   {
