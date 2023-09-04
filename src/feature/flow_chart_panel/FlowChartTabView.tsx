@@ -207,11 +207,11 @@ const FlowChartTab = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log("error : ");
-      toast(
-        err?.response?.data?.error ?? "Failed to generate nodes manifest!",
+      toast.error(
+        err.response?.data?.error ?? "Failed to generate nodes manifest!",
         {
-          duration: 15000,
+          duration: 20000,
+          style: { minWidth: 700 },
         },
       );
     }
@@ -223,7 +223,7 @@ const FlowChartTab = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      toast(
+      toast.message(
         err?.response?.data?.error ?? "Failed to generate nodes meta data!",
       );
     }

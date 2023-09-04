@@ -3,8 +3,11 @@ import * as fs from "fs";
 import { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
-
-const getNodesPathFile = () => {
+/**
+ *
+ * @returns {string} path to txt file where the location of nodes resource pack is saved
+ */
+const getNodesPathFile = (): string => {
   const fileName = "nodes_path.txt";
   if (process.platform === "win32") {
     return join(process.env.APPDATA ?? "", ".flojoy", fileName);
@@ -25,11 +28,16 @@ export const saveNodePack = (
   cloneNodesRepo(savePath, win);
 };
 
+/**
+ *
+ * Propmts user to choose a location for downloading nodes resource pack
+ * @returns location choosed by user
+ */
 const getSavePath = (
   win: Electron.BrowserWindow,
   icon: string,
   savePath: string,
-) => {
+): string => {
   const res = dialog.showMessageBoxSync(win, {
     type: "info",
     title: ":::: Download node resource pack",
@@ -64,7 +72,6 @@ const savePathToLocalFile = (fileName: string, path: string) => {
 };
 
 const cloneNodesRepo = (clonePath: string, win: Electron.BrowserWindow) => {
-
   const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
   const title = "Downloading Nodes resuorce pack!";
   const description = `Downloading nodes resource pack to ${clonePath}...`;
@@ -96,8 +103,12 @@ const cloneNodesRepo = (clonePath: string, win: Electron.BrowserWindow) => {
     }
   });
 };
-
-const getNodesDirPath = () => {
+/**
+ *
+ * @returns {string} path to nodes resource pack if resource is downloaded already
+ * else a default path where resource pack can be downloaded ideally os Download directory
+ */
+const getNodesDirPath = (): string => {
   if (fs.existsSync(getNodesPathFile())) {
     return fs.readFileSync(getNodesPathFile(), { encoding: "utf-8" });
   }

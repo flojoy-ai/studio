@@ -86,7 +86,7 @@ let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(
   __dirname,
-  `../preload/index${!app.isPackaged && "-dev"}.js`,
+  `../preload/index${!app.isPackaged ? "-dev": ""}.js`,
 );
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
@@ -107,7 +107,7 @@ async function createWindow() {
     },
     show: false,
   });
-  
+
   global.hasUnsavedChanges = true;
 
   win.on("close", (e) => {
@@ -146,39 +146,10 @@ async function createWindow() {
 
   win.maximize();
   win.show();
-  // dialog
-  //   .showOpenDialog(win, {
-  //     title: "Select Download Directory",
-  //     properties: ["openDirectory"],
-  //   })
-  //   .then((result) => {
-  //     if (!result.canceled && result.filePaths.length > 0) {
-  //       const downloadPath = result.filePaths[0];
-  //       console.log(" result paths: ", result.filePaths);
-  //       console.log(" selected path: ", downloadPath);
-
-  //       // Here, you can start downloading your resources
-  //       // const file = fs.createWriteStream(path.join(downloadPath, 'resource.ext'));
-
-  //       // https.get('https://example.com/resource.ext', (response) => {
-  //       //   response.pipe(file);
-  //       //   file.on('finish', () => {
-  //       //     file.close(() => {
-  //       //       console.log('Download finished');
-  //       //     });
-  //       //   });
-  //       // }).on('error', (error) => {
-  //       //   fs.unlink(file);
-  //       //   console.log('Download failed:', error);
-  //       // });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(" error in open dialog: ", err);
-  //   });
 
   if (app.isPackaged) {
     win.loadFile(indexHtml);
+
     global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
       .then(({ success, script }) => {
@@ -187,6 +158,8 @@ async function createWindow() {
           if (script) {
             runningProcesses.push(script);
           }
+          // Load html file again to fetch fresh nodes manifest
+          win?.loadFile(indexHtml);
         }
       })
       .catch(() => {
@@ -194,16 +167,15 @@ async function createWindow() {
       });
   } else {
     // electron-vite-vue#298
-    // win.loadURL(url ?? "");
-    win.loadFile(join(WORKING_DIR, "electron/html/studio/index.html"));
+    win.loadURL(url ?? "");
+    // win.loadFile(join(WORKING_DIR, "electron/html/studio/index.html"));
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
+  saveNodePack(win, getIcon());
+
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
-    if (win) {
-      saveNodePack(win, getIcon());
-    }
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 

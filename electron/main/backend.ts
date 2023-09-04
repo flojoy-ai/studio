@@ -1,16 +1,25 @@
 import * as childProcess from "child_process";
 import { join, resolve } from "path";
 import { runCmd } from "./cmd";
-import type {CallBackArgs} from "../api/index"
+import type { CallBackArgs } from "../api/index";
 
-const sendBackendLogToStudio = (
-  win: Electron.BrowserWindow,
-  data: CallBackArgs
-) => {
-  if (global.initializingBackend) {
-    win.webContents.send("backend", data);
-  }
-};
+const sendBackendLogToStudio =
+  (title: string, description: string) =>
+  (win: Electron.BrowserWindow, data: CallBackArgs) => {
+    if (global.initializingBackend) {
+      win.webContents.send(
+        "backend",
+        typeof data === "string"
+          ? {
+              open: true,
+              title,
+              description,
+              output: data,
+            }
+          : { ...data, title, description },
+      );
+    }
+  };
 
 const successText = "Uvicorn running on";
 
@@ -23,15 +32,23 @@ export const runBackend = (
 }> => {
   const backendCommand = getBackendCommand(workingDir);
   return new Promise((resolve) => {
-    sendBackendLogToStudio(win, {
-      open:true,
-      title: "Initializing backend...",
-      description: "Initialization can take up to few minutes for first time, please be patient!",
-      output: "Running backend script..."      
-    })
-    runCmd(backendCommand, successText, win, "backend", sendBackendLogToStudio)
+    const title = "Initializing backend...";
+    const description =
+      "Initialization can take up to few minutes for first time, please be patient!";
+    sendBackendLogToStudio(title, description)(win, {
+      open: true,
+      clear: true,
+      output: "Running backend script...",
+    });
+    runCmd(
+      backendCommand,
+      successText,
+      win,
+      "backend",
+      sendBackendLogToStudio(title, description),
+    )
       .then(({ script }) => {
-        sendBackendLogToStudio(win, {
+        sendBackendLogToStudio(title, description)(win, {
           open: false,
           output: "backend initialized successfully!",
         });
@@ -39,7 +56,7 @@ export const runBackend = (
       })
       .catch((err) => {
         if (err.code > 0) {
-          sendBackendLogToStudio(win, {
+          sendBackendLogToStudio(title, description)(win, {
             open: true,
             output: "Error: Failed to initialize backend try re lunching app!",
           });
