@@ -68,12 +68,12 @@ def create_topology(
 
 # spawns a set amount of workers to execute jobs (node functions)
 def spawn_workers(
-    manager: Manager, imported_functions: dict[str, Any], node_delay: float = 0
+    manager: Manager, imported_functions: dict[str, Any], node_delay: float , max_workers: int
 ):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
-    worker_number = manager.running_topology.get_maximum_workers()
+    worker_number = manager.running_topology.get_maximum_workers(maximum_capacity=max_workers)
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
     manager.thread_count = worker_number
@@ -261,7 +261,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
     await manager.ws.broadcast(socket_msg)
 
-    spawn_workers(manager, funcs, request.nodeDelay)
+    spawn_workers(manager, funcs, request.nodeDelay, request.maximumConcurrentWorkers)
     logger.debug(
         f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
     )
