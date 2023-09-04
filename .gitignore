@@ -59,14 +59,7 @@ coverage.xml
 
 .nyc_output/out.json
 coverage-cy
-<<<<<<< HEAD
-
 test/*
 build/*
-=======
 PYTHON/nodes
-<<<<<<< HEAD
->>>>>>> develop
-=======
 .nyc_output
->>>>>>> develop
