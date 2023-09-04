@@ -18,7 +18,7 @@ import {
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
-import { useTheme } from "@src/providers/theme-provider";
+import { useTheme } from "@src/providers/themeProvider";
 
 const jsonTheme = {
   scheme: "flojoy",

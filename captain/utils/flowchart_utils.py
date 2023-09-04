@@ -61,7 +61,7 @@ def create_topology(
         task_queue=task_queue,
         cleanup_func=cleanup_func,
         worker_response=worker_response,
-        node_delay=request.nodeDelay,
+        node_delay=request.nodeDelay / 1000,
         final_broadcast=final_broadcast,
     )
 

@@ -60,17 +60,29 @@ const data: GalleryData = {
       ],
     },
     {
-      description: "Predict future events with the Prophet node",
-      title: "Time series forecasting",
-      imagePath: "/assets/appGallery/timeSeries.png",
-      appPath: "prophet",
+      title: "Image Classification",
+      description: "Classify any image using Hugging Face Transformers",
+      imagePath: "/assets/appGallery/imageClassification.png",
+      appPath: "imageClassification",
       relevantNodes: [
         {
-          name: "PROPHET_PREDICT",
-          docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
+          name: "HUGGING_FACE_PIPELINE",
+          docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/",
         },
       ],
     },
+    // {
+    //   description: "Predict future events with the Prophet node",
+    //   title: "Time series forecasting",
+    //   imagePath: "/assets/appGallery/timeSeries.png",
+    //   appPath: "prophet",
+    //   relevantNodes: [
+    //     {
+    //       name: "PROPHET_PREDICT",
+    //       docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
+    //     },
+    //   ],
+    // },
     // {
     //   description: "Estimate object depth with the DINOv2 node",
     //   title: "Depth perception",

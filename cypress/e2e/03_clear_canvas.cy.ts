@@ -8,9 +8,11 @@ describe("Verify clear canvas button", () => {
 
   it("clear canvas test", () => {
     cy.visit("/").wait(1000);
+    cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
+    cy.get('[data-testid="confirm-clear-canvas"]').click();
 
     cy.percySnapshot("dark flow page without any nodes");
 

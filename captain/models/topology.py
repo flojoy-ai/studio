@@ -142,6 +142,8 @@ class Topology:
                 )  # node id is used to specify storage: each node of the same type will have its own storage
             except NoInitFunctionError:
                 pass
+            except Exception as e:
+                errors[node_id] = str(e)
 
             functions[node_id] = func
         return functions, errors

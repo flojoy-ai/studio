@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 import { memo, useEffect, useRef, useState } from "react";
 
-import { NodeElement, NodeSection } from "@src/utils/ManifestLoader";
+import { Leaf, RootNode } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
 import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
@@ -12,12 +12,12 @@ import { cn } from "@src/lib/utils";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 import { Input } from "@src/components/ui/input";
 
-export type LeafClickHandler = (elem: NodeElement) => void;
+export type LeafClickHandler = (elem: Leaf) => void;
 
 type SidebarProps = {
   isSideBarOpen: boolean;
   setSideBarStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  sections: NodeSection;
+  sections: RootNode;
   leafNodeClickHandler: LeafClickHandler;
   customContent?: JSX.Element;
 };
@@ -73,6 +73,7 @@ const Sidebar = ({
       <div className="absolute right-2 top-2">
         <div
           className="cursor-pointer rounded-xl p-1 transition duration-200 hover:bg-muted"
+          data-testid="sidebar-close"
           onClick={() => setSideBarStatus(false)}
         >
           <XIcon size={20} className="stroke-muted-foreground" />
@@ -109,6 +110,7 @@ const Sidebar = ({
             <Button
               variant="link"
               className="px-2 font-semibold text-muted-foreground"
+              data-testid="request-node-btn"
             >
               Request a node...
             </Button>

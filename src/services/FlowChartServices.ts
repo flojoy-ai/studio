@@ -1,11 +1,8 @@
 import { Setting } from "../hooks/useSettings";
-import localforage from "localforage";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "@/types";
 import { API_URI } from "@src/data/constants";
 import { Result } from "@src/types/result";
-
-const flowKey = "flow-joy";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -17,13 +14,6 @@ export type EnvVar = {
   key: string;
   value: string;
 };
-
-export function saveFlowChartToLocalStorage(rfInstance?: ReactFlowJsonObject) {
-  if (rfInstance) {
-    const flowObj = rfInstance;
-    localforage.setItem(flowKey, flowObj);
-  }
-}
 
 export const postEnvironmentVariable = async (
   body: EnvVar,

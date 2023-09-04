@@ -28,6 +28,7 @@ type NodeElement = {
       default: string | number | boolean | null | undefined;
       options?: Array<string>;
       desc: string | null;
+      overload: Record<string, Array<string>> | null;
     }
   >;
   init_parameters?: NodeElement["parameters"];
@@ -70,6 +71,10 @@ export type ElementsData = {
     name: string;
     v?: string;
   }[];
+};
+
+export type TextData = {
+  text: string;
 };
 
 export interface CustomNodeProps {

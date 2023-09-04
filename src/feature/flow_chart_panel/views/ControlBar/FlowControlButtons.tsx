@@ -4,11 +4,10 @@ import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/types";
 import { Ban, Play } from "lucide-react";
 import { Button } from "@src/components/ui/button";
-import { useFlowChartState } from "@src/hooks/useFlowChartState";
+import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
 import { useSocket } from "@src/hooks/useSocket";
 import {
-  saveFlowChartToLocalStorage,
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
 } from "@src/services/FlowChartServices";
@@ -16,6 +15,8 @@ import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import MicrocontollerBtn from "./MicrocontrollerBtn";
+import { useAtom } from "jotai";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -23,31 +24,37 @@ const FlowControlButtons = () => {
 
   const { settings } = useSettings("backend");
 
-  const { isMicrocontrollerMode, rfInstance, setRfInstance, setNodeParamChanged } =
+  const { isMicrocontrollerMode } =
     useFlowChartState();
+  const { setNodeParamChanged } = useFlowChartState();
+
+  const [project, setProject] = useAtom(projectAtom);
 
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
     serverStatus === IServerStatus.OFFLINE;
   const cancelFC = () => {
-    if (rfInstance && rfInstance.nodes.length > 0) {
-      cancelFlowChartRun(rfInstance, socketId);
+    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
+      cancelFlowChartRun(project.rfInstance, socketId);
     } else {
-      alert("There is no running job on server.");
+      alert("is no running job on server.");
     }
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
-    if (rfInstance && rfInstance.nodes.length > 0) {
+    if (project.rfInstance && project.rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
       const updatedRfInstance = {
-        ...rfInstance,
+        ...project.rfInstance,
         nodes,
         edges,
       };
-      setRfInstance(updatedRfInstance);
 
-      saveFlowChartToLocalStorage(updatedRfInstance);
-      sendProgramToMix(rfInstance.nodes, true, false);
+      setProject({
+        ...project,
+        rfInstance: updatedRfInstance,
+      });
+
+      sendProgramToMix(project.rfInstance.nodes, true, false);
       // setProgramResults([]);
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
@@ -69,8 +76,8 @@ const FlowControlButtons = () => {
     onRun(nodes, edges);
   };
 
-  // useKeyboardShortcut("ctrl", "p", () => onPlay(nodes, edges));
-  // useKeyboardShortcut("meta", "p", () => onPlay(nodes, edges));
+  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
+  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
 
   return (
     <>

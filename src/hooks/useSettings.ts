@@ -1,5 +1,11 @@
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
+import localforage from "localforage";
+import { useEffect } from "react";
+
+const store = localforage.createInstance({
+  name: "flojoy-settings",
+});
 
 type SettingsGroup = "frontend" | "backend";
 
@@ -22,7 +28,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
     key: "nodeDelay",
     group: "backend",
     type: "number",
-    desc: "Delay before running the next node in seconds",
+    desc: "Delay before running the next node in milliseconds",
     value: 0,
   },
   {
@@ -38,14 +44,26 @@ const settingsAtom = atomWithImmer<Setting[]>([
 export const useSettings = (group: "frontend" | "backend") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
-  const updateSettings = (key: string, value: ValueType) => {
+  const updateSettings = (key: string, value: number | boolean) => {
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {
         setting.value = value;
+        store.setItem(key, value);
       }
     });
   };
+
+  useEffect(() => {
+    store.iterate((val, key) => {
+      setSettings((prev) => {
+        const setting = prev.find((s) => s.key === key);
+        if (setting) {
+          setting.value = val as number | boolean;
+        }
+      });
+    });
+  }, [setSettings]);
 
   return {
     settings: settings.filter((s) => s.group === group),

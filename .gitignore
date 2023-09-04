@@ -65,4 +65,8 @@ test/*
 build/*
 =======
 PYTHON/nodes
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+.nyc_output
 >>>>>>> develop

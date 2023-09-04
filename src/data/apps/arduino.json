@@ -2,48 +2,8 @@
   "rfInstance": {
     "nodes": [
       {
-        "width": 225,
-        "height": 226,
-        "id": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
-        "type": "VISUALIZERS",
-        "data": {
-          "id": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
-          "label": "BAR",
-          "func": "BAR",
-          "type": "VISUALIZERS",
-          "ctrls": {},
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "OrderedPair|DataFrame|Matrix",
-              "multiple": false
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Plotly"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/BAR/BAR.py",
-          "selected": false
-        },
-        "position": {
-          "x": 618.6142511100182,
-          "y": -115.37358126811186
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 618.6142511100182,
-          "y": -115.37358126811186
-        },
-        "dragging": true
-      },
-      {
-        "width": 150,
-        "height": 150,
+        "width": 192,
+        "height": 192,
         "id": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
         "type": "INSTRUMENTS",
         "data": {
@@ -57,7 +17,7 @@
               "default": "/dev/ttyUSB0",
               "functionName": "SERIAL_SINGLE_MEASUREMENT",
               "param": "comport",
-              "value": "/dev/ttyUSB0"
+              "value": "/dev/ttyACM0"
             },
             "baudrate": {
               "type": "int",
@@ -92,30 +52,138 @@
           "selected": false
         },
         "position": {
-          "x": 263.25526904013145,
-          "y": -71.99475564115923
+          "x": 363.7748423359979,
+          "y": -229.87883107518553
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 263.25526904013145,
-          "y": -71.99475564115923
+          "x": 363.7748423359979,
+          "y": -229.87883107518553
+        },
+        "dragging": true
+      },
+      {
+        "width": 225,
+        "height": 226,
+        "id": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
+        "type": "VISUALIZERS",
+        "data": {
+          "id": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
+          "label": "TABLE",
+          "func": "TABLE",
+          "type": "VISUALIZERS",
+          "ctrls": {},
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "OrderedTriple|OrderedPair|DataFrame|Vector",
+              "multiple": false,
+              "desc": "the DataContainer to be visualized"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Plotly",
+              "desc": "the DataContainer containing Plotly Table visualization"
+            }
+          ],
+          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/TABLE/TABLE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 723.8902776366289,
+          "y": -243.60166094613493
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 723.8902776366289,
+          "y": -243.60166094613493
+        },
+        "dragging": true
+      },
+      {
+        "width": 96,
+        "height": 96,
+        "id": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
+        "type": "LOGIC_GATES",
+        "data": {
+          "id": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
+          "label": "LOOP",
+          "func": "LOOP",
+          "type": "LOGIC_GATES",
+          "ctrls": {
+            "num_loops": {
+              "type": "int",
+              "default": -1,
+              "desc": "number of times to iterate through body nodes, default is \"-1\" meaning infinity.",
+              "functionName": "LOOP",
+              "param": "num_loops",
+              "value": -1
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Any",
+              "multiple": false,
+              "desc": null
+            }
+          ],
+          "outputs": [
+            {
+              "name": "body",
+              "id": "body",
+              "type": "Any",
+              "desc": null
+            },
+            {
+              "name": "end",
+              "id": "end",
+              "type": "Any",
+              "desc": null
+            }
+          ],
+          "path": "PYTHON/nodes/LOGIC_GATES/LOOPS/LOOP/LOOP.py",
+          "selected": false
+        },
+        "position": {
+          "x": 54.40404553162867,
+          "y": -140.29725973798512
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 54.40404553162867,
+          "y": -140.29725973798512
         },
         "dragging": true
       }
     ],
     "edges": [
       {
+        "source": "LOOP-8397b774-573b-45a5-bc81-ece212163cc8",
+        "sourceHandle": "body",
+        "target": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
+        "targetHandle": "default",
+        "id": "reactflow__edge-LOOP-8397b774-573b-45a5-bc81-ece212163cc8body-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault"
+      },
+      {
         "source": "SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1b",
         "sourceHandle": "default",
-        "target": "BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653",
+        "target": "TABLE-793e7360-2513-448d-b225-b326aa744eb2",
         "targetHandle": "default",
-        "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault-BAR-a5dad7fa-f6be-4814-9b64-a5c67318c653default"
+        "id": "reactflow__edge-SERIAL_SINGLE_MEASUREMENT-e2db0dcb-93ee-4548-babe-27a69ed71b1bdefault-TABLE-793e7360-2513-448d-b225-b326aa744eb2default"
       }
     ],
     "viewport": {
-      "x": -358.59636577932724,
-      "y": 99.85117439980638,
-      "zoom": 1.0581352782820395
+      "x": 641.4353265600867,
+      "y": 258.3556895239008,
+      "zoom": 0.5478943342594492
     }
   },
   "ctrlsManifest": [
@@ -135,6 +203,27 @@
         "minW": 2,
         "i": "INPUT_PLACEHOLDER"
       }
+    }
+  ],
+  "textNodes": [
+    {
+      "id": "TextNode-98eaa4bd-dd3e-4fea-8791-eb2f414b482d",
+      "position": {
+        "x": 356.1024827249459,
+        "y": -339.3802187008158
+      },
+      "type": "TextNode",
+      "data": {
+        "text": "Read the [Serial Single measurement](https://docs.flojoy.ai/nodes/INSTRUMENTS/SERIAL/SERIAL_SINGLE_MEASUREMENT/) docs before running the app"
+      },
+      "width": 288,
+      "height": 50,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 356.1024827249459,
+        "y": -339.3802187008158
+      },
+      "dragging": false
     }
   ]
 }

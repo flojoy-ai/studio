@@ -1,5 +1,4 @@
-import localforage from "localforage";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
@@ -14,18 +13,14 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-import { API_URI } from "@src/data/constants";
-import { toast } from "sonner";
+// import { API_URI } from "@src/data/constants";
+// import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
-import { SaveAsButton } from "./ControlBar/SaveAsButton";
+import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
-
-localforage.config({
-  name: "react-flow",
-  storeName: "flows",
-});
+import { useTheme } from "@src/providers/themeProvider";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -33,29 +28,27 @@ const ControlBar = () => {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
 
-  const handleUpdate = async () => {
-    const resp = await fetch(`${API_URI}/update/`, {
-      method: "GET",
-    });
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const win = window as any;
 
-    const hasUpdate = await resp.json();
-
-    if (hasUpdate) {
-      toast("Update available!", {
-        action: {
-          label: "Update",
-          onClick: async () => {
-            await fetch(`${API_URI}/update/`, {
-              method: "POST",
-            });
-          },
-        },
-      });
-    } else {
-      toast("Your Flojoy Studio is up to date");
+    if (typeof win.Featurebase !== "function") {
+      win.Featurebase = function () {
+        // eslint-disable-next-line prefer-rest-params
+        (win.Featurebase.q = win.Featurebase.q || []).push(arguments);
+      };
     }
-  };
+    win.Featurebase("initialize_feedback_widget", {
+      organization: "flojoy",
+      theme: resolvedTheme,
+      // dynamic theme currently does not work
+      // featurebase team is already working on supporting it
+      // so I will just leave this here for now and it will start working
+      // right away when they implement it.
+    });
+  }, [resolvedTheme]);
 
   return (
     <div className="flex items-center gap-2 p-2.5">
@@ -83,10 +76,11 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="dropdown-button">
+            <MenubarTrigger id="file-btn" data-testid="file-button">
               File
             </MenubarTrigger>
             <MenubarContent>
+              <SaveButton />
               <SaveAsButton />
               <ExportResultButton />
               <SaveFlowChartBtn />
@@ -95,12 +89,10 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger data-testid="dropdown-button">
-              Settings
-            </MenubarTrigger>
+            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
             <MenubarContent>
               <MenubarItem
-                data-testid="env-variable-moda-btn"
+                data-testid="env-var-modal-button"
                 onClick={() => setIsEnvVarModalOpen(true)}
               >
                 Environment Variables
@@ -123,13 +115,20 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              <MenubarItem
-                data-testid="btn-node-settings"
-                onClick={handleUpdate}
-              >
-                Check for update
-              </MenubarItem>
+              {/* <MenubarItem */}
+              {/*   data-testid="btn-check-for-update" */}
+              {/*   onClick={handleUpdate} */}
+              {/* > */}
+              {/*   Check for update */}
+              {/* </MenubarItem> */}
             </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger>
+              <button data-featurebase-feedback>Feedback</button>
+            </MenubarTrigger>
+            {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
+            <MenubarContent className="hidden" />
           </MenubarMenu>
         </Menubar>
       </div>

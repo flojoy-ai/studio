@@ -1,123 +1,10 @@
 {
+  "name": "Intro to images",
   "rfInstance": {
     "nodes": [
       {
-        "width": 150,
-        "height": 150,
-        "id": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
-        "type": "TRANSFORMERS",
-        "data": {
-          "id": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
-          "label": "IMAGE SMOOTHING",
-          "func": "IMAGE_SMOOTHING",
-          "type": "TRANSFORMERS",
-          "ctrls": {
-            "kernel": {
-              "type": "int",
-              "default": 5,
-              "functionName": "IMAGE_SMOOTHING",
-              "param": "kernel",
-              "value": "8"
-            },
-            "smoothing_type": {
-              "type": "select",
-              "default": "average",
-              "options": ["average", "gaussian", "median", "bilateral"],
-              "functionName": "IMAGE_SMOOTHING",
-              "param": "smoothing_type",
-              "value": "average"
-            }
-          },
-          "inputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image",
-              "multiple": false
-            }
-          ],
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image"
-            }
-          ],
-          "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py",
-          "selected": false
-        },
-        "position": {
-          "x": 727.3487305553774,
-          "y": 155.3525852303302
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 727.3487305553774,
-          "y": 155.3525852303302
-        },
-        "dragging": true
-      },
-      {
-        "width": 150,
-        "height": 150,
-        "id": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
-        "type": "LOADERS",
-        "data": {
-          "id": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
-          "label": "LOCAL FILE",
-          "func": "LOCAL_FILE",
-          "type": "LOADERS",
-          "ctrls": {
-            "file_path": {
-              "type": "str",
-              "default": null,
-              "functionName": "LOCAL_FILE",
-              "param": "file_path",
-              "value": ""
-            },
-            "file_type": {
-              "type": "select",
-              "default": "Image",
-              "options": ["Image", "JSON", "CSV", "Excel", "XML"],
-              "functionName": "LOCAL_FILE",
-              "param": "file_type",
-              "value": "Image"
-            }
-          },
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "Image|DataFrame"
-            }
-          ],
-          "pip_dependencies": [
-            {
-              "name": "xlrd",
-              "v": "2.0.1"
-            },
-            {
-              "name": "lxml",
-              "v": "4.9.2"
-            }
-          ],
-          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
-          "selected": false
-        },
-        "position": {
-          "x": 393.7135717819896,
-          "y": 278.0915860062198
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": 393.7135717819896,
-          "y": 278.0915860062198
-        },
-        "dragging": true
-      },
-      {
-        "width": 225,
-        "height": 226,
+        "width": 380,
+        "height": 293,
         "id": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
         "type": "VISUALIZERS",
         "data": {
@@ -156,8 +43,8 @@
         "dragging": true
       },
       {
-        "width": 225,
-        "height": 226,
+        "width": 380,
+        "height": 293,
         "id": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
         "type": "VISUALIZERS",
         "data": {
@@ -194,29 +81,175 @@
           "y": 513.5775685841171
         },
         "dragging": true
+      },
+      {
+        "width": 160,
+        "height": 160,
+        "id": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+        "type": "LOADERS",
+        "data": {
+          "id": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
+          "label": "LOCAL FILE",
+          "func": "LOCAL_FILE",
+          "type": "LOADERS",
+          "ctrls": {
+            "file_path": {
+              "type": "str",
+              "default": null,
+              "desc": "path to the file to be loaded",
+              "functionName": "LOCAL_FILE",
+              "param": "file_path",
+              "value": ""
+            },
+            "file_type": {
+              "type": "select",
+              "default": "Image",
+              "options": ["Image", "Grayscale", "JSON", "CSV", "Excel", "XML"],
+              "desc": "type of file to load, default = image",
+              "functionName": "LOCAL_FILE",
+              "param": "file_type",
+              "value": "Image"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "TextBlob",
+              "multiple": false,
+              "desc": "If this input node is connected, the filename will be taken from\nthe output of the connected node. To be used in conjunction with batch processing"
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image|DataFrame",
+              "desc": "Image for file_type 'image'\nDataFrame for file_type 'json', 'csv', 'excel', 'xml'"
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "xlrd",
+              "v": "2.0.1"
+            },
+            {
+              "name": "lxml",
+              "v": "4.9.2"
+            },
+            {
+              "name": "openpyxl",
+              "v": "3.0.10"
+            },
+            {
+              "name": "scikit-image",
+              "v": "0.21.0"
+            }
+          ],
+          "path": "PYTHON/nodes/LOADERS/LOCAL_FILE_SYSTEM/LOCAL_FILE/LOCAL_FILE.py",
+          "selected": false
+        },
+        "position": {
+          "x": 343.70355652854136,
+          "y": 302.735725612874
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 343.70355652854136,
+          "y": 302.735725612874
+        },
+        "dragging": true
+      },
+      {
+        "width": 189,
+        "height": 160,
+        "id": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
+        "type": "TRANSFORMERS",
+        "data": {
+          "id": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
+          "label": "IMAGE SMOOTHING",
+          "func": "IMAGE_SMOOTHING",
+          "type": "TRANSFORMERS",
+          "ctrls": {
+            "kernel": {
+              "type": "int",
+              "default": 5,
+              "desc": "The strength of the smoothing (larger = stronger smoothing).",
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "kernel",
+              "value": 5
+            },
+            "smoothing_type": {
+              "type": "select",
+              "default": "average",
+              "options": ["average", "gaussian", "median", "bilateral"],
+              "desc": "The type of smoothing function to use.",
+              "functionName": "IMAGE_SMOOTHING",
+              "param": "smoothing_type",
+              "value": "average"
+            }
+          },
+          "initCtrls": {},
+          "inputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "multiple": false,
+              "desc": "The input image to apply smoothing to."
+            }
+          ],
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "Image",
+              "desc": "The smoothed image."
+            }
+          ],
+          "pip_dependencies": [
+            {
+              "name": "opencv-python",
+              "v": "4.8.0.76"
+            }
+          ],
+          "path": "PYTHON/nodes/TRANSFORMERS/IMAGE_PROCESSING/IMAGE_SMOOTHING/IMAGE_SMOOTHING.py",
+          "selected": false
+        },
+        "position": {
+          "x": 729.1384081129287,
+          "y": 180.79333305981027
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": 729.1384081129287,
+          "y": 180.79333305981027
+        },
+        "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
         "sourceHandle": "default",
-        "target": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
+        "target": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497default-IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736default"
+        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2cdefault"
       },
       {
-        "source": "IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736",
-        "sourceHandle": "default",
-        "target": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
-        "targetHandle": "default",
-        "id": "reactflow__edge-IMAGE_SMOOTHING-271ab3fc-7780-4b0d-a394-9d6935b20736default-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
-      },
-      {
-        "source": "LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497",
+        "source": "LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aac",
         "sourceHandle": "default",
         "target": "IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94c",
         "targetHandle": "default",
-        "id": "reactflow__edge-LOCAL_FILE-e185ad0f-12d9-47ee-ab02-28b06f85f497default-IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94cdefault"
+        "id": "reactflow__edge-LOCAL_FILE-7e9953b7-3ab4-425f-80aa-2178c3508aacdefault-IMAGE-0b7bb803-8dba-43eb-a9bf-4073b3fda94cdefault"
+      },
+      {
+        "source": "IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2c",
+        "sourceHandle": "default",
+        "target": "IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181",
+        "targetHandle": "default",
+        "id": "reactflow__edge-IMAGE_SMOOTHING-9f184b61-e8a5-4202-9d9d-709da0673f2cdefault-IMAGE-7aacbaca-2652-4c99-babe-5779ba0ce181default"
       }
     ],
     "viewport": {
