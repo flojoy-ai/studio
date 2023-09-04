@@ -158,7 +158,7 @@ async function createWindow() {
           if (script) {
             runningProcesses.push(script);
           }
-          // Load html file again to fetch fresh nodes manifest
+          // Reload to fetch fresh nodes manifest
           win?.reload();
         }
       })
@@ -168,7 +168,6 @@ async function createWindow() {
   } else {
     // electron-vite-vue#298
     win.loadURL(url ?? "");
-    // win.loadFile(join(WORKING_DIR, "electron/html/studio/index.html"));
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
@@ -191,7 +190,6 @@ async function createWindow() {
 app.whenReady().then(async () => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
-  // await beforeWindow()
   createWindow();
 });
 
