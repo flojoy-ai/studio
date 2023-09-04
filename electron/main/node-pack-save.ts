@@ -3,29 +3,34 @@ import * as fs from "fs";
 import { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
+import * as os from "os";
 /**
  *
  * @returns {string} path to txt file where the location of nodes resource pack is saved
  */
 const getNodesPathFile = (): string => {
   const fileName = "nodes_path.txt";
-  if (process.platform === "win32") {
-    return join(process.env.APPDATA ?? "", ".flojoy", fileName);
-  }
-  return join(process.env.HOME ?? "", ".flojoy", fileName);
+  return join(os.homedir(), ".flojoy", fileName);
 };
 
-export const saveNodePack = (
+export const saveNodePack = async (
   win: Electron.BrowserWindow,
   icon: string,
   update?: boolean,
 ) => {
-  if (!update && fs.existsSync(getNodesPathFile())) {
-    return;
-  }
-  const defaultSavePath = getNodesDirPath();
-  const savePath = getSavePath(win, icon, defaultSavePath ?? "");
-  cloneNodesRepo(savePath, win);
+  return new Promise((resolve) => {
+    if (!update && fs.existsSync(getNodesPathFile())) {
+      resolve({ success: true });
+      return;
+    }
+    const defaultSavePath = getNodesDirPath();
+    const savePath = getSavePath(win, icon, defaultSavePath ?? "");
+    cloneNodesRepo(savePath, win)
+      .then(() => resolve({ success: true }))
+      // An error dialog will show up if any error happens in cloneNodesRepo function,
+      // calling resolve functions for both case to avoid any breakup in index.ts file
+      .catch((err) => resolve(err));
+  });
 };
 
 /**
@@ -72,35 +77,52 @@ const savePathToLocalFile = (fileName: string, path: string) => {
 };
 
 const cloneNodesRepo = (clonePath: string, win: Electron.BrowserWindow) => {
-  const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
-  const title = "Downloading Nodes resuorce pack!";
-  const description = `Downloading nodes resource pack to ${clonePath}...`;
-  sendLogToStudio(title, description)(win, {
-    open: true,
-    output: description,
-    clear: true,
-  });
-  runCmd(
-    cloneCmd,
-    undefined,
-    win,
-    "Nodes-resource",
-    sendLogToStudio(title, description),
-  ).catch(({ code }) => {
-    if (code > 0) {
-      sendLogToStudio(title, description)(win, {
-        open: true,
-        output:
-          "Error :: Failed to download nodes resource pack, see error printed above!",
-      });
-    } else {
-      sendLogToStudio(title, description)(win, { open: false, output: "" });
+  return new Promise((resolve, reject) => {
+    if (fs.existsSync(clonePath)) {
       dialog.showMessageBox(win, {
-        message: "Nodes resource pack downloaded successfully!",
-        type: "info",
+        message: "Nodes resource added successfully!",
+        detail: `Nodes resource will be added from ${clonePath}`,
       });
       savePathToLocalFile(getNodesPathFile(), clonePath);
+      resolve({ success: true });
+      return;
     }
+    const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
+    const title = "Downloading Nodes resuorce pack!";
+    const description = `Downloading nodes resource pack to ${clonePath}...`;
+    sendLogToStudio(title, description)(win, {
+      open: true,
+      output: description,
+      clear: true,
+    });
+    runCmd(
+      cloneCmd,
+      undefined,
+      win,
+      "Nodes-resource",
+      sendLogToStudio(title, description),
+    ).catch(({ code, lastOutput }) => {
+      if (code > 0) {
+        sendLogToStudio(title, description)(win, {
+          open: true,
+          output:
+            "Error :: Failed to download nodes resource pack, see error printed above!",
+        });
+        dialog.showErrorBox(
+          "Failed to download nodes resource pack!",
+          lastOutput,
+        );
+        reject(new Error(lastOutput));
+      } else {
+        sendLogToStudio(title, description)(win, { open: false, output: "" });
+        dialog.showMessageBox(win, {
+          message: "Nodes resource pack downloaded successfully!",
+          type: "info",
+        });
+        savePathToLocalFile(getNodesPathFile(), clonePath);
+        resolve({ success: true });
+      }
+    });
   });
 };
 /**
@@ -112,7 +134,7 @@ const getNodesDirPath = (): string => {
   if (fs.existsSync(getNodesPathFile())) {
     return fs.readFileSync(getNodesPathFile(), { encoding: "utf-8" });
   }
-  return join(process.env.HOME ?? "", "Downloads", "nodes");
+  return join(os.homedir(), "Downloads", "nodes");
 };
 
 const sendLogToStudio =

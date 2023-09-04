@@ -86,7 +86,7 @@ let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(
   __dirname,
-  `../preload/index${!app.isPackaged ? "-dev": ""}.js`,
+  `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
 );
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
@@ -148,8 +148,8 @@ async function createWindow() {
   win.show();
 
   if (app.isPackaged) {
-    win.loadFile(indexHtml);
-
+    await win.loadFile(indexHtml)
+    await saveNodePack(win, getIcon());
     global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
       .then(({ success, script }) => {
@@ -159,7 +159,7 @@ async function createWindow() {
             runningProcesses.push(script);
           }
           // Load html file again to fetch fresh nodes manifest
-          win?.loadFile(indexHtml);
+          win?.reload();
         }
       })
       .catch(() => {
@@ -172,7 +172,6 @@ async function createWindow() {
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
   }
-  saveNodePack(win, getIcon());
 
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {

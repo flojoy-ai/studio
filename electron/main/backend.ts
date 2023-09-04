@@ -2,6 +2,7 @@ import * as childProcess from "child_process";
 import { join, resolve } from "path";
 import { runCmd } from "./cmd";
 import type { CallBackArgs } from "../api/index";
+import { dialog } from "electron";
 
 const sendBackendLogToStudio =
   (title: string, description: string) =>
@@ -58,8 +59,12 @@ export const runBackend = (
         if (err.code > 0) {
           sendBackendLogToStudio(title, description)(win, {
             open: true,
-            output: "Error: Failed to initialize backend try re lunching app!",
+            output: `${err.lastOutput} \n\n Error: Failed to initialize backend try re lunching app!`,
           });
+          dialog.showErrorBox(
+            "Failed to initialize backend!",
+            err.lastOutput,
+          );
           resolve({ success: false, script: undefined });
         }
       });

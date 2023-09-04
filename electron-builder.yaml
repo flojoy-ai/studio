@@ -17,6 +17,7 @@ extraResources:
     to: "backend/captain"
   - from: "PYTHON"
     to: "backend/PYTHON"
+    filter: "!**/nodes/**"
   - from: "manage.py"
     to: "backend/manage.py"
   - from: "requirements.txt"

@@ -20,6 +20,4 @@ def get_nodes_path():
 
 
 def get_flojoy_dir():
-    if sys.platform == "win32":
-        return os.path.abspath(os.path.join(os.environ.get("APPDATA", ""), ".flojoy"))
-    return Path.home() / ".flojoy"
+    return os.path.abspath(os.path.join(Path.home(), ".flojoy"))

@@ -39,8 +39,9 @@ const BackendInitLogsDialog = () => {
         }
         if (data.clear) {
           setOutputs([]);
+        } else {
+          setOutputs((p) => [...p, data.output]);
         }
-        setOutputs((p) => [...p, data.output]);
       }
     });
   }, []);
