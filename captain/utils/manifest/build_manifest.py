@@ -1,3 +1,5 @@
+import ast
+
 from .build_ast import (
     get_pip_dependencies,
     get_node_type,
@@ -87,20 +89,24 @@ class ManifestBuilder:
         )
         return self
 
-    def with_param(self, name: str, param_type: Type, default: Any):
+    def with_param(
+        self, name: str, param_type: Type, default: Any, overload: dict[Any] | None
+    ):
         self.parameters[name] = {
             "type": type_str(param_type),
             "default": default,
             "desc": self._get_param_desc(name),
+            "overload": overload,
         }
         return self
 
-    def with_select(self, name: str, options: list[Any], default: Any):
+    def with_select(self, name: str, options: list[Any], default: Any, overload: Any):
         self.parameters[name] = {
             "type": "select",
             "options": options,
             "default": default,
             "desc": self._get_param_desc(name),
+            "overload": overload,
         }
         return self
 
@@ -168,7 +174,7 @@ class ManifestBuilder:
 
 
 def create_manifest(path: str) -> dict[str, Any]:
-    node_name, init_func_name, tree = make_manifest_ast(path)
+    node_name, init_func_name, tree, overload = make_manifest_ast(path)
     code = compile(tree, filename="<unknown>", mode="exec")
     module = ModuleType("node_module")
     exec(code, module.__dict__)
@@ -184,7 +190,7 @@ def create_manifest(path: str) -> dict[str, Any]:
     if pip_deps:
         mb.with_pip_dependencies(pip_deps)
 
-    populate_manifest(func, mb, node_name in SPECIAL_NODES)
+    populate_manifest(func, mb, overload, node_name in SPECIAL_NODES)
 
     if init_func_name:
         init_func = getattr(module, init_func_name)
@@ -194,17 +200,30 @@ def create_manifest(path: str) -> dict[str, Any]:
 
 
 def populate_manifest(
-    func: Callable[..., Any], mb: ManifestBuilder, is_special_node: bool = False
+    func: Callable[..., Any],
+    mb: ManifestBuilder,
+    overload: dict[Any] | None,
+    is_special_node: bool = False,
 ):
     sig = inspect.signature(func)
-    for name, param in sig.parameters.items():
-        populate_inputs(name, param, mb)
+    if overload is None:
+        for name, param in sig.parameters.items():
+            populate_inputs(name, param, mb)
+    else:
+        for name, param in sig.parameters.items():
+            populate_inputs(
+                name, param, mb, overload[name] if name in overload else None
+            )
 
     populate_return(sig.return_annotation, mb, is_special_node)
 
 
 def populate_inputs(
-    name: str, param: Parameter, mb: ManifestBuilder, multiple: bool = False
+    name: str,
+    param: Parameter,
+    mb: ManifestBuilder,
+    overload: dict[Any] | None = None,
+    multiple: bool = False,
 ):
     param_type = param.annotation
     default_value = param.default if param.default is not param.empty else None
@@ -225,6 +244,7 @@ def populate_inputs(
                     name, kind=param.kind, default=param.default, annotation=inner_type
                 ),
                 mb,
+                overload=overload,
                 multiple=multiple,
             )
             return
@@ -255,7 +275,7 @@ def populate_inputs(
         mb.with_input(name, Any, multiple=multiple)
     elif is_special_type(param_type):
         default_value = None if default_value is None else default_value.unwrap()
-        mb.with_param(name, param_type, default=default_value)
+        mb.with_param(name, param_type, default=default_value, overload=None)
     # Case 4: Some class that inherits from DataContainer
     elif is_datacontainer(param_type):
         mb.with_input(name, param_type, multiple=multiple)
@@ -271,6 +291,7 @@ def populate_inputs(
                     name, kind=param.kind, default=param.default, annotation=inner_type
                 ),
                 mb,
+                overload=overload,
                 multiple=True,
             )
             return
@@ -279,10 +300,10 @@ def populate_inputs(
                 f"Parameter types must be one of {ALLOWED_PARAM_TYPES} or special types like NodeReference,"
                 f"got {param_type}"
             )
-        mb.with_param(name, param_type, default_value)
+        mb.with_param(name, param_type, default_value, overload)
     # Case 6: Literal type which becomes a select param
     elif is_outer_type(param_type, Literal):
-        mb.with_select(name, list(param_type.__args__), default_value)
+        mb.with_select(name, list(param_type.__args__), default_value, overload)
     # Case 7: Node init container, skip
     elif param_type == NodeInitContainer:
         return
@@ -293,7 +314,7 @@ def populate_inputs(
                 f"got {param_type}"
             )
         if param_type != DefaultParams:
-            mb.with_param(name, param_type, default_value)
+            mb.with_param(name, param_type, default_value, overload)
 
 
 def populate_init_params(init_func: Callable, mb: ManifestBuilder):
@@ -422,7 +443,7 @@ def get_full_type_name(t: Any) -> str:
         return t.__name__
 
 
-def union_type_str(union: Any):
+def union_type_str(union: Any) -> str:
     return "|".join([get_full_type_name(t) for t in get_union_types(union)])
 
 

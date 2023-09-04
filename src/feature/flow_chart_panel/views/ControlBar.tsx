@@ -46,7 +46,7 @@ const ControlBar = () => {
       // dynamic theme currently does not work
       // featurebase team is already working on supporting it
       // so I will just leave this here for now and it will start working
-      // right away when they implement it.
+      // right away when they implement it.controlbar
     });
   }, [resolvedTheme]);
 
@@ -124,9 +124,7 @@ const ControlBar = () => {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>
-              <button data-featurebase-feedback>Feedback</button>
-            </MenubarTrigger>
+            <MenubarTrigger data-featurebase-feedback>Feedback</MenubarTrigger>
             {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
             <MenubarContent className="hidden" />
           </MenubarMenu>
