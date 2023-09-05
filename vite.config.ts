@@ -62,7 +62,10 @@ export default defineConfig(({ command }) => {
             },
           },
           {
-            entry: ["electron/preload/index.ts", "electron/preload/index-dev.ts"],
+            entry: [
+              "electron/preload/index.ts",
+              "electron/preload/index-dev.ts",
+            ],
             onstart(options) {
               // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
               // instead of restarting the entire Electron App.
@@ -113,7 +116,7 @@ export default defineConfig(({ command }) => {
     },
     base: "./",
     build: {
-      outDir: "dist-electron/studio"    
-    }
+      outDir: "dist-electron/studio",
+    },
   };
 });

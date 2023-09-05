@@ -61,10 +61,7 @@ export const runBackend = (
             open: true,
             output: `${err.lastOutput} \n\n Error: Failed to initialize backend try re lunching app!`,
           });
-          dialog.showErrorBox(
-            "Failed to initialize backend!",
-            err.lastOutput,
-          );
+          dialog.showErrorBox("Failed to initialize backend!", err.lastOutput);
           resolve({ success: false, script: undefined });
         }
       });

@@ -7,7 +7,7 @@ export type CallBackArgs =
       title?: string;
       description?: string;
       output: string;
-      clear?:boolean;
+      clear?: boolean;
     }
   | string;
 
@@ -30,11 +30,9 @@ export default {
     }
   },
   updateNodesPack: () => {
-    ipcRenderer.send("update-nodes-pack")
+    ipcRenderer.send("update-nodes-pack");
   },
   updateNodesResourcePath: () => {
-    
-    ipcRenderer.send("update-nodes-resource-path")
-  }
-
+    ipcRenderer.send("update-nodes-resource-path");
+  },
 };

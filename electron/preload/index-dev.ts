@@ -1,7 +1,7 @@
 import { contextBridge } from "electron";
 import api from "../api";
 
-contextBridge.exposeInMainWorld("api",{...api, isPackaged:false});
+contextBridge.exposeInMainWorld("api", { ...api, isPackaged: false });
 function domReady(
   condition: DocumentReadyState[] = ["complete", "interactive"],
 ) {

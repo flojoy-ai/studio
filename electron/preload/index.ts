@@ -1,4 +1,4 @@
 import { contextBridge } from "electron";
 import api from "../api/index";
 
-contextBridge.exposeInMainWorld("api",{...api, isPackaged: true});
+contextBridge.exposeInMainWorld("api", { ...api, isPackaged: true });

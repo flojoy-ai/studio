@@ -2,12 +2,63 @@
   "rfInstance": {
     "nodes": [
       {
+        "width": 210,
+        "height": 96,
+        "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
+        "type": "GENERATORS",
+        "data": {
+          "id": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
+          "label": "TIMESERIES",
+          "func": "TIMESERIES",
+          "type": "GENERATORS",
+          "ctrls": {
+            "start_date": {
+              "type": "str",
+              "default": "2023-01-01",
+              "desc": "The start date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "start_date",
+              "value": "2023-01-01"
+            },
+            "end_date": {
+              "type": "str",
+              "default": "2023-07-20",
+              "desc": "The end date of the timeseries in the format YYYY:MM:DD.",
+              "functionName": "TIMESERIES",
+              "param": "end_date",
+              "value": "2023-07-20"
+            }
+          },
+          "initCtrls": {},
+          "outputs": [
+            {
+              "name": "default",
+              "id": "default",
+              "type": "DataFrame",
+              "desc": "m: the resulting timeseries"
+            }
+          ],
+          "path": "PYTHON/nodes\\GENERATORS\\SIMULATIONS\\TIMESERIES\\TIMESERIES.py",
+          "selected": false
+        },
+        "position": {
+          "x": -410.3431553006602,
+          "y": -52.85412608012075
+        },
+        "selected": false,
+        "positionAbsolute": {
+          "x": -410.3431553006602,
+          "y": -52.85412608012075
+        },
+        "dragging": true
+      },
+      {
         "width": 208,
         "height": 96,
-        "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
         "type": "AI_ML",
         "data": {
-          "id": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+          "id": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
           "label": "PROPHET PREDICT",
           "func": "PROPHET_PREDICT",
           "type": "AI_ML",
@@ -47,41 +98,27 @@
               "desc": "With parameter as df.\nIndicates either the original df passed in, or the forecasted df\n(depending on if run_forecast is True)."
             }
           ],
-          "pip_dependencies": [
-            {
-              "name": "prophet",
-              "v": "1.1.4"
-            },
-            {
-              "name": "holidays",
-              "v": "0.26"
-            },
-            {
-              "name": "pystan",
-              "v": "2.19.1.1"
-            }
-          ],
-          "path": "PYTHON/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/PROPHET_PREDICT.py",
+          "path": "PYTHON/nodes\\AI_ML\\PREDICT_TIME_SERIES\\PROPHET_PREDICT\\PROPHET_PREDICT.py",
           "selected": false
         },
         "position": {
-          "x": 170.22990354212553,
-          "y": 112.44847772859924
+          "x": -49.95156682663276,
+          "y": -38.779822683898544
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 170.22990354212553,
-          "y": 112.44847772859924
+          "x": -49.95156682663276,
+          "y": -38.779822683898544
         },
         "dragging": true
       },
       {
         "width": 380,
         "height": 293,
-        "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
+        "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
+          "id": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
           "label": "PROPHET COMPONENTS",
           "func": "PROPHET_COMPONENTS",
           "type": "VISUALIZERS",
@@ -113,27 +150,27 @@
               "desc": "the DataContainer containing Plotly visualization of the prophet model"
             }
           ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/PROPHET_COMPONENTS/PROPHET_COMPONENTS.py",
+          "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_COMPONENTS\\PROPHET_COMPONENTS.py",
           "selected": false
         },
         "position": {
-          "x": 515.4222395732635,
-          "y": 258.7002797805195
+          "x": 350.739487885802,
+          "y": 61.20228238632404
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 515.4222395732635,
-          "y": 258.7002797805195
+          "x": 350.739487885802,
+          "y": 61.20228238632404
         },
         "dragging": true
       },
       {
         "width": 380,
         "height": 293,
-        "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
+        "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
         "type": "VISUALIZERS",
         "data": {
-          "id": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
+          "id": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
           "label": "PROPHET PLOT",
           "func": "PROPHET_PLOT",
           "type": "VISUALIZERS",
@@ -165,132 +202,48 @@
               "desc": "the DataContainer containing Plotly visualization of the prophet model"
             }
           ],
-          "pip_dependencies": [
-            {
-              "name": "prophet",
-              "v": "1.1.4"
-            },
-            {
-              "name": "holidays",
-              "v": "0.26"
-            },
-            {
-              "name": "pystan",
-              "v": "2.19.1.1"
-            }
-          ],
-          "path": "PYTHON/nodes/VISUALIZERS/PLOTLY/PROPHET_PLOT/PROPHET_PLOT.py",
+          "path": "PYTHON/nodes\\VISUALIZERS\\PLOTLY\\PROPHET_PLOT\\PROPHET_PLOT.py",
           "selected": false
         },
         "position": {
-          "x": 516.843498420518,
-          "y": -210.50980433872098
+          "x": 360.76584864518634,
+          "y": -315.5443598776949
         },
         "selected": false,
         "positionAbsolute": {
-          "x": 516.843498420518,
-          "y": -210.50980433872098
-        },
-        "dragging": true
-      },
-      {
-        "width": 210,
-        "height": 96,
-        "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
-        "type": "GENERATORS",
-        "data": {
-          "id": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
-          "label": "TIMESERIES",
-          "func": "TIMESERIES",
-          "type": "GENERATORS",
-          "ctrls": {
-            "start_date": {
-              "type": "str",
-              "default": "2023-01-01",
-              "desc": "The start date of the timeseries in the format YYYY:MM:DD.",
-              "functionName": "TIMESERIES",
-              "param": "start_date",
-              "value": "2023-01-01"
-            },
-            "end_date": {
-              "type": "str",
-              "default": "2023-07-20",
-              "desc": "The end date of the timeseries in the format YYYY:MM:DD.",
-              "functionName": "TIMESERIES",
-              "param": "end_date",
-              "value": "2023-07-20"
-            }
-          },
-          "initCtrls": {},
-          "outputs": [
-            {
-              "name": "default",
-              "id": "default",
-              "type": "DataFrame",
-              "desc": "m: the resulting timeseries"
-            }
-          ],
-          "path": "PYTHON/nodes/GENERATORS/SIMULATIONS/TIMESERIES/TIMESERIES.py",
-          "selected": false
-        },
-        "position": {
-          "x": -196.41512364237553,
-          "y": 109.78905503279668
-        },
-        "selected": false,
-        "positionAbsolute": {
-          "x": -196.41512364237553,
-          "y": 109.78905503279668
+          "x": 360.76584864518634,
+          "y": -315.5443598776949
         },
         "dragging": true
       }
     ],
     "edges": [
       {
-        "source": "TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ff",
+        "source": "TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32d",
         "sourceHandle": "default",
-        "target": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "target": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
         "targetHandle": "default",
-        "id": "reactflow__edge-TIMESERIES-a2f89d63-6963-4fea-b24a-b2a923a9f7ffdefault-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault"
+        "id": "reactflow__edge-TIMESERIES-1a5e52b5-927f-4db4-97e4-dbec355de32ddefault-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default"
       },
       {
-        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
         "sourceHandle": "default",
-        "target": "PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794",
+        "target": "PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_PLOT-b4f3da83-86a3-429c-8543-82f844c04794default"
+        "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_PLOT-c482f921-5c09-43a7-8643-7a8ca7f10c34default"
       },
       {
-        "source": "PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcf",
+        "source": "PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21",
         "sourceHandle": "default",
-        "target": "PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679ca",
+        "target": "PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefe",
         "targetHandle": "default",
-        "id": "reactflow__edge-PROPHET_PREDICT-bd418ba3-7564-4c30-8123-8b7fb4b0adcfdefault-PROPHET_COMPONENTS-58b33495-28de-4caa-924c-aa98d7b679cadefault"
+        "id": "reactflow__edge-PROPHET_PREDICT-bf17e862-67c6-4a3a-b49f-9c78a7885d21default-PROPHET_COMPONENTS-49dfd02b-460e-4b48-a96c-f38faa6fcefedefault"
       }
     ],
     "viewport": {
-      "x": 286.80307914563144,
-      "y": 397.38940714410813,
-      "zoom": 0.5
+      "x": 668.149331293115,
+      "y": 328.3535364392434,
+      "zoom": 0.6963386120144724
     }
-  },
-  "ctrlsManifest": [
-    {
-      "type": "input",
-      "name": "Slider",
-      "id": "INPUT_PLACEHOLDER",
-      "hidden": false,
-      "minHeight": 1,
-      "minWidth": 2,
-      "layout": {
-        "x": 0,
-        "y": 0,
-        "h": 2,
-        "w": 2,
-        "minH": 1,
-        "minW": 2,
-        "i": "INPUT_PLACEHOLDER"
-      }
-    }
-  ]
+  }
 }
