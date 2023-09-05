@@ -212,7 +212,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
-        handler = BroadCastNodeLogs(
+        handler = BroadcastNodeLogs(
             manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
         )
         handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
@@ -322,7 +322,9 @@ async def install_packages(
         return False
 
 
-class BroadCastNodeLogs(logging.Handler):
+class BroadcastNodeLogs(logging.Handler):
+    PCKG_INSTALLATION_COMPLETE = "Pip install complete. Spawning process for function"
+
     def __init__(self, manager: Manager, jobset_id: str, node_func: str):
         super().__init__()
         self.manager = manager
@@ -338,6 +340,7 @@ class BroadCastNodeLogs(logging.Handler):
         socket_msg["MODAL_CONFIG"] = ModalConfig(
             showModal=True, messages=log_entry, title=f"{self.node_func} logs"
         )
-        if "Pip install complete. Spawning process for function" in log_entry:
+
+        if self.PCKG_INSTALLATION_COMPLETE in log_entry:
             socket_msg["MODAL_CONFIG"]["showModal"] = False
         asyncio.run(self.manager.ws.broadcast(socket_msg))
