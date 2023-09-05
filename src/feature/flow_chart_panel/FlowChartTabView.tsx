@@ -438,7 +438,7 @@ const FlowChartTab = () => {
       <CommandMenu
         groups={commandGroups(nodeSection as Node)}
         open={isCommandMenuOpen}
-        placeholder="Search for a node.."
+        placeholder="Search for a node..."
         setOpen={setCommandMenuOpen}
       />
     </Layout>
