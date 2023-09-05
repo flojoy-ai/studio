@@ -1,11 +1,10 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
-import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import {
   RootNode,
   isLeaf,
-  nodeSection,
+  validateRootSchema,
   Leaf,
   RootChild,
   ParentNode,
@@ -60,12 +59,17 @@ import {
   CommandItem,
   CommandSeparator,
 } from "@/components/ui/command";
+import { baseClient } from "@src/lib/base-client";
+import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
+  const [nodesMetadataMap, setNodesMetadataMap] =
+    useState<NodesMetadataMap | null>(null);
 
   const { theme, resolvedTheme } = useTheme();
 
@@ -101,7 +105,11 @@ const FlowChartTab = () => {
     [nodes.length],
   );
 
-  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const addNewNode = useAddNewNode(
+    setNodes,
+    getNodeFuncCount,
+    nodesMetadataMap,
+  );
   const addTextNode = useAddTextNode();
 
   const toggleSidebar = useCallback(
@@ -165,14 +173,19 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        const [sourceType, targetType] = getEdgeTypes(connection);
-        if (isCompatibleType(sourceType, targetType)) {
-          return addEdge(connection, eds);
-        }
+        if (nodeSection) {
+          const [sourceType, targetType] = getEdgeTypes(
+            nodeSection,
+            connection,
+          );
+          if (isCompatibleType(sourceType, targetType)) {
+            return addEdge(connection, eds);
+          }
 
-        toast.message("Type error", {
-          description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
-        });
+          toast.message("Type error", {
+            description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
+          });
+        }
       }),
     [setEdges],
   );
@@ -197,15 +210,50 @@ const FlowChartTab = () => {
     setProgramResults([]);
   }, [setNodes, setEdges, setHasUnsavedChanges]);
 
+  const fetchManifest = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/manifest");
+      validateRootSchema(res.data);
+      setNodeSection(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.log("error : ");
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes manifest!",
+        {
+          duration: 15000,
+        },
+      );
+    }
+  }, []);
+  const fetchMetadata = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/metadata");
+      setNodesMetadataMap(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes meta data!",
+      );
+    }
+  }, []);
+
   useEffect(() => {
-    if (selectedNode === null) {
+    fetchManifest();
+    fetchMetadata();
+  }, []);
+
+  useEffect(() => {
+    if (selectedNode === null || !nodesMetadataMap) {
       return;
     }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
+    const nodeFileData = nodesMetadataMap[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString]);
+  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
 
   const proOptions = { hideAttribution: true };
 
@@ -216,7 +264,9 @@ const FlowChartTab = () => {
 
   type Node = RootNode | ParentNode | Leaf | RootChild;
 
-  const commandGroups = (node: Node): React.ReactNode => {
+  const commandGroups = (node?: Node): React.ReactNode => {
+    if (!node) return null;
+
     if (isLeaf(node))
       return (
         <CommandItem
@@ -303,12 +353,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        <Sidebar
-          sections={nodeSection}
-          leafNodeClickHandler={addNewNode as LeafClickHandler}
-          isSideBarOpen={isSidebarOpen}
-          setSideBarStatus={setIsSidebarOpen}
-        />
+        {nodeSection && (
+          <Sidebar
+            sections={nodeSection}
+            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            isSideBarOpen={isSidebarOpen}
+            setSideBarStatus={setIsSidebarOpen}
+          />
+        )}
 
         <Toaster theme={theme} />
 
@@ -384,7 +436,7 @@ const FlowChartTab = () => {
         </div>
       </ReactFlowProvider>
       <CommandMenu
-        groups={commandGroups(nodeSection)}
+        groups={commandGroups(nodeSection as Node)}
         open={isCommandMenuOpen}
         placeholder="Search for a node.."
         setOpen={setCommandMenuOpen}
