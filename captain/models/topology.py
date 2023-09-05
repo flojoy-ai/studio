@@ -101,7 +101,6 @@ class Topology:
     def pre_import_functions(self):
         functions = {}
         errors = {}
-        os.environ["FC_JOBSET_ID"] = self.jobset_id
         for node_id in cast(list[str], self.original_graph.nodes):
             # get the node function
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
