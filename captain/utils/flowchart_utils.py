@@ -68,12 +68,17 @@ def create_topology(
 
 # spawns a set amount of workers to execute jobs (node functions)
 def spawn_workers(
-    manager: Manager, imported_functions: dict[str, Any], node_delay: float , max_workers: int
+    manager: Manager,
+    imported_functions: dict[str, Any],
+    node_delay: float,
+    max_workers: int,
 ):
     if manager.running_topology is None:
         logger.error("Could not spawn workers, no topology detected")
         return
-    worker_number = manager.running_topology.get_maximum_workers(maximum_capacity=max_workers)
+    worker_number = manager.running_topology.get_maximum_workers(
+        maximum_capacity=max_workers
+    )
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
     manager.thread_count = worker_number
