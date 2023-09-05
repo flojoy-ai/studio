@@ -9,6 +9,8 @@ files:
   - dist-electron/**/*
 
 extraResources:
+  - from: "public"
+    to: "public"
   - from: "scripts/backend.ps1"
     to: "backend/backend.ps1"
   - from: "scripts/backend.sh"

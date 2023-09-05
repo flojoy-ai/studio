@@ -1,9 +1,16 @@
-import { dialog } from "electron";
+import { BrowserWindow, dialog } from "electron";
 import * as fs from "fs";
 import { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
 import * as os from "os";
+type SaveNodePackProps = {
+  win: BrowserWindow;
+  icon: string;
+  starting?: boolean;
+  update?: boolean;
+};
+
 /**
  *
  * @returns {string} path to txt file where the location of nodes resource pack is saved
@@ -13,13 +20,14 @@ const getNodesPathFile = (): string => {
   return join(os.homedir(), ".flojoy", fileName);
 };
 
-export const saveNodePack = async (
-  win: Electron.BrowserWindow,
-  icon: string,
-  update?: boolean,
-) => {
+export const saveNodePack = async ({
+  win,
+  icon,
+  starting,
+  update,
+}: SaveNodePackProps) => {
   return new Promise((resolve) => {
-    if (!update && fs.existsSync(getNodesPathFile())) {
+    if (starting && fs.existsSync(getNodesPathFile())) {
       resolve({ success: true });
       return;
     }
@@ -44,7 +52,7 @@ export const saveNodePack = async (
  * @returns location choosed by user
  */
 const getSavePath = (
-  win: Electron.BrowserWindow,
+  win: BrowserWindow,
   icon: string,
   savePath: string,
 ): string => {
@@ -81,7 +89,7 @@ const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
 
-const cloneNodesRepo = (clonePath: string, win: Electron.BrowserWindow) => {
+const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
   return new Promise((resolve, reject) => {
     if (fs.existsSync(clonePath)) {
       dialog.showMessageBox(win, {
@@ -144,7 +152,7 @@ const getNodesDirPath = (): string => {
 
 const sendLogToStudio =
   (title: string, description: string) =>
-  (win: Electron.BrowserWindow, data: CallBackArgs) => {
+  (win: BrowserWindow, data: CallBackArgs) => {
     win.webContents.send(
       "backend",
       typeof data === "string"
@@ -158,18 +166,22 @@ const sendLogToStudio =
     );
   };
 
-const updateNodesPack = (nodesPath: string, win: Electron.BrowserWindow) => {
-  const updateCmd = "git pull";
+const updateNodesPack = (nodesPath: string, win: BrowserWindow) => {
+  const updateCmd =
+    process.platform === "win32"
+      ? `pwsh -Command "Set-Location ${nodesPath} && git pull`
+      : `cd "${nodesPath}" && git pull`;
   const title = "Updating Nodes resource pack";
   const description =
     "Update can take few minutes to complete, please do not close the app!";
   sendLogToStudio(title, description)(win, {
     open: true,
     clear: true,
-    output: "Updating nodes resource pack...",
+    output: "",
   });
+  sendLogToStudio(title, description)(win, `Running command: ${updateCmd}`);
   runCmd(
-    `cd ${nodesPath} && ${updateCmd}`,
+    updateCmd,
     undefined,
     win,
     "Nodes-pack-update",
@@ -186,7 +198,7 @@ const updateNodesPack = (nodesPath: string, win: Electron.BrowserWindow) => {
         message: "Update successfull",
         detail: "Updated nodes resource pack successfully to " + nodesPath,
       });
-      win.reload()
+      win.reload();
     }
   });
 };

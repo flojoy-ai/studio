@@ -1,12 +1,13 @@
 import * as childProcess from "child_process";
 import treeKill from "tree-kill";
+import type { BrowserWindow } from "electron";
 
 export const runCmd = (
   command: string,
   matchText: string | undefined,
-  win: Electron.BrowserWindow,
+  win: BrowserWindow,
   serviceName: string,
-  cb: (win: Electron.BrowserWindow, data: string) => void,
+  cb: (win: BrowserWindow, data: string) => void,
 ): Promise<{
   script: childProcess.ChildProcess;
 }> => {

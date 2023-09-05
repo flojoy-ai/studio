@@ -11,7 +11,6 @@ import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
 import { runBackend } from "./backend";
-import { ChildProcess } from "node:child_process";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 
@@ -26,8 +25,8 @@ import { killSubProcess } from "./cmd";
 // │ └── index.html    > Electron-Renderer
 //
 const WORKING_DIR = join(__dirname, "../../");
-const DIS_ELECTRON = join(WORKING_DIR, "dist-electron");
-const PUBLIC_DIR = join(WORKING_DIR, "public");
+const DIST_ELECTRON = join(WORKING_DIR, "dist-electron");
+const PUBLIC_DIR = join(WORKING_DIR, app.isPackaged ? "../public" : "public");
 
 const envPath = process.env.PATH ?? "";
 
@@ -81,7 +80,7 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
-const runningProcesses: ChildProcess[] = [];
+global.runningProcesses = [];
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
 const preload = join(
@@ -89,7 +88,7 @@ const preload = join(
   `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
 );
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(DIS_ELECTRON, "studio", "index.html");
+const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -149,14 +148,14 @@ async function createWindow() {
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
-    await saveNodePack(win, getIcon());
+    await saveNodePack({ win, icon: getIcon(), starting: true });
     global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
       .then(({ success, script }) => {
         if (success) {
           global.initializingBackend = false;
           if (script) {
-            runningProcesses.push(script);
+            global.runningProcesses.push(script);
           }
           // Reload to fetch fresh nodes manifest
           win?.reload();
@@ -184,7 +183,13 @@ async function createWindow() {
   });
 
   ipcMain.on("update-nodes-pack", () => {
-    if (win) saveNodePack(win, getIcon(), true);
+    if (win) saveNodePack({ win, icon: getIcon(), update: true });
+  });
+  ipcMain.on("update-nodes-resource-path", async () => {
+    if (win) {
+      await saveNodePack({ win, icon: getIcon() });
+      win.reload();
+    }
   });
 
   // Apply electron-updater
@@ -198,8 +203,8 @@ app.whenReady().then(async () => {
 });
 
 app.on("window-all-closed", async () => {
-  if (runningProcesses.length) {
-    for (const script of runningProcesses) {
+  if (global.runningProcesses.length) {
+    for (const script of global.runningProcesses) {
       await killSubProcess(script);
     }
   }

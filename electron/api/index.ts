@@ -31,5 +31,10 @@ export default {
   },
   updateNodesPack: () => {
     ipcRenderer.send("update-nodes-pack")
+  },
+  updateNodesResourcePath: () => {
+    
+    ipcRenderer.send("update-nodes-resource-path")
   }
+
 };

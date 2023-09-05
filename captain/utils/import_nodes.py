@@ -2,9 +2,10 @@ from captain.models.topology import Topology
 from typing import Any, cast
 from flojoy import get_node_init_function, NoInitFunctionError
 import os, sys
-from importlib import import_module
+import importlib
 from captain.utils.nodes_path import get_nodes_path
 from pathlib import Path
+
 
 def pre_import_functions(topology: Topology):
     functions = {}
@@ -58,11 +59,13 @@ def get_module_func(file_name: str):
     nodes_dir = get_nodes_path()
     if not mapping:
         create_map(nodes_dir=nodes_dir)
-    print(" map: ", sys.path, " map: ", mapping[file_name], flush=True)
+
     file_path = mapping.get(file_name)
 
     if file_path is not None:
-        module = import_module(file_path)
+        module = importlib.import_module(file_path)
+        # this will pick latest changes from module always
+        module = importlib.reload(module)
         return module
 
     else:
@@ -78,6 +81,8 @@ def create_map(nodes_dir: str):
         for file in files:
             # map file name to file path
             if file.endswith(".py"):
-                node_path = os.path.join(root, file[:-3]).replace("\\","/").replace("/",".")
+                node_path = (
+                    os.path.join(root, file[:-3]).replace("\\", "/").replace("/", ".")
+                )
 
-                mapping[file[:-3]] = node_path[node_path.rfind("nodes."):]
+                mapping[file[:-3]] = node_path[node_path.rfind("nodes.") :]
