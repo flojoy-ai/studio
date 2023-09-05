@@ -1,20 +1,12 @@
 import { Connection } from "reactflow";
-import {
-  NodeElement,
-  NodeSection,
-  nodeSection,
-  SubCategory,
-} from "./ManifestLoader";
+import { Leaf, RootNode, nodeSection, ParentNode } from "./ManifestLoader";
 
-const allNodes: Map<string, NodeElement> = new Map();
+const allNodes: Map<string, Leaf> = new Map();
 
-const populateNodes = (node: NodeSection | SubCategory) => {
-  const dfs = (
-    node: SubCategory | NodeElement,
-    map: Map<string, NodeElement>,
-  ) => {
+const populateNodes = (node: RootNode | ParentNode) => {
+  const dfs = (node: ParentNode | Leaf, map: Map<string, Leaf>) => {
     if (!node.children) {
-      allNodes.set(node.key, node as NodeElement);
+      allNodes.set(node.key, node as Leaf);
       return;
     }
 

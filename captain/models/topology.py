@@ -444,7 +444,7 @@ class Topology:
     # assuming LOOP is the only dependency of all the nodes,
     # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
-    def get_maximum_workers(self, maximum_capacity: int = 4):
+    def get_maximum_workers(self, maximum_capacity: int = 1):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
         queue = deque()
