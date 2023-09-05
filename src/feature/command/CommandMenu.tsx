@@ -32,7 +32,7 @@ export const CommandMenu = ({
       <CommandInput
         placeholder={placeholder || "Type a command or search..."}
       />
-      <CommandList>
+      <CommandList className='h-[600px]'>
         <CommandEmpty>{emptyText || "No results found."}</CommandEmpty>
         {groups}
       </CommandList>
