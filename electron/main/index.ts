@@ -148,7 +148,7 @@ async function createWindow() {
   win.show();
 
   if (app.isPackaged) {
-    await win.loadFile(indexHtml)
+    await win.loadFile(indexHtml);
     await saveNodePack(win, getIcon());
     global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
@@ -181,6 +181,10 @@ async function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith("https:")) shell.openExternal(url);
     return { action: "deny" };
+  });
+
+  ipcMain.on("update-nodes-pack", () => {
+    if (win) saveNodePack(win, getIcon(), true);
   });
 
   // Apply electron-updater

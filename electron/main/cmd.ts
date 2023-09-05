@@ -1,5 +1,4 @@
 import * as childProcess from "child_process";
-import { app } from "electron";
 import treeKill from "tree-kill";
 
 export const runCmd = (
@@ -13,25 +12,19 @@ export const runCmd = (
 }> => {
   return new Promise((resolve, reject) => {
     const script = childProcess.exec(command);
-    let lastOutput:string;
+    let lastOutput: string;
     script.stdout?.on("data", function (data) {
-      const dataStr = `[${serviceName}] - ${data.toString()}`;
-      lastOutput = dataStr
+      const dataStr = `[${serviceName}] - ${data?.toString()}`;
+      lastOutput = dataStr;
       cb(win, dataStr);
-      if(!app.isPackaged){
-        console.log("[stdout]:: ", data.string())
-      }
       if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }
     });
     script.stderr?.on("data", function (data) {
-      const dataStr = `[${serviceName}] - ${data.toString()}`;
-      lastOutput = dataStr
+      const dataStr = `[${serviceName}] - ${data?.toString()}`;
+      lastOutput = dataStr;
       cb(win, dataStr);
-      if(!app.isPackaged){
-        console.log("[stderr]:: ", dataStr)
-      }
       if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }
@@ -41,9 +34,6 @@ export const runCmd = (
     });
   });
 };
-
-
-
 
 export const killSubProcess = (script: childProcess.ChildProcess) => {
   if (!script.killed) {

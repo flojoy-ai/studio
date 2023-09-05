@@ -30,6 +30,10 @@ const ControlBar = () => {
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
+  const handleUpdateNodesPack = () => {
+    window.api.updateNodesPack()
+  }
+
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const win = window as any;
@@ -115,12 +119,12 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              {/* <MenubarItem */}
-              {/*   data-testid="btn-check-for-update" */}
-              {/*   onClick={handleUpdate} */}
-              {/* > */}
-              {/*   Check for update */}
-              {/* </MenubarItem> */}
+              {"api" in window && window.api.isPackaged && <MenubarItem
+                data-testid="btn-check-for-update"
+                onClick={handleUpdateNodesPack}
+              >
+                Update Nodes resource pack
+              </MenubarItem>}
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>

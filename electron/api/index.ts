@@ -29,4 +29,7 @@ export default {
       ipcRenderer.on(channel, (event, args: CallBackArgs) => func(args));
     }
   },
+  updateNodesPack: () => {
+    ipcRenderer.send("update-nodes-pack")
+  }
 };

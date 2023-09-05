@@ -23,6 +23,11 @@ export const saveNodePack = async (
       resolve({ success: true });
       return;
     }
+    if (update) {
+      updateNodesPack(getNodesDirPath(), win);
+      resolve({ success: true });
+      return;
+    }
     const defaultSavePath = getNodesDirPath();
     const savePath = getSavePath(win, icon, defaultSavePath ?? "");
     cloneNodesRepo(savePath, win)
@@ -152,3 +157,36 @@ const sendLogToStudio =
         : { ...data, title, description },
     );
   };
+
+const updateNodesPack = (nodesPath: string, win: Electron.BrowserWindow) => {
+  const updateCmd = "git pull";
+  const title = "Updating Nodes resource pack";
+  const description =
+    "Update can take few minutes to complete, please do not close the app!";
+  sendLogToStudio(title, description)(win, {
+    open: true,
+    clear: true,
+    output: "Updating nodes resource pack...",
+  });
+  runCmd(
+    `cd ${nodesPath} && ${updateCmd}`,
+    undefined,
+    win,
+    "Nodes-pack-update",
+    sendLogToStudio(title, description),
+  ).catch(({ code, lastOutput }) => {
+    if (code > 0) {
+      dialog.showErrorBox("Failed to update nodes pack", lastOutput);
+    } else {
+      sendLogToStudio(title, description)(win, {
+        open: false,
+        output: "Updating complete!",
+      });
+      dialog.showMessageBox(win, {
+        message: "Update successfull",
+        detail: "Updated nodes resource pack successfully to " + nodesPath,
+      });
+      win.reload()
+    }
+  });
+};
