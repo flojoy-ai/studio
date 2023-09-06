@@ -1,8 +1,18 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
+import {
+  RootNode,
+  isLeaf,
+  validateRootSchema,
+  Leaf,
+  RootChild,
+  ParentNode,
+  isLeafParentNode,
+  isRoot,
+} from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -43,9 +53,13 @@ import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { CommandMenu } from "../command/CommandMenu";
+import {
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from "@/components/ui/command";
 import { baseClient } from "@src/lib/base-client";
-import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
 import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const FlowChartTab = () => {
@@ -102,9 +116,6 @@ const FlowChartTab = () => {
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen],
   );
-
-  useKeyboardShortcut("ctrl", "k", toggleSidebar);
-  useKeyboardShortcut("meta", "k", toggleSidebar);
 
   const handleNodeRemove = useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -249,6 +260,39 @@ const FlowChartTab = () => {
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
 
+  const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+
+  type Node = RootNode | ParentNode | Leaf | RootChild;
+
+  const commandGroups = (node?: Node): React.ReactNode => {
+    if (!node) return null;
+
+    if (isLeaf(node))
+      return (
+        <CommandItem
+          key={node.name}
+          onSelect={() => {
+            addNewNode(node);
+            setCommandMenuOpen(false);
+          }}
+        >
+          {node.name}
+        </CommandItem>
+      );
+
+    if (!isRoot(node) && !isLeafParentNode(node))
+      return (
+        <Fragment key={node.name}>
+          <CommandGroup heading={node.name}>
+            {node.children?.map((c: Node) => commandGroups(c))}
+          </CommandGroup>
+          <CommandSeparator />
+        </Fragment>
+      );
+
+    return node.children?.map((c: Node) => commandGroups(c));
+  };
+
   return (
     <Layout>
       <ReactFlowProvider>
@@ -391,7 +435,12 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
-      {/* <CommandMenu /> */}
+      <CommandMenu
+        groups={commandGroups(nodeSection as Node)}
+        open={isCommandMenuOpen}
+        placeholder="Search for a node..."
+        setOpen={setCommandMenuOpen}
+      />
     </Layout>
   );
 };
