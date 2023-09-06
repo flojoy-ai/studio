@@ -205,8 +205,8 @@ class Topology:
                 return
             self.finished_jobs.add(job_id)
 
-        if job_id is None or job_result is None:
-            raise ValueError("job_id or job_result is not supposed to be None")
+        if job_id is None:
+            raise ValueError("job_id is not supposed to be None")
 
         async with lock:
             next_jobs = self.process_job_result(job_id, job_result, success=True)
