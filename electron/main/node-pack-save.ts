@@ -188,8 +188,8 @@ const updateNodesPack = (nodesPath: string, win: BrowserWindow) => {
   });
   // Store the current working directory
   const currentDirectory = process.cwd();
-  process.chdir(nodesPath);
   try {
+    process.chdir(nodesPath);
     // Check if there are any local changes
     const statusOutput = execSync("git status --porcelain").toString();
     if (statusOutput.trim().length > 0) {
