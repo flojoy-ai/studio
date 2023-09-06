@@ -187,7 +187,7 @@ const FlowChartTab = () => {
           });
         }
       }),
-    [setEdges],
+    [setEdges, nodeSection],
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
@@ -200,7 +200,7 @@ const FlowChartTab = () => {
       );
       setHasUnsavedChanges(true);
     },
-    [setNodes],
+    [setNodes, setHasUnsavedChanges],
   );
 
   const clearCanvas = useCallback(() => {
@@ -208,7 +208,7 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
-  }, [setNodes, setEdges, setHasUnsavedChanges]);
+  }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 
   const fetchManifest = useCallback(async () => {
     try {
@@ -243,7 +243,7 @@ const FlowChartTab = () => {
   useEffect(() => {
     fetchManifest();
     fetchMetadata();
-  }, []);
+  }, [fetchManifest, fetchMetadata]);
 
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {
