@@ -157,8 +157,6 @@ async function createWindow() {
           if (script) {
             global.runningProcesses.push(script);
           }
-          // Reload to fetch fresh nodes manifest
-          win?.reload();
         }
       })
       .catch(() => {
@@ -187,8 +185,7 @@ async function createWindow() {
   });
   ipcMain.on("update-nodes-resource-path", async () => {
     if (win) {
-      await saveNodePack({ win, icon: getIcon() });
-      win.reload();
+      await saveNodePack({ win, icon: getIcon() })
     }
   });
 

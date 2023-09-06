@@ -4,6 +4,7 @@ import { join } from "path";
 import { runCmd } from "./cmd";
 import { CallBackArgs } from "../api";
 import * as os from "os";
+import { execSync } from "child_process";
 type SaveNodePackProps = {
   win: BrowserWindow;
   icon: string;
@@ -37,7 +38,11 @@ export const saveNodePack = async ({
       return;
     }
     const defaultSavePath = getNodesDirPath();
-    const savePath = getSavePath(win, icon, defaultSavePath ?? "");
+    const savePath = getSavePath(win, icon, defaultSavePath ?? "", !starting);
+    if (!starting && defaultSavePath === savePath) {
+      resolve({ success: true });
+      return;
+    }
     cloneNodesRepo(savePath, win)
       .then(() => resolve({ success: true }))
       // An error dialog will show up if any error happens in cloneNodesRepo function,
@@ -55,11 +60,15 @@ const getSavePath = (
   win: BrowserWindow,
   icon: string,
   savePath: string,
+  update: boolean | undefined,
 ): string => {
+  const message = update
+    ? "Choose location for downloading nodes resource pack"
+    : "Studio requires node resource pack to function correctly!";
   const res = dialog.showMessageBoxSync(win, {
     type: "info",
-    title: ":::: Download node resource pack",
-    message: "Studio requires node resource pack to function correctly!",
+    title: "Download node resource pack",
+    message,
     detail: `Node resource pack will be downloaded to following location: \n\n ${savePath?.replace(
       /\\/g,
       "/",
@@ -77,9 +86,9 @@ const getSavePath = (
 
     if (selectedPaths?.length) {
       const path = selectedPaths[0];
-      return getSavePath(win, icon, join(path, "nodes"));
+      return getSavePath(win, icon, join(path, "nodes"), update);
     }
-    return getSavePath(win, icon, savePath);
+    return getSavePath(win, icon, savePath, update);
   } else {
     return savePath;
   }
@@ -98,6 +107,7 @@ const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
       });
       savePathToLocalFile(getNodesPathFile(), clonePath);
       resolve({ success: true });
+      win.reload();
       return;
     }
     const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
@@ -134,6 +144,7 @@ const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
         });
         savePathToLocalFile(getNodesPathFile(), clonePath);
         resolve({ success: true });
+        win.reload();
       }
     });
   });
@@ -167,38 +178,72 @@ const sendLogToStudio =
   };
 
 const updateNodesPack = (nodesPath: string, win: BrowserWindow) => {
-  const updateCmd =
-    process.platform === "win32"
-      ? `pwsh -Command "Set-Location ${nodesPath} && git pull`
-      : `cd "${nodesPath}" && git pull`;
   const title = "Updating Nodes resource pack";
   const description =
     "Update can take few minutes to complete, please do not close the app!";
   sendLogToStudio(title, description)(win, {
     open: true,
     clear: true,
-    output: "",
+    output: description,
   });
-  sendLogToStudio(title, description)(win, `Running command: ${updateCmd}`);
-  runCmd(
-    updateCmd,
-    undefined,
-    win,
-    "Nodes-pack-update",
-    sendLogToStudio(title, description),
-  ).catch(({ code, lastOutput }) => {
-    if (code > 0) {
-      dialog.showErrorBox("Failed to update nodes pack", lastOutput);
+  // Store the current working directory
+  const currentDirectory = process.cwd();
+  process.chdir(nodesPath);
+  try {
+    // Check if there are any local changes
+    const statusOutput = execSync("git status --porcelain").toString();
+    if (statusOutput.trim().length > 0) {
+      // There are local changes
+      sendLogToStudio(title, description)(
+        win,
+        "Found local changes, creating a zip archive...",
+      );
+      // Create a timestamp for the zip folder
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+
+      // Create a zip file with existing files
+      const zipFileName = `local_changes_${timestamp}.zip`;
+      execSync(`git archive -o ${zipFileName} HEAD`);
+      sendLogToStudio(title, description)(
+        win,
+        `Created zip file: ${zipFileName} ...`,
+      );
+      // Create a new folder for the zip file and move it there
+      const zipFolder = join(nodesPath, ".local-changes");
+      fs.mkdirSync(zipFolder, { recursive: true });
+
+      sendLogToStudio(title, description)(
+        win,
+        `Copying ${zipFileName} file to ${zipFolder}...`,
+      );
+      const zipFilePath = join(zipFolder, zipFileName);
+      fs.renameSync(zipFileName, zipFilePath);
+
+      // Stash local changes
+      execSync("git stash");
+      // Run git pull
+      execSync("git pull");
+      sendLogToStudio(title, description)(
+        win,
+        "Updated nodes resource pack successfully!",
+      );
     } else {
-      sendLogToStudio(title, description)(win, {
-        open: false,
-        output: "Updating complete!",
-      });
-      dialog.showMessageBox(win, {
-        message: "Update successfull",
-        detail: "Updated nodes resource pack successfully to " + nodesPath,
-      });
-      win.reload();
+      sendLogToStudio(title, description)(
+        win,
+        "Updating nodes resource pack... hang tight..",
+      );
+      // There are no local changes, simply run git pull
+      execSync("git pull");
+      sendLogToStudio(title, description)(
+        win,
+        "Updated nodes resource pack successfully!",
+      );
     }
-  });
+    win.reload();
+    // Restore the original working directory
+    process.chdir(currentDirectory);
+  } catch (error) {
+    process.chdir(currentDirectory);
+    dialog.showErrorBox("Failed to update nodes pack", error);
+  }
 };
