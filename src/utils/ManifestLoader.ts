@@ -1,6 +1,5 @@
 import { fromZodError } from "zod-validation-error";
 import { z, ZodError } from "zod";
-import treeJSON from "@src/data/manifests-latest.json";
 
 const leafSchema = z.object({
   name: z.string(),
@@ -101,27 +100,27 @@ const rootSchema = createRootSchema(leafSchema);
 
 export type RootNode = z.infer<typeof rootSchema>;
 export type RootChild = z.infer<typeof rootSchema>["children"][0];
-let nodeSection: RootNode;
-try {
-  nodeSection = rootSchema.parse(treeJSON);
-} catch (e) {
-  if (e instanceof ZodError) {
-    throw fromZodError(e);
-  } else {
-    throw e;
-  }
-}
 
-export { nodeSection };
+export const validateRootSchema = (schema: RootNode) => {
+  try {
+    rootSchema.parse(schema);
+  } catch (e) {
+    if (e instanceof ZodError) {
+      throw fromZodError(e);
+    } else {
+      throw e;
+    }
+  }
+};
 
 export function isLeaf(obj: TreeNode): obj is Leaf {
   return Boolean(
-    obj && obj.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
+    obj?.name && (obj as Leaf).key && (obj as Leaf).type && !obj.children,
   );
 }
 
 export function isParentNode(obj: TreeNode): obj is ParentNode {
-  return Boolean(obj && obj.name && Array.isArray(obj.children));
+  return Boolean(obj?.name && Array.isArray(obj.children));
 }
 export interface LeafParentNode extends ParentNode {
   children: Leaf[];
