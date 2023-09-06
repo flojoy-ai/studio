@@ -37,7 +37,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
     key: "maximumConcurrentWorkers",
     group: "backend",
     desc: "Maximum number of nodes that can be executed at the same time",
-    value: 4,
+    value: 1,
   },
   {
     title: "Fit view on resize",
