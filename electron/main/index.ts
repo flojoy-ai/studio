@@ -185,7 +185,7 @@ async function createWindow() {
   });
   ipcMain.on("update-nodes-resource-path", async () => {
     if (win) {
-      await saveNodePack({ win, icon: getIcon() })
+      await saveNodePack({ win, icon: getIcon() });
     }
   });
 
