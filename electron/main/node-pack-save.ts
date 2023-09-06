@@ -8,7 +8,7 @@ import { execSync } from "child_process";
 type SaveNodePackProps = {
   win: BrowserWindow;
   icon: string;
-  starting?: boolean;
+  startup?: boolean;
   update?: boolean;
 };
 
@@ -24,22 +24,26 @@ const getNodesPathFile = (): string => {
 export const saveNodePack = async ({
   win,
   icon,
-  starting,
+  startup,
   update,
 }: SaveNodePackProps) => {
   return new Promise((resolve) => {
-    if (starting && fs.existsSync(getNodesPathFile())) {
+    if (
+      startup &&
+      fs.existsSync(getNodesPathFile()) &&
+      fs.existsSync(getNodesDirPath())
+    ) {
       resolve({ success: true });
       return;
     }
     if (update) {
-      updateNodesPack(getNodesDirPath(), win);
+      updateNodesPack(getNodesDirPath(), win, icon);
       resolve({ success: true });
       return;
     }
     const defaultSavePath = getNodesDirPath();
-    const savePath = getSavePath(win, icon, defaultSavePath ?? "", !starting);
-    if (!starting && defaultSavePath === savePath) {
+    const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
+    if (!startup && defaultSavePath === savePath) {
       resolve({ success: true });
       return;
     }
@@ -106,8 +110,8 @@ const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
         detail: `Nodes resource will be added from ${clonePath}`,
       });
       savePathToLocalFile(getNodesPathFile(), clonePath);
-      resolve({ success: true });
       win.reload();
+      resolve({ success: true });
       return;
     }
     const cloneCmd = `git clone https://github.com/flojoy-ai/nodes.git ${clonePath}`;
@@ -143,8 +147,8 @@ const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
           type: "info",
         });
         savePathToLocalFile(getNodesPathFile(), clonePath);
-        resolve({ success: true });
         win.reload();
+        resolve({ success: true });
       }
     });
   });
@@ -177,7 +181,11 @@ const sendLogToStudio =
     );
   };
 
-const updateNodesPack = (nodesPath: string, win: BrowserWindow) => {
+const updateNodesPack = (
+  nodesPath: string,
+  win: BrowserWindow,
+  icon: string,
+) => {
   const title = "Updating Nodes resource pack";
   const description =
     "Update can take few minutes to complete, please do not close the app!";
@@ -188,6 +196,18 @@ const updateNodesPack = (nodesPath: string, win: BrowserWindow) => {
   });
   // Store the current working directory
   const currentDirectory = process.cwd();
+  if (!fs.existsSync(nodesPath)) {
+    sendLogToStudio(title, description)(
+      win,
+      `Error - Nodes directory is not found at ${nodesPath}.. downloading nodes resource pack..`,
+    );
+    saveNodePack({
+      win,
+      startup: true,
+      icon,
+    });
+    return;
+  }
   try {
     process.chdir(nodesPath);
     // Check if there are any local changes

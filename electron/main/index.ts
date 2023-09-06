@@ -148,7 +148,7 @@ async function createWindow() {
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
-    await saveNodePack({ win, icon: getIcon(), starting: true });
+    await saveNodePack({ win, icon: getIcon(), startup: true });
     global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
       .then(({ success, script }) => {
@@ -158,6 +158,8 @@ async function createWindow() {
             global.runningProcesses.push(script);
           }
         }
+        // reload studio html to fetch fresh manifest file
+        win?.reload()
       })
       .catch(() => {
         global.initializingBackend = false;
