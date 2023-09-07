@@ -162,7 +162,6 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        console.log("nodes section: ", nodeSection, " eds: ", eds);
         if (nodeSection) {
           const [sourceType, targetType] = getEdgeTypes(
             nodeSection,

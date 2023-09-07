@@ -195,7 +195,7 @@ async function createWindow() {
   update(win);
 }
 
-app.whenReady().then(async () => {
+app.whenReady().then(() => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
   createWindow();
