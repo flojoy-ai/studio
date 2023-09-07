@@ -159,7 +159,7 @@ async function createWindow() {
           }
         }
         // reload studio html to fetch fresh manifest file
-        win?.reload()
+        win?.reload();
       })
       .catch(() => {
         global.initializingBackend = false;

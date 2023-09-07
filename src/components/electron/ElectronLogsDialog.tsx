@@ -8,7 +8,7 @@ import {
 import { cn } from "@src/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
-const BackendInitLogsDialog = () => {
+const ElectronLogsDialog = () => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState<string | undefined>("");
@@ -22,8 +22,8 @@ const BackendInitLogsDialog = () => {
   }, [outputs.length]);
 
   useEffect(() => {
-    // This assumes that you've exposed ipcRenderer securely via preload.js
-    window.api?.receive("backend", (data) => {
+    // Subscribe to electron logs
+    window.api?.subscribeToElectronLogs((data) => {
       if (typeof data === "string") {
         setOpen(true);
         setOutputs((p) => [...p, data]);
@@ -72,4 +72,4 @@ const BackendInitLogsDialog = () => {
   );
 };
 
-export default BackendInitLogsDialog;
+export default ElectronLogsDialog;

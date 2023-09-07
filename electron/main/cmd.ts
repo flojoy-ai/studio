@@ -2,13 +2,22 @@ import * as childProcess from "child_process";
 import treeKill from "tree-kill";
 import type { BrowserWindow } from "electron";
 
-export const runCmd = (
-  command: string,
-  matchText: string | undefined,
-  win: BrowserWindow,
-  serviceName: string,
-  cb: (win: BrowserWindow, data: string) => void,
-): Promise<{
+type RunCmdProps = {
+  command: string;
+  matchText?: string;
+  broadcast?: {
+    win: BrowserWindow;
+    cb: (win: BrowserWindow, data: string) => void;
+  };
+  serviceName: string;
+};
+
+export const runCmd = ({
+  command,
+  broadcast,
+  serviceName,
+  matchText,
+}: RunCmdProps): Promise<{
   script: childProcess.ChildProcess;
 }> => {
   return new Promise((resolve, reject) => {
@@ -17,7 +26,9 @@ export const runCmd = (
     script.stdout?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
       lastOutput = dataStr;
-      cb(win, dataStr);
+      if (broadcast) {
+        broadcast.cb(broadcast.win, dataStr);
+      }
       if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }
@@ -25,7 +36,9 @@ export const runCmd = (
     script.stderr?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
       lastOutput = dataStr;
-      cb(win, dataStr);
+      if (broadcast) {
+        broadcast.cb(broadcast.win, dataStr);
+      }
       if (matchText && dataStr.includes(matchText)) {
         resolve({ script });
       }

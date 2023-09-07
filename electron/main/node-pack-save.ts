@@ -122,13 +122,11 @@ const cloneNodesRepo = (clonePath: string, win: BrowserWindow) => {
       output: description,
       clear: true,
     });
-    runCmd(
-      cloneCmd,
-      undefined,
-      win,
-      "Nodes-resource",
-      sendLogToStudio(title, description),
-    ).catch(({ code, lastOutput }) => {
+    runCmd({
+      command: cloneCmd,
+      broadcast: { win, cb: sendLogToStudio(title, description) },
+      serviceName: "Nodes-resource",
+    }).catch(({ code, lastOutput }) => {
       if (code > 0) {
         sendLogToStudio(title, description)(win, {
           open: true,
@@ -169,7 +167,7 @@ const sendLogToStudio =
   (title: string, description: string) =>
   (win: BrowserWindow, data: CallBackArgs) => {
     win.webContents.send(
-      "backend",
+      "electron-log",
       typeof data === "string"
         ? {
             open: true,
@@ -253,7 +251,8 @@ const updateNodesPack = (
         "Updating nodes resource pack... hang tight..",
       );
       // There are no local changes, simply run git pull
-      execSync("git pull");
+      const pullResult = execSync("git pull").toString();
+      sendLogToStudio(title, description)(win, pullResult);
       sendLogToStudio(title, description)(
         win,
         "Updated nodes resource pack successfully!",
@@ -263,7 +262,7 @@ const updateNodesPack = (
     // Restore the original working directory
     process.chdir(currentDirectory);
   } catch (error) {
+    dialog.showErrorBox("Failed to update nodes pack", error?.message);
     process.chdir(currentDirectory);
-    dialog.showErrorBox("Failed to update nodes pack", error);
   }
 };

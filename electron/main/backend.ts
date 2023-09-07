@@ -9,7 +9,7 @@ const sendBackendLogToStudio =
   (win: Electron.BrowserWindow, data: CallBackArgs) => {
     if (global.initializingBackend) {
       win.webContents.send(
-        "backend",
+        "electron-log",
         typeof data === "string"
           ? {
               open: true,
@@ -41,13 +41,15 @@ export const runBackend = (
       clear: true,
       output: "Running backend script...",
     });
-    runCmd(
-      backendCommand,
-      successText,
-      win,
-      "backend",
-      sendBackendLogToStudio(title, description),
-    )
+    runCmd({
+      command: backendCommand,
+      matchText: successText,
+      broadcast: {
+        win,
+        cb: sendBackendLogToStudio(title, description),
+      },
+      serviceName: "backend",
+    })
       .then(({ script }) => {
         sendBackendLogToStudio(title, description)(win, {
           open: false,
