@@ -61,7 +61,7 @@ export const runBackend = (
         if (err.code > 0) {
           sendBackendLogToStudio(title, description)(win, {
             open: true,
-            output: `${err.lastOutput} \n\n Error: Failed to initialize backend try re lunching app!`,
+            output: `${err.lastOutput} \n\n Error: Failed to initialize backend, please try relaunching the app!`,
           });
           dialog.showErrorBox("Failed to initialize backend!", err.lastOutput);
           resolve({ success: false, script: undefined });
