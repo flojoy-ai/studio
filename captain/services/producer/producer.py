@@ -28,7 +28,7 @@ class Producer:
         self.init_func = init_func  # function to run before starting the producer
         self.uuid = uuid.uuid4()
 
-    def run(self):
+    async def run(self):
         logger.debug(f"Producer {self.uuid} has started")
         # first, run init func
         self.init_func(self.task_queue)
@@ -43,10 +43,13 @@ class Producer:
 
             # process job info
             new_tasks = self.process_task(finished_job_fetch)
-
-            logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}") if len(
-                new_tasks
-            ) != 0 else logger.debug(f"Producer {self.uuid} got no new tasks")
+            
+            # if no new tasks, then continue
+            if new_tasks is None:
+                logger.debug(f"Producer {self.uuid} got no new tasks")
+                continue
+            
+            logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}")
 
             # queue new tasks
             for new_task in new_tasks:

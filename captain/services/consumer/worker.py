@@ -33,7 +33,7 @@ class Worker:
         self.uuid = uuid.uuid4()
         self.node_delay = node_delay
 
-    def run(self):
+    async def run(self):
         logger.debug(f"Worker {self.uuid} has started")
         while True:
             queue_fetch = self.task_queue.get()

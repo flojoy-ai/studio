@@ -34,7 +34,6 @@ class Topology:
         jobset_id: str,
         node_delay: float = 0,
         cleanup_func: Callable[..., Any] = lambda: None,
-        worker_response: Callable[..., Any] = lambda x: None,
         final_broadcast: Callable[..., Any] = lambda: None,
     ):
         self.working_graph: nx.MultiDiGraph = deepcopy(graph)
@@ -47,7 +46,6 @@ class Topology:
         self.cancelled = False
         self.time_start = 0
         self.cleanup_func = cleanup_func
-        self.worker_response = worker_response
         self.final_broadcast = final_broadcast
         self.is_finished = False
         self.loop_nodes = (
@@ -74,7 +72,7 @@ class Topology:
         # handle successful job
         elif isinstance(finished_job_fetch, JobSuccess):
             logger.debug(f"{finished_job_fetch.node_id} finished at {time.time()}")
-            return self.handle_finished_job(finished_job_fetch) # return new jobs 
+            return self.handle_finished_job(finished_job_fetch, return_new_jobs=True) # return new jobs 
         
     def run(self, task_queue: Queue[Any]):
         """
@@ -324,7 +322,6 @@ class Topology:
                 self.finished_jobs.remove(d_id)
 
     def finalizer(self):
-        # run provided clean up function
         if self.is_finished:
             asyncio.create_task(self.final_broadcast())
 

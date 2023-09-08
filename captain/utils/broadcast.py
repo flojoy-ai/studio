@@ -26,7 +26,7 @@ async def signal_node_results(ws: ConnectionManager, jobset_id: str, node_id: st
 async def signal_current_running_node(ws: ConnectionManager, jobset_id: str, node_id: str, func_name: str):
     msg = WorkerJobResponse(
         jobset_id=jobset_id,
-        sys_status=STATUS_CODES["RUNNING_NODE"] + func_name,
+        sys_status=STATUS_CODES["RUNNING_PYTHON_JOB"] + func_name,
         running_node=node_id,
     )
     await ws.broadcast(msg)

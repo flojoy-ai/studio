@@ -57,7 +57,7 @@ def run_worker(
             signal_failed_node=signal_failed_node_func,
             signal_node_results=signal_node_results_func
         )
-        worker.run()
+        asyncio.run(worker.run())
     except Exception as e:
         print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
 
@@ -77,16 +77,14 @@ def run_producer(
             queue_task=queue_task,
             init_func=init_func,
         )
-        producer.run()
+        asyncio.run(producer.run())
     except Exception as e:
         print(f"Error in producer: {e} {traceback.format_exc()}", flush=True)
 
 
 def create_topology(
     request: PostWFC,
-    task_queue: Queue[Any],
     cleanup_func: Callable[..., Any],
-    worker_response: Callable[..., Any],
     final_broadcast: Callable[..., Any],
 ):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
@@ -94,7 +92,6 @@ def create_topology(
         graph=graph,
         jobset_id=request.jobsetId,
         cleanup_func=cleanup_func,
-        worker_response=worker_response,
         node_delay=request.nodeDelay / 1000,
         final_broadcast=final_broadcast,
     )
@@ -249,9 +246,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     # Create the topology
     manager.running_topology = create_topology(
         request,
-        manager.task_queue,
         cleanup_func=clean_up_function,
-        worker_response=lambda x: broadcast_worker_response(manager.ws, x),
         final_broadcast=lambda: signal_standby(manager.ws, request.jobsetId),
     )  # pass clean up func for when topology ends
 

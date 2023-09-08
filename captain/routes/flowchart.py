@@ -58,17 +58,17 @@ signal a job has been finished.
 """
 
 
-@router.post("/worker_response", summary="worker response")
-async def worker_response(
-    request: Request,
-):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
-    logger.debug("Received a response from a worker")
+# @router.post("/worker_response", summary="worker response")
+# async def worker_response(
+#     request: Request,
+# ):  # TODO figure out way to use Pydantic model, for now use type Request otherwise does not work????
+#     logger.debug("Received a response from a worker")
 
-    request_json = await request.json()
-    request_dict = json.loads(request_json)
+#     request_json = await request.json()
+#     request_dict = json.loads(request_json)
 
-    if manager.running_topology is None:
-        logger.debug("ERROR: no running topology")
-        return Response(status_code=400)
+#     if manager.running_topology is None:
+#         logger.debug("ERROR: no running topology")
+#         return Response(status_code=400)
 
-    await manager.running_topology.process_worker_response(request_dict)
+#     manager.running_topology.process_worker_response(request_dict)

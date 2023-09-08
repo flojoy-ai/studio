@@ -1,5 +1,6 @@
 from queue import Queue
 from fastapi import WebSocket
+from flojoy import PlotlyJSONEncoder
 from captain.utils.logger import logger
 from captain.models.topology import Topology
 from captain.types.worker import PoisonPill
@@ -49,7 +50,7 @@ class ConnectionManager:
         socket_id = message.jobsetId
         for _, connection in self.active_connections_map.items():
             try:
-                await connection.send_text(json.dumps(message))
+                await connection.send_text(json.dumps(message, cls=PlotlyJSONEncoder))
             except RuntimeError:
                 await self.disconnect(socket_id=socket_id)
                 logger.error("RuntimeError in broadcast")
