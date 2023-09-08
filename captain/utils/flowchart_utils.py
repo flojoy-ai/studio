@@ -19,7 +19,6 @@ from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import InitFuncType, ProcessTaskType, QueueTaskType, WorkerJobResponse, ModalConfig
 import traceback
 from captain.utils.broadcast import (
-    broadcast_worker_response,
     signal_failed_nodes,
     signal_max_runtime_exceeded,
     signal_standby,
@@ -129,7 +128,22 @@ def spawn_workers(
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
     manager.thread_count = worker_number
-    os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
+    
+    def signal_running_node(jobset_id: str, node_id: str, func_name: str):
+        asyncio.create_task(
+            signal_current_running_node(manager.ws, jobset_id, node_id, func_name)
+        )
+    
+    def signal_failed_node(jobset_id: str, node_id: str, func_name: str):
+        asyncio.create_task(
+            signal_failed_nodes(manager.ws, jobset_id, node_id, func_name)
+        )
+    
+    def signal_node_res(jobset_id: str, node_id: str, func_name: str, result: dict[str, Any]):
+        asyncio.create_task(
+            signal_node_results(manager.ws, jobset_id, node_id, func_name, result)
+        )
+
     for _ in range(worker_number):
         worker_process = Thread(
             target=run_worker,
@@ -247,26 +261,30 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     manager.running_topology = create_topology(
         request,
         cleanup_func=clean_up_function,
-        final_broadcast=lambda: signal_standby(manager.ws, request.jobsetId),
+        final_broadcast=lambda: asyncio.create_task(signal_standby(manager.ws, request.jobsetId)),
     )  # pass clean up func for when topology ends
 
-    logger.info("PREJOB_OP")
 
-    pre_job_op_start = time.time()
-    logger.debug(f"Pre job operation started at: {pre_job_op_start}")
-    await asyncio.create_task(signal_prejob_op(manager.ws, request.jobsetId))
 
     """
     ____________________________________________________________________________
     START PRE JOB OPERATION 
     """
+    logger.info("PREJOB_OP")
+    pre_job_op_start = time.time()
+    logger.debug(f"Pre job operation started at: {pre_job_op_start}")
+
+    asyncio.create_task(signal_prejob_op(manager.ws, request.jobsetId))
+
     nodes = fc["nodes"]
     packages_dict = {
         package.name: package.version for package in importlib.metadata.distributions()
     }
     missing_packages = []
+
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
-    await asyncio.create_task(manager.ws.broadcast(socket_msg))
+    asyncio.create_task(manager.ws.broadcast(socket_msg))
+
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
         handler = BroadcastNodeLogs(
@@ -341,10 +359,10 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
 
-    # spawn consumers
+
+    # spawn threads    
+    os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     spawn_workers(manager, funcs, request.nodeDelay, request.maximumConcurrentWorkers)
-    
-    #spawn producer, also starts the topology
     spawn_producer(manager)
 
     asyncio.create_task(cancel_when_max_time(manager, request))

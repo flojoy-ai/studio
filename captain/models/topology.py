@@ -323,7 +323,7 @@ class Topology:
 
     def finalizer(self):
         if self.is_finished:
-            asyncio.create_task(self.final_broadcast())
+            self.final_broadcast()
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)

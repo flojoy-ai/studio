@@ -2,17 +2,7 @@ from typing import Any
 from captain.internal.manager import ConnectionManager
 from captain.utils.status_codes import STATUS_CODES
 from captain.types.worker import WorkerJobResponse
-
-
-
-async def broadcast_worker_response(ws: ConnectionManager, request_dict: dict):
-    if request_dict.get("NODE_RESULTS", {}).get("cmd", "") == "END":
-        request_dict["SYSTEM_STATUS"] = STATUS_CODES["STANDBY"]
-    worker_response = WorkerJobResponse(
-        jobset_id=request_dict.get("jobsetId", ""), dict_item=request_dict
-    )
-    # forward response from worker to the front-end
-    await ws.broadcast(worker_response)
+from captain.utils.logger import logger
 
 async def signal_node_results(ws: ConnectionManager, jobset_id: str, node_id: str, func_name: str ,result: dict[str, Any]):
     msg = WorkerJobResponse(
@@ -24,6 +14,7 @@ async def signal_node_results(ws: ConnectionManager, jobset_id: str, node_id: st
     await ws.broadcast(msg)
 
 async def signal_current_running_node(ws: ConnectionManager, jobset_id: str, node_id: str, func_name: str):
+    logger.debug(f"Sending signal_current_running_node for {jobset_id} {node_id} {func_name}")
     msg = WorkerJobResponse(
         jobset_id=jobset_id,
         sys_status=STATUS_CODES["RUNNING_PYTHON_JOB"] + func_name,

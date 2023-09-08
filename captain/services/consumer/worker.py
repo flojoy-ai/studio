@@ -58,9 +58,6 @@ class Worker:
             # signal the running node to the front-end: 
             self.signal_running_node(job.jobset_id, job.job_id, func.__name__)
 
-            if self.job_service.job_exists(job.job_id):
-                self.job_service.delete_job(job.job_id)
-
             kwargs: dict[str, Any] = {
                 "ctrls": job.ctrls,
                 "previous_jobs": job.previous_jobs,
