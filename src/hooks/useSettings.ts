@@ -22,7 +22,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
     title: "Node Delay",
     key: "nodeDelay",
     group: "backend",
-    desc: "Delay before running the next node in seconds",
+    desc: "Delay before running the next node in milliseconds",
     value: 0,
   },
   {
@@ -31,6 +31,13 @@ const settingsAtom = atomWithImmer<Setting[]>([
     group: "backend",
     desc: "Time before the program cancels automatically in seconds",
     value: 3000,
+  },
+  {
+    title: "Maximum Concurrent Workers",
+    key: "maximumConcurrentWorkers",
+    group: "backend",
+    desc: "Maximum number of nodes that can be executed at the same time",
+    value: 1,
   },
   {
     title: "Fit view on resize",

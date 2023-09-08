@@ -205,8 +205,8 @@ class Topology:
                 return
             self.finished_jobs.add(job_id)
 
-        if job_id is None or job_result is None:
-            raise ValueError("job_id or job_result is not supposed to be None")
+        if job_id is None:
+            raise ValueError("job_id is not supposed to be None")
 
         async with lock:
             next_jobs = self.process_job_result(job_id, job_result, success=True)
@@ -443,7 +443,7 @@ class Topology:
     # assuming LOOP is the only dependency of all the nodes,
     # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
-    def get_maximum_workers(self, maximum_capacity: int = 4):
+    def get_maximum_workers(self, maximum_capacity: int = 1):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
         queue = deque()

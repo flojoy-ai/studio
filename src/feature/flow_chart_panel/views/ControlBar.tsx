@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
@@ -20,6 +20,7 @@ import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
+import { useTheme } from "@src/providers/themeProvider";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -27,29 +28,27 @@ const ControlBar = () => {
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
 
-  // const handleUpdate = async () => {
-  //   const resp = await fetch(`${API_URI}/update/`, {
-  //     method: "GET",
-  //   });
-  //
-  //   const hasUpdate = await resp.json();
-  //
-  //   if (hasUpdate) {
-  //     toast("Update available!", {
-  //       action: {
-  //         label: "Update",
-  //         onClick: async () => {
-  //           await fetch(`${API_URI}/update/`, {
-  //             method: "POST",
-  //           });
-  //         },
-  //       },
-  //     });
-  //   } else {
-  //     toast("Your Flojoy Studio is up to date");
-  //   }
-  // };
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const win = window as any;
+
+    if (typeof win.Featurebase !== "function") {
+      win.Featurebase = function () {
+        // eslint-disable-next-line prefer-rest-params
+        (win.Featurebase.q = win.Featurebase.q || []).push(arguments);
+      };
+    }
+    win.Featurebase("initialize_feedback_widget", {
+      organization: "flojoy",
+      theme: resolvedTheme,
+      // dynamic theme currently does not work
+      // featurebase team is already working on supporting it
+      // so I will just leave this here for now and it will start working
+      // right away when they implement it.controlbar
+    });
+  }, [resolvedTheme]);
 
   return (
     <div className="flex items-center gap-2 p-2.5">
@@ -123,6 +122,11 @@ const ControlBar = () => {
               {/*   Check for update */}
               {/* </MenubarItem> */}
             </MenubarContent>
+          </MenubarMenu>
+          <MenubarMenu>
+            <MenubarTrigger data-featurebase-feedback>Feedback</MenubarTrigger>
+            {/* Below is a small hack such that the Feedback btn won't stay highlighted after closing the window */}
+            <MenubarContent className="hidden" />
           </MenubarMenu>
         </Menubar>
       </div>

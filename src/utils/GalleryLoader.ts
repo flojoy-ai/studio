@@ -59,6 +59,18 @@ const data: GalleryData = {
         },
       ],
     },
+    {
+      title: "Image Classification",
+      description: "Classify any image using Hugging Face Transformers",
+      imagePath: "/assets/appGallery/imageClassification.png",
+      appPath: "imageClassification",
+      relevantNodes: [
+        {
+          name: "HUGGING_FACE_PIPELINE",
+          docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/",
+        },
+      ],
+    },
     // {
     //   description: "Predict future events with the Prophet node",
     //   title: "Time series forecasting",

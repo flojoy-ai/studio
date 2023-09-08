@@ -1,4 +1,4 @@
-from PYTHON.manifest.generate_node_manifest import create_manifest
+from captain.utils.manifest.build_manifest import create_manifest
 import os
 import pytest
 import unittest
@@ -35,7 +35,12 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
             ],
             "parameters": {
-                "some_param": {"type": "int", "default": None, "desc": None}
+                "some_param": {
+                    "type": "int",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                }
             },
             "outputs": [
                 {
@@ -85,8 +90,18 @@ class ManifestGenerationTest(unittest.TestCase):
             "name": "NO_INPUTS",
             "key": "NO_INPUTS",
             "parameters": {
-                "foo": {"type": "list[int]", "default": None, "desc": None},
-                "bar": {"type": "str", "default": None, "desc": None},
+                "foo": {
+                    "type": "list[int]",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                },
+                "bar": {
+                    "type": "str",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                },
             },
             "outputs": [
                 {"name": "default", "id": "default", "type": "Any", "desc": None}
@@ -130,8 +145,18 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
             ],
             "parameters": {
-                "foo": {"type": "str", "default": "bar", "desc": None},
-                "nums": {"type": "list[int]", "default": [1, 2, 3], "desc": None},
+                "foo": {
+                    "type": "str",
+                    "default": "bar",
+                    "desc": None,
+                    "overload": None,
+                },
+                "nums": {
+                    "type": "list[int]",
+                    "default": [1, 2, 3],
+                    "desc": None,
+                    "overload": None,
+                },
             },
             "outputs": [
                 {
@@ -222,8 +247,18 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
             ],
             "parameters": {
-                "foo": {"type": "str", "default": None, "desc": None},
-                "bar": {"type": "list[int]", "default": None, "desc": None},
+                "foo": {
+                    "type": "str",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                },
+                "bar": {
+                    "type": "list[int]",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                },
             },
             "outputs": [
                 {
@@ -256,18 +291,21 @@ class ManifestGenerationTest(unittest.TestCase):
                     "options": ["a", "b", "c"],
                     "default": "a",
                     "desc": None,
+                    "overload": None,
                 },
                 "option2": {
                     "type": "select",
                     "options": ["d", "e", "f"],
                     "default": None,
                     "desc": None,
+                    "overload": None,
                 },
                 "option3": {
                     "type": "select",
                     "options": [1, 2, 3],
                     "default": 3,
                     "desc": None,
+                    "overload": None,
                 },
             },
             "outputs": [
@@ -305,7 +343,12 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
             ],
             "parameters": {
-                "foo": {"type": "list[int]", "default": None, "desc": None},
+                "foo": {
+                    "type": "list[int]",
+                    "default": None,
+                    "desc": None,
+                    "overload": None,
+                },
             },
             "outputs": [
                 {"name": "default", "id": "default", "type": "Matrix", "desc": None}
@@ -351,8 +394,18 @@ class ManifestGenerationTest(unittest.TestCase):
                 },
             ],
             "parameters": {
-                "foo": {"type": "int", "default": None, "desc": "A number"},
-                "bar": {"type": "str", "default": None, "desc": "A string"},
+                "foo": {
+                    "type": "int",
+                    "default": None,
+                    "desc": "A number",
+                    "overload": None,
+                },
+                "bar": {
+                    "type": "str",
+                    "default": None,
+                    "desc": "A string",
+                    "overload": None,
+                },
             },
             "outputs": [
                 {
@@ -409,7 +462,12 @@ class ManifestGenerationTest(unittest.TestCase):
             "key": "NODE_INIT",
             "type": "TEST_TYPE",
             "parameters": {
-                "a": {"type": "int", "default": 0, "desc": None},
+                "a": {
+                    "type": "int",
+                    "default": 0,
+                    "desc": None,
+                    "overload": None,
+                },
             },
             "init_parameters": {
                 "foo": {"type": "str", "default": None, "desc": None},

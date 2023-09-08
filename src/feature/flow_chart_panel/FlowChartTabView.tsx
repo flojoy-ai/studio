@@ -1,10 +1,18 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
-import PYTHON_FUNCTIONS from "@src/data/pythonFunctions.json";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import { nodeSection } from "@src/utils/ManifestLoader";
+import {
+  RootNode,
+  isLeaf,
+  validateRootSchema,
+  Leaf,
+  RootChild,
+  ParentNode,
+  isLeafParentNode,
+  isRoot,
+} from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import {
   ConnectionLineType,
   EdgeTypes,
@@ -45,13 +53,23 @@ import { useAtom } from "jotai";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { CommandMenu } from "../command/CommandMenu";
+import {
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from "@/components/ui/command";
+import { baseClient } from "@src/lib/base-client";
+import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
+  const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
+  const [nodesMetadataMap, setNodesMetadataMap] =
+    useState<NodesMetadataMap | null>(null);
 
   const { theme, resolvedTheme } = useTheme();
 
@@ -87,16 +105,17 @@ const FlowChartTab = () => {
     [nodes.length],
   );
 
-  const addNewNode = useAddNewNode(setNodes, getNodeFuncCount);
+  const addNewNode = useAddNewNode(
+    setNodes,
+    getNodeFuncCount,
+    nodesMetadataMap,
+  );
   const addTextNode = useAddTextNode();
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
     [setIsSidebarOpen],
   );
-
-  useKeyboardShortcut("ctrl", "k", toggleSidebar);
-  useKeyboardShortcut("meta", "k", toggleSidebar);
 
   const handleNodeRemove = useCallback(
     (nodeId: string, nodeLabel: string) => {
@@ -154,16 +173,21 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        const [sourceType, targetType] = getEdgeTypes(connection);
-        if (isCompatibleType(sourceType, targetType)) {
-          return addEdge(connection, eds);
-        }
+        if (nodeSection) {
+          const [sourceType, targetType] = getEdgeTypes(
+            nodeSection,
+            connection,
+          );
+          if (isCompatibleType(sourceType, targetType)) {
+            return addEdge(connection, eds);
+          }
 
-        toast.message("Type error", {
-          description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
-        });
+          toast.message("Type error", {
+            description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
+          });
+        }
       }),
-    [setEdges],
+    [setEdges, nodeSection],
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
@@ -176,7 +200,7 @@ const FlowChartTab = () => {
       );
       setHasUnsavedChanges(true);
     },
-    [setNodes],
+    [setNodes, setHasUnsavedChanges],
   );
 
   const clearCanvas = useCallback(() => {
@@ -184,22 +208,90 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
-  }, [setNodes, setEdges, setHasUnsavedChanges]);
+  }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
+
+  const fetchManifest = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/manifest");
+      validateRootSchema(res.data);
+      setNodeSection(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.log("error : ");
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes manifest!",
+        {
+          duration: 15000,
+        },
+      );
+    }
+  }, []);
+  const fetchMetadata = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes/metadata");
+      setNodesMetadataMap(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast(
+        err?.response?.data?.error ?? "Failed to generate nodes meta data!",
+      );
+    }
+  }, []);
 
   useEffect(() => {
-    if (selectedNode === null) {
+    fetchManifest();
+    fetchMetadata();
+  }, [fetchManifest, fetchMetadata]);
+
+  useEffect(() => {
+    if (selectedNode === null || !nodesMetadataMap) {
       return;
     }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = PYTHON_FUNCTIONS[nodeFileName] ?? {};
+    const nodeFileData = nodesMetadataMap[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString]);
+  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
 
   const proOptions = { hideAttribution: true };
 
   const nodeToEdit =
     nodes.filter((n) => n.selected).length > 1 ? null : selectedNode;
+
+  const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+
+  type Node = RootNode | ParentNode | Leaf | RootChild;
+
+  const commandGroups = (node?: Node): React.ReactNode => {
+    if (!node) return null;
+
+    if (isLeaf(node))
+      return (
+        <CommandItem
+          key={node.name}
+          onSelect={() => {
+            addNewNode(node);
+            setCommandMenuOpen(false);
+          }}
+        >
+          {node.name}
+        </CommandItem>
+      );
+
+    if (!isRoot(node) && !isLeafParentNode(node))
+      return (
+        <Fragment key={node.name}>
+          <CommandGroup heading={node.name}>
+            {node.children?.map((c: Node) => commandGroups(c))}
+          </CommandGroup>
+          <CommandSeparator />
+        </Fragment>
+      );
+
+    return node.children?.map((c: Node) => commandGroups(c));
+  };
 
   return (
     <Layout>
@@ -261,12 +353,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        <Sidebar
-          sections={nodeSection}
-          leafNodeClickHandler={addNewNode as LeafClickHandler}
-          isSideBarOpen={isSidebarOpen}
-          setSideBarStatus={setIsSidebarOpen}
-        />
+        {nodeSection && (
+          <Sidebar
+            sections={nodeSection}
+            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            isSideBarOpen={isSidebarOpen}
+            setSideBarStatus={setIsSidebarOpen}
+          />
+        )}
 
         <Toaster theme={theme} />
 
@@ -341,7 +435,12 @@ const FlowChartTab = () => {
           />
         </div>
       </ReactFlowProvider>
-      {/* <CommandMenu /> */}
+      <CommandMenu
+        groups={commandGroups(nodeSection as Node)}
+        open={isCommandMenuOpen}
+        placeholder="Search for a node..."
+        setOpen={setCommandMenuOpen}
+      />
     </Layout>
   );
 };

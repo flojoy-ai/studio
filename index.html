@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="script-src http://cdn.usefathom.com 'self' 'unsafe-inline';"
+      content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -16,11 +16,18 @@
       defer
     ></script>
     <!-- / Fathom -->
+
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
       crossorigin="anonymous"
     />
+
+    <script
+      src="https://do.featurebase.app/js/sdk.js"
+      id="featurebase-sdk"
+    ></script>
+
     <title>Flojoy Studio</title>
   </head>
   <body>

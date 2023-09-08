@@ -109,12 +109,7 @@ const NodeModal = ({
           Function Type:{" "}
           <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-        {!nd?.result ? (
-          <h3 className="text-gray-600 dark:text-gray-400">
-            <code>{selectedNode.data.func}</code> not run yet - Click{" "}
-            <i>Run Script</i>.
-          </h3>
-        ) : (
+        {nd?.result && (
           <NodeModalDataViz
             nd={nd}
             theme={resolvedTheme}
