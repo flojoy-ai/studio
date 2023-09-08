@@ -77,7 +77,7 @@ const VisorNode = (props: CustomNodeProps) => {
     <NodeWrapper wrapperProps={props}>
       <div
         className={clsx(
-          "rounded-2xl border-2 bg-transparent",
+          "rounded-2xl  bg-transparent",
           { "shadow-around shadow-accent2": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
