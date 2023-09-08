@@ -5,6 +5,7 @@ import {
   ipcMain,
   nativeImage,
   dialog,
+  contextBridge,
 } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
@@ -13,6 +14,7 @@ import { update } from "./update";
 import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
+import { writeFileSync } from "fs";
 
 // The built directory structure
 //
@@ -98,11 +100,6 @@ async function createWindow() {
     autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      nodeIntegration: true,
-      contextIsolation: true,
     },
     show: false,
   });
@@ -191,6 +188,12 @@ async function createWindow() {
     }
   });
 
+  // expose writeFileSync Api of fs module
+  contextBridge.exposeInMainWorld("electronAPI", {
+    writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
+      writeFileSync(path, content);
+    },
+  });
   // Apply electron-updater
   update(win);
 }
@@ -233,8 +236,6 @@ ipcMain.handle("open-win", (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {
       preload,
-      nodeIntegration: true,
-      contextIsolation: false,
     },
   });
 
