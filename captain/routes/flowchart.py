@@ -36,7 +36,7 @@ async def cancel_fc(req: PostCancelFC):
     if req.jobsetId is None:
         logger.debug("No jobsetId provided, skipping signal_standby")
         return
-    asyncio.create_task(signal_standby(manager, req.jobsetId))
+    asyncio.create_task(signal_standby(manager.ws, req.jobsetId))
 
 
 @router.post("/wfc", summary="write and run flowchart")
