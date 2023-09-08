@@ -213,7 +213,7 @@ const FlowChartTab = () => {
     try {
       const res = await baseClient.get("nodes/manifest");
       setNodeSection(res.data);
-      //console.log(res.data);
+      console.log(res.data);
       // TODO: fix zod schema to accept io directory structure
       // validateRootSchema(res.data);
 
