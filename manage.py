@@ -1,7 +1,7 @@
 import uvicorn
 import os
 
-__ignore_list = ["venv"]
+__ignore_list = ["venv", "node_modules"]
 
 if __name__ == "__main__":
     log_level = os.environ.get("FASTAPI_LOG", "error")

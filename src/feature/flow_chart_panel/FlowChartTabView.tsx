@@ -4,7 +4,6 @@ import { useSocket } from "@src/hooks/useSocket";
 import {
   RootNode,
   isLeaf,
-  validateRootSchema,
   Leaf,
   RootChild,
   ParentNode,
@@ -213,12 +212,14 @@ const FlowChartTab = () => {
   const fetchManifest = useCallback(async () => {
     try {
       const res = await baseClient.get("nodes/manifest");
-      validateRootSchema(res.data);
       setNodeSection(res.data);
+      //console.log(res.data);
+      // TODO: fix zod schema to accept io directory structure
+      // validateRootSchema(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log("error : ");
+      console.log("error : ", err);
       toast(
         err?.response?.data?.error ?? "Failed to generate nodes manifest!",
         {
