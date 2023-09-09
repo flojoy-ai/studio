@@ -23,6 +23,7 @@ from captain.utils.broadcast import (
     signal_standby,
     signal_prejob_op,
 )
+from captain.utils.import_nodes import pre_import_functions
 import logging
 
 
@@ -131,7 +132,12 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         target_label_id = e["targetHandle"]
         v_inputs = dict_node_inputs[v]
         target_input = next(
-            filter(lambda input: input.get("id", "") == target_label_id, v_inputs), None
+            filter(
+                lambda input, target_label_id=target_label_id: input.get("id", "")
+                == target_label_id,
+                v_inputs,
+            ),
+            None,
         )
         logger.debug(f"----target_input----\n{target_input}")
         target_label = "default"
@@ -262,7 +268,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
 
     # get the amount of workers needed
-    funcs, errs = manager.running_topology.pre_import_functions()
+    funcs, errs = pre_import_functions(topology=manager.running_topology)
 
     if errs:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
@@ -294,7 +300,7 @@ async def cancel_when_max_time(manager: Manager, request: PostWFC):
 
 def stream_response(proc: Popen[bytes]):
     while True:
-        line = proc.stdout.readline() or proc.stderr.readline()
+        line = proc.stdout.readline() or proc.stderr.readline()  # type:ignore
         if not line:
             break
         yield line

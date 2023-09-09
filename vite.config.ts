@@ -50,33 +50,27 @@ export default defineConfig(({ command }) => {
             },
             vite: {
               build: {
-                sourcemap,
+                sourcemap: sourcemap ? "inline" : undefined,
                 minify: isBuild,
-                outDir: "dist-electron/main",
                 rollupOptions: {
-                  external: Object.keys(
-                    "dependencies" in pkg ? pkg.dependencies : {},
-                  ),
-                },
-              },
-            },
-          },
-          {
-            entry: "electron/preload/index.ts",
-            onstart(options) {
-              // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
-              // instead of restarting the entire Electron App.
-              options.reload();
-            },
-            vite: {
-              build: {
-                sourcemap: sourcemap ? "inline" : undefined, // #332
-                minify: isBuild,
-                outDir: "dist-electron/preload",
-                rollupOptions: {
-                  external: Object.keys(
-                    "dependencies" in pkg ? pkg.dependencies : {},
-                  ),
+                  input: {
+                    main: "electron/main/index.ts",
+                    preload: `electron/preload/index${
+                      !isBuild ? "-dev" : ""
+                    }.ts`,
+                  },
+                  output: {
+                    dir: "dist-electron",
+                    entryFileNames: (chunk) => {
+                      const formatPath = chunk.facadeModuleId.replace(
+                        /\\/g,
+                        "/",
+                      );
+                      const split = formatPath.split("/");
+                      const fileName = split[split.length - 1].split(".")[0];
+                      return `${chunk.name}/${fileName}.js`;
+                    },
+                  },
                 },
               },
             },
@@ -110,6 +104,10 @@ export default defineConfig(({ command }) => {
         "@/assets": path.resolve(__dirname, "src/assets"),
         "@/lib": path.resolve(__dirname, "src/lib"),
       },
+    },
+    base: "./",
+    build: {
+      outDir: "dist-electron/studio",
     },
   };
 });

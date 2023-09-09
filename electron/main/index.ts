@@ -5,11 +5,16 @@ import {
   ipcMain,
   nativeImage,
   dialog,
+  contextBridge,
 } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
+import { runBackend } from "./backend";
+import { saveNodePack } from "./node-pack-save";
+import { killSubProcess } from "./cmd";
+import { writeFileSync } from "fs";
 
 // The built directory structure
 //
@@ -18,14 +23,12 @@ import { update } from "./update";
 // │ │ └── index.js    > Electron-Main
 // │ └─┬ preload
 // │   └── index.js    > Preload-Scripts
-// ├─┬ dist
+// ├─┬ studio
 // │ └── index.html    > Electron-Renderer
 //
-process.env.DIST_ELECTRON = join(__dirname, "../");
-process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-  ? join(process.env.DIST_ELECTRON, "../public")
-  : process.env.DIST;
+const WORKING_DIR = join(__dirname, "../../");
+const DIST_ELECTRON = join(WORKING_DIR, "dist-electron");
+const PUBLIC_DIR = join(WORKING_DIR, app.isPackaged ? "../public" : "public");
 
 const envPath = process.env.PATH ?? "";
 
@@ -47,11 +50,11 @@ if (!app.requestSingleInstanceLock()) {
 const getIcon = () => {
   switch (process.platform) {
     case "win32":
-      return join(process.env.PUBLIC ?? "", "favicon.ico");
+      return join(PUBLIC_DIR, "favicon.ico");
     case "linux":
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
     default:
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
   }
 };
 
@@ -79,12 +82,15 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
-
+global.runningProcesses = [];
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
-const preload = join(__dirname, "../preload/index.js");
+const preload = join(
+  __dirname,
+  `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
+);
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(process.env.DIST, "index.html");
+const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -94,10 +100,6 @@ async function createWindow() {
     autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      nodeIntegration: true,
     },
     show: false,
   });
@@ -106,6 +108,21 @@ async function createWindow() {
 
   win.on("close", (e) => {
     if (!global.hasUnsavedChanges) {
+      return;
+    }
+    if (global.initializingBackend) {
+      const choice = dialog.showMessageBoxSync(win!, {
+        type: "warning",
+        buttons: ["Yes", "No, go back"],
+        title: "Quit?",
+        message:
+          "Backend initialization is underway. Are you sure you want to quit?",
+      });
+      if (choice > 0) {
+        e.preventDefault();
+      } else {
+        global.initializingBackend = false;
+      }
       return;
     }
     const choice = dialog.showMessageBoxSync(win!, {
@@ -126,14 +143,31 @@ async function createWindow() {
   win.maximize();
   win.show();
 
-  if (url) {
+  if (app.isPackaged) {
+    await win.loadFile(indexHtml);
+    await saveNodePack({ win, icon: getIcon(), startup: true });
+    global.initializingBackend = true;
+    runBackend(WORKING_DIR, win)
+      .then(({ success, script }) => {
+        if (success) {
+          global.initializingBackend = false;
+          if (script) {
+            global.runningProcesses.push(script);
+          }
+        }
+        // reload studio html to fetch fresh manifest file
+        win?.reload();
+      })
+      .catch(() => {
+        global.initializingBackend = false;
+      });
+  } else {
     // electron-vite-vue#298
-    win.loadURL(url);
+    win.loadURL(url ?? "");
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
-  } else {
-    win.loadFile(indexHtml);
   }
+
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -145,6 +179,21 @@ async function createWindow() {
     return { action: "deny" };
   });
 
+  ipcMain.on("update-nodes-pack", () => {
+    if (win) saveNodePack({ win, icon: getIcon(), update: true });
+  });
+  ipcMain.on("update-nodes-resource-path", async () => {
+    if (win) {
+      await saveNodePack({ win, icon: getIcon() });
+    }
+  });
+
+  // expose writeFileSync Api of fs module
+  contextBridge.exposeInMainWorld("electronAPI", {
+    writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
+      writeFileSync(path, content);
+    },
+  });
   // Apply electron-updater
   update(win);
 }
@@ -155,7 +204,12 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on("window-all-closed", () => {
+app.on("window-all-closed", async () => {
+  if (global.runningProcesses.length) {
+    for (const script of global.runningProcesses) {
+      await killSubProcess(script);
+    }
+  }
   win = null;
   if (process.platform !== "darwin") app.quit();
 });
@@ -182,8 +236,6 @@ ipcMain.handle("open-win", (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {
       preload,
-      nodeIntegration: true,
-      contextIsolation: false,
     },
   });
 

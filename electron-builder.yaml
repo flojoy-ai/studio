@@ -1,0 +1,44 @@
+directories:
+  output: dist
+  buildResources: build
+appId: ai.flojoy.studio
+productName: Flojoy Studio
+icon: public/favicon.ico
+asar: true
+files:
+  - dist-electron/**/*
+
+extraResources:
+  - from: "public"
+    to: "public"
+  - from: "scripts/backend.ps1"
+    to: "backend/backend.ps1"
+  - from: "scripts/backend.sh"
+    to: "backend/backend.sh"
+  - from: "captain"
+    to: "backend/captain"
+  - from: "PYTHON"
+    to: "backend/PYTHON"
+    filter: "!**/nodes/**"
+  - from: "manage.py"
+    to: "backend/manage.py"
+  - from: "requirements.txt"
+    to: "backend/requirements.txt"
+  - from: "STATUS_CODES.yml"
+    to: "backend/STATUS_CODES.yml"
+
+mac:
+  icon: public/favicon.icns
+  target:
+    - dmg
+  darkModeSupport: true
+linux:
+  icon: public/favicon.icns
+  target:
+    - deb
+    - tar.gz
+win:
+  icon: public/favicon.ico
+extraMetadata:
+  main: dist-electron/main/index.js
+extends: null
