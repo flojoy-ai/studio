@@ -62,3 +62,5 @@ coverage-cy
 PYTHON/nodes
 build
 .nyc_output
+
+.python-version

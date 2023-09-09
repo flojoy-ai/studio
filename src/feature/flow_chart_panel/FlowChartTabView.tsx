@@ -61,6 +61,12 @@ import {
 } from "@/components/ui/command";
 import { baseClient } from "@src/lib/base-client";
 import { NodesMetadataMap } from "@src/types/nodes-metadata";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
@@ -299,15 +305,22 @@ const FlowChartTab = () => {
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
           <div className="flex">
-            <Button
-              data-testid="add-node-button"
-              className="gap-2"
-              variant="ghost"
-              onClick={toggleSidebar}
-            >
-              <Workflow size={20} className="stroke-muted-foreground" />
-              Add Node
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    data-testid="add-node-button"
+                    className="gap-2"
+                    variant="ghost"
+                    onClick={toggleSidebar}
+                  >
+                    <Workflow size={20} className="stroke-muted-foreground" />
+                    Add Node
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Try Ctrl/Cmd + K</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <Button
               data-testid="add-text-button"
               className="gap-2"
