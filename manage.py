@@ -1,11 +1,9 @@
-<<<<<<< HEAD
 import uvicorn
 import os
 
 __ignore_list = ["venv", "node_modules"]
-=======
-__ignore_list = ["venv"]
->>>>>>> develop
+# __ignore_list = ["venv"]
+
 
 if __name__ == "__main__":
     import uvicorn
