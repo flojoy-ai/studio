@@ -44,6 +44,10 @@ export function update() {
             message:
               "Downloading the update.. you'll be notified once update is ready to install..",
           });
+        } else {
+          if (updateInterval) {
+            clearInterval(updateInterval);
+          }
         }
       });
   });
@@ -58,7 +62,13 @@ export function update() {
     };
 
     dialog.showMessageBox(dialogOpts).then((returnValue) => {
-      if (returnValue.response === 0) autoUpdater.quitAndInstall();
+      if (returnValue.response === 0) {
+        autoUpdater.quitAndInstall();
+      } else {
+        if (updateInterval) {
+          clearInterval(updateInterval);
+        }
+      }
     });
   });
 
