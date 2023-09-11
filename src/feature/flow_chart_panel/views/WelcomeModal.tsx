@@ -35,6 +35,7 @@ export function WelcomeModal() {
             onClick={() => {
               setShowWelcomeScreen(false);
             }}
+            id="close-welcome-modal"
             data-testid="close-welcome-modal"
           >
             Try out Flojoy Studio
