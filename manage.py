@@ -1,8 +1,9 @@
 import uvicorn
 import os
 
-__ignore_list = ["venv", "node_modules"]
-# __ignore_list = ["venv"]
+
+# __ignore_list = ["venv", "node_modules"]
+__ignore_list = ["venv"]
 
 
 if __name__ == "__main__":
