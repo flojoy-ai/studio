@@ -14,7 +14,7 @@ from precompilation.config import (
     HEADER,
 )
 from precompilation.precompilation_utils import extract_pip_packages
-from precompilation.templates.classes.DiGraph import DiGraph
+from precompilation.templates.classes.MultiDiGraph import MultiDiGraph
 from precompilation.templates.classes.LightTopology import LightTopology
 from precompilation.templates.functions.flowchart_to_graph import (
     flowchart_to_graph,
@@ -375,9 +375,9 @@ class FlojoyScriptBuilder:
         #   -- add the flowchart and run it --
         self._add_code_block("set_offline()")
         self._add_import(from_string="typing", import_string="Any")
-        self._add_function_or_class(flowchart_to_graph, add_modules=False)
-        self._add_function_or_class(DiGraph)
+        self._add_function_or_class(MultiDiGraph)
         self._add_function_or_class(LightTopology)
+        self._add_function_or_class(flowchart_to_graph, add_modules=False)
         self._add_code_block(
             f"LightTopology(\n\
         flowchart_to_graph(json.loads({repr(fc)})),\n\
