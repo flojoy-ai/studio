@@ -1,8 +1,6 @@
 import uvicorn
 import os
 
-
-# __ignore_list = ["venv", "node_modules"]
 __ignore_list = ["venv"]
 
 
