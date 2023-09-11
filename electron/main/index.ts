@@ -188,8 +188,8 @@ async function createWindow() {
       await saveNodePack({ win, icon: getIcon() });
     }
   });
-  console.log("contextBridge here: ", contextBridge);
   // expose writeFileSync Api of fs module
+  // contextBridge is `undefined` on dev mode
   contextBridge?.exposeInMainWorld("electronAPI", {
     writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
       writeFileSync(path, content);
