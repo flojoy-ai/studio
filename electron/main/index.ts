@@ -15,6 +15,7 @@ import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import { writeFileSync } from "fs";
+import { autoUpdater } from "electron-updater";
 
 // The built directory structure
 //
@@ -187,15 +188,15 @@ async function createWindow() {
       await saveNodePack({ win, icon: getIcon() });
     }
   });
-
+  console.log("contextBridge here: ", contextBridge);
   // expose writeFileSync Api of fs module
-  contextBridge.exposeInMainWorld("electronAPI", {
+  contextBridge?.exposeInMainWorld("electronAPI", {
     writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
       writeFileSync(path, content);
     },
   });
   // Apply electron-updater
-  update(win);
+  update();
 }
 
 app.whenReady().then(() => {
