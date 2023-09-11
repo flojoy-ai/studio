@@ -60,4 +60,7 @@ coverage.xml
 .nyc_output/out.json
 coverage-cy
 PYTHON/nodes
+build
 .nyc_output
+
+.python-version

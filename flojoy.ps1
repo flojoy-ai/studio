@@ -277,6 +277,9 @@ else {
   $Env:DEPLOY_ENV = "local"
 }
 
+# set deploy status to dev
+$Env:DEPLOY_STATUS = "dev"
+
 # Start the project
 info_msg 'Starting the project...'
 if ($isDebugMode -eq $true) {

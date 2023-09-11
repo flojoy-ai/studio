@@ -1,7 +1,6 @@
 import fnmatch
 import os
-
-nodes_dir = "PYTHON/nodes"
+from captain.utils.nodes_path import get_nodes_path
 
 # The pattern to match for Python files
 pattern = "*.py"
@@ -12,7 +11,7 @@ ignore_folders = [
 ]
 
 
-def get_file_paths():
+def get_file_paths(nodes_dir: str):
     # List to store the file paths
     file_paths: list[str] = []
     # Walk through all the directories and subdirectories
@@ -33,13 +32,16 @@ def get_file_paths():
 
 
 def generate_metadata():
-    file_paths = get_file_paths()
+    nodes_path = get_nodes_path()
+    file_paths = get_file_paths(nodes_path)
     # Print the list of file paths
     metadata_map: dict[str, dict[str, str]] = dict()
     for single_file in file_paths:
         with open(single_file) as f:
+            file_path = single_file.replace("\\", "/")
+            file_path = file_path[file_path.rfind("nodes/") + 6 :]
             metadata_map[os.path.basename(single_file)] = {
                 "metadata": f.read(),
-                "path": single_file,
+                "path": file_path,
             }
     return metadata_map
