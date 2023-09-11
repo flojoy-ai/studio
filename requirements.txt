@@ -10,3 +10,4 @@ fastapi==0.103.0
 docstring_parser==0.15
 keyring==24.2.0 
 debugpy
+docstring_parser
