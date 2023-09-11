@@ -15,7 +15,6 @@ import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import { writeFileSync } from "fs";
-import { autoUpdater } from "electron-updater";
 
 // The built directory structure
 //
