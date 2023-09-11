@@ -1,3 +1,6 @@
 [submodule "nodes"]
 	path = PYTHON/nodes
 	url = https://github.com/jingxiangmo/nodes.git
+[submodule "studio"]
+	path = .
+	url = https://github.com/jingxiangmo/studio.git
