@@ -52,5 +52,5 @@ class ConnectionManager:
             try:
                 await connection.send_text(json.dumps(message, cls=PlotlyJSONEncoder))
             except RuntimeError:
-                await self.disconnect(socket_id=socket_id)
                 logger.error("RuntimeError in broadcast")
+                await self.disconnect(socket_id=socket_id)

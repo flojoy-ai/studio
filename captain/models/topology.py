@@ -17,7 +17,7 @@ from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
-from typing import Any, cast, Callable
+from typing import Any, cast
 
 
 class Topology:
@@ -33,8 +33,6 @@ class Topology:
         graph: nx.MultiDiGraph,
         jobset_id: str,
         node_delay: float = 0,
-        cleanup_func: Callable[..., Any] = lambda: None,
-        final_broadcast: Callable[..., Any] = lambda: None,
     ):
         self.working_graph: nx.MultiDiGraph = deepcopy(graph)
         self.original_graph: nx.MultiDiGraph = deepcopy(graph)
@@ -45,8 +43,6 @@ class Topology:
         self.is_ci = os.getenv(key="CI", default=False)
         self.cancelled = False
         self.time_start = 0
-        self.cleanup_func = cleanup_func
-        self.final_broadcast = final_broadcast
         self.is_finished = False
         self.loop_nodes = (
             list()
@@ -323,7 +319,7 @@ class Topology:
 
     def finalizer(self):
         if self.is_finished:
-            self.final_broadcast()
+            pass #add things here in the future
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)

@@ -1,3 +1,4 @@
+import asyncio
 from queue import Queue
 from typing import Any
 import uuid
@@ -8,6 +9,7 @@ from captain.types.worker import (
     QueueTaskType,
     InitFuncType,
 )
+from captain.utils.broadcast import Signaler
 
 from captain.utils.logger import logger
 
@@ -20,6 +22,7 @@ class Producer:
         process_task: ProcessTaskType,
         queue_task: QueueTaskType,
         init_func: InitFuncType,
+        signaler: Signaler,
     ) -> None:
         self.task_queue = task_queue
         self.finish_queue = finish_queue
@@ -27,6 +30,7 @@ class Producer:
         self.queue_task = queue_task  # function to queue the new tasks
         self.init_func = init_func  # function to run before starting the producer
         self.uuid = uuid.uuid4()
+        self.signaler = signaler
 
     async def run(self):
         logger.debug(f"Producer {self.uuid} has started")
@@ -43,10 +47,11 @@ class Producer:
 
             # process job info
             new_tasks = self.process_task(finished_job_fetch)
-            
+
             # if no new tasks, then continue
             if new_tasks is None:
                 logger.debug(f"Producer {self.uuid} got no new tasks")
+                asyncio.create_task(self.signaler.signal_standby(finished_job_fetch.jobset_id))
                 continue
             
             logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}")

@@ -16,16 +16,15 @@ from subprocess import Popen, PIPE
 import importlib.metadata
 from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
-from captain.types.worker import InitFuncType, ProcessTaskType, QueueTaskType, WorkerJobResponse, ModalConfig
-import traceback
-from captain.utils.broadcast import (
-    signal_failed_nodes,
-    signal_max_runtime_exceeded,
-    signal_standby,
-    signal_prejob_op,
-    signal_current_running_node,
-    signal_node_results
+from captain.types.worker import (
+    InitFuncType,
+    ProcessTaskType,
+    QueueTaskType,
+    WorkerJobResponse,
+    ModalConfig,
 )
+import traceback
+from captain.utils.broadcast import Signaler
 import logging
 
 
@@ -34,9 +33,7 @@ def run_worker(
     finish_queue: Queue[Any],
     imported_functions: dict[str, Any],
     node_delay: float,
-    signal_running_node_func: Callable,
-    signal_failed_node_func: Callable,
-    signal_node_results_func: Callable,
+    signaler: Signaler,
 ):
     try:
         # TODO: Figure out a way to make this work with python threads (previously this was a Python Process)
@@ -52,13 +49,12 @@ def run_worker(
             finish_queue=finish_queue,
             imported_functions=imported_functions,
             node_delay=node_delay,
-            signal_running_node=signal_running_node_func,
-            signal_failed_node=signal_failed_node_func,
-            signal_node_results=signal_node_results_func
+            signaler=signaler,
         )
         asyncio.run(worker.run())
     except Exception as e:
         print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
+
 
 def run_producer(
     task_queue: Queue[Any],
@@ -66,6 +62,7 @@ def run_producer(
     process_task: ProcessTaskType,
     queue_task: QueueTaskType,
     init_func: InitFuncType,
+    signaler: Signaler,
 ):
     try:
         logger.debug("Starting producer")
@@ -75,6 +72,7 @@ def run_producer(
             process_task=process_task,
             queue_task=queue_task,
             init_func=init_func,
+            signaler=signaler
         )
         asyncio.run(producer.run())
     except Exception as e:
@@ -83,17 +81,14 @@ def run_producer(
 
 def create_topology(
     request: PostWFC,
-    cleanup_func: Callable[..., Any],
-    final_broadcast: Callable[..., Any],
 ):
     graph = flowchart_to_nx_graph(json.loads(request.fc))
     return Topology(
         graph=graph,
         jobset_id=request.jobsetId,
-        cleanup_func=cleanup_func,
         node_delay=request.nodeDelay / 1000,
-        final_broadcast=final_broadcast,
     )
+
 
 def spawn_producer(manager: Manager):
     if manager.running_topology is None:
@@ -107,10 +102,12 @@ def spawn_producer(manager: Manager):
             manager.running_topology.process_worker_response,
             manager.running_topology.run_job,
             manager.running_topology.run,
+            Signaler(manager.ws),
         ),
     )
     producer.daemon = True
     producer.start()
+
 
 # spawns a set amount of workers to execute jobs (node functions)
 def spawn_workers(
@@ -128,21 +125,8 @@ def spawn_workers(
     logger.debug(f"NEED {worker_number} WORKERS")
     logger.info(f"Spawning {worker_number} workers")
     manager.thread_count = worker_number
-    
-    def signal_running_node(jobset_id: str, node_id: str, func_name: str):
-        asyncio.create_task(
-            signal_current_running_node(manager.ws, jobset_id, node_id, func_name)
-        )
-    
-    def signal_failed_node(jobset_id: str, node_id: str, func_name: str):
-        asyncio.create_task(
-            signal_failed_nodes(manager.ws, jobset_id, node_id, func_name)
-        )
-    
-    def signal_node_res(jobset_id: str, node_id: str, func_name: str, result: dict[str, Any]):
-        asyncio.create_task(
-            signal_node_results(manager.ws, jobset_id, node_id, func_name, result)
-        )
+
+    signaler = Signaler(manager.ws)
 
     for _ in range(worker_number):
         worker_process = Thread(
@@ -152,15 +136,7 @@ def spawn_workers(
                 manager.finish_queue,
                 imported_functions,
                 node_delay,
-                lambda jobset_id, node_id, func_name: asyncio.create_task(
-                    signal_current_running_node(manager.ws, jobset_id, node_id, func_name)
-                ),
-                lambda jobset_id, node_id, func_name: asyncio.create_task(
-                    signal_failed_nodes(manager.ws, jobset_id, node_id, func_name)
-                ),
-                lambda jobset_id, node_id, func_name, result: asyncio.create_task(
-                    signal_node_results(manager.ws, jobset_id, node_id, func_name, result)
-                )
+                signaler,
             ),
         )
         worker_process.daemon = True
@@ -238,11 +214,9 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     socket_msg = WorkerJobResponse(jobset_id=request.jobsetId)
     fc = json.loads(request.fc)
 
-    def clean_up_function(is_finished: bool = False):
+    def clean_up_function():
         manager.end_worker_threads()
         clear_memory()
-        if is_finished:
-            asyncio.create_task(signal_standby(manager.ws, request.jobsetId))
 
     # clean up before next run
     clean_up_function()
@@ -260,11 +234,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     # Create the topology
     manager.running_topology = create_topology(
         request,
-        cleanup_func=clean_up_function,
-        final_broadcast=lambda: asyncio.create_task(signal_standby(manager.ws, request.jobsetId)),
     )  # pass clean up func for when topology ends
-
-
 
     """
     ____________________________________________________________________________
@@ -274,7 +244,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
 
-    asyncio.create_task(signal_prejob_op(manager.ws, request.jobsetId))
+    asyncio.create_task(Signaler(manager.ws).signal_prejob_op(request.jobsetId))
 
     nodes = fc["nodes"]
     packages_dict = {
@@ -347,7 +317,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
         socket_msg.FAILED_NODES = errs
         await asyncio.create_task(manager.ws.broadcast(socket_msg))
         return
-    
+
     logger.debug(
         f"PRE JOB OPERATION TOOK {time.time() - pre_job_op_start} SECONDS TO COMPLETE"
     )
@@ -359,8 +329,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
 
-
-    # spawn threads    
+    # spawn threads
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
     spawn_workers(manager, funcs, request.nodeDelay, request.maximumConcurrentWorkers)
     spawn_producer(manager)
@@ -373,7 +342,7 @@ async def cancel_when_max_time(manager: Manager, request: PostWFC):
     if manager.running_topology and not manager.running_topology.is_cancelled():
         logger.debug("Maximum runtime exceeded, cancelling topology")
         manager.running_topology.cancel()
-        await signal_max_runtime_exceeded(manager.ws, request.jobsetId)
+        await Signaler(manager.ws).signal_max_runtime_exceeded(request.jobsetId)
 
 
 def stream_response(proc: Popen[bytes]):

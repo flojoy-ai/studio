@@ -1,14 +1,13 @@
 import asyncio, os, sys
 
+from captain.utils.broadcast import Signaler
+
 sys.path.append(os.path.abspath(os.getcwd()))
 sys.path.append(os.path.join(os.getcwd(), "PYTHON"))
 from fastapi import APIRouter, Request, Response
 from captain.types.flowchart import (
     PostCancelFC,
     PostWFC,
-)
-from captain.utils.broadcast import (
-    signal_standby,
 )
 from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
 from captain.utils.config import manager
@@ -26,7 +25,7 @@ async def cancel_fc(req: PostCancelFC):
     if req.jobsetId is None:
         logger.debug("No jobsetId provided, skipping signal_standby")
         return
-    asyncio.create_task(signal_standby(manager.ws, req.jobsetId))
+    asyncio.create_task(Signaler(manager.ws).signal_standby(req.jobsetId))
 
 
 @router.post("/wfc", summary="write and run flowchart")
