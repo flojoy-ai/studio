@@ -271,6 +271,8 @@ const FlowChartTab = () => {
     setPythonString(nodeFileData.metadata ?? "");
   }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
 
+  const deleteKeyCodes = ["Delete", "Backspace"];
+
   const proOptions = { hideAttribution: true };
 
   const nodeToEdit =
@@ -411,6 +413,7 @@ const FlowChartTab = () => {
           <ReactFlow
             id="flow-chart"
             className="!fixed"
+            deleteKeyCode={deleteKeyCodes}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
