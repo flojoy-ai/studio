@@ -33,7 +33,7 @@ export const categoryMap = {
   VISUALIZERS: "DATA",
   LOADERS: "ETL",
   TRANSFORMERS: "ETL",
-  INSTRUMENTS: "IO",
+  IO: "IO",
   LOGIC_GATES: "LOGIC",
   NUMPY: "AUTOGEN",
   SCIPY: "AUTOGEN",
@@ -178,7 +178,7 @@ const SidebarNode = ({
           <button
             key={command.key}
             className={twMerge(
-              "mb-1.5 flex max-h-10 w-11/12 items-center justify-between rounded-sm border px-2 py-2.5 font-mono",
+              "mb-1.5 flex max-h-10 w-full items-center justify-between rounded-sm border px-2 py-2.5 font-mono",
               sidebarVariants({
                 variant: categoryMap[category ?? "TRANSFORMERS"] ?? "ETL",
               }),

@@ -4,12 +4,12 @@ import { useSocket } from "@src/hooks/useSocket";
 import {
   RootNode,
   isLeaf,
-  validateRootSchema,
   Leaf,
   RootChild,
   ParentNode,
   isLeafParentNode,
   isRoot,
+  validateRootSchema,
 } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
@@ -219,7 +219,17 @@ const FlowChartTab = () => {
   const fetchManifest = useCallback(async () => {
     try {
       const res = await baseClient.get("nodes/manifest");
-      validateRootSchema(res.data);
+      // TODO: fix zod schema to accept io directory structure
+      const validateResult = validateRootSchema(res.data);
+      if (!validateResult.success) {
+        toast.error(
+          `Failed to validate nodes manifest! Check browser console for more info.`,
+          {
+            duration: 20000,
+          },
+        );
+        console.error(validateResult.error);
+      }
       setNodeSection(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
