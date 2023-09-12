@@ -15,6 +15,7 @@ import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import MicrocontollerBtn from "./MicrocontrollerBtn";
+import UploadButton from "./UploadButton";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 
@@ -24,9 +25,7 @@ const FlowControlButtons = () => {
 
   const { settings } = useSettings("backend");
 
-  const { isMicrocontrollerMode } =
-    useFlowChartState();
-  const { setNodeParamChanged } = useFlowChartState();
+  const { setNodeParamChanged, isMicrocontrollerMode } = useFlowChartState();
 
   const [project, setProject] = useAtom(projectAtom);
 
@@ -112,6 +111,7 @@ const FlowControlButtons = () => {
       <div className="px-0.5" />
       <WatchBtn playFC={onRun} cancelFC={cancelFC} />
       <MicrocontollerBtn/>
+      {isMicrocontrollerMode && (<UploadButton/>)}
       <div className="px-0.5" />
     </>
   );
