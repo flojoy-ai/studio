@@ -83,7 +83,10 @@ export const useFlowChartGraph = () => {
         }
       }
     });
-    sendEventToMix("Initial Control Input Data Updated", `${nodeId}: ${inputData}`);
+    sendEventToMix(
+      "Initial Control Input Data Updated",
+      `${nodeId}: ${inputData}`,
+    );
   };
 
   const handleTitleChange = (value: string, id: string) => {
@@ -137,4 +140,3 @@ export const useFlowChartGraph = () => {
     handleTitleChange,
   };
 };
-
