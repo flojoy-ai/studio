@@ -205,15 +205,17 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", async () => {
+  win = null;
+  if (process.platform !== "darwin") app.quit();
+});
+
+app.on("will-quit", async () => {
   if (global.runningProcesses.length) {
     for (const script of global.runningProcesses) {
       await killSubProcess(script);
     }
   }
-  win = null;
-  if (process.platform !== "darwin") app.quit();
 });
-
 app.on("second-instance", () => {
   if (win) {
     // Focus on the main window if the user tried to open another
