@@ -11,27 +11,41 @@ files:
 extraResources:
   - from: "public"
     to: "public"
-  - from: "scripts/backend.ps1"
-    to: "backend/backend.ps1"
-  - from: "scripts/backend.sh"
-    to: "backend/backend.sh"
-  - from: "captain"
-    to: "backend/captain"
-  - from: "PYTHON"
-    to: "backend/PYTHON"
-    filter: "!**/nodes/**"
-  - from: "manage.py"
-    to: "backend/manage.py"
-  - from: "requirements.txt"
-    to: "backend/requirements.txt"
+  # - from: "scripts/backend.ps1"
+  #   to: "backend/backend.ps1"
+  # - from: "scripts/backend.sh"
+  #   to: "backend/backend.sh"
+  # - from: "captain"
+  #   to: "backend/captain"
+  # - from: "PYTHON"
+  #   to: "backend/PYTHON"
+  #   filter: "!**/nodes/**"
+  # - from: "manage.py"
+  #   to: "backend/manage.py"
+  # - from: "requirements.txt"
+  #   to: "backend/requirements.txt"
   - from: "STATUS_CODES.yml"
-    to: "backend/STATUS_CODES.yml"
+    to: "./dist-api/STATUS_CODES.yml"
+  - from: ./dist-api/flojoy-service.exe
+    to: ./dist-api/flojoy-service.exe
+  - from: ./dist-api/flojoy-service
+    to: ./dist-api/flojoy-service
 
 mac:
   icon: public/favicon.icns
   target:
     - dmg
   darkModeSupport: true
+
+# mac:
+#   identity: "FLOJOY ACCOUNT"
+#   hardenedRuntime: true
+#   entitlements: build/entitlements.mac.plist
+#   entitlementsInherit: build/entitlements.mac.plist
+#   gatekeeperAssess: false
+#   category: public.app-category.utilities
+#   artifactName: "${productName}-${version}.${ext}"
+
 linux:
   icon: public/favicon.icns
   target:

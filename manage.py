@@ -7,7 +7,7 @@ if __name__ == "__main__":
     log_level = os.environ.get("FASTAPI_LOG", "info")
     is_dev = os.environ.get("DEPLOY_STATUS", "prod") == "dev"
     uvicorn.run(
-        "captain.main:app",
+        "captain:app",
         port=5392,
         log_level=log_level,
         reload=is_dev,
