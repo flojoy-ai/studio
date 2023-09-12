@@ -49,7 +49,7 @@ ORDERING = [
     "EXTRACTORS",
     "TRANSFORMERS",
     "LOADERS",
-    "INSTRUMENTS",
+    "IO",
     "LOGIC_GATES",
     "NUMPY",
     "SCIPY",
