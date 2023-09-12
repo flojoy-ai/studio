@@ -15,6 +15,7 @@ import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import { writeFileSync } from "fs";
+import { Logger } from "./logger";
 
 // The built directory structure
 //
@@ -46,6 +47,9 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+export const mainLogger = new Logger();
+console.log = (...messages: string[]) => mainLogger.log(...messages);
 
 const getIcon = () => {
   switch (process.platform) {
@@ -205,16 +209,14 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", async () => {
+  mainLogger.log("window-all-closed fired!");
+  await cleanup();
   win = null;
   if (process.platform !== "darwin") app.quit();
 });
 
-app.on("will-quit", async () => {
-  if (global.runningProcesses.length) {
-    for (const script of global.runningProcesses) {
-      await killSubProcess(script);
-    }
-  }
+app.on("quit", () => {
+  cleanup();
 });
 app.on("second-instance", () => {
   if (win) {
@@ -247,3 +249,24 @@ ipcMain.handle("open-win", (_, arg) => {
     childWindow.loadFile(indexHtml, { hash: arg });
   }
 });
+
+const cleanup = async () => {
+  mainLogger.log(
+    "Cleaup function invoked, running processes: ",
+    global.runningProcesses.length,
+  );
+  if (global.runningProcesses.length) {
+    for (const script of global.runningProcesses) {
+      try {
+        mainLogger.log("Killing script: ", script.pid);
+        await killSubProcess(script);
+        mainLogger.log("kill success!");
+      } catch (error) {
+        mainLogger.log(
+          "error while killing sub process: ",
+          JSON.stringify(error),
+        );
+      }
+    }
+  }
+};
