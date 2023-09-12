@@ -1,101 +1,56 @@
 import { z } from "zod";
 
+const nodeIoSchema = z.object({
+  name: z.string(),
+  id: z.string(),
+  type: z.string(),
+  desc: z.nullable(z.string()),
+});
+
+const nodeInputSchema = nodeIoSchema.extend({
+  multiple: z.boolean(),
+});
+const nodeOutputSchema = nodeIoSchema;
+
+const nodeParameterSchema = z.object({
+  type: z.string(),
+  default: z.optional(z.union([z.string(), z.number(), z.boolean(), z.null()])),
+  options: z.optional(z.array(z.string())),
+  desc: z.nullable(z.string()),
+  overload: z.nullable(z.record(z.string(), z.array(z.string()))).optional(),
+});
+
+const pipDependencySchema = z.object({
+  name: z.string(),
+  v: z.optional(z.string()),
+});
+
 const leafSchema = z.object({
   name: z.string(),
   key: z.string(),
   type: z.string(),
-  inputs: z.optional(
-    z.array(
-      z.object({
-        name: z.string(),
-        id: z.string(),
-        type: z.string(),
-        multiple: z.boolean(),
-        desc: z.nullable(z.string()),
-      }),
-    ),
-  ),
-  outputs: z.optional(
-    z.array(
-      z.object({
-        name: z.string(),
-        id: z.string(),
-        type: z.string(),
-        desc: z.nullable(z.string()),
-      }),
-    ),
-  ),
-  parameters: z.optional(
-    z.record(
-      z.string(),
-      z.object({
-        type: z.string(),
-        default: z.optional(
-          z.union([z.string(), z.number(), z.boolean(), z.null()]),
-        ),
-        options: z.optional(z.array(z.string())),
-        desc: z.nullable(z.string()),
-        overload: z
-          .nullable(z.record(z.string(), z.array(z.string())))
-          .optional(),
-      }),
-    ),
-  ),
-  init_parameters: z.optional(
-    z.record(
-      z.string(),
-      z.object({
-        type: z.string(),
-        default: z.optional(
-          z.union([z.string(), z.number(), z.boolean(), z.null()]),
-        ),
-        options: z.optional(z.array(z.string())),
-        desc: z.nullable(z.string()),
-        overload: z
-          .nullable(z.record(z.string(), z.array(z.string())))
-          .optional(),
-      }),
-    ),
-  ),
-  pip_dependencies: z.optional(
-    z.array(z.object({ name: z.string(), v: z.optional(z.string()) })),
-  ),
+  inputs: z.optional(z.array(nodeInputSchema)),
+  outputs: z.optional(z.array(nodeOutputSchema)),
+  parameters: z.optional(z.record(z.string(), nodeParameterSchema)),
+  init_parameters: z.optional(z.record(z.string(), nodeParameterSchema)),
+  pip_dependencies: z.optional(z.array(pipDependencySchema)),
   ui_component_id: z.optional(z.string()),
   children: z.null(),
 });
 
 export type Leaf = z.infer<typeof leafSchema>;
 
-export function createParentSchema<ChildType extends z.ZodTypeAny>(
-  childSchema: ChildType,
-) {
-  return z.object({
-    name: z.string(),
-    key: z.optional(z.string()),
-    type: z.optional(z.string()),
-    children: z.array(childSchema),
-  });
-}
-const parentSchema = createParentSchema<typeof leafSchema>(leafSchema);
-
+const parentSchema = z.object({
+  name: z.string(),
+  key: z.optional(z.string()),
+  children: z.array(z.union([leafSchema, z.lazy(() => parentSchema)])),
+});
 export type ParentNode = z.infer<typeof parentSchema>;
 
-export function createRootSchema<ElementType extends Zod.ZodTypeAny>(
-  element: ElementType,
-) {
-  return z.object({
-    name: z.literal("ROOT"),
-    children: z.array(
-      z.object({
-        name: z.string(),
-        key: z.optional(z.string()),
-        type: z.optional(z.string()),
-        children: z.array(createParentSchema(element)),
-      }),
-    ),
-  });
-}
-const rootSchema = createRootSchema(leafSchema);
+const rootSchema = z.object({
+  name: z.literal("ROOT"),
+  children: z.array(parentSchema),
+});
 
 export type RootNode = z.infer<typeof rootSchema>;
 export type RootChild = z.infer<typeof rootSchema>["children"][0];
@@ -130,10 +85,7 @@ export function isRoot(obj: TreeNode): obj is RootNode {
 
 export function isRootChild(obj: TreeNode): obj is RootChild {
   return Boolean(
-    obj?.name &&
-      (obj as RootChild)?.key &&
-      (obj as RootChild)?.type &&
-      Array.isArray(obj.children),
+    obj?.name && (obj as RootChild)?.key && Array.isArray(obj.children),
   );
 }
 
