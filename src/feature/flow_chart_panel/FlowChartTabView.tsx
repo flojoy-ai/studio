@@ -231,11 +231,9 @@ const FlowChartTab = () => {
         console.error(validateResult.error);
       }
       setNodeSection(res.data);
-      console.log(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.log(err);
       toast.error(
         `Failed to generate nodes manifest! reason: ${err.response?.data?.error}`,
         {
