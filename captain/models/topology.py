@@ -11,7 +11,6 @@ from flojoy import (
     get_node_init_function,
 )
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
-from captain.utils.import_nodes import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
@@ -96,51 +95,6 @@ class Topology:
             ):
                 next_jobs.append(job_id)
         return next_jobs
-
-    # TODO move this to utils, makes more sense there
-    def pre_import_functions(self):
-        functions = {}
-        errors = {}
-        for node_id in cast(list[str], self.original_graph.nodes):
-            # get the node function
-            node = cast(dict[str, Any], self.original_graph.nodes[node_id])
-            cmd: str = node["cmd"]
-            cmd_mock: str = node["cmd"] + "_MOCK"
-            module = get_module_func(cmd)
-            func_name = cmd_mock if self.is_ci else cmd
-            try:
-                func = getattr(module, func_name)
-            except AttributeError:
-                func = getattr(module, cmd)
-
-            preflight = next(
-                (
-                    f
-                    for f in module.__dict__.values()
-                    if callable(f) and getattr(f, "is_flojoy_preflight", False)
-                ),
-                None,
-            )
-
-            if preflight is not None:
-                try:
-                    preflight()
-                except Exception as e:
-                    errors[node_id] = str(e)
-
-            # check if the func has an init function, and initialize it if it does to the specified node id
-            try:
-                init_func = get_node_init_function(func)
-                init_func.run(
-                    node_id, node["init_ctrls"]
-                )  # node id is used to specify storage: each node of the same type will have its own storage
-            except NoInitFunctionError:
-                pass
-            except Exception as e:
-                errors[node_id] = str(e)
-
-            functions[node_id] = func
-        return functions, errors
 
     async def run_job(self, job_id: str):
         async with lock:

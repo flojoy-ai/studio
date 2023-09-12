@@ -1,14 +1,7 @@
 import * as childProcess from "child_process";
 import treeKill from "tree-kill";
 import type { BrowserWindow } from "electron";
-import { logToFile } from "./backend";
-
-// Get the current date and time
-// Overwrite the regular console logging to have it happen in a persistent disk location
-console.log = (message) =>
-  logToFile(`[LOG] - [background.ts] - ${JSON.stringify(message)}`);
-console.error = (error) =>
-  logToFile(`[ERROR] - [background.ts] - ${JSON.stringify(error)}`);
+import { Logger } from "./logger";
 
 type RunCmdProps = {
   command: string;
@@ -29,12 +22,13 @@ export const runCmd = ({
   script: childProcess.ChildProcess;
 }> => {
   return new Promise((resolve, reject) => {
+    const logger = new Logger(serviceName);
     const script = childProcess.exec(command);
 
     let lastOutput: string;
     script.stdout?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
-      console.log("dataStr " + dataStr);
+      logger.log(dataStr);
 
       lastOutput = dataStr;
       if (broadcast) {
@@ -47,7 +41,7 @@ export const runCmd = ({
     script.stderr?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
 
-      console.log("dataStr " + dataStr);
+      logger.log(dataStr);
 
       lastOutput = dataStr;
       if (broadcast) {

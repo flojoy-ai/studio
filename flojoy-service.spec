@@ -8,7 +8,7 @@ a = Analysis(
     ['manage.py'],
     pathex=[],
     binaries=[],
-    datas=[('STATUS_CODES.yml/', 'STATUS_CODES.yml')],
+    datas=[],
     hiddenimports=['uvicorn', 'captain'],
     hookspath=[],
     hooksconfig={},

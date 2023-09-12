@@ -15,6 +15,7 @@ import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import { writeFileSync } from "fs";
+import { Logger } from "./logger";
 
 // The built directory structure
 //
@@ -46,6 +47,9 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
   process.exit(0);
 }
+
+export const mainLogger = new Logger("main");
+console.log = (...messages: string[]) => mainLogger.log(...messages);
 
 const getIcon = () => {
   switch (process.platform) {
@@ -189,7 +193,7 @@ async function createWindow() {
   });
 
   // expose writeFileSync Api of fs module
-  contextBridge.exposeInMainWorld("electronAPI", {
+  contextBridge?.exposeInMainWorld("electronAPI", {
     writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
       writeFileSync(path, content);
     },
