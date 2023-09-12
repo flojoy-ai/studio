@@ -4,6 +4,7 @@ import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
 import { useAtomValue } from "jotai";
 import { useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useAddTextNode = () => {
   const { setTextNodes } = useFlowChartGraph();
@@ -21,5 +22,6 @@ export const useAddTextNode = () => {
         },
       }),
     );
+    sendEventToMix("Text Node Added", "");
   }, [setTextNodes, center]);
 };

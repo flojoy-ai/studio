@@ -6,6 +6,7 @@ import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
@@ -40,6 +41,7 @@ export const useFlowChartGraph = () => {
       if (textNodes) {
         setTextNodes(textNodes);
       }
+      sendEventToMix("Flow Export Object Loaded", "");
       return true;
     },
     [setNodes, setEdges, setTextNodes],
@@ -66,6 +68,7 @@ export const useFlowChartGraph = () => {
         }
       }
     });
+    sendEventToMix("Control Input Data Updated", `${nodeId}: ${inputData}`);
   };
 
   const updateInitCtrlInputDataForNode = (
@@ -80,6 +83,7 @@ export const useFlowChartGraph = () => {
         }
       }
     });
+    sendEventToMix("Initial Control Input Data Updated", `${nodeId}: ${inputData}`);
   };
 
   const handleTitleChange = (value: string, id: string) => {
@@ -102,6 +106,7 @@ export const useFlowChartGraph = () => {
       }
       return n;
     });
+    sendEventToMix("Title Changed", `${id}: ${value}`);
     setNodes(updatedNodes);
   };
 
@@ -113,6 +118,7 @@ export const useFlowChartGraph = () => {
         delete node.data.ctrls[paramId];
       }
     });
+    sendEventToMix("Control Input Data Removed", `${nodeId}: ${paramId}`);
   };
 
   return {
@@ -131,3 +137,4 @@ export const useFlowChartGraph = () => {
     handleTitleChange,
   };
 };
+
