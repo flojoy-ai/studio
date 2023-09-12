@@ -144,6 +144,7 @@ const FlowChartTab = () => {
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
+      sendEventToMix("Edges Changed", "")
       setEdges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
@@ -184,6 +185,7 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
+    sendEventToMix("Canvas cleared", "");
   }, [setNodes, setEdges, setHasUnsavedChanges]);
 
   useEffect(() => {

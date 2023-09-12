@@ -1,4 +1,5 @@
 import { MenubarItem } from "@src/components/ui/menubar";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 import saveAs from "file-saver";
 import * as htmlToImage from "html-to-image";
 
@@ -13,6 +14,8 @@ const SaveFlowChartBtn = () => {
     const res = await fetch(dataUrl);
     const blob = await res.blob();
 
+
+    sendEventToMix("Result downloaded", "")
     saveAs(blob, "output.jpeg");
   };
 

@@ -129,6 +129,11 @@ export class WebSocketServer {
   }
   disconnect() {
     console.log("Disconnecting WebSocket server");
+    sendEventToMix(
+      "Initial Status",
+      "Connection Disconnected",
+      "Server Status",
+    );
     this.server.close();
   }
   emit(data: string) {
