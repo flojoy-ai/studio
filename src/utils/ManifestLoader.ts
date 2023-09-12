@@ -1,5 +1,4 @@
-import { fromZodError } from "zod-validation-error";
-import { z, ZodError } from "zod";
+import { z } from "zod";
 
 const leafSchema = z.object({
   name: z.string(),
@@ -102,15 +101,7 @@ export type RootNode = z.infer<typeof rootSchema>;
 export type RootChild = z.infer<typeof rootSchema>["children"][0];
 
 export const validateRootSchema = (schema: RootNode) => {
-  try {
-    rootSchema.parse(schema);
-  } catch (e) {
-    if (e instanceof ZodError) {
-      throw fromZodError(e);
-    } else {
-      throw e;
-    }
-  }
+  return rootSchema.safeParse(schema);
 };
 
 export function isLeaf(obj: TreeNode): obj is Leaf {

@@ -9,6 +9,7 @@ import {
   ParentNode,
   isLeafParentNode,
   isRoot,
+  validateRootSchema,
 } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
@@ -218,13 +219,23 @@ const FlowChartTab = () => {
   const fetchManifest = useCallback(async () => {
     try {
       const res = await baseClient.get("nodes/manifest");
+      // TODO: fix zod schema to accept io directory structure
+      const validateResult = validateRootSchema(res.data);
+      if (!validateResult.success) {
+        toast.error(
+          `Failed to validate nodes manifest! Check browser console for more info.`,
+          {
+            duration: 20000,
+          },
+        );
+        console.error(validateResult.error);
+      }
       setNodeSection(res.data);
       console.log(res.data);
-      // TODO: fix zod schema to accept io directory structure
-      // validateRootSchema(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
+      console.log(err);
       toast.error(
         `Failed to generate nodes manifest! reason: ${err.response?.data?.error}`,
         {
