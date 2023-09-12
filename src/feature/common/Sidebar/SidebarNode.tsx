@@ -33,7 +33,7 @@ export const categoryMap = {
   VISUALIZERS: "DATA",
   LOADERS: "ETL",
   TRANSFORMERS: "ETL",
-  INSTRUMENTS: "IO",
+  IO: "IO",
   LOGIC_GATES: "LOGIC",
   NUMPY: "AUTOGEN",
   SCIPY: "AUTOGEN",

@@ -80,9 +80,7 @@ const SidebarSection = ({
       </CollapsibleTrigger>
       <CollapsibleContent className="CollapsibleContent">
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + (depth + 1) * 5}px` }}>
-          {children}
-        </div>
+        <div style={{ paddingLeft: `${(depth + 1) * 5}px` }}>{children}</div>
       </CollapsibleContent>
     </Collapsible>
   );
