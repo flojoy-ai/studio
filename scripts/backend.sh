@@ -45,6 +45,25 @@ if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"*  ]]; then
 
 fi
 
+port=5392
+
+if [[ $(netstat -tuln | grep ":$port ") ]]; then
+    echo "Port: $port is in use, trying to terminate the process.."
+    process=$(lsof -ti :$port)
+    process_name=$(ps -p $process -o comm=)
+    
+    if [ "$process_name" != "Idle" ]; then
+        # Kill the process
+        kill -9 $process
+        echo "Process using port $port ($process_name) has been terminated."
+    else
+        echo "Port $port is being used by a system process (Idle) and cannot be terminated."
+    fi
+else
+    echo "Port $port is not in use."
+fi
+
+
 echo "flojoy dir: $flojoy_dir"
 
 if [ ! -d "$flojoy_dir" ]; then
