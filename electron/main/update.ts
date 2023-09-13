@@ -2,7 +2,7 @@ import { MessageBoxOptions, app, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
 import { Logger } from "./logger";
 
-const CHECK_FOR_UPDATE_INTERVAL = 60000; // 1 mins default
+const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
 export function update() {
   const logger = new Logger("Electron-updater");
   global.updateInterval = null;
