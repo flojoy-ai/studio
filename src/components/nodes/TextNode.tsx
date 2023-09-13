@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { textNodesAtom } from "@src/hooks/useFlowChartGraph";
 import { useSetAtom } from "jotai";
-import { useNodeId } from "reactflow";
+import { useNodeId, NodeResizer } from "reactflow";
 import { Textarea } from "../ui/textarea";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
@@ -34,6 +34,7 @@ type TextNodeProps = {
 
 const TextNode = ({ selected, data }: TextNodeProps) => {
   const [editing, setEditing] = useState(false);
+  const [dimensions, setDimensions] = useState({ width: 200, height: 150 });
   const setTextNodes = useSetAtom(textNodesAtom);
   const nodeId = useNodeId();
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -74,33 +75,55 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
     }
   }, [editing]);
 
-  return editing ? (
-    <Textarea
-      className="nodrag w-72 overflow-hidden"
-      ref={ref}
-      placeholder="Enter text here"
-      value={data.text}
-      onChange={handleChange}
-      onKeyDown={(e) => e.stopPropagation()}
-    />
-  ) : (
-    <div className="prose relative w-72 rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0">
-      <div
-        className={cn("absolute -top-8 flex h-0 w-full justify-between", {
-          hidden: !selected,
-        })}
-      >
-        <div onClick={() => setEditing(true)}>
-          <Edit className="stroke-muted-foreground" size={20} />
+  return (
+    <>
+      <NodeResizer
+        minWidth={100}
+        minHeight={100}
+        isVisible={editing}
+        onResize={(_, params) =>
+          setDimensions({ width: params.width, height: params.height })
+        }
+      />
+      {editing ? (
+        <Textarea
+          className="nodrag resize-none overflow-hidden"
+          style={{
+            width: dimensions.width,
+            height: dimensions.height,
+          }}
+          ref={ref}
+          placeholder="Enter text here"
+          value={data.text}
+          onChange={handleChange}
+          onKeyDown={(e) => e.stopPropagation()}
+        />
+      ) : (
+        <div
+          className="prose relative rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
+          style={{
+            width: dimensions.width,
+            height: dimensions.height,
+          }}
+        >
+          <div
+            className={cn("absolute -top-8 flex h-0 w-full justify-between", {
+              hidden: !selected,
+            })}
+          >
+            <div onClick={() => setEditing(true)}>
+              <Edit className="stroke-muted-foreground" size={20} />
+            </div>
+            <div className="mr-3" onClick={handleDelete}>
+              <Trash className="stroke-muted-foreground" size={20} />
+            </div>
+          </div>
+          <ReactMarkdown components={{ a: LinkRenderer }}>
+            {data.text || "Empty Text Node"}
+          </ReactMarkdown>
         </div>
-        <div className="mr-3" onClick={handleDelete}>
-          <Trash className="stroke-muted-foreground" size={20} />
-        </div>
-      </div>
-      <ReactMarkdown components={{ a: LinkRenderer }}>
-        {data.text || "Empty Text Node"}
-      </ReactMarkdown>
-    </div>
+      )}
+    </>
   );
 };
 
