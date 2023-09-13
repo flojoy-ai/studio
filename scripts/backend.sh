@@ -45,23 +45,24 @@ if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"*  ]]; then
 
 fi
 
-port=5392
+PORT=5392
 
-if [[ $(netstat -tuln | grep ":$port ") ]]; then
-    echo "Port: $port is in use, trying to terminate the process.."
-    process=$(lsof -ti :$port)
-    process_name=$(ps -p $process -o comm=)
-    
-    if [ "$process_name" != "Idle" ]; then
-        # Kill the process
-        kill -9 $process
-        echo "Process using port $port ($process_name) has been terminated."
+if lsof -i :$PORT >/dev/null 2>&1; then
+    echo "Port: $PORT is in use. trying to terminate the process..."
+
+    # Find the process using the port and terminate it
+    PID=$(lsof -t -i :$PORT)
+    if [ -n "$PID" ]; then
+        echo "Terminating process with PID $PID..."
+        kill -9 "$PID"
+        echo "Process terminated."
     else
-        echo "Port $port is being used by a system process (Idle) and cannot be terminated."
+        echo "Failed to find the PID of the process using port $PORT."
     fi
 else
-    echo "Port $port is not in use."
+    echo "Nothing is running on port $PORT."
 fi
+
 
 
 echo "flojoy dir: $flojoy_dir"
@@ -92,4 +93,3 @@ python3 -m pip install -r requirements.txt
 echo "Package installation completed, starting backend..."
 export ELECTRON_MODE=packaged
 python3 manage.py
-

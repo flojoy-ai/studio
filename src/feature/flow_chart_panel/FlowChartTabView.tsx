@@ -67,6 +67,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ZodError } from "zod";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
@@ -224,13 +225,16 @@ const FlowChartTab = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      toast.error(
-        `Failed to generate nodes manifest! reason: ${err.response?.data?.error}`,
-        {
-          duration: 20000,
-          style: { minWidth: 700 },
-        },
-      );
+      const errText =
+        err instanceof ZodError
+          ? `Zod validation error: ${err.message}`
+          : `Failed to generate nodes manifest! reason: ${
+              err.response?.data?.error ?? err
+            }`;
+      toast.error(errText, {
+        duration: 20000,
+        style: { minWidth: 700 },
+      });
     }
   }, []);
   const fetchMetadata = useCallback(async () => {
