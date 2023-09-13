@@ -2,8 +2,8 @@ import { MessageBoxOptions, app, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
 import { Logger } from "./logger";
 
-const CHECK_FOR_UPDATE_INTERVAL = 60000; // 1 mins default
-export function update(cleanupFunc: ()=> Promise<void>) {
+const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
+export function update(cleanupFunc: () => Promise<void>) {
   const logger = new Logger("Electron-updater");
   global.updateInterval = null;
   // When set to false, the update download will be triggered through the API
@@ -71,7 +71,7 @@ export function update(cleanupFunc: ()=> Promise<void>) {
 
     dialog.showMessageBox(dialogOpts).then(async (returnValue) => {
       if (returnValue.response === 0) {
-        await cleanupFunc()
+        await cleanupFunc();
         autoUpdater.quitAndInstall();
       }
     });
