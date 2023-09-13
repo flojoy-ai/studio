@@ -42,27 +42,6 @@ if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
   exit 1
 }
 
-$port = 5392
-
-$connection = Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue
-
-if ($null -ne $connection  ) {
-  Write-Host "Port: $port is in use, trying to terminate the process.."
-  $processId = $connection.OwningProcess
-  $processName = (Get-Process -Id $processId).Name
-  if ($processName -ne "Idle") {
-    Stop-Process -Id $processId -Force
-    Write-Host "Process using port $port ($processName) has been terminated."
-  }
-  else {
-    Write-Host "Port $port is being used by a system process (Idle) and cannot be terminated."
-  }
-}
-else {
-  Write-Host "Port $port is not in use."
-}
-
-
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
   Write-Output "Flojoy directory doesn't exist, Creating $flojoyDir ..."

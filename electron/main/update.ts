@@ -3,7 +3,7 @@ import { autoUpdater } from "electron-updater";
 import { Logger } from "./logger";
 
 const CHECK_FOR_UPDATE_INTERVAL = 60000; // 1 mins default
-export function update() {
+export function update(cleanupFunc: ()=> Promise<void>) {
   const logger = new Logger("Electron-updater");
   global.updateInterval = null;
   // When set to false, the update download will be triggered through the API
@@ -69,8 +69,9 @@ export function update() {
         "A new version has been downloaded. Restart the application to apply the updates.",
     };
 
-    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+    dialog.showMessageBox(dialogOpts).then(async (returnValue) => {
       if (returnValue.response === 0) {
+        await cleanupFunc()
         autoUpdater.quitAndInstall();
       }
     });

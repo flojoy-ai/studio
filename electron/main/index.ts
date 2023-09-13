@@ -5,6 +5,7 @@ import {
   ipcMain,
   nativeImage,
   dialog,
+  contextBridge,
 } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
@@ -202,7 +203,7 @@ async function createWindow() {
     },
   });
   // Apply electron-updater
-  update();
+  update(cleanup);
 }
 
 app.whenReady().then(() => {
