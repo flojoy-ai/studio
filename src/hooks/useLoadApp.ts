@@ -8,6 +8,7 @@ import {
   showWelcomeScreenAtom,
 } from "@src/hooks/useFlowChartState";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useLoadApp = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
@@ -27,6 +28,7 @@ export const useLoadApp = () => {
       console.error("Errors when trying to load file: ", errors);
     },
     onFilesSuccessfulySelected: ({ plainFiles, filesContent }) => {
+      sendEventToMix("Selected Files", "");
       const path = plainFiles[0].path;
       // Just pick the first file that was selected
       const parsedFileContent = JSON.parse(filesContent[0].content);

@@ -4,6 +4,7 @@ import { useFlowChartGraph } from "./useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "./useFlowChartState";
 import { useHasUnsavedChanges } from "./useHasUnsavedChanges";
 import { makeAppFileContent, saveFileAs } from "@src/lib/save";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useSave = () => {
   const { nodes, edges } = useFlowChartGraph();
@@ -13,6 +14,7 @@ export const useSave = () => {
 
   const handleSave = async () => {
     if (projectPath && "api" in window) {
+      sendEventToMix("Saving Project", ``);
       const fileContent = makeAppFileContent(project, nodes, edges);
       window.api.saveFile(projectPath, fileContent);
 

@@ -17,7 +17,7 @@ export const nodeTypesMap = {
   TRANSFORMERS: DefaultNode,
   LOADERS: DefaultNode,
   ARITHMETIC: ArithmeticNode,
-  INSTRUMENTS: IONode,
+  IO: IONode,
   LOGIC_GATES: LogicNode,
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,

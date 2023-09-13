@@ -1,8 +1,7 @@
 import mixpanel from "mixpanel-browser";
 import { Node } from "reactflow";
 const PROJECT_TOKEN = "e89f03371825eaccda13079d584bff8e";
-const enable = false;
-//const enable = +(process.env.FLOJOY_ENABLE_TELEMETRY ?? "1");
+const enable = +(process.env.FLOJOY_ENABLE_TELEMETRY ?? "1");
 
 export const sendFrontEndLoadsToMix = () => {
   if (enable) {
