@@ -97,9 +97,11 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
           <Trash className="stroke-muted-foreground" size={20} />
         </div>
       </div>
-      <ReactMarkdown components={{ a: LinkRenderer }}>
-        {data.text || "Empty Text Node"}
-      </ReactMarkdown>
+      <div onDoubleClick={() => setEditing(true)}>
+        <ReactMarkdown components={{ a: LinkRenderer }}>
+          {data.text || "Empty Text Node"}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 };
