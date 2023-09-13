@@ -87,10 +87,10 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
       />
       {editing ? (
         <Textarea
-          className="nodrag resize-none overflow-hidden"
+          className="nodrag overflow-hidden"
           style={{
-            width: dimensions.width,
             height: dimensions.height,
+            width: dimensions.width,
           }}
           ref={ref}
           placeholder="Enter text here"
@@ -100,11 +100,13 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
         />
       ) : (
         <div
-          className="prose relative rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
           style={{
-            width: dimensions.width,
+            minHeight: 100,
+            minWidth: 100,
             height: dimensions.height,
+            width: dimensions.width,
           }}
+          className="prose relative max-w-full rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
         >
           <div
             className={cn("absolute -top-8 flex h-0 w-full justify-between", {
@@ -118,7 +120,10 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
               <Trash className="stroke-muted-foreground" size={20} />
             </div>
           </div>
-          <ReactMarkdown components={{ a: LinkRenderer }}>
+          <ReactMarkdown
+            className="break-words"
+            components={{ a: LinkRenderer }}
+          >
             {data.text || "Empty Text Node"}
           </ReactMarkdown>
         </div>
