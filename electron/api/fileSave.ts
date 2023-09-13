@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 
 export function saveFile(path: string, data: string) {
-  window.electronAPI.writeFileSync(path, data);
+  ipcRenderer.send("write-file-sync", path, data);
 }
 
 export async function saveFileAs(

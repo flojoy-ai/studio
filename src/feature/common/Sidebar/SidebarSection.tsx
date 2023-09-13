@@ -62,7 +62,7 @@ const SidebarSection = ({
     <Collapsible open={opened} onOpenChange={setOpened}>
       <CollapsibleTrigger
         className={twMerge(
-          "mb-2 flex max-h-10 w-11/12 items-center rounded-sm border px-2 py-2.5",
+          "mb-2 flex max-h-10 w-full items-center rounded-sm border px-2 py-2.5",
           sidebarVariants({ variant }),
           bgOverrideVariants({ variant }),
         )}
@@ -80,9 +80,7 @@ const SidebarSection = ({
       </CollapsibleTrigger>
       <CollapsibleContent className="CollapsibleContent">
         {/* padding according to the depth of the section */}
-        <div style={{ paddingLeft: `${10 + (depth + 1) * 5}px` }}>
-          {children}
-        </div>
+        <div style={{ paddingLeft: `${(depth + 1) * 5}px` }}>{children}</div>
       </CollapsibleContent>
     </Collapsible>
   );

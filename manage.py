@@ -1,4 +1,8 @@
+import uvicorn
+import os
+
 __ignore_list = ["venv"]
+
 
 if __name__ == "__main__":
     import uvicorn

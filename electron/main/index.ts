@@ -5,7 +5,6 @@ import {
   ipcMain,
   nativeImage,
   dialog,
-  contextBridge,
 } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
@@ -14,8 +13,8 @@ import { update } from "./update";
 import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
-import { writeFileSync } from "fs";
 import { Logger } from "./logger";
+import fs from "fs";
 
 // The built directory structure
 //
@@ -64,6 +63,10 @@ const getIcon = () => {
 
 const handleSetUnsavedChanges = (_, value: boolean) => {
   global.hasUnsavedChanges = value;
+};
+
+const handleWriteFileSync = (_, path: string, data: string) => {
+  fs.writeFileSync(path, data);
 };
 
 const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
@@ -192,18 +195,13 @@ async function createWindow() {
     }
   });
 
-  // expose writeFileSync Api of fs module
-  contextBridge?.exposeInMainWorld("electronAPI", {
-    writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
-      writeFileSync(path, content);
-    },
-  });
   // Apply electron-updater
   update(win);
 }
 
 app.whenReady().then(() => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
+  ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
   createWindow();
 });
