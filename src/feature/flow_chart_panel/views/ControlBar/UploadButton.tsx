@@ -9,7 +9,7 @@ const UploadButton = () => {
   const handleClick = () => {
     async function fetchPorts() {
       try {
-        const response = await fetch(`${API_URI}/serial-ports`,
+        const response = await fetch(`${API_URI}/serial_ports`,
           {
             method: "GET",
             headers: {
@@ -17,18 +17,18 @@ const UploadButton = () => {
             },
           }
         );
-        return await response.json();
+        
+        const resp = await response.json();
+        return resp.ports;
       } catch (err) {
         console.error(err);
       }
     }
 
-    let availablePorts = [];
-    fetchPorts().then((ports) => {
-      availablePorts = ports;
+    fetchPorts().then((data) => {
+      console.log("Available ports:", data);
+      setPorts(data);
     });
-    console.log("Available ports:", availablePorts);
-    setPorts(availablePorts);
   };
 
   return (
