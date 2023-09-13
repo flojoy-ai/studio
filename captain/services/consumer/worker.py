@@ -9,6 +9,7 @@ from captain.types.worker import JobInfo, PoisonPill
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
 from captain.utils.status_codes import STATUS_CODES
+
 """
 IMPORTANT NOTE: This class mimics the RQ Worker package. 
 """
@@ -17,10 +18,10 @@ IMPORTANT NOTE: This class mimics the RQ Worker package.
 class Worker:
     def __init__(
         self,
-        task_queue: Queue[Any], # queue for tasks to be processed
-        finish_queue: Queue[Any], # queue for finished tasks
-        imported_functions: dict[str, Any], # map of job id to corresponding function 
-        signaler: Signaler, # signaler object to signal to the front-end
+        task_queue: Queue[Any],  # queue for tasks to be processed
+        finish_queue: Queue[Any],  # queue for finished tasks
+        imported_functions: dict[str, Any],  # map of job id to corresponding function
+        signaler: Signaler,  # signaler object to signal to the front-end
         node_delay: float = 0,
     ):
         self.task_queue = task_queue
@@ -52,9 +53,11 @@ class Worker:
                 raise ValueError(
                     f"Function {job.job_id} not found in imported functions"
                 )
-            
-            # signal the running node to the front-end: 
-            asyncio.create_task(self.signaler.signal_current_running_node(job.jobset_id, job.job_id, func.__name__))
+
+            # signal the running node to the front-end:
+            await self.signaler.signal_current_running_node(
+                job.jobset_id, job.job_id, func.__name__
+            )
 
             kwargs: dict[str, Any] = {
                 "ctrls": job.ctrls,
@@ -74,15 +77,19 @@ class Worker:
                     logger.debug(f"Job finished: {job.job_id}, status: ok")
 
                     # send results to frontend
-                    asyncio.create_task(self.signaler.signal_node_results(job.jobset_id, job.job_id, func.__name__, response.result))
+                    await self.signaler.signal_node_results(
+                        job.jobset_id, job.job_id, func.__name__, response.result
+                    )
 
                 case JobFailure():
                     logger.debug(f"Job finished: {job.job_id}, status: failed")
 
-                    #signal to frontend that the node has failed
-                    asyncio.create_task(self.signaler.signal_failed_nodes(job.jobset_id, job.job_id, func.__name__))
+                    # signal to frontend that the node has failed
+                    await self.signaler.signal_failed_nodes(
+                        job.jobset_id, job.job_id, func.__name__
+                    )
 
-            # put the job result in the queue for producer to process 
+            # put the job result in the queue for producer to process
             self.finish_queue.put(response)
             self.task_queue.task_done()
 

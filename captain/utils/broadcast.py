@@ -4,14 +4,18 @@ from captain.utils.status_codes import STATUS_CODES
 from captain.types.worker import WorkerJobResponse
 from captain.utils.logger import logger
 
+
 class Signaler:
     """
     Class used to signal the status of the topology to the front-end client
     """
+
     def __init__(self, ws: ConnectionManager):
         self.ws = ws
-    
-    async def signal_node_results(self, jobset_id: str, node_id: str, func_name: str ,result: dict[str, Any]):
+
+    async def signal_node_results(
+        self, jobset_id: str, node_id: str, func_name: str, result: dict[str, Any]
+    ):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             result=result,
@@ -19,9 +23,10 @@ class Signaler:
             node_id=node_id,
         )
         await self.ws.broadcast(msg)
-    
-    async def signal_current_running_node(self, jobset_id: str, node_id: str, func_name: str):
-        logger.debug(f"Sending signal_current_running_node for {jobset_id} {node_id} {func_name}")
+
+    async def signal_current_running_node(
+        self, jobset_id: str, node_id: str, func_name: str
+    ):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["RUNNING_PYTHON_JOB"] + func_name,
@@ -43,7 +48,6 @@ class Signaler:
         )
         await self.ws.broadcast(msg)
 
-        
     async def signal_standby(self, jobset_id: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
@@ -61,10 +65,3 @@ class Signaler:
             running_node="",
         )
         await self.ws.broadcast(msg)
-
-
-
-
-
-
-

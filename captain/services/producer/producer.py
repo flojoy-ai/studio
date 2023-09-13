@@ -51,7 +51,7 @@ class Producer:
             # if no new tasks, then continue
             if new_tasks is None:
                 logger.debug(f"Producer {self.uuid} got no new tasks")
-                asyncio.create_task(self.signaler.signal_standby(finished_job_fetch.jobset_id))
+                await self.signaler.signal_standby(finished_job_fetch.jobset_id)
                 continue
             
             logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}")

@@ -26,6 +26,7 @@ class Manager(object):
             self.task_queue.put(PoisonPill())  # poison pill
             self.finish_queue.put(PoisonPill())  # poison pill
 
+
 class ConnectionManager:
     def __init__(self):
         self.active_connections_map: dict[str, WebSocket] = {}
@@ -47,6 +48,7 @@ class ConnectionManager:
     async def broadcast(self, message: Union[dict[str, Any], WorkerJobResponse]):
         if not isinstance(message, WorkerJobResponse):
             return
+
         socket_id = message.jobsetId
         for _, connection in self.active_connections_map.items():
             try:
