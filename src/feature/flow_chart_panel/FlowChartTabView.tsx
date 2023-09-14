@@ -341,7 +341,10 @@ const FlowChartTab = () => {
 
         {nodeSection && (
           <Sidebar
-            sections={nodeSection}
+            sections={{
+              name: nodeSection.name,
+              children: nodeSection.children.filter((c) => c.key === "IO"),
+            }}
             leafNodeClickHandler={addNewNode as LeafClickHandler}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}

@@ -53,6 +53,7 @@ const SidebarSection = ({
   }, [collapse]);
 
   if (Children.toArray(children).every((child) => child === null)) {
+    console.log("returning null at", title);
     return null;
   }
 
