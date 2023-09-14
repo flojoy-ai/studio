@@ -42,8 +42,6 @@ if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
   exit 1
 }
 
-
-
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
   Write-Output "Flojoy directory doesn't exist, Creating $flojoyDir ..."
