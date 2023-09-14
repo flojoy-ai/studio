@@ -160,6 +160,7 @@ const FlowChartTab = () => {
   );
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
+      sendEventToMix("Edges Changed", "");
       setEdges((es) => applyEdgeChanges(changes, es));
       if (!changes.every((c) => c.type === "select")) {
         setHasUnsavedChanges(true);
@@ -205,6 +206,8 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
+
+    sendEventToMix("Canvas cleared", "");
   }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 
   const fetchManifest = useCallback(async () => {
@@ -261,6 +264,8 @@ const FlowChartTab = () => {
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
   }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
+
+  const deleteKeyCodes = ["Delete", "Backspace"];
 
   const proOptions = { hideAttribution: true };
 
@@ -374,6 +379,7 @@ const FlowChartTab = () => {
           <ReactFlow
             id="flow-chart"
             className="!fixed"
+            deleteKeyCode={deleteKeyCodes}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}
             nodeTypes={nodeTypes}
