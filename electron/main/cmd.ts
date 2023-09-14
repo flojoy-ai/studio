@@ -29,7 +29,6 @@ export const runCmd = ({
     script.stdout?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
       logger.log(dataStr);
-
       lastOutput = dataStr;
       if (broadcast) {
         broadcast.cb(broadcast.win, dataStr);
@@ -40,9 +39,7 @@ export const runCmd = ({
     });
     script.stderr?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
-
       logger.log(dataStr);
-
       lastOutput = dataStr;
       if (broadcast) {
         broadcast.cb(broadcast.win, dataStr);
@@ -52,20 +49,34 @@ export const runCmd = ({
       }
     });
     script.addListener("exit", (code) => {
+      logger.log(
+        `exited child process [${serviceName}] with code: `,
+        code?.toString() ?? "",
+      );
       reject({ code, lastOutput });
     });
   });
 };
 
 export const killSubProcess = (script: childProcess.ChildProcess) => {
-  if (!script.killed) {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+    if (!script.killed) {
       treeKill(script.pid ?? 0, (err) => {
         if (err) {
-          reject(err);
+          console.log(
+            "error in killing pid: ",
+            script.pid,
+            " ",
+            err.message.toString(),
+          );
+          reject(err.message.toString());
+        } else {
+          console.log("killed pid: ", script.pid, " successfully!");
+          resolve(true);
         }
-        resolve(true);
       });
-    });
-  }
+    } else {
+      resolve(true);
+    }
+  });
 };

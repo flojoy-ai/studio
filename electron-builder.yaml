@@ -35,6 +35,7 @@ mac:
   icon: public/favicon.icns
   target:
     - dmg
+    - zip
   darkModeSupport: true
 
 # mac:
@@ -50,7 +51,7 @@ linux:
   icon: public/favicon.icns
   target:
     - deb
-    - tar.gz
+    - AppImage
 win:
   icon: public/favicon.ico
 extraMetadata:
