@@ -7,11 +7,11 @@ const store = localforage.createInstance({
   name: "flojoy-settings",
 });
 
-type SettingsGroup = "frontend" | "backend";
+type SettingsGroup = "frontend" | "backend" | "micropython";
 
-type SettingsType = "number" | "switch";
+type SettingsType = "number" | "string" | "switch";
 
-type ValueType = number | boolean;
+type ValueType = number | string | boolean;
 
 export type Setting = {
   title: string;
@@ -23,6 +23,8 @@ export type Setting = {
 };
 
 const settingsAtom = atomWithImmer<Setting[]>([
+
+  /* BACKEND SETTINGS */
   {
     title: "Node Delay",
     key: "nodeDelay",
@@ -39,12 +41,22 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
+
+  /* MICROPYTHON SETTINGS */
+  {
+    title: "Selected Port",
+    key: "selectedPort",
+    group: "micropython",
+    type: "string",
+    desc: "The port that is selected for uploading",
+    value: "",
+  }
 ]);
 
-export const useSettings = (group: "frontend" | "backend") => {
+export const useSettings = (group: SettingsGroup) => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
-  const updateSettings = (key: string, value: number | boolean) => {
+  const updateSettings = (key: string, value: ValueType) => {
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {

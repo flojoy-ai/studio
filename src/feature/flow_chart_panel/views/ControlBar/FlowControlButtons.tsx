@@ -18,6 +18,7 @@ import MicrocontollerBtn from "./MicrocontrollerBtn";
 import UploadButton from "./UploadButton";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import PortSelect from "./PortSelect";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -108,11 +109,16 @@ const FlowControlButtons = () => {
         </Button>
       )}
 
-      <div className="px-0.5" />
+      <div className="px-0.5"/>
       <WatchBtn playFC={onRun} cancelFC={cancelFC} />
       <MicrocontollerBtn/>
-      {isMicrocontrollerMode && (<UploadButton/>)}
-      <div className="px-0.5" />
+      {isMicrocontrollerMode && (
+        <>
+          <UploadButton/>
+          <PortSelect/>
+        </>
+      )}
+      <div className="px-0.5"/>
     </>
   );
 };
