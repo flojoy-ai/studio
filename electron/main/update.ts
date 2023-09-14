@@ -28,9 +28,7 @@ export function update(cleanupFunc: () => Promise<void>) {
   global.updateInterval = checkInterval;
 
   // start check
-  autoUpdater.on("checking-for-update", function () {
-    logger.log("checking for update....");
-  });
+  autoUpdater.on("checking-for-update", () => logger.log("checking for update...."));
 
   // update available
   autoUpdater.on("update-available", (arg) => {
@@ -39,9 +37,9 @@ export function update(cleanupFunc: () => Promise<void>) {
         type: "info",
         title: "Found Updates",
         message: "Found updates, do you want update now?",
-        detail: `An update of v${
+        detail: `An update to v${
           arg.version
-        } is found! Current version is ${app.getVersion()}`,
+        } is available! Current version is ${app.getVersion()}`,
         buttons: ["Sure", "No"],
       })
       .then((buttonIndex) => {
