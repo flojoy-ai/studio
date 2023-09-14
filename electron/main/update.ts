@@ -28,7 +28,9 @@ export function update(cleanupFunc: () => Promise<void>) {
   global.updateInterval = checkInterval;
 
   // start check
-  autoUpdater.on("checking-for-update", () => logger.log("checking for update...."));
+  autoUpdater.on("checking-for-update", () =>
+    logger.log("checking for update...."),
+  );
 
   // update available
   autoUpdater.on("update-available", (arg) => {
