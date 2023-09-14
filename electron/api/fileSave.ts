@@ -1,8 +1,7 @@
-import { writeFileSync } from "fs";
 import { ipcRenderer } from "electron";
 
 export function saveFile(path: string, data: string) {
-  writeFileSync(path, data);
+  ipcRenderer.send("write-file-sync", path, data);
 }
 
 export async function saveFileAs(

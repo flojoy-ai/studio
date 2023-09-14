@@ -303,6 +303,8 @@ cd $CWD
 
 sleep 1
 
+# set deploy status to dev
+export DEPLOY_STATUS=dev
 
 # start project services
 if [ $test_ci = true ]; then
@@ -312,6 +314,7 @@ else
 fi
 
 if [ $isDebugMode = true ]; then
+   info_msg "Debug mode will be enabled!"
    export FASTAPI_LOG=debug
 else
    export FASTAPI_LOG=error

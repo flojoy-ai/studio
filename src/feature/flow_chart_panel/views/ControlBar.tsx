@@ -3,7 +3,6 @@ import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
-// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import {
@@ -13,8 +12,6 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-// import { API_URI } from "@src/data/constants";
-// import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
@@ -29,6 +26,13 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
+
+  const handleUpdateNodesPack = () => {
+    window.api.updateNodesPack();
+  };
+  const handleChangeNodesPath = () => {
+    window.api.updateNodesResourcePath();
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,12 +119,22 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              {/* <MenubarItem */}
-              {/*   data-testid="btn-check-for-update" */}
-              {/*   onClick={handleUpdate} */}
-              {/* > */}
-              {/*   Check for update */}
-              {/* </MenubarItem> */}
+              {"api" in window && window.api.isPackaged && (
+                <>
+                  <MenubarItem
+                    data-testid="btn-change-nodes-path"
+                    onClick={handleChangeNodesPath}
+                  >
+                    Change Nodes resource path
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-update-nodes-pack"
+                    onClick={handleUpdateNodesPack}
+                  >
+                    Update Nodes resource pack
+                  </MenubarItem>
+                </>
+              )}
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>

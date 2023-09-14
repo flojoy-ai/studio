@@ -4,7 +4,8 @@ import {
   CommandInput,
   CommandList,
 } from "@/components/ui/command";
-import React, { useEffect } from "react";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import React from "react";
 
 export const CommandMenu = ({
   emptyText,
@@ -19,13 +20,8 @@ export const CommandMenu = ({
   placeholder?: string;
   setOpen: (open: boolean) => void;
 }) => {
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && e.metaKey) setOpen(!open);
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+  useKeyboardShortcut("ctrl", "k", () => setOpen(!open));
+  useKeyboardShortcut("meta", "k", () => setOpen(!open));
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>

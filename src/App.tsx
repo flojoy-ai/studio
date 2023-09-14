@@ -9,6 +9,7 @@ import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import { ThemeProvider } from "@src/providers/themeProvider";
+import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
+        <ElectronLogsDialog />
         <PreJobOperationDialog
           open={isPrejobModalOpen}
           outputs={modalConfig.messages ?? []}

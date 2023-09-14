@@ -11,7 +11,7 @@ import "reactflow/dist/base.css";
 
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "@src/ErrorPage";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
@@ -20,11 +20,12 @@ function fallbackRender({ error, resetErrorBoundary }) {
 }
 
 root.render(
-  <BrowserRouter>
+  /** Using HashRouter as BrowserRouter doesn't work after build */
+  <HashRouter>
     <ErrorBoundary fallbackRender={fallbackRender}>
       <SocketContextProvider>
         <App />
       </SocketContextProvider>
     </ErrorBoundary>
-  </BrowserRouter>,
+  </HashRouter>,
 );

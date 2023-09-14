@@ -1,17 +1,15 @@
 import os
-import json
 from typing import Any, Optional, Union
 from captain.utils.manifest.build_manifest import create_manifest
+from captain.utils.nodes_path import get_nodes_path
 
 __all__ = ["generate_manifest"]
-
-FULL_PATH = "PYTHON/nodes"
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
     "EXTRACTORS": "Extract",
     "GENERATORS": "Generate",
-    "INSTRUMENTS": "I/O",
+    "IO": "I/O",
     "LOGIC_GATES": "Logic",
     "LOADERS": "Load",
     "TRANSFORMERS": "Transform",
@@ -35,7 +33,7 @@ ALLOWED_TYPES = [
     "EXTRACTORS",
     "TRANSFORMERS",
     "ARITHMETIC",
-    "INSTRUMENTS",
+    "IO",
     "LOGIC_GATES",
     "CONDITIONALS",
     "NUMPY",
@@ -51,7 +49,7 @@ ORDERING = [
     "EXTRACTORS",
     "TRANSFORMERS",
     "LOADERS",
-    "INSTRUMENTS",
+    "IO",
     "LOGIC_GATES",
     "NUMPY",
     "SCIPY",
@@ -118,6 +116,7 @@ def sort_order(element):
 
 
 def generate_manifest():
-    nodes_map = browse_directories(FULL_PATH)
+    nodes_path = get_nodes_path()
+    nodes_map = browse_directories(nodes_path)
     nodes_map["children"].sort(key=sort_order)  # type: ignore
     return nodes_map

@@ -24,7 +24,14 @@ jobs:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Run startup script
+        run: bash flojoy -c
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
