@@ -5,7 +5,6 @@ import {
   ipcMain,
   nativeImage,
   dialog,
-  contextBridge,
 } from "electron";
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
@@ -14,7 +13,7 @@ import { update } from "./update";
 import { runBackend } from "./backend";
 import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
-import { writeFileSync } from "fs";
+import fs from "fs";
 import { Logger } from "./logger";
 
 // The built directory structure
@@ -194,13 +193,6 @@ async function createWindow() {
     if (win) {
       await saveNodePack({ win, icon: getIcon() });
     }
-  });
-  // expose writeFileSync Api of fs module
-  // contextBridge is `undefined` on dev mode
-  contextBridge?.exposeInMainWorld("electronAPI", {
-    writeFileSync: (path: string, content: string | NodeJS.ArrayBufferView) => {
-      writeFileSync(path, content);
-    },
   });
   // Apply electron-updater
   update(cleanup);
