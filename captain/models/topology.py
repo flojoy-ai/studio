@@ -54,7 +54,7 @@ class Topology:
         """
         Handle when producer receives the consumer's response (worker response).
         Returns potential new tasks (jobs) to be run.
-        """ 
+        """
         if self.is_cancelled():
             logger.debug("Flowchart is cancelled, ignoring worker response")
             return
@@ -68,16 +68,16 @@ class Topology:
         # handle successful job
         elif isinstance(finished_job_fetch, JobSuccess):
             logger.debug(f"{finished_job_fetch.node_id} finished at {time.time()}")
-            return self.handle_finished_job(finished_job_fetch, return_new_jobs=True) # return new jobs 
-        
+            return self.handle_finished_job(
+                finished_job_fetch, return_new_jobs=True
+            )  # return new jobs
+
     def run(self, task_queue: Queue[Any]):
         """
         Topology entry point function for producer
         """
         self.time_start = time.time()
-        next_jobs: list[
-            str
-        ] = self.collect_ready_jobs()  # get nodes with in-degree 0
+        next_jobs: list[str] = self.collect_ready_jobs()  # get nodes with in-degree 0
         self.run_jobs(next_jobs, task_queue)
 
     def collect_ready_jobs(self):
@@ -93,7 +93,6 @@ class Topology:
     def run_jobs(self, jobs: list[str], task_queue: Queue[Any]):
         for job_id in jobs:
             self.run_job(job_id, task_queue)
-
 
     # TODO move this to utils, makes more sense there
     def pre_import_functions(self):
@@ -188,7 +187,7 @@ class Topology:
 
         time.sleep(self.node_delay)
 
-        job_id: str = job.node_id 
+        job_id: str = job.node_id
         job_result = job.result
 
         logger.debug(f"job {self.get_label(job_id)} is done and has been received.")
@@ -319,7 +318,7 @@ class Topology:
 
     def finalizer(self):
         if self.is_finished:
-            pass #add things here in the future
+            pass  # add things here in the future
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)

@@ -3,8 +3,10 @@ from typing import Any, Callable, Union
 
 from flojoy import JobFailure, JobSuccess
 
+
 class PoisonPill:
     pass
+
 
 # this Job class is used by the custom task queue
 class JobInfo:
@@ -21,6 +23,7 @@ class JobInfo:
         self.iteration_id = iteration_id
         self.ctrls = ctrls or {}
         self.previous_jobs = previous_jobs or []
+
 
 class NodeResults(dict):
     cmd: str
@@ -41,6 +44,7 @@ class WorkerJobResponse(dict):
     Special class that formats a proper response dict that matches
     the expected format of the front-end.
     """
+
     SYSTEM_STATUS: str | None = None
     NODE_RESULTS: NodeResults | None = None
     RUNNING_NODE: str | None = None
@@ -72,11 +76,12 @@ class WorkerJobResponse(dict):
             self["NODE_RESULTS"] = NodeResults(cmd=cmd, id=node_id, result=result)
         for k, item in dict_item.items():
             self[k] = item
-    
+
     def __setitem__(self, __key: Any, __value: Any) -> None:
         super().__setattr__(__key, __value)
         return super().__setitem__(__key, __value)
-    
+
+
 ProcessTaskType = Callable[[Union[JobSuccess, JobFailure]], list[JobInfo]]
 QueueTaskType = Callable[[JobInfo, Queue], None]
 InitFuncType = Callable[[Queue], None]

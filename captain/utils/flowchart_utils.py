@@ -73,7 +73,7 @@ def run_producer(
             process_task=process_task,
             queue_task=queue_task,
             init_func=init_func,
-            signaler=signaler
+            signaler=signaler,
         )
         asyncio.run(producer.run())
     except Exception as e:

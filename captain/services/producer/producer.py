@@ -53,7 +53,7 @@ class Producer:
                 logger.debug(f"Producer {self.uuid} got no new tasks")
                 await self.signaler.signal_standby(finished_job_fetch.jobset_id)
                 continue
-            
+
             logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}")
 
             # queue new tasks
