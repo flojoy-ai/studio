@@ -99,33 +99,35 @@ const TextNode = ({ selected, data }: TextNodeProps) => {
           onKeyDown={(e) => e.stopPropagation()}
         />
       ) : (
-        <div
-          style={{
-            minHeight: 100,
-            minWidth: 100,
-            height: dimensions.height,
-            width: dimensions.width,
-          }}
-          className="prose relative max-w-full rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
-        >
+        <div onDoubleClick={() => setEditing(true)}>
           <div
-            className={cn("absolute -top-8 flex h-0 w-full justify-between", {
-              hidden: !selected,
-            })}
+            style={{
+              minHeight: 100,
+              minWidth: 100,
+              height: dimensions.height,
+              width: dimensions.width,
+            }}
+            className="prose relative max-w-full rounded-md border p-2 dark:prose-invert prose-headings:mb-0 prose-headings:mt-2 prose-p:mb-1 prose-p:mt-1 prose-p:first:mt-0 prose-ul:m-0 prose-li:m-0"
           >
-            <div onClick={() => setEditing(true)}>
-              <Edit className="stroke-muted-foreground" size={20} />
+            <div
+              className={cn("absolute -top-8 flex h-0 w-full justify-between", {
+                hidden: !selected,
+              })}
+            >
+              <div onClick={() => setEditing(true)}>
+                <Edit className="stroke-muted-foreground" size={20} />
+              </div>
+              <div className="mr-3" onClick={handleDelete}>
+                <Trash className="stroke-muted-foreground" size={20} />
+              </div>
             </div>
-            <div className="mr-3" onClick={handleDelete}>
-              <Trash className="stroke-muted-foreground" size={20} />
-            </div>
+            <ReactMarkdown
+              className="break-words"
+              components={{ a: LinkRenderer }}
+            >
+              {data.text || "Empty Text Node"}
+            </ReactMarkdown>
           </div>
-          <ReactMarkdown
-            className="break-words"
-            components={{ a: LinkRenderer }}
-          >
-            {data.text || "Empty Text Node"}
-          </ReactMarkdown>
         </div>
       )}
     </>
