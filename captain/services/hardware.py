@@ -1,10 +1,11 @@
 import serial.tools.list_ports
+import pyvisa
 import cv2
 import subprocess
 from sys import platform
 from abc import ABC, abstractmethod
 
-from captain.types.devices import CameraDevice
+from captain.types.devices import CameraDevice, SerialDevice
 
 __all__ = ["get_device_finder"]
 
@@ -15,10 +16,19 @@ class DeviceFinder(ABC):
         """Returns a list of camera indices connected to the system."""
         pass
 
-    @abstractmethod
     def get_serial_devices(self):
         """Returns a list of serial devices connected to the system."""
-        pass
+        ports = serial.tools.list_ports.comports()
+
+        return [
+            SerialDevice(port=p.device, description=p.description, hwid=p.hwid)
+            for p in ports
+        ]
+
+    def get_visa_devies(self):
+        """Returns a list of VISA devices connected to the system."""
+        rm = pyvisa.ResourceManager()
+        return rm.list_resources()
 
 
 class LinuxDeviceFinder(DeviceFinder):
@@ -53,10 +63,6 @@ class LinuxDeviceFinder(DeviceFinder):
         #
         # return cameras
 
-    def get_serial_devices(self):
-        ports = serial.tools.list_ports.comports()
-        return sorted(ports)
-
 
 class MacOSDeviceFinder(DeviceFinder):
     def get_cameras(self):
@@ -80,19 +86,12 @@ class MacOSDeviceFinder(DeviceFinder):
 
         return cameras
 
-    def get_serial_devices(self):
-        ports = serial.tools.list_ports.comports()
-        return sorted(ports)
-
 
 class WindowsDeviceFinder(DeviceFinder):
     def __init__(self):
         raise NotImplementedError()
 
     def get_cameras(self):
-        raise NotImplementedError()
-
-    def get_serial_devices(self):
         raise NotImplementedError()
 
 

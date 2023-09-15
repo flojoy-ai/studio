@@ -69,10 +69,12 @@ import {
 } from "@/components/ui/tooltip";
 import { ZodError } from "zod";
 import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+import { HardwareInfoModal } from "@src/components/hardware-list/HardwareInfoModal";
 
 const FlowChartTab = () => {
-  const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
+  const [deviceModalOpen, setDeviceModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
@@ -356,6 +358,10 @@ const FlowChartTab = () => {
             <GalleryModal
               isGalleryOpen={isGalleryOpen}
               setIsGalleryOpen={setIsGalleryOpen}
+            />
+            <HardwareInfoModal
+              open={deviceModalOpen}
+              setOpen={setDeviceModalOpen}
             />
             <div className="grow" />
             {selectedNode && (

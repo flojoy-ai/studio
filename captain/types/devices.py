@@ -7,6 +7,12 @@ class CameraDevice(BaseModel):
     id: str | int
 
 
+class SerialDevice(BaseModel):
+    port: str
+    description: str
+    hwid: str
+
+
 class DeviceInfo(BaseModel):
     cameras: list[CameraDevice]
     serialDevices: list

@@ -10,9 +10,17 @@ const CameraDevice = z.object({
 
 type CameraDevice = z.infer<typeof CameraDevice>;
 
+const SerialDevice = z.object({
+  description: z.string(),
+  hwid: z.string(),
+  port: z.string(),
+});
+
+type SerialDevice = z.infer<typeof SerialDevice>;
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
-  serialDevices: z.array(z.any()),
+  serialDevices: z.array(SerialDevice),
 });
 
 type DeviceInfo = z.infer<typeof DeviceInfo>;
