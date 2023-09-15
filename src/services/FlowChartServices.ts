@@ -78,3 +78,8 @@ export function cancelFlowChartRun(
       .then((res) => console.log(res.data));
   }
 }
+
+export async function getDeviceInfo() {
+  const res = await baseClient.get("devices");
+  return res.data;
+}

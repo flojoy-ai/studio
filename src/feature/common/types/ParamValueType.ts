@@ -9,4 +9,5 @@ export type ParamValueType =
   | "bool"
   | "select"
   | "NodeReference"
+  | "Camera"
   | "unknown";

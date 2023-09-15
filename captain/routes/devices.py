@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from captain.services.list_serial import get_cameras, get_serial_ports
+from captain.utils.logger import logger
+from captain.services.hardware import get_device_finder
 from captain.types.devices import DeviceInfo
 
 router = APIRouter(tags=["devices"])
@@ -7,4 +8,8 @@ router = APIRouter(tags=["devices"])
 
 @router.get("/devices")
 async def get_devices():
-    return DeviceInfo(cameras=get_cameras(), serial_devices=get_serial_ports())
+    device_finder = get_device_finder()
+    cameras = device_finder.get_cameras()
+    serial_devices = device_finder.get_serial_devices()
+
+    return DeviceInfo(cameras=cameras, serialDevices=serial_devices)

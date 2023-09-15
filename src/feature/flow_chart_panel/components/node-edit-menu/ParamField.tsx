@@ -12,6 +12,7 @@ import { Switch } from "@src/components/ui/switch";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
+import { CameraSelect } from "./CameraSelect";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -117,6 +118,8 @@ const ParamField = ({
           </SelectContent>
         </Select>
       );
+    case "Camera":
+      return <CameraSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

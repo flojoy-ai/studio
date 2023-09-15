@@ -68,6 +68,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ZodError } from "zod";
+import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
@@ -267,6 +268,8 @@ const FlowChartTab = () => {
     fetchManifest();
     fetchMetadata();
   }, [fetchManifest, fetchMetadata]);
+
+  useHardwareRefetch();
 
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {
