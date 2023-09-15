@@ -26,6 +26,8 @@ extraResources:
     to: "backend/requirements.txt"
   - from: "STATUS_CODES.yml"
     to: "backend/STATUS_CODES.yml"
+  - from: "dist/python"
+    to: "backend/python-interpreter"
 
 mac:
   icon: public/favicon.icns
