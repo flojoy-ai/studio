@@ -47,7 +47,7 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0);
 }
 
-export const mainLogger = new Logger("main");
+const mainLogger = new Logger("main");
 console.log = (...messages: string[]) => mainLogger.log(...messages);
 
 const getIcon = () => {
