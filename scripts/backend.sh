@@ -10,8 +10,6 @@ venv_dir="$flojoy_dir/flojoy_root_venv"
 venv_path="$venv_dir/$venv_name"
 python_zip="$current_dir/python-interpreter/linux.zip"
 
-echo "python executable: $python_folder"
-
 echo "flojoy dir: $flojoy_dir"
 
 if [ ! -d "$flojoy_dir" ]; then
@@ -25,7 +23,7 @@ if [ ! -f "$python_exec" ]; then
   fi
   echo "Extracting python interpreter to local directory..."
   # Extract the zip file to the destination directory
-  unzip "$python_zip" -d "$python_dir"
+  unzip "$python_zip" -d "$python_dir" >/dev/null 2>&1
 fi
 
 cd "$flojoy_dir"
@@ -39,17 +37,13 @@ cd "$venv_dir"
 echo "location set to $venv_dir"
 if [ ! -d "$venv_path" ]; then
   echo "Virtual env not found, creating a virtual env at $venv_dir"
-  cmd="'$python_exec' -m venv $venv_name"
-  $cmd
+  $python_exec -m venv $venv_name
 fi
 source $venv_name/bin/activate
-
+echo "Virtual env: $venv_name is activated!"
 cd "$current_dir"
 echo "Installing pip dependencies..."
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 echo "Package installation completed, starting backend..."
 export ELECTRON_MODE=packaged
-python -c "import sys;print(sys.executable)"
 python manage.py
-
-
