@@ -18,9 +18,17 @@ const SerialDevice = z.object({
 
 type SerialDevice = z.infer<typeof SerialDevice>;
 
+const VISADevice = z.object({
+  name: z.string(),
+  address: z.string(),
+});
+
+type VISADevice = z.infer<typeof VISADevice>;
+
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),
+  visaDevices: z.array(VISADevice),
 });
 
 type DeviceInfo = z.infer<typeof DeviceInfo>;

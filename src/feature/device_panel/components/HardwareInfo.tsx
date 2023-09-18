@@ -32,11 +32,21 @@ export const HardwareInfo = () => {
         }))
       : undefined;
 
+  const visaDevices: DeviceCardProps[] | undefined =
+    devices.visaDevices.length > 0
+      ? devices.visaDevices.map((d) => ({
+          name: d.name,
+          port: d.address,
+        }))
+      : undefined;
+
   return (
     <div>
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
       <DeviceSection title="Serial" devices={serialDevices} />
+      <div className="py-6" />
+      <DeviceSection title="VISA" devices={visaDevices} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import subprocess
 from sys import platform
 from abc import ABC, abstractmethod
 
-from captain.types.devices import CameraDevice, SerialDevice
+from captain.types.devices import CameraDevice, SerialDevice, VISADevice
 
 __all__ = ["get_device_finder"]
 
@@ -16,7 +16,7 @@ class DeviceFinder(ABC):
         """Returns a list of camera indices connected to the system."""
         pass
 
-    def get_serial_devices(self):
+    def get_serial_devices(self) -> list[SerialDevice]:
         """Returns a list of serial devices connected to the system."""
         ports = serial.tools.list_ports.comports()
 
@@ -25,10 +25,13 @@ class DeviceFinder(ABC):
             for p in ports
         ]
 
-    def get_visa_devices(self):
+    def get_visa_devices(self) -> list[VISADevice]:
         """Returns a list of VISA devices connected to the system."""
-        rm = pyvisa.ResourceManager()
-        return rm.list_resources()
+        rm = pyvisa.ResourceManager("@py")
+        return [
+            VISADevice(name=addr.split("::")[0], address=addr)
+            for addr in rm.list_resources()
+        ]
 
 
 class LinuxDeviceFinder(DeviceFinder):
@@ -84,7 +87,7 @@ class MacOSDeviceFinder(DeviceFinder):
             camera.release()
             i += 1
 
-        return cameras
+        return [CameraDevice(name=f"Camera {i}", id=i) for i in cameras]
 
 
 class WindowsDeviceFinder(DeviceFinder):

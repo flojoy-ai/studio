@@ -13,6 +13,12 @@ class SerialDevice(BaseModel):
     hwid: str
 
 
+class VISADevice(BaseModel):
+    name: str
+    address: str
+
+
 class DeviceInfo(BaseModel):
     cameras: list[CameraDevice]
-    serialDevices: list
+    serialDevices: list[SerialDevice]
+    visaDevices: list[VISADevice]
