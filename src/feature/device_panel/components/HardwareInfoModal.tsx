@@ -1,12 +1,12 @@
 import { Cable } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 import { HardwareInfo } from "./HardwareInfo";
 
 type HardwareInfoModalProps = {
