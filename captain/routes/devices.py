@@ -14,7 +14,8 @@ async def get_devices():
 
     return DeviceInfo(
         cameras=cameras,
-        serialDevices=[
-            SerialDevice(port="/dev/ttyUSB0", description="bruh", hwid="bruh-id")
-        ],
+        serialDevices=serial_devices,
+        # serialDevices=[
+        #     SerialDevice(port="/dev/ttyUSB0", description="bruh", hwid="bruh-id")
+        # ],
     )

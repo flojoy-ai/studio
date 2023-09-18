@@ -13,6 +13,7 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { NumberInput } from "./NumberInput";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
+import { SerialDeviceSelect } from "./SerialDeviceSelect";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -120,6 +121,8 @@ const ParamField = ({
       );
     case "Camera":
       return <CameraSelect onValueChange={handleChange} value={value} />;
+    case "SerialDevice":
+      return <SerialDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

@@ -10,4 +10,5 @@ export type ParamValueType =
   | "select"
   | "NodeReference"
   | "Camera"
+  | "SerialDevice"
   | "unknown";

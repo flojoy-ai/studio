@@ -8,34 +8,37 @@ import {
 } from "@src/components/ui/select";
 import { useHardwareDevices } from "@src/hooks/useHardwareDevices";
 
-type CameraSelectProps = {
+type SerialDeviceSelectProps = {
   onValueChange: (value: string) => void;
   value: string | number | boolean | null | undefined;
 };
 
-export const CameraSelect = ({ onValueChange, value }: CameraSelectProps) => {
+export const SerialDeviceSelect = ({
+  onValueChange,
+  value,
+}: SerialDeviceSelectProps) => {
   const hardware = useHardwareDevices();
-  const cameras = hardware?.cameras;
+  const devices = hardware?.serialDevices;
 
-  const camerasFound = cameras && cameras.length > 0;
+  const devicesFound = devices && devices.length > 0;
 
   return (
     <Select onValueChange={onValueChange}>
       <SelectTrigger
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
-        disabled={!camerasFound}
+        disabled={!devicesFound}
       >
         <SelectValue
-          placeholder={camerasFound ? value : "No cameras detected"}
+          placeholder={devicesFound ? value : "No devices detected"}
         />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>
-          {cameras &&
-            cameras.length > 0 &&
-            cameras.map((cam) => (
-              <SelectItem key={cam.name} value={cam.id.toString()}>
-                {cam.name}
+          {devices &&
+            devices.length > 0 &&
+            devices.map((cam) => (
+              <SelectItem key={cam.port} value={cam.port}>
+                {cam.description}
               </SelectItem>
             ))}
         </SelectGroup>

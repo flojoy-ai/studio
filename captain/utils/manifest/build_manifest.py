@@ -28,6 +28,7 @@ from flojoy import (
     Array,
     NodeInitContainer,
     Camera,
+    SerialDevice,
 )
 
 ALLOWED_PARAM_TYPES = [
@@ -40,7 +41,7 @@ ALLOWED_PARAM_TYPES = [
     list[str],
 ]
 
-SPECIAL_TYPES = [NodeReference, Array, Camera]
+SPECIAL_TYPES = [NodeReference, Array, Camera, SerialDevice]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 

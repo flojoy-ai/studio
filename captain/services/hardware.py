@@ -25,7 +25,7 @@ class DeviceFinder(ABC):
             for p in ports
         ]
 
-    def get_visa_devies(self):
+    def get_visa_devices(self):
         """Returns a list of VISA devices connected to the system."""
         rm = pyvisa.ResourceManager()
         return rm.list_resources()

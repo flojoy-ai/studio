@@ -42,7 +42,7 @@ export const useHardwareRefetch = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       setDevices(await refetchDeviceInfo());
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearInterval(interval);
