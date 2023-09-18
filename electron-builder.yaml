@@ -11,6 +11,8 @@ files:
 extraResources:
   - from: "public"
     to: "public"
+  - from: "scripts/python-interpreter"
+    to: "backend/python-interpreter"
   - from: "scripts/backend.ps1"
     to: "backend/backend.ps1"
   - from: "scripts/backend.sh"
@@ -26,8 +28,6 @@ extraResources:
     to: "backend/requirements.txt"
   - from: "STATUS_CODES.yml"
     to: "backend/STATUS_CODES.yml"
-  - from: "dist/python"
-    to: "backend/python-interpreter"
 
 mac:
   icon: public/favicon.icns

@@ -4,10 +4,12 @@ $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $appData = $env:APPDATA
 $flojoyDir = Join-Path $appData ".flojoy"
+$pythonDir = Join-Path $flojoyDir "python"
+$pythonExecutable = Join-Path $pythonDir "python.exe"
+$pythonZip = Join-Path $currentDir "python-interpreter/win.zip"
 $venvName = "404fc545_flojoy"
 $venvDir = Join-Path $flojoyDir "flojoy_root_venv"
 $venvPath = Join-Path $flojoyDir "flojoy_root_venv" $venvName
-$pythonExecutable = Join-Path $currentDir "python-interpreter/python.exe"
 
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
@@ -16,6 +18,16 @@ if ( -not (Test-Path $flojoyDir)) {
 }
 Set-Location $flojoyDir
 Write-Output "Location set to $flojoyDir"
+
+if (-not (Test-Path $pythonExecutable -PathType Leaf)) {
+  if (Test-Path $pythonDir) {
+    Remove-Item -Path $pythonDir -Force | Out-Null
+  }
+  Write-Host "Extracting python interpreter to local directory..."
+  Expand-Archive -Path $pythonZip -DestinationPath $pythonDir -Force
+  Write-Host "File '$pythonZip' has been successfully unzipped to '$pythonDir'."
+}
+
 if (-not (Test-Path $venvDir)) {
   Write-Output "$venvDir doesn't exist.."
   New-Item -ItemType Directory -Force $venvDir | Out-Null
@@ -32,7 +44,7 @@ Write-Output "Virtual env $venvName is activated!"
 
 Set-Location $currentDir
 Write-Output "Installing pip dependencies..."
-& pip install -r requirements.txt
+& python -m pip install -r .\requirements.txt
 
 Write-Output "Package installation completed, starting backend..."
 $Env:ELECTRON_MODE = "packaged"
