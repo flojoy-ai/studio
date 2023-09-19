@@ -9,6 +9,8 @@ export type ParamValueType =
   | "bool"
   | "select"
   | "NodeReference"
-  | "Camera"
+  | "CameraDevice"
   | "SerialDevice"
+  | "CameraConnection"
+  | "SerialConnection"
   | "unknown";

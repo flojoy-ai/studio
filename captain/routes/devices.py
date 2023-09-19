@@ -16,12 +16,5 @@ async def get_devices():
     return DeviceInfo(
         cameras=cameras,
         serialDevices=serial_devices,
-        visaDevices=[
-            VISADevice(name="GPIB0", address="GPIB0::12::INSTR"),
-            VISADevice(name="GPIB0", address="GPIB0::22::INSTR"),
-            VISADevice(name="GPIB0", address="GPIB0::30::INSTR"),
-        ]
-        # serialDevices=[
-        #     SerialDevice(port="/dev/ttyUSB0", description="bruh", hwid="bruh-id")
-        # ],
+        visaDevices=visa_devices,
     )

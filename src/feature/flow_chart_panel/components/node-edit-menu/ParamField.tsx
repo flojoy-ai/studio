@@ -119,9 +119,11 @@ const ParamField = ({
           </SelectContent>
         </Select>
       );
-    case "Camera":
+    case "CameraDevice":
+    case "CameraConnection":
       return <CameraSelect onValueChange={handleChange} value={value} />;
     case "SerialDevice":
+    case "SerialConnection":
       return <SerialDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":

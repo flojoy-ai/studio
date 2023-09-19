@@ -250,7 +250,9 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
 
-    asyncio.create_task(Signaler(manager.ws).signal_prejob_op(request.jobsetId))
+    signaler = Signaler(manager.ws)
+
+    await signaler.signal_prejob_op(request.jobsetId)
 
     nodes = fc["nodes"]
     packages_dict = {
@@ -259,7 +261,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     missing_packages = []
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
-    asyncio.create_task(manager.ws.broadcast(socket_msg))
+    await manager.ws.broadcast(socket_msg)
 
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
@@ -285,13 +287,13 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     if missing_packages:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["INSTALLING_PACKAGES"]
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        await manager.ws.broadcast(socket_msg)
         socket_msg["MODAL_CONFIG"] = ModalConfig(
             showModal=True,
             description="Installing required dependencies before running the flow chart...",
             messages=f"{', '.join(missing_packages)} packages will be installed with pip!",
         )
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        await manager.ws.broadcast(socket_msg)
         installation_succeed = await install_packages(
             missing_packages, socket_msg, manager=manager
         )
@@ -302,15 +304,15 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
                 "messages"
             ] = "Pre job operation failed! Look at the errors printed above!"
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
-            await asyncio.create_task(manager.ws.broadcast(socket_msg))
+            await manager.ws.broadcast(socket_msg)
             return
         socket_msg.MODAL_CONFIG["messages"] = "Pre job operation successful!"
         socket_msg.MODAL_CONFIG["showModal"] = False
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        await manager.ws.broadcast(socket_msg)
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
     socket_msg.MODAL_CONFIG["showModal"] = False
-    await asyncio.create_task(manager.ws.broadcast(socket_msg))
+    await manager.ws.broadcast(socket_msg)
 
     # get the amount of workers needed
     funcs, errs = pre_import_functions(topology=manager.running_topology)
@@ -321,7 +323,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
             showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}"
         )
         socket_msg.FAILED_NODES = errs
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        await manager.ws.broadcast(socket_msg)
         return
 
     logger.debug(
@@ -333,7 +335,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     """
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["RUN_IN_PROCESS"]
-    await asyncio.create_task(manager.ws.broadcast(socket_msg))
+    await manager.ws.broadcast(socket_msg)
 
     # spawn threads
     os.environ["OBJC_DISABLE_INITIALIZE_FORK_SAFETY"] = "YES"
