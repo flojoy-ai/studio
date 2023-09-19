@@ -10,6 +10,7 @@ export const HardwareInfo = () => {
   const devices = useHardwareDevices();
 
   if (!devices) {
+    <Button onClick={refetchDeviceInfo}>Refresh</Button>;
     return <div>loading...</div>;
   }
 

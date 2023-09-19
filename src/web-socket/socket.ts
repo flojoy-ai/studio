@@ -1,5 +1,6 @@
 import { IServerStatus, ModalConfig } from "@src/context/socket.context";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
+import { refetchDeviceInfo } from "@src/hooks/useHardwareDevices";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 interface WebSocketServerProps {
@@ -127,6 +128,7 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
+          refetchDeviceInfo();
           sendEventToMix(
             "Initial Status",
             "Connection Established",
