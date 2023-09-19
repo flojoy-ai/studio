@@ -1,5 +1,5 @@
 import {
-  refetchDeviceInfo,
+  useHardwareRefetch,
   useHardwareDevices,
 } from "@src/hooks/useHardwareDevices";
 import { DeviceCardProps } from "./DeviceCard";
@@ -8,11 +8,13 @@ import { Button } from "@src/components/ui/button";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
+  const refetch = useHardwareRefetch();
 
   if (!devices) {
     return (
       <>
-        <Button onClick={refetchDeviceInfo}>Refresh</Button>
+        <Button onClick={refetch}>Refresh</Button>
+        <div className="py-3" />
         <div>loading...</div>
       </>
     );
@@ -52,7 +54,8 @@ export const HardwareInfo = () => {
 
   return (
     <div>
-      <Button onClick={refetchDeviceInfo}>Refresh</Button>
+      <Button onClick={refetch}>Refresh</Button>
+      <div className="py-3" />
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
       <DeviceSection title="Serial" devices={serialDevices} />
