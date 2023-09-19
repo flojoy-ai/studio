@@ -11,7 +11,7 @@ import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import DeviceTab from "./feature/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
-import { useHardwareRefetch } from "./hooks/useHardwareDevices";
+import { refetchDeviceInfo } from "./hooks/useHardwareDevices";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -37,10 +37,9 @@ const App = () => {
   }, [modalConfig]);
 
   useEffect(() => {
+    refetchDeviceInfo();
     sendFrontEndLoadsToMix();
   }, []);
-
-  useHardwareRefetch();
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

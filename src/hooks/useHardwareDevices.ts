@@ -1,6 +1,5 @@
 import { getDeviceInfo } from "@src/services/FlowChartServices";
-import { atom, useAtomValue, useSetAtom } from "jotai";
-import { useEffect } from "react";
+import { atom, useAtomValue } from "jotai";
 import { z } from "zod";
 
 const CameraDevice = z.object({
@@ -36,27 +35,27 @@ type DeviceInfo = z.infer<typeof DeviceInfo>;
 
 const deviceAtom = atom<DeviceInfo | undefined>(undefined);
 
-const refetchDeviceInfo = async () => {
+export const refetchDeviceInfo = async () => {
   const data = await getDeviceInfo();
   return DeviceInfo.parse(data);
 };
 
-export const useHardwareRefetch = () => {
-  const setDevices = useSetAtom(deviceAtom);
-
-  useEffect(() => {
-    refetchDeviceInfo().then((data) => setDevices(data));
-  });
-
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      setDevices(await refetchDeviceInfo());
-    }, 2000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-};
+// export const useHardwareRefetch = () => {
+//   const setDevices = useSetAtom(deviceAtom);
+//
+//   useEffect(() => {
+//     refetchDeviceInfo().then((data) => setDevices(data));
+//   });
+//
+//   useEffect(() => {
+//     const interval = setInterval(async () => {
+//       setDevices(await refetchDeviceInfo());
+//     }, 2000);
+//
+//     return () => {
+//       clearInterval(interval);
+//     };
+//   });
+// };
 
 export const useHardwareDevices = () => useAtomValue(deviceAtom);

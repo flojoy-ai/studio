@@ -1,6 +1,10 @@
-import { useHardwareDevices } from "@src/hooks/useHardwareDevices";
+import {
+  refetchDeviceInfo,
+  useHardwareDevices,
+} from "@src/hooks/useHardwareDevices";
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
+import { Button } from "@src/components/ui/button";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
@@ -43,6 +47,7 @@ export const HardwareInfo = () => {
 
   return (
     <div>
+      <Button onClick={refetchDeviceInfo}>Refresh</Button>
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
       <DeviceSection title="Serial" devices={serialDevices} />
