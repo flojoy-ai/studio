@@ -16,6 +16,7 @@ class SerialDevice(BaseModel):
 class VISADevice(BaseModel):
     name: str
     address: str
+    description: str
 
 
 class DeviceInfo(BaseModel):

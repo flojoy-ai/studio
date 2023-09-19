@@ -21,6 +21,7 @@ type SerialDevice = z.infer<typeof SerialDevice>;
 const VISADevice = z.object({
   name: z.string(),
   address: z.string(),
+  description: z.string(),
 });
 
 type VISADevice = z.infer<typeof VISADevice>;

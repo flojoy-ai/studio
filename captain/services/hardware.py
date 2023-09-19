@@ -28,10 +28,22 @@ class DeviceFinder(ABC):
     def get_visa_devices(self) -> list[VISADevice]:
         """Returns a list of VISA devices connected to the system."""
         rm = pyvisa.ResourceManager("@py")
-        return [
-            VISADevice(name=addr.split("::")[0], address=addr)
-            for addr in rm.list_resources()
-        ]
+        devices = []
+        for addr in rm.list_resources():
+            try:
+                device = rm.open_resource(addr)
+                devices.append(
+                    VISADevice(
+                        name=addr.split("::")[0],
+                        address=addr,
+                        description=device.query("*IDN?"),
+                    )
+                )
+                device.close()
+            except pyvisa.VisaIOError:
+                pass
+
+        return devices
 
 
 class LinuxDeviceFinder(DeviceFinder):
