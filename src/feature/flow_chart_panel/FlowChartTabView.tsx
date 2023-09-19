@@ -226,27 +226,28 @@ const FlowChartTab = () => {
       // TODO: fix zod schema to accept io directory structure
       const validateResult = validateRootSchema(res.data);
       if (!validateResult.success) {
-        toast.error(
-          `Failed to validate nodes manifest! Check browser console for more info.`,
-          {
-            duration: 20000,
-          },
-        );
+        toast.message(`Failed to validate nodes manifest!`, {
+          duration: 20000,
+          description: "Check browser console for more info.",
+        });
         console.error(validateResult.error);
       }
       setNodeSection(res.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      const errText =
+      const errTitle =
         err instanceof ZodError
-          ? `Zod validation error: ${err.message}`
-          : `Failed to generate nodes manifest! reason: ${
-              err.response?.data?.error ?? err
-            }`;
-      toast.error(errText, {
-        duration: 20000,
-        style: { minWidth: 700 },
+          ? "Zod validation error"
+          : "Failed to generate nodes manifest!";
+
+      const errDescription =
+        err instanceof ZodError
+          ? err.message
+          : err.response?.data?.error ?? err;
+
+      toast.message(errTitle, {
+        description: errDescription,
       });
     }
   }, []);
