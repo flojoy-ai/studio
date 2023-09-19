@@ -8,7 +8,14 @@ python_exec="$python_dir/bin/python3"
 venv_name="404fc545_flojoy"
 venv_dir="$flojoy_dir/flojoy_root_venv"
 venv_path="$venv_dir/$venv_name"
-python_zip="$current_dir/python-interpreter/linux.zip"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  python_zip="$current_dir/python-interpreter/mac.zip"
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  python_zip="$current_dir/python-interpreter/linux.zip"
+else
+  echo "Unsupported operating system"
+fi
 
 echo "flojoy dir: $flojoy_dir"
 
