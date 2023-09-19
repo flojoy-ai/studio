@@ -10,8 +10,12 @@ export const HardwareInfo = () => {
   const devices = useHardwareDevices();
 
   if (!devices) {
-    <Button onClick={refetchDeviceInfo}>Refresh</Button>;
-    return <div>loading...</div>;
+    return (
+      <>
+        <Button onClick={refetchDeviceInfo}>Refresh</Button>
+        <div>loading...</div>
+      </>
+    );
   }
 
   const cameras: DeviceCardProps[] | undefined =
