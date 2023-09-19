@@ -243,8 +243,8 @@ const FlowChartTab = () => {
 
       const errDescription =
         err instanceof ZodError
-          ? err.message
-          : err.response?.data?.error ?? err;
+          ? `${err.message}`
+          : `${err.response?.data?.error}` ?? `${err}`;
 
       toast.message(errTitle, {
         description: errDescription,
