@@ -64,29 +64,9 @@ class LinuxDeviceFinder(DeviceFinder):
 
         return cameras
 
-        # i = 0
-        # cameras = []
-        #
-        # while True:
-        #     camera = cv2.VideoCapture(i)
-        #     if not camera.read()[0]:
-        #         break
-        #     else:
-        #         cameras.append(i)
-        #     camera.release()
-        #     i += 1
-        #
-        # return cameras
-
 
 class MacOSDeviceFinder(DeviceFinder):
     def get_cameras(self):
-        # command = r"v4l2-ctl --list-devices | grep -oP '^[^\s-][^:]+'"
-        # result = subprocess.run(command, shell=True, text=True, stdout=subprocess.PIPE)
-        # cameras = result.stdout.split("\n")
-        #
-        # # filter out empty strings
-        # return [c for c in cameras if c]
         i = 0
         cameras = []
 
@@ -107,7 +87,19 @@ class WindowsDeviceFinder(DeviceFinder):
         raise NotImplementedError()
 
     def get_cameras(self):
-        raise NotImplementedError()
+        i = 0
+        cameras = []
+
+        while True:
+            camera = cv2.VideoCapture(i)
+            if not camera.read()[0]:
+                break
+            else:
+                cameras.append(i)
+            camera.release()
+            i += 1
+
+        return [CameraDevice(name=f"Camera {i}", id=i) for i in cameras]
 
 
 def get_device_finder():
