@@ -248,6 +248,7 @@ const FlowChartTab = () => {
 
       toast.message(errTitle, {
         description: errDescription,
+        duration: 60000,
       });
     }
   }, []);
