@@ -44,10 +44,11 @@ const refetchDeviceInfo = async () => {
 export const useHardwareRefetch = () => {
   const setDevices = useSetAtom(deviceAtom);
 
-  return useCallback(
-    () => refetchDeviceInfo().then((data) => setDevices(data)),
-    [setDevices],
-  );
+  return useCallback(async () => {
+    setDevices(undefined);
+    const data = await refetchDeviceInfo();
+    setDevices(data);
+  }, [setDevices]);
 };
 
 export const useHardwareDevices = () => useAtomValue(deviceAtom);
