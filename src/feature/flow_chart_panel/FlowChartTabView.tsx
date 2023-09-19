@@ -191,7 +191,7 @@ const FlowChartTab = () => {
           }
 
           toast.message("Type error", {
-            description: `Type error: Source type ${sourceType} and target type ${targetType} are not compatible`,
+            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
           });
         }
       }),
@@ -252,6 +252,7 @@ const FlowChartTab = () => {
       });
     }
   }, []);
+
   const fetchMetadata = useCallback(async () => {
     try {
       const res = await baseClient.get("nodes/metadata");
@@ -259,9 +260,9 @@ const FlowChartTab = () => {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      toast.message(
-        `Failed to generate nodes metadata! reason: ${err.response?.data?.error}`,
-      );
+      toast.message("Failed to generate nodes metadata", {
+        description: err.response?.data?.error,
+      });
     }
   }, []);
 
