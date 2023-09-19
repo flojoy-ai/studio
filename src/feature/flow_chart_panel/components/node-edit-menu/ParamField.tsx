@@ -14,6 +14,7 @@ import { NumberInput } from "./NumberInput";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
+import { VisaDeviceSelect } from "./VisaDeviceSelect";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -125,6 +126,9 @@ const ParamField = ({
     case "SerialDevice":
     case "SerialConnection":
       return <SerialDeviceSelect onValueChange={handleChange} value={value} />;
+    case "VisaDevice":
+    case "VisaConnection":
+      return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":

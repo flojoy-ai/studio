@@ -11,6 +11,8 @@ export type ParamValueType =
   | "NodeReference"
   | "CameraDevice"
   | "SerialDevice"
+  | "VisaDevice"
   | "CameraConnection"
   | "SerialConnection"
+  | "VisaConnection"
   | "unknown";
