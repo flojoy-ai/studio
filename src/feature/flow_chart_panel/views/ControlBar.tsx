@@ -18,6 +18,8 @@ import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { useTheme } from "@src/providers/themeProvider";
+import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { DemoWarningTooltip } from "@/components/ui/demo-warning-tooltip";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -80,9 +82,19 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="file-button">
-              File
-            </MenubarTrigger>
+            <DemoWarningTooltip
+              tooltipContent={
+                "Download the desktop app to save and load flowcharts!"
+              }
+            >
+              <MenubarTrigger
+                id="file-btn"
+                data-testid="file-button"
+                disabled={IS_CLOUD_DEMO}
+              >
+                File
+              </MenubarTrigger>
+            </DemoWarningTooltip>
             <MenubarContent>
               <SaveButton />
               <SaveAsButton />
@@ -93,7 +105,9 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
+            <MenubarTrigger disabled={IS_CLOUD_DEMO} data-testid="settings-btn">
+              Settings
+            </MenubarTrigger>
             <MenubarContent>
               <MenubarItem
                 data-testid="env-var-modal-button"

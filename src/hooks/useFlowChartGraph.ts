@@ -3,13 +3,14 @@ import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
-import { NOISY_SINE } from "../data/RECIPES";
+import * as apps from "../data/RECIPES";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
-const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
-const initialEdges: Edge[] = NOISY_SINE.edges;
+// TODO If running for a cloud demo, change the initial app
+const initialNodes: Node<ElementsData>[] = apps.NOISY_SINE.nodes;
+const initialEdges: Edge[] = apps.NOISY_SINE.edges;
 
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
