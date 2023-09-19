@@ -1,7 +1,7 @@
-import mecademicpy.robot as mdr
 from flojoy import TextBlob
+import mecademicpy.robot as mdr
 
-
+_robot_handle_map = None
 def get_robot_handle_map():
     global _robot_handle_map
     if _robot_handle_map is None:
@@ -9,9 +9,9 @@ def get_robot_handle_map():
     return _robot_handle_map
 
 def init_handle_map():
+    global _robot_handle_map
     if _robot_handle_map is not None:
         raise ValueError("Robot handle map already initialized.")
-    global _robot_handle_map
     _robot_handle_map = None
 
 
