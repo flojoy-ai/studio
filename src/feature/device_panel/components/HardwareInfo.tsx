@@ -37,6 +37,7 @@ export const HardwareInfo = () => {
       ? devices.visaDevices.map((d) => ({
           name: d.name,
           port: d.address,
+          description: d.description,
         }))
       : undefined;
 
