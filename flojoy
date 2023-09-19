@@ -45,7 +45,7 @@ echo ''
 echo '      ============================================================'
 echo '     ||                  Welcome to Flojoy!                      ||'
 echo '     ||                                                          ||'
-echo '     ||         For Installation, Follow the Link Below          ||' 
+echo '     ||         For Installation, Follow the Link Below          ||'
 echo '     ||       https://docs.flojoy.ai/getting-started/install/    ||'
 echo '     ||                                                          ||'
 echo '      ============================================================'
@@ -57,7 +57,7 @@ initNodePackages=true
 initPythonPackages=true
 is_ci=false
 test_ci=false
-initSubmodule=true
+initSubmodule=false
 enableSentry=true
 enableTelemetry=true
 isDebugMode=false
@@ -126,7 +126,7 @@ do
         shift
         ;;
         -t)
-        test_ci=true #run with CI=true, allows to properly run tests locally 
+        test_ci=true #run with CI=true, allows to properly run tests locally
         shift
         ;;
         -s)
@@ -177,7 +177,7 @@ createFlojoyDirectoryWithYmlFile()
    fi
 
    CREDENTIALS_FILE=$FOLDER/credentials.txt
-   
+
    if ! test -f "$CREDENTIALS_FILE"; then
       touch "$CREDENTIALS_FILE"
    fi
@@ -319,7 +319,7 @@ sleep 1
 # start project services
 if [ $test_ci = true ]; then
    start_project_cmd='npm run start-project:ci'
-else 
+else
    start_project_cmd='npm run start-project'
 fi
 
@@ -331,7 +331,7 @@ fi
 
 # start project services
 if [ -n "$venvCmd" ]; then
-   $venvCmd && $start_project_cmd 
+   $venvCmd && $start_project_cmd
 else
    $start_project_cmd
 fi

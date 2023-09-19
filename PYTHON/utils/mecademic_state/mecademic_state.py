@@ -8,9 +8,9 @@ def get_robot_handle_map():
         _robot_handle_map = {}
     return _robot_handle_map
 
-def init_handle_map():
+def init_handle_map(allow_reinit: bool = False):
     global _robot_handle_map
-    if _robot_handle_map is not None:
+    if _robot_handle_map is not None and not allow_reinit:
         raise ValueError("Robot handle map already initialized.")
     _robot_handle_map = None
 
