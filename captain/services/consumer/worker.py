@@ -86,8 +86,10 @@ class Worker:
 
                     # signal to frontend that the node has failed
                     await self.signaler.signal_failed_nodes(
-                        job.jobset_id, job.job_id, func.__name__
+                        job.jobset_id, job.job_id, func.__name__, response.error
                     )
+
+                    raise Exception(response.error)
 
             # put the job result in the queue for producer to process
             self.finish_queue.put(response)

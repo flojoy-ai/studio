@@ -34,11 +34,11 @@ class Signaler:
         )
         await self.ws.broadcast(msg)
 
-    async def signal_failed_nodes(self, jobset_id: str, node_id: str, func_name: str):
+    async def signal_failed_nodes(self, jobset_id: str, node_id: str, func_name: str, error: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["FAILED_NODE"] + func_name,
-            failed_nodes={node_id: "FAILED"},
+            failed_nodes={node_id: error},
         )
         await self.ws.broadcast(msg)
 
