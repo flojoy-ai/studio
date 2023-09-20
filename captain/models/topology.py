@@ -171,6 +171,7 @@ class Topology:
         logger.debug("Topology cancelled")
         self.cancelled = True
         self.queued_jobs.clear()
+        self.cleanup()
         self.finalizer()
 
     def is_cancelled(self):
