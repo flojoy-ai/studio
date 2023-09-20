@@ -3,6 +3,7 @@ from queue import Queue
 from .test_apps.sample_app import graph as sample_app_graph
 from captain.models.topology import Topology
 from captain.types.worker import JobInfo
+from flojoy import JobSuccess
 
 
 
@@ -29,8 +30,12 @@ class TopologyTest(unittest.TestCase):
     assert ready_jobs.__len__() == 1
     assert ready_jobs[0].startswith("LINSPACE")
     
-    
-      
+  def test_new_jobs_returned(self):
+    finished_job = JobSuccess(result=None, fn=lambda: None, node_id="LINSPACE-fb6e23f4-080c-4d26-9070-45f3081ee5f3", jobset_id="test_123" )
+    new_jobs = self.topology.handle_finished_job(finished_job, return_new_jobs=True)
+    print("new jobs: ", new_jobs, flush=True)
+    assert new_jobs is not None
+    assert len(new_jobs) != 0
 
 
 
