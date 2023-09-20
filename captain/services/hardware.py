@@ -3,18 +3,28 @@ import pyvisa
 import cv2
 import subprocess
 from sys import platform
-from abc import ABC, abstractmethod
 
 from captain.types.devices import CameraDevice, SerialDevice, VISADevice
 
 __all__ = ["get_device_finder"]
 
 
-class DeviceFinder(ABC):
-    @abstractmethod
+class DefaultDeviceFinder:
     def get_cameras(self) -> list[CameraDevice]:
         """Returns a list of camera indices connected to the system."""
-        pass
+        i = 0
+        cameras = []
+
+        while True:
+            camera = cv2.VideoCapture(i)
+            if not camera.read()[0]:
+                break
+            else:
+                cameras.append(i)
+            camera.release()
+            i += 1
+
+        return [CameraDevice(name=f"Camera {i}", id=i) for i in cameras]
 
     def get_serial_devices(self) -> list[SerialDevice]:
         """Returns a list of serial devices connected to the system."""
@@ -46,10 +56,14 @@ class DeviceFinder(ABC):
         return devices
 
 
-class LinuxDeviceFinder(DeviceFinder):
+class LinuxDeviceFinder(DefaultDeviceFinder):
     def get_cameras(self) -> list[CameraDevice]:
         command = r"v4l2-ctl --list-devices | grep -A1 -P '^[^\s-][^:]+'"
         result = subprocess.run(command, shell=True, text=True, stdout=subprocess.PIPE)
+
+        # fall back to OpenCV if v4l2-ctl is not installed
+        if result.returncode != 0:
+            return super().get_cameras()
 
         # filter out empty lines
         lines = list(filter(None, result.stdout.split("\n")))
@@ -65,47 +79,10 @@ class LinuxDeviceFinder(DeviceFinder):
         return cameras
 
 
-class MacOSDeviceFinder(DeviceFinder):
-    def get_cameras(self):
-        i = 0
-        cameras = []
-
-        while True:
-            camera = cv2.VideoCapture(i)
-            if not camera.read()[0]:
-                break
-            else:
-                cameras.append(i)
-            camera.release()
-            i += 1
-
-        return [CameraDevice(name=f"Camera {i}", id=i) for i in cameras]
-
-
-class WindowsDeviceFinder(DeviceFinder):
-    def __init__(self):
-        raise NotImplementedError()
-
-    def get_cameras(self):
-        i = 0
-        cameras = []
-
-        while True:
-            camera = cv2.VideoCapture(i)
-            if not camera.read()[0]:
-                break
-            else:
-                cameras.append(i)
-            camera.release()
-            i += 1
-
-        return [CameraDevice(name=f"Camera {i}", id=i) for i in cameras]
-
-
 def get_device_finder():
     if platform == "win32":
-        return WindowsDeviceFinder()
+        return DefaultDeviceFinder()
     elif platform == "darwin":
-        return MacOSDeviceFinder()
+        return DefaultDeviceFinder()
 
     return LinuxDeviceFinder()
