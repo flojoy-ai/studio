@@ -29,7 +29,7 @@ export const HardwareInfo = () => {
           return {
             name,
             description,
-            port: c.id.toString(),
+            port: typeof c.id === "number" ? `Camera Index: ${c.id}` : c.id,
           };
         })
       : undefined;
