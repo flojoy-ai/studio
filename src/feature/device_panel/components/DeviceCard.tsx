@@ -2,7 +2,7 @@ export type DeviceCardProps = {
   name: string;
   description?: string;
   manufacturer?: string;
-  port: string;
+  port?: string;
 };
 
 export const DeviceCard = ({
@@ -14,7 +14,7 @@ export const DeviceCard = ({
   return (
     <div className="w-72 rounded-md bg-secondary p-2">
       <h3 className="font-semibold text-muted-foreground">{name}</h3>
-      <div className="max-w-fit break-all font-semibold">{port}</div>
+      {port && <div className="max-w-fit break-all font-semibold">{port}</div>}
       {manufacturer && (
         <div className="mt-2 text-sm text-muted-foreground">{manufacturer}</div>
       )}

@@ -29,10 +29,7 @@ export const HardwareInfo = () => {
           return {
             name,
             description,
-            port:
-              typeof c.id === "number"
-                ? `Camera Index: ${c.id}`
-                : `Port: ${c.id}`,
+            port: typeof c.id === "number" ? undefined : `Port: ${c.id}`,
           };
         })
       : undefined;
