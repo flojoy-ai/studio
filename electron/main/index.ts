@@ -207,12 +207,20 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", async () => {
   mainLogger.log("window-all-closed fired!");
-  await cleanup();
   win = null;
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    await cleanup();
+    app.quit();
+  }
 });
 
 app.on("quit", () => {
+  cleanup();
+});
+app.on("before-quit", () => {
+  cleanup();
+});
+app.on("will-quit", () => {
   cleanup();
 });
 app.on("second-instance", () => {
