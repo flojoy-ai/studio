@@ -14,6 +14,7 @@ const SerialDevice = z.object({
   description: z.string(),
   hwid: z.string(),
   port: z.string(),
+  manufacturer: z.optional(z.string()),
 });
 
 type SerialDevice = z.infer<typeof SerialDevice>;

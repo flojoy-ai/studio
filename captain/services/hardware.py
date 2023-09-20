@@ -31,7 +31,12 @@ class DefaultDeviceFinder:
         ports = serial.tools.list_ports.comports()
 
         return [
-            SerialDevice(port=p.device, description=p.description, hwid=p.hwid)
+            SerialDevice(
+                port=p.device,
+                description=p.description,
+                hwid=p.hwid,
+                manufacturer=p.manufacturer,
+            )
             for p in ports
         ]
 

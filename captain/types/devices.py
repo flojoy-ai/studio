@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class CameraDevice(BaseModel):
@@ -10,6 +11,7 @@ class CameraDevice(BaseModel):
 class SerialDevice(BaseModel):
     port: str
     description: str
+    manufacturer: Optional[str]
     hwid: str
 
 

@@ -37,9 +37,10 @@ export const HardwareInfo = () => {
   const serialDevices: DeviceCardProps[] | undefined =
     devices.serialDevices.length > 0
       ? devices.serialDevices.map((d) => ({
-          name: d.hwid,
+          name: d.description,
           port: d.port,
-          description: d.description,
+          description: d.hwid,
+          manufacturer: d.manufacturer,
         }))
       : undefined;
 
