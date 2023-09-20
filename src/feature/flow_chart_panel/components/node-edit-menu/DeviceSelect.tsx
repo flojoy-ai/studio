@@ -44,7 +44,11 @@ export const DeviceSelect = <T,>({
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
         disabled={!found}
       >
-        <SelectValue placeholder={selectedDeviceName ?? placeholder} />
+        <SelectValue
+          placeholder={
+            !selectedDeviceName && !found ? placeholder : selectedDeviceName
+          }
+        />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>
