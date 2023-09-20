@@ -29,7 +29,10 @@ export const HardwareInfo = () => {
           return {
             name,
             description,
-            port: typeof c.id === "number" ? `Camera Index: ${c.id}` : c.id,
+            port:
+              typeof c.id === "number"
+                ? `Camera Index: ${c.id}`
+                : `Port: ${c.id}`,
           };
         })
       : undefined;
@@ -38,7 +41,7 @@ export const HardwareInfo = () => {
     devices.serialDevices.length > 0
       ? devices.serialDevices.map((d) => ({
           name: d.description,
-          port: d.port,
+          port: `Port: ${d.port}`,
           description: d.hwid,
           manufacturer: d.manufacturer,
         }))
