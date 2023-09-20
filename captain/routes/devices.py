@@ -1,7 +1,6 @@
 from fastapi import APIRouter
-from captain.utils.logger import logger
 from captain.services.hardware import get_device_finder
-from captain.types.devices import DeviceInfo, SerialDevice, VISADevice
+from captain.types.devices import DeviceInfo
 
 router = APIRouter(tags=["devices"])
 
