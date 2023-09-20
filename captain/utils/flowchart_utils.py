@@ -250,7 +250,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     pre_job_op_start = time.time()
     logger.debug(f"Pre job operation started at: {pre_job_op_start}")
 
-    asyncio.create_task(Signaler(manager.ws).signal_prejob_op(request.jobsetId))
+    await asyncio.create_task(Signaler(manager.ws).signal_prejob_op(request.jobsetId))
 
     nodes = fc["nodes"]
     packages_dict = {
@@ -259,7 +259,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     missing_packages = []
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
-    asyncio.create_task(manager.ws.broadcast(socket_msg))
+    await asyncio.create_task(manager.ws.broadcast(socket_msg))
 
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
