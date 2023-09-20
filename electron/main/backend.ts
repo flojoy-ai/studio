@@ -65,7 +65,7 @@ export const runBackend = (
           });
           dialog.showErrorBox(
             "Failed to initialize backend!",
-            "Something went wrong while initializing backend!\n Re lunching the app might resolve the issue",
+            "Something went wrong while initializing backend!\n Restarting the app might resolve the issue",
           );
           resolve({ success: false, script: undefined });
         }
