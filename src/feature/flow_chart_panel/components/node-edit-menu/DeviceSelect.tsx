@@ -33,13 +33,18 @@ export const DeviceSelect = <T,>({
 }: DeviceSelectProps<T>) => {
   const found = devices && devices.length > 0;
 
+  const selectedDevice = devices?.find((d) => valueSelector(d) === value);
+  const selectedDeviceName = selectedDevice
+    ? nameSelector(selectedDevice)
+    : undefined;
+
   return (
     <Select onValueChange={onValueChange}>
       <SelectTrigger
         className="border-none bg-background focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1 "
         disabled={!found}
       >
-        <SelectValue placeholder={found ? value : placeholder} />
+        <SelectValue placeholder={selectedDeviceName ?? placeholder} />
       </SelectTrigger>
       <SelectContent className="max-h-72">
         <SelectGroup>
