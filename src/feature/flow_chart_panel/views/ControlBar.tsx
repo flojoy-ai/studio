@@ -91,6 +91,7 @@ const ControlBar = () => {
                 id="file-btn"
                 data-testid="file-button"
                 disabled={IS_CLOUD_DEMO}
+                className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
               >
                 File
               </MenubarTrigger>
