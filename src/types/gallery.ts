@@ -12,7 +12,7 @@ export const GalleryApp = z.object({
       docs: z.string(),
     }),
   ),
-  cloudDemoEnabled: z.boolean()
+  cloudDemoEnabled: z.boolean(),
 });
 
 export type GalleryApp = z.infer<typeof GalleryApp>;

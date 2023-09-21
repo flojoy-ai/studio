@@ -4,7 +4,7 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
-import * as galleryItems from "../data/apps"
+import * as galleryItems from "../data/apps";
 import * as exampleItems from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
@@ -160,11 +160,10 @@ function resolveProjectReference(project: string) {
 
 function resolveDefaultProjectReference() {
   let project;
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const query = new URLSearchParams(window.location.search);
-    project = query.get('project') || process.env.DEFAULT_PROJECT;
+    project = query.get("project") || process.env.DEFAULT_PROJECT;
   }
   project = project || process.env.DEFAULT_PROJECT;
   return project;
 }
-

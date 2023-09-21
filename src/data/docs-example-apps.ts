@@ -1,2 +1,1 @@
-export const ExampleProjects = {
-}
+export const ExampleProjects = {};
