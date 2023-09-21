@@ -13,6 +13,7 @@ class PostWFC(BaseModel):
     nodeDelay: float
     maximumRuntime: float
     precompile: bool
+    selectedPort: str 
 
 
 class WorkerSuccessResponse(BaseModel):

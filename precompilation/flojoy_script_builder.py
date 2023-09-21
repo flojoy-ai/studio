@@ -1,4 +1,5 @@
 import ast
+import asyncio
 from collections import deque
 from copy import copy
 import inspect
@@ -7,6 +8,9 @@ import shutil
 import subprocess
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
+from captain.utils.config import manager
+from captain.types.worker import WorkerJobResponse
+from captain.utils.flowchart_utils import stream_response
 from precompilation.config import (
     EXTRA_FILES_DIR,
     FILES_GROUPS_TO_BE_OUTPUTTED,
@@ -33,13 +37,14 @@ class FlojoyScriptBuilder:
     Class used for building the string of the flojoy script.
     """
 
-    def __init__(self, path_to_output: str, is_ci: bool = False):
+    def __init__(self, path_to_output: str, jobset_id: str, is_ci: bool = False):
         self.items = []
         self.indent_level = 0
         self.imports = set()
         self.func_or_classes = set()
         self.path_to_output = path_to_output
         self.is_ci = is_ci
+        self.jobset_id = jobset_id
 
     def _add_import(
         self,
@@ -186,7 +191,7 @@ class FlojoyScriptBuilder:
         """
         all_items = list(self.imports) + self.items
         final_string = HEADER + "\n" + "\n".join(all_items)
-        filename = os.path.join(get_absolute_path(self.path_to_output), "script.py")
+        filename = os.path.join(get_absolute_path(self.path_to_output), "main.py")
         with open(filename, "w") as f:
             f.write(final_string)
 
@@ -401,9 +406,50 @@ class FlojoyScriptBuilder:
                     subprocess.run(["mpy-cross", file_path])
                     os.remove(file_path) # delete old .py file
 
-    def validate_output_dir(self):
+    def output(self, tempdir, port: str, path_to_output: str | None):
+        """
+        Copy paste the temp dir into the output dir if specified
+        and into the port dir if specified
+        """
+        if path_to_output:
+            shutil.copytree(tempdir, path_to_output)
+        
+        if port:
+            # instanciate socket msg
+            socket_msg = WorkerJobResponse( # copied from captain/utils/flowchart_utils.py 
+                jobset_id=self.jobset_id,
+                dict_item = {
+                    "PRE_JOB_OP": {"isRunning": True, "output": ""},
+                }
+            )
+            # spawn rshell instance 
+            cmd = ["rshell", "-p", port] 
+            print("Copying files to selected port...", flush=True)
+            try: # copied from captain/utils/flowchart_utils.py 
+                with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as proc:
+                    # while proc.poll() is None: 
+                    #     stream = stream_response(proc) 
+                    #     for line in stream: 
+                    #         socket_msg["PRE_JOB_OP"]["output"] = line
+                    #         asyncio.create_task(manager.ws.broadcast(socket_msg))
+                    # copy paste everything from temp dir into port dir, overwrite exisiting files
+                    _, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
+                    if error_output:
+                        raise Exception(error_output)
+                    # while proc.poll() is None:
+                    #     stream = stream_response(proc) 
+                    #     for line in stream: 
+                    #         socket_msg["PRE_JOB_OP"]["output"] = line
+                    #         asyncio.create_task(manager.ws.broadcast(socket_msg))
+            except Exception as e:
+                output = "\n".join(e.args)
+                socket_msg["PRE_JOB_OP"]["output"] = output
+                asyncio.create_task(manager.ws.broadcast(socket_msg))
+                return False
+
+    def validate_output_dir(self, true_output_path):
         """
         Check if output directory does not exist yet. Raise error if it does.
         """
-        if os.path.exists(get_absolute_path(self.path_to_output)):
+        if os.path.exists(get_absolute_path(true_output_path)):
             raise Exception("Output directory already exists.")

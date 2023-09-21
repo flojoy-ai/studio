@@ -15,7 +15,6 @@ import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import MicrocontollerBtn from "./MicrocontrollerBtn";
-import UploadButton from "./UploadButton";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import PortSelect from "./PortSelect";
@@ -24,7 +23,8 @@ const FlowControlButtons = () => {
   const { states } = useSocket();
   const { socketId, serverStatus } = states;
 
-  const { settings } = useSettings("backend");
+  const { settings : backendSettings } = useSettings("backend");
+  const { settings : mcSettings } = useSettings("micropython");
 
   const { setNodeParamChanged, isMicrocontrollerMode } = useFlowChartState();
 
@@ -59,8 +59,9 @@ const FlowControlButtons = () => {
       saveAndRunFlowChartInServer({
         rfInstance: updatedRfInstance,
         jobId: socketId,
-        settings: settings.filter((setting) => setting.group === "backend"),
-        isMicrocontrollerMode: isMicrocontrollerMode
+        settings: backendSettings,
+        isMicrocontrollerMode: isMicrocontrollerMode,
+        mcSettings: mcSettings,
       });
       setNodeParamChanged(false);
     } else {
@@ -92,7 +93,7 @@ const FlowControlButtons = () => {
           className="gap-2"
         >
           <Play size={18} />
-          Play
+          {isMicrocontrollerMode ? "Upload" : "Play"}
         </Button>
       ) : (
         <Button
@@ -114,7 +115,6 @@ const FlowControlButtons = () => {
       <MicrocontollerBtn/>
       {isMicrocontrollerMode && (
         <>
-          <UploadButton/>
           <PortSelect/>
         </>
       )}

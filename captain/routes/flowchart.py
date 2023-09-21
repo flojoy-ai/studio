@@ -53,9 +53,9 @@ async def write_and_run_flowchart(request: PostWFC):
             jobset_id=request.jobsetId,
             node_delay=request.nodeDelay,
             maximum_runtime=request.maximumRuntime, 
-            path_to_output="test", 
             path_to_requirements='requirements-precompiled.txt', 
-            is_ci=False
+            is_ci=False,
+            port=request.selectedPort
         )
     else:
         asyncio.create_task(prepare_jobs_and_run_fc(request=request, manager=manager))

@@ -14,7 +14,7 @@ import {
     PopoverContent,
     PopoverTrigger,
   } from "@src/components/ui/popover"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@src/lib/utils";
 
 const PortSelect = () => {
@@ -41,12 +41,14 @@ const PortSelect = () => {
     }
   }
 
-  useEffect(() => {
+  const handleCLick = () => {
     fetchPorts().then((data) => {
-        // console.log("Available ports:", data);
-        setPorts(data);
-      });
-  }, [])
+      // console.log("Available ports:", data);
+      setPorts(data);
+    }).catch((err) => {
+      console.error("Error while fetching ports", err);
+    });
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -56,9 +58,10 @@ const PortSelect = () => {
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
+          onClick={handleCLick}
         >
           {value
-            ? ports.find((port) => port.device === value)?.name
+            ? ports.find((port) => port.device === value)?.device
             : "Select microcontroller..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -83,7 +86,7 @@ const PortSelect = () => {
                     value === port.device ? "opacity-100" : "opacity-0",
                   )}
                 />
-                {port.name}
+                {port.device}
               </CommandItem>
             ))}
           </CommandGroup>

@@ -60,11 +60,13 @@ export function saveAndRunFlowChartInServer({
   jobId,
   settings,
   isMicrocontrollerMode,
+  mcSettings,
 }: {
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
   settings: Setting[];
   isMicrocontrollerMode: boolean
+  mcSettings: Setting[]
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
@@ -81,6 +83,11 @@ export function saveAndRunFlowChartInServer({
           return obj;
         }, {}),
         precompile: isMicrocontrollerMode,
+        ...mcSettings.reduce((obj, setting) => {
+          //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+          obj[setting.key] = setting.value;
+          return obj;
+        }, {}),
       }),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });

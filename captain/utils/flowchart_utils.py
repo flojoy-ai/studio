@@ -277,7 +277,7 @@ async def cancel_when_max_time(manager: Manager, request: PostWFC):
         await signal_max_runtime_exceeded(manager, request.jobsetId)
 
 
-def stream_response(proc: Popen[bytes]):
+def stream_response(proc: Popen[str]):
     while True:
         line = proc.stdout.readline() or proc.stderr.readline()
         if not line:
