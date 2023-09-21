@@ -1,6 +1,6 @@
 import os
 from fastapi import FastAPI
-from captain.routes import flowchart, key, serial_ports, ws, update
+from captain.routes import flowchart, key, nodes, ws, update, serial_ports
 from fastapi.middleware.cors import CORSMiddleware
 from captain.utils.config import origins
 from PYTHON.utils.dynamic_module_import import create_map
@@ -27,6 +27,8 @@ app.include_router(flowchart.router)
 app.include_router(key.router)
 app.include_router(update.router)
 app.include_router(serial_ports.router)
+app.include_router(nodes.router)
+
 
 @app.on_event("startup")
 async def startup_event():

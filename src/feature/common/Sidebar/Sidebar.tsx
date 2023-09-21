@@ -135,15 +135,17 @@ const Sidebar = ({
         </div>
       </div>
       <ScrollArea className="mt-3">
-        <SidebarNode
-          depth={0}
-          leafClickHandler={leafNodeClickHandler}
-          node={sections}
-          query={query}
-          matchedParent={false}
-          expand={expand}
-          collapse={collapse}
-        />
+        <div className="w-11/12">
+          <SidebarNode
+            depth={0}
+            leafClickHandler={leafNodeClickHandler}
+            node={sections}
+            query={query}
+            matchedParent={false}
+            expand={expand}
+            collapse={collapse}
+          />
+        </div>
       </ScrollArea>
     </div>
   );

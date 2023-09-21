@@ -1,3 +1,4 @@
+import { sendEventToMix } from "@src/services/MixpanelServices";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
@@ -41,6 +42,14 @@ const settingsAtom = atomWithImmer<Setting[]>([
     desc: "Time before the program cancels automatically in seconds",
     value: 3000,
   },
+  {
+    title: "Maximum Concurrent Workers",
+    key: "maximumConcurrentWorkers",
+    group: "backend",
+    desc: "Maximum number of nodes that can be executed at the same time",
+    type: "number",
+    value: 1,
+  },
 
   /* MICROPYTHON SETTINGS */
   {
@@ -50,13 +59,25 @@ const settingsAtom = atomWithImmer<Setting[]>([
     type: "string",
     desc: "The port that is selected for uploading",
     value: "",
-  }
+  },
+
+  /* FRONTEND SETTINGS */
+  {
+    title: "Fit view on resize",
+    key: "fitViewOnResize",
+    group: "frontend",
+    desc: "Center the view of the flow chart automatically when the window is resized",
+    type: "switch",
+    value: true,
+  },
+
 ]);
 
 export const useSettings = (group: SettingsGroup) => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
-  const updateSettings = (key: string, value: ValueType) => {
+  const updateSettings = (key: string, value: number | boolean) => {
+    sendEventToMix("Update Settings", ``);
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {

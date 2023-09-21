@@ -250,19 +250,6 @@ if ($initNodePackages) {
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
 
-# jsonify python functions
-
-& python .\scripts\write_python_metadata.py
-
-feedback $? 'Jsonified Python functions and written to JS-readable directory' 'Error occurred while Jsonifying Python functions. Check errors printed above!'
-
-# Generate Manifest
-
-& python .\PYTHON\generate_manifest.py
-
-feedback $? 'Successfully generated manifest for Python nodes to frontend' 'Failed to generate manifest for Python nodes. Check errors printed above!'
-
-
 # Setup Sentry env var
 if ( $enableSentry -eq $true ) {
   info_msg "Sentry will be enabled!"
@@ -289,6 +276,9 @@ if ( $isRemoteMode -eq $true ) {
 else {
   $Env:DEPLOY_ENV = "local"
 }
+
+# set deploy status to dev
+$Env:DEPLOY_STATUS = "dev"
 
 # Start the project
 info_msg 'Starting the project...'

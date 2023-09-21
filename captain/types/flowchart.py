@@ -14,6 +14,7 @@ class PostWFC(BaseModel):
     maximumRuntime: float
     precompile: bool
     selectedPort: str 
+    maximumConcurrentWorkers: int
 
 
 class WorkerSuccessResponse(BaseModel):

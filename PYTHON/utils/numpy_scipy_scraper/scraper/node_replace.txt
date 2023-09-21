@@ -1,0 +1,4 @@
+NAME	TO_REPLACE	REPLACEMENT
+STFT	nperseg: int = 256,/n/tnoverlap: int = 2,	nperseg: int = 2,/n/tnoverlap: int = 1,
+SAVGOL_FILTER	polyorder: int = 2,	polyorder: int = 1,
+WELCH	noverlap: int = 2,	noverlap: int = 1,

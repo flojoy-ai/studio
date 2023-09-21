@@ -1,0 +1,5 @@
+NAME	TO_REPLACE	REPLACEMENT
+KAISER_BETA	x=np.ones(50), y=np.arange(1, 51)	x=np.ones(1), y=np.arange(1)
+BINOM_TEST	x=np.ones(50), y=np.arange(1, 51)	x=np.ones(1), y=np.arange(1)
+GSTD	y=np.arange(1, 51)	y=np.arange(2, 52)
+TMAX	y=np.arange(1, 51)	y=np.arange(0, 50)

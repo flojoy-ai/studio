@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div style={{ height: HEADER_HEIGHT }}>
       <div className="flex gap-4">
-        <img width={64} height={64} src="/assets/logo.png" alt="Logo" />
+        <img width={64} height={64} src="assets/logo.png" alt="Logo" />
         {tabs.map((t) => (
           <HeaderTab to={t.to} testId={t.testId} key={t.fullText}>
             {large ? t.fullText : t.shortText}

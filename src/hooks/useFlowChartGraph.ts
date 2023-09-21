@@ -4,9 +4,9 @@ import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import { NOISY_SINE } from "../data/RECIPES";
-import { nodeSection, Leaf as NodeElement } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
+import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const initialNodes: Node<ElementsData>[] = NOISY_SINE.nodes;
 const initialEdges: Edge[] = NOISY_SINE.edges;
@@ -14,14 +14,11 @@ const initialEdges: Edge[] = NOISY_SINE.edges;
 const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
-const nodesManifestAtom = atomWithImmer<NodeElement[]>([]);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
-  const [nodesManifest, setNodesManifest] = useAtom(nodesManifestAtom);
-
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
     const unSelectedNodes: Node<ElementsData>[] = [];
@@ -44,6 +41,7 @@ export const useFlowChartGraph = () => {
       if (textNodes) {
         setTextNodes(textNodes);
       }
+      sendEventToMix("Flow Export Object Loaded", "");
       return true;
     },
     [setNodes, setEdges, setTextNodes],
@@ -56,34 +54,6 @@ export const useFlowChartGraph = () => {
       });
     });
   }, [selectedNode, setNodes]);
-
-  /**
-   * Creates a node mapping from nodeSection
-   */
-  const addNodesToManifest = useCallback((arr) => {
-    if (!Array.isArray(arr)) {
-      return;
-    }
-    let nodes: NodeElement[] = [];
-    arr.forEach((child) => {
-      if (child.children === null) {
-        nodes = [...nodes, child];
-      } else {
-        const n = addNodesToManifest(child.children);
-        if (n) {
-          nodes = [...nodes, ...n];
-        }
-      }
-    });
-    return nodes;
-  }, []);
-
-  useEffect(() => {
-    const allNodes = addNodesToManifest(nodeSection.children);
-    if (allNodes) {
-      setNodesManifest(allNodes);
-    }
-  }, [addNodesToManifest, setNodesManifest]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,
@@ -98,6 +68,7 @@ export const useFlowChartGraph = () => {
         }
       }
     });
+    sendEventToMix("Control Input Data Updated", `${nodeId}: ${inputData}`);
   };
 
   const updateInitCtrlInputDataForNode = (
@@ -112,6 +83,10 @@ export const useFlowChartGraph = () => {
         }
       }
     });
+    sendEventToMix(
+      "Initial Control Input Data Updated",
+      `${nodeId}: ${inputData}`,
+    );
   };
 
   const handleTitleChange = (value: string, id: string) => {
@@ -134,6 +109,7 @@ export const useFlowChartGraph = () => {
       }
       return n;
     });
+    sendEventToMix("Title Changed", `${id}: ${value}`);
     setNodes(updatedNodes);
   };
 
@@ -145,6 +121,7 @@ export const useFlowChartGraph = () => {
         delete node.data.ctrls[paramId];
       }
     });
+    sendEventToMix("Control Input Data Removed", `${nodeId}: ${paramId}`);
   };
 
   return {
@@ -160,7 +137,6 @@ export const useFlowChartGraph = () => {
     removeCtrlInputDataForNode,
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
-    nodesManifest,
     handleTitleChange,
   };
 };

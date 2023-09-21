@@ -1,5 +1,4 @@
 flojoy @ git+https://github.com/flojoy-ai/python@precompile
-matplotlib==3.5.2
 scikit-learn==1.2.2
 python-dotenv==1.0.0
 requests==2.29.0
@@ -10,6 +9,12 @@ uvicorn[standard]==0.23.2
 fastapi==0.103.0
 docstring_parser==0.15
 keyring==24.2.0 
+qcodes==0.39.1
+pyvisa_py==0.7.0
+pyvisa==1.13.0
+pyusb==1.2.1
+zeroconf==0.102.0
+pyserial==3.5
 debugpy
 python-minifier==2.9.0
 astunparse==1.6.3

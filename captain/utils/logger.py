@@ -1,6 +1,5 @@
 import logging
 import os
-import sys
 
 logger = logging.getLogger("fastapi-dev")
 logging.basicConfig(level=logging.INFO, format="%(name)s - %(levelname)s - %(message)s")

@@ -62,4 +62,9 @@ coverage-cy
 test/*
 build/*
 PYTHON/nodes
+ulab/
+build
 .nyc_output
+
+.python-version
+

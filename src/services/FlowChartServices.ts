@@ -1,8 +1,8 @@
 import { Setting } from "../hooks/useSettings";
 import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "@/types";
-import { API_URI } from "@src/data/constants";
 import { Result } from "@src/types/result";
+import { baseClient } from "@src/lib/base-client";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -19,40 +19,23 @@ export const postEnvironmentVariable = async (
   body: EnvVar,
 ): Promise<Result<null, unknown>> => {
   try {
-    const response = await fetch(`${API_URI}/env/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    if (response.ok) {
-      return { ok: true, data: null };
-    }
+    await baseClient.post("env", body);
+    return { ok: true, data: null };
   } catch (error) {
     return { ok: false, error: error };
   }
-  return { ok: false, error: "Something went wrong" };
 };
 
 export const deleteEnvironmentVariable = async (
   key: string,
 ): Promise<Result<null, unknown>> => {
   try {
-    const response = await fetch(`${API_URI}/env/${key}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await baseClient.delete(`env/${key}`);
 
-    if (response.ok) {
-      return { ok: true, data: null };
-    }
+    return { ok: true, data: null };
   } catch (error) {
     return { ok: false, error: error };
   }
-  return { ok: false, error: "Something went wrong" };
 };
 
 export function saveAndRunFlowChartInServer({
@@ -70,25 +53,21 @@ export function saveAndRunFlowChartInServer({
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
-
-    fetch(`${API_URI}/wfc`, {
-      method: "POST",
-      body: JSON.stringify({
-        fc: fcStr,
-        jobsetId: jobId,
-        cancelExistingJobs: true,
-        ...settings.reduce((obj, setting) => {
-          //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-          obj[setting.key] = setting.value;
-          return obj;
-        }, {}),
-        precompile: isMicrocontrollerMode,
-        ...mcSettings.reduce((obj, setting) => {
-          //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-          obj[setting.key] = setting.value;
-          return obj;
-        }, {}),
-      }),
+    baseClient.post("wfc", {
+      fc: fcStr,
+      jobsetId: jobId,
+      cancelExistingJobs: true,
+      ...settings.reduce((obj, setting) => {
+        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+        obj[setting.key] = setting.value;
+        return obj;
+      }, {}),
+      precompile: isMicrocontrollerMode,
+      ...mcSettings.reduce((obj, setting) => {
+        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+        obj[setting.key] = setting.value;
+        return obj;
+      }, {}),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
   }
@@ -101,15 +80,11 @@ export function cancelFlowChartRun(
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);
 
-    fetch(`${API_URI}/cancel_fc`, {
-      method: "POST",
-      body: JSON.stringify({
+    baseClient
+      .post("cancel_fc", {
         fc: fcStr,
         jobsetId: jobId,
-      }),
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-    })
-      .then((resp) => resp.json())
-      .then((json) => console.log(json));
+      })
+      .then((res) => console.log(res.data));
   }
 }

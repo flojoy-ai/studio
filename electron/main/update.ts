@@ -1,82 +1,100 @@
-import { app, ipcMain } from "electron";
-import {
-  type ProgressInfo,
-  type UpdateDownloadedEvent,
-  autoUpdater,
-} from "electron-updater";
+import { MessageBoxOptions, app, dialog } from "electron";
+import { autoUpdater } from "electron-updater";
+import { Logger } from "./logger";
 
-export function update(win: Electron.BrowserWindow) {
+const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
+export function update(cleanupFunc: () => Promise<void>) {
+  const logger = new Logger("Electron-updater");
+  global.updateInterval = null;
   // When set to false, the update download will be triggered through the API
   autoUpdater.autoDownload = false;
-  autoUpdater.disableWebInstaller = false;
   autoUpdater.allowDowngrade = false;
+  autoUpdater.logger = {
+    error: (msg) => logger.log(msg),
+    info: (msg) => logger.log(msg),
+    warn: (msg) => logger.log(msg),
+    debug: (msg) => logger.log(msg),
+  };
+  if (global.updateInterval) {
+    clearInterval(global.updateInterval);
+  }
+
+  const checkInterval = setInterval(() => {
+    autoUpdater.checkForUpdates().catch((err) => {
+      logger.log("Update check error: ", err);
+    });
+  }, CHECK_FOR_UPDATE_INTERVAL);
+
+  global.updateInterval = checkInterval;
 
   // start check
-  autoUpdater.on("checking-for-update", function () {});
+  autoUpdater.on("checking-for-update", () =>
+    logger.log("checking for update...."),
+  );
+
   // update available
   autoUpdater.on("update-available", (arg) => {
-    win.webContents.send("update-can-available", {
-      update: true,
-      version: app.getVersion(),
-      newVersion: arg?.version,
-    });
-  });
-  // update not available
-  autoUpdater.on("update-not-available", (arg) => {
-    win.webContents.send("update-can-available", {
-      update: false,
-      version: app.getVersion(),
-      newVersion: arg?.version,
-    });
-  });
-
-  // Checking for updates
-  ipcMain.handle("check-update", async () => {
-    if (!app.isPackaged) {
-      const error = new Error(
-        "The update feature is only available after the package.",
-      );
-      return { message: error.message, error };
-    }
-
-    try {
-      return await autoUpdater.checkForUpdatesAndNotify();
-    } catch (error) {
-      return { message: "Network error", error };
-    }
-  });
-
-  // Start downloading and feedback on progress
-  ipcMain.handle("start-download", (event) => {
-    startDownload(
-      (error, progressInfo) => {
-        if (error) {
-          // feedback download error message
-          event.sender.send("update-error", { message: error.message, error });
-        } else {
-          // feedback update progress message
-          event.sender.send("download-progress", progressInfo);
+    dialog
+      .showMessageBox({
+        type: "info",
+        title: "Found Updates",
+        message: "Found updates, do you want update now?",
+        detail: `An update to v${
+          arg.version
+        } is available! Current version is ${app.getVersion()}`,
+        buttons: ["Sure", "No"],
+      })
+      .then((buttonIndex) => {
+        if (buttonIndex.response === 0) {
+          autoUpdater.downloadUpdate();
+          dialog.showMessageBox({
+            type: "info",
+            title: "Downloading update!",
+            message:
+              "Downloading the update.. you'll be notified once update is ready to install..",
+          });
         }
-      },
-      () => {
-        // feedback update downloaded message
-        event.sender.send("update-downloaded");
-      },
-    );
+      });
+    if (global.updateInterval) {
+      clearInterval(global.updateInterval);
+    }
   });
 
-  // Install now
-  ipcMain.handle("quit-and-install", () => {
-    autoUpdater.quitAndInstall(false, true);
-  });
-}
+  autoUpdater.on("update-downloaded", () => {
+    const dialogOpts: MessageBoxOptions = {
+      type: "info",
+      buttons: ["Restart", "Later"],
+      title: "Install Updates",
+      message:
+        "A new version has been downloaded. Restart the application to apply the updates.",
+    };
 
-function startDownload(
-  callback: (error: Error | null, info: ProgressInfo | null) => void,
-  complete: (event: UpdateDownloadedEvent) => void,
-) {
-  autoUpdater.on("download-progress", (info) => callback(null, info));
-  autoUpdater.on("error", (error) => callback(error, null));
-  autoUpdater.on("update-downloaded", complete);
-  autoUpdater.downloadUpdate();
+    dialog.showMessageBox(dialogOpts).then(async (returnValue) => {
+      if (returnValue.response === 0) {
+        await cleanupFunc();
+        autoUpdater.quitAndInstall();
+      }
+    });
+    if (global.updateInterval) {
+      clearInterval(global.updateInterval);
+    }
+  });
+
+  // if we want to stream the progress info
+  autoUpdater.on("download-progress", () => {});
+  autoUpdater.on("error", (error) => {
+    logger.log("Update error: ", error.stack?.toString() ?? "");
+    const response = dialog.showMessageBoxSync({
+      title: "Update error!",
+      type: "error",
+      message: "An error occured while downloading the update.",
+      buttons: ["Try Again", "OK"],
+    });
+
+    if (response === 1) {
+      if (global.updateInterval) {
+        clearInterval(global.updateInterval);
+      }
+    }
+  });
 }

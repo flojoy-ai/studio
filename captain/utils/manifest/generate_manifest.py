@@ -1,15 +1,15 @@
 import os
-import json
 from typing import Any, Optional, Union
-from manifest.generate_node_manifest import create_manifest
+from captain.utils.manifest.build_manifest import create_manifest
+from captain.utils.nodes_path import get_nodes_path
 
-FULL_PATH = "PYTHON/nodes"
+__all__ = ["generate_manifest"]
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
     "EXTRACTORS": "Extract",
     "GENERATORS": "Generate",
-    "INSTRUMENTS": "I/O",
+    "IO": "I/O",
     "LOGIC_GATES": "Logic",
     "LOADERS": "Load",
     "TRANSFORMERS": "Transform",
@@ -34,7 +34,7 @@ ALLOWED_TYPES = [
     "EXTRACTORS",
     "TRANSFORMERS",
     "ARITHMETIC",
-    "INSTRUMENTS",
+    "IO",
     "LOGIC_GATES",
     "CONDITIONALS",
     "NUMPY",
@@ -51,16 +51,13 @@ ORDERING = [
     "EXTRACTORS",
     "TRANSFORMERS",
     "LOADERS",
-    "INSTRUMENTS",
+    "IO",
     "LOGIC_GATES",
     "NUMPY",
     "SCIPY",
     "GAMES",
     "MICROCONTROLLER",
 ]
-
-__failed_nodes: list[str] = []
-__generated_nodes: list[str] = []
 
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
@@ -102,15 +99,10 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
             n_file_name = f"{os.path.basename(dir_path)}.py"
             n_path = os.path.join(dir_path, n_file_name)
             result = create_manifest(n_path)
-            __generated_nodes.append(n_file_name)
         except Exception as e:
-            print(
-                "❌ Failed to generate manifest from ",
-                f"{os.path.basename(dir_path)}.py ",
-                e,
-                "\n",
+            raise ValueError(
+                f"Failed to generate manifest from {os.path.basename(dir_path)}.py {', '.join(e.args)}"
             )
-            __failed_nodes.append(f"{os.path.basename(dir_path)}.py")
 
         if not result.get("type"):
             result["type"] = cur_type
@@ -126,15 +118,8 @@ def sort_order(element):
         return len(ORDERING)
 
 
-if __name__ == "__main__":
-    map = browse_directories(FULL_PATH)
-    map["children"].sort(key=sort_order)  # type: ignore
-
-    if len(__failed_nodes) > 0:
-        raise SystemExit(f"\nfailed to generate {__failed_nodes.__len__()} nodes!")
-    print(
-        f"✅ Successfully generated manifest from {__generated_nodes.__len__()} nodes !"
-    )
-    with open("src/data/manifests-latest.json", "w") as f:
-        f.write(json.dumps(map, indent=3))
-        f.close()
+def generate_manifest():
+    nodes_path = get_nodes_path()
+    nodes_map = browse_directories(nodes_path)
+    nodes_map["children"].sort(key=sort_order)  # type: ignore
+    return nodes_map
