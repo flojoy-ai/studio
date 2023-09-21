@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
-import * as exampleItems from "../data/docs-example-apps";
+import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
@@ -145,17 +145,13 @@ export const useFlowChartGraph = () => {
   };
 };
 function resolveProjectReference(project: string) {
-  // eslint-disable-next-line no-debugger
-  debugger;
-  let projectData;
   if (RECIPES[project]) {
-    projectData = RECIPES[project];
+    return RECIPES[project];
   } else if (galleryItems[project]) {
-    projectData = galleryItems[project].rfInstance;
-  } else if (exampleItems.ExampleProjects[project]) {
-    projectData = exampleItems.ExampleProjects[project].rfInstance;
+    return galleryItems[project].rfInstance;
+  } else if (ExampleProjects[project]) {
+    return ExampleProjects[project].rfInstance;
   }
-  return projectData;
 }
 
 function resolveDefaultProjectReference() {
