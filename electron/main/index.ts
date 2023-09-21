@@ -208,8 +208,8 @@ app.whenReady().then(() => {
 app.on("window-all-closed", async () => {
   mainLogger.log("window-all-closed fired!");
   win = null;
+  await cleanup();
   if (process.platform !== "darwin") {
-    await cleanup();
     app.quit();
   }
 });
