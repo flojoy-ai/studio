@@ -21,7 +21,19 @@ from typing import (
     Literal,
 )
 
-from flojoy import DataContainer, DefaultParams, NodeReference, Array, NodeInitContainer
+from flojoy import (
+    DataContainer,
+    DefaultParams,
+    NodeReference,
+    Array,
+    NodeInitContainer,
+    CameraDevice,
+    SerialDevice,
+    VisaDevice,
+    CameraConnection,
+    SerialConnection,
+    VisaConnection,
+)
 
 ALLOWED_PARAM_TYPES = [
     int,
@@ -33,7 +45,16 @@ ALLOWED_PARAM_TYPES = [
     list[str],
 ]
 
-SPECIAL_TYPES = [NodeReference, Array]
+SPECIAL_TYPES = [
+    NodeReference,
+    Array,
+    CameraDevice,
+    SerialDevice,
+    VisaDevice,
+    CameraConnection,
+    SerialConnection,
+    VisaConnection,
+]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
 
@@ -90,7 +111,7 @@ class ManifestBuilder:
         return self
 
     def with_param(
-        self, name: str, param_type: Type, default: Any, overload: dict[Any] | None
+        self, name: str, param_type: Type, default: Any, overload: dict | None
     ):
         self.parameters[name] = {
             "type": type_str(param_type),
@@ -202,7 +223,7 @@ def create_manifest(path: str) -> dict[str, Any]:
 def populate_manifest(
     func: Callable[..., Any],
     mb: ManifestBuilder,
-    overload: dict[Any] | None,
+    overload: dict | None,
     is_special_node: bool = False,
 ):
     sig = inspect.signature(func)
@@ -222,7 +243,7 @@ def populate_inputs(
     name: str,
     param: Parameter,
     mb: ManifestBuilder,
-    overload: dict[Any] | None = None,
+    overload: dict | None = None,
     multiple: bool = False,
 ):
     param_type = param.annotation

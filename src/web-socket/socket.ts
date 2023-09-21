@@ -10,6 +10,7 @@ interface WebSocketServerProps {
   handleFailedNodes: (value: Record<string, string>) => void;
   handleSocketId: (value: string) => void;
   onClose?: (ev: CloseEvent) => void;
+  onConnectionEstablished: () => void;
   handleModalConfig: React.Dispatch<React.SetStateAction<ModalConfig>>;
 }
 
@@ -56,6 +57,7 @@ export class WebSocketServer {
   private handleSocketId: WebSocketServerProps["handleSocketId"];
   private onClose?: (ev: CloseEvent) => void;
   private handleModalConfig: WebSocketServerProps["handleModalConfig"];
+  private onConnectionEstablished: WebSocketServerProps["onConnectionEstablished"];
   constructor({
     url,
     onPingResponse,
@@ -65,6 +67,7 @@ export class WebSocketServer {
     handleSocketId,
     onClose,
     handleModalConfig,
+    onConnectionEstablished,
   }: WebSocketServerProps) {
     this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -74,6 +77,7 @@ export class WebSocketServer {
     this.server = new WebSocket(url);
     this.onClose = onClose;
     this.handleModalConfig = handleModalConfig;
+    this.onConnectionEstablished = onConnectionEstablished;
     this.init();
   }
   init() {
@@ -127,6 +131,7 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
+          this.onConnectionEstablished();
           sendEventToMix(
             "Initial Status",
             "Connection Established",

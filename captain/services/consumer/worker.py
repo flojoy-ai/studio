@@ -9,6 +9,7 @@ from captain.types.worker import JobInfo, PoisonPill
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
 from captain.utils.status_codes import STATUS_CODES
+from flojoy.flojoy_node_venv import PipInstallThread
 
 """
 IMPORTANT NOTE: This class mimics the RQ Worker package. 
@@ -86,8 +87,10 @@ class Worker:
 
                     # signal to frontend that the node has failed
                     await self.signaler.signal_failed_nodes(
-                        job.jobset_id, job.job_id, func.__name__
+                        job.jobset_id, job.job_id, func.__name__, response.error
                     )
+                    PipInstallThread.terminate_all()
+                    raise Exception(response.error)
 
             # put the job result in the queue for producer to process
             self.finish_queue.put(response)

@@ -4,6 +4,7 @@ import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
+import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
 
 export type ModalConfig = {
   showModal?: boolean;
@@ -56,6 +57,7 @@ export const SocketContextProvider = ({
   const [modalConfig, setModalConfig] = useState<ModalConfig>({
     showModal: false,
   });
+  const hardwareRefetch = useHardwareRefetch();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -82,10 +84,11 @@ export const SocketContextProvider = ({
           console.log("socket closed with event:", ev);
           setSocket(undefined);
         },
+        onConnectionEstablished: hardwareRefetch,
       });
       setSocket(ws);
     }
-  }, [socket]);
+  }, [socket, hardwareRefetch]);
   const values = useMemo(
     () => ({
       states: {

@@ -8,6 +8,7 @@ import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
+import DeviceTab from "./feature/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 
@@ -53,6 +54,11 @@ const App = () => {
           <Route
             path="/"
             element={<FlowChartTab />}
+            errorElement={<ErrorBoundary />}
+          />
+          <Route
+            path="/devices"
+            element={<DeviceTab />}
             errorElement={<ErrorBoundary />}
           />
         </Routes>
