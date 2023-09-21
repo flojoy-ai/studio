@@ -27,6 +27,7 @@ import traceback
 from captain.utils.broadcast import Signaler
 from captain.utils.import_nodes import pre_import_functions
 import logging
+import threading
 
 
 def run_worker(
@@ -404,4 +405,17 @@ class BroadcastNodeLogs(logging.Handler):
 
         if self.PCKG_INSTALLATION_COMPLETE in log_entry:
             socket_msg["MODAL_CONFIG"]["showModal"] = False
-        asyncio.run(self.manager.ws.broadcast(socket_msg))
+
+        def broadcast_socket():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+            async def inner_broadcast_socket():
+                await self.manager.ws.broadcast(socket_msg)
+
+            loop.run_until_complete(inner_broadcast_socket())
+            loop.close()
+
+        thread = threading.Thread(target=broadcast_socket)
+        thread.start()
+        thread.join()
