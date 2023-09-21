@@ -106,7 +106,11 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger disabled={IS_CLOUD_DEMO} data-testid="settings-btn">
+            <MenubarTrigger
+              disabled={IS_CLOUD_DEMO}
+              data-testid="settings-btn"
+              className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
+            >
               Settings
             </MenubarTrigger>
             <MenubarContent>
