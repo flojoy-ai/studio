@@ -16,5 +16,4 @@ pyusb==1.2.1
 zeroconf==0.102.0
 pyserial==3.5
 debugpy
-pyserial
 opencv-python-headless
