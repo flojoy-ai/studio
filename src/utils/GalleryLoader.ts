@@ -1,4 +1,3 @@
-import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { GalleryData } from "@src/types/gallery";
 
 const data: GalleryData = {
