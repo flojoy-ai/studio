@@ -1,7 +1,7 @@
 export type DeviceCardProps = {
   name: string;
   description?: string;
-  manufacturer?: string;
+  manufacturer?: string | null;
   port?: string;
 };
 
