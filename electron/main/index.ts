@@ -207,8 +207,8 @@ app.whenReady().then(() => {
 
 app.on("window-all-closed", async () => {
   mainLogger.log("window-all-closed fired!");
-  win = null;
   await cleanup();
+  win = null;
   if (process.platform !== "darwin") {
     app.quit();
   }
