@@ -65,13 +65,14 @@ const FlowChartTab = () => {
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
+  const [mcNodeSection, setMcNodeSection] = useState<RootNode | null>(null);
   const [nodesMetadataMap, setNodesMetadataMap] =
     useState<NodesMetadataMap | null>(null);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
   const { theme, resolvedTheme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
+  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode, isMicrocontrollerMode } =
     useFlowChartState();
 
   const { states } = useSocket();
@@ -188,6 +189,27 @@ const FlowChartTab = () => {
       }),
     [setEdges, nodeSection],
   );
+
+  const onConnectMC: OnConnect = useCallback(
+    (connection) =>
+      setEdges((eds) => {
+        if (mcNodeSection) {
+          const [sourceType, targetType] = getEdgeTypes(
+            mcNodeSection,
+            connection,
+          );
+          if (isCompatibleType(sourceType, targetType)) {
+            return addEdge(connection, eds);
+          }
+
+          toast.message("Type error", {
+            description: `Source type ${sourceType} and target type ${targetType} are not compatible`,
+          });
+        }
+      }),
+    [setEdges, mcNodeSection],
+  )
+
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
@@ -213,7 +235,10 @@ const FlowChartTab = () => {
 
   const fetchManifest = useCallback(async () => {
     try {
+
+      /* MANIFEST FOR REGULAR NODES */
       const res = await baseClient.get("nodes/manifest");
+      console.log("Nodes manifest fetched", res.data)
       // TODO: fix zod schema to accept io directory structure
       const validateResult = validateRootSchema(res.data);
       if (!validateResult.success) {
@@ -224,6 +249,19 @@ const FlowChartTab = () => {
         console.error(validateResult.error);
       }
       setNodeSection(res.data);
+
+      /* MANIFEST FOR MC NODES */
+      const mcRes = await baseClient.get("nodes-mc/manifest");
+      console.log("MC nodes manifest fetched", mcRes.data)
+      const validateMcResult = validateRootSchema(mcRes.data);
+      if (!validateMcResult.success) {
+        toast.message(`Failed to validate MC nodes manifest!`, {
+          duration: 20000,
+          description: "Check browser console for more info.",
+        });
+        console.error(validateMcResult.error);
+      }
+      setMcNodeSection(mcRes.data);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -351,9 +389,18 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {nodeSection && (
+        {!isMicrocontrollerMode && nodeSection && (
           <Sidebar
             sections={nodeSection}
+            leafNodeClickHandler={addNewNode as LeafClickHandler}
+            isSideBarOpen={isSidebarOpen}
+            setSideBarStatus={setIsSidebarOpen}
+          />
+        )}
+
+        {isMicrocontrollerMode && mcNodeSection && (
+          <Sidebar
+            sections={mcNodeSection}
             leafNodeClickHandler={addNewNode as LeafClickHandler}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
@@ -396,7 +443,7 @@ const FlowChartTab = () => {
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
+            onConnect={(isMicrocontrollerMode)?onConnectMC:onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{

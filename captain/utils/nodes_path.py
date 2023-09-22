@@ -17,6 +17,22 @@ def get_nodes_path():
 
     return nodes_path
 
+def get_nodes_mc_path():
+    nodes_mc_path = "PYTHON/nodes-mc"
+     # This env is set from scripts/backend.(ps1/sh) file
+
+     # TODO handle logic for packaged mode, refer to Syed
+    # is_packaged = os.environ.get("ELECTRON_MODE", "dev") == "packaged"
+    # if is_packaged:
+    #     # Refer to electron/node-pack-save.ts line-8
+    #     nodes_mc_path_file = os.path.join(get_flojoy_dir(), "nodes_path.txt")
+    #     try:
+    #         with open(nodes_mc_path_file, "r") as f:
+    #             nodes_mc_path = f.read()
+    #     except Exception:
+    #         pass
+
+    return nodes_mc_path
 
 def get_flojoy_dir():
     return os.path.abspath(os.path.join(Path.home(), ".flojoy"))

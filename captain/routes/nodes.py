@@ -17,6 +17,16 @@ async def get_manifest():
             content=json.dumps({"success": False, "error": "\n".join(e.args)}),
         )
 
+@router.get("/nodes-mc/manifest/")
+async def get_mc_manifest():
+    try:
+        manifest = generate_manifest(is_mc=True)
+        return manifest
+    except Exception as e:
+        return Response(
+            status_code=400,
+            content=json.dumps({"success": False, "error": "\n".join(e.args)}),
+        )
 
 @router.get("/nodes/metadata/")
 async def get_metadata():

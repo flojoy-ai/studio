@@ -1,7 +1,7 @@
 import os
 from typing import Any, Optional, Union
 from captain.utils.manifest.build_manifest import create_manifest
-from captain.utils.nodes_path import get_nodes_path
+from captain.utils.nodes_path import get_nodes_path, get_nodes_mc_path
 
 __all__ = ["generate_manifest"]
 
@@ -59,13 +59,18 @@ ORDERING = [
     "MICROCONTROLLER",
 ]
 
+# NODE REPOSITORIES
+NODE_REPOS = {
+    "nodes",
+    "nodes-mc",
+}
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = os.path.basename(dir_path)
     result["name"] = (
         "ROOT"
-        if os.path.basename(dir_path) == "nodes"
+        if os.path.basename(dir_path) in NODE_REPOS
         else NAME_MAP.get(basename, basename)
     )
     if result["name"] != "ROOT":
@@ -118,8 +123,9 @@ def sort_order(element):
         return len(ORDERING)
 
 
-def generate_manifest():
-    nodes_path = get_nodes_path()
+def generate_manifest(is_mc=False):
+    nodes_path = get_nodes_path() if not is_mc else get_nodes_mc_path()
     nodes_map = browse_directories(nodes_path)
     nodes_map["children"].sort(key=sort_order)  # type: ignore
     return nodes_map
+
