@@ -305,6 +305,13 @@ sleep 1
 
 # set deploy status to dev
 export DEPLOY_STATUS=dev
+if [ $isRemoteMode = true ]
+then
+   info_msg "Changed DEPLOY_STATUS to prod, for REST API config!"
+   export DEPLOY_STATUS=prod
+else
+   export DEPLOY_STATUS=dev
+fi
 
 # start project services
 if [ $test_ci = true ]; then
