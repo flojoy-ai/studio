@@ -34,7 +34,11 @@ mac:
   target:
     - dmg
     - zip
+  entitlements: ./entitlements.mac.plist
+  entitlementsInherit: ./entitlements.mac.plist
   darkModeSupport: true
+  hardenedRuntime: true
+
 linux:
   icon: public/favicon.icns
   target:
