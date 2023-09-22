@@ -85,9 +85,6 @@ class LinuxDeviceFinder(DefaultDeviceFinder):
 
 
 def get_device_finder():
-    if platform == "win32":
+    if platform in ["win32", "darwin"]:
         return DefaultDeviceFinder()
-    elif platform == "darwin":
-        return DefaultDeviceFinder()
-
     return LinuxDeviceFinder()

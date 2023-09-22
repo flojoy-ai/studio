@@ -1,6 +1,7 @@
 {
   "name": "flojoy-studio",
   "productName": "Flojoy Studio",
+  "description": "Joyful visual programming for Python",
   "version": "0.1.14",
   "private": true,
   "homepage": "./",
