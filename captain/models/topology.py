@@ -4,11 +4,7 @@ import os
 from queue import Queue
 import time
 from collections import deque
-from flojoy import (
-    JobFailure,
-    JobSuccess,
-    get_next_directions
-)
+from flojoy import JobFailure, JobSuccess, get_next_directions
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger

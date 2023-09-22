@@ -1,7 +1,3 @@
-import os, sys
-
-sys.path.append(os.path.abspath(os.getcwd()))
-sys.path.append(os.path.join(os.getcwd(), "PYTHON"))
 from captain.utils.broadcast import Signaler
 import asyncio
 from fastapi import APIRouter

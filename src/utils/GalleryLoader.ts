@@ -88,6 +88,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     // {
     //   description: "Estimate object depth with the DINOv2 node",
