@@ -15,6 +15,7 @@ import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
+import { ChildProcess } from "node:child_process";
 
 // The built directory structure
 //
@@ -214,7 +215,6 @@ app.on("window-all-closed", async (e) => {
   mainLogger.log("window-all-closed fired!");
   e.preventDefault();
   await cleanup();
-  // win = null;
   if (process.platform !== "darwin") {
     app.exit(0);
   }
@@ -226,16 +226,6 @@ app.on("before-quit", async (e) => {
   await cleanup();
   app.exit(0);
 });
-
-// app.on("will-quit", async () => {
-//   mainLogger.log("will-quit fired!");
-//   await cleanup();
-// });
-
-// app.on("quit", () => {
-//   mainLogger.log("quit fired!");
-//   // cleanup();
-// });
 
 app.on("second-instance", () => {
   if (win) {
@@ -279,6 +269,9 @@ const cleanup = async () => {
       try {
         mainLogger.log("Killing script: ", script.pid);
         await killSubProcess(script);
+        global.runningProcesses = global.runningProcesses.filter(
+          (s: ChildProcess) => s.pid !== script.pid,
+        );
         mainLogger.log("kill success!");
       } catch (error) {
         mainLogger.log(
