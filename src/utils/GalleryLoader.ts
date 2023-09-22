@@ -13,6 +13,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/LOGIC_GATES/LOOPS/LOOP/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Intro to signals",
@@ -20,6 +21,7 @@ const data: GalleryData = {
       imagePath: "assets/appGallery/introToSignals.png",
       appPath: "oscilator",
       relevantNodes: [],
+      cloudDemoEnabled: true,
     },
     {
       title: "Intro to images",
@@ -32,6 +34,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Stream to Flojoy Cloud",
@@ -44,6 +47,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
         },
       ],
+      cloudDemoEnabled: false,
     },
   ],
   AI: [
@@ -58,6 +62,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Image Classification",
@@ -70,6 +75,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       description: "Predict future events with the Prophet node",
@@ -101,6 +107,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
         },
       ],
+      cloudDemoEnabled: true,
     },
   ],
   IO: [
@@ -110,6 +117,7 @@ const data: GalleryData = {
       imagePath: "assets/appGallery/arduino.png",
       appPath: "arduino",
       relevantNodes: [],
+      cloudDemoEnabled: false,
     },
     {
       description: "Record and log temperatures",
@@ -122,6 +130,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
         },
       ],
+      cloudDemoEnabled: false,
     },
     {
       description: "Capture real-time images",
@@ -134,6 +143,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       description: "Precisely position anything",
@@ -146,6 +156,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
         },
       ],
+      cloudDemoEnabled: false,
     },
   ],
   DSP: [
@@ -155,6 +166,7 @@ const data: GalleryData = {
       imagePath: "assets/appGallery/PID.png",
       appPath: "pid",
       relevantNodes: [],
+      cloudDemoEnabled: true,
     },
     {
       description: "Apply an FIR filter to an input signal",
@@ -167,6 +179,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FIR/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     // {
     //   description: "Solve the Schrödinger with different starting conditions",
@@ -187,6 +200,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
         },
       ],
+      cloudDemoEnabled: true,
     },
   ],
 };
