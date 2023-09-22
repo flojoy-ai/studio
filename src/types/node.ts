@@ -1,7 +1,4 @@
-import { OverridePlotData } from "./plotly";
 import { NodeProps } from "reactflow";
-import { Layout } from "plotly.js";
-import { MouseEvent } from "react";
 
 type NodeElement = {
   name: string;
@@ -66,7 +63,7 @@ export type ElementsData = {
     type: string;
     desc: string | null;
   }>;
-  selected?: boolean;
+  selected?: boolean; // TODO: Remove this
   pip_dependencies?: {
     name: string;
     v?: string;
@@ -77,20 +74,4 @@ export type TextData = {
   text: string;
 };
 
-export interface CustomNodeProps {
-  nodeProps: NodeProps<ElementsData>;
-  handleRemove?: (nodeId: string, nodeLabel: string) => void;
-  wrapperOnClick?: (event: MouseEvent<HTMLDivElement>) => void;
-  handleClickExpand?: () => void;
-  isRunning?: boolean;
-  height?: number | string;
-  width?: number | string;
-  children?: React.ReactNode;
-  nodeError?: string;
-  plotlyFig?: {
-    data: OverridePlotData;
-    layout: Partial<Layout> | undefined;
-  };
-  textBlob?: string;
-  theme?: "light" | "dark";
-}
+export type CustomNodeProps = NodeProps<ElementsData>;

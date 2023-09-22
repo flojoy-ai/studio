@@ -7,6 +7,7 @@ import LogicNode from "./LogicNode";
 import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
 import VisorNode from "./VisorNode";
+import BigNumberNode from "./visual/BigNumberNode";
 
 export const nodeTypesMap = {
   default: DefaultNode,
@@ -22,4 +23,5 @@ export const nodeTypesMap = {
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
+  BIG_NUMBER: BigNumberNode,
 };

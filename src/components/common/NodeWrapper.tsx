@@ -1,11 +1,10 @@
 import React from "react";
-import { CustomNodeProps } from "../../types/node";
 
 const NodeWrapper = ({
-  wrapperProps: { nodeError },
+  nodeError,
   children,
 }: {
-  wrapperProps: CustomNodeProps;
+  nodeError: string;
   children: React.ReactNode;
 }) => {
   return (
