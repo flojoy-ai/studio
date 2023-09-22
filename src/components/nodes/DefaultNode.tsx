@@ -5,24 +5,27 @@ import NodeWrapper from "@/components/common/NodeWrapper";
 import HandleComponent from "@/components/common/HandleComponent";
 import { textWrap } from "@src/utils/TextWrap";
 import NodeInput from "@/components/common/NodeInput";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const DefaultNode = (props: CustomNodeProps) => {
-  const {
-    nodeProps: { data },
-    height,
-    width,
-    isRunning = false,
-    nodeError = null,
-    children,
-  } = props;
+const DefaultNode = ({
+  data,
+  width,
+  height,
+  children,
+}: CustomNodeProps & {
+  width?: number;
+  height?: number;
+  children?: React.ReactNode;
+}) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError}>
       <div
         className={clsx(
           "flex min-h-[160px] items-center justify-center break-words rounded-2xl border-2 border-solid border-accent1 bg-accent1/5 p-2",
-          { "shadow-around shadow-accent1": isRunning || data.selected },
+          { "shadow-around shadow-accent1": nodeRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         style={{

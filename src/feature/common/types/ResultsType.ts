@@ -18,4 +18,9 @@ export type Result = {
     layout: Partial<Layout> | undefined;
   };
   text_blob?: string;
+  data?: ScalarData;
+};
+
+export type ScalarData = {
+  c: number;
 };
