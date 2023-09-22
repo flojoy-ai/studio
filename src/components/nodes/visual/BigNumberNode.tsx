@@ -1,6 +1,7 @@
 import BigNumber from "@src/assets/nodes/BigNumber";
 import HandleComponent from "@src/components/common/HandleComponent";
 import NodeWrapper from "@src/components/common/NodeWrapper";
+import { ScalarData } from "@src/feature/common/types/ResultsType";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
@@ -9,7 +10,7 @@ import { memo } from "react";
 const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
   return (
-    <NodeWrapper>
+    <NodeWrapper nodeError={nodeError}>
       <div
         className={clsx(
           "rounded-2xl bg-transparent",
@@ -19,7 +20,7 @@ const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
       >
         {nodeResult?.result?.data ? (
           <h1 className="flex h-56 w-56 items-center justify-center text-6xl text-accent1">
-            {nodeResult.result.data.c}
+            {(nodeResult.result.data as ScalarData).c}
           </h1>
         ) : (
           <BigNumber />

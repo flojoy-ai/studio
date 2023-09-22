@@ -18,9 +18,14 @@ export type Result = {
     layout: Partial<Layout> | undefined;
   };
   text_blob?: string;
-  data?: ScalarData;
+  data?: ScalarData | OrderedPairData;
 };
 
 export type ScalarData = {
   c: number;
+};
+
+export type OrderedPairData = {
+  x: number[];
+  y: number[];
 };

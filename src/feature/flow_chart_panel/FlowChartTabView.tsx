@@ -67,6 +67,7 @@ import NumpyNode from "@src/components/nodes/NumpyNode";
 import ScipyNode from "@src/components/nodes/ScipyNode";
 import VisorNode from "@src/components/nodes/VisorNode";
 import BigNumberNode from "@src/components/nodes/visual/BigNumberNode";
+import ScatterNode from "@src/components/nodes/visual/ScatterNode";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -83,6 +84,7 @@ const nodeTypes: NodeTypes = {
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
   BIG_NUMBER: BigNumberNode,
+  SCATTER: ScatterNode,
 };
 
 const edgeTypes = {

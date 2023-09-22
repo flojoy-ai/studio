@@ -26,6 +26,7 @@
     "@radix-ui/react-tooltip": "^1.0.6",
     "@tisoap/react-flow-smart-edge": "file:bauhaus/tisoap-react-flow-smart-edge-v3.0.0.tgz",
     "axios": "^1.5.0",
+    "candygraph": "^0.10.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",

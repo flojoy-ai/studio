@@ -9,7 +9,7 @@ import { useNodeStatus } from "@src/hooks/useNodeStatus";
 const LogicNode = ({
   data,
   children,
-}: CustomNodeProps & { children: React.ReactNode }) => {
+}: CustomNodeProps & { children?: React.ReactNode }) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
