@@ -65,3 +65,5 @@ If interested in using Flojoy in a context where the AGPL license is prohibitive
 # Product screenshots
 
 ![product_screenshot](https://github.com/flojoy-ai/studio/assets/1865834/e58877fb-b9e4-4831-ac35-de40021dacd3)
+
+![Visualization of the Codebase](./diagram.svg)
