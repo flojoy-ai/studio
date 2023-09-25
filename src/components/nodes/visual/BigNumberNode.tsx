@@ -9,6 +9,7 @@ import { memo } from "react";
 
 const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
+
   return (
     <NodeWrapper nodeError={nodeError}>
       <div
