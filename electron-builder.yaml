@@ -7,6 +7,7 @@ icon: public/favicon.ico
 asar: true
 files:
   - dist-electron/**/*
+afterSign: "scripts/notarize.js"
 
 extraResources:
   - from: "public"
@@ -37,7 +38,10 @@ mac:
   entitlements: ./entitlements.mac.plist
   entitlementsInherit: ./entitlements.mac.plist
   darkModeSupport: true
+  gatekeeperAssess: false
   hardenedRuntime: true
+  # binaries: ["scripts/python-interpreter/mac.zip"]
+  notarize: true
 
 linux:
   icon: public/favicon.icns
