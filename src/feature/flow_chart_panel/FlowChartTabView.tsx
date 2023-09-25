@@ -58,6 +58,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ZodError } from "zod";
+import Logs from "../logs/Logs";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -229,13 +230,13 @@ const FlowChartTab = () => {
     } catch (err: any) {
       const errTitle =
         err instanceof ZodError
-          ? "Zod validation error"
+          ? "Zod validation error occurred in the generated node manifest!"
           : "Failed to generate nodes manifest!";
 
       const errDescription =
         err instanceof ZodError
           ? `${err.message}`
-          : `${err.response?.data?.error}` ?? `${err}`;
+          : `${err.response?.data?.error ?? err.message}`;
 
       toast.message(errTitle, {
         description: errDescription,
@@ -286,6 +287,7 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
+      {"api" in window && window.api.isPackaged && <Logs />}
       <ReactFlowProvider>
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />

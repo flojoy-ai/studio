@@ -43,13 +43,15 @@ const App = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
         <ElectronLogsDialog />
-        <PreJobOperationDialog
-          open={isPrejobModalOpen}
-          outputs={modalConfig.messages ?? []}
-          setOpen={setIsPrejobModalOpen}
-          title={modalConfig.title}
-          description={modalConfig.description}
-        />
+        {!window.api?.isPackaged && (
+          <PreJobOperationDialog
+            open={isPrejobModalOpen}
+            outputs={modalConfig.messages ?? []}
+            setOpen={setIsPrejobModalOpen}
+            title={modalConfig.title}
+            description={modalConfig.description}
+          />
+        )}
         <Routes>
           <Route
             path="/"
