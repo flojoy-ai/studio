@@ -58,7 +58,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ZodError } from "zod";
-import Logs from "../logs/Logs";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -241,6 +240,10 @@ const FlowChartTab = () => {
       toast.message(errTitle, {
         description: errDescription,
         duration: 60000,
+        dismissible: true,
+        cancel: {
+          label: "Close",
+        },
       });
     }
   }, []);
@@ -287,7 +290,6 @@ const FlowChartTab = () => {
 
   return (
     <Layout>
-      {"api" in window && window.api.isPackaged && <Logs />}
       <ReactFlowProvider>
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />

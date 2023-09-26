@@ -12,6 +12,7 @@ interface WebSocketServerProps {
   onClose?: (ev: CloseEvent) => void;
   onConnectionEstablished: () => void;
   handleModalConfig: React.Dispatch<React.SetStateAction<ModalConfig>>;
+  handleLogs: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 enum ResponseEnum {
@@ -21,6 +22,7 @@ enum ResponseEnum {
   failedNodes = "FAILED_NODES",
   preJobOperation = "PRE_JOB_OP",
   modalConfig = "MODAL_CONFIG",
+  logs = "BACKEND_LOGS",
 }
 
 const getModalConfig = (
@@ -58,6 +60,7 @@ export class WebSocketServer {
   private onClose?: (ev: CloseEvent) => void;
   private handleModalConfig: WebSocketServerProps["handleModalConfig"];
   private onConnectionEstablished: WebSocketServerProps["onConnectionEstablished"];
+  private handleLogs: WebSocketServerProps["handleLogs"];
   constructor({
     url,
     onPingResponse,
@@ -68,6 +71,7 @@ export class WebSocketServer {
     onClose,
     handleModalConfig,
     onConnectionEstablished,
+    handleLogs,
   }: WebSocketServerProps) {
     this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -78,6 +82,7 @@ export class WebSocketServer {
     this.onClose = onClose;
     this.handleModalConfig = handleModalConfig;
     this.onConnectionEstablished = onConnectionEstablished;
+    this.handleLogs = handleLogs;
     this.init();
   }
   init() {
@@ -122,6 +127,9 @@ export class WebSocketServer {
           if (ResponseEnum.modalConfig in data) {
             const modalConfig = data[ResponseEnum.modalConfig];
             this.handleModalConfig((prev) => getModalConfig(prev, modalConfig));
+          }
+          if (ResponseEnum.logs in data) {
+            this.handleLogs((prev) => [...prev, data[ResponseEnum.logs]]);
           }
           break;
         case "connection_established":

@@ -5,6 +5,7 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
+import Logs from "../logs/Logs";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -61,6 +62,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
+        <Logs />
         {children}
       </main>
     </div>

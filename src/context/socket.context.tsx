@@ -22,6 +22,7 @@ type States = {
   failedNodes: Record<string, string>;
   socketId: string;
   modalConfig: ModalConfig;
+  logs: string[];
 };
 
 export enum IServerStatus {
@@ -42,6 +43,7 @@ const DEFAULT_STATES = {
   serverStatus: IServerStatus.CONNECTING,
   failedNodes: {},
   socketId: "",
+  logs: [],
 };
 
 export const SocketContext = createContext<{ states: States } | null>(null);
@@ -57,6 +59,7 @@ export const SocketContextProvider = ({
   const [modalConfig, setModalConfig] = useState<ModalConfig>({
     showModal: false,
   });
+  const [logs, setLogs] = useState<string[]>([]);
   const hardwareRefetch = useHardwareRefetch();
 
   const handleStateChange =
@@ -80,6 +83,7 @@ export const SocketContextProvider = ({
         onNodeResultsReceived: setProgramResults,
         onPingResponse: handleStateChange("serverStatus"),
         handleModalConfig: setModalConfig,
+        handleLogs: setLogs,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
           setSocket(undefined);
@@ -96,9 +100,10 @@ export const SocketContextProvider = ({
         programResults,
         setProgramResults,
         modalConfig,
+        logs,
       },
     }),
-    [programResults, states, modalConfig],
+    [programResults, states, modalConfig, logs],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
