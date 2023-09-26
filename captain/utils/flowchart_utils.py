@@ -265,12 +265,12 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     await manager.ws.broadcast(socket_msg)
 
     for node in nodes:
-        # node_logger = logging.getLogger(node["data"]["func"])
-        # handler = BroadcastNodeLogs(
-        #     manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
-        # )
-        # handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
-        # node_logger.addHandler(handler)
+        node_logger = logging.getLogger(node["data"]["func"])
+        handler = BroadcastNodeLogs(
+            manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
+        )
+        handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
+        node_logger.addHandler(handler)
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
