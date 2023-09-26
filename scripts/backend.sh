@@ -3,16 +3,18 @@
 current_dir="$(dirname "$(readlink -f "$0")")"
 
 flojoy_dir="$HOME/.flojoy"
-python_dir="$flojoy_dir/python"
-python_exec="$python_dir/bin/python3"
+mamba_dir="$flojoy_dir/python"
+python_exec="$mamba_dir/bin/python3"
 venv_name="404fc545_flojoy"
 venv_dir="$flojoy_dir/flojoy_root_venv"
 venv_path="$venv_dir/$venv_name"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  python_zip="$current_dir/python-interpreter/mac.zip"
-elif [[ "$OSTYPE" == "linux"* ]]; then
-  python_zip="$current_dir/python-interpreter/linux.zip"
+if [ "$(uname)" == "Darwin" ]; then
+  # if [ "$(uname -m)" == "x86_64" ]; then
+    mamba_installer="$current_dir/mamba/mamba_mac_x86_64.sh"
+  # fi
+elif [ "$(uname)" == "Linux" ]; then
+  mamba_installer="$current_dir/mamba/mamba_linux_x86_64.sh"
 else
   echo "Unsupported operating system"
 fi
@@ -25,12 +27,12 @@ if [ ! -d "$flojoy_dir" ]; then
 fi
 
 if [ ! -f "$python_exec" ]; then
-  if [ -d "$python_dir" ]; then
-    rm -rf $python_dir
+  if [ -d "$mamba_dir" ]; then
+    rm -rf $mamba_dir
   fi
-  echo "Extracting python interpreter to local directory..."
+  echo "Installing mamba to local directory..."
   # Extract the zip file to the destination directory
-  unzip "$python_zip" -d "$python_dir" >/dev/null 2>&1
+  $mamba_installer -b
 fi
 
 cd "$flojoy_dir"
