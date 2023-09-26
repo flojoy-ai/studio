@@ -3,7 +3,7 @@ import { LAYOUT_TOP_HEIGHT } from "../common/Layout";
 import { cn } from "@src/lib/utils";
 import { Button } from "@src/components/ui/button";
 import { ChevronsUp, ChevronsDown } from "lucide-react";
-// import { baseClient } from "@src/lib/base-client";
+import { baseClient } from "@src/lib/base-client";
 
 const Logs = () => {
   const [outputs, setOutputs] = useState<string[]>([]);
@@ -22,10 +22,10 @@ const Logs = () => {
       const logs = await window.api.getBackendLogs();
       setOutputs(logs.split("\n"));
     }
-    //  else {
-    //   const res = await baseClient.get("logs");
-    //   setOutputs(res.data.split("\n"));
-    // }
+     else {
+      const res = await baseClient.get("logs");
+      setOutputs(res.data.split("\n"));
+    }
   };
   useEffect(() => {
     const interval = setInterval(() => {

@@ -6,7 +6,7 @@ router = APIRouter(tags=["logs"])
 
 
 @router.get("/logs")
-async def get_logs():
+def get_logs():
     try:
         _, _, log_file_path = get_log_file_path("main")
         if not os.path.exists(log_file_path):
