@@ -1,5 +1,7 @@
 import REGL from "regl";
 import { Triangle } from "./triangle";
+import { Sphere } from "./sphere";
+import { Points } from "./points";
 
 export interface Drawable {
   render(): void;
@@ -13,13 +15,9 @@ type PlotOptions = {
 
 export class Plot {
   private reglContext: REGL.Regl;
-  private width: number;
-  private height: number;
 
-  constructor({ width, height, ref }: PlotOptions) {
+  constructor({ ref }: PlotOptions) {
     this.reglContext = REGL(ref);
-    this.width = width;
-    this.height = height;
   }
 
   public get regl() {
@@ -27,4 +25,4 @@ export class Plot {
   }
 }
 
-export { Triangle };
+export { Triangle, Sphere, Points };
