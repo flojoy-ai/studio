@@ -34,6 +34,10 @@ export enum IServerStatus {
   STANDBY = "🐢 awaiting a new job",
   SERVER_ONLINE = "🏁 node server online",
   NO_RUNS_YET = "⛷️ No runs yet",
+  BUILDING_SCRIPT = "📝 building script...",
+  UPLOADING_FILES = "📤 uploading files to the microcontroller...",
+  UPLOAD_COMPLETE = "📥 upload complete",
+  UPLOAD_FAILED = "❌ upload failed"
 }
 
 const DEFAULT_STATES = {

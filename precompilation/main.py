@@ -1,5 +1,6 @@
 import json
 import tempfile
+from captain.utils.broadcast import Signaler
 from precompilation.flojoy_script_builder import FlojoyScriptBuilder
 from precompilation.precompilation_utils import (
     create_light_topology,
@@ -15,6 +16,7 @@ def precompile(
     node_delay: float,
     maximum_runtime: float,
     path_to_requirements: str,
+    signaler: Signaler,
     path_to_output: str | None = None,
     is_ci: bool = False,
     port: str = "",
@@ -26,7 +28,7 @@ def precompile(
     with tempfile.TemporaryDirectory() as tmpdirname:
         # Step 0 : pre-precompile operations
         clear_flojoy_memory()
-        sw = FlojoyScriptBuilder(tmpdirname, jobset_id=jobset_id, is_ci=is_ci)
+        sw = FlojoyScriptBuilder(tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler)
         flowchart_as_dict = json.loads(fc)
         light_topology = create_light_topology(
             flowchart_as_dict, jobset_id, node_delay, maximum_runtime

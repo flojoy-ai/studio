@@ -89,7 +89,7 @@ export class WebSocketServer {
               this.handlePingResponse(IServerStatus.STANDBY);
             }
             if (
-              [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY].includes(
+              [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(
                 data[ResponseEnum.systemStatus],
               )
             ) {

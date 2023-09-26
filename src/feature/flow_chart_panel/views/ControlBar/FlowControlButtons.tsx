@@ -82,7 +82,7 @@ const FlowControlButtons = () => {
 
   return (
     <>
-      {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
+      {playBtnDisabled || [IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(serverStatus) ? (
         <Button
           data-cy="btn-play"
           size="sm"

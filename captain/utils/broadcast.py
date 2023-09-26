@@ -67,3 +67,35 @@ class Signaler:
             running_node="",
         )
         await self.ws.broadcast(msg)
+
+    async def signal_prejob_output(self, jobset_id: str, output: str):
+        msg = WorkerJobResponse(
+            jobset_id=jobset_id,
+            dict_item = {
+                "PRE_JOB_OP": {"isRunning": True, "output": output}
+            }
+        )
+        await self.ws.broadcast(msg)
+
+    async def signal_file_upload_microcontroller(self, jobset_id):
+        msg = WorkerJobResponse(
+            jobset_id=jobset_id,
+            sys_status=STATUS_CODES["UPLOADING_FILES"],
+        )
+        await self.ws.broadcast(msg)
+
+    async def signal_script_building_microcontroller(self, jobset_id):
+        msg = WorkerJobResponse(
+            jobset_id=jobset_id,
+            sys_status=STATUS_CODES["BUILDING_SCRIPT"],
+        )
+        await self.ws.broadcast(msg)
+
+    async def signal_script_upload_complete_microcontroller(self, jobset_id):
+        msg = WorkerJobResponse(
+            jobset_id=jobset_id,
+            sys_status=STATUS_CODES["UPLOAD_COMPLETE"],
+            failed_nodes=[],
+            running_node="",
+        )
+        await self.ws.broadcast(msg)

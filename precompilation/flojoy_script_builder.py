@@ -8,9 +8,11 @@ import shutil
 import subprocess
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
+from captain.utils.broadcast import Signaler
 from captain.utils.config import manager
 from captain.types.worker import WorkerJobResponse
 from captain.utils.flowchart_utils import stream_response
+from captain.utils.logger import logger 
 from precompilation.config import (
     EXTRA_FILES_DIR,
     FILES_GROUPS_TO_BE_OUTPUTTED,
@@ -37,7 +39,7 @@ class FlojoyScriptBuilder:
     Class used for building the string of the flojoy script.
     """
 
-    def __init__(self, path_to_output: str, jobset_id: str, is_ci: bool = False):
+    def __init__(self, path_to_output: str, jobset_id: str, signaler: Signaler, is_ci: bool = False):
         self.items = []
         self.indent_level = 0
         self.imports = set()
@@ -45,6 +47,8 @@ class FlojoyScriptBuilder:
         self.path_to_output = path_to_output
         self.is_ci = is_ci
         self.jobset_id = jobset_id
+        self.signaler = signaler
+        asyncio.create_task(self.signaler.signal_script_building_microcontroller(self.jobset_id)) #signal build start to front-end
 
     def _add_import(
         self,
@@ -412,40 +416,28 @@ class FlojoyScriptBuilder:
         and into the port dir if specified
         """
         if path_to_output:
-            shutil.copytree(tempdir, path_to_output)
+            try:
+                shutil.copytree(tempdir, path_to_output)
+            except Exception as e:
+                output = "\n".join(e.args)
+                asyncio.create_task(self.signaler.signal_prejob_output(self.jobset_id, output))
         
         if port:
-            # instanciate socket msg
-            socket_msg = WorkerJobResponse( # copied from captain/utils/flowchart_utils.py 
-                jobset_id=self.jobset_id,
-                dict_item = {
-                    "PRE_JOB_OP": {"isRunning": True, "output": ""},
-                }
-            )
             # spawn rshell instance 
-            cmd = ["rshell", "-p", port] 
-            print("Copying files to selected port...", flush=True)
+            cmd = ["rshell", "-p", port, "--baud", "115200", "--buffer-size", "512"] # TODO buff size of 512 only for USB. 
+            logger.debug(f"Copying files to selected port...\nPORT: {port}\nCMD: {cmd}")
+            asyncio.create_task(self.signaler.signal_file_upload_microcontroller(self.jobset_id))
             try: # copied from captain/utils/flowchart_utils.py 
                 with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as proc:
-                    # while proc.poll() is None: 
-                    #     stream = stream_response(proc) 
-                    #     for line in stream: 
-                    #         socket_msg["PRE_JOB_OP"]["output"] = line
-                    #         asyncio.create_task(manager.ws.broadcast(socket_msg))
-                    # copy paste everything from temp dir into port dir, overwrite exisiting files
                     _, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
                     if error_output:
                         raise Exception(error_output)
-                    # while proc.poll() is None:
-                    #     stream = stream_response(proc) 
-                    #     for line in stream: 
-                    #         socket_msg["PRE_JOB_OP"]["output"] = line
-                    #         asyncio.create_task(manager.ws.broadcast(socket_msg))
             except Exception as e:
                 output = "\n".join(e.args)
-                socket_msg["PRE_JOB_OP"]["output"] = output
-                asyncio.create_task(manager.ws.broadcast(socket_msg))
-                return False
+                asyncio.create_task(self.signaler.signal_prejob_output(self.jobset_id, output))
+                return
+            
+        asyncio.create_task(self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id))
 
     def validate_output_dir(self, true_output_path):
         """
