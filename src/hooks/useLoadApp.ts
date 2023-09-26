@@ -6,12 +6,14 @@ import {
   projectAtom,
   projectPathAtom,
   showWelcomeScreenAtom,
+  useFlowChartState,
 } from "@src/hooks/useFlowChartState";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useLoadApp = () => {
   const { loadFlowExportObject } = useFlowChartGraph();
+  const { isMicrocontrollerMode } = useFlowChartState();
   const {
     states: { setProgramResults },
   } = useSocket();
@@ -22,7 +24,7 @@ export const useLoadApp = () => {
 
   const [openFileSelector] = useFilePicker({
     readAs: "Text",
-    accept: [".json"],
+    accept: (isMicrocontrollerMode) ? [".fjm"] : [".json"],
     maxFileSize: 50,
     onFilesRejected: ({ errors }) => {
       console.error("Errors when trying to load file: ", errors);
