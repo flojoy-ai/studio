@@ -5,12 +5,11 @@ $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $appData = $env:APPDATA
 $flojoyDir = Join-Path $appData ".flojoy"
 $mambaDir = Join-Path $flojoyDir "mamba"
-$pythonExecutable = Join-Path $mambaDir "python.exe"
-$mambaInstaller = Join-Path $currentDir "mamba/mamba.exe"
-$venvName = "404fc545_flojoy"
-$venvDir = Join-Path $flojoyDir "flojoy_root_venv"
-$venvPath = Join-Path $flojoyDir "flojoy_root_venv" $venvName
-
+$mambaHookScript = Join-Path $mambaDir "condabin" "mamba_hook.ps1"
+$mambaExecutable = Join-Path $currentDir "bin/micromamba.exe"
+$venvName = "flojoy_root"
+$venvDir = Join-Path $mambaDir "envs" $venvName
+$venvExecutable = Join-Path $venvDir "python.exe"
 
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
@@ -20,36 +19,26 @@ if ( -not (Test-Path $flojoyDir)) {
 Set-Location $flojoyDir
 Write-Output "Location set to $flojoyDir"
 
-if (-not (Test-Path $pythonExecutable -PathType Leaf)) {
-  if (Test-Path $mambaDir) {
-    Remove-Item -Path $mambaDir -Force | Out-Null
+if (-not (Test-Path $venvExecutable -PathType Leaf)) {
+  if (Test-Path $venvDir) {
+    Remove-Item -Path $venvDir -Force | Out-Null
   }
-  Write-Host "Installing mamba to local directory..."
-  # Start the installation
-  Start-Process -FilePath $mambaInstaller -ArgumentList "/InstallationType=JustMe", "/RegisterPython=0", "/S", "/D=$mambaDir" -Wait
-  # Check if the installation was successful
-  if (Test-Path $mambaDir) {
-    Write-Host "Mamba has been successfully installed in $mambaDir."
+  Write-Host "Creating micromamba env..."
+  Invoke-Expression "$mambaExecutable create -n $venvName conda-forge::python=3.10 -r $mambaDir -y"
+  if ($? -eq $true) {
+    Write-Host "Micromamba env $venvName created successfully."
   }
   else {
-    Write-Host "Mamba installation failed."
+    Write-Host "Micromamba env creation failed."
     exit 1
   }
 }
+$Env:MAMBA_ROOT_PREFIX = $mambaDir
+$Env:MAMBA_EXE = $mambaExecutable
+Invoke-Expression "$mambaHookScript"
+& micromamba activate $venvName
 
-if (-not (Test-Path $venvDir)) {
-  Write-Output "$venvDir doesn't exist.."
-  New-Item -ItemType Directory -Force $venvDir | Out-Null
-  Write-Output "Created virtual env directory: $venvDir"
-}
-Set-Location $venvDir
-if (-not (Test-Path $venvPath)) {
-  Write-Output "Virtual env not found, creating a virtual env at $venvDir"
-  Invoke-Expression "$pythonExecutable -m venv $venvName"
-  Write-Output "Virtual env created: $venvName"
-}
-& .\$venvName\Scripts\Activate.ps1
-Write-Output "Virtual env $venvName is activated!"
+Write-Output "Env $venvName is activated!"
 
 Set-Location $currentDir
 Write-Output "Installing pip dependencies..."

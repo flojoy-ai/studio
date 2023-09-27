@@ -3,7 +3,7 @@
 current_dir="$(dirname "$(readlink -f "$0")")"
 
 flojoy_dir="$HOME/.flojoy"
-mamba_dir="$flojoy_dir/python"
+mamba_dir="$flojoy_dir/mamba"
 python_exec="$mamba_dir/bin/python3"
 venv_name="404fc545_flojoy"
 venv_dir="$flojoy_dir/flojoy_root_venv"
