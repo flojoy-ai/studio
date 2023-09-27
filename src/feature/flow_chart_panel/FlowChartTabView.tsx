@@ -31,7 +31,7 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT} from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import useNodeTypes from "./hooks/useNodeTypes";
@@ -285,7 +285,7 @@ const FlowChartTab = () => {
   };
 
   return (
-    <Layout>
+    <>
       <ReactFlowProvider>
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
@@ -441,7 +441,8 @@ const FlowChartTab = () => {
         setOpen={setCommandMenuOpen}
         onItemSelect={onCommandMenuItemSelect}
       />
-    </Layout>
+
+    </>
   );
 };
 

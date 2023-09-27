@@ -5,10 +5,7 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
+import { Outlet } from "react-router-dom";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -17,7 +14,7 @@ const SERVER_STATUS_HEIGHT = 32;
 export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = () => {
   const {
     states: { serverStatus },
   } = useSocket();
@@ -61,7 +58,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
-        {children}
+        <Outlet />
       </main>
     </div>
   );

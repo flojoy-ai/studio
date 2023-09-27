@@ -12,7 +12,7 @@ export const DeviceSection = ({ title, devices }: DeviceSectionProps) => {
       {devices ? (
         <div className="flex flex-wrap gap-4">
           {devices.map((device) => (
-            <DeviceCard {...device} key={device.port} />
+            <DeviceCard {...device} key={device.name} />
           ))}
         </div>
       ) : (
