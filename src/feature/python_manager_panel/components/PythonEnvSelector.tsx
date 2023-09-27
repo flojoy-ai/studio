@@ -9,10 +9,7 @@ import { Button } from "@src/components/ui/button";
 import { Label } from "@src/components/ui/label";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-
-const Environments = z.array(z.string());
-
-type Environments = z.infer<typeof Environments>;
+import { Environments } from "../types/environment";
 
 const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
@@ -67,3 +64,4 @@ const PythonEnvSelector = () => {
 };
 
 export default PythonEnvSelector;
+
