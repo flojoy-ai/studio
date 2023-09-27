@@ -16,6 +16,7 @@ type Environments = z.infer<typeof Environments>;
 
 const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
+  // TODO: Need to store the selected env in the store
   const [selectedEnvironment, setSelectedEnvironment] = useState<
     string | undefined
   >(undefined);
