@@ -16,7 +16,9 @@ type Environments = z.infer<typeof Environments>;
 
 const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
-  const [selectedEnvironment, setSelectedEnvironment] = useState("");
+  const [selectedEnvironment, setSelectedEnvironment] = useState<
+    string | undefined
+  >(undefined);
 
   const getEnvironments = async () => {
     const response = await fetch("http://localhost:5392/pymgr/envs");
@@ -40,12 +42,12 @@ const PythonEnvSelector = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <Label>Flojoy Python Environment: </Label>
+      <Label className="whitespace-nowrap">Flojoy Python Environment: </Label>
       <Select
-        value={selectedEnvironment}
+        value={selectedEnvironment || undefined}
         onValueChange={setSelectedEnvironment}
       >
-        <SelectTrigger className="w-[560px]">
+        <SelectTrigger className="grow">
           <SelectValue placeholder="Please select an environment" />
         </SelectTrigger>
         <SelectContent>
