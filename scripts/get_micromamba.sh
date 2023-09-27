@@ -7,7 +7,10 @@ download_and_rename() {
     echo "Downloading $url"
 
     curl -Ls "$url" | tar -xvj bin/micromamba
-    mv "$(pwd)/bin/micromamba" "$(pwd)/bin/micromamba-$distro_suffix"
+
+    DESTINATION="$(pwd)/bin/micromamba-$distro_suffix"
+    mv "$(pwd)/bin/micromamba" "$DESTINATION"
+    chmod +x "$DESTINATION"
 }
 
 MICROMAMBA_URL="https://micro.mamba.pm/api/micromamba"
