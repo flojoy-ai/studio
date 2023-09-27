@@ -5,6 +5,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Button } from "@src/components/ui/button";
 import { Label } from "@src/components/ui/label";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -17,24 +18,23 @@ const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
   const [selectedEnvironment, setSelectedEnvironment] = useState("");
 
+  const getEnvironments = async () => {
+    const response = await fetch("http://localhost:5392/pymgr/envs");
+
+    const data = await response.json();
+
+    const parsedData = await z
+      .object({
+        envs: Environments,
+      })
+      .safeParseAsync(data);
+
+    if (parsedData.success) {
+      setEnvironments(parsedData.data.envs);
+    }
+  };
+
   useEffect(() => {
-    // send a get request to http://127.0.0.1:5392/devices
-    const getEnvironments = async () => {
-      const response = await fetch("http://localhost:5392/pymgr/envs");
-
-      const data = await response.json();
-
-      const parsedData = await z
-        .object({
-          envs: Environments,
-        })
-        .safeParseAsync(data);
-
-      if (parsedData.success) {
-        setEnvironments(parsedData.data.envs);
-      }
-    };
-
     getEnvironments();
   }, []);
 
@@ -58,6 +58,7 @@ const PythonEnvSelector = () => {
           })}
         </SelectContent>
       </Select>
+      <Button onClick={getEnvironments}>Refresh</Button>
     </div>
   );
 };
