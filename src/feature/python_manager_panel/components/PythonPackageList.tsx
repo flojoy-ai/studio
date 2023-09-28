@@ -8,7 +8,6 @@ const PythonPackageList = () => {
   const [packageList, setPackageList] = useState<string[]>([]);
 
   const fetchPackageList = async () => {
-    console.log(currentPythonEnv);
     if (currentPythonEnv) {
       const data = await axios.get(
         `http://localhost:5392/pymgr/env/${btoa(currentPythonEnv)}`,
