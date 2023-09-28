@@ -58,7 +58,7 @@ export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
     prevY = y;
   });
 
-  mouseWheel((dx: number, dy: number, _, ev) => {
+  mouseWheel((dx: number, dy: number) => {
     ddistance += dy / window.innerHeight / 5;
   });
 

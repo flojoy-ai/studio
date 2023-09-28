@@ -5,7 +5,9 @@ import { Sphere } from "./sphere";
 import { Points } from "./points";
 import { OrthogonalPlane } from "./plane";
 
-type PlotObject = (regl: REGL.Regl) => REGL.DrawCommand;
+export interface Drawable {
+  draw: REGL.DrawCommand;
+}
 
 type CameraOptions = {
   center: REGL.Vec3;
@@ -15,16 +17,16 @@ export class Plot {
   public readonly regl: REGL.Regl;
   private camera?: (block) => void;
 
-  private drawCommands: REGL.DrawCommand[] = [];
+  private objects: Drawable[] = [];
 
   constructor(canvas: HTMLCanvasElement) {
     this.regl = REGL(canvas);
     this.camera = undefined;
-    this.drawCommands = [];
+    this.objects = [];
   }
 
-  public with(obj: PlotObject) {
-    this.drawCommands.push(obj(this.regl));
+  public with(obj: Drawable) {
+    this.objects.push(obj);
 
     return this;
   }
@@ -38,7 +40,9 @@ export class Plot {
   }
 
   public draw() {
-    this.drawCommands.forEach((c) => c());
+    this.objects.forEach((c) => {
+      c.draw();
+    });
   }
 
   public frame() {
@@ -52,15 +56,16 @@ export class Plot {
           this.draw();
         });
       });
-    } else {
-      this.regl.frame(() => {
-        this.regl.clear({
-          color: [0, 0, 0, 1],
-        });
-
-        this.draw();
-      });
+      return;
     }
+
+    this.regl.frame(() => {
+      this.regl.clear({
+        color: [0, 0, 0, 1],
+      });
+
+      this.draw();
+    });
   }
 }
 

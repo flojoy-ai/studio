@@ -1,4 +1,5 @@
 import REGL from "regl";
+import { Drawable } from ".";
 
 type Uniforms = {
   color: REGL.Vec4;
@@ -13,11 +14,21 @@ type OrthogonalPlaneOptions = {
   orientation: "xz" | "xy" | "yz";
 };
 
-export function OrthogonalPlane(options: OrthogonalPlaneOptions) {
-  const vertices = createVertices(options);
+export class OrthogonalPlane implements Drawable {
+  private vertices: REGL.Vec3[];
+  private vertexCount: number;
+  public draw: REGL.DrawCommand;
 
-  return (regl: REGL.Regl) =>
-    regl<Uniforms, Attributes>({
+  set points(value: REGL.Vec3[]) {
+    this.vertices = value;
+    this.vertexCount = value.length;
+  }
+
+  constructor(regl: REGL.Regl, options: OrthogonalPlaneOptions) {
+    this.vertices = this.createVertices(options);
+    this.vertexCount = this.vertices.length;
+
+    this.draw = regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -40,42 +51,43 @@ export function OrthogonalPlane(options: OrthogonalPlaneOptions) {
         }
       `,
       attributes: {
-        position: vertices,
+        position: regl.this("vertices"),
       },
       uniforms: {
         color: [0.5, 0.5, 0.5, 1],
       },
-      count: vertices.length,
+      count: regl.this("vertexCount"),
       primitive: "lines",
     });
-}
-
-function createVertices(options: OrthogonalPlaneOptions): REGL.Vec3[] {
-  const vertices = createXZPlaneVertices(options);
-  switch (options.orientation) {
-    case "xz":
-      return vertices;
-    case "xy":
-      return vertices.map((v) => [v[0], v[2], v[1]]);
-    case "yz":
-      return vertices.map((v) => [v[1], v[0], v[2]]);
-  }
-}
-
-function createXZPlaneVertices({
-  gridSize: size,
-}: OrthogonalPlaneOptions): REGL.Vec3[] {
-  const vertices: REGL.Vec3[] = [];
-
-  for (let i = 0; i < size; i++) {
-    vertices.push([i, 0, 0]);
-    vertices.push([i, 0, size]);
   }
 
-  for (let i = 0; i < size; i++) {
-    vertices.push([0, 0, i]);
-    vertices.push([size, 0, i]);
+  private createVertices(options: OrthogonalPlaneOptions): REGL.Vec3[] {
+    const vertices = this.createXZPlaneVertices(options);
+    switch (options.orientation) {
+      case "xz":
+        return vertices;
+      case "xy":
+        return vertices.map((v) => [v[0], v[2], v[1]]);
+      case "yz":
+        return vertices.map((v) => [v[1], v[0], v[2]]);
+    }
   }
 
-  return vertices;
+  private createXZPlaneVertices({
+    gridSize: size,
+  }: OrthogonalPlaneOptions): REGL.Vec3[] {
+    const vertices: REGL.Vec3[] = [];
+
+    for (let i = 0; i < size; i++) {
+      vertices.push([i, 0, 0]);
+      vertices.push([i, 0, size]);
+    }
+
+    for (let i = 0; i < size; i++) {
+      vertices.push([0, 0, i]);
+      vertices.push([size, 0, i]);
+    }
+
+    return vertices;
+  }
 }

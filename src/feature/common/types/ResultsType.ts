@@ -29,3 +29,9 @@ export type OrderedPairData = {
   x: number[];
   y: number[];
 };
+
+export type OrderedTripleData = {
+  x: number[];
+  y: number[];
+  z: number[];
+};
