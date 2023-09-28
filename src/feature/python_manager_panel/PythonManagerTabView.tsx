@@ -4,7 +4,7 @@ import PythonPackageList from "./components/PythonPackageList";
 const PythonManagerTabView = () => {
   return (
     <div className="container">
-      <div className="py-2" />
+      <div className="py-4" />
       <PythonEnvSelector />
       <PythonPackageList />
     </div>

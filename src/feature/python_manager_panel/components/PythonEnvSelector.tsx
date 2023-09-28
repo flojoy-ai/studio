@@ -6,7 +6,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@src/components/ui/button";
-import { Label } from "@src/components/ui/label";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { Environments } from "../types/environment";
@@ -49,38 +48,47 @@ const PythonEnvSelector = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-2">
-      <Label className="whitespace-nowrap">Flojoy Python Environment: </Label>
-      <Select
-        value={currentPythonEnv || undefined}
-        onValueChange={setCurrentPythonEnv}
-      >
-        <SelectTrigger className="grow">
-          <SelectValue placeholder="Please select an environment" />
-        </SelectTrigger>
-        <SelectContent>
-          {environments.map((env) => {
-            return (
-              <SelectItem key={env} value={env}>
-                <span className="font-semibold">{getEnvName(env)}</span>: {env}
-              </SelectItem>
-            );
-          })}
-        </SelectContent>
-      </Select>
-      <Button
-        onClick={() => {
-          toast.promise(getEnvironments, {
-            loading: "Refreshing environment list...",
-            success: () => {
-              return "Environment list refreshed";
-            },
-            error: "Something went wrong with refreshing!",
-          });
-        }}
-      >
-        Refresh
-      </Button>
+    <div className="flex flex-col gap-2">
+      <div className="whitespace-nowrap text-lg font-semibold">
+        Flojoy Python Environment
+      </div>
+      <div className="text-sm">
+        This is the Python environment that Flojoy will use to run your
+        flowchart.
+      </div>
+      <div className="flex gap-2">
+        <Select
+          value={currentPythonEnv || undefined}
+          onValueChange={setCurrentPythonEnv}
+        >
+          <SelectTrigger className="grow">
+            <SelectValue placeholder="Please select an environment" />
+          </SelectTrigger>
+          <SelectContent>
+            {environments.map((env) => {
+              return (
+                <SelectItem key={env} value={env}>
+                  <span className="font-semibold">{getEnvName(env)}</span>:{" "}
+                  {env}
+                </SelectItem>
+              );
+            })}
+          </SelectContent>
+        </Select>
+        <Button
+          onClick={() => {
+            toast.promise(getEnvironments, {
+              loading: "Refreshing environment list...",
+              success: () => {
+                return "Environment list refreshed";
+              },
+              error: "Something went wrong with refreshing!",
+            });
+          }}
+        >
+          Refresh
+        </Button>
+      </div>
     </div>
   );
 };
