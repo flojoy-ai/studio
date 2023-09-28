@@ -1,5 +1,18 @@
 #!/bin/bash
 
+feedback()
+{
+   is_successful=$1
+   message=$2
+   help_message=$3
+   if [ "$is_successful" -eq 0 ]; then
+      echo "$message"
+   else
+      echo "$help_message"
+      exit 1
+   fi
+}
+
 current_dir="$(dirname "$(readlink -f "$0")")"
 
 flojoy_dir="$HOME/.flojoy"
@@ -28,13 +41,8 @@ if [ ! -f "$venv_executable" ]; then
   fi
   echo "Creating micromamba env..."
   cmd=""$mamba_executable" create -n $venv_name conda-forge::python=3.10 -r $mamba_dir -y"
-  $cmd
-  if [ "$?" -eq 0 ]; then
-      echo "Micromamba env $venv_name created successfully."
-  else
-    echo "Micromamba env creation failed."
-    exit 1
-  fi
+  "$cmd"
+  feedback $? "Micromamba env $venv_name created successfully." "Micromamba env creation failed."
 fi
 
 if [ $platform == "Linux" ]; then
@@ -50,7 +58,7 @@ elif [ $platform == "Darwin" ]; then
 fi
 export MAMBA_ROOT_PREFIX=$mamba_dir
 micromamba activate $venv_name
-echo "Env $venv_name is activated!"
+feedback $? "Env $venv_name is activated!" "Failed to activate $venv_name env!"
 cd "$current_dir"
 echo "Installing pip dependencies..."
 pip install -r requirements.txt
