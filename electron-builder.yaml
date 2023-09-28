@@ -7,10 +7,13 @@ icon: public/favicon.ico
 asar: true
 files:
   - dist-electron/**/*
+afterSign: "scripts/notarize.js"
 
 extraResources:
   - from: "public"
     to: "public"
+  - from: "scripts/python-interpreter"
+    to: "backend/python-interpreter"
   - from: "scripts/backend.ps1"
     to: "backend/backend.ps1"
   - from: "scripts/backend.sh"
@@ -32,7 +35,14 @@ mac:
   target:
     - dmg
     - zip
+  entitlements: ./entitlements.mac.plist
+  entitlementsInherit: ./entitlements.mac.plist
   darkModeSupport: true
+  gatekeeperAssess: false
+  hardenedRuntime: true
+  # binaries: ["scripts/python-interpreter/mac.zip"]
+  notarize: true
+
 linux:
   icon: public/favicon.icns
   target:

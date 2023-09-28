@@ -15,6 +15,7 @@ import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
+import { ChildProcess } from "node:child_process";
 
 // The built directory structure
 //
@@ -89,15 +90,20 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
+
 global.runningProcesses = [];
+
 let win: BrowserWindow | null = null;
+
 // Here, you can also use other preload
 const preload = join(
   __dirname,
   `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
 );
+
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
+
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -205,16 +211,22 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on("window-all-closed", async () => {
+app.on("window-all-closed", async (e) => {
   mainLogger.log("window-all-closed fired!");
+  e.preventDefault();
   await cleanup();
-  win = null;
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    app.exit(0);
+  }
 });
 
-app.on("quit", () => {
-  cleanup();
+app.on("before-quit", async (e) => {
+  e.preventDefault();
+  mainLogger.log("before-quit fired!");
+  await cleanup();
+  app.exit(0);
 });
+
 app.on("second-instance", () => {
   if (win) {
     // Focus on the main window if the user tried to open another
@@ -257,6 +269,9 @@ const cleanup = async () => {
       try {
         mainLogger.log("Killing script: ", script.pid);
         await killSubProcess(script);
+        global.runningProcesses = global.runningProcesses.filter(
+          (s: ChildProcess) => s.pid !== script.pid,
+        );
         mainLogger.log("kill success!");
       } catch (error) {
         mainLogger.log(

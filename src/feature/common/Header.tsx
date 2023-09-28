@@ -11,14 +11,20 @@ const tabs = [
     shortText: "Script",
     testId: "script-btn",
   },
+  {
+    to: "/devices",
+    fullText: "Hardware Devices",
+    shortText: "Devices",
+    testId: "devices-btn",
+  },
 ];
 
-const md = 820;
+const lg = 1024;
 
 const Header = () => {
   // Actual media query causes flickering... need to use this manual one
   const { width } = useWindowSize();
-  const large = width > md;
+  const large = width > lg;
 
   return (
     <div style={{ height: HEADER_HEIGHT }}>

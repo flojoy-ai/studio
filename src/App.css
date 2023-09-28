@@ -83,3 +83,7 @@
 div {
   scrollbar-width: none;
 }
+
+[data-sonner-toast] {
+  overflow-wrap: anywhere;
+}

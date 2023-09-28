@@ -1,19 +1,11 @@
-import asyncio
 from copy import deepcopy
 import logging
 import os
 from queue import Queue
 import time
 from collections import deque
-from flojoy import (
-    JobFailure,
-    JobSuccess,
-    get_next_directions,
-    NoInitFunctionError,
-    get_node_init_function,
-)
+from flojoy import JobFailure, JobSuccess, get_next_directions
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
-from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
@@ -94,7 +86,6 @@ class Topology:
         for job_id in jobs:
             self.run_job(job_id, task_queue)
 
-
     def run_job(self, job_id: str, task_queue: Queue[Any]):
         node = cast(dict[str, Any], self.working_graph.nodes[job_id])
 
@@ -127,6 +118,7 @@ class Topology:
         logger.debug("Topology cancelled")
         self.cancelled = True
         self.queued_jobs.clear()
+        self.cleanup()
         self.finalizer()
 
     def is_cancelled(self):

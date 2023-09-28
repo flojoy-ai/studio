@@ -60,7 +60,7 @@ import {
 import { ZodError } from "zod";
 
 const FlowChartTab = () => {
-  const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
@@ -238,7 +238,7 @@ const FlowChartTab = () => {
           : `${err.response?.data?.error}` ?? `${err}`;
 
       toast.message(errTitle, {
-        description: errDescription,
+        description: errDescription.toString(),
         duration: 60000,
       });
     }

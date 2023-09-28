@@ -64,3 +64,5 @@ build
 .nyc_output
 
 .python-version
+
+.history
