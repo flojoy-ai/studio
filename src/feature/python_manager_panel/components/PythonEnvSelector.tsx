@@ -17,6 +17,17 @@ const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
   const { currentPythonEnv, setCurrentPythonEnv } = useFlowChartState();
 
+  const getEnvName = (path: string) => {
+    // Here is to identify whether the path separator is windows or not
+    const separator = path.includes("/") ? "/" : "\\";
+
+    const components = path.split(separator); // Split the path into components
+
+    const lastFolderName = components[components.length - 1]; // Get the last component
+
+    return lastFolderName;
+  };
+
   const getEnvironments = async () => {
     const response = await fetch("http://localhost:5392/pymgr/envs");
 
@@ -51,7 +62,7 @@ const PythonEnvSelector = () => {
           {environments.map((env) => {
             return (
               <SelectItem key={env} value={env}>
-                {env}
+                <span className="font-semibold">{getEnvName(env)}</span>: {env}
               </SelectItem>
             );
           })}
