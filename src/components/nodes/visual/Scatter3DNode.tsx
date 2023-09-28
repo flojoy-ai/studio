@@ -4,10 +4,10 @@ import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
 import { memo, useRef } from "react";
-import { OrthogonalPlane, Plot, Points } from "@src/lib/plot";
+import { Plot, OrthogonalPlane, Points } from "@src/lib/plot";
 import REGL from "regl";
 
-const points: REGL.Vec3[] = Array(1000)
+const pointData: REGL.Vec3[] = Array(1000)
   .fill(undefined)
   .map(() => [Math.random() * 8, Math.random() * 8, Math.random() * 8]);
 
@@ -18,33 +18,19 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   const plot = useRef<Plot | null>(null);
 
   if (canvas.current && !plot.current) {
-    const plt = new Plot({
-      ref: canvas.current,
-      cameraOptions: {
-        center: [0, 0, 0],
-      },
-    });
+    const plt = new Plot(canvas.current)
+      .with(Points(pointData, { pointSize: 5 }))
+      .with(OrthogonalPlane({ orientation: "xy", gridSize: 10 }))
+      .with(OrthogonalPlane({ orientation: "xz", gridSize: 10 }))
+      .with(OrthogonalPlane({ orientation: "yz", gridSize: 10 }))
+      .withCamera({ center: [2.5, 2.5, 2.5] });
     plot.current = plt;
 
-    plt.addObject(
-      new Points(plt, points, {
-        pointSize: 5,
-      }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "xy", gridSize: 10 }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "xz", gridSize: 10 }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "yz", gridSize: 10 }),
-    );
     plt.frame();
   }
 
   return (
-    <NodeWrapper nodeError={nodeError} className="nodrag">
+    <NodeWrapper nodeError={nodeError}>
       <div
         className={clsx(
           "rounded-2xl bg-transparent",

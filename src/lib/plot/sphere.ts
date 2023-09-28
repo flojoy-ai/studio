@@ -1,5 +1,4 @@
 import REGL from "regl";
-import { Drawable, Plot } from ".";
 import { mat4 } from "gl-matrix";
 
 type Uniforms = {
@@ -15,21 +14,16 @@ type Attributes = {
 type SphereOptions = {
   radius: number;
   center: REGL.Vec3;
-  nSectors?: number;
   nStacks?: number;
+  nSectors?: number;
 };
 
-export class Sphere implements Drawable {
-  public readonly render: REGL.DrawCommand;
-  private readonly regl: REGL.Regl;
-  private readonly vertices: REGL.Vec3[];
+export function Sphere(options: SphereOptions) {
+  const { radius, center, nStacks = 180, nSectors = 360 } = options;
+  const vertices = createVertices(nStacks, nSectors);
 
-  constructor(plot: Plot, options: SphereOptions) {
-    const { radius, center, nSectors = 360, nStacks = 180 } = options;
-
-    this.regl = plot.regl;
-    this.vertices = this.createVertices(nStacks, nSectors);
-    this.render = this.regl<Uniforms, Attributes>({
+  return (regl: REGL.Regl) =>
+    regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -56,7 +50,7 @@ export class Sphere implements Drawable {
         }
       `,
       attributes: {
-        position: this.vertices,
+        position: vertices,
       },
 
       uniforms: {
@@ -72,35 +66,30 @@ export class Sphere implements Drawable {
         },
       },
 
-      count: this.vertices.length,
+      count: vertices.length,
       primitive: "points",
     });
-  }
+}
 
-  public draw() {
-    this.render();
-  }
+function createVertices(nStacks: number, nSectors: number) {
+  const dPhi = Math.PI / nStacks;
+  const dTheta = (2 * Math.PI) / nSectors;
 
-  private createVertices(nStacks: number, nSectors: number) {
-    const dPhi = Math.PI / nStacks;
-    const dTheta = (2 * Math.PI) / nSectors;
+  const vertices: REGL.Vec3[] = [];
 
-    const vertices: REGL.Vec3[] = [];
+  for (let i = 0; i < nStacks; i++) {
+    const phi = i * dPhi;
 
-    for (let i = 0; i < nStacks; i++) {
-      const phi = i * dPhi;
+    for (let j = 0; j < nSectors; j++) {
+      const theta = j * dTheta;
 
-      for (let j = 0; j < nSectors; j++) {
-        const theta = j * dTheta;
+      const x = Math.sin(phi) * Math.cos(theta);
+      const y = Math.sin(phi) * Math.sin(theta);
+      const z = Math.cos(phi);
 
-        const x = Math.sin(phi) * Math.cos(theta);
-        const y = Math.sin(phi) * Math.sin(theta);
-        const z = Math.cos(phi);
-
-        vertices.push([x, y, z]);
-      }
+      vertices.push([x, y, z]);
     }
-
-    return vertices;
   }
+
+  return vertices;
 }

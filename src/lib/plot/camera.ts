@@ -13,6 +13,13 @@ type Props = {
   maxDistance: number;
 };
 
+type Mods = {
+  shift: boolean;
+  alt: boolean;
+  control: boolean;
+  meta: boolean;
+};
+
 export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
   const cameraState = {
     view: mat4.identity(new Float32Array(16)),
@@ -38,8 +45,8 @@ export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
   let prevX = 0;
   let prevY = 0;
 
-  mouseChange(function (buttons: number, x: number, y: number) {
-    if (buttons & 1) {
+  mouseChange((buttons: number, x: number, y: number, mods: Mods) => {
+    if (buttons & 1 && mods.control) {
       const dx = (x - prevX) / window.innerWidth;
       const dy = (y - prevY) / window.innerHeight;
       const w = Math.max(cameraState.distance, 0.5);
@@ -51,7 +58,7 @@ export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
     prevY = y;
   });
 
-  mouseWheel((dx: number, dy: number) => {
+  mouseWheel((dx: number, dy: number, _, ev) => {
     ddistance += dy / window.innerHeight / 5;
   });
 

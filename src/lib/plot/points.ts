@@ -1,5 +1,4 @@
 import REGL from "regl";
-import { Drawable, Plot } from ".";
 
 type Uniforms = {
   size: number;
@@ -13,16 +12,9 @@ type PointsOptions = {
   pointSize: number;
 };
 
-export class Points implements Drawable {
-  public readonly render: REGL.DrawCommand;
-  private readonly regl: REGL.Regl;
-  private readonly points: REGL.Vec3[];
-
-  constructor(plot: Plot, points: REGL.Vec3[], options: PointsOptions) {
-    this.regl = plot.regl;
-    this.points = points;
-
-    this.render = this.regl<Uniforms, Attributes>({
+export function Points(pts: REGL.Vec3[], options: PointsOptions) {
+  return (regl: REGL.Regl) =>
+    regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -54,19 +46,14 @@ export class Points implements Drawable {
         }
       `,
       attributes: {
-        position: this.points,
+        position: pts,
       },
 
       uniforms: {
         size: options.pointSize,
       },
 
-      count: this.points.length,
+      count: pts.length,
       primitive: "points",
     });
-  }
-
-  public draw() {
-    this.render();
-  }
 }

@@ -1,24 +1,16 @@
 import REGL from "regl";
-import { Drawable, Plot } from ".";
 
 type Uniforms = {
   color: REGL.Vec4;
 };
 
 type Attributes = {
-  position: REGL.Vec2[];
+  position: REGL.Vec3[];
 };
 
-type TriangleOptions = {
-  vertices: REGL.Vec2[];
-};
-
-export class Triangle implements Drawable {
-  public readonly draw: REGL.DrawCommand;
-
-  constructor(plot: Plot, options: TriangleOptions) {
-    const regl = plot.regl;
-    this.draw = regl<Uniforms, Attributes>({
+export function Triangle(points: [REGL.Vec3, REGL.Vec3, REGL.Vec3]) {
+  return (regl: REGL.Regl) =>
+    regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
         uniform vec4 color;
@@ -40,20 +32,13 @@ export class Triangle implements Drawable {
         }
       `,
       attributes: {
-        position: options.vertices,
+        position: points,
       },
 
       uniforms: {
-        color: regl.prop<Uniforms, keyof Uniforms>("color"),
+        color: [1, 0, 0, 1],
       },
 
       count: 3,
     });
-  }
-
-  render() {
-    this.draw({
-      color: [1, 0, 0, 1],
-    });
-  }
 }

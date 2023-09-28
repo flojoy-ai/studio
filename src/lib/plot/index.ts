@@ -1,41 +1,44 @@
 import REGL from "regl";
+import createCamera from "./camera";
 import { Triangle } from "./triangle";
 import { Sphere } from "./sphere";
 import { Points } from "./points";
-import createCamera from "./camera";
 import { OrthogonalPlane } from "./plane";
 
-export interface Drawable {
-  render(): void;
-}
+type PlotObject = (regl: REGL.Regl) => REGL.DrawCommand;
 
-type PlotOptions = {
-  ref: HTMLCanvasElement;
-  cameraOptions?: {
-    center: REGL.Vec3;
-  };
+type CameraOptions = {
+  center: REGL.Vec3;
 };
 
 export class Plot {
   public readonly regl: REGL.Regl;
-  private readonly camera?: (block) => void;
+  private camera?: (block) => void;
 
-  private objects: Drawable[];
+  private drawCommands: REGL.DrawCommand[] = [];
 
-  constructor({ ref, cameraOptions }: PlotOptions) {
-    this.regl = REGL(ref);
-    this.camera = cameraOptions
-      ? createCamera(this.regl, cameraOptions)
-      : undefined;
-    this.objects = [];
+  constructor(canvas: HTMLCanvasElement) {
+    this.regl = REGL(canvas);
+    this.camera = undefined;
+    this.drawCommands = [];
   }
 
-  public addObject(obj: Drawable) {
-    this.objects.push(obj);
+  public with(obj: PlotObject) {
+    this.drawCommands.push(obj(this.regl));
+
+    return this;
+  }
+
+  public withCamera({ center }: CameraOptions) {
+    this.camera = createCamera(this.regl, {
+      center,
+    });
+
+    return this;
   }
 
   public draw() {
-    this.objects.forEach((o) => o.render());
+    this.drawCommands.forEach((c) => c());
   }
 
   public frame() {
