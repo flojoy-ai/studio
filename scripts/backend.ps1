@@ -10,6 +10,7 @@ $mambaExecutable = Join-Path $currentDir "bin/micromamba.exe"
 $venvName = "flojoy_root"
 $venvDir = Join-Path $mambaDir "envs" $venvName
 $venvExecutable = Join-Path $venvDir "python.exe"
+$isMamabaInstalled = Get-Command micromamba -ErrorAction SilentlyContinue
 
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
@@ -23,19 +24,37 @@ if (-not (Test-Path $venvExecutable -PathType Leaf)) {
   if (Test-Path $venvDir) {
     Remove-Item -Path $venvDir -Force | Out-Null
   }
-  Write-Host "Creating micromamba env..."
-  Invoke-Expression "$mambaExecutable create -n $venvName conda-forge::python=3.10 -r $mambaDir -y"
-  if ($? -eq $true) {
-    Write-Host "Micromamba env $venvName created successfully."
-  }
-  else {
-    Write-Host "Micromamba env creation failed."
-    exit 1
+  if ($isMamabaInstalled){
+    Write-Host "Existing Micromamba executable found..."
+    Write-Host "Creating $venvName env..."
+    & micromamba create -n $venvName conda-forge::python=3.10 -r "$mambaDir" -y
+    if ($? -eq $true) {
+      Write-Host "Micromamba env $venvName created successfully."
+    }
+    else {
+      Write-Host "Micromamba env creation failed."
+      exit 1
+    }
+  } else {
+    Write-Host "Micromamba is not found..."
+    Write-Host "Creating $venvName env..."
+    Invoke-Expression "$mambaExecutable create -n $venvName conda-forge::python=3.10 -r $mambaDir -y"
+    if ($? -eq $true) {
+      Write-Host "Micromamba env $venvName created successfully."
+    }
+    else {
+      Write-Host "Micromamba env creation failed."
+      exit 1
+    }
   }
 }
-$Env:MAMBA_ROOT_PREFIX = $mambaDir
-$Env:MAMBA_EXE = $mambaExecutable
-Invoke-Expression "$mambaHookScript"
+if(!($isMamabaInstalled)){
+  $Env:MAMBA_ROOT_PREFIX = $mambaDir
+  $Env:MAMBA_EXE = $mambaExecutable
+  Invoke-Expression "$mambaHookScript"
+} else {
+  $Env:MAMBA_ROOT_PREFIX = $mambaDir
+}
 & micromamba activate $venvName
 
 Write-Output "Env $venvName is activated!"
