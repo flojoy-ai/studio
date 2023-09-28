@@ -5,9 +5,10 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
+import { useEffect } from "react";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -30,6 +31,14 @@ export const Layout = () => {
     setProject({ ...project, name: e.target.value });
     setHasUnsavedChanges(true);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      navigate("/flowchart");
+    }
+  }, []);
 
   return (
     <div>
