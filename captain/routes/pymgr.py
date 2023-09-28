@@ -28,7 +28,7 @@ async def list_envs():
 
 @router.get("/env/{path}")
 async def get_env(path: str):
-    print("GETTING", flush=True)
+    print(path, flush=True)
     result = subprocess.run(
         ["micromamba", "env", "-p", base64.b64decode(path), "export", "--no-build"],
         capture_output=True,
@@ -36,6 +36,7 @@ async def get_env(path: str):
     )
 
     output = result.stdout
+    print(output, flush=True)
 
     data = yaml.safe_load(output)
 

@@ -17,7 +17,9 @@ const PythonPackageList = () => {
       const parsedData = await EnvironmentDetail.safeParseAsync(data.data);
 
       if (parsedData.success) {
-        setPackageList(parsedData.data.dependencies);
+        setPackageList(parsedData.data.dependencies || []);
+      } else {
+        console.error(parsedData.error);
       }
     }
   };
@@ -31,9 +33,15 @@ const PythonPackageList = () => {
       <div className="text-lg font-semibold">Package List</div>
       {currentPythonEnv ? (
         <div>
-          {packageList.map((pkg) => {
-            return <div>{pkg}</div>;
-          })}
+          {packageList.length === 0 ? (
+            <div>No packages installed</div>
+          ) : (
+            <>
+              {packageList.map((pkg) => {
+                return <div>{pkg}</div>;
+              })}
+            </>
+          )}
         </div>
       ) : (
         <div>Please select a Python environment </div>
