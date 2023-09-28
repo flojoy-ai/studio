@@ -7,22 +7,58 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import useClearCanvas from "../../hooks/useClearCanvas";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@src/components/ui/alert-dialog";
 
 const MicrocontollerBtn = () => {
   
   const {isMicrocontrollerMode, setIsMicrocontrollerMode} = useFlowChartState()
+  const clearCanvas = useClearCanvas();
 
   const handleClick = () => {
     setIsMicrocontrollerMode(!isMicrocontrollerMode);
+    clearCanvas();
   };
 
   return (
     <div className="flex items-center space-x-2">
-      <Switch
-        checked={isMicrocontrollerMode}
-        onCheckedChange={handleClick}
-        data-testid="microcontroller-mode-toggle"
-      />
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Switch
+            checked={isMicrocontrollerMode}
+            data-testid="microcontroller-mode-toggle"
+          />
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Switching modes will wipe the canvas</AlertDialogTitle>
+          <AlertDialogDescription>
+            This action cannot be undone. This will remove everything on the
+            flowchart. Please save your work before switching modes.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            data-testid="confirm-clear-canvas"
+            onClick={handleClick}
+          >
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+      </AlertDialog>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>

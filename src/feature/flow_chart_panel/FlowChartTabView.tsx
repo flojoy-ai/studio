@@ -58,6 +58,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ZodError } from "zod";
+import useClearCanvas from "./hooks/useClearCanvas";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
@@ -76,7 +77,8 @@ const FlowChartTab = () => {
     useFlowChartState();
 
   const { states } = useSocket();
-  const { programResults, setProgramResults } = states;
+  const { programResults } = states;
+  const clearCanvas = useClearCanvas()
 
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
@@ -223,15 +225,6 @@ const FlowChartTab = () => {
     },
     [setNodes, setHasUnsavedChanges],
   );
-
-  const clearCanvas = useCallback(() => {
-    setNodes([]);
-    setEdges([]);
-    setHasUnsavedChanges(true);
-    setProgramResults([]);
-
-    sendEventToMix("Canvas cleared", "");
-  }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 
   const fetchManifest = useCallback(async () => {
     try {
