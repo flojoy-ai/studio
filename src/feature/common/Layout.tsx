@@ -6,6 +6,8 @@ import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "sonner";
+import { useTheme } from "@src/providers/themeProvider";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -21,6 +23,8 @@ export const Layout = () => {
 
   const [project, setProject] = useAtom(projectAtom);
   const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
+
+  const { theme } = useTheme();
 
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });
@@ -58,6 +62,7 @@ export const Layout = () => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
+        <Toaster theme={theme} />
         <Outlet />
       </main>
     </div>
