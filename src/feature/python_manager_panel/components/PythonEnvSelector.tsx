@@ -10,13 +10,12 @@ import { Label } from "@src/components/ui/label";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { Environments } from "../types/environment";
+import { toast } from "sonner";
+import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const PythonEnvSelector = () => {
   const [environments, setEnvironments] = useState<Environments>([]);
-  // TODO: Need to store the selected env in the store
-  const [selectedEnvironment, setSelectedEnvironment] = useState<
-    string | undefined
-  >(undefined);
+  const { currentPythonEnv, setCurrentPythonEnv } = useFlowChartState();
 
   const getEnvironments = async () => {
     const response = await fetch("http://localhost:5392/pymgr/envs");
@@ -42,8 +41,8 @@ const PythonEnvSelector = () => {
     <div className="flex items-center gap-2">
       <Label className="whitespace-nowrap">Flojoy Python Environment: </Label>
       <Select
-        value={selectedEnvironment || undefined}
-        onValueChange={setSelectedEnvironment}
+        value={currentPythonEnv || undefined}
+        onValueChange={setCurrentPythonEnv}
       >
         <SelectTrigger className="grow">
           <SelectValue placeholder="Please select an environment" />
@@ -58,10 +57,21 @@ const PythonEnvSelector = () => {
           })}
         </SelectContent>
       </Select>
-      <Button onClick={getEnvironments}>Refresh</Button>
+      <Button
+        onClick={() => {
+          toast.promise(getEnvironments, {
+            loading: "Refreshing environment list...",
+            success: () => {
+              return "Environment list refreshed";
+            },
+            error: "Something went wrong with refreshing!",
+          });
+        }}
+      >
+        Refresh
+      </Button>
     </div>
   );
 };
 
 export default PythonEnvSelector;
-

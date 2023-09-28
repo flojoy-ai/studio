@@ -65,6 +65,8 @@ export const centerPositionAtom = atom<{ x: number; y: number } | undefined>(
   undefined,
 );
 
+const currentPythonEnvAtom = atom<string | undefined>(undefined);
+
 export function useFlowChartState() {
   const [isEditMode, setIsEditMode] = useAtom(editModeAtom);
   const [showLogs, setShowLogs] = useAtom(showLogsAtom);
@@ -73,6 +75,7 @@ export function useFlowChartState() {
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
+  const [currentPythonEnv, setCurrentPythonEnv] = useAtom(currentPythonEnvAtom);
 
   return {
     isEditMode,
@@ -89,5 +92,7 @@ export function useFlowChartState() {
     setNodeParamChanged,
     isSidebarOpen,
     setIsSidebarOpen,
+    currentPythonEnv,
+    setCurrentPythonEnv,
   };
 }
