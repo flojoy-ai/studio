@@ -2,7 +2,6 @@ import { MenubarItem } from "@/components/ui/menubar";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "@src/hooks/useFlowChartState";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
-import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { useSave } from "@src/hooks/useSave";
 import { saveFileAs } from "@src/lib/save";
 import { useSetAtom, useAtomValue } from "jotai";
@@ -10,7 +9,6 @@ import { toast } from "sonner";
 
 export const SaveButton = () => {
   const handleSave = useSave();
-  useKeyboardShortcut("ctrl", "s", handleSave);
 
   return (
     <MenubarItem data-cy="btn-save" onClick={handleSave}>
