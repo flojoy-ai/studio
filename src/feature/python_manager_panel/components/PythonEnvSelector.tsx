@@ -90,11 +90,13 @@ const PythonEnvSelector = () => {
         </Button>
 
         <Button
+          className="whitespace-nowrap"
           onClick={() => {
             window.navigator.clipboard.writeText(currentPythonEnv || "");
+            toast.message("Copied to clipboard");
           }}
         >
-          Copy
+          Copy Path
         </Button>
       </div>
     </div>
