@@ -34,7 +34,7 @@ const MicrocontollerBtn = () => {
   return (
     <div className="flex items-center space-x-2">
       <AlertDialog>
-        <AlertDialogTrigger asChild>
+        <AlertDialogTrigger>
           <Switch
             checked={isMicrocontrollerMode}
             data-testid="microcontroller-mode-toggle"
