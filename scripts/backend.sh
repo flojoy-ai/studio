@@ -24,10 +24,10 @@ echo "Location set to $flojoy_dir"
 
 if [ ! -f "$venv_executable" ]; then
   if [ -d "$venv_dir" ]; then
-    rm -rf $venv_dir
+    rm -rf "$venv_dir"
   fi
   echo "Creating micromamba env..."
-  cmd="$mamba_executable create -n $venv_name conda-forge::python=3.10 -r $mamba_dir -y"
+  cmd=""$mamba_executable" create -n $venv_name conda-forge::python=3.10 -r $mamba_dir -y"
   $cmd
   if [ "$?" -eq 0 ]; then
       echo "Micromamba env $venv_name created successfully."
@@ -39,13 +39,13 @@ fi
 
 if [ $platform == "Linux" ]; then
   # Linux/bash:
-  eval "$($mamba_executable shell hook --shell bash)"
+  eval "$("$mamba_executable" shell hook --shell bash)"
   # sourcing the bashrc file incorporates the changes into the running session.
   # better yet, restart your terminal!
   source ~/.bashrc
 elif [ $platform == "Darwin" ]; then
   # macOS/zsh:
-  eval "$($mamba_executable shell hook --shell zsh)"
+  eval "$("$mamba_executable" shell hook --shell zsh)"
   source ~/.zshrc
 fi
 export MAMBA_ROOT_PREFIX=$mamba_dir
