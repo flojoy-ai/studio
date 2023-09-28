@@ -8,12 +8,12 @@ import {
 import { Button } from "@src/components/ui/button";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { Environments } from "../types/environment";
+import { EnvironmentList } from "../types/environment";
 import { toast } from "sonner";
 import { useFlowChartState } from "@src/hooks/useFlowChartState";
 
 const PythonEnvSelector = () => {
-  const [environments, setEnvironments] = useState<Environments>([]);
+  const [environments, setEnvironments] = useState<EnvironmentList>([]);
   const { currentPythonEnv, setCurrentPythonEnv } = useFlowChartState();
 
   const getEnvName = (path: string) => {
@@ -34,7 +34,7 @@ const PythonEnvSelector = () => {
 
     const parsedData = await z
       .object({
-        envs: Environments,
+        envs: EnvironmentList,
       })
       .safeParseAsync(data);
 
@@ -87,6 +87,14 @@ const PythonEnvSelector = () => {
           }}
         >
           Refresh
+        </Button>
+
+        <Button
+          onClick={() => {
+            window.navigator.clipboard.writeText(currentPythonEnv || "");
+          }}
+        >
+          Copy
         </Button>
       </div>
     </div>
