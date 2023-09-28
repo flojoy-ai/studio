@@ -1,7 +1,7 @@
 from captain.utils.flowchart_utils import flowchart_to_nx_graph
 import json
 
-sample_app ="""
+sample_app = """
 {
     "nodes": [
       {
