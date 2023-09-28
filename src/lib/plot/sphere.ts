@@ -6,8 +6,6 @@ type Uniforms = {
   translate: mat4;
   scale: mat4;
   rotate: mat4;
-  view: mat4;
-  projection: mat4;
 };
 
 type Attributes = {
@@ -72,24 +70,6 @@ export class Sphere implements Drawable {
           const t = 0.01 * tick;
           return mat4.rotate(new Float32Array(16), mat4.create(), t, [0, 1, 0]);
         },
-        view: mat4.create(),
-        // view: ({ tick }) => {
-        //   const t = 0.01 * tick;
-        //   return mat4.lookAt(
-        //     new Float32Array(16),
-        //     [30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
-        //     [0, 0, 0],
-        //     [0, 1, 0],
-        //   );
-        // },
-        projection: ({ viewportWidth, viewportHeight }) =>
-          mat4.perspective(
-            new Float32Array(16),
-            Math.PI / 4,
-            viewportWidth / viewportHeight,
-            0.01,
-            1000,
-          ),
       },
 
       count: this.vertices.length,

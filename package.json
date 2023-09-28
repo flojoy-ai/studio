@@ -46,6 +46,8 @@
     "localforage": "^1.10.0",
     "lucide-react": "^0.274.0",
     "mixpanel-browser": "^2.47.0",
+    "mouse-change": "^1.4.0",
+    "mouse-wheel": "^1.2.0",
     "plotly.js": "file:bauhaus/plotly.js-2.23.2.tgz",
     "rc-slider": "^10.3.0",
     "react": "^18.2.0",

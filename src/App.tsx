@@ -11,7 +11,6 @@ import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import DeviceTab from "./feature/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
-import { PlotTest } from "./feature/PlotTest";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -52,13 +51,13 @@ const App = () => {
           description={modalConfig.description}
         />
         <Routes>
+          {/* <Route */}
+          {/*   path="/" */}
+          {/*   element={<PlotTest />} */}
+          {/*   errorElement={<ErrorBoundary />} */}
+          {/* /> */}
           <Route
             path="/"
-            element={<PlotTest />}
-            errorElement={<ErrorBoundary />}
-          />
-          <Route
-            path="/flow"
             element={<FlowChartTab />}
             errorElement={<ErrorBoundary />}
           />

@@ -1,11 +1,8 @@
 import REGL from "regl";
 import { Drawable, Plot } from ".";
-import { mat4 } from "gl-matrix";
 
 type Uniforms = {
   size: number;
-  view: mat4;
-  projection: mat4;
 };
 
 type Attributes = {
@@ -32,6 +29,10 @@ export class Points implements Drawable {
         varying vec4 v_color;
 
         void main() {
+          vec2 coord = gl_PointCoord - vec2(0.5);
+          if (length(coord) > 0.5) {
+            discard;
+          }
           gl_FragColor = v_color; 
         }
       `,
@@ -58,23 +59,6 @@ export class Points implements Drawable {
 
       uniforms: {
         size: options.pointSize,
-        view: ({ tick }) => {
-          const t = 0.01 * tick;
-          return mat4.lookAt(
-            new Float32Array(16),
-            [30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
-            [0, 0, 0],
-            [0, 1, 0],
-          );
-        },
-        projection: ({ viewportWidth, viewportHeight }) =>
-          mat4.perspective(
-            new Float32Array(16),
-            Math.PI / 4,
-            viewportWidth / viewportHeight,
-            0.01,
-            1000,
-          ),
       },
 
       count: this.points.length,

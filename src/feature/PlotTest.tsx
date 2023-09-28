@@ -1,4 +1,5 @@
 import { Plot, Points } from "@src/lib/plot";
+import { OrthogonalPlane } from "@src/lib/plot/plane";
 import { useRef } from "react";
 import REGL from "regl";
 
@@ -12,26 +13,32 @@ const data: REGL.Vec3[] = Array(1000)
 
 export const PlotTest = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
+  const plot = useRef<Plot | null>(null);
 
-  if (canvas.current) {
-    const plot = new Plot({
+  if (canvas.current && !plot.current) {
+    const plt = new Plot({
       ref: canvas.current,
-      width: 300,
-      height: 300,
+      cameraOptions: {
+        center: [0, 0, 0],
+      },
     });
+    plot.current = plt;
 
-    const points = new Points(plot, data, {
-      pointSize: 3,
-    });
-
-    points.draw();
-
-    // const sphere = new Sphere(plot, {
-    //   radius: 0.5,
-    //   center: [0, 0, -2],
-    // });
-    //
-    // sphere.draw();
+    plt.addObject(
+      new Points(plt, data, {
+        pointSize: 3,
+      }),
+    );
+    plt.addObject(
+      new OrthogonalPlane(plt, { orientation: "xy", gridSize: 10 }),
+    );
+    plt.addObject(
+      new OrthogonalPlane(plt, { orientation: "xz", gridSize: 10 }),
+    );
+    plt.addObject(
+      new OrthogonalPlane(plt, { orientation: "yz", gridSize: 10 }),
+    );
+    plt.frame();
   }
 
   return (

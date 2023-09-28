@@ -1,14 +1,17 @@
+import { cn } from "@src/lib/utils";
 import React from "react";
 
 const NodeWrapper = ({
   nodeError,
   children,
+  className,
 }: {
   nodeError: string;
   children: React.ReactNode;
+  className?: string;
 }) => {
   return (
-    <div className="relative" data-testid="node-wrapper">
+    <div className={cn("relative", className)} data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>
