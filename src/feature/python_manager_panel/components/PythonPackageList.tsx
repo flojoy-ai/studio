@@ -1,5 +1,9 @@
 const PythonPackageList = () => {
-  return <div>PythonPackageList</div>;
+  return (
+    <div>
+      <div className="text-lg font-semibold">Package List</div>
+    </div>
+  );
 };
 
 export default PythonPackageList;
