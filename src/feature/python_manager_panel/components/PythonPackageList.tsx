@@ -2,6 +2,14 @@ import { useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { EnvironmentDetail } from "../types/environment";
+import PackageEntry from "./PackageEntry";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@src/components/ui/table";
 
 const PythonPackageList = () => {
   const { currentPythonEnv } = useFlowChartState();
@@ -30,16 +38,31 @@ const PythonPackageList = () => {
   return (
     <div>
       <div className="text-lg font-semibold">Package List</div>
+
+      <div className="py-2" />
       {currentPythonEnv ? (
         <div>
           {packageList.length === 0 ? (
             <div>No packages installed</div>
           ) : (
-            <>
-              {packageList.map((pkg) => {
-                return <div>{pkg}</div>;
-              })}
-            </>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="">Package</TableHead>
+                  <TableHead className="">Version</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {packageList.map((pkg) => {
+                  return (
+                    <PackageEntry
+                      name={pkg.split("=")[0]}
+                      version={pkg.split("=")[1]}
+                    />
+                  );
+                })}
+              </TableBody>
+            </Table>
           )}
         </div>
       ) : (
