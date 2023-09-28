@@ -1,4 +1,4 @@
-import { MenubarItem } from "@/components/ui/menubar";
+import { MenubarItem, MenubarShortcut } from "@/components/ui/menubar";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { projectAtom, projectPathAtom } from "@src/hooks/useFlowChartState";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
@@ -12,7 +12,8 @@ export const SaveButton = () => {
 
   return (
     <MenubarItem data-cy="btn-save" onClick={handleSave}>
-      Save
+      {/* TODO: Add logo for windows and linux */}
+      Save <MenubarShortcut>⌘S</MenubarShortcut>
     </MenubarItem>
   );
 };
@@ -41,7 +42,7 @@ export const SaveAsButton = () => {
 
   return (
     <MenubarItem data-cy="btn-saveas" onClick={handleSave}>
-      Save As
+      Save As{" "}
     </MenubarItem>
   );
 };
