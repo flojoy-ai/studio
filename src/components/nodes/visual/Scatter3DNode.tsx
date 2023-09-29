@@ -27,20 +27,20 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const plot = useRef<Plot | null>(null);
   const points = useRef<Points | null>(null);
-  const pointsLength = useRef(0);
   const pointsData = useRef<REGL.Buffer | null>(null);
+  const pointsLength = useRef(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log(pointsLength.current);
-      if (pointsData.current) {
+      if (pointsData.current && points.current) {
         pointsData.current.subdata(
           [Math.random() * 10, Math.random() * 10, Math.random() * 10],
-          pointsLength.current * 3,
+          pointsLength.current * 3 * 4,
         );
+        pointsLength.current++;
+        points.current.pointCount = pointsLength.current;
       }
-      pointsLength.current += 1;
-    }, 2000);
+    }, 5);
 
     return () => clearInterval(interval);
   }, []);
@@ -72,13 +72,14 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
     const plt = new Plot(canvas.current);
     const buf = plt.regl.buffer({
       usage: "dynamic",
-      type: "float",
-      length: 300,
+      type: "float32",
+      length: 10000 * 3 * 4,
     });
     pointsData.current = buf;
     points.current = new Points(plt.regl, {
       pointSize: 5,
       points: pointsData.current,
+      pointCount: pointsLength.current,
     });
 
     plt

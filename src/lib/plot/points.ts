@@ -11,22 +11,26 @@ type Attributes = {
 
 type PointsOptions = {
   points: REGL.Buffer;
+  pointCount: number;
   pointSize: number;
 };
 
 export class Points implements Drawable {
-  public vertices: REGL.Buffer;
+  private vertices: REGL.Buffer;
   private vertexCount: number;
   public draw: REGL.DrawCommand;
 
   set points(value: REGL.Buffer) {
     this.vertices = value;
-    this.vertexCount = value.length;
+  }
+
+  set pointCount(value: number) {
+    this.vertexCount = value;
   }
 
   constructor(regl: REGL.Regl, options: PointsOptions) {
     this.vertices = options.points;
-    this.vertexCount = options.points.length;
+    this.vertexCount = options.pointCount;
     this.draw = regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
@@ -69,5 +73,11 @@ export class Points implements Drawable {
       count: regl.this("vertexCount"),
       primitive: "points",
     });
+  }
+
+  public se;
+
+  public render() {
+    this.draw();
   }
 }

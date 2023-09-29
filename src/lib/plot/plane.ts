@@ -61,6 +61,10 @@ export class OrthogonalPlane implements Drawable {
     });
   }
 
+  public render() {
+    this.draw();
+  }
+
   private createVertices(options: OrthogonalPlaneOptions): REGL.Vec3[] {
     const vertices = this.createXZPlaneVertices(options);
     switch (options.orientation) {

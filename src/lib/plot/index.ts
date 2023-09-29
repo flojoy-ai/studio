@@ -6,7 +6,7 @@ import { Points } from "./points";
 import { OrthogonalPlane } from "./plane";
 
 export interface Drawable {
-  draw: REGL.DrawCommand;
+  render: () => void;
 }
 
 type CameraOptions = {
@@ -41,7 +41,7 @@ export class Plot {
 
   public draw() {
     this.objects.forEach((c) => {
-      c.draw();
+      c.render();
     });
   }
 
