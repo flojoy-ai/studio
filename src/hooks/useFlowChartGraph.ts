@@ -144,6 +144,7 @@ export const useFlowChartGraph = () => {
     handleTitleChange,
   };
 };
+
 function resolveProjectReference(project: string) {
   if (RECIPES[project]) {
     return RECIPES[project];
