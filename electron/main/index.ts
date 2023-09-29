@@ -144,16 +144,12 @@ async function createWindow() {
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
     await saveNodePack({ win, icon: getIcon(), startup: true });
-    runBackend(WORKING_DIR, win)
-      .then(({ success }) => {
-        if (success) {
-          // reload studio html to fetch fresh manifest file
-          win?.reload();
-        }
-      })
-      .catch(() => {
-        global.initializingBackend = false;
-      });
+    runBackend(WORKING_DIR, win).then(({ success }) => {
+      if (success) {
+        // reload studio html to fetch fresh manifest file
+        win?.reload();
+      }
+    });
   } else {
     // electron-vite-vue#298
     win.loadURL(url ?? "");
