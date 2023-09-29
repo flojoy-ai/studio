@@ -238,7 +238,7 @@ const FlowChartTab = () => {
           : `${err.response?.data?.error ?? err.message}`;
 
       toast.message(errTitle, {
-        description: errDescription,
+        description: errDescription.toString(),
         duration: 60000,
         dismissible: true,
         cancel: {
