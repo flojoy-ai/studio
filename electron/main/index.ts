@@ -70,15 +70,6 @@ const handleWriteFileSync = (_, path: string, data: string) => {
   fs.writeFileSync(path, data);
 };
 
-const handleReadBackendLogs = () => {
-  const { logFilePath } = Logger.getLogFilePath("backend");
-  if (!fs.existsSync(logFilePath)) {
-    return "No logs found!";
-  }
-  const content = fs.readFileSync(logFilePath);
-  return content.toString();
-};
-
 const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
   return await dialog.showSaveDialog({
     defaultPath: defaultFilename,
@@ -217,7 +208,6 @@ app.whenReady().then(() => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
-  ipcMain.handle("read-backend-logs", handleReadBackendLogs);
   createWindow();
 });
 
