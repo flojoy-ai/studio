@@ -1,12 +1,27 @@
+import { IServerStatus } from "@src/context/socket.context";
+import { useSocket } from "@src/hooks/useSocket";
 import { Variants, motion } from "framer-motion";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoadingPage = () => {
+  const {
+    states: { serverStatus },
+  } = useSocket();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (serverStatus !== IServerStatus.OFFLINE) {
+      navigate("/flowchart");
+    }
+  }, [serverStatus]);
+
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-violet-600">
       <BarLoader />
       <div className="py-4" />
 
-      <div className="text-background">Loading...</div>
+      <div className="text-white">Loading...</div>
     </div>
   );
 };
