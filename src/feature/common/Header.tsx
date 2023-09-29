@@ -17,12 +17,12 @@ const tabs = [
     shortText: "Devices",
     testId: "devices-btn",
   },
-  {
-    to: "/pymgr",
-    fullText: "Python Env/Pkg Manager",
-    shortText: "Python",
-    testId: "pymgr-btn",
-  },
+  // {
+  //   to: "/pymgr",
+  //   fullText: "Python Env/Pkg Manager",
+  //   shortText: "Python",
+  //   testId: "pymgr-btn",
+  // },
 ];
 
 const lg = 1024;
