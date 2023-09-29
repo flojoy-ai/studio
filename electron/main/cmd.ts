@@ -24,6 +24,9 @@ export const runCmd = ({
   return new Promise((resolve, reject) => {
     const logger = new Logger(serviceName);
     const script = childProcess.exec(command);
+    if (global.runningProcesses && Array.isArray(global.runningProcesses)) {
+      global.runningProcesses.push(script);
+    }
     let lastOutput: string;
     script.stdout?.on("data", function (data) {
       const dataStr = `[${serviceName}] - ${data?.toString()}`;
@@ -52,6 +55,16 @@ export const runCmd = ({
         `exited child process [${serviceName}] with code: `,
         code?.toString() ?? "",
       );
+      if (
+        global.runningProcesses?.length &&
+        global.runningProcesses.find(
+          (s: childProcess.ChildProcess) => s.pid === script.pid,
+        )
+      ) {
+        global.runningProcesses = global.runningProcesses.filter(
+          (s: childProcess.ChildProcess) => s.pid !== script.pid,
+        );
+      }
       reject({ code, lastOutput });
     });
   });

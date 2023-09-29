@@ -123,21 +123,6 @@ async function createWindow() {
     if (!global.hasUnsavedChanges) {
       return;
     }
-    if (global.initializingBackend) {
-      const choice = dialog.showMessageBoxSync(win!, {
-        type: "warning",
-        buttons: ["Yes", "No, go back"],
-        title: "Quit?",
-        message:
-          "Backend initialization is underway. Are you sure you want to quit?",
-      });
-      if (choice > 0) {
-        e.preventDefault();
-      } else {
-        global.initializingBackend = false;
-      }
-      return;
-    }
     const choice = dialog.showMessageBoxSync(win!, {
       type: "question",
       buttons: ["Yes", "No, go back"],
@@ -159,17 +144,12 @@ async function createWindow() {
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
     await saveNodePack({ win, icon: getIcon(), startup: true });
-    global.initializingBackend = true;
     runBackend(WORKING_DIR, win)
-      .then(({ success, script }) => {
+      .then(({ success }) => {
         if (success) {
-          global.initializingBackend = false;
-          if (script) {
-            global.runningProcesses.push(script);
-          }
+          // reload studio html to fetch fresh manifest file
+          win?.reload();
         }
-        // reload studio html to fetch fresh manifest file
-        win?.reload();
       })
       .catch(() => {
         global.initializingBackend = false;
@@ -211,9 +191,8 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on("window-all-closed", async (e) => {
+app.on("window-all-closed", async () => {
   mainLogger.log("window-all-closed fired!");
-  e.preventDefault();
   await cleanup();
   if (process.platform !== "darwin") {
     app.exit(0);
