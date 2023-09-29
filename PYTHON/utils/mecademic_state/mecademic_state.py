@@ -2,11 +2,14 @@ from flojoy import TextBlob
 import mecademicpy.robot as mdr
 
 _robot_handle_map = None
+
+
 def get_robot_handle_map():
     global _robot_handle_map
     if _robot_handle_map is None:
         _robot_handle_map = {}
     return _robot_handle_map
+
 
 def init_handle_map(allow_reinit: bool = False):
     global _robot_handle_map
@@ -21,12 +24,13 @@ def query_for_handle(ip_address: str | TextBlob) -> mdr.Robot | None:
     If a handle is not found, a new handle is created and added to the map.
     """
     if isinstance(ip_address, TextBlob):
-        ip_address: str = ip_address.text_blob # unbox TextBlob
+        ip_address: str = ip_address.text_blob  # unbox TextBlob
     robot_handle_map = get_robot_handle_map()
     if ip_address in robot_handle_map:
         return robot_handle_map[ip_address]
     else:
         raise KeyError("No handle for IP address: " + ip_address)
+
 
 def add_handle(ip_address: str):
     """
@@ -41,6 +45,7 @@ def add_handle(ip_address: str):
     robot.Connect(ip_address)
     robot.WaitConnected()
     robot_handle_map[ip_address] = robot
+
 
 def remove_handle(ip_address: str):
     """
