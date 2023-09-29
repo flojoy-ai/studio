@@ -1,0 +1,67 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# python
+/venv
+/venv2
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+dist-electron/*
+
+# testing
+/coverage
+/cypress/screenshots/
+
+
+# gitpod config to prevent unwanted installations
+.gitpod.yml 
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+dump.rdb
+
+*~
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+__pycache__
+dump.rdb
+*.rdb
+*.pyc
+.ipynb_checkpoints
+PYTHON/WATCH/fc.json
+PYTHON/obj-detection.jpg
+PYTHON/utils/object_detection/yolov3.weights
+src/feature/flow_chart_panel/manifest/pythonFunctions.json
+venv2
+.env
+dist
+update_apps.js
+worker-manager/node_modules
+
+/**/.idea/*
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json
+
+src/data/*.json
+src/feature/flow_chart_panel/manifest/pythonFunctions.json
+
+.coverage
+coverage.xml
+
+.nyc_output/out.json
+coverage-cy
+build
+.nyc_output
+
+.python-version
+
+.history

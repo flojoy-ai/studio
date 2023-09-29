@@ -38,17 +38,17 @@ export const GalleryModal = ({
         .map(([k, v]) => [
           k,
           v
-          .filter(data => IS_CLOUD_DEMO ? data.cloudDemoEnabled : true)
-          .filter(
-            (app) =>
-              app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              app.description
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-              app.relevantNodes.some((node) =>
-                node.name.toLowerCase().includes(searchQuery.toLowerCase()),
-              ),
-          ),
+            .filter((data) => (IS_CLOUD_DEMO ? data.cloudDemoEnabled : true))
+            .filter(
+              (app) =>
+                app.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                app.description
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase()) ||
+                app.relevantNodes.some((node) =>
+                  node.name.toLowerCase().includes(searchQuery.toLowerCase()),
+                ),
+            ),
         ])
         .filter(([, v]) => v.length > 0),
     );
