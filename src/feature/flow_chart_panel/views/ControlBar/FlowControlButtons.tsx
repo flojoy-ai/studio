@@ -79,12 +79,11 @@ const FlowControlButtons = () => {
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <Button
           data-cy="btn-play"
-          size="sm"
-          variant="default"
+          variant="dotted"
           id="btn-play"
           onClick={handleClick}
           disabled={nodes.length === 0}
-          className="gap-2"
+          className="w-28 gap-2"
         >
           <Play size={18} />
           Play
@@ -93,11 +92,10 @@ const FlowControlButtons = () => {
         <Button
           data-testid="btn-cancel"
           data-cy="btn-cancel"
-          size="sm"
           id="btn-cancel"
           onClick={cancelFC}
-          className="gap-2"
-          variant="ghost"
+          className="w-28 gap-2"
+          variant="dotted"
         >
           <Ban size={18} />
           Cancel

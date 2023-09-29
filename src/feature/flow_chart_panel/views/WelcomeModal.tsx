@@ -37,6 +37,7 @@ export function WelcomeModal() {
             }}
             id="close-welcome-modal"
             data-testid="close-welcome-modal"
+            variant="dotted"
           >
             Try out Flojoy Studio
           </Button>
