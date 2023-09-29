@@ -62,7 +62,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
-        <Logs logs={logs} />
+        <Logs logs={logs.length ? logs : ["No logs found!"]} />
         {children}
       </main>
     </div>
