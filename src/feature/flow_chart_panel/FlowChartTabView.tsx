@@ -257,6 +257,9 @@ const FlowChartTab = () => {
     } catch (err: any) {
       toast.message("Failed to generate nodes metadata", {
         description: err.response?.data?.error,
+        cancel: {
+          label: "Close",
+        },
       });
     }
   }, []);

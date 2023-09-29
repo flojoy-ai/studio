@@ -20,7 +20,7 @@ export const LAYOUT_TOP_HEIGHT =
 
 export const Layout = ({ children }: LayoutProps) => {
   const {
-    states: { serverStatus },
+    states: { serverStatus, logs },
   } = useSocket();
 
   const [project, setProject] = useAtom(projectAtom);
@@ -62,7 +62,7 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
-        <Logs />
+        <Logs logs={logs} />
         {children}
       </main>
     </div>

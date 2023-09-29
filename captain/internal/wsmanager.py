@@ -1,5 +1,6 @@
 from fastapi import WebSocket
 from flojoy import PlotlyJSONEncoder
+from queue import Queue
 
 # removed logging for now to avoid circular imports
 # may swich to loguru to handle loggings
@@ -9,12 +10,21 @@ import json
 from captain.types.worker import WorkerJobResponse
 import threading
 
+
 socket_connection_lock = threading.Lock()
 
 
 class ConnectionManager:
+    _instance = None
+    @classmethod
+    def get_instance(cls):
+        if not cls._instance:
+            cls._instance = ConnectionManager()
+            return cls._instance
+        return cls._instance
     def __init__(self):
         self.active_connections_map: dict[str, WebSocket] = {}
+        self.log_queue = Queue()
 
     async def connect(self, websocket: WebSocket, socket_id: str):
         await websocket.accept()

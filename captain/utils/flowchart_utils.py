@@ -11,7 +11,7 @@ from captain.models.topology import Topology
 from typing import Any
 from captain.services.producer.producer import Producer
 from captain.types.flowchart import PostWFC
-from captain.utils.logger import logger
+from captain.utils.logger import logger, BroadcastLogs
 from subprocess import Popen, PIPE
 import importlib.metadata
 from .status_codes import STATUS_CODES
@@ -27,7 +27,6 @@ import traceback
 from captain.utils.broadcast import Signaler
 from captain.utils.import_nodes import pre_import_functions
 import logging
-import threading
 
 
 def run_worker(
@@ -45,7 +44,6 @@ def run_worker(
         # ):
         #     text_trap = io.StringIO()
         #     sys.stdout = text_trap
-        logger.debug("Starting worker")
         worker = Worker(
             task_queue=task_queue,
             finish_queue=finish_queue,
@@ -67,7 +65,6 @@ def run_producer(
     signaler: Signaler,
 ):
     try:
-        logger.debug("Starting producer")
         producer = Producer(
             task_queue=task_queue,
             finish_queue=finish_queue,
@@ -108,6 +105,7 @@ def spawn_producer(manager: Manager):
         ),
     )
     producer.daemon = True
+    logger.debug("Starting producer")
     producer.start()
 
 
@@ -129,7 +127,7 @@ def spawn_workers(
     manager.thread_count = worker_number
 
     signaler = Signaler(manager.ws)
-
+    logger.debug("Starting worker")
     for _ in range(worker_number):
         worker_process = Thread(
             target=run_worker,
@@ -266,11 +264,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
-        handler = BroadcastNodeLogs(
-            manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
-        )
-        handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
-        node_logger.addHandler(handler)
+        node_logger.addHandler(BroadcastLogs())
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
@@ -382,42 +376,3 @@ async def install_packages(
         socket_msg.MODAL_CONFIG["messages"] = output
         await asyncio.create_task(manager.ws.broadcast(socket_msg))
         return False
-
-
-class BroadcastNodeLogs(logging.Handler):
-    PCKG_INSTALLATION_COMPLETE = "Pip install complete. Spawning process for function"
-
-    def __init__(self, manager: Manager, jobset_id: str, node_func: str):
-        super().__init__()
-        self.manager = manager
-        self.jobset_id = jobset_id
-        self.node_func = node_func
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        socket_msg = WorkerJobResponse(jobset_id=self.jobset_id)
-        socket_msg["SYSTEM_STATUS"] = (
-            STATUS_CODES["RUNNING_PYTHON_JOB"] + self.node_func
-        )
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True, messages=log_entry, title=f"{self.node_func} logs"
-        )
-
-        if self.PCKG_INSTALLATION_COMPLETE in log_entry:
-            socket_msg["MODAL_CONFIG"]["showModal"] = False
-
-        def broadcast_socket():
-            loop = asyncio.new_event_loop()
-            try:
-                asyncio.set_event_loop(loop)
-
-                async def inner_broadcast_socket():
-                    await self.manager.ws.broadcast(socket_msg)
-
-                loop.run_until_complete(inner_broadcast_socket())
-            finally:
-                loop.close()
-
-        thread = threading.Thread(target=broadcast_socket)
-        thread.start()
-        thread.join()

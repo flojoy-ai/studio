@@ -3,10 +3,8 @@ import { LAYOUT_TOP_HEIGHT } from "../common/Layout";
 import { cn } from "@src/lib/utils";
 import { Button } from "@src/components/ui/button";
 import { ChevronsUp, ChevronsDown } from "lucide-react";
-import { baseClient } from "@src/lib/base-client";
 
-const Logs = () => {
-  const [outputs, setOutputs] = useState<string[]>([]);
+const Logs = ({ logs }: { logs: string[] }) => {
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
 
@@ -16,25 +14,7 @@ const Logs = () => {
         lastElem.current.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [outputs.length, minimize]);
-  const fetchLogs = async () => {
-    if ("api" in window && window.api.isPackaged) {
-      const logs = await window.api.getBackendLogs();
-      setOutputs(logs.split("\n"));
-    }
-     else {
-      const res = await baseClient.get("logs");
-      setOutputs(res.data.split("\n"));
-    }
-  };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchLogs();
-    }, 1500);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  }, [minimize, logs?.length]);
   return (
     <div
       className={cn(
@@ -43,7 +23,7 @@ const Logs = () => {
       )}
     >
       <div
-        className="relative overflow-y-scroll"
+        className={cn("relative overflow-y-scroll")}
         style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       >
         <div className="sticky right-0 top-0 z-50 flex h-9 w-full justify-end">
@@ -57,22 +37,26 @@ const Logs = () => {
           </Button>
         </div>
         <div
-          className={cn("pt-2 transition-all duration-1000 ease-linear", {
-            hidden: minimize,
-          })}
+          className={cn(
+            "bg-background p-7 pt-2 transition-all duration-1000 ease-linear ",
+            {
+              hidden: minimize,
+            },
+            "light:border-slate-700 border-t dark:border-slate-300",
+          )}
         >
-          {outputs.map((output, i) => (
+          {logs.map((log, i) => (
             <div
-              key={`${output}-${i}`}
-              ref={i === outputs?.length - 1 ? lastElem : null}
+              key={log}
+              ref={i === logs?.length - 1 ? lastElem : null}
               className={cn(
-                "overflow-hidden whitespace-break-spaces bg-background px-2 font-mono",
-                output.toLowerCase().includes("error")
+                "overflow-hidden whitespace-break-spaces bg-background py-2 font-mono text-sm",
+                log.toLowerCase().includes("error")
                   ? "text-red-700"
                   : "text-muted-foreground",
               )}
             >
-              {output}
+              {log}
             </div>
           ))}
         </div>

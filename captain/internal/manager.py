@@ -10,7 +10,7 @@ from typing import Any
 
 class Manager(object):
     def __init__(self):
-        self.ws = ConnectionManager()  # websocket manager
+        self.ws = ConnectionManager.get_instance()  # websocket manager
         self.running_topology: Topology | None = None  # holds the topology
         self.debug_mode = False
         self.task_queue: Queue[Any] = Queue()

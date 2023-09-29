@@ -1,8 +1,9 @@
+from logging import LogRecord
 import os
 import logging
-from logging.handlers import RotatingFileHandler
+from captain.internal.wsmanager import ConnectionManager
 
-logger = logging.getLogger()
+logger = logging.getLogger("flojoy")
 
 
 def get_log_level():
@@ -18,39 +19,34 @@ def get_log_level():
     return map_to_int[log_level]
 
 
-logging.basicConfig(level=get_log_level())
-
-
-def get_log_file_path(service_name: str):
-    logs_folder_path = os.path.join(os.getcwd(), ".logs")
-    log_file_name = f"log_{service_name}.txt"
-    log_file_path = os.path.join(logs_folder_path, log_file_name)
-    return logs_folder_path, log_file_name, log_file_path
+logging.basicConfig(
+    level=get_log_level(),
+    format="[%(asctime)s] - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
 
 def logger_setup(logger: logging.Logger):
-    logs_folder_path, log_file_name, _ = get_log_file_path("main")
-
-    if not os.path.exists(logs_folder_path):
-        os.makedirs(logs_folder_path, exist_ok=True)
-
-    log_file_path = os.path.join(logs_folder_path, log_file_name)
-    handler = RotatingFileHandler(log_file_path, maxBytes=1024 * 1024, backupCount=5)
-    formatter = CustomFormatter(
-        "[%(asctime)s] - %(levelname)s - %(message)s", "%Y-%m-%d %H:%M:%S"
-    )
+    handler = BroadcastLogs()
     log_lvl = get_log_level()
-
     handler.setLevel(log_lvl)
-
-    handler.setFormatter(formatter)
-
     logger.addHandler(handler)
 
 
 class CustomFormatter(logging.Formatter):
-    """Ensure a colon immediately follows the levelname in order to copy the fastapi logger"""
+    def __init__(self) -> None:
+        super().__init__(
+            fmt="[%(asctime)s] - %(name)s - %(levelname)s - %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
 
-    def format(self, record: logging.LogRecord):
-        record.levelname = f"{record.levelname}:"
-        return super().format(record)
+
+class BroadcastLogs(logging.Handler):
+    def __init__(self, level=0) -> None:
+        super().__init__(level)
+        self.ws = ConnectionManager.get_instance()
+        self.setFormatter(CustomFormatter())
+
+    def emit(self, record: LogRecord) -> None:
+        log_entry = self.format(record)
+        self.ws.log_queue.put(log_entry)

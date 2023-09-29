@@ -1,4 +1,4 @@
-import { IServerStatus, ModalConfig } from "@src/context/socket.context";
+import { IServerStatus } from "@src/context/socket.context";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
@@ -11,7 +11,7 @@ interface WebSocketServerProps {
   handleSocketId: (value: string) => void;
   onClose?: (ev: CloseEvent) => void;
   onConnectionEstablished: () => void;
-  handleModalConfig: React.Dispatch<React.SetStateAction<ModalConfig>>;
+  handleLogs: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 enum ResponseEnum {
@@ -20,33 +20,8 @@ enum ResponseEnum {
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
   preJobOperation = "PRE_JOB_OP",
-  modalConfig = "MODAL_CONFIG",
+  log = "BACKEND_LOG",
 }
-
-const getModalConfig = (
-  prev: ModalConfig,
-  next: Omit<ModalConfig, "messages"> & { messages: string | undefined },
-): ModalConfig => {
-  let messages = prev.messages;
-  if (next.showModal) {
-    messages =
-      prev.messages && next.messages
-        ? [...prev.messages, next.messages]
-        : next.messages
-        ? [next.messages]
-        : prev.messages;
-  } else {
-    messages = [];
-  }
-
-  return {
-    id: next.id,
-    showModal: next.showModal,
-    title: next.title,
-    messages,
-    description: next.description,
-  };
-};
 
 export class WebSocketServer {
   private server: WebSocket;
@@ -56,8 +31,8 @@ export class WebSocketServer {
   private handleFailedNodes: WebSocketServerProps["handleFailedNodes"];
   private handleSocketId: WebSocketServerProps["handleSocketId"];
   private onClose?: (ev: CloseEvent) => void;
-  private handleModalConfig: WebSocketServerProps["handleModalConfig"];
   private onConnectionEstablished: WebSocketServerProps["onConnectionEstablished"];
+  private handleLogs: WebSocketServerProps["handleLogs"];
   constructor({
     url,
     onPingResponse,
@@ -66,8 +41,8 @@ export class WebSocketServer {
     handleFailedNodes,
     handleSocketId,
     onClose,
-    handleModalConfig,
     onConnectionEstablished,
+    handleLogs,
   }: WebSocketServerProps) {
     this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -76,8 +51,8 @@ export class WebSocketServer {
     this.handleSocketId = handleSocketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
-    this.handleModalConfig = handleModalConfig;
     this.onConnectionEstablished = onConnectionEstablished;
+    this.handleLogs = handleLogs;
     this.init();
   }
   init() {
@@ -91,13 +66,6 @@ export class WebSocketServer {
               data[ResponseEnum.systemStatus] === IServerStatus.RUN_COMPLETE
             ) {
               this.handlePingResponse(IServerStatus.STANDBY);
-            }
-            if (
-              [IServerStatus.RUN_COMPLETE, IServerStatus.STANDBY].includes(
-                data[ResponseEnum.systemStatus],
-              )
-            ) {
-              this.handleModalConfig({ showModal: false, messages: [] });
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -119,9 +87,8 @@ export class WebSocketServer {
           if (ResponseEnum.failedNodes in data) {
             this.handleFailedNodes(data[ResponseEnum.failedNodes]);
           }
-          if (ResponseEnum.modalConfig in data) {
-            const modalConfig = data[ResponseEnum.modalConfig];
-            this.handleModalConfig((prev) => getModalConfig(prev, modalConfig));
+          if (ResponseEnum.log in data) {
+            this.handleLogs((prev) => [...prev, data[ResponseEnum.log]]);
           }
           break;
         case "connection_established":

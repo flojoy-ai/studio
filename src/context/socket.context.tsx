@@ -6,14 +6,6 @@ import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
 
-export type ModalConfig = {
-  showModal?: boolean;
-  title?: string;
-  messages?: string[];
-  id?: string;
-  description?: string;
-};
-
 type States = {
   programResults: NodeResult[];
   setProgramResults: Dispatch<SetStateAction<NodeResult[]>>;
@@ -21,7 +13,7 @@ type States = {
   serverStatus: IServerStatus;
   failedNodes: Record<string, string>;
   socketId: string;
-  modalConfig: ModalConfig;
+  logs: string[];
 };
 
 export enum IServerStatus {
@@ -54,9 +46,7 @@ export const SocketContextProvider = ({
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
-  const [modalConfig, setModalConfig] = useState<ModalConfig>({
-    showModal: false,
-  });
+  const [logs, setLogs] = useState<string[]>([]);
   const hardwareRefetch = useHardwareRefetch();
 
   const handleStateChange =
@@ -79,7 +69,7 @@ export const SocketContextProvider = ({
         handleSocketId: handleStateChange("socketId"),
         onNodeResultsReceived: setProgramResults,
         onPingResponse: handleStateChange("serverStatus"),
-        handleModalConfig: setModalConfig,
+        handleLogs: setLogs,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
           setSocket(undefined);
@@ -95,10 +85,10 @@ export const SocketContextProvider = ({
         ...states,
         programResults,
         setProgramResults,
-        modalConfig,
+        logs,
       },
     }),
-    [programResults, states, modalConfig],
+    [programResults, states, logs],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
