@@ -31,14 +31,14 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
@@ -69,7 +69,7 @@ const FlowChartTab = () => {
     useState<NodesMetadataMap | null>(null);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
@@ -285,7 +285,7 @@ const FlowChartTab = () => {
   };
 
   return (
-    <Layout>
+    <>
       <ReactFlowProvider>
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
@@ -359,8 +359,6 @@ const FlowChartTab = () => {
             setSideBarStatus={setIsSidebarOpen}
           />
         )}
-
-        <Toaster theme={theme} />
 
         <WelcomeModal />
 
@@ -441,7 +439,7 @@ const FlowChartTab = () => {
         setOpen={setCommandMenuOpen}
         onItemSelect={onCommandMenuItemSelect}
       />
-    </Layout>
+    </>
   );
 };
 

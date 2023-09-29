@@ -5,10 +5,10 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
+import { Outlet, useNavigate } from "react-router-dom";
+import { Toaster } from "sonner";
+import { useTheme } from "@src/providers/themeProvider";
+import { useEffect } from "react";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -17,7 +17,7 @@ const SERVER_STATUS_HEIGHT = 32;
 export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = () => {
   const {
     states: { serverStatus },
   } = useSocket();
@@ -25,10 +25,20 @@ export const Layout = ({ children }: LayoutProps) => {
   const [project, setProject] = useAtom(projectAtom);
   const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
 
+  const { theme } = useTheme();
+
   const handleProjectRename = (e) => {
     setProject({ ...project, name: e.target.value });
     setHasUnsavedChanges(true);
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      navigate("/flowchart");
+    }
+  }, []);
 
   return (
     <div>
@@ -61,7 +71,8 @@ export const Layout = ({ children }: LayoutProps) => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
-        {children}
+        <Toaster theme={theme} />
+        <Outlet />
       </main>
     </div>
   );
