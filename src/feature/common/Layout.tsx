@@ -9,6 +9,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
 import { useEffect } from "react";
+import { IServerStatus } from "@src/context/socket.context";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -35,10 +36,17 @@ export const Layout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("serverStatus", serverStatus);
+    if (serverStatus == IServerStatus.OFFLINE) {
+      console.log("HAHAHA");
+      navigate("/loading");
+      return;
+    }
+
     if (window.location.pathname === "/") {
       navigate("/flowchart");
     }
-  }, []);
+  }, [serverStatus]);
 
   return (
     <div>

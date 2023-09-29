@@ -13,6 +13,7 @@ import { ThemeProvider } from "@src/providers/themeProvider";
 import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 import PythonManagerTabView from "./feature/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./feature/common/Layout";
+import LoadingPage from "./feature/loading/LoadingPage";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -70,6 +71,7 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
+          <Route path="/loading" element={<LoadingPage />} />
         </Routes>
       </div>
     </ThemeProvider>
