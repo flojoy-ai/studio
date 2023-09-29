@@ -46,15 +46,20 @@ fi
 
 if [ $platform == "Linux" ]; then
   eval "$("$mamba_executable" shell hook --shell bash)"
+  export MAMBA_ROOT_PREFIX=$mamba_dir
+  micromamba activate $venv_name
+  feedback $? "Env $venv_name is activated!" "Failed to activate $venv_name env!"
+  cd "$current_dir"
+  echo "Installing pip dependencies..."
+  pip install -r requirements.txt
+  echo "Package installation completed, starting backend..."
+  export ELECTRON_MODE=packaged
+  python manage.py
 elif [ $platform == "Darwin" ]; then
-  eval "$("$mamba_executable" shell hook --shell zsh)"
+  cd "$current_dir"
+  echo "Installing pip dependencies..."
+  "$venv_executable" -m pip install -r requirements.txt
+  echo "Package installation completed, starting backend..."
+  export ELECTRON_MODE=packaged
+  "$venv_executable" manage.py
 fi
-export MAMBA_ROOT_PREFIX=$mamba_dir
-micromamba activate $venv_name
-feedback $? "Env $venv_name is activated!" "Failed to activate $venv_name env!"
-cd "$current_dir"
-echo "Installing pip dependencies..."
-pip install -r requirements.txt
-echo "Package installation completed, starting backend..."
-export ELECTRON_MODE=packaged
-python manage.py
