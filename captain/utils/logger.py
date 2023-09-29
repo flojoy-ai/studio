@@ -1,8 +1,7 @@
 import logging
 import os
-import sys
 
-logger = logging.getLogger("fastapi-dev")
+logger = logging.getLogger()
 logging.basicConfig(level=logging.INFO, format="%(name)s - %(levelname)s - %(message)s")
 
 
@@ -31,7 +30,7 @@ def get_log_level():
         "error": logging.ERROR,
         "critical": logging.CRITICAL,
     }
-    log_level = os.environ.get("FASTAPI_LOG", "error")
+    log_level = os.environ.get("FASTAPI_LOG", "info")
 
     return map_to_int[log_level]
 

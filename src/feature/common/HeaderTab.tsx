@@ -1,5 +1,5 @@
 import { cn } from "@src/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 type TabButtonProps = {
   to: string;
@@ -8,16 +8,27 @@ type TabButtonProps = {
 };
 
 const HeaderTab = ({ to, children, testId }: TabButtonProps) => {
+  const location = useLocation();
+
   return (
-    <Link
-      to={to}
+    <div
       className={cn(
-        "inline-block cursor-pointer border-b-2 border-b-accent1 bg-transparent py-6 !font-sans text-sm font-semibold uppercase tracking-[1px]",
+        "relative",
+        location.pathname === to
+          ? "border-b-2 border-b-accent1"
+          : "after:flex after:scale-x-0 after:border-b-2 after:border-b-accent1 after:transition-transform after:duration-300 after:ease-in-out after:content-[''] after:hover:scale-x-100",
       )}
-      data-cy={testId}
     >
-      {children}
-    </Link>
+      <Link
+        to={to}
+        className={cn(
+          "inline-block cursor-pointer bg-transparent py-6 !font-sans text-sm font-semibold uppercase tracking-[1px]",
+        )}
+        data-cy={testId}
+      >
+        {children}
+      </Link>
+    </div>
   );
 };
 

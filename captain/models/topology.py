@@ -1,23 +1,15 @@
-import asyncio
 from copy import deepcopy
 import logging
 import os
 from queue import Queue
 import time
 from collections import deque
-from flojoy import (
-    get_next_directions,
-    NoInitFunctionError,
-    get_node_init_function,
-)
+from flojoy import JobFailure, JobSuccess, get_next_directions
 from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
-from PYTHON.utils.dynamic_module_import import get_module_func
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
 import networkx as nx
-from typing import Any, Tuple, cast, Callable
-
-lock = asyncio.Lock()
+from typing import Any, cast
 
 
 class Topology:
@@ -33,10 +25,6 @@ class Topology:
         graph: nx.MultiDiGraph,
         jobset_id: str,
         node_delay: float = 0,
-        task_queue: Queue[Any] = Queue(),
-        cleanup_func: Callable[..., Any] = lambda: None,
-        worker_response: Callable[..., Any] = lambda x: None,
-        final_broadcast: Callable[..., Any] = lambda: None,
     ):
         self.working_graph: nx.MultiDiGraph = deepcopy(graph)
         self.original_graph: nx.MultiDiGraph = deepcopy(graph)
@@ -47,45 +35,42 @@ class Topology:
         self.is_ci = os.getenv(key="CI", default=False)
         self.cancelled = False
         self.time_start = 0
-        self.task_queue = task_queue
-        self.cleanup_func = cleanup_func
-        self.worker_response = worker_response
-        self.final_broadcast = final_broadcast
         self.is_finished = False
         self.loop_nodes = (
             list()
         )  # using list instead of set as we need to maintain order
 
-    async def process_worker_response(self, request_dict: dict):
-        async with lock:
-            if self.is_cancelled():
-                logger.debug("Flowchart is cancelled, ignoring worker response")
-                return
+    def process_worker_response(
+        self, finished_job_fetch: JobSuccess | JobFailure
+    ) -> list[str] | None:
+        """
+        Handle when producer receives the consumer's response (worker response).
+        Returns potential new tasks (jobs) to be run.
+        """
+        if self.is_cancelled():
+            logger.debug("Flowchart is cancelled, ignoring worker response")
+            return
 
-        asyncio.create_task(self.worker_response(request_dict))
+        # handle failed job
+        if isinstance(finished_job_fetch, JobFailure):
+            self.process_job_result(
+                job_id=finished_job_fetch.node_id, job_result=None, success=False
+            )
 
-        if "FAILED_NODES" in request_dict:
-            job_id = list(request_dict["FAILED_NODES"].keys())[0]
-            self.process_job_result(job_id=job_id, job_result=None, success=False)
-        elif "NODE_RESULTS" in request_dict and request_dict.get(
-            "proceed_to_next", True
-        ):
-            job_id: str = request_dict.get("NODE_RESULTS", {}).get("id", None)
-            logger.debug(f"{job_id} finished at {time.time()}")
-            asyncio.create_task(self.handle_finished_job(request_dict))  # type: ignore
+        # handle successful job
+        elif isinstance(finished_job_fetch, JobSuccess):
+            logger.debug(f"{finished_job_fetch.node_id} finished at {time.time()}")
+            return self.handle_finished_job(
+                finished_job_fetch, return_new_jobs=True
+            )  # return new jobs
 
-    # initial and main logic of topology
-    async def run(self):
+    def run(self, task_queue: Queue[Any]):
+        """
+        Topology entry point function for producer
+        """
         self.time_start = time.time()
-        async with lock:
-            next_jobs: list[
-                str
-            ] = self.collect_ready_jobs()  # get nodes with in-degree 0
-        self.run_jobs(next_jobs)
-
-    def run_jobs(self, jobs: list[str]):
-        for job_id in jobs:
-            asyncio.create_task(self.run_job(job_id))
+        next_jobs: list[str] = self.collect_ready_jobs()  # get nodes with in-degree 0
+        self.run_jobs(next_jobs, task_queue)
 
     def collect_ready_jobs(self):
         next_jobs: list[str] = []
@@ -97,54 +82,12 @@ class Topology:
                 next_jobs.append(job_id)
         return next_jobs
 
-    # TODO move this to utils, makes more sense there
-    def pre_import_functions(self):
-        functions = {}
-        errors = {}
-        for node_id in cast(list[str], self.original_graph.nodes):
-            # get the node function
-            node = cast(dict[str, Any], self.original_graph.nodes[node_id])
-            cmd: str = node["cmd"]
-            cmd_mock: str = node["cmd"] + "_MOCK"
-            module = get_module_func(cmd)
-            func_name = cmd_mock if self.is_ci else cmd
-            try:
-                func = getattr(module, func_name)
-            except AttributeError:
-                func = getattr(module, cmd)
+    def run_jobs(self, jobs: list[str], task_queue: Queue[Any]):
+        for job_id in jobs:
+            self.run_job(job_id, task_queue)
 
-            preflight = next(
-                (
-                    f
-                    for f in module.__dict__.values()
-                    if callable(f) and getattr(f, "is_flojoy_preflight", False)
-                ),
-                None,
-            )
-
-            if preflight is not None:
-                try:
-                    preflight()
-                except Exception as e:
-                    errors[node_id] = str(e)
-
-            # check if the func has an init function, and initialize it if it does to the specified node id
-            try:
-                init_func = get_node_init_function(func)
-                init_func.run(
-                    node_id, node["init_ctrls"]
-                )  # node id is used to specify storage: each node of the same type will have its own storage
-            except NoInitFunctionError:
-                pass
-            except Exception as e:
-                errors[node_id] = str(e)
-
-            functions[node_id] = func
-        return functions, errors
-
-    async def run_job(self, job_id: str):
-        async with lock:
-            node = cast(dict[str, Any], self.working_graph.nodes[job_id])
+    def run_job(self, job_id: str, task_queue: Queue[Any]):
+        node = cast(dict[str, Any], self.working_graph.nodes[job_id])
 
         previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
 
@@ -155,7 +98,7 @@ class Topology:
         logger.debug(f"{job_id} queued at {time.time()}")
 
         # -- queue the job --
-        self.task_queue.put(
+        task_queue.put(
             JobInfo(
                 job_id=job_id,
                 jobset_id=self.jobset_id,
@@ -175,12 +118,13 @@ class Topology:
         logger.debug("Topology cancelled")
         self.cancelled = True
         self.queued_jobs.clear()
+        self.cleanup()
         self.finalizer()
 
     def is_cancelled(self):
         return self.cancelled
 
-    async def handle_finished_job(self, result: dict[str, Any]):
+    def handle_finished_job(self, job: JobSuccess, return_new_jobs: bool = False):
         """
         get the data from the worker response
         (flojoy package is responsible for sending to /worker_response endpoint)
@@ -191,29 +135,26 @@ class Topology:
 
         time.sleep(self.node_delay)
 
-        job_id: str = result.get("NODE_RESULTS", {}).get("id", None)
-        job_result = result.get("NODE_RESULTS", {}).get("result", None)
+        job_id: str = job.node_id
+        job_result = job.result
 
         logger.debug(f"job {self.get_label(job_id)} is done and has been received.")
-        async with lock:
-            if job_id in self.queued_jobs:
-                self.queued_jobs.remove(job_id)
-            if job_id in self.finished_jobs:
-                logging.warning(
-                    f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN"
-                )
-                return
-            self.finished_jobs.add(job_id)
+        if job_id in self.queued_jobs:
+            self.queued_jobs.remove(job_id)
+        if job_id in self.finished_jobs:
+            logging.warning(
+                f"{job_id} HAS ALREADY BEEN PROCESSED, NOT SUPPOSED TO HAPPEN"
+            )
+            return
+        self.finished_jobs.add(job_id)
 
-        if job_id is None or job_result is None:
-            raise ValueError("job_id or job_result is not supposed to be None")
+        if job_id is None:
+            raise ValueError("job_id is not supposed to be None")
 
-        async with lock:
-            next_jobs = self.process_job_result(job_id, job_result, success=True)
+        next_jobs = self.process_job_result(job_id, job_result, success=True)
 
-        if next_jobs:
-            logger.debug(f"Starting next jobs: {next_jobs}")
-            self.run_jobs(next_jobs)
+        if return_new_jobs:
+            return next_jobs
 
     def process_job_result(
         self, job_id: str, job_result: dict[str, Any] | None, success: bool
@@ -324,9 +265,8 @@ class Topology:
                 self.finished_jobs.remove(d_id)
 
     def finalizer(self):
-        # run provided clean up function
         if self.is_finished:
-            asyncio.create_task(self.final_broadcast())
+            pass  # add things here in the future
 
     def mark_job_failure(self, job_id: str):
         self.finished_jobs.add(job_id)
@@ -443,7 +383,7 @@ class Topology:
     # assuming LOOP is the only dependency of all the nodes,
     # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
-    def get_maximum_workers(self, maximum_capacity: int = 4):
+    def get_maximum_workers(self, maximum_capacity: int = 1):
         max_independant = 0
         temp_graph = deepcopy(self.original_graph)
         queue = deque()

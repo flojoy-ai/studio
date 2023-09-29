@@ -3,7 +3,6 @@ import "react-tabs/style/react-tabs.css";
 import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
-// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
 import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
 import {
@@ -13,14 +12,14 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@src/components/ui/menubar";
-// import { API_URI } from "@src/data/constants";
-// import { toast } from "sonner";
 import { EditorSettingsModal } from "./EditorSettingsModal";
 import { SaveAsButton, SaveButton } from "./ControlBar/SaveButtons";
 import { LoadButton } from "./ControlBar/LoadButton";
 import { ExportResultButton } from "./ControlBar/ExportResultButton";
 import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { useTheme } from "@src/providers/themeProvider";
+import { IS_CLOUD_DEMO } from "@src/data/constants";
+import { DemoWarningTooltip } from "@/components/ui/demo-warning-tooltip";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
@@ -29,6 +28,13 @@ const ControlBar = () => {
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
+
+  const handleUpdateNodesPack = () => {
+    window.api.updateNodesPack();
+  };
+  const handleChangeNodesPath = () => {
+    window.api.updateNodesResourcePath();
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -76,9 +82,20 @@ const ControlBar = () => {
       <div className="flex">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger id="file-btn" data-testid="file-button">
-              File
-            </MenubarTrigger>
+            <DemoWarningTooltip
+              tooltipContent={
+                "Download the desktop app to save and load flowcharts!"
+              }
+            >
+              <MenubarTrigger
+                id="file-btn"
+                data-testid="file-button"
+                disabled={IS_CLOUD_DEMO}
+                className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
+              >
+                File
+              </MenubarTrigger>
+            </DemoWarningTooltip>
             <MenubarContent>
               <SaveButton />
               <SaveAsButton />
@@ -89,7 +106,13 @@ const ControlBar = () => {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger data-testid="settings-btn">Settings</MenubarTrigger>
+            <MenubarTrigger
+              disabled={IS_CLOUD_DEMO}
+              data-testid="settings-btn"
+              className={IS_CLOUD_DEMO ? "cursor-not-allowed opacity-50" : ""}
+            >
+              Settings
+            </MenubarTrigger>
             <MenubarContent>
               <MenubarItem
                 data-testid="env-var-modal-button"
@@ -115,12 +138,22 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              {/* <MenubarItem */}
-              {/*   data-testid="btn-check-for-update" */}
-              {/*   onClick={handleUpdate} */}
-              {/* > */}
-              {/*   Check for update */}
-              {/* </MenubarItem> */}
+              {"api" in window && window.api.isPackaged && (
+                <>
+                  <MenubarItem
+                    data-testid="btn-change-nodes-path"
+                    onClick={handleChangeNodesPath}
+                  >
+                    Change Nodes resource path
+                  </MenubarItem>
+                  <MenubarItem
+                    data-testid="btn-update-nodes-pack"
+                    onClick={handleUpdateNodesPack}
+                  >
+                    Update Nodes resource pack
+                  </MenubarItem>
+                </>
+              )}
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>

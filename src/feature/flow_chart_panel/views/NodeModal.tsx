@@ -3,7 +3,6 @@ import python from "react-syntax-highlighter/dist/cjs/languages/hljs/python";
 import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
-// import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { flojoySyntaxTheme } from "@src/assets/FlojoyTheme";
 import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
@@ -64,9 +63,6 @@ const NodeModal = ({
 }: NodeModalProps) => {
   const { resolvedTheme } = useTheme();
 
-  // useKeyboardShortcut("ctrl", "e", closeModal);
-  // useKeyboardShortcut("meta", "e", closeModal);
-
   const path = nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "");
 
   const link = `${NODES_REPO}/${path}`;
@@ -109,12 +105,7 @@ const NodeModal = ({
           Function Type:{" "}
           <code className="text-accent1">{selectedNode.data.type}</code>
         </h3>
-        {!nd?.result ? (
-          <h3 className="text-gray-600 dark:text-gray-400">
-            <code>{selectedNode.data.func}</code> not run yet - Click{" "}
-            <i>Run Script</i>.
-          </h3>
-        ) : (
+        {nd?.result && (
           <NodeModalDataViz
             nd={nd}
             theme={resolvedTheme}

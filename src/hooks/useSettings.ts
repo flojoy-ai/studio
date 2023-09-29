@@ -1,3 +1,4 @@
+import { sendEventToMix } from "@src/services/MixpanelServices";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import localforage from "localforage";
@@ -33,6 +34,13 @@ const settingsAtom = atomWithImmer<Setting[]>([
     value: 3000,
   },
   {
+    title: "Maximum Concurrent Workers",
+    key: "maximumConcurrentWorkers",
+    group: "backend",
+    desc: "Maximum number of nodes that can be executed at the same time",
+    value: 1,
+  },
+  {
     title: "Fit view on resize",
     key: "fitViewOnResize",
     group: "frontend",
@@ -45,6 +53,7 @@ export const useSettings = (group: "frontend" | "backend") => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
   const updateSettings = (key: string, value: number | boolean) => {
+    sendEventToMix("Update Settings", ``);
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);
       if (setting) {

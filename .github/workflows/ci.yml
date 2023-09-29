@@ -36,6 +36,9 @@ jobs:
       - name: Run formatting check
         run: npm run check
 
+      - name: Typescript check
+        run: npx tsc --noEmit
+
   python-tests:
     runs-on: ubuntu-latest
     steps:
@@ -53,17 +56,12 @@ jobs:
 
       - run: pip install -r requirements.txt && npm i
 
-      - name: Generate manifest
-        run: |
-          python3 PYTHON/generate_manifest.py
-          python3 scripts/write_python_metadata.py
-
-      - name: Typescript check
-        run: npx tsc --noEmit
-
       - name: pytest
         run: |
           cd PYTHON
+          python -m pytest --cov --cov-report=xml --ignore=nodes
+          cd ..
+          cd captain
           python -m pytest --cov --cov-report=xml --ignore=nodes
 
       - name: Codecov report

@@ -10,6 +10,12 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
+import { runBackend } from "./backend";
+import { saveNodePack } from "./node-pack-save";
+import { killSubProcess } from "./cmd";
+import fs from "fs";
+import { Logger } from "./logger";
+import { ChildProcess } from "node:child_process";
 
 // The built directory structure
 //
@@ -18,14 +24,12 @@ import { update } from "./update";
 // │ │ └── index.js    > Electron-Main
 // │ └─┬ preload
 // │   └── index.js    > Preload-Scripts
-// ├─┬ dist
+// ├─┬ studio
 // │ └── index.html    > Electron-Renderer
 //
-process.env.DIST_ELECTRON = join(__dirname, "../");
-process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-  ? join(process.env.DIST_ELECTRON, "../public")
-  : process.env.DIST;
+const WORKING_DIR = join(__dirname, "../../");
+const DIST_ELECTRON = join(WORKING_DIR, "dist-electron");
+const PUBLIC_DIR = join(WORKING_DIR, app.isPackaged ? "../public" : "public");
 
 const envPath = process.env.PATH ?? "";
 
@@ -44,19 +48,26 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0);
 }
 
+export const mainLogger = new Logger();
+console.log = (...messages: string[]) => mainLogger.log(...messages);
+
 const getIcon = () => {
   switch (process.platform) {
     case "win32":
-      return join(process.env.PUBLIC ?? "", "favicon.ico");
+      return join(PUBLIC_DIR, "favicon.ico");
     case "linux":
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
     default:
-      return join(process.env.PUBLIC ?? "", "favicon.png");
+      return join(PUBLIC_DIR, "favicon.png");
   }
 };
 
 const handleSetUnsavedChanges = (_, value: boolean) => {
   global.hasUnsavedChanges = value;
+};
+
+const handleWriteFileSync = (_, path: string, data: string) => {
+  fs.writeFileSync(path, data);
 };
 
 const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
@@ -80,11 +91,19 @@ contextMenu({
   showSaveImageAs: true,
 });
 
+global.runningProcesses = [];
+
 let win: BrowserWindow | null = null;
+
 // Here, you can also use other preload
-const preload = join(__dirname, "../preload/index.js");
+const preload = join(
+  __dirname,
+  `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
+);
+
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(process.env.DIST, "index.html");
+const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
+
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -94,10 +113,6 @@ async function createWindow() {
     autoHideMenuBar: app.isPackaged,
     webPreferences: {
       preload,
-      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
-      // Consider using contextBridge.exposeInMainWorld
-      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
-      nodeIntegration: true,
     },
     show: false,
   });
@@ -106,6 +121,21 @@ async function createWindow() {
 
   win.on("close", (e) => {
     if (!global.hasUnsavedChanges) {
+      return;
+    }
+    if (global.initializingBackend) {
+      const choice = dialog.showMessageBoxSync(win!, {
+        type: "warning",
+        buttons: ["Yes", "No, go back"],
+        title: "Quit?",
+        message:
+          "Backend initialization is underway. Are you sure you want to quit?",
+      });
+      if (choice > 0) {
+        e.preventDefault();
+      } else {
+        global.initializingBackend = false;
+      }
       return;
     }
     const choice = dialog.showMessageBoxSync(win!, {
@@ -126,14 +156,31 @@ async function createWindow() {
   win.maximize();
   win.show();
 
-  if (url) {
+  if (app.isPackaged) {
+    await win.loadFile(indexHtml);
+    await saveNodePack({ win, icon: getIcon(), startup: true });
+    global.initializingBackend = true;
+    runBackend(WORKING_DIR, win)
+      .then(({ success, script }) => {
+        if (success) {
+          global.initializingBackend = false;
+          if (script) {
+            global.runningProcesses.push(script);
+          }
+        }
+        // reload studio html to fetch fresh manifest file
+        win?.reload();
+      })
+      .catch(() => {
+        global.initializingBackend = false;
+      });
+  } else {
     // electron-vite-vue#298
-    win.loadURL(url);
+    win.loadURL(url ?? "");
     // Open devTool if the app is not packaged
     // win.webContents.openDevTools();
-  } else {
-    win.loadFile(indexHtml);
   }
+
   // Test actively push message to the Electron-Renderer
   win.webContents.on("did-finish-load", () => {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
@@ -145,19 +192,39 @@ async function createWindow() {
     return { action: "deny" };
   });
 
+  ipcMain.on("update-nodes-pack", () => {
+    if (win) saveNodePack({ win, icon: getIcon(), update: true });
+  });
+  ipcMain.on("update-nodes-resource-path", async () => {
+    if (win) {
+      await saveNodePack({ win, icon: getIcon() });
+    }
+  });
   // Apply electron-updater
-  update(win);
+  update(cleanup);
 }
 
 app.whenReady().then(() => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
+  ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
   createWindow();
 });
 
-app.on("window-all-closed", () => {
-  win = null;
-  if (process.platform !== "darwin") app.quit();
+app.on("window-all-closed", async (e) => {
+  mainLogger.log("window-all-closed fired!");
+  e.preventDefault();
+  await cleanup();
+  if (process.platform !== "darwin") {
+    app.exit(0);
+  }
+});
+
+app.on("before-quit", async (e) => {
+  e.preventDefault();
+  mainLogger.log("before-quit fired!");
+  await cleanup();
+  app.exit(0);
 });
 
 app.on("second-instance", () => {
@@ -182,8 +249,6 @@ ipcMain.handle("open-win", (_, arg) => {
   const childWindow = new BrowserWindow({
     webPreferences: {
       preload,
-      nodeIntegration: true,
-      contextIsolation: false,
     },
   });
 
@@ -193,3 +258,27 @@ ipcMain.handle("open-win", (_, arg) => {
     childWindow.loadFile(indexHtml, { hash: arg });
   }
 });
+
+const cleanup = async () => {
+  mainLogger.log(
+    "Cleaup function invoked, running processes: ",
+    global.runningProcesses.length,
+  );
+  if (global.runningProcesses.length) {
+    for (const script of global.runningProcesses) {
+      try {
+        mainLogger.log("Killing script: ", script.pid);
+        await killSubProcess(script);
+        global.runningProcesses = global.runningProcesses.filter(
+          (s: ChildProcess) => s.pid !== script.pid,
+        );
+        mainLogger.log("kill success!");
+      } catch (error) {
+        mainLogger.log(
+          "error while killing sub process: ",
+          JSON.stringify(error),
+        );
+      }
+    }
+  }
+};

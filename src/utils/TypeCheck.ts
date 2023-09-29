@@ -1,12 +1,12 @@
 import { Connection } from "reactflow";
-import { Leaf, RootNode, nodeSection, ParentNode } from "./ManifestLoader";
+import { Leaf, RootNode, ParentNode } from "./ManifestLoader";
 
 const allNodes: Map<string, Leaf> = new Map();
 
 const populateNodes = (node: RootNode | ParentNode) => {
   const dfs = (node: ParentNode | Leaf, map: Map<string, Leaf>) => {
     if (!node.children) {
-      allNodes.set(node.key, node as Leaf);
+      allNodes.set(node.key, node);
       return;
     }
 
@@ -18,13 +18,15 @@ const populateNodes = (node: RootNode | ParentNode) => {
   node.children.map((c) => dfs(c, allNodes));
 };
 
-populateNodes(nodeSection);
-
 const getNodeNameFromId = (nodeId: string) => {
   return nodeId.split("-", 1)[0];
 };
 
-export const getEdgeTypes = (connection: Connection): [string, string] => {
+export const getEdgeTypes = (
+  nodeSection: RootNode,
+  connection: Connection,
+): [string, string] => {
+  populateNodes(nodeSection);
   if (
     !connection.source ||
     !connection.target ||

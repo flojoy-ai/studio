@@ -1,4 +1,4 @@
-import { IServerStatus } from "@src/context/socket.context";
+import { IServerStatus, ModalConfig } from "@src/context/socket.context";
 import { NodeResult } from "@src/feature/common/types/ResultsType";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
@@ -9,13 +9,9 @@ interface WebSocketServerProps {
   handleRunningNode: (value: string) => void;
   handleFailedNodes: (value: Record<string, string>) => void;
   handleSocketId: (value: string) => void;
-  onPreJobOpStarted: React.Dispatch<
-    React.SetStateAction<{
-      isRunning: boolean;
-      output: string[];
-    }>
-  >;
   onClose?: (ev: CloseEvent) => void;
+  onConnectionEstablished: () => void;
+  handleModalConfig: React.Dispatch<React.SetStateAction<ModalConfig>>;
 }
 
 enum ResponseEnum {
@@ -24,7 +20,34 @@ enum ResponseEnum {
   runningNode = "RUNNING_NODE",
   failedNodes = "FAILED_NODES",
   preJobOperation = "PRE_JOB_OP",
+  modalConfig = "MODAL_CONFIG",
 }
+
+const getModalConfig = (
+  prev: ModalConfig,
+  next: Omit<ModalConfig, "messages"> & { messages: string | undefined },
+): ModalConfig => {
+  let messages = prev.messages;
+  if (next.showModal) {
+    messages =
+      prev.messages && next.messages
+        ? [...prev.messages, next.messages]
+        : next.messages
+        ? [next.messages]
+        : prev.messages;
+  } else {
+    messages = [];
+  }
+
+  return {
+    id: next.id,
+    showModal: next.showModal,
+    title: next.title,
+    messages,
+    description: next.description,
+  };
+};
+
 export class WebSocketServer {
   private server: WebSocket;
   private handlePingResponse: WebSocketServerProps["onPingResponse"];
@@ -32,8 +55,9 @@ export class WebSocketServer {
   private handleRunningNode: WebSocketServerProps["handleRunningNode"];
   private handleFailedNodes: WebSocketServerProps["handleFailedNodes"];
   private handleSocketId: WebSocketServerProps["handleSocketId"];
-  private onPreJobOpStarted: WebSocketServerProps["onPreJobOpStarted"];
   private onClose?: (ev: CloseEvent) => void;
+  private handleModalConfig: WebSocketServerProps["handleModalConfig"];
+  private onConnectionEstablished: WebSocketServerProps["onConnectionEstablished"];
   constructor({
     url,
     onPingResponse,
@@ -42,7 +66,8 @@ export class WebSocketServer {
     handleFailedNodes,
     handleSocketId,
     onClose,
-    onPreJobOpStarted,
+    handleModalConfig,
+    onConnectionEstablished,
   }: WebSocketServerProps) {
     this.handlePingResponse = onPingResponse;
     this.onNodeResultsReceived = onNodeResultsReceived;
@@ -51,7 +76,8 @@ export class WebSocketServer {
     this.handleSocketId = handleSocketId;
     this.server = new WebSocket(url);
     this.onClose = onClose;
-    this.onPreJobOpStarted = onPreJobOpStarted;
+    this.handleModalConfig = handleModalConfig;
+    this.onConnectionEstablished = onConnectionEstablished;
     this.init();
   }
   init() {
@@ -71,7 +97,7 @@ export class WebSocketServer {
                 data[ResponseEnum.systemStatus],
               )
             ) {
-              this.onPreJobOpStarted({ isRunning: false, output: [] });
+              this.handleModalConfig({ showModal: false, messages: [] });
             }
           }
           if (ResponseEnum.nodeResults in data) {
@@ -93,13 +119,9 @@ export class WebSocketServer {
           if (ResponseEnum.failedNodes in data) {
             this.handleFailedNodes(data[ResponseEnum.failedNodes]);
           }
-          if (ResponseEnum.preJobOperation in data) {
-            this.onPreJobOpStarted((prev) => ({
-              isRunning: data[ResponseEnum.preJobOperation].isRunning,
-              output: data[ResponseEnum.preJobOperation].isRunning
-                ? [...prev.output, data[ResponseEnum.preJobOperation].output]
-                : [],
-            }));
+          if (ResponseEnum.modalConfig in data) {
+            const modalConfig = data[ResponseEnum.modalConfig];
+            this.handleModalConfig((prev) => getModalConfig(prev, modalConfig));
           }
           break;
         case "connection_established":
@@ -109,6 +131,7 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
+          this.onConnectionEstablished();
           sendEventToMix(
             "Initial Status",
             "Connection Established",
@@ -129,6 +152,11 @@ export class WebSocketServer {
   }
   disconnect() {
     console.log("Disconnecting WebSocket server");
+    sendEventToMix(
+      "Initial Status",
+      "Connection Disconnected",
+      "Server Status",
+    );
     this.server.close();
   }
   emit(data: string) {

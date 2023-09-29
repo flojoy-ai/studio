@@ -11,6 +11,8 @@ import { useEffect, useRef } from "react";
 type PreJobOperationDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  title?: string;
+  description?: string;
   outputs: string[];
 };
 
@@ -18,23 +20,23 @@ const PreJobOperationDialog = ({
   open,
   setOpen,
   outputs,
+  title,
+  description,
 }: PreJobOperationDialogProps) => {
   const lastElem = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (lastElem.current && lastElem.current.scrollIntoView) {
+    if (lastElem.current?.scrollIntoView) {
       lastElem.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [outputs.length]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-2xl md:max-w-4xl">
+      <DialogContent className="max-h-[700px] overflow-y-scroll sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
-          <DialogTitle>Pre-run operation</DialogTitle>
-          <DialogDescription>
-            Installing required dependencies before running the flow chart...
-          </DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {outputs.map((output, i) => (
           <div

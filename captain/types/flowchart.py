@@ -12,6 +12,7 @@ class PostWFC(BaseModel):
     cancelExistingJobs: bool
     nodeDelay: float
     maximumRuntime: float
+    maximumConcurrentWorkers: int
 
 
 class WorkerSuccessResponse(BaseModel):

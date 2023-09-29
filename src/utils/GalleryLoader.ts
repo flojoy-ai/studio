@@ -5,7 +5,7 @@ const data: GalleryData = {
     {
       title: "Intro to LOOPS",
       description: "Generate a random number once",
-      imagePath: "/assets/appGallery/introToLoops.png",
+      imagePath: "assets/appGallery/introToLoops.png",
       appPath: "loop",
       relevantNodes: [
         {
@@ -13,18 +13,20 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/LOGIC_GATES/LOOPS/LOOP/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Intro to signals",
       description: "Generate waveforms of different shapes",
-      imagePath: "/assets/appGallery/introToSignals.png",
+      imagePath: "assets/appGallery/introToSignals.png",
       appPath: "oscilator",
       relevantNodes: [],
+      cloudDemoEnabled: true,
     },
     {
       title: "Intro to images",
       description: "Apply a butterworth filter on a sample image",
-      imagePath: "/assets/appGallery/introToImages.png",
+      imagePath: "assets/appGallery/introToImages.png",
       appPath: "images",
       relevantNodes: [
         {
@@ -32,11 +34,12 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/VISUALIZERS/PLOTLY/IMAGE/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Stream to Flojoy Cloud",
       description: "Stream data to your Flojoy Cloud account",
-      imagePath: "/assets/appGallery/flojoyCloud.png",
+      imagePath: "assets/appGallery/flojoyCloud.png",
       appPath: "cloud",
       relevantNodes: [
         {
@@ -44,13 +47,14 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
         },
       ],
+      cloudDemoEnabled: false,
     },
   ],
   AI: [
     {
       title: "Image captioning",
       description: "Caption any image with this PyTorch ML model",
-      imagePath: "/assets/appGallery/imageCaptioning.png",
+      imagePath: "assets/appGallery/imageCaptioning.png",
       appPath: "imageCaptioning",
       relevantNodes: [
         {
@@ -58,11 +62,12 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       title: "Image Classification",
       description: "Classify any image using Hugging Face Transformers",
-      imagePath: "/assets/appGallery/imageClassification.png",
+      imagePath: "assets/appGallery/imageClassification.png",
       appPath: "imageClassification",
       relevantNodes: [
         {
@@ -70,30 +75,32 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/",
         },
       ],
+      cloudDemoEnabled: true,
     },
-    // {
-    //   description: "Predict future events with the Prophet node",
-    //   title: "Time series forecasting",
-    //   imagePath: "/assets/appGallery/timeSeries.png",
-    //   appPath: "prophet",
-    //   relevantNodes: [
-    //     {
-    //       name: "PROPHET_PREDICT",
-    //       docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
-    //     },
-    //   ],
-    // },
+    {
+      description: "Predict future events with the Prophet node",
+      title: "Time series forecasting",
+      imagePath: "assets/appGallery/timeSeries.png",
+      appPath: "prophet",
+      relevantNodes: [
+        {
+          name: "PROPHET_PREDICT",
+          docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
     // {
     //   description: "Estimate object depth with the DINOv2 node",
     //   title: "Depth perception",
-    //   imagePath: "../../../public/assets/appGallery/depthPerception.png",
+    //   imagePath: "assets/appGallery/depthPerception.png",
     //   youtubeLink: "",
     //   relevantNodes: [],
     // },
     {
       description: "Estimate object depth with the YOLOv3 node",
       title: "Object identification",
-      imagePath: "/assets/appGallery/objectIdentification.png",
+      imagePath: "assets/appGallery/objectIdentification.png",
       appPath: "objectDetection",
       relevantNodes: [
         {
@@ -101,20 +108,22 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
         },
       ],
+      cloudDemoEnabled: true,
     },
   ],
   IO: [
     {
       description: "Read from any analog sensor",
       title: "Arduino",
-      imagePath: "/assets/appGallery/arduino.png",
+      imagePath: "assets/appGallery/arduino.png",
       appPath: "arduino",
       relevantNodes: [],
+      cloudDemoEnabled: false,
     },
     {
       description: "Record and log temperatures",
       title: "LabJack",
-      imagePath: "/assets/appGallery/labjack.png",
+      imagePath: "assets/appGallery/labjack.png",
       appPath: "labjack",
       relevantNodes: [
         {
@@ -122,11 +131,12 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/LABJACK/LABJACKU3/",
         },
       ],
+      cloudDemoEnabled: false,
     },
     {
       description: "Capture real-time images",
       title: "USB camera",
-      imagePath: "/assets/appGallery/usbCamera.png",
+      imagePath: "assets/appGallery/usbCamera.png",
       appPath: "webcam",
       relevantNodes: [
         {
@@ -134,11 +144,12 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/WEB_CAM/CAMERA/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     {
       description: "Precisely position anything",
       title: "Stepper motor",
-      imagePath: "/assets/appGallery/stepperMotor.png",
+      imagePath: "assets/appGallery/stepperMotor.png",
       appPath: "stepper",
       relevantNodes: [
         {
@@ -146,20 +157,22 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/INSTRUMENTS/STEPPER_MOTOR/STEPPER_DRIVER_TIC/",
         },
       ],
+      cloudDemoEnabled: false,
     },
   ],
   DSP: [
     {
       description: "Solve this non-linear dynamic system",
       title: "PID controller",
-      imagePath: "/assets/appGallery/PID.png",
+      imagePath: "assets/appGallery/PID.png",
       appPath: "pid",
       relevantNodes: [],
+      cloudDemoEnabled: true,
     },
     {
       description: "Apply an FIR filter to an input signal",
       title: "FIR filter",
-      imagePath: "/assets/appGallery/FIR.png",
+      imagePath: "assets/appGallery/FIR.png",
       appPath: "fir",
       relevantNodes: [
         {
@@ -167,11 +180,12 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FIR/",
         },
       ],
+      cloudDemoEnabled: true,
     },
     // {
     //   description: "Solve the Schrödinger with different starting conditions",
     //   title: "Schrödinger equation",
-    //   imagePath: "../../../public/assets/appGallery/SchrodingerEqn.png",
+    //   imagePath: "../../../publicassets/appGallery/SchrodingerEqn.png",
     //   youtubeLink: "",
     //   relevantNodes: [
     //   ],
@@ -179,7 +193,7 @@ const data: GalleryData = {
     {
       description: "Apply a real-time FFT to an input signal",
       title: "FFT",
-      imagePath: "/assets/appGallery/FFT.png",
+      imagePath: "assets/appGallery/FFT.png",
       appPath: "fft",
       relevantNodes: [
         {
@@ -187,6 +201,7 @@ const data: GalleryData = {
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
         },
       ],
+      cloudDemoEnabled: true,
     },
   ],
 };

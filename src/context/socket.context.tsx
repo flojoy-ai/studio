@@ -4,6 +4,15 @@ import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
+import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+
+export type ModalConfig = {
+  showModal?: boolean;
+  title?: string;
+  messages?: string[];
+  id?: string;
+  description?: string;
+};
 
 type States = {
   programResults: NodeResult[];
@@ -12,10 +21,7 @@ type States = {
   serverStatus: IServerStatus;
   failedNodes: Record<string, string>;
   socketId: string;
-  preJobOperation: {
-    isRunning: boolean;
-    output: string[];
-  };
+  modalConfig: ModalConfig;
 };
 
 export enum IServerStatus {
@@ -48,12 +54,10 @@ export const SocketContextProvider = ({
   const [socket, setSocket] = useState<WebSocketServer>();
   const [states, setStates] = useState(DEFAULT_STATES);
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
-  const [preJobOperation, setPreJobOperation] = useState<
-    States["preJobOperation"]
-  >({
-    isRunning: false,
-    output: [],
+  const [modalConfig, setModalConfig] = useState<ModalConfig>({
+    showModal: false,
   });
+  const hardwareRefetch = useHardwareRefetch();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -75,25 +79,26 @@ export const SocketContextProvider = ({
         handleSocketId: handleStateChange("socketId"),
         onNodeResultsReceived: setProgramResults,
         onPingResponse: handleStateChange("serverStatus"),
-        onPreJobOpStarted: setPreJobOperation,
+        handleModalConfig: setModalConfig,
         onClose: (ev) => {
           console.log("socket closed with event:", ev);
           setSocket(undefined);
         },
+        onConnectionEstablished: hardwareRefetch,
       });
       setSocket(ws);
     }
-  }, [socket]);
+  }, [socket, hardwareRefetch]);
   const values = useMemo(
     () => ({
       states: {
         ...states,
         programResults,
         setProgramResults,
-        preJobOperation,
+        modalConfig,
       },
     }),
-    [preJobOperation, programResults, states],
+    [programResults, states, modalConfig],
   );
   return (
     <SocketContext.Provider value={values}>{children}</SocketContext.Provider>
