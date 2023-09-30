@@ -5,6 +5,10 @@ import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+import {
+  useFetchManifest,
+  useFetchNodesMetadata,
+} from "@src/hooks/useManifest";
 
 type States = {
   programResults: NodeResult[];
@@ -48,6 +52,8 @@ export const SocketContextProvider = ({
   const [programResults, setProgramResults] = useState<NodeResult[]>([]);
   const [logs, setLogs] = useState<string[]>([]);
   const hardwareRefetch = useHardwareRefetch();
+  const fetchManifest = useFetchManifest();
+  const fetchMetadata = useFetchNodesMetadata();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -74,11 +80,15 @@ export const SocketContextProvider = ({
           console.log("socket closed with event:", ev);
           setSocket(undefined);
         },
-        onConnectionEstablished: hardwareRefetch,
+        onConnectionEstablished: [
+          hardwareRefetch,
+          fetchManifest,
+          fetchMetadata,
+        ],
       });
       setSocket(ws);
     }
-  }, [socket, hardwareRefetch]);
+  }, [socket, hardwareRefetch, fetchManifest, fetchMetadata]);
   const values = useMemo(
     () => ({
       states: {

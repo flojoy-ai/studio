@@ -67,7 +67,7 @@ class Worker:
                 "node_id": job.job_id,
                 "job_id": job.iteration_id,
             }
-            
+
             logger.info(f"Running node: {func.__name__}")
             logger.debug("=" * 100)
             logger.debug(f"Executing job {job.job_id}, kwargs = {kwargs}")
@@ -77,7 +77,9 @@ class Worker:
             match response:
                 case JobSuccess():
                     logger.debug(f"Job finished: {job.job_id}, status: ok")
-                    logger.info(f"Node: {func.__name__} run successfully! result returned...")
+                    logger.info(
+                        f"Node: {func.__name__} run successfully! result returned..."
+                    )
 
                     # send results to frontend
                     await self.signaler.signal_node_results(
@@ -86,7 +88,9 @@ class Worker:
 
                 case JobFailure():
                     logger.debug(f"Job finished: {job.job_id}, status: failed")
-                    logger.error(f"Node {func.__name__} failed! reason: {response.error}")
+                    logger.error(
+                        f"Node {func.__name__} failed! reason: {response.error}"
+                    )
 
                     # signal to frontend that the node has failed
                     await self.signaler.signal_failed_nodes(

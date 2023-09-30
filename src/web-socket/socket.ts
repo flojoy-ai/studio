@@ -10,7 +10,7 @@ interface WebSocketServerProps {
   handleFailedNodes: (value: Record<string, string>) => void;
   handleSocketId: (value: string) => void;
   onClose?: (ev: CloseEvent) => void;
-  onConnectionEstablished: () => void;
+  onConnectionEstablished: Array<() => void>;
   handleLogs: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
@@ -98,7 +98,7 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
-          this.onConnectionEstablished();
+          this.onConnectionEstablished.forEach((cb) => cb());
           sendEventToMix(
             "Initial Status",
             "Connection Established",

@@ -1,15 +1,31 @@
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
+function feedback {
+  param (
+    $is_successful,
+    $message,
+    $help_message
+  )
+  if ($is_successful -eq $true) {
+    Write-Host "$message"
+  }
+  else {
+    Write-Host "$help_message"
+    exit 1 
+  }
+}
+
 $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $appData = $env:APPDATA
 $flojoyDir = Join-Path $appData ".flojoy"
-$pythonDir = Join-Path $flojoyDir "python"
-$pythonExecutable = Join-Path $pythonDir "python.exe"
-$pythonZip = Join-Path $currentDir "python-interpreter/win.zip"
-$venvName = "404fc545_flojoy"
-$venvDir = Join-Path $flojoyDir "flojoy_root_venv"
-$venvPath = Join-Path $flojoyDir "flojoy_root_venv" $venvName
+$mambaDir = Join-Path $flojoyDir "mamba"
+$mambaHookScript = Join-Path $mambaDir "condabin" "mamba_hook.ps1"
+$mambaExecutable = Join-Path $currentDir "bin/micromamba.exe"
+$venvName = "flojoy_root"
+$venvDir = Join-Path $mambaDir "envs" $venvName
+$venvExecutable = Join-Path $venvDir "python.exe"
+$isMamabaInstalled = Get-Command micromamba -ErrorAction SilentlyContinue
 
 Write-Host "flojoy dir: $flojoyDir"
 if ( -not (Test-Path $flojoyDir)) {
@@ -19,28 +35,35 @@ if ( -not (Test-Path $flojoyDir)) {
 Set-Location $flojoyDir
 Write-Output "Location set to $flojoyDir"
 
-if (-not (Test-Path $pythonExecutable -PathType Leaf)) {
-  if (Test-Path $pythonDir) {
-    Remove-Item -Path $pythonDir -Force | Out-Null
+if (-not (Test-Path $venvExecutable -PathType Leaf)) {
+  if (Test-Path $venvDir) {
+    Remove-Item -Path $venvDir -Force | Out-Null
   }
-  Write-Host "Extracting python interpreter to local directory..."
-  Expand-Archive -Path $pythonZip -DestinationPath $pythonDir -Force
-  Write-Host "File '$pythonZip' has been successfully unzipped to '$pythonDir'."
+  if ($isMamabaInstalled) {
+    Write-Host "Existing Micromamba executable found..."
+    Write-Host "Creating $venvName env..."
+    & micromamba create -n $venvName conda-forge::python=3.10 -r "$mambaDir" -y
+    feedback $? "Micromamba env $venvName created successfully." "Micromamba env creation failed."
+  }
+  else {
+    Write-Host "Micromamba is not found..."
+    Write-Host "Creating $venvName env..."
+    Invoke-Expression "$mambaExecutable create -n $venvName conda-forge::python=3.10 -r $mambaDir -y"
+    feedback $? "Micromamba env $venvName created successfully." "Micromamba env creation failed."
+  }
 }
+if (!($isMamabaInstalled)) {
+  Invoke-Expression "$mambaExecutable shell init -s powershell -p $mambaDir" | Out-Null
+  $Env:MAMBA_ROOT_PREFIX = $mambaDir
+  $Env:MAMBA_EXE = $mambaExecutable
+  Invoke-Expression "$mambaHookScript"
+}
+else {
+  $Env:MAMBA_ROOT_PREFIX = $mambaDir
+}
+& micromamba activate $venvName
 
-if (-not (Test-Path $venvDir)) {
-  Write-Output "$venvDir doesn't exist.."
-  New-Item -ItemType Directory -Force $venvDir | Out-Null
-  Write-Output "Created virtual env directory: $venvDir"
-}
-Set-Location $venvDir
-if (-not (Test-Path $venvPath)) {
-  Write-Output "Virtual env not found, creating a virtual env at $venvDir"
-  Invoke-Expression "$pythonExecutable -m venv $venvName"
-  Write-Output "Virtual env created: $venvName"
-}
-& .\$venvName\Scripts\Activate.ps1
-Write-Output "Virtual env $venvName is activated!"
+feedback $? "Env $venvName is activated!" "Failed to activate $venvName env!"
 
 Set-Location $currentDir
 Write-Output "Installing pip dependencies..."
