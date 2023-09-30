@@ -23,4 +23,5 @@ export default {
   },
   updateNodesResourcePath: () => {
     ipcRenderer.send("update-nodes-resource-path");
-  }};
+  },
+};

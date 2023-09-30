@@ -16,12 +16,14 @@ socket_connection_lock = threading.Lock()
 
 class ConnectionManager:
     _instance = None
+
     @classmethod
     def get_instance(cls):
         if not cls._instance:
             cls._instance = ConnectionManager()
             return cls._instance
         return cls._instance
+
     def __init__(self):
         self.active_connections_map: dict[str, WebSocket] = {}
         self.log_queue = Queue()
