@@ -5,6 +5,10 @@ import { WebSocketServer } from "../web-socket/socket";
 import { v4 as UUID } from "uuid";
 import { SOCKET_URL } from "@src/data/constants";
 import { useHardwareRefetch } from "@src/hooks/useHardwareDevices";
+import {
+  useFetchManifest,
+  useFetchNodesMetadata,
+} from "@src/hooks/useManifest";
 
 export type ModalConfig = {
   showModal?: boolean;
@@ -58,6 +62,8 @@ export const SocketContextProvider = ({
     showModal: false,
   });
   const hardwareRefetch = useHardwareRefetch();
+  const fetchManifest = useFetchManifest();
+  const fetchMetadata = useFetchNodesMetadata();
 
   const handleStateChange =
     (state: keyof States) =>
@@ -84,11 +90,15 @@ export const SocketContextProvider = ({
           console.log("socket closed with event:", ev);
           setSocket(undefined);
         },
-        onConnectionEstablished: hardwareRefetch,
+        onConnectionEstablished: [
+          hardwareRefetch,
+          fetchManifest,
+          fetchMetadata,
+        ],
       });
       setSocket(ws);
     }
-  }, [socket, hardwareRefetch]);
+  }, [socket, hardwareRefetch, fetchManifest, fetchMetadata]);
   const values = useMemo(
     () => ({
       states: {

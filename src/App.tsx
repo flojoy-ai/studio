@@ -56,7 +56,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route
-              path="/flowchart"
+              path="/"
               element={<FlowChartTab />}
               errorElement={<ErrorBoundary />}
             />

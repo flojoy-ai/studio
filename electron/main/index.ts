@@ -103,7 +103,7 @@ const preload = join(
 
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
-
+console.log("url: ", url)
 app.setName("Flojoy Studio");
 
 async function createWindow() {
