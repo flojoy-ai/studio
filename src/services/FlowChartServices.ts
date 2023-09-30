@@ -108,10 +108,6 @@ export const getManifest = async () => {
     toast.message(errTitle, {
       description: errDescription.toString(),
       duration: 60000,
-      className: "[&>button]:w-[200px]",
-      cancel: {
-        label: "Close",
-      },
     });
     return null;
   }
@@ -126,10 +122,6 @@ export const getNodesMetadata = async () => {
   } catch (err: any) {
     toast.message("Failed to generate nodes metadata", {
       description: err.response?.data?.error ?? err.message,
-      className: "[&>button]:w-[200px]",
-      cancel: {
-        label: "Close",
-      },
     });
     return null;
   }

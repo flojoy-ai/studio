@@ -75,7 +75,7 @@ export const Layout = () => {
         <Header />
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
-        <Toaster theme={theme} />
+        <Toaster theme={theme} closeButton />
         <Outlet />
       </main>
     </div>
