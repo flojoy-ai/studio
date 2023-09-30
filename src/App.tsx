@@ -71,7 +71,7 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
-            <Route path="/loading" element={<LoadingPage />} />
+          <Route path="/loading" element={<LoadingPage />} />
         </Routes>
       </div>
     </ThemeProvider>

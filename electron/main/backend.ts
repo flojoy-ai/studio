@@ -33,6 +33,7 @@ export const runBackend = (
 }> => {
   const backendCommand = getBackendCommand(workingDir);
   return new Promise((resolve) => {
+    global.initializingBackend = true;
     const title = "Initializing backend...";
     const description =
       "Initialization can take up to few minutes for first time, please be patient!";
@@ -55,6 +56,7 @@ export const runBackend = (
           open: false,
           output: "backend initialized successfully!",
         });
+        global.initializingBackend = false;
         resolve({ success: true, script });
       })
       .catch((err) => {
@@ -67,6 +69,8 @@ export const runBackend = (
             "Failed to initialize backend!",
             "Something went wrong while initializing backend!\n Restarting the app might resolve the issue",
           );
+          global.initializingBackend = false;
+
           resolve({ success: false, script: undefined });
         }
       });
