@@ -53,7 +53,7 @@ def run_worker(
         )
         asyncio.run(worker.run())
     except Exception as e:
-        print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
+        logger.error(f"Error in worker: {e} {traceback.format_exc()}")
 
 
 def run_producer(
@@ -75,7 +75,7 @@ def run_producer(
         )
         asyncio.run(producer.run())
     except Exception as e:
-        print(f"Error in producer: {e} {traceback.format_exc()}", flush=True)
+        logger.error(f"Error in producer: {e} {traceback.format_exc()}")
 
 
 def create_topology(
@@ -283,30 +283,21 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     if missing_packages:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["INSTALLING_PACKAGES"]
         await manager.ws.broadcast(socket_msg)
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True,
-            description="Installing required dependencies before running the flow chart...",
-            messages=f"{', '.join(missing_packages)} packages will be installed with pip!",
+        logger.info("Installing required dependencies before running the flow chart...")
+        logger.info(
+            f"{', '.join(missing_packages)} packages will be installed with pip!"
         )
-        await manager.ws.broadcast(socket_msg)
-        installation_succeed = await install_packages(
-            missing_packages, socket_msg, manager=manager
-        )
+        installation_succeed = await install_packages(missing_packages)
         logger.debug(f"installing packages was successful? {installation_succeed}")
 
         if not installation_succeed:
-            socket_msg.MODAL_CONFIG[
-                "messages"
-            ] = "Pre job operation failed! Look at the errors printed above!"
+            logger.error("Pre job operation failed! Look at the errors printed above!")
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
             return
-        socket_msg.MODAL_CONFIG["messages"] = "Pre job operation successful!"
-        socket_msg.MODAL_CONFIG["showModal"] = False
-        await manager.ws.broadcast(socket_msg)
+        logger.info("Pre job operation successful!")
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
-    socket_msg.MODAL_CONFIG["showModal"] = False
     await manager.ws.broadcast(socket_msg)
 
     # get the amount of workers needed
@@ -314,9 +305,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     if errs:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}"
-        )
+        logger.error(f"Preflight check failed! \n {', '.join(errs)}")
         socket_msg.FAILED_NODES = errs
         await manager.ws.broadcast(socket_msg)
         return
@@ -356,23 +345,18 @@ def stream_response(proc: Popen[bytes]):
         yield line
 
 
-async def install_packages(
-    missing_packages: list[str], socket_msg: WorkerJobResponse, manager: Manager
-):
+async def install_packages(missing_packages: list[str]):
     try:
         cmd = ["pip", "install"] + missing_packages
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         while proc.poll() is None:
             stream = stream_response(proc)
             for line in stream:
-                socket_msg.MODAL_CONFIG["messages"] = line.decode(encoding="utf-8")
-                await asyncio.create_task(manager.ws.broadcast(socket_msg))
+                logger.info(line.decode(encoding="utf-8"))
         return_code = proc.returncode
         if return_code != 0:
             return False
         return True
     except Exception as e:
-        output = "\n".join(e.args)
-        socket_msg.MODAL_CONFIG["messages"] = output
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        logger.error(f"{e}{traceback.format_exc()}")
         return False
