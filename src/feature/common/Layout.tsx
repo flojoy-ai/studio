@@ -5,13 +5,11 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-import { Outlet, 
-  // useNavigate
- } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
-// import { useEffect } from "react";
-// import { IServerStatus } from "@src/context/socket.context";
+import { useEffect } from "react";
+import { IServerStatus } from "@src/context/socket.context";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -35,20 +33,16 @@ export const Layout = () => {
     setHasUnsavedChanges(true);
   };
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   console.log("serverStatus", serverStatus);
-  //   if (serverStatus == IServerStatus.OFFLINE) {
-  //     console.log("HAHAHA");
-  //     navigate("/loading");
-  //     return;
-  //   }
-
-  //   if (window.location.pathname === "/") {
-  //     navigate("/flowchart");
-  //   }
-  // }, [serverStatus]);
+  useEffect(() => {
+    if (
+      !serverStatus ||
+      [IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
+    ) {
+      navigate("/loading");
+    }
+  }, [navigate, serverStatus]);
 
   return (
     <div>

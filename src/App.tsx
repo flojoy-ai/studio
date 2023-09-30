@@ -56,7 +56,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route
-              path="/"
+              path="/flowchart"
               element={<FlowChartTab />}
               errorElement={<ErrorBoundary />}
             />
@@ -71,7 +71,7 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
-          <Route path="/loading" element={<LoadingPage />} />
+            <Route path="/loading" element={<LoadingPage />} />
         </Routes>
       </div>
     </ThemeProvider>

@@ -11,10 +11,12 @@ const LoadingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (serverStatus !== IServerStatus.OFFLINE) {
+    if (
+      ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
+    ) {
       navigate("/flowchart");
     }
-  }, [serverStatus]);
+  }, [navigate, serverStatus]);
 
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-violet-600">
