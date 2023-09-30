@@ -33,6 +33,16 @@ jobs:
       - name: Run startup script
         run: bash flojoy -c
 
+      - name: Download Micromamba executable (Win)
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          .\scripts\get_micromamba.ps1
+
+      - name: Download Micromamba executable
+        if: startsWith(matrix.os, 'mac') || startsWith(matrix.os, 'ubuntu')
+        run: |
+          bash scripts/get_micromamba.sh
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
         with:
