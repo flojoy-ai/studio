@@ -1,12 +1,13 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { textNodesAtom } from "@src/hooks/useFlowChartGraph";
 import { useSetAtom } from "jotai";
-import { useNodeId, NodeResizer } from "reactflow";
+import { useNodeId, NodeResizer, NodeProps, useStore } from "reactflow";
 import { Textarea } from "../ui/textarea";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import { Edit, Trash } from "lucide-react";
 import { cn } from "@src/lib/utils";
+import { TextData } from "@src/types/node";
 
 const LinkRenderer = (props) => {
   const handleClick = () => {
@@ -25,16 +26,22 @@ const LinkRenderer = (props) => {
   );
 };
 
-type TextNodeProps = {
-  selected: boolean;
-  data: {
-    text: string;
-  };
-};
-
-const TextNode = ({ selected, data }: TextNodeProps) => {
+const TextNode = ({ selected, data, id }: NodeProps<TextData>) => {
   const [editing, setEditing] = useState(false);
-  const [dimensions, setDimensions] = useState({ width: 200, height: 150 });
+  const size = useStore((s) => {
+    const node = s.nodeInternals.get(id);
+    if (!node) {
+      throw new Error(`Could not find text node with id ${id}`);
+    }
+    return {
+      width: node.width,
+      height: node.height,
+    };
+  });
+  const [dimensions, setDimensions] = useState({
+    width: size.width ?? 200,
+    height: size.height ?? 150,
+  });
   const setTextNodes = useSetAtom(textNodesAtom);
   const nodeId = useNodeId();
   const ref = useRef<HTMLTextAreaElement>(null);

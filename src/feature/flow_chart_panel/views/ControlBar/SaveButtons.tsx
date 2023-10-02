@@ -19,14 +19,14 @@ export const SaveButton = () => {
 };
 
 export const SaveAsButton = () => {
-  const { nodes, edges } = useFlowChartGraph();
+  const { nodes, edges, textNodes } = useFlowChartGraph();
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const setProjectPath = useSetAtom(projectPathAtom);
   const project = useAtomValue(projectAtom);
 
   const handleSave = async () => {
     try {
-      const path = await saveFileAs(project, nodes, edges);
+      const path = await saveFileAs(project, nodes, edges, textNodes);
 
       setProjectPath(path);
       setHasUnsavedChanges(false);

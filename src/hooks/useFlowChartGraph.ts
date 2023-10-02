@@ -40,6 +40,7 @@ export const useFlowChartGraph = () => {
       if (!flow) {
         return false;
       }
+
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
       if (textNodes) {
