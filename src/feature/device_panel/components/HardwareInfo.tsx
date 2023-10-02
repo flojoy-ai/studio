@@ -53,6 +53,14 @@ export const HardwareInfo = () => {
         }))
       : undefined;
 
+  const mecademicDevices: DeviceCardProps[] | undefined =
+    devices.mecademicDevices.length > 0
+      ? devices.mecademicDevices.map((d) => ({
+          name: d.name,
+          port: d.ip,
+        }))
+      : undefined;
+
   return (
     <div>
       <Button onClick={refetch}>Refresh</Button>
@@ -62,6 +70,8 @@ export const HardwareInfo = () => {
       <DeviceSection title="Serial" devices={serialDevices} />
       <div className="py-6" />
       <DeviceSection title="VISA" devices={visaDevices} />
+      <div className="py-6" />
+      <DeviceSection title="Mecademic" devices={mecademicDevices} />
     </div>
   );
 };

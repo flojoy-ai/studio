@@ -21,7 +21,13 @@ class VISADevice(BaseModel):
     description: str
 
 
+class MecademicDevice(BaseModel):
+    name: str
+    ip: str
+
+
 class DeviceInfo(BaseModel):
     cameras: list[CameraDevice]
     serialDevices: list[SerialDevice]
     visaDevices: list[VISADevice]
+    mecademicDevices: list[MecademicDevice]

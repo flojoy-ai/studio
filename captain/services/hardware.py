@@ -4,7 +4,7 @@ import cv2
 import subprocess
 from sys import platform
 
-from captain.types.devices import CameraDevice, SerialDevice, VISADevice
+from captain.types.devices import CameraDevice, SerialDevice, VISADevice, MecademicDevice
 
 __all__ = ["get_device_finder"]
 
@@ -58,6 +58,11 @@ class DefaultDeviceFinder:
             except pyvisa.VisaIOError:
                 pass
 
+        return devices
+
+    def get_mecademic_devices(self) -> list[MecademicDevice]:
+        """Returns a list of Mecademic devices connected to the system."""
+        devices = [MecademicDevice(name="Flojoy's Mecademic Meca500", ip="192.168.0.100")]
         return devices
 
 

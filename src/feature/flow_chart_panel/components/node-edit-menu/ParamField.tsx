@@ -15,6 +15,8 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
+import React from "react";
+import { MecademicDeviceSelect } from "@feature/flow_chart_panel/components/node-edit-menu/MecademicDeviceSelect";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -129,6 +131,8 @@ const ParamField = ({
     case "VisaDevice":
     case "VisaConnection":
       return <VisaDeviceSelect onValueChange={handleChange} value={value} />;
+      case "MecademicConnection":
+        return <MecademicDeviceSelect onValueChange={handleChange} value={value} />;
     case "str":
     case "list[int]":
     case "list[float]":
