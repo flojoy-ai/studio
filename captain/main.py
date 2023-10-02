@@ -3,14 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from captain.routes import devices, flowchart, key, nodes, pymgr, update, ws
 from captain.utils.config import origins
-from captain.utils.import_nodes import create_map
 from captain.utils.logger import logger, logger_setup
 import threading
 from captain.services.consumer.log_consumer import LogConsumer
 import asyncio
-
-# init node mapping
-create_map()
 
 app = FastAPI()
 
