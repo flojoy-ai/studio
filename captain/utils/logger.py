@@ -1,25 +1,9 @@
-import logging
+from logging import LogRecord
 import os
+import logging
+from captain.internal.wsmanager import ConnectionManager
 
-logger = logging.getLogger()
-logging.basicConfig(level=logging.INFO, format="%(name)s - %(levelname)s - %(message)s")
-
-
-def logger_setup(logger: logging.Logger):
-    log_lvl = get_log_level()
-    logger.setLevel(log_lvl)
-
-    handler = logging.StreamHandler()
-    handler.setLevel(log_lvl)
-
-    if os.environ.get("FASTAPI_LOG"):
-        formatter = CustomFormatter("%(levelname)-10s%(message)s")
-    else:
-        formatter = CustomFormatter("%(message)s")
-
-    handler.setFormatter(formatter)
-
-    logger.addHandler(handler)
+logger = logging.getLogger("flojoy")
 
 
 def get_log_level():
@@ -35,9 +19,34 @@ def get_log_level():
     return map_to_int[log_level]
 
 
-class CustomFormatter(logging.Formatter):
-    """Ensure a colon immediately follows the levelname in order to copy the fastapi logger"""
+logging.basicConfig(
+    level=get_log_level(),
+    format="[%(asctime)s] - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
 
-    def format(self, record: logging.LogRecord):
-        record.levelname = f"{record.levelname}:"
-        return super().format(record)
+
+def logger_setup(logger: logging.Logger):
+    handler = BroadcastLogs()
+    log_lvl = get_log_level()
+    handler.setLevel(log_lvl)
+    logger.addHandler(handler)
+
+
+class CustomFormatter(logging.Formatter):
+    def __init__(self) -> None:
+        super().__init__(
+            fmt="[%(asctime)s] - %(name)s - %(levelname)s - %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+
+
+class BroadcastLogs(logging.Handler):
+    def __init__(self, level=0) -> None:
+        super().__init__(level)
+        self.ws = ConnectionManager.get_instance()
+        self.setFormatter(CustomFormatter())
+
+    def emit(self, record: LogRecord) -> None:
+        log_entry = self.format(record)
+        self.ws.log_queue.put(log_entry)

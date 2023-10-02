@@ -32,7 +32,7 @@ class Worker:
         self.node_delay = node_delay
 
     async def run(self):
-        logger.debug(f"Worker {self.uuid} has started")
+        logger.info(f"Worker {self.uuid} has started")
         while True:
             queue_fetch = self.task_queue.get()
 
@@ -66,6 +66,7 @@ class Worker:
                 "job_id": job.iteration_id,
             }
 
+            logger.info(f"Running node: {func.__name__}")
             logger.debug("=" * 100)
             logger.debug(f"Executing job {job.job_id}, kwargs = {kwargs}")
 
@@ -74,6 +75,9 @@ class Worker:
             match response:
                 case JobSuccess():
                     logger.debug(f"Job finished: {job.job_id}, status: ok")
+                    logger.info(
+                        f"Node: {func.__name__} ran successfully! result returned..."
+                    )
 
                     # send results to frontend
                     await self.signaler.signal_node_results(
@@ -82,6 +86,9 @@ class Worker:
 
                 case JobFailure():
                     logger.debug(f"Job finished: {job.job_id}, status: failed")
+                    logger.error(
+                        f"Node {func.__name__} failed! reason: {response.error}"
+                    )
 
                     # signal to frontend that the node has failed
                     await self.signaler.signal_failed_nodes(

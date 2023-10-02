@@ -89,6 +89,17 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 
 contextMenu({
   showSaveImageAs: true,
+  prepend() {
+    return [
+      {
+        label: "Reload Studio",
+        visible: true,
+        click(_, browserWindow) {
+          browserWindow?.webContents.reload();
+        },
+      },
+    ];
+  },
 });
 
 global.runningProcesses = [];

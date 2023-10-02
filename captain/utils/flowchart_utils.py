@@ -19,18 +19,20 @@ from captain.models.topology import Topology
 from captain.services.consumer.worker import Worker
 from captain.services.producer.producer import Producer
 from captain.types.flowchart import PostWFC
+from captain.utils.logger import logger, BroadcastLogs
+from subprocess import Popen, PIPE
+import importlib.metadata
+from .status_codes import STATUS_CODES
+from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import (
     InitFuncType,
-    ModalConfig,
     ProcessTaskType,
     QueueTaskType,
     WorkerJobResponse,
 )
 from captain.utils.broadcast import Signaler
 from captain.utils.import_nodes import pre_import_functions
-from captain.utils.logger import logger
-
-from .status_codes import STATUS_CODES
+import logging
 
 
 def run_worker(
@@ -48,7 +50,6 @@ def run_worker(
         # ):
         #     text_trap = io.StringIO()
         #     sys.stdout = text_trap
-        logger.debug("Starting worker")
         worker = Worker(
             task_queue=task_queue,
             finish_queue=finish_queue,
@@ -58,7 +59,7 @@ def run_worker(
         )
         asyncio.run(worker.run())
     except Exception as e:
-        print(f"Error in worker: {e} {traceback.format_exc()}", flush=True)
+        logger.error(f"Error in worker: {e} {traceback.format_exc()}")
 
 
 def run_producer(
@@ -70,7 +71,6 @@ def run_producer(
     signaler: Signaler,
 ):
     try:
-        logger.debug("Starting producer")
         producer = Producer(
             task_queue=task_queue,
             finish_queue=finish_queue,
@@ -81,7 +81,7 @@ def run_producer(
         )
         asyncio.run(producer.run())
     except Exception as e:
-        print(f"Error in producer: {e} {traceback.format_exc()}", flush=True)
+        logger.error(f"Error in producer: {e} {traceback.format_exc()}")
 
 
 def create_topology(
@@ -111,6 +111,7 @@ def spawn_producer(manager: Manager):
         ),
     )
     producer.daemon = True
+    logger.debug("Starting producer")
     producer.start()
 
 
@@ -132,7 +133,7 @@ def spawn_workers(
     manager.thread_count = worker_number
 
     signaler = Signaler(manager.ws)
-
+    logger.debug("Starting worker")
     for _ in range(worker_number):
         worker_process = Thread(
             target=run_worker,
@@ -269,11 +270,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     for node in nodes:
         node_logger = logging.getLogger(node["data"]["func"])
-        handler = BroadcastNodeLogs(
-            manager=manager, jobset_id=request.jobsetId, node_func=node["data"]["func"]
-        )
-        handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(message)s"))
-        node_logger.addHandler(handler)
+        node_logger.addHandler(BroadcastLogs())
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
@@ -292,30 +289,21 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     if missing_packages:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["INSTALLING_PACKAGES"]
         await manager.ws.broadcast(socket_msg)
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True,
-            description="Installing required dependencies before running the flow chart...",
-            messages=f"{', '.join(missing_packages)} packages will be installed with pip!",
+        logger.info("Installing required dependencies before running the flow chart...")
+        logger.info(
+            f"{', '.join(missing_packages)} packages will be installed with pip!"
         )
-        await manager.ws.broadcast(socket_msg)
-        installation_succeed = await install_packages(
-            missing_packages, socket_msg, manager=manager
-        )
+        installation_succeed = await install_packages(missing_packages)
         logger.debug(f"installing packages was successful? {installation_succeed}")
 
         if not installation_succeed:
-            socket_msg.MODAL_CONFIG[
-                "messages"
-            ] = "Pre job operation failed! Look at the errors printed above!"
+            logger.error("Pre job operation failed! Look at the errors printed above!")
             socket_msg["SYSTEM_STATUS"] = STATUS_CODES["PRE_JOB_OP_FAILED"]
             await manager.ws.broadcast(socket_msg)
             return
-        socket_msg.MODAL_CONFIG["messages"] = "Pre job operation successful!"
-        socket_msg.MODAL_CONFIG["showModal"] = False
-        await manager.ws.broadcast(socket_msg)
+        logger.info("Pre job operation successful!")
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS"]
-    socket_msg.MODAL_CONFIG["showModal"] = False
     await manager.ws.broadcast(socket_msg)
 
     # get the amount of workers needed
@@ -323,9 +311,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
 
     if errs:
         socket_msg["SYSTEM_STATUS"] = STATUS_CODES["IMPORTING_NODE_FUNCTIONS_FAILED"]
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True, messages=f"Preflight check failed! \n {', '.join(errs)}"
-        )
+        logger.error(f"Preflight check failed! \n {', '.join(errs)}")
         socket_msg.FAILED_NODES = errs
         await manager.ws.broadcast(socket_msg)
         return
@@ -365,60 +351,18 @@ def stream_response(proc: Popen[bytes]):
         yield line
 
 
-async def install_packages(
-    missing_packages: list[str], socket_msg: WorkerJobResponse, manager: Manager
-):
+async def install_packages(missing_packages: list[str]):
     try:
         cmd = ["pip", "install"] + missing_packages
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         while proc.poll() is None:
             stream = stream_response(proc)
             for line in stream:
-                socket_msg.MODAL_CONFIG["messages"] = line.decode(encoding="utf-8")
-                await asyncio.create_task(manager.ws.broadcast(socket_msg))
+                logger.info(line.decode(encoding="utf-8"))
         return_code = proc.returncode
         if return_code != 0:
             return False
         return True
     except Exception as e:
-        output = "\n".join(e.args)
-        socket_msg.MODAL_CONFIG["messages"] = output
-        await asyncio.create_task(manager.ws.broadcast(socket_msg))
+        logger.error(f"{e}{traceback.format_exc()}")
         return False
-
-
-class BroadcastNodeLogs(logging.Handler):
-    PCKG_INSTALLATION_COMPLETE = "Pip install complete. Spawning process for function"
-
-    def __init__(self, manager: Manager, jobset_id: str, node_func: str):
-        super().__init__()
-        self.manager = manager
-        self.jobset_id = jobset_id
-        self.node_func = node_func
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        socket_msg = WorkerJobResponse(jobset_id=self.jobset_id)
-        socket_msg["SYSTEM_STATUS"] = (
-            STATUS_CODES["RUNNING_PYTHON_JOB"] + self.node_func
-        )
-        socket_msg["MODAL_CONFIG"] = ModalConfig(
-            showModal=True, messages=log_entry, title=f"{self.node_func} logs"
-        )
-
-        if self.PCKG_INSTALLATION_COMPLETE in log_entry:
-            socket_msg["MODAL_CONFIG"]["showModal"] = False
-
-        def broadcast_socket():
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-
-            async def inner_broadcast_socket():
-                await self.manager.ws.broadcast(socket_msg)
-
-            loop.run_until_complete(inner_broadcast_socket())
-            loop.close()
-
-        thread = threading.Thread(target=broadcast_socket)
-        thread.start()
-        thread.join()

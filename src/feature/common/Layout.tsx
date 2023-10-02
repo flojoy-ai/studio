@@ -10,6 +10,7 @@ import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
 import { useEffect } from "react";
 import { IServerStatus } from "@src/context/socket.context";
+import Logs from "../logs/Logs";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -20,7 +21,7 @@ export const LAYOUT_TOP_HEIGHT =
 
 export const Layout = () => {
   const {
-    states: { serverStatus },
+    states: { serverStatus, logs },
   } = useSocket();
 
   const [project, setProject] = useAtom(projectAtom);
@@ -76,6 +77,7 @@ export const Layout = () => {
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
         <Toaster theme={theme} closeButton />
+        <Logs logs={logs.length ? logs : ["No logs found!"]} />
         <Outlet />
       </main>
     </div>

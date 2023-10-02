@@ -3,11 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from captain.routes import devices, flowchart, key, nodes, pymgr, update, ws
 from captain.utils.config import origins
-from captain.utils.import_nodes import create_map
 from captain.utils.logger import logger, logger_setup
-
-# init node mapping
-create_map()
+import threading
+from captain.services.consumer.log_consumer import LogConsumer
+import asyncio
 
 app = FastAPI()
 
@@ -33,3 +32,11 @@ app.include_router(pymgr.router)
 @app.on_event("startup")
 async def startup_event():
     logger_setup(logger)
+    log_consumer = LogConsumer()
+
+    def run_log_consumer():
+        asyncio.run(log_consumer.run())
+
+    thread = threading.Thread(target=run_log_consumer)
+    thread.daemon = True
+    thread.start()
