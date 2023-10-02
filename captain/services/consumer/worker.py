@@ -78,7 +78,7 @@ class Worker:
                 case JobSuccess():
                     logger.debug(f"Job finished: {job.job_id}, status: ok")
                     logger.info(
-                        f"Node: {func.__name__} run successfully! result returned..."
+                        f"Node: {func.__name__} ran successfully! result returned..."
                     )
 
                     # send results to frontend
