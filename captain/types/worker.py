@@ -82,6 +82,6 @@ class WorkerJobResponse(dict):
         return super().__setitem__(__key, __value)
 
 
-ProcessTaskType = Callable[[Union[JobSuccess, JobFailure]], list[JobInfo]]
-QueueTaskType = Callable[[JobInfo, Queue], None]
+ProcessTaskType = Callable[[Union[JobSuccess, JobFailure]], list[str] | None]
+QueueTaskType = Callable[[str, Queue], None]
 InitFuncType = Callable[[Queue], None]
