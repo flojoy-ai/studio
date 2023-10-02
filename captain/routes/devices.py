@@ -13,4 +13,5 @@ async def get_devices():
         cameras=device_finder.get_cameras(),
         serialDevices=device_finder.get_serial_devices(),
         visaDevices=device_finder.get_visa_devices(),
+        mecademicDevices=device_finder.get_mecademic_devices(),
     )

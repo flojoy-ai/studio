@@ -25,12 +25,18 @@ const VISADevice = z.object({
   description: z.string(),
 });
 
+const MecademicDevice = z.object({
+  ip: z.string(),
+  name: z.string(),
+});
+
 type VISADevice = z.infer<typeof VISADevice>;
 
 const DeviceInfo = z.object({
   cameras: z.array(CameraDevice),
   serialDevices: z.array(SerialDevice),
   visaDevices: z.array(VISADevice),
+  mecademicDevices: z.array(MecademicDevice),
 });
 
 type DeviceInfo = z.infer<typeof DeviceInfo>;
