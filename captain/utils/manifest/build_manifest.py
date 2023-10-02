@@ -52,6 +52,7 @@ SPECIAL_TYPES = [
     SerialDevice,
     VisaDevice,
     CameraConnection,
+    MecademicConnection,
     SerialConnection,
     VisaConnection,
 ]

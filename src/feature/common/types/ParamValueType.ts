@@ -15,4 +15,5 @@ export type ParamValueType =
   | "CameraConnection"
   | "SerialConnection"
   | "VisaConnection"
+  | "MecademicConnection"
   | "unknown";
