@@ -95,12 +95,8 @@ class TopologyTest(unittest.TestCase):
 
 
 def run_worker(worker: Worker):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(worker.run())
+    asyncio.run(worker.run())
 
 
 def run_producer(producer: Producer):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(producer.run())
+    asyncio.run(producer.run())
