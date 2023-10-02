@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 interface WatchBtnProps {
   playFC: (nodes: Node<ElementsData>[], edges: Edge[]) => void;
@@ -30,6 +31,11 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
   }, [nodeParamChanged, isWatching]);
 
   const handleClick = () => {
+    if (!isWatching) {
+      toast.message(
+        "In watch mode, the flowchart will automatically re-run when any param changes.",
+      );
+    }
     setIsWatching(!isWatching);
   };
 
@@ -47,7 +53,7 @@ const WatchBtn = ({ playFC, cancelFC }: WatchBtnProps) => {
           </TooltipTrigger>
           <TooltipContent>
             <p>
-              The flowchart will automatically run everytime you change a node
+              The flowchart will automatically run every time you change a node
               parameter
             </p>
           </TooltipContent>

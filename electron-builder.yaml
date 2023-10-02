@@ -40,14 +40,15 @@ mac:
   darkModeSupport: true
   gatekeeperAssess: false
   hardenedRuntime: true
-  # binaries: ["scripts/python-interpreter/mac.zip"]
   notarize: true
+  x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:
   icon: public/favicon.icns
   target:
     - deb
     - AppImage
+
 win:
   icon: public/favicon.ico
 extraMetadata:

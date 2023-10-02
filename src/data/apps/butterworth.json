@@ -1,4 +1,5 @@
 {
+  "name": "Butterworth Filter",
   "rfInstance": {
     "nodes": [
       {
