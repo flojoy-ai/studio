@@ -9,8 +9,9 @@ export class Logger {
     if (serviceName) {
       this.serviceName = serviceName;
     }
-    const logsFolderPath = join(app.getPath("home"), ".flojoy", "logs");
-    const logFileName = `log_${serviceName}.txt`;
+    const { logsFolderPath, logFileName } = Logger.getLogFilePath(
+      this.serviceName,
+    );
     // Append the formatted date and time to the log file name
     if (!fs.existsSync(logsFolderPath)) {
       fs.mkdirSync(logsFolderPath, { recursive: true });
@@ -37,5 +38,14 @@ export class Logger {
           throw new Error(`Error in logToFile. Error looks like: ${e}`);
         }
       });
+  }
+  static getLogFilePath(serviceName: string) {
+    const logsFolderPath = join(app.getPath("home"), ".flojoy", "logs");
+    const logFileName = `log_${serviceName}.txt`;
+    return {
+      logsFolderPath,
+      logFileName,
+      logFilePath: join(logsFolderPath, logFileName),
+    };
   }
 }

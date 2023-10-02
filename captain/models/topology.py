@@ -70,7 +70,7 @@ class Topology:
         """
         Topology entry point function for producer
         """
-        self.time_start = time.time()
+        self.time_start = time.perf_counter()
         next_jobs: list[str] = self.collect_ready_jobs()  # get nodes with in-degree 0
         self.run_jobs(next_jobs, task_queue)
 

@@ -25,6 +25,6 @@ async def cancel_fc(req: PostCancelFC):
 
 
 @router.post("/wfc", summary="write and run flowchart")
-async def write_and_run_flowchart(request: PostWFC):
+def write_and_run_flowchart(request: PostWFC):
     # create message for front-end to indicate we are running pre-job operations
-    await prepare_jobs_and_run_fc(request=request, manager=manager)
+    asyncio.run(prepare_jobs_and_run_fc(request=request, manager=manager))

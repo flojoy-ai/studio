@@ -288,7 +288,7 @@ if ($isDebugMode -eq $true) {
   $startProjectCmd = "npm run start-project:win:debug"
 }
 else {
-  $Env:FASTAPI_LOG = "error"
+  $Env:FASTAPI_LOG = "info"
   $startProjectCmd = "npm run start-project:win"
 
 }

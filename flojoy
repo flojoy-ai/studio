@@ -317,7 +317,7 @@ if [ $isDebugMode = true ]; then
    info_msg "Debug mode will be enabled!"
    export FASTAPI_LOG=debug
 else
-   export FASTAPI_LOG=error
+   export FASTAPI_LOG=info
 fi
 
 # start project services
