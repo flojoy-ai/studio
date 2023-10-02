@@ -36,8 +36,8 @@ class Topology:
         self.queued_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
         self.cancelled = False
-        self.time_start = 0.0
-        self.is_finished = False
+        self.time_start = 0
+        self.finished = False
         self.loop_nodes = (
             list()
         )  # using list instead of set as we need to maintain order
@@ -126,6 +126,9 @@ class Topology:
     def is_cancelled(self):
         return self.cancelled
 
+    def is_finished(self):
+        return self.finished
+
     def handle_finished_job(self, job: JobSuccess, return_new_jobs: bool = False):
         """
         get the data from the worker response
@@ -208,9 +211,9 @@ class Topology:
             and next_nodes_from_dependencies.__len__() == 0
         ):
             if not self.loop_nodes:
-                self.is_finished = True
-                logger.info(
-                    f"FLOWCHART TOOK {time.perf_counter() - self.time_start} SECONDS TO COMPLETE"
+                self.finished = True
+                logger.debug(
+                    f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
                 )
                 self.cancel()
                 return
@@ -267,7 +270,7 @@ class Topology:
                 self.finished_jobs.remove(d_id)
 
     def finalizer(self):
-        if self.is_finished:
+        if self.finished:
             pass  # add things here in the future
 
     def mark_job_failure(self, job_id: str):

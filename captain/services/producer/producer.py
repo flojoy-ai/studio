@@ -20,7 +20,7 @@ class Producer:
         process_task: ProcessTaskType,
         queue_task: QueueTaskType,
         init_func: InitFuncType,
-        signaler: Signaler,
+        signaler: Signaler | None = None,
     ) -> None:
         self.task_queue = task_queue
         self.finish_queue = finish_queue
@@ -49,7 +49,8 @@ class Producer:
             # if no new tasks, then continue
             if new_tasks is None:
                 logger.debug(f"Producer {self.uuid} got no new tasks")
-                await self.signaler.signal_standby(finished_job_fetch.jobset_id)
+                if self.signaler:
+                    await self.signaler.signal_standby(finished_job_fetch.jobset_id)
                 continue
 
             logger.debug(f"Producer {self.uuid} got new tasks: {new_tasks}")

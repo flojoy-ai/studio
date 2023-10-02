@@ -20,7 +20,7 @@ class Worker:
         task_queue: Queue[Any],  # queue for tasks to be processed
         finish_queue: Queue[Any],  # queue for finished tasks
         imported_functions: dict[str, Any],  # map of job id to corresponding function
-        signaler: Signaler,  # signaler object to signal to the front-end
+        signaler: Signaler | None = None,  # signaler object to signal to the front-end
         node_delay: float = 0,
     ):
         self.task_queue = task_queue
@@ -52,11 +52,11 @@ class Worker:
                 raise ValueError(
                     f"Function {job.job_id} not found in imported functions"
                 )
-
-            # signal the running node to the front-end:
-            await self.signaler.signal_current_running_node(
-                job.jobset_id, job.job_id, func.__name__
-            )
+            if self.signaler:
+                # signal the running node to the front-end:
+                await self.signaler.signal_current_running_node(
+                    job.jobset_id, job.job_id, func.__name__
+                )
 
             kwargs: dict[str, Any] = {
                 "ctrls": job.ctrls,
@@ -78,11 +78,11 @@ class Worker:
                     logger.info(
                         f"Node: {func.__name__} ran successfully! result returned..."
                     )
-
-                    # send results to frontend
-                    await self.signaler.signal_node_results(
-                        job.jobset_id, job.job_id, func.__name__, response.result
-                    )
+                    if self.signaler:
+                        # send results to frontend
+                        await self.signaler.signal_node_results(
+                            job.jobset_id, job.job_id, func.__name__, response.result
+                        )
 
                 case JobFailure():
                     logger.debug(f"Job finished: {job.job_id}, status: failed")
@@ -90,10 +90,12 @@ class Worker:
                         f"Node {func.__name__} failed! reason: {response.error}"
                     )
 
-                    # signal to frontend that the node has failed
-                    await self.signaler.signal_failed_nodes(
-                        job.jobset_id, job.job_id, func.__name__, response.error
-                    )
+                    if self.signaler:
+                        # signal to frontend that the node has failed
+                        await self.signaler.signal_failed_nodes(
+                            job.jobset_id, job.job_id, func.__name__, response.error
+                        )
+
                     PipInstallThread.terminate_all()
                     raise Exception(response.error)
 
