@@ -1,8 +1,9 @@
-import serial.tools.list_ports
-import pyvisa
-import cv2
 import subprocess
 from sys import platform
+
+import cv2
+import pyvisa
+import serial.tools.list_ports
 
 from captain.types.devices import CameraDevice, SerialDevice, VISADevice
 

@@ -4,6 +4,8 @@ from captain.types.worker import PoisonPill
 from captain.internal.wsmanager import ConnectionManager
 from typing import Any
 
+from captain.models.topology import Topology
+from captain.types.worker import PoisonPill
 
 """ Acts as a bridge between backend components """
 

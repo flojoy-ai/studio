@@ -1,4 +1,4 @@
-from flojoy import flojoy, DataContainer
+from flojoy import DataContainer, flojoy
 
 
 @flojoy

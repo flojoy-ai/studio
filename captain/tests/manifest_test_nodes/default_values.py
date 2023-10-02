@@ -1,5 +1,5 @@
 import numpy as np
-from flojoy import flojoy, OrderedTriple
+from flojoy import OrderedTriple, flojoy
 
 
 @flojoy(node_type="TEST_TYPE")

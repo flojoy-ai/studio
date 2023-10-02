@@ -1,6 +1,7 @@
-import pytest
-import flojoy
 from importlib import reload
+
+import flojoy
+import pytest
 
 
 @pytest.fixture

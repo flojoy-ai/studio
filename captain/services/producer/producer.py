@@ -1,16 +1,14 @@
-import asyncio
+import uuid
 from queue import Queue
 from typing import Any
-import uuid
 
 from captain.types.worker import (
+    InitFuncType,
     PoisonPill,
     ProcessTaskType,
     QueueTaskType,
-    InitFuncType,
 )
 from captain.utils.broadcast import Signaler
-
 from captain.utils.logger import logger
 
 

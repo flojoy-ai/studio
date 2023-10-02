@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from captain.routes import flowchart, key, nodes, ws, update, devices, pymgr
 from fastapi.middleware.cors import CORSMiddleware
+
+from captain.routes import devices, flowchart, key, nodes, pymgr, update, ws
 from captain.utils.config import origins
 from captain.utils.import_nodes import create_map
 from captain.utils.logger import logger, logger_setup

@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from captain.services.hardware import get_device_finder
 from captain.types.devices import DeviceInfo
 

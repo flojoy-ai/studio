@@ -1,12 +1,11 @@
-from captain.utils.broadcast import Signaler
 import asyncio
+
 from fastapi import APIRouter
-from captain.types.flowchart import (
-    PostCancelFC,
-    PostWFC,
-)
-from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
+
+from captain.types.flowchart import PostCancelFC, PostWFC
+from captain.utils.broadcast import Signaler
 from captain.utils.config import manager
+from captain.utils.flowchart_utils import prepare_jobs_and_run_fc
 from captain.utils.logger import logger
 
 router = APIRouter(tags=["flowchart"])

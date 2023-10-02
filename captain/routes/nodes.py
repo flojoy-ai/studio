@@ -1,7 +1,9 @@
+import json
+
 from fastapi import APIRouter, Response
+
 from captain.utils.manifest.generate_manifest import generate_manifest
 from captain.utils.nodes_metadata import generate_metadata
-import json
 
 router = APIRouter(tags=["nodes"])
 
