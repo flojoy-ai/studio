@@ -9,12 +9,14 @@ type CameraOptions = {
 
 export class Plot {
   public readonly regl: REGL.Regl;
+  public readonly canvas: HTMLCanvasElement;
   private camera?: (block) => void;
 
   private objects: Drawable[] = [];
 
   constructor(canvas: HTMLCanvasElement) {
     this.regl = REGL(canvas);
+    this.canvas = canvas;
     this.camera = undefined;
     this.objects = [];
   }
