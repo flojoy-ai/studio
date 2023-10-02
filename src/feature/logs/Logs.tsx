@@ -23,13 +23,13 @@ const Logs = ({ logs }: { logs: string[] }) => {
       )}
     >
       <div
-        className={cn("relative", {"overflow-y-scroll":!minimize})}
+        className={cn("relative", { "overflow-y-scroll": !minimize })}
         style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       >
         <div className="sticky right-0 top-0 z-50 flex h-9 w-full justify-end">
           <Button
             variant={"ghost"}
-            className="w-28 rounded-none bg-slate-200 dark:bg-accent border-2 border-accent "
+            className="w-28 rounded-none border-2 border-accent bg-slate-200 dark:bg-accent "
             onClick={() => setMinimize((p) => !p)}
           >
             {minimize ? <ChevronsUp size={20} /> : <ChevronsDown size={20} />}
