@@ -1,36 +1,29 @@
 import REGL from "regl";
 import { Drawable } from ".";
 
+type Props = {
+  points: REGL.Vec3[];
+  pointCount: number;
+};
+
 type Uniforms = {
   size: number;
 };
 
 type Attributes = {
-  position: REGL.Buffer;
+  position: REGL.Vec3[];
 };
 
 type PointsOptions = {
-  points: REGL.Buffer;
-  pointCount: number;
   pointSize: number;
 };
 
 export class Points implements Drawable {
-  private vertices: REGL.Buffer;
-  private vertexCount: number;
+  private props: Props;
   public draw: REGL.DrawCommand;
 
-  set points(value: REGL.Buffer) {
-    this.vertices = value;
-  }
-
-  set pointCount(value: number) {
-    this.vertexCount = value;
-  }
-
-  constructor(regl: REGL.Regl, options: PointsOptions) {
-    this.vertices = options.points;
-    this.vertexCount = options.pointCount;
+  constructor(regl: REGL.Regl, options: PointsOptions, initialProps: Props) {
+    this.props = initialProps;
     this.draw = regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
@@ -63,21 +56,24 @@ export class Points implements Drawable {
         }
       `,
       attributes: {
-        position: regl.this("vertices"),
+        position: regl.prop<Props, keyof Props>("points"),
       },
 
       uniforms: {
         size: options.pointSize,
       },
 
-      count: regl.this("vertexCount"),
+      count: regl.prop<Props, keyof Props>("pointCount"),
       primitive: "points",
     });
   }
 
-  public se;
+  public setProps(props: Props) {
+    this.props = props;
+  }
 
   public render() {
-    this.draw();
+    console.log(this.props);
+    this.draw(this.props);
   }
 }

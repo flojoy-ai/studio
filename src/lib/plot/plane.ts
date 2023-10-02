@@ -19,11 +19,6 @@ export class OrthogonalPlane implements Drawable {
   private vertexCount: number;
   public draw: REGL.DrawCommand;
 
-  set points(value: REGL.Vec3[]) {
-    this.vertices = value;
-    this.vertexCount = value.length;
-  }
-
   constructor(regl: REGL.Regl, options: OrthogonalPlaneOptions) {
     this.vertices = this.createVertices(options);
     this.vertexCount = this.vertices.length;
@@ -95,3 +90,4 @@ export class OrthogonalPlane implements Drawable {
     return vertices;
   }
 }
+

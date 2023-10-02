@@ -5,82 +5,77 @@ import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
 import { memo, useEffect, useRef } from "react";
 import { Plot, OrthogonalPlane, Points } from "@src/lib/plot";
-// import Scatter3D from "@src/assets/nodes/3DScatter";
-// import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 import REGL from "regl";
+import Scatter3D from "@src/assets/nodes/3DScatter";
+import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 
-// const pointData: REGL.Vec3[] = Array(1000)
-//   .fill(undefined)
-//   .map(() => [Math.random() * 8, Math.random() * 8, Math.random() * 8]);
-
-// const zip = (data: { x: number[]; y: number[]; z: number[] }) => {
-//   const orderedTriple: REGL.Vec3[] = [];
-//   for (let i = 0; i < data.x.length; i++) {
-//     orderedTriple.push([data.x[i], data.y[i], data.z[i]]);
-//   }
-//   return orderedTriple;
-// };
+const zip = (data: { x: number[]; y: number[]; z: number[] }) => {
+  const orderedTriple: REGL.Vec3[] = [];
+  for (let i = 0; i < data.x.length; i++) {
+    orderedTriple.push([data.x[i], data.y[i], data.z[i]]);
+  }
+  return orderedTriple;
+};
 
 const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
-  const { nodeRunning, nodeError } = useNodeStatus(data.id);
+  const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const plot = useRef<Plot | null>(null);
   const points = useRef<Points | null>(null);
-  const pointsData = useRef<REGL.Buffer | null>(null);
-  const pointsLength = useRef(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (pointsData.current && points.current) {
-        pointsData.current.subdata(
-          [Math.random() * 10, Math.random() * 10, Math.random() * 10],
-          pointsLength.current * 3 * 4,
-        );
-        pointsLength.current++;
-        points.current.pointCount = pointsLength.current;
-      }
-    }, 5);
-
-    return () => clearInterval(interval);
-  }, []);
+  const pointsData = useRef<REGL.Vec3[]>([]);
 
   // useEffect(() => {
-  //   if (points.current && nodeResult?.result?.data) {
-  //     points.current.points = zip(nodeResult.result.data as OrderedTripleData);
-  //   }
-  // }, [nodeResult?.result.data]);
+  //   const interval = setInterval(() => {
+  //     if (points.current !== null) {
+  //       pointsData.current.push(randomPoint());
+  //       points.current.setProps({
+  //         points: pointsData.current,
+  //         pointCount: pointsData.current.length,
+  //       });
+  //     }
+  //   }, 50);
   //
-  // if (!nodeResult?.result?.data) {
-  //   return (
-  //     <NodeWrapper nodeError={nodeError}>
-  //       <div
-  //         className={clsx(
-  //           "rounded-2xl bg-transparent",
-  //           { "shadow-around shadow-accent2": nodeRunning || selected },
-  //           { "shadow-around shadow-red-700": nodeError },
-  //         )}
-  //       >
-  //         <Scatter3D />
-  //         <HandleComponent data={data} variant="accent2" />
-  //       </div>
-  //     </NodeWrapper>
-  //   );
-  // }
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  useEffect(() => {
+    if (points.current && nodeResult?.result?.data) {
+      const pts = zip(nodeResult.result.data as OrderedTripleData);
+
+      points.current.setProps({ points: pts, pointCount: pts.length });
+    }
+  }, [nodeResult?.result.data]);
+
+  if (!nodeResult?.result?.data) {
+    return (
+      <NodeWrapper nodeError={nodeError}>
+        <div
+          className={clsx(
+            "rounded-2xl bg-transparent",
+            { "shadow-around shadow-accent2": nodeRunning || selected },
+            { "shadow-around shadow-red-700": nodeError },
+          )}
+        >
+          <Scatter3D />
+          <HandleComponent data={data} variant="accent2" />
+        </div>
+      </NodeWrapper>
+    );
+  }
 
   if (canvas.current && !plot.current) {
     const plt = new Plot(canvas.current);
-    const buf = plt.regl.buffer({
-      usage: "dynamic",
-      type: "float32",
-      length: 10000 * 3 * 4,
-    });
-    pointsData.current = buf;
-    points.current = new Points(plt.regl, {
-      pointSize: 5,
-      points: pointsData.current,
-      pointCount: pointsLength.current,
-    });
+    points.current = new Points(
+      plt.regl,
+      {
+        pointSize: 5,
+      },
+      {
+        points: pointsData.current,
+        pointCount: pointsData.current.length,
+      },
+    );
 
     plt
       .with(points.current)
