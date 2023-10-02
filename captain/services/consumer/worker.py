@@ -1,15 +1,13 @@
-import asyncio
-from queue import Queue
-import time
-from typing import Any, Callable, cast
 import uuid
-from flojoy import JobService
-from flojoy import JobSuccess, JobFailure
+from queue import Queue
+from typing import Any, cast
+
+from flojoy import JobFailure, JobService, JobSuccess
+from flojoy.flojoy_node_venv import PipInstallThread
+
 from captain.types.worker import JobInfo, PoisonPill
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
-from captain.utils.status_codes import STATUS_CODES
-from flojoy.flojoy_node_venv import PipInstallThread
 
 """
 IMPORTANT NOTE: This class mimics the RQ Worker package. 

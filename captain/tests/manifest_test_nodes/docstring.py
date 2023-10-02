@@ -1,4 +1,4 @@
-from flojoy import flojoy, OrderedPair
+from flojoy import OrderedPair, flojoy
 
 
 @flojoy(node_type="TEST_TYPE")

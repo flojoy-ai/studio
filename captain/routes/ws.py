@@ -1,8 +1,10 @@
 import json
+
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+
 from captain.utils.config import manager
-from captain.utils.status_codes import STATUS_CODES
 from captain.utils.logger import logger
+from captain.utils.status_codes import STATUS_CODES
 
 router = APIRouter(tags=["ws"])
 

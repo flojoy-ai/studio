@@ -1,6 +1,5 @@
 import ast
-from typing import Optional, Any, Callable, Tuple, cast, Literal
-
+from typing import Any, Callable, Literal, Optional, Tuple, cast
 
 SELECTED_IMPORTS = ["flojoy", "typing"]
 NO_OUTPUT_NODES = ["GOTO", "END"]
@@ -108,7 +107,7 @@ def make_manifest_ast(
     with open(path) as f:
         tree = ast.parse(f.read())
 
-    # Do an initial pass to remove everything that isnt an
+    # Do an initial pass to remove everything that isn't an
     # import, dataclass or flojoy node
     transformer = FlojoyNodeTransformer()
     tree: ast.Module = transformer.visit(tree)

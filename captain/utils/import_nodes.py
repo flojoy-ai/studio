@@ -1,11 +1,14 @@
-from captain.models.topology import Topology
-from typing import Any, cast
-from flojoy import get_node_init_function, NoInitFunctionError
-import os, sys
 import importlib
-from captain.utils.nodes_path import get_nodes_path
+import os
+import sys
 from pathlib import Path
+from typing import Any, cast
+
+from flojoy import NoInitFunctionError, get_node_init_function
+
+from captain.models.topology import Topology
 from captain.utils.logger import logger
+from captain.utils.nodes_path import get_nodes_path
 
 
 def pre_import_functions(topology: Topology):

@@ -1,33 +1,36 @@
-import time
 import asyncio
-from queue import Queue
-from threading import Thread
+import importlib.metadata
 import json
+import logging
 import os
+import threading
+import time
+import traceback
+from queue import Queue
+from subprocess import PIPE, Popen
+from threading import Thread
+from typing import Any
+
 import networkx as nx
-from captain.services.consumer.worker import Worker
+from flojoy.utils import clear_flojoy_memory
+
 from captain.internal.manager import Manager
 from captain.models.topology import Topology
-from typing import Any
+from captain.services.consumer.worker import Worker
 from captain.services.producer.producer import Producer
 from captain.types.flowchart import PostWFC
-from captain.utils.logger import logger
-from subprocess import Popen, PIPE
-import importlib.metadata
-from .status_codes import STATUS_CODES
-from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import (
     InitFuncType,
+    ModalConfig,
     ProcessTaskType,
     QueueTaskType,
     WorkerJobResponse,
-    ModalConfig,
 )
-import traceback
 from captain.utils.broadcast import Signaler
 from captain.utils.import_nodes import pre_import_functions
-import logging
-import threading
+from captain.utils.logger import logger
+
+from .status_codes import STATUS_CODES
 
 
 def run_worker(
