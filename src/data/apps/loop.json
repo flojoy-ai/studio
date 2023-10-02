@@ -60,8 +60,8 @@
                 "dragging": true
             },
             {
-                "width": 225,
-                "height": 226,
+                "width": 380,
+                "height": 293,
                 "id": "BIG_NUMBER-ca0dc263-0e3f-4c7e-9a71-50dd014ec851",
                 "type": "VISUALIZERS",
                 "data": {
@@ -202,7 +202,7 @@
                             "desc": "The value set in Parameters",
                             "functionName": "TEXT",
                             "param": "value",
-                            "value": "Once the LOOP finishes, the branch at the bottom will be executed. This is why I got displayed at the very end!"
+                            "value": "Welcome to Flojoy!"
                         }
                     },
                     "initCtrls": {},
@@ -227,19 +227,19 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 462.92063579563745,
-                    "y": 346.92791668039155
+                    "x": 681.0366048306719,
+                    "y": 254.80305156239405
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 462.92063579563745,
-                    "y": 346.92791668039155
+                    "x": 681.0366048306719,
+                    "y": 254.80305156239405
                 },
                 "dragging": true
             },
             {
-                "width": 225,
-                "height": 226,
+                "width": 384,
+                "height": 288,
                 "id": "TEXT_VIEW-5bd50f36-45f9-4a66-8e5d-ffd04033eea6",
                 "type": "VISUALIZERS",
                 "data": {
@@ -262,13 +262,13 @@
                     "selected": false
                 },
                 "position": {
-                    "x": 792.7760922414127,
-                    "y": 270.0233059064231
+                    "x": 984.8263440661215,
+                    "y": 260.51583497453845
                 },
                 "selected": false,
                 "positionAbsolute": {
-                    "x": 792.7760922414127,
-                    "y": 270.0233059064231
+                    "x": 984.8263440661215,
+                    "y": 260.51583497453845
                 },
                 "dragging": true
             }
@@ -334,8 +334,8 @@
         {
             "id": "TextNode-e34c3dd0-e7dc-4db8-a676-8d084d602ce9",
             "position": {
-                "x": 265.4196962974752,
-                "y": -293.14350257941453
+                "x": -65.39338835160312,
+                "y": -37.12294141621476
             },
             "type": "TextNode",
             "data": {
@@ -345,8 +345,8 @@
             "height": 251,
             "selected": false,
             "positionAbsolute": {
-                "x": 265.4196962974752,
-                "y": -293.14350257941453
+                "x": -65.39338835160312,
+                "y": -37.12294141621476
             },
             "dragging": false,
             "resizing": false,
@@ -354,6 +354,30 @@
                 "width": 382,
                 "height": 251
             }
+        },
+        {
+            "id": "TextNode-51d60b90-4540-4a7b-90fe-b54402c32170",
+            "position": {
+                "x": 254.99518765975444,
+                "y": 328.4872588207919
+            },
+            "type": "TextNode",
+            "data": {
+                "text": "Once the LOOP finishes, the branch at the bottom will be executed. \n\nThis is why \"**Welcome to Flojoy!**\" got displayed at the very end!"
+            },
+            "width": 375,
+            "height": 182,
+            "selected": false,
+            "positionAbsolute": {
+                "x": 254.99518765975444,
+                "y": 328.4872588207919
+            },
+            "dragging": false,
+            "style": {
+                "width": 375,
+                "height": 182
+            },
+            "resizing": false
         }
     ]
 }
