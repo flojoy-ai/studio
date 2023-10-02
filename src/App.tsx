@@ -11,6 +11,9 @@ import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import DeviceTab from "./feature/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
+import PythonManagerTabView from "./feature/python_manager_panel/PythonManagerTabView";
+import { Layout } from "./feature/common/Layout";
+import LoadingPage from "./feature/loading/LoadingPage";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -51,16 +54,24 @@ const App = () => {
           description={modalConfig.description}
         />
         <Routes>
-          <Route
-            path="/"
-            element={<FlowChartTab />}
-            errorElement={<ErrorBoundary />}
-          />
-          <Route
-            path="/devices"
-            element={<DeviceTab />}
-            errorElement={<ErrorBoundary />}
-          />
+          <Route path="/" element={<Layout />}>
+            <Route
+              path="/flowchart"
+              element={<FlowChartTab />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/devices"
+              element={<DeviceTab />}
+              errorElement={<ErrorBoundary />}
+            />
+            <Route
+              path="/pymgr"
+              element={<PythonManagerTabView />}
+              errorElement={<ErrorBoundary />}
+            />
+          </Route>
+          <Route path="/loading" element={<LoadingPage />} />
         </Routes>
       </div>
     </ThemeProvider>

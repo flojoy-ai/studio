@@ -1,14 +1,14 @@
-from queue import Queue
-from fastapi import WebSocket
-from flojoy import PlotlyJSONEncoder
-from captain.utils.logger import logger
-from captain.models.topology import Topology
-from captain.types.worker import PoisonPill
-from typing import Any, Union
 import json
 import threading
-from captain.types.worker import WorkerJobResponse
+from queue import Queue
+from typing import Any, Union
 
+from fastapi import WebSocket
+from flojoy import PlotlyJSONEncoder
+
+from captain.models.topology import Topology
+from captain.types.worker import PoisonPill, WorkerJobResponse
+from captain.utils.logger import logger
 
 """ Acts as a bridge between backend components """
 

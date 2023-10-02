@@ -1,5 +1,6 @@
-from flojoy import flojoy, OrderedPair, OrderedTriple
 from typing import TypedDict
+
+from flojoy import OrderedPair, OrderedTriple, flojoy
 
 
 class DocstringMultiReturnOutput(TypedDict):

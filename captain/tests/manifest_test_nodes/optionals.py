@@ -1,6 +1,7 @@
-from flojoy import flojoy, DataContainer, OrderedPair, OrderedTriple, Matrix
 from typing import Optional
+
 import numpy as np
+from flojoy import DataContainer, Matrix, OrderedPair, OrderedTriple, flojoy
 
 
 @flojoy(node_type="TEST_TYPE")

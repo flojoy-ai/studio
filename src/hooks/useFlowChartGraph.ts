@@ -40,6 +40,7 @@ export const useFlowChartGraph = () => {
       if (!flow) {
         return false;
       }
+
       setNodes(flow.nodes || []);
       setEdges(flow.edges || []);
       if (textNodes) {
@@ -144,6 +145,7 @@ export const useFlowChartGraph = () => {
     handleTitleChange,
   };
 };
+
 function resolveProjectReference(project: string) {
   if (RECIPES[project]) {
     return RECIPES[project];

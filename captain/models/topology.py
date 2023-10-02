@@ -1,15 +1,17 @@
-from copy import deepcopy
 import logging
 import os
-from queue import Queue
 import time
 from collections import deque
+from copy import deepcopy
+from queue import Queue
+from typing import Any, cast
+
+import networkx as nx
 from flojoy import JobFailure, JobSuccess, get_next_directions
-from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
+from flojoy.utils import clear_flojoy_memory  # for some reason, can't import from
+
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
-import networkx as nx
-from typing import Any, cast
 
 
 class Topology:
@@ -237,7 +239,7 @@ class Topology:
     def remove_edges_and_get_next(self, job_id: str, label_direction: str = "default"):
         """
         this function removes the node edges and checks its successors
-        for new jobs. A new job is ready when a sucessor has no dependencies.
+        for new jobs. A new job is ready when a successor has no dependencies.
         """
         self.finished_jobs.add(job_id)
         successors: list[str] = list(self.working_graph.successors(job_id))
@@ -378,13 +380,13 @@ class Topology:
     def get_graph(self, original: bool):
         return self.original_graph if original else self.working_graph
 
-    # this function will get the maximum amount of independant nodes during the topological sort of the graph.
+    # this function will get the maximum amount of independent nodes during the topological sort of the graph.
     # Will be used to determine how many workers to spawn
-    # TODO (priority very low): delete edges based on their label: currenly, we are deleting all edges regardless of their labels.
+    # TODO (priority very low): delete edges based on their label: currently, we are deleting all edges regardless of their labels.
     # So for example :
     # Suppose we have a graph with 3 nodes: LOOP, node1, node2 and end,
     # assuming LOOP is the only dependency of all the nodes,
-    # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
+    # and the LOOP node has 2 successors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
     def get_maximum_workers(self, maximum_capacity: int = 1):
         max_independant = 0

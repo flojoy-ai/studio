@@ -1,8 +1,8 @@
 from typing import Any
+
 from captain.internal.manager import ConnectionManager
-from captain.utils.status_codes import STATUS_CODES
 from captain.types.worker import WorkerJobResponse
-from captain.utils.logger import logger
+from captain.utils.status_codes import STATUS_CODES
 
 
 class Signaler:

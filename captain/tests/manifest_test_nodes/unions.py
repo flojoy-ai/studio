@@ -1,14 +1,15 @@
+from typing import Union
+
+import numpy as np
 from flojoy import (
-    flojoy,
-    Matrix,
+    DataContainer,
     DataFrame,
     Image,
+    Matrix,
     OrderedPair,
     OrderedTriple,
-    DataContainer,
+    flojoy,
 )
-from typing import Union
-import numpy as np
 
 
 @flojoy(node_type="TEST_TYPE")

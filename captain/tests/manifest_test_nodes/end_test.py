@@ -1,4 +1,4 @@
-from flojoy import flojoy, JobResultBuilder, DataContainer
+from flojoy import DataContainer, JobResultBuilder, flojoy
 
 
 @flojoy
