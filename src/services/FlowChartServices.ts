@@ -3,6 +3,9 @@ import { ReactFlowJsonObject } from "reactflow";
 import { ElementsData } from "@/types";
 import { Result } from "@src/types/result";
 import { baseClient } from "@src/lib/base-client";
+import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
+import { toast } from "sonner";
+import { NodesMetadataMap } from "@src/types/nodes-metadata";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -83,3 +86,43 @@ export async function getDeviceInfo() {
   const res = await baseClient.get("devices");
   return res.data;
 }
+
+export const getManifest = async () => {
+  try {
+    const res = await baseClient.get("nodes/manifest");
+    // TODO: fix zod schema to accept io directory structure
+    const validateResult = validateRootSchema(res.data);
+    if (!validateResult.success) {
+      toast.message(`Failed to validate nodes manifest!`, {
+        duration: 20000,
+        description: "Check browser console for more info.",
+      });
+      console.error(validateResult.error);
+    }
+    return res.data as RootNode;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    const errTitle = "Failed to generate nodes manifest!";
+    const errDescription = `${err.response?.data?.error ?? err.message}`;
+
+    toast.message(errTitle, {
+      description: errDescription.toString(),
+      duration: 60000,
+    });
+    return null;
+  }
+};
+
+export const getNodesMetadata = async () => {
+  try {
+    const res = await baseClient.get("nodes/metadata");
+    return res.data as NodesMetadataMap;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    toast.message("Failed to generate nodes metadata", {
+      description: err.response?.data?.error ?? err.message,
+    });
+    return null;
+  }
+};

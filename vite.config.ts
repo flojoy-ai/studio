@@ -8,7 +8,6 @@ import path from "path";
 import { rmSync } from "node:fs";
 import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
-import pkg from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {

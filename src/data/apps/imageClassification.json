@@ -78,7 +78,7 @@
               "desc": "path to the file to be loaded",
               "functionName": "LOCAL_FILE",
               "param": "file_path",
-              "value": "./PYTHON/nodes/AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/assets/ada_lovelace.png"
+              "value": "./AI_ML/IMAGE_CLASSIFICATION/HUGGING_FACE_PIPELINE/assets/ada_lovelace.png"
             },
             "file_type": {
               "type": "select",

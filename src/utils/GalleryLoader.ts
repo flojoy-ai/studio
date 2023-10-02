@@ -3,9 +3,9 @@ import { GalleryData } from "@src/types/gallery";
 const data: GalleryData = {
   Fundamentals: [
     {
-      title: "Intro to LOOPS",
+      title: "Intro to Loops",
       description: "Generate a random number once",
-      imagePath: "/assets/appGallery/introToLoops.png",
+      imagePath: "assets/appGallery/introToLoops.png",
       appPath: "loop",
       relevantNodes: [
         {
@@ -16,17 +16,17 @@ const data: GalleryData = {
       cloudDemoEnabled: true,
     },
     {
-      title: "Intro to signals",
-      description: "Generate waveforms of different shapes",
-      imagePath: "/assets/appGallery/introToSignals.png",
-      appPath: "oscilator",
+      title: "Butterworth Filter",
+      description: "Apply a butterworth filter to an input signal",
+      imagePath: "assets/appGallery/introToSignals.png",
+      appPath: "butterworth",
       relevantNodes: [],
       cloudDemoEnabled: true,
     },
     {
-      title: "Intro to images",
+      title: "Intro to Images",
       description: "Apply a butterworth filter on a sample image",
-      imagePath: "/assets/appGallery/introToImages.png",
+      imagePath: "assets/appGallery/introToImages.png",
       appPath: "images",
       relevantNodes: [
         {
@@ -39,12 +39,12 @@ const data: GalleryData = {
     {
       title: "Stream to Flojoy Cloud",
       description: "Stream data to your Flojoy Cloud account",
-      imagePath: "/assets/appGallery/flojoyCloud.png",
+      imagePath: "assets/appGallery/flojoyCloud.png",
       appPath: "cloud",
       relevantNodes: [
         {
-          name: "FLOJOY_CLOUD_UPLOAD", // TODO: Update this URL
-          docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
+          name: "FLOJOY_CLOUD_UPLOAD",
+          docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/",
         },
       ],
       cloudDemoEnabled: false,
@@ -52,9 +52,9 @@ const data: GalleryData = {
   ],
   AI: [
     {
-      title: "Image captioning",
+      title: "Image Captioning",
       description: "Caption any image with this PyTorch ML model",
-      imagePath: "/assets/appGallery/imageCaptioning.png",
+      imagePath: "assets/appGallery/imageCaptioning.png",
       appPath: "imageCaptioning",
       relevantNodes: [
         {
@@ -67,7 +67,7 @@ const data: GalleryData = {
     {
       title: "Image Classification",
       description: "Classify any image using Hugging Face Transformers",
-      imagePath: "/assets/appGallery/imageClassification.png",
+      imagePath: "assets/appGallery/imageClassification.png",
       appPath: "imageClassification",
       relevantNodes: [
         {
@@ -77,29 +77,30 @@ const data: GalleryData = {
       ],
       cloudDemoEnabled: true,
     },
-    // {
-    //   description: "Predict future events with the Prophet node",
-    //   title: "Time series forecasting",
-    //   imagePath: "/assets/appGallery/timeSeries.png",
-    //   appPath: "prophet",
-    //   relevantNodes: [
-    //     {
-    //       name: "PROPHET_PREDICT",
-    //       docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Time Series Forecasting",
+      description: "Predict future events with the Prophet node",
+      imagePath: "assets/appGallery/timeSeries.png",
+      appPath: "prophet",
+      relevantNodes: [
+        {
+          name: "PROPHET_PREDICT",
+          docs: "https://docs.flojoy.ai/nodes/AI_ML/PREDICT_TIME_SERIES/PROPHET_PREDICT/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
     // {
     //   description: "Estimate object depth with the DINOv2 node",
     //   title: "Depth perception",
-    //   imagePath: "../../../public/assets/appGallery/depthPerception.png",
+    //   imagePath: "assets/appGallery/depthPerception.png",
     //   youtubeLink: "",
     //   relevantNodes: [],
     // },
     {
+      title: "Object Identification",
       description: "Estimate object depth with the YOLOv3 node",
-      title: "Object identification",
-      imagePath: "/assets/appGallery/objectIdentification.png",
+      imagePath: "assets/appGallery/objectIdentification.png",
       appPath: "objectDetection",
       relevantNodes: [
         {
@@ -112,17 +113,17 @@ const data: GalleryData = {
   ],
   IO: [
     {
-      description: "Read from any analog sensor",
       title: "Arduino",
-      imagePath: "/assets/appGallery/arduino.png",
+      description: "Read from any analog sensor",
+      imagePath: "assets/appGallery/arduino.png",
       appPath: "arduino",
       relevantNodes: [],
       cloudDemoEnabled: false,
     },
     {
-      description: "Record and log temperatures",
       title: "LabJack",
-      imagePath: "/assets/appGallery/labjack.png",
+      description: "Record and log temperatures",
+      imagePath: "assets/appGallery/labjack.png",
       appPath: "labjack",
       relevantNodes: [
         {
@@ -133,9 +134,9 @@ const data: GalleryData = {
       cloudDemoEnabled: false,
     },
     {
+      title: "USB Camera",
       description: "Capture real-time images",
-      title: "USB camera",
-      imagePath: "/assets/appGallery/usbCamera.png",
+      imagePath: "assets/appGallery/usbCamera.png",
       appPath: "webcam",
       relevantNodes: [
         {
@@ -146,9 +147,9 @@ const data: GalleryData = {
       cloudDemoEnabled: true,
     },
     {
+      title: "Stepper Motor",
       description: "Precisely position anything",
-      title: "Stepper motor",
-      imagePath: "/assets/appGallery/stepperMotor.png",
+      imagePath: "assets/appGallery/stepperMotor.png",
       appPath: "stepper",
       relevantNodes: [
         {
@@ -161,17 +162,17 @@ const data: GalleryData = {
   ],
   DSP: [
     {
+      title: "PID Controller",
       description: "Solve this non-linear dynamic system",
-      title: "PID controller",
-      imagePath: "/assets/appGallery/PID.png",
+      imagePath: "assets/appGallery/PID.png",
       appPath: "pid",
       relevantNodes: [],
       cloudDemoEnabled: true,
     },
     {
+      title: "FIR Filter",
       description: "Apply an FIR filter to an input signal",
-      title: "FIR filter",
-      imagePath: "/assets/appGallery/FIR.png",
+      imagePath: "assets/appGallery/FIR.png",
       appPath: "fir",
       relevantNodes: [
         {
@@ -184,20 +185,33 @@ const data: GalleryData = {
     // {
     //   description: "Solve the Schrödinger with different starting conditions",
     //   title: "Schrödinger equation",
-    //   imagePath: "../../../public/assets/appGallery/SchrodingerEqn.png",
+    //   imagePath: "../../../publicassets/appGallery/SchrodingerEqn.png",
     //   youtubeLink: "",
     //   relevantNodes: [
     //   ],
     // },
     {
-      description: "Apply a real-time FFT to an input signal",
       title: "FFT",
-      imagePath: "/assets/appGallery/FFT.png",
+      description: "Apply a real-time FFT to an input signal",
+      imagePath: "assets/appGallery/FFT.png",
       appPath: "fft",
       relevantNodes: [
         {
           name: "FFT",
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+    {
+      title: "IFFT",
+      description: "Transform a signal with the IFFT algorithm",
+      imagePath: "assets/appGallery/IFFT.png",
+      appPath: "ifft",
+      relevantNodes: [
+        {
+          name: "IFFT",
+          docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/IFFT/",
         },
       ],
       cloudDemoEnabled: true,

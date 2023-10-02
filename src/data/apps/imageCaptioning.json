@@ -17,7 +17,7 @@
               "default": null,
               "functionName": "LOCAL_FILE",
               "param": "file_path",
-              "value": "./PYTHON/nodes/AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/assets/President_Barack_Obama.jpg"
+              "value": "AI_ML/IMAGE_CAPTIONING/NLP_CONNECT_VIT_GPT2/assets/President_Barack_Obama.jpg"
             },
             "file_type": {
               "type": "select",

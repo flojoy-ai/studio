@@ -1,11 +1,7 @@
 import { projectAtom, useFlowChartState } from "@hooks/useFlowChartState";
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
-import {
-  RootNode,
-  validateRootSchema,
-  TreeNode,
-} from "@src/utils/ManifestLoader";
+import { TreeNode } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -31,13 +27,13 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT, Layout } from "../common/Layout";
+import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import { Separator } from "@src/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
 import { ClearCanvasBtn } from "./components/ClearCanvasBtn";
 import { Button } from "@src/components/ui/button";
@@ -48,15 +44,13 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { useAddTextNode } from "./hooks/useAddTextNode";
 import { WelcomeModal } from "./views/WelcomeModal";
 import { CommandMenu } from "../command/CommandMenu";
-import { baseClient } from "@src/lib/base-client";
-import { NodesMetadataMap } from "@src/types/nodes-metadata";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ZodError } from "zod";
+import { useManifest, useNodesMetadata } from "@src/hooks/useManifest";
 import ArithmeticNode from "@src/components/nodes/ArithmeticNode";
 import ConditionalNode from "@src/components/nodes/ConditionalNode";
 import DataNode from "@src/components/nodes/DataNode";
@@ -100,12 +94,10 @@ const FlowChartTab = () => {
   const [nodeModalOpen, setNodeModalOpen] = useState(false);
   const [project, setProject] = useAtom(projectAtom);
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
-  const [nodeSection, setNodeSection] = useState<RootNode | null>(null);
-  const [nodesMetadataMap, setNodesMetadataMap] =
-    useState<NodesMetadataMap | null>(null);
+
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
-  const { theme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode } =
     useFlowChartState();
@@ -126,6 +118,8 @@ const FlowChartTab = () => {
     selectedNode,
     unSelectedNodes,
   } = useFlowChartGraph();
+  const nodesMetadataMap = useNodesMetadata();
+  const manifest = useManifest();
 
   const getNodeFuncCount = useCallback(
     (func: string) => {
@@ -196,11 +190,8 @@ const FlowChartTab = () => {
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
-        if (nodeSection) {
-          const [sourceType, targetType] = getEdgeTypes(
-            nodeSection,
-            connection,
-          );
+        if (manifest) {
+          const [sourceType, targetType] = getEdgeTypes(manifest, connection);
           if (isCompatibleType(sourceType, targetType)) {
             return addEdge(connection, eds);
           }
@@ -210,7 +201,7 @@ const FlowChartTab = () => {
           });
         }
       }),
-    [setEdges, nodeSection],
+    [setEdges, manifest],
   );
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
@@ -235,57 +226,6 @@ const FlowChartTab = () => {
     sendEventToMix("Canvas cleared", "");
   }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 
-  const fetchManifest = useCallback(async () => {
-    try {
-      const res = await baseClient.get("nodes/manifest");
-      // TODO: fix zod schema to accept io directory structure
-      const validateResult = validateRootSchema(res.data);
-      if (!validateResult.success) {
-        toast.message(`Failed to validate nodes manifest!`, {
-          duration: 20000,
-          description: "Check browser console for more info.",
-        });
-        console.error(validateResult.error);
-      }
-      setNodeSection(res.data);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      const errTitle =
-        err instanceof ZodError
-          ? "Zod validation error"
-          : "Failed to generate nodes manifest!";
-
-      const errDescription =
-        err instanceof ZodError
-          ? `${err.message}`
-          : `${err.response?.data?.error}` ?? `${err}`;
-
-      toast.message(errTitle, {
-        description: errDescription,
-        duration: 60000,
-      });
-    }
-  }, []);
-
-  const fetchMetadata = useCallback(async () => {
-    try {
-      const res = await baseClient.get("nodes/metadata");
-      setNodesMetadataMap(res.data);
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      toast.message("Failed to generate nodes metadata", {
-        description: err.response?.data?.error,
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchManifest();
-    fetchMetadata();
-  }, [fetchManifest, fetchMetadata]);
-
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {
       return;
@@ -309,7 +249,7 @@ const FlowChartTab = () => {
   };
 
   return (
-    <Layout>
+    <>
       <ReactFlowProvider>
         <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
@@ -375,16 +315,14 @@ const FlowChartTab = () => {
           <Separator />
         </div>
 
-        {nodeSection && (
+        {manifest && (
           <Sidebar
-            sections={nodeSection}
+            sections={manifest}
             leafNodeClickHandler={addNewNode as LeafClickHandler}
             isSideBarOpen={isSidebarOpen}
             setSideBarStatus={setIsSidebarOpen}
           />
         )}
-
-        <Toaster theme={theme} />
 
         <WelcomeModal />
 
@@ -459,13 +397,13 @@ const FlowChartTab = () => {
         </div>
       </ReactFlowProvider>
       <CommandMenu
-        manifestRoot={nodeSection as TreeNode}
+        manifestRoot={manifest as TreeNode}
         open={isCommandMenuOpen}
         placeholder="Search for a node..."
         setOpen={setCommandMenuOpen}
         onItemSelect={onCommandMenuItemSelect}
       />
-    </Layout>
+    </>
   );
 };
 

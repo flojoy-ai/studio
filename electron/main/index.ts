@@ -15,6 +15,7 @@ import { saveNodePack } from "./node-pack-save";
 import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
+import { ChildProcess } from "node:child_process";
 
 // The built directory structure
 //
@@ -89,15 +90,20 @@ const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
 contextMenu({
   showSaveImageAs: true,
 });
+
 global.runningProcesses = [];
+
 let win: BrowserWindow | null = null;
+
 // Here, you can also use other preload
 const preload = join(
   __dirname,
   `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
 );
+
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
+
 app.setName("Flojoy Studio");
 
 async function createWindow() {
@@ -115,21 +121,6 @@ async function createWindow() {
 
   win.on("close", (e) => {
     if (!global.hasUnsavedChanges) {
-      return;
-    }
-    if (global.initializingBackend) {
-      const choice = dialog.showMessageBoxSync(win!, {
-        type: "warning",
-        buttons: ["Yes", "No, go back"],
-        title: "Quit?",
-        message:
-          "Backend initialization is underway. Are you sure you want to quit?",
-      });
-      if (choice > 0) {
-        e.preventDefault();
-      } else {
-        global.initializingBackend = false;
-      }
       return;
     }
     const choice = dialog.showMessageBoxSync(win!, {
@@ -153,21 +144,12 @@ async function createWindow() {
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
     await saveNodePack({ win, icon: getIcon(), startup: true });
-    global.initializingBackend = true;
-    runBackend(WORKING_DIR, win)
-      .then(({ success, script }) => {
-        if (success) {
-          global.initializingBackend = false;
-          if (script) {
-            global.runningProcesses.push(script);
-          }
-        }
+    runBackend(WORKING_DIR, win).then(({ success }) => {
+      if (success) {
         // reload studio html to fetch fresh manifest file
         win?.reload();
-      })
-      .catch(() => {
-        global.initializingBackend = false;
-      });
+      }
+    });
   } else {
     // electron-vite-vue#298
     win.loadURL(url ?? "");
@@ -208,13 +190,18 @@ app.whenReady().then(() => {
 app.on("window-all-closed", async () => {
   mainLogger.log("window-all-closed fired!");
   await cleanup();
-  win = null;
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    app.exit(0);
+  }
 });
 
-app.on("quit", () => {
-  cleanup();
+app.on("before-quit", async (e) => {
+  e.preventDefault();
+  mainLogger.log("before-quit fired!");
+  await cleanup();
+  app.exit(0);
 });
+
 app.on("second-instance", () => {
   if (win) {
     // Focus on the main window if the user tried to open another
@@ -257,6 +244,9 @@ const cleanup = async () => {
       try {
         mainLogger.log("Killing script: ", script.pid);
         await killSubProcess(script);
+        global.runningProcesses = global.runningProcesses.filter(
+          (s: ChildProcess) => s.pid !== script.pid,
+        );
         mainLogger.log("kill success!");
       } catch (error) {
         mainLogger.log(

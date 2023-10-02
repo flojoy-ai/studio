@@ -33,6 +33,7 @@ export const runBackend = (
 }> => {
   const backendCommand = getBackendCommand(workingDir);
   return new Promise((resolve) => {
+    global.initializingBackend = true;
     const title = "Initializing backend...";
     const description =
       "Initialization can take up to few minutes for first time, please be patient!";
@@ -55,6 +56,7 @@ export const runBackend = (
           open: false,
           output: "backend initialized successfully!",
         });
+        global.initializingBackend = false;
         resolve({ success: true, script });
       })
       .catch((err) => {
@@ -63,7 +65,12 @@ export const runBackend = (
             open: true,
             output: `${err.lastOutput} \n\n Error: Failed to initialize backend, please try relaunching the app!`,
           });
-          dialog.showErrorBox("Failed to initialize backend!", err.lastOutput);
+          dialog.showErrorBox(
+            "Failed to initialize backend!",
+            "Something went wrong while initializing backend!\n Restarting the app might resolve the issue",
+          );
+          global.initializingBackend = false;
+
           resolve({ success: false, script: undefined });
         }
       });
