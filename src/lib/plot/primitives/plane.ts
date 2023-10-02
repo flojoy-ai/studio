@@ -1,12 +1,17 @@
-import REGL from "regl";
-import { Drawable } from ".";
+import { DrawCommand, Regl, Vec3, Vec4 } from "regl";
+import { Drawable } from "../types";
+
+type Props = {
+  vertices: Vec3[];
+  color: Vec4;
+};
 
 type Uniforms = {
-  color: REGL.Vec4;
+  color: Vec4;
 };
 
 type Attributes = {
-  position: REGL.Vec3[];
+  position: Vec3[];
 };
 
 type OrthogonalPlaneOptions = {
@@ -15,15 +20,19 @@ type OrthogonalPlaneOptions = {
 };
 
 export class OrthogonalPlane implements Drawable {
-  private vertices: REGL.Vec3[];
-  private vertexCount: number;
-  public draw: REGL.DrawCommand;
+  private readonly drawCommand: DrawCommand;
+  private readonly vertices: Vec3[];
+  public color: Vec4;
 
-  constructor(regl: REGL.Regl, options: OrthogonalPlaneOptions) {
+  constructor(
+    regl: Regl,
+    options: OrthogonalPlaneOptions,
+    props: Partial<Omit<Props, "vertices">>,
+  ) {
     this.vertices = this.createVertices(options);
-    this.vertexCount = this.vertices.length;
+    this.color = props.color ?? [0.5, 0.5, 0.5, 1];
 
-    this.draw = regl<Uniforms, Attributes>({
+    this.drawCommand = regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -46,21 +55,24 @@ export class OrthogonalPlane implements Drawable {
         }
       `,
       attributes: {
-        position: regl.this("vertices"),
+        position: regl.prop<Props, keyof Props>("vertices"),
       },
       uniforms: {
-        color: [0.5, 0.5, 0.5, 1],
+        color: regl.prop<Props, keyof Props>("color"),
       },
-      count: regl.this("vertexCount"),
+      count: this.vertices.length,
       primitive: "lines",
     });
   }
 
-  public render() {
-    this.draw();
+  public draw() {
+    this.drawCommand({
+      vertices: this.vertices,
+      color: this.color,
+    });
   }
 
-  private createVertices(options: OrthogonalPlaneOptions): REGL.Vec3[] {
+  private createVertices(options: OrthogonalPlaneOptions): Vec3[] {
     const vertices = this.createXZPlaneVertices(options);
     switch (options.orientation) {
       case "xz":
@@ -74,8 +86,8 @@ export class OrthogonalPlane implements Drawable {
 
   private createXZPlaneVertices({
     gridSize: size,
-  }: OrthogonalPlaneOptions): REGL.Vec3[] {
-    const vertices: REGL.Vec3[] = [];
+  }: OrthogonalPlaneOptions): Vec3[] {
+    const vertices: Vec3[] = [];
 
     for (let i = 0; i < size; i++) {
       vertices.push([i, 0, 0]);
@@ -90,4 +102,3 @@ export class OrthogonalPlane implements Drawable {
     return vertices;
   }
 }
-

@@ -1,9 +1,9 @@
-import REGL from "regl";
-import { Drawable } from ".";
+import { Vec3, Regl, DrawCommand } from "regl";
+import { Drawable } from "../types";
 
 type Props = {
-  points: REGL.Vec3[];
-  pointCount: number;
+  points: Vec3[];
+  count: number;
 };
 
 type Uniforms = {
@@ -11,7 +11,7 @@ type Uniforms = {
 };
 
 type Attributes = {
-  position: REGL.Vec3[];
+  position: Vec3[];
 };
 
 type PointsOptions = {
@@ -19,12 +19,12 @@ type PointsOptions = {
 };
 
 export class Points implements Drawable {
+  private readonly drawCommand: DrawCommand;
   private props: Props;
-  public draw: REGL.DrawCommand;
 
-  constructor(regl: REGL.Regl, options: PointsOptions, initialProps: Props) {
+  constructor(regl: Regl, options: PointsOptions, initialProps: Props) {
     this.props = initialProps;
-    this.draw = regl<Uniforms, Attributes>({
+    this.drawCommand = regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -63,7 +63,7 @@ export class Points implements Drawable {
         size: options.pointSize,
       },
 
-      count: regl.prop<Props, keyof Props>("pointCount"),
+      count: regl.prop<Props, keyof Props>("count"),
       primitive: "points",
     });
   }
@@ -72,8 +72,7 @@ export class Points implements Drawable {
     this.props = props;
   }
 
-  public render() {
-    console.log(this.props);
-    this.draw(this.props);
+  public draw() {
+    this.drawCommand(this.props);
   }
 }

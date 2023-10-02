@@ -1,14 +1,14 @@
 import mouseChange from "mouse-change";
 import mouseWheel from "mouse-wheel";
 import { mat4 } from "gl-matrix";
-import REGL from "regl";
+import { Vec3, Regl, DefaultContext } from "regl";
 
 type Props = {
-  center: REGL.Vec3;
+  center: Vec3;
   theta: number;
   phi: number;
   distance: number;
-  up: REGL.Vec3;
+  up: Vec3;
   minDistance: number;
   maxDistance: number;
 };
@@ -20,7 +20,7 @@ type Mods = {
   meta: boolean;
 };
 
-export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
+export default function createCamera(regl: Regl, props: Partial<Props>) {
   const cameraState = {
     view: mat4.identity(new Float32Array(16)),
     projection: mat4.identity(new Float32Array(16)),
@@ -61,10 +61,6 @@ export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
   mouseWheel((dx: number, dy: number) => {
     ddistance += dy / window.innerHeight / 5;
   });
-
-  function clamp(x: number, lo: number, hi: number) {
-    return Math.min(Math.max(x, lo), hi);
-  }
 
   function updateCamera() {
     const center = cameraState.center;
@@ -115,7 +111,7 @@ export default function createCamera(regl: REGL.Regl, props: Partial<Props>) {
       },
     }),
     uniforms: Object.keys(cameraState).reduce((uniforms, name) => {
-      uniforms[name] = regl.context(name as keyof REGL.DefaultContext);
+      uniforms[name] = regl.context(name as keyof DefaultContext);
       return uniforms;
     }, {}),
   });

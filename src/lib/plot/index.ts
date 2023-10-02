@@ -1,13 +1,7 @@
 import REGL from "regl";
 import createCamera from "./camera";
-import { Triangle } from "./triangle";
-import { Sphere } from "./sphere";
-import { Points } from "./points";
-import { OrthogonalPlane } from "./plane";
-
-export interface Drawable {
-  render: () => void;
-}
+import { Sphere, Points, OrthogonalPlane } from "./primitives";
+import { Drawable } from "./types";
 
 type CameraOptions = {
   center: REGL.Vec3;
@@ -41,7 +35,7 @@ export class Plot {
 
   public draw() {
     this.objects.forEach((c) => {
-      c.render();
+      c.draw();
     });
   }
 
