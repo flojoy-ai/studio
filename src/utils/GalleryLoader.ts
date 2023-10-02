@@ -3,7 +3,7 @@ import { GalleryData } from "@src/types/gallery";
 const data: GalleryData = {
   Fundamentals: [
     {
-      title: "Intro to LOOPS",
+      title: "Intro to Loops",
       description: "Generate a random number once",
       imagePath: "assets/appGallery/introToLoops.png",
       appPath: "loop",
@@ -16,15 +16,15 @@ const data: GalleryData = {
       cloudDemoEnabled: true,
     },
     {
-      title: "Intro to signals",
-      description: "Generate waveforms of different shapes",
+      title: "Butterworth Filter",
+      description: "Apply a butterworth filter to an input signal",
       imagePath: "assets/appGallery/introToSignals.png",
-      appPath: "oscilator",
+      appPath: "butterworth",
       relevantNodes: [],
       cloudDemoEnabled: true,
     },
     {
-      title: "Intro to images",
+      title: "Intro to Images",
       description: "Apply a butterworth filter on a sample image",
       imagePath: "assets/appGallery/introToImages.png",
       appPath: "images",
@@ -52,7 +52,7 @@ const data: GalleryData = {
   ],
   AI: [
     {
-      title: "Image captioning",
+      title: "Image Captioning",
       description: "Caption any image with this PyTorch ML model",
       imagePath: "assets/appGallery/imageCaptioning.png",
       appPath: "imageCaptioning",
@@ -78,8 +78,8 @@ const data: GalleryData = {
       cloudDemoEnabled: true,
     },
     {
+      title: "Time Series Forecasting",
       description: "Predict future events with the Prophet node",
-      title: "Time series forecasting",
       imagePath: "assets/appGallery/timeSeries.png",
       appPath: "prophet",
       relevantNodes: [
@@ -98,8 +98,8 @@ const data: GalleryData = {
     //   relevantNodes: [],
     // },
     {
+      title: "Object Identification",
       description: "Estimate object depth with the YOLOv3 node",
-      title: "Object identification",
       imagePath: "assets/appGallery/objectIdentification.png",
       appPath: "objectDetection",
       relevantNodes: [
@@ -113,16 +113,16 @@ const data: GalleryData = {
   ],
   IO: [
     {
-      description: "Read from any analog sensor",
       title: "Arduino",
+      description: "Read from any analog sensor",
       imagePath: "assets/appGallery/arduino.png",
       appPath: "arduino",
       relevantNodes: [],
       cloudDemoEnabled: false,
     },
     {
-      description: "Record and log temperatures",
       title: "LabJack",
+      description: "Record and log temperatures",
       imagePath: "assets/appGallery/labjack.png",
       appPath: "labjack",
       relevantNodes: [
@@ -134,8 +134,8 @@ const data: GalleryData = {
       cloudDemoEnabled: false,
     },
     {
+      title: "USB Camera",
       description: "Capture real-time images",
-      title: "USB camera",
       imagePath: "assets/appGallery/usbCamera.png",
       appPath: "webcam",
       relevantNodes: [
@@ -147,8 +147,8 @@ const data: GalleryData = {
       cloudDemoEnabled: true,
     },
     {
+      title: "Stepper Motor",
       description: "Precisely position anything",
-      title: "Stepper motor",
       imagePath: "assets/appGallery/stepperMotor.png",
       appPath: "stepper",
       relevantNodes: [
@@ -162,16 +162,16 @@ const data: GalleryData = {
   ],
   DSP: [
     {
+      title: "PID Controller",
       description: "Solve this non-linear dynamic system",
-      title: "PID controller",
       imagePath: "assets/appGallery/PID.png",
       appPath: "pid",
       relevantNodes: [],
       cloudDemoEnabled: true,
     },
     {
+      title: "FIR Filter",
       description: "Apply an FIR filter to an input signal",
-      title: "FIR filter",
       imagePath: "assets/appGallery/FIR.png",
       appPath: "fir",
       relevantNodes: [
@@ -191,8 +191,8 @@ const data: GalleryData = {
     //   ],
     // },
     {
-      description: "Apply a real-time FFT to an input signal",
       title: "FFT",
+      description: "Apply a real-time FFT to an input signal",
       imagePath: "assets/appGallery/FFT.png",
       appPath: "fft",
       relevantNodes: [

@@ -10,7 +10,6 @@ export { default as images } from "./images.json";
 export { default as labjack } from "./labjack.json";
 export { default as loop } from "./loop.json";
 export { default as objectDetection } from "./objectDetection.json";
-export { default as oscilator } from "./oscilator.json";
 export { default as pid } from "./pid.json";
 export { default as prophet } from "./prophet.json";
 export { default as stepper } from "./stepper.json";
