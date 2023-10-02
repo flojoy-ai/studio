@@ -43,8 +43,8 @@ const data: GalleryData = {
       appPath: "cloud",
       relevantNodes: [
         {
-          name: "FLOJOY_CLOUD_UPLOAD", // TODO: Update this URL
-          docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/LOADER/",
+          name: "FLOJOY_CLOUD_UPLOAD",
+          docs: "https://docs.flojoy.ai/nodes/LOADERS/CLOUD_DATABASE/FLOJOY_CLOUD_UPLOAD/",
         },
       ],
       cloudDemoEnabled: false,
@@ -199,6 +199,19 @@ const data: GalleryData = {
         {
           name: "FFT",
           docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/FFT/",
+        },
+      ],
+      cloudDemoEnabled: true,
+    },
+    {
+      title: "IFFT",
+      description: "Transform a signal with the IFFT algorithm",
+      imagePath: "assets/appGallery/IFFT.png",
+      appPath: "ifft",
+      relevantNodes: [
+        {
+          name: "IFFT",
+          docs: "https://docs.flojoy.ai/nodes/TRANSFORMERS/SIGNAL_PROCESSING/IFFT/",
         },
       ],
       cloudDemoEnabled: true,
