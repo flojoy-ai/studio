@@ -18,7 +18,7 @@ const Logs = ({ logs }: { logs: string[] }) => {
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-36px)] transition-transform duration-700 ease-linear",
+        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-36px)] transition-transform duration-700 ease-in-out",
         { "translate-y-0": !minimize },
       )}
     >
@@ -29,7 +29,7 @@ const Logs = ({ logs }: { logs: string[] }) => {
         <div className="sticky right-0 top-0 z-50 flex h-9 w-full justify-end">
           <Button
             variant={"ghost"}
-            className="w-28 rounded-none bg-slate-300"
+            className="w-28 rounded-none bg-slate-200 dark:bg-accent border-2 border-accent "
             onClick={() => setMinimize((p) => !p)}
           >
             {minimize ? <ChevronsUp size={20} /> : <ChevronsDown size={20} />}
@@ -38,7 +38,7 @@ const Logs = ({ logs }: { logs: string[] }) => {
         </div>
         <div
           className={cn(
-            "bg-background p-7 pt-2 transition-all duration-1000 ease-linear ",
+            "bg-background p-7 pt-2 transition-all duration-1000 ease-in-out ",
             {
               hidden: minimize,
             },
