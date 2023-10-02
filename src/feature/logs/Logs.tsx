@@ -23,7 +23,7 @@ const Logs = ({ logs }: { logs: string[] }) => {
       )}
     >
       <div
-        className={cn("relative overflow-y-scroll")}
+        className={cn("relative", {"overflow-y-scroll":!minimize})}
         style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       >
         <div className="sticky right-0 top-0 z-50 flex h-9 w-full justify-end">
