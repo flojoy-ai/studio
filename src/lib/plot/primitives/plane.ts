@@ -1,5 +1,6 @@
-import { DrawCommand, Regl, Vec3, Vec4 } from "regl";
+import { DrawCommand, Vec3, Vec4 } from "regl";
 import { Drawable } from "../types";
+import { Plot } from "../plot";
 
 type Props = {
   vertices: Vec3[];
@@ -15,8 +16,8 @@ type Attributes = {
 };
 
 type OrthogonalPlaneOptions = {
-  gridSize: number;
   orientation: "xz" | "xy" | "yz";
+  gridSize?: number;
 };
 
 export class OrthogonalPlane implements Drawable {
@@ -25,14 +26,14 @@ export class OrthogonalPlane implements Drawable {
   public color: Vec4;
 
   constructor(
-    regl: Regl,
+    plot: Plot,
     options: OrthogonalPlaneOptions,
-    props: Partial<Omit<Props, "vertices">>,
+    props?: Partial<Omit<Props, "vertices">>,
   ) {
     this.vertices = this.createVertices(options);
-    this.color = props.color ?? [0.5, 0.5, 0.5, 1];
+    this.color = props?.color ?? [0.5, 0.5, 0.5, 1];
 
-    this.drawCommand = regl<Uniforms, Attributes>({
+    this.drawCommand = plot.regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
 
@@ -55,10 +56,10 @@ export class OrthogonalPlane implements Drawable {
         }
       `,
       attributes: {
-        position: regl.prop<Props, keyof Props>("vertices"),
+        position: plot.regl.prop<Props, keyof Props>("vertices"),
       },
       uniforms: {
-        color: regl.prop<Props, keyof Props>("color"),
+        color: plot.regl.prop<Props, keyof Props>("color"),
       },
       count: this.vertices.length,
       primitive: "lines",
@@ -85,7 +86,7 @@ export class OrthogonalPlane implements Drawable {
   }
 
   private createXZPlaneVertices({
-    gridSize: size,
+    gridSize: size = 10,
   }: OrthogonalPlaneOptions): Vec3[] {
     const vertices: Vec3[] = [];
 

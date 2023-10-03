@@ -43,7 +43,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
     if (points.current && nodeResult?.result?.data) {
       const pts = zip(nodeResult.result.data as OrderedTripleData);
 
-      points.current.setProps({ points: pts, pointCount: pts.length });
+      points.current.setProps({ points: pts, count: pts.length });
     }
   }, [nodeResult?.result.data]);
 
@@ -73,7 +73,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
       },
       {
         points: pointsData.current,
-        pointCount: pointsData.current.length,
+        count: pointsData.current.length,
       },
     );
 

@@ -1,45 +1,21 @@
-import { Plot, Points } from "@src/lib/plot";
-import { OrthogonalPlane } from "@src/lib/plot/plane";
-import { useRef } from "react";
-import REGL from "regl";
+import { useEffect, useRef } from "react";
+import { Vec3 } from "regl";
+import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
 
-const data: REGL.Vec3[] = Array(1000)
+const data: Vec3[] = Array(1000)
   .fill(undefined)
-  .map(() => [
-    Math.random() * 5 - 2.5,
-    Math.random() * 5 - 2.5,
-    Math.random() * 5 - 2.5,
-  ]);
+  .map(() => [Math.random() * 5, Math.random() * 5, Math.random() * 5]);
 
 export const PlotTest = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
-  const plot = useRef<Plot | null>(null);
+  const scatter = useRef<ScatterPlot3D | null>(null);
 
-  if (canvas.current && !plot.current) {
-    const plt = new Plot({
-      ref: canvas.current,
-      cameraOptions: {
-        center: [0, 0, 0],
-      },
-    });
-    plot.current = plt;
-
-    plt.addObject(
-      new Points(plt, data, {
-        pointSize: 3,
-      }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "xy", gridSize: 10 }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "xz", gridSize: 10 }),
-    );
-    plt.addObject(
-      new OrthogonalPlane(plt, { orientation: "yz", gridSize: 10 }),
-    );
-    plt.frame();
-  }
+  useEffect(() => {
+    if (canvas.current) {
+      scatter.current = new ScatterPlot3D(canvas.current, data);
+      scatter.current.frame();
+    }
+  }, [canvas.current]);
 
   return (
     <div>
