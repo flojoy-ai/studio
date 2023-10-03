@@ -1,0 +1,41 @@
+name: Test flojoy_node_env
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "flojoy/flojoy_node_venv.py"
+      - "tests/flojoy_node_venv_test_.py"
+  
+  pull_request:
+    paths:
+      - "flojoy/flojoy_node_venv.py"
+      - "tests/flojoy_node_venv_test_.py"
+    
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    strategy:
+      matrix:
+        os: [ubuntu, macos, windows]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - name: Install pip dependencies
+        run: |
+          pip install ruff pytest
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run python tests
+        run: |
+          python -m pytest -vv -s tests/flojoy_node_venv_test_.py --runslow  

@@ -1,0 +1,41 @@
+[tool.poetry]
+authors = [
+  "Jack Palmer <jp@flojoy.io>",
+  "Joey Yu <joey@flojoy.io>",
+  "Jeff Zhang <jeff@flojoy.io>",
+  "Syed Mahbub <smahmed776@gmail.com>",
+  "Dallas Strandell <dalstrande@outlook.com>",
+]
+name = "flojoy"
+version = "0.1.15"
+description = ""
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.10"
+pandas = "^2.0.0"
+numpy = "^1.24.0"
+plotly = "^5.12.0"
+pillow = "^10.0.0"
+python-dotenv = "^1.0.0"
+pyyaml = "^6.0"
+requests = "^2.29.0"
+keyring = "^24.2.0"
+python-box = "^7.0.0"
+pydantic = "^2.0"
+huggingface-hub = "^0.16.0"
+cloudpickle = "^2.2.1"
+networkx = "^3.0"
+scipy = "^1.10.0"
+matplotlib = "^3.6.0"
+portalocker = "^2.7.0"
+qcodes = "^0.39.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
