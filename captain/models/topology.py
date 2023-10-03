@@ -36,7 +36,7 @@ class Topology:
         self.queued_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
         self.cancelled = False
-        self.time_start = 0
+        self.time_start = 0.0
         self.finished = False
         self.loop_nodes = (
             list()
@@ -212,8 +212,8 @@ class Topology:
         ):
             if not self.loop_nodes:
                 self.finished = True
-                logger.debug(
-                    f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
+                logger.info(
+                    f"FLOWCHART TOOK {time.perf_counter() - self.time_start} SECONDS TO COMPLETE"
                 )
                 self.cancel()
                 return
