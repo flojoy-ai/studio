@@ -18,7 +18,7 @@ def get_nodes_path():
     return nodes_path
 
 def get_nodes_mc_path():
-    nodes_mc_path = "PYTHON/nodes-mc"
+    nodes_mc_path = "PYTHON/nodes_mc"
      # This env is set from scripts/backend.(ps1/sh) file
 
      # TODO handle logic for packaged mode, refer to Syed

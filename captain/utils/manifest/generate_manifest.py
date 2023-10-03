@@ -62,7 +62,7 @@ ORDERING = [
 # NODE REPOSITORIES
 NODE_REPOS = {
     "nodes",
-    "nodes-mc",
+    "nodes_mc",
 }
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):

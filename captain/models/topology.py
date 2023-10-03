@@ -95,7 +95,7 @@ class Topology:
             self.run_job(job_id, task_queue)
 
     # TODO move this to utils, makes more sense there
-    def pre_import_functions(self):
+    def pre_import_functions(self, mc_mode = False):
         functions = {}
         errors = {}
         for node_id in cast(list[str], self.original_graph.nodes):
@@ -103,7 +103,7 @@ class Topology:
             node = cast(dict[str, Any], self.original_graph.nodes[node_id])
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
-            module = get_module_func(cmd)
+            module = get_module_func(cmd, mc_mode=mc_mode)
             func_name = cmd_mock if self.is_ci else cmd
             try:
                 func = getattr(module, func_name)

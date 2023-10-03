@@ -9,7 +9,7 @@ def create_light_topology(
     topology_dict: dict[str, Any], jobset_id: str, node_delay: float, max_runtime: float
 ):
     graph = flowchart_to_nx_graph(topology_dict)
-    node_id_to_func = get_node_id_to_func(graph)
+    node_id_to_func = get_node_id_to_func(graph, mc_mode=True)
     graph = flowchart_to_graph(
         topology_dict
     )  # use light DiGraph class instead of networkx
@@ -41,10 +41,10 @@ def extract_pip_packages(nodes: list):
     return packages
 
 
-def get_node_id_to_func(graph):
+def get_node_id_to_func(graph, mc_mode : bool = False):
     """
     TODO: Currently, create topology object and get node_id_to_func from there.
     This is not ideal, very hacky.
     """
     topology = Topology(graph, "")
-    return topology.pre_import_functions()
+    return topology.pre_import_functions(mc_mode)

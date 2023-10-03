@@ -262,7 +262,7 @@ class FlojoyScriptBuilder:
             node = cast(dict[str, Any], graph_nodes[node_id])
             cmd: str = node["cmd"]
             cmd_mock: str = node["cmd"] + "_MOCK"
-            func_module = get_module_func(cmd)
+            func_module = get_module_func(cmd, mc_mode=True)
             node_id_to_func[node_id] = getattr(func_module, cmd).__name__
             node_id_to_params[node_id] = set(
                 inspect.signature(getattr(func_module, cmd)).parameters.keys()
@@ -280,7 +280,7 @@ class FlojoyScriptBuilder:
             # ---------------------------------------
 
             # -- copy module directory to output directory --
-            module_path = get_module_path(cmd)
+            module_path = get_module_path(cmd, mc_mode=True)
             module_path = module_path.replace(".", os.path.sep) + ".py"
             copy_file_to_output_dir(module_path)
             imported.add(module_path)
