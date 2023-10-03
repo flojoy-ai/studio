@@ -36,9 +36,6 @@ export class Camera {
   private dphi = 0;
   private ddistance = 0;
 
-  private prevX = 0;
-  private prevY = 0;
-
   private injectContext: DrawCommand;
 
   constructor(plot: Plot, options: Partial<CameraOptions>) {
