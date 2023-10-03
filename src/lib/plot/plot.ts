@@ -6,6 +6,10 @@ type CameraOptions = {
   center: Vec3;
 };
 
+type PlotOptions = {
+  backgroundColor?: Vec4;
+};
+
 export class Plot {
   public readonly regl: Regl;
   public readonly canvas: HTMLCanvasElement;
@@ -14,10 +18,10 @@ export class Plot {
 
   private objects: Drawable[] = [];
 
-  constructor(canvas: HTMLCanvasElement, backgroundColor?: Vec4) {
+  constructor(canvas: HTMLCanvasElement, options: PlotOptions) {
     this.regl = REGL(canvas);
     this.canvas = canvas;
-    this.backgroundColor = backgroundColor ?? [0.2, 0.2, 0.2, 1];
+    this.backgroundColor = options.backgroundColor ?? [0.2, 0.2, 0.2, 1];
     this.camera = undefined;
     this.objects = [];
   }

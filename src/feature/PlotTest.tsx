@@ -4,7 +4,7 @@ import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
 
 const data: Vec3[] = Array(1000)
   .fill(undefined)
-  .map(() => [Math.random() * 5, Math.random() * 5, Math.random() * 5]);
+  .map(() => [Math.random() * 10, Math.random() * 10, Math.random() * 10]);
 
 export const PlotTest = () => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
@@ -12,14 +12,31 @@ export const PlotTest = () => {
 
   useEffect(() => {
     if (canvas.current) {
-      scatter.current = new ScatterPlot3D(canvas.current, data);
+      scatter.current = new ScatterPlot3D(canvas.current, data, {
+        axes: {
+          x: {
+            domain: [-10, 10],
+            step: 0.5,
+          },
+          y: {
+            domain: [-10, 10],
+            step: 0.5,
+          },
+          z: {
+            domain: [-10, 10],
+            step: 0.5,
+          },
+        },
+      });
       scatter.current.frame();
     }
-  }, [canvas.current]);
+  }, []);
 
   return (
     <div>
-      <canvas ref={canvas} id="test-canvas" width={800} height={800} />
+      <div className="mt-8 flex gap-2">
+        <canvas ref={canvas} width={800} height={800} />
+      </div>
     </div>
   );
 };

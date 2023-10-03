@@ -1,4 +1,4 @@
-import { mat4 } from "gl-matrix";
+import { mat4, vec3 } from "gl-matrix";
 import { Vec3, DefaultContext, DrawCommand } from "regl";
 import { clamp } from "./utils";
 import { Plot } from ".";
@@ -26,11 +26,12 @@ type CameraState = {
 
 export class Camera {
   private readonly plot: Plot;
-  private state: CameraState;
   private readonly right = new Float32Array([1, 0, 0]);
   private readonly front = new Float32Array([0, 0, 1]);
   private readonly minDistance: number;
   private readonly maxDistance: number;
+
+  private state: CameraState;
 
   private dtheta = 0;
   private dphi = 0;
@@ -77,13 +78,39 @@ export class Camera {
 
     const onMouseMove = (ev: MouseEvent) => {
       const leftButtonPressed = ev.buttons & 1;
-      if (leftButtonPressed && ev.ctrlKey) {
+      if (leftButtonPressed) {
         const dx = ev.movementX / window.innerWidth;
         const dy = ev.movementY / window.innerHeight;
-        const w = Math.max(this.state.distance, 0.5);
+        if (ev.ctrlKey) {
+          const w = Math.max(this.state.distance, 0.5);
 
-        this.dtheta += w * dx;
-        this.dphi += w * dy;
+          this.dtheta += w * dx;
+          this.dphi += w * dy;
+        } else {
+          // orthogonalize the vectors
+          // TODO: fix this it doesn't work
+          const [a, b, c] = this.state.eye;
+          const v1 = vec3.normalize(
+            vec3.create(),
+            new Float32Array([-b, a, 0]),
+          );
+          const v2 = vec3.normalize(
+            vec3.create(),
+            new Float32Array([-c, 0, a]),
+          );
+
+          const projv2v1 = vec3.scale(vec3.create(), v2, vec3.dot(v2, v1));
+          vec3.sub(v2, v2, projv2v1);
+
+          vec3.scale(v1, v1, dy * 10);
+          vec3.scale(v2, v2, dx * 10);
+
+          vec3.add(
+            this.state.center,
+            this.state.center,
+            vec3.add(vec3.create(), v1, v2),
+          );
+        }
       }
     };
 

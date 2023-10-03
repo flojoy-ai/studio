@@ -1,5 +1,5 @@
 import { DrawCommand, Vec3, Vec4 } from "regl";
-import { Drawable } from "../types";
+import { Axis, Drawable } from "../types";
 import { Plot } from "../plot";
 
 type Props = {
@@ -17,7 +17,7 @@ type Attributes = {
 
 type OrthogonalPlaneOptions = {
   orientation: "xz" | "xy" | "yz";
-  gridSize?: number;
+  axes: [Axis, Axis];
 };
 
 export class OrthogonalPlane implements Drawable {
@@ -85,19 +85,23 @@ export class OrthogonalPlane implements Drawable {
     }
   }
 
-  private createXZPlaneVertices({
-    gridSize: size = 10,
-  }: OrthogonalPlaneOptions): Vec3[] {
+  private createXZPlaneVertices(options: OrthogonalPlaneOptions): Vec3[] {
+    const [a, b] = options.axes;
+    const { domain: aDomain, step: aStep } = a;
+    const { domain: bDomain, step: bStep } = b;
+    const [a1, a2] = aDomain;
+    const [b1, b2] = bDomain;
+
     const vertices: Vec3[] = [];
 
-    for (let i = 0; i < size; i++) {
-      vertices.push([i, 0, 0]);
-      vertices.push([i, 0, size]);
+    for (let i = a1; i <= a2; i += aStep) {
+      vertices.push([i, 0, b1]);
+      vertices.push([i, 0, b2]);
     }
 
-    for (let i = 0; i < size; i++) {
-      vertices.push([0, 0, i]);
-      vertices.push([size, 0, i]);
+    for (let i = b1; i <= b2; i += bStep) {
+      vertices.push([a1, 0, i]);
+      vertices.push([a2, 0, i]);
     }
 
     return vertices;
