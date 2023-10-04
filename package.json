@@ -69,7 +69,7 @@
     "upath": "^2.0.1",
     "use-file-picker": "^1.7.0",
     "uuid": "^9.0.1",
-    "zod": "^3.22.2",
+    "zod": "^3.22.3",
     "zod-validation-error": "^1.5.0"
   },
   "scripts": {
