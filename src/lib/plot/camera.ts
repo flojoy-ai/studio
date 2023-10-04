@@ -39,22 +39,22 @@ export class Camera {
 
   private injectContext: DrawCommand;
 
-  constructor(plot: Plot, options: Partial<CameraOptions>) {
+  constructor(plot: Plot, options?: CameraOptions) {
     this.state = {
       view: mat4.identity(new Float32Array(16)),
       projection: mat4.identity(new Float32Array(16)),
-      center: options.center
-        ? new Float32Array(options.center)
+      center: options?.center
+        ? new Float32Array(options?.center)
         : new Float32Array(3),
-      theta: options.theta ?? 0,
-      phi: options.phi ?? 0,
-      distance: Math.log(options.distance ?? 10.0),
+      theta: options?.theta ?? 0,
+      phi: options?.phi ?? 0,
+      distance: Math.log(options?.distance ?? 10.0),
       eye: new Float32Array(3),
-      up: new Float32Array(options.up ?? [0, 1, 0]),
+      up: new Float32Array(options?.up ?? [0, 1, 0]),
     };
 
-    this.minDistance = Math.log(options.minDistance ?? 0.1);
-    this.maxDistance = Math.log(options.maxDistance ?? 1000);
+    this.minDistance = Math.log(options?.minDistance ?? 0.1);
+    this.maxDistance = Math.log(options?.maxDistance ?? 1000);
 
     this.plot = plot;
 
@@ -79,6 +79,8 @@ export class Camera {
     const onMouseMove = (ev: MouseEvent) => {
       const leftButtonPressed = ev.buttons & 1;
       if (leftButtonPressed) {
+        ev.preventDefault();
+        ev.stopPropagation();
         const dx = ev.movementX / window.innerWidth;
         const dy = ev.movementY / window.innerHeight;
         if (ev.ctrlKey) {
@@ -91,6 +93,7 @@ export class Camera {
 
     const onMouseWheel = (ev: WheelEvent) => {
       ev.preventDefault();
+      ev.stopPropagation();
       this.ddistance += ev.deltaY / window.innerHeight / 5;
     };
 

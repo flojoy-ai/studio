@@ -14,7 +14,6 @@ import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 import PythonManagerTabView from "./feature/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./feature/common/Layout";
 import LoadingPage from "./feature/loading/LoadingPage";
-import { PlotTest } from "./feature/PlotTest";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -58,11 +57,6 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route
               path="/flowchart"
-              element={<PlotTest />}
-              errorElement={<ErrorBoundary />}
-            />
-            <Route
-              path="/"
               element={<FlowChartTab />}
               errorElement={<ErrorBoundary />}
             />

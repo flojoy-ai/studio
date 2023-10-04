@@ -1,14 +1,16 @@
-import { Vec3, DrawCommand } from "regl";
+import { Vec3, DrawCommand, Vec4 } from "regl";
 import { Drawable } from "../types";
 import { Plot } from "../plot";
 
 type Props = {
   points: Vec3[];
   count: number;
+  color?: Vec4;
 };
 
 type Uniforms = {
   size: number;
+  color: Vec4;
 };
 
 type Attributes = {
@@ -21,22 +23,29 @@ type PointsOptions = {
 
 export class Points implements Drawable {
   private readonly drawCommand: DrawCommand;
-  private props: Props;
+  private points: Vec3[];
+  private count: number;
+  private color?: Vec4;
 
-  constructor(plot: Plot, options: PointsOptions, initialProps: Props) {
-    this.props = initialProps;
+  constructor(
+    plot: Plot,
+    options: PointsOptions,
+    initialProps: Omit<Props, "count">,
+  ) {
+    this.points = initialProps.points;
+    this.count = initialProps.points.length;
+    this.color = initialProps.color;
     this.drawCommand = plot.regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
-
-        varying vec4 v_color;
+        uniform vec4 color;
 
         void main() {
           vec2 coord = gl_PointCoord - vec2(0.5);
           if (length(coord) > 0.5) {
             discard;
           }
-          gl_FragColor = v_color; 
+          gl_FragColor = color;
         }
       `,
       vert: `
@@ -47,13 +56,10 @@ export class Points implements Drawable {
         uniform mat4 view, projection;
         uniform float size;
 
-        varying vec4 v_color;
-
         void main() {
           vec4 pos = vec4(position, 1);
           gl_PointSize = size;
           gl_Position = projection * view * pos;
-          v_color = pos; 
         }
       `,
       attributes: {
@@ -62,6 +68,7 @@ export class Points implements Drawable {
 
       uniforms: {
         size: options.pointSize,
+        color: plot.regl.prop<Props, keyof Props>("color"),
       },
 
       count: plot.regl.prop<Props, keyof Props>("count"),
@@ -69,11 +76,16 @@ export class Points implements Drawable {
     });
   }
 
-  public setProps(props: Props) {
-    this.props = props;
+  public updateData(data: Vec3[]) {
+    this.points = data;
+    this.count = data.length;
   }
 
   public draw() {
-    this.drawCommand(this.props);
+    this.drawCommand({
+      points: this.points,
+      count: this.count,
+      color: this.color ?? [1, 0, 0, 1],
+    });
   }
 }

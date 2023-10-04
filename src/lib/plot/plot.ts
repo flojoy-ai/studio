@@ -1,10 +1,6 @@
-import REGL, { Regl, Vec3, Vec4 } from "regl";
-import { Camera } from "./camera";
+import REGL, { Regl, Vec4 } from "regl";
+import { Camera, CameraOptions } from "./camera";
 import { Drawable } from "./types";
-
-type CameraOptions = {
-  center: Vec3;
-};
 
 type PlotOptions = {
   backgroundColor?: Vec4;
@@ -37,7 +33,7 @@ export class Plot {
     return this;
   }
 
-  public withCamera(options: CameraOptions) {
+  public withCamera(options?: CameraOptions) {
     this.camera = new Camera(this, options);
 
     return this;

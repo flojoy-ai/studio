@@ -2,14 +2,17 @@ import { Vec3, Vec4 } from "regl";
 import { Plot } from "../../plot";
 import { OrthogonalPlane, Points } from "../../primitives";
 import { Axis } from "../../types";
+import { CameraOptions } from "../../camera";
 
 type ScatterPlot3DOptions = {
+  color?: Vec4;
   backgroundColor?: Vec4;
   axes?: {
     x: Axis;
     y: Axis;
     z: Axis;
   };
+  cameraOptions?: Partial<CameraOptions>;
 };
 
 export class ScatterPlot3D {
@@ -27,7 +30,7 @@ export class ScatterPlot3D {
       { pointSize: 5 },
       {
         points: data,
-        count: data.length,
+        color: options.color,
       },
     );
 
@@ -62,9 +65,7 @@ export class ScatterPlot3D {
           axes: [y, z],
         }),
       ])
-      .withCamera({
-        center: [2.5, 2.5, 2.5],
-      });
+      .withCamera(options.cameraOptions);
   }
 
   public draw() {
@@ -76,9 +77,6 @@ export class ScatterPlot3D {
   }
 
   public updateData(data: Vec3[]) {
-    this.points.setProps({
-      points: data,
-      count: data.length,
-    });
+    this.points.updateData(data);
   }
 }
