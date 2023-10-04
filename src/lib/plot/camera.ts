@@ -82,34 +82,9 @@ export class Camera {
         const dx = ev.movementX / window.innerWidth;
         const dy = ev.movementY / window.innerHeight;
         if (ev.ctrlKey) {
-          const w = Math.max(this.state.distance, 0.5);
-
-          this.dtheta += w * dx;
-          this.dphi += w * dy;
+          this.rotate(dx, dy);
         } else {
-          // orthogonalize the vectors
-          // TODO: fix this it doesn't work
-          const [a, b, c] = this.state.eye;
-          const v1 = vec3.normalize(
-            vec3.create(),
-            new Float32Array([-b, a, 0]),
-          );
-          const v2 = vec3.normalize(
-            vec3.create(),
-            new Float32Array([-c, 0, a]),
-          );
-
-          const projv2v1 = vec3.scale(vec3.create(), v2, vec3.dot(v2, v1));
-          vec3.sub(v2, v2, projv2v1);
-
-          vec3.scale(v1, v1, dy * 10);
-          vec3.scale(v2, v2, dx * 10);
-
-          vec3.add(
-            this.state.center,
-            this.state.center,
-            vec3.add(vec3.create(), v1, v2),
-          );
+          this.pan(dx, dy);
         }
       }
     };
@@ -162,5 +137,42 @@ export class Camera {
     }
 
     mat4.lookAt(this.state.view, eye, center, up);
+  }
+
+  private pan(dx: number, dy: number) {
+    const u = vec3.create();
+    const v = vec3.create();
+    vec3.normalize(u, this.state.eye);
+    vec3.scale(v, this.state.up, vec3.dot(u, this.state.up));
+    const forward = vec3.normalize(
+      vec3.create(),
+      vec3.sub(vec3.create(), v, u),
+    );
+    const left = vec3.normalize(
+      vec3.create(),
+      vec3.cross(vec3.create(), forward, u),
+    );
+
+    const flip = this.state.eye[1] > 0.0 ? -1 : 1;
+
+    vec3.scaleAndAdd(
+      this.state.center,
+      this.state.center,
+      forward,
+      -dy * 10 * flip,
+    );
+    vec3.scaleAndAdd(
+      this.state.center,
+      this.state.center,
+      left,
+      dx * 10 * flip,
+    );
+  }
+
+  private rotate(dx: number, dy: number) {
+    const w = Math.max(this.state.distance, 0.5);
+
+    this.dtheta += w * dx;
+    this.dphi += w * dy;
   }
 }
