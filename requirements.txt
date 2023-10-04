@@ -10,10 +10,10 @@ fastapi==0.103.0
 docstring_parser==0.15
 keyring==24.2.0
 qcodes==0.39.1
-pyvisa_py==0.7.0
+pyvisa-py==0.7.0
 pyvisa==1.13.0
 pyusb==1.2.1
-zeroconf==0.102.0
+zeroconf==0.100.0
 pyserial==3.5
 debugpy
 opencv-python-headless
