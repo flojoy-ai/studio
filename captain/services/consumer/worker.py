@@ -8,21 +8,19 @@ from flojoy.flojoy_node_venv import PipInstallThread
 from captain.types.worker import JobInfo, PoisonPill
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
+
 """
 IMPORTANT NOTE: This class mimics the RQ Worker package. 
 """
 
 
 class Worker:
-
     def __init__(
         self,
         task_queue: Queue[Any],  # queue for tasks to be processed
         finish_queue: Queue[Any],  # queue for finished tasks
-        imported_functions: dict[
-            str, Any],  # map of job id to corresponding function
-        signaler: Signaler
-        | None = None,  # signaler object to signal to the front-end
+        imported_functions: dict[str, Any],  # map of job id to corresponding function
+        signaler: Signaler | None = None,  # signaler object to signal to the front-end
         node_delay: float = 0,
     ):
         self.task_queue = task_queue
@@ -46,18 +44,19 @@ class Worker:
             try:
                 job = cast(JobInfo, queue_fetch)
             except Exception:
-                logger.error(
-                    "Error in job: wrong arguments passed. Ignoring...")
+                logger.error("Error in job: wrong arguments passed. Ignoring...")
                 continue
 
             func = self.imported_functions.get(job.job_id, None)
             if func is None:
                 raise ValueError(
-                    f"Function {job.job_id} not found in imported functions")
+                    f"Function {job.job_id} not found in imported functions"
+                )
             if self.signaler:
                 # signal the running node to the front-end:
                 await self.signaler.signal_current_running_node(
-                    job.jobset_id, job.job_id, func.__name__)
+                    job.jobset_id, job.job_id, func.__name__
+                )
 
             kwargs: dict[str, Any] = {
                 "ctrls": job.ctrls,
@@ -78,8 +77,8 @@ class Worker:
                     if self.signaler:
                         # send results to frontend
                         await self.signaler.signal_node_results(
-                            job.jobset_id, job.job_id, func.__name__,
-                            response.result)
+                            job.jobset_id, job.job_id, func.__name__, response.result
+                        )
 
                 case JobFailure():
                     logger.debug(f"Job finished: {job.job_id}, status: failed")
@@ -90,8 +89,8 @@ class Worker:
                     if self.signaler:
                         # signal to frontend that the node has failed
                         await self.signaler.signal_failed_nodes(
-                            job.jobset_id, job.job_id, func.__name__,
-                            response.error)
+                            job.jobset_id, job.job_id, func.__name__, response.error
+                        )
 
                     PipInstallThread.terminate_all()
                     raise Exception(response.error)
