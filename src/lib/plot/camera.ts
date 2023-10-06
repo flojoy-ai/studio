@@ -22,9 +22,10 @@ type CameraState = {
   distance: number;
   eye: vec3;
   up: vec3;
-  panLeft: vec3;
-  panUp: vec3;
 };
+
+const PHI_MAX = Math.PI / 2.1;
+const PHI_MIN = -Math.PI / 2.1;
 
 export class Camera {
   private readonly plot: Plot;
@@ -53,8 +54,6 @@ export class Camera {
       distance: Math.log(options?.distance ?? 10.0),
       eye: new Float32Array(3),
       up: new Float32Array(options?.up ?? [0, 1, 0]),
-      panLeft: new Float32Array(3),
-      panUp: new Float32Array(3),
     };
 
     this.minDistance = Math.log(options?.minDistance ?? 0.1);
@@ -80,18 +79,6 @@ export class Camera {
       }, {}),
     });
 
-    const onMouseDown = (ev: MouseEvent) => {
-      console.log("bruh");
-      ev.preventDefault();
-      ev.stopPropagation();
-      const vecs = this.getPanVectors();
-      console.log("pan vectors");
-      console.log(vecs.left);
-      console.log(vecs.forward);
-      this.state.panLeft = vecs.left;
-      this.state.panUp = vecs.forward;
-    };
-
     const onMouseMove = (ev: MouseEvent) => {
       const leftButtonPressed = ev.buttons & 1;
       ev.preventDefault();
@@ -111,7 +98,6 @@ export class Camera {
       this.ddistance += ev.deltaY / window.innerHeight / 5;
     };
 
-    plot.canvas.addEventListener("mousedown", onMouseDown);
     plot.canvas.addEventListener("mousemove", onMouseMove);
     plot.canvas.addEventListener("wheel", onMouseWheel);
   }
@@ -127,11 +113,7 @@ export class Camera {
     const up = this.state.up;
 
     this.state.theta += this.dtheta;
-    this.state.phi = clamp(
-      this.state.phi + this.dphi,
-      -Math.PI / 2.1,
-      Math.PI / 2.1,
-    );
+    this.state.phi = clamp(this.state.phi + this.dphi, PHI_MIN, PHI_MAX);
     this.state.distance = clamp(
       this.state.distance + this.ddistance,
       this.minDistance,
@@ -158,18 +140,12 @@ export class Camera {
   }
 
   private pan(dx: number, dy: number) {
-    vec3.scaleAndAdd(
-      this.state.center,
-      this.state.center,
-      this.state.panUp,
-      dy * 10,
-    );
-    vec3.scaleAndAdd(
-      this.state.center,
-      this.state.center,
-      this.state.panLeft,
-      -dx * 10,
-    );
+    const { forward, left } = this.getPanVectors();
+    console.log(this.state.eye);
+    console.log(this.state.center);
+
+    vec3.scaleAndAdd(this.state.center, this.state.center, forward, dy * 10);
+    vec3.scaleAndAdd(this.state.center, this.state.center, left, -dx * 10);
   }
 
   private rotate(dx: number, dy: number) {
@@ -182,16 +158,27 @@ export class Camera {
   private getPanVectors() {
     const u = vec3.create();
     const v = vec3.create();
+
     vec3.normalize(u, vec3.sub(u, this.state.eye, this.state.center));
-    vec3.scale(v, this.state.up, vec3.dot(u, this.state.up));
-    const forward = vec3.normalize(
-      vec3.create(),
-      vec3.sub(vec3.create(), v, u),
-    );
-    const left = vec3.normalize(
-      vec3.create(),
-      vec3.cross(vec3.create(), forward, u),
-    );
+    const proj = vec3.dot(u, this.state.up);
+
+    let forward: vec3;
+    let left: vec3;
+
+    if (proj === 0) {
+      forward = vec3.normalize(u, vec3.scale(u, u, -1));
+      left = vec3.normalize(
+        vec3.create(),
+        vec3.cross(vec3.create(), u, this.state.up),
+      );
+    } else {
+      vec3.scale(v, this.state.up, proj);
+      forward = vec3.normalize(vec3.create(), vec3.sub(vec3.create(), v, u));
+      left = vec3.normalize(
+        vec3.create(),
+        vec3.cross(vec3.create(), forward, u),
+      );
+    }
 
     return {
       forward,
