@@ -3,4 +3,5 @@ PYTHON/*
 apps/*
 src/data/*.json
 venv/*
+.venv/*
 venv2/*
