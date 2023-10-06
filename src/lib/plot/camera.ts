@@ -16,12 +16,14 @@ export type CameraOptions = Partial<{
 type CameraState = {
   view: mat4;
   projection: mat4;
-  center: Float32Array;
+  center: vec3;
   theta: number;
   phi: number;
   distance: number;
-  eye: Float32Array;
-  up: Float32Array;
+  eye: vec3;
+  up: vec3;
+  panLeft: vec3;
+  panUp: vec3;
 };
 
 export class Camera {
@@ -51,6 +53,8 @@ export class Camera {
       distance: Math.log(options?.distance ?? 10.0),
       eye: new Float32Array(3),
       up: new Float32Array(options?.up ?? [0, 1, 0]),
+      panLeft: new Float32Array(3),
+      panUp: new Float32Array(3),
     };
 
     this.minDistance = Math.log(options?.minDistance ?? 0.1);
@@ -76,6 +80,18 @@ export class Camera {
       }, {}),
     });
 
+    const onMouseDown = (ev: MouseEvent) => {
+      console.log("bruh");
+      ev.preventDefault();
+      ev.stopPropagation();
+      const vecs = this.getPanVectors();
+      console.log("pan vectors");
+      console.log(vecs.left);
+      console.log(vecs.forward);
+      this.state.panLeft = vecs.left;
+      this.state.panUp = vecs.forward;
+    };
+
     const onMouseMove = (ev: MouseEvent) => {
       const leftButtonPressed = ev.buttons & 1;
       ev.preventDefault();
@@ -95,6 +111,7 @@ export class Camera {
       this.ddistance += ev.deltaY / window.innerHeight / 5;
     };
 
+    plot.canvas.addEventListener("mousedown", onMouseDown);
     plot.canvas.addEventListener("mousemove", onMouseMove);
     plot.canvas.addEventListener("wheel", onMouseWheel);
   }
@@ -141,9 +158,31 @@ export class Camera {
   }
 
   private pan(dx: number, dy: number) {
+    vec3.scaleAndAdd(
+      this.state.center,
+      this.state.center,
+      this.state.panUp,
+      dy * 10,
+    );
+    vec3.scaleAndAdd(
+      this.state.center,
+      this.state.center,
+      this.state.panLeft,
+      -dx * 10,
+    );
+  }
+
+  private rotate(dx: number, dy: number) {
+    const w = Math.max(this.state.distance, 0.5);
+
+    this.dtheta += w * dx;
+    this.dphi += w * dy;
+  }
+
+  private getPanVectors() {
     const u = vec3.create();
     const v = vec3.create();
-    vec3.normalize(u, this.state.eye);
+    vec3.normalize(u, vec3.sub(u, this.state.eye, this.state.center));
     vec3.scale(v, this.state.up, vec3.dot(u, this.state.up));
     const forward = vec3.normalize(
       vec3.create(),
@@ -154,26 +193,9 @@ export class Camera {
       vec3.cross(vec3.create(), forward, u),
     );
 
-    const flip = this.state.eye[1] > 0.0 ? -1 : 1;
-
-    vec3.scaleAndAdd(
-      this.state.center,
-      this.state.center,
+    return {
       forward,
-      -dy * 10 * flip,
-    );
-    vec3.scaleAndAdd(
-      this.state.center,
-      this.state.center,
       left,
-      dx * 10 * flip,
-    );
-  }
-
-  private rotate(dx: number, dy: number) {
-    const w = Math.max(this.state.distance, 0.5);
-
-    this.dtheta += w * dx;
-    this.dphi += w * dy;
+    };
   }
 }
