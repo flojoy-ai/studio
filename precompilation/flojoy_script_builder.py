@@ -9,10 +9,7 @@ import subprocess
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
 from captain.utils.broadcast import Signaler
-from captain.utils.config import manager
-from captain.types.worker import WorkerJobResponse
-from captain.utils.flowchart_utils import stream_response
-from captain.utils.logger import logger 
+from captain.utils.logger import logger
 from precompilation.config import (
     EXTRA_FILES_DIR,
     FILES_GROUPS_TO_BE_OUTPUTTED,
@@ -39,7 +36,13 @@ class FlojoyScriptBuilder:
     Class used for building the string of the flojoy script.
     """
 
-    def __init__(self, path_to_output: str, jobset_id: str, signaler: Signaler, is_ci: bool = False):
+    def __init__(
+        self,
+        path_to_output: str,
+        jobset_id: str,
+        signaler: Signaler,
+        is_ci: bool = False,
+    ):
         self.items = []
         self.indent_level = 0
         self.imports = set()
@@ -48,7 +51,6 @@ class FlojoyScriptBuilder:
         self.is_ci = is_ci
         self.jobset_id = jobset_id
         self.signaler = signaler
-        asyncio.create_task(self.signaler.signal_script_building_microcontroller(self.jobset_id)) #signal build start to front-end
 
     def _add_import(
         self,
@@ -179,7 +181,7 @@ class FlojoyScriptBuilder:
                     with open(file_path, "r") as f:
                         file_str = f.read()
                     file_str = self._apply_file_filters(file_str)
-                    if file_str: # if file_str is empty, don't write to file
+                    if file_str:  # if file_str is empty, don't write to file
                         with open(file_path, "w") as f:
                             f.write(file_str)
 
@@ -398,7 +400,7 @@ class FlojoyScriptBuilder:
         "
         )
         #   ----------------------------------
-    
+
     def compile_to_mpy(self):
         """
         Compile each file in output directory to mpy
@@ -408,9 +410,9 @@ class FlojoyScriptBuilder:
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
                     subprocess.run(["mpy-cross", file_path])
-                    os.remove(file_path) # delete old .py file
+                    os.remove(file_path)  # delete old .py file
 
-    def output(self, tempdir, port: str, path_to_output: str | None):
+    async def output(self, tempdir, port: str, path_to_output: str | None):
         """
         Copy paste the temp dir into the output dir if specified
         and into the port dir if specified
@@ -420,24 +422,47 @@ class FlojoyScriptBuilder:
                 shutil.copytree(tempdir, path_to_output)
             except Exception as e:
                 output = "\n".join(e.args)
-                asyncio.create_task(self.signaler.signal_prejob_output(self.jobset_id, output))
-        
+                await asyncio.create_task(
+                    self.signaler.signal_prejob_output(self.jobset_id, output)
+                )
+
         if port:
-            # spawn rshell instance 
-            cmd = ["rshell", "-p", port, "--baud", "115200", "--buffer-size", "512"] # TODO buff size of 512 only for USB. 
+            # spawn rshell instance
+            cmd = [
+                "rshell",
+                "-p",
+                port,
+                "--baud",
+                "115200",
+                "--buffer-size",
+                "512",
+            ]  # TODO buff size of 512 only for USB.
             logger.debug(f"Copying files to selected port...\nPORT: {port}\nCMD: {cmd}")
-            asyncio.create_task(self.signaler.signal_file_upload_microcontroller(self.jobset_id))
-            try: # copied from captain/utils/flowchart_utils.py 
-                with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True) as proc:
+            await asyncio.create_task(
+                self.signaler.signal_file_upload_microcontroller(self.jobset_id)
+            )
+            try:  # copied from captain/utils/flowchart_utils.py
+                with subprocess.Popen(
+                    cmd,
+                    stdin=subprocess.PIPE,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    universal_newlines=True,
+                ) as proc:
                     _, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
                     if error_output:
                         raise Exception(error_output)
             except Exception as e:
                 output = "\n".join(e.args)
-                asyncio.create_task(self.signaler.signal_prejob_output(self.jobset_id, output))
+
+                await asyncio.create_task(
+                    self.signaler.signal_prejob_output(self.jobset_id, output)
+                )
                 return
-            
-        asyncio.create_task(self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id))
+
+        await asyncio.create_task(
+            self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id)
+        )
 
     def validate_output_dir(self, true_output_path):
         """

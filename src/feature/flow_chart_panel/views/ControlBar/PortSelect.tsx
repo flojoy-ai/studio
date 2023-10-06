@@ -1,19 +1,19 @@
 import { Button } from "@src/components/ui/button";
 import { API_URI } from "@src/data/constants";
 import { useSettings } from "@src/hooks/useSettings";
-import { Check, ChevronsUpDown} from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
 import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-  } from "@src/components/ui/command"
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@src/components/ui/popover"
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@src/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@src/components/ui/popover";
 import { useState } from "react";
 import { cn } from "@src/lib/utils";
 
@@ -21,19 +21,17 @@ const PortSelect = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [ports, setPorts] = useState([]);
-  const {updateSettings} = useSettings("micropython");
+  const { updateSettings } = useSettings("micropython");
 
   async function fetchPorts() {
     try {
-      const response = await fetch(`${API_URI}/serial_ports`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      
+      const response = await fetch(`${API_URI}/serial_ports`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       const resp = await response.json();
       return resp.ports;
     } catch (err) {
@@ -42,13 +40,15 @@ const PortSelect = () => {
   }
 
   const handleCLick = () => {
-    fetchPorts().then((data) => {
-      // console.log("Available ports:", data);
-      setPorts(data);
-    }).catch((err) => {
-      console.error("Error while fetching ports", err);
-    });
-  }
+    fetchPorts()
+      .then((data) => {
+        // console.log("Available ports:", data);
+        setPorts(data);
+      })
+      .catch((err) => {
+        console.error("Error while fetching ports", err);
+      });
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -76,7 +76,9 @@ const PortSelect = () => {
                 key={port.device}
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
-                  currentValue === value ? null : updateSettings("selectedPort", currentValue);
+                  currentValue === value
+                    ? null
+                    : updateSettings("selectedPort", currentValue);
                   setOpen(false);
                 }}
               >

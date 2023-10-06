@@ -65,6 +65,7 @@ NODE_REPOS = {
     "nodes_mc",
 }
 
+
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = os.path.basename(dir_path)
@@ -128,4 +129,3 @@ def generate_manifest(is_mc=False):
     nodes_map = browse_directories(nodes_path)
     nodes_map["children"].sort(key=sort_order)  # type: ignore
     return nodes_map
-

@@ -6,7 +6,7 @@ from precompilation.templates.classes.MultiDiGraph import MultiDiGraph
 def flowchart_to_graph(flowchart: dict):
     elems = flowchart["nodes"]
     edges = flowchart["edges"]
-    nx_graph = MultiDiGraph() 
+    nx_graph = MultiDiGraph()
     dict_node_inputs = dict()
     for i in range(len(elems)):
         el = elems[i]
@@ -18,7 +18,7 @@ def flowchart_to_graph(flowchart: dict):
         label = data.get("label", "")
         dict_node_inputs[node_id] = inputs
         node_path = data.get("path", "")
-        nx_graph.add_node( # type: ignore
+        nx_graph.add_node(  # type: ignore
             node_id,
             pos=(el["position"]["x"], el["position"]["y"]),
             id=el["id"],
@@ -47,7 +47,7 @@ def flowchart_to_graph(flowchart: dict):
         if target_input:
             target_label = target_input.get("name", "default")
             multiple = target_input.get("multiple", False)
-        nx_graph.add_edge( # type: ignore
+        nx_graph.add_edge(  # type: ignore
             u, v, label=label, target_label=target_label, id=_id, multiple=multiple
         )
     return nx_graph

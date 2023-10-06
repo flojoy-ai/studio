@@ -1,5 +1,5 @@
 try:
-    import ujson # micropython json equivalent
+    import ujson  # micropython json equivalent
 except ImportError:
     import json as ujson
 from collections import deque
@@ -9,7 +9,8 @@ from flojoy import get_next_directions
 
 
 # NOTE FOR DEVELOPERS:
-# DO NOT use type hints except on functions 
+# DO NOT use type hints except on functions
+
 
 # TODO: switch to multigraph
 class LightTopology:
@@ -31,7 +32,7 @@ class LightTopology:
         self.working_graph = graph.copy()
         self.original_graph = graph.copy()
         self.loop_nodes = []
-        self.queued_amt = 0 # added before self.queue, TODO remove this since we have queue queue length
+        self.queued_amt = 0  # added before self.queue, TODO remove this since we have queue queue length
         self.is_ci = is_ci
         self.jobset_id = jobset_id
         self.res_store = {}
@@ -39,7 +40,9 @@ class LightTopology:
         self.node_id_to_func = node_id_to_func
         self.node_id_to_params = node_id_to_params
         self.time_start = 0
-        self.queue = [] # use regular list because deque is not supported in micropython
+        self.queue = (
+            []
+        )  # use regular list because deque is not supported in micropython
 
     def write_results(self):
         with open("results.json", "w") as f:
@@ -48,7 +51,7 @@ class LightTopology:
     def run(self):
         self.time_start = time.time()
         self.queue += self.get_initial_source_nodes()
-        while (len(self.queue)):
+        while len(self.queue):
             next_job = self.queue.pop(0)
             self.queue += self.run_job(next_job)
         return self
@@ -63,9 +66,7 @@ class LightTopology:
 
     def run_job(self, job_id: str) -> list:
         node = self.working_graph.nodes[job_id]
-        previous_jobs = self.get_job_dependencies_with_label(
-            job_id, original=True
-        )
+        previous_jobs = self.get_job_dependencies_with_label(job_id, original=True)
         params = self.node_id_to_params[job_id]
         job = {
             "node_id": job_id,
@@ -81,7 +82,7 @@ class LightTopology:
         if self.is_loop_node(job_id):
             self.loop_nodes.append(job_id)
         job_result = func(**job)
-        print('ran job', job_id, 'with result', job_result)
+        print("ran job", job_id, "with result", job_result)
         self.res_store[job_id] = job_result
         next_jobs = self.process_job_result(job_id, job_result)
         self.queued_amt += len(next_jobs)
@@ -90,7 +91,11 @@ class LightTopology:
     def get_outputs(self, job_id: str):
         out = self.working_graph.out_edges(job_id)
         return list(
-            set(edge["label"] for (u, v, _) in out for edge in self.working_graph.get_edge_data(u, v))
+            set(
+                edge["label"]
+                for (u, v, _) in out
+                for edge in self.working_graph.get_edge_data(u, v)
+            )
         )
 
     def get_edges_by_label(self, job_id: str, label: str) -> list:
@@ -167,7 +172,7 @@ class LightTopology:
         graph = self.get_graph(original)
         try:
             deps = []
-            for (prev_job_id,_,data) in list(graph.in_edges(job_id)):
+            for prev_job_id, _, data in list(graph.in_edges(job_id)):
                 input_name = data.get("target_label", "")
                 multiple = data.get("multiple", False)
                 edge_label = data.get("label", "")

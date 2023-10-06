@@ -23,8 +23,8 @@ const FlowControlButtons = () => {
   const { states } = useSocket();
   const { socketId, serverStatus } = states;
 
-  const { settings : backendSettings } = useSettings("backend");
-  const { settings : mcSettings } = useSettings("micropython");
+  const { settings: backendSettings } = useSettings("backend");
+  const { settings: mcSettings } = useSettings("micropython");
 
   const { setNodeParamChanged, isMicrocontrollerMode } = useFlowChartState();
 
@@ -82,7 +82,10 @@ const FlowControlButtons = () => {
 
   return (
     <>
-      {playBtnDisabled || [IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(serverStatus) ? (
+      {playBtnDisabled ||
+      [IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(
+        serverStatus,
+      ) ? (
         <Button
           data-cy="btn-play"
           size="sm"
@@ -110,15 +113,15 @@ const FlowControlButtons = () => {
         </Button>
       )}
 
-      <div className="px-0.5"/>
+      <div className="px-0.5" />
       <WatchBtn playFC={onRun} cancelFC={cancelFC} />
-      <MicrocontollerBtn/>
+      <MicrocontollerBtn />
       {isMicrocontrollerMode && (
         <>
-          <PortSelect/>
+          <PortSelect />
         </>
       )}
-      <div className="px-0.5"/>
+      <div className="px-0.5" />
     </>
   );
 };

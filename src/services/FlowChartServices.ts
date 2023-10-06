@@ -48,8 +48,8 @@ export function saveAndRunFlowChartInServer({
   rfInstance?: ReactFlowJsonObject<ElementsData>;
   jobId: string;
   settings: Setting[];
-  isMicrocontrollerMode: boolean
-  mcSettings: Setting[]
+  isMicrocontrollerMode: boolean;
+  mcSettings: Setting[];
 }) {
   if (rfInstance) {
     const fcStr = JSON.stringify(rfInstance);

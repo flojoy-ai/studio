@@ -37,7 +37,7 @@ export enum IServerStatus {
   BUILDING_SCRIPT = "📝 building script...",
   UPLOADING_FILES = "📤 uploading files to the microcontroller...",
   UPLOAD_COMPLETE = "📥 upload complete",
-  UPLOAD_FAILED = "❌ upload failed"
+  UPLOAD_FAILED = "❌ upload failed",
 }
 
 const DEFAULT_STATES = {

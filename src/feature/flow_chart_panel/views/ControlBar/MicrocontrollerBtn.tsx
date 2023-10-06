@@ -22,8 +22,8 @@ import {
 } from "@src/components/ui/alert-dialog";
 
 const MicrocontollerBtn = () => {
-  
-  const {isMicrocontrollerMode, setIsMicrocontrollerMode} = useFlowChartState()
+  const { isMicrocontrollerMode, setIsMicrocontrollerMode } =
+    useFlowChartState();
   const clearCanvas = useClearCanvas();
 
   const handleClick = () => {
@@ -41,23 +41,25 @@ const MicrocontollerBtn = () => {
           />
         </AlertDialogTrigger>
         <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Switching modes will wipe the canvas</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will remove everything on the
-            flowchart. Please save your work before switching modes.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            data-testid="confirm-clear-canvas"
-            onClick={handleClick}
-          >
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Switching modes will wipe the canvas
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will remove everything on the
+              flowchart. Please save your work before switching modes.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              data-testid="confirm-clear-canvas"
+              onClick={handleClick}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
       </AlertDialog>
       <TooltipProvider>
         <Tooltip>
@@ -66,7 +68,8 @@ const MicrocontollerBtn = () => {
           </TooltipTrigger>
           <TooltipContent>
             <p>
-              The flowchart will generate a micropython script you can use on your microcontoller
+              The flowchart will generate a micropython script you can use on
+              your microcontoller
             </p>
           </TooltipContent>
         </Tooltip>

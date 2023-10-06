@@ -1,3 +1,4 @@
+import asyncio
 import json
 import tempfile
 from captain.utils.broadcast import Signaler
@@ -10,14 +11,14 @@ from flojoy.utils import clear_flojoy_memory
 
 
 # TODO Support node init precompilation
-def precompile(
+async def precompile(
     fc: str,
     jobset_id: str,
     node_delay: float,
     maximum_runtime: float,
     path_to_requirements: str,
     signaler: Signaler,
-    path_to_output: str | None = None,
+    path_to_output: str = "test",
     is_ci: bool = False,
     port: str = "",
 ):
@@ -28,14 +29,19 @@ def precompile(
     with tempfile.TemporaryDirectory() as tmpdirname:
         # Step 0 : pre-precompile operations
         clear_flojoy_memory()
-        sw = FlojoyScriptBuilder(tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler)
+        sw = FlojoyScriptBuilder(
+            tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler
+        )
+        await asyncio.create_task(
+            signaler.signal_script_building_microcontroller(jobset_id)
+        )  # signal build start to front-end
         flowchart_as_dict = json.loads(fc)
         light_topology = create_light_topology(
             flowchart_as_dict, jobset_id, node_delay, maximum_runtime
         )
         sw.remove_debug_prints_and_set_offline()
-        if path_to_output: 
-            sw.validate_output_dir(path_to_output) 
+        if path_to_output:
+            sw.validate_output_dir(path_to_output)
 
         # Step 1: add necessary pip packages
         sw.export_base_pip_packages(
@@ -52,7 +58,7 @@ def precompile(
         # Step 4: output entry point script
         sw.write_to_file()
 
-        # Step 5: output other necessary files or modules 
+        # Step 5: output other necessary files or modules
         sw.write_extra_files()
 
         # Step 6: apply file filters to .py files
@@ -60,7 +66,9 @@ def precompile(
 
         # Step 7: compile to mpy
         # sw.compile_to_mpy() # TODO: setup for this is too complicated and it's not
-                            # even necessary to run on microcontroller
+        # even necessary to run on microcontroller
 
         # Step 8: output to microcontroller or file
-        sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output)
+        await asyncio.create_task(
+            sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output)
+        )

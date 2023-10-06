@@ -1,8 +1,10 @@
 from typing import Any
 from precompilation.templates.classes.LightTopology import LightTopology
 from precompilation.templates.functions.flowchart_to_graph import flowchart_to_graph
-from captain.models.topology import Topology # TODO: a little hacky, find workaround
-from captain.utils.flowchart_utils import flowchart_to_nx_graph # TODO: a little hacky, find workaround
+from captain.models.topology import Topology  # TODO: a little hacky, find workaround
+from captain.utils.flowchart_utils import (
+    flowchart_to_nx_graph,
+)  # TODO: a little hacky, find workaround
 
 
 def create_light_topology(
@@ -41,7 +43,7 @@ def extract_pip_packages(nodes: list):
     return packages
 
 
-def get_node_id_to_func(graph, mc_mode : bool = False):
+def get_node_id_to_func(graph, mc_mode: bool = False):
     """
     TODO: Currently, create topology object and get node_id_to_func from there.
     This is not ideal, very hacky.

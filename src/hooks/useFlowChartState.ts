@@ -74,7 +74,8 @@ export function useFlowChartState() {
   const [credentials, setCredentials] = useAtom(credentialsAtom);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(isSidebarOpenAtom);
   const [nodeParamChanged, setNodeParamChanged] = useAtom(nodeParamChangedAtom);
-  const [isMicrocontrollerMode, setIsMicrocontrollerMode] = useAtom(microControllerMode);
+  const [isMicrocontrollerMode, setIsMicrocontrollerMode] =
+    useAtom(microControllerMode);
 
   return {
     isEditMode,

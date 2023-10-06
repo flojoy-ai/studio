@@ -9,6 +9,7 @@ class MultiDiGraph:
     This is a class that represents a multi directed graph.
     Behaves similar to a networkx.MultiDiGraph, but is more lightweight.
     """
+
     def __init__(self):
         self.nodes = dict()
         self.edges = dict()
@@ -41,19 +42,36 @@ class MultiDiGraph:
         return sum(map(len, self.edges_reverse.get(node_id, dict()).values()))
 
     def in_edges(self, node_id: str) -> list:
-        return [(source, node_id, data) for source, data_list in self.edges_reverse.get(node_id, dict()).items() for data in data_list]
+        return [
+            (source, node_id, data)
+            for source, data_list in self.edges_reverse.get(node_id, dict()).items()
+            for data in data_list
+        ]
 
     def out_edges(self, node_id: str) -> list:
-        return [(node_id, target, data) for target, data_list in self.edges.get(node_id, dict()).items() for data in data_list]
+        return [
+            (node_id, target, data)
+            for target, data_list in self.edges.get(node_id, dict()).items()
+            for data in data_list
+        ]
 
     def get_edge_data(self, source: str, target: str) -> list:
         return self.edges.get(source, dict()).get(target, [])
 
     def get_edges(self, source: str) -> list:
-        return [(source, destination, data) for destination, data_list in self.edges.get(source, dict()).items() for data in data_list]
+        return [
+            (source, destination, data)
+            for destination, data_list in self.edges.get(source, dict()).items()
+            for data in data_list
+        ]
 
     def get_all_edges(self) -> list:
-        return [(source, destination, data) for source in self.edges.keys() for destination, data_list in self.edges[source].items() for data in data_list]
+        return [
+            (source, destination, data)
+            for source in self.edges.keys()
+            for destination, data_list in self.edges[source].items()
+            for data in data_list
+        ]
 
     def get_nodes(self) -> dict:
         return self.nodes

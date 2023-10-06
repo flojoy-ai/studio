@@ -34,12 +34,12 @@ async def cancel_fc(req: PostCancelFC):
 async def write_and_run_flowchart(request: PostWFC):
     # create message for front-end to indicate we are running pre-job operations
     if request.precompile:
-        precompile(
+        await precompile(
             fc=request.fc,
             jobset_id=request.jobsetId,
             node_delay=request.nodeDelay,
-            maximum_runtime=request.maximumRuntime, 
-            path_to_requirements='requirements-precompiled.txt', 
+            maximum_runtime=request.maximumRuntime,
+            path_to_requirements="requirements-precompiled.txt",
             is_ci=False,
             port=request.selectedPort,
             signaler=Signaler(manager.ws),

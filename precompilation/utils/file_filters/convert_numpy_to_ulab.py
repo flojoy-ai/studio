@@ -1,5 +1,6 @@
 import astunparse, ast
 
+
 def convert_numpy_to_ulab(file: str):
     """
     Convert numpy imports to ulab imports
@@ -7,13 +8,15 @@ def convert_numpy_to_ulab(file: str):
     tree = ast.parse(file)
 
     class ReplaceNumpyImport(ast.NodeTransformer):
-        def visit_Import(self, node): # this function is overridden, called during visit()
+        def visit_Import(
+            self, node
+        ):  # this function is overridden, called during visit()
             new_nodes = []
             for alias in node.names:
-                if alias.name == 'numpy':
+                if alias.name == "numpy":
                     # Create new ImportFrom node
-                    new_alias = ast.alias(name='numpy', asname=alias.asname)
-                    new_node = ast.ImportFrom(module='ulab', names=[new_alias], level=0)
+                    new_alias = ast.alias(name="numpy", asname=alias.asname)
+                    new_node = ast.ImportFrom(module="ulab", names=[new_alias], level=0)
                     new_nodes.append(new_node)
                 else:
                     # Keep other imports unchanged

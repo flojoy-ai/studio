@@ -73,12 +73,17 @@ const FlowChartTab = () => {
 
   const { theme, resolvedTheme } = useTheme();
 
-  const { isSidebarOpen, setIsSidebarOpen, isEditMode, setIsEditMode, isMicrocontrollerMode } =
-    useFlowChartState();
+  const {
+    isSidebarOpen,
+    setIsSidebarOpen,
+    isEditMode,
+    setIsEditMode,
+    isMicrocontrollerMode,
+  } = useFlowChartState();
 
   const { states } = useSocket();
   const { programResults } = states;
-  const clearCanvas = useClearCanvas()
+  const clearCanvas = useClearCanvas();
 
   const { pythonString, setPythonString, nodeFilePath, setNodeFilePath } =
     useFlowChartTabState();
@@ -210,7 +215,7 @@ const FlowChartTab = () => {
         }
       }),
     [setEdges, mcNodeSection],
-  )
+  );
 
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
@@ -228,10 +233,9 @@ const FlowChartTab = () => {
 
   const fetchManifest = useCallback(async () => {
     try {
-
       /* MANIFEST FOR REGULAR NODES */
       const res = await baseClient.get("nodes/manifest");
-      console.log("Nodes manifest fetched", res.data)
+      console.log("Nodes manifest fetched", res.data);
       // TODO: fix zod schema to accept io directory structure
       const validateResult = validateRootSchema(res.data);
       if (!validateResult.success) {
@@ -245,7 +249,7 @@ const FlowChartTab = () => {
 
       /* MANIFEST FOR MC NODES */
       const mcRes = await baseClient.get("nodes-mc/manifest");
-      console.log("MC nodes manifest fetched", mcRes.data)
+      console.log("MC nodes manifest fetched", mcRes.data);
       const validateMcResult = validateRootSchema(mcRes.data);
       if (!validateMcResult.success) {
         toast.message(`Failed to validate MC nodes manifest!`, {
@@ -436,7 +440,7 @@ const FlowChartTab = () => {
             onInit={onInit}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={(isMicrocontrollerMode)?onConnectMC:onConnect}
+            onConnect={isMicrocontrollerMode ? onConnectMC : onConnect}
             onNodeDragStop={handleNodeDrag}
             onNodesDelete={handleNodesDelete}
             fitViewOptions={{

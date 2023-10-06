@@ -24,10 +24,7 @@ ________________________________________________________
 These filters are applied to all python files in the output directory.
 You can quickly turn them on and off accordingly and change their order.
 """
-FILTERS_FOR_FILES = [
-    (convert_numpy_to_ulab, True),
-    (minify, True) 
-]
+FILTERS_FOR_FILES = [(convert_numpy_to_ulab, True), (minify, True)]
 """
 ________________________________________________________
 """

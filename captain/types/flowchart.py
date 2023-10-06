@@ -13,7 +13,7 @@ class PostWFC(BaseModel):
     nodeDelay: float
     maximumRuntime: float
     precompile: bool
-    selectedPort: str 
+    selectedPort: str
     maximumConcurrentWorkers: int
 
 

@@ -1,3 +1,4 @@
+import asyncio
 from typing import Any
 from captain.internal.manager import ConnectionManager
 from captain.utils.status_codes import STATUS_CODES
@@ -71,9 +72,7 @@ class Signaler:
     async def signal_prejob_output(self, jobset_id: str, output: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
-            dict_item = {
-                "PRE_JOB_OP": {"isRunning": True, "output": output}
-            }
+            dict_item={"PRE_JOB_OP": {"isRunning": True, "output": output}},
         )
         await self.ws.broadcast(msg)
 
@@ -89,6 +88,7 @@ class Signaler:
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["BUILDING_SCRIPT"],
         )
+        logger.critical("bruh")
         await self.ws.broadcast(msg)
 
     async def signal_script_upload_complete_microcontroller(self, jobset_id):

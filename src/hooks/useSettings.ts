@@ -24,7 +24,6 @@ export type Setting = {
 };
 
 const settingsAtom = atomWithImmer<Setting[]>([
-
   /* BACKEND SETTINGS */
   {
     title: "Node Delay",
@@ -70,7 +69,6 @@ const settingsAtom = atomWithImmer<Setting[]>([
     type: "switch",
     value: true,
   },
-
 ]);
 
 export const useSettings = (group: SettingsGroup) => {

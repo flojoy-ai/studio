@@ -2,14 +2,17 @@ import os
 from importlib import import_module
 
 NODES_DIR = "PYTHON/nodes"  # default flojoy nodes path TODO make this configurable
-NODES_MC_DIR = "PYTHON/nodes_mc" # default flojoy nodes for microcontrollers path TODO make this configurable
+NODES_MC_DIR = "PYTHON/nodes_mc"  # default flojoy nodes for microcontrollers path TODO make this configurable
 
 node_mapping = {}  # IMPORTANT NOTE: use custom mapping for precompilation
-node_mc_mapping = {} 
+node_mc_mapping = {}
 
 # TODO this entire code is a huge mess, clean it UP
 
-def get_module_path(file_name: str, custom_map: dict | None = None, mc_mode: bool = False) -> str:
+
+def get_module_path(
+    file_name: str, custom_map: dict | None = None, mc_mode: bool = False
+) -> str:
     cur_mapping = {}
 
     # use global mapping if custom not provided
@@ -34,7 +37,9 @@ def get_module_path(file_name: str, custom_map: dict | None = None, mc_mode: boo
         raise Exception(f"File {file_name} not found in subdirectories of {NODES_DIR}")
 
 
-def get_module_func(file_name: str, custom_map: dict | None = None, mc_mode: bool = False):
+def get_module_func(
+    file_name: str, custom_map: dict | None = None, mc_mode: bool = False
+):
     cur_mapping = {}
 
     # use global mapping if custom not provided
@@ -56,7 +61,9 @@ def get_module_func(file_name: str, custom_map: dict | None = None, mc_mode: boo
         module = import_module(file_path)
         return module
     else:
-        raise Exception(f"File {file_name} not found in subdirectories of {NODES_DIR if not mc_mode else NODES_MC_DIR}")
+        raise Exception(
+            f"File {file_name} not found in subdirectories of {NODES_DIR if not mc_mode else NODES_MC_DIR}"
+        )
 
 
 def create_map(return_map=False, mc_mode=False):
@@ -65,14 +72,15 @@ def create_map(return_map=False, mc_mode=False):
     global node_mapping
     global node_mc_mapping
 
-    # walk for regular nodes 
-    walk(node_mapping, NODES_DIR) # modifies node_mapping
+    # walk for regular nodes
+    walk(node_mapping, NODES_DIR)  # modifies node_mapping
 
     # walk for microcontroller nodes
-    walk(node_mc_mapping, NODES_MC_DIR) # modifies node_mc_mapping
+    walk(node_mc_mapping, NODES_MC_DIR)  # modifies node_mc_mapping
 
     if return_map:
         return node_mc_mapping if mc_mode else node_mapping
+
 
 def walk(cur_mapping, nodes_dir):
     for root, _, files in os.walk(nodes_dir):

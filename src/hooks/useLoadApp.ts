@@ -24,7 +24,7 @@ export const useLoadApp = () => {
 
   const [openFileSelector] = useFilePicker({
     readAs: "Text",
-    accept: (isMicrocontrollerMode) ? [".fjm"] : [".json"],
+    accept: isMicrocontrollerMode ? [".fjm"] : [".json"],
     maxFileSize: 50,
     onFilesRejected: ({ errors }) => {
       console.error("Errors when trying to load file: ", errors);

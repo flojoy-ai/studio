@@ -241,7 +241,6 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     manager.running_topology = create_topology(
         request,
     )  # pass clean up func for when topology ends
-
     """
     ____________________________________________________________________________
     START PRE JOB OPERATION 

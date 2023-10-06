@@ -95,7 +95,7 @@ class Topology:
             self.run_job(job_id, task_queue)
 
     # TODO move this to utils, makes more sense there
-    def pre_import_functions(self, mc_mode = False):
+    def pre_import_functions(self, mc_mode=False):
         functions = {}
         errors = {}
         for node_id in cast(list[str], self.original_graph.nodes):
