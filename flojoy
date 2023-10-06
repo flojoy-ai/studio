@@ -141,6 +141,11 @@ git pull
 
 CWD="$PWD"
 
+# Install poetry if it is missing
+if ! command -v poetry &>/dev/null; then
+	curl -sSL https://install.python-poetry.org | python3 -
+fi
+
 createFlojoyDirectoryWithYmlFile() {
 	FOLDER=$HOME/.flojoy
 	FILE=$HOME/.flojoy/flojoy.yaml
