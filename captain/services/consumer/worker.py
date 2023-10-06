@@ -66,7 +66,6 @@ class Worker:
                 "job_id": job.iteration_id,
             }
 
-            logger.info(f"Running node: {func.__name__}")
             logger.debug("=" * 100)
             logger.debug(f"Executing job {job.job_id}, kwargs = {kwargs}")
 
@@ -75,9 +74,6 @@ class Worker:
             match response:
                 case JobSuccess():
                     logger.debug(f"Job finished: {job.job_id}, status: ok")
-                    logger.info(
-                        f"Node: {func.__name__} ran successfully! result returned..."
-                    )
                     if self.signaler:
                         # send results to frontend
                         await self.signaler.signal_node_results(
