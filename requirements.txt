@@ -15,5 +15,6 @@ pyvisa==1.13.0
 pyusb==1.2.1
 zeroconf==0.102.0
 pyserial==3.5
+sympy==1.12
 debugpy
 opencv-python-headless

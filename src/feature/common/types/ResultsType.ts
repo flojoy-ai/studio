@@ -1,5 +1,6 @@
 import { OverridePlotData } from "@/types";
 import { Layout } from "plotly.js";
+import { Vec3 } from "regl";
 
 export type ResultIO = {
   cmd: string;
@@ -18,7 +19,7 @@ export type Result = {
     layout: Partial<Layout> | undefined;
   };
   text_blob?: string;
-  data?: ScalarData | OrderedPairData;
+  data?: ScalarData | OrderedPairData | OrderedTripleData;
 };
 
 export type ScalarData = {
@@ -31,7 +32,5 @@ export type OrderedPairData = {
 };
 
 export type OrderedTripleData = {
-  x: number[];
-  y: number[];
-  z: number[];
+  extra: Vec3[];
 };

@@ -4,20 +4,9 @@ import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
 import { memo, useEffect, useRef } from "react";
-import { Vec3 } from "regl";
 import Scatter3D from "@src/assets/nodes/3DScatter";
 import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
-
-// It's very slow having to convert this from the ordered triple format to vertex format...
-// For best performance we may need to rework how ordered triple data is stored.
-const zip = (data: { x: number[]; y: number[]; z: number[] }) => {
-  const orderedTriple: Vec3[] = [];
-  for (let i = 0; i < data.x.length; i++) {
-    orderedTriple.push([data.x[i], data.y[i], data.z[i]]);
-  }
-  return orderedTriple;
-};
 
 const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   const { nodeError, nodeResult } = useNodeStatus(data.id);
@@ -27,7 +16,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
 
   useEffect(() => {
     if (scatter.current && nodeResult?.result?.data) {
-      const pts = zip(nodeResult.result.data as OrderedTripleData);
+      const pts = (nodeResult.result.data as OrderedTripleData).extra;
 
       scatter.current.updateData(pts);
     }
@@ -35,7 +24,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
 
   useEffect(() => {
     if (!scatter.current && canvas.current && nodeResult?.result?.data) {
-      const pts = zip(nodeResult.result.data as OrderedTripleData);
+      const pts = (nodeResult.result.data as OrderedTripleData).extra;
       scatter.current = new ScatterPlot3D(canvas.current, pts, {
         axes: {
           x: {

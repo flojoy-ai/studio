@@ -78,16 +78,14 @@ export class Camera {
 
     const onMouseMove = (ev: MouseEvent) => {
       const leftButtonPressed = ev.buttons & 1;
-      if (leftButtonPressed) {
-        ev.preventDefault();
-        ev.stopPropagation();
-        const dx = ev.movementX / window.innerWidth;
-        const dy = ev.movementY / window.innerHeight;
-        if (ev.ctrlKey) {
-          this.rotate(dx, dy);
-        } else {
-          this.pan(dx, dy);
-        }
+      ev.preventDefault();
+      ev.stopPropagation();
+      const dx = ev.movementX / window.innerWidth;
+      const dy = ev.movementY / window.innerHeight;
+      if (leftButtonPressed && ev.ctrlKey) {
+        this.rotate(dx, dy);
+      } else if (leftButtonPressed) {
+        this.pan(dx, dy);
       }
     };
 
@@ -114,8 +112,8 @@ export class Camera {
     this.state.theta += this.dtheta;
     this.state.phi = clamp(
       this.state.phi + this.dphi,
-      -Math.PI / 2.0,
-      Math.PI / 2.0,
+      -Math.PI / 2.1,
+      Math.PI / 2.1,
     );
     this.state.distance = clamp(
       this.state.distance + this.ddistance,

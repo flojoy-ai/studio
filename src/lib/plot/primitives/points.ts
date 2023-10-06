@@ -38,14 +38,14 @@ export class Points implements Drawable {
     this.drawCommand = plot.regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
-        uniform vec4 color;
+        varying vec4 v_color;
 
         void main() {
           vec2 coord = gl_PointCoord - vec2(0.5);
           if (length(coord) > 0.5) {
             discard;
           }
-          gl_FragColor = color;
+          gl_FragColor = v_color;
         }
       `,
       vert: `
@@ -55,11 +55,14 @@ export class Points implements Drawable {
 
         uniform mat4 view, projection;
         uniform float size;
+        varying vec4 v_color;
 
         void main() {
-          vec4 pos = vec4(position, 1);
+          vec4 pos = vec4(position.x, position.z, position.y, 1);
           gl_PointSize = size;
           gl_Position = projection * view * pos;
+          float v = abs(mod(position.z, 2.0) - 1.0);
+          v_color = vec4(v, v, 0.6, 1);
         }
       `,
       attributes: {
