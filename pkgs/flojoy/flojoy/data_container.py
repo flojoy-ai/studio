@@ -488,14 +488,16 @@ class TextBlob(DataContainer):
     def __init__(self, text_blob: str):
         super().__init__(type="TextBlob", text_blob=text_blob)
 
+
 class Boolean(DataContainer):
     b: bool
 
-    def __init__ (
-            self,
-            b: bool,
+    def __init__(
+        self,
+        b: bool,
     ):
         super().__init__(type="Boolean", b=b)
+
 
 class ParametricImage(DataContainer):
     t: DCNpArrayType

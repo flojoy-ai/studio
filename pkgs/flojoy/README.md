@@ -1,4 +1,4 @@
-# Flojoy / Python 
+# Flojoy / Python
 
 The Python repo for Flojoy infrastructure. Including the client for Flojoy's desktop app, the `@flojoy` decorator, and various utilities for node creation.
 
@@ -19,7 +19,7 @@ def BUTTER(v, params):
 
     x = v[0].x
     sig = v[0].y
-    
+
     sos = signal.butter(10, 15, 'hp', fs=1000, output='sos')
     filtered = signal.sosfilt(sig, sig)
 
@@ -34,14 +34,13 @@ Please see https://github.com/flojoy-io/flojoy-desktop/tree/main/PYTHON/FUNCTION
 
 See https://github.com/flojoy-io/flojoy-python/issues/4
 
-
 ## Reconcilers
 
 Flojoy nodes should try to accomodate any reasonable combination of inputs that a first-time Flojoy Studio user might try.
 
 For example, the ADD node should make a best effort to do something reasonable when a matrix is added to a DataFrame, or a 2 matrices of a different size are added.
 
-For this reason, we've created the `Reconciler` class to handle the process of turning different data types into compatible, easily added objects. 
+For this reason, we've created the `Reconciler` class to handle the process of turning different data types into compatible, easily added objects.
 
 ### An Example
 
@@ -50,7 +49,7 @@ Here's an example of the Reconciler in action from the ADD node. Just initialize
 ```python
 def ADD(dc_inputs: list[DataContainer], params: dict) -> DataContainer:
   ...
-    
+
     dc_reconciler = Reconciler()
     cur_sum = dc_inputs[0]
     for operand_n in dc_inputs[1:]:
@@ -66,34 +65,33 @@ Have a different idea about how you want your DataContainers to be interoperable
 
 For example, let's say we're writing image processing nodes, and we want special behavior when dealing with certain image-like DataContainers.
 
-
 ```python
 class ImageProcessingReconciler(Reconciler):
     def __init__():
         super().__init__()
-    # override only for the pair of types you're interested in! 
+    # override only for the pair of types you're interested in!
     def image__image(self, lhs, rhs):
       # special handling for reconciling two different images
-      ... 
+      ...
       return reconciled_lhs, reconciled_rhs
     def grayscale__image(self, lhs, rhs):
       # special handling for reconciling a grayscale and an image
-      ... 
+      ...
       return reconciled_lhs, reconciled_rhs
 ```
 
-
 ## Publish Package on PYPI
 
-### Uploading file via *Twine*
+### Uploading file via _Twine_
+
 You have to install `twine` package first if not installed already.
-To install `twine` run following command: 
-  `pip install twine`
-  
+To install `twine` run following command:
+`pip install twine`
+
 - Update version in [setup.py](setup.py#L5). For example: `version = '0.0.1'` for prod version and `version = '0.0.1-dev'` for dev version release,
 - Run following command to make a distribution file:
   `python3 setup.py sdist`
-- To upload files on `PYPI`, run following command: 
-`twine upload dist/*`
+- To upload files on `PYPI`, run following command:
+  `twine upload dist/*`
 
 **Note:** You'll need `username` and `password` to make a release. Please get in touch with the team for credentials.

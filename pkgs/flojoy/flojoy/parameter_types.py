@@ -38,7 +38,7 @@ class SerialDevice(HardwareDevice):
 class VisaDevice(HardwareDevice):
     def get_address(self):
         return str(self.get_id())
-    
+
 
 class NIDevice(HardwareDevice):
     pass
