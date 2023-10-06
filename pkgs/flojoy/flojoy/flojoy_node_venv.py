@@ -20,10 +20,9 @@ def TORCH_NODE(default: Matrix) -> Matrix:
 
 """
 from collections.abc import Callable, Iterable, Mapping
-from concurrent.futures import Future, ThreadPoolExecutor
 import threading
 from time import sleep
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 import hashlib
 from contextlib import ExitStack, contextmanager
@@ -42,7 +41,7 @@ import venv
 from functools import wraps
 import cloudpickle
 
-from .utils import FLOJOY_CACHE_DIR
+from .CONSTANTS import FLOJOY_CACHE_DIR
 from .logging import LogPipe, LogPipeMode, StreamEnum
 
 __all__ = ["run_in_venv"]
@@ -100,7 +99,7 @@ def _bootstrap_venv(
     # Acquire a lock on the virtual environment to ensure no other process is using it
     with portalocker.Lock(
         lockfile_path, mode="ab", fail_when_locked=False, flags=portalocker.LOCK_EX
-    ) as lock:
+    ):
         logger.info(f"Acquired lock on {lockfile_path}...")
         # Check if the virtual environment is complete, i.e. it contains a .venv_is_complete file
         venv_is_complete_path = os.path.realpath(
@@ -183,8 +182,6 @@ def _bootstrap_venv(
         with open(venv_is_complete_path, "w") as f:
             f.write("")
 
-    # Leaved the portalocker.Lock on the virtual environment directory.
-    return
 
 
 class PipInstallThread(threading.Thread):

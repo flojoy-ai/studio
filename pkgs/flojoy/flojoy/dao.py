@@ -99,6 +99,10 @@ class Dao:
         with _dict_sm_lock:
             self.storage[key] = value
 
+    def set_bool(self, key: str, value: bool):
+        with _dict_sm_lock:
+            self.storage[key] = value
+
     def get_pd_dataframe(self, key: str) -> PandasDataFrame | None:
         with _dict_sm_lock:
             encoded = self.storage.get(key, None)

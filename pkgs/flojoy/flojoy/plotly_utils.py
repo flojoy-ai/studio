@@ -69,7 +69,7 @@ def data_container_to_plotly(data: DataContainer) -> dict[str, Any] | None:
             )
         case "Plotly":
             fig = cast(go.Figure, data.fig)
-        case "Bytes" | "TextBlob":
+        case "Bytes" | "TextBlob" | "Boolean":
             return None
         case _:
             raise ValueError(

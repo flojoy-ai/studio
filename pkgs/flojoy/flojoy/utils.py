@@ -1,7 +1,6 @@
 import decimal
 import json as _json
 import os
-import sys
 from pathlib import Path
 from typing import Any, Callable, Optional
 
@@ -9,8 +8,6 @@ import logging
 import numpy as np
 import pandas as pd
 import yaml
-import requests
-from dotenv import dotenv_values  # type:ignore
 
 # TODO(roulbac): Remove these imports once the nodes using them have been
 # tested and updated to use huggingface_hub directly
@@ -24,29 +21,21 @@ from .config import FlojoyConfig, logger
 from .node_init import NodeInit, NodeInitService
 import keyring
 import base64
+from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE
 
 
 __all__ = [
-    "send_to_socket",
     "get_env_var",
     "set_env_var",
     "delete_env_var",
     "get_credentials",
     "hf_hub_download",
     "snapshot_download",
-    "send_to_socket",
     "hf_hub_download",
     "snapshot_download",
     "clear_flojoy_memory",
 ]
 
-FLOJOY_DIR = ".flojoy"
-
-
-if sys.platform == "win32":
-    FLOJOY_CACHE_DIR = os.path.realpath(os.path.join(os.environ["APPDATA"], FLOJOY_DIR))
-else:
-    FLOJOY_CACHE_DIR = os.path.realpath(os.path.join(os.environ["HOME"], FLOJOY_DIR))
 
 # # package result
 # def package_result(result: dict | None, fn: str, node_id: str, jobset_id: str) -> dict:
@@ -73,11 +62,6 @@ def get_hf_hub_cache_path() -> str:
     """Returns the path to the HuggingFace home directory (HF_HOME) within the Flojoy cache directory
     This is used to cache huggingface artifacts within the Flojoy cache directory."""
     return os.path.join(FLOJOY_CACHE_DIR, "cache", "huggingface")
-
-
-env_vars = dotenv_values("../.env")
-port = env_vars.get("VITE_BACKEND_PORT", "5392")
-BACKEND_URL = os.environ.get("BACKEND_URL", f"http://127.0.0.1:{port}")
 
 
 def set_offline():
@@ -114,13 +98,6 @@ def clear_flojoy_memory():
     Dao.get_instance().clear_small_memory()
     Dao.get_instance().clear_node_init_containers()
     DeviceConnectionManager.clear()
-
-
-def send_to_socket(data: str):
-    if FlojoyConfig.get_instance().is_offline:
-        return
-    logger.debug("posting data to socket:", f"{BACKEND_URL}/worker_response")
-    requests.post(f"{BACKEND_URL}/worker_response", json=data)
 
 
 class PlotlyJSONEncoder(_json.JSONEncoder):
@@ -333,7 +310,7 @@ def get_env_var(key: str) -> Optional[str]:
 def set_env_var(key: str, value: str):
     keyring.set_password("flojoy", key, value)
     home = str(Path.home())
-    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, "credentials.txt"))
+    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
         with open(file_path, "w") as f:
@@ -351,7 +328,7 @@ def set_env_var(key: str, value: str):
 
 def delete_env_var(key: str):
     home = str(Path.home())
-    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, "credentials.txt"))
+    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
         return
@@ -372,7 +349,7 @@ def delete_env_var(key: str):
 
 def get_credentials() -> list[dict[str, str]]:
     home = str(Path.home())
-    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, "credentials.txt"))
+    file_path = os.path.join(home, os.path.join(FLOJOY_DIR, CREDENTIAL_FILE))
 
     if not os.path.exists(file_path):
         return []

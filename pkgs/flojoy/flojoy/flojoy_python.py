@@ -1,24 +1,26 @@
 from contextlib import ContextDecorator
-import json
+import inspect
 import os
 import traceback
 from functools import wraps
+from typing import Any, Callable, Optional
 
-
+from .config import logger
+from .connection_manager import DeviceConnectionManager
+from .data_container import DataContainer, Stateful
+from .job_result_utils import get_dc_from_result, get_frontend_res_obj_from_result
+from .job_service import JobService
 from .models.JobResults.JobFailure import JobFailure
 from .models.JobResults.JobSuccess import JobSuccess
-
 from .node_init import NodeInitService
 from .data_container import DataContainer, Stateful
-from .utils import PlotlyJSONEncoder
 from typing import Callable, Any, Optional
 from .job_result_utils import get_frontend_res_obj_from_result, get_dc_from_result
-from .utils import send_to_socket, get_hf_hub_cache_path
+from .utils import get_hf_hub_cache_path
 from .config import logger
 from .parameter_types import format_param_value
 from inspect import signature
 from .job_service import JobService
-from timeit import default_timer as timer
 from .connection_manager import DeviceConnectionManager
 
 __all__ = ["flojoy", "DefaultParams", "display"]
@@ -48,12 +50,8 @@ def fetch_inputs(previous_jobs: list[dict[str, str]]):
             edge = prev_job.get("edge", "")
 
             logger.debug(
-                "fetching input from prev job id:",
-                prev_job_id,
-                " for input:",
-                input_name,
-                "edge: ",
-                edge,
+                f"fetching input from prev job id: {prev_job_id}"
+                + f"for input: {input_name} edge: {edge}"
             )
 
             job_result = JobService().get_job_result(prev_job_id)
@@ -77,8 +75,8 @@ def fetch_inputs(previous_jobs: list[dict[str, str]]):
                 else:
                     dict_inputs[input_name] = result
 
-    except Exception:
-        logger.debug(traceback.format_exc())
+    except Exception as e:
+        logger.debug(f"{e} {traceback.format_exc()}")
 
     return dict_inputs
 
@@ -180,7 +178,7 @@ def flojoy(
             ctrls: dict[str, Any] | None = None,
         ):
             try:
-                logger.debug("previous jobs:", previous_jobs)
+                logger.debug(f"previous jobs: {previous_jobs}")
                 # Get command parameters set by the user through the control panel
                 func_params: dict[str, Any] = {}
                 if ctrls is not None:
@@ -191,10 +189,7 @@ def flojoy(
                 func_params["type"] = "default"
 
                 logger.debug(
-                    "executing node_id:",
-                    node_id,
-                    "previous_jobs:",
-                    previous_jobs,
+                    f"executing node_id: {node_id} previous_jobs: {previous_jobs}"
                 )
                 dict_inputs = fetch_inputs(previous_jobs)
 
@@ -208,6 +203,7 @@ def flojoy(
                 for param, value in func_params.items():
                     if param in sig.parameters:
                         args[param] = value
+
                 if inject_node_metadata:
                     args["default_params"] = DefaultParams(
                         job_id=job_id,
@@ -216,19 +212,27 @@ def flojoy(
                         node_type="default",
                     )
 
-                logger.debug(node_id, " params: ", args.keys())
+                logger.debug(f"{node_id} params: {args.keys()}")
 
                 # check if node has an init container and if so, inject it
                 if NodeInitService().has_init_store(node_id):
                     args["init_container"] = NodeInitService().get_init_store(node_id)
 
                 if inject_connection:
-                    print("injecting connection", flush=True)
+                    logger.debug("injecting connection")
                     device = args["connection"]
-                    print(f"device handle: {device}", flush=True)
-                    id = device.get_id()
-                    connection = DeviceConnectionManager.get_connection(id)
+                    logger.debug(f"device handle: {device}")
+                    _id = device.get_id()
+                    connection = DeviceConnectionManager.get_connection(_id)
                     args["connection"] = connection
+
+                # This fixes when people forget to add `= None` in
+                # default: Optional[DataContainer] = None
+                if (
+                    "default" not in args
+                    and "default" in inspect.signature(func).parameters.keys()
+                ):
+                    args["default"] = None
 
                 ##########################
                 # calling the node function
@@ -263,7 +267,7 @@ def flojoy(
 
             except Exception as e:
                 logger.error(str(e))
-                logger.error("error occured while running the node")
+                logger.error("error occurred while running the node")
                 logger.debug(traceback.format_exc())
                 return JobFailure(
                     func_name=func.__name__,

@@ -39,6 +39,10 @@ class SmallMemory:
                 meta_data["type"] = "dict"
                 self.dao.set_obj(value_type_key, meta_data)
                 self.dao.set_obj(memory_key, value)
+            case "bool":
+                meta_data["type"] = "bool"
+                self.dao.set_obj(value_type_key, meta_data)
+                self.dao.set_bool(memory_key, value)
             case _:
                 raise ValueError(
                     f"SmallMemory currently does not support '{v_type}' type data!"
