@@ -137,6 +137,22 @@ done
 
 git pull
 
+ENV_NAME="flojoy-studio"
+YAML_FILE="environment.yml"
+
+eval "$(conda shell.bash hook)" # configure the shell properly
+
+conda activate $ENV_NAME
+# Check if the Conda environment exists
+if [ $? -eq 0 ]; then
+	# Environment exists, update it
+	conda env update --file $YAML_FILE --name $ENV_NAME
+else
+	# Environment doesn't exist, create it
+	conda env create --file $YAML_FILE --name $ENV_NAME
+	conda activate $ENV_NAME
+fi
+
 # checking if flojoy.yaml file exists
 
 CWD="$PWD"
@@ -251,9 +267,6 @@ cd $CWD
 #    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
 #    echo ''
 # fi
-
-# do this for the dev build
-pip install -e pkgs/flojoy
 
 # set deploy status to dev
 export DEPLOY_STATUS=dev
