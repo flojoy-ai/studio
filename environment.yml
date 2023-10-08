@@ -1,0 +1,7 @@
+name: flojoy-studio
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10,<3.11
+  - poetry>=1.6.1,<2.0.0
