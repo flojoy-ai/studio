@@ -30,8 +30,13 @@ jobs:
           python-version: "3.10"
           cache: "pip"
 
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6"
+
       - name: Format dependencies
-        run: pip3 install black && npm i
+        run: poetry add -D black && npm i
 
       - name: Run formatting check
         run: npm run check
