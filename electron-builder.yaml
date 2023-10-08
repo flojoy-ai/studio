@@ -25,8 +25,6 @@ extraResources:
     filter: "!**/nodes/**"
   - from: "manage.py"
     to: "backend/manage.py"
-  - from: "requirements.txt"
-    to: "backend/requirements.txt"
   - from: "STATUS_CODES.yml"
     to: "backend/STATUS_CODES.yml"
 

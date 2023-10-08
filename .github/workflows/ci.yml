@@ -50,19 +50,25 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
+
+      - name: Run image
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6"
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - run: pip install -r requirements.txt && npm i
+      - run: poetry install && npm i
 
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
           cd ..
           cd captain
-          python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
