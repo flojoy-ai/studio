@@ -137,6 +137,12 @@ done
 
 git pull
 
+if ! command -v conda &>/dev/null; then
+	echo "Conda is not installed on your system."
+	echo "Please install Conda before proceeding."
+	exit 1
+fi
+
 ENV_NAME="flojoy-studio"
 YAML_FILE="environment.yml"
 
