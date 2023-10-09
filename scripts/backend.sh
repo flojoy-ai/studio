@@ -9,6 +9,8 @@ feedback() {
 		exit 1
 	fi
 }
+current_dir="$(dirname "$(readlink -f "$0")")"
+
 
 # Need to source them because the "conda" command is actually a bash function
 if [ -f ~/.zshrc ]; then
@@ -21,7 +23,18 @@ if [ -f ~/.bashrc ]; then
 	echo "Sourced ~/.bashrc"
 fi
 
-current_dir="$(dirname "$(readlink -f "$0")")"
+if ! command -v conda &>/dev/null; then
+	bash $current_dir/conda_install.sh
+	if [ -f ~/.zshrc ]; then
+		source ~/.zshrc
+		echo "Sourced ~/.zshrc"
+	fi
+
+	if [ -f ~/.bashrc ]; then
+		source ~/.bashrc
+		echo "Sourced ~/.bashrc"
+	fi
+fi
 
 # Creating the .flojoy folder
 flojoy_dir="$HOME/.flojoy"
@@ -34,11 +47,6 @@ fi
 
 eval "$(conda shell.bash hook)" # configure the shell properly
 
-if [ ! $? -eq 0 ]; then
-	echo "Conda is not installed on your system."
-	echo "Please install Conda before proceeding."
-	exit 1
-fi
 
 cd $current_dir
 
