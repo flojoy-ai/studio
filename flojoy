@@ -56,6 +56,9 @@ enableSentry=true
 enableTelemetry=true
 isDebugMode=false
 isRemoteMode=false
+flojoyEnv="flojoy-studio"
+envYml="environment.yml"
+updateEnv=true
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 feedback() {
@@ -74,7 +77,7 @@ feedback() {
 
 helpFunction() {
 	echo ""
-	echo "Usage: $0 -n -p -s -S -t -T -d -r"
+	echo "Usage: $0 -n -p -s -S -t -T -d -r -u"
 	# echo  " -v: path to a Python virtual environment"
 	echo " -n: To NOT install npm packages"
 	echo " -p: To NOT install python packages"
@@ -84,6 +87,7 @@ helpFunction() {
 	echo " -T: To disable Telemetry"
 	echo " -d: To enable debug mode"
 	echo " -r: To start studio in remote mode without electron"
+	echo " -u: To NOT update $flojoyEnv env"
 	echo 1 # Exit script after printing help
 }
 
@@ -127,6 +131,10 @@ while [ $# -gt 0 ]; do
 		isRemoteMode=true
 		shift
 		;;
+	-u)
+		updateEnv=false
+		shift
+		;;
 	*) # unknown option
 		echo "Unknown option: $1"
 		helpFunction
@@ -136,28 +144,6 @@ while [ $# -gt 0 ]; do
 done
 
 git pull
-
-if ! command -v conda &>/dev/null; then
-	echo "Conda is not installed on your system."
-	echo "Please install Conda before proceeding."
-	exit 1
-fi
-
-ENV_NAME="flojoy-studio"
-YAML_FILE="environment.yml"
-
-eval "$(conda shell.bash hook)" # configure the shell properly
-
-conda activate $ENV_NAME
-# Check if the Conda environment exists
-if [ $? -eq 0 ]; then
-	# Environment exists, update it
-	conda env update --file $YAML_FILE --name $ENV_NAME
-else
-	# Environment doesn't exist, create it
-	conda env create --file $YAML_FILE --name $ENV_NAME
-	conda activate $ENV_NAME
-fi
 
 # checking if flojoy.yaml file exists
 
@@ -210,6 +196,25 @@ if [ $is_ci = false ]; then
 	fi
 fi
 
+eval "$(conda shell.bash hook)" # configure the shell properly
+eval "$(conda shell.zsh hook)" # configure the shell properly
+
+conda activate $flojoyEnv >/dev/null 2>&1
+# Check if the Conda environment exists
+if [ $? -eq 0 ]; then
+	info_msg "$flojoyEnv env found!"
+	if [ $updateEnv == true ]; then
+		info_msg "Updating $flojoyEnv env with conda..."
+		# Environment exists, update it
+		conda env update --file $envYml --name $flojoyEnv
+	fi
+else
+	info_msg "$flojoyEnv env not found, creating..."
+	# Environment doesn't exist, create it
+	conda env create --file $envYml --name $flojoyEnv
+	conda activate $flojoyEnv
+fi
+
 # Install python packages
 
 if [ $initPythonPackages = true ]; then
@@ -259,20 +264,6 @@ else
 fi
 
 cd $CWD
-
-# YOLOV3 check/download moved to node
-# Leave commented until tested?
-
-# Checking for YOLOV3 Weights
-# CWD="$PWD"
-# FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
-# if test -f "$FILE"; then
-#    info_msg "$FILE exists."
-# else
-#    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
-#    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
-#    echo ''
-# fi
 
 # set deploy status to dev
 export DEPLOY_STATUS=dev
