@@ -33,7 +33,6 @@ if [ ! -d "$flojoy_dir" ]; then
 fi
 
 eval "$(conda shell.bash hook)" # configure the shell properly
-conda --version
 
 if [ ! $? -eq 0 ]; then
 	echo "Conda is not installed on your system."
