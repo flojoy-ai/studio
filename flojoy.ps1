@@ -63,6 +63,10 @@ $enableSentry = $true
 $enableTelemetry = $false
 $isDebugMode = $false
 $isRemoteMode = $false
+$flojoyEnv = "flojoy-studio"
+$envYml = "environment.yml"
+$updateEnv = $true
+
 
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
@@ -85,15 +89,16 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -s -S -T -v venv -d -r"
+  Write-Host "Usage: $0 -n -p -s -S -T -d -r -u -c conda_exec"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
   Write-Host  " -s: To NOT update submodules"
   Write-Host  " -S: To NOT enable Sentry"
   Write-Host  " -T: To enable Telemetry"
-  Write-Host  " -v: To use virtual env"
   Write-Host  " -d: To enable debug mode"
   Write-Host  " -r: To start studio in remote mode without electron"
+  Write-Host  " -u: To NOT update $flojoyEnv env"
+  Write-Host  " -c: To provide custom file path for conda executable"
 }
 
 # Assign command-line arguments to a variable
@@ -143,8 +148,13 @@ while ($arguments) {
     $index = $index + 1
     continue
   }
-  elseif ($key -ceq "-v") {
-    $venvPath = $arguments[$index + 1]
+  elseif ($key -ceq "-u") {
+    $updateEnv = $false
+    $index = $index + 1
+    continue
+  }
+  elseif ($key -ceq "-c") {
+    $conda_exec = $arguments[$index + 1]
     $index = $index + 2
     continue
   }
@@ -193,11 +203,6 @@ function createFlojoyDirectoryWithYmlFile {
 
 createFlojoyDirectoryWithYmlFile
 
-if ($venvPath) {
-  info_msg "Venv path is given, will use: $venvPath"
-  & $venvPath\Scripts\activate
-}
-
 if ($initSubmodule -eq $true) {
   # Update submodules
   & git submodule update --init --recursive > $null
@@ -205,40 +210,43 @@ if ($initSubmodule -eq $true) {
 }
 
 
-# Check if Python, Pip, or npm is missing.
+# Check if Conda or NPM is missing.
 . ./check-dependencies.ps1
 
 # Call the function to check for dependencies
-$missing_dependencies = check_dependencies
+$conda_exec = check_dependencies
 
-# If there are missing dependencies, print the list of them
-if ($missing_dependencies) {
-  error_msg "$missing_dependencies"
-  exit 1
+# Get envs and expressions to activate conda on current PowerShell
+$_conda_expressions = @(Invoke-Expression "$conda_exec shell.powershell hook")
+
+# Iterate through the list of strings and execute each as a command
+foreach ($_expression in $_conda_expressions) {
+  if ($_expression) {
+    Invoke-Expression $_expression
+  }
 }
 
-function check_and_install_py_pckg() {
-  param (
-    $pckg_name,
-    $pip_cmd
-  )
-  & pip show $pckg_name 2>$1 > $null
-  $is_installed = $LastExitCode
-  if ($is_installed -ne 0) {
-    $install_cmd = "python -m $pip_cmd install $pckg_name"
-    Invoke-Expression $install_cmd 2>$1 | Out-Null
+$env_list = @(conda env list)
+$isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "
+if ($isEnvExists){
+  info_msg "$flojoyEnv env found!"
+  if($updateEnv -eq $true) {
+    info_msg "Updating $flojoyEnv env..."
+    conda env update --file $envYml --name $flojoyEnv | Out-Null
   }
+} else {
+  # Environment doesn't exist, create it
+  info_msg "$flojoyEnv env not found, creating env with conda..."
+  conda env create --file $envYml --name $flojoyEnv | Out-Null
+  conda activate $flojoyEnv
 }
 
 # Install Python packages
 
 if ($initPythonPackages) {
-  info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
+  info_msg "Flag -p is not provided, Python packages will be installed with Poetry!"
   Set-Location $CWD
-  check_and_install_py_pckg "pipwin" "pip"
-  check_and_install_py_pckg "matplotlib==3.5.2" "pipwin" 
-  $pip_cmd = "python -m pip install -r requirements.txt"
-  Invoke-Expression $pip_cmd
+  & poetry install
   feedback $? 'Python packages installed successfully!' "Python package installation failed! check error details printed above."
 }
 
