@@ -7,6 +7,49 @@ import { memo, useEffect, useRef } from "react";
 import Scatter3D from "@src/assets/nodes/3DScatter";
 import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
+import { Vec3 } from "regl";
+
+const initializePlot = (
+  canvas: HTMLCanvasElement,
+  data: Vec3[],
+  params: CustomNodeProps["data"]["ctrls"],
+) => {
+  return new ScatterPlot3D(canvas, data, {
+    axes: {
+      x: {
+        domain: [
+          params["x_min"].value as number,
+          params["x_max"].value as number,
+        ],
+        step: params["x_step"].value as number,
+      },
+      y: {
+        domain: [
+          params["y_min"].value as number,
+          params["y_max"].value as number,
+        ],
+        step: params["y_step"].value as number,
+      },
+      z: {
+        domain: [
+          params["z_min"].value as number,
+          params["z_max"].value as number,
+        ],
+        step: params["z_step"].value as number,
+      },
+    },
+    showPlanes: {
+      xy: params["show_xy_plane"].value as boolean,
+      xz: params["show_xz_plane"].value as boolean,
+      yz: params["show_yz_plane"].value as boolean,
+    },
+    cameraOptions: {
+      center: [2.5, 2.5, 2.5],
+    },
+    color: [0.6, 0.96, 1, 1],
+    backgroundColor: [0.1, 0.1, 0.1, 1],
+  });
+};
 
 const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   const { nodeError, nodeResult } = useNodeStatus(data.id);
@@ -23,32 +66,18 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   }, [nodeResult?.result.data]);
 
   useEffect(() => {
-    if (!scatter.current && canvas.current && nodeResult?.result?.data) {
-      const pts = (nodeResult.result.data as OrderedTripleData).extra;
-      scatter.current = new ScatterPlot3D(canvas.current, pts, {
-        axes: {
-          x: {
-            domain: [0, 10],
-            step: 1,
-          },
-          y: {
-            domain: [0, 10],
-            step: 1,
-          },
-          z: {
-            domain: [0, 10],
-            step: 1,
-          },
-        },
-        cameraOptions: {
-          center: [2.5, 2.5, 2.5],
-        },
-        color: [0.6, 0.96, 1, 1],
-        backgroundColor: [0.1, 0.1, 0.1, 1],
-      });
-      scatter.current.frame();
+    if (scatter.current) {
+      scatter.current.destroy();
     }
-  }, [nodeResult?.result.data]);
+    scatter.current = null;
+  }, [data.ctrls]);
+
+  if (!scatter.current && canvas.current && nodeResult?.result?.data) {
+    const pts = (nodeResult.result.data as OrderedTripleData).extra;
+    const plot = initializePlot(canvas.current, pts, data.ctrls);
+    plot.frame();
+    scatter.current = plot;
+  }
 
   if (!nodeResult?.result?.data) {
     return (
