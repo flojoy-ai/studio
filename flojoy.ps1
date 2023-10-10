@@ -228,18 +228,19 @@ foreach ($_expression in $_conda_expressions) {
 
 $env_list = @(conda env list)
 $isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "
-if ($isEnvExists){
+if ($isEnvExists) {
   info_msg "$flojoyEnv env found!"
-  if($updateEnv -eq $true) {
+  if ($updateEnv -eq $true) {
     info_msg "Updating $flojoyEnv env..."
     conda env update --file $envYml --name $flojoyEnv | Out-Null
   }
-} else {
+}
+else {
   # Environment doesn't exist, create it
   info_msg "$flojoyEnv env not found, creating env with conda..."
   conda env create --file $envYml --name $flojoyEnv | Out-Null
-  conda activate $flojoyEnv
 }
+conda activate $flojoyEnv
 
 # Install Python packages
 
@@ -300,4 +301,5 @@ else {
   $startProjectCmd = "npm run start-project:win"
 
 }
+
 Invoke-Expression $startProjectCmd

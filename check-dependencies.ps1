@@ -13,7 +13,7 @@ function check_dependencies {
     return $conda_exec
   }
   if (!(Get-Command conda -ErrorAction SilentlyContinue)) {
-    $conda_default_exec = Join-Path $env:USERPROFILE "miniconda3" "Scriptst" "conda.exe"
+    $conda_default_exec = Join-Path $env:USERPROFILE "miniconda3" "Scripts" "conda.exe"
     if (-not (Test-Path $conda_default_exec)) {
       error_msg "$conda_missing"
       exit 1
