@@ -73,10 +73,12 @@ conda activate $flojoyEnv
 feedback $? "Env $flojoyEnv is activated!" "Failed to activate $flojoyEnv env, try relunching app!"
 
 Set-Location $currentDir
-if ($updated -eq $false) {
+$installedDeps = Test-Path -PathType Leaf (Join-Path $currentDir ".installed_deps")
+if ($installedDeps -eq $false) {
   Write-Output "Installing python dependencies...It can take up to few minutes for first time, hang tight..."
   & poetry install | Out-Null
   Write-Output "Package installation completed!"
+  New-Item -ItemType File (Join-Path $currentDir ".installed_deps") -ErrorAction SilentlyContinue | Out-Null
 }
 
 Write-Output "Starting backend..."
