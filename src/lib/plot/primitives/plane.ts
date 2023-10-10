@@ -74,18 +74,19 @@ export class OrthogonalPlane implements Drawable {
   }
 
   private createVertices(options: OrthogonalPlaneOptions): Vec3[] {
-    const vertices = this.createXZPlaneVertices(options);
+    const vertices = this.createXYPlaneVertices(options);
     switch (options.orientation) {
-      case "xz":
-        return vertices;
       case "xy":
+        return vertices;
+      case "xz":
         return vertices.map((v) => [v[0], v[2], v[1]]);
       case "yz":
         return vertices.map((v) => [v[1], v[0], v[2]]);
     }
   }
 
-  private createXZPlaneVertices(options: OrthogonalPlaneOptions): Vec3[] {
+  // OpenGL considers Y to be up but we would like Z to be up instead
+  private createXYPlaneVertices(options: OrthogonalPlaneOptions): Vec3[] {
     const [a, b] = options.axes;
     const { domain: aDomain, step: aStep } = a;
     const { domain: bDomain, step: bStep } = b;

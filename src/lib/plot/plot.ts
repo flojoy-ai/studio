@@ -67,4 +67,8 @@ export class Plot {
       this.draw();
     });
   }
+
+  public destroy() {
+    this.regl.destroy();
+  }
 }

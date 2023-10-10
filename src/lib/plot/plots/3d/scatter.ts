@@ -1,7 +1,7 @@
 import { Vec3, Vec4 } from "regl";
 import { Plot } from "../../plot";
 import { OrthogonalPlane, Points } from "../../primitives";
-import { Axis } from "../../types";
+import { Axis, Drawable } from "../../types";
 import { CameraOptions } from "../../camera";
 
 type ScatterPlot3DOptions = {
@@ -11,6 +11,11 @@ type ScatterPlot3DOptions = {
     x: Axis;
     y: Axis;
     z: Axis;
+  };
+  showPlanes?: {
+    xy?: boolean;
+    xz?: boolean;
+    yz?: boolean;
   };
   cameraOptions?: Partial<CameraOptions>;
 };
@@ -49,23 +54,39 @@ export class ScatterPlot3D {
       },
     };
 
-    this.plot
-      .with([
-        this.points,
-        new OrthogonalPlane(this.plot, {
-          orientation: "xz",
-          axes: [x, z],
-        }),
+    const showPlanes = options.showPlanes ?? {
+      xy: true,
+      xz: true,
+      yz: true,
+    };
+
+    const objects: Drawable[] = [this.points];
+    if (showPlanes.xy) {
+      objects.push(
         new OrthogonalPlane(this.plot, {
           orientation: "xy",
           axes: [x, y],
         }),
+      );
+    }
+    if (showPlanes.xz) {
+      objects.push(
+        new OrthogonalPlane(this.plot, {
+          orientation: "xz",
+          axes: [x, z],
+        }),
+      );
+    }
+    if (showPlanes.yz) {
+      objects.push(
         new OrthogonalPlane(this.plot, {
           orientation: "yz",
           axes: [y, z],
         }),
-      ])
-      .withCamera(options.cameraOptions);
+      );
+    }
+
+    this.plot.with(objects).withCamera(options.cameraOptions);
   }
 
   public draw() {
@@ -78,5 +99,9 @@ export class ScatterPlot3D {
 
   public updateData(data: Vec3[]) {
     this.points.updateData(data);
+  }
+
+  public destroy() {
+    this.plot.destroy();
   }
 }
