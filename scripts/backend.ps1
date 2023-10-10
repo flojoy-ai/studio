@@ -76,7 +76,7 @@ Set-Location $currentDir
 $installedDeps = Test-Path -PathType Leaf (Join-Path $currentDir ".installed_deps")
 if ($installedDeps -eq $false) {
   Write-Output "Installing python dependencies...It can take up to few minutes for first time, hang tight..."
-  & poetry install | Out-Null
+  & poetry install
   feedback $? "Package installation completed!" "Error occured while installing python deps with poetry!"
   New-Item -ItemType File (Join-Path $currentDir ".installed_deps") -ErrorAction SilentlyContinue | Out-Null
 }
