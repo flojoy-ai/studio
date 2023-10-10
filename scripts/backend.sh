@@ -11,6 +11,9 @@ feedback() {
 }
 current_dir="$(dirname "$(readlink -f "$0")")"
 
+flojoy_env="flojoy-studio"
+env_yml="$current_dir/environment.yml"
+conda_script="$current_dir/conda_install.sh"
 
 # Need to source them because the "conda" command is actually a bash function
 if [ -f ~/.zshrc ]; then
@@ -22,9 +25,10 @@ if [ -f ~/.bashrc ]; then
 	source ~/.bashrc
 	echo "Sourced ~/.bashrc"
 fi
-
+echo "Looking for conda installation..."
 if ! command -v conda &>/dev/null; then
-	bash $current_dir/conda_install.sh
+	echo "Conda installation was not found..."
+	bash $conda_script
 	if [ -f ~/.zshrc ]; then
 		source ~/.zshrc
 		echo "Sourced ~/.zshrc"
@@ -34,15 +38,8 @@ if ! command -v conda &>/dev/null; then
 		source ~/.bashrc
 		echo "Sourced ~/.bashrc"
 	fi
-fi
-
-# Creating the .flojoy folder
-flojoy_dir="$HOME/.flojoy"
-echo "flojoy dir: $flojoy_dir"
-
-if [ ! -d "$flojoy_dir" ]; then
-	echo "Flojoy directory doesn't exist, Creating $flojoy_dir ... "
-	mkdir "$flojoy_dir"
+else
+	echo "Conda is already installed..."
 fi
 
 eval "$(conda shell.bash hook)" # configure the shell properly
@@ -51,20 +48,30 @@ eval "$(conda shell.bash hook)" # configure the shell properly
 cd $current_dir
 
 # Bootstrapping using conda
-ENV_NAME="flojoy-studio"
-YAML_FILE="environment.yml"
-
-conda activate $ENV_NAME
+conda activate $flojoy_env
 # Check if the Conda environment exists
 if [ $? -eq 0 ]; then
-	# Environment exists, update it
-	conda env update --file $YAML_FILE --name $ENV_NAME
+	echo "$flojoy_env env found!"
+	if ! test -f "$current_dir/.updated_env"; then
+		echo "Updating $flojoy_env env..."
+		# Environment exists, update it
+		conda env update --file $env_yml --name $flojoy_env
+		conda activate $flojoy_env
+		touch "$current_dir/.updated_env"
+	fi
 else
 	# Environment doesn't exist, create it
-	conda env create --file $YAML_FILE --name $ENV_NAME
-	conda activate $ENV_NAME
+	conda env create --file $env_yml --name $flojoy_env
+	conda activate $flojoy_env
+	touch "$current_dir/.updated_env"
 fi
 
+if ! test -f "$current_dir/.installed_deps"; then
+	echo "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
+	poetry install
+	feedback $? "Installed packages successfully!" "Error occured while installing packages with poetry!"
+	touch "$current_dir/.installed_deps"
+fi
 export ELECTRON_MODE=packaged
-poetry install
+echo "Starting backend..."
 poetry run python3 manage.py
