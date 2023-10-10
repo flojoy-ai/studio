@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "flojoy-studio"
+version = "0.1.0"
+description = ""
+authors = [
+  "Jack Palmer <jp@flojoy.io>",
+  "Joey Yu <joey@flojoy.io>",
+  "Jeff Zhang <jeff@flojoy.io>",
+  "Syed Mahbub <smahmed776@gmail.com>",
+  "Dallas Strandell <dalstrande@outlook.com>",
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.10"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+flojoy = {path = "pkgs/flojoy"}
+fastapi = "^0.103.2"
+scikit-learn = "^1.3.1"
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+debugpy = "^1.8.0"
+opencv-python-headless = "^4.8.1.78"
+pyserial = "^3.5"
+zeroconf = "^0.115.2"
+docstring-parser = "^0.15"
+keyring = "^24.2.0"
+qcodes = "^0.40.0"
+pyvisa-py = "^0.7.0"
+pyvisa = "^1.13.0"
+pyusb = "^1.2.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+black = "^23.9.1"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -2,5 +2,6 @@ dist/*
 PYTHON/*
 apps/*
 src/data/*.json
-venv/*
-venv2/*
+**/venv/*
+**/.venv/*
+**/venv2/*
