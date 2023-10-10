@@ -23,7 +23,26 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - uses: actions/setup-python@v4
         with:
@@ -36,13 +55,13 @@ jobs:
           poetry-version: "1.6"
 
       - name: Format dependencies
-        run: poetry install && npm i
+        run: poetry install && pnpm i
 
       - name: Run formatting check
-        run: npm run check
+        run: pnpm run check
 
       - name: Typescript check
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
   python-tests:
     runs-on: ubuntu-latest
@@ -63,9 +82,28 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
-      - run: poetry install && npm i
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - run: poetry install && pnpm install
 
       - name: pytest
         run: |
@@ -90,7 +128,26 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - uses: actions/setup-python@v4
         with:
@@ -109,9 +166,9 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
-          build: npm run build
-          start: npm run start-project
-          command: npx percy exec -- cypress run
+          build: pnpm run build
+          start: pnpm run start-project
+          command: pnpm exec percy exec -- cypress run
           browser: chrome
           install: false
 
