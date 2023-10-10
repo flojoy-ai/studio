@@ -17,58 +17,68 @@ function feedback {
 
 $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-$appData = $env:APPDATA
-$flojoyDir = Join-Path $appData ".flojoy"
-$mambaDir = Join-Path $flojoyDir "mamba"
-$mambaHookScript = Join-Path $mambaDir "condabin" "mamba_hook.ps1"
-$mambaExecutable = Join-Path $currentDir "bin/micromamba.exe"
-$venvName = "flojoy_root"
-$venvDir = Join-Path $mambaDir "envs" $venvName
-$venvExecutable = Join-Path $venvDir "python.exe"
-$isMamabaInstalled = Get-Command micromamba -ErrorAction SilentlyContinue
+$flojoyEnv = "flojoy-studio"
+$envYml = Join-Path $currentDir "environment.yml"
+$condaScript = Join-Path $currentDir "conda_install.ps1"
 
-Write-Host "flojoy dir: $flojoyDir"
-if ( -not (Test-Path $flojoyDir)) {
-  Write-Output "Flojoy directory doesn't exist, Creating $flojoyDir ..."
-  New-Item -ItemType Directory $flojoyDir | Out-Null
-}
-Set-Location $flojoyDir
-Write-Output "Location set to $flojoyDir"
+Write-Host "Looking for conda installation..."
+# Check if conda is found on PATH
+if (!(Get-Command conda -ErrorAction SilentlyContinue)) {
+  # Look for conda installation in default installation path
+  $condaDefaultExec = Join-Path $env:USERPROFILE "miniconda3" "Scripts" "conda.exe"
+  if (-not (Test-Path $condaDefaultExec)) {
+    Write-Host "Conda installation was not found..."
+    #  install conda
+    Invoke-Expression "$condaScript"
+    $condaExec = "$condaDefaultExec"
 
-if (-not (Test-Path $venvExecutable -PathType Leaf)) {
-  if (Test-Path $venvDir) {
-    Remove-Item -Path $venvDir -Force | Out-Null
-  }
-  if ($isMamabaInstalled) {
-    Write-Host "Existing Micromamba executable found..."
-    Write-Host "Creating $venvName env..."
-    & micromamba create -n $venvName conda-forge::python=3.10 -r "$mambaDir" -y
-    feedback $? "Micromamba env $venvName created successfully." "Micromamba env creation failed."
   }
   else {
-    Write-Host "Micromamba is not found..."
-    Write-Host "Creating $venvName env..."
-    Invoke-Expression "$mambaExecutable create -n $venvName conda-forge::python=3.10 -r $mambaDir -y"
-    feedback $? "Micromamba env $venvName created successfully." "Micromamba env creation failed."
+    Write-Host "Conda installation is found!"
+    $condaExec = "$condaDefaultExec"
   }
 }
-if (!($isMamabaInstalled)) {
-  Invoke-Expression "$mambaExecutable shell init -s powershell -p $mambaDir" | Out-Null
-  $Env:MAMBA_ROOT_PREFIX = $mambaDir
-  $Env:MAMBA_EXE = $mambaExecutable
-  Invoke-Expression "$mambaHookScript"
+else {
+  Write-Host "Conda installation is found!"
+  $condaExec = "conda"
+}
+# Get envs and expressions to activate conda on current PowerShell
+$_conda_expressions = @(Invoke-Expression "$condaExec shell.powershell hook")
+
+# Iterate through the list of strings and execute each as a command
+foreach ($_expression in $_conda_expressions) {
+  if ($_expression) {
+    Invoke-Expression $_expression
+  }
+}
+
+$env_list = @(conda env list)
+$isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "
+if ($isEnvExists) {
+  Write-Output "$flojoyEnv env found!"
+  $updated = Test-Path -PathType Leaf (Join-Path $currentDir ".updated_env")
+  if ($updated -eq $false) {
+    Write-Output "Updating $flojoyEnv env..."
+    conda env update --file "$envYml" --name $flojoyEnv | Out-Null
+    New-Item -ItemType File (Join-Path $currentDir ".updated_env") -ErrorAction SilentlyContinue | Out-Null
+  }
 }
 else {
-  $Env:MAMBA_ROOT_PREFIX = $mambaDir
+  # Environment doesn't exist, create it
+  Write-Output "$flojoyEnv env not found, creating env with conda..."
+  conda env create --file "$envYml" --name $flojoyEnv | Out-Null
+  New-Item -ItemType File (Join-Path $currentDir ".updated_env") -ErrorAction SilentlyContinue  | Out-Null
 }
-& micromamba activate $venvName
-
-feedback $? "Env $venvName is activated!" "Failed to activate $venvName env!"
+conda activate $flojoyEnv
+feedback $? "Env $flojoyEnv is activated!" "Failed to activate $flojoyEnv env, try relunching app!"
 
 Set-Location $currentDir
-Write-Output "Installing pip dependencies..."
-& python -m pip install -r .\requirements.txt
+if ($updated -eq $false) {
+  Write-Output "Installing python dependencies...It can take up to few minutes for first time, hang tight..."
+  & poetry install | Out-Null
+  Write-Output "Package installation completed!"
+}
 
-Write-Output "Package installation completed, starting backend..."
+Write-Output "Starting backend..."
 $Env:ELECTRON_MODE = "packaged"
 & python .\manage.py
