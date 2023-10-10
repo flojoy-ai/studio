@@ -121,7 +121,7 @@ while ($arguments) {
     $initPythonPackages = $false
     $index = $index + 1
     continue
-    
+
   }
   elseif ($key -ceq "-S") {
     $enableSentry = $false
@@ -193,7 +193,7 @@ function createFlojoyDirectoryWithYmlFile {
     Set-Content $FILE "PATH: $CWD"
     feedback $? "Created new $FOLDER directory with flojoy.yaml file." "Failed to create file in the home directory, check the permission or sign in as root user"
   }
-  
+
   $CREDENTIALS_FILE = "$FOLDER/credentials.txt"
   if (-not (Test-Path $CREDENTIALS_FILE)) {
     New-Item $CREDENTIALS_FILE -ItemType File | Out-Null
@@ -255,7 +255,7 @@ if ($initPythonPackages) {
 
 if ($initNodePackages) {
   info_msg "Argument -n is not provided, Node packages will be installed from package.json"
-  & npm install
+  & pnpm install
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'
 }
 
@@ -263,7 +263,7 @@ if ($initNodePackages) {
 if ( $enableSentry -eq $true ) {
   info_msg "Sentry will be enabled!"
   $Env:FLOJOY_ENABLE_SENTRY = 1
-} 
+}
 else {
   info_msg "Sentry will be disabled!"
   $Env:FLOJOY_ENABLE_SENTRY = 0
@@ -294,11 +294,11 @@ info_msg 'Starting the project...'
 if ($isDebugMode -eq $true) {
   info_msg "Debug mode will be enabled!"
   $Env:FASTAPI_LOG = "debug"
-  $startProjectCmd = "npm run start-project:win:debug"
+  $startProjectCmd = "pnpm run start-project:win:debug"
 }
 else {
   $Env:FASTAPI_LOG = "info"
-  $startProjectCmd = "npm run start-project:win"
+  $startProjectCmd = "pnpm run start-project:win"
 
 }
 

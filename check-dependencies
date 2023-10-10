@@ -1,21 +1,26 @@
 #!/bin/bash
 
 function check_dependencies {
-  conda_missing="Conda was not found on your system."
-  conda_missing+="Please install it and rerun this script. You can download the latest version from the official website: https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html"
-  
-  npm_missing="Node.js/npm was not found. Please make sure you have installed Node.js version 16.0 or higher along with npm correctly. You can download Nodejs from here: https://nodejs.org/en/download"
+	conda_missing="Conda was not found on your system."
+	conda_missing+="Please install it and rerun this script. You can download the latest version from the official website: https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html"
 
-  if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then
-    if ! command -v conda &>/dev/null; then
-      echo "$conda_missing"
-      exit 1
-    fi
+	npm_missing="Node.js/npm was not found. Please make sure you have installed Node.js version 16.0 or higher along with npm correctly. You can download Nodejs from here: https://nodejs.org/en/download"
+	pnpm_missing="pnpm not found: https://pnpm.io"
 
-    if ! command -v npm &>/dev/null; then
-      echo "$npm_missing"
-      exit 1
-    fi
+	if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then
+		if ! command -v conda &>/dev/null; then
+			echo "$conda_missing"
+			exit 1
+		fi
 
-  fi
+		if ! command -v npm &>/dev/null; then
+			echo "$npm_missing"
+			exit 1
+		fi
+
+		if ! command -v pnpm &>/dev/null; then
+			echo "$pnpm_missing"
+			exit 1
+		fi
+	fi
 }
