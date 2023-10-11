@@ -1,6 +1,6 @@
 import { OverridePlotData } from "@/types";
 import { Layout } from "plotly.js";
-import { Vec3 } from "regl";
+import { Vec3, Vec4 } from "regl";
 
 export type ResultIO = {
   cmd: string;
@@ -32,5 +32,8 @@ export type OrderedPairData = {
 };
 
 export type OrderedTripleData = {
-  extra: Vec3[];
+  v: Vec3[];
+  extra?: {
+    colors: Vec4[];
+  };
 };

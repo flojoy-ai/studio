@@ -7,14 +7,18 @@ import { memo, useEffect, useRef } from "react";
 import Scatter3D from "@src/assets/nodes/3DScatter";
 import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
-import { Vec3 } from "regl";
+import { Vec3, Vec4 } from "regl";
 
 const initializePlot = (
   canvas: HTMLCanvasElement,
-  data: Vec3[],
+  initialData: {
+    points: Vec3[];
+    colors?: Vec4 | Vec4[];
+  },
   params: CustomNodeProps["data"]["ctrls"],
 ) => {
-  return new ScatterPlot3D(canvas, data, {
+  return new ScatterPlot3D(canvas, initialData.points, {
+    pointSize: 2,
     axes: {
       x: {
         domain: [
@@ -46,7 +50,7 @@ const initializePlot = (
     cameraOptions: {
       center: [2.5, 2.5, 2.5],
     },
-    color: [0.6, 0.96, 1, 1],
+    colors: initialData.colors,
     backgroundColor: [0.1, 0.1, 0.1, 1],
   });
 };
@@ -59,9 +63,11 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
 
   useEffect(() => {
     if (scatter.current && nodeResult?.result?.data) {
-      const pts = (nodeResult.result.data as OrderedTripleData).extra;
+      const resultData = nodeResult.result.data as OrderedTripleData;
+      const pts = resultData.v;
+      const colors = resultData.extra?.colors;
 
-      scatter.current.updateData(pts);
+      scatter.current.updateData(pts, colors);
     }
   }, [nodeResult?.result.data]);
 
@@ -73,8 +79,17 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
   }, [data.ctrls]);
 
   if (!scatter.current && canvas.current && nodeResult?.result?.data) {
-    const pts = (nodeResult.result.data as OrderedTripleData).extra;
-    const plot = initializePlot(canvas.current, pts, data.ctrls);
+    const resultData = nodeResult.result.data as OrderedTripleData;
+    const pts = resultData.v;
+    const colors = resultData.extra?.colors;
+    const plot = initializePlot(
+      canvas.current,
+      {
+        points: pts,
+        colors,
+      },
+      data.ctrls,
+    );
     plot.frame();
     scatter.current = plot;
   }

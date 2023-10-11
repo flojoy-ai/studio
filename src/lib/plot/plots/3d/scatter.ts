@@ -4,21 +4,35 @@ import { OrthogonalPlane, Points } from "../../primitives";
 import { Axis, Drawable } from "../../types";
 import { CameraOptions } from "../../camera";
 
-type ScatterPlot3DOptions = {
-  color?: Vec4;
-  backgroundColor?: Vec4;
-  axes?: {
+const point3dAverage = (points: Vec3[]): Vec3 => {
+  const n = points.length;
+  const res = [0, 0, 0];
+
+  for (const p of points) {
+    res[0] += p[0];
+    res[1] += p[1];
+    res[2] += p[2];
+  }
+
+  return [res[0] / n, res[1] / n, res[2] / n];
+};
+
+type ScatterPlot3DOptions = Partial<{
+  pointSize: number;
+  colors: Vec4 | Vec4[];
+  backgroundColor: Vec4;
+  axes: {
     x: Axis;
     y: Axis;
     z: Axis;
   };
-  showPlanes?: {
+  showPlanes: {
     xy?: boolean;
     xz?: boolean;
     yz?: boolean;
   };
-  cameraOptions?: Partial<CameraOptions>;
-};
+  cameraOptions: CameraOptions;
+}>;
 
 export class ScatterPlot3D {
   private plot: Plot;
@@ -32,10 +46,10 @@ export class ScatterPlot3D {
     this.plot = new Plot(canvas, options);
     this.points = new Points(
       this.plot,
-      { pointSize: 5 },
+      { pointSize: options.pointSize ?? 5 },
       {
         points: data,
-        color: options.color,
+        colors: options.colors,
       },
     );
 
@@ -86,7 +100,10 @@ export class ScatterPlot3D {
       );
     }
 
-    this.plot.with(objects).withCamera(options.cameraOptions);
+    this.plot.with(objects).withCamera({
+      center: point3dAverage(data),
+      ...options.cameraOptions,
+    });
   }
 
   public draw() {
@@ -97,8 +114,8 @@ export class ScatterPlot3D {
     this.plot.frame();
   }
 
-  public updateData(data: Vec3[]) {
-    this.points.updateData(data);
+  public updateData(data: Vec3[], colors?: Vec4 | Vec4[]) {
+    this.points.updateData(data, colors);
   }
 
   public destroy() {

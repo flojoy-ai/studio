@@ -32,7 +32,7 @@ export class Camera {
   private readonly right = new Float32Array([1, 0, 0]);
   private readonly front = new Float32Array([0, 0, 1]);
   private readonly minDistance: number;
-  private readonly maxDistance: number;
+  // private readonly maxDistance: number;
 
   private state: CameraState;
 
@@ -57,7 +57,7 @@ export class Camera {
     };
 
     this.minDistance = Math.log(options?.minDistance ?? 0.1);
-    this.maxDistance = Math.log(options?.maxDistance ?? 1000);
+    // this.maxDistance = Math.log(options?.maxDistance ?? 1000);
 
     this.plot = plot;
 
@@ -83,8 +83,8 @@ export class Camera {
       const leftButtonPressed = ev.buttons & 1;
       ev.preventDefault();
       ev.stopPropagation();
-      const dx = ev.movementX / window.innerWidth;
-      const dy = ev.movementY / window.innerHeight;
+      const dx = (ev.movementX / window.innerWidth) * 2;
+      const dy = (ev.movementY / window.innerHeight) * 2;
       if (leftButtonPressed && ev.ctrlKey) {
         this.rotate(dx, dy);
       } else if (leftButtonPressed) {
@@ -95,7 +95,7 @@ export class Camera {
     const onMouseWheel = (ev: WheelEvent) => {
       ev.preventDefault();
       ev.stopPropagation();
-      this.ddistance += ev.deltaY / window.innerHeight / 5;
+      this.ddistance += ev.deltaY / window.innerHeight;
     };
 
     plot.canvas.addEventListener("mousemove", onMouseMove);
@@ -114,10 +114,10 @@ export class Camera {
 
     this.state.theta += this.dtheta;
     this.state.phi = clamp(this.state.phi + this.dphi, PHI_MIN, PHI_MAX);
-    this.state.distance = clamp(
+    this.state.distance = Math.max(
       this.state.distance + this.ddistance,
       this.minDistance,
-      this.maxDistance,
+      // this.maxDistance,
     );
 
     this.dtheta = 0;
