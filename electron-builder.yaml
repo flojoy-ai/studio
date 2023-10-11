@@ -7,7 +7,6 @@ icon: public/favicon.ico
 asar: true
 files:
   - dist-electron/**/*
-afterSign: "scripts/notarize.js"
 
 extraResources:
   - from: "public"
@@ -46,7 +45,11 @@ mac:
   darkModeSupport: true
   gatekeeperAssess: false
   hardenedRuntime: true
-  notarize: true
+  notarize:
+    tool: notarytool
+    teamId: ${env.APPLE_TEAM_ID}
+    appleId: ${env.APPLE_ID}
+    appleIdPassword: ${env.APPLE_APP_SPECIFIC_PASSWORD}
   x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:
