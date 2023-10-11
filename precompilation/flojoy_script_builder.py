@@ -3,9 +3,11 @@ import asyncio
 from collections import deque
 from copy import copy
 import inspect
+import glob
 import os
 import shutil
 import subprocess
+import mpy_cross
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
 from captain.utils.broadcast import Signaler
@@ -404,12 +406,31 @@ class FlojoyScriptBuilder:
         """
         Compile each file in output directory to mpy
         """
+        to_remove = []
         for root, _, files in os.walk(self.path_to_output):
             for file in files:
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
-                    subprocess.run(["mpy-cross", file_path])
-                    os.remove(file_path)  # delete old .py file
+                    logger.debug(f"Compiling {file_path} to micropython")
+                    mpy_cross.run(file_path, stdout=subprocess.PIPE)
+                    to_remove.append(file_path)
+
+        for file in to_remove:
+            os.remove(file)
+
+    async def run_script(self, tempdir, port: str):
+        await asyncio.create_task(
+            self.signaler.signal_script_running_microcontroller(self.jobset_id)
+        )
+        cmd = ["mpremote", "connect", port, "+", "run", f"{tempdir}/main.py"]
+        p = subprocess.run(cmd, stdout=subprocess.PIPE)
+        if p.stderr:
+            await asyncio.create_task(
+                self.signaler.signal_prejob_output(self.jobset_id,
+                                                   str(p.stderr)))
+            return
+
+        await asyncio.create_task(self.signaler.signal_standby(self.jobset_id))
 
     async def output(self, tempdir, port: str, path_to_output: str | None):
         """
@@ -435,11 +456,7 @@ class FlojoyScriptBuilder:
                 "--buffer-size",
                 "512",
             ]  # TODO buff size of 512 only for USB.
-            logger.debug(
-                f"Copying files to selected port...\nPORT: {port}\nCMD: {cmd}")
-            await asyncio.create_task(
-                self.signaler.signal_file_upload_microcontroller(
-                    self.jobset_id))
+
             try:  # copied from captain/utils/flowchart_utils.py
                 with subprocess.Popen(
                         cmd,

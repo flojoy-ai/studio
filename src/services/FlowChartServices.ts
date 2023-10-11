@@ -38,53 +38,49 @@ export const deleteEnvironmentVariable = async (
   }
 };
 
-export function saveAndRunFlowChartInServer({
-  rfInstance,
-  jobId,
-  settings,
-  isMicrocontrollerMode,
-  mcSettings,
-}: {
-  rfInstance?: ReactFlowJsonObject<ElementsData>;
-  jobId: string;
-  settings: Setting[];
-  isMicrocontrollerMode: boolean;
-  mcSettings: Setting[];
-}) {
-  if (rfInstance) {
+function sendToServer(endpoint: string) {
+  return ({
+    rfInstance,
+    jobId,
+    settings,
+    isMicrocontrollerMode,
+    mcSettings,
+  }: {
+    rfInstance: ReactFlowJsonObject<ElementsData>;
+    jobId: string;
+    settings: Setting[];
+    isMicrocontrollerMode: boolean;
+    mcSettings: Setting[];
+  }) => {
     const fcStr = JSON.stringify(rfInstance);
-    baseClient.post("wfc", {
+    baseClient.post(endpoint, {
       fc: fcStr,
       jobsetId: jobId,
       cancelExistingJobs: true,
-      ...settings.reduce((obj, setting) => {
-        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-        obj[setting.key] = setting.value;
-        return obj;
-      }, {}),
+      //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
+      ...Object.fromEntries(settings.map((s) => [s.key, s.value])),
       precompile: isMicrocontrollerMode,
-      ...mcSettings.reduce((obj, setting) => {
-        //IMPORTANT: if you want to add more backend settings, modify PostWFC pydantic model in backend, otherwise you will get 422 error
-        obj[setting.key] = setting.value;
-        return obj;
-      }, {}),
+      ...Object.fromEntries(mcSettings.map((s) => [s.key, s.value])),
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
-  }
+  };
 }
+
+export type ServerSendAction = ReturnType<typeof sendToServer>;
+
+export const saveAndRunFlowChartInServer = sendToServer("wfc");
+export const uploadFlowChartToMicrocontroller = sendToServer("mc_upload");
 
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
   jobId: string,
 ) {
-  if (rfInstance) {
-    const fcStr = JSON.stringify(rfInstance);
+  const fcStr = JSON.stringify(rfInstance);
 
-    baseClient
-      .post("cancel_fc", {
-        fc: fcStr,
-        jobsetId: jobId,
-      })
-      .then((res) => console.log(res.data));
-  }
+  baseClient
+    .post("cancel_fc", {
+      fc: fcStr,
+      jobsetId: jobId,
+    })
+    .then((res) => console.log(res.data));
 }

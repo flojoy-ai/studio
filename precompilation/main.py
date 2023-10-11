@@ -20,6 +20,7 @@ async def precompile(
     signaler: Signaler,
     path_to_output: str = "test",
     is_ci: bool = False,
+    upload: bool = False,
     port: str = "",
 ):
     """
@@ -68,11 +69,20 @@ async def precompile(
         sw.apply_filters_to_py_files_in_output_dir()
 
         # Step 7: compile to mpy
-        # sw.compile_to_mpy() # TODO: setup for this is too complicated and it's not
+        # sw.compile_to_mpy()
+        # TODO: setup for this is too complicated and it's not
         # even necessary to run on microcontroller
 
-        # Step 8: output to microcontroller or file
-        await asyncio.create_task(
-            sw.output(tempdir=tmpdirname,
-                      port=port,
-                      path_to_output=path_to_output))
+        # Step 8: output to microcontroller or just run it
+
+        if upload:
+            await asyncio.create_task(
+                sw.output(tempdir=tmpdirname,
+                          port=port,
+                          path_to_output=path_to_output))
+        else:
+            await asyncio.create_task(
+                sw.run_script(
+                    tempdir=tmpdirname,
+                    port=port,
+                ))

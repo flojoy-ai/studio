@@ -2,7 +2,7 @@
 import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { Node, Edge } from "reactflow";
 import { ElementsData } from "@/types";
-import { Ban, Play } from "lucide-react";
+import { Ban, Play, Upload } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { projectAtom, useFlowChartState } from "@src/hooks/useFlowChartState";
 import { useSettings } from "@src/hooks/useSettings";
@@ -10,6 +10,8 @@ import { useSocket } from "@src/hooks/useSocket";
 import {
   saveAndRunFlowChartInServer,
   cancelFlowChartRun,
+  ServerSendAction,
+  uploadFlowChartToMicrocontroller,
 } from "@src/services/FlowChartServices";
 import { sendProgramToMix } from "@src/services/MixpanelServices";
 import { IServerStatus } from "@src/context/socket.context";
@@ -40,7 +42,12 @@ const FlowControlButtons = () => {
       alert("is no running job on server.");
     }
   };
-  const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
+
+  const onRun = async (
+    nodes: Node<ElementsData>[],
+    edges: Edge[],
+    action: ServerSendAction,
+  ) => {
     if (project.rfInstance && project.rfInstance.nodes.length > 0) {
       // Only update the react flow instance when required.
       const updatedRfInstance = {
@@ -55,13 +62,12 @@ const FlowControlButtons = () => {
       });
 
       sendProgramToMix(project.rfInstance.nodes, true, false);
-      // setProgramResults([]);
-      saveAndRunFlowChartInServer({
+      action({
         rfInstance: updatedRfInstance,
         jobId: socketId,
         settings: backendSettings,
-        isMicrocontrollerMode: isMicrocontrollerMode,
-        mcSettings: mcSettings,
+        isMicrocontrollerMode,
+        mcSettings,
       });
       setNodeParamChanged(false);
     } else {
@@ -70,15 +76,19 @@ const FlowControlButtons = () => {
       );
     }
   };
+
   const { nodes, edges } = useFlowChartGraph();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    onRun(nodes, edges);
+  const onPlay = async () => {
+    onRun(nodes, edges, saveAndRunFlowChartInServer);
   };
 
-  useKeyboardShortcut("ctrl", "p", () => onRun(nodes, edges));
-  useKeyboardShortcut("meta", "p", () => onRun(nodes, edges));
+  const onUpload = async () => {
+    onRun(nodes, edges, uploadFlowChartToMicrocontroller);
+  };
+
+  useKeyboardShortcut("ctrl", "p", onPlay);
+  useKeyboardShortcut("meta", "p", onPlay);
 
   return (
     <>
@@ -86,18 +96,34 @@ const FlowControlButtons = () => {
       [IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(
         serverStatus,
       ) ? (
-        <Button
-          data-cy="btn-play"
-          size="sm"
-          variant="default"
-          id="btn-play"
-          onClick={handleClick}
-          disabled={nodes.length === 0}
-          className="gap-2"
-        >
-          <Play size={18} />
-          {isMicrocontrollerMode ? "Upload" : "Play"}
-        </Button>
+        <>
+          <Button
+            data-cy="btn-play"
+            size="sm"
+            variant="default"
+            id="btn-play"
+            onClick={onPlay}
+            disabled={nodes.length === 0}
+            className="gap-2"
+          >
+            <Play size={18} />
+            Play
+          </Button>
+          {isMicrocontrollerMode && (
+            <Button
+              data-cy="btn-upload"
+              size="sm"
+              variant="default"
+              id="btn-play"
+              onClick={onUpload}
+              disabled={nodes.length === 0}
+              className="gap-2"
+            >
+              <Upload size={18} />
+              Upload
+            </Button>
+          )}
+        </>
       ) : (
         <Button
           data-testid="btn-cancel"
@@ -114,7 +140,9 @@ const FlowControlButtons = () => {
       )}
 
       <div className="px-0.5" />
-      <WatchBtn playFC={onRun} cancelFC={cancelFC} />
+      {!isMicrocontrollerMode && (
+        <WatchBtn playFC={onPlay} cancelFC={cancelFC} />
+      )}
       <MicrocontollerBtn />
       {isMicrocontrollerMode && (
         <>

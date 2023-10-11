@@ -89,6 +89,13 @@ class Signaler:
         )
         await self.ws.broadcast(msg)
 
+    async def signal_script_running_microcontroller(self, jobset_id):
+        msg = WorkerJobResponse(
+            jobset_id=jobset_id,
+            sys_status=STATUS_CODES["RUN_IN_PROCESS"],
+        )
+        await self.ws.broadcast(msg)
+
     async def signal_script_upload_complete_microcontroller(self, jobset_id):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,

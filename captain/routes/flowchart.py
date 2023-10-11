@@ -41,8 +41,25 @@ async def write_and_run_flowchart(request: PostWFC):
             maximum_runtime=request.maximumRuntime,
             path_to_requirements="requirements-precompiled.txt",
             is_ci=False,
+            upload=False,
             port=request.selectedPort,
             signaler=Signaler(manager.ws),
         )
     else:
         await prepare_jobs_and_run_fc(request=request, manager=manager)
+
+
+@router.post("/mc_upload",
+             summary="upload the program to the selected microcontroller")
+async def upload_flow(request: PostWFC):
+    await precompile(
+        fc=request.fc,
+        jobset_id=request.jobsetId,
+        node_delay=request.nodeDelay,
+        maximum_runtime=request.maximumRuntime,
+        path_to_requirements="requirements-precompiled.txt",
+        is_ci=False,
+        upload=True,
+        port=request.selectedPort,
+        signaler=Signaler(manager.ws),
+    )
