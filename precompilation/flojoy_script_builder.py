@@ -87,7 +87,7 @@ class FlojoyScriptBuilder:
         # check if function or class has already been added
         if item.__name__ in self.func_or_classes:
             raise FunctionOrClassAlreadyExists()
-        
+
         source_code_lines = inspect.getsource(item).splitlines()
         # Add the correct number of tab characters to the start of each line
         source_code_lines = [
@@ -440,26 +440,25 @@ class FlojoyScriptBuilder:
             await asyncio.create_task(
                 self.signaler.signal_file_upload_microcontroller(
                     self.jobset_id))
-            # try:  # copied from captain/utils/flowchart_utils.py
-            with subprocess.Popen(
-                    cmd,
-                    stdin=subprocess.PIPE,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    universal_newlines=True,
-            ) as proc:
-                out, error_output = proc.communicate(
-                    f"cp -r {tempdir}/* /pyboard/")
-                logger.debug(out)
-                if error_output:
-                    raise Exception(error_output)
-            # except Exception as e:
-            #     output = "\n".join(e.args)
-            #
-            #     await asyncio.create_task(
-            #         self.signaler.signal_prejob_output(self.jobset_id, output)
-            #     )
-            #     return
+            try:  # copied from captain/utils/flowchart_utils.py
+                with subprocess.Popen(
+                        cmd,
+                        stdin=subprocess.PIPE,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        universal_newlines=True,
+                ) as proc:
+                    out, error_output = proc.communicate(
+                        f"cp -r {tempdir}/* /pyboard/")
+                    logger.debug(out)
+                    if error_output:
+                        raise Exception(error_output)
+            except Exception as e:
+                output = "\n".join(e.args)
+
+                await asyncio.create_task(
+                    self.signaler.signal_prejob_output(self.jobset_id, output))
+                return
 
         await asyncio.create_task(
             self.signaler.signal_script_upload_complete_microcontroller(
