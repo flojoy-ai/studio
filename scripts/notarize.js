@@ -22,7 +22,7 @@ module.exports = async function (params) {
     return;
   }
 
-  console.log(`Notarizing ${appId} found at ${appPath}`);
+  console.log(`Notarizing ${appId} found at ${appPath} app id is ${process.env.APPLE_ID}`);
 
   return await electron_notarize.notarize({
     tool: "notarytool",
@@ -31,6 +31,6 @@ module.exports = async function (params) {
     appleId: process.env.APPLE_ID,
     // appleIdPassword: process.env.APPLE_ID_PASSWORD,
     teamId: process.env.APPLE_TEAM_ID,
-    appleIdPassword: process.env.APPLE_APP_SPECIFIC_PASSWORD
+    appleIdPassword: process.env.APPLE_APP_SPECIFIC_PASSWORD,
   });
 };
