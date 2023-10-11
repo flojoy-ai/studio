@@ -78,12 +78,13 @@ jobs:
       #     bash scripts/get_micromamba.sh
 
       - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1.6.0
+        uses: flojoy-ai/action-electron-builder@v1.6.0
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release: true
+          skip_install: true
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
         env:
