@@ -5,6 +5,7 @@ appId: ai.flojoy.studio
 productName: Flojoy Studio
 icon: public/favicon.ico
 asar: true
+afterSign: scripts/notarize.js
 files:
   - dist-electron/**/*
 
@@ -45,8 +46,7 @@ mac:
   darkModeSupport: true
   gatekeeperAssess: false
   hardenedRuntime: true
-  notarize:
-    teamId: ${env.APPLE_TEAM_ID}
+  notarize: false
   x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:
