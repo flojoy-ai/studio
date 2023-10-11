@@ -20,14 +20,11 @@ from precompilation.precompilation_utils import extract_pip_packages
 from precompilation.templates.classes.MultiDiGraph import MultiDiGraph
 from precompilation.templates.classes.LightTopology import LightTopology
 from precompilation.templates.functions.flowchart_to_graph import (
-    flowchart_to_graph,
-)
+    flowchart_to_graph, )
 from precompilation.templates.functions.get_missing_pip_packages import (
-    get_missing_pip_packages,
-)
+    get_missing_pip_packages, )
 from precompilation.templates.functions.remove_missing_pip_packages import (
-    remove_missing_pip_packages,
-)
+    remove_missing_pip_packages, )
 from precompilation.utils.path.absolute_path import get_absolute_path
 
 
@@ -72,8 +69,7 @@ class FlojoyScriptBuilder:
         if from_string:
             if alias:
                 self.imports.add(
-                    f"from {from_string} import {import_string} as {alias}"
-                )
+                    f"from {from_string} import {import_string} as {alias}")
             else:
                 self.imports.add(f"from {from_string} import {import_string}")
         else:
@@ -102,7 +98,9 @@ class FlojoyScriptBuilder:
         """
         Add a code block
         """
-        formatted = ["\t" * self.indent_level + line for line in block.splitlines()]
+        formatted = [
+            "\t" * self.indent_level + line for line in block.splitlines()
+        ]
         self.items += formatted
 
     def _add_list(self, name: str, items: Any):
@@ -186,8 +184,10 @@ class FlojoyScriptBuilder:
                             f.write(file_str)
 
     def remove_debug_prints_and_set_offline(self):
-        self._add_import(from_string="flojoy.utils", import_string="set_offline")
-        self._add_import(from_string="flojoy.utils", import_string="set_debug_off")
+        self._add_import(from_string="flojoy.utils",
+                         import_string="set_offline")
+        self._add_import(from_string="flojoy.utils",
+                         import_string="set_debug_off")
         self._add_code_block("set_offline()")
         self._add_code_block("set_debug_off()")
 
@@ -197,17 +197,20 @@ class FlojoyScriptBuilder:
         """
         all_items = list(self.imports) + self.items
         final_string = HEADER + "\n" + "\n".join(all_items)
-        filename = os.path.join(get_absolute_path(self.path_to_output), "main.py")
+        filename = os.path.join(get_absolute_path(self.path_to_output),
+                                "main.py")
         with open(filename, "w") as f:
             f.write(final_string)
 
-    def export_base_pip_packages(self, export_dir: str, path_to_requirements: str):
+    def export_base_pip_packages(self, export_dir: str,
+                                 path_to_requirements: str):
         """
         Export base pip packages to export_dir
         """
-        subprocess.run(
-            ["pip", "install", "--target", export_dir, "-r", path_to_requirements]
-        )
+        subprocess.run([
+            "pip", "install", "--target", export_dir, "-r",
+            path_to_requirements
+        ])
 
     def install_missing_pip_packages(self, nodes: list):
         """
@@ -216,14 +219,16 @@ class FlojoyScriptBuilder:
         packages = extract_pip_packages(nodes)
         self._add_function_or_class(get_missing_pip_packages)
         self._add_list("packages", packages)
-        self._add_code_block("missing_pip_packages=get_missing_pip_packages(packages)")
+        self._add_code_block(
+            "missing_pip_packages=get_missing_pip_packages(packages)")
 
     def uninstall_pip_packages(self):
         """
         Uninstall missing pip packages returned by install_missing_pip_packages()
         """
         self._add_function_or_class(remove_missing_pip_packages)
-        self._add_code_block("remove_missing_pip_packages(missing_pip_packages)")
+        self._add_code_block(
+            "remove_missing_pip_packages(missing_pip_packages)")
 
     def import_app_nodes(self, graph_nodes):
         """
@@ -267,14 +272,13 @@ class FlojoyScriptBuilder:
             func_module = get_module_func(cmd, mc_mode=True)
             node_id_to_func[node_id] = getattr(func_module, cmd).__name__
             node_id_to_params[node_id] = set(
-                inspect.signature(getattr(func_module, cmd)).parameters.keys()
-            )
+                inspect.signature(getattr(func_module, cmd)).parameters.keys())
             ci_available = False
             if self.is_ci:
                 try:
                     func_mock = getattr(
-                        func_module, cmd_mock
-                    )  # test to see if mock function exists
+                        func_module,
+                        cmd_mock)  # test to see if mock function exists
                     ci_available = True
                     node_id_to_func[node_id] = func_mock.__name__
                 except AttributeError:
@@ -290,40 +294,33 @@ class FlojoyScriptBuilder:
 
             # -- check imports of module, and import any missing files recursively (only from nodes/) --
             stack = deque()
-            stack.append((ast.parse(inspect.getsource(func_module)), module_path))
+            stack.append(
+                (ast.parse(inspect.getsource(func_module)), module_path))
             while len(stack) > 0:
                 cur_module, cur_module_path = stack.pop()
                 for node in ast.walk(cur_module):
-                    if not (
-                        isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom)
-                    ):
+                    if not (isinstance(node, ast.Import)
+                            or isinstance(node, ast.ImportFrom)):
                         continue
 
-                    module_name = (
-                        node.module
-                        if isinstance(node, ast.ImportFrom)
-                        else node.names[0].name
-                    )
+                    module_name = (node.module if isinstance(
+                        node, ast.ImportFrom) else node.names[0].name)
                     if module_name is None:
                         raise ValueError("module name is None")
 
                     path = copy(cur_module_path)
                     # handle absolute import
                     if module_name.startswith("nodes."):
-                        path = (
-                            "PYTHON"
-                            + os.path.sep
-                            + module_name.replace(".", os.path.sep)
-                            + ".py"
-                        )
+                        path = ("PYTHON" + os.path.sep +
+                                module_name.replace(".", os.path.sep) + ".py")
 
                     # handle relative import
                     elif isinstance(node, ast.ImportFrom) and node.level > 0:
                         for _ in range(node.level):
                             path = os.path.dirname(path)
                         path = os.path.join(
-                            path, module_name.replace(".", os.path.sep) + ".py"
-                        )
+                            path,
+                            module_name.replace(".", os.path.sep) + ".py")
 
                     if not os.path.exists(path):  # is a directory
                         path = path[:-3]
@@ -340,8 +337,7 @@ class FlojoyScriptBuilder:
             module_path = module_path.replace(os.path.sep, ".")
             if ci_available:
                 self._add_code_block(
-                    f"from {module_path[:-3]} import {cmd_mock} as {cmd}"
-                )
+                    f"from {module_path[:-3]} import {cmd_mock} as {cmd}")
             else:
                 self._add_code_block(f"from {module_path[:-3]} import {cmd}")
             # ------------------
@@ -362,8 +358,7 @@ class FlojoyScriptBuilder:
             if not dir.is_dir():
                 raise Exception(
                     "All entries in /templates/extra_files must be \
-                                directories."
-                )
+                                directories.")
             file_group = dir.name
             if file_group in FILES_GROUPS_TO_BE_OUTPUTTED:
                 output_path = os.path.join(
@@ -389,16 +384,14 @@ class FlojoyScriptBuilder:
         self._add_function_or_class(MultiDiGraph)
         self._add_function_or_class(LightTopology)
         self._add_function_or_class(flowchart_to_graph, add_modules=False)
-        self._add_code_block(
-            f"LightTopology(\n\
+        self._add_code_block(f"LightTopology(\n\
         flowchart_to_graph(json.loads({repr(fc)})),\n\
         '{jobset_id}',\n\
         node_id_to_func,\n\
         node_id_to_params,\n\
         {self.is_ci},\n\
         ).run()\
-        "
-        )
+        ")
         #   ----------------------------------
 
     def compile_to_mpy(self):
@@ -423,8 +416,7 @@ class FlojoyScriptBuilder:
             except Exception as e:
                 output = "\n".join(e.args)
                 await asyncio.create_task(
-                    self.signaler.signal_prejob_output(self.jobset_id, output)
-                )
+                    self.signaler.signal_prejob_output(self.jobset_id, output))
 
         if port:
             # spawn rshell instance
@@ -437,32 +429,35 @@ class FlojoyScriptBuilder:
                 "--buffer-size",
                 "512",
             ]  # TODO buff size of 512 only for USB.
-            logger.debug(f"Copying files to selected port...\nPORT: {port}\nCMD: {cmd}")
+            logger.debug(
+                f"Copying files to selected port...\nPORT: {port}\nCMD: {cmd}")
             await asyncio.create_task(
-                self.signaler.signal_file_upload_microcontroller(self.jobset_id)
-            )
-            try:  # copied from captain/utils/flowchart_utils.py
-                with subprocess.Popen(
+                self.signaler.signal_file_upload_microcontroller(
+                    self.jobset_id))
+            # try:  # copied from captain/utils/flowchart_utils.py
+            with subprocess.Popen(
                     cmd,
                     stdin=subprocess.PIPE,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     universal_newlines=True,
-                ) as proc:
-                    _, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
-                    if error_output:
-                        raise Exception(error_output)
-            except Exception as e:
-                output = "\n".join(e.args)
-
-                await asyncio.create_task(
-                    self.signaler.signal_prejob_output(self.jobset_id, output)
-                )
-                return
+            ) as proc:
+                out, error_output = proc.communicate(
+                    f"cp -r {tempdir}/* /pyboard/")
+                logger.debug(out)
+                if error_output:
+                    raise Exception(error_output)
+            # except Exception as e:
+            #     output = "\n".join(e.args)
+            #
+            #     await asyncio.create_task(
+            #         self.signaler.signal_prejob_output(self.jobset_id, output)
+            #     )
+            #     return
 
         await asyncio.create_task(
-            self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id)
-        )
+            self.signaler.signal_script_upload_complete_microcontroller(
+                self.jobset_id))
 
     def validate_output_dir(self, true_output_path):
         """

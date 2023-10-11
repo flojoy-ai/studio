@@ -14,9 +14,8 @@ class Signaler:
     def __init__(self, ws: ConnectionManager):
         self.ws = ws
 
-    async def signal_node_results(
-        self, jobset_id: str, node_id: str, func_name: str, result: dict[str, Any]
-    ):
+    async def signal_node_results(self, jobset_id: str, node_id: str,
+                                  func_name: str, result: dict[str, Any]):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             result=result,
@@ -25,9 +24,8 @@ class Signaler:
         )
         await self.ws.broadcast(msg)
 
-    async def signal_current_running_node(
-        self, jobset_id: str, node_id: str, func_name: str
-    ):
+    async def signal_current_running_node(self, jobset_id: str, node_id: str,
+                                          func_name: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["RUNNING_PYTHON_JOB"] + func_name,
@@ -35,9 +33,8 @@ class Signaler:
         )
         await self.ws.broadcast(msg)
 
-    async def signal_failed_nodes(
-        self, jobset_id: str, node_id: str, func_name: str, error: str
-    ):
+    async def signal_failed_nodes(self, jobset_id: str, node_id: str,
+                                  func_name: str, error: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["FAILED_NODE"] + func_name,
@@ -46,9 +43,8 @@ class Signaler:
         await self.ws.broadcast(msg)
 
     async def signal_prejob_op(self, jobset_id: str):
-        msg = WorkerJobResponse(
-            jobset_id=jobset_id, sys_status=STATUS_CODES["RUN_PRE_JOB_OP"]
-        )
+        msg = WorkerJobResponse(jobset_id=jobset_id,
+                                sys_status=STATUS_CODES["RUN_PRE_JOB_OP"])
         await self.ws.broadcast(msg)
 
     async def signal_standby(self, jobset_id: str):
@@ -72,7 +68,10 @@ class Signaler:
     async def signal_prejob_output(self, jobset_id: str, output: str):
         msg = WorkerJobResponse(
             jobset_id=jobset_id,
-            dict_item={"PRE_JOB_OP": {"isRunning": True, "output": output}},
+            dict_item={"PRE_JOB_OP": {
+                "isRunning": True,
+                "output": output
+            }},
         )
         await self.ws.broadcast(msg)
 
@@ -88,7 +87,6 @@ class Signaler:
             jobset_id=jobset_id,
             sys_status=STATUS_CODES["BUILDING_SCRIPT"],
         )
-        logger.critical("bruh")
         await self.ws.broadcast(msg)
 
     async def signal_script_upload_complete_microcontroller(self, jobset_id):

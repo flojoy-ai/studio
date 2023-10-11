@@ -74,7 +74,7 @@ const settingsAtom = atomWithImmer<Setting[]>([
 export const useSettings = (group: SettingsGroup) => {
   const [settings, setSettings] = useAtom(settingsAtom);
 
-  const updateSettings = (key: string, value: number | boolean) => {
+  const updateSettings = (key: string, value: ValueType) => {
     sendEventToMix("Update Settings", ``);
     setSettings((prev) => {
       const setting = prev.find((s) => s.key === key);

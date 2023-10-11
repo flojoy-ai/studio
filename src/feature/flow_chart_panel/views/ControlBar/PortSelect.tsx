@@ -17,10 +17,16 @@ import {
 import { useState } from "react";
 import { cn } from "@src/lib/utils";
 
+type Device = {
+  description: string;
+  device: string;
+  name: string;
+};
+
 const PortSelect = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [ports, setPorts] = useState([]);
+  const [ports, setPorts] = useState<Device[]>([]);
   const { updateSettings } = useSettings("micropython");
 
   async function fetchPorts() {
@@ -33,13 +39,14 @@ const PortSelect = () => {
       });
 
       const resp = await response.json();
+      console.log(resp);
       return resp.ports;
     } catch (err) {
       console.error(err);
     }
   }
 
-  const handleCLick = () => {
+  const handleClick = () => {
     fetchPorts()
       .then((data) => {
         // console.log("Available ports:", data);
@@ -58,7 +65,7 @@ const PortSelect = () => {
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
-          onClick={handleCLick}
+          onClick={handleClick}
         >
           {value
             ? ports.find((port) => port.device === value)?.device
@@ -74,11 +81,11 @@ const PortSelect = () => {
             {ports.map((port) => (
               <CommandItem
                 key={port.device}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  currentValue === value
+                onSelect={() => {
+                  setValue(port.device === value ? "" : port.device);
+                  port.device === value
                     ? null
-                    : updateSettings("selectedPort", currentValue);
+                    : updateSettings("selectedPort", port.device);
                   setOpen(false);
                 }}
               >
