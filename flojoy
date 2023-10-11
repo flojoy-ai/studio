@@ -197,7 +197,7 @@ if [ $is_ci = false ]; then
 fi
 
 eval "$(conda shell.bash hook)" # configure the shell properly
-eval "$(conda shell.zsh hook)" # configure the shell properly
+eval "$(conda shell.zsh hook)"  # configure the shell properly
 
 conda activate $flojoyEnv >/dev/null 2>&1
 # Check if the Conda environment exists
@@ -230,7 +230,7 @@ fi
 if [ $initNodePackages = true ]; then
 	info_msg "Argument -n is not provided, Node packages will be installed from package.json"
 	set -o pipefail
-	cd "$CWD" && npm install 2>&1
+	cd "$CWD" && pnpm install 2>&1
 	feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
@@ -270,9 +270,9 @@ export DEPLOY_STATUS=dev
 
 # start project services
 if [ $test_ci = true ]; then
-	start_project_cmd='npm run start-project:ci'
+	start_project_cmd='pnpm run start-project:ci'
 else
-	start_project_cmd='npm run start-project'
+	start_project_cmd='pnpm run start-project'
 fi
 
 if [ $isDebugMode = true ]; then
