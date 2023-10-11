@@ -12,10 +12,12 @@ from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
 from precompilation.config import (
     EXTRA_FILES_DIR,
+    EXTRA_FUNCTIONS,
     FILES_GROUPS_TO_BE_OUTPUTTED,
     FILTERS_FOR_FILES,
     HEADER,
 )
+from precompilation.exceptions.exceptions import FunctionOrClassAlreadyExists
 from precompilation.precompilation_utils import extract_pip_packages
 from precompilation.templates.classes.MultiDiGraph import MultiDiGraph
 from precompilation.templates.classes.LightTopology import LightTopology
@@ -82,6 +84,10 @@ class FlojoyScriptBuilder:
         """
         Add a function or class
         """
+        # check if function or class has already been added
+        if item.__name__ in self.func_or_classes:
+            raise FunctionOrClassAlreadyExists()
+        
         source_code_lines = inspect.getsource(item).splitlines()
         # Add the correct number of tab characters to the start of each line
         source_code_lines = [
@@ -465,3 +471,10 @@ class FlojoyScriptBuilder:
         """
         if os.path.exists(get_absolute_path(true_output_path)):
             raise Exception("Output directory already exists.")
+
+    def add_extra_functions(self):
+        """
+        Adds functions to check status, such as function for checking if microcontroller has necessary firmware, etc.
+        """
+        for func in EXTRA_FUNCTIONS:
+            self._add_function_or_class(func)
