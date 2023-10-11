@@ -46,7 +46,7 @@ mac:
   darkModeSupport: true
   gatekeeperAssess: false
   hardenedRuntime: true
-  notarize: false
+  notarize: false # we have separate script (scripts/notarize.js) for this
   x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:
