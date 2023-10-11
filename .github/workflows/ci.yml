@@ -54,10 +54,10 @@ jobs:
         with:
           poetry-version: "1.6"
 
-      - name: Format dependencies
+      - name: Install Dependencies
         run: poetry install && pnpm i
 
-      - name: Run formatting check
+      - name: Black Prettier check
         run: pnpm run check
 
       - name: Typescript check
