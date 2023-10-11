@@ -37,7 +37,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - uses: actions/cache@v3
-        name: Setup pnpm cache
+        name: Cache pnpm
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -54,8 +54,17 @@ jobs:
         with:
           poetry-version: "1.6"
 
-      - name: Install Dependencies
-        run: poetry install && pnpm i
+      - uses: actions/cache@v3
+        name: Cache Poetry
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+
+      - name: Install Python Dependencies
+        run: poetry install
+
+      - name: Install Node Dependencies
+        run: pnpm install
 
       - name: Black Prettier check
         run: pnpm run check
@@ -80,30 +89,40 @@ jobs:
         with:
           poetry-version: "1.6"
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
       - uses: actions/cache@v3
-        name: Setup pnpm cache
+        name: Cache Poetry
         with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
-      - run: poetry install && pnpm install
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+      #
+      # - uses: pnpm/action-setup@v2
+      #   name: Install pnpm
+      #   with:
+      #     version: 8
+      #     run_install: false
+      #
+      # - name: Get pnpm store directory
+      #   shell: bash
+      #   run: |
+      #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      #
+      # - uses: actions/cache@v3
+      #   name: Setup pnpm cache
+      #   with:
+      #     path: ${{ env.STORE_PATH }}
+      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pnpm-store-
+
+      - name: Install Python Dependencies
+        run: poetry install
+
+      # - name: Install Node Dependencies
+      #   run: pnpm install
 
       - name: pytest
         run: |
@@ -153,6 +172,17 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
+
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6"
+
+      - uses: actions/cache@v3
+        name: Cache Poetry
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Run Flojoy startup script
         run: bash flojoy -c
