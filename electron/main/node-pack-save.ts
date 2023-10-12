@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog } from "electron";
+import { BrowserWindow, app, dialog } from "electron";
 import * as fs from "fs";
 import { join } from "path";
 import { runCmd } from "./cmd";
@@ -28,6 +28,14 @@ export const saveNodePack = async ({
   update,
 }: SaveNodePackProps) => {
   return new Promise((resolve) => {
+    if (!app.isPackaged && startup) {
+      savePathToLocalFile(
+        getNodesPathFile(),
+        join(process.cwd(), "PYTHON", "nodes"),
+      );
+      resolve({ success: true });
+      return;
+    }
     if (
       startup &&
       fs.existsSync(getNodesPathFile()) &&

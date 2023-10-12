@@ -65,7 +65,7 @@ def get_module_func(file_name: str):
     if not mapping:
         logger.info("creating nodes mapping for first time......")
         create_map()
-
+    logger.info(f" mapping root is: {mapping.get('root')}")
     if mapping.get("root") != nodes_dir:
         logger.info(
             f"Path to nodes dir is changed creating nodes mapping again, previous path: {mapping.get('root')} and present path: {nodes_dir}"

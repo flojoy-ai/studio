@@ -54,9 +54,7 @@ export default defineConfig(({ command }) => {
                 rollupOptions: {
                   input: {
                     main: "electron/main/index.ts",
-                    preload: `electron/preload/index${
-                      !isBuild ? "-dev" : ""
-                    }.ts`,
+                    preload: "electron/preload/index.ts",
                   },
                   output: {
                     dir: "dist-electron",
