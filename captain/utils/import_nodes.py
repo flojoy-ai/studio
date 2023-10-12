@@ -12,8 +12,8 @@ from captain.utils.nodes_path import get_nodes_path
 
 
 def pre_import_functions(topology: Topology):
-    functions = {}
-    errors = {}
+    functions: dict[str, str] = {}
+    errors: dict[str, str] = {}
     for node_id in cast(list[str], topology.original_graph.nodes):
         # get the node function
         node = cast(dict[str, Any], topology.original_graph.nodes[node_id])
@@ -56,7 +56,7 @@ def pre_import_functions(topology: Topology):
     return functions, errors
 
 
-mapping = {}
+mapping: dict[str, str] = {}
 
 
 def get_module_func(file_name: str):
@@ -65,23 +65,6 @@ def get_module_func(file_name: str):
     if not mapping:
         logger.info("creating nodes mapping for first time......")
         create_map()
-    logger.info(f" mapping root is: {mapping.get('root')}")
-    if mapping.get("root") != nodes_dir:
-        logger.info(
-            f"Path to nodes dir is changed creating nodes mapping again, previous path: {mapping.get('root')} and present path: {nodes_dir}"
-        )
-        old_parent_path = Path(os.path.abspath(mapping["root"])).parent.__str__()
-        mapping["root"] = nodes_dir
-        if old_parent_path in sys.path:
-            sys.path.remove(old_parent_path)
-        create_map()
-        modules_to_delete = []
-        for module_path in sys.modules:
-            if module_path.startswith("nodes"):
-                modules_to_delete.append(module_path)
-
-        for module_path in modules_to_delete:
-            del sys.modules[module_path]
 
     file_path = mapping.get(file_name)
 
@@ -97,6 +80,21 @@ def get_module_func(file_name: str):
 
 def create_map():
     nodes_dir = get_nodes_path()
+    if "root" in mapping and mapping["root"] != nodes_dir:
+        logger.info(
+            f"Path to nodes dir is changed creating nodes mapping again, previous path: {mapping.get('root')} and present path: {nodes_dir}"
+        )
+        old_parent_path = Path(os.path.abspath(mapping["root"])).parent.__str__()
+        mapping["root"] = nodes_dir
+        if old_parent_path in sys.path:
+            sys.path.remove(old_parent_path)
+        modules_to_delete: list[str] = []
+        for module_path in sys.modules:
+            if module_path.startswith("nodes"):
+                modules_to_delete.append(module_path)
+
+        for module_path in modules_to_delete:
+            del sys.modules[module_path]
     parent_dir = Path(os.path.abspath(nodes_dir)).parent.__str__()
     mapping["root"] = nodes_dir
     sys.path.append(parent_dir)
