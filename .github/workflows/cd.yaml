@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest-xlarge, ubuntu-latest, windows-latest]
     env:
       DEBUG: electron-builder
     steps:
@@ -67,27 +67,20 @@ jobs:
       - name: Install Node Dependencies
         run: pnpm install
 
-      # - name: Download Micromamba executable (Win)
-      #   if: startsWith(matrix.os, 'windows')
-      #   run: |
-      #     .\scripts\get_micromamba.ps1
-      #
-      # - name: Download Micromamba executable
-      #   if: startsWith(matrix.os, 'mac') || startsWith(matrix.os, 'ubuntu')
-      #   run: |
-      #     bash scripts/get_micromamba.sh
-
       - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1.6.0
+        uses: flojoy-ai/action-electron-builder@main
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release: true
+          skip_install: true
+          skip_build: true
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
         env:
           # macOS notarization envs
           APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
