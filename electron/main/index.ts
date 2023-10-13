@@ -154,8 +154,6 @@ async function createWindow() {
   } else {
     // electron-vite-vue#298
     await win.loadURL(url ?? "");
-    // Open devTool if the app is not packaged
-    // win.webContents.openDevTools();
   }
   await saveNodePack({ win, icon: getIcon(), startup: true });
   if (app.isPackaged) {
