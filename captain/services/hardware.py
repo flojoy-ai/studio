@@ -45,7 +45,11 @@ class DefaultDeviceFinder:
         """Returns a list of VISA devices connected to the system."""
         rm = pyvisa.ResourceManager("@py")
         devices = []
+        used_addrs = set()
+
         for addr in rm.list_resources():
+            if addr in used_addrs:
+                continue
             try:
                 device = rm.open_resource(addr)
                 devices.append(
@@ -56,6 +60,7 @@ class DefaultDeviceFinder:
                     )
                 )
                 device.close()
+                used_addrs.add(addr)
             except pyvisa.VisaIOError:
                 pass
 
