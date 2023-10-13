@@ -2,7 +2,6 @@ import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
 import { Draft } from "immer";
 import { useCallback } from "react";
 import { Node } from "reactflow";
-import { v4 as uuidv4 } from "uuid";
 import { ElementsData } from "@/types";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { centerPositionAtom } from "@src/hooks/useFlowChartState";
@@ -10,6 +9,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
 import { NodesMetadataMap } from "@src/types/nodes-metadata";
+import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -40,16 +40,9 @@ export const useAddNewNode = (
       const path = nodesMetadataMap
         ? nodesMetadataMap[`${funcName}.py`].path
         : "";
-      let nodeLabel: string;
 
-      const nodeId = `${funcName}-${uuidv4()}`;
-      if (funcName === "CONSTANT") {
-        nodeLabel = "3.0";
-      } else {
-        const numNodes = getNodeFuncCount(funcName);
-        nodeLabel = numNodes > 0 ? `${funcName} ${numNodes}` : funcName;
-      }
-      nodeLabel = nodeLabel.replaceAll("_", " ");
+      const nodeId = createNodeId(node);
+      const nodeLabel = createNodeLabel(node, getNodeFuncCount(funcName));
 
       const createCtrls = (
         params?: NodeElement["parameters"],
