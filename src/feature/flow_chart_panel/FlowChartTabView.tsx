@@ -56,6 +56,7 @@ import { useManifest, useNodesMetadata } from "@src/hooks/useManifest";
 import { ElementsData } from "@src/types";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { filterMap } from "@src/utils/ArrayUtils";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -89,9 +90,11 @@ const FlowChartTab = () => {
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
 
-  const getNodeFuncCount = useCallback(
+  const getTakenNodeLabels = useCallback(
     (func: string) => {
-      return nodes.filter((n) => n.data.func === func).length;
+      const re = new RegExp(`^${func.replaceAll("_", " ")}( \\d+)?$`);
+      const matches = filterMap(nodes, (n) => n.data.label.match(re));
+      return matches;
     },
     // including nodes variable in dependency list would cause excessive re-renders
     // as nodes variable is updated so frequently
@@ -103,7 +106,7 @@ const FlowChartTab = () => {
 
   const addNewNode = useAddNewNode(
     setNodes,
-    getNodeFuncCount,
+    getTakenNodeLabels,
     nodesMetadataMap,
   );
   const addTextNode = useAddTextNode();
@@ -118,7 +121,10 @@ const FlowChartTab = () => {
       data: {
         ...node.data,
         id,
-        label: createNodeLabel(funcName, getNodeFuncCount(funcName)),
+        label:
+          node.data.func === "CONSTANT"
+            ? node.data.ctrls["constant"].value!.toString()
+            : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
       },
       position: {
         x: node.position.x + 30,

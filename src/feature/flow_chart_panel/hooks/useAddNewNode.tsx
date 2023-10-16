@@ -19,7 +19,7 @@ export const useAddNewNode = (
       | Node<ElementsData>[]
       | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
-  getNodeFuncCount: (func: string) => number,
+  getTakenNodeLabels: (func: string) => string[][],
   nodesMetadataMap: NodesMetadataMap | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
@@ -42,7 +42,10 @@ export const useAddNewNode = (
         : "";
 
       const nodeId = createNodeId(node.key);
-      const nodeLabel = createNodeLabel(node.key, getNodeFuncCount(funcName));
+      const nodeLabel =
+        funcName === "CONSTANT"
+          ? params!["constant"].default!.toString()
+          : createNodeLabel(node.key, getTakenNodeLabels(funcName));
 
       const createCtrls = (
         params?: NodeElement["parameters"],
@@ -91,7 +94,7 @@ export const useAddNewNode = (
     },
     [
       setNodes,
-      getNodeFuncCount,
+      getTakenNodeLabels,
       center,
       setHasUnsavedChanges,
       nodesMetadataMap,
