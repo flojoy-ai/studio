@@ -41,8 +41,8 @@ export const useAddNewNode = (
         ? nodesMetadataMap[`${funcName}.py`].path
         : "";
 
-      const nodeId = createNodeId(node);
-      const nodeLabel = createNodeLabel(node, getNodeFuncCount(funcName));
+      const nodeId = createNodeId(node.key);
+      const nodeLabel = createNodeLabel(node.key, getNodeFuncCount(funcName));
 
       const createCtrls = (
         params?: NodeElement["parameters"],
