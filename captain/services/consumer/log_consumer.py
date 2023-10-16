@@ -9,12 +9,19 @@ class LogConsumer:
 
     async def run(self):
         while True:
-            log_entry = self.ws.log_queue.get()
-            active_conns = list(self.ws.active_connections_map.keys())
-            if active_conns:
-                socket_msg = WorkerJobResponse(
-                    jobset_id=active_conns[-1], dict_item={"BACKEND_LOG": log_entry}
-                )
-                await self.ws.broadcast(socket_msg)
+            try:
+                log_entry = self.ws.log_queue.get()
+                active_conns = list(self.ws.active_connections_map.keys())
+                if active_conns:
+                    socket_msg = WorkerJobResponse(
+                        jobset_id=active_conns[-1], dict_item={"BACKEND_LOG": log_entry}
+                    )
+                    await self.ws.broadcast(socket_msg)
 
-            self.ws.log_queue.task_done()
+                self.ws.log_queue.task_done()
+            except Exception as e:
+                print(
+                    "error in LogConsumer: ",
+                    e.with_traceback(e.__traceback__),
+                    flush=True,
+                )
