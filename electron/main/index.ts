@@ -107,10 +107,7 @@ global.runningProcesses = [];
 let win: BrowserWindow | null = null;
 
 // Here, you can also use other preload
-const preload = join(
-  __dirname,
-  `../preload/index${!app.isPackaged ? "-dev" : ""}.js`,
-);
+const preload = join(__dirname, `../preload/index.js`);
 
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
@@ -154,18 +151,18 @@ async function createWindow() {
 
   if (app.isPackaged) {
     await win.loadFile(indexHtml);
-    await saveNodePack({ win, icon: getIcon(), startup: true });
+  } else {
+    // electron-vite-vue#298
+    await win.loadURL(url ?? "");
+  }
+  await saveNodePack({ win, icon: getIcon(), startup: true });
+  if (app.isPackaged) {
     runBackend(WORKING_DIR, win).then(({ success }) => {
       if (success) {
         // reload studio html to fetch fresh manifest file
         win?.reload();
       }
     });
-  } else {
-    // electron-vite-vue#298
-    win.loadURL(url ?? "");
-    // Open devTool if the app is not packaged
-    // win.webContents.openDevTools();
   }
 
   // Test actively push message to the Electron-Renderer

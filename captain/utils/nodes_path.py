@@ -7,7 +7,7 @@ def get_nodes_path():
     # This env is set from scripts/backend.(ps1/sh) file
     env = os.environ.get("ELECTRON_MODE", "dev")
 
-    if env == "packaged":
+    if env != "test":
         # Refer to electron/node-pack-save.ts line-8
         nodes_path_file = os.path.join(get_flojoy_dir(), "nodes_path.txt")
         try:

@@ -51,7 +51,7 @@ def _get_venv_cache_dir():
     return os.path.join(FLOJOY_CACHE_DIR, "flojoy_node_venv")
 
 
-def _get_venv_syspath(venv_executable: os.PathLike) -> list[str]:
+def _get_venv_syspath(venv_executable: os.PathLike[Any]) -> list[str]:
     """Get the sys.path of the virtual environment."""
     command = [venv_executable, "-c", "import sys\nprint(sys.path)"]
     cmd_output = subprocess.run(command, check=True, capture_output=True, text=True)
@@ -60,7 +60,7 @@ def _get_venv_syspath(venv_executable: os.PathLike) -> list[str]:
 
 @contextmanager
 def swap_sys_path(
-    venv_executable: os.PathLike, extra_sys_path: list[str] | None = None
+    venv_executable: os.PathLike[Any], extra_sys_path: list[str] | None = None
 ):
     """Temporarily swap the sys.path of the child process with the sys.path of the parent process."""
     old_path = sys.path
@@ -73,7 +73,9 @@ def swap_sys_path(
         sys.path = old_path
 
 
-def _get_venv_executable_path(venv_path: os.PathLike | str) -> os.PathLike | str:
+def _get_venv_executable_path(
+    venv_path: os.PathLike[Any] | str,
+) -> os.PathLike[Any] | str:
     """Get the path to the python executable of the virtual environment."""
     if sys.platform == "win32":
         return os.path.realpath(os.path.join(venv_path, "Scripts", "python.exe"))
@@ -81,7 +83,9 @@ def _get_venv_executable_path(venv_path: os.PathLike | str) -> os.PathLike | str
         return os.path.realpath(os.path.join(venv_path, "bin", "python"))
 
 
-def _get_venv_lockfile_path(venv_path: os.PathLike | str) -> os.PathLike | str:
+def _get_venv_lockfile_path(
+    venv_path: os.PathLike[Any] | str,
+) -> os.PathLike[Any] | str:
     """Get the path to the lockfile of the virtual environment."""
     return os.path.join(
         os.path.dirname(venv_path), f".{os.path.basename(venv_path)}.lockfile"
@@ -89,7 +93,7 @@ def _get_venv_lockfile_path(venv_path: os.PathLike | str) -> os.PathLike | str:
 
 
 def _bootstrap_venv(
-    venv_path: os.PathLike,
+    venv_path: os.PathLike[Any],
     pip_dependencies: list[str],
     logger: logging.Logger,
     verbose: bool = False,
@@ -287,7 +291,12 @@ def run_in_venv(pip_dependencies: list[str], verbose: bool = True):
         return Matrix(...)
     """
 
-    def decorator(func, *, pip_dependencies=pip_dependencies, verbose=verbose):
+    def decorator(
+        func: Callable[..., Any],
+        *,
+        pip_dependencies: list[str] = pip_dependencies,
+        verbose: bool = verbose,
+    ):
         # Return the function as-is if we are not in the main process
         # This is due to the fact that the decorator is called twice
         # once in the main process and once in the child process
@@ -302,7 +311,7 @@ def run_in_venv(pip_dependencies: list[str], verbose: bool = True):
         }
         pip_dependencies = sorted(
             [
-                f"flojoy=={packages_dict['flojoy']}",
+                "flojoy",
                 f"cloudpickle=={packages_dict['cloudpickle']}",
             ]
             + pip_dependencies
@@ -328,7 +337,7 @@ def run_in_venv(pip_dependencies: list[str], verbose: bool = True):
         thread.start()
 
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: dict[str, Any]):
             # Wait for the pip install to finish
             logger.info(
                 f"Waiting for pip install to finish for virtual environment of {func.__name__} at  {venv_path}..."

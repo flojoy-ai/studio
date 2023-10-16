@@ -3,13 +3,12 @@ import importlib.metadata
 import json
 import logging
 import os
-import threading
 import time
 import traceback
 from queue import Queue
 from subprocess import PIPE, Popen
 from threading import Thread
-from typing import Any
+from typing import Any, cast
 
 import networkx as nx
 from flojoy.utils import clear_flojoy_memory
@@ -21,7 +20,6 @@ from captain.services.producer.producer import Producer
 from captain.types.flowchart import PostWFC
 from captain.utils.logger import logger, BroadcastLogs
 from subprocess import Popen, PIPE
-import importlib.metadata
 from .status_codes import STATUS_CODES
 from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import (
@@ -32,7 +30,6 @@ from captain.types.worker import (
 )
 from captain.utils.broadcast import Signaler
 from captain.utils.import_nodes import pre_import_functions
-import logging
 
 
 def run_worker(
@@ -187,13 +184,16 @@ def flowchart_to_nx_graph(flowchart: dict[str, Any]):
         label = e["sourceHandle"]
         target_label_id = e["targetHandle"]
         v_inputs = dict_node_inputs[v]
-        target_input = next(
-            filter(
-                lambda input, target_label_id=target_label_id: input.get("id", "")
-                == target_label_id,
-                v_inputs,
+        target_input = cast(
+            dict[str, str],
+            next(
+                filter(
+                    lambda input, target_label_id=target_label_id: input.get("id", "")
+                    == target_label_id,
+                    v_inputs,
+                ),
+                None,
             ),
-            None,
         )
         logger.debug(f"----target_input----\n{target_input}")
         target_label = "default"
@@ -261,7 +261,7 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     packages_dict = {
         package.name: package.version for package in importlib.metadata.distributions()
     }
-    missing_packages = []
+    missing_packages: list[str] = []
 
     socket_msg["SYSTEM_STATUS"] = STATUS_CODES["COLLECTING_PIP_DEPENDENCIES"]
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
