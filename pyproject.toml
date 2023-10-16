@@ -29,7 +29,6 @@ qcodes = "^0.40.0"
 pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
-virtualenv = "^20.24.5"
 
 
 [tool.poetry.group.dev.dependencies]
