@@ -9,7 +9,7 @@
   "main": "dist-electron/main/index.js",
   "dependencies": {
     "@plotly/d3": "^3.8.1",
-    "@radix-ui/react-alert-dialog": "1.0.3",
+    "@radix-ui/react-alert-dialog": "1.0.5",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dialog": "1.0.4",
