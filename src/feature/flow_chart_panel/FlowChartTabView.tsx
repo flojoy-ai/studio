@@ -140,11 +140,14 @@ const FlowChartTab = () => {
     });
   };
 
-  useKeyboardShortcut("ctrl", "d", () => {
+  const duplicateSelectedNode = useCallback(() => {
     if (selectedNode) {
       duplicateNode(selectedNode);
     }
-  });
+  }, [selectedNode]);
+
+  useKeyboardShortcut("ctrl", "d", duplicateSelectedNode);
+  useKeyboardShortcut("meta", "d", duplicateSelectedNode);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
