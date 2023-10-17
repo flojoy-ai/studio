@@ -13,26 +13,8 @@ feedback() {
 		exit 1
 	fi
 }
-current_dir="$(dirname "$(readlink -f "$0")")"
 
-flojoy_env="flojoy-studio"
-env_yml="$current_dir/environment.yml"
-conda_script="$current_dir/conda_install.sh"
-
-# Need to source them because the "conda" command is actually a bash function
-if [ -f ~/.zshrc ]; then
-	source ~/.zshrc
-	info_msg "Sourced ~/.zshrc"
-fi
-
-if [ -f ~/.bashrc ]; then
-	source ~/.bashrc
-	info_msg "Sourced ~/.bashrc"
-fi
-info_msg "Looking for conda installation..."
-if ! command -v conda &>/dev/null; then
-	info_msg "Conda installation was not found..."
-	bash $conda_script
+source_bash_zsh() {
 	if [ -f ~/.zshrc ]; then
 		source ~/.zshrc
 		info_msg "Sourced ~/.zshrc"
@@ -42,11 +24,39 @@ if ! command -v conda &>/dev/null; then
 		source ~/.bashrc
 		info_msg "Sourced ~/.bashrc"
 	fi
+}
+
+init_shell() {
+
+	if [ -f ~/.zshrc ]; then
+		eval "$(conda shell.zsh hook)"
+	fi
+
+	if [ -f ~/.bashrc ]; then
+		eval "$(conda shell.bash hook)"
+
+	fi
+}
+
+current_dir="$(dirname "$(readlink -f "$0")")"
+
+flojoy_env="flojoy-studio"
+env_yml="$current_dir/environment.yml"
+conda_script="$current_dir/conda_install.sh"
+
+# Need to source them because the "conda" command is actually a bash function
+source_bash_zsh
+
+info_msg "Looking for conda installation..."
+if ! command -v conda &>/dev/null; then
+	info_msg "Conda installation was not found..."
+	bash $conda_script
+	source_bash_zsh
 else
 	info_msg "Conda is already installed..."
 fi
 
-eval "$(conda shell.bash hook)" # configure the shell properly
+init_shell # configure the shell properly
 
 cd $current_dir
 
@@ -64,8 +74,10 @@ if [ $? -eq 0 ]; then
 	fi
 else
 	# Environment doesn't exist, create it
+	info_msg "Creating $flojoy_env env with conda..."
 	conda env create --file $env_yml --name $flojoy_env
 	conda activate $flojoy_env
+	info_msg "Activated $flojoy_env env."
 	touch "$current_dir/.updated_env"
 fi
 
