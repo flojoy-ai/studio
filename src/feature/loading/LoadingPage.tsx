@@ -6,41 +6,19 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircle, ChevronRight, XCircle } from "lucide-react";
 import ElectronLogsDialog from "@src/components/electron/ElectronLogsDialog";
 import { Button } from "@src/components/ui/button";
+import useElectronLogs from "@src/hooks/useElectronLogs";
 
 const LoadingPage = () => {
   const {
     states: { serverStatus },
   } = useSocket();
   const navigate = useNavigate();
+  const { title, description, outputs } = useElectronLogs();
   const [openFullLogs, setOpenFullLogs] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState<string | undefined>();
-  const [outputs, setOutputs] = useState<string[]>([]);
+
   const handleShowFullLogs = () => {
     setOpenFullLogs(true);
   };
-  useEffect(() => {
-    // Subscribe to electron logs
-    window.api?.subscribeToElectronLogs((data) => {
-      if (typeof data === "string") {
-        setOutputs((p) => [...p, data]);
-        return;
-      }
-      if (typeof data === "object" && data !== null) {
-        if (data.title) {
-          setTitle(data.title);
-        }
-        if (data.description) {
-          setDescription(data.description);
-        }
-        if (data.clear) {
-          setOutputs([]);
-        } else {
-          setOutputs((p) => [...p, data.output]);
-        }
-      }
-    });
-  }, []);
 
   useEffect(() => {
     if (

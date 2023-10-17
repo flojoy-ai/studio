@@ -11,15 +11,15 @@ import { SetStateAction, useEffect, useRef } from "react";
 type ElectronLogsDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
+  logs: string[];
   title?: string;
   description?: string;
-  logs: string[];
 };
 
 const ElectronLogsDialog = ({
-  logs,
   open,
   setOpen,
+  logs,
   title,
   description,
 }: ElectronLogsDialogProps) => {
@@ -32,19 +32,24 @@ const ElectronLogsDialog = ({
   }, [logs.length]);
 
   return (
-    <Dialog open={open} onOpenChange={() => setOpen(false)}>
+    <Dialog
+      open={open}
+      onOpenChange={() => {
+        setOpen(false);
+      }}
+    >
       <DialogContent className="sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className="max-h-[600px] overflow-hidden overflow-y-scroll">
+        <div className="max-h-[600px] gap-2 overflow-hidden overflow-y-scroll">
           {logs.map((output, i) => (
             <div
               key={output}
               ref={i === logs.length - 1 ? lastElem : null}
               className={cn(
-                "overflow-hidden whitespace-break-spaces bg-background px-2 font-mono",
+                "mb-4 overflow-hidden whitespace-break-spaces bg-background font-mono",
                 output.toLowerCase().includes("error")
                   ? "text-red-700"
                   : "text-muted-foreground",
