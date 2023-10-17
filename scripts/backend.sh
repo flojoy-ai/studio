@@ -1,9 +1,13 @@
+info_msg() {
+	message=$1
+	echo ":info: $message"
+}
 feedback() {
 	is_successful=$1
 	message=$2
 	help_message=$3
 	if [ "$is_successful" -eq 0 ]; then
-		echo "$message"
+		info_msg "$message"
 	else
 		echo "$help_message"
 		exit 1
@@ -18,32 +22,31 @@ conda_script="$current_dir/conda_install.sh"
 # Need to source them because the "conda" command is actually a bash function
 if [ -f ~/.zshrc ]; then
 	source ~/.zshrc
-	echo "Sourced ~/.zshrc"
+	info_msg "Sourced ~/.zshrc"
 fi
 
 if [ -f ~/.bashrc ]; then
 	source ~/.bashrc
-	echo "Sourced ~/.bashrc"
+	info_msg "Sourced ~/.bashrc"
 fi
-echo "Looking for conda installation..."
+info_msg "Looking for conda installation..."
 if ! command -v conda &>/dev/null; then
-	echo "Conda installation was not found..."
+	info_msg "Conda installation was not found..."
 	bash $conda_script
 	if [ -f ~/.zshrc ]; then
 		source ~/.zshrc
-		echo "Sourced ~/.zshrc"
+		info_msg "Sourced ~/.zshrc"
 	fi
 
 	if [ -f ~/.bashrc ]; then
 		source ~/.bashrc
-		echo "Sourced ~/.bashrc"
+		info_msg "Sourced ~/.bashrc"
 	fi
 else
-	echo "Conda is already installed..."
+	info_msg "Conda is already installed..."
 fi
 
 eval "$(conda shell.bash hook)" # configure the shell properly
-
 
 cd $current_dir
 
@@ -51,9 +54,9 @@ cd $current_dir
 conda activate $flojoy_env
 # Check if the Conda environment exists
 if [ $? -eq 0 ]; then
-	echo "$flojoy_env env found!"
+	info_msg "$flojoy_env env found!"
 	if ! test -f "$current_dir/.updated_env"; then
-		echo "Updating $flojoy_env env..."
+		info_msg "Updating $flojoy_env env..."
 		# Environment exists, update it
 		conda env update --file $env_yml --name $flojoy_env
 		conda activate $flojoy_env
@@ -67,11 +70,11 @@ else
 fi
 
 if ! test -f "$current_dir/.installed_deps"; then
-	echo "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
+	info_msg "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
 	poetry install
 	feedback $? "Installed packages successfully!" "Error occured while installing packages with poetry!"
 	touch "$current_dir/.installed_deps"
 fi
 export ELECTRON_MODE=packaged
-echo "Starting backend..."
+info_msg "Starting backend..."
 poetry run python3 manage.py
