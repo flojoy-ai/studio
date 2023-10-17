@@ -16,6 +16,7 @@ import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
 import { ChildProcess } from "node:child_process";
+import { brandingWindow } from "./branding";
 
 // The built directory structure
 //
@@ -188,10 +189,11 @@ async function createWindow() {
   update(cleanup);
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
+  await brandingWindow({ icon: getIcon(), electronDir: DIST_ELECTRON });
   createWindow();
 });
 
