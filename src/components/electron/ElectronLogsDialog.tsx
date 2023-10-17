@@ -33,25 +33,27 @@ const ElectronLogsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
-      <DialogContent className="max-h-[600px] overflow-y-scroll sm:max-w-2xl md:max-w-4xl">
+      <DialogContent className="sm:max-w-2xl md:max-w-4xl">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        {logs.map((output, i) => (
-          <div
-            key={output}
-            ref={i === logs.length - 1 ? lastElem : null}
-            className={cn(
-              "overflow-hidden whitespace-break-spaces bg-background px-2 font-mono",
-              output.toLowerCase().includes("error")
-                ? "text-red-700"
-                : "text-muted-foreground",
-            )}
-          >
-            {output}
-          </div>
-        ))}
+        <div className="max-h-[600px] overflow-hidden overflow-y-scroll">
+          {logs.map((output, i) => (
+            <div
+              key={output}
+              ref={i === logs.length - 1 ? lastElem : null}
+              className={cn(
+                "overflow-hidden whitespace-break-spaces bg-background px-2 font-mono",
+                output.toLowerCase().includes("error")
+                  ? "text-red-700"
+                  : "text-muted-foreground",
+              )}
+            >
+              {output}
+            </div>
+          ))}
+        </div>
       </DialogContent>
     </Dialog>
   );
