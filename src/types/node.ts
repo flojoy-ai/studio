@@ -36,6 +36,7 @@ type NodeElement = {
   ui_component_id: string;
   children: null;
 };
+
 type CtrlData = Record<
   string,
   NodeElement["parameters"] extends infer T
