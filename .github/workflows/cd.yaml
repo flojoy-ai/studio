@@ -55,11 +55,11 @@ jobs:
         with:
           poetry-version: "1.6"
 
-      - uses: actions/cache@v3
-        name: Cache Poetry
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+      # - uses: actions/cache@v3
+      #   name: Cache Poetry
+      #   with:
+      #     path: ./.venv
+      #     key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Install Python Dependencies
         run: poetry install

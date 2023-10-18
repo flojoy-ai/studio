@@ -54,7 +54,7 @@ export const runBackend = (
       .then(({ script }) => {
         sendBackendLogToStudio(title, description)(win, {
           open: false,
-          output: "backend initialized successfully!",
+          output: ":info: backend initialized successfully!",
         });
         global.initializingBackend = false;
         resolve({ success: true, script });
