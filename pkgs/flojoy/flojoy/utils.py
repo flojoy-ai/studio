@@ -137,13 +137,13 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         #    1. `loads` to switch Infinity, -Infinity, NaN to None
         #    2. `dumps` again so you get 'null' instead of extended JSON
         try:
-            new_o = _json.loads(encoded_o,
-                                parse_constant=self.coerce_to_strict)
+            new_o = _json.loads(encoded_o, parse_constant=self.coerce_to_strict)
         except ValueError:
             # invalid separators will fail here. raise a helpful exception
             raise ValueError(
                 "Encoding into strict JSON failed. Did you set the separators "
-                "valid JSON separators?")
+                "valid JSON separators?"
+            )
         else:
             return _json.dumps(
                 new_o,
@@ -280,8 +280,11 @@ class NotEncodable(Exception):
 
 def dump_str(result: Any, limit: int | None = None):
     result_str = str(result)
-    return (result_str if limit is None or len(result_str) <= limit else
-            result_str[:limit] + "...")
+    return (
+        result_str
+        if limit is None or len(result_str) <= limit
+        else result_str[:limit] + "..."
+    )
 
 
 def get_flojoy_root_dir() -> str:
