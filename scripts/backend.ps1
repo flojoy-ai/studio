@@ -1,5 +1,12 @@
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
+function info_msg {
+  param (
+    $message
+  )
+  Write-Host ":info: $message"
+}
+
 function feedback {
   param (
     $is_successful,
@@ -7,7 +14,7 @@ function feedback {
     $help_message
   )
   if ($is_successful -eq $true) {
-    Write-Host "$message"
+    info_msg "$message"
   }
   else {
     Write-Host "$help_message"
@@ -21,25 +28,25 @@ $flojoyEnv = "flojoy-studio"
 $envYml = Join-Path $currentDir "environment.yml"
 $condaScript = Join-Path $currentDir "conda_install.ps1"
 
-Write-Host "Looking for conda installation..."
+info_msg "Looking for conda installation..."
 # Check if conda is found on PATH
 if (!(Get-Command conda -ErrorAction SilentlyContinue)) {
   # Look for conda installation in default installation path
   $condaDefaultExec = Join-Path $env:USERPROFILE "miniconda3" "Scripts" "conda.exe"
   if (-not (Test-Path $condaDefaultExec)) {
-    Write-Host "Conda installation was not found..."
+    info_msg "Conda installation was not found..."
     #  install conda
     Invoke-Expression "$condaScript"
     $condaExec = "$condaDefaultExec"
 
   }
   else {
-    Write-Host "Conda installation is found!"
+    info_msg "Conda installation is found!"
     $condaExec = "$condaDefaultExec"
   }
 }
 else {
-  Write-Host "Conda installation is found!"
+  info_msg "Conda installation is found!"
   $condaExec = "conda"
 }
 # Get envs and expressions to activate conda on current PowerShell
@@ -55,17 +62,17 @@ foreach ($_expression in $_conda_expressions) {
 $env_list = @(conda env list)
 $isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "
 if ($isEnvExists) {
-  Write-Output "$flojoyEnv env found!"
+  info_msg "$flojoyEnv env found!"
   $updated = Test-Path -PathType Leaf (Join-Path $currentDir ".updated_env")
   if ($updated -eq $false) {
-    Write-Output "Updating $flojoyEnv env..."
+    info_msg "Updating $flojoyEnv env..."
     conda env update --file "$envYml" --name $flojoyEnv | Out-Null
     New-Item -ItemType File (Join-Path $currentDir ".updated_env") -ErrorAction SilentlyContinue | Out-Null
   }
 }
 else {
   # Environment doesn't exist, create it
-  Write-Output "$flojoyEnv env not found, creating env with conda..."
+  info_msg "$flojoyEnv env not found, creating env with conda..."
   conda env create --file "$envYml" --name $flojoyEnv | Out-Null
   New-Item -ItemType File (Join-Path $currentDir ".updated_env") -ErrorAction SilentlyContinue  | Out-Null
 }
@@ -75,12 +82,12 @@ feedback $? "Env $flojoyEnv is activated!" "Failed to activate $flojoyEnv env, t
 Set-Location $currentDir
 $installedDeps = Test-Path -PathType Leaf (Join-Path $currentDir ".installed_deps")
 if ($installedDeps -eq $false) {
-  Write-Output "Installing python dependencies...It can take up to few minutes for first time, hang tight..."
+  info_msg "Installing python dependencies...It can take up to few minutes for first time, hang tight..."
   & poetry install
   feedback $? "Package installation completed!" "Error occured while installing python deps with poetry!"
   New-Item -ItemType File (Join-Path $currentDir ".installed_deps") -ErrorAction SilentlyContinue | Out-Null
 }
 
-Write-Output "Starting backend..."
+info_msg "Starting backend..."
 $Env:ELECTRON_MODE = "packaged"
 & python .\manage.py

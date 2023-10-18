@@ -48,6 +48,7 @@ export default defineConfig(({ command }) => {
               }
             },
             vite: {
+              publicDir: "electron/static",
               build: {
                 sourcemap: sourcemap ? "inline" : undefined,
                 minify: isBuild,
