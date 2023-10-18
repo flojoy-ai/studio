@@ -9,6 +9,8 @@ import clsx from "clsx";
 const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
+  const scientificNotation = data.ctrls["scientific_notation"].value as boolean;
+
   return (
     <NodeWrapper nodeError={nodeError}>
       <div
@@ -20,7 +22,9 @@ const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
       >
         {nodeResult?.result?.data ? (
           <h1 className="flex h-56 w-56 items-center justify-center text-6xl text-accent1">
-            {(nodeResult.result.data as ScalarData).c}
+            {scientificNotation
+              ? (nodeResult.result.data as ScalarData).c.toExponential()
+              : (nodeResult.result.data as ScalarData).c}
           </h1>
         ) : (
           <BigNumber />
