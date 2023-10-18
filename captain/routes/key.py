@@ -1,11 +1,7 @@
-from fastapi import APIRouter, HTTPException, Response, status
 from typing import Optional
-from flojoy import (
-    delete_env_var,
-    get_env_var,
-    get_credentials,
-    set_env_var,
-)
+
+from fastapi import APIRouter, HTTPException, Response, status
+from flojoy import delete_env_var, get_credentials, get_env_var, set_env_var
 
 from captain.types.key import EnvVar
 

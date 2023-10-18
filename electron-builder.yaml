@@ -5,30 +5,36 @@ appId: ai.flojoy.studio
 productName: Flojoy Studio
 icon: public/favicon.ico
 asar: true
+afterSign: scripts/notarize.js
 files:
   - dist-electron/**/*
-afterSign: "scripts/notarize.js"
 
 extraResources:
   - from: "public"
     to: "public"
-  - from: "bin"
-    to: "backend/bin"
   - from: "scripts/backend.ps1"
     to: "backend/backend.ps1"
   - from: "scripts/backend.sh"
     to: "backend/backend.sh"
+  - from: "scripts/conda_install.sh"
+    to: "backend/conda_install.sh"
+  - from: "scripts/conda_install.ps1"
+    to: "backend/conda_install.ps1"
   - from: "captain"
     to: "backend/captain"
+  - from: "pkgs"
+    to: "backend/pkgs"
   - from: "PYTHON"
     to: "backend/PYTHON"
     filter: "!**/nodes/**"
   - from: "manage.py"
     to: "backend/manage.py"
-  - from: "requirements.txt"
-    to: "backend/requirements.txt"
-  - from: "STATUS_CODES.yml"
-    to: "backend/STATUS_CODES.yml"
+  - from: "pyproject.toml"
+    to: "backend/pyproject.toml"
+  - from: "poetry.lock"
+    to: "backend/poetry.lock"
+  - from: "environment.yml"
+    to: "backend/environment.yml"
 
 mac:
   icon: public/favicon.icns
@@ -40,7 +46,7 @@ mac:
   darkModeSupport: true
   gatekeeperAssess: false
   hardenedRuntime: true
-  notarize: true
+  notarize: false # we have separate script (scripts/notarize.js) for this
   x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:

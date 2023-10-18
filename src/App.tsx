@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
-import PreJobOperationDialog from "./feature/common/PreJobOperationDialog";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
@@ -24,19 +23,14 @@ function ErrorBoundary() {
 
 const App = () => {
   const {
-    states: { runningNode, failedNodes, modalConfig },
+    states: { runningNode, failedNodes },
   } = useSocket();
-  const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
 
   useEffect(() => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
-
-  useEffect(() => {
-    setIsPrejobModalOpen(modalConfig.showModal ?? false);
-  }, [modalConfig]);
 
   useEffect(() => {
     sendFrontEndLoadsToMix();
@@ -46,13 +40,6 @@ const App = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
         <ElectronLogsDialog />
-        <PreJobOperationDialog
-          open={isPrejobModalOpen}
-          outputs={modalConfig.messages ?? []}
-          setOpen={setIsPrejobModalOpen}
-          title={modalConfig.title}
-          description={modalConfig.description}
-        />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route

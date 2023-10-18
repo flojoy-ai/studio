@@ -81,5 +81,8 @@ const getBackendCommand = (workingDir: string) => {
   if (process.platform === "win32") {
     return `pwsh -File ${join(workingDir, "../backend/backend.ps1")}`;
   }
+  if (process.platform === "darwin") {
+    return `zsh "${resolve(join(workingDir, "../backend/backend.sh"))}"`;
+  }
   return `bash "${resolve(join(workingDir, "../backend/backend.sh"))}"`;
 };

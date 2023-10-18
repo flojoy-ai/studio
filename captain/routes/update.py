@@ -1,5 +1,6 @@
-from fastapi import APIRouter
 import subprocess
+
+from fastapi import APIRouter
 
 router = APIRouter(tags=["update"])
 
