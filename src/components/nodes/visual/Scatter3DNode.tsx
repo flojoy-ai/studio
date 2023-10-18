@@ -8,6 +8,8 @@ import Scatter3D from "@src/assets/nodes/3DScatter";
 import { OrderedTripleData } from "@src/feature/common/types/ResultsType";
 import { ScatterPlot3D } from "@src/lib/plot/plots/3d/scatter";
 import { Vec3, Vec4 } from "regl";
+import { Theme, darkTheme, lightTheme } from "./plotConstants";
+import { useTheme } from "@src/providers/themeProvider";
 
 const initializePlot = (
   canvas: HTMLCanvasElement,
@@ -16,9 +18,10 @@ const initializePlot = (
     colors?: Vec4 | Vec4[];
   },
   params: CustomNodeProps["data"]["ctrls"],
+  theme: Theme,
 ) => {
   return new ScatterPlot3D(canvas, initialData.points, {
-    pointSize: 2,
+    pointSize: params["point_size"].value as number,
     axes: {
       x: {
         domain: [
@@ -50,8 +53,8 @@ const initializePlot = (
     cameraOptions: {
       center: [2.5, 2.5, 2.5],
     },
-    colors: initialData.colors,
-    backgroundColor: [0.1, 0.1, 0.1, 1],
+    colors: initialData.colors ?? theme.accent,
+    backgroundColor: theme.bg,
   });
 };
 
@@ -60,6 +63,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
 
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const scatter = useRef<ScatterPlot3D | null>(null);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (scatter.current && nodeResult?.result?.data) {
@@ -76,7 +80,9 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
       scatter.current.destroy();
     }
     scatter.current = null;
-  }, [data.ctrls]);
+  }, [data.ctrls, resolvedTheme]);
+
+  const theme = resolvedTheme === "dark" ? darkTheme : lightTheme;
 
   if (!scatter.current && canvas.current && nodeResult?.result?.data) {
     const resultData = nodeResult.result.data as OrderedTripleData;
@@ -89,6 +95,7 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
         colors,
       },
       data.ctrls,
+      theme,
     );
     plot.frame();
     scatter.current = plot;

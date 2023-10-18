@@ -23,7 +23,6 @@ import keyring
 import base64
 from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE
 
-
 __all__ = [
     "get_env_var",
     "set_env_var",
@@ -35,7 +34,6 @@ __all__ = [
     "snapshot_download",
     "clear_flojoy_memory",
 ]
-
 
 # # package result
 # def package_result(result: dict | None, fn: str, node_id: str, jobset_id: str) -> dict:
@@ -55,6 +53,7 @@ __all__ = [
 #         "FAILED_NODES": {node_id: str(error)},
 #         "jobsetId": jobset_id,
 #     }
+#
 
 
 # Make as a function to mock at test-time
@@ -138,13 +137,13 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         #    1. `loads` to switch Infinity, -Infinity, NaN to None
         #    2. `dumps` again so you get 'null' instead of extended JSON
         try:
-            new_o = _json.loads(encoded_o, parse_constant=self.coerce_to_strict)
+            new_o = _json.loads(encoded_o,
+                                parse_constant=self.coerce_to_strict)
         except ValueError:
             # invalid separators will fail here. raise a helpful exception
             raise ValueError(
                 "Encoding into strict JSON failed. Did you set the separators "
-                "valid JSON separators?"
-            )
+                "valid JSON separators?")
         else:
             return _json.dumps(
                 new_o,
@@ -281,11 +280,8 @@ class NotEncodable(Exception):
 
 def dump_str(result: Any, limit: int | None = None):
     result_str = str(result)
-    return (
-        result_str
-        if limit is None or len(result_str) <= limit
-        else result_str[:limit] + "..."
-    )
+    return (result_str if limit is None or len(result_str) <= limit else
+            result_str[:limit] + "...")
 
 
 def get_flojoy_root_dir() -> str:

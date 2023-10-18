@@ -62,6 +62,9 @@ dependencies:
   axios:
     specifier: ^1.5.1
     version: 1.5.1
+  candygraph:
+    specifier: ^0.10.0
+    version: 0.10.0
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -92,6 +95,9 @@ dependencies:
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
+  gl-matrix:
+    specifier: ^3.4.3
+    version: 3.4.3
   html-to-image:
     specifier: ^1.11.11
     version: 1.11.11
@@ -173,6 +179,9 @@ dependencies:
   reactflow:
     specifier: ^11.9.3
     version: 11.9.3(@types/react@18.2.28)(immer@10.0.3)(react-dom@18.2.0)(react@18.2.0)
+  regl:
+    specifier: ^2.1.0
+    version: 2.1.0
   sonner:
     specifier: ^1.0.3
     version: 1.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -5547,6 +5556,13 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /candygraph@0.10.0:
+    resolution: {integrity: sha512-8jQl+fNpRzAgjg5J3jkV0CffHnCWC3atqGTkpUkGbZksNa5BFu7GpfJO4rfFRaVrjPQlbfI5ONCbI9kVIH2pQg==}
+    dependencies:
+      gl-matrix: 3.4.3
+      regl: 2.1.0
+    dev: false
+
   /caniuse-lite@1.0.30001547:
     resolution: {integrity: sha512-W7CrtIModMAxobGhz8iXmDfuJiiKg1WADMO/9x7/CLNin5cpSbuBjooyoIUVB5eyCc36QuTVlkVa1iB2S5+/eA==}
     dev: true
@@ -7462,6 +7478,10 @@ packages:
     dependencies:
       assert-plus: 1.0.0
     dev: true
+
+  /gl-matrix@3.4.3:
+    resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
+    dev: false
 
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -10748,6 +10768,10 @@ packages:
     dependencies:
       jsesc: 0.5.0
     dev: true
+
+  /regl@2.1.0:
+    resolution: {integrity: sha512-oWUce/aVoEvW5l2V0LK7O5KJMzUSKeiOwFuJehzpSFd43dO5spP9r+sSUfhKtsky4u6MCqWJaRL+abzExynfTg==}
+    dev: false
 
   /release-zalgo@1.0.0:
     resolution: {integrity: sha512-gUAyHVHPPC5wdqX/LG4LWtRYtgjxyX78oanFNTMMyFEfOqdC54s3eE82imuWKbOeqYht2CrNf64Qb8vgmmtZGA==}

@@ -4,28 +4,23 @@ import { OrderedPairData } from "@src/feature/common/types/ResultsType";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
-import { memo } from "react";
 import {
   CartesianCoordinateSystem,
   Circles,
   LinearScale,
   OrthoAxis,
-  // OrthoAxis,
-  // createDefaultFont,
 } from "candygraph";
 import Scatter from "@src/assets/nodes/Scatter";
 import { useCandyGraph } from "@src/hooks/useCandyGraph";
+import { useTheme } from "@src/providers/themeProvider";
+import { PLOT_HEIGHT, PLOT_WIDTH, darkTheme, lightTheme } from "./plotConstants";
 
-type Color = [number, number, number, number];
-
-const viewport = { x: 0, y: 0, width: 360, height: 224 };
+const viewport = { x: 0, y: 0, width: PLOT_WIDTH, height: PLOT_HEIGHT };
 const dpr = window.devicePixelRatio;
-
-const bgColor: Color = [0.05, 0.05, 0.05, 1];
-const accentColor: Color = [0.598, 0.957, 1, 1];
 
 const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
+  const { resolvedTheme } = useTheme();
   const { cg, font } = useCandyGraph({
     width: viewport.width,
     height: viewport.height,
@@ -48,20 +43,23 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
     );
   }
 
+  const theme = resolvedTheme === "dark" ? darkTheme : lightTheme;
+
   const plotData = nodeResult.result.data as OrderedPairData;
   const x = plotData.x as number[];
   const y = plotData.y as number[];
+
   const xMin = Math.min(...x);
-  const yMin = Math.min(...y);
   const xMax = Math.max(...x);
+  const yMin = Math.min(...y);
   const yMax = Math.max(...y);
 
-  const xscale = new LinearScale([xMin, xMax], [16, viewport.width - 16]);
-  const yscale = new LinearScale([yMin, yMax], [16, viewport.height - 16]);
+  const xscale = new LinearScale([xMin, xMax], [32, viewport.width - 16]);
+  const yscale = new LinearScale([yMin, yMax], [32, viewport.height - 16]);
 
   const coords = new CartesianCoordinateSystem(cg, xscale, yscale);
 
-  cg.clear(bgColor);
+  cg.clear(theme.bg);
 
   const axes = font
     ? [
@@ -83,7 +81,7 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
 
   cg.render(coords, viewport, [
     new Circles(cg, x, y, {
-      colors: accentColor,
+      colors: theme.accent,
       radii: 3 * dpr,
       borderWidths: 0,
     }),
@@ -107,8 +105,8 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
         <canvas
           id={`canvas-${id}`}
           style={{ boxShadow: "0px 0px 8px #ccc;" }}
-          width={360}
-          height={224}
+          width={PLOT_WIDTH}
+          height={PLOT_HEIGHT}
         />
         <HandleComponent data={data} variant="accent2" />
       </div>
@@ -116,4 +114,4 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
   );
 };
 
-export default memo(ScatterNode);
+export default ScatterNode;

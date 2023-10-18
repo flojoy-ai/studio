@@ -5,7 +5,6 @@ import { ScalarData } from "@src/feature/common/types/ResultsType";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 import { CustomNodeProps } from "@src/types";
 import clsx from "clsx";
-import { memo } from "react";
 
 const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
@@ -32,4 +31,4 @@ const BigNumberNode = ({ data, selected }: CustomNodeProps) => {
   );
 };
 
-export default memo(BigNumberNode);
+export default BigNumberNode;

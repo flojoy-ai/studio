@@ -2,7 +2,7 @@ import { Vec3, DrawCommand, Vec4 } from "regl";
 import { Drawable } from "../types";
 import { Plot } from "../plot";
 
-const DEFAULT_COLOR = [0.6, 0.96, 1, 1];
+const DEFAULT_COLOR: Vec4 = [0.6, 0.96, 1, 1];
 
 type Props = {
   points: Vec3[];
@@ -11,6 +11,7 @@ type Props = {
 };
 
 type Uniforms = {
+  color: Vec4 | Vec4[];
   size: number;
 };
 
@@ -38,6 +39,10 @@ export class Points implements Drawable {
     this.points = initialProps.points;
     this.count = initialProps.points.length;
     this.colors = initialProps.colors;
+
+    const singleColor =
+      this.colors === undefined || !Array.isArray(this.colors[0]);
+
     this.drawCommand = plot.regl<Uniforms, Attributes>({
       frag: `
         precision mediump float;
@@ -55,7 +60,7 @@ export class Points implements Drawable {
         precision mediump float;
 
         attribute vec3 position;
-        attribute vec4 color;
+        ${singleColor ? "uniform vec4 color" : "attribute vec4 color"};
 
         uniform mat4 view, projection;
         uniform float size;
@@ -76,6 +81,7 @@ export class Points implements Drawable {
 
       uniforms: {
         size: options.pointSize,
+        color: this.colors ?? DEFAULT_COLOR,
       },
 
       count: plot.regl.prop<Props, keyof Props>("count"),
