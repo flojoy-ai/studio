@@ -133,7 +133,7 @@ const ParamField = ({
         <Button variant={"secondary"} onClick={() => {
           const fileInput = document.createElement('input');
           fileInput.type = 'file';
-          fileInput.accept = 'image/*';
+          fileInput.accept = `*`; //TODO: we should get the file type from the select and use it here
           fileInput.onchange = (e) => {
             const files = (e.target as HTMLInputElement).files;
             if (files && files.length > 0) {
