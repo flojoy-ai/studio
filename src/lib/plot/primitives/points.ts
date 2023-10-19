@@ -81,7 +81,7 @@ export class Points implements Drawable {
 
       uniforms: {
         size: options.pointSize,
-        color: this.colors ?? DEFAULT_COLOR,
+        color: singleColor && this.colors ? this.colors : DEFAULT_COLOR,
       },
 
       count: plot.regl.prop<Props, keyof Props>("count"),
@@ -103,5 +103,6 @@ export class Points implements Drawable {
       count: this.count,
       colors: this.colors ?? DEFAULT_COLOR,
     });
+    console.log(this.drawCommand.stats.count);
   }
 }
