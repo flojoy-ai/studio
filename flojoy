@@ -180,8 +180,7 @@ createFlojoyDirectoryWithYmlFile
 
 # update submodules
 if [ "$initSubmodule" = true ]; then
-	info_msg "Downloading Flojoy nodes... Please be patient :)"
-	git submodule update --init --recursive
+	git submodule update --init --recursive >/dev/null 2>&1
 	feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 fi
 

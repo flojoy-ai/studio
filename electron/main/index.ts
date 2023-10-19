@@ -102,19 +102,6 @@ contextMenu({
   },
 });
 
-const isPortFree = (port: number) =>
-  new Promise((resolve) => {
-    const server = require("http")
-      .createServer()
-      .listen(port, () => {
-        server.close();
-        resolve(true);
-      })
-      .on("error", () => {
-        resolve(false);
-      });
-  });
-
 global.runningProcesses = [];
 
 let win: BrowserWindow | null = null;
@@ -170,28 +157,12 @@ async function createWindow() {
   }
   await saveNodePack({ win, icon: getIcon(), startup: true });
   if (app.isPackaged) {
-    if (await isPortFree(5392)) {
-      runBackend(WORKING_DIR, win).then(({ success }) => {
-        if (success) {
-          // reload studio html to fetch fresh manifest file
-          win?.reload();
-        }
-      });
-    } else {
-      const choice = dialog.showMessageBoxSync(win!, {
-        type: "question",
-        buttons: ["Exit", "Refresh"],
-        title: "Existing Server Detected",
-        message:
-          "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
-      });
-      if (choice > 0) {
-        app.relaunch();
-        app.exit();
-      } else {
-        app.quit();
+    runBackend(WORKING_DIR, win).then(({ success }) => {
+      if (success) {
+        // reload studio html to fetch fresh manifest file
+        win?.reload();
       }
-    }
+    });
   }
 
   // Test actively push message to the Electron-Renderer
@@ -273,7 +244,7 @@ ipcMain.handle("open-win", (_, arg) => {
 
 const cleanup = async () => {
   mainLogger.log(
-    "Cleanup function invoked, running processes: ",
+    "Cleaup function invoked, running processes: ",
     global.runningProcesses.length,
   );
   if (global.runningProcesses.length) {
