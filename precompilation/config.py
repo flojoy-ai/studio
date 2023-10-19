@@ -31,13 +31,13 @@ ________________________________________________________
 """
 
 """
-EXTRA FUNCTIONS
+COMMAND TESTS
 ________________________________________________________
-These functions are added to the output script. Mainly utility functions,
-not ran during script execution.
+These commands are going to be attempted to be ran on the microcontroller to check
+if it has the necessary requirements to run the flowchart.
 """
-EXTRA_FUNCTIONS = [
-    has_requirements,
+COMMAND_TESTS = [
+    ("import ulab", "", "Ulab is not installed"),
 ]
 
 

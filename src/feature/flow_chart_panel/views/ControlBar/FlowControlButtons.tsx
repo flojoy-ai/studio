@@ -20,6 +20,7 @@ import MicrocontollerBtn from "./MicrocontrollerBtn";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import PortSelect from "./PortSelect";
+import PingMCBtn from "./PingMCBtn";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -144,9 +145,11 @@ const FlowControlButtons = () => {
         <WatchBtn playFC={onPlay} cancelFC={cancelFC} />
       )}
       <MicrocontollerBtn />
+      
       {isMicrocontrollerMode && (
         <>
           <PortSelect />
+          <PingMCBtn/>
         </>
       )}
       <div className="px-0.5" />

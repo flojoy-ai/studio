@@ -6,7 +6,6 @@ router = APIRouter(tags=["serial_ports"])
 
 
 class SerialPortList:
-
     def __init__(self, ports):
         self.ports = ports
 

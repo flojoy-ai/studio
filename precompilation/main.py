@@ -53,9 +53,6 @@ async def precompile(
         # Step 2: add import strings for node functions and import the files themselves
         sw.import_app_nodes(get_graph_nodes(light_topology))
 
-        # step 2.5: add extra function strings (check status, etc.)
-        sw.add_extra_functions()
-
         # Step 3: add the flowchart, and the code to run it
         sw.run_write_flowchart(fc, jobset_id)
 

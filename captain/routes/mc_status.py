@@ -1,45 +1,93 @@
 """USED TO CHECK MICROCONTROLLER STATUS"""
 
-from typing import Literal
-import serial.tools.list_ports
+import subprocess
+import tempfile
+import time
 from fastapi import APIRouter
+from captain.types.mc import HasRequirements
 from captain.utils.logger import logger
+from precompilation.config import COMMAND_TESTS
 
 router = APIRouter(tags=["mc_status"])
 
 class MCRequirements:
-    def __init__(self, status):
+    def __init__(self, status, msg):
         self.status = status
+        self.msg = msg
 
-@router.get("/mc_has_requirements", summary="checks if the microcontroller has the necessary requirements")
-async def mc_has_requirements():
-    import serial
 
-    # Configuration parameters
-    port = "/dev/ttyUSB0"  # Update with your port name (COMx for Windows)
-    baudrate = 115200      # Update if you're using a different baud rate
+@router.post("/mc_has_requirements", summary="checks if the microcontroller has the necessary requirements")
+async def mc_has_requirements(req: HasRequirements):
 
-    # Open the serial port
-    ser = serial.Serial(port, baudrate)
+    status = "FAIL" # default status 
+    port = req.port
 
-    status = "FAIL"
-
+    # connect to microcontroller using by spawning subprocess using rshell 
+    # and running the list of commands and catch any error
     try:
-        while True:
-            if ser.in_waiting: # If there is data in the buffer
-                status = ser.readline().decode('utf-8').strip()  
-                break
+        # with subprocess.Popen(
+        #     cmd,
+        #     stdin=subprocess.PIPE,
+        #     stdout=subprocess.PIPE,
+        #     stderr=subprocess.PIPE,
+        #     universal_newlines=True,
+        # ) as proc:
+        #     # open the repl in rshell
+        #     out, error_output = proc.communicate(
+        #         cmd
+        #     )
+        #     logger.debug(f"stdin from shell: {out}")
+        #     if error_output or out != '':
+        #         raise Exception(f"{error_output}")
 
-    except Exception as e:  
-        if isinstance(e, KeyboardInterrupt): # Exit the loop when Ctrl+C is pressed
-            pass
-        else: # Otherwise, log the error that occured
-            logger.error(e)
+        #     for cmd, err_msg in COMMAND_TESTS:
+        #         out, error_output = proc.communicate(
+        #             cmd
+        #         )
+        #         logger.debug(f"stdin from shell: {out}")
+        #         if error_output or out != '':
+        #             raise Exception(f"{err_msg}:{error_output}") if error_output else Exception(f"{err_msg}")
+        #     status = 'PASS'
+        cmd = ["mpremote", "connect", port, "run"]
+        for test, expected_output, err_msg in COMMAND_TESTS:
+            tmpfile = tempfile.NamedTemporaryFile()
+            tmpfilename = tmpfile.name
+            print("here", flush=True)
+            f = open(tmpfilename, 'w')
+            f.write(test)
+            f.close()
+            print("here2", flush=True)
+            p = subprocess.run(
+                cmd + [tmpfilename],
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                timeout=5,
+            )
+            exitcode = p.returncode
+            print("here3", flush=True)
+            # check if no error was generated
+            # get sterr output from Popen process
+            stdout = ""
+            tmpfile.close()
 
-    finally:
-        ser.close()  
+            if exitcode != 0:
+                raise Exception(f"{err_msg}. Failing test: {test}. Error:{p.stderr}")
+            
+            # check if expected output matches
+            if expected_output and stdout != expected_output:
+                raise Exception(f"{test};{err_msg}:{p.stdout}")
+            
+        status = "PASS"
 
-    if status != 'PASS' or status != 'FAIL': 
+            
+    except Exception as e:
+        logger.error(e)
+        status = 'FAIL'
+        return MCRequirements(status, str(e))
+
+    if status != "PASS" and status != "FAIL": 
         raise Exception("Invalid status received from microcontroller")
-
-    return MCRequirements(status)
+    
+    return MCRequirements(status, "The MC is ready") if status == 'PASS' else MCRequirements(status, "MC was not able to execute the tests")

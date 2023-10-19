@@ -7,14 +7,13 @@ import glob
 import os
 import shutil
 import subprocess
-import mpy_cross
+# import mpy_cross
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
 from precompilation.config import (
     EXTRA_FILES_DIR,
-    EXTRA_FUNCTIONS,
     FILES_GROUPS_TO_BE_OUTPUTTED,
     FILTERS_FOR_FILES,
     HEADER,
@@ -402,21 +401,21 @@ class FlojoyScriptBuilder:
         ")
         #   ----------------------------------
 
-    def compile_to_mpy(self):
-        """
-        Compile each file in output directory to mpy
-        """
-        to_remove = []
-        for root, _, files in os.walk(self.path_to_output):
-            for file in files:
-                if file.endswith(".py"):
-                    file_path = os.path.join(root, file)
-                    logger.debug(f"Compiling {file_path} to micropython")
-                    mpy_cross.run(file_path, stdout=subprocess.PIPE)
-                    to_remove.append(file_path)
+    # def compile_to_mpy(self):
+    #     """
+    #     Compile each file in output directory to mpy
+    #     """
+    #     to_remove = []
+    #     for root, _, files in os.walk(self.path_to_output):
+    #         for file in files:
+    #             if file.endswith(".py"):
+    #                 file_path = os.path.join(root, file)
+    #                 logger.debug(f"Compiling {file_path} to micropython")
+    #                 mpy_cross.run(file_path, stdout=subprocess.PIPE)
+    #                 to_remove.append(file_path)
 
-        for file in to_remove:
-            os.remove(file)
+    #     for file in to_remove:
+    #         os.remove(file)
 
     async def run_script(self, tempdir, port: str):
         await asyncio.create_task(
@@ -487,10 +486,3 @@ class FlojoyScriptBuilder:
         """
         if os.path.exists(get_absolute_path(true_output_path)):
             raise Exception("Output directory already exists.")
-
-    def add_extra_functions(self):
-        """
-        Adds functions to check status, such as function for checking if microcontroller has necessary firmware, etc.
-        """
-        for func in EXTRA_FUNCTIONS:
-            self._add_function_or_class(func)
