@@ -1635,6 +1635,23 @@ files = [
 ]
 
 [[package]]
+name = "mpmath"
+version = "1.3.0"
+description = "Python library for arbitrary-precision floating-point arithmetic"
+optional = false
+python-versions = "*"
+files = [
+    {file = "mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c"},
+    {file = "mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f"},
+]
+
+[package.extras]
+develop = ["codecov", "pycodestyle", "pytest (>=4.6)", "pytest-cov", "wheel"]
+docs = ["sphinx"]
+gmpy = ["gmpy2 (>=2.1.0a4)"]
+tests = ["pytest (>=4.6)"]
+
+[[package]]
 name = "msal"
 version = "1.24.1"
 description = "The Microsoft Authentication Library (MSAL) for Python library"
@@ -1795,6 +1812,31 @@ azure-identity = ">=1.5.0,<2.0.0"
 opencensus = ">=0.11.3,<1.0.0"
 psutil = ">=5.6.3"
 requests = ">=2.19.0"
+
+[[package]]
+name = "opencv-python"
+version = "4.8.1.78"
+description = "Wrapper package for OpenCV python bindings."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "opencv-python-4.8.1.78.tar.gz", hash = "sha256:cc7adbbcd1112877a39274106cb2752e04984bc01a031162952e97450d6117f6"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-macosx_10_16_x86_64.whl", hash = "sha256:91d5f6f5209dc2635d496f6b8ca6573ecdad051a09e6b5de4c399b8e673c60da"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-macosx_11_0_arm64.whl", hash = "sha256:bc31f47e05447da8b3089faa0a07ffe80e114c91ce0b171e6424f9badbd1c5cd"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9814beca408d3a0eca1bae7e3e5be68b07c17ecceb392b94170881216e09b319"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c4c406bdb41eb21ea51b4e90dfbc989c002786c3f601c236a99c59a54670a394"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-win32.whl", hash = "sha256:a7aac3900fbacf55b551e7b53626c3dad4c71ce85643645c43e91fcb19045e47"},
+    {file = "opencv_python-4.8.1.78-cp37-abi3-win_amd64.whl", hash = "sha256:b983197f97cfa6fcb74e1da1802c7497a6f94ed561aba6980f1f33123f904956"},
+]
+
+[package.dependencies]
+numpy = [
+    {version = ">=1.21.2", markers = "python_version >= \"3.10\""},
+    {version = ">=1.21.4", markers = "python_version >= \"3.10\" and platform_system == \"Darwin\""},
+    {version = ">=1.19.3", markers = "python_version >= \"3.6\" and platform_system == \"Linux\" and platform_machine == \"aarch64\" or python_version >= \"3.9\""},
+    {version = ">=1.17.0", markers = "python_version >= \"3.7\""},
+    {version = ">=1.17.3", markers = "python_version >= \"3.8\""},
+]
 
 [[package]]
 name = "opencv-python-headless"
@@ -2402,6 +2444,28 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[[package]]
+name = "pyrealsense2"
+version = "2.54.2.5684"
+description = "Python Wrapper for Intel Realsense SDK 2.0."
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyrealsense2-2.54.2.5684-cp310-cp310-manylinux1_x86_64.whl", hash = "sha256:c49ac2ca7550b896670bc94113e2e13c672cba6e5ca8aa646dcb3c8f9545a552"},
+    {file = "pyrealsense2-2.54.2.5684-cp310-cp310-win_amd64.whl", hash = "sha256:21ea9db6f80b425d6435dfc78add39620749107069a4d20d66a191df614f5622"},
+    {file = "pyrealsense2-2.54.2.5684-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:95953633b97306742e689706d5bfc2fef7f848fde10ce49d080d26ff4b4d0483"},
+    {file = "pyrealsense2-2.54.2.5684-cp311-cp311-win_amd64.whl", hash = "sha256:8b7036c43f332ddf116d200ff4fcdee2b69f845b7dad55415764e6b90c40723a"},
+    {file = "pyrealsense2-2.54.2.5684-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ed8c6421b7dd9efda33723aced0a0720ac053abc0d6fb11343c82c430a241be2"},
+    {file = "pyrealsense2-2.54.2.5684-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:4c2a136cd7f6b65b858fe3de6129170d56172452cd36122b57ed662071a02be8"},
+    {file = "pyrealsense2-2.54.2.5684-cp37-cp37m-win_amd64.whl", hash = "sha256:836b44ed4b47b6633d1e8a4fcabfbf7c89454980ba70ceab017bd5b78b55f8f0"},
+    {file = "pyrealsense2-2.54.2.5684-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:104f61d4bce6bbdc8a859020c11efede1d1bce867adf4725a31bd34723640677"},
+    {file = "pyrealsense2-2.54.2.5684-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:f3eb5cb41ab1c58c1809624473e67db43f2cfa46c780d130a2a607328fba91a1"},
+    {file = "pyrealsense2-2.54.2.5684-cp38-cp38-win_amd64.whl", hash = "sha256:c8db6c2b1abbf7bacaad8b670533351335a8cf639bf0f6a347d56cf6b7059eb0"},
+    {file = "pyrealsense2-2.54.2.5684-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:b8be634e01023a8a052aac5c7e53f0b4e2dea048d05051d91de15bb7ad8c5833"},
+    {file = "pyrealsense2-2.54.2.5684-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:a42b27b29ce13110cdd1a20fd99d732a1ba3fc601f86686f9567b62ba864ef2b"},
+    {file = "pyrealsense2-2.54.2.5684-cp39-cp39-win_amd64.whl", hash = "sha256:fe63ab1aa223e1e360f10f2625cbab5da711a8372bf4b43f37b71b6163f2feb3"},
+]
 
 [[package]]
 name = "pyserial"
@@ -3257,6 +3321,20 @@ anyio = ">=3.4.0,<5"
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
 
 [[package]]
+name = "sympy"
+version = "1.12"
+description = "Computer algebra system (CAS) in Python"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "sympy-1.12-py3-none-any.whl", hash = "sha256:c3588cd4295d0c0f603d0f2ae780587e64e2efeedb3521e46b9bb1d08d184fa5"},
+    {file = "sympy-1.12.tar.gz", hash = "sha256:ebf595c8dac3e0fdc4152c51878b498396ec7f30e7a914d6071e674d49420fb8"},
+]
+
+[package.dependencies]
+mpmath = ">=0.19"
+
+[[package]]
 name = "tabulate"
 version = "0.9.0"
 description = "Pretty-print tabular data"
@@ -3269,6 +3347,32 @@ files = [
 
 [package.extras]
 widechars = ["wcwidth"]
+
+[[package]]
+name = "taulidarcamera"
+version = "0.0.5"
+description = "Python host-side API for the Onion Tau Lidar Camera"
+optional = false
+python-versions = ">=3.6.1"
+files = [
+    {file = "TauLidarCamera-0.0.5-py3-none-any.whl", hash = "sha256:ab61dbb7b3bc3a594fdf1dc22a018bb00688e264bffd3b86357eee4cfaee67f6"},
+    {file = "TauLidarCamera-0.0.5.tar.gz", hash = "sha256:48bbb45968b6ebee29c075c4d926b1bf087f0eb59343c2e42ed00d58cd29ad29"},
+]
+
+[package.dependencies]
+pyserial = "*"
+TauLidarCommon = "*"
+
+[[package]]
+name = "taulidarcommon"
+version = "0.0.2"
+description = "Tau LiDAR common package"
+optional = false
+python-versions = ">=3.6.1"
+files = [
+    {file = "TauLidarCommon-0.0.2-py3-none-any.whl", hash = "sha256:fceaae3e7c1119135d166ff83beb6b1dcbbdf0e0959a9e0043bfc8420640c834"},
+    {file = "TauLidarCommon-0.0.2.tar.gz", hash = "sha256:625a35d51e482a706eb1b247588f72ef9cc8ea5f551f75a4551032d788766c9c"},
+]
 
 [[package]]
 name = "tenacity"
@@ -3896,4 +4000,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "fa63a1ad29605dcebd6de28f01c552ef0b6c155236df35ebc359a85d3f214355"
+content-hash = "dc3f6261bb74aae6b20f25746f3bf7853d4fda88200118a446d377a1f80159f7"
