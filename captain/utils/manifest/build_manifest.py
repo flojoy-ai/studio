@@ -26,6 +26,7 @@ from flojoy import (
     SerialDevice,
     VisaConnection,
     VisaDevice,
+    File
 )
 
 from .build_ast import get_node_type, get_pip_dependencies, make_manifest_ast
@@ -49,6 +50,7 @@ SPECIAL_TYPES = [
     CameraConnection,
     SerialConnection,
     VisaConnection,
+    File
 ]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]
