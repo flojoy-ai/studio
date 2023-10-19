@@ -82,6 +82,14 @@ const Scatter3DNode = ({ data, selected, id }: CustomNodeProps) => {
     scatter.current = null;
   }, [data.ctrls, resolvedTheme]);
 
+  useEffect(() => {
+    return () => {
+      if (scatter.current) {
+        scatter.current.destroy();
+      }
+    } 
+  }, [])
+
   const theme = resolvedTheme === "dark" ? darkTheme : lightTheme;
 
   if (!scatter.current && canvas.current && nodeResult?.result?.data) {
