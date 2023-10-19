@@ -51,7 +51,7 @@ export default defineConfig(({ command }) => {
               publicDir: "electron/static",
               build: {
                 sourcemap: sourcemap ? "inline" : undefined,
-                minify: isBuild,
+                minify: false,
                 rollupOptions: {
                   input: {
                     main: "electron/main/index.ts",

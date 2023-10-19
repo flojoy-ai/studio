@@ -37,7 +37,7 @@ jobs:
           echo "GitHub Event Action: ${{ github.event.action }}"
 
       - name: Trigger test PR
-        if: github.event.action == 'opened'
+        # if: github.event.action == 'opened'
         id: trigger_pr
         run: |
           curl -X POST https://api.github.com/repos/${{ env.PROJECT_OWNER }}/${{ env.PROJECT_REPO }}/actions/workflows/${{ env.PROJECT_WORKFLOW_ID }}/dispatches \
