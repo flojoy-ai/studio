@@ -10,7 +10,7 @@ on:
       - closed
 
 env:
-  PROJECT_OWNER: flojoy-io
+  PROJECT_OWNER: flojoy-ai
   PROJECT_REPO: rc
   PROJECT_WORKFLOW_ID: terraform-test-env.yml
   PROJECT_TOKEN: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
@@ -20,7 +20,7 @@ env:
 jobs:
   trigger_workflow:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    if: ${{ github.event.pull_request.base.ref == 'develop' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
