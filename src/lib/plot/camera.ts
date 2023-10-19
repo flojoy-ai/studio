@@ -83,8 +83,8 @@ export class Camera {
       const leftButtonPressed = ev.buttons & 1;
       ev.preventDefault();
       ev.stopPropagation();
-      const dx = (ev.movementX / window.innerWidth) * 2;
-      const dy = (ev.movementY / window.innerHeight) * 2;
+      const dx = (ev.movementX / window.innerWidth) * this.state.distance;
+      const dy = (ev.movementY / window.innerHeight) * this.state.distance;
       if (leftButtonPressed && ev.ctrlKey) {
         this.rotate(dx, dy);
       } else if (leftButtonPressed) {
@@ -141,8 +141,6 @@ export class Camera {
 
   private pan(dx: number, dy: number) {
     const { forward, left } = this.getPanVectors();
-    console.log(this.state.eye);
-    console.log(this.state.center);
 
     vec3.scaleAndAdd(this.state.center, this.state.center, forward, dy * 10);
     vec3.scaleAndAdd(this.state.center, this.state.center, left, -dx * 10);
