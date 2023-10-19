@@ -170,7 +170,7 @@ async function createWindow() {
   }
   await saveNodePack({ win, icon: getIcon(), startup: true });
   if (app.isPackaged) {
-    if (await isPortFree(3000)) {
+    if (await isPortFree(5392)) {
       runBackend(WORKING_DIR, win).then(({ success }) => {
         if (success) {
           // reload studio html to fetch fresh manifest file
@@ -183,7 +183,7 @@ async function createWindow() {
         buttons: ["Exit", "Refresh"],
         title: "Existing Server Detected",
         message:
-          "Seems like there is already a Flojoy server running! You should either terminate that one or use that one instead.",
+          "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
       });
       if (choice > 0) {
         win?.reload();
