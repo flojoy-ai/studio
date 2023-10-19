@@ -186,7 +186,8 @@ async function createWindow() {
           "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
       });
       if (choice > 0) {
-        win?.reload();
+        app.relaunch();
+        app.exit();
       } else {
         app.quit();
       }
