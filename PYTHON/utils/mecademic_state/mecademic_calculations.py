@@ -17,6 +17,7 @@ Parameters
     - next: the next position the joints will go to
     - timeDelta: the amount of time (in milliseconds) that the move should take
 """
+import math
 
 
 def calculateLimitingMaxVel(current, next, timeDelta) -> float:
@@ -38,3 +39,17 @@ def calculateLimitingMaxVel(current, next, timeDelta) -> float:
     if ratioOfMaxtoTarget < 0:
         print("WARNING: The target velocity is negative. The axis will be limited to 100% of its max velocity.")
     return abs(min(1, ratioOfMaxtoTarget))
+
+
+def getCirclePositions(radius, revolutions, center_X, center_Y, center_Z):
+    positions = []
+    for i in range(0, 360 * revolutions):
+        angle = i * math.pi / 180
+        positions.append(
+            [
+                center_X + radius * math.cos(angle),
+                center_Y + radius * math.sin(angle),
+                center_Z,
+                ]
+        )
+    return positions
