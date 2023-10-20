@@ -26,10 +26,10 @@ function enableLibmamba {
   param (
     $conda_exec
   )
-  # Get a list of installed packages
+  # Get solver from config
   $solver = @(Invoke-Expression "$conda_exec config --show solver")
   
-  # Check if "mamba" is listed among the installed packages
+  # Check if "libmamba" is there as solver
   if ($solver -like "*libmamba*") {
     info_msg "Libmamba is already set as solver for conda."
   }

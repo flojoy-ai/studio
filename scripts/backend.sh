@@ -38,8 +38,9 @@ init_shell() {
 }
 
 enable_libmamba() {
-	# this makes sure libmamba is set as the solver, which is much faster
+	# Get solver from config
 	$solver=$(conda config --show solver)
+	# Check if "libmamba" is there as solver
 	if [[ $solver == *"libmamba"* ]]; then
 		info_msg "Libmamba is already set as solver for conda."
 	else
