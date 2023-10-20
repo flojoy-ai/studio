@@ -1,15 +1,17 @@
-from copy import deepcopy
 import logging
 import os
-from queue import Queue
 import time
 from collections import deque
+from copy import deepcopy
+from queue import Queue
+from typing import Any, cast
+
+import networkx as nx
 from flojoy import JobFailure, JobSuccess, get_next_directions
-from flojoy.utils import clear_flojoy_memory  # for some reason, cant import from
+from flojoy.utils import clear_flojoy_memory  # for some reason, can't import from
+
 from captain.types.worker import JobInfo
 from captain.utils.logger import logger
-import networkx as nx
-from typing import Any, cast
 
 
 class Topology:
@@ -34,8 +36,8 @@ class Topology:
         self.queued_jobs: set[str] = set()
         self.is_ci = os.getenv(key="CI", default=False)
         self.cancelled = False
-        self.time_start = 0
-        self.is_finished = False
+        self.time_start = 0.0
+        self.finished = False
         self.loop_nodes = (
             list()
         )  # using list instead of set as we need to maintain order
@@ -68,7 +70,7 @@ class Topology:
         """
         Topology entry point function for producer
         """
-        self.time_start = time.time()
+        self.time_start = time.perf_counter()
         next_jobs: list[str] = self.collect_ready_jobs()  # get nodes with in-degree 0
         self.run_jobs(next_jobs, task_queue)
 
@@ -123,6 +125,9 @@ class Topology:
 
     def is_cancelled(self):
         return self.cancelled
+
+    def is_finished(self):
+        return self.finished
 
     def handle_finished_job(self, job: JobSuccess, return_new_jobs: bool = False):
         """
@@ -206,9 +211,9 @@ class Topology:
             and next_nodes_from_dependencies.__len__() == 0
         ):
             if not self.loop_nodes:
-                self.is_finished = True
-                logger.debug(
-                    f"FLOWCHART TOOK {time.time() - self.time_start} SECONDS TO COMPLETE"
+                self.finished = True
+                logger.info(
+                    f"FLOWCHART TOOK {time.perf_counter() - self.time_start} SECONDS TO COMPLETE"
                 )
                 self.cancel()
                 return
@@ -234,7 +239,7 @@ class Topology:
     def remove_edges_and_get_next(self, job_id: str, label_direction: str = "default"):
         """
         this function removes the node edges and checks its successors
-        for new jobs. A new job is ready when a sucessor has no dependencies.
+        for new jobs. A new job is ready when a successor has no dependencies.
         """
         self.finished_jobs.add(job_id)
         successors: list[str] = list(self.working_graph.successors(job_id))
@@ -265,7 +270,7 @@ class Topology:
                 self.finished_jobs.remove(d_id)
 
     def finalizer(self):
-        if self.is_finished:
+        if self.finished:
             pass  # add things here in the future
 
     def mark_job_failure(self, job_id: str):
@@ -375,13 +380,13 @@ class Topology:
     def get_graph(self, original: bool):
         return self.original_graph if original else self.working_graph
 
-    # this function will get the maximum amount of independant nodes during the topological sort of the graph.
+    # this function will get the maximum amount of independent nodes during the topological sort of the graph.
     # Will be used to determine how many workers to spawn
-    # TODO (priority very low): delete edges based on their label: currenly, we are deleting all edges regardless of their labels.
+    # TODO (priority very low): delete edges based on their label: currently, we are deleting all edges regardless of their labels.
     # So for example :
     # Suppose we have a graph with 3 nodes: LOOP, node1, node2 and end,
     # assuming LOOP is the only dependency of all the nodes,
-    # and the LOOP node has 2 sucessors from "body" (node1, node2) and 1 from "end" (end),
+    # and the LOOP node has 2 successors from "body" (node1, node2) and 1 from "end" (end),
     # we will spawn 3 workers instead of the logical amount which is 2.
     def get_maximum_workers(self, maximum_capacity: int = 1):
         max_independant = 0

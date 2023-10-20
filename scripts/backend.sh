@@ -1,65 +1,92 @@
-#!/bin/bash
+info_msg() {
+	message=$1
+	echo ":info: $message"
+}
+feedback() {
+	is_successful=$1
+	message=$2
+	help_message=$3
+	if [ "$is_successful" -eq 0 ]; then
+		info_msg "$message"
+	else
+		echo "$help_message"
+		exit 1
+	fi
+}
 
-feedback()
-{
-   is_successful=$1
-   message=$2
-   help_message=$3
-   if [ "$is_successful" -eq 0 ]; then
-      echo "$message"
-   else
-      echo "$help_message"
-      exit 1
-   fi
+source_bash_zsh() {
+	if [ -f ~/.zshrc ]; then
+		source ~/.zshrc
+		info_msg "Sourced ~/.zshrc"
+	fi
+
+	if [ -f ~/.bashrc ]; then
+		source ~/.bashrc
+		info_msg "Sourced ~/.bashrc"
+	fi
+}
+
+init_shell() {
+
+	if [ -f ~/.zshrc ]; then
+		eval "$(conda shell.zsh hook)"
+	fi
+
+	if [ -f ~/.bashrc ]; then
+		eval "$(conda shell.bash hook)"
+
+	fi
 }
 
 current_dir="$(dirname "$(readlink -f "$0")")"
 
-flojoy_dir="$HOME/.flojoy"
-mamba_dir="$flojoy_dir/mamba"
-python_exec="$mamba_dir/bin/python3"
-venv_name="flojoy_root"
-venv_dir="$mamba_dir/envs/$venv_name"
-venv_executable="$venv_dir/bin/python"
-platform=$(uname)
-arch=$(uname -m)
-mamba_executable="$current_dir/bin/micromamba-$platform-$arch"
+flojoy_env="flojoy-studio"
+env_yml="$current_dir/environment.yml"
+conda_script="$current_dir/conda_install.sh"
 
-echo "flojoy dir: $flojoy_dir"
+# Need to source them because the "conda" command is actually a bash function
+source_bash_zsh
 
-if [ ! -d "$flojoy_dir" ]; then
-  echo "Flojoy directory doesn't exist, Creating $flojoy_dir ... "
-  mkdir "$flojoy_dir"
+info_msg "Looking for conda installation..."
+if ! command -v conda &>/dev/null; then
+	info_msg "Conda installation was not found..."
+	bash $conda_script
+	source_bash_zsh
+else
+	info_msg "Conda is already installed..."
 fi
 
-cd "$flojoy_dir"
-echo "Location set to $flojoy_dir"
+init_shell # configure the shell properly
 
-if [ ! -f "$venv_executable" ]; then
-  if [ -d "$venv_dir" ]; then
-    rm -rf "$venv_dir"
-  fi
-  echo "Creating micromamba env..."
-  "$mamba_executable" create -n $venv_name conda-forge::python=3.10 -r $mamba_dir -y
-  feedback $? "Micromamba env $venv_name created successfully." "Micromamba env creation failed."
+cd $current_dir
+
+# Bootstrapping using conda
+conda activate $flojoy_env
+# Check if the Conda environment exists
+if [ $? -eq 0 ]; then
+	info_msg "$flojoy_env env found!"
+	if ! test -f "$current_dir/.updated_env"; then
+		info_msg "Updating $flojoy_env env..."
+		# Environment exists, update it
+		conda env update --file $env_yml --name $flojoy_env
+		conda activate $flojoy_env
+		touch "$current_dir/.updated_env"
+	fi
+else
+	# Environment doesn't exist, create it
+	info_msg "Creating $flojoy_env env with conda..."
+	conda env create --file $env_yml --name $flojoy_env
+	conda activate $flojoy_env
+	info_msg "Activated $flojoy_env env."
+	touch "$current_dir/.updated_env"
 fi
 
-if [ $platform == "Linux" ]; then
-  eval "$("$mamba_executable" shell hook --shell bash)"
-  export MAMBA_ROOT_PREFIX=$mamba_dir
-  micromamba activate $venv_name
-  feedback $? "Env $venv_name is activated!" "Failed to activate $venv_name env!"
-  cd "$current_dir"
-  echo "Installing pip dependencies..."
-  pip install -r requirements.txt
-  echo "Package installation completed, starting backend..."
-  export ELECTRON_MODE=packaged
-  python manage.py
-elif [ $platform == "Darwin" ]; then
-  cd "$current_dir"
-  echo "Installing pip dependencies..."
-  "$venv_executable" -m pip install -r requirements.txt
-  echo "Package installation completed, starting backend..."
-  export ELECTRON_MODE=packaged
-  "$venv_executable" manage.py
+if ! test -f "$current_dir/.installed_deps"; then
+	info_msg "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
+	poetry install
+	feedback $? "Installed packages successfully!" "Error occured while installing packages with poetry!"
+	touch "$current_dir/.installed_deps"
 fi
+export ELECTRON_MODE=packaged
+info_msg "Starting backend..."
+poetry run python3 manage.py

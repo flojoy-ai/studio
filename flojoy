@@ -14,30 +14,26 @@ error_mark=❌
 
 is_command_successful=0
 
-success_msg()
-{
-    message=$1
-    echo -e "$success_color$check_mark $message $default_color"
-    echo ''
+success_msg() {
+	message=$1
+	echo -e "$success_color$check_mark $message $default_color"
+	echo ''
 }
-info_msg()
-{
-    message=$1
-    echo -e "$info_color$info_mark $message $default_color"
-    echo ''
+info_msg() {
+	message=$1
+	echo -e "$info_color$info_mark $message $default_color"
+	echo ''
 }
-warning_msg()
-{
-    message=$1
-    echo -e "$warning_color$alert_mark $message $default_color"
-    echo ''
+warning_msg() {
+	message=$1
+	echo -e "$warning_color$alert_mark $message $default_color"
+	echo ''
 }
-error_msg()
-{
-    message=$1
-    echo -e "$error_color$error_mark $message $default_color"
-    echo ''
-    echo ''
+error_msg() {
+	message=$1
+	echo -e "$error_color$error_mark $message $default_color"
+	echo ''
+	echo ''
 }
 
 echo ''
@@ -50,8 +46,6 @@ echo '     ||       https://docs.flojoy.ai/getting-started/install/    ||'
 echo '     ||                                                          ||'
 echo '      ============================================================'
 echo ''
-venv=""
-
 
 initNodePackages=true
 initPythonPackages=true
@@ -62,91 +56,91 @@ enableSentry=true
 enableTelemetry=true
 isDebugMode=false
 isRemoteMode=false
+flojoyEnv="flojoy-studio"
+envYml="environment.yml"
+updateEnv=true
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
-feedback()
-{
-   is_successful=$1
-   message=$2
-   help_message=$3
-   if [ "$is_successful" -eq 0 ]; then
-      success_msg "$message"
-   else
-      error_msg "$help_message"
-      exit 1
-   fi
+feedback() {
+	is_successful=$1
+	message=$2
+	help_message=$3
+	if [ "$is_successful" -eq 0 ]; then
+		success_msg "$message"
+	else
+		error_msg "$help_message"
+		exit 1
+	fi
 }
 
 # Help function
 
-helpFunction()
-{
-   echo ""
-   echo "Usage: $0 -n -p -s -S -t -T -d -v venv-path -r"
-   echo  " -v: path to a Python virtual environment"
-   echo  " -n: To NOT install npm packages"
-   echo  " -p: To NOT install python packages"
-   echo  " -s: To NOT update submodules"
-   echo  " -S: To NOT enable Sentry"
-   echo  " -t: To enable local CI tests"
-   echo  " -T: To disable Telemetry"
-   echo  " -d: To enable debug mode"
-   echo  " -r: To start studio in remote mode without electron"
-   echo 1 # Exit script after printing help
+helpFunction() {
+	echo ""
+	echo "Usage: $0 -n -p -s -S -t -T -d -r -u"
+	# echo  " -v: path to a Python virtual environment"
+	echo " -n: To NOT install npm packages"
+	echo " -p: To NOT install python packages"
+	echo " -s: To NOT update submodules"
+	echo " -S: To NOT enable Sentry"
+	echo " -t: To enable local CI tests"
+	echo " -T: To disable Telemetry"
+	echo " -d: To enable debug mode"
+	echo " -r: To start studio in remote mode without electron"
+	echo " -u: To NOT update $flojoyEnv env"
+	echo 1 # Exit script after printing help
 }
 
 # Parse command-line arguments
-while [ $# -gt 0 ]
-do
-    key="$1"
-    case $key in
-        -n)
-        initNodePackages=false
-        shift
-        ;;
-        -p)
-        initPythonPackages=false
-        shift
-        ;;
-        -v)
-        venv="$2"
-        shift
-        shift
-        ;;
-        -c)
-        is_ci=true
-        shift
-        ;;
-        -T)
-        enableTelemetry=false
-        shift
-        ;;
-        -S)
-        enableSentry=false
-        shift
-        ;;
-        -t)
-        test_ci=true #run with CI=true, allows to properly run tests locally
-        shift
-        ;;
-        -s)
-        initSubmodule=false # don't update submodules, prevents overwriting local changes
-        shift
-        ;;
-        -d)
-        isDebugMode=true
-        shift
-        ;;
-        -r)
-        isRemoteMode=true
-        shift
-        ;;
-        *) # unknown option
-        echo "Unknown option: $1"
-        helpFunction
-        exit 1
-        ;;
-    esac
+while [ $# -gt 0 ]; do
+	key="$1"
+	case $key in
+	-n)
+		initNodePackages=false
+		shift
+		;;
+	-p)
+		initPythonPackages=false
+		shift
+		;;
+	-c)
+		is_ci=true
+		shift
+		;;
+	-T)
+		enableTelemetry=false
+		shift
+		;;
+	-S)
+		enableSentry=false
+		shift
+		;;
+	-t)
+		test_ci=true #run with CI=true, allows to properly run tests locally
+		shift
+		;;
+	-s)
+		initSubmodule=false # don't update submodules, prevents overwriting local changes
+		shift
+		;;
+	-d)
+		isDebugMode=true
+		shift
+		;;
+	-r)
+		isRemoteMode=true
+		shift
+		;;
+	-u)
+		updateEnv=false
+		shift
+		;;
+	*) # unknown option
+		echo "Unknown option: $1"
+		helpFunction
+		exit 1
+		;;
+	esac
 done
 
 git pull
@@ -155,174 +149,138 @@ git pull
 
 CWD="$PWD"
 
-createFlojoyDirectoryWithYmlFile()
-{
-   FOLDER=$HOME/.flojoy
-   FILE=$HOME/.flojoy/flojoy.yaml
-   if test -d "$FOLDER"; then
-      if test -f "$FILE"; then
-         info_msg "$FILE exists."
-         echo "PATH: $CWD" > $FILE
-         feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
+createFlojoyDirectoryWithYmlFile() {
+	FOLDER=$HOME/.flojoy
+	FILE=$HOME/.flojoy/flojoy.yaml
+	if test -d "$FOLDER"; then
+		if test -f "$FILE"; then
+			info_msg "$FILE exists."
+			echo "PATH: $CWD" >$FILE
+			feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
 
-      else
-         info_msg "file flojoy.yaml in directory $FOLDER does not exists. "
-         touch $FILE && echo "PATH: $CWD" > $FILE
-         feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
-      fi
-   else
-      info_msg "directory ~/.flojoy/flojoy.yaml does not exists. "
-      mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" > "$FILE"
-      feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
-   fi
+		else
+			info_msg "file flojoy.yaml in directory $FOLDER does not exists. "
+			touch $FILE && echo "PATH: $CWD" >$FILE
+			feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
+		fi
+	else
+		info_msg "directory ~/.flojoy/flojoy.yaml does not exists. "
+		mkdir "$FOLDER" && touch "$FILE" && echo "PATH: $CWD" >"$FILE"
+		feedback $? "Created new $FOLDER directory with flojoy.yaml file." 'Failed to create file in the home directory, check the permission or sign in as root user'
+	fi
 
-   CREDENTIALS_FILE=$FOLDER/credentials.txt
+	CREDENTIALS_FILE=$FOLDER/credentials.txt
 
-   if ! test -f "$CREDENTIALS_FILE"; then
-      touch "$CREDENTIALS_FILE"
-   fi
+	if ! test -f "$CREDENTIALS_FILE"; then
+		touch "$CREDENTIALS_FILE"
+	fi
 }
 
 createFlojoyDirectoryWithYmlFile
 
 # update submodules
 if [ "$initSubmodule" = true ]; then
-   git submodule update --init --recursive >/dev/null 2>&1
-   feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
-fi
-
-# checking virtual environment
-
-venvCmd=""
-
-if [ -n "$venv" ]
-then
-   info_msg "Virtual env path is provided, will use: ${venv}"
-   venvCmd="source ${venv}/bin/activate"
-
-   if [ "$(echo -n $venv | tail -c 1)" = '/' ];then
-      venvCmd="source ${venv}bin/activate"
-   fi
-else
-   info_msg "No virtual env provided"
+	info_msg "Downloading Flojoy nodes... Please be patient :)"
+	git submodule update --init --recursive
+	feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
 fi
 
 # Check if Python, Pip, or npm is missing.
-if [ $is_ci = false ];then
-   source check-dependencies
-   # Call the function to check for dependencies
-   missing_dependencies=$(check_dependencies)
-   # If there are missing dependencies, print the list of them
-   if [ -n "$missing_dependencies" ]; then
-   error_msg "$missing_dependencies"
-   exit 1
-   fi
+if [ $is_ci = false ]; then
+	source check-dependencies
+	# Call the function to check for dependencies
+	missing_dependencies=$(check_dependencies)
+	# If there are missing dependencies, print the list of them
+	if [ -n "$missing_dependencies" ]; then
+		error_msg "$missing_dependencies"
+		exit 1
+	fi
+fi
+
+eval "$(conda shell.bash hook)" # configure the shell properly
+eval "$(conda shell.zsh hook)"  # configure the shell properly
+
+conda activate $flojoyEnv >/dev/null 2>&1
+# Check if the Conda environment exists
+if [ $? -eq 0 ]; then
+	info_msg "$flojoyEnv env found!"
+	if [ $updateEnv == true ]; then
+		info_msg "Updating $flojoyEnv env with conda..."
+		# Environment exists, update it
+		conda env update --file $envYml --name $flojoyEnv
+	fi
+else
+	info_msg "$flojoyEnv env not found, creating..."
+	# Environment doesn't exist, create it
+	conda env create --file $envYml --name $flojoyEnv
+	conda activate $flojoyEnv
 fi
 
 # Install python packages
 
-if [ $initPythonPackages = true ]
-then
-   cd $CWD
-   info_msg "Flag -p is not provided, Python packages will be installed from requirements.txt file"
-   if [ -n "$venv" ];then
-      pip_cmd="pip install -r requirements.txt"
-   else
-      pip_cmd="python3 -m pip install -r requirements.txt"
-   fi
-   set -o pipefail
-   $venvCmd && $pip_cmd 2>&1 | while IFS= read -r line; do
-      if [[ $line == Requirement* ]]; then
-         echo "$line" | awk -F'in' '{print $1}'
-      elif [[ $line == WARNING* ]]; then
-         echo ''
-      else
-         echo "$line"
-      fi
-   done
-   feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
+if [ $initPythonPackages = true ]; then
+	cd $CWD
+	info_msg "Flag -p is not provided, Python packages will be installed from poetry.lock"
+	poetry install
+	set -o pipefail
+	feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
 fi
 
 # Install node packages
 
-if [ $initNodePackages = true ]
-then
-   info_msg "Argument -n is not provided, Node packages will be installed from package.json"
-   set -o pipefail
-   cd "$CWD" && npm install  2>&1
-   feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
+if [ $initNodePackages = true ]; then
+	info_msg "Argument -n is not provided, Node packages will be installed from package.json"
+	set -o pipefail
+	cd "$CWD" && pnpm install 2>&1
+	feedback $? 'Installed Node packages successfully.' 'Node package installation failed! Look at error details printed above'
 fi
 
-if [ $is_ci = true ];then
-   exit 0
+if [ $is_ci = true ]; then
+	exit 0
 fi
 
 # Setup Sentry env var
-if [ $enableSentry = true ]
-then
-  info_msg "Sentry will be enabled!"
-  export FLOJOY_ENABLE_SENTRY=1
+if [ $enableSentry = true ]; then
+	info_msg "Sentry will be enabled!"
+	export FLOJOY_ENABLE_SENTRY=1
 else
-  info_msg "Sentry will be disabled!"
-  export FLOJOY_ENABLE_SENTRY=0
+	info_msg "Sentry will be disabled!"
+	export FLOJOY_ENABLE_SENTRY=0
 fi
 
 # Setup Telemetry
-if [ $enableTelemetry = true ]
-then
-  info_msg "Telemetry will be enabled!"
-  export FLOJOY_ENABLE_TELEMETRY=1
+if [ $enableTelemetry = true ]; then
+	info_msg "Telemetry will be enabled!"
+	export FLOJOY_ENABLE_TELEMETRY=1
 else
-  info_msg "Telemetry will be disabled!"
-  export FLOJOY_ENABLE_TELEMETRY=0
+	info_msg "Telemetry will be disabled!"
+	export FLOJOY_ENABLE_TELEMETRY=0
 fi
 # setup deploy environment
-if [ $isRemoteMode = true ]
-then
-   info_msg "Electron will be disabled!"
-   export DEPLOY_ENV=remote
+if [ $isRemoteMode = true ]; then
+	info_msg "Electron will be disabled!"
+	export DEPLOY_ENV=remote
 else
-   export DEPLOY_ENV=local
+	export DEPLOY_ENV=local
 fi
 
 cd $CWD
-
-# YOLOV3 check/download moved to node
-# Leave commented until tested?
-
-# Checking for YOLOV3 Weights
-# CWD="$PWD"
-# FILE=$PWD/PYTHON/utils/object_detection/yolov3.weights
-# if test -f "$FILE"; then
-#    info_msg "$FILE exists."
-# else
-#    touch "$PWD"/PYTHON/utils/object_detection/yolov3.weights
-#    wget -O "$PWD"/PYTHON/utils/object_detection/yolov3.weights https://pjreddie.com/media/files/yolov3.weights
-#    echo ''
-# fi
-
-sleep 1
 
 # set deploy status to dev
 export DEPLOY_STATUS=dev
 
 # start project services
 if [ $test_ci = true ]; then
-   start_project_cmd='npm run start-project:ci'
+	start_project_cmd='pnpm run start-project:ci'
 else
-   start_project_cmd='npm run start-project'
+	start_project_cmd='pnpm run start-project'
 fi
 
 if [ $isDebugMode = true ]; then
-   info_msg "Debug mode will be enabled!"
-   export FASTAPI_LOG=debug
+	info_msg "Debug mode will be enabled!"
+	export FASTAPI_LOG=debug
 else
-   export FASTAPI_LOG=error
+	export FASTAPI_LOG=info
 fi
 
-# start project services
-if [ -n "$venvCmd" ]; then
-   $venvCmd && $start_project_cmd
-else
-   $start_project_cmd
-fi
+$start_project_cmd

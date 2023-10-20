@@ -138,7 +138,7 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              {"api" in window && window.api.isPackaged && (
+              {"api" in window && (
                 <>
                   <MenubarItem
                     data-testid="btn-change-nodes-path"

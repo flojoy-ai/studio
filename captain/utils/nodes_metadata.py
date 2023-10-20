@@ -1,5 +1,6 @@
 import fnmatch
 import os
+
 from captain.utils.nodes_path import get_nodes_path
 
 # The pattern to match for Python files

@@ -1,5 +1,5 @@
-from flojoy import flojoy, node_initialization, NodeInitContainer, OrderedPair, Array
 import numpy as np
+from flojoy import Array, NodeInitContainer, OrderedPair, flojoy, node_initialization
 
 
 @flojoy(node_type="TEST_TYPE")

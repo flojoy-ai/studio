@@ -51,7 +51,6 @@ class WorkerJobResponse(dict):
     FAILED_NODES: dict[str, str] | None = None
     PRE_JOB_OP: dict[str, Any] | None = None
     jobsetId: str = ""
-    MODAL_CONFIG: ModalConfig
 
     def __init__(
         self,
@@ -60,7 +59,6 @@ class WorkerJobResponse(dict):
         failed_nodes: dict[str, str] | None = None,
         running_node: str = "",
         dict_item: dict[str, Any] = {},
-        modal_config: ModalConfig | None = None,
         result: dict[str, Any] | None = None,
         cmd: str | None = None,
         node_id: str | None = None,
@@ -71,7 +69,6 @@ class WorkerJobResponse(dict):
         self["type"] = "worker_response"
         self["FAILED_NODES"] = failed_nodes or {}
         self["RUNNING_NODE"] = running_node
-        self["MODAL_CONFIG"] = modal_config or ModalConfig(showModal=False)
         if result is not None and cmd is not None and node_id is not None:
             self["NODE_RESULTS"] = NodeResults(cmd=cmd, id=node_id, result=result)
         for k, item in dict_item.items():
@@ -82,6 +79,6 @@ class WorkerJobResponse(dict):
         return super().__setitem__(__key, __value)
 
 
-ProcessTaskType = Callable[[Union[JobSuccess, JobFailure]], list[JobInfo]]
-QueueTaskType = Callable[[JobInfo, Queue], None]
+ProcessTaskType = Callable[[Union[JobSuccess, JobFailure]], list[str] | None]
+QueueTaskType = Callable[[str, Queue], None]
 InitFuncType = Callable[[Queue], None]

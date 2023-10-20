@@ -7,7 +7,7 @@ import { makeAppFileContent, saveFileAs } from "@src/lib/save";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 export const useSave = () => {
-  const { nodes, edges } = useFlowChartGraph();
+  const { nodes, edges, textNodes } = useFlowChartGraph();
   const { setHasUnsavedChanges } = useHasUnsavedChanges();
   const project = useAtomValue(projectAtom);
   const [projectPath, setProjectPath] = useAtom(projectPathAtom);
@@ -15,7 +15,7 @@ export const useSave = () => {
   const handleSave = async () => {
     if (projectPath && "api" in window) {
       sendEventToMix("Saving Project", ``);
-      const fileContent = makeAppFileContent(project, nodes, edges);
+      const fileContent = makeAppFileContent(project, nodes, edges, textNodes);
       window.api.saveFile(projectPath, fileContent);
 
       toast.success("App saved!");
@@ -23,7 +23,7 @@ export const useSave = () => {
       return;
     }
     try {
-      const path = await saveFileAs(project, nodes, edges);
+      const path = await saveFileAs(project, nodes, edges, textNodes);
       setProjectPath(path);
 
       const message = path
