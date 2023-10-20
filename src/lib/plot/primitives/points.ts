@@ -36,6 +36,7 @@ export class Points implements Drawable {
     options: PointsOptions,
     initialProps: Omit<Props, "count">,
   ) {
+    console.log("Instantiating points");
     this.points = initialProps.points;
     this.count = initialProps.points.length;
     this.colors = initialProps.colors;
@@ -103,6 +104,5 @@ export class Points implements Drawable {
       count: this.count,
       colors: this.colors ?? DEFAULT_COLOR,
     });
-    console.log(this.drawCommand.stats.count);
   }
 }

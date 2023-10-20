@@ -15,6 +15,7 @@ export class Plot {
   private objects: Drawable[] = [];
 
   constructor(canvas: HTMLCanvasElement, options: PlotOptions) {
+    console.log(`Instantiating plot object for canvas ${canvas.id}`)
     this.regl = REGL(canvas);
     this.canvas = canvas;
     this.backgroundColor = options.backgroundColor ?? [0.2, 0.2, 0.2, 1];
@@ -23,6 +24,7 @@ export class Plot {
   }
 
   public with(obj: Drawable | Drawable[]) {
+    console.log(`Adding object ${typeof obj} to ${this.canvas.id}`)
     if (Array.isArray(obj)) {
       this.objects.push(...obj);
       return this;
@@ -46,6 +48,7 @@ export class Plot {
   }
 
   public frame() {
+    console.log(`Starting frame for ${this.canvas.id}`)
     if (this.camera) {
       this.regl.frame(() => {
         this.regl.clear({
@@ -69,6 +72,7 @@ export class Plot {
   }
 
   public destroy() {
+    console.log(`Destroying plot for ${this.canvas.id}`)
     this.regl.destroy();
   }
 }

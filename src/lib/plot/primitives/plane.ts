@@ -30,6 +30,7 @@ export class OrthogonalPlane implements Drawable {
     options: OrthogonalPlaneOptions,
     props?: Partial<Omit<Props, "vertices">>,
   ) {
+    console.log("Instantiating plane");
     this.vertices = this.createVertices(options);
     this.color = props?.color ?? [0.5, 0.5, 0.5, 1];
 
