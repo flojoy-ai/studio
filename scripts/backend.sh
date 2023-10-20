@@ -34,8 +34,14 @@ init_shell() {
 
 	if [ -f ~/.bashrc ]; then
 		eval "$(conda shell.bash hook)"
-
 	fi
+}
+
+enable_libmamba() {
+	# this makes sure libmamba is set as the solver, which is much faster
+	conda update -n base conda -y
+	conda install -n base conda-libmamba-solver -y
+	conda config --set solver libmamba
 }
 
 current_dir="$(dirname "$(readlink -f "$0")")"
@@ -57,6 +63,8 @@ else
 fi
 
 init_shell # configure the shell properly
+
+enable_libmamba
 
 cd $current_dir
 
@@ -84,7 +92,7 @@ fi
 if ! test -f "$current_dir/.installed_deps"; then
 	info_msg "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
 	poetry install
-	feedback $? "Installed packages successfully!" "Error occured while installing packages with poetry!"
+	feedback $? "Installed packages successfully!" "Error occurred while installing packages with poetry!"
 	touch "$current_dir/.installed_deps"
 fi
 export ELECTRON_MODE=packaged
