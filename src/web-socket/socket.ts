@@ -56,8 +56,9 @@ export class WebSocketServer {
     this.init();
   }
   init() {
-    this.server.onmessage = (ev) => {
-      const data = JSON.parse(ev.data);
+    this.server.onmessage = async (ev) => {
+      const blob = new Blob([ev.data], {type: 'application/json'});
+      const data = JSON.parse(await blob.text());
       switch (data.type) {
         case "worker_response":
           if (ResponseEnum.systemStatus in data) {

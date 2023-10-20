@@ -3,7 +3,7 @@ from fastapi.websockets import WebSocketState
 from flojoy import PlotlyJSONEncoder
 from queue import Queue
 from typing import Any, Union
-import json
+import orjson
 from captain.types.worker import WorkerJobResponse
 import threading
 import traceback
@@ -44,7 +44,8 @@ class ConnectionManager:
             del self.active_connections_map[socket_id]
 
     # this method sends a message to all connected websockets
-    async def broadcast(self, message: Union[dict[str, Any], WorkerJobResponse]):
+    async def broadcast(self, message: Union[dict[str, Any],
+                                             WorkerJobResponse]):
         if not isinstance(message, WorkerJobResponse):
             return
 
@@ -56,9 +57,9 @@ class ConnectionManager:
                     continue
 
                 try:
-                    await connection.send_text(
-                        json.dumps(message, cls=PlotlyJSONEncoder)
-                    )
+                    await connection.send_bytes(
+                        orjson.dumps(message,
+                                     option=orjson.OPT_SERIALIZE_NUMPY))
                 except Exception as e:
                     print(
                         f"Error in broadcast to {id}",
