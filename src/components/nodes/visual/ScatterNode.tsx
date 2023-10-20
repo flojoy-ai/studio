@@ -111,7 +111,7 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
       >
         <canvas
           id={`canvas-${id}`}
-          style={{ boxShadow: "0px 0px 8px #ccc;" }}
+          style={{ boxShadow: "0px 0px 8px #ccc" }}
           width={PLOT_WIDTH}
           height={PLOT_HEIGHT}
         />
