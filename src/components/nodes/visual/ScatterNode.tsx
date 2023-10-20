@@ -13,7 +13,12 @@ import {
 import Scatter from "@src/assets/nodes/Scatter";
 import { useCandyGraph } from "@src/hooks/useCandyGraph";
 import { useTheme } from "@src/providers/themeProvider";
-import { PLOT_HEIGHT, PLOT_WIDTH, darkTheme, lightTheme } from "./plotConstants";
+import {
+  PLOT_HEIGHT,
+  PLOT_WIDTH,
+  darkTheme,
+  lightTheme,
+} from "./plotConstants";
 
 const viewport = { x: 0, y: 0, width: PLOT_WIDTH, height: PLOT_HEIGHT };
 const dpr = window.devicePixelRatio;
@@ -69,12 +74,14 @@ const ScatterNode = ({ data, selected, id }: CustomNodeProps) => {
           tickOffset: -2,
           axisColor: [0.5, 0.5, 0.5, 1],
           tickColor: [0.5, 0.5, 0.5, 1],
+          labelColor: theme.text,
         }),
         new OrthoAxis(cg, coords, "y", font, {
-          tickStep: Math.pow(10, Math.round(Math.log10(yMax - yMin)) - 1),
+          tickStep: Math.pow(10, Math.round(Math.log10(yMax - yMin)) - 1) * 2,
           tickOffset: 2,
           axisColor: [0.5, 0.5, 0.5, 1],
           tickColor: [0.5, 0.5, 0.5, 1],
+          labelColor: theme.text,
         }),
       ]
     : [];
