@@ -3,7 +3,7 @@ import { CustomNodeProps } from "@src/types/node";
 import { CustomHandle, HandleVariantProps } from "./CustomHandle";
 
 type LogicHandleComponentProps = {
-  data: CustomNodeProps["nodeProps"]["data"];
+  data: CustomNodeProps["data"];
 } & HandleVariantProps;
 
 export const LogicHandleComponent = ({
@@ -26,6 +26,7 @@ export const LogicHandleComponent = ({
       <>
         <CustomHandle
           position={Position.Bottom}
+          nodeId={data.id}
           type="target"
           param={inputs[0]}
           variant={variant}
@@ -38,12 +39,14 @@ export const LogicHandleComponent = ({
       <>
         <CustomHandle
           position={Position.Bottom}
+          nodeId={data.id}
           type="target"
           param={inputs[0]}
           variant={variant}
           style={{ bottom: -9 }}
         />
         <CustomHandle
+          nodeId={data.id}
           position={Position.Left}
           type="target"
           param={inputs[1]}
@@ -60,6 +63,7 @@ export const LogicHandleComponent = ({
     outputHandles = (
       <>
         <CustomHandle
+          nodeId={data.id}
           position={Position.Right}
           type="source"
           param={outputs[0]}
@@ -73,6 +77,7 @@ export const LogicHandleComponent = ({
       <>
         <CustomHandle
           position={Position.Top}
+          nodeId={data.id}
           type="source"
           param={outputs[0]}
           variant={variant}
@@ -81,6 +86,7 @@ export const LogicHandleComponent = ({
           }}
         />
         <CustomHandle
+          nodeId={data.id}
           position={Position.Right}
           type="source"
           param={outputs[1]}
