@@ -22,6 +22,26 @@ function feedback {
   }
 }
 
+function enableLibmamba {
+  param (
+    $conda_exec
+  )
+  # Get a list of installed packages
+  $solver = @(Invoke-Expression "$conda_exec config --show solver")
+  
+  # Check if "mamba" is listed among the installed packages
+  if ($solver -like "*libmamba*") {
+    info_msg "Libmamba is already set as solver for conda."
+  }
+  else {
+    info_msg "Updating Conda and configuring libmamba as the solver."
+    Invoke-Expression "$conda_exec update -n base conda -y "| Out-Null
+    Invoke-Expression "$conda_exec install -n base conda-libmamba-solver -y" | Out-Null
+    Invoke-Expression "$conda_exec config --set solver libmamba" | Out-Null
+    feedback $? "Libmamba is set as solver for conda..." "Failed to set libmamba as solver for conda!"
+  }
+}
+
 $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $flojoyEnv = "flojoy-studio"
@@ -58,6 +78,8 @@ foreach ($_expression in $_conda_expressions) {
     Invoke-Expression $_expression
   }
 }
+
+enableLibmamba $condaExec
 
 $env_list = @(conda env list)
 $isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "

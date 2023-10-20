@@ -39,9 +39,16 @@ init_shell() {
 
 enable_libmamba() {
 	# this makes sure libmamba is set as the solver, which is much faster
-	conda update -n base conda -y
-	conda install -n base conda-libmamba-solver -y
-	conda config --set solver libmamba
+	$solver=$(conda config --show solver)
+	if [[ $solver == *"libmamba"* ]]; then
+		info_msg "Libmamba is already set as solver for conda."
+	else
+		info_msg "Updating Conda and configuring libmamba as the solver."
+		conda update -n base conda -y  >/dev/null 2>&1
+		conda install -n base conda-libmamba-solver -y >/dev/null 2>&1
+		conda config --set solver libmamba >/dev/null 2>&1
+		feedback $? "Libmamba is set as solver for conda..." "Failed to set libmamba as solver for conda!"
+	fi
 }
 
 current_dir="$(dirname "$(readlink -f "$0")")"
