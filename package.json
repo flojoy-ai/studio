@@ -39,7 +39,7 @@
     "framer-motion": "^10.16.4",
     "html-to-image": "^1.11.11",
     "http-proxy-middleware": "^2.0.6",
-    "immer": "^10.0.2",
+    "immer": "^10.0.3",
     "jotai": "^2.4.2",
     "jotai-immer": "^0.2.0",
     "js-yaml": "^4.1.0",
