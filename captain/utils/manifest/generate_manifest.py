@@ -1,7 +1,8 @@
 import os
 from typing import Any, Optional, Union
+
+from captain.utils.blocks_path import get_blocks_path
 from captain.utils.manifest.build_manifest import create_manifest
-from captain.utils.nodes_path import get_nodes_path
 
 __all__ = ["generate_manifest"]
 
@@ -39,6 +40,14 @@ ALLOWED_TYPES = [
     "NUMPY",
     "GAMES",
     "SCIPY",
+    "CONTROL_FLOW",
+    "DATA",
+    "ETL",
+    "HARDWARE",
+    "DSP",
+    "IMAGE",
+    "DEBUGGING",
+    "MATH",
 ]
 
 # Sort order in sidebar
@@ -51,6 +60,9 @@ ORDERING = [
     "LOADERS",
     "IO",
     "LOGIC_GATES",
+    "DSP",
+    "IMAGE",
+    "DEBUGGING",
     "NUMPY",
     "SCIPY",
     "GAMES",
@@ -62,7 +74,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     basename = os.path.basename(dir_path)
     result["name"] = (
         "ROOT"
-        if os.path.basename(dir_path) == "nodes"
+        if os.path.basename(dir_path) == "blocks"
         else NAME_MAP.get(basename, basename)
     )
     if result["name"] != "ROOT":
@@ -84,8 +96,10 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
                 or "examples" in entry.path
                 or "a1-[autogen]" in entry.path
                 or "appendix" in entry.path
+                or not os.listdir(entry)
             ):
                 continue
+
             cur_type = basename if basename in ALLOWED_TYPES else cur_type
             subdir = browse_directories(entry.path, cur_type)
             result["children"].append(subdir)
@@ -108,7 +122,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     return result
 
 
-def sort_order(element):
+def sort_order(element: dict[str, Any]):
     try:
         return ORDERING.index(element["key"])
     except ValueError:
@@ -116,7 +130,7 @@ def sort_order(element):
 
 
 def generate_manifest():
-    nodes_path = get_nodes_path()
-    nodes_map = browse_directories(nodes_path)
-    nodes_map["children"].sort(key=sort_order)  # type: ignore
-    return nodes_map
+    blocks_path = get_blocks_path()
+    blocks_map = browse_directories(blocks_path)
+    blocks_map["children"].sort(key=sort_order)  # type: ignore
+    return blocks_map

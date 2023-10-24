@@ -58,7 +58,6 @@ Write-Host ""
 
 $initNodePackages = $true
 $initPythonPackages = $true
-$initSubmodule = $true
 $enableSentry = $true
 $enableTelemetry = $false
 $isDebugMode = $false
@@ -89,10 +88,9 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -s -S -T -d -r -u -c conda_exec"
+  Write-Host "Usage: $0 -n -p -S -T -d -r -u -c conda_exec"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
-  Write-Host  " -s: To NOT update submodules"
   Write-Host  " -S: To NOT enable Sentry"
   Write-Host  " -T: To enable Telemetry"
   Write-Host  " -d: To enable debug mode"
@@ -125,11 +123,6 @@ while ($arguments) {
   }
   elseif ($key -ceq "-S") {
     $enableSentry = $false
-    $index = $index + 1
-    continue
-  }
-  elseif ($key -ceq "-s") {
-    $initSubmodule = $false
     $index = $index + 1
     continue
   }
@@ -202,12 +195,6 @@ function createFlojoyDirectoryWithYmlFile {
 
 
 createFlojoyDirectoryWithYmlFile
-
-if ($initSubmodule -eq $true) {
-  # Update submodules
-  & git submodule update --init --recursive > $null
-  feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
-}
 
 
 # Check if Conda or NPM is missing.
