@@ -34,6 +34,7 @@ taulidarcamera = "^0.0.5"
 sympy = "^1.12"
 opencv-python = "^4.8.1.78"
 orjson = "^3.9.9"
+line-profiler = "^4.1.1"
 
 
 [tool.poetry.group.dev.dependencies]
