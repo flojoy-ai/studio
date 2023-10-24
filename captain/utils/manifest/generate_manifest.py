@@ -39,6 +39,11 @@ ALLOWED_TYPES = [
     "NUMPY",
     "GAMES",
     "SCIPY",
+    "CONTROL_FLOW",
+    "DATA",
+    "ETL",
+    "HARDWARE",
+    "MATH",
 ]
 
 # Sort order in sidebar
