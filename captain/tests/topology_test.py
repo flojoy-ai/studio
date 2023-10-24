@@ -2,11 +2,11 @@ import unittest
 from queue import Queue
 from .test_apps.sample_app import graph as sample_app_graph
 from captain.models.topology import Topology
-from captain.types.worker import JobInfo, PoisonPill, JobSuccess, JobFailure
+from captain.types.worker import JobInfo, PoisonPill, JobSuccess
 from flojoy import JobSuccess
 from captain.services.consumer.worker import Worker
 from captain.services.producer.producer import Producer
-from captain.utils.import_nodes import pre_import_functions, create_map
+from captain.utils.import_blocks import pre_import_functions
 import asyncio
 import os
 import threading
