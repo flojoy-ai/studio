@@ -63,7 +63,7 @@ const NodeModal = ({
 }: NodeModalProps) => {
   const { resolvedTheme } = useTheme();
 
-  const path = nodeFilePath.replace("\\", "/").replace("PYTHON/blocks/", "");
+  const path = nodeFilePath.replace(/"\\"/g, "/");
 
   const link = `${BLOCKS_REPO}/blocks/${path}`;
 
