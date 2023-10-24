@@ -22,6 +22,6 @@ export default {
     ipcRenderer.send("update-blocks-pack");
   },
   updateBlocksResourcePath: () => {
-    ipcRenderer.send("update-blocks-resource-path");
+    ipcRenderer.send("change-blocks-resource-path");
   },
 };

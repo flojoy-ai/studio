@@ -208,7 +208,7 @@ async function createWindow() {
   ipcMain.on("update-blocks-pack", () => {
     if (win) saveBlocksPack({ win, icon: getIcon(), update: true });
   });
-  ipcMain.on("update-blocks-resource-path", async () => {
+  ipcMain.on("change-blocks-resource-path", async () => {
     if (win) {
       await saveBlocksPack({ win, icon: getIcon() });
     }

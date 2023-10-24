@@ -28,14 +28,6 @@ export const saveBlocksPack = async ({
   update,
 }: SaveBlocksPackProps) => {
   return new Promise((resolve) => {
-    // if (!app.isPackaged && startup) {
-    //   savePathToLocalFile(
-    //     getBlocksPathFile(),
-    //     join(process.cwd(), "PYTHON", "blocks"),
-    //   );
-    //   resolve({ success: true });
-    //   return;
-    // }
     if (
       startup &&
       fs.existsSync(getBlocksPathFile()) &&
@@ -123,7 +115,7 @@ const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
       return;
     }
     const cloneCmd = `git clone https://github.com/flojoy-ai/blocks.git ${clonePath}`;
-    const title = "Downloading blocks resuorce pack!";
+    const title = "Downloading blocks resource pack!";
     const description = `Downloading blocks resource pack to ${clonePath}...`;
     sendLogToStudio(title, description)(win, {
       open: true,
@@ -165,11 +157,11 @@ const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
  * else a default path where resource pack can be downloaded ideally os Download directory
  */
 const getBlocksDirPath = (): string => {
-  if (!app.isPackaged) {
-    return join(process.cwd(), "PYTHON", "blocks");
-  }
   if (fs.existsSync(getBlocksPathFile())) {
     return fs.readFileSync(getBlocksPathFile(), { encoding: "utf-8" });
+  }
+  if (!app.isPackaged) {
+    return join(process.cwd(), "PYTHON", "blocks");
   }
   return join(app.getPath("downloads"), "blocks");
 };

@@ -84,8 +84,10 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
                 or "examples" in entry.path
                 or "a1-[autogen]" in entry.path
                 or "appendix" in entry.path
+                or not os.listdir(entry)
             ):
                 continue
+
             cur_type = basename if basename in ALLOWED_TYPES else cur_type
             subdir = browse_directories(entry.path, cur_type)
             result["children"].append(subdir)
@@ -95,7 +97,8 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
         try:
             n_file_name = f"{os.path.basename(dir_path)}.py"
             n_path = os.path.join(dir_path, n_file_name)
-            result = create_manifest(n_path)
+            if os.path.exists(n_path):
+                result = create_manifest(n_path)
         except Exception as e:
             raise ValueError(
                 f"Failed to generate manifest from {os.path.basename(dir_path)}.py, reason: {str(e)}"
@@ -108,7 +111,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     return result
 
 
-def sort_order(element):
+def sort_order(element: dict[str, Any]):
     try:
         return ORDERING.index(element["key"])
     except ValueError:
