@@ -4,7 +4,7 @@ import json from "react-syntax-highlighter/dist/cjs/languages/hljs/json";
 import { JSONTree } from "react-json-tree";
 import { Node } from "reactflow";
 import { flojoySyntaxTheme } from "@src/assets/FlojoyTheme";
-import { NODES_REPO, DOCS_LINK } from "@src/data/constants";
+import { BLOCKS_REPO, DOCS_LINK } from "@src/data/constants";
 import PlotlyComponent from "@src/components/plotly/PlotlyComponent";
 import { makePlotlyData } from "@src/components/plotly/formatPlotlyData";
 import MarkDownText from "@src/components/common/MarkDownText";
@@ -63,9 +63,9 @@ const NodeModal = ({
 }: NodeModalProps) => {
   const { resolvedTheme } = useTheme();
 
-  const path = nodeFilePath.replace("\\", "/").replace("PYTHON/nodes/", "");
+  const path = nodeFilePath.replace("\\", "/").replace("PYTHON/blocks/", "");
 
-  const link = `${NODES_REPO}/${path}`;
+  const link = `${BLOCKS_REPO}/blocks/${path}`;
 
   const docsLink = `${DOCS_LINK}/nodes/${path
     .split("/")
