@@ -1,7 +1,8 @@
 import os
 from typing import Any, Optional, Union
-from captain.utils.manifest.build_manifest import create_manifest
+
 from captain.utils.blocks_path import get_blocks_path
+from captain.utils.manifest.build_manifest import create_manifest
 
 __all__ = ["generate_manifest"]
 
@@ -43,6 +44,9 @@ ALLOWED_TYPES = [
     "DATA",
     "ETL",
     "HARDWARE",
+    "DSP",
+    "IMAGE",
+    "DEBUGGING",
     "MATH",
 ]
 
@@ -56,6 +60,9 @@ ORDERING = [
     "LOADERS",
     "IO",
     "LOGIC_GATES",
+    "DSP",
+    "IMAGE",
+    "DEBUGGING",
     "NUMPY",
     "SCIPY",
     "GAMES",
