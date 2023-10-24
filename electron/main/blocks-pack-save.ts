@@ -28,28 +28,28 @@ export const saveBlocksPack = async ({
   update,
 }: SaveBlocksPackProps) => {
   return new Promise((resolve) => {
-    if (!app.isPackaged && startup) {
-      savePathToLocalFile(
-        getBlocksPathFile(),
-        join(process.cwd(), "PYTHON", "blocks"),
-      );
-      resolve({ success: true });
-      return;
-    }
+    // if (!app.isPackaged && startup) {
+    //   savePathToLocalFile(
+    //     getBlocksPathFile(),
+    //     join(process.cwd(), "PYTHON", "blocks"),
+    //   );
+    //   resolve({ success: true });
+    //   return;
+    // }
     if (
       startup &&
       fs.existsSync(getBlocksPathFile()) &&
-      fs.existsSync(getNodesDirPath())
+      fs.existsSync(getBlocksDirPath())
     ) {
       resolve({ success: true });
       return;
     }
     if (update) {
-      updateBlocksPack(getNodesDirPath(), win, icon);
+      updateBlocksPack(getBlocksDirPath(), win, icon);
       resolve({ success: true });
       return;
     }
-    const defaultSavePath = getNodesDirPath();
+    const defaultSavePath = getBlocksDirPath();
     const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
     if (!startup && defaultSavePath === savePath) {
       resolve({ success: true });
@@ -164,7 +164,10 @@ const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
  * @returns {string} path to nodes resource pack if resource is downloaded already
  * else a default path where resource pack can be downloaded ideally os Download directory
  */
-const getNodesDirPath = (): string => {
+const getBlocksDirPath = (): string => {
+  if (!app.isPackaged) {
+    return join(process.cwd(), "PYTHON", "blocks");
+  }
   if (fs.existsSync(getBlocksPathFile())) {
     return fs.readFileSync(getBlocksPathFile(), { encoding: "utf-8" });
   }

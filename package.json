@@ -96,7 +96,6 @@
     "test": "CI=true jest",
     "test:watch": "jest --watch --coverage",
     "test:dev": "jest --updateSnapshot",
-    "update-submodule": "git submodule update --remote --recursive",
     "cy:run:report": "nyc --reporter=html cypress run"
   },
   "devDependencies": {
