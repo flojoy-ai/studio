@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 
 
-def get_nodes_path():
-    nodes_path = "PYTHON/nodes"
+def get_blocks_path():
+    nodes_path = "PYTHON/blocks/blocks"
     # This env is set from scripts/backend.(ps1/sh) file
     env = os.environ.get("ELECTRON_MODE", "dev")
 
@@ -16,7 +16,7 @@ def get_nodes_path():
         except Exception:
             pass
     elif env == "test":
-        nodes_path = Path(os.getcwd()).joinpath("../PYTHON/nodes").__str__()
+        nodes_path = Path(os.getcwd()).joinpath("../PYTHON/blocks/blocks").__str__()
 
     return nodes_path
 

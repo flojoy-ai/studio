@@ -1,7 +1,7 @@
 import os
 from typing import Any, Optional, Union
 from captain.utils.manifest.build_manifest import create_manifest
-from captain.utils.nodes_path import get_nodes_path
+from captain.utils.blocks_path import get_blocks_path
 
 __all__ = ["generate_manifest"]
 
@@ -62,7 +62,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     basename = os.path.basename(dir_path)
     result["name"] = (
         "ROOT"
-        if os.path.basename(dir_path) == "nodes"
+        if os.path.basename(dir_path) == "blocks"
         else NAME_MAP.get(basename, basename)
     )
     if result["name"] != "ROOT":
@@ -116,7 +116,7 @@ def sort_order(element):
 
 
 def generate_manifest():
-    nodes_path = get_nodes_path()
-    nodes_map = browse_directories(nodes_path)
-    nodes_map["children"].sort(key=sort_order)  # type: ignore
-    return nodes_map
+    blocks_path = get_blocks_path()
+    blocks_map = browse_directories(blocks_path)
+    blocks_map["children"].sort(key=sort_order)  # type: ignore
+    return blocks_map
