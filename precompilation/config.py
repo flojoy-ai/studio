@@ -37,6 +37,7 @@ These commands are going to be attempted to be ran on the microcontroller to che
 if it has the necessary requirements to run the flowchart.
 """
 COMMAND_TESTS = [
+    ("", "", "Not an MC, or Micropython not installed"),
     ("import ulab", "", "Ulab is not installed"),
 ]
 
@@ -54,3 +55,11 @@ FILES_GROUPS_TO_BE_OUTPUTTED = FileGroupContainer(
 """
 ________________________________________________________
 """
+
+"""
+MC STATUS CODES
+________________________________________________________
+These are the status codes that are returned by the microcontroller.
+Or, variables pertaining to the status codes.
+"""
+PATH_TO_MC_STATUS_CODES_YML = "MC_STATUS_CODES"
