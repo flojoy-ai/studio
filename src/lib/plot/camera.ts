@@ -83,19 +83,19 @@ export class Camera {
       const leftButtonPressed = ev.buttons & 1;
       ev.preventDefault();
       ev.stopPropagation();
-      const dx = (ev.movementX / window.innerWidth) * this.state.distance;
-      const dy = (ev.movementY / window.innerHeight) * this.state.distance;
+      const dx = (ev.movementX / window.innerWidth);
+      const dy = (ev.movementY / window.innerHeight);
       if (leftButtonPressed && ev.ctrlKey) {
         this.rotate(dx, dy);
       } else if (leftButtonPressed) {
-        this.pan(dx, dy);
+        this.pan(dx * this.state.distance, dy * this.state.distance);
       }
     };
 
     const onMouseWheel = (ev: WheelEvent) => {
       ev.preventDefault();
       ev.stopPropagation();
-      this.ddistance += ev.deltaY / window.innerHeight;
+      this.ddistance += ev.deltaY / window.innerHeight / 4;
     };
 
     plot.canvas.addEventListener("mousemove", onMouseMove);
