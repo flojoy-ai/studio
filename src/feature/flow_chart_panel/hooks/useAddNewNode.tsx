@@ -8,7 +8,7 @@ import { centerPositionAtom } from "@src/hooks/useFlowChartState";
 import { useAtomValue, useSetAtom } from "jotai";
 import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
-import { NodesMetadataMap } from "@src/types/nodes-metadata";
+import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 
 export type AddNewNode = (node: NodeElement) => void;
@@ -20,7 +20,7 @@ export const useAddNewNode = (
       | ((draft: Draft<Node<ElementsData>>[]) => void),
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
-  nodesMetadataMap: NodesMetadataMap | null,
+  nodesMetadataMap: BlocksMetadataMap | null,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);

@@ -1,5 +1,8 @@
-import { getManifest, getNodesMetadata } from "@src/services/FlowChartServices";
-import { NodesMetadataMap } from "@src/types/nodes-metadata";
+import {
+  getManifest,
+  getBlocksMetadata,
+} from "@src/services/FlowChartServices";
+import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { RootNode } from "@src/utils/ManifestLoader";
 import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
@@ -18,14 +21,14 @@ export const useFetchManifest = () => {
 
 export const useManifest = () => useAtomValue(manifestAtom);
 
-const nodesMetadataMapAtom = atom<NodesMetadataMap | null>(null);
+const nodesMetadataMapAtom = atom<BlocksMetadataMap | null>(null);
 
 export const useFetchNodesMetadata = () => {
   const setNodesMetadata = useSetAtom(nodesMetadataMapAtom);
 
   return useCallback(async () => {
     setNodesMetadata(null);
-    const manifest = await getNodesMetadata();
+    const manifest = await getBlocksMetadata();
     setNodesMetadata(manifest);
   }, [setNodesMetadata]);
 };
