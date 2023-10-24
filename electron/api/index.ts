@@ -19,9 +19,9 @@ export default {
     ipcRenderer.on("electron-log", (event, args: CallBackArgs) => func(args));
   },
   updateNodesPack: () => {
-    ipcRenderer.send("update-nodes-pack");
+    ipcRenderer.send("update-blocks-pack");
   },
   updateNodesResourcePath: () => {
-    ipcRenderer.send("update-nodes-resource-path");
+    ipcRenderer.send("update-blocks-resource-path");
   },
 };

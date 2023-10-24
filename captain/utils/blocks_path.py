@@ -9,10 +9,11 @@ def get_blocks_path():
 
     if env != "test":
         # Refer to electron/node-pack-save.ts line-8
-        blocks_path_from_file = os.path.join(get_flojoy_dir(), "nodes_path.txt")
+        blocks_path_from_file = os.path.join(get_flojoy_dir(), "blocks_path.txt")
         try:
             with open(blocks_path_from_file, "r") as f:
                 blocks_path = f.read()
+                blocks_path = os.path.join(blocks_path, "blocks")
         except Exception:
             pass
     elif env == "test":

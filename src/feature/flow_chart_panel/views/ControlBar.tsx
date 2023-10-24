@@ -147,7 +147,7 @@ const ControlBar = () => {
                     Change Nodes resource path
                   </MenubarItem>
                   <MenubarItem
-                    data-testid="btn-update-nodes-pack"
+                    data-testid="btn-update-blocks-pack"
                     onClick={handleUpdateNodesPack}
                   >
                     Update Nodes resource pack
