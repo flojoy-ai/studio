@@ -31,7 +31,7 @@ export const saveNodePack = async ({
     if (!app.isPackaged && startup) {
       savePathToLocalFile(
         getNodesPathFile(),
-        join(process.cwd(), "PYTHON", "nodes"),
+        join(process.cwd(), "PYTHON", "blocks", "blocks"),
       );
       resolve({ success: true });
       return;

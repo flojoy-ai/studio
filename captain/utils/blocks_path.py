@@ -3,22 +3,22 @@ from pathlib import Path
 
 
 def get_blocks_path():
-    nodes_path = "PYTHON/blocks/blocks"
+    blocks_path = "PYTHON/blocks/blocks"
     # This env is set from scripts/backend.(ps1/sh) file
     env = os.environ.get("ELECTRON_MODE", "dev")
 
     if env != "test":
         # Refer to electron/node-pack-save.ts line-8
-        nodes_path_file = os.path.join(get_flojoy_dir(), "nodes_path.txt")
+        blocks_path_from_file = os.path.join(get_flojoy_dir(), "nodes_path.txt")
         try:
-            with open(nodes_path_file, "r") as f:
-                nodes_path = f.read()
+            with open(blocks_path_from_file, "r") as f:
+                blocks_path = f.read()
         except Exception:
             pass
     elif env == "test":
-        nodes_path = Path(os.getcwd()).joinpath("../PYTHON/blocks/blocks").__str__()
+        blocks_path = Path(os.getcwd()).joinpath("../PYTHON/blocks/blocks").__str__()
 
-    return nodes_path
+    return blocks_path
 
 
 def get_flojoy_dir():
