@@ -97,8 +97,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
         try:
             n_file_name = f"{os.path.basename(dir_path)}.py"
             n_path = os.path.join(dir_path, n_file_name)
-            if os.path.exists(n_path):
-                result = create_manifest(n_path)
+            result = create_manifest(n_path)
         except Exception as e:
             raise ValueError(
                 f"Failed to generate manifest from {os.path.basename(dir_path)}.py, reason: {str(e)}"
