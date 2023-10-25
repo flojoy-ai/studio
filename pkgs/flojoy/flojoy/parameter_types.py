@@ -88,6 +88,18 @@ class Array:
         return self.ref
 
 
+class File:
+    """Node parameter type of str"""
+
+    ref: str
+
+    def __init__(self, ref: str) -> None:
+        self.ref = ref
+
+    def unwrap(self):
+        return self.ref
+
+
 def format_param_value(value: Any, value_type: str):
     match value_type:
         case "Array":
@@ -123,6 +135,8 @@ def format_param_value(value: Any, value_type: str):
             return SerialDevice(value)
         case "VisaDevice" | "VisaConnection":
             return VisaDevice(value)
+        case "File":
+            return File(str(value))
         case _:
             print("hit default case", flush=True)
             return value
