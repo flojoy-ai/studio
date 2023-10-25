@@ -1,4 +1,5 @@
-import sys, os
+import os
+import sys
 
 KEY_WORKER_JOBS = "WORKER_JOBS"
 KEY_ALL_JOBEST_IDS = "ALL_JOBSET_IDS"

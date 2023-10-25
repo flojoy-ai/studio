@@ -1,16 +1,13 @@
+import asyncio
 import unittest
 from queue import Queue
-from .test_apps.sample_app import graph as sample_app_graph
+
 from captain.models.topology import Topology
-from captain.types.worker import JobInfo, PoisonPill, JobSuccess
-from flojoy import JobSuccess
 from captain.services.consumer.worker import Worker
 from captain.services.producer.producer import Producer
-from captain.utils.import_blocks import pre_import_functions
-import asyncio
-import os
-import threading
-import time
+from captain.types.worker import JobInfo, JobSuccess
+
+from .test_apps.sample_app import graph as sample_app_graph
 
 
 class TopologyTest(unittest.TestCase):
@@ -23,7 +20,7 @@ class TopologyTest(unittest.TestCase):
         assert task_queue.qsize != 0
         job = task_queue.get()
         assert isinstance(job, JobInfo)
-        assert sample_app_graph.nodes.get(job.job_id) != None
+        assert sample_app_graph.nodes.get(job.job_id) is not None
 
     # test that maximum independent worker_count is returned correctly
     def test_maximum_worker_count(self):

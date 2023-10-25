@@ -18,10 +18,6 @@ from captain.models.topology import Topology
 from captain.services.consumer.worker import Worker
 from captain.services.producer.producer import Producer
 from captain.types.flowchart import PostWFC
-from captain.utils.logger import logger, BroadcastLogs
-from subprocess import Popen, PIPE
-from .status_codes import STATUS_CODES
-from flojoy.utils import clear_flojoy_memory
 from captain.types.worker import (
     InitFuncType,
     ProcessTaskType,
@@ -30,6 +26,9 @@ from captain.types.worker import (
 )
 from captain.utils.broadcast import Signaler
 from captain.utils.import_blocks import pre_import_functions
+from captain.utils.logger import BroadcastLogs, logger
+
+from .status_codes import STATUS_CODES
 
 
 def run_worker(

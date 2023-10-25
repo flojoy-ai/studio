@@ -1,4 +1,3 @@
-import pytest
 import os
 from flojoy.flojoy_python import cache_huggingface_to_flojoy
 from flojoy.utils import get_hf_hub_cache_path

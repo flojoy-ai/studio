@@ -35,6 +35,7 @@ pyusb = "^1.2.1"
 pytest = "^7.4.2"
 black = "^23.9.1"
 pytest-cov = "^4.1.0"
+ruff = "^0.1.2"
 
 [build-system]
 requires = ["poetry-core"]
