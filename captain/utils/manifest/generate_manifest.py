@@ -8,13 +8,14 @@ __all__ = ["generate_manifest"]
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
-    "EXTRACTORS": "Extract",
-    "GENERATORS": "Generate",
-    "IO": "I/O",
-    "LOGIC_GATES": "Logic",
-    "LOADERS": "Load",
-    "TRANSFORMERS": "Transform",
-    "VISUALIZERS": "Visualize",
+    "DATA": "Data",
+    "DSP": "Digital Signal Processing",
+    "IMAGE": "Image",
+    "HARDWARE": "Hardware",
+    "CONTROL_FLOW": "Control Flow",
+    "MATH": "Math",
+    "DEBUGGING": "Debugging",
+    "ETL": "ETL",
     "NUMPY": "numpy",
     "LINALG": "np.linalg",
     "RANDOM": "np.rand",
@@ -28,76 +29,58 @@ NAME_MAP = {
 # A node will inherit the type of its parent if it is not in the allowed types.
 ALLOWED_TYPES = [
     "AI_ML",
-    "GENERATORS",
-    "VISUALIZERS",
-    "LOADERS",
-    "EXTRACTORS",
-    "TRANSFORMERS",
-    "ARITHMETIC",
-    "IO",
-    "LOGIC_GATES",
-    "CONDITIONALS",
-    "NUMPY",
-    "GAMES",
-    "SCIPY",
-    "CONTROL_FLOW",
     "DATA",
+    "VISUALIZATION",
+    "MATH",
+    "ARITHMETIC",
     "ETL",
-    "HARDWARE",
     "DSP",
     "IMAGE",
+    "CONTROL_FLOW",
+    "CONDITIONALS",
+    "HARDWARE",
+    "NUMPY",
+    "SCIPY",
+    "GAMES",
     "DEBUGGING",
-    "MATH",
 ]
 
 # Sort order in sidebar
 ORDERING = [
     "AI_ML",
-    "GENERATORS",
-    "VISUALIZERS",
-    "EXTRACTORS",
-    "TRANSFORMERS",
-    "LOADERS",
-    "IO",
-    "LOGIC_GATES",
+    "DATA",
+    "MATH",
+    "ETL",
     "DSP",
     "IMAGE",
-    "DEBUGGING",
+    "CONTROL_FLOW",
+    "HARDWARE",
+    "DSP",
     "NUMPY",
     "SCIPY",
-    "GAMES",
+    "DEBUGGING",
 ]
 
 
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = os.path.basename(dir_path)
-    result["name"] = (
-        "ROOT"
-        if os.path.basename(dir_path) == "blocks"
-        else NAME_MAP.get(basename, basename)
-    )
+    result["name"] = ("ROOT" if os.path.basename(dir_path) == "blocks" else
+                      NAME_MAP.get(basename, basename))
     if result["name"] != "ROOT":
         result["key"] = basename
 
     result["children"] = []
-    entries = sorted(
-        os.scandir(dir_path), key=lambda e: e.name
-    )  # Sort entries alphabetically
+    entries = sorted(os.scandir(dir_path),
+                     key=lambda e: e.name)  # Sort entries alphabetically
 
     for entry in entries:
         if entry.is_dir():
-            if (
-                entry.name.startswith(".")
-                or entry.name.startswith("_")
-                or entry.name == "assets"
-                or entry.name == "utils"
-                or entry.name == "MANIFEST"
-                or "examples" in entry.path
-                or "a1-[autogen]" in entry.path
-                or "appendix" in entry.path
-                or not os.listdir(entry)
-            ):
+            if (entry.name.startswith(".") or entry.name.startswith("_")
+                    or entry.name == "assets" or entry.name == "utils"
+                    or entry.name == "MANIFEST" or "examples" in entry.path
+                    or "a1-[autogen]" in entry.path or "appendix" in entry.path
+                    or not os.listdir(entry)):
                 continue
 
             cur_type = basename if basename in ALLOWED_TYPES else cur_type
