@@ -22,4 +22,11 @@ export const nodeTypesMap = {
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
+  DATA: DataNode,
+  VISUALIZATION: VisorNode,
+  ETL: DefaultNode,
+  DSP: DefaultNode,
+  CONTROL_FLOW: LogicNode,
+  MATH: DefaultNode,
+  HARDWARE: IONode,
 };
