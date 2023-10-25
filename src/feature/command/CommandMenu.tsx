@@ -17,13 +17,12 @@ const commandGroups = (
 ): React.ReactNode => {
   if (!node) return null;
 
-  if (isLeaf(node)) {
+  if (isLeaf(node))
     return (
       <CommandItem key={node.name} onSelect={() => onSelect(node)}>
         {node.name}
       </CommandItem>
     );
-  }
 
   if (isRoot(node))
     return (
