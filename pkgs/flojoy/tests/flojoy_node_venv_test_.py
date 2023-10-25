@@ -304,7 +304,6 @@ def test_run_in_venv_runs_within_thread(mock_venv_cache_dir, configure_logging, 
 
         @run_in_venv(pip_dependencies=["numpy"])
         def func_with_venv():
-
             return 42
 
         # Run the function
