@@ -90,6 +90,7 @@ class Array:
 
 class File:
     """Node parameter type of str"""
+
     ref: str
 
     def __init__(self, ref: str) -> None:
