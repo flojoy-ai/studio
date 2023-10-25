@@ -1,5 +1,5 @@
 import { ElementsData } from "@/types";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -9,9 +9,10 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
+import useKeyboardShortcut from "./useKeyboardShortcut";
 
 const project = resolveDefaultProjectReference();
-const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
+const projectData = resolveProjectReference(project!) || RECIPES.NOISY_SINE;
 const initialNodes: Node<ElementsData>[] = projectData.nodes;
 const initialEdges: Edge[] = projectData.edges;
 
@@ -19,10 +20,47 @@ const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 
+const undoStackAtom = atom<Node<ElementsData>[][]>([]);
+const redoStackAtom = atom<Node<ElementsData>[][]>([]);
+
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+
+  const [undoStack, setUndoStack] = useAtom(undoStackAtom);
+  const [redoStack, setRedoStack] = useAtom(redoStackAtom);
+
+  const recordState = useCallback(() => {
+    setUndoStack((prev) => [...prev, nodes]);
+    setRedoStack([]);
+  }, [nodes, setUndoStack, setRedoStack]);
+
+  const undo = useCallback(() => {
+    if (undoStack.length === 0) return;
+    const prevState = undoStack[undoStack.length - 1];
+    const newUndoStack = undoStack.slice(0, -1);
+    setUndoStack(newUndoStack);
+    setRedoStack((prev) => [...prev, nodes]);
+    setNodes(prevState);
+  }, [undoStack, nodes, setUndoStack, setRedoStack, setNodes]);
+
+  const redo = useCallback(() => {
+    if (redoStack.length === 0) return;
+    const nextState = redoStack[redoStack.length - 1];
+    const newRedoStack = redoStack.slice(0, -1);
+    setRedoStack(newRedoStack);
+    setUndoStack((prev) => [...prev, nodes]); // Save the current state to undo stack.
+    setNodes(nextState);
+  }, [redoStack, nodes, setRedoStack, setUndoStack, setNodes]);
+
+  useEffect(() => {
+    recordState();
+  }, [nodes, edges, recordState]);
+
+  useKeyboardShortcut("ctrl", "z", undo);
+  useKeyboardShortcut("ctrl", "y", redo);
+
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
     const unSelectedNodes: Node<ElementsData>[] = [];
@@ -157,7 +195,7 @@ function resolveProjectReference(project: string) {
 }
 
 function resolveDefaultProjectReference() {
-  let project;
+  let project: string | undefined;
   if (typeof window !== "undefined") {
     const query = new URLSearchParams(window.location.search);
     project = query.get("project") || process.env.DEFAULT_PROJECT;
