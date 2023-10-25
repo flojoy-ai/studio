@@ -268,6 +268,19 @@ else {
 if ( $isRemoteMode -eq $true ) {
   info_msg "Electron will be disabled!"
   $Env:DEPLOY_ENV = "remote"
+  $blocksDir = Join-Path $CWD "PYTHON/blocks"
+  if (-not (Test-Path $blocksDir)) {
+    info_msg "Cloning blocks repo for remote mode..."
+    git clone https://github.com/flojoy-ai/blocks.git "$blocksDir" | Out-Null
+    $blocksRegistryPath = "$HOME/.flojoy/blocks_path.txt"
+    # register blocks path to blocks_path.txt file
+    if (Test-Path $blocksRegistryPath) {
+        Set-Content -Path $blocksRegistryPath -Value "$blocksDir" -NoNewline | Out-Null
+      } else {
+        New-Item -Path $blocksRegistryPath -ItemType "file" | Out-Null
+        Set-Content -Path $blocksRegistryPath -Value "$blocksDir" -NoNewline | Out-Null
+    }
+  }
 }
 else {
   $Env:DEPLOY_ENV = "local"

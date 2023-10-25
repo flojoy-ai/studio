@@ -247,6 +247,18 @@ fi
 if [ $isRemoteMode = true ]; then
 	info_msg "Electron will be disabled!"
 	export DEPLOY_ENV=remote
+	blocks_dir=$CWD/PYTHON/blocks
+	if ! test -d "$blocks_dir"; then
+		info_msg "Clonning blocks repo for remote mode..."
+		git clone https://github.com/flojoy-ai/blocks.git $blocks_dir >/dev/null 2>&1
+		blocks_registry_path="$HOME/.flojoy/blocks_path.txt"
+		# register blocks path to blocks_path.txt file
+		if [ -e "$blocks_registry_path" ]; then
+			echo -n "$blocks_dir" >"$blocks_registry_path"
+		else
+			touch $blocks_registry_path && echo -n "$blocks_dir" >"$blocks_registry_path"
+		fi
+	fi
 else
 	export DEPLOY_ENV=local
 fi
