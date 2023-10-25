@@ -68,8 +68,6 @@ export const CommandMenu = ({
   useKeyboardShortcut("ctrl", "k", () => setOpen(!open));
   useKeyboardShortcut("meta", "k", () => setOpen(!open));
 
-  console.log(manifestRoot);
-
   const groups = commandGroups(manifestRoot, onItemSelect);
 
   return (
