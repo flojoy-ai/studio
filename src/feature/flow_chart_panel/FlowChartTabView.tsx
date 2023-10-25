@@ -83,6 +83,7 @@ const FlowChartTab = () => {
     textNodes,
     setTextNodes,
     edges,
+    recordState,
     setEdges,
     selectedNode,
     unSelectedNodes,
@@ -108,8 +109,10 @@ const FlowChartTab = () => {
     setNodes,
     getTakenNodeLabels,
     nodesMetadataMap,
+    recordState
   );
-  const addTextNode = useAddTextNode();
+
+  const addTextNode = useAddTextNode(recordState);
 
   const duplicateNode = (node: Node<ElementsData>) => {
     const funcName = node.data.func;
@@ -197,6 +200,7 @@ const FlowChartTab = () => {
       nodes[nodeIndex] = node;
       setHasUnsavedChanges(true);
     });
+    recordState();
   };
 
   const onNodesChange: OnNodesChange = useCallback(
@@ -223,7 +227,9 @@ const FlowChartTab = () => {
       setEdges((eds) => {
         if (manifest) {
           const [sourceType, targetType] = getEdgeTypes(manifest, connection);
+
           if (isCompatibleType(sourceType, targetType)) {
+            recordState();
             return addEdge(connection, eds);
           }
 
@@ -245,6 +251,7 @@ const FlowChartTab = () => {
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
       setHasUnsavedChanges(true);
+      recordState();
     },
     [setNodes, setHasUnsavedChanges],
   );
@@ -254,7 +261,7 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
-
+    recordState();
     sendEventToMix("Canvas cleared", "");
   }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 

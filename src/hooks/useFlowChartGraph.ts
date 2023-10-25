@@ -1,5 +1,5 @@
 import { ElementsData } from "@/types";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
 import { useCallback, useEffect, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
@@ -9,7 +9,6 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import useKeyboardShortcut from "./useKeyboardShortcut";
 
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project!) || RECIPES.NOISY_SINE;
@@ -20,8 +19,14 @@ const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 
-const undoStackAtom = atom<Node<ElementsData>[][]>([]);
-const redoStackAtom = atom<Node<ElementsData>[][]>([]);
+type UndoRedoStackItem = {
+  edges: Edge[];
+  nodes: Node<ElementsData>[];
+  textNodes: Node<TextData>[];
+}
+
+const undoStackAtom = atomWithImmer<UndoRedoStackItem[]>([]);
+const redoStackAtom = atomWithImmer<UndoRedoStackItem[]>([]);
 
 export const useFlowChartGraph = () => {
   const [nodes, setNodes] = useAtom(nodesAtom);
@@ -32,17 +37,20 @@ export const useFlowChartGraph = () => {
   const [redoStack, setRedoStack] = useAtom(redoStackAtom);
 
   const recordState = useCallback(() => {
-    setUndoStack((prev) => [...prev, nodes]);
+    setUndoStack((prev) => [...prev, { edges, nodes, textNodes } ]);
     setRedoStack([]);
   }, [nodes, setUndoStack, setRedoStack]);
 
   const undo = useCallback(() => {
     if (undoStack.length === 0) return;
+    console.log(undoStack);
     const prevState = undoStack[undoStack.length - 1];
     const newUndoStack = undoStack.slice(0, -1);
     setUndoStack(newUndoStack);
-    setRedoStack((prev) => [...prev, nodes]);
-    setNodes(prevState);
+    setRedoStack((prev) => [...prev, { edges, nodes, textNodes }]);
+    setNodes(prevState.nodes);
+    setEdges(prevState.edges);
+    setTextNodes(prevState.textNodes);
   }, [undoStack, nodes, setUndoStack, setRedoStack, setNodes]);
 
   const redo = useCallback(() => {
@@ -50,16 +58,11 @@ export const useFlowChartGraph = () => {
     const nextState = redoStack[redoStack.length - 1];
     const newRedoStack = redoStack.slice(0, -1);
     setRedoStack(newRedoStack);
-    setUndoStack((prev) => [...prev, nodes]); // Save the current state to undo stack.
-    setNodes(nextState);
+    setUndoStack((prev) => [...prev, { edges, nodes, textNodes }]);
+    setNodes(nextState.nodes);
+    setEdges(nextState.edges);
+    setTextNodes(nextState.textNodes);
   }, [redoStack, nodes, setRedoStack, setUndoStack, setNodes]);
-
-  useEffect(() => {
-    recordState();
-  }, [nodes, edges, recordState]);
-
-  useKeyboardShortcut("ctrl", "z", undo);
-  useKeyboardShortcut("ctrl", "y", redo);
 
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
@@ -181,6 +184,9 @@ export const useFlowChartGraph = () => {
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     handleTitleChange,
+    undo,
+    redo,
+    recordState,
   };
 };
 
