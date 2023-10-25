@@ -65,22 +65,32 @@ ORDERING = [
 def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     result: dict[str, Union[str, list[Any], None]] = {}
     basename = os.path.basename(dir_path)
-    result["name"] = ("ROOT" if os.path.basename(dir_path) == "blocks" else
-                      NAME_MAP.get(basename, basename))
+    result["name"] = (
+        "ROOT"
+        if os.path.basename(dir_path) == "blocks"
+        else NAME_MAP.get(basename, basename)
+    )
     if result["name"] != "ROOT":
         result["key"] = basename
 
     result["children"] = []
-    entries = sorted(os.scandir(dir_path),
-                     key=lambda e: e.name)  # Sort entries alphabetically
+    entries = sorted(
+        os.scandir(dir_path), key=lambda e: e.name
+    )  # Sort entries alphabetically
 
     for entry in entries:
         if entry.is_dir():
-            if (entry.name.startswith(".") or entry.name.startswith("_")
-                    or entry.name == "assets" or entry.name == "utils"
-                    or entry.name == "MANIFEST" or "examples" in entry.path
-                    or "a1-[autogen]" in entry.path or "appendix" in entry.path
-                    or not os.listdir(entry)):
+            if (
+                entry.name.startswith(".")
+                or entry.name.startswith("_")
+                or entry.name == "assets"
+                or entry.name == "utils"
+                or entry.name == "MANIFEST"
+                or "examples" in entry.path
+                or "a1-[autogen]" in entry.path
+                or "appendix" in entry.path
+                or not os.listdir(entry)
+            ):
                 continue
 
             cur_type = basename if basename in ALLOWED_TYPES else cur_type
