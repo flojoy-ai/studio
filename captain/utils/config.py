@@ -1,4 +1,5 @@
 from captain.internal.manager import Manager
+import os
 
 """
 MANAGER INSTANCE
@@ -14,4 +15,4 @@ ___________________
 Used for CORS configuration
 """
 # TODO - get from env variables
-origins = ["http://localhost:5391"]
+origins = ["*"] if os.getenv("DEPLOY_ENV") == "remote" else ["http://localhost:5391"]
