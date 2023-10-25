@@ -8,12 +8,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
-import {
-  TreeNode,
-  isLeaf,
-  isRoot,
-  isLeafParentNode,
-} from "@src/utils/ManifestLoader";
+import { TreeNode, isLeaf, isRoot } from "@src/utils/ManifestLoader";
 import React, { Fragment } from "react";
 
 const commandGroups = (
@@ -22,24 +17,37 @@ const commandGroups = (
 ): React.ReactNode => {
   if (!node) return null;
 
-  if (isLeaf(node))
+  if (isLeaf(node)) {
     return (
       <CommandItem key={node.name} onSelect={() => onSelect(node)}>
         {node.name}
       </CommandItem>
     );
+  }
 
-  if (!isRoot(node) && !isLeafParentNode(node))
+  if (isRoot(node))
     return (
-      <Fragment key={node.name}>
-        <CommandGroup heading={node.name}>
-          {node.children?.map((c: TreeNode) => commandGroups(c, onSelect))}
-        </CommandGroup>
-        <CommandSeparator />
+      <Fragment>
+        {node.children?.map((childNode, index, array) => {
+          return (
+            <Fragment key={childNode.name}>
+              {commandGroups(childNode, onSelect)}
+              {index !== array.length - 1 && <CommandSeparator />}
+            </Fragment>
+          );
+        })}
       </Fragment>
     );
 
-  return node.children?.map((c: TreeNode) => commandGroups(c, onSelect));
+  return (
+    <Fragment key={node.name}>
+      <CommandGroup heading={node.name}>
+        {node.children?.map((childNode: TreeNode) =>
+          commandGroups(childNode, onSelect),
+        )}
+      </CommandGroup>
+    </Fragment>
+  );
 };
 
 export const CommandMenu = ({
@@ -59,6 +67,8 @@ export const CommandMenu = ({
 }) => {
   useKeyboardShortcut("ctrl", "k", () => setOpen(!open));
   useKeyboardShortcut("meta", "k", () => setOpen(!open));
+
+  console.log(manifestRoot);
 
   const groups = commandGroups(manifestRoot, onItemSelect);
 
