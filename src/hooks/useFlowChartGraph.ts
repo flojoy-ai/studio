@@ -1,7 +1,7 @@
 import { ElementsData } from "@/types";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
@@ -23,12 +23,15 @@ type UndoRedoStackItem = {
   edges: Edge[];
   nodes: Node<ElementsData>[];
   textNodes: Node<TextData>[];
-}
+};
 
-const undoStackAtom = atomWithImmer<UndoRedoStackItem[]>([]);
-const redoStackAtom = atomWithImmer<UndoRedoStackItem[]>([]);
+const undoStackAtom = atom<UndoRedoStackItem[]>([]);
+const redoStackAtom = atom<UndoRedoStackItem[]>([]);
 
 export const useFlowChartGraph = () => {
+  const initialNodesRef = useRef(initialNodes);
+  const initialEdgesRef = useRef(initialEdges);
+
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
@@ -37,32 +40,69 @@ export const useFlowChartGraph = () => {
   const [redoStack, setRedoStack] = useAtom(redoStackAtom);
 
   const recordState = useCallback(() => {
-    setUndoStack((prev) => [...prev, { edges, nodes, textNodes } ]);
+    setUndoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
     setRedoStack([]);
-  }, [nodes, setUndoStack, setRedoStack]);
+  }, [edges, nodes, textNodes]);
+
+  const canRedo = useMemo(() => redoStack.length > 0, [redoStack]);
+  const canUndo = useMemo(() => undoStack.length > 0, [undoStack]);
 
   const undo = useCallback(() => {
-    if (undoStack.length === 0) return;
-    console.log(undoStack);
-    const prevState = undoStack[undoStack.length - 1];
-    const newUndoStack = undoStack.slice(0, -1);
-    setUndoStack(newUndoStack);
-    setRedoStack((prev) => [...prev, { edges, nodes, textNodes }]);
-    setNodes(prevState.nodes);
-    setEdges(prevState.edges);
-    setTextNodes(prevState.textNodes);
-  }, [undoStack, nodes, setUndoStack, setRedoStack, setNodes]);
+    if (!canUndo) return;
+
+    setUndoStack((prev) => {
+      const prevState = prev[prev.length - 2] || {
+        edges: initialEdgesRef.current,
+        nodes: initialNodesRef.current,
+        textNodes: [],
+      };
+      setNodes(prevState.nodes);
+      setEdges(prevState.edges);
+      setTextNodes(prevState.textNodes);
+      return prev.slice(0, -1);
+    });
+
+    setRedoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
+  }, [edges, nodes, textNodes]);
 
   const redo = useCallback(() => {
-    if (redoStack.length === 0) return;
-    const nextState = redoStack[redoStack.length - 1];
-    const newRedoStack = redoStack.slice(0, -1);
-    setRedoStack(newRedoStack);
-    setUndoStack((prev) => [...prev, { edges, nodes, textNodes }]);
-    setNodes(nextState.nodes);
-    setEdges(nextState.edges);
-    setTextNodes(nextState.textNodes);
-  }, [redoStack, nodes, setRedoStack, setUndoStack, setNodes]);
+    if (!canRedo) return;
+
+    setRedoStack((prev) => {
+      const nextState = prev[prev.length - 1];
+
+      if (nextState) {
+        setNodes(nextState.nodes);
+        setEdges(nextState.edges);
+        setTextNodes(nextState.textNodes);
+      }
+
+      return prev.slice(0, -1);
+    });
+
+    setUndoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
+  }, [edges, nodes, textNodes]);
 
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
@@ -74,6 +114,7 @@ export const useFlowChartGraph = () => {
     }
     return { selectedNodes, unSelectedNodes };
   }, [nodes]);
+
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
@@ -184,9 +225,11 @@ export const useFlowChartGraph = () => {
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     handleTitleChange,
-    undo,
-    redo,
+    canRedo,
+    canUndo,
     recordState,
+    redo,
+    undo,
   };
 };
 

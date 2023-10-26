@@ -33,7 +33,7 @@ import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Pencil, Text, Workflow, X } from "lucide-react";
+import { Pencil, Text, Workflow, X, Undo, Redo } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
@@ -83,10 +83,14 @@ const FlowChartTab = () => {
     textNodes,
     setTextNodes,
     edges,
-    recordState,
     setEdges,
     selectedNode,
     unSelectedNodes,
+    canRedo,
+    canUndo,
+    recordState,
+    redo,
+    undo,
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
@@ -109,7 +113,7 @@ const FlowChartTab = () => {
     setNodes,
     getTakenNodeLabels,
     nodesMetadataMap,
-    recordState
+    recordState,
   );
 
   const addTextNode = useAddTextNode(recordState);
@@ -324,6 +328,29 @@ const FlowChartTab = () => {
               setIsGalleryOpen={setIsGalleryOpen}
             />
             <div className="grow" />
+            {canUndo && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={undo}
+                data-testid="undo-button"
+              >
+                <Undo size={18} className="stroke-muted-foreground" />
+                Undo
+              </Button>
+            )}
+
+            {canRedo && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={redo}
+                data-testid="redo-button"
+              >
+                <Redo size={18} className="stroke-muted-foreground" />
+                Redo
+              </Button>
+            )}
             {selectedNode && (
               <>
                 {!isEditMode ? (
