@@ -30,16 +30,16 @@ async def precompile(
     with tempfile.TemporaryDirectory() as tmpdirname:
         # Step 0 : pre-precompile operations
         clear_flojoy_memory()
-        sw = FlojoyScriptBuilder(tmpdirname,
-                                 jobset_id=jobset_id,
-                                 is_ci=is_ci,
-                                 signaler=signaler)
+        sw = FlojoyScriptBuilder(
+            tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler
+        )
         await asyncio.create_task(
             signaler.signal_script_building_microcontroller(jobset_id)
         )  # signal build start to front-end
         flowchart_as_dict = json.loads(fc)
-        light_topology = create_light_topology(flowchart_as_dict, jobset_id,
-                                               node_delay, maximum_runtime)
+        light_topology = create_light_topology(
+            flowchart_as_dict, jobset_id, node_delay, maximum_runtime
+        )
         sw.remove_debug_prints_and_set_offline()
         if path_to_output:
             sw.validate_output_dir(path_to_output)
@@ -74,12 +74,12 @@ async def precompile(
 
         if upload:
             await asyncio.create_task(
-                sw.output(tempdir=tmpdirname,
-                          port=port,
-                          path_to_output=path_to_output))
+                sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output)
+            )
         else:
             await asyncio.create_task(
                 sw.run_script(
                     tempdir=tmpdirname,
                     port=port,
-                ))
+                )
+            )

@@ -49,8 +49,7 @@ async def write_and_run_flowchart(request: PostWFC):
         await prepare_jobs_and_run_fc(request=request, manager=manager)
 
 
-@router.post("/mc_upload",
-             summary="upload the program to the selected microcontroller")
+@router.post("/mc_upload", summary="upload the program to the selected microcontroller")
 async def upload_flow(request: PostWFC):
     await precompile(
         fc=request.fc,

@@ -26,8 +26,8 @@ const App = () => {
   } = useSocket();
   const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
-  const {setStatusCodes} = useMCStatusCodes();
-  
+  const { setStatusCodes } = useMCStatusCodes();
+
   useEffect(() => {
     setRunningNode(runningNode);
     setFailedNodes(failedNodes);
@@ -43,24 +43,23 @@ const App = () => {
 
   // fetch status codes for MC from the backend at startup
   useEffect(() => {
-    console.log("Fetching MC Status codes")
+    console.log("Fetching MC Status codes");
     // fetch the status codes from the backend from /mc_status_codes
     async function fetchStatusCodes() {
       const response = await fetch(`${API_URI}/mc_status_codes`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          Accept: "application/json",
         },
       });
       const data = await response.json();
-      console.log("STATUS CODES ARE: ")
+      console.log("STATUS CODES ARE: ");
       console.log(data);
       setStatusCodes(data);
     }
     fetchStatusCodes().then(() => console.log("MC Status codes fetched"));
-  }, [])
-
+  }, []);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

@@ -75,7 +75,7 @@ const PortSelect = () => {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search port..." />
           <CommandEmpty>No device found.</CommandEmpty>
           <CommandGroup>
             {ports.map((port) => (

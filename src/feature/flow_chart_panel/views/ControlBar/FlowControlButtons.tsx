@@ -21,6 +21,8 @@ import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import PortSelect from "./PortSelect";
 import PingMCBtn from "./PingMCBtn";
+import { useState } from "react";
+import LoadingCircle from "../../components/LoadingCircle/LoadingCircle";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -28,6 +30,8 @@ const FlowControlButtons = () => {
 
   const { settings: backendSettings } = useSettings("backend");
   const { settings: mcSettings } = useSettings("micropython");
+
+  const [isLoadingPing, setIsLoadingPing] = useState(false);
 
   const { setNodeParamChanged, isMicrocontrollerMode } = useFlowChartState();
 
@@ -145,11 +149,12 @@ const FlowControlButtons = () => {
         <WatchBtn playFC={onPlay} cancelFC={cancelFC} />
       )}
       <MicrocontollerBtn />
-      
+
       {isMicrocontrollerMode && (
         <>
           <PortSelect />
-          <PingMCBtn/>
+          {!isLoadingPing && <PingMCBtn setIsLoadingPing={setIsLoadingPing} />}
+          {isLoadingPing && <LoadingCircle />}
         </>
       )}
       <div className="px-0.5" />
