@@ -1,9 +1,7 @@
 from queue import Queue
-from captain.models.topology import Topology
-from captain.types.worker import PoisonPill
-from captain.internal.wsmanager import ConnectionManager
 from typing import Any
 
+from captain.internal.wsmanager import ConnectionManager
 from captain.models.topology import Topology
 from captain.types.worker import PoisonPill
 

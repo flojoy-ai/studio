@@ -37,7 +37,7 @@ class FlojoyWrapper:
         except IndexError:  # this means argument_names is none
             self.first_argument = None
             self.parameters = {}
-        self.data = f"from flojoy import DataContainer, flojoy\n"
+        self.data = "from flojoy import DataContainer, flojoy\n"
         self.data += f"import {module.__name__}\n\n"
         self.data += f"@flojoy\ndef {self.name.upper()}(dc, params):\n\t"
 
@@ -70,7 +70,7 @@ class FlojoyWrapper:
                 if param not in self.FORBIDDEN_OPTIONAL_ARGS:
                     try:
                         def_val = str(self.optional_argument_dict[param])
-                    except:
+                    except Exception:
                         def_val = "None"
                     dtype = str(self.parameters[param]["dtype"])
                     # sometimes we get 'None or float' ...
@@ -109,7 +109,7 @@ class FlojoyWrapper:
         self.data += """'''"""
         self.data += self.doc
         self.data += "\t" + """'''""" + "\n"
-        self.data += f"\treturn DataContainer("
+        self.data += "\treturn DataContainer("
         if self.module.__name__ != "numpy.matlib":
             self.data += "\n\t\tx=dc[0].y,\n\t\t"
             self.data += f"y={self.module.__name__}.{self.name}(\n\t\t\t" + (
@@ -128,7 +128,7 @@ class FlojoyWrapper:
                 dtype = ""
                 try:  # try to read it from the inspect dictionary
                     dtype = type(self.optional_argument_dict[arg]).__name__
-                except:
+                except Exception:
                     pass
                 if dtype == "" or dtype == "NoneType":
                     for idl, line in enumerate(self.doc.split("\n")):
@@ -186,11 +186,12 @@ def scrape_function(func):
 
 
 if __name__ == "__main__":
+    import ast
     import os
     from pathlib import Path
-    import scipy
-    import ast
+
     import numpy as np
+    import scipy
 
     MODULES_TO_SCRAPE = {
         "scipy": [scipy.signal, scipy.stats],
