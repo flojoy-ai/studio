@@ -22,10 +22,15 @@ import math
 
 def calculateLimitingMaxVel(current, next, timeDelta) -> float:
     # TODO: we can add virtual points between the keyframes and enable blending for more smooth moves?
-    deltaPosititons = [abs(current[i] - next[i]) for i in range(len(current))]  # the delta positions of each axis in degrees
-    velocities = [150, 150, 180, 300, 300, 500]  # the max velocities of each axis in degrees per second
-    maxVelocities = [deltaPosititons[i] / (timeDelta / 1000) for i in range(len(deltaPosititons))]  # the max velocities of each axis in degrees per second
-    highestVelRatio = (-1, -1)  # the highest velocity ratio and the index of the axis
+    # the delta positions of each axis in degrees
+    deltaPosititons = [abs(current[i] - next[i]) for i in range(len(current))]
+    # the max velocities of each axis in degrees per second
+    velocities = [150, 150, 180, 300, 300, 500]
+    # the max velocities of each axis in degrees per second
+    maxVelocities = [deltaPosititons[i] /
+                     (timeDelta / 1000) for i in range(len(deltaPosititons))]
+    # the highest velocity ratio and the index of the axis
+    highestVelRatio = (-1, -1)
     for i in range(len(maxVelocities)):
         ratio = maxVelocities[i] / velocities[i]
         if ratio > highestVelRatio[0]:
@@ -41,15 +46,26 @@ def calculateLimitingMaxVel(current, next, timeDelta) -> float:
     return abs(min(1, ratioOfMaxtoTarget))
 
 
-def getCirclePositions(radius, revolutions, center_X, center_Y, center_Z):
+def getCirclePositions(
+    radius: float,
+    revolutions: float,
+    center_X: float,
+    center_Y: float,
+    center_Z: float,
+    smoothness: int = 360
+):
+    if smoothness <= 0:
+        raise ValueError("Smoothness must be a positive integer")
+
     positions = []
-    for i in range(0, 360 * revolutions):
-        angle = i * math.pi / 180
+    steps = int(revolutions * smoothness)
+    for i in range(steps):
+        angle = (2 * math.pi * i) / smoothness
         positions.append(
             [
                 center_X + radius * math.cos(angle),
                 center_Y + radius * math.sin(angle),
                 center_Z,
-                ]
+            ]
         )
     return positions
