@@ -15,3 +15,4 @@ export { default as pid } from "./pid.json";
 export { default as prophet } from "./prophet.json";
 export { default as stepper } from "./stepper.json";
 export { default as webcam } from "./webcam.json";
+export { default as defaultApp } from "./default.json";

@@ -88,12 +88,37 @@ class Array:
         return self.ref
 
 
+class File:
+    """Node parameter type of str"""
+
+    ref: str
+
+    def __init__(self, ref: str) -> None:
+        self.ref = ref
+
+    def unwrap(self):
+        return self.ref
+
+
 def format_param_value(value: Any, value_type: str):
     match value_type:
         case "Array":
             s = str(value)
             parsed_value = parse_array(s, [str, float, int], "list[int | float | str]")
             return Array(parsed_value)
+        case "list[str]":
+            return parse_array(str(value), [str], "list[str]")
+        case "list[float]":
+            return parse_array(str(value), [float], "list[float]")
+        case "list[int]":
+            return parse_array(str(value), [int], "list[int]")
+        case "select" | "str":
+            return str(value)
+
+    if value == "":
+        return None
+
+    match value_type:
         case "float":
             return float(value)
         case "int":
@@ -110,14 +135,8 @@ def format_param_value(value: Any, value_type: str):
             return SerialDevice(value)
         case "VisaDevice" | "VisaConnection":
             return VisaDevice(value)
-        case "list[str]":
-            return parse_array(str(value), [str], "list[str]")
-        case "list[float]":
-            return parse_array(str(value), [float], "list[float]")
-        case "list[int]":
-            return parse_array(str(value), [int], "list[int]")
-        case "select" | "str":
-            return str(value)
+        case "File":
+            return File(str(value))
         case _:
             print("hit default case", flush=True)
             return value

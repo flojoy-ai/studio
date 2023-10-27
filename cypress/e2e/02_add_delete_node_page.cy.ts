@@ -11,7 +11,7 @@ describe("Verify Add and Delete node", () => {
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
 
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
 
     //Select container Loaders
     cy.xpath("//div[contains(text(), 'Load')]").click();

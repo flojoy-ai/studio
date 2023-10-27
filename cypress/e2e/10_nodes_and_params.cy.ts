@@ -32,7 +32,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
 
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Add BSPLINE node
     cy.get('[data-testid="sidebar-input"]').type("bspline");
     cy.get("button").contains("BSPLINE").click();
@@ -50,7 +50,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box and add OPEN_IMAGE node
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("open");
@@ -68,7 +68,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("fft");
@@ -87,7 +87,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("extract");
@@ -105,7 +105,7 @@ describe("Verify nodes and its parameters", () => {
     // Clear canvas
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("feedback");
@@ -135,7 +135,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="confirm-clear-canvas"]').click();
     // GET ALL CUSTOM NODES
     // conditional node
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("conditional");
@@ -160,7 +160,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // creating loop node
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     // Clear input box
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("loop");
@@ -179,7 +179,7 @@ describe("Verify nodes and its parameters", () => {
     cy.get('[data-testid="darkmode-toggle"]').click();
 
     // creating numpy node
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     cy.get('[data-testid="sidebar-input"]').type("{selectall}{backspace}");
     cy.get('[data-testid="sidebar-input"]').type("tensorinv");
     cy.contains("button", "TENSORINV").click();

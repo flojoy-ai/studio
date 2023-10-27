@@ -5,7 +5,7 @@ import { Result } from "@src/types/result";
 import { baseClient } from "@src/lib/base-client";
 import { RootNode, validateRootSchema } from "@src/utils/ManifestLoader";
 import { toast } from "sonner";
-import { NodesMetadataMap } from "@src/types/nodes-metadata";
+import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 
 // Note that you have to update the nodes/edges of the
 // flow chart instance manually before calling these functions.
@@ -89,11 +89,11 @@ export async function getDeviceInfo() {
 
 export const getManifest = async () => {
   try {
-    const res = await baseClient.get("nodes/manifest");
+    const res = await baseClient.get("blocks/manifest");
     // TODO: fix zod schema to accept io directory structure
     const validateResult = validateRootSchema(res.data);
     if (!validateResult.success) {
-      toast.message(`Failed to validate nodes manifest!`, {
+      toast.message(`Failed to validate blocks manifest!`, {
         duration: 20000,
         description: "Check browser console for more info.",
       });
@@ -102,7 +102,7 @@ export const getManifest = async () => {
     return res.data as RootNode;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    const errTitle = "Failed to generate nodes manifest!";
+    const errTitle = "Failed to generate blocks manifest!";
     const errDescription = `${err.response?.data?.error ?? err.message}`;
 
     toast.message(errTitle, {
@@ -113,14 +113,14 @@ export const getManifest = async () => {
   }
 };
 
-export const getNodesMetadata = async () => {
+export const getBlocksMetadata = async () => {
   try {
-    const res = await baseClient.get("nodes/metadata");
-    return res.data as NodesMetadataMap;
+    const res = await baseClient.get("blocks/metadata");
+    return res.data as BlocksMetadataMap;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    toast.message("Failed to generate nodes metadata", {
+    toast.message("Failed to generate blocks metadata", {
       description: err.response?.data?.error ?? err.message,
     });
     return null;

@@ -7,7 +7,7 @@ describe("Requesting node", () => {
     cy.visit("/").wait(1000);
     cy.get('[data-testid="close-welcome-modal"]').click();
     // Click add node
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
 
     // Click request node
     cy.get('[data-testid="request-node-btn"]');

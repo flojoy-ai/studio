@@ -51,7 +51,6 @@ initNodePackages=true
 initPythonPackages=true
 is_ci=false
 test_ci=false
-initSubmodule=true
 enableSentry=true
 enableTelemetry=true
 isDebugMode=false
@@ -77,11 +76,10 @@ feedback() {
 
 helpFunction() {
 	echo ""
-	echo "Usage: $0 -n -p -s -S -t -T -d -r -u"
+	echo "Usage: $0 -n -p -S -t -T -d -r -u"
 	# echo  " -v: path to a Python virtual environment"
 	echo " -n: To NOT install npm packages"
 	echo " -p: To NOT install python packages"
-	echo " -s: To NOT update submodules"
 	echo " -S: To NOT enable Sentry"
 	echo " -t: To enable local CI tests"
 	echo " -T: To disable Telemetry"
@@ -117,10 +115,6 @@ while [ $# -gt 0 ]; do
 		;;
 	-t)
 		test_ci=true #run with CI=true, allows to properly run tests locally
-		shift
-		;;
-	-s)
-		initSubmodule=false # don't update submodules, prevents overwriting local changes
 		shift
 		;;
 	-d)
@@ -177,12 +171,6 @@ createFlojoyDirectoryWithYmlFile() {
 }
 
 createFlojoyDirectoryWithYmlFile
-
-# update submodules
-if [ "$initSubmodule" = true ]; then
-	git submodule update --init --recursive >/dev/null 2>&1
-	feedback $? 'Updated submodules successfully' 'Failed to update submodules, check if git is installed correctly and configured with your github account.'
-fi
 
 # Check if Python, Pip, or npm is missing.
 if [ $is_ci = false ]; then
@@ -259,6 +247,18 @@ fi
 if [ $isRemoteMode = true ]; then
 	info_msg "Electron will be disabled!"
 	export DEPLOY_ENV=remote
+	blocks_dir=$CWD/PYTHON/blocks
+	if ! test -d "$blocks_dir"; then
+		info_msg "Clonning blocks repo for remote mode..."
+		git clone https://github.com/flojoy-ai/blocks.git $blocks_dir >/dev/null 2>&1
+		blocks_registry_path="$HOME/.flojoy/blocks_path.txt"
+		# register blocks path to blocks_path.txt file
+		if [ -e "$blocks_registry_path" ]; then
+			echo -n "$blocks_dir" >"$blocks_registry_path"
+		else
+			touch $blocks_registry_path && echo -n "$blocks_dir" >"$blocks_registry_path"
+		fi
+	fi
 else
 	export DEPLOY_ENV=local
 fi

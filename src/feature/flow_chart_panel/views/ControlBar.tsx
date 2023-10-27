@@ -29,11 +29,11 @@ const ControlBar = () => {
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  const handleUpdateNodesPack = () => {
-    window.api.updateNodesPack();
+  const handleUpdateBlocksPack = () => {
+    window.api.updateBlocksPack();
   };
   const handleChangeNodesPath = () => {
-    window.api.updateNodesResourcePath();
+    window.api.updateBlocksResourcePath();
   };
 
   useEffect(() => {
@@ -141,16 +141,16 @@ const ControlBar = () => {
               {"api" in window && (
                 <>
                   <MenubarItem
-                    data-testid="btn-change-nodes-path"
+                    data-testid="btn-change-blocks-path"
                     onClick={handleChangeNodesPath}
                   >
-                    Change Nodes resource path
+                    Change blocks resource path
                   </MenubarItem>
                   <MenubarItem
-                    data-testid="btn-update-nodes-pack"
-                    onClick={handleUpdateNodesPack}
+                    data-testid="btn-update-blocks-pack"
+                    onClick={handleUpdateBlocksPack}
                   >
-                    Update Nodes resource pack
+                    Update blocks resource pack
                   </MenubarItem>
                 </>
               )}

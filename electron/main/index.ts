@@ -11,7 +11,7 @@ import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
 import { runBackend } from "./backend";
-import { saveNodePack } from "./node-pack-save";
+import { saveBlocksPack } from "./blocks-pack-save";
 import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
@@ -102,6 +102,19 @@ contextMenu({
   },
 });
 
+const isPortFree = (port: number) =>
+  new Promise((resolve) => {
+    const server = require("http")
+      .createServer()
+      .listen(port, () => {
+        server.close();
+        resolve(true);
+      })
+      .on("error", () => {
+        resolve(false);
+      });
+  });
+
 global.runningProcesses = [];
 
 let win: BrowserWindow | null = null;
@@ -155,14 +168,30 @@ async function createWindow() {
     // electron-vite-vue#298
     await win.loadURL(url ?? "");
   }
-  await saveNodePack({ win, icon: getIcon(), startup: true });
+  await saveBlocksPack({ win, icon: getIcon(), startup: true });
   if (app.isPackaged) {
-    runBackend(WORKING_DIR, win).then(({ success }) => {
-      if (success) {
-        // reload studio html to fetch fresh manifest file
-        win?.reload();
+    if (await isPortFree(5392)) {
+      runBackend(WORKING_DIR, win).then(({ success }) => {
+        if (success) {
+          // reload studio html to fetch fresh manifest file
+          win?.reload();
+        }
+      });
+    } else {
+      const choice = dialog.showMessageBoxSync(win!, {
+        type: "question",
+        buttons: ["Exit", "Refresh"],
+        title: "Existing Server Detected",
+        message:
+          "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
+      });
+      if (choice > 0) {
+        app.relaunch();
+        app.exit();
+      } else {
+        app.quit();
       }
-    });
+    }
   }
 
   // Test actively push message to the Electron-Renderer
@@ -176,12 +205,12 @@ async function createWindow() {
     return { action: "deny" };
   });
 
-  ipcMain.on("update-nodes-pack", () => {
-    if (win) saveNodePack({ win, icon: getIcon(), update: true });
+  ipcMain.on("update-blocks-pack", () => {
+    if (win) saveBlocksPack({ win, icon: getIcon(), update: true });
   });
-  ipcMain.on("update-nodes-resource-path", async () => {
+  ipcMain.on("change-blocks-resource-path", async () => {
     if (win) {
-      await saveNodePack({ win, icon: getIcon() });
+      await saveBlocksPack({ win, icon: getIcon() });
     }
   });
   // Apply electron-updater
@@ -244,7 +273,7 @@ ipcMain.handle("open-win", (_, arg) => {
 
 const cleanup = async () => {
   mainLogger.log(
-    "Cleaup function invoked, running processes: ",
+    "Cleanup function invoked, running processes: ",
     global.runningProcesses.length,
   );
   if (global.runningProcesses.length) {

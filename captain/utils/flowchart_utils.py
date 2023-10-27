@@ -29,7 +29,7 @@ from captain.types.worker import (
     WorkerJobResponse,
 )
 from captain.utils.broadcast import Signaler
-from captain.utils.import_nodes import pre_import_functions
+from captain.utils.import_blocks import pre_import_functions
 
 
 def run_worker(
