@@ -23,6 +23,7 @@ import PortSelect from "./PortSelect";
 import PingMCBtn from "./PingMCBtn";
 import { useState } from "react";
 import LoadingCircle from "../../components/LoadingCircle/LoadingCircle";
+import { FirmwareBoardSelectModal } from "./FirmwareBoardSelect/FirmwareBoardSelectModal";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -47,6 +48,7 @@ const FlowControlButtons = () => {
       alert("is no running job on server.");
     }
   };
+
 
   const onRun = async (
     nodes: Node<ElementsData>[],
@@ -82,6 +84,8 @@ const FlowControlButtons = () => {
     }
   };
 
+  const [isBoardSelect, setIsBoardSelect] = useState(false);
+
   const { nodes, edges } = useFlowChartGraph();
 
   const onPlay = async () => {
@@ -97,6 +101,15 @@ const FlowControlButtons = () => {
 
   return (
     <>
+      {/* Modal components here: */}
+      <FirmwareBoardSelectModal
+        handleBoardFirmwareModalOpen={setIsBoardSelect}
+        isBoardFirmwareModalOpen={isBoardSelect}
+        title="Board Firmware Select"
+        description="Select board type for firmware upload"
+      />
+
+      {/* Normal components here: */}
       {playBtnDisabled ||
       [IServerStatus.STANDBY, IServerStatus.UPLOAD_COMPLETE].includes(
         serverStatus,
@@ -152,6 +165,17 @@ const FlowControlButtons = () => {
 
       {isMicrocontrollerMode && (
         <>
+          {/* Button for firmware select */}
+          <Button
+            data-cy="btn-firmware"
+            size="sm"
+            variant="default"
+            id="btn-firmware"
+            onClick={() => {setIsBoardSelect(true)}}
+            className="gap-2"
+          >
+            Firmware
+          </Button>
           <PortSelect />
           {!isLoadingPing && <PingMCBtn setIsLoadingPing={setIsLoadingPing} />}
           {isLoadingPing && <LoadingCircle />}

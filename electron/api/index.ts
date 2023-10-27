@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
+import * as directoryLoad from "./directoryLoad"
 
 export type CallBackArgs =
   | {
@@ -13,6 +14,7 @@ export type CallBackArgs =
 
 export default {
   ...fileSave,
+  ...directoryLoad,
   setUnsavedChanges: (value: boolean) =>
     ipcRenderer.send("set-unsaved-changes", value),
   subscribeToElectronLogs: (func: (arg: CallBackArgs) => void) => {

@@ -1,4 +1,5 @@
 0: The MC is responsive and has all the necessary packages installed
 1: The MC has failed one of the tests
 2: The MC is not responsive OR not an MC
-3: Unknown error
+3: No port was provided
+4: Unknown error

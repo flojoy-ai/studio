@@ -69,6 +69,12 @@ const handleWriteFileSync = (_, path: string, data: string) => {
   fs.writeFileSync(path, data);
 };
 
+const handleShowOpenDirectoryDialog = async () => {
+  return await dialog.showOpenDialog({
+    properties: ["openDirectory"],
+  });
+}
+
 const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
   return await dialog.showSaveDialog({
     defaultPath: defaultFilename,
@@ -202,6 +208,7 @@ app.whenReady().then(() => {
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
+  ipcMain.handle("show-open-directory-dialog", handleShowOpenDirectoryDialog)
   createWindow();
 });
 

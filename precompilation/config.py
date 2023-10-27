@@ -19,6 +19,11 @@ EXTRA_FILES_DIR = os.path.join(sys.path[0], EXTRA_FILES_DIR)
 PATH_TO_MPY_CROSS_COMPILER = "ulab/micropython/mpy-cross/mpy_cross"
 PATH_TO_MPY_CROSS_COMPILER = os.path.join(sys.path[0], PATH_TO_MPY_CROSS_COMPILER)
 
+
+
+
+# TODO - get these guys from env variables
+
 """
 FILE FILTERS
 ________________________________________________________
@@ -63,3 +68,11 @@ These are the status codes that are returned by the microcontroller.
 Or, variables pertaining to the status codes.
 """
 PATH_TO_MC_STATUS_CODES_YML = "MC_STATUS_CODES"
+
+
+"""
+FIRMWARE PATH FOR MICROCONTROLLERS
+___________________
+Used for storing the firmware path for microcontrollers
+"""
+RP2_FIRMWARE_PATH = "precompilation/ressources/rp2-firmware/firmware.uf2"

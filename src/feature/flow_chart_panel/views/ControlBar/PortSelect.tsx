@@ -84,7 +84,7 @@ const PortSelect = () => {
                 onSelect={() => {
                   setValue(port.device === value ? "" : port.device);
                   port.device === value
-                    ? null
+                    ? updateSettings("selectedPort", "")
                     : updateSettings("selectedPort", port.device);
                   setOpen(false);
                 }}
