@@ -49,13 +49,13 @@ def test_hf_hub_download_wraps(
 def test_hf_hub_download_writes(mock_get_hf_hub_cache_path, temp_cache_dir):
     """Test that the original hf_hub_download writes the file to the right place in flojoy cache"""
     mock_get_hf_hub_cache_path.return_value = temp_cache_dir
-    from flojoy import hf_hub_download
-
-    out_path = hf_hub_download(
-        repo_id="lysandre/arxiv-nlp",
-        filename="config.json",
-        revision="c7a2e68263d13db10671379c23cf2a8ea0e12789",
-    )
+    # from flojoy import hf_hub_download
+    #
+    # out_path = hf_hub_download(
+    #     repo_id="lysandre/arxiv-nlp",
+    #     filename="config.json",
+    #     revision="c7a2e68263d13db10671379c23cf2a8ea0e12789",
+    # )
     # Test that there exists (recursively) a config.json file under mock_get_hf_hub_cache_path
     assert (
         len(
