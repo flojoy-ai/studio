@@ -1,5 +1,6 @@
 import subprocess
 from sys import platform
+import os
 
 import cv2
 import pyvisa
@@ -13,6 +14,11 @@ __all__ = ["get_device_finder"]
 class DefaultDeviceFinder:
     def get_cameras(self) -> list[CameraDevice]:
         """Returns a list of camera indices connected to the system."""
+        env = os.getenv("ELECTRON_MODE", "dev")
+
+        if env == "packaged" and "darwin" in platform:
+            # TODO: Fix openCV permission issue on MacOS
+            return []
         i = 0
         cameras = []
 
