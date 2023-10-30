@@ -159,7 +159,7 @@ class PlotlyJSONEncoder(_json.JSONEncoder):
         except AttributeError:
             raise NotEncodable
         else:
-            return iso_to_plotly_time_string(time_string)
+            return time_string
 
     @staticmethod
     def encode_as_decimal(obj):

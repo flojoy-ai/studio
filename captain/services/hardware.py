@@ -1,10 +1,11 @@
-import serial.tools.list_ports
-import pyvisa
-import cv2
 import subprocess
 from sys import platform
 if platform in ["darwin"]:
     import AVFoundation
+
+import cv2
+import pyvisa
+import serial.tools.list_ports
 
 from captain.types.devices import CameraDevice, SerialDevice, VISADevice
 
@@ -44,7 +45,11 @@ class DefaultDeviceFinder:
         """Returns a list of VISA devices connected to the system."""
         rm = pyvisa.ResourceManager("@py")
         devices = []
+        used_addrs = set()
+
         for addr in rm.list_resources():
+            if addr in used_addrs:
+                continue
             try:
                 device = rm.open_resource(addr)
                 devices.append(
@@ -55,6 +60,7 @@ class DefaultDeviceFinder:
                     )
                 )
                 device.close()
+                used_addrs.add(addr)
             except pyvisa.VisaIOError:
                 pass
 

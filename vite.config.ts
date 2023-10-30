@@ -48,15 +48,14 @@ export default defineConfig(({ command }) => {
               }
             },
             vite: {
+              publicDir: "electron/static",
               build: {
                 sourcemap: sourcemap ? "inline" : undefined,
                 minify: isBuild,
                 rollupOptions: {
                   input: {
                     main: "electron/main/index.ts",
-                    preload: `electron/preload/index${
-                      !isBuild ? "-dev" : ""
-                    }.ts`,
+                    preload: "electron/preload/index.ts",
                   },
                   output: {
                     dir: "dist-electron",

@@ -14,9 +14,8 @@ dist-electron/*
 /coverage
 /cypress/screenshots/
 
-
 # gitpod config to prevent unwanted installations
-.gitpod.yml 
+.gitpod.yml
 
 # misc
 .DS_Store
@@ -59,12 +58,12 @@ coverage.xml
 
 .nyc_output/out.json
 coverage-cy
-PYTHON/nodes
+PYTHON/blocks
 build
 .nyc_output
 
 .python-version
 
 .history
-
+.logs
 bin

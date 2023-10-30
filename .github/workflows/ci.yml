@@ -7,14 +7,33 @@ on:
   pull_request:
     branches:
       - main
-      - develop
 
 env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   DISPLAY: :0
 
 jobs:
-  code-style-check:
+  python-code-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - uses: chartboost/ruff-action@v1
+        name: Ruff format check
+        with:
+          args: format --check .
+
+  python-code-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - uses: chartboost/ruff-action@v1
+        name: Ruff linter check
+
+  ts-code-style:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,21 +42,35 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
-      - uses: actions/setup-python@v4
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
-          python-version: "3.10"
-          cache: "pip"
+          version: 8
+          run_install: false
 
-      - name: Format dependencies
-        run: pip3 install black && npm i
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - name: Run formatting check
-        run: npm run check
+      - uses: actions/cache@v3
+        name: Cache pnpm
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Node Dependencies
+        run: pnpm install
+
+      - name: Black Prettier check
+        run: pnpm run check
 
       - name: Typescript check
-        run: npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
   python-tests:
     runs-on: ubuntu-latest
@@ -50,19 +83,28 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
 
-      - run: pip install -r requirements.txt && npm i
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6"
+
+      - uses: actions/cache@v3
+        name: Cache Poetry
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+
+      - name: Install Python Dependencies
+        run: poetry install
 
       - name: pytest
         run: |
           cd PYTHON
-          python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
           cd ..
           cd captain
-          python -m pytest --cov --cov-report=xml --ignore=nodes
+          poetry run python -m pytest --cov --cov-report=xml --ignore=nodes
 
       - name: Codecov report
         uses: codecov/codecov-action@v3
@@ -79,12 +121,42 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
           cache: "pip"
+
+      - name: Setup Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6"
+
+      - uses: actions/cache@v3
+        name: Cache Poetry
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Run Flojoy startup script
         run: bash flojoy -c
@@ -98,9 +170,9 @@ jobs:
       - name: Run e2e test
         uses: cypress-io/github-action@v4
         with:
-          build: npm run build
-          start: npm run start-project
-          command: npx percy exec -- cypress run
+          build: pnpm run build
+          start: pnpm run start-project
+          command: pnpm exec percy exec -- cypress run
           browser: chrome
           install: false
 

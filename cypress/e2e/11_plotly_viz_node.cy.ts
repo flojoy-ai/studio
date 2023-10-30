@@ -12,7 +12,7 @@ describe("Set plotly node visual tests", () => {
     cy.get('[data-testid="clear-canvas-button"]').click();
     cy.get('[data-testid="confirm-clear-canvas"]').click();
 
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
     //Select container Visualizers
     cy.xpath("//div[contains(text(), 'Visualize')]").click();
     cy.xpath("//div[contains(text(), 'PLOTLY')]").click();

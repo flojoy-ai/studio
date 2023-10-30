@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useRouteError, Route, Routes } from "react-router-dom";
 import "./App.css";
-import PreJobOperationDialog from "./feature/common/PreJobOperationDialog";
 import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
@@ -10,7 +9,7 @@ import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
 import DeviceTab from "./feature/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
-import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
+// import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 import PythonManagerTabView from "./feature/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./feature/common/Layout";
 import LoadingPage from "./feature/loading/LoadingPage";
@@ -24,9 +23,8 @@ function ErrorBoundary() {
 
 const App = () => {
   const {
-    states: { runningNode, failedNodes, modalConfig },
+    states: { runningNode, failedNodes },
   } = useSocket();
-  const [isPrejobModalOpen, setIsPrejobModalOpen] = useState(false);
   const { setRunningNode, setFailedNodes } = useFlowChartState();
 
   useEffect(() => {
@@ -35,24 +33,13 @@ const App = () => {
   }, [runningNode, failedNodes, setRunningNode, setFailedNodes]);
 
   useEffect(() => {
-    setIsPrejobModalOpen(modalConfig.showModal ?? false);
-  }, [modalConfig]);
-
-  useEffect(() => {
     sendFrontEndLoadsToMix();
   }, []);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
-        <ElectronLogsDialog />
-        <PreJobOperationDialog
-          open={isPrejobModalOpen}
-          outputs={modalConfig.messages ?? []}
-          setOpen={setIsPrejobModalOpen}
-          title={modalConfig.title}
-          description={modalConfig.description}
-        />
+        {/* <ElectronLogsDialog /> */}
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route

@@ -30,12 +30,13 @@ export const sidebarVariants = cva(undefined, {
 
 export const categoryMap = {
   AI_ML: "DATA",
-  GENERATORS: "DATA",
+  DATA: "DATA",
   VISUALIZERS: "DATA",
-  LOADERS: "ETL",
-  TRANSFORMERS: "ETL",
-  IO: "IO",
-  LOGIC_GATES: "LOGIC",
+  DSP: "ETL",
+  MATH: "ETL",
+  DEBUGGING: "ETL",
+  HARDWARE: "IO",
+  CONTROL_FLOW: "LOGIC",
   NUMPY: "AUTOGEN",
   SCIPY: "AUTOGEN",
   SKLEARN: "AUTOGEN",

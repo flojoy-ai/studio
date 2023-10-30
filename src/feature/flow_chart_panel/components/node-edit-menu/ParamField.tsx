@@ -15,6 +15,7 @@ import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { CameraSelect } from "./CameraSelect";
 import { SerialDeviceSelect } from "./SerialDeviceSelect";
 import { VisaDeviceSelect } from "./VisaDeviceSelect";
+import { Button } from "@/components/ui/button";
 
 type ParamFieldProps = {
   nodeId: string;
@@ -120,6 +121,37 @@ const ParamField = ({
           </SelectContent>
         </Select>
       );
+    case "File":
+      return (
+        <div className="flex items-center justify-between gap-2.5">
+          <Input
+            data-testid="file-input"
+            className="border-none focus:ring-accent1 focus:ring-offset-1 focus-visible:ring-accent1 focus-visible:ring-offset-1"
+            onChange={(e) => handleChange(e.target.value)}
+            value={value as string}
+          />
+          <Button
+            variant={"secondary"}
+            onClick={() => {
+              const fileInput = document.createElement("input");
+              fileInput.type = "file";
+              fileInput.accept = `*`; //TODO: we should get the file type from the select and use it here
+              fileInput.onchange = (e) => {
+                const files = (e.target as HTMLInputElement).files;
+                if (files && files.length > 0) {
+                  const file = files[0];
+                  const path = file.path;
+                  handleChange(path);
+                }
+              };
+              fileInput.click();
+            }}
+          >
+            Browse
+          </Button>
+        </div>
+      );
+
     case "CameraDevice":
     case "CameraConnection":
       return <CameraSelect onValueChange={handleChange} value={value} />;

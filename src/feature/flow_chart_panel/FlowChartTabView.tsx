@@ -17,6 +17,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
   Controls,
+  Node,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
@@ -52,6 +53,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useManifest, useNodesMetadata } from "@src/hooks/useManifest";
+import { ElementsData } from "@src/types";
+import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
+import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { filterMap } from "@src/utils/ArrayUtils";
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -85,9 +90,11 @@ const FlowChartTab = () => {
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
 
-  const getNodeFuncCount = useCallback(
+  const getTakenNodeLabels = useCallback(
     (func: string) => {
-      return nodes.filter((n) => n.data.func === func).length;
+      const re = new RegExp(`^${func.replaceAll("_", " ")}( \\d+)?$`);
+      const matches = filterMap(nodes, (n) => n.data.label.match(re));
+      return matches;
     },
     // including nodes variable in dependency list would cause excessive re-renders
     // as nodes variable is updated so frequently
@@ -99,10 +106,54 @@ const FlowChartTab = () => {
 
   const addNewNode = useAddNewNode(
     setNodes,
-    getNodeFuncCount,
+    getTakenNodeLabels,
     nodesMetadataMap,
   );
   const addTextNode = useAddTextNode();
+
+  const duplicateNode = (node: Node<ElementsData>) => {
+    const funcName = node.data.func;
+    const id = createNodeId(funcName);
+
+    const newNode: Node<ElementsData> = {
+      ...node,
+      id,
+      data: {
+        ...node.data,
+        id,
+        label:
+          node.data.func === "CONSTANT"
+            ? node.data.ctrls["constant"].value!.toString()
+            : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
+      },
+      position: {
+        x: node.position.x + 30,
+        y: node.position.y + 30,
+      },
+      selected: true,
+    };
+
+    setNodes((prev) => {
+      const original = prev.find((n) => node.id === n.id);
+      if (!original) {
+        throw new Error(
+          "Failed to find original node when duplicating, this should not happen",
+        );
+      }
+
+      original.selected = false;
+      prev.push(newNode);
+    });
+  };
+
+  const duplicateSelectedNode = useCallback(() => {
+    if (selectedNode) {
+      duplicateNode(selectedNode);
+    }
+  }, [selectedNode]);
+
+  useKeyboardShortcut("ctrl", "d", duplicateSelectedNode);
+  useKeyboardShortcut("meta", "d", duplicateSelectedNode);
 
   const toggleSidebar = useCallback(
     () => setIsSidebarOpen((prev) => !prev),
@@ -139,6 +190,7 @@ const FlowChartTab = () => {
     });
     setProject({ ...project, rfInstance: rfIns.toObject() });
   };
+
   const handleNodeDrag: NodeDragHandler = (_, node) => {
     setNodes((nodes) => {
       const nodeIndex = nodes.findIndex((el) => el.id === node.id);
@@ -146,6 +198,7 @@ const FlowChartTab = () => {
       setHasUnsavedChanges(true);
     });
   };
+
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
       setNodes((ns) => applyNodeChanges(changes, ns));
@@ -153,6 +206,7 @@ const FlowChartTab = () => {
     },
     [setNodes, setTextNodes],
   );
+
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) => {
       sendEventToMix("Edges Changed", "");
@@ -163,6 +217,7 @@ const FlowChartTab = () => {
     },
     [setEdges, setHasUnsavedChanges],
   );
+
   const onConnect: OnConnect = useCallback(
     (connection) =>
       setEdges((eds) => {
@@ -179,6 +234,7 @@ const FlowChartTab = () => {
       }),
     [setEdges, manifest],
   );
+
   const handleNodesDelete: OnNodesDelete = useCallback(
     (nodes) => {
       nodes.forEach((node) => {
@@ -234,13 +290,13 @@ const FlowChartTab = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    data-testid="add-node-button"
+                    data-testid="add-block-button"
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
                   >
                     <Workflow size={20} className="stroke-muted-foreground" />
-                    Add Node
+                    Add Block
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>Try Ctrl/Cmd + K</TooltipContent>

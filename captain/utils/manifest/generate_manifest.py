@@ -1,19 +1,21 @@
 import os
 from typing import Any, Optional, Union
+
+from captain.utils.blocks_path import get_blocks_path
 from captain.utils.manifest.build_manifest import create_manifest
-from captain.utils.nodes_path import get_nodes_path
 
 __all__ = ["generate_manifest"]
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
-    "EXTRACTORS": "Extract",
-    "GENERATORS": "Generate",
-    "IO": "I/O",
-    "LOGIC_GATES": "Logic",
-    "LOADERS": "Load",
-    "TRANSFORMERS": "Transform",
-    "VISUALIZERS": "Visualize",
+    "DATA": "Data",
+    "DSP": "Digital Signal Processing",
+    "IMAGE": "Image",
+    "HARDWARE": "Hardware",
+    "CONTROL_FLOW": "Control Flow",
+    "MATH": "Math",
+    "DEBUGGING": "Debugging",
+    "ETL": "ETL",
     "NUMPY": "numpy",
     "LINALG": "np.linalg",
     "RANDOM": "np.rand",
@@ -27,33 +29,36 @@ NAME_MAP = {
 # A node will inherit the type of its parent if it is not in the allowed types.
 ALLOWED_TYPES = [
     "AI_ML",
-    "GENERATORS",
-    "VISUALIZERS",
-    "LOADERS",
-    "EXTRACTORS",
-    "TRANSFORMERS",
+    "DATA",
+    "VISUALIZATION",
+    "MATH",
     "ARITHMETIC",
-    "IO",
-    "LOGIC_GATES",
+    "ETL",
+    "DSP",
+    "IMAGE",
+    "CONTROL_FLOW",
     "CONDITIONALS",
+    "HARDWARE",
     "NUMPY",
-    "GAMES",
     "SCIPY",
+    "GAMES",
+    "DEBUGGING",
 ]
 
 # Sort order in sidebar
 ORDERING = [
     "AI_ML",
-    "GENERATORS",
-    "VISUALIZERS",
-    "EXTRACTORS",
-    "TRANSFORMERS",
-    "LOADERS",
-    "IO",
-    "LOGIC_GATES",
+    "DATA",
+    "MATH",
+    "ETL",
+    "DSP",
+    "IMAGE",
+    "CONTROL_FLOW",
+    "HARDWARE",
+    "DSP",
     "NUMPY",
     "SCIPY",
-    "GAMES",
+    "DEBUGGING",
 ]
 
 
@@ -62,7 +67,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     basename = os.path.basename(dir_path)
     result["name"] = (
         "ROOT"
-        if os.path.basename(dir_path) == "nodes"
+        if os.path.basename(dir_path) == "blocks"
         else NAME_MAP.get(basename, basename)
     )
     if result["name"] != "ROOT":
@@ -84,8 +89,10 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
                 or "examples" in entry.path
                 or "a1-[autogen]" in entry.path
                 or "appendix" in entry.path
+                or not os.listdir(entry)
             ):
                 continue
+
             cur_type = basename if basename in ALLOWED_TYPES else cur_type
             subdir = browse_directories(entry.path, cur_type)
             result["children"].append(subdir)
@@ -108,7 +115,7 @@ def browse_directories(dir_path: str, cur_type: Optional[str] = None):
     return result
 
 
-def sort_order(element):
+def sort_order(element: dict[str, Any]):
     try:
         return ORDERING.index(element["key"])
     except ValueError:
@@ -116,7 +123,7 @@ def sort_order(element):
 
 
 def generate_manifest():
-    nodes_path = get_nodes_path()
-    nodes_map = browse_directories(nodes_path)
-    nodes_map["children"].sort(key=sort_order)  # type: ignore
-    return nodes_map
+    blocks_path = get_blocks_path()
+    blocks_map = browse_directories(blocks_path)
+    blocks_map["children"].sort(key=sort_order)  # type: ignore
+    return blocks_map

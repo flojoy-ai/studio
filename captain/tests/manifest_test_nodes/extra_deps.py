@@ -1,6 +1,5 @@
 import numpy as np
-from flojoy import flojoy, Matrix, DataFrame, Image
-import tensorflow as tf
+from flojoy import DataFrame, Image, Matrix, flojoy
 
 
 @flojoy(deps={"tensorflow": "2.12.0", "torch": "2.0.1"}, node_type="TEST_TYPE")

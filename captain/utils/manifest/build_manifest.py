@@ -1,39 +1,35 @@
-import ast
-
-from .build_ast import (
-    get_pip_dependencies,
-    get_node_type,
-    make_manifest_ast,
-)
 import inspect
 from inspect import Parameter
-from docstring_parser.numpydoc import NumpydocParser, ParamSection
-from types import UnionType, NoneType, ModuleType
+from types import ModuleType, NoneType, UnionType
 from typing import (
     Any,
     Callable,
-    Type,
+    Literal,
     Optional,
+    Type,
     Union,
     get_args,
     get_origin,
     is_typeddict,
-    Literal,
 )
 
+from docstring_parser.numpydoc import NumpydocParser, ParamSection
 from flojoy import (
+    Array,
+    CameraConnection,
+    CameraDevice,
     DataContainer,
     DefaultParams,
-    NodeReference,
-    Array,
     NodeInitContainer,
-    CameraDevice,
-    SerialDevice,
-    VisaDevice,
-    CameraConnection,
+    NodeReference,
     SerialConnection,
+    SerialDevice,
     VisaConnection,
+    VisaDevice,
+    File,
 )
+
+from .build_ast import get_node_type, get_pip_dependencies, make_manifest_ast
 
 ALLOWED_PARAM_TYPES = [
     int,
@@ -54,6 +50,7 @@ SPECIAL_TYPES = [
     CameraConnection,
     SerialConnection,
     VisaConnection,
+    File,
 ]
 
 SPECIAL_NODES = ["LOOP", "CONDITIONAL"]

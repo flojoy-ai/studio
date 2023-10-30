@@ -1,0 +1,32 @@
+name: flojoy-python
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10,<3.11
+  - pip>=23,<24
+  - pandas>=2,<3
+  - numpy>=1,<2
+  - plotly>=5,<6
+  - pillow>=10,<11
+  - python-dotenv>=1,<2
+  - pyyaml>=6.0,<6.1
+  - requests>=2,<3
+  - keyring>=24,<25
+  - python-box>=7,<8
+  - pydantic>=2,<3
+  - huggingface_hub>=0,<1
+  - cloudpickle>=2,<3
+  - networkx>=3,<4
+  - scipy>=1,<2
+  - matplotlib>=3,<4
+  - portalocker>=2,<3
+  - pip:
+      - qcodes>=0,<1
+platforms:
+  - linux-64
+  - osx-64
+  - win-64
+  - osx-arm64
+  - linux-aarch64
+  - linux-ppc64le

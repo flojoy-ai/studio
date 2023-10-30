@@ -1,6 +1,7 @@
+import os
+
 import cv2
 import numpy as np
-import os
 
 classes = []
 absolute_path = os.path.dirname(__file__)
@@ -13,7 +14,7 @@ def get_output_layers(net):
     layer_names = net.getLayerNames()
     try:
         output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
-    except:
+    except Exception:
         output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
     return output_layers
@@ -125,7 +126,7 @@ def detect_object(img_np_array):
     for i in indices:
         try:
             box = boxes[i]
-        except:
+        except Exception:
             i = i[0]
             box = boxes[i]
 

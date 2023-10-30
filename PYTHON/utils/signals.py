@@ -2,9 +2,7 @@ class Signals:
     def __init__(self) -> None:
         self.signal_states = {}
         self.signal_iterations = {}
-        self.all_node_signals = (
-            {}
-        )  # {child_id -> {(parent_id, direction)] -> signal_id}
+        self.all_node_signals = {}  # {child_id -> {(parent_id, direction)] -> signal_id}
 
     def update_child_signals(self, child_id, node_id, direction):
         child_signals = self.all_node_signals.get(child_id, {})
