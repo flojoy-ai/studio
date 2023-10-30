@@ -8,10 +8,6 @@ router = APIRouter(tags=["devices"])
 
 @router.get("/devices")
 async def get_devices() -> dict[str, str] | DeviceInfo:
-    env = os.getenv("ELECTRON_MODE", "dev")
-
-    if env == "packaged":
-        return {}
     device_finder = get_device_finder()
 
     return DeviceInfo(
