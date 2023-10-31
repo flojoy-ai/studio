@@ -57,6 +57,8 @@ linux:
 
 win:
   icon: public/favicon.ico
+  sign: scripts/winSign.js
+  target: nsis
 extraMetadata:
   main: dist-electron/main/index.js
 extends: null
