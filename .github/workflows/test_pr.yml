@@ -52,6 +52,7 @@ jobs:
         run: |
           repo="${{env.PROJECT_OWNER}}/${{env.PROJECT_REPO}}"
           url="https://api.github.com/repos/$repo/actions/workflows/$PROJECT_WORKFLOW_ID/dispatches"
+          echo "sending req to: $url"
           curl -X POST "$url" \
             -H 'Accept: application/vnd.github.everest-preview+json' \
             -u ${{ env.PROJECT_TOKEN }} \
