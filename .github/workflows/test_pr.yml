@@ -19,10 +19,10 @@ env:
 
 jobs:
   trigger_workflow:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows, linux]
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:
       - name: Checkout Repository
@@ -30,7 +30,7 @@ jobs:
 
       - name: Set Workflow ID
         run: |
-          if [[ ${{ matrix.os }} == 'ubuntu-latest' ]]; then
+          if [[ ${{ matrix.os }} == 'linux' ]]; then
             echo "PROJECT_WORKFLOW_ID=terraform-test-linux" >> $GITHUB_ENV
           else
             echo "PROJECT_WORKFLOW_ID=terraform-test-win" >> $GITHUB_ENV
