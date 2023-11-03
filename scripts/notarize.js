@@ -3,9 +3,16 @@ const fs = require("fs");
 const path = require("path");
 process.env.DEBUG = "electron-notarize*";
 var electron_notarize = require("@electron/notarize");
-
+/**
+ *
+ * @param {import('electron-builder').AfterPackContext} params
+ * @returns
+ */
 module.exports = async function (params) {
   if (process.platform !== "darwin") {
+    return;
+  }
+  if (process.env.NODE_ENV !== "production") {
     return;
   }
   let appId = "ai.flojoy.studio";
