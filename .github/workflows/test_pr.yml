@@ -12,7 +12,6 @@ on:
 env:
   PROJECT_OWNER: flojoy-ai
   PROJECT_REPO: rc
-  PROJECT_WORKFLOW_ID: terraform-test-env.yml
   PROJECT_TOKEN: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
   REFLECT_SUITE: flojoy-live-test
   REFLECT_TOKEN: ${{ secrets.REFLECT_TOKEN }}
