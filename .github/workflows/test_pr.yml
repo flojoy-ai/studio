@@ -143,14 +143,12 @@ jobs:
       - name: Live test on Reflect.run
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
-          curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
+          curl --location 'https://api.reflect.run/v1/suites/studio-default-app/executions' \
           --header 'Content-Type: text/plain' \
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "variables": {
-              "URL": "${{ steps.extract-ip-port.outputs.FE_URL }}/"
-            },
+            "flojoy_url": "${{ steps.extract-ip-port.outputs.FE_URL }}",
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
                 "repo": "${{ github.event.repository.name}}",
