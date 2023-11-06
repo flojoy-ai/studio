@@ -9,6 +9,10 @@ on:
     types:
       - closed
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PROJECT_OWNER: flojoy-ai
   PROJECT_REPO: rc
@@ -21,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [windows, linux]
+        os: [Windows, Linux]
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:
       - name: Checkout Repository
@@ -29,7 +33,7 @@ jobs:
 
       - name: Set Workflow ID
         run: |
-          if [[ '${{ matrix.os }}' == 'linux' ]]; then
+          if [[ '${{ matrix.os }}' == 'Linux' ]]; then
             echo "PROJECT_WORKFLOW_ID=terraform-test-linux.yml" >> $GITHUB_ENV
           else
             echo "PROJECT_WORKFLOW_ID=terraform-test-win.yml" >> $GITHUB_ENV
@@ -56,8 +60,8 @@ jobs:
             -u ${{ env.PROJECT_TOKEN }} \
             --data '{"ref":"mahbub/test-branch", "inputs":{"github_event_name":"${{ github.event_name }}", "github_head_ref": "${{ github.head_ref }}", "github_event_pull_request_number": "${{ github.event.pull_request.number }}", "context_issue_number": "${{ github.event.pull_request.number }}", "context_repo_owner": "${{ github.repository_owner }}", "context_repo_repo": "${{ github.repository }}", "github_event_pull_request_merged": "${{ github.event.pull_request.merged }}", "github_event_action": "${{ github.event.action }}"}}'
 
-      - name: Wait for 1m
-        run: sleep 1m
+      - name: Wait for 4m to get instance up
+        run: sleep 4m
 
       - name: Find Comment with URLs
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
@@ -66,59 +70,72 @@ jobs:
         with:
           token: ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}
           issue-number: ${{ github.event.pull_request.number }}
-          body-regex: 'flojoy-test\.com:3000'
+          body-regex: "Access Flojoy-studio build from this pull request on ${{ matrix.os }}"
 
       - name: Extract test URLs
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         id: extract-ip-port
         run: |
-          URL_REGEX='([0-9]+)_(windows|linux)\.flojoy-test\.com'
-          if [[ "${{ steps.fc.outputs.comment-body }}" =~ $URL_REGEX ]]; then
-            export FC_COMMENT_BODY="${{ steps.fc.outputs.comment-body }}"
-            while [[ "${FC_COMMENT_BODY}" =~ $URL_REGEX ]]; do
-              domain="${BASH_REMATCH[1]}"
-              platform="${BASH_REMATCH[2]}"
-
-              if [[ $platform == "windows" ]]; then
-                echo "domain_windows=${domain}_windows.flojoy-test.com" >> $GITHUB_OUTPUT
-              elif [[ $platform == "linux" ]]; then
-                echo "domain_linux=${domain}_linux.flojoy-test.com" >> $GITHUB_OUTPUT
-              fi
-
-              # Replace the matched URL with an empty string to continue searching for more URLs
-              FC_COMMENT_BODY="${FC_COMMENT_BODY//${BASH_REMATCH[0]}/}"
-            done
+          comment_body="${{ steps.fc.outputs.comment-body }}"
+          extracted_url=$(echo "$comment_body" | grep -o 'http://[^:]*:5391' | head -n 1)
+          if [[ -n "$extracted_url" ]]; then
+            echo "FE_URL=$extracted_url" >> $GITHUB_OUTPUT
           else
-            echo "No matching URLs found in the comment body."
-          fi
-
-      - name: Test if Flojou-studio is up
-        if: github.event.action == 'opened' || github.event.action == 'synchronize'
-        id: test-http-page
-        run: |
-          echo "Test on http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
-          CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_windows }}:3000")
-          if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
-            echo "The HTTP page contains '<title>FLOJOY</title>'."
-            echo "Test passed on Windows."
-          else
-            echo "The HTTP page does not contain '<title>FLOJOY</title>'."
-            echo "Test failed on Windows."
+            echo "Test url not found in the comment body!"
             exit 1
           fi
 
-          echo "Test on http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
-          CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_linux }}:3000")
-          if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
-            echo "The HTTP page contains '<title>FLOJOY</title>'."
-            echo "Test passed on Linux."
-          else
-            echo "The HTTP page does not contain '<title>FLOJOY</title>'."
-            echo "Test failed on Linux."
-            exit1
-          fi
+      - name: Test if flojoy-studio is up
+        if: github.event.action == 'opened' || github.event.action == 'synchronize'
+        run: |
+          comment_body="${{ steps.fc.outputs.comment-body }}"
+          timeout_seconds=600 # 10m
+          interval=30
+          start_time=$(date +%s)
 
-      - name: Windows live test on Reflect.run
+          while true; do
+            current_time=$(date +%s)
+            elapsed_time=$((current_time - start_time ))
+            if [[ $elapsed_time -ge $timeout_seconds ]]; then
+              echo "timeout reached!"
+              exit 1
+            fi
+            echo "Test on ${{ steps.extract-ip-port.outputs.FE_URL }}, elapsed time: $elapsed_time"
+            CONTENT=$(curl -s --max-time $interval "${{ steps.extract-ip-port.outputs.FE_URL }}")
+            if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
+              echo "The HTTP page contains '<title>FLOJOY</title>'."
+              echo "Test passed."
+              break
+            fi
+          done
+
+      # - name: Test if Flojou-studio is up
+      #   if: github.event.action == 'opened' || github.event.action == 'synchronize'
+      #   id: test-http-page
+      #   run: |
+      #     echo "Test on http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
+      #     CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_windows }}:3000")
+      #     if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
+      #       echo "The HTTP page contains '<title>FLOJOY</title>'."
+      #       echo "Test passed on Windows."
+      #     else
+      #       echo "The HTTP page does not contain '<title>FLOJOY</title>'."
+      #       echo "Test failed on Windows."
+      #       exit 1
+      #     fi
+
+      #     echo "Test on http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
+      #     CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_linux }}:3000")
+      #     if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
+      #       echo "The HTTP page contains '<title>FLOJOY</title>'."
+      #       echo "Test passed on Linux."
+      #     else
+      #       echo "The HTTP page does not contain '<title>FLOJOY</title>'."
+      #       echo "Test failed on Linux."
+      #       exit1
+      #     fi
+
+      - name: Live test on Reflect.run
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
           curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
@@ -127,7 +144,7 @@ jobs:
           --data '{
             "browser": "Chrome",
             "variables": {
-              "URL": "http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000/"
+              "URL": "${{ steps.extract-ip-port.outputs.FE_URL }}/"
             },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
@@ -136,20 +153,20 @@ jobs:
             }
           }'
 
-      - name: Linux live test on Reflect.run
-        if: github.event.action == 'opened' || github.event.action == 'synchronize'
-        run: |
-          curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
-          --header 'Content-Type: text/plain' \
-          --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
-          --data '{
-            "browser": "Chrome",
-            "variables": {
-              "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
-            },
-            "gitHub": {
-                "owner": "${{ github.repository_owner }}",
-                "repo": "${{ github.event.repository.name}}",
-                "sha": "${{ github.event.pull_request.head.sha }}"
-            }
-          }'
+      # - name: Linux live test on Reflect.run
+      #   if: github.event.action == 'opened' || github.event.action == 'synchronize'
+      #   run: |
+      #     curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
+      #     --header 'Content-Type: text/plain' \
+      #     --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
+      #     --data '{
+      #       "browser": "Chrome",
+      #       "variables": {
+      #         "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
+      #       },
+      #       "gitHub": {
+      #           "owner": "${{ github.repository_owner }}",
+      #           "repo": "${{ github.event.repository.name}}",
+      #           "sha": "${{ github.event.pull_request.head.sha }}"
+      #       }
+      #     }'
