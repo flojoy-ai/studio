@@ -102,6 +102,7 @@ jobs:
               fi
               echo "Test on ${{ steps.extract-ip-port.outputs.FE_URL }}, elapsed time: $elapsed_time"
               CONTENT=$(curl -s --max-time $interval "${{ steps.extract-ip-port.outputs.FE_URL }}")
+              echo "content found: $CONTENT"
               if [[ $CONTENT == *"$studio_title"* ]]; then
                   echo "The HTTP page contains $studio_title."
                   echo "Test passed."
