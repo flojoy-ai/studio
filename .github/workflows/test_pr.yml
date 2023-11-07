@@ -88,7 +88,7 @@ jobs:
       - name: Test if flojoy-studio is up
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
-          timeout_seconds=600 # 10m
+          timeout_seconds=950 # 15m
           interval=30
           start_time=$(date +%s)
           studio_title="<title>Flojoy Studio</title>"
@@ -114,32 +114,6 @@ jobs:
               sleep $interval
           done
 
-      # - name: Test if Flojou-studio is up
-      #   if: github.event.action == 'opened' || github.event.action == 'synchronize'
-      #   id: test-http-page
-      #   run: |
-      #     echo "Test on http://${{ steps.extract-ip-port.outputs.domain_windows }}:3000"
-      #     CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_windows }}:3000")
-      #     if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
-      #       echo "The HTTP page contains '<title>FLOJOY</title>'."
-      #       echo "Test passed on Windows."
-      #     else
-      #       echo "The HTTP page does not contain '<title>FLOJOY</title>'."
-      #       echo "Test failed on Windows."
-      #       exit 1
-      #     fi
-
-      #     echo "Test on http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000"
-      #     CONTENT=$(curl -s "${{ steps.extract-ip-port.outputs.domain_linux }}:3000")
-      #     if [[ $CONTENT == *"<title>FLOJOY</title>"* ]]; then
-      #       echo "The HTTP page contains '<title>FLOJOY</title>'."
-      #       echo "Test passed on Linux."
-      #     else
-      #       echo "The HTTP page does not contain '<title>FLOJOY</title>'."
-      #       echo "Test failed on Linux."
-      #       exit1
-      #     fi
-
       - name: Live test on Reflect.run
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
@@ -155,21 +129,3 @@ jobs:
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
           }'
-
-      # - name: Linux live test on Reflect.run
-      #   if: github.event.action == 'opened' || github.event.action == 'synchronize'
-      #   run: |
-      #     curl --location 'https://api.reflect.run/v1/suites/${{ env.REFLECT_SUITE }}/executions' \
-      #     --header 'Content-Type: text/plain' \
-      #     --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
-      #     --data '{
-      #       "browser": "Chrome",
-      #       "variables": {
-      #         "URL": "http://${{ steps.extract-ip-port.outputs.domain_linux }}:3000/"
-      #       },
-      #       "gitHub": {
-      #           "owner": "${{ github.repository_owner }}",
-      #           "repo": "${{ github.event.repository.name}}",
-      #           "sha": "${{ github.event.pull_request.head.sha }}"
-      #       }
-      #     }'
