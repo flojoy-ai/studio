@@ -65,6 +65,7 @@ import LogicNode from "@src/components/nodes/LogicNode";
 import NumpyNode from "@src/components/nodes/NumpyNode";
 import ScipyNode from "@src/components/nodes/ScipyNode";
 import VisorNode from "@src/components/nodes/VisorNode";
+import { syncFlowchartWithManifest } from "@src/lib/sync";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -124,6 +125,15 @@ const FlowChartTab = () => {
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
+
+  useEffect(() => {
+    if (manifest && nodesMetadataMap) {
+      const syncedNodes = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadataMap);
+      console.log(syncedNodes);
+      setNodes(syncedNodes);
+    }
+  }, [manifest, nodesMetadataMap])
+
 
   const getTakenNodeLabels = useCallback(
     (func: string) => {

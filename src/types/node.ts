@@ -34,17 +34,17 @@ type NodeElement = {
   children: null;
 };
 
-type CtrlData = Record<
+export type CtrlData = Record<
   string,
   NodeElement["parameters"] extends infer T
-    ? T extends Record<string, infer U>
-      ? U & {
-          functionName: string;
-          param: string;
-          value: string | boolean | number | undefined | null;
-        }
-      : never
-    : never
+  ? T extends Record<string, infer U>
+  ? U & {
+    functionName: string;
+    param: string;
+    value: string | boolean | number | undefined | null;
+  }
+  : never
+  : never
 >;
 
 export type ElementsData = {
