@@ -60,9 +60,6 @@ jobs:
             -u ${{ env.PROJECT_TOKEN }} \
             --data '{"ref":"main", "inputs":{"github_event_name":"${{ github.event_name }}", "github_head_ref": "${{ github.head_ref }}", "github_event_pull_request_number": "${{ github.event.pull_request.number }}", "context_issue_number": "${{ github.event.pull_request.number }}", "context_repo_owner": "${{ github.repository_owner }}", "context_repo_repo": "${{ github.repository }}", "github_event_pull_request_merged": "${{ github.event.pull_request.merged }}", "github_event_action": "${{ github.event.action }}"}}'
 
-      - name: Wait for 3m to get instance up
-        run: sleep 3m
-
       - name: Find Comment with URLs
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         uses: peter-evans/find-comment@v2
@@ -77,12 +74,44 @@ jobs:
         id: extract-ip-port
         run: |
           comment_body="${{ steps.fc.outputs.comment-body }}"
+          comment_id="${{ steps.fc.outputs.comment-id }}"
           extracted_url=$(echo "$comment_body" | grep -o 'http://[^:]*:5391' | head -n 1)
           if [[ -n "$extracted_url" ]]; then
             echo "FE_URL=$extracted_url" >> $GITHUB_OUTPUT
           else
-            echo "Test url not found in the comment body!"
-            exit 1
+            url="https://api.github.com/repos/flojoy-ai/studio/issues/comments/$comment_id"
+            timeout_seconds=420 # 7m
+            interval=15
+            start_time=$(date +%s)
+            
+            while true; do
+                current_time=$(date +%s)
+                elapsed_time=$((current_time - start_time))
+                if [[ $elapsed_time -ge $timeout_seconds ]]; then
+                    echo "timeout reached!"
+                    exit 1
+                fi
+                echo "Waiting for instance to start, elapsed time: $elapsed_time"
+                response=$(
+                    curl -L \
+                        -H "Accept: application/vnd.github+json" \
+                        -H "Authorization: Bearer ${{ secrets.ACCESS_TOKEN_FLOJOY_RC }}" \
+                        -H "X-GitHub-Api-Version: 2022-11-28" \
+                        "$url"
+                )
+                comment_body=$(echo "$response" | jq -r '.body // empty')
+            
+                if [ -n "$comment_body" ]; then
+                    extracted_url=$(echo "$comment_body" | grep -o 'http://[^:]*:5391' | head -n 1)
+                    if [[ -n $extracted_url ]]; then
+                        echo "FE_URL=$extracted_url" >> $GITHUB_OUTPUT
+                        break
+                    else
+                        echo "Trying again in $interval seconds..."
+                    fi
+                fi
+                sleep $interval
+            done
           fi
 
       - name: Test if flojoy-studio is up
