@@ -8,6 +8,7 @@ __all__ = ["generate_manifest"]
 
 NAME_MAP = {
     "AI_ML": "AI & ML",
+    "COMPUTER_VISION": "Computer Vision",
     "DATA": "Data",
     "DSP": "Digital Signal Processing",
     "IMAGE": "Image",
@@ -29,6 +30,7 @@ NAME_MAP = {
 # A node will inherit the type of its parent if it is not in the allowed types.
 ALLOWED_TYPES = [
     "AI_ML",
+    "COMPUTER_VISION",
     "DATA",
     "VISUALIZATION",
     "MATH",
@@ -53,6 +55,7 @@ ORDERING = [
     "ETL",
     "DSP",
     "IMAGE",
+    "COMPUTER_VISION",
     "CONTROL_FLOW",
     "HARDWARE",
     "DSP",
