@@ -18,10 +18,10 @@ export default {
   subscribeToElectronLogs: (func: (arg: CallBackArgs) => void) => {
     ipcRenderer.on("electron-log", (event, args: CallBackArgs) => func(args));
   },
-  updateNodesPack: () => {
-    ipcRenderer.send("update-nodes-pack");
+  updateBlocksPack: () => {
+    ipcRenderer.send("update-blocks-pack");
   },
-  updateNodesResourcePath: () => {
-    ipcRenderer.send("update-nodes-resource-path");
+  updateBlocksResourcePath: () => {
+    ipcRenderer.send("change-blocks-resource-path");
   },
 };

@@ -7,14 +7,33 @@ on:
   pull_request:
     branches:
       - main
-      - develop
 
 env:
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   DISPLAY: :0
 
 jobs:
-  code-style-check:
+  python-code-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - uses: chartboost/ruff-action@v1
+        name: Ruff format check
+        with:
+          args: format --check .
+
+  python-code-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout repository
+
+      - uses: chartboost/ruff-action@v1
+        name: Ruff linter check
+
+  ts-code-style:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,25 +62,6 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          cache: "pip"
-
-      - name: Setup Poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: "1.6"
-
-      - uses: actions/cache@v3
-        name: Cache Poetry
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-
-      - name: Install Python Dependencies
-        run: poetry install
 
       - name: Install Node Dependencies
         run: pnpm install
@@ -95,34 +95,8 @@ jobs:
           path: ./.venv
           key: venv-${{ hashFiles('poetry.lock') }}
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 18
-      #
-      # - uses: pnpm/action-setup@v2
-      #   name: Install pnpm
-      #   with:
-      #     version: 8
-      #     run_install: false
-      #
-      # - name: Get pnpm store directory
-      #   shell: bash
-      #   run: |
-      #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      #
-      # - uses: actions/cache@v3
-      #   name: Setup pnpm cache
-      #   with:
-      #     path: ${{ env.STORE_PATH }}
-      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-pnpm-store-
-
       - name: Install Python Dependencies
         run: poetry install
-
-      # - name: Install Node Dependencies
-      #   run: pnpm install
 
       - name: pytest
         run: |

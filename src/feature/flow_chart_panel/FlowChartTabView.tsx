@@ -84,6 +84,13 @@ const nodeTypes: NodeTypes = {
   CONDITIONALS: ConditionalNode,
   SCIPY: ScipyNode,
   NUMPY: NumpyNode,
+  DATA: DataNode,
+  VISUALIZATION: VisorNode,
+  ETL: DefaultNode,
+  DSP: DefaultNode,
+  CONTROL_FLOW: LogicNode,
+  MATH: DefaultNode,
+  HARDWARE: IONode,
   BIG_NUMBER: BigNumberNode,
   SCATTER: ScatterNode,
   SCATTER3D: Scatter3DNode,
@@ -315,13 +322,13 @@ const FlowChartTab = () => {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    data-testid="add-node-button"
+                    data-testid="add-block-button"
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
                   >
                     <Workflow size={20} className="stroke-muted-foreground" />
-                    Add Node
+                    Add Block
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>Try Ctrl/Cmd + K</TooltipContent>

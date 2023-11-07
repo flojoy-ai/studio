@@ -3,9 +3,9 @@ directories:
   buildResources: build
 appId: ai.flojoy.studio
 productName: Flojoy Studio
-icon: public/favicon.ico
+icon: ./public/favicon.ico
 asar: true
-afterSign: scripts/notarize.js
+afterSign: ./scripts/notarize.js
 files:
   - dist-electron/**/*
 
@@ -26,7 +26,7 @@ extraResources:
     to: "backend/pkgs"
   - from: "PYTHON"
     to: "backend/PYTHON"
-    filter: "!**/nodes/**"
+    filter: "!**/blocks/**"
   - from: "manage.py"
     to: "backend/manage.py"
   - from: "pyproject.toml"
@@ -37,7 +37,7 @@ extraResources:
     to: "backend/environment.yml"
 
 mac:
-  icon: public/favicon.icns
+  icon: ./public/favicon.icns
   target:
     - dmg
     - zip
@@ -50,13 +50,15 @@ mac:
   x64ArchFiles: "*" # TODO: Remove this hack
 
 linux:
-  icon: public/favicon.icns
+  icon: ./public/favicon.icns
   target:
     - deb
     - AppImage
 
 win:
-  icon: public/favicon.ico
+  icon: ./public/favicon.ico
+  sign: ./scripts/winSign.js
+  target: nsis
 extraMetadata:
   main: dist-electron/main/index.js
 extends: null

@@ -1,5 +1,6 @@
 import inspect
 import re
+
 import docstring_parser as parse
 
 
@@ -48,26 +49,26 @@ class FlojoyWrapper:
         except IndexError:  # this means argument_names is none
             self.first_argument = None
             self.parameters = {}
-        self.data = f"from flojoy import OrderedPair, flojoy, Matrix, Scalar\n"
-        self.data += f"import numpy as np\n"
-        self.data += f"from collections import namedtuple\n"
+        self.data = "from flojoy import OrderedPair, flojoy, Matrix, Scalar\n"
+        self.data += "import numpy as np\n"
+        self.data += "from collections import namedtuple\n"
         self.data += "from typing import Literal\n\n"
         self.data += f"import {module.__name__}\n\n\n"
-        self.data += f"@flojoy(node_type='default')"
+        self.data += "@flojoy(node_type='default')"
         self.data += f"\ndef {self.name.upper()}(\n\t"
-        self.data += f"default: OrderedPair | Matrix,\n\t"
+        self.data += "default: OrderedPair | Matrix,\n\t"
 
         for idk, arg in enumerate(self.arguments):
             if arg not in self.FORBIDDEN_OPTIONAL_ARGS:
                 dtype = ""
                 try:  # try to read it from the inspect dictionary
                     dtype = type(self.optional_argument_dict[arg]).__name__
-                except:
+                except Exception:
                     pass
 
                 try:
                     def_val = str(self.optional_argument_dict[arg])
-                except:
+                except Exception:
                     def_val = "None"
                 def_val = "" if def_val == "None" else def_val
 
@@ -122,14 +123,14 @@ class FlojoyWrapper:
                         self.data = ""
                         return
 
-            # mvsdist and bayes_mvs both are incompatiable currently.
+            # mvsdist and bayes_mvs both are incompatible currently.
             if "mvs" in self.name:
                 self.data = ""
                 return
 
         if self.decomp_return:
             self.gen_return_options()
-            self.data += f"select_return: Literal"
+            self.data += "select_return: Literal"
             self.data += f"{self.return_options}"
             self.data += f' = "{self.return_options[0]}",'
 
@@ -172,7 +173,7 @@ class FlojoyWrapper:
                 dtype = ""
                 try:  # try to read it from the inspect dictionary
                     dtype = type(self.optional_argument_dict[arg]).__name__
-                except:
+                except Exception:
                     pass
                 if dtype == "" or dtype == "NoneType":
                     for idl, line in enumerate(self.doc.split("\n")):
@@ -380,11 +381,12 @@ def scrape_function(func):
 
 
 if __name__ == "__main__":
+    import ast
     import os
     from pathlib import Path
-    import scipy
-    import ast
+
     import numpy as np
+    import scipy
 
     MODULES_TO_SCRAPE = {
         "scipy": [scipy.signal, scipy.stats],

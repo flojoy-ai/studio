@@ -34,7 +34,21 @@ init_shell() {
 
 	if [ -f ~/.bashrc ]; then
 		eval "$(conda shell.bash hook)"
+	fi
+}
 
+enable_libmamba() {
+	# Get solver from config
+	$solver=$(conda config --show solver >/dev/null 2>&1)
+	# Check if "libmamba" is there as solver
+	if [[ $solver == *"libmamba"* ]]; then
+		info_msg "Libmamba is already set as solver for conda."
+	else
+		info_msg "Updating Conda and configuring libmamba as the solver."
+		conda update -n base conda -y >/dev/null 2>&1
+		conda install -n base conda-libmamba-solver -y >/dev/null 2>&1
+		conda config --set solver libmamba >/dev/null 2>&1
+		feedback $? "Libmamba is set as solver for conda..." "Failed to set libmamba as solver for conda!"
 	fi
 }
 
@@ -57,6 +71,8 @@ else
 fi
 
 init_shell # configure the shell properly
+
+enable_libmamba
 
 cd $current_dir
 
@@ -84,7 +100,7 @@ fi
 if ! test -f "$current_dir/.installed_deps"; then
 	info_msg "Installing python deps... It may take up to few minutes for the first time.. hang tight!"
 	poetry install
-	feedback $? "Installed packages successfully!" "Error occured while installing packages with poetry!"
+	feedback $? "Installed packages successfully!" "Error occurred while installing packages with poetry!"
 	touch "$current_dir/.installed_deps"
 fi
 export ELECTRON_MODE=packaged

@@ -7,7 +7,7 @@ describe("Verify node containers", () => {
     cy.get('[data-testid="close-welcome-modal"]').click();
 
     // Click add node
-    cy.get('[data-testid="add-node-button"]').click();
+    cy.get('[data-testid="add-block-button"]').click();
 
     // Click expand and sidebar btn
     cy.get('[data-testid="sidebar-expand-btn"]').click();
