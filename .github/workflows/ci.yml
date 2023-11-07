@@ -35,7 +35,6 @@ jobs:
 
   ts-code-style:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -75,7 +74,6 @@ jobs:
 
   python-tests:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:
       - uses: actions/checkout@v3
         with:
