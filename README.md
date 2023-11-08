@@ -8,47 +8,11 @@ Please see [CONTRIBUTING](https://github.com/flojoy-io/flojoy-desktop/blob/main/
 
 ---
 
-# Flojoy Quickstart
+# Quickstart
 
-Please refer to below or the following link for installation guidelines: https://docs.flojoy.ai/getting-started/install/
+Please find installer downloads for Mac, Windows, and Linux at https://docs.flojoy.ai/studio/installation/
 
-For all operating systems, please first verify that you have [Python 3.10](https://www.python.org/downloads/), [Node.js](https://nodejs.org/en/download/package-manager), and [Git](https://git-scm.com/download) installed.
-
-🆘 Need help installing? Please ask on [community.flojoy.ai](https://community.flojoy.ai)
-
-## Mac & Linux
-
-Run the installation shell script:
-
-```bash
-curl -L https://docs.flojoy.ai/scripts/install.sh | sh
-```
-
-Flojoy Studio will open automatically after installation.
-
-The next time that you wish to run Studio, simply navigate to the studio folder and run:
-
-```bash
-bash flojoy -v venv
-```
-
-## Windows
-
-Run the following installation PowerShell script:
-
-```bash
-pwsh -Command "iwr https://docs.flojoy.ai/scripts/install.ps1 -useb | iex"
-```
-
-If you encounter an error saying that the pwsh command is not found, powershell can be used instead, though we recommend installing the [latest version of PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows).
-
-Flojoy Studio will open automatically after installation.
-
-The next time that you wish to run Studio, simply navigate to the studio folder and run:
-
-```bash
-.\flojoy -v venv
-```
+🆘 Need help installing? Please ask on [Flojoy's Discord](https://discord.com/invite/7HEBr7yG8c)
 
 # License and Copyright
 
