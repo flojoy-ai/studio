@@ -154,7 +154,9 @@ jobs:
           --header 'X-API-KEY: ${{ secrets.REFLECT_TOKEN }}' \
           --data '{
             "browser": "Chrome",
-            "flojoy_url": "${{ steps.extract-ip-port.outputs.FE_URL }}",
+            "variables":{
+              "flojoy_url": "${{ steps.extract-ip-port.outputs.FE_URL }}"
+            },
             "gitHub": {
                 "owner": "${{ github.repository_owner }}",
                 "repo": "${{ github.event.repository.name}}",
