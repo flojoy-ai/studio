@@ -16,6 +16,7 @@ import { killSubProcess } from "./cmd";
 import fs from "fs";
 import { Logger } from "./logger";
 import { ChildProcess } from "node:child_process";
+import * as http from "http";
 
 // The built directory structure
 //
@@ -104,9 +105,9 @@ contextMenu({
 
 const isPortFree = (port: number) =>
   new Promise((resolve) => {
-    const server = require("http")
+    const server = http
       .createServer()
-      .listen(port, () => {
+      .listen(port, "127.0.0.1", () => {
         server.close();
         resolve(true);
       })
