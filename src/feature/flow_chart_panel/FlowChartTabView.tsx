@@ -69,6 +69,8 @@ const FlowChartTab = () => {
   const [mcNodeSection, setMcNodeSection] = useState<RootNode | null>(null);
   const [nodesMetadataMap, setNodesMetadataMap] =
     useState<NodesMetadataMap | null>(null);
+  const [nodesMetadataMapMC, setNodesMetadataMapMC] =
+    useState<NodesMetadataMap | null>(null);
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
 
   const { theme, resolvedTheme } = useTheme();
@@ -114,7 +116,7 @@ const FlowChartTab = () => {
   const addNewNode = useAddNewNode(
     setNodes,
     getNodeFuncCount,
-    nodesMetadataMap,
+    (isMicrocontrollerMode) ? nodesMetadataMapMC : nodesMetadataMap,
   );
   const addTextNode = useAddTextNode();
 
@@ -297,15 +299,34 @@ const FlowChartTab = () => {
     fetchMetadata();
   }, [fetchManifest, fetchMetadata]);
 
+  const fetchMetadataMC = useCallback(async () => {
+    try {
+      const res = await baseClient.get("nodes-mc/metadata");
+      setNodesMetadataMapMC(res.data);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      toast.message("Failed to generate nodes metadata", {
+        description: err.response?.data?.error,
+      });
+    }
+  }, []);
+
   useEffect(() => {
-    if (selectedNode === null || !nodesMetadataMap) {
+    fetchManifest();
+    fetchMetadataMC();
+  }, [fetchManifest, fetchMetadataMC]);
+
+  useEffect(() => {
+    const activeMetadata = (isMicrocontrollerMode) ? nodesMetadataMapMC : nodesMetadataMap;
+    if (selectedNode === null || !activeMetadata) {
       return;
     }
     const nodeFileName = `${selectedNode?.data.func}.py`;
-    const nodeFileData = nodesMetadataMap[nodeFileName] ?? {};
+    const nodeFileData = activeMetadata[nodeFileName] ?? {};
     setNodeFilePath(nodeFileData.path ?? "");
     setPythonString(nodeFileData.metadata ?? "");
-  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap]);
+  }, [selectedNode, setNodeFilePath, setPythonString, nodesMetadataMap, nodesMetadataMapMC, isMicrocontrollerMode]);
 
   const deleteKeyCodes = ["Delete", "Backspace"];
 
