@@ -1,13 +1,7 @@
-import { writeFileSync as FsWriteFileSync } from "fs";
-import api from "../api";
+import api from "../api/index";
 
 declare global {
   interface Window {
-    api: typeof api & {
-      isPackaged: boolean;
-    };
-    electronAPI: {
-      writeFileSync: typeof FsWriteFileSync;
-    };
+    api: typeof api;
   }
 }

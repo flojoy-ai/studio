@@ -24,4 +24,18 @@ export default {
   updateBlocksResourcePath: () => {
     ipcRenderer.send("change-blocks-resource-path");
   },
+  checkPythonInstallation: (): Promise<string> =>
+    ipcRenderer.invoke("check-python-installation"),
+  installPipx: (): Promise<string> => ipcRenderer.invoke("install-pipx"),
+  pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke("pipx-ensurepath"),
+  installPoetry: (): Promise<string> => ipcRenderer.invoke("install-poetry"),
+  installDependencies: (): Promise<string> =>
+    ipcRenderer.invoke("install-dependencies"),
+  getPoetryVenvExecutable: (): Promise<string> =>
+    ipcRenderer.invoke("get-poetry-venv-executable"),
+  spawnCaptain: (): Promise<void> => ipcRenderer.invoke("spawn-captain"),
+  killCaptain: (): Promise<string> => ipcRenderer.invoke("kill-captain"),
+  openLogFolder: (): Promise<void> => ipcRenderer.invoke("open-log-folder"),
+  restartFlojoyStudio: (): Promise<void> =>
+    ipcRenderer.invoke("restart-flojoy-studio"),
 };

@@ -25,12 +25,12 @@ log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
 // The built directory structure
 //
-// ├─┬ dist-electron
+// ├─┬ out
 // │ ├─┬ main
 // │ │ └── index.js    > Electron-Main
 // │ └─┬ preload
 // │   └── index.js    > Preload-Scripts
-// ├─┬ studio
+// ├─┬ renderer
 // │ └── index.html    > Electron-Renderer
 //
 const WORKING_DIR = join(__dirname, "../../");
