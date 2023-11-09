@@ -1,4 +1,4 @@
-import { app } from "electron";
+import { BrowserWindow, app, shell } from "electron";
 import * as fs from "fs";
 import { join } from "path";
 
@@ -47,5 +47,15 @@ export class Logger {
       logFileName,
       logFilePath: join(logsFolderPath, logFileName),
     };
+  }
+}
+
+export function openLogFolder(): void {
+  shell.openPath(app.getPath("logs"));
+}
+
+export function sendToStatusBar(message: string): void {
+  if (global.mainWindow.webContents) {
+    (global.mainWindow as BrowserWindow).webContents.send("message", message);
   }
 }

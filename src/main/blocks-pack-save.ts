@@ -1,7 +1,7 @@
 import { BrowserWindow, app, dialog } from "electron";
 import * as fs from "fs";
 import { join } from "path";
-import { runCmd } from "./cmd";
+import { runCmd } from "./command";
 import { CallBackArgs } from "../api";
 import * as os from "os";
 import { execSync } from "child_process";

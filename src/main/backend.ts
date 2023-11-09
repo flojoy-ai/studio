@@ -1,6 +1,6 @@
 import * as childProcess from "child_process";
 import { join, resolve } from "path";
-import { runCmd } from "./cmd";
+import { runCmd } from "./command";
 import type { CallBackArgs } from "../api/index";
 import { dialog } from "electron";
 

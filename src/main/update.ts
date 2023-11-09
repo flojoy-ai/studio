@@ -1,6 +1,6 @@
 import { MessageBoxOptions, app, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
-import { Logger } from "./logger";
+import { Logger } from "./logging";
 
 const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
 export function update(cleanupFunc: () => Promise<void>) {

@@ -12,7 +12,7 @@ import { join } from "node:path";
 import { update } from "./update";
 import { runBackend } from "./backend";
 import { saveBlocksPack } from "./blocks-pack-save";
-import { killSubProcess } from "./cmd";
+import { killSubProcess } from "./command";
 import fs from "fs";
 import { ChildProcess } from "node:child_process";
 import * as http from "http";
