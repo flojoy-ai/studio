@@ -33,7 +33,7 @@ export async function pipxEnsurepath(): Promise<void> {
     new Command({
       win32: `python -c "${pipxBinScript}"`,
       linux: `python3.11 -c "${pipxBinScript}"`,
-      darwin: `python.11 -c "${pipxBinScript}"`,
+      darwin: `python3.11 -c "${pipxBinScript}"`,
     }),
   );
   process.env.PATH = `${pipxBinPath.trim().split(" ").join("")};${

@@ -22,8 +22,7 @@
       "@feature/*": ["src/renderer/routes/*"],
       "@hooks/*": ["src/renderer/hooks/*"],
       "@utils/*": ["src/renderer/utils/*"],
-      "@/*": ["./src/renderer/*"],
-      "@types/*": ["./src/types/*"]
+      "@/*": ["./src/renderer/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"

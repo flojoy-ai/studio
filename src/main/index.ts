@@ -28,7 +28,7 @@ import {
   pipxEnsurepath,
   spawnCaptain,
 } from "./python";
-import { openLogFolder } from "./logging";
+import { logListener, openLogFolder } from "./logging";
 
 // fixpath();
 log.initialize({ preload: true });
@@ -214,6 +214,8 @@ app.whenReady().then(async () => {
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
+
+  ipcMain.on(API.statusBarLogging, logListener);
   ipcMain.handle(API.saveBlocks, () =>
     saveBlocksPack({ win: mainWindow, icon: getIcon(), startup: true }),
   );
@@ -239,6 +241,7 @@ app.whenReady().then(async () => {
 
 app.on("window-all-closed", async () => {
   log.info("window-all-closed fired!");
+  ipcMain.removeListener(API.statusBarLogging, logListener);
   await cleanup();
   if (process.platform !== "darwin") {
     app.exit(0);
@@ -247,6 +250,7 @@ app.on("window-all-closed", async () => {
 
 app.on("before-quit", async (e) => {
   e.preventDefault();
+  mainWindow.removeAllListeners("close");
   log.info("before-quit fired!");
   await cleanup();
   app.exit(0);
@@ -285,22 +289,18 @@ ipcMain.handle("open-win", (_, arg) => {
 });
 
 const cleanup = async () => {
+  const captainProcess = global.captainProcess as ChildProcess;
   log.info(
-    "Cleanup function invoked, running processes: ",
-    global.runningProcesses.length,
+    "Cleanup function invoked, is captain running? ",
+    !captainProcess.killed,
   );
-  if (global.runningProcesses.length) {
-    for (const script of global.runningProcesses) {
-      try {
-        log.info("Killing script: ", script.pid);
-        await killSubProcess(script);
-        global.runningProcesses = global.runningProcesses.filter(
-          (s: ChildProcess) => s.pid !== script.pid,
-        );
-        log.info("kill success!");
-      } catch (error) {
-        log.info("error while killing sub process: ", JSON.stringify(error));
-      }
+  if (captainProcess && captainProcess.exitCode === null) {
+    const success = killCaptain();
+    if (success) {
+      global.captainProcess = null;
+      log.info("Successfully terminated captain :)");
+    } else {
+      log.error("Something went wrong when terminating captain!");
     }
   }
 };

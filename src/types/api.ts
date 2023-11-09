@@ -13,4 +13,5 @@ export enum API {
   openLogFolder = "OPEN_LOG_FOLDER",
   restartFlojoyStudio = "RESTART_STUDIO",
   setUnsavedChanges = "SET_UNSAVED_CHANGES",
+  statusBarLogging = "STATUSBAR_LOGGING",
 }
