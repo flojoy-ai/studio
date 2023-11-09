@@ -35,14 +35,14 @@ const StatusBar = (): JSX.Element => {
       )}
     >
       <div
-        className={cn("relative flex ", {
-          "flex-col justify-start overflow-y-scroll": !minimize,
-          "row justify-between": minimize,
+        className={cn("relative flex", {
+          "flex-col justify-start overflow-y-scroll ": !minimize,
+          "row justify-between bg-background": minimize,
         })}
         style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       >
         {minimize && (
-          <div className="flex h-12 min-w-fit items-center gap-2 bg-background p-4">
+          <div className="flex h-12 min-w-fit items-center gap-2 p-4">
             {![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
@@ -50,7 +50,9 @@ const StatusBar = (): JSX.Element => {
             ) : (
               <Badge variant={"destructive"}>Disconnected</Badge>
             )}
-            <div className="text-sm">{messages[messages.length - 1]}</div>
+            <div className="text-sm">
+              {messages[messages.length - 1]?.slice(0, 145)}...
+            </div>
           </div>
         )}
         <div
