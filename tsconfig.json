@@ -19,10 +19,11 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/renderer/*"],
-      "@feature/*": ["src/renderer/feature/*"],
+      "@feature/*": ["src/renderer/routes/*"],
       "@hooks/*": ["src/renderer/hooks/*"],
       "@utils/*": ["src/renderer/utils/*"],
-      "@/*": ["./src/renderer/*"]
+      "@/*": ["./src/renderer/*"],
+      "@types/*": ["./src/types/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"

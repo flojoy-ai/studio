@@ -1,5 +1,5 @@
 import { ElementsData } from "@src/types";
-import { ParamValueType } from "@src/feature/common/types/ParamValueType";
+import { ParamValueType } from "@src/routes/common/types/ParamValueType";
 import { Input } from "@src/components/ui/input";
 import {
   Select,

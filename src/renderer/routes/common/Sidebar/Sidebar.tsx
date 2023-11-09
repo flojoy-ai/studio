@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 
 import { Leaf, RootNode } from "@src/utils/ManifestLoader";
 import SidebarNode from "./SidebarNode";
-import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
+import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ArrowDownWideNarrow, ArrowUpWideNarrow, XIcon } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { REQUEST_NODE_URL } from "@src/data/constants";

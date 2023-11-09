@@ -1,5 +1,5 @@
 import { IServerStatus } from "@src/context/socket.context";
-import { NodeResult } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 interface WebSocketServerProps {

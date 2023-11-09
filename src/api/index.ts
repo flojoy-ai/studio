@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
-import { API } from "src/types/api";
+import { API } from "../types/api";
 
 export type CallBackArgs =
   | {
@@ -15,7 +15,7 @@ export type CallBackArgs =
 export default {
   ...fileSave,
   setUnsavedChanges: (value: boolean) =>
-    ipcRenderer.send("set-unsaved-changes", value),
+    ipcRenderer.send(API.setUnsavedChanges, value),
   subscribeToElectronLogs: (func: (arg: CallBackArgs) => void) => {
     ipcRenderer.on("electron-log", (event, args: CallBackArgs) => func(args));
   },
@@ -23,17 +23,17 @@ export default {
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
   checkPythonInstallation: (): Promise<string> =>
-    ipcRenderer.invoke("check-python-installation"),
-  installPipx: (): Promise<string> => ipcRenderer.invoke("install-pipx"),
-  pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke("pipx-ensurepath"),
-  installPoetry: (): Promise<string> => ipcRenderer.invoke("install-poetry"),
+    ipcRenderer.invoke(API.checkPythonInstallation),
+  installPipx: (): Promise<string> => ipcRenderer.invoke(API.installPipx),
+  pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke(API.pipxEnsurepath),
+  installPoetry: (): Promise<string> => ipcRenderer.invoke(API.installPoetry),
   installDependencies: (): Promise<string> =>
-    ipcRenderer.invoke("install-dependencies"),
+    ipcRenderer.invoke(API.installDependencies),
   getPoetryVenvExecutable: (): Promise<string> =>
-    ipcRenderer.invoke("get-poetry-venv-executable"),
-  spawnCaptain: (): Promise<void> => ipcRenderer.invoke("spawn-captain"),
-  killCaptain: (): Promise<string> => ipcRenderer.invoke("kill-captain"),
-  openLogFolder: (): Promise<void> => ipcRenderer.invoke("open-log-folder"),
+    ipcRenderer.invoke(API.getPoetryVenvExecutable),
+  spawnCaptain: (): Promise<void> => ipcRenderer.invoke(API.spawnCaptain),
+  killCaptain: (): Promise<string> => ipcRenderer.invoke(API.killCaptain),
+  openLogFolder: (): Promise<void> => ipcRenderer.invoke(API.openLogFolder),
   restartFlojoyStudio: (): Promise<void> =>
-    ipcRenderer.invoke("restart-flojoy-studio"),
+    ipcRenderer.invoke(API.restartFlojoyStudio),
 };

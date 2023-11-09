@@ -6,13 +6,14 @@ import { useFlowChartState } from "./hooks/useFlowChartState";
 import { useSocket } from "./hooks/useSocket";
 import { sendFrontEndLoadsToMix } from "@src/services/MixpanelServices";
 import { ErrorPage } from "@src/ErrorPage";
-import FlowChartTab from "./feature/flow_chart_panel/FlowChartTabView";
-import DeviceTab from "./feature/device_panel/DeviceView";
+import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
+import DeviceTab from "./routes/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
 // import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
-import PythonManagerTabView from "./feature/python_manager_panel/PythonManagerTabView";
-import { Layout } from "./feature/common/Layout";
-import LoadingPage from "./feature/loading/LoadingPage";
+import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
+import { Layout } from "./routes/common/Layout";
+import LoadingPage from "./routes/loading/LoadingPage";
+import { Index } from "./routes/index";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -41,6 +42,7 @@ const App = () => {
       <div id="tw-theme-root">
         {/* <ElectronLogsDialog /> */}
         <Routes>
+          <Route path="/" element={<Index />} />
           <Route path="/" element={<Layout />}>
             <Route
               path="/flowchart"

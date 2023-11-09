@@ -8,7 +8,7 @@ import { ParamList } from "./ParamList";
 import { Check, Info, Pencil, TrashIcon, X } from "lucide-react";
 import { Button } from "@src/components/ui/button";
 import { Input } from "@src/components/ui/input";
-import { LAYOUT_TOP_HEIGHT } from "@src/feature/common/Layout";
+import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { ScrollArea } from "@src/components/ui/scroll-area";
 
 type NodeEditModalProps = {

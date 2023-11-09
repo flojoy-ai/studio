@@ -1,4 +1,4 @@
-import { NodeResult } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { SetStateAction } from "jotai";
 import { createContext, Dispatch, useEffect, useMemo, useState } from "react";
 import { WebSocketServer } from "../web-socket/socket";

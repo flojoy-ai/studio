@@ -14,6 +14,7 @@ export default defineConfig({
       port: 5391,
     },
     root: "./src",
+    publicDir: resolve(__dirname, "public"),
     build: {
       rollupOptions: {
         input: {

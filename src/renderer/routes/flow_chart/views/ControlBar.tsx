@@ -4,7 +4,7 @@ import KeyboardShortcutModal from "./KeyboardShortcutModal";
 import { NodeSettingsModal } from "./NodeSettingsModal";
 import EnvVarModal from "./EnvVarModal";
 import SaveFlowChartBtn from "./SaveFlowChartBtn";
-import { DarkModeToggle } from "@src/feature/common/DarkModeToggle";
+import { DarkModeToggle } from "@src/routes/common/DarkModeToggle";
 import {
   Menubar,
   MenubarContent,

@@ -18,7 +18,17 @@ import { ChildProcess } from "node:child_process";
 import * as http from "http";
 // import fixpath from "fix-path";
 import log from "electron-log/main";
-import { API } from "src/types/api";
+import { API } from "../types/api";
+import {
+  checkPythonInstallation,
+  installDependencies,
+  installPipx,
+  installPoetry,
+  killCaptain,
+  pipxEnsurepath,
+  spawnCaptain,
+} from "./python";
+import { openLogFolder } from "./logging";
 
 // fixpath();
 log.initialize({ preload: true });
@@ -201,7 +211,7 @@ async function createWindow() {
 
 app.whenReady().then(async () => {
   createWindow();
-  ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
+  ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
   ipcMain.handle(API.saveBlocks, () =>
@@ -213,6 +223,18 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.changeBlocksPath, () =>
     saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),
   );
+  ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);
+  ipcMain.handle(API.installPipx, installPipx);
+  ipcMain.handle(API.pipxEnsurepath, pipxEnsurepath);
+  ipcMain.handle(API.installPoetry, installPoetry);
+  ipcMain.handle(API.installDependencies, installDependencies);
+  ipcMain.handle(API.spawnCaptain, spawnCaptain);
+  ipcMain.handle(API.killCaptain, killCaptain);
+  ipcMain.handle(API.openLogFolder, openLogFolder);
+  ipcMain.handle(API.restartFlojoyStudio, () => {
+    app.relaunch();
+    app.exit();
+  });
 });
 
 app.on("window-all-closed", async () => {

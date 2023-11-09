@@ -8,7 +8,7 @@ import {
   isLeafParentNode,
 } from "@src/utils/ManifestLoader";
 import SidebarSection from "./SidebarSection";
-import { LeafClickHandler } from "@src/feature/common/Sidebar/Sidebar";
+import { LeafClickHandler } from "@src/routes/common/Sidebar/Sidebar";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 import { NumpySvg, ScipySvg } from "@src/assets/ArithmeticSVG";
 import { twMerge } from "tailwind-merge";

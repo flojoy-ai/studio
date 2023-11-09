@@ -5,11 +5,11 @@ import { projectAtom } from "@src/hooks/useFlowChartState";
 import { Input } from "@src/components/ui/input";
 import { useHasUnsavedChanges } from "@src/hooks/useHasUnsavedChanges";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
-import { useEffect } from "react";
-import { IServerStatus } from "@src/context/socket.context";
+// import { useEffect } from "react";
+// import { IServerStatus } from "@src/context/socket.context";
 import Logs from "../logs/Logs";
 import useElectronLogs from "@src/hooks/useElectronLogs";
 import ElectronLogsDialog from "@src/components/electron/ElectronLogsDialog";
@@ -38,16 +38,16 @@ export const Layout = () => {
     setHasUnsavedChanges(true);
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (
-      !serverStatus ||
-      [IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
-    ) {
-      navigate("/loading");
-    }
-  }, [navigate, serverStatus]);
+  // useEffect(() => {
+  //   if (
+  //     !serverStatus ||
+  //     [IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
+  //   ) {
+  //     navigate("/loading");
+  //   }
+  // }, [navigate, serverStatus]);
 
   return (
     <div>

@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@src/components/ui/dialog";
-import { NodeResult } from "@src/feature/common/types/ResultsType";
+import { NodeResult } from "@src/routes/common/types/ResultsType";
 import { ElementsData } from "@src/types/node";
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
 import { useTheme } from "@src/providers/themeProvider";
