@@ -11,14 +11,14 @@ import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
 import { runBackend } from "./backend";
-import { saveBlocksPack } from "./blocks-pack-save";
+import { saveBlocksPack } from "./blocks";
 import { killSubProcess } from "./command";
 import fs from "fs";
 import { ChildProcess } from "node:child_process";
 import * as http from "http";
 // import fixpath from "fix-path";
 import log from "electron-log/main";
-import { is } from "@electron-toolkit/utils";
+import { API } from "src/types/api";
 
 // fixpath();
 log.initialize({ preload: true });
@@ -144,14 +144,11 @@ async function createWindow() {
   if (process.platform === "darwin") {
     app.dock.setIcon(nativeImage.createFromPath(getIcon()));
   }
-  if (is.dev && process.env["ELECTRON_RENDERER_URL"]) {
-    mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+  if (!app.isPackaged && process.env["ELECTRON_RENDERER_URL"]) {
+    await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
   } else {
-    mainWindow.loadFile(indexHtml).catch((err) => {
-      log.error(" loadfile error: ", err);
-    });
+    await mainWindow.loadFile(indexHtml);
   }
-  await saveBlocksPack({ win: mainWindow, icon: getIcon(), startup: true });
 
   mainWindow.on("close", (e) => {
     if (!global.hasUnsavedChanges) {
@@ -198,24 +195,24 @@ async function createWindow() {
     return { action: "deny" };
   });
 
-  ipcMain.on("update-blocks-pack", () => {
-    if (global.mainWindow)
-      saveBlocksPack({ win: global.mainWindow, icon: getIcon(), update: true });
-  });
-  ipcMain.on("change-blocks-resource-path", async () => {
-    if (global.mainWindow) {
-      await saveBlocksPack({ win: global.mainWindow, icon: getIcon() });
-    }
-  });
   // Apply electron-updater
   update(cleanup);
 }
 
 app.whenReady().then(async () => {
+  createWindow();
   ipcMain.on("set-unsaved-changes", handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
-  createWindow();
+  ipcMain.handle(API.saveBlocks, () =>
+    saveBlocksPack({ win: mainWindow, icon: getIcon(), startup: true }),
+  );
+  ipcMain.handle(API.updateBlocks, () =>
+    saveBlocksPack({ win: global.mainWindow, icon: getIcon(), update: true }),
+  );
+  ipcMain.handle(API.changeBlocksPath, () =>
+    saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),
+  );
 });
 
 app.on("window-all-closed", async () => {

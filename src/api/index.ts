@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
+import { API } from "src/types/api";
 
 export type CallBackArgs =
   | {
@@ -18,12 +19,9 @@ export default {
   subscribeToElectronLogs: (func: (arg: CallBackArgs) => void) => {
     ipcRenderer.on("electron-log", (event, args: CallBackArgs) => func(args));
   },
-  updateBlocksPack: () => {
-    ipcRenderer.send("update-blocks-pack");
-  },
-  updateBlocksResourcePath: () => {
-    ipcRenderer.send("change-blocks-resource-path");
-  },
+  saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
+  updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
+  changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
   checkPythonInstallation: (): Promise<string> =>
     ipcRenderer.invoke("check-python-installation"),
   installPipx: (): Promise<string> => ipcRenderer.invoke("install-pipx"),
