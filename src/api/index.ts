@@ -16,8 +16,8 @@ export default {
   ...fileSave,
   setUnsavedChanges: (value: boolean) =>
     ipcRenderer.send(API.setUnsavedChanges, value),
-  subscribeToElectronLogs: (func: (arg: CallBackArgs) => void) => {
-    ipcRenderer.on("electron-log", (event, args: CallBackArgs) => func(args));
+  subscribeToElectronLogs: (func: (arg: string) => void) => {
+    ipcRenderer.on(API.statusBarLogging, (event, data: string) => func(data));
   },
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),

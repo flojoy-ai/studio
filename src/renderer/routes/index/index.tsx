@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { SetupStatus } from "@src/types/status";
 import SetupStep from "@src/components/index/SetupStep";
 import {
@@ -16,6 +16,7 @@ import { Button } from "@src/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
+import StatusBar from "@src/components/index/StatusBar";
 
 export const Index = (): JSX.Element => {
   //   const captainReady = useCaptainStateStore((state) => state.ready);
@@ -223,54 +224,57 @@ export const Index = (): JSX.Element => {
   }, [navigate, serverStatus]);
 
   return (
-    <div className="flex grow flex-col items-center p-4">
-      <div className="py-4"></div>
-      <div className="text-4xl font-bold">Welcome to Flojoy Studio!</div>
-      <div className="py-1"></div>
-      <div className="">
-        We are excited to have you here, please give us some time to get
-        everything ready :)
-      </div>
-
-      <div className="py-4"></div>
-      <div className="flex w-full items-center justify-center">
-        <div className="w-fit rounded-xl bg-background p-4">
-          {setupStatuses.map((status, idx) => (
-            <SetupStep
-              status={status.status}
-              key={idx}
-              message={status.message}
-            />
-          ))}
+    <div className="flex h-screen flex-col bg-muted">
+      <div className="flex grow flex-col items-center p-4">
+        <div className="py-4"></div>
+        <div className="text-4xl font-bold">Welcome to Flojoy Studio!</div>
+        <div className="py-1"></div>
+        <div className="">
+          We are excited to have you here, please give us some time to get
+          everything ready :)
         </div>
+
+        <div className="py-4"></div>
+        <div className="flex w-full items-center justify-center">
+          <div className="w-fit rounded-xl bg-background p-4">
+            {setupStatuses.map((status, idx) => (
+              <SetupStep
+                status={status.status}
+                key={idx}
+                message={status.message}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="py-4"></div>
+
+        {setupStatuses.find((status) => status.status === "error") && (
+          <Button
+            onClick={async (): Promise<void> =>
+              await window.api.restartFlojoyStudio()
+            }
+          >
+            Retry
+          </Button>
+        )}
+
+        <AlertDialog open={showError} onOpenChange={setShowError}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{errorTitle}</AlertDialogTitle>
+              <AlertDialogDescription>{errorDesc}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={errorAction}>
+                {errorActionName}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
-
-      <div className="py-4"></div>
-
-      {setupStatuses.find((status) => status.status === "error") && (
-        <Button
-          onClick={async (): Promise<void> =>
-            await window.api.restartFlojoyStudio()
-          }
-        >
-          Retry
-        </Button>
-      )}
-
-      <AlertDialog open={showError} onOpenChange={setShowError}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{errorTitle}</AlertDialogTitle>
-            <AlertDialogDescription>{errorDesc}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={errorAction}>
-              {errorActionName}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <StatusBar />
     </div>
   );
 };
