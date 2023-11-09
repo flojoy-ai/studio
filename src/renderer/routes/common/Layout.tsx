@@ -10,7 +10,8 @@ import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
 // import { useEffect } from "react";
 // import { IServerStatus } from "@src/context/socket.context";
-import Logs from "../logs/Logs";
+// import Logs from "../logs/Logs";
+import StatusBar from "@src/routes/command/StatusBar";
 // import useElectronLogs from "@src/hooks/useElectronLogs";
 // import ElectronLogsDialog from "@src/components/electron/ElectronLogsDialog";
 
@@ -23,7 +24,7 @@ export const LAYOUT_TOP_HEIGHT =
 
 export const Layout = () => {
   const {
-    states: { serverStatus, logs },
+    states: { serverStatus },
   } = useSocket();
   // const { title, description, openDialog, setOpenDialog, outputs } =
   //   useElectronLogs();
@@ -88,7 +89,8 @@ export const Layout = () => {
           open={openDialog}
           setOpen={setOpenDialog}
         /> */}
-        <Logs logs={logs.length ? logs : ["No logs found!"]} />
+        <StatusBar />
+        {/* <Logs logs={logs.length ? logs : ["No logs found!"]} /> */}
         <Outlet />
       </main>
     </div>

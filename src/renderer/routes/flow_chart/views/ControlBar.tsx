@@ -30,10 +30,10 @@ const ControlBar = () => {
   const { resolvedTheme } = useTheme();
 
   const handleUpdateBlocksPack = () => {
-    window.api.updateBlocksPack();
+    window.api.updateBlocks();
   };
   const handleChangeNodesPath = () => {
-    window.api.updateBlocksResourcePath();
+    window.api.changeBlocksPath();
   };
 
   useEffect(() => {

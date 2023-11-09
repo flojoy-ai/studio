@@ -10,12 +10,10 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-import { runBackend } from "./backend";
 import { saveBlocksPack } from "./blocks";
-import { killSubProcess } from "./command";
 import fs from "fs";
 import { ChildProcess } from "node:child_process";
-import * as http from "http";
+// import * as http from "http";
 // import fixpath from "fix-path";
 import log from "electron-log/main";
 import { API } from "../types/api";
@@ -109,18 +107,18 @@ contextMenu({
   },
 });
 
-const isPortFree = (port: number) =>
-  new Promise((resolve) => {
-    const server = http
-      .createServer()
-      .listen(port, "127.0.0.1", () => {
-        server.close();
-        resolve(true);
-      })
-      .on("error", () => {
-        resolve(false);
-      });
-  });
+// const isPortFree = (port: number) =>
+//   new Promise((resolve) => {
+//     const server = http
+//       .createServer()
+//       .listen(port, "127.0.0.1", () => {
+//         server.close();
+//         resolve(true);
+//       })
+//       .on("error", () => {
+//         resolve(false);
+//       });
+//   });
 
 global.runningProcesses = [];
 
@@ -174,30 +172,30 @@ async function createWindow() {
     if (choice > 0) e.preventDefault();
   });
 
-  if (app.isPackaged) {
-    if (await isPortFree(5392)) {
-      runBackend(WORKING_DIR, mainWindow).then(({ success }) => {
-        if (success) {
-          // reload studio html to fetch fresh manifest file
-          mainWindow?.reload();
-        }
-      });
-    } else {
-      const choice = dialog.showMessageBoxSync(mainWindow!, {
-        type: "question",
-        buttons: ["Exit", "Refresh"],
-        title: "Existing Server Detected",
-        message:
-          "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
-      });
-      if (choice > 0) {
-        app.relaunch();
-        app.exit();
-      } else {
-        app.quit();
-      }
-    }
-  }
+  // if (app.isPackaged) {
+  //   if (await isPortFree(5392)) {
+  //     runBackend(WORKING_DIR, mainWindow).then(({ success }) => {
+  //       if (success) {
+  //         // reload studio html to fetch fresh manifest file
+  //         mainWindow?.reload();
+  //       }
+  //     });
+  //   } else {
+  //     const choice = dialog.showMessageBoxSync(mainWindow!, {
+  //       type: "question",
+  //       buttons: ["Exit", "Refresh"],
+  //       title: "Existing Server Detected",
+  //       message:
+  //         "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
+  //     });
+  //     if (choice > 0) {
+  //       app.relaunch();
+  //       app.exit();
+  //     } else {
+  //       app.quit();
+  //     }
+  //   }
+  // }
 
   // Make all links open with the browser, not with the application
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {

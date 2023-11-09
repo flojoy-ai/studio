@@ -1,5 +1,4 @@
 import * as childProcess from "child_process";
-import treeKill from "tree-kill";
 import type { BrowserWindow } from "electron";
 import { Logger } from "./logging";
 import log from "electron-log/main";
@@ -68,29 +67,6 @@ export const runCmd = ({
       }
       reject({ code, lastOutput });
     });
-  });
-};
-
-export const killSubProcess = (script: childProcess.ChildProcess) => {
-  return new Promise((resolve, reject) => {
-    if (!script.killed) {
-      treeKill(script.pid ?? 0, (err) => {
-        if (err) {
-          console.log(
-            "error in killing pid: ",
-            script.pid,
-            " ",
-            err.message.toString(),
-          );
-          reject(err.message.toString());
-        } else {
-          console.log("killed pid: ", script.pid, " successfully!");
-          resolve(true);
-        }
-      });
-    } else {
-      resolve(true);
-    }
   });
 };
 
