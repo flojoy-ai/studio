@@ -18,11 +18,11 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@feature/*": ["src/feature/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@/*": ["./src/*"]
+      "@src/*": ["src/renderer/*"],
+      "@feature/*": ["src/renderer/feature/*"],
+      "@hooks/*": ["src/renderer/hooks/*"],
+      "@utils/*": ["src/renderer/utils/*"],
+      "@/*": ["./src/renderer/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"
