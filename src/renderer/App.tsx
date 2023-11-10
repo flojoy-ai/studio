@@ -9,10 +9,8 @@ import { ErrorPage } from "@src/ErrorPage";
 import FlowChartTab from "./routes/flow_chart/FlowChartTabView";
 import DeviceTab from "./routes/device_panel/DeviceView";
 import { ThemeProvider } from "@src/providers/themeProvider";
-// import ElectronLogsDialog from "./components/electron/ElectronLogsDialog";
 import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./routes/common/Layout";
-import LoadingPage from "./routes/loading/LoadingPage";
 import { Index } from "./routes/index";
 
 function ErrorBoundary() {
@@ -60,7 +58,6 @@ const App = () => {
               errorElement={<ErrorBoundary />}
             />
           </Route>
-          <Route path="/loading" element={<LoadingPage />} />
         </Routes>
       </div>
     </ThemeProvider>

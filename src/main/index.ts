@@ -13,8 +13,6 @@ import { update } from "./update";
 import { saveBlocksPack } from "./blocks";
 import fs from "fs";
 import { ChildProcess } from "node:child_process";
-// import * as http from "http";
-// import fixpath from "fix-path";
 import log from "electron-log/main";
 import { API } from "../types/api";
 import {
@@ -27,8 +25,8 @@ import {
   spawnCaptain,
 } from "./python";
 import { logListener, openLogFolder } from "./logging";
+import { isPortFree, killProcess } from "./utils";
 
-// fixpath();
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
 // The built directory structure
@@ -41,6 +39,11 @@ log.info("Welcome to Flojoy Studio!");
 // ├─┬ renderer
 // │ └── index.html    > Electron-Renderer
 //
+const envPath = process.env.PATH ?? "";
+
+if (!envPath.split(":").includes("usr/local/bin")) {
+  process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
+}
 const WORKING_DIR = join(__dirname, "../../");
 const DIST_ELECTRON = join(WORKING_DIR, "dist-electron");
 const PUBLIC_DIR = join(WORKING_DIR, app.isPackaged ? "../public" : "public");
@@ -107,19 +110,6 @@ contextMenu({
   },
 });
 
-// const isPortFree = (port: number) =>
-//   new Promise((resolve) => {
-//     const server = http
-//       .createServer()
-//       .listen(port, "127.0.0.1", () => {
-//         server.close();
-//         resolve(true);
-//       })
-//       .on("error", () => {
-//         resolve(false);
-//       });
-//   });
-
 global.runningProcesses = [];
 
 // Here, you can also use other preload
@@ -152,6 +142,23 @@ async function createWindow() {
   if (process.platform === "darwin") {
     app.dock.setIcon(nativeImage.createFromPath(getIcon()));
   }
+  if (!(await isPortFree(5392))) {
+    const choice = dialog.showMessageBoxSync(global.mainWindow, {
+      type: "question",
+      buttons: ["Exit", "Kill Process"],
+      title: "Existing Server Detected",
+      message:
+        "Seems like there is already a Flojoy server running! Do you want to kill it?",
+      icon: getIcon(),
+    });
+    if (choice == 0) {
+      mainWindow.destroy();
+      app.quit();
+      process.exit(0);
+    } else {
+      await killProcess(5392);
+    }
+  }
   if (!app.isPackaged && process.env["ELECTRON_RENDERER_URL"]) {
     await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
   } else {
@@ -172,31 +179,6 @@ async function createWindow() {
     if (choice > 0) e.preventDefault();
   });
 
-  // if (app.isPackaged) {
-  //   if (await isPortFree(5392)) {
-  //     runBackend(WORKING_DIR, mainWindow).then(({ success }) => {
-  //       if (success) {
-  //         // reload studio html to fetch fresh manifest file
-  //         mainWindow?.reload();
-  //       }
-  //     });
-  //   } else {
-  //     const choice = dialog.showMessageBoxSync(mainWindow!, {
-  //       type: "question",
-  //       buttons: ["Exit", "Refresh"],
-  //       title: "Existing Server Detected",
-  //       message:
-  //         "Seems like there is already a Flojoy server running! You should terminate that before running this client.",
-  //     });
-  //     if (choice > 0) {
-  //       app.relaunch();
-  //       app.exit();
-  //     } else {
-  //       app.quit();
-  //     }
-  //   }
-  // }
-
   // Make all links open with the browser, not with the application
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith("https:")) shell.openExternal(url);
@@ -208,7 +190,7 @@ async function createWindow() {
 }
 
 app.whenReady().then(async () => {
-  createWindow();
+  createWindow().catch((err) => console.log(err));
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
   ipcMain.on("write-file-sync", handleWriteFileSync);
   ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
@@ -290,7 +272,7 @@ const cleanup = async () => {
   const captainProcess = global.captainProcess as ChildProcess;
   log.info(
     "Cleanup function invoked, is captain running? ",
-    !captainProcess.killed,
+    !(captainProcess?.killed ?? true),
   );
   if (captainProcess && captainProcess.exitCode === null) {
     const success = killCaptain();
