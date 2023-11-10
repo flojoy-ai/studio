@@ -22,7 +22,7 @@ class HardwareConnection(ABC):
 
     def __init__(self, handle: Any, cleanup: Callable[[Any], Any]) -> None:
         self._handle = handle
-        self.cleanup = cleanup
+        self._cleanup = cleanup
 
     def get_handle(self):
         return self._handle
