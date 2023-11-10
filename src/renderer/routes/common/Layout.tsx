@@ -8,12 +8,7 @@ import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
-// import { useEffect } from "react";
-// import { IServerStatus } from "@src/context/socket.context";
-// import Logs from "../logs/Logs";
 import StatusBar from "@src/routes/command/StatusBar";
-// import useElectronLogs from "@src/hooks/useElectronLogs";
-// import ElectronLogsDialog from "@src/components/electron/ElectronLogsDialog";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -26,8 +21,6 @@ export const Layout = () => {
   const {
     states: { serverStatus },
   } = useSocket();
-  // const { title, description, openDialog, setOpenDialog, outputs } =
-  //   useElectronLogs();
 
   const [project, setProject] = useAtom(projectAtom);
   const { hasUnsavedChanges, setHasUnsavedChanges } = useHasUnsavedChanges();
@@ -38,17 +31,6 @@ export const Layout = () => {
     setProject({ ...project, name: e.target.value });
     setHasUnsavedChanges(true);
   };
-
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (
-  //     !serverStatus ||
-  //     [IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
-  //   ) {
-  //     navigate("/loading");
-  //   }
-  // }, [navigate, serverStatus]);
 
   return (
     <div>
@@ -82,15 +64,7 @@ export const Layout = () => {
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
         <Toaster theme={theme} closeButton />
-        {/* <ElectronLogsDialog
-          title={title}
-          description={description}
-          logs={outputs}
-          open={openDialog}
-          setOpen={setOpenDialog}
-        /> */}
         <StatusBar />
-        {/* <Logs logs={logs.length ? logs : ["No logs found!"]} /> */}
         <Outlet />
       </main>
     </div>
