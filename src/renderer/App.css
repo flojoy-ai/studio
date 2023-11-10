@@ -87,3 +87,12 @@ div {
 [data-sonner-toast] {
   overflow-wrap: anywhere;
 }
+
+/* Some styles to get Electron happy */
+/* https://stackoverflow.com/a/71188844 */
+
+.titlebar {
+  -webkit-app-region: drag; /* Allow user to drag the window using this titlebar */
+  -webkit-user-select: none; /* Prevent user from selecting things */
+  user-select: none;
+}

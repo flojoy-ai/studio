@@ -38,6 +38,9 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
+        <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
+          Flojoy Studio
+        </div>
         {/* <ElectronLogsDialog /> */}
         <Routes>
           <Route path="/" element={<Index />} />

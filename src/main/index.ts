@@ -124,7 +124,12 @@ async function createWindow() {
   const mainWindow = new BrowserWindow({
     title: "Flojoy Studio",
     icon: getIcon(),
-    autoHideMenuBar: app.isPackaged,
+    autoHideMenuBar: true,
+    titleBarStyle: "hidden",
+    trafficLightPosition: {
+      x: 15,
+      y: 17, // macOS traffic lights seem to be 14px in diameter. If you want them vertically centered, set this to `titlebar_height / 2 - 7`.
+    },
     webPreferences: {
       preload,
       sandbox: false,

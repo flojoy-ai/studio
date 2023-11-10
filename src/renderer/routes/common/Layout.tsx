@@ -19,7 +19,8 @@ export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT +
   ACTIONS_HEIGHT +
   SERVER_STATUS_HEIGHT +
-  BOTTOM_STATUS_BAR_HEIGHT;
+  BOTTOM_STATUS_BAR_HEIGHT +
+  48;
 
 export const Layout = () => {
   const {
