@@ -95,7 +95,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background;
+    @apply bg-accent;
     @apply text-primary;
   }
   main {

@@ -360,7 +360,7 @@ const FlowChartTab = () => {
 
         <div
           style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
-          className="relative overflow-hidden"
+          className="relative overflow-hidden bg-background"
           data-testid="react-flow"
           id="flow-chart-area"
         >
@@ -379,7 +379,7 @@ const FlowChartTab = () => {
 
           <ReactFlow
             id="flow-chart"
-            className="!fixed"
+            className="!absolute"
             deleteKeyCode={deleteKeyCodes}
             proOptions={proOptions}
             nodes={[...nodes, ...textNodes]}

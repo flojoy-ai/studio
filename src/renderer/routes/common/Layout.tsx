@@ -13,9 +13,13 @@ import StatusBar from "@src/routes/common/StatusBar";
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
 const SERVER_STATUS_HEIGHT = 32;
+const BOTTOM_STATUS_BAR_HEIGHT = 75;
 
 export const LAYOUT_TOP_HEIGHT =
-  HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
+  HEADER_HEIGHT +
+  ACTIONS_HEIGHT +
+  SERVER_STATUS_HEIGHT +
+  BOTTOM_STATUS_BAR_HEIGHT;
 
 export const Layout = () => {
   const {
@@ -34,7 +38,7 @@ export const Layout = () => {
 
   return (
     <div>
-      <div className="relative mx-8">
+      <div className="relative bg-background px-8">
         <div className="absolute left-0 top-1.5 flex items-center gap-x-1">
           <Input
             className={
@@ -62,11 +66,14 @@ export const Layout = () => {
         <div />
         <Header />
       </div>
-      <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
+      <main
+        className="bg-background"
+        style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
+      >
         <Toaster theme={theme} closeButton />
         <Outlet />
-        <StatusBar />
       </main>
+      <StatusBar />
     </div>
   );
 };
