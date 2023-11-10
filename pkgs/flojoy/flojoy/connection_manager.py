@@ -53,4 +53,4 @@ class DeviceConnectionManager:
         with _connection_lock:
             cls.handles.clear()
 
-        logger.debug(f"Connections closed: {cls.handles}")
+        logger.info(f"Connections closed: {cls.handles}")

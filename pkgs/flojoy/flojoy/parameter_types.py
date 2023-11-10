@@ -54,8 +54,11 @@ class CameraConnection(HardwareConnection):
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
         super().__init__(
-            handle, lambda conn: conn.release() if cleanup is None else cleanup
+            handle, (lambda conn: conn.release()) if cleanup is None else cleanup
         )
+
+    def __del__(self):
+        super().__del__()
 
 
 class SerialConnection(HardwareConnection):
@@ -63,8 +66,11 @@ class SerialConnection(HardwareConnection):
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
         super().__init__(
-            handle, lambda conn: conn.close() if cleanup is None else cleanup
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
         )
+
+    def __del__(self):
+        super().__del__()
 
 
 class VisaConnection(HardwareConnection):
@@ -72,8 +78,11 @@ class VisaConnection(HardwareConnection):
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
         super().__init__(
-            handle, lambda conn: conn.close() if cleanup is None else cleanup
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
         )
+
+    def __del__(self):
+        super().__del__()
 
 
 class NIConnection(HardwareConnection):
@@ -81,8 +90,11 @@ class NIConnection(HardwareConnection):
         self, handle: Any, cleanup: Callable[[Any], Any] | None = None
     ) -> None:
         super().__init__(
-            handle, lambda conn: conn.close() if cleanup is None else cleanup
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
         )
+
+    def __del__(self):
+        super().__del__()
 
 
 class NodeReference:
