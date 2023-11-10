@@ -283,7 +283,7 @@ const FlowChartTab = () => {
   return (
     <>
       <ReactFlowProvider>
-        <div className="mx-8" style={{ height: ACTIONS_HEIGHT }}>
+        <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
           <div className="flex">
             <TooltipProvider>
