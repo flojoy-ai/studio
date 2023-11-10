@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
 import { cn } from "@src/lib/utils";
 import { Button } from "@src/components/ui/button";
-import { ChevronsUp, ChevronsDown } from "lucide-react";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -30,19 +29,19 @@ const StatusBar = (): JSX.Element => {
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-36px)] transition-transform duration-700 ease-in-out",
+        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-60px)] transition-transform duration-700 ease-in-out",
         { "translate-y-0": !minimize },
       )}
     >
       <div
         className={cn("relative flex", {
           "flex-col justify-start overflow-y-scroll ": !minimize,
-          "row justify-between bg-background": minimize,
+          "row items-center justify-between bg-background": minimize,
         })}
         style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
       >
         {minimize && (
-          <div className="flex h-12 min-w-fit items-center gap-2 p-4">
+          <div className="flex min-w-fit items-center gap-2 ps-2">
             {![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
@@ -57,19 +56,18 @@ const StatusBar = (): JSX.Element => {
         )}
         <div
           className={cn(
-            "sticky right-0 top-0 z-50 flex h-9 w-full justify-end",
+            "sticky right-0 top-0 z-50 flex h-full w-full justify-end p-3",
             {
-              "w-full": !minimize,
+              "w-full p-0": !minimize,
             },
           )}
         >
           <Button
-            variant={"ghost"}
-            className="w-29 rounded-none border-2 border-accent bg-slate-200 dark:bg-accent "
+            variant={"outline"}
+            className="w-29 rounded-none  "
             onClick={() => setMinimize((p) => !p)}
           >
-            {minimize ? <ChevronsUp size={20} /> : <ChevronsDown size={20} />}
-            Logs
+            {minimize ? "Expand log" : "Collapse log"}
           </Button>
         </div>
         <div
@@ -81,20 +79,22 @@ const StatusBar = (): JSX.Element => {
             "light:border-slate-700 border-t dark:border-slate-300",
           )}
         >
-          {messages.map((log, i) => (
-            <div
-              key={log}
-              ref={i === messages?.length - 1 ? lastElem : null}
-              className={cn(
-                "overflow-hidden whitespace-break-spaces bg-background py-2 font-mono text-sm",
-                log.toLowerCase().includes("error")
-                  ? "text-red-700"
-                  : "text-muted-foreground",
-              )}
-            >
-              {log}
-            </div>
-          ))}
+          {(messages.length > 0 ? messages : ["No logs found!"]).map(
+            (log, i) => (
+              <div
+                key={log}
+                ref={i === messages?.length - 1 ? lastElem : null}
+                className={cn(
+                  "overflow-hidden whitespace-break-spaces bg-background py-2 font-mono text-sm",
+                  log.toLowerCase().includes("error")
+                    ? "text-red-700"
+                    : "text-muted-foreground",
+                )}
+              >
+                {log}
+              </div>
+            ),
+          )}
         </div>
       </div>
     </div>

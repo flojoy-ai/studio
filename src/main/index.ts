@@ -45,7 +45,7 @@ if (!envPath.split(":").includes("usr/local/bin")) {
   process.env.PATH = [...envPath.split(":"), "usr/local/bin"].join(":");
 }
 const WORKING_DIR = join(__dirname, "../../");
-const DIST_ELECTRON = join(WORKING_DIR, "dist-electron");
+const DIST_ELECTRON = join(WORKING_DIR, "out");
 const PUBLIC_DIR = join(WORKING_DIR, app.isPackaged ? "../public" : "public");
 
 // Disable GPU Acceleration for Windows 7
@@ -116,7 +116,7 @@ global.runningProcesses = [];
 const preload = join(__dirname, `../preload/index.js`);
 
 const url = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(DIST_ELECTRON, "studio", "index.html");
+const indexHtml = join(DIST_ELECTRON, "renderer", "index.html");
 
 app.setName("Flojoy Studio");
 

@@ -8,7 +8,7 @@ import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
-import StatusBar from "@src/routes/command/StatusBar";
+import StatusBar from "@src/routes/common/StatusBar";
 
 export const HEADER_HEIGHT = 72;
 export const ACTIONS_HEIGHT = 56;
@@ -64,8 +64,8 @@ export const Layout = () => {
       </div>
       <main style={{ minHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}>
         <Toaster theme={theme} closeButton />
-        <StatusBar />
         <Outlet />
+        <StatusBar />
       </main>
     </div>
   );

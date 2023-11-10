@@ -16,7 +16,7 @@ import { Button } from "@src/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
-import StatusBar from "@src/routes/command/StatusBar";
+import StatusBar from "@src/routes/common/StatusBar";
 
 export const Index = (): JSX.Element => {
   //   const captainReady = useCaptainStateStore((state) => state.ready);
