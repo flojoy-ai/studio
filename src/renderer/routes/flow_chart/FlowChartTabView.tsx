@@ -398,7 +398,7 @@ const FlowChartTab = () => {
             }}
           >
             <MiniMap
-              className="!bottom-40 !bg-background"
+              className="!bottom-1 !bg-background"
               nodeColor={
                 resolvedTheme === "light"
                   ? "rgba(0, 0, 0, 0.25)"
@@ -414,7 +414,7 @@ const FlowChartTab = () => {
             />
             <Controls
               fitViewOptions={{ padding: 0.8 }}
-              className="!bottom-40 !shadow-control"
+              className="!bottom-1 !shadow-control"
             />
           </ReactFlow>
 
