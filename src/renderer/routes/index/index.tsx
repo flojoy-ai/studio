@@ -12,7 +12,6 @@ import {
   AlertDialogTitle,
 } from "@src/components/ui/alert-dialog";
 import { Button } from "@src/components/ui/button";
-// import { useCaptainStateStore } from "@src/stores/lifecycle";
 import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
@@ -73,12 +72,8 @@ export const Index = (): JSX.Element => {
 
   const checkPythonInstallation = async (): Promise<void> => {
     try {
-      const data = await window.api.checkPythonInstallation();
-      console.log(" python interpreters: ", data);
-      if (data?.length == 0) {
-        throw Error("No Python 3.11 interpreters found!");
-      }
-      setPyInterpreters(data);
+      const interpreters = await window.api.checkPythonInstallation();
+      setPyInterpreters(interpreters ?? []);
       updateSetupStatus({
         stage: "check-python-installation",
         status: "running",
@@ -273,48 +268,69 @@ export const Index = (): JSX.Element => {
             {setupStatuses.map((status, idx) => (
               <Fragment key={idx}>
                 <SetupStep status={status.status} message={status.message} />
-                {status.stage === "check-python-installation" &&
-                  pyInterpreters.length > 0 && (
-                    <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
-                      <Select
-                        disabled={selectedInterpreter !== ""}
-                        value={undefined}
-                        onValueChange={handleSelectedPyInterpreter}
-                      >
-                        <SelectTrigger className="grow">
-                          <SelectValue placeholder="Please select a Python interpreter" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {pyInterpreters.map((env) => {
-                            return (
-                              <SelectItem
-                                className="flex w-full cursor-pointer justify-between"
-                                key={env.path}
-                                value={env.path}
-                              >
-                                <div className="font-semibold">{env.path}</div>
-                                <div>
-                                  version:
-                                  {` ${env.version.major}.${env.version.minor}`}
-                                </div>
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
-                      <div className="flex w-full items-center">
-                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
-                        <span className="mx-4 text-gray-600">OR</span>
-                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                {status.stage === "check-python-installation" && (
+                  <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
+                    <Select
+                      disabled={selectedInterpreter !== ""}
+                      value={undefined}
+                      onValueChange={handleSelectedPyInterpreter}
+                    >
+                      <SelectTrigger className="grow">
+                        <SelectValue
+                          placeholder={
+                            pyInterpreters.length > 0
+                              ? "Please select a Python interpreter"
+                              : "No Python 3.11 interpreter found!"
+                          }
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {pyInterpreters.map((env) => {
+                          return (
+                            <SelectItem
+                              className="flex w-full cursor-pointer justify-between"
+                              key={env.path}
+                              value={env.path}
+                            >
+                              <div className="font-semibold">{env.path}</div>
+                              <div>
+                                version:
+                                {` ${env.version.major}.${env.version.minor}`}
+                              </div>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
+                    {pyInterpreters.length == 0 && (
+                      <div>
+                        <Button
+                          className="px-1 font-bold"
+                          variant={"link"}
+                          onClick={() =>
+                            window.open(
+                              "https://www.python.org/downloads/release/python-3116/",
+                            )
+                          }
+                        >
+                          Click here
+                        </Button>{" "}
+                        to download Python 3.11 from official website.
                       </div>
-                      <Button
-                        onClick={handleBrowsePyInterpreter}
-                        disabled={selectedInterpreter !== ""}
-                      >
-                        Find a interpreter
-                      </Button>
+                    )}
+                    <div className="flex w-full items-center">
+                      <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                      <span className="mx-4 text-gray-600">OR</span>
+                      <hr className="w-full flex-1 border-t-2 border-gray-300" />
                     </div>
-                  )}
+                    <Button
+                      onClick={handleBrowsePyInterpreter}
+                      disabled={selectedInterpreter !== ""}
+                    >
+                      Find a interpreter
+                    </Button>
+                  </div>
+                )}
               </Fragment>
             ))}
           </div>
