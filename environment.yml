@@ -2,6 +2,6 @@ name: flojoy-studio
 channels:
   - conda-forge
 dependencies:
-  - python>=3.10,<3.11
+  - python>=3.11,<3.12
   - poetry>=1.6.1,<2.0.0
   - charset-normalizer==3.3.2

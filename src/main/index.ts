@@ -26,7 +26,10 @@ import {
 } from "./python";
 import { logListener, openLogFolder } from "./logging";
 import { isPortFree, killProcess } from "./utils";
-import { handlePythonInterpreter } from "./python/interpreter";
+import {
+  browsePyhtonInterpreter,
+  handlePythonInterpreter,
+} from "./python/interpreter";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -208,6 +211,7 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.spawnCaptain, spawnCaptain);
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
+  ipcMain.handle(API.browsePyhtonInterpreter, browsePyhtonInterpreter);
   ipcMain.handle(API.saveBlocks, () =>
     saveBlocksPack({ win: global.mainWindow, icon: getIcon(), startup: true }),
   );

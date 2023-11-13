@@ -3,6 +3,7 @@ import { join } from "path";
 import os from "os";
 import { execCommand } from "../executor";
 import { Command } from "../command";
+import { dialog } from "electron";
 export type InterpretersList = {
   path: string;
   default: false;
@@ -47,7 +48,7 @@ class PythonManager {
                     stats.isFile() &&
                     filePath.toLowerCase().includes("python")
                   ) {
-                    if (this.isPythonFile(file)) {
+                    if (PythonManager.isPythonFile(file)) {
                       this.executables.push(filePath);
                     }
                   }
@@ -106,13 +107,13 @@ class PythonManager {
     }
   }
 
-  private isPythonFile(file: string) {
+  static isPythonFile(fileName: string) {
     let isPython = true;
-    const splitByHyphen = file.split("-");
+    const splitByHyphen = fileName.split("-");
     if (splitByHyphen.length > 1) {
       isPython = false;
     } else {
-      file
+      fileName
         .split(".")[0]
         .split("python")
         .forEach((p) => {
@@ -121,7 +122,7 @@ class PythonManager {
           }
         });
     }
-    const splitByDot = file.split(".");
+    const splitByDot = fileName.split(".");
 
     if (splitByDot.length > 1) {
       splitByDot.slice(1).forEach((p) => {
@@ -131,6 +132,23 @@ class PythonManager {
       });
     }
     return isPython;
+  }
+
+  static async checkVersion(
+    interpreter: string,
+    version: { major: number; minor: number },
+  ) {
+    const cmd = `${interpreter} --version`;
+    try {
+      const v = await execCommand(
+        new Command({ darwin: cmd, linux: cmd, win32: cmd }),
+      );
+      const major = v.split(" ")[1].split(".")[0];
+      const minor = v.split(" ")[1].split(".")[1];
+      return +major >= version.major && +minor >= version.minor;
+    } catch (err) {
+      return false;
+    }
   }
 
   async discoverAllPaths() {
@@ -214,4 +232,40 @@ const swapPath = (path: string) => {
   }
   process.env.OLD_PATH = path;
   process.env.PATH = `${path}:${envPath}`;
+};
+
+export const browsePyhtonInterpreter = async () => {
+  const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
+    buttonLabel: "Select",
+    properties: ["openFile"],
+  });
+
+  if (selectedPaths?.length) {
+    const path = selectedPaths[0];
+    const replaceChar = path.replaceAll("\\", "/");
+    const splitPath = replaceChar.split("/");
+    const isPythonExec = PythonManager.isPythonFile(
+      splitPath[splitPath.length - 1],
+    );
+    if (isPythonExec) {
+      const matchVersion = await PythonManager.checkVersion(path, {
+        major: 3,
+        minor: 11,
+      });
+      if (matchVersion) {
+        return path;
+      }
+      dialog.showErrorBox(
+        "Version does not match!",
+        "Selected interpreter does not fulfill version requirement of ~3.11 !",
+      );
+      return null;
+    }
+    dialog.showErrorBox(
+      "Not a Python interpreter!",
+      "Selected file is not a Python interpreter!",
+    );
+    return null;
+  }
+  return null;
 };

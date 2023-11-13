@@ -17,4 +17,5 @@ export enum API {
   setPythonInterpreter = "SET_PY_INTERPRETER",
   writeFileSync = "WRITE_FILE_SYNC",
   showSaveDialog = "SHOW_SAVE_DIALOG",
+  browsePyhtonInterpreter = "BROWSE_PY_INTERPRETER",
 }

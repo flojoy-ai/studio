@@ -142,6 +142,23 @@ export const Index = (): JSX.Element => {
     }
   };
 
+  const handleSelectedPyInterpreter = (interpreter: string) => {
+    window.api.setPythonInterpreter(interpreter);
+    setSelectedInterpreter(interpreter);
+    updateSetupStatus({
+      stage: "check-python-installation",
+      status: "completed",
+      message: `Using selected python env...`,
+    });
+  };
+
+  const handleBrowsePyInterpreter = async () => {
+    const path = await window.api.browsePyInterpreter();
+    if (path) {
+      handleSelectedPyInterpreter(path);
+    }
+  };
+
   const errorAction = async (): Promise<void> => {
     const setupError = setupStatuses.find(
       (status) => status.status === "error",
@@ -262,15 +279,7 @@ export const Index = (): JSX.Element => {
                       <Select
                         disabled={selectedInterpreter !== ""}
                         value={undefined}
-                        onValueChange={(value) => {
-                          window.api.setPythonInterpreter(value);
-                          setSelectedInterpreter(value);
-                          updateSetupStatus({
-                            stage: "check-python-installation",
-                            status: "completed",
-                            message: `Using selected python env...`,
-                          });
-                        }}
+                        onValueChange={handleSelectedPyInterpreter}
                       >
                         <SelectTrigger className="grow">
                           <SelectValue placeholder="Please select a Python interpreter" />
@@ -298,7 +307,12 @@ export const Index = (): JSX.Element => {
                         <span className="mx-4 text-gray-600">OR</span>
                         <hr className="w-full flex-1 border-t-2 border-gray-300" />
                       </div>
-                      <Button>Find a interpreter</Button>
+                      <Button
+                        onClick={handleBrowsePyInterpreter}
+                        disabled={selectedInterpreter !== ""}
+                      >
+                        Find a interpreter
+                      </Button>
                     </div>
                   )}
               </Fragment>
