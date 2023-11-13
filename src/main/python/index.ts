@@ -1,25 +1,27 @@
 import log from "electron-log/main";
-import { execCommand } from "./executor";
+import { execCommand } from "../executor";
 import { app } from "electron";
-import { Command } from "./command";
+import { Command } from "../command";
 import { ChildProcess, execSync, spawn } from "child_process";
-import { sendToStatusBar } from "./logging";
+import { sendToStatusBar } from "../logging";
+import { InterpretersList, pythonManager } from "./interpreter";
+import * as os from "os";
 
-export function checkPythonInstallation(): Promise<string> {
-  return execCommand(
-    new Command({
-      darwin: "python3.11 --version",
-      win32:
-        'python -c "import sys; assert sys.version_info >= (3, 11)" && python --version',
-      linux: "python3.11 --version",
-    }),
-  );
+export async function checkPythonInstallation(): Promise<InterpretersList> {
+  if (!global.pythonInterpreters) {
+    global.pythonInterpreters = await pythonManager.getInterpreterByVersion({
+      major: 3,
+      minor: 11,
+    });
+  }
+  return global.pythonInterpreters;
 }
 
 export function installPipx(): Promise<string> {
+  const py = process.env.PY_INTERPRETER ?? "python3.11";
   return execCommand(
     new Command({
-      darwin: "python3.11 -m pip install --user pipx",
+      darwin: `${py} -m pip install --user pipx`,
       win32: "python -m pip install --user pipx",
       linux: "python3.11 -m pip install --user pipx --break-system-packages",
     }),
@@ -27,24 +29,28 @@ export function installPipx(): Promise<string> {
 }
 
 export async function pipxEnsurepath(): Promise<void> {
+  const py = process.env.PY_INTERPRETER ?? "python3.11";
   const pipxBinScript =
     "import pipx.commands.ensure_path;import pipx.constants;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.constants.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
   const pipxBinPath = await execCommand(
     new Command({
       win32: `python -c "${pipxBinScript}"`,
       linux: `python3.11 -c "${pipxBinScript}"`,
-      darwin: `python3.11 -c "${pipxBinScript}"`,
+      darwin: `${py} -c "${pipxBinScript}"`,
     }),
   );
+
   process.env.PATH = `${pipxBinPath.trim().split(" ").join("")};${
     process.env.PATH
   }`;
 }
 
 export function installPoetry(): Promise<string> {
+  const py = process.env.PY_INTERPRETER ?? "python3.11";
+  process.env.POETRY_PATH = `${os.homedir}/.local/bin/poetry`;
   return execCommand(
     new Command({
-      darwin: "python3.11 -m pipx install poetry",
+      darwin: `${py} -m pipx install poetry --force`,
       win32: "python -m pipx install poetry",
       linux: "python3 -m pipx install poetry",
     }),
@@ -52,9 +58,10 @@ export function installPoetry(): Promise<string> {
 }
 
 export function installDependencies(): Promise<string> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   return execCommand(
     new Command({
-      darwin: "poetry install",
+      darwin: `${poetry} install`,
       win32: "poetry install",
       linux: "poetry install",
     }),
@@ -62,8 +69,9 @@ export function installDependencies(): Promise<string> {
 }
 
 export async function spawnCaptain(): Promise<void> {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
   const command = new Command({
-    darwin: "poetry run python3 main.py",
+    darwin: `${poetry} run python3 main.py`,
     win32: "poetry run python main.py",
     linux: "poetry run python3 main.py",
   });

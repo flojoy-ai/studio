@@ -88,7 +88,7 @@ export const SocketContextProvider = ({
       });
       setSocket(ws);
     }
-  }, [socket, hardwareRefetch, fetchManifest, fetchMetadata]);
+  }, [fetchManifest, fetchMetadata, hardwareRefetch, socket]);
   const values = useMemo(
     () => ({
       states: {

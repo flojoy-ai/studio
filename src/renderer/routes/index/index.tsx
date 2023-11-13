@@ -17,12 +17,22 @@ import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
 import StatusBar from "@src/routes/common/StatusBar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@src/components/ui/select";
+import { InterpretersList } from "src/main/python/interpreter";
 
 export const Index = (): JSX.Element => {
   //   const captainReady = useCaptainStateStore((state) => state.ready);
   const {
     states: { serverStatus },
   } = useSocket();
+  const [pyInterpreters, setPyInterpreters] = useState<InterpretersList>([]);
+  const [selectedInterpreter, setSelectedInterpreter] = useState("");
   const [setupStatuses, setSetupStatuses] = useState<SetupStatus[]>([
     {
       status: "running",
@@ -64,12 +74,18 @@ export const Index = (): JSX.Element => {
   const checkPythonInstallation = async (): Promise<void> => {
     try {
       const data = await window.api.checkPythonInstallation();
+      console.log(" python interpreters: ", data);
+      if (data?.length == 0) {
+        throw Error("No Python 3.11 interpreters found!");
+      }
+      setPyInterpreters(data);
       updateSetupStatus({
         stage: "check-python-installation",
-        status: "completed",
-        message: `Python ${data.split(" ")[1]} is installed!`,
+        status: "running",
+        message: "Select a Python interpreter from list below...",
       });
     } catch (err) {
+      console.log("err: ", err);
       updateSetupStatus({
         stage: "check-python-installation",
         status: "error",
@@ -238,11 +254,54 @@ export const Index = (): JSX.Element => {
         <div className="flex w-full items-center justify-center">
           <div className="w-fit rounded-xl bg-background p-4">
             {setupStatuses.map((status, idx) => (
-              <SetupStep
-                status={status.status}
-                key={idx}
-                message={status.message}
-              />
+              <Fragment key={idx}>
+                <SetupStep status={status.status} message={status.message} />
+                {status.stage === "check-python-installation" &&
+                  pyInterpreters.length > 0 && (
+                    <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
+                      <Select
+                        disabled={selectedInterpreter !== ""}
+                        value={undefined}
+                        onValueChange={(value) => {
+                          window.api.setPythonInterpreter(value);
+                          setSelectedInterpreter(value);
+                          updateSetupStatus({
+                            stage: "check-python-installation",
+                            status: "completed",
+                            message: `Using selected python env...`,
+                          });
+                        }}
+                      >
+                        <SelectTrigger className="grow">
+                          <SelectValue placeholder="Please select a Python interpreter" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {pyInterpreters.map((env) => {
+                            return (
+                              <SelectItem
+                                className="flex w-full cursor-pointer justify-between"
+                                key={env.path}
+                                value={env.path}
+                              >
+                                <div className="font-semibold">{env.path}</div>
+                                <div>
+                                  version:
+                                  {` ${env.version.major}.${env.version.minor}`}
+                                </div>
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                      <div className="flex w-full items-center">
+                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                        <span className="mx-4 text-gray-600">OR</span>
+                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                      </div>
+                      <Button>Find a interpreter</Button>
+                    </div>
+                  )}
+              </Fragment>
             ))}
           </div>
         </div>

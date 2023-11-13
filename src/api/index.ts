@@ -1,6 +1,7 @@
 import { ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
 import { API } from "../types/api";
+import { InterpretersList } from "../main/python/interpreter";
 
 export type CallBackArgs =
   | {
@@ -22,7 +23,7 @@ export default {
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
-  checkPythonInstallation: (): Promise<string> =>
+  checkPythonInstallation: (): Promise<InterpretersList> =>
     ipcRenderer.invoke(API.checkPythonInstallation),
   installPipx: (): Promise<string> => ipcRenderer.invoke(API.installPipx),
   pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke(API.pipxEnsurepath),
@@ -36,4 +37,6 @@ export default {
   openLogFolder: (): Promise<void> => ipcRenderer.invoke(API.openLogFolder),
   restartFlojoyStudio: (): Promise<void> =>
     ipcRenderer.invoke(API.restartFlojoyStudio),
+  setPythonInterpreter: (interpreter: string) =>
+    ipcRenderer.send(API.setPythonInterpreter, interpreter),
 };

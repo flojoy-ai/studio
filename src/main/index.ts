@@ -26,6 +26,7 @@ import {
 } from "./python";
 import { logListener, openLogFolder } from "./logging";
 import { isPortFree, killProcess } from "./utils";
+import { handlePythonInterpreter } from "./python/interpreter";
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
@@ -110,12 +111,10 @@ contextMenu({
   },
 });
 
-global.runningProcesses = [];
-
 // Here, you can also use other preload
 const preload = join(__dirname, `../preload/index.js`);
 
-const url = process.env.VITE_DEV_SERVER_URL;
+const devServerUrl = process.env["ELECTRON_RENDERER_URL"];
 const indexHtml = join(DIST_ELECTRON, "renderer", "index.html");
 
 app.setName("Flojoy Studio");
@@ -164,8 +163,8 @@ async function createWindow() {
       await killProcess(5392);
     }
   }
-  if (!app.isPackaged && process.env["ELECTRON_RENDERER_URL"]) {
-    await mainWindow.loadURL(process.env["ELECTRON_RENDERER_URL"]);
+  if (!app.isPackaged && devServerUrl) {
+    await mainWindow.loadURL(devServerUrl);
   } else {
     await mainWindow.loadFile(indexHtml);
   }
@@ -197,19 +196,10 @@ async function createWindow() {
 app.whenReady().then(async () => {
   createWindow().catch((err) => console.log(err));
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
-  ipcMain.on("write-file-sync", handleWriteFileSync);
-  ipcMain.handle("show-save-as-dialog", handleShowSaveAsDialog);
-
+  ipcMain.on(API.writeFileSync, handleWriteFileSync);
+  ipcMain.on(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.on(API.statusBarLogging, logListener);
-  ipcMain.handle(API.saveBlocks, () =>
-    saveBlocksPack({ win: mainWindow, icon: getIcon(), startup: true }),
-  );
-  ipcMain.handle(API.updateBlocks, () =>
-    saveBlocksPack({ win: global.mainWindow, icon: getIcon(), update: true }),
-  );
-  ipcMain.handle(API.changeBlocksPath, () =>
-    saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),
-  );
+  ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);
   ipcMain.handle(API.installPipx, installPipx);
   ipcMain.handle(API.pipxEnsurepath, pipxEnsurepath);
@@ -218,6 +208,15 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.spawnCaptain, spawnCaptain);
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
+  ipcMain.handle(API.saveBlocks, () =>
+    saveBlocksPack({ win: global.mainWindow, icon: getIcon(), startup: true }),
+  );
+  ipcMain.handle(API.updateBlocks, () =>
+    saveBlocksPack({ win: global.mainWindow, icon: getIcon(), update: true }),
+  );
+  ipcMain.handle(API.changeBlocksPath, () =>
+    saveBlocksPack({ win: global.mainWindow, icon: getIcon() }),
+  );
   ipcMain.handle(API.restartFlojoyStudio, () => {
     app.relaunch();
     app.exit();
@@ -267,7 +266,7 @@ ipcMain.handle("open-win", (_, arg) => {
   });
 
   if (process.env.VITE_DEV_SERVER_URL) {
-    childWindow.loadURL(`${url}#${arg}`);
+    childWindow.loadURL(`${devServerUrl}#${arg}`);
   } else {
     childWindow.loadFile(indexHtml, { hash: arg });
   }

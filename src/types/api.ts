@@ -14,4 +14,7 @@ export enum API {
   restartFlojoyStudio = "RESTART_STUDIO",
   setUnsavedChanges = "SET_UNSAVED_CHANGES",
   statusBarLogging = "STATUSBAR_LOGGING",
+  setPythonInterpreter = "SET_PY_INTERPRETER",
+  writeFileSync = "WRITE_FILE_SYNC",
+  showSaveDialog = "SHOW_SAVE_DIALOG",
 }
