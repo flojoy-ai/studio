@@ -9,6 +9,18 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+    # When pushing new commits, cancel any running builds on that branch
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AZURE_KEY_VAULT_URI: ${{ secrets.AZURE_KEY_VAULT_URI }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  AZURE_CERT_NAME: ${{ secrets.AZURE_CERT_NAME }}
+
 jobs:
   buildElectron:
     runs-on: ${{ matrix.os }}
@@ -55,17 +67,16 @@ jobs:
         with:
           poetry-version: "1.6"
 
-      # - uses: actions/cache@v3
-      #   name: Cache Poetry
-      #   with:
-      #     path: ./.venv
-      #     key: venv-${{ hashFiles('poetry.lock') }}
-
       - name: Install Python Dependencies
         run: poetry install
 
       - name: Install Node Dependencies
         run: pnpm install
+
+      - name: Install Azure Signing Tool (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          dotnet tool install --global AzureSignTool
 
       - name: Build/release Electron app
         uses: flojoy-ai/action-electron-builder@main

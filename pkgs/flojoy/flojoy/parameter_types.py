@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any, Union, Callable
 from abc import ABC
 
 
@@ -18,12 +18,17 @@ class HardwareDevice(ABC):
 
 class HardwareConnection(ABC):
     _handle: Any
+    _cleanup: Callable[[Any], Any]
 
-    def __init__(self, handle: Any) -> None:
+    def __init__(self, handle: Any, cleanup: Callable[[Any], Any]) -> None:
         self._handle = handle
+        self._cleanup = cleanup
 
     def get_handle(self):
         return self._handle
+
+    def __del__(self):
+        self._cleanup(self._handle)
 
 
 class CameraDevice(HardwareDevice):
@@ -45,23 +50,51 @@ class NIDevice(HardwareDevice):
 
 
 class CameraConnection(HardwareConnection):
+    def __init__(
+        self, handle: Any, cleanup: Callable[[Any], Any] | None = None
+    ) -> None:
+        super().__init__(
+            handle, (lambda conn: conn.release()) if cleanup is None else cleanup
+        )
+
     def __del__(self):
-        self._handle.release()
+        super().__del__()
 
 
 class SerialConnection(HardwareConnection):
+    def __init__(
+        self, handle: Any, cleanup: Callable[[Any], Any] | None = None
+    ) -> None:
+        super().__init__(
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
+        )
+
     def __del__(self):
-        self._handle.close()
+        super().__del__()
 
 
 class VisaConnection(HardwareConnection):
+    def __init__(
+        self, handle: Any, cleanup: Callable[[Any], Any] | None = None
+    ) -> None:
+        super().__init__(
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
+        )
+
     def __del__(self):
-        self._handle.close()
+        super().__del__()
 
 
 class NIConnection(HardwareConnection):
+    def __init__(
+        self, handle: Any, cleanup: Callable[[Any], Any] | None = None
+    ) -> None:
+        super().__init__(
+            handle, (lambda conn: conn.close()) if cleanup is None else cleanup
+        )
+
     def __del__(self):
-        self._handle.close()
+        super().__del__()
 
 
 class NodeReference:

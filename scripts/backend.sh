@@ -13,35 +13,33 @@ feedback() {
 		exit 1
 	fi
 }
+shell_path="$SHELL"
+running_shell=$(basename "$shell_path")
 
 source_bash_zsh() {
-	if [ -f ~/.zshrc ]; then
+	echo "Running shell is $running_shell"
+	if [[ "$running_shell" == "zsh" ]]; then
 		source ~/.zshrc
 		info_msg "Sourced ~/.zshrc"
-	fi
-
-	if [ -f ~/.bashrc ]; then
+	else
 		source ~/.bashrc
 		info_msg "Sourced ~/.bashrc"
 	fi
 }
 
 init_shell() {
-
-	if [ -f ~/.zshrc ]; then
+	if [[ "$running_shell" == "zsh" ]]; then
 		eval "$(conda shell.zsh hook)"
-	fi
-
-	if [ -f ~/.bashrc ]; then
+	else
 		eval "$(conda shell.bash hook)"
 	fi
 }
 
 enable_libmamba() {
 	# Get solver from config
-	$solver=$(conda config --show solver >/dev/null 2>&1)
+	solver=$(conda config --show solver 2>/dev/null)
 	# Check if "libmamba" is there as solver
-	if [[ $solver == *"libmamba"* ]]; then
+	if [[ "$solver" == *"libmamba"* ]]; then
 		info_msg "Libmamba is already set as solver for conda."
 	else
 		info_msg "Updating Conda and configuring libmamba as the solver."
@@ -64,7 +62,7 @@ source_bash_zsh
 info_msg "Looking for conda installation..."
 if ! command -v conda &>/dev/null; then
 	info_msg "Conda installation was not found..."
-	bash $conda_script
+	bash "$conda_script"
 	source_bash_zsh
 else
 	info_msg "Conda is already installed..."
@@ -74,24 +72,24 @@ init_shell # configure the shell properly
 
 enable_libmamba
 
-cd $current_dir
+cd "$current_dir" || exit
 
 # Bootstrapping using conda
-conda activate $flojoy_env
+
 # Check if the Conda environment exists
-if [ $? -eq 0 ]; then
+if conda activate $flojoy_env; then
 	info_msg "$flojoy_env env found!"
 	if ! test -f "$current_dir/.updated_env"; then
 		info_msg "Updating $flojoy_env env..."
 		# Environment exists, update it
-		conda env update --file $env_yml --name $flojoy_env
+		conda env update --file "$env_yml" --name $flojoy_env
 		conda activate $flojoy_env
 		touch "$current_dir/.updated_env"
 	fi
 else
 	# Environment doesn't exist, create it
 	info_msg "Creating $flojoy_env env with conda..."
-	conda env create --file $env_yml --name $flojoy_env
+	conda env create --file "$env_yml" --name $flojoy_env
 	conda activate $flojoy_env
 	info_msg "Activated $flojoy_env env."
 	touch "$current_dir/.updated_env"
