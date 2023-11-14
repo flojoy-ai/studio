@@ -1,4 +1,5 @@
 import * as http from "http";
+import * as fs from "fs";
 import { execCommand } from "./executor";
 import { Command } from "./command";
 
@@ -23,4 +24,8 @@ export const killProcess = async (port: number) => {
       win32: `FOR /F "tokens=5" %i IN ('netstat -aon ^| find "${port}"') DO Taskkill /F /PID %i`,
     }),
   );
+};
+
+export const writeFileSync = (_, filePath: string, text: string): void => {
+  fs.writeFileSync(filePath, text);
 };

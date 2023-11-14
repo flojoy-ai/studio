@@ -4,15 +4,48 @@ import { app } from "electron";
 import { Command } from "../command";
 import { ChildProcess, execSync, spawn } from "child_process";
 import { sendToStatusBar } from "../logging";
-import { InterpretersList, pythonManager } from "./interpreter";
+import {
+  InterpretersList,
+  PythonManager,
+  interpreterCachePath,
+} from "./interpreter";
 import * as os from "os";
+import { existsSync, readFileSync } from "fs";
 
 export async function checkPythonInstallation(): Promise<InterpretersList> {
   if (!global.pythonInterpreters) {
-    global.pythonInterpreters = await pythonManager.getInterpreterByVersion({
-      major: 3,
-      minor: 11,
-    });
+    global.pythonInterpreters =
+      await new PythonManager().getInterpreterByVersion({
+        major: 3,
+        minor: 11,
+      });
+  }
+  if (existsSync(interpreterCachePath)) {
+    const interpreter = readFileSync(interpreterCachePath).toString("utf-8");
+    if (existsSync(interpreter)) {
+      const foundInList = global.pythonInterpreters.find(
+        (i) => i.path === interpreter,
+      );
+      if (foundInList) {
+        global.pythonInterpreters = global.pythonInterpreters.map((i) =>
+          i.path === interpreter
+            ? {
+                ...i,
+                default: true,
+              }
+            : i,
+        );
+      } else {
+        global.pythonInterpreters.push({
+          path: interpreter,
+          version: (await PythonManager.getVersion(interpreter)) ?? {
+            major: 3,
+            minor: 11,
+          },
+          default: true,
+        });
+      }
+    }
   }
   return global.pythonInterpreters;
 }

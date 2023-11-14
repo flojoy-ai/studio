@@ -11,7 +11,6 @@ import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
 import { saveBlocksPack } from "./blocks";
-import fs from "fs";
 import { ChildProcess } from "node:child_process";
 import log from "electron-log/main";
 import { API } from "../types/api";
@@ -25,7 +24,7 @@ import {
   spawnCaptain,
 } from "./python";
 import { logListener, openLogFolder } from "./logging";
-import { isPortFree, killProcess } from "./utils";
+import { isPortFree, killProcess, writeFileSync } from "./utils";
 import {
   browsePythonInterpreter,
   handlePythonInterpreter,
@@ -77,10 +76,6 @@ const getIcon = () => {
 
 const handleSetUnsavedChanges = (_, value: boolean) => {
   global.hasUnsavedChanges = value;
-};
-
-const handleWriteFileSync = (_, path: string, data: string) => {
-  fs.writeFileSync(path, data);
 };
 
 const handleShowSaveAsDialog = async (_, defaultFilename: string) => {
@@ -200,7 +195,7 @@ async function createWindow() {
 app.whenReady().then(async () => {
   createWindow().catch((err) => console.log(err));
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
-  ipcMain.on(API.writeFileSync, handleWriteFileSync);
+  ipcMain.on(API.writeFileSync, writeFileSync);
   ipcMain.on(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.on(API.statusBarLogging, logListener);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);

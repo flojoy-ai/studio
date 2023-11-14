@@ -288,14 +288,19 @@ export const Index = (): JSX.Element => {
                         {pyInterpreters.map((env) => {
                           return (
                             <SelectItem
-                              className="flex w-full cursor-pointer justify-between"
+                              className="flex w-full cursor-pointer flex-col items-start justify-start"
                               key={env.path}
                               value={env.path}
                             >
                               <div className="font-semibold">{env.path}</div>
-                              <div>
-                                version:
-                                {` ${env.version.major}.${env.version.minor}`}
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  version:
+                                  {` ${env.version.major}.${env.version.minor}`}
+                                </div>
+                                <div className="text-gray-500">
+                                  {env.default ? "default" : ""}
+                                </div>
                               </div>
                             </SelectItem>
                           );

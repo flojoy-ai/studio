@@ -3,17 +3,23 @@ import { join } from "path";
 import os from "os";
 import { execCommand } from "../executor";
 import { Command } from "../command";
-import { dialog } from "electron";
+import { app, dialog } from "electron";
+import { writeFileSync } from "../utils";
 
 export type InterpretersList = {
   path: string;
-  default: false;
+  default: boolean;
   version: {
     major: number;
     minor: number;
   };
 }[];
-class PythonManager {
+
+export const interpreterCachePath = join(
+  app.getPath("temp"),
+  "flojoy_py_interpreter",
+);
+export class PythonManager {
   defaultBinPaths = {
     darwin: [
       "/usr/bin",
@@ -144,6 +150,19 @@ class PythonManager {
     }
   }
 
+  static async getVersion(interpreter: string) {
+    try {
+      const cmd = `${interpreter} --version`;
+      const version = await execCommand(new Command(cmd));
+      return {
+        major: +version.split(" ")[1].split(".")[0],
+        minor: +version.split(" ")[1].split(".")[1],
+      };
+    } catch (error) {
+      return null;
+    }
+  }
+
   async discoverAllPaths() {
     await this.gatherPathsFromDefaultBin();
     const condaEnvs = await this.getCondaEnvs();
@@ -190,7 +209,6 @@ class PythonManager {
     return filterInterpreters;
   }
 }
-export const pythonManager = new PythonManager();
 
 export const handlePythonInterpreter = async (_, interpreter: string) => {
   const cmd = `${interpreter} -c "import sys; print(';'.join(sys.path))"`;
@@ -202,6 +220,7 @@ export const handlePythonInterpreter = async (_, interpreter: string) => {
     }
   });
   process.env.PY_INTERPRETER = interpreter;
+  writeFileSync(undefined, interpreterCachePath, interpreter);
   swapPath(pathArr.join(":"));
 };
 
