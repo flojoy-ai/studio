@@ -9,6 +9,8 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
+import { useManifest, useNodesMetadata } from "./useManifest";
+import { syncFlowchartWithManifest } from "@src/lib/sync";
 
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
@@ -34,15 +36,30 @@ export const useFlowChartGraph = () => {
     return { selectedNodes, unSelectedNodes };
   }, [nodes]);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  const manifest = useManifest();
+  const nodesMetadata = useNodesMetadata();
 
   const loadFlowExportObject = useCallback(
     (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
+      if (manifest === null) {
+        toast.error("Manifest not found!");
+        throw new Error("Manifest not found!");
+      }
+      if (nodesMetadata === null) {
+        toast.error("Block metadata not found!");
+        throw new Error("Block metadata not found!");
+      }
 
-      setNodes(flow.nodes || []);
-      setEdges(flow.edges || []);
+      const nodes = flow.nodes || [];
+      const edges = flow.edges || [];
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadata);
+      setNodes(syncedNodes);
+      setEdges(syncedEdges);
+      toast("Synced blocks with manifest.");
+
       if (textNodes) {
         setTextNodes(textNodes);
       }
