@@ -97,19 +97,19 @@ const data: GalleryData = {
     //   youtubeLink: "",
     //   relevantNodes: [],
     // },
-    {
-      title: "Object Identification",
-      description: "Estimate object depth with the YOLOv3 node",
-      imagePath: "assets/appGallery/objectIdentification.png",
-      appPath: "objectDetection",
-      relevantNodes: [
-        {
-          name: "OBJECT_DETECTION",
-          docs: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
-        },
-      ],
-      cloudDemoEnabled: true,
-    },
+    // {
+    //   title: "Object Identification",
+    //   description: "Estimate object depth with the YOLOv3 node",
+    //   imagePath: "assets/appGallery/objectIdentification.png",
+    //   appPath: "objectDetection",
+    //   relevantNodes: [
+    //     {
+    //       name: "OBJECT_DETECTION",
+    //       docs: "https://docs.flojoy.ai/nodes/AI_ML/OBJECT_DETECTION/OBJECT_DETECTION/",
+    //     },
+    //   ],
+    //   cloudDemoEnabled: true,
+    // },
   ],
   IO: [
     {
