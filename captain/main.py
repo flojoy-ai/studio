@@ -1,12 +1,14 @@
+import asyncio
+import threading
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from captain.routes import blocks, devices, flowchart, key, pymgr, update, ws
+from captain.services.consumer.blocks_watcher import BlocksWatcher
+from captain.services.consumer.log_consumer import LogConsumer
 from captain.utils.config import origins
 from captain.utils.logger import logger, logger_setup
-import threading
-from captain.services.consumer.log_consumer import LogConsumer
-import asyncio
 
 app = FastAPI()
 
@@ -31,12 +33,16 @@ app.include_router(pymgr.router)
 
 @app.on_event("startup")
 async def startup_event():
+    logger.info("Running startup event")
     logger_setup(logger)
     log_consumer = LogConsumer()
+    block_watcher = BlocksWatcher()
 
-    def run_log_consumer():
-        asyncio.run(log_consumer.run())
+    async def run_services():
+        await block_watcher.run()
+        await log_consumer.run()
 
-    thread = threading.Thread(target=run_log_consumer)
+    logger.info("Starting thread for startup event")
+    thread = threading.Thread(target=lambda: asyncio.run(run_services()))
     thread.daemon = True
     thread.start()

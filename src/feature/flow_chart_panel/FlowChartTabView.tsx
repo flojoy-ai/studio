@@ -66,6 +66,7 @@ import NumpyNode from "@src/components/nodes/NumpyNode";
 import ScipyNode from "@src/components/nodes/ScipyNode";
 import VisorNode from "@src/components/nodes/VisorNode";
 import { syncFlowchartWithManifest } from "@src/lib/sync";
+import TextNode from "@src/components/nodes/TextNode";
 
 const nodeTypes: NodeTypes = {
   default: DefaultNode,
@@ -88,6 +89,7 @@ const nodeTypes: NodeTypes = {
   CONTROL_FLOW: LogicNode,
   MATH: DefaultNode,
   HARDWARE: IONode,
+  TextNode: TextNode
 };
 
 const edgeTypes = {
@@ -128,9 +130,10 @@ const FlowChartTab = () => {
 
   useEffect(() => {
     if (manifest && nodesMetadataMap) {
-      const syncedNodes = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadataMap);
-      console.log(syncedNodes);
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadataMap);
       setNodes(syncedNodes);
+      setEdges(syncedEdges);
+      toast("Synced blocks with manifest.")
     }
   }, [manifest, nodesMetadataMap])
 

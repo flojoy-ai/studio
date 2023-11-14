@@ -10,7 +10,8 @@ interface WebSocketServerProps {
   handleFailedNodes: (value: Record<string, string>) => void;
   handleSocketId: (value: string) => void;
   onClose?: (ev: CloseEvent) => void;
-  onConnectionEstablished: Array<() => void>;
+  onConnectionEstablished: () => void;
+  onManifestUpdate: () => void;
   handleLogs: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
@@ -32,6 +33,7 @@ export class WebSocketServer {
   private handleSocketId: WebSocketServerProps["handleSocketId"];
   private onClose?: (ev: CloseEvent) => void;
   private onConnectionEstablished: WebSocketServerProps["onConnectionEstablished"];
+  private onManifestUpdate: WebSocketServerProps["onManifestUpdate"];
   private handleLogs: WebSocketServerProps["handleLogs"];
   constructor({
     url,
@@ -42,6 +44,7 @@ export class WebSocketServer {
     handleSocketId,
     onClose,
     onConnectionEstablished,
+    onManifestUpdate,
     handleLogs,
   }: WebSocketServerProps) {
     this.handlePingResponse = onPingResponse;
@@ -52,6 +55,7 @@ export class WebSocketServer {
     this.server = new WebSocket(url);
     this.onClose = onClose;
     this.onConnectionEstablished = onConnectionEstablished;
+    this.onManifestUpdate = onManifestUpdate;
     this.handleLogs = handleLogs;
     this.init();
   }
@@ -98,12 +102,15 @@ export class WebSocketServer {
           if (ResponseEnum.systemStatus in data) {
             this.handlePingResponse(data[ResponseEnum.systemStatus]);
           }
-          this.onConnectionEstablished.forEach((cb) => cb());
+          this.onConnectionEstablished();
           sendEventToMix(
             "Initial Status",
             "Connection Established",
             "Server Status",
           );
+          break;
+        case "manifest_update":
+          this.onManifestUpdate();
           break;
         default:
           console.log(" default data type: ", data);

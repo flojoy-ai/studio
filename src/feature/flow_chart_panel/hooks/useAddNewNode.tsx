@@ -10,6 +10,7 @@ import { unsavedChangesAtom } from "@src/hooks/useHasUnsavedChanges";
 import { addRandomPositionOffset } from "@src/utils/RandomPositionOffset";
 import { BlocksMetadataMap } from "@src/types/blocks-metadata";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
+import { ctrlsFromParams } from "@src/utils/CtrlsFromParams";
 
 export type AddNewNode = (node: NodeElement) => void;
 
@@ -47,29 +48,8 @@ export const useAddNewNode = (
           ? params!["constant"].default!.toString()
           : createNodeLabel(node.key, getTakenNodeLabels(funcName));
 
-      const createCtrls = (
-        params?: NodeElement["parameters"],
-      ): ElementsData["ctrls"] => {
-        if (!params) {
-          return {};
-        }
-
-        return Object.entries(params).reduce(
-          (prev, [paramName, param]) => ({
-            ...prev,
-            [paramName]: {
-              ...param,
-              functionName: funcName,
-              param: paramName,
-              value: param.default ?? "",
-            },
-          }),
-          {},
-        );
-      };
-
-      const nodeCtrls = createCtrls(params);
-      const initCtrls = createCtrls(initParams);
+      const nodeCtrls = ctrlsFromParams(params, funcName);
+      const initCtrls = ctrlsFromParams(initParams, funcName);
 
       const newNode = {
         id: nodeId,
