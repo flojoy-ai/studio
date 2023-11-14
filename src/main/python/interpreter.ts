@@ -74,9 +74,7 @@ class PythonManager {
   async getCondaEnvs() {
     const cmd = "conda info --json";
     try {
-      const condaInfo = await execCommand(
-        new Command({ darwin: cmd, linux: cmd, win32: cmd }),
-      );
+      const condaInfo = await execCommand(new Command(cmd));
       const parseInfo = JSON.parse(condaInfo);
 
       const envPaths = parseInfo.envs.map((env) => {
@@ -94,13 +92,7 @@ class PythonManager {
   async getGlobalPython() {
     try {
       const cmd = `python -c "import sys; print(sys.executable)"`;
-      const defaultPythonPath = await execCommand(
-        new Command({
-          darwin: cmd,
-          linux: cmd,
-          win32: cmd,
-        }),
-      );
+      const defaultPythonPath = await execCommand(new Command(cmd));
       return defaultPythonPath.trim();
     } catch (err) {
       return null;
@@ -140,9 +132,7 @@ class PythonManager {
   ) {
     const cmd = `${interpreter} --version`;
     try {
-      const v = await execCommand(
-        new Command({ darwin: cmd, linux: cmd, win32: cmd }),
-      );
+      const v = await execCommand(new Command(cmd));
       const major = v.split(" ")[1].split(".")[0];
       const minor = v.split(" ")[1].split(".")[1];
       return +major >= version.major && +minor >= version.minor;
@@ -174,13 +164,7 @@ class PythonManager {
       }
       visited.add(interpreter);
       const cmd = `${interpreter} --version`;
-      const version = await execCommand(
-        new Command({
-          darwin: cmd,
-          linux: cmd,
-          win32: cmd,
-        }),
-      );
+      const version = await execCommand(new Command(cmd));
       const interpreterInfo: InterpretersList[0] = {
         path: interpreter,
         version: {
@@ -207,13 +191,7 @@ export const pythonManager = new PythonManager();
 
 export const handlePythonInterpreter = async (_, interpreter: string) => {
   const cmd = `${interpreter} -c "import sys; print(';'.join(sys.path))"`;
-  const paths = await execCommand(
-    new Command({
-      darwin: cmd,
-      linux: cmd,
-      win32: cmd,
-    }),
-  );
+  const paths = await execCommand(new Command(cmd));
   const pathArr: string[] = [];
   paths.split(";").forEach((p) => {
     if (p) {
