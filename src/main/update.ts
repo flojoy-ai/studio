@@ -1,19 +1,18 @@
 import { MessageBoxOptions, app, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
-import { Logger } from "./logging";
+import log from "electron-log/main";
 
 const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
 export function update(cleanupFunc: () => Promise<void>) {
-  const logger = new Logger("Electron-updater");
   global.updateInterval = null;
   // When set to false, the update download will be triggered through the API
   autoUpdater.autoDownload = false;
   autoUpdater.allowDowngrade = false;
   autoUpdater.logger = {
-    error: (msg) => logger.log(msg),
-    info: (msg) => logger.log(msg),
-    warn: (msg) => logger.log(msg),
-    debug: (msg) => logger.log(msg),
+    error: (msg) => log.error(msg),
+    info: (msg) => log.info(msg),
+    warn: (msg) => log.warn(msg),
+    debug: (msg) => log.debug(msg),
   };
   if (global.updateInterval) {
     clearInterval(global.updateInterval);
@@ -21,7 +20,7 @@ export function update(cleanupFunc: () => Promise<void>) {
 
   const checkInterval = setInterval(() => {
     autoUpdater.checkForUpdates().catch((err) => {
-      logger.log("Update check error: ", err);
+      log.error("Update check error: ", err);
     });
   }, CHECK_FOR_UPDATE_INTERVAL);
 
@@ -29,7 +28,7 @@ export function update(cleanupFunc: () => Promise<void>) {
 
   // start check
   autoUpdater.on("checking-for-update", () =>
-    logger.log("checking for update...."),
+    log.info("checking for update...."),
   );
 
   // update available
@@ -83,7 +82,7 @@ export function update(cleanupFunc: () => Promise<void>) {
   // if we want to stream the progress info
   autoUpdater.on("download-progress", () => {});
   autoUpdater.on("error", (error) => {
-    logger.log("Update error: ", error.stack?.toString() ?? "");
+    log.error("Update error: ", error.stack?.toString() ?? "");
     const response = dialog.showMessageBoxSync({
       title: "Update error!",
       type: "error",

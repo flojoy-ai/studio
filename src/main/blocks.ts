@@ -1,10 +1,11 @@
 import { BrowserWindow, app, dialog } from "electron";
 import * as fs from "fs";
 import { join } from "path";
-import { runCmd } from "./command";
-import { CallBackArgs } from "../api";
+import { Command } from "./command";
 import * as os from "os";
 import { execSync } from "child_process";
+import { execCommand } from "./executor";
+import log from "electron-log/main";
 type SaveBlocksPackProps = {
   win: BrowserWindow;
   icon: string;
@@ -115,31 +116,8 @@ const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
       return;
     }
     const cloneCmd = `git clone https://github.com/flojoy-ai/blocks.git ${clonePath}`;
-    const title = "Downloading blocks resource pack!";
-    const description = `Downloading blocks resource pack to ${clonePath}...`;
-    sendLogToStudio(title, description)(win, {
-      open: true,
-      output: description,
-      clear: true,
-    });
-    runCmd({
-      command: cloneCmd,
-      broadcast: { win, cb: sendLogToStudio(title, description) },
-      serviceName: "Blocks-resource",
-    }).catch(({ code, lastOutput }) => {
-      if (code > 0) {
-        sendLogToStudio(title, description)(win, {
-          open: true,
-          output:
-            "Error :: Failed to download blocks resource pack, see error printed above!",
-        });
-        dialog.showErrorBox(
-          "Failed to download blocks resource pack!",
-          lastOutput,
-        );
-        reject(new Error(lastOutput));
-      } else {
-        sendLogToStudio(title, description)(win, { open: false, output: "" });
+    execCommand(new Command(cloneCmd))
+      .then(() => {
         dialog.showMessageBox(win, {
           message: "Blocks resource pack downloaded successfully!",
           type: "info",
@@ -147,8 +125,11 @@ const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
         savePathToLocalFile(getBlocksPathFile(), clonePath);
         win.reload();
         resolve({ success: true });
-      }
-    });
+      })
+      .catch((reason) => {
+        dialog.showErrorBox("Failed to download blocks resource pack!", reason);
+        reject(new Error(reason));
+      });
   });
 };
 /**
@@ -166,22 +147,6 @@ const getBlocksDirPath = (): string => {
   return join(app.getPath("downloads"), "blocks");
 };
 
-const sendLogToStudio =
-  (title: string, description: string) =>
-  (win: BrowserWindow, data: CallBackArgs) => {
-    win.webContents.send(
-      "electron-log",
-      typeof data === "string"
-        ? {
-            open: true,
-            title,
-            description,
-            output: data,
-          }
-        : { ...data, title, description },
-    );
-  };
-
 const updateBlocksPack = (
   blocksPath: string,
   win: BrowserWindow,
@@ -190,16 +155,12 @@ const updateBlocksPack = (
   const title = "Updating blocks resource pack";
   const description =
     "Update can take few minutes to complete, please do not close the app!";
-  sendLogToStudio(title, description)(win, {
-    open: true,
-    clear: true,
-    output: description,
-  });
+  log.info(title);
+  log.info(description);
   // Store the current working directory
   const currentDirectory = process.cwd();
   if (!fs.existsSync(blocksPath)) {
-    sendLogToStudio(title, description)(
-      win,
+    log.error(
       `Error - Blocks directory is not found at ${blocksPath}.. downloading blocks resource pack..`,
     );
     saveBlocksPack({
@@ -215,28 +176,19 @@ const updateBlocksPack = (
     const statusOutput = execSync("git status --porcelain").toString();
     if (statusOutput.trim().length > 0) {
       // There are local changes
-      sendLogToStudio(title, description)(
-        win,
-        "Found local changes, creating a zip archive...",
-      );
+      log.info("Found local changes, creating a zip archive...");
       // Create a timestamp for the zip folder
       const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
 
       // Create a zip file with existing files
       const zipFileName = `local_changes_${timestamp}.zip`;
       execSync(`git archive -o ${zipFileName} HEAD`);
-      sendLogToStudio(title, description)(
-        win,
-        `Created zip file: ${zipFileName} ...`,
-      );
+      log.info(`Created zip file: ${zipFileName} ...`);
       // Create a new folder for the zip file and move it there
       const zipFolder = join(blocksPath, ".local-changes");
       fs.mkdirSync(zipFolder, { recursive: true });
 
-      sendLogToStudio(title, description)(
-        win,
-        `Copying ${zipFileName} file to ${zipFolder}...`,
-      );
+      log.info(`Copying ${zipFileName} file to ${zipFolder}...`);
       const zipFilePath = join(zipFolder, zipFileName);
       fs.renameSync(zipFileName, zipFilePath);
 
@@ -244,28 +196,19 @@ const updateBlocksPack = (
       execSync("git stash");
       // Run git pull
       execSync("git pull");
-      sendLogToStudio(title, description)(
-        win,
-        "Updated blocks resource pack successfully!",
-      );
+      log.info("Updated blocks resource pack successfully!");
     } else {
-      sendLogToStudio(title, description)(
-        win,
-        "Updating blocks resource pack... hang tight..",
-      );
+      log.info("Updating blocks resource pack... hang tight..");
       // There are no local changes, simply run git pull
       const pullResult = execSync("git pull").toString();
-      sendLogToStudio(title, description)(win, pullResult);
-      sendLogToStudio(title, description)(
-        win,
-        "Updated blocks resource pack successfully!",
-      );
+      log.info(pullResult);
+      log.info("Updated blocks resource pack successfully!");
     }
     win.reload();
     // Restore the original working directory
     process.chdir(currentDirectory);
   } catch (error) {
-    dialog.showErrorBox("Failed to update blocks pack", error?.message);
+    dialog.showErrorBox("Failed to update blocks pack", String(error));
     process.chdir(currentDirectory);
   }
 };

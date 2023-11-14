@@ -3,16 +3,6 @@ import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
 
-export type CallBackArgs =
-  | {
-      open: boolean;
-      title?: string;
-      description?: string;
-      output: string;
-      clear?: boolean;
-    }
-  | string;
-
 export default {
   ...fileSave,
   setUnsavedChanges: (value: boolean) =>
