@@ -144,7 +144,7 @@ export class PythonManager {
       const v = await execCommand(new Command(cmd));
       const major = v.split(" ")[1].split(".")[0];
       const minor = v.split(" ")[1].split(".")[1];
-      return +major >= version.major && +minor >= version.minor;
+      return +major == version.major && +minor == version.minor;
     } catch (err) {
       return false;
     }
@@ -203,8 +203,8 @@ export class PythonManager {
     const interpreters = await this.processInterpreters();
     const filterInterpreters = interpreters.filter(
       (interpreter) =>
-        interpreter.version.major >= version.major &&
-        interpreter.version.minor >= version.minor,
+        interpreter.version.major == version.major &&
+        interpreter.version.minor == version.minor,
     );
     return filterInterpreters;
   }
