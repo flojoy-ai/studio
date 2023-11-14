@@ -7,6 +7,7 @@ import glob
 import os
 import shutil
 import subprocess
+from tempfile import TemporaryDirectory
 
 # import mpy_cross
 from typing import Any, cast
@@ -426,31 +427,36 @@ class FlojoyScriptBuilder:
     #     for file in to_remove:
     #         os.remove(file)
 
-    async def run_script(self, tempdir, port: str, manager: Manager):
-        await asyncio.create_task(
+    def run_script(self, tempdir: TemporaryDirectory[str], port: str, manager: Manager):
+        asyncio.run(
             self.signaler.signal_script_running_microcontroller(self.jobset_id)
         )
-        cmd = ["mpremote", "connect", port, "+", "run", f"{tempdir}/main.py"]
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        manager.mc_proc = p
+        cmd = ["mpremote", "connect", port, "+", "run", f"{tempdir.name}/main.py"]
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        manager.set_mc(p, port)
+        logger.debug("set the mc_proc")
         p.wait()
-        if p.stderr:
-            logger.debug("got error from MC: ", p.stderr)
-            await asyncio.create_task(
-                self.signaler.signal_prejob_output(self.jobset_id, str(p.stderr))
+        stderr = p.stderr.read().decode() if p.stderr else ""
+        if stderr:
+            logger.debug("got error from MC: ", stderr)
+            asyncio.run(
+                self.signaler.signal_prejob_output(self.jobset_id, stderr)
             )
             return
+        
+        # close tempdir
+        tempdir.cleanup()
+        logger.debug("done running MC")
+        asyncio.run(self.signaler.signal_standby(self.jobset_id))
 
-        await asyncio.create_task(self.signaler.signal_standby(self.jobset_id))
-
-    async def output(self, tempdir, manager: Manager, port: str, path_to_output: str | None):
+    async def output(self, tempdir: TemporaryDirectory[str], manager: Manager, port: str, path_to_output: str | None):
         """
         Copy paste the temp dir into the output dir if specified
         and into the port dir if specified
         """
         if path_to_output:
             try:
-                shutil.copytree(tempdir, path_to_output)
+                shutil.copytree(tempdir.name, path_to_output)
             except Exception as e:
                 output = "\n".join(e.args)
                 await asyncio.create_task(
@@ -477,7 +483,7 @@ class FlojoyScriptBuilder:
                     stderr=subprocess.PIPE,
                     universal_newlines=True,
                 ) as proc:
-                    manager.mc_proc = proc
+                    manager.set_mc(proc, port)
                     out, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
                     logger.debug(out)
                     if error_output:
@@ -489,6 +495,9 @@ class FlojoyScriptBuilder:
                     self.signaler.signal_prejob_output(self.jobset_id, output)
                 )
                 return
+
+        # close tempdir
+        tempdir.cleanup()
 
         await asyncio.create_task(
             self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id)

@@ -1,6 +1,7 @@
 import asyncio
 import json
 import tempfile
+import threading
 from captain.utils.broadcast import Signaler
 from precompilation.flojoy_script_builder import FlojoyScriptBuilder
 from precompilation.precompilation_utils import (
@@ -27,60 +28,73 @@ async def precompile(
     Precompiles a flowchart into a script that can be run on a remote machine or a microcontroller (not yet done for microcontroller).
     """
 
-    with tempfile.TemporaryDirectory() as tmpdirname:
-        # Step 0 : pre-precompile operations
-        clear_flojoy_memory()
-        sw = FlojoyScriptBuilder(
-            tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler
-        )
+    tempdir = tempfile.TemporaryDirectory()
+    tmpdirname = tempdir.name
+
+    # Step 0 : pre-precompile operations
+    clear_flojoy_memory()
+    sw = FlojoyScriptBuilder(
+        tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler
+    )
+    await asyncio.create_task(
+        signaler.signal_script_building_microcontroller(jobset_id)
+    )  # signal build start to front-end
+    flowchart_as_dict = json.loads(fc)
+    light_topology = create_light_topology(
+        flowchart_as_dict, jobset_id, node_delay, maximum_runtime
+    )
+    sw.remove_debug_prints_and_set_offline()
+    if path_to_output:
+        sw.validate_output_dir(path_to_output)
+
+    # Step 1: add necessary pip packages
+    sw.export_base_pip_packages(
+        export_dir=tmpdirname, path_to_requirements=path_to_requirements
+    )  # required pip packages for flowchart execution
+    # sw.install_missing_pip_packages(flowchart_as_dict["nodes"]) # pip packages required only by certain nodes
+
+    # Step 2: add import strings for node functions and import the files themselves
+    sw.import_app_nodes(get_graph_nodes(light_topology))
+
+    # Step 3: add the flowchart, and the code to run it
+    sw.run_write_flowchart(fc, jobset_id)
+
+    # Step 4: output entry point script
+    sw.write_to_file()
+
+    # Step 5: output other necessary files or modules
+    sw.write_extra_files()
+
+    # Step 6: apply file filters to .py files
+    sw.apply_filters_to_py_files_in_output_dir()
+
+    # Step 7: compile to mpy
+    # sw.compile_to_mpy()
+    # TODO: setup for this is too complicated and it's not
+    # even necessary to run on microcontroller
+
+    # Step 8: output to microcontroller or just run it
+
+    if upload:
         await asyncio.create_task(
-            signaler.signal_script_building_microcontroller(jobset_id)
-        )  # signal build start to front-end
-        flowchart_as_dict = json.loads(fc)
-        light_topology = create_light_topology(
-            flowchart_as_dict, jobset_id, node_delay, maximum_runtime
+            sw.output(tempdir=tempdir, port=port, path_to_output=path_to_output, manager=manager)
         )
-        sw.remove_debug_prints_and_set_offline()
-        if path_to_output:
-            sw.validate_output_dir(path_to_output)
+    else:
+        
+        # await asyncio.create_task(
+        #     sw.run_script(
+        #         tempdir=tmpdirname,
+        #         port=port,
+        #         manager=manager,
+        #     )
+        # )
 
-        # Step 1: add necessary pip packages
-        sw.export_base_pip_packages(
-            export_dir=tmpdirname, path_to_requirements=path_to_requirements
-        )  # required pip packages for flowchart execution
-        # sw.install_missing_pip_packages(flowchart_as_dict["nodes"]) # pip packages required only by certain nodes
+        # use threading module to run 'run script' in a separate thread
+        # so that we can return to the front-end immediately
+        # and not have to wait for the script to finish running
+        threading.Thread(
+            target=sw.run_script,
+            args=(tempdir, port, manager),
+        ).start()
 
-        # Step 2: add import strings for node functions and import the files themselves
-        sw.import_app_nodes(get_graph_nodes(light_topology))
 
-        # Step 3: add the flowchart, and the code to run it
-        sw.run_write_flowchart(fc, jobset_id)
-
-        # Step 4: output entry point script
-        sw.write_to_file()
-
-        # Step 5: output other necessary files or modules
-        sw.write_extra_files()
-
-        # Step 6: apply file filters to .py files
-        sw.apply_filters_to_py_files_in_output_dir()
-
-        # Step 7: compile to mpy
-        # sw.compile_to_mpy()
-        # TODO: setup for this is too complicated and it's not
-        # even necessary to run on microcontroller
-
-        # Step 8: output to microcontroller or just run it
-
-        if upload:
-            await asyncio.create_task(
-                sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output, manager=manager)
-            )
-        else:
-            await asyncio.create_task(
-                sw.run_script(
-                    tempdir=tmpdirname,
-                    port=port,
-                    manager=manager,
-                )
-            )

@@ -1,5 +1,6 @@
 from queue import Queue
 from subprocess import Popen
+import subprocess
 from fastapi import WebSocket
 from flojoy import PlotlyJSONEncoder
 from captain.utils.logger import logger
@@ -25,20 +26,44 @@ class Manager(object):
         self.finish_queue: Queue[Any] = Queue()
         self.thread_count: int = 0
         self.mc_proc: Popen | None = None # holds the microcontroller process for uploading or running
+        self.mc_port = "" # holds the port of the microcontroller process currently running
 
     def end_worker_threads(self):
+        """
+        This function will end all producer/consumer threads by putting poison pills into the task and finish queues.
+        """
         for _ in range(self.thread_count):
             self.task_queue.put(PoisonPill())  # poison pill
             self.finish_queue.put(PoisonPill())  # poison pill
     
+    def set_mc(self, mc_proc: Popen, mc_port: str):
+        """
+        This function will store the process object and the port of the currently running microcontroller for cancellation purposes
+        """
+        self.mc_proc = mc_proc
+        self.mc_port = mc_port
+
     def terminate_mc_proc(self):
+        """
+        This function terminates the microcontroller process and soft reboots the microcontroller.
+        """
         if self.mc_proc:
+            # terminate the microcontroller process
             logger.debug("terminating mc...")
             self.mc_proc.terminate()
             self.mc_proc.wait(5) # wait for process to terminate 
             if self.mc_proc.returncode != 0:
                 logger.error("mc terminated with non-zero exit code or timeout")
-            logger.debug("terminated mc")
+            else:
+                logger.debug("terminated mc")
+
+            # soft reboot the microcontroller
+            logger.debug("soft rebooting mc...")
+            stderr = subprocess.run(["mpremote", "connect", self.mc_port, "+", "soft-reset"], stderr=subprocess.PIPE).stderr.decode()
+            if (stderr != ""):
+                logger.error(f"soft reboot failed: {stderr}")
+            else:
+                logger.debug("soft rebooted mc")
             self.mc_proc = None
         
 

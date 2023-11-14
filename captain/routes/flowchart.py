@@ -44,7 +44,7 @@ async def cancel_fc(req: PostCancelFC):
 async def write_and_run_flowchart(request: PostWFC):
     # create message for front-end to indicate we are running pre-job operations
     if request.precompile:
-        asyncio.create_task(
+        await asyncio.create_task(
             precompile(
                 fc=request.fc,
                 jobset_id=request.jobsetId,
