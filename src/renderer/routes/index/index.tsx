@@ -26,7 +26,6 @@ import {
 import { InterpretersList } from "src/main/python/interpreter";
 
 export const Index = (): JSX.Element => {
-  //   const captainReady = useCaptainStateStore((state) => state.ready);
   const {
     states: { serverStatus },
   } = useSocket();
