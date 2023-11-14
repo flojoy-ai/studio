@@ -112,7 +112,7 @@ const Sidebar = ({
               className="px-2 font-semibold text-muted-foreground"
               data-testid="request-node-btn"
             >
-              Request a node...
+              Request a block...
             </Button>
           </a>
           <div className="grow" />
