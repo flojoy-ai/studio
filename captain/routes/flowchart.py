@@ -21,29 +21,41 @@ router = APIRouter(tags=["flowchart"])
 
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):
-    logger.info("Cancelling flowchart...")
-    if manager.running_topology is not None:
-        manager.running_topology.cancel()
+
+    logger.debug("Received cancel_fc request")
+
     if req.jobsetId is None:
-        logger.debug("No jobsetId provided, skipping signal_standby")
-        return
-    asyncio.create_task(Signaler(manager.ws).signal_standby(req.jobsetId))
+            logger.debug("No jobsetId provided, skipping signal_standby")
+            return
+    
+    if not req.precompile:    
+        logger.info("Cancelling flowchart...")
+        if manager.running_topology is not None:
+            manager.running_topology.cancel()
+        
+        asyncio.create_task(Signaler(manager.ws).signal_standby(req.jobsetId))
+    else:
+        manager.terminate_mc_proc()
+        asyncio.create_task(Signaler(manager.ws).signal_standby(req.jobsetId))
+        
 
 
 @router.post("/wfc", summary="write and run flowchart")
 async def write_and_run_flowchart(request: PostWFC):
     # create message for front-end to indicate we are running pre-job operations
     if request.precompile:
-        await precompile(
-            fc=request.fc,
-            jobset_id=request.jobsetId,
-            node_delay=request.nodeDelay,
-            maximum_runtime=request.maximumRuntime,
-            path_to_requirements="requirements-precompiled.txt",
-            is_ci=False,
-            upload=False,
-            port=request.selectedPort,
-            signaler=Signaler(manager.ws),
+        asyncio.create_task(
+            precompile(
+                fc=request.fc,
+                jobset_id=request.jobsetId,
+                node_delay=request.nodeDelay,
+                maximum_runtime=request.maximumRuntime,
+                path_to_requirements="requirements-precompiled.txt",
+                is_ci=False,
+                upload=False,
+                port=request.selectedPort,
+                signaler=Signaler(manager.ws),
+            )  
         )
     else:
         await prepare_jobs_and_run_fc(request=request, manager=manager)

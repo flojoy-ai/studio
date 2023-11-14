@@ -8,7 +8,7 @@ from precompilation.precompilation_utils import (
     get_graph_nodes,
 )
 from flojoy.utils import clear_flojoy_memory
-
+from captain.utils.config import manager    
 
 # TODO Support node init precompilation
 async def precompile(
@@ -18,7 +18,7 @@ async def precompile(
     maximum_runtime: float,
     path_to_requirements: str,
     signaler: Signaler,
-    path_to_output: str = "test",
+    path_to_output: str = "",
     is_ci: bool = False,
     upload: bool = False,
     port: str = "",
@@ -74,12 +74,13 @@ async def precompile(
 
         if upload:
             await asyncio.create_task(
-                sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output)
+                sw.output(tempdir=tmpdirname, port=port, path_to_output=path_to_output, manager=manager)
             )
         else:
             await asyncio.create_task(
                 sw.run_script(
                     tempdir=tmpdirname,
                     port=port,
+                    manager=manager,
                 )
             )

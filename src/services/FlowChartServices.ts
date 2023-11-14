@@ -74,13 +74,14 @@ export const uploadFlowChartToMicrocontroller = sendToServer("mc_upload");
 export function cancelFlowChartRun(
   rfInstance: ReactFlowJsonObject<ElementsData>,
   jobId: string,
+  isMicrocontrollerMode: boolean,
 ) {
   const fcStr = JSON.stringify(rfInstance);
-
   baseClient
     .post("cancel_fc", {
       fc: fcStr,
       jobsetId: jobId,
+      precompile: isMicrocontrollerMode,
     })
     .then((res) => console.log(res.data));
 }

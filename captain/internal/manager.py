@@ -1,4 +1,5 @@
 from queue import Queue
+from subprocess import Popen
 from fastapi import WebSocket
 from flojoy import PlotlyJSONEncoder
 from captain.utils.logger import logger
@@ -22,12 +23,24 @@ class Manager(object):
         self.debug_mode = False
         self.task_queue: Queue[Any] = Queue()
         self.finish_queue: Queue[Any] = Queue()
-        self.thread_count = 0
+        self.thread_count: int = 0
+        self.mc_proc: Popen | None = None # holds the microcontroller process for uploading or running
 
     def end_worker_threads(self):
         for _ in range(self.thread_count):
             self.task_queue.put(PoisonPill())  # poison pill
             self.finish_queue.put(PoisonPill())  # poison pill
+    
+    def terminate_mc_proc(self):
+        if self.mc_proc:
+            logger.debug("terminating mc...")
+            self.mc_proc.terminate()
+            self.mc_proc.wait(5) # wait for process to terminate 
+            if self.mc_proc.returncode != 0:
+                logger.error("mc terminated with non-zero exit code or timeout")
+            logger.debug("terminated mc")
+            self.mc_proc = None
+        
 
 
 class ConnectionManager:

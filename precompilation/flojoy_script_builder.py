@@ -11,6 +11,7 @@ import subprocess
 # import mpy_cross
 from typing import Any, cast
 from PYTHON.utils.dynamic_module_import import get_module_func, get_module_path
+from captain.internal.manager import Manager
 from captain.utils.broadcast import Signaler
 from captain.utils.logger import logger
 from precompilation.config import (
@@ -425,13 +426,16 @@ class FlojoyScriptBuilder:
     #     for file in to_remove:
     #         os.remove(file)
 
-    async def run_script(self, tempdir, port: str):
+    async def run_script(self, tempdir, port: str, manager: Manager):
         await asyncio.create_task(
             self.signaler.signal_script_running_microcontroller(self.jobset_id)
         )
         cmd = ["mpremote", "connect", port, "+", "run", f"{tempdir}/main.py"]
-        p = subprocess.run(cmd, stdout=subprocess.PIPE)
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        manager.mc_proc = p
+        p.wait()
         if p.stderr:
+            logger.debug("got error from MC: ", p.stderr)
             await asyncio.create_task(
                 self.signaler.signal_prejob_output(self.jobset_id, str(p.stderr))
             )
@@ -439,7 +443,7 @@ class FlojoyScriptBuilder:
 
         await asyncio.create_task(self.signaler.signal_standby(self.jobset_id))
 
-    async def output(self, tempdir, port: str, path_to_output: str | None):
+    async def output(self, tempdir, manager: Manager, port: str, path_to_output: str | None):
         """
         Copy paste the temp dir into the output dir if specified
         and into the port dir if specified
@@ -473,6 +477,7 @@ class FlojoyScriptBuilder:
                     stderr=subprocess.PIPE,
                     universal_newlines=True,
                 ) as proc:
+                    manager.mc_proc = proc
                     out, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
                     logger.debug(out)
                     if error_output:

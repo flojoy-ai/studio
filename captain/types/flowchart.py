@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class PostCancelFC(BaseModel):
     fc: str
     jobsetId: str | None = None
+    precompile: bool = False
 
 
 class PostWFC(BaseModel):

@@ -43,7 +43,7 @@ const FlowControlButtons = () => {
     serverStatus === IServerStatus.OFFLINE;
   const cancelFC = () => {
     if (project.rfInstance && project.rfInstance.nodes.length > 0) {
-      cancelFlowChartRun(project.rfInstance, socketId);
+      cancelFlowChartRun(project.rfInstance, socketId, isMicrocontrollerMode);
     } else {
       alert("is no running job on server.");
     }
