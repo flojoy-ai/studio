@@ -2,7 +2,10 @@ import { Badge } from "@src/components/ui/badge";
 import { useSocket } from "@src/hooks/useSocket";
 import { IServerStatus } from "@src/context/socket.context";
 import { useEffect, useRef, useState } from "react";
-import { LAYOUT_TOP_HEIGHT } from "@src/routes/common/Layout";
+import {
+  BOTTOM_STATUS_BAR_HEIGHT,
+  LAYOUT_TOP_HEIGHT,
+} from "@src/routes/common/Layout";
 import { cn } from "@src/lib/utils";
 import { Button } from "@src/components/ui/button";
 
@@ -38,7 +41,11 @@ const StatusBar = (): JSX.Element => {
           "flex-col justify-start overflow-y-scroll ": !minimize,
           "row items-center justify-between bg-background": minimize,
         })}
-        style={{ maxHeight: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
+        style={{
+          maxHeight: `calc(100vh - ${
+            LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
+          }px)`,
+        }}
       >
         {minimize && (
           <div className="flex min-w-fit items-center gap-2 ps-2">

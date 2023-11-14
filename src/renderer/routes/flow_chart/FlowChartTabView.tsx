@@ -28,7 +28,11 @@ import { useFlowChartTabState } from "./FlowChartTabState";
 import { useAddNewNode } from "./hooks/useAddNewNode";
 import { NodeExpandMenu } from "./views/NodeExpandMenu";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT } from "../common/Layout";
+import {
+  ACTIONS_HEIGHT,
+  BOTTOM_STATUS_BAR_HEIGHT,
+  LAYOUT_TOP_HEIGHT,
+} from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import useNodeTypes from "./hooks/useNodeTypes";
@@ -359,7 +363,11 @@ const FlowChartTab = () => {
         <WelcomeModal />
 
         <div
-          style={{ height: `calc(100vh - ${LAYOUT_TOP_HEIGHT}px)` }}
+          style={{
+            height: `calc(100vh - ${
+              LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
+            }px)`,
+          }}
           className="relative overflow-hidden bg-background"
           data-testid="react-flow"
           id="flow-chart-area"
