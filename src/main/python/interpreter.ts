@@ -18,6 +18,8 @@ class PythonManager {
       "/usr/bin", // Add more paths as needed
       "/usr/local/bin",
       "/opt/local/bin", // For macOS with MacPorts
+      "~/.pyenv/shims",
+      "/opt/homebrew/bin",
       os.homedir() + "/miniconda3/bin",
     ],
     win32: [os.homedir() + "/miniconda3"],

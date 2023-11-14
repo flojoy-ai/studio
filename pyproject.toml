@@ -36,6 +36,14 @@ pytest = "^7.4.2"
 pytest-cov = "^4.1.0"
 ruff = "^0.1.2"
 
+
+[tool.poetry.group.ai-ml.dependencies]
+torch = "^2.1.0"
+torchvision = "^0.16.0"
+torchaudio = "^2.1.0"
+transformers = "^4.35.1"
+prophet = "^1.1.5"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
