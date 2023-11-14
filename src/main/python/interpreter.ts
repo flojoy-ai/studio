@@ -4,6 +4,7 @@ import os from "os";
 import { execCommand } from "../executor";
 import { Command } from "../command";
 import { dialog } from "electron";
+
 export type InterpretersList = {
   path: string;
   default: false;
@@ -15,11 +16,11 @@ export type InterpretersList = {
 class PythonManager {
   defaultBinPaths = {
     darwin: [
-      "/usr/bin", // Add more paths as needed
+      "/usr/bin",
       "/usr/local/bin",
-      "/opt/local/bin", // For macOS with MacPorts
-      "~/.pyenv/shims",
+      "/opt/local/bin",
       "/opt/homebrew/bin",
+      os.homedir() + "/.pyenv/shims",
       os.homedir() + "/miniconda3/bin",
     ],
     win32: [os.homedir() + "/miniconda3"],
@@ -214,7 +215,7 @@ const swapPath = (path: string) => {
   process.env.PATH = `${path}:${envPath}`;
 };
 
-export const browsePyhtonInterpreter = async () => {
+export const browsePythonInterpreter = async () => {
   const selectedPaths = dialog.showOpenDialogSync(global.mainWindow, {
     buttonLabel: "Select",
     properties: ["openFile"],

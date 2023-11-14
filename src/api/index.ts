@@ -30,5 +30,5 @@ export default {
   setPythonInterpreter: (interpreter: string) =>
     ipcRenderer.send(API.setPythonInterpreter, interpreter),
   browsePyInterpreter: (): Promise<string | null> =>
-    ipcRenderer.invoke(API.browsePyhtonInterpreter),
+    ipcRenderer.invoke(API.browsePythonInterpreter),
 };
