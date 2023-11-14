@@ -347,8 +347,9 @@ def stream_response(proc: Popen[bytes]):
 
 async def install_packages(missing_packages: list[str]):
     try:
-        py_interpreter = os.environ.get("PY_INTERPRETER", "python")
-        cmd = [py_interpreter, "-m", "pip", "install"] + missing_packages
+        import sys
+
+        cmd = [sys.executable, "-m", "pip", "install"] + missing_packages
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         while proc.poll() is None:
             stream = stream_response(proc)

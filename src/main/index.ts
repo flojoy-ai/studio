@@ -196,8 +196,8 @@ app.whenReady().then(async () => {
   createWindow().catch((err) => console.log(err));
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
   ipcMain.on(API.writeFileSync, writeFileSync);
-  ipcMain.on(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.on(API.statusBarLogging, logListener);
+  ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);
   ipcMain.handle(API.installPipx, installPipx);

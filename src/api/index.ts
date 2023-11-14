@@ -27,8 +27,8 @@ export default {
   openLogFolder: (): Promise<void> => ipcRenderer.invoke(API.openLogFolder),
   restartFlojoyStudio: (): Promise<void> =>
     ipcRenderer.invoke(API.restartFlojoyStudio),
-  setPythonInterpreter: (interpreter: string) =>
-    ipcRenderer.send(API.setPythonInterpreter, interpreter),
+  setPythonInterpreter: (interpreter: string): Promise<void> =>
+    ipcRenderer.invoke(API.setPythonInterpreter, interpreter),
   browsePyInterpreter: (): Promise<string | null> =>
     ipcRenderer.invoke(API.browsePythonInterpreter),
 };

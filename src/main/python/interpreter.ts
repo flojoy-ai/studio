@@ -216,7 +216,7 @@ export const handlePythonInterpreter = async (_, interpreter: string) => {
   const pathArr: string[] = [];
   paths.split(";").forEach((p) => {
     if (p) {
-      pathArr.push(p);
+      pathArr.push(p.trim());
     }
   });
   process.env.PY_INTERPRETER = interpreter;
@@ -231,7 +231,7 @@ const swapPath = (path: string) => {
     envPath = envPath.replaceAll(oldPath, "");
   }
   process.env.OLD_PATH = path;
-  process.env.PATH = `${path}:${envPath}`;
+  process.env.PATH = `${path.trim()}:${envPath}`;
 };
 
 export const browsePythonInterpreter = async () => {

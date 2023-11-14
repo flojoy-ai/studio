@@ -137,8 +137,8 @@ export const Index = (): JSX.Element => {
     }
   };
 
-  const handleSelectedPyInterpreter = (interpreter: string) => {
-    window.api.setPythonInterpreter(interpreter);
+  const handleSelectedPyInterpreter = async (interpreter: string) => {
+    await window.api.setPythonInterpreter(interpreter);
     setSelectedInterpreter(interpreter);
     updateSetupStatus({
       stage: "check-python-installation",

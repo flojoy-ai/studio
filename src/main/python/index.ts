@@ -73,7 +73,7 @@ export async function pipxEnsurepath(): Promise<void> {
     }),
   );
 
-  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")};${
+  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${
     process.env.PATH
   }`;
 }
