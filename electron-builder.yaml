@@ -26,8 +26,6 @@ extraResources:
     to: "pyproject.toml"
   - from: "poetry.lock"
     to: "poetry.lock"
-  - from: "environment.yml"
-    to: "environment.yml"
 
 mac:
   icon: ./public/favicon.icns

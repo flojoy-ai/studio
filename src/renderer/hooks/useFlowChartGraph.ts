@@ -9,7 +9,6 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
-const process = undefined;
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
 const initialNodes: Node<ElementsData>[] = projectData.nodes;
@@ -160,8 +159,7 @@ function resolveDefaultProjectReference() {
   let project;
   if (typeof window !== "undefined") {
     const query = new URLSearchParams(window.location.search);
-    project = query.get("project") || process?.env?.DEFAULT_PROJECT;
+    project = query.get("project"); // TODO: set these env through electron API as process is not accessible at this level
   }
-  project = project || process?.env?.DEFAULT_PROJECT;
   return project;
 }

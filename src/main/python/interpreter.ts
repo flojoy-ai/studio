@@ -29,13 +29,16 @@ export class PythonManager {
       os.homedir() + "/.pyenv/shims",
       os.homedir() + "/miniconda3/bin",
     ],
-    win32: [os.homedir() + "/miniconda3", join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python310"),
-    join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python311"),
-  join(process.env.ProgramFiles ?? "", "python311")],
+    win32: [
+      os.homedir() + "/miniconda3",
+      join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python310"),
+      join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python311"),
+      join(process.env.ProgramFiles ?? "", "python311"),
+    ],
   };
   executables: string[] = [];
 
-  constructor() { }
+  constructor() {}
 
   gatherPathsFromDefaultBin() {
     const promises: Array<Promise<void>> = [];
@@ -81,9 +84,33 @@ export class PythonManager {
 
     return Promise.all(promises);
   }
+  private async getCondaCmd() {
+    let cmd = "conda";
+    try {
+      await execCommand(new Command(cmd), { quiet: true });
+    } catch (error) {
+      try {
+        if (process.platform === "win32") {
+          cmd = `"${os.homedir()}/miniconda3/Scripts/conda.exe"`;
+          await execCommand(new Command(cmd), { quiet: true });
+        } else {
+          cmd = `"${os.homedir()}/miniconda3/bin/conda"`;
+          await execCommand(new Command(cmd), { quiet: true });
+        }
+      } catch (error) {
+        cmd = "";
+      }
+    }
+    return cmd;
+  }
 
   async getCondaEnvs() {
-    const cmd = "conda info --json";
+    const conda = await this.getCondaCmd();
+    if (conda === "") {
+      return null;
+    }
+    const cmd = `${conda} info --json`;
+
     try {
       const condaInfo = await execCommand(new Command(cmd), { quiet: true });
       const parseInfo = JSON.parse(condaInfo);
@@ -112,8 +139,8 @@ export class PythonManager {
 
   static isPythonFile(fullFileName: string) {
     let fileName = fullFileName;
-    if(process.platform === 'win32'){
-      if(!fullFileName.includes(".exe")){
+    if (process.platform === "win32") {
+      if (!fullFileName.includes(".exe")) {
         return false;
       }
       fileName = fullFileName.split(".exe")[0];
