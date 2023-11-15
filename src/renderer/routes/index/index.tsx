@@ -29,7 +29,9 @@ export const Index = (): JSX.Element => {
   const {
     states: { serverStatus },
   } = useSocket();
-  const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(null);
+  const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(
+    null,
+  );
   const [selectedInterpreter, setSelectedInterpreter] = useState("");
   const [setupStatuses, setSetupStatuses] = useState<SetupStatus[]>([
     {
@@ -267,74 +269,75 @@ export const Index = (): JSX.Element => {
             {setupStatuses.map((status, idx) => (
               <Fragment key={idx}>
                 <SetupStep status={status.status} message={status.message} />
-                {status.stage === "check-python-installation" && pyInterpreters && (
-                  <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
-                    <Select
-                      disabled={selectedInterpreter !== ""}
-                      value={undefined}
-                      onValueChange={handleSelectedPyInterpreter}
-                    >
-                      <SelectTrigger className="grow">
-                        <SelectValue
-                          placeholder={
-                            pyInterpreters.length > 0
-                              ? "Please select a Python interpreter"
-                              : "No Python 3.11 interpreter found!"
-                          }
-                        />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {pyInterpreters.map((env) => {
-                          return (
-                            <SelectItem
-                              className="flex w-full cursor-pointer flex-col items-start justify-start"
-                              key={env.path}
-                              value={env.path}
-                            >
-                              <div className="font-semibold">{env.path}</div>
-                              <div className="flex items-center justify-between">
-                                <div>
-                                  version:
-                                  {` ${env.version.major}.${env.version.minor}`}
+                {status.stage === "check-python-installation" &&
+                  pyInterpreters && (
+                    <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
+                      <Select
+                        disabled={selectedInterpreter !== ""}
+                        value={undefined}
+                        onValueChange={handleSelectedPyInterpreter}
+                      >
+                        <SelectTrigger className="grow">
+                          <SelectValue
+                            placeholder={
+                              pyInterpreters.length > 0
+                                ? "Please select a Python interpreter"
+                                : "No Python 3.11 interpreter found!"
+                            }
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {pyInterpreters.map((env) => {
+                            return (
+                              <SelectItem
+                                className="flex w-full cursor-pointer flex-col items-start justify-start"
+                                key={env.path}
+                                value={env.path}
+                              >
+                                <div className="font-semibold">{env.path}</div>
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    version:
+                                    {` ${env.version.major}.${env.version.minor}`}
+                                  </div>
+                                  <div className="text-gray-500">
+                                    {env.default ? "default" : ""}
+                                  </div>
                                 </div>
-                                <div className="text-gray-500">
-                                  {env.default ? "default" : ""}
-                                </div>
-                              </div>
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectContent>
-                    </Select>
-                    {pyInterpreters.length == 0 && (
-                      <div>
-                        <Button
-                          className="px-1 font-bold"
-                          variant={"link"}
-                          onClick={() =>
-                            window.open(
-                              "https://www.python.org/downloads/release/python-3116/",
-                            )
-                          }
-                        >
-                          Click here
-                        </Button>{" "}
-                        to download Python 3.11 from official website.
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                      {pyInterpreters.length == 0 && (
+                        <div>
+                          <Button
+                            className="px-1 font-bold"
+                            variant={"link"}
+                            onClick={() =>
+                              window.open(
+                                "https://www.python.org/downloads/release/python-3116/",
+                              )
+                            }
+                          >
+                            Click here
+                          </Button>{" "}
+                          to download Python 3.11 from official website.
+                        </div>
+                      )}
+                      <div className="flex w-full items-center">
+                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                        <span className="mx-4 text-gray-600">OR</span>
+                        <hr className="w-full flex-1 border-t-2 border-gray-300" />
                       </div>
-                    )}
-                    <div className="flex w-full items-center">
-                      <hr className="w-full flex-1 border-t-2 border-gray-300" />
-                      <span className="mx-4 text-gray-600">OR</span>
-                      <hr className="w-full flex-1 border-t-2 border-gray-300" />
+                      <Button
+                        onClick={handleBrowsePyInterpreter}
+                        disabled={selectedInterpreter !== ""}
+                      >
+                        Find a interpreter
+                      </Button>
                     </div>
-                    <Button
-                      onClick={handleBrowsePyInterpreter}
-                      disabled={selectedInterpreter !== ""}
-                    >
-                      Find a interpreter
-                    </Button>
-                  </div>
-                )}
+                  )}
               </Fragment>
             ))}
           </div>

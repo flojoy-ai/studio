@@ -30,9 +30,9 @@ export async function checkPythonInstallation(): Promise<InterpretersList> {
         global.pythonInterpreters = global.pythonInterpreters.map((i) =>
           i.path === interpreter
             ? {
-              ...i,
-              default: true,
-            }
+                ...i,
+                default: true,
+              }
             : i,
         );
       } else {
@@ -66,26 +66,24 @@ export async function pipxEnsurepath(): Promise<void> {
   const pipxBinScript =
     "import pipx.commands.ensure_path;import pipx.constants;script=pipx.commands.ensure_path.get_pipx_user_bin_path();bin=pipx.constants.DEFAULT_PIPX_BIN_DIR;print(bin,';',script)";
   const pipxBinPath = await execCommand(
-    new Command(`"${py}" -c "${pipxBinScript}"`), { quiet: true }
+    new Command(`"${py}" -c "${pipxBinScript}"`),
+    { quiet: true },
   );
 
-  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${process.env.PATH
-    }`;
+  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${
+    process.env.PATH
+  }`;
 }
 
 export function installPoetry(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   process.env.POETRY_PATH = `${os.homedir}/.local/bin/poetry`;
-  return execCommand(
-    new Command(`${py} -m pipx install poetry --force`),
-  );
+  return execCommand(new Command(`${py} -m pipx install poetry --force`));
 }
 
 export function installDependencies(): Promise<string> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return execCommand(
-    new Command(`${poetry} install`),
-  );
+  return execCommand(new Command(`${poetry} install`));
 }
 
 export async function spawnCaptain(): Promise<void> {

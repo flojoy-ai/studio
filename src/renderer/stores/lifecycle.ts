@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export interface CaptainState {
   ready: boolean;
@@ -6,5 +6,5 @@ export interface CaptainState {
 }
 export const useCaptainStateStore = create<CaptainState>((set) => ({
   ready: false,
-  setReady: (state: boolean): void => set({ ready: state })
+  setReady: (state: boolean): void => set({ ready: state }),
 }));
