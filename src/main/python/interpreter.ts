@@ -186,16 +186,20 @@ export class PythonManager {
       }
       visited.add(interpreter);
       const cmd = `${interpreter} --version`;
-      const version = await execCommand(new Command(cmd));
-      const interpreterInfo: InterpretersList[0] = {
-        path: interpreter,
-        version: {
-          major: +version.split(" ")[1].split(".")[0],
-          minor: +version.split(" ")[1].split(".")[1],
-        },
-        default: false,
-      };
-      list.push(interpreterInfo);
+      try {
+        const version = await execCommand(new Command(cmd));
+        const interpreterInfo: InterpretersList[0] = {
+          path: interpreter,
+          version: {
+            major: +version.split(" ")[1].split(".")[0],
+            minor: +version.split(" ")[1].split(".")[1],
+          },
+          default: false,
+        };
+        list.push(interpreterInfo);
+      } catch (error) {
+        continue;
+      }
     }
     return list;
   }
