@@ -58,8 +58,8 @@ export const saveBlocksPack = async ({
 
 /**
  *
- * Propmts user to choose a location for downloading nodes resource pack
- * @returns location choosed by user
+ * Prompts user to choose a location for downloading nodes resource pack
+ * @returns location choose by user
  */
 const getSavePath = (
   win: BrowserWindow,
