@@ -81,7 +81,7 @@ jobs:
             echo "No matching URLs found in the comment body."
           fi
 
-      - name: Test if Flojou-studio is up
+      - name: Test if Flojoy-studio is up
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         id: test-http-page
         run: |
