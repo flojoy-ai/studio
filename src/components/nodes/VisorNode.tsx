@@ -4,7 +4,10 @@ import clsx from "clsx";
 import HandleComponent from "@/components/common/HandleComponent";
 import Scatter from "@/assets/nodes/Scatter";
 import { memo, useMemo } from "react";
-import { makePlotlyData } from "@/components/plotly/formatPlotlyData";
+import {
+  findFilteredPlotlyValues,
+  makePlotlyData,
+} from "@/components/plotly/formatPlotlyData";
 import PlotlyComponent from "@/components/plotly/PlotlyComponent";
 import CompositePlot from "@/assets/nodes/CompositePlot";
 import ProphetComponents from "@/assets/nodes/ProphetComponents";
@@ -65,12 +68,16 @@ const VisorNode = (props: CustomNodeProps) => {
       plotlyFig ? makePlotlyData(plotlyFig.data, resolvedTheme, true) : null,
     [plotlyFig, resolvedTheme],
   );
+  const [horizontalValue, verticalValue] = useMemo(
+    () => (plotlyFig ? findFilteredPlotlyValues(plotlyFig.data) : [0, 0]),
+    [plotlyFig],
+  );
 
   return (
     <NodeWrapper wrapperProps={props}>
       <div
         className={clsx(
-          "rounded-2xl bg-transparent",
+          "rounded-2xl  bg-transparent",
           { "shadow-around shadow-accent2": isRunning || data.selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
@@ -85,8 +92,15 @@ const VisorNode = (props: CustomNodeProps) => {
               height: 293,
               width: 380,
             }}
-            isThumbnail
+            isThumbnail={true}
           />
+        )}
+        {(horizontalValue > 0 || verticalValue > 0) && (
+          <div className="-mt-10 flex justify-center whitespace-normal py-2 text-sm">
+            {verticalValue < 0 ? 0 : verticalValue} rows and{" "}
+            {horizontalValue < 0 ? 0 : horizontalValue} cols are hidden from
+            this preview
+          </div>
         )}
         {textBlob && <MarkDownText text={textBlob} isThumbnail />}
         {!plotlyData && !textBlob && <>{chartElemMap[data.func]}</>}

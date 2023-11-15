@@ -31,4 +31,6 @@ export type PlotProps = {
   layout: Partial<Layout>;
   theme?: "light" | "dark";
   id?: string;
+  hideRow?: number;
+  hideCol?: number;
 } & Omit<PlotParams, "data">;

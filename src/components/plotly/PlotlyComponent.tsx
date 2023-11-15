@@ -5,6 +5,8 @@ import { plotLayout } from "./layout";
 import { useMemo } from "react";
 import { PlotProps } from "@src/types/plotly";
 import { useTheme } from "@src/providers/themeProvider";
+// import { Button } from "@/components/ui/button";
+// import { MoreHorizontal, MoreVertical } from "lucide-react";
 
 const MATRIX_SIZE = {
   width: 240,
@@ -20,7 +22,6 @@ const PlotlyComponent = (props: PlotProps) => {
 
   const isMatrix = data[0]?.header?.values?.length === 0;
   const is3dPlot = data[0]?.type === "surface" || data[0]?.type === "scatter3d";
-
   return (
     <Plot
       data={data}
@@ -31,7 +32,10 @@ const PlotlyComponent = (props: PlotProps) => {
         ...(isThumbnail && isMatrix && MATRIX_SIZE),
       }}
       useResizeHandler={useResizeHandler}
-      config={{ displayModeBar: false, staticPlot: isThumbnail && !is3dPlot }}
+      config={{
+        displayModeBar: false,
+        staticPlot: isThumbnail && !is3dPlot,
+      }}
       style={isMatrix && isThumbnail ? MATRIX_SIZE : style}
     />
   );
