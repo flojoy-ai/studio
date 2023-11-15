@@ -21,6 +21,7 @@ export const useAddNewNode = (
   ) => void,
   getTakenNodeLabels: (func: string) => string[][],
   nodesMetadataMap: BlocksMetadataMap | null,
+  recordState: () => void,
 ) => {
   const center = useAtomValue(centerPositionAtom);
   const setHasUnsavedChanges = useSetAtom(unsavedChangesAtom);
@@ -89,6 +90,7 @@ export const useAddNewNode = (
         position: nodePosition,
       };
       setNodes((els) => els.concat(newNode));
+      recordState();
       setHasUnsavedChanges(true);
       sendEventToMix("Node Added", newNode.data.label);
     },

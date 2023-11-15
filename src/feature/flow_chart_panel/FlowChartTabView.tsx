@@ -33,7 +33,7 @@ import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
 import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
-import { Pencil, Text, Workflow, X } from "lucide-react";
+import { Pencil, Text, Workflow, X, Undo, Redo } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
 import { toast } from "sonner";
 import { useTheme } from "@src/providers/themeProvider";
@@ -86,6 +86,11 @@ const FlowChartTab = () => {
     setEdges,
     selectedNode,
     unSelectedNodes,
+    canRedo,
+    canUndo,
+    recordState,
+    redo,
+    undo,
   } = useFlowChartGraph();
   const nodesMetadataMap = useNodesMetadata();
   const manifest = useManifest();
@@ -108,8 +113,10 @@ const FlowChartTab = () => {
     setNodes,
     getTakenNodeLabels,
     nodesMetadataMap,
+    recordState,
   );
-  const addTextNode = useAddTextNode();
+
+  const addTextNode = useAddTextNode(recordState);
 
   const duplicateNode = (node: Node<ElementsData>) => {
     const funcName = node.data.func;
@@ -197,6 +204,7 @@ const FlowChartTab = () => {
       nodes[nodeIndex] = node;
       setHasUnsavedChanges(true);
     });
+    recordState();
   };
 
   const onNodesChange: OnNodesChange = useCallback(
@@ -223,7 +231,9 @@ const FlowChartTab = () => {
       setEdges((eds) => {
         if (manifest) {
           const [sourceType, targetType] = getEdgeTypes(manifest, connection);
+
           if (isCompatibleType(sourceType, targetType)) {
+            recordState();
             return addEdge(connection, eds);
           }
 
@@ -245,6 +255,7 @@ const FlowChartTab = () => {
         prev.filter((node) => !selectedNodeIds.includes(node.id)),
       );
       setHasUnsavedChanges(true);
+      recordState();
     },
     [setNodes, setHasUnsavedChanges],
   );
@@ -254,7 +265,7 @@ const FlowChartTab = () => {
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
-
+    recordState();
     sendEventToMix("Canvas cleared", "");
   }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
 
@@ -317,6 +328,29 @@ const FlowChartTab = () => {
               setIsGalleryOpen={setIsGalleryOpen}
             />
             <div className="grow" />
+            {canUndo && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={undo}
+                data-testid="undo-button"
+              >
+                <Undo size={18} className="stroke-muted-foreground" />
+                Undo
+              </Button>
+            )}
+
+            {canRedo && (
+              <Button
+                variant="ghost"
+                className="gap-2"
+                onClick={redo}
+                data-testid="redo-button"
+              >
+                <Redo size={18} className="stroke-muted-foreground" />
+                Redo
+              </Button>
+            )}
             {selectedNode && (
               <>
                 {!isEditMode ? (

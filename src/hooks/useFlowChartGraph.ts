@@ -1,7 +1,7 @@
 import { ElementsData } from "@/types";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
@@ -11,7 +11,7 @@ import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
 const project = resolveDefaultProjectReference();
-const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
+const projectData = resolveProjectReference(project!) || RECIPES.NOISY_SINE;
 const initialNodes: Node<ElementsData>[] = projectData.nodes;
 const initialEdges: Edge[] = projectData.edges;
 
@@ -19,10 +19,91 @@ const nodesAtom = atomWithImmer<Node<ElementsData>[]>(initialNodes);
 export const textNodesAtom = atomWithImmer<Node<TextData>[]>([]);
 const edgesAtom = atomWithImmer<Edge[]>(initialEdges);
 
+type UndoRedoStackItem = {
+  edges: Edge[];
+  nodes: Node<ElementsData>[];
+  textNodes: Node<TextData>[];
+};
+
+const undoStackAtom = atom<UndoRedoStackItem[]>([]);
+const redoStackAtom = atom<UndoRedoStackItem[]>([]);
+
 export const useFlowChartGraph = () => {
+  const initialNodesRef = useRef(initialNodes);
+  const initialEdgesRef = useRef(initialEdges);
+
   const [nodes, setNodes] = useAtom(nodesAtom);
   const [textNodes, setTextNodes] = useAtom(textNodesAtom);
   const [edges, setEdges] = useAtom(edgesAtom);
+
+  const [undoStack, setUndoStack] = useAtom(undoStackAtom);
+  const [redoStack, setRedoStack] = useAtom(redoStackAtom);
+
+  const recordState = useCallback(() => {
+    setUndoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
+    setRedoStack([]);
+  }, [edges, nodes, textNodes]);
+
+  const canRedo = useMemo(() => redoStack.length > 0, [redoStack]);
+  const canUndo = useMemo(() => undoStack.length > 0, [undoStack]);
+
+  const undo = useCallback(() => {
+    if (!canUndo) return;
+
+    setUndoStack((prev) => {
+      const prevState = prev[prev.length - 2] || {
+        edges: initialEdgesRef.current,
+        nodes: initialNodesRef.current,
+        textNodes: [],
+      };
+      setNodes(prevState.nodes);
+      setEdges(prevState.edges);
+      setTextNodes(prevState.textNodes);
+      return prev.slice(0, -1);
+    });
+
+    setRedoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
+  }, [edges, nodes, textNodes]);
+
+  const redo = useCallback(() => {
+    if (!canRedo) return;
+
+    setRedoStack((prev) => {
+      const nextState = prev[prev.length - 1];
+
+      if (nextState) {
+        setNodes(nextState.nodes);
+        setEdges(nextState.edges);
+        setTextNodes(nextState.textNodes);
+      }
+
+      return prev.slice(0, -1);
+    });
+
+    setUndoStack((prev) => [
+      ...prev,
+      {
+        edges,
+        nodes,
+        textNodes,
+      },
+    ]);
+  }, [edges, nodes, textNodes]);
+
   const { selectedNodes, unSelectedNodes } = useMemo(() => {
     const selectedNodes: Node<ElementsData>[] = [];
     const unSelectedNodes: Node<ElementsData>[] = [];
@@ -33,6 +114,7 @@ export const useFlowChartGraph = () => {
     }
     return { selectedNodes, unSelectedNodes };
   }, [nodes]);
+
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
 
   const loadFlowExportObject = useCallback(
@@ -143,6 +225,11 @@ export const useFlowChartGraph = () => {
     updateInitCtrlInputDataForNode,
     loadFlowExportObject,
     handleTitleChange,
+    canRedo,
+    canUndo,
+    recordState,
+    redo,
+    undo,
   };
 };
 
@@ -157,7 +244,7 @@ function resolveProjectReference(project: string) {
 }
 
 function resolveDefaultProjectReference() {
-  let project;
+  let project: string | undefined;
   if (typeof window !== "undefined") {
     const query = new URLSearchParams(window.location.search);
     project = query.get("project") || process.env.DEFAULT_PROJECT;

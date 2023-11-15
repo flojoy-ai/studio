@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { sendEventToMix } from "@src/services/MixpanelServices";
 
-export const useAddTextNode = () => {
+export const useAddTextNode = (recordState: () => void) => {
   const { setTextNodes } = useFlowChartGraph();
   const center = useAtomValue(centerPositionAtom);
 
@@ -23,5 +23,6 @@ export const useAddTextNode = () => {
       }),
     );
     sendEventToMix("Text Node Added", "");
+    recordState();
   }, [setTextNodes, center]);
 };
