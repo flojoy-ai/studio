@@ -25,7 +25,9 @@ import math
 JOINT_VELOCITIES = [150, 150, 180, 300, 300, 500]
 
 
-def calculate_limiting_max_vel(current: List[float], next: List[float], time_delta: int) -> float:
+def calculate_limiting_max_vel(
+    current: List[float], next: List[float], time_delta: int
+) -> float:
     """
     Calculate the limiting maximum velocity for a robot's joints during a movement.
 
@@ -47,24 +49,30 @@ def calculate_limiting_max_vel(current: List[float], next: List[float], time_del
     delta_positions = [abs(current[i] - next[i]) for i in range(6)]
 
     # Calculate the required velocities of each joint in degrees per second
-    required_velocities = [delta_positions[i] /
-                           (time_delta / 1000) for i in range(6)]
+    required_velocities = [delta_positions[i] / (time_delta / 1000) for i in range(6)]
 
     # Calculate the velocity ratios and find the joint with the highest ratio
-    velocity_ratios = [required_velocities[i] /
-                       JOINT_VELOCITIES[i] for i in range(6)]
+    velocity_ratios = [required_velocities[i] / JOINT_VELOCITIES[i] for i in range(6)]
     highest_vel_ratio, idx_of_joint_to_limit = max(
-        (val, idx) for idx, val in enumerate(velocity_ratios))
+        (val, idx) for idx, val in enumerate(velocity_ratios)
+    )
 
     # If the highest velocity ratio is greater than 1, the movement is not possible within the given time_delta
     if highest_vel_ratio > 1:
-        print("WARNING: The target velocity is higher than the max velocity of the joint. The joint will be limited to 100% of its max velocity.")
+        print(
+            "WARNING: The target velocity is higher than the max velocity of the joint. The joint will be limited to 100% of its max velocity."
+        )
 
     # Return the limiting maximum velocity as a percentage
     return min(100, highest_vel_ratio * 100)
 
 
-def get_circle_positions(radius: float, revolutions: float, center: Tuple[float, float, float], smoothness: int = 360) -> List[List[float]]:
+def get_circle_positions(
+    radius: float,
+    revolutions: float,
+    center: Tuple[float, float, float],
+    smoothness: int = 360,
+) -> List[List[float]]:
     """
     Generate positions for a circular path.
 
@@ -85,9 +93,11 @@ def get_circle_positions(radius: float, revolutions: float, center: Tuple[float,
     steps = int(revolutions * smoothness)
     for i in range(steps):
         angle = (2 * math.pi * i) / smoothness
-        positions.append([
-            center_X + radius * math.cos(angle),
-            center_Y + radius * math.sin(angle),
-            center_Z
-        ])
+        positions.append(
+            [
+                center_X + radius * math.cos(angle),
+                center_Y + radius * math.sin(angle),
+                center_Z,
+            ]
+        )
     return positions

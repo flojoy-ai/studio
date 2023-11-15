@@ -43,8 +43,7 @@ def add_handle(ip_address: str):
     TODO: This is blocking synchronous code. Migrate to async await.
     """
     if ip_address in get_robot_handle_map():
-        raise ValueError(
-            "Robot handle already exists for IP address: " + ip_address)
+        raise ValueError("Robot handle already exists for IP address: " + ip_address)
 
     robot_handle_map = get_robot_handle_map()
     robot = mdr.Robot()
@@ -58,8 +57,7 @@ def add_mock_handle(ip_address: str):
     Adds a handle to the robot handle map which does not connect to a real robot. Used for testing.
     """
     if ip_address in get_robot_handle_map():
-        raise ValueError(
-            "Robot handle already exists for IP address: " + ip_address)
+        raise ValueError("Robot handle already exists for IP address: " + ip_address)
 
     robot_handle_map = get_robot_handle_map()
     robot = MockRobot(ip_address=ip_address)
@@ -71,8 +69,7 @@ def remove_handle(ip_address: str):
     Removes a handle from the robot handle map.
     """
     if ip_address not in get_robot_handle_map():
-        raise ValueError(
-            "Robot handle does not exist for IP address: " + ip_address)
+        raise ValueError("Robot handle does not exist for IP address: " + ip_address)
 
     robot_handle_map = get_robot_handle_map()
     robot_handle_map[ip_address].Disconnect()

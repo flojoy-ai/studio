@@ -13,13 +13,13 @@ def safe_robot_operation(func):
     Currently only does basic logging, so the function is a misnomer.
     TODO: Look into it not breaking the robot connection if there is an error during the execution of a mecademic node.
     """
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         try:
             logger.info(f"\nExecuting node: {func.__name__}")
             output = func(*args, **kwargs)
-            node_success = "FAILED" if isinstance(
-                output, JobFailure) else "SUCCEEDED"
+            node_success = "FAILED" if isinstance(output, JobFailure) else "SUCCEEDED"
             logger.info(f"\nNode execution {node_success}")
 
             if isinstance(output, JobSuccess):
@@ -32,7 +32,8 @@ def safe_robot_operation(func):
                 wrt_twist = alpha, beta, gamma
 
                 logger.info(
-                    f"Robot poses:\n\t{wrt_pose = }\n\t{wrt_twist = }\n\t{joint_pose = }")
+                    f"Robot poses:\n\t{wrt_pose = }\n\t{wrt_twist = }\n\t{joint_pose = }"
+                )
             elif isinstance(output, JobFailure):
                 pass
 
