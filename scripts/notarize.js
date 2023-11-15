@@ -12,9 +12,6 @@ module.exports = async function (params) {
   if (process.platform !== "darwin") {
     return;
   }
-  if (process.env.NODE_ENV !== "production") {
-    return;
-  }
 
   let appId = "ai.flojoy.studio";
 
