@@ -115,6 +115,7 @@ def flojoy(
     deps: Optional[dict[str, str]] = None,
     inject_node_metadata: bool = False,
     inject_connection: bool = False,
+    forward_result: bool = False,
 ):
     """
     Decorator to turn Python functions with numerical return
@@ -251,7 +252,7 @@ def flojoy(
 
                 # Package the result and return it
                 FN = func.__name__
-                result = get_frontend_res_obj_from_result(dc_obj)
+                result = get_frontend_res_obj_from_result(dc_obj, forward_result)
                 return JobSuccess(
                     result=result,
                     fn=FN,

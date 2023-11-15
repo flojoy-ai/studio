@@ -1,15 +1,17 @@
+import { cn } from "@src/lib/utils";
 import React from "react";
-import { CustomNodeProps } from "../../types/node";
 
 const NodeWrapper = ({
-  wrapperProps: { nodeError },
+  nodeError,
   children,
+  className,
 }: {
-  wrapperProps: CustomNodeProps;
+  nodeError: string;
   children: React.ReactNode;
+  className?: string;
 }) => {
   return (
-    <div className="relative" data-testid="node-wrapper">
+    <div className={cn("relative", className)} data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}
       {children}
     </div>

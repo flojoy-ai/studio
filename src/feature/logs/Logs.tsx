@@ -47,7 +47,7 @@ const Logs = ({ logs }: { logs: string[] }) => {
         >
           {logs.map((log, i) => (
             <div
-              key={log}
+              key={`${log}-${i}`}
               ref={i === logs?.length - 1 ? lastElem : null}
               className={cn(
                 "overflow-hidden whitespace-break-spaces bg-background py-2 font-mono text-sm",

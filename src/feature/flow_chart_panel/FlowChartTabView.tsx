@@ -3,10 +3,9 @@ import { useFlowChartGraph } from "@src/hooks/useFlowChartGraph";
 import { useSocket } from "@src/hooks/useSocket";
 import { TreeNode } from "@src/utils/ManifestLoader";
 import { SmartBezierEdge } from "@tisoap/react-flow-smart-edge";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ConnectionLineType,
-  EdgeTypes,
   MiniMap,
   NodeDragHandler,
   OnConnect,
@@ -21,6 +20,7 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  NodeTypes,
 } from "reactflow";
 import Sidebar, { LeafClickHandler } from "../common/Sidebar/Sidebar";
 import FlowChartKeyboardShortcuts from "./FlowChartKeyboardShortcuts";
@@ -31,7 +31,6 @@ import { sendEventToMix } from "@src/services/MixpanelServices";
 import { ACTIONS_HEIGHT, LAYOUT_TOP_HEIGHT } from "../common/Layout";
 import { getEdgeTypes, isCompatibleType } from "@src/utils/TypeCheck";
 import { CenterObserver } from "./components/CenterObserver";
-import useNodeTypes from "./hooks/useNodeTypes";
 import { Separator } from "@src/components/ui/separator";
 import { Pencil, Text, Workflow, X } from "lucide-react";
 import { GalleryModal } from "@src/components/gallery/GalleryModal";
@@ -57,6 +56,51 @@ import { ElementsData } from "@src/types";
 import { createNodeId, createNodeLabel } from "@src/utils/NodeUtils";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
 import { filterMap } from "@src/utils/ArrayUtils";
+import ArithmeticNode from "@src/components/nodes/ArithmeticNode";
+import ConditionalNode from "@src/components/nodes/ConditionalNode";
+import DataNode from "@src/components/nodes/DataNode";
+import DefaultNode from "@src/components/nodes/DefaultNode";
+import IONode from "@src/components/nodes/IONode";
+import LogicNode from "@src/components/nodes/LogicNode";
+import NumpyNode from "@src/components/nodes/NumpyNode";
+import ScipyNode from "@src/components/nodes/ScipyNode";
+import VisorNode from "@src/components/nodes/VisorNode";
+import BigNumberNode from "@src/components/nodes/visual/BigNumberNode";
+import ScatterNode from "@src/components/nodes/visual/ScatterNode";
+import Scatter3DNode from "@src/components/nodes/visual/Scatter3DNode";
+import TextNode from "@src/components/nodes/TextNode";
+
+const nodeTypes: NodeTypes = {
+  default: DefaultNode,
+  AI_ML: DataNode,
+  GENERATORS: DataNode,
+  VISUALIZERS: VisorNode,
+  EXTRACTORS: DefaultNode,
+  TRANSFORMERS: DefaultNode,
+  LOADERS: DefaultNode,
+  ARITHMETIC: ArithmeticNode,
+  IO: IONode,
+  LOGIC_GATES: LogicNode,
+  CONDITIONALS: ConditionalNode,
+  SCIPY: ScipyNode,
+  NUMPY: NumpyNode,
+  DATA: DataNode,
+  VISUALIZATION: VisorNode,
+  ETL: DefaultNode,
+  DSP: DefaultNode,
+  CONTROL_FLOW: LogicNode,
+  MATH: DefaultNode,
+  HARDWARE: IONode,
+  BIG_NUMBER: BigNumberNode,
+  SCATTER: ScatterNode,
+  SCATTER3D: Scatter3DNode,
+  TextNode: TextNode,
+};
+
+const edgeTypes = {
+  default: SmartBezierEdge,
+};
+
 
 const FlowChartTab = () => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -171,18 +215,6 @@ const FlowChartTab = () => {
     },
     [setNodes, setEdges, setHasUnsavedChanges],
   );
-
-  const edgeTypes: EdgeTypes = useMemo(
-    () => ({ default: SmartBezierEdge }),
-    [],
-  );
-
-  const nodeTypes = useNodeTypes({
-    handleRemove: handleNodeRemove,
-    wrapperOnClick: () => {
-      setIsEditMode(true);
-    },
-  });
 
   const onInit: OnInit = (rfIns) => {
     rfIns.fitView({

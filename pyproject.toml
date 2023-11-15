@@ -29,6 +29,12 @@ qcodes = "^0.40.0"
 pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
+pyrealsense2 = "^2.54.2.5684"
+taulidarcamera = "^0.0.5"
+sympy = "^1.12"
+opencv-python = "^4.8.1.78"
+orjson = "^3.9.9"
+line-profiler = "^4.1.1"
 
 
 [tool.poetry.group.dev.dependencies]

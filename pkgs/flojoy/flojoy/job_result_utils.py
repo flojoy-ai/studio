@@ -72,10 +72,14 @@ def get_text_blob_from_dc(dc: DataContainer) -> str | None:
 
 
 def get_frontend_res_obj_from_result(
-    result: Optional[dict[str, Any] | DataContainer]
+    result: Optional[dict[str, Any] | DataContainer], forward_result: bool = False
 ) -> Optional[dict[str, Any]]:
     if result is None:
         return None
+
+    if forward_result:
+        if isinstance(result, DataContainer):
+            return {"data": result}
 
     # Only return a plotly fig if it is a viz node
     match result:
@@ -107,4 +111,6 @@ def get_frontend_res_obj_from_result(
             "text_blob": text_blob,
         }
     keys = list(result.keys())
-    return get_frontend_res_obj_from_result(result[keys[0]])
+    return get_frontend_res_obj_from_result(
+        result[keys[0]],
+    )

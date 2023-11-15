@@ -26,32 +26,40 @@ type CustomHandleProps = HandleProps &
       id: string;
       desc: string | null;
     };
+    nodeId: string;
   } & HandleVariantProps;
 
-const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
-  ({ variant, param, type, className, ...props }, ref) => {
-    return (
-      <Handle
-        className={clsx(
-          "!h-5 !w-5 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
-          handle({ variant }),
-          className,
-        )}
-        type={type}
-        id={param?.id}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
+const HandleWrapper = forwardRef<
+  HTMLDivElement,
+  Omit<CustomHandleProps, "nodeId">
+>(({ variant, param, type, className, ...props }, ref) => {
+  return (
+    <Handle
+      className={clsx(
+        "!h-5 !w-5 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
+        handle({ variant }),
+        className,
+      )}
+      type={type}
+      id={param?.id}
+      ref={ref}
+      {...props}
+    />
+  );
+});
 
 HandleWrapper.displayName = "HandleWrapper";
 
-export const CustomHandle = ({ type, param, ...props }: CustomHandleProps) => {
+export const CustomHandle = ({
+  type,
+  param,
+  nodeId,
+  ...props
+}: CustomHandleProps) => {
   return (
     <ParamTooltip
       param={param}
+      nodeId={nodeId}
       annotation={`(${type === "target" ? "input" : "output"})`}
       offsetX={32}
       offsetY={-288}

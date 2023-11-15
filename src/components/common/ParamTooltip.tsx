@@ -18,6 +18,7 @@ type ParamTooltipProps = {
     type: string;
     desc: string | null;
   };
+  nodeId: string;
   annotation?: string;
   offsetX: number;
   offsetY: number;
@@ -40,6 +41,7 @@ const getTooltipStyle = (
 export const ParamTooltip = ({
   children,
   param,
+  nodeId,
   annotation,
   offsetX = 0,
   offsetY = 0,
@@ -109,12 +111,15 @@ export const ParamTooltip = ({
               <div className="py-2" />
               <ScrollArea>
                 <div className="max-h-32">
-                  {param.desc?.split("\n").map((line) => (
-                    <span key={line}>
-                      {line}
-                      <br />
-                    </span>
-                  )) ?? "No description."}
+                  {param.desc
+                    ?.split("\n")
+                    .filter((s) => s !== "")
+                    .map((line) => (
+                      <span key={nodeId + line}>
+                        {line}
+                        <br />
+                      </span>
+                    )) ?? "No description."}
                 </div>
               </ScrollArea>
             </div>,

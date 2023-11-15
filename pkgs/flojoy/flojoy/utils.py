@@ -23,7 +23,6 @@ import keyring
 import base64
 from .CONSTANTS import FLOJOY_DIR, FLOJOY_CACHE_DIR, CREDENTIAL_FILE
 
-
 __all__ = [
     "get_env_var",
     "set_env_var",
@@ -35,7 +34,6 @@ __all__ = [
     "snapshot_download",
     "clear_flojoy_memory",
 ]
-
 
 # # package result
 # def package_result(result: dict | None, fn: str, node_id: str, jobset_id: str) -> dict:
@@ -55,6 +53,7 @@ __all__ = [
 #         "FAILED_NODES": {node_id: str(error)},
 #         "jobsetId": jobset_id,
 #     }
+#
 
 
 # Make as a function to mock at test-time
