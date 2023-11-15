@@ -89,7 +89,7 @@ const nodeTypes: NodeTypes = {
   CONTROL_FLOW: LogicNode,
   MATH: DefaultNode,
   HARDWARE: IONode,
-  TextNode: TextNode
+  TextNode: TextNode,
 };
 
 const edgeTypes = {
@@ -130,13 +130,17 @@ const FlowChartTab = () => {
 
   useEffect(() => {
     if (manifest && nodesMetadataMap) {
-      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadataMap);
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
+        nodes,
+        edges,
+        manifest,
+        nodesMetadataMap,
+      );
       setNodes(syncedNodes);
       setEdges(syncedEdges);
-      toast("Synced blocks with manifest.")
+      toast("Synced blocks with manifest.");
     }
-  }, [manifest, nodesMetadataMap])
-
+  }, [manifest, nodesMetadataMap]);
 
   const getTakenNodeLabels = useCallback(
     (func: string) => {
@@ -159,40 +163,43 @@ const FlowChartTab = () => {
   );
   const addTextNode = useAddTextNode();
 
-  const duplicateNode = useCallback((node: Node<ElementsData>) => {
-    const funcName = node.data.func;
-    const id = createNodeId(funcName);
+  const duplicateNode = useCallback(
+    (node: Node<ElementsData>) => {
+      const funcName = node.data.func;
+      const id = createNodeId(funcName);
 
-    const newNode: Node<ElementsData> = {
-      ...node,
-      id,
-      data: {
-        ...node.data,
+      const newNode: Node<ElementsData> = {
+        ...node,
         id,
-        label:
-          node.data.func === "CONSTANT"
-            ? node.data.ctrls["constant"].value!.toString()
-            : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
-      },
-      position: {
-        x: node.position.x + 30,
-        y: node.position.y + 30,
-      },
-      selected: true,
-    };
+        data: {
+          ...node.data,
+          id,
+          label:
+            node.data.func === "CONSTANT"
+              ? node.data.ctrls["constant"].value!.toString()
+              : createNodeLabel(funcName, getTakenNodeLabels(funcName)),
+        },
+        position: {
+          x: node.position.x + 30,
+          y: node.position.y + 30,
+        },
+        selected: true,
+      };
 
-    setNodes((prev) => {
-      const original = prev.find((n) => node.id === n.id);
-      if (!original) {
-        throw new Error(
-          "Failed to find original node when duplicating, this should not happen",
-        );
-      }
+      setNodes((prev) => {
+        const original = prev.find((n) => node.id === n.id);
+        if (!original) {
+          throw new Error(
+            "Failed to find original node when duplicating, this should not happen",
+          );
+        }
 
-      original.selected = false;
-      prev.push(newNode);
-    });
-  }, [getTakenNodeLabels, setNodes]);
+        original.selected = false;
+        prev.push(newNode);
+      });
+    },
+    [getTakenNodeLabels, setNodes],
+  );
 
   const duplicateSelectedNode = useCallback(() => {
     if (selectedNode) {
@@ -287,12 +294,19 @@ const FlowChartTab = () => {
 
   const clearCanvas = useCallback(() => {
     setNodes([]);
+    setTextNodes([]);
     setEdges([]);
     setHasUnsavedChanges(true);
     setProgramResults([]);
 
     sendEventToMix("Canvas cleared", "");
-  }, [setNodes, setEdges, setHasUnsavedChanges, setProgramResults]);
+  }, [
+    setNodes,
+    setTextNodes,
+    setEdges,
+    setHasUnsavedChanges,
+    setProgramResults,
+  ]);
 
   useEffect(() => {
     if (selectedNode === null || !nodesMetadataMap) {
