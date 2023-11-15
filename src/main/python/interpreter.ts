@@ -83,7 +83,7 @@ export class PythonManager {
   async getCondaEnvs() {
     const cmd = "conda info --json";
     try {
-      const condaInfo = await execCommand(new Command(cmd));
+      const condaInfo = await execCommand(new Command(cmd), { quiet: true });
       const parseInfo = JSON.parse(condaInfo);
 
       const envPaths = parseInfo.envs.map((env) => {
@@ -187,7 +187,7 @@ export class PythonManager {
       visited.add(interpreter);
       const cmd = `${interpreter} --version`;
       try {
-        const version = await execCommand(new Command(cmd));
+        const version = await execCommand(new Command(cmd), { quiet: true });
         const interpreterInfo: InterpretersList[0] = {
           path: interpreter,
           version: {
@@ -216,7 +216,7 @@ export class PythonManager {
 
 export const handlePythonInterpreter = async (_, interpreter: string) => {
   const cmd = `${interpreter} -c "import sys; print(';'.join(sys.path))"`;
-  const paths = await execCommand(new Command(cmd));
+  const paths = await execCommand(new Command(cmd), { quiet: true });
   const pathArr: string[] = [];
   paths.split(";").forEach((p) => {
     if (p) {
