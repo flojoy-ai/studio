@@ -347,7 +347,6 @@ def stream_response(proc: Popen[bytes]):
 
 async def install_packages(missing_packages: list[str]):
     try:
-        import sys
         poetry = os.environ.get('POETRY_PATH', 'poetry')
 
         cmd = [poetry, "add"] + missing_packages
