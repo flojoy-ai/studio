@@ -123,7 +123,7 @@ async function createWindow() {
     title: "Flojoy Studio",
     icon: getIcon(),
     autoHideMenuBar: true,
-    titleBarStyle: "hidden",
+    titleBarStyle:process.platform === 'darwin'? "hidden":'default',
     trafficLightPosition: {
       x: 15,
       y: 17, // macOS traffic lights seem to be 14px in diameter. If you want them vertically centered, set this to `titlebar_height / 2 - 7`.
@@ -159,7 +159,7 @@ async function createWindow() {
       app.quit();
       process.exit(0);
     } else {
-      await killProcess(5392);
+      await killProcess(5392).catch(err=> log.error(err));
     }
   }
   if (!app.isPackaged && devServerUrl) {
@@ -172,7 +172,7 @@ async function createWindow() {
     if (!global.hasUnsavedChanges) {
       return;
     }
-    const choice = dialog.showMessageBoxSync(mainWindow!, {
+    const choice = dialog.showMessageBoxSync(global.mainWindow, {
       type: "question",
       buttons: ["Yes", "No, go back"],
       title: "Quit?",

@@ -29,11 +29,13 @@ export class PythonManager {
       os.homedir() + "/.pyenv/shims",
       os.homedir() + "/miniconda3/bin",
     ],
-    win32: [os.homedir() + "/miniconda3"],
+    win32: [os.homedir() + "/miniconda3", join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python310"),
+    join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python311"),
+  join(process.env.ProgramFiles ?? "", "python311")],
   };
   executables: string[] = [];
 
-  constructor() {}
+  constructor() { }
 
   gatherPathsFromDefaultBin() {
     const promises: Array<Promise<void>> = [];
@@ -108,7 +110,14 @@ export class PythonManager {
     }
   }
 
-  static isPythonFile(fileName: string) {
+  static isPythonFile(fullFileName: string) {
+    let fileName = fullFileName;
+    if(process.platform === 'win32'){
+      if(!fullFileName.includes(".exe")){
+        return false;
+      }
+      fileName = fullFileName.split(".exe")[0];
+    }
     let isPython = true;
     const splitByHyphen = fileName.split("-");
     if (splitByHyphen.length > 1) {
@@ -139,7 +148,7 @@ export class PythonManager {
     interpreter: string,
     version: { major: number; minor: number },
   ) {
-    const cmd = `${interpreter} --version`;
+    const cmd = `"${interpreter}" --version`;
     try {
       const v = await execCommand(new Command(cmd));
       const major = v.split(" ")[1].split(".")[0];
@@ -152,7 +161,7 @@ export class PythonManager {
 
   static async getVersion(interpreter: string) {
     try {
-      const cmd = `${interpreter} --version`;
+      const cmd = `"${interpreter}" --version`;
       const version = await execCommand(new Command(cmd));
       return {
         major: +version.split(" ")[1].split(".")[0],
@@ -185,7 +194,7 @@ export class PythonManager {
         continue;
       }
       visited.add(interpreter);
-      const cmd = `${interpreter} --version`;
+      const cmd = `"${interpreter}" --version`;
       try {
         const version = await execCommand(new Command(cmd), { quiet: true });
         const interpreterInfo: InterpretersList[0] = {
@@ -215,7 +224,7 @@ export class PythonManager {
 }
 
 export const handlePythonInterpreter = async (_, interpreter: string) => {
-  const cmd = `${interpreter} -c "import sys; print(';'.join(sys.path))"`;
+  const cmd = `"${interpreter}" -c "import sys; print(';'.join(sys.path))"`;
   const paths = await execCommand(new Command(cmd), { quiet: true });
   const pathArr: string[] = [];
   paths.split(";").forEach((p) => {

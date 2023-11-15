@@ -29,7 +29,7 @@ export const Index = (): JSX.Element => {
   const {
     states: { serverStatus },
   } = useSocket();
-  const [pyInterpreters, setPyInterpreters] = useState<InterpretersList>([]);
+  const [pyInterpreters, setPyInterpreters] = useState<InterpretersList | null>(null);
   const [selectedInterpreter, setSelectedInterpreter] = useState("");
   const [setupStatuses, setSetupStatuses] = useState<SetupStatus[]>([
     {
@@ -267,7 +267,7 @@ export const Index = (): JSX.Element => {
             {setupStatuses.map((status, idx) => (
               <Fragment key={idx}>
                 <SetupStep status={status.status} message={status.message} />
-                {status.stage === "check-python-installation" && (
+                {status.stage === "check-python-installation" && pyInterpreters && (
                   <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
                     <Select
                       disabled={selectedInterpreter !== ""}

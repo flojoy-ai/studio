@@ -348,13 +348,17 @@ def stream_response(proc: Popen[bytes]):
 async def install_packages(missing_packages: list[str]):
     try:
         import sys
+        poetry = os.environ.get('POETRY_PATH', 'poetry')
 
-        cmd = [sys.executable, "-m", "pip", "install"] + missing_packages
+        cmd = [poetry, "add"] + missing_packages
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         while proc.poll() is None:
             stream = stream_response(proc)
             for line in stream:
-                logger.info(line.decode(encoding="utf-8"))
+                try:
+                    logger.info(line.decode())
+                except Exception:
+                    pass
         return_code = proc.returncode
         if return_code != 0:
             return False
