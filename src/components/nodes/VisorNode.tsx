@@ -92,7 +92,7 @@ const VisorNode = (props: CustomNodeProps) => {
         {!plotlyData && !textBlob && (
           <>
             {chartElemMap[data.func] ?? (
-              <div className="flex h-[226px] w-[225px] items-center justify-center break-all rounded-lg border border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2">
+              <div className="flex h-[226px] w-[225px] items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2">
                 {data.label}
               </div>
             )}
