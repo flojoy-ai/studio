@@ -1,5 +1,8 @@
 import subprocess
 from sys import platform
+
+if platform in ["darwin"]:
+    import AVFoundation
 import os
 
 import cv2
@@ -96,7 +99,29 @@ class LinuxDeviceFinder(DefaultDeviceFinder):
         return cameras
 
 
+class MacDeviceFinder(LinuxDeviceFinder):
+    def __init__(self):
+        if platform not in ["darwin"]:
+            raise Exception("MacDeviceFinder should only be used on macOS")
+
+    def get_cameras(self) -> list[CameraDevice]:
+        devices = AVFoundation.AVCaptureDevice.devices()
+        video_devices = [
+            device
+            for device in devices
+            if device.hasMediaType_(AVFoundation.AVMediaTypeVideo)
+        ]
+        cameras = []
+        for device in video_devices:
+            cameras.append(
+                CameraDevice(name=device.localizedName(), id=device.uniqueID())
+            )
+        return cameras
+
+
 def get_device_finder():
-    if platform in ["win32", "darwin"]:
+    if platform in ["win32"]:
         return DefaultDeviceFinder()
+    if platform in ["darwin"]:
+        return MacDeviceFinder()
     return LinuxDeviceFinder()

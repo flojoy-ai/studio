@@ -26,6 +26,7 @@ zeroconf = "^0.115.2"
 docstring-parser = "^0.15"
 keyring = "^24.2.0"
 qcodes = "^0.40.0"
+pyobjc = { version = "^10.0", platform = "darwin" }
 pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
