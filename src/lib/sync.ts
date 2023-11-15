@@ -4,24 +4,45 @@ import { Leaf, RootNode, TreeNode } from "@src/utils/ManifestLoader";
 import { Edge, Node } from "reactflow";
 import { CtrlData } from "@src/types/node";
 import { ctrlsFromParams } from "@src/utils/CtrlsFromParams";
+import { isCompatibleType } from "@src/utils/TypeCheck";
 import _ from "lodash";
 
-export function syncFlowchartWithManifest(nodes: Node<ElementsData>[], edges: Edge[], blockManifest: RootNode, blockMetadata: BlocksMetadataMap): [Node<ElementsData>[], Edge[]] {
+export function syncFlowchartWithManifest(
+  nodes: Node<ElementsData>[],
+  edges: Edge[],
+  blockManifest: RootNode,
+  blockMetadata: BlocksMetadataMap,
+): [Node<ElementsData>[], Edge[]] {
   const blocks = flattenManifest(blockManifest);
 
   const inEdges = _.groupBy(edges, (e: Edge) => e.target);
   const newNodes: Node<ElementsData>[] = [];
   const newEdges: Edge[] = [];
 
-  const outputExists = (e: Edge) => blocks.get(blockFuncFromId(e.source))?.outputs?.find(o => o.id === e.sourceHandle) !== undefined;
-  const inputExists = (e: Edge, inputs?: ElementsData["inputs"]) => (inputs ?? []).find(i => i.id === e.targetHandle) !== undefined;
+  const getOutput = (e: Edge) =>
+    blocks
+      .get(blockFuncFromId(e.source))
+      ?.outputs?.find((o) => o.id === e.sourceHandle);
+
+  const getInput = (e: Edge, inputs?: ElementsData["inputs"]) =>
+    (inputs ?? []).find((i) => i.id === e.targetHandle);
+
+  const validEdge = (e: Edge, inputs?: ElementsData["inputs"]) => {
+    const output = getOutput(e);
+    const input = getInput(e, inputs);
+    if (input === undefined || output === undefined) {
+      return false;
+    }
+
+    return isCompatibleType(input.type, output.type);
+  };
 
   for (const node of nodes) {
     // Just delete nodes that were deleted in the blocks dir
     const block = blocks.get(node.data.func);
     if (!block) {
       // Remove all edges connected to the deleted block
-      edges = edges.filter(e => e.source !== node.id && e.target !== node.id);
+      edges = edges.filter((e) => e.source !== node.id && e.target !== node.id);
       continue;
     }
 
@@ -36,7 +57,7 @@ export function syncFlowchartWithManifest(nodes: Node<ElementsData>[], edges: Ed
     const newOutputs = block.outputs;
     const ei = inEdges[node.id] ?? [];
 
-    newEdges.push(...ei.filter((e) => inputExists(e, newInputs) && outputExists(e)));
+    newEdges.push(...ei.filter((e) => validEdge(e, newInputs)));
 
     newNodes.push({
       ...node,
@@ -46,17 +67,19 @@ export function syncFlowchartWithManifest(nodes: Node<ElementsData>[], edges: Ed
         initCtrls: syncedInitCtrls,
         inputs: newInputs,
         outputs: newOutputs,
-        path: blockMetadata
-          ? blockMetadata[`${block.key}.py`].path
-          : ""
-      }
-    })
+        path: blockMetadata[`${block.key}.py`].path,
+      },
+    });
   }
 
   return [newNodes, newEdges];
 }
 
-function getSyncedCtrls(block: Leaf, ctrls: CtrlData, init?: boolean): CtrlData {
+function getSyncedCtrls(
+  block: Leaf,
+  ctrls: CtrlData,
+  init?: boolean,
+): CtrlData {
   const params = init ? block.init_parameters : block.parameters;
   if (!params) {
     return {};
@@ -70,7 +93,7 @@ function getSyncedCtrls(block: Leaf, ctrls: CtrlData, init?: boolean): CtrlData 
     }
     const syncedParam = {
       ...ctrl,
-      ...params[name]
+      ...params[name],
     };
 
     // If the type changed, then we need to just reset to the default value
@@ -94,7 +117,7 @@ function flattenManifest(blockManifest: RootNode): Map<string, Leaf> {
     }
 
     node.children.map(dfs);
-  }
+  };
 
   dfs(blockManifest);
   return blocks;
