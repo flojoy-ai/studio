@@ -2,7 +2,6 @@ import { BrowserWindow, app, dialog } from "electron";
 import * as fs from "fs";
 import { join } from "path";
 import { Command } from "./command";
-import * as os from "os";
 import { execSync } from "child_process";
 import { execCommand } from "./executor";
 import log from "electron-log/main";
@@ -19,7 +18,11 @@ type SaveBlocksPackProps = {
  */
 const getBlocksPathFile = (): string => {
   const fileName = "blocks_path.txt";
-  return join(os.homedir(), ".flojoy", fileName);
+  const flojoyDir = join(app.getPath("home"), ".flojoy");
+  if (!fs.existsSync(flojoyDir)) {
+    fs.mkdirSync(flojoyDir);
+  }
+  return join(flojoyDir, fileName);
 };
 
 export const saveBlocksPack = async ({
@@ -28,32 +31,27 @@ export const saveBlocksPack = async ({
   startup,
   update,
 }: SaveBlocksPackProps) => {
-  return new Promise((resolve) => {
-    if (
-      startup &&
-      fs.existsSync(getBlocksPathFile()) &&
-      fs.existsSync(getBlocksDirPath())
-    ) {
-      resolve({ success: true });
-      return;
-    }
-    if (update) {
-      updateBlocksPack(getBlocksDirPath(), win, icon);
-      resolve({ success: true });
-      return;
-    }
-    const defaultSavePath = getBlocksDirPath();
-    const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
-    if (!startup && defaultSavePath === savePath) {
-      resolve({ success: true });
-      return;
-    }
-    cloneBlocksRepo(savePath, win)
-      .then(() => resolve({ success: true }))
-      // An error dialog will show up if any error happens in cloneNodesRepo function,
-      // calling resolve functions for both case to avoid any breakup in index.ts file
-      .catch((err) => resolve(err));
-  });
+  if (
+    startup &&
+    fs.existsSync(getBlocksPathFile()) &&
+    fs.existsSync(getBlocksDirPath())
+  ) {
+    return;
+  }
+  if (update) {
+    updateBlocksPack(getBlocksDirPath(), win, icon);
+    return;
+  }
+  const defaultSavePath = getBlocksDirPath();
+  const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
+  if (!startup && defaultSavePath === savePath) {
+    return;
+  }
+  try {
+    await cloneBlocksRepo(savePath, win);
+  } catch (error) {
+    throw Error("Failed to clone blocks repository!");
+  }
 };
 
 /**
@@ -103,34 +101,32 @@ const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
 
-const cloneBlocksRepo = (clonePath: string, win: BrowserWindow) => {
-  return new Promise((resolve, reject) => {
-    if (fs.existsSync(clonePath)) {
-      dialog.showMessageBox(win, {
-        message: "Blocks resource pack added successfully!",
-        detail: `Blocks resources will be added from ${clonePath}`,
-      });
-      savePathToLocalFile(getBlocksPathFile(), clonePath);
-      win.reload();
-      resolve({ success: true });
-      return;
-    }
-    const cloneCmd = `git clone https://github.com/flojoy-ai/blocks.git ${clonePath}`;
-    execCommand(new Command(cloneCmd))
-      .then(() => {
-        dialog.showMessageBox(win, {
-          message: "Blocks resource pack downloaded successfully!",
-          type: "info",
-        });
-        savePathToLocalFile(getBlocksPathFile(), clonePath);
-        win.reload();
-        resolve({ success: true });
-      })
-      .catch((reason) => {
-        dialog.showErrorBox("Failed to download blocks resource pack!", reason);
-        reject(new Error(reason));
-      });
-  });
+const cloneBlocksRepo = async (clonePath: string, win: BrowserWindow) => {
+  if (fs.existsSync(clonePath)) {
+    dialog.showMessageBox(win, {
+      message: "Blocks resource pack added successfully!",
+      detail: `Blocks resources will be added from ${clonePath}`,
+    });
+    savePathToLocalFile(getBlocksPathFile(), clonePath);
+    win.reload();
+    return;
+  }
+  const cloneCmd = `git clone https://github.com/flojoy-ai/blocks.git ${clonePath}`;
+  try {
+    await execCommand(new Command(cloneCmd));
+
+    dialog.showMessageBox(win, {
+      message: "Blocks resource pack downloaded successfully!",
+      type: "info",
+    });
+    savePathToLocalFile(getBlocksPathFile(), clonePath);
+    win.reload();
+  } catch (error) {
+    dialog.showErrorBox(
+      "Failed to download blocks resource pack!",
+      String(error),
+    );
+  }
 };
 /**
  *
@@ -147,7 +143,7 @@ const getBlocksDirPath = (): string => {
   return join(app.getPath("downloads"), "blocks");
 };
 
-const updateBlocksPack = (
+const updateBlocksPack = async (
   blocksPath: string,
   win: BrowserWindow,
   icon: string,
@@ -163,7 +159,7 @@ const updateBlocksPack = (
     log.error(
       `Error - Blocks directory is not found at ${blocksPath}.. downloading blocks resource pack..`,
     );
-    saveBlocksPack({
+    await saveBlocksPack({
       win,
       startup: true,
       icon,
