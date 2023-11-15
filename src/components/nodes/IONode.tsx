@@ -7,16 +7,16 @@ import HandleComponent from "@/components/common/HandleComponent";
 import NodeInput from "@/components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const IONode = ({ data }: CustomNodeProps) => {
+const IONode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper>
+    <NodeWrapper nodeError={nodeError}>
       <div
         className={clsx(
           "flex h-48 w-48 flex-col items-center",
-          { "shadow-around shadow-accent4": nodeRunning || data.selected },
+          { "shadow-around shadow-accent4": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >

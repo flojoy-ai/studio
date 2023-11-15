@@ -50,7 +50,7 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   HEATMAP: <Heatmap />,
 };
 
-const VisorNode = ({ data }: CustomNodeProps) => {
+const VisorNode = ({ selected, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
   const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
 
@@ -68,7 +68,7 @@ const VisorNode = ({ data }: CustomNodeProps) => {
       <div
         className={clsx(
           "rounded-2xl bg-transparent",
-          { "shadow-around shadow-accent2": nodeRunning || data.selected },
+          { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >

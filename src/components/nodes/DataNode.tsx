@@ -7,7 +7,7 @@ import { textWrap } from "@src/utils/TextWrap";
 import NodeInput from "@/components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const DataNode = ({ data }: CustomNodeProps) => {
+const DataNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -16,7 +16,7 @@ const DataNode = ({ data }: CustomNodeProps) => {
       <div
         className={clsx(
           "flex min-h-[96px] items-center justify-center rounded-full border-2 border-solid border-accent2 p-2",
-          { "shadow-around shadow-accent2": nodeRunning || data.selected },
+          { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         style={{

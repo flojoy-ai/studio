@@ -7,6 +7,7 @@ import NodeInput from "@/components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
 const LogicNode = ({
+  selected,
   data,
   children,
 }: CustomNodeProps & { children?: React.ReactNode }) => {
@@ -18,7 +19,7 @@ const LogicNode = ({
       <div
         className={clsx(
           "flex h-24 w-24 rotate-45 items-center justify-center rounded-xl border-2 border-solid border-accent3 bg-accent3/5",
-          { "shadow-around shadow-accent3": nodeRunning || data.selected },
+          { "shadow-around shadow-accent3": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         onDoubleClick={() => setIsRenamingTitle(true)}

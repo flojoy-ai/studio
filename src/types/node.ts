@@ -37,14 +37,14 @@ type NodeElement = {
 export type CtrlData = Record<
   string,
   NodeElement["parameters"] extends infer T
-  ? T extends Record<string, infer U>
-  ? U & {
-    functionName: string;
-    param: string;
-    value: string | boolean | number | undefined | null;
-  }
-  : never
-  : never
+    ? T extends Record<string, infer U>
+      ? U & {
+          functionName: string;
+          param: string;
+          value: string | boolean | number | undefined | null;
+        }
+      : never
+    : never
 >;
 
 export type ElementsData = {
@@ -64,11 +64,11 @@ export type ElementsData = {
     type: string;
     desc: string | null;
   }>;
-  selected?: boolean; // TODO: Remove this
   pip_dependencies?: {
     name: string;
     v?: string;
   }[];
+  invalid?: boolean;
 };
 
 export type TextData = {

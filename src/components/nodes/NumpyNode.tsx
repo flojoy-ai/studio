@@ -7,7 +7,7 @@ import HandleComponent from "@/components/common/HandleComponent";
 import NodeInput from "@/components/common/NodeInput";
 import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const NumpyNode = ({ data }: CustomNodeProps) => {
+const NumpyNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
@@ -16,7 +16,7 @@ const NumpyNode = ({ data }: CustomNodeProps) => {
       <div
         className={clsx(
           "flex h-40 w-60 items-center justify-center rounded-2xl border-2 border-solid border-blue-500 bg-accent1/5",
-          { "shadow-around shadow-blue-500": nodeRunning || data.selected },
+          { "shadow-around shadow-blue-500": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         onDoubleClick={() => setIsRenamingTitle(true)}
