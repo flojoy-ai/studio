@@ -19,17 +19,19 @@ export function syncFlowchartWithManifest(
   const newNodes: Node<ElementsData>[] = [];
   const newEdges: Edge[] = [];
 
-  const getOutput = (e: Edge) =>
-    blocks
-      .get(blockFuncFromId(e.source))
-      ?.outputs?.find((o) => o.id === e.sourceHandle);
-
-  const getInput = (e: Edge, inputs?: ElementsData["inputs"]) =>
-    (inputs ?? []).find((i) => i.id === e.targetHandle);
-
   const validEdge = (e: Edge, inputs?: ElementsData["inputs"]) => {
-    const output = getOutput(e);
-    const input = getInput(e, inputs);
+    const outBlock = blocks.get(blockFuncFromId(e.source));
+    if (!outBlock) {
+      // If there is an unknown block in the flow chart,
+      // we want to preserve the structure of the flow
+      // to make it easier for the user to fix up,
+      // so any edge connected to a block that doesn't
+      // exist anymore is kept
+      return true;
+    }
+
+    const output = outBlock.outputs?.find((o) => o.id === e.sourceHandle);
+    const input = (inputs ?? []).find((i) => i.id === e.targetHandle);
     if (input === undefined || output === undefined) {
       return false;
     }
@@ -38,11 +40,21 @@ export function syncFlowchartWithManifest(
   };
 
   for (const node of nodes) {
-    // Just delete nodes that were deleted in the blocks dir
+    // Mark nodes that were deleted in the blocks dir as invalid
     const block = blocks.get(node.data.func);
+    const ei = inEdges[node.id] ?? [];
+
     if (!block) {
+      newNodes.push({
+        ...node,
+        data: {
+          ...node.data,
+          invalid: true,
+        },
+      });
+      newEdges.push(...ei);
       // Remove all edges connected to the deleted block
-      edges = edges.filter((e) => e.source !== node.id && e.target !== node.id);
+      // edges = edges.filter((e) => e.source !== node.id && e.target !== node.id);
       continue;
     }
 
@@ -55,7 +67,6 @@ export function syncFlowchartWithManifest(
     // Sync inputs
     const newInputs = block.inputs;
     const newOutputs = block.outputs;
-    const ei = inEdges[node.id] ?? [];
 
     newEdges.push(...ei.filter((e) => validEdge(e, newInputs)));
 
@@ -68,6 +79,7 @@ export function syncFlowchartWithManifest(
         inputs: newInputs,
         outputs: newOutputs,
         path: blockMetadata[`${block.key}.py`].path,
+        invalid: undefined,
       },
     });
   }

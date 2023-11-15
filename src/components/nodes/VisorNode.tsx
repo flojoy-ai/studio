@@ -64,7 +64,7 @@ const VisorNode = ({ selected, data }: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper nodeError={nodeError}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "rounded-2xl bg-transparent",

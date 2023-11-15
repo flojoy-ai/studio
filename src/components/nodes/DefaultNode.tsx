@@ -22,7 +22,7 @@ const DefaultNode = ({
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper nodeError={nodeError}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex min-h-[160px] items-center justify-center break-words rounded-2xl border-2 border-solid border-accent1 bg-accent1/5 p-2",

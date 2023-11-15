@@ -15,7 +15,7 @@ const LogicNode = ({
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper nodeError={nodeError}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex h-24 w-24 rotate-45 items-center justify-center rounded-xl border-2 border-solid border-accent3 bg-accent3/5",

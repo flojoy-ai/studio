@@ -12,7 +12,7 @@ const DataNode = ({ selected, data }: CustomNodeProps) => {
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper nodeError={nodeError}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex min-h-[96px] items-center justify-center rounded-full border-2 border-solid border-accent2 p-2",

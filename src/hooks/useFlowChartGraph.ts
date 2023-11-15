@@ -1,7 +1,7 @@
 import { ElementsData } from "@/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
@@ -55,7 +55,12 @@ export const useFlowChartGraph = () => {
 
       const nodes = flow.nodes || [];
       const edges = flow.edges || [];
-      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(nodes, edges, manifest, nodesMetadata);
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
+        nodes,
+        edges,
+        manifest,
+        nodesMetadata,
+      );
       setNodes(syncedNodes);
       setEdges(syncedEdges);
       toast("Synced blocks with manifest.");
@@ -66,16 +71,8 @@ export const useFlowChartGraph = () => {
       sendEventToMix("Flow Export Object Loaded", "");
       return true;
     },
-    [setNodes, setEdges, setTextNodes],
+    [setNodes, setEdges, setTextNodes, manifest, nodesMetadata],
   );
-
-  useEffect(() => {
-    setNodes((prev) => {
-      prev.forEach((n) => {
-        n.data.selected = n.selected;
-      });
-    });
-  }, [selectedNode, setNodes]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,

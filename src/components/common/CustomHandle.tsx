@@ -8,6 +8,7 @@ const handle = cva(undefined, {
   variants: {
     variant: {
       blue: "!border-blue-500",
+      red: "!border-red-400",
       accent1: "!border-accent1",
       accent2: "!border-accent2",
       accent3: "!border-accent3",
@@ -35,7 +36,8 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
         className={clsx(
           "!h-5 !w-5 !border-2 !bg-white transition-colors duration-150 dark:!bg-black",
           handle({ variant }),
-          className,)}
+          className,
+        )}
         type={type}
         id={param?.id}
         ref={ref}
@@ -47,7 +49,12 @@ const HandleWrapper = forwardRef<HTMLDivElement, CustomHandleProps>(
 
 HandleWrapper.displayName = "HandleWrapper";
 
-export const CustomHandle = ({ type, param, nodeId, ...props }: CustomHandleProps & { nodeId: string }) => {
+export const CustomHandle = ({
+  type,
+  param,
+  nodeId,
+  ...props
+}: CustomHandleProps & { nodeId: string }) => {
   return (
     <ParamTooltip
       param={param}

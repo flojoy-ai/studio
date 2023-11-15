@@ -12,7 +12,7 @@ const IONode = ({ selected, data }: CustomNodeProps) => {
   const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper nodeError={nodeError}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex h-48 w-48 flex-col items-center",
