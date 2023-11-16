@@ -19,7 +19,6 @@ export const ParamList = ({
   updateFunc,
   nodeReferenceOptions,
 }: ParamListProps) => {
-
   let ctrlList = Object.entries(ctrls);
 
   const overload = Object.entries(ctrls).find(([, p]) => p.overload !== null);
@@ -31,7 +30,6 @@ export const ParamList = ({
         ([filterName]) =>
           overloadName === filterName || filterList.includes(filterName),
       );
-
     }
   }
 

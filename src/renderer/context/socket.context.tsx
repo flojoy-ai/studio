@@ -58,12 +58,12 @@ export const SocketContextProvider = ({
 
   const handleStateChange =
     (state: keyof States) =>
-      (value: string | number | Record<string, string> | IServerStatus) => {
-        setStates((prev) => ({
-          ...prev,
-          [state]: value,
-        }));
-      };
+    (value: string | number | Record<string, string> | IServerStatus) => {
+      setStates((prev) => ({
+        ...prev,
+        [state]: value,
+      }));
+    };
 
   useEffect(() => {
     if (!socket) {
@@ -87,10 +87,10 @@ export const SocketContextProvider = ({
           fetchMetadata();
         },
         onManifestUpdate: () => {
-          toast("Changes detected, syncing blocks with changes...")
+          toast("Changes detected, syncing blocks with changes...");
           fetchManifest();
           fetchMetadata();
-        }
+        },
       });
       setSocket(ws);
     }
