@@ -1,7 +1,6 @@
 import asyncio
 import importlib.metadata
 import json
-import logging
 import os
 import time
 import traceback
@@ -26,7 +25,7 @@ from captain.types.worker import (
 )
 from captain.utils.broadcast import Signaler
 from captain.utils.import_blocks import pre_import_functions
-from captain.utils.logger import BroadcastLogs, logger
+from captain.utils.logger import logger
 
 from .status_codes import STATUS_CODES
 
@@ -266,8 +265,6 @@ async def prepare_jobs_and_run_fc(request: PostWFC, manager: Manager):
     await asyncio.create_task(manager.ws.broadcast(socket_msg))
 
     for node in nodes:
-        node_logger = logging.getLogger(node["data"]["func"])
-        node_logger.addHandler(BroadcastLogs())
         if "pip_dependencies" not in node["data"]:
             continue
         for package in node["data"]["pip_dependencies"]:
@@ -350,12 +347,17 @@ def stream_response(proc: Popen[bytes]):
 
 async def install_packages(missing_packages: list[str]):
     try:
-        cmd = ["pip", "install"] + missing_packages
+        poetry = os.environ.get("POETRY_PATH", "poetry")
+
+        cmd = [poetry, "add"] + missing_packages
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE)
         while proc.poll() is None:
             stream = stream_response(proc)
             for line in stream:
-                logger.info(line.decode(encoding="utf-8"))
+                try:
+                    logger.info(line.decode())
+                except Exception:
+                    pass
         return_code = proc.returncode
         if return_code != 0:
             return False
