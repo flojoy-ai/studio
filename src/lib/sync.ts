@@ -30,12 +30,14 @@ export function syncFlowchartWithManifest(
       return true;
     }
 
+    // Check if either input/output of the edge was deleted
     const output = outBlock.outputs?.find((o) => o.id === e.sourceHandle);
     const input = (inputs ?? []).find((i) => i.id === e.targetHandle);
     if (input === undefined || output === undefined) {
       return false;
     }
 
+    // Type check
     return isCompatibleType(input.type, output.type);
   };
 
@@ -69,7 +71,6 @@ export function syncFlowchartWithManifest(
     const newOutputs = block.outputs;
 
     newEdges.push(...ei.filter((e) => validEdge(e, newInputs)));
-
     newNodes.push({
       ...node,
       data: {
@@ -79,6 +80,8 @@ export function syncFlowchartWithManifest(
         inputs: newInputs,
         outputs: newOutputs,
         path: blockMetadata[`${block.key}.py`].path,
+        // If we made it this far, then we know the block exists and thus
+        // we reset the invalid flag
         invalid: undefined,
       },
     });
