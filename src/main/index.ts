@@ -32,7 +32,7 @@ import {
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
-process.env.ELECTRON_MODE = "packaged";
+process.env.ELECTRON_MODE = app.isPackaged ? "packaged" : "dev";
 
 // The built directory structure
 //
