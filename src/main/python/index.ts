@@ -114,6 +114,12 @@ export async function spawnCaptain(): Promise<void> {
     log.error(error.message);
     sendToStatusBar(error.message);
   });
+
+  global.captainProcess.on("exit", (code) => {
+    if (code !== 0) {
+      throw new Error("Captain process is exited with code " + code);
+    }
+  });
 }
 
 export function killCaptain(): boolean {
