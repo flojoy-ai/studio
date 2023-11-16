@@ -31,4 +31,6 @@ export default {
     ipcRenderer.invoke(API.setPythonInterpreter, interpreter),
   browsePyInterpreter: (): Promise<string | null> =>
     ipcRenderer.invoke(API.browsePythonInterpreter),
+  sendLogToStatusbar: (...log: string[]) =>
+    ipcRenderer.send(API.sendLogToStatusbar, ...log),
 };
