@@ -22,10 +22,10 @@ type NodeElement = {
     string,
     {
       type: string;
-      default: string | number | boolean | null | undefined;
+      default?: string | number | boolean | null | undefined;
       options?: Array<string>;
       desc: string | null;
-      overload: Record<string, Array<string>> | null;
+      overload: Record<string, string[]> | null;
     }
   >;
   init_parameters?: NodeElement["parameters"];

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { ElementsData } from "@src/types";
 import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
+import { CtrlData } from "@src/types/node";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
 
@@ -40,7 +40,7 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
 export const ctrlsFromParams = (
   params: NodeElement["parameters"] | undefined,
   funcName: string,
-): ElementsData["ctrls"] => {
+): CtrlData => {
   if (!params) {
     return {};
   }

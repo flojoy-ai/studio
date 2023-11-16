@@ -14,10 +14,16 @@ const nodeOutputSchema = nodeIoSchema;
 
 const nodeParameterSchema = z.object({
   type: z.string(),
-  default: z.optional(z.union([z.string(), z.number(), z.boolean(), z.null()])),
+  default: z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    z.null(),
+    z.undefined(),
+  ]),
   options: z.optional(z.array(z.string())),
   desc: z.nullable(z.string()),
-  overload: z.nullable(z.record(z.string(), z.array(z.string()))).optional(),
+  overload: z.nullable(z.record(z.string(), z.array(z.string()))),
 });
 
 const pipDependencySchema = z.object({

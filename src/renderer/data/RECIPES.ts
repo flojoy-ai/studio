@@ -1,9 +1,11 @@
 import { ElementsData } from "@src/types";
-import { ReactFlowJsonObject } from "reactflow";
+import { ReactFlowJsonObject, Node } from "reactflow";
 import { defaultApp } from "./apps";
 
 export const NOISY_SINE =
   defaultApp.rfInstance as ReactFlowJsonObject<ElementsData>;
+
+export const bruh = defaultApp.rfInstance.nodes[0].data as ElementsData;
 
 export const EMPTY_CANVAS = {
   elements: [],
