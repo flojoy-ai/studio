@@ -1,8 +1,6 @@
 import { BrowserWindow, app, dialog, shell } from "electron";
 import * as fs from "fs";
 import { join } from "path";
-import { execSync } from "child_process";
-import log from "electron-log/main";
 import axios from "axios";
 import AdmZip from "adm-zip";
 import { sendToStatusBar } from "./logging";
