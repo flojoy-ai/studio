@@ -12,8 +12,11 @@ import {
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
 
-export async function checkPythonInstallation(): Promise<InterpretersList> {
-  if (!global.pythonInterpreters) {
+export async function checkPythonInstallation(
+  _,
+  force?: boolean,
+): Promise<InterpretersList> {
+  if (!global.pythonInterpreters || force) {
     global.pythonInterpreters =
       await new PythonManager().getInterpreterByVersion({
         major: 3,

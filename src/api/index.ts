@@ -13,8 +13,8 @@ export default {
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
-  checkPythonInstallation: (): Promise<InterpretersList> =>
-    ipcRenderer.invoke(API.checkPythonInstallation),
+  checkPythonInstallation: (force?: boolean): Promise<InterpretersList> =>
+    ipcRenderer.invoke(API.checkPythonInstallation, force),
   installPipx: (): Promise<string> => ipcRenderer.invoke(API.installPipx),
   pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke(API.pipxEnsurepath),
   installPoetry: (): Promise<string> => ipcRenderer.invoke(API.installPoetry),

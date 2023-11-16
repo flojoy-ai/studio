@@ -85,9 +85,9 @@ export const Index = (): JSX.Element => {
     }
   };
 
-  const checkPythonInstallation = async (): Promise<void> => {
+  const checkPythonInstallation = async (force?: boolean): Promise<void> => {
     try {
-      const interpreters = await window.api.checkPythonInstallation();
+      const interpreters = await window.api.checkPythonInstallation(force);
       setPyInterpreters(interpreters ?? []);
       updateSetupStatus({
         stage: "check-python-installation",
@@ -167,6 +167,10 @@ export const Index = (): JSX.Element => {
     if (path) {
       handleSelectedPyInterpreter(path);
     }
+  };
+  const refreshPyList = async () => {
+    console.log("Refreshing python interpreter list...");
+    await checkPythonInstallation(true);
   };
 
   const errorAction = async (): Promise<void> => {
@@ -290,43 +294,54 @@ export const Index = (): JSX.Element => {
                 {status.stage === "check-python-installation" &&
                   pyInterpreters && (
                     <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
-                      <Select
-                        disabled={selectedInterpreter !== ""}
-                        value={undefined}
-                        onValueChange={handleSelectedPyInterpreter}
-                      >
-                        <SelectTrigger className="grow">
-                          <SelectValue
-                            placeholder={
-                              pyInterpreters.length > 0
-                                ? "Please select a Python interpreter"
-                                : "No Python 3.11 interpreter found!"
-                            }
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {pyInterpreters.map((env) => {
-                            return (
-                              <SelectItem
-                                className="flex w-full cursor-pointer flex-col items-start justify-start"
-                                key={env.path}
-                                value={env.path}
-                              >
-                                <div className="font-semibold">{env.path}</div>
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    version:
-                                    {` ${env.version.major}.${env.version.minor}`}
+                      <div className="flex w-full min-w-fit items-center justify-between gap-2">
+                        <Select
+                          disabled={selectedInterpreter !== ""}
+                          value={undefined}
+                          onValueChange={handleSelectedPyInterpreter}
+                        >
+                          <SelectTrigger className="grow">
+                            <SelectValue
+                              placeholder={
+                                pyInterpreters.length > 0
+                                  ? "Please select a Python interpreter"
+                                  : "No Python 3.11 interpreter found!"
+                              }
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {pyInterpreters.map((env) => {
+                              return (
+                                <SelectItem
+                                  className="flex w-full cursor-pointer flex-col items-start justify-start"
+                                  key={env.path}
+                                  value={env.path}
+                                >
+                                  <div className="font-semibold">
+                                    {env.path}
                                   </div>
-                                  <div className="text-gray-500">
-                                    {env.default ? "default" : ""}
+                                  <div className="flex items-center justify-between">
+                                    <div>
+                                      version:
+                                      {` ${env.version.major}.${env.version.minor}`}
+                                    </div>
+                                    <div className="text-gray-500">
+                                      {env.default ? "default" : ""}
+                                    </div>
                                   </div>
-                                </div>
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectContent>
+                        </Select>
+                        <Button
+                          disabled={selectedInterpreter !== ""}
+                          onClick={refreshPyList}
+                          size={"sm"}
+                        >
+                          Refresh
+                        </Button>
+                      </div>
                       {pyInterpreters.length == 0 && (
                         <div>
                           <Button
