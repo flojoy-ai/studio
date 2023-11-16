@@ -298,6 +298,7 @@ const FlowChartTab = () => {
                     className="gap-2"
                     variant="ghost"
                     onClick={toggleSidebar}
+                    disabled={!manifest}
                   >
                     <Workflow size={20} className="stroke-muted-foreground" />
                     Add Block
