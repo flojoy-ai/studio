@@ -210,8 +210,10 @@ export const Index = (): JSX.Element => {
   };
 
   useEffect(() => {
-    // Kick off the setup process with this useEffect
-    checkBlocksResource();
+    if ("api" in window) {
+      // Kick off the setup process with this useEffect
+      checkBlocksResource();
+    }
   }, []);
 
   useEffect(() => {
@@ -267,7 +269,10 @@ export const Index = (): JSX.Element => {
 
   useEffect(() => {
     if (
-      ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(serverStatus)
+      ![IServerStatus.OFFLINE, IServerStatus.CONNECTING].includes(
+        serverStatus,
+      ) ||
+      !("api" in window)
     ) {
       navigate("/flowchart");
     }

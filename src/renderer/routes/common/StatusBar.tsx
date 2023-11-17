@@ -24,10 +24,14 @@ const StatusBar = (): JSX.Element => {
       }
     }
   }, [minimize, logs?.length]);
-  // Listen for messages from the main process
-  window.api.subscribeToElectronLogs((data) => {
-    setMessages((prev) => (prev.includes(data) ? prev : [...prev, data]));
-  });
+  useEffect(() => {
+    if ("api" in window) {
+      // Listen for messages from the main process
+      window.api.subscribeToElectronLogs((data) => {
+        setMessages((prev) => (prev.includes(data) ? prev : [...prev, data]));
+      });
+    }
+  }, []);
 
   return (
     <div
