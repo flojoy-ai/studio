@@ -24,7 +24,6 @@ export default defineConfig(() => {
     server: {
       host: isRemote ? "0.0.0.0" : "127.0.0.1",
       port: 5391,
-      open: true,
       watch: {
         ignored: ["**/venv/**", "!**/node_modules/flojoy/**"],
       },
