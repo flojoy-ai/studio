@@ -12,6 +12,7 @@ from flojoy.parameter_types import (
     NIDevice,
     NIConnection,
 )
+from tm_devices import DeviceManager
 from typing import Any, Callable
 from .config import logger
 
@@ -20,6 +21,7 @@ _connection_lock = Lock()
 
 class DeviceConnectionManager:
     handles: dict[str | int, HardwareConnection] = {}
+    tm = DeviceManager()
 
     @classmethod
     def register_connection(
@@ -51,6 +53,9 @@ class DeviceConnectionManager:
     @classmethod
     def clear(cls):
         with _connection_lock:
+            logger.info(f"Connections closed: {cls.handles}")
             cls.handles.clear()
 
-        logger.info(f"Connections closed: {cls.handles}")
+        cls.tm.cleanup_all_devices()
+        cls.tm.remove_all_devices()
+        logger.info("Cleaned up tm_devices DeviceManager")
