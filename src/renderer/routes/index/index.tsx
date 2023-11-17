@@ -85,11 +85,20 @@ export const Index = (): JSX.Element => {
   const checkPythonInstallation = async (force?: boolean): Promise<void> => {
     try {
       const interpreters = await window.api.checkPythonInstallation(force);
-      setPyInterpreters(interpreters ?? []);
+      if (interpreters.length > 0) {
+        setSelectedInterpreter(interpreters[0].path);
+        updateSetupStatus({
+          stage: "check-python-installation",
+          status: "completed",
+          message: `Python v${interpreters[0].version.major}.${interpreters[0].version.minor} found!`,
+        });
+        return;
+      }
+      setPyInterpreters([]);
       updateSetupStatus({
         stage: "check-python-installation",
         status: "running",
-        message: "Select a Python interpreter from list below...",
+        message: "No Python 3.11 interpreter found!",
       });
     } catch (err) {
       console.log("err: ", err);
@@ -291,54 +300,6 @@ export const Index = (): JSX.Element => {
                 {status.stage === "check-python-installation" &&
                   pyInterpreters && (
                     <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
-                      <div className="flex w-full min-w-fit items-center justify-between gap-2">
-                        <Select
-                          disabled={selectedInterpreter !== ""}
-                          value={undefined}
-                          onValueChange={handleSelectedPyInterpreter}
-                        >
-                          <SelectTrigger className="grow">
-                            <SelectValue
-                              placeholder={
-                                pyInterpreters.length > 0
-                                  ? "Please select a Python interpreter"
-                                  : "No Python 3.11 interpreter found!"
-                              }
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {pyInterpreters.map((env) => {
-                              return (
-                                <SelectItem
-                                  className="flex w-full cursor-pointer flex-col items-start justify-start"
-                                  key={env.path}
-                                  value={env.path}
-                                >
-                                  <div className="font-semibold">
-                                    {env.path}
-                                  </div>
-                                  <div className="flex items-center justify-between">
-                                    <div>
-                                      version:
-                                      {` ${env.version.major}.${env.version.minor}`}
-                                    </div>
-                                    <div className="text-gray-500">
-                                      {env.default ? "default" : ""}
-                                    </div>
-                                  </div>
-                                </SelectItem>
-                              );
-                            })}
-                          </SelectContent>
-                        </Select>
-                        <Button
-                          disabled={selectedInterpreter !== ""}
-                          onClick={refreshPyList}
-                          size={"sm"}
-                        >
-                          Refresh
-                        </Button>
-                      </div>
                       {pyInterpreters.length == 0 && (
                         <div>
                           <Button
@@ -360,12 +321,21 @@ export const Index = (): JSX.Element => {
                         <span className="mx-4 text-gray-600">OR</span>
                         <hr className="w-full flex-1 border-t-2 border-gray-300" />
                       </div>
-                      <Button
-                        onClick={handleBrowsePyInterpreter}
-                        disabled={selectedInterpreter !== ""}
-                      >
-                        Find a interpreter
-                      </Button>
+                      <div className="flex w-full items-center justify-center gap-3">
+                        <Button
+                          onClick={handleBrowsePyInterpreter}
+                          disabled={selectedInterpreter !== ""}
+                        >
+                          Find a interpreter
+                        </Button>
+                        <Button
+                          disabled={selectedInterpreter !== ""}
+                          onClick={refreshPyList}
+                          size={"sm"}
+                        >
+                          Refresh
+                        </Button>
+                      </div>
                     </div>
                   )}
               </Fragment>
