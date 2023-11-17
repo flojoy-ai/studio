@@ -112,7 +112,7 @@ def flojoy(
     | None = None,
     *,
     node_type: Optional[str] = None,
-    deps: Optional[dict[str, str]] = None,
+    deps: Optional[list[str]] = None,
     inject_node_metadata: bool = False,
     inject_connection: bool = False,
 ):

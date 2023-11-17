@@ -1,40 +1,31 @@
 directories:
   output: dist
-  buildResources: build
 appId: ai.flojoy.studio
 productName: Flojoy Studio
 icon: ./public/favicon.ico
 asar: true
+asarUnpack:
+  - resources/**
 afterSign: ./scripts/notarize.js
 files:
-  - dist-electron/**/*
+  - out/**/*
 
 extraResources:
   - from: "public"
     to: "public"
-  - from: "scripts/backend.ps1"
-    to: "backend/backend.ps1"
-  - from: "scripts/backend.sh"
-    to: "backend/backend.sh"
-  - from: "scripts/conda_install.sh"
-    to: "backend/conda_install.sh"
-  - from: "scripts/conda_install.ps1"
-    to: "backend/conda_install.ps1"
   - from: "captain"
-    to: "backend/captain"
+    to: "captain"
   - from: "pkgs"
-    to: "backend/pkgs"
+    to: "pkgs"
   - from: "PYTHON"
-    to: "backend/PYTHON"
+    to: "PYTHON"
     filter: "!**/blocks/**"
-  - from: "manage.py"
-    to: "backend/manage.py"
+  - from: "main.py"
+    to: "main.py"
   - from: "pyproject.toml"
-    to: "backend/pyproject.toml"
+    to: "pyproject.toml"
   - from: "poetry.lock"
-    to: "backend/poetry.lock"
-  - from: "environment.yml"
-    to: "backend/environment.yml"
+    to: "poetry.lock"
 
 mac:
   icon: ./public/favicon.icns
@@ -60,5 +51,5 @@ win:
   sign: ./scripts/winSign.js
   target: nsis
 extraMetadata:
-  main: dist-electron/main/index.js
+  main: out/main/index.js
 extends: null

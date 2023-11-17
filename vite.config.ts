@@ -15,8 +15,8 @@ export default defineConfig(({ command }) => {
 
   const isServe = command === "serve";
   const isBuild = command === "build";
-  const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
-  const isRemote = process.env.DEPLOY_ENV === "remote";
+  const sourcemap = isServe || !!process?.env?.VSCODE_DEBUG;
+  const isRemote = process?.env?.DEPLOY_ENV === "remote";
 
   return {
     plugins: [
@@ -32,11 +32,11 @@ export default defineConfig(({ command }) => {
             // Main-Process entry file of the Electron App.
             entry: "electron/main/index.ts",
             onstart(options) {
-              if (process.env.VSCODE_DEBUG) {
+              if (process?.env?.VSCODE_DEBUG) {
                 console.log(
                   /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App",
                 );
-              } else if (process.env.FLOJOY_USE_WAYLAND) {
+              } else if (process?.env?.FLOJOY_USE_WAYLAND) {
                 options.startup([
                   ".",
                   "--no-sandbox",

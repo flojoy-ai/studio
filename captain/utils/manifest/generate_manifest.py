@@ -23,6 +23,7 @@ NAME_MAP = {
     "SIGNAL": "sp.signal",
     "STATS": "sp.stats",
     "GAMES": "Games",
+    "COMPUTER_VISION": "Computer Vision",
 }
 
 # Types that are allowed in the manifest, this is for styling in the frontend.
@@ -43,6 +44,7 @@ ALLOWED_TYPES = [
     "SCIPY",
     "GAMES",
     "DEBUGGING",
+    "COMPUTER_VISION",
 ]
 
 # Sort order in sidebar
@@ -54,6 +56,7 @@ ORDERING = [
     "DSP",
     "IMAGE",
     "CONTROL_FLOW",
+    "COMPUTER_VISION",
     "HARDWARE",
     "DSP",
     "NUMPY",

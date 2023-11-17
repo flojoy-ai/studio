@@ -12,7 +12,7 @@ from flojoy.parameter_types import (
     NIDevice,
     NIConnection,
 )
-from typing import Any
+from typing import Any, Callable
 from .config import logger
 
 _connection_lock = Lock()
@@ -22,7 +22,12 @@ class DeviceConnectionManager:
     handles: dict[str | int, HardwareConnection] = {}
 
     @classmethod
-    def register_connection(cls, device: HardwareDevice, connection: Any):
+    def register_connection(
+        cls,
+        device: HardwareDevice,
+        connection: Any,
+        cleanup: Callable[[Any], Any] | None = None,
+    ):
         with _connection_lock:
             id = device.get_id()
             if id in cls.handles:
@@ -30,13 +35,13 @@ class DeviceConnectionManager:
 
             match device:
                 case CameraDevice():
-                    cls.handles[id] = CameraConnection(connection)
+                    cls.handles[id] = CameraConnection(connection, cleanup=cleanup)
                 case SerialDevice():
-                    cls.handles[id] = SerialConnection(connection)
+                    cls.handles[id] = SerialConnection(connection, cleanup=cleanup)
                 case VisaDevice():
-                    cls.handles[id] = VisaConnection(connection)
+                    cls.handles[id] = VisaConnection(connection, cleanup=cleanup)
                 case NIDevice():
-                    cls.handles[id] = NIConnection(connection)
+                    cls.handles[id] = NIConnection(connection, cleanup=cleanup)
 
     @classmethod
     def get_connection(cls, id: str | int) -> HardwareConnection:
@@ -48,4 +53,4 @@ class DeviceConnectionManager:
         with _connection_lock:
             cls.handles.clear()
 
-        logger.debug(f"Connections closed: {cls.handles}")
+        logger.info(f"Connections closed: {cls.handles}")

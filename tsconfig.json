@@ -18,16 +18,16 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@feature/*": ["src/feature/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"],
-      "@/*": ["./src/*"]
+      "@src/*": ["src/renderer/*"],
+      "@feature/*": ["src/renderer/routes/*"],
+      "@hooks/*": ["src/renderer/hooks/*"],
+      "@utils/*": ["src/renderer/utils/*"],
+      "@/*": ["./src/renderer/*"]
     },
     "rootDir": ".",
     "outDir": "fe-dist"
   },
-  "include": ["src"],
+  "include": ["src", "src/window.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules", "dist", "build"]
 }
