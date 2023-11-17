@@ -11,6 +11,7 @@
     "start": "electron-vite preview",
     "postinstall": "electron-builder install-app-deps",
     "dev": "electron-vite dev --inspect",
+    "remote": "vite --config vite.config.ts",
     "build": "tsc && electron-vite build",
     "backend": "poetry run python3 main.py",
     "backend:debug": "poetry run python3 main.py --log-level debug",

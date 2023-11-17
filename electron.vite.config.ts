@@ -1,6 +1,9 @@
 import { resolve } from "path";
 import { defineConfig, externalizeDepsPlugin } from "electron-vite";
 import react from "@vitejs/plugin-react-swc";
+import istanbulPlugin from "vite-plugin-istanbul";
+import EnvironmentPlugin from "vite-plugin-environment";
+import eslintPlugin from "vite-plugin-eslint";
 
 export default defineConfig({
   main: {
@@ -32,6 +35,13 @@ export default defineConfig({
         "@/lib": resolve(__dirname, "src/renderer/lib"),
       },
     },
-    plugins: [react()],
+    plugins: [
+      react(),
+      istanbulPlugin({
+        include: ["src/renderer/**/*.ts", "src/renderer/**/*.tsx"],
+      }),
+      EnvironmentPlugin("all"),
+      eslintPlugin({ emitWarning: false }),
+    ],
   },
 });

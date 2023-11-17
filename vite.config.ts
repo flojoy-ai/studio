@@ -26,65 +26,65 @@ export default defineConfig(({ command }) => {
       }),
       EnvironmentPlugin("all"),
       eslint({ emitWarning: false }),
-      !isRemote &&
-        electron([
-          {
-            // Main-Process entry file of the Electron App.
-            entry: "electron/main/index.ts",
-            onstart(options) {
-              if (process?.env?.VSCODE_DEBUG) {
-                console.log(
-                  /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App",
-                );
-              } else if (process?.env?.FLOJOY_USE_WAYLAND) {
-                options.startup([
-                  ".",
-                  "--no-sandbox",
-                  "--enable-features=UseOzonePlatform",
-                  "--ozone-platform=wayland",
-                ]);
-              } else {
-                options.startup();
-              }
-            },
-            vite: {
-              publicDir: "electron/static",
-              build: {
-                sourcemap: sourcemap ? "inline" : undefined,
-                minify: false,
-                rollupOptions: {
-                  input: {
-                    main: "electron/main/index.ts",
-                    preload: "electron/preload/index.ts",
-                  },
-                  output: {
-                    dir: "dist-electron",
-                    entryFileNames: (chunk) => {
-                      const formatPath = chunk.facadeModuleId.replace(
-                        /\\/g,
-                        "/",
-                      );
-                      const split = formatPath.split("/");
-                      const fileName = split[split.length - 1].split(".")[0];
-                      return `${chunk.name}/${fileName}.js`;
-                    },
-                  },
-                },
-              },
-            },
-          },
-        ]),
-      // Use Node.js API in the Renderer-process
-      !isRemote && renderer(),
-      {
-        name: "watch-node-modules",
-        configureServer: (server: ViteDevServer): void => {
-          server.watcher.options = {
-            ...server.watcher.options,
-            ignored: [/node_modules\/(?!flojoy).*/, "**/.git/**", "**/venv/**"],
-          };
-        },
-      },
+      // !isRemote &&
+      //   electron([
+      //     {
+      //       // Main-Process entry file of the Electron App.
+      //       entry: "electron/main/index.ts",
+      //       onstart(options) {
+      //         if (process?.env?.VSCODE_DEBUG) {
+      //           console.log(
+      //             /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App",
+      //           );
+      //         } else if (process?.env?.FLOJOY_USE_WAYLAND) {
+      //           options.startup([
+      //             ".",
+      //             "--no-sandbox",
+      //             "--enable-features=UseOzonePlatform",
+      //             "--ozone-platform=wayland",
+      //           ]);
+      //         } else {
+      //           options.startup();
+      //         }
+      //       },
+      //       vite: {
+      //         publicDir: "electron/static",
+      //         build: {
+      //           sourcemap: sourcemap ? "inline" : undefined,
+      //           minify: false,
+      //           rollupOptions: {
+      //             input: {
+      //               main: "electron/main/index.ts",
+      //               preload: "electron/preload/index.ts",
+      //             },
+      //             output: {
+      //               dir: "dist-electron",
+      //               entryFileNames: (chunk) => {
+      //                 const formatPath = chunk.facadeModuleId.replace(
+      //                   /\\/g,
+      //                   "/",
+      //                 );
+      //                 const split = formatPath.split("/");
+      //                 const fileName = split[split.length - 1].split(".")[0];
+      //                 return `${chunk.name}/${fileName}.js`;
+      //               },
+      //             },
+      //           },
+      //         },
+      //       },
+      //     },
+      //   ]),
+      // // Use Node.js API in the Renderer-process
+      // !isRemote && renderer(),
+      // {
+      //   name: "watch-node-modules",
+      //   configureServer: (server: ViteDevServer): void => {
+      //     server.watcher.options = {
+      //       ...server.watcher.options,
+      //       ignored: [/node_modules\/(?!flojoy).*/, "**/.git/**", "**/venv/**"],
+      //     };
+      //   },
+      // },
     ],
     server: {
       host: isRemote ? "0.0.0.0" : "127.0.0.1",
@@ -95,17 +95,17 @@ export default defineConfig(({ command }) => {
     },
     resolve: {
       alias: {
-        "@src": path.resolve(__dirname, "src"),
-        "@hooks": path.resolve(__dirname, "src/hooks"),
-        "@feature": path.resolve(__dirname, "src/feature"),
-        "@/components": path.resolve(__dirname, "src/components"),
-        "@/assets": path.resolve(__dirname, "src/assets"),
-        "@/lib": path.resolve(__dirname, "src/lib"),
+        "@src": path.resolve(__dirname, "src/renderer"),
+        "@hooks": path.resolve(__dirname, "src/renderer/hooks"),
+        "@feature": path.resolve(__dirname, "src/renderer/feature"),
+        "@/components": path.resolve(__dirname, "src/renderer/components"),
+        "@/assets": path.resolve(__dirname, "src/renderer/assets"),
+        "@/lib": path.resolve(__dirname, "src/renderer/lib"),
       },
     },
-    base: "./",
+    root: path.resolve(__dirname, "src/renderer"),
     build: {
-      outDir: "dist-electron/studio",
+      outDir: "dist-electron",
     },
   };
 });
