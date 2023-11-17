@@ -333,7 +333,7 @@ export const Index = (): JSX.Element => {
                           onClick={refreshPyList}
                           size={"sm"}
                         >
-                          Refresh
+                          Retry
                         </Button>
                       </div>
                     </div>
