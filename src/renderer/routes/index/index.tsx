@@ -71,17 +71,14 @@ export const Index = (): JSX.Element => {
         message: "Blocks resource is downloaded!",
       });
     } catch (err) {
-      console.log("err: ", err);
       updateSetupStatus({
         stage: "check-blocks-resource",
         status: "error",
         message: "Could not download blocks resource :(",
       });
       setErrorTitle("Blocks resource download failed!");
-      setErrorDesc(
-        "An error ocurred while trying to download blocks resource, check if git is installed on your machine!",
-      );
-      setErrorActionName("Download Git");
+      setErrorDesc(String(err));
+      setErrorActionName("Restart");
     }
   };
 
@@ -191,7 +188,7 @@ export const Index = (): JSX.Element => {
         break;
       }
       case "check-blocks-resource": {
-        window.open("https://git-scm.com/downloads");
+        window.api.restartFlojoyStudio();
         break;
       }
     }
