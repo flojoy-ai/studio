@@ -431,67 +431,80 @@ class FlojoyScriptBuilder:
         asyncio.run(
             self.signaler.signal_script_running_microcontroller(self.jobset_id)
         )
-        cmd = ["mpremote", "connect", port, "+", "run", f"{tempdir.name}/main.py"]
-        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        manager.set_mc(p, port)
+        cmd = f"mpremote connect {port} + mount {tempdir.name} + run {tempdir.name}/main.py"
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        manager.set_mc(p, port, play=True)
         logger.debug("set the mc_proc")
-        p.wait()
+        ec = p.wait()
         stderr = p.stderr.read().decode() if p.stderr else ""
-        if stderr:
-            logger.debug("got error from MC: ", stderr)
+        stdout = p.stdout.read().decode() if p.stdout else ""
+        if p.stderr: p.stderr.close()
+        if p.stdout: p.stdout.close()
+        if ec != 0:
+            logger.error(f"Exit code: {ec}. Got error from MC: {stderr}")
+            logger.error(f"stdout: {stdout}")
             asyncio.run(
                 self.signaler.signal_prejob_output(self.jobset_id, stderr)
             )
             return
-        
         # close tempdir
         tempdir.cleanup()
         logger.debug("done running MC")
         asyncio.run(self.signaler.signal_standby(self.jobset_id))
 
-    async def output(self, tempdir: TemporaryDirectory[str], manager: Manager, port: str, path_to_output: str | None):
+    def output(self, tempdir: TemporaryDirectory[str], port: str, path_to_output: str | None, manager: Manager):
         """
         Copy paste the temp dir into the output dir if specified
         and into the port dir if specified
         """
-        if path_to_output:
+        if path_to_output: # output locally on computer
             try:
                 shutil.copytree(tempdir.name, path_to_output)
             except Exception as e:
+                logger.error(f"Error copying to output directory: {e}")
                 output = "\n".join(e.args)
-                await asyncio.create_task(
+                asyncio.run(
                     self.signaler.signal_prejob_output(self.jobset_id, output)
                 )
 
-        if port:
-            # spawn rshell instance
-            cmd = [
-                "rshell",
-                "-p",
-                port,
-                "--baud",
-                "115200",
-                "--buffer-size",
-                "512",
-            ]  # TODO buff size of 512 only for USB.
-
-            try:  # copied from captain/utils/flowchart_utils.py
-                with subprocess.Popen(
-                    cmd,
+        if port: # output to microcontroller
+            logger.debug("outputting to microcontroller")
+            try:
+                cmd = [
+                    "cd",
+                    tempdir.name,
+                    ";",
+                    "mpremote",
+                    "connect",
+                    port,
+                    "+",
+                    "cp",
+                    "-r",
+                    "./*",
+                    ":",
+                ]
+                proc = subprocess.Popen(
+                    " ".join(cmd),
                     stdin=subprocess.PIPE,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
-                    universal_newlines=True,
-                ) as proc:
-                    manager.set_mc(proc, port)
-                    out, error_output = proc.communicate(f"cp -r {tempdir}/* /pyboard/")
-                    logger.debug(out)
-                    if error_output:
-                        raise Exception(error_output)
+                    shell=True
+                )
+                manager.set_mc(proc, port)
+                logger.debug(f"running command: {' '.join(cmd)}")
+                ec = proc.wait()
+                stderr = proc.stderr.read().decode()
+                stdout = proc.stdout.read().decode()
+                if proc.stderr: proc.stderr.close()
+                if proc.stdout: proc.stdout.close()
+                logger.debug(f"finished copying with exit code: {ec}")
+                if ec != 0:
+                    logger.debug(f"Got error from MC: {stderr}")
+                    logger.debug(f"stdout: {stdout}")
+                    raise Exception("Error: ", stderr)
             except Exception as e:
                 output = "\n".join(e.args)
-
-                await asyncio.create_task(
+                asyncio.run(
                     self.signaler.signal_prejob_output(self.jobset_id, output)
                 )
                 return
@@ -499,7 +512,7 @@ class FlojoyScriptBuilder:
         # close tempdir
         tempdir.cleanup()
 
-        await asyncio.create_task(
+        asyncio.run(
             self.signaler.signal_script_upload_complete_microcontroller(self.jobset_id)
         )
 

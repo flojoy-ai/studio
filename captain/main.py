@@ -7,10 +7,13 @@ from PYTHON.utils.dynamic_module_import import create_map
 from captain.utils.logger import logger, logger_setup
 from flojoy import set_debug_on, set_debug_off
 
+
 # init node mapping
 create_map()
 
+
 app = FastAPI()
+
 
 # cors middleware
 app.add_middleware(
@@ -20,6 +23,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # routes
 app.include_router(ws.router)
@@ -38,3 +42,5 @@ async def startup_event():
         set_debug_on()
     else:
         set_debug_off()
+
+

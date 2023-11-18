@@ -16,8 +16,17 @@ from precompilation import precompile
 
 router = APIRouter(tags=["flowchart"])
 
-# TODO do we want to convert field names from camelCase to snake_case?
+@router.on_event("shutdown")
+def on_shutdown():
+    print("FastAPI shutdown event triggered...")
+    # Perform any cleanup here
 
+    #1. Cancel any running topology
+    if manager.running_topology is not None:
+        manager.running_topology.cancel()
+
+    #2. Terminate any running microcontroller process
+    manager.terminate_mc_proc()
 
 @router.post("/cancel_fc", summary="cancel flowchart")
 async def cancel_fc(req: PostCancelFC):

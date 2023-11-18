@@ -75,23 +75,15 @@ async def precompile(
 
     # Step 8: output to microcontroller or just run it
 
+    # use threading module to run 'run script' in a separate thread
+    # so that we can return to the front-end immediately
+    # and not have to wait for the script to finish running
     if upload:
-        await asyncio.create_task(
-            sw.output(tempdir=tempdir, port=port, path_to_output=path_to_output, manager=manager)
-        )
+        threading.Thread(
+            target=sw.output,
+            args=(tempdir, port, path_to_output, manager),
+        ).start()
     else:
-        
-        # await asyncio.create_task(
-        #     sw.run_script(
-        #         tempdir=tmpdirname,
-        #         port=port,
-        #         manager=manager,
-        #     )
-        # )
-
-        # use threading module to run 'run script' in a separate thread
-        # so that we can return to the front-end immediately
-        # and not have to wait for the script to finish running
         threading.Thread(
             target=sw.run_script,
             args=(tempdir, port, manager),

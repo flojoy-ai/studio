@@ -18,3 +18,5 @@ pyserial==3.5
 debugpy
 python-minifier==2.9.0
 astunparse==1.6.3
+mpremote
+rshell

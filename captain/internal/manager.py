@@ -6,18 +6,17 @@ from flojoy import PlotlyJSONEncoder
 from captain.utils.logger import logger
 from captain.models.topology import Topology
 from captain.types.worker import PoisonPill
-from typing import Any, Union
+from typing import Any, Tuple, Union
 import json
 import threading
 from captain.types.worker import WorkerJobResponse
 
 
-""" Acts as a bridge between backend components """
 
 socket_connection_lock = threading.Lock()
 
-
 class Manager(object):
+    """ Acts as a bridge between backend components """
     def __init__(self):
         self.ws = ConnectionManager()  # websocket manager
         self.running_topology: Topology | None = None  # holds the topology
@@ -25,8 +24,7 @@ class Manager(object):
         self.task_queue: Queue[Any] = Queue()
         self.finish_queue: Queue[Any] = Queue()
         self.thread_count: int = 0
-        self.mc_proc: Popen | None = None # holds the microcontroller process for uploading or running
-        self.mc_port = "" # holds the port of the microcontroller process currently running
+        self.mc_info: Tuple = () # holds the microcontroller info (port, mode)
 
     def end_worker_threads(self):
         """
@@ -36,35 +34,39 @@ class Manager(object):
             self.task_queue.put(PoisonPill())  # poison pill
             self.finish_queue.put(PoisonPill())  # poison pill
     
-    def set_mc(self, mc_proc: Popen, mc_port: str):
+    def set_mc(self, mc_proc: Popen, mc_port: str, play: bool = False):
         """
         This function will store the process object and the port of the currently running microcontroller for cancellation purposes
         """
-        self.mc_proc = mc_proc
-        self.mc_port = mc_port
+        self.mc_info = (mc_proc, mc_port, play)
 
     def terminate_mc_proc(self):
         """
-        This function terminates the microcontroller process and soft reboots the microcontroller.
+        This function terminates the microcontroller process (play or upload) and soft reboots the microcontroller.
         """
-        if self.mc_proc:
+        mc_proc, mc_port, play = self.mc_info
+        if mc_proc:
             # terminate the microcontroller process
             logger.debug("terminating mc...")
-            self.mc_proc.terminate()
-            self.mc_proc.wait(5) # wait for process to terminate 
-            if self.mc_proc.returncode != 0:
+            mc_proc.terminate()
+            mc_proc.wait(5) # wait for process to terminate 
+            if mc_proc.returncode != 0:
                 logger.error("mc terminated with non-zero exit code or timeout")
             else:
                 logger.debug("terminated mc")
 
-            # soft reboot the microcontroller
-            logger.debug("soft rebooting mc...")
-            stderr = subprocess.run(["mpremote", "connect", self.mc_port, "+", "soft-reset"], stderr=subprocess.PIPE).stderr.decode()
-            if (stderr != ""):
-                logger.error(f"soft reboot failed: {stderr}")
-            else:
-                logger.debug("soft rebooted mc")
-            self.mc_proc = None
+            if play: # this means "play" was pressed
+                # soft reboot the microcontroller
+                logger.debug("soft rebooting mc...")
+                stderr = subprocess.run(["mpremote", "connect", mc_port, "+", "soft-reset"], stderr=subprocess.PIPE).stderr.decode()
+                if (stderr != ""):
+                    logger.error(f"soft reboot failed: {stderr}")
+                else:
+                    logger.debug("soft rebooted mc")
+
+            self.mc_info = () # reset mc_info
+            
+
         
 
 
