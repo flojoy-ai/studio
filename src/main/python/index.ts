@@ -53,9 +53,9 @@ export async function checkPythonInstallation(
   return global.pythonInterpreters;
 }
 
-export function installPipx(): Promise<string> {
+export async function installPipx(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  return execCommand(
+  return await execCommand(
     new Command({
       darwin: `"${py}" -m pip install --user pipx`,
       win32: `"${py}" -m pip install --user pipx`,
@@ -78,15 +78,15 @@ export async function pipxEnsurepath(): Promise<void> {
   }`;
 }
 
-export function installPoetry(): Promise<string> {
+export async function installPoetry(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   process.env.POETRY_PATH = `${os.homedir}/.local/bin/poetry`;
-  return execCommand(new Command(`${py} -m pipx install poetry --force`));
+  return await execCommand(new Command(`${py} -m pipx install poetry --force`));
 }
 
-export function installDependencies(): Promise<string> {
+export async function installDependencies(): Promise<string> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return execCommand(new Command(`${poetry} install`));
+  return await execCommand(new Command(`${poetry} install`));
 }
 
 export async function spawnCaptain(): Promise<void> {
