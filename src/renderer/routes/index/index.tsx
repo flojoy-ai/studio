@@ -16,13 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
 import StatusBar from "@src/routes/common/StatusBar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@src/components/ui/select";
 import { InterpretersList } from "src/main/python/interpreter";
 
 export const Index = (): JSX.Element => {
@@ -87,6 +80,7 @@ export const Index = (): JSX.Element => {
       const interpreters = await window.api.checkPythonInstallation(force);
       if (interpreters.length > 0) {
         setSelectedInterpreter(interpreters[0].path);
+        await window.api.setPythonInterpreter(interpreters[0].path);
         updateSetupStatus({
           stage: "check-python-installation",
           status: "completed",
