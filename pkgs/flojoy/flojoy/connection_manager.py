@@ -23,7 +23,7 @@ _connection_lock = Lock()
 
 class DeviceConnectionManager:
     handles: dict[str | int, HardwareConnection] = {}
-    tm = DeviceManager()
+    tm = DeviceManager(verbose=False)
 
     @classmethod
     def register_connection(
@@ -58,13 +58,12 @@ class DeviceConnectionManager:
 
     @classmethod
     def clear(cls):
+        cls.tm.remove_all_devices()
+        logger.info("Cleaned up tm_devices DeviceManager")
+
         with _connection_lock:
             logger.info(f"Connections closed: {cls.handles}")
             cls.handles.clear()
-
-        cls.tm.cleanup_all_devices()
-        cls.tm.remove_all_devices()
-        logger.info("Cleaned up tm_devices DeviceManager")
 
 
 def noop(_):
