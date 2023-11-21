@@ -119,7 +119,7 @@ export async function spawnCaptain(): Promise<void> {
   });
 
   global.captainProcess.on("exit", (code) => {
-    if (code !== 0) {
+    if (code !== 0 && !global?.mainWindow?.isDestroyed()) {
       throw new Error("Captain process is exited with code " + code);
     }
   });
