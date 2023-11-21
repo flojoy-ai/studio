@@ -15,6 +15,8 @@ import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import _ from "lodash";
+import { toast } from "sonner";
 
 const FlowControlButtons = () => {
   const { states } = useSocket();
@@ -38,6 +40,13 @@ const FlowControlButtons = () => {
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
     if (project.rfInstance && project.rfInstance.nodes.length > 0) {
+      if (_.some(nodes, (n) => n.data.invalid)) {
+        toast.error(
+          "Unknown blocks found, these must be removed before attempting to run the flow chart.",
+        );
+        return;
+      }
+
       // Only update the react flow instance when required.
       const updatedRfInstance = {
         ...project.rfInstance,

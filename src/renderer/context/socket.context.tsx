@@ -9,6 +9,7 @@ import {
   useFetchManifest,
   useFetchNodesMetadata,
 } from "@src/hooks/useManifest";
+import { toast } from "sonner";
 
 type States = {
   programResults: NodeResult[];
@@ -80,11 +81,16 @@ export const SocketContextProvider = ({
           console.log("socket closed with event:", ev);
           setSocket(undefined);
         },
-        onConnectionEstablished: [
-          hardwareRefetch,
-          fetchManifest,
-          fetchMetadata,
-        ],
+        onConnectionEstablished: () => {
+          hardwareRefetch();
+          fetchManifest();
+          fetchMetadata();
+        },
+        onManifestUpdate: () => {
+          toast("Changes detected, syncing blocks with changes...");
+          fetchManifest();
+          fetchMetadata();
+        },
       });
       setSocket(ws);
     }

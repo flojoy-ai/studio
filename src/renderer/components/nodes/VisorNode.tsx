@@ -26,6 +26,7 @@ import PeakFinder from "@src/assets/nodes/PeakFinder";
 import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -49,16 +50,12 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   HEATMAP: <Heatmap />,
 };
 
-const VisorNode = (props: CustomNodeProps) => {
-  const {
-    nodeProps: { data },
-    nodeError,
-    isRunning,
-    plotlyFig,
-    textBlob,
-  } = props;
-
+const VisorNode = ({ selected, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
+  const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
+
+  const plotlyFig = nodeResult?.result?.plotly_fig;
+  const textBlob = nodeResult?.result?.text_blob;
 
   const plotlyData = useMemo(
     () =>
@@ -67,11 +64,11 @@ const VisorNode = (props: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "rounded-2xl bg-transparent",
-          { "shadow-around shadow-accent2": isRunning || data.selected },
+          { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >

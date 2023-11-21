@@ -35,6 +35,7 @@ export class PythonManager {
       join(process.env.LOCALAPPDATA ?? "", "Programs/Python/Python311"),
       join(process.env.ProgramFiles ?? "", "python311"),
     ],
+    linux: ["/usr/bin", "/usr/local/bin", os.homedir() + "/.pyenv/shims"],
   };
   executables: string[] = [];
 
