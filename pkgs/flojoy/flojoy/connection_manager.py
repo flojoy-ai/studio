@@ -1,5 +1,7 @@
 from threading import Lock
 
+from tm_devices.drivers.pi.pi_device import PIDevice
+
 from flojoy.parameter_types import (
     HardwareConnection,
     HardwareDevice,
@@ -35,6 +37,10 @@ class DeviceConnectionManager:
             if id in cls.handles:
                 raise ValueError(f"Connection with id {id} already exists")
 
+            # Let tm_devices take care of any devices it created
+            if isinstance(connection, PIDevice) and cleanup is None:
+                cleanup = noop
+
             match device:
                 case CameraDevice():
                     cls.handles[id] = CameraConnection(connection, cleanup=cleanup)
@@ -59,3 +65,7 @@ class DeviceConnectionManager:
         cls.tm.cleanup_all_devices()
         cls.tm.remove_all_devices()
         logger.info("Cleaned up tm_devices DeviceManager")
+
+
+def noop(_):
+    return None
