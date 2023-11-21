@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
@@ -33,4 +33,5 @@ export default {
     ipcRenderer.invoke(API.browsePythonInterpreter),
   sendLogToStatusbar: (...log: string[]) =>
     ipcRenderer.send(API.sendLogToStatusbar, ...log),
+  isPackaged: (): boolean => app.isPackaged,
 };

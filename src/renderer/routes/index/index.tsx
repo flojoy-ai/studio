@@ -191,7 +191,13 @@ export const Index = (): JSX.Element => {
         break;
       }
       case "check-blocks-resource": {
-        window.api.restartFlojoyStudio();
+        if (window.api.isPackaged()) {
+          window.api.restartFlojoyStudio();
+        } else {
+          alert(
+            "Restart is not supported for dev build, please relaunch Flojoy Studio manually!",
+          );
+        }
         break;
       }
     }
