@@ -45,9 +45,6 @@ class ConnectionManager:
 
     # this method sends a message to all connected websockets
     async def broadcast(self, message: Union[dict[str, Any], WorkerJobResponse]):
-        if not isinstance(message, WorkerJobResponse):
-            return
-
         dead_connections: set[str] = set()
 
         with socket_connection_lock:

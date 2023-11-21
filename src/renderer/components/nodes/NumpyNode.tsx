@@ -1,25 +1,22 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@src/components/common/NodeWrapper";
-import { NumpySvg } from "@src/assets/ArithmeticSVG";
-import HandleComponent from "@src/components/common/HandleComponent";
-import NodeInput from "@src/components/common/NodeInput";
+import NodeWrapper from "@/components/common/NodeWrapper";
+import { NumpySvg } from "@/assets/ArithmeticSVG";
+import HandleComponent from "@/components/common/HandleComponent";
+import NodeInput from "@/components/common/NodeInput";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const NumpyNode = (props: CustomNodeProps) => {
-  const {
-    isRunning,
-    nodeError,
-    nodeProps: { data },
-  } = props;
+const NumpyNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex h-40 w-60 items-center justify-center rounded-2xl border-2 border-solid border-blue-500 bg-accent1/5",
-          { "shadow-around shadow-blue-500": isRunning || data.selected },
+          { "shadow-around shadow-blue-500": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         onDoubleClick={() => setIsRenamingTitle(true)}

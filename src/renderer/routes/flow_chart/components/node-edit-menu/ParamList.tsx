@@ -2,7 +2,6 @@ import { ParamValueType } from "@src/routes/common/types/ParamValueType";
 import { ParamTooltip } from "@src/components/common/ParamTooltip";
 import { ElementsData } from "@src/types/node";
 import ParamField from "./ParamField";
-import { useEffect, useState } from "react";
 
 type ParamListProps = {
   nodeId: string;
@@ -20,35 +19,30 @@ export const ParamList = ({
   updateFunc,
   nodeReferenceOptions,
 }: ParamListProps) => {
-  const [filtered, setFiltered] = useState(Object.entries(ctrls));
+  let ctrlList = Object.entries(ctrls);
 
-  const filterCtrl = () => {
-    Object.entries(ctrls).forEach(([name, param]) => {
-      const val = ctrls[name].value;
-      if (val && param.overload && val.toString() in param.overload) {
-        const filterList = param.overload[val.toString()];
-        const filter = Object.entries(ctrls).filter(
-          ([filterName]) =>
-            name === filterName || filterList.includes(filterName),
-        );
-        setFiltered(filter);
-      }
-    });
-  };
-
-  useEffect(() => {
-    filterCtrl();
-  }, [ctrls]);
+  const overload = Object.entries(ctrls).find(([, p]) => p.overload !== null);
+  if (overload !== undefined) {
+    const [overloadName, overloadParam] = overload;
+    if (overloadParam.overload && overloadParam.value) {
+      const filterList = overloadParam.overload[overloadParam.value.toString()];
+      ctrlList = Object.entries(ctrls).filter(
+        ([filterName]) =>
+          overloadName === filterName || filterList.includes(filterName),
+      );
+    }
+  }
 
   return (
     <>
-      {filtered.map(([name, param]) => (
+      {ctrlList.map(([name, param]) => (
         <div
           key={nodeId + name}
           id="undrag"
           data-testid="node-edit-modal-params"
         >
           <ParamTooltip
+            nodeId={nodeId}
             param={{ name, type: param.type, desc: param.desc }}
             offsetX={30}
             offsetY={-192}
