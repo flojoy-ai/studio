@@ -15,6 +15,7 @@ from flojoy.parameter_types import (
     NIConnection,
 )
 from tm_devices import DeviceManager
+from tm_devices.helpers import PYVISA_PY_BACKEND
 from typing import Any, Callable
 from .config import logger
 
@@ -24,6 +25,7 @@ _connection_lock = Lock()
 class DeviceConnectionManager:
     handles: dict[str | int, HardwareConnection] = {}
     tm = DeviceManager(verbose=False)
+    tm.visa_library = PYVISA_PY_BACKEND
 
     @classmethod
     def register_connection(
