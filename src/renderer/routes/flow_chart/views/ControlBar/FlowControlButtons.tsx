@@ -15,6 +15,7 @@ import { IServerStatus } from "@src/context/socket.context";
 import WatchBtn from "./WatchBtn";
 import { useAtom } from "jotai";
 import useKeyboardShortcut from "@src/hooks/useKeyboardShortcut";
+import { useManifest } from "@src/hooks/useManifest";
 import _ from "lodash";
 import { toast } from "sonner";
 
@@ -27,6 +28,7 @@ const FlowControlButtons = () => {
   const { setNodeParamChanged } = useFlowChartState();
 
   const [project, setProject] = useAtom(projectAtom);
+  const manifest = useManifest();
 
   const playBtnDisabled =
     serverStatus === IServerStatus.CONNECTING ||
@@ -35,7 +37,7 @@ const FlowControlButtons = () => {
     if (project.rfInstance && project.rfInstance.nodes.length > 0) {
       cancelFlowChartRun(project.rfInstance, socketId);
     } else {
-      alert("is no running job on server.");
+      alert("There is no running job on server.");
     }
   };
   const onRun = async (nodes: Node<ElementsData>[], edges: Edge[]) => {
@@ -91,7 +93,7 @@ const FlowControlButtons = () => {
           variant="dotted"
           id="btn-play"
           onClick={handleClick}
-          disabled={nodes.length === 0}
+          disabled={nodes.length === 0 || !manifest}
           className="w-28 gap-2"
         >
           <Play size={18} />

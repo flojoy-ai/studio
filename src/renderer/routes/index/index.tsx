@@ -16,13 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { IServerStatus } from "@src/context/socket.context";
 import { useSocket } from "@src/hooks/useSocket";
 import StatusBar from "@src/routes/common/StatusBar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@src/components/ui/select";
 import { InterpretersList } from "src/main/python/interpreter";
 
 export const Index = (): JSX.Element => {
@@ -71,28 +64,35 @@ export const Index = (): JSX.Element => {
         message: "Blocks resource is downloaded!",
       });
     } catch (err) {
-      console.log("err: ", err);
       updateSetupStatus({
         stage: "check-blocks-resource",
         status: "error",
         message: "Could not download blocks resource :(",
       });
       setErrorTitle("Blocks resource download failed!");
-      setErrorDesc(
-        "An error ocurred while trying to download blocks resource, check if git is installed on your machine!",
-      );
-      setErrorActionName("Download Git");
+      setErrorDesc(String(err));
+      setErrorActionName("Restart");
     }
   };
 
-  const checkPythonInstallation = async (): Promise<void> => {
+  const checkPythonInstallation = async (force?: boolean): Promise<void> => {
     try {
-      const interpreters = await window.api.checkPythonInstallation();
-      setPyInterpreters(interpreters ?? []);
+      const interpreters = await window.api.checkPythonInstallation(force);
+      if (interpreters.length > 0) {
+        setSelectedInterpreter(interpreters[0].path);
+        await window.api.setPythonInterpreter(interpreters[0].path);
+        updateSetupStatus({
+          stage: "check-python-installation",
+          status: "completed",
+          message: `Python v${interpreters[0].version.major}.${interpreters[0].version.minor} found!`,
+        });
+        return;
+      }
+      setPyInterpreters([]);
       updateSetupStatus({
         stage: "check-python-installation",
         status: "running",
-        message: "Select a Python interpreter from list below...",
+        message: "No Python 3.11 interpreter found!",
       });
     } catch (err) {
       console.log("err: ", err);
@@ -168,6 +168,10 @@ export const Index = (): JSX.Element => {
       handleSelectedPyInterpreter(path);
     }
   };
+  const refreshPyList = async () => {
+    console.log("Refreshing python interpreter list...");
+    await checkPythonInstallation(true);
+  };
 
   const errorAction = async (): Promise<void> => {
     const setupError = setupStatuses.find(
@@ -187,7 +191,13 @@ export const Index = (): JSX.Element => {
         break;
       }
       case "check-blocks-resource": {
-        window.open("https://git-scm.com/downloads");
+        if (window.api.isPackaged()) {
+          window.api.restartFlojoyStudio();
+        } else {
+          alert(
+            "Restart is not supported for dev build, please relaunch Flojoy Studio manually!",
+          );
+        }
         break;
       }
     }
@@ -290,43 +300,6 @@ export const Index = (): JSX.Element => {
                 {status.stage === "check-python-installation" &&
                   pyInterpreters && (
                     <div className="flex flex-col items-center justify-center gap-2 px-2 pt-2">
-                      <Select
-                        disabled={selectedInterpreter !== ""}
-                        value={undefined}
-                        onValueChange={handleSelectedPyInterpreter}
-                      >
-                        <SelectTrigger className="grow">
-                          <SelectValue
-                            placeholder={
-                              pyInterpreters.length > 0
-                                ? "Please select a Python interpreter"
-                                : "No Python 3.11 interpreter found!"
-                            }
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {pyInterpreters.map((env) => {
-                            return (
-                              <SelectItem
-                                className="flex w-full cursor-pointer flex-col items-start justify-start"
-                                key={env.path}
-                                value={env.path}
-                              >
-                                <div className="font-semibold">{env.path}</div>
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    version:
-                                    {` ${env.version.major}.${env.version.minor}`}
-                                  </div>
-                                  <div className="text-gray-500">
-                                    {env.default ? "default" : ""}
-                                  </div>
-                                </div>
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
                       {pyInterpreters.length == 0 && (
                         <div>
                           <Button
@@ -348,12 +321,21 @@ export const Index = (): JSX.Element => {
                         <span className="mx-4 text-gray-600">OR</span>
                         <hr className="w-full flex-1 border-t-2 border-gray-300" />
                       </div>
-                      <Button
-                        onClick={handleBrowsePyInterpreter}
-                        disabled={selectedInterpreter !== ""}
-                      >
-                        Find a interpreter
-                      </Button>
+                      <div className="flex w-full items-center justify-center gap-3">
+                        <Button
+                          onClick={handleBrowsePyInterpreter}
+                          disabled={selectedInterpreter !== ""}
+                        >
+                          Find a interpreter
+                        </Button>
+                        <Button
+                          disabled={selectedInterpreter !== ""}
+                          onClick={refreshPyList}
+                          size={"sm"}
+                        >
+                          Retry
+                        </Button>
+                      </div>
                     </div>
                   )}
               </Fragment>

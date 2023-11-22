@@ -16,7 +16,7 @@ export type InterpretersList = {
 }[];
 
 export const interpreterCachePath = join(
-  app.getPath("temp"),
+  app.getPath("appData"),
   "flojoy_py_interpreter",
 );
 export class PythonManager {
