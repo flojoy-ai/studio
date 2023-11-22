@@ -277,12 +277,16 @@ if ( $isRemoteMode -eq $true ) {
         New-Item -Path $blocksRegistryPath -ItemType "file" | Out-Null
         Set-Content -Path $blocksRegistryPath -Value "$blocksDir" -NoNewline | Out-Null
     }
+  } else {
+    Set-Location "$blocksDir"
+    git stash
+    git pull
   }
 }
 else {
   $Env:DEPLOY_ENV = "local"
 }
-
+Set-Location "$CWD"
 # set deploy status to dev
 $Env:DEPLOY_STATUS = "dev"
 

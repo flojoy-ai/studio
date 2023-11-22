@@ -120,7 +120,7 @@ jobs:
       - name: Test if flojoy-studio is up
         if: github.event.action == 'opened' || github.event.action == 'synchronize'
         run: |
-          timeout_seconds=950 # 15m
+          timeout_seconds=1500 # 25m
           interval=30
           start_time=$(date +%s)
           studio_title="<title>Flojoy Studio</title>"
