@@ -111,6 +111,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@percy/cli": "^1.27.3",
     "@percy/cypress": "^3.1.2",
+    "@playwright/test": "^1.40.0",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
