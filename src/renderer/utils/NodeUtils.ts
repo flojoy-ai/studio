@@ -1,4 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
+import { Leaf as NodeElement } from "@src/utils/ManifestLoader";
+import { CtrlData } from "@src/types/node";
 
 export const createNodeId = (nodeFunc: string) => `${nodeFunc}-${uuidv4()}`;
 
@@ -33,4 +35,25 @@ export const createNodeLabel = (nodeFunc: string, takenLabels: string[][]) => {
   const nodeLabel = availableNum > 0 ? `${nodeFunc} ${availableNum}` : nodeFunc;
 
   return nodeLabel.replaceAll("_", " ");
+};
+
+export const ctrlsFromParams = (
+  params: NodeElement["parameters"] | undefined,
+  funcName: string,
+): CtrlData => {
+  if (!params) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(params).map(([paramName, param]) => [
+      paramName,
+      {
+        ...param,
+        functionName: funcName,
+        param: paramName,
+        value: param.default ?? "",
+      },
+    ]),
+  );
 };

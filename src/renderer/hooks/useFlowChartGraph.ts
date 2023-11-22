@@ -1,7 +1,7 @@
 import { ElementsData } from "@src/types";
 import { useAtom } from "jotai";
 import { atomWithImmer } from "jotai-immer";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { Edge, Node, ReactFlowJsonObject } from "reactflow";
 import * as RECIPES from "../data/RECIPES";
 import * as galleryItems from "../data/apps";
@@ -9,6 +9,9 @@ import { ExampleProjects } from "../data/docs-example-apps";
 import { toast } from "sonner";
 import { TextData } from "@src/types/node";
 import { sendEventToMix } from "@src/services/MixpanelServices";
+import { useManifest, useNodesMetadata } from "./useManifest";
+import { syncFlowchartWithManifest } from "@src/lib/sync";
+
 const project = resolveDefaultProjectReference();
 const projectData = resolveProjectReference(project) || RECIPES.NOISY_SINE;
 const initialNodes: Node<ElementsData>[] = projectData.nodes;
@@ -33,31 +36,43 @@ export const useFlowChartGraph = () => {
     return { selectedNodes, unSelectedNodes };
   }, [nodes]);
   const selectedNode = selectedNodes.length > 0 ? selectedNodes[0] : null;
+  const manifest = useManifest();
+  const nodesMetadata = useNodesMetadata();
 
   const loadFlowExportObject = useCallback(
     (flow: ReactFlowJsonObject<ElementsData>, textNodes?: Node<TextData>[]) => {
       if (!flow) {
         return false;
       }
+      if (manifest === null) {
+        toast.error("Manifest not found!");
+        throw new Error("Manifest not found!");
+      }
+      if (nodesMetadata === null) {
+        toast.error("Block metadata not found!");
+        throw new Error("Block metadata not found!");
+      }
 
-      setNodes(flow.nodes || []);
-      setEdges(flow.edges || []);
+      const nodes = flow.nodes || [];
+      const edges = flow.edges || [];
+      const [syncedNodes, syncedEdges] = syncFlowchartWithManifest(
+        nodes,
+        edges,
+        manifest,
+        nodesMetadata,
+      );
+      setNodes(syncedNodes);
+      setEdges(syncedEdges);
+      toast("Synced blocks with manifest.");
+
       if (textNodes) {
         setTextNodes(textNodes);
       }
       sendEventToMix("Flow Export Object Loaded", "");
       return true;
     },
-    [setNodes, setEdges, setTextNodes],
+    [setNodes, setEdges, setTextNodes, manifest, nodesMetadata],
   );
-
-  useEffect(() => {
-    setNodes((prev) => {
-      prev.forEach((n) => {
-        n.data.selected = n.selected;
-      });
-    });
-  }, [selectedNode, setNodes]);
 
   const updateCtrlInputDataForNode = (
     nodeId: string,

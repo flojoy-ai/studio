@@ -1,10 +1,10 @@
-import { BrowserWindow, app, dialog } from "electron";
+import { BrowserWindow, app, dialog, shell } from "electron";
 import * as fs from "fs";
 import { join } from "path";
-import { Command } from "./command";
-import { execSync } from "child_process";
-import { execCommand } from "./executor";
-import log from "electron-log/main";
+import axios from "axios";
+import AdmZip from "adm-zip";
+import { sendToStatusBar } from "./logging";
+
 type SaveBlocksPackProps = {
   win: BrowserWindow;
   icon: string;
@@ -39,18 +39,54 @@ export const saveBlocksPack = async ({
     return;
   }
   if (update) {
-    updateBlocksPack(getBlocksDirPath(), win, icon);
-    return;
+    const response = dialog.showMessageBoxSync(win, {
+      icon,
+      message: "Updating will overwrite your local changes.",
+      type: "warning",
+      detail:
+        "Updating will overwrite your local changes, do not forget to commit/push your changes to Github before continuing.",
+      buttons: ["Update", "Cancel", "Open blocks folder"],
+      defaultId: 1,
+    });
+    if (response === 1) return;
+    if (response === 2) {
+      shell.showItemInFolder(getBlocksDirPath());
+      return;
+    }
+    sendToStatusBar("Updating blocks resource pack");
+    sendToStatusBar(
+      "Update can take few minutes to complete, please do not close the app!",
+    );
+    try {
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
+      fs.renameSync(getBlocksDirPath(), `${getBlocksDirPath()}_${timestamp}`);
+      await downloadBlocksRepo(getBlocksDirPath(), win);
+      return;
+    } catch (error) {
+      sendToStatusBar(
+        "Failed to update blocks resource pack, reason: " + String(error),
+      );
+      throw Error(
+        "Failed to update blocks resource pack, reason: " + String(error),
+      );
+    }
   }
   const defaultSavePath = getBlocksDirPath();
-  const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
-  if (!startup && defaultSavePath === savePath) {
-    return;
-  }
   try {
-    await cloneBlocksRepo(savePath, win);
+    if (startup) {
+      await downloadBlocksRepo(defaultSavePath, win);
+      return;
+    }
+    const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
+    if (!startup && defaultSavePath === savePath) {
+      return;
+    }
+    await downloadBlocksRepo(savePath, win);
   } catch (error) {
-    throw Error("Failed to clone blocks repository!");
+    sendToStatusBar(
+      `Failed to download blocks resource, reason: ", ${String(error)}`,
+    );
+    throw Error("Failed to download blocks resource!");
   }
 };
 
@@ -101,32 +137,34 @@ const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
 
-const cloneBlocksRepo = async (clonePath: string, win: BrowserWindow) => {
-  if (fs.existsSync(clonePath)) {
+const downloadBlocksRepo = async (downloadPath: string, win: BrowserWindow) => {
+  if (fs.existsSync(downloadPath)) {
     dialog.showMessageBox(win, {
       message: "Blocks resource pack added successfully!",
-      detail: `Blocks resources will be added from ${clonePath}`,
+      detail: `Blocks resources will be added from ${downloadPath}`,
     });
-    savePathToLocalFile(getBlocksPathFile(), clonePath);
+    savePathToLocalFile(getBlocksPathFile(), downloadPath);
     win.reload();
     return;
   }
-  const cloneCmd = `git clone https://github.com/flojoy-ai/blocks.git ${clonePath}`;
-  try {
-    await execCommand(new Command(cloneCmd));
-
-    dialog.showMessageBox(win, {
-      message: "Blocks resource pack downloaded successfully!",
-      type: "info",
-    });
-    savePathToLocalFile(getBlocksPathFile(), clonePath);
-    win.reload();
-  } catch (error) {
-    dialog.showErrorBox(
-      "Failed to download blocks resource pack!",
-      String(error),
-    );
-  }
+  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/heads/main.zip`;
+  sendToStatusBar("Downloading blocks resource...");
+  const res = await axios.get(repoURL, { responseType: "arraybuffer" });
+  const buffer = Buffer.from(res.data);
+  const zipFilePath = join(app.getPath("temp"), "blocks.zip");
+  fs.writeFileSync(zipFilePath, buffer);
+  const admZip = new AdmZip(zipFilePath);
+  const downloadPathWithoutBlock = downloadPath.replace("blocks", "");
+  sendToStatusBar(`Extracting resource pack to ${downloadPath}...`);
+  admZip.extractAllTo(downloadPathWithoutBlock, true);
+  fs.renameSync(`${downloadPath}-main`, downloadPath);
+  dialog.showMessageBox(win, {
+    message: "Blocks resource pack downloaded successfully!",
+    type: "info",
+  });
+  fs.unlinkSync(zipFilePath);
+  savePathToLocalFile(getBlocksPathFile(), downloadPath);
+  win.reload();
 };
 /**
  *
@@ -141,70 +179,4 @@ const getBlocksDirPath = (): string => {
     return join(process.cwd(), "PYTHON", "blocks");
   }
   return join(app.getPath("downloads"), "blocks");
-};
-
-const updateBlocksPack = async (
-  blocksPath: string,
-  win: BrowserWindow,
-  icon: string,
-) => {
-  const title = "Updating blocks resource pack";
-  const description =
-    "Update can take few minutes to complete, please do not close the app!";
-  log.info(title);
-  log.info(description);
-  // Store the current working directory
-  const currentDirectory = process.cwd();
-  if (!fs.existsSync(blocksPath)) {
-    log.error(
-      `Error - Blocks directory is not found at ${blocksPath}.. downloading blocks resource pack..`,
-    );
-    await saveBlocksPack({
-      win,
-      startup: true,
-      icon,
-    });
-    return;
-  }
-  try {
-    process.chdir(blocksPath);
-    // Check if there are any local changes
-    const statusOutput = execSync("git status --porcelain").toString();
-    if (statusOutput.trim().length > 0) {
-      // There are local changes
-      log.info("Found local changes, creating a zip archive...");
-      // Create a timestamp for the zip folder
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
-
-      // Create a zip file with existing files
-      const zipFileName = `local_changes_${timestamp}.zip`;
-      execSync(`git archive -o ${zipFileName} HEAD`);
-      log.info(`Created zip file: ${zipFileName} ...`);
-      // Create a new folder for the zip file and move it there
-      const zipFolder = join(blocksPath, ".local-changes");
-      fs.mkdirSync(zipFolder, { recursive: true });
-
-      log.info(`Copying ${zipFileName} file to ${zipFolder}...`);
-      const zipFilePath = join(zipFolder, zipFileName);
-      fs.renameSync(zipFileName, zipFilePath);
-
-      // Stash local changes
-      execSync("git stash");
-      // Run git pull
-      execSync("git pull");
-      log.info("Updated blocks resource pack successfully!");
-    } else {
-      log.info("Updating blocks resource pack... hang tight..");
-      // There are no local changes, simply run git pull
-      const pullResult = execSync("git pull").toString();
-      log.info(pullResult);
-      log.info("Updated blocks resource pack successfully!");
-    }
-    win.reload();
-    // Restore the original working directory
-    process.chdir(currentDirectory);
-  } catch (error) {
-    dialog.showErrorBox("Failed to update blocks pack", String(error));
-    process.chdir(currentDirectory);
-  }
 };

@@ -1,25 +1,25 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@src/components/common/NodeWrapper";
-import { LogicHandleComponent } from "@src/components/common/LogicHandleComponent";
-import NodeInput from "@src/components/common/NodeInput";
+import NodeWrapper from "@/components/common/NodeWrapper";
+import { LogicHandleComponent } from "@/components/common/LogicHandleComponent";
+import NodeInput from "@/components/common/NodeInput";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const LogicNode = (props: CustomNodeProps) => {
-  const {
-    isRunning,
-    nodeError,
-    nodeProps: { data },
-    children,
-  } = props;
+const LogicNode = ({
+  selected,
+  data,
+  children,
+}: CustomNodeProps & { children?: React.ReactNode }) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex h-24 w-24 rotate-45 items-center justify-center rounded-xl border-2 border-solid border-accent3 bg-accent3/5",
-          { "shadow-around shadow-accent3": isRunning || data.selected },
+          { "shadow-around shadow-accent3": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         onDoubleClick={() => setIsRenamingTitle(true)}

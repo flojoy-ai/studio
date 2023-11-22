@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+import { app, ipcRenderer } from "electron";
 import * as fileSave from "./fileSave";
 import { API } from "../types/api";
 import { InterpretersList } from "../main/python/interpreter";
@@ -13,8 +13,8 @@ export default {
   saveBlocks: () => ipcRenderer.invoke(API.saveBlocks),
   updateBlocks: () => ipcRenderer.invoke(API.updateBlocks),
   changeBlocksPath: () => ipcRenderer.invoke(API.changeBlocksPath),
-  checkPythonInstallation: (): Promise<InterpretersList> =>
-    ipcRenderer.invoke(API.checkPythonInstallation),
+  checkPythonInstallation: (force?: boolean): Promise<InterpretersList> =>
+    ipcRenderer.invoke(API.checkPythonInstallation, force),
   installPipx: (): Promise<string> => ipcRenderer.invoke(API.installPipx),
   pipxEnsurepath: (): Promise<void> => ipcRenderer.invoke(API.pipxEnsurepath),
   installPoetry: (): Promise<string> => ipcRenderer.invoke(API.installPoetry),
@@ -31,4 +31,7 @@ export default {
     ipcRenderer.invoke(API.setPythonInterpreter, interpreter),
   browsePyInterpreter: (): Promise<string | null> =>
     ipcRenderer.invoke(API.browsePythonInterpreter),
+  sendLogToStatusbar: (...log: string[]) =>
+    ipcRenderer.send(API.sendLogToStatusbar, ...log),
+  isPackaged: (): boolean => app.isPackaged,
 };

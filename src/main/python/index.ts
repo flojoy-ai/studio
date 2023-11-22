@@ -12,8 +12,11 @@ import {
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
 
-export async function checkPythonInstallation(): Promise<InterpretersList> {
-  if (!global.pythonInterpreters) {
+export async function checkPythonInstallation(
+  _,
+  force?: boolean,
+): Promise<InterpretersList> {
+  if (!global.pythonInterpreters || force) {
     global.pythonInterpreters =
       await new PythonManager().getInterpreterByVersion({
         major: 3,
@@ -50,9 +53,9 @@ export async function checkPythonInstallation(): Promise<InterpretersList> {
   return global.pythonInterpreters;
 }
 
-export function installPipx(): Promise<string> {
+export async function installPipx(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  return execCommand(
+  return await execCommand(
     new Command({
       darwin: `"${py}" -m pip install --user pipx`,
       win32: `"${py}" -m pip install --user pipx`,
@@ -75,15 +78,15 @@ export async function pipxEnsurepath(): Promise<void> {
   }`;
 }
 
-export function installPoetry(): Promise<string> {
+export async function installPoetry(): Promise<string> {
   const py = process.env.PY_INTERPRETER ?? "python";
   process.env.POETRY_PATH = `${os.homedir}/.local/bin/poetry`;
-  return execCommand(new Command(`${py} -m pipx install poetry --force`));
+  return await execCommand(new Command(`${py} -m pipx install poetry --force`));
 }
 
-export function installDependencies(): Promise<string> {
+export async function installDependencies(): Promise<string> {
   const poetry = process.env.POETRY_PATH ?? "poetry";
-  return execCommand(new Command(`${poetry} install`));
+  return await execCommand(new Command(`${poetry} install`));
 }
 
 export async function spawnCaptain(): Promise<void> {
@@ -116,7 +119,7 @@ export async function spawnCaptain(): Promise<void> {
   });
 
   global.captainProcess.on("exit", (code) => {
-    if (code !== 0) {
+    if (code !== 0 && !global?.mainWindow?.isDestroyed()) {
       throw new Error("Captain process is exited with code " + code);
     }
   });

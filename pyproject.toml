@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flojoy-studio"
-version = "0.1.0"
+version = "0.1.18"
 description = ""
 authors = [
   "Jack Palmer <jp@flojoy.io>",
@@ -30,6 +30,7 @@ pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
 tm-devices = "^1.0.0"
+watchfiles = "^0.21.0"
 
 
 [tool.poetry.group.dev.dependencies]

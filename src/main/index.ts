@@ -23,7 +23,7 @@ import {
   pipxEnsurepath,
   spawnCaptain,
 } from "./python";
-import { logListener, openLogFolder } from "./logging";
+import { logListener, openLogFolder, sendToStatusBar } from "./logging";
 import { isPortFree, killProcess, writeFileSync } from "./utils";
 import {
   browsePythonInterpreter,
@@ -32,7 +32,7 @@ import {
 
 log.initialize({ preload: true });
 log.info("Welcome to Flojoy Studio!");
-process.env.ELECTRON_MODE = "packaged";
+process.env.ELECTRON_MODE = app.isPackaged ? "packaged" : "dev";
 
 // The built directory structure
 //
@@ -198,6 +198,9 @@ app.whenReady().then(async () => {
   ipcMain.on(API.setUnsavedChanges, handleSetUnsavedChanges);
   ipcMain.on(API.writeFileSync, writeFileSync);
   ipcMain.on(API.statusBarLogging, logListener);
+  ipcMain.on(API.sendLogToStatusbar, (_, ...logs) =>
+    sendToStatusBar(logs.join(" ")),
+  );
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);

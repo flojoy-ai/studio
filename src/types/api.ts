@@ -18,4 +18,5 @@ export enum API {
   writeFileSync = "WRITE_FILE_SYNC",
   showSaveDialog = "SHOW_SAVE_DIALOG",
   browsePythonInterpreter = "BROWSE_PY_INTERPRETER",
+  sendLogToStatusbar = "SEND_LOG_TO_STATUSBAR",
 }

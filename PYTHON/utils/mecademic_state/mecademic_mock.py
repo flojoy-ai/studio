@@ -76,7 +76,7 @@ def add_handle(ip_address: str):
 
     robot_handle_map = get_robot_handle_map()
     robot = MockRobot(ip_address)
-    robot.Connect(ip_address)
+    robot.Connect(ip_address, disconnect_on_exception=False)
     robot.WaitConnected()
     robot_handle_map[ip_address] = robot
 
