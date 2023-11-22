@@ -1,26 +1,19 @@
 
 function check_dependencies {
-  $conda_missing = "Conda was not found on your system." +
-   "Please install it and rerun this script. You can download the latest version from the official website: https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html" +
-   " Alternatively you can provide path to conda executable in following pattern: ./flojoy -c <path/to/conda.exe>"
+  $py_missing="Python version ~3.11 was not found on your system. Please install it and rerun this script. You can download the latest version from the official website: https://www.python.org/downloads/"
   $npm_missing = "Node.js/npm was not found. Please make sure you have installed Node.js version 16.0 or higher along with npm correctly. You can download Nodejs from here: https://nodejs.org/en/download"
 
   if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
     error_msg "$npm_missing"
     exit 1
   }
-  if ($conda_exec){
-    return $conda_exec
-  }
-  if (!(Get-Command conda -ErrorAction SilentlyContinue)) {
-    $conda_default_exec = Join-Path $env:USERPROFILE "miniconda3" "Scripts" "conda.exe"
-    if (-not (Test-Path $conda_default_exec)) {
-      error_msg "$conda_missing"
+  if (Get-Command python -ErrorAction SilentlyContinue) {
+    if (!(python -c "import sys; exit(0) if sys.version_info >= (3,11) else exit(1)" 2>&1).Count -eq 0) {
+      return "$py_missing"
       exit 1
-    } else {
-      return "$conda_default_exec"
     }
   } else {
-    return "conda"
+    return "$py_missing"
+    exit 1
   }
 }

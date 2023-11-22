@@ -5,14 +5,11 @@ success_color='\033[38;5;71m'
 warning_color='\033[38;5;208m'
 error_color='\033[0;31m'
 info_color='\033[0;34m'
-general_color='\033[38;5;212m'
 default_color='\033[0m'
 info_mark=👉
 check_mark=✔
 alert_mark=⚠️
 error_mark=❌
-
-is_command_successful=0
 
 success_msg() {
 	message=$1
@@ -55,9 +52,6 @@ enableSentry=true
 enableTelemetry=true
 isDebugMode=false
 isRemoteMode=false
-flojoyEnv="flojoy-studio"
-envYml="environment.yml"
-updateEnv=true
 
 # Gives Feedback if the command run is successful or failed, if failed it exits the execution.
 feedback() {
@@ -76,8 +70,7 @@ feedback() {
 
 helpFunction() {
 	echo ""
-	echo "Usage: $0 -n -p -S -t -T -d -r -u"
-	# echo  " -v: path to a Python virtual environment"
+	echo "Usage: $0 -n -p -S -t -T -d -r"
 	echo " -n: To NOT install npm packages"
 	echo " -p: To NOT install python packages"
 	echo " -S: To NOT enable Sentry"
@@ -85,7 +78,6 @@ helpFunction() {
 	echo " -T: To disable Telemetry"
 	echo " -d: To enable debug mode"
 	echo " -r: To start studio in remote mode without electron"
-	echo " -u: To NOT update $flojoyEnv env"
 	echo 1 # Exit script after printing help
 }
 
@@ -123,10 +115,6 @@ while [ $# -gt 0 ]; do
 		;;
 	-r)
 		isRemoteMode=true
-		shift
-		;;
-	-u)
-		updateEnv=false
 		shift
 		;;
 	*) # unknown option
@@ -182,31 +170,23 @@ if [ $is_ci = false ]; then
 	fi
 fi
 
-eval "$(conda shell.bash hook)" # configure the shell properly
-eval "$(conda shell.zsh hook)"  # configure the shell properly
+# install pipx if required
+if ! python -c "import pipx" &>/dev/null; then
+	python -m pip install --user pipx
+	python -m pipx ensurepath
+fi
+poetry_path="$HOME/.local/bin/poetry"
 
-conda activate $flojoyEnv >/dev/null 2>&1
-# Check if the Conda environment exists
-if [ $? -eq 0 ]; then
-	info_msg "$flojoyEnv env found!"
-	if [ $updateEnv == true ]; then
-		info_msg "Updating $flojoyEnv env with conda..."
-		# Environment exists, update it
-		conda env update --file $envYml --name $flojoyEnv
-	fi
-else
-	info_msg "$flojoyEnv env not found, creating..."
-	# Environment doesn't exist, create it
-	conda env create --file $envYml --name $flojoyEnv
-	conda activate $flojoyEnv
+if ! test -f "$poetry_path"; then
+	python -m pipx install poetry --force
 fi
 
 # Install python packages
 
 if [ $initPythonPackages = true ]; then
-	cd $CWD
+	cd "$CWD" || exit
 	info_msg "Flag -p is not provided, Python packages will be installed from poetry.lock"
-	poetry install
+	$poetry_path install
 	set -o pipefail
 	feedback $? 'Python packages installed successfully!' 'Failed to install Python packages. Look at error details printed above.'
 fi
@@ -214,6 +194,9 @@ fi
 # Install node packages
 
 if [ $initNodePackages = true ]; then
+	if ! command -v pnpm; then
+		npm install --global pnpm
+	fi
 	info_msg "Argument -n is not provided, Node packages will be installed from package.json"
 	set -o pipefail
 	cd "$CWD" && pnpm install 2>&1
@@ -254,7 +237,7 @@ if [ $isRemoteMode = true ]; then
 		if [ -e "$blocks_registry_path" ]; then
 			echo -n "$blocks_dir" >"$blocks_registry_path"
 		else
-			touch $blocks_registry_path && echo -n "$blocks_dir" >"$blocks_registry_path"
+			touch "$blocks_registry_path" && echo -n "$blocks_dir" >"$blocks_registry_path"
 		fi
 	else
 		cd "$blocks_dir" || exit
