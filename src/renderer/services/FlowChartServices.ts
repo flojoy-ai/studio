@@ -93,12 +93,12 @@ export const getManifest = async () => {
     // TODO: fix zod schema to accept io directory structure
     const validateResult = validateRootSchema(res.data);
     if (!validateResult.success) {
-      toast.message(`Failed to validate blocks manifest with Zod schema!`, {
-        duration: 20000,
-        description: "Expand log to see more info...",
-      });
-      window.api?.sendLogToStatusbar("Zod validation error: ");
-      window.api?.sendLogToStatusbar(validateResult.error.message);
+      // toast.message(`Failed to validate blocks manifest with Zod schema!`, {
+      //   duration: 20000,
+      //   description: "Expand log to see more info...",
+      // });
+      // window.api?.sendLogToStatusbar("Zod validation error: ");
+      // window.api?.sendLogToStatusbar(validateResult.error.message);
       console.error(validateResult.error);
     }
     return res.data as RootNode;

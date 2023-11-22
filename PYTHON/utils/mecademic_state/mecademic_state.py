@@ -1,6 +1,8 @@
 from flojoy import TextBlob
 import mecademicpy.robot as mdr
 
+from PYTHON.utils.mecademic_state.mecademic_mock import MockRobot
+
 _robot_handle_map = None
 
 
@@ -15,6 +17,9 @@ def init_handle_map(allow_reinit: bool = False):
     global _robot_handle_map
     if _robot_handle_map is not None and not allow_reinit:
         raise ValueError("Robot handle map already initialized.")
+    if _robot_handle_map is not None:
+        for ip_address, rbt in _robot_handle_map.items():
+            _robot_handle_map[ip_address].Disconnect()
     _robot_handle_map = None
 
 
@@ -42,8 +47,20 @@ def add_handle(ip_address: str):
 
     robot_handle_map = get_robot_handle_map()
     robot = mdr.Robot()
-    robot.Connect(ip_address)
+    robot.Connect(ip_address, disconnect_on_exception=False)
     robot.WaitConnected()
+    robot_handle_map[ip_address] = robot
+
+
+def add_mock_handle(ip_address: str):
+    """
+    Adds a handle to the robot handle map which does not connect to a real robot. Used for testing.
+    """
+    if ip_address in get_robot_handle_map():
+        raise ValueError("Robot handle already exists for IP address: " + ip_address)
+
+    robot_handle_map = get_robot_handle_map()
+    robot = MockRobot(ip_address=ip_address)
     robot_handle_map[ip_address] = robot
 
 

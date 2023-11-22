@@ -80,6 +80,7 @@ export const Index = (): JSX.Element => {
       const interpreters = await window.api.checkPythonInstallation(force);
       if (interpreters.length > 0) {
         setSelectedInterpreter(interpreters[0].path);
+        await window.api.setPythonInterpreter(interpreters[0].path);
         updateSetupStatus({
           stage: "check-python-installation",
           status: "completed",
@@ -190,7 +191,13 @@ export const Index = (): JSX.Element => {
         break;
       }
       case "check-blocks-resource": {
-        window.api.restartFlojoyStudio();
+        if (window.api.isPackaged()) {
+          window.api.restartFlojoyStudio();
+        } else {
+          alert(
+            "Restart is not supported for dev build, please relaunch Flojoy Studio manually!",
+          );
+        }
         break;
       }
     }

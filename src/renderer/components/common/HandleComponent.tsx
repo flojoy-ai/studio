@@ -6,7 +6,7 @@ const HandleComponent = ({
   data,
   variant,
 }: {
-  data: CustomNodeProps["nodeProps"]["data"];
+  data: CustomNodeProps["data"];
 } & HandleVariantProps) => {
   const outputs = data.outputs ?? [];
   const inputs = data.inputs ?? [];
@@ -24,6 +24,7 @@ const HandleComponent = ({
               position={Position.Left}
               type="target"
               param={param}
+              nodeId={data.id}
               variant={variant}
             />
           </div>
@@ -41,6 +42,7 @@ const HandleComponent = ({
               position={Position.Right}
               type="source"
               param={param}
+              nodeId={data.id}
               variant={variant}
             />
           </div>

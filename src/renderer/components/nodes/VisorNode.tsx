@@ -26,6 +26,7 @@ import PeakFinder from "@src/assets/nodes/PeakFinder";
 import RegionInspector from "@src/assets/nodes/RegionInspector";
 import TextView from "@src/assets/nodes/TextView";
 import Heatmap from "@src/assets/nodes/Heatmap";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
 const chartElemMap: { [func: string]: React.JSX.Element } = {
   SCATTER: <Scatter />,
@@ -49,16 +50,12 @@ const chartElemMap: { [func: string]: React.JSX.Element } = {
   HEATMAP: <Heatmap />,
 };
 
-const VisorNode = (props: CustomNodeProps) => {
-  const {
-    nodeProps: { data },
-    nodeError,
-    isRunning,
-    plotlyFig,
-    textBlob,
-  } = props;
-
+const VisorNode = ({ selected, data }: CustomNodeProps) => {
   const { resolvedTheme } = useTheme();
+  const { nodeRunning, nodeError, nodeResult } = useNodeStatus(data.id);
+
+  const plotlyFig = nodeResult?.result?.plotly_fig;
+  const textBlob = nodeResult?.result?.text_blob;
 
   const plotlyData = useMemo(
     () =>
@@ -67,11 +64,11 @@ const VisorNode = (props: CustomNodeProps) => {
   );
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "rounded-2xl bg-transparent",
-          { "shadow-around shadow-accent2": isRunning || data.selected },
+          { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >
@@ -89,7 +86,15 @@ const VisorNode = (props: CustomNodeProps) => {
           />
         )}
         {textBlob && <MarkDownText text={textBlob} isThumbnail />}
-        {!plotlyData && !textBlob && <>{chartElemMap[data.func]}</>}
+        {!plotlyData && !textBlob && (
+          <>
+            {chartElemMap[data.func] ?? (
+              <div className="flex h-[226px] w-[225px] items-center justify-center break-all rounded-lg border-2 border-accent2 bg-accent2/5 p-2 text-center text-2xl font-bold tracking-wider text-accent2">
+                {data.label}
+              </div>
+            )}
+          </>
+        )}
         <HandleComponent data={data} variant="accent2" />
       </div>
     </NodeWrapper>

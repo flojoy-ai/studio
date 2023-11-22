@@ -4,22 +4,19 @@ import { CustomNodeProps } from "@src/types/node";
 import NodeWrapper from "@src/components/common/NodeWrapper";
 import HandleComponent from "@src/components/common/HandleComponent";
 import { textWrap } from "@src/utils/TextWrap";
-import NodeInput from "@src/components/common/NodeInput";
+import NodeInput from "@/components/common/NodeInput";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const DataNode = (props: CustomNodeProps) => {
-  const {
-    nodeProps: { data },
-    isRunning,
-    nodeError,
-  } = props;
+const DataNode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { nodeRunning, nodeError } = useNodeStatus(data.id);
 
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex min-h-[96px] items-center justify-center rounded-full border-2 border-solid border-accent2 p-2",
-          { "shadow-around shadow-accent2": isRunning || data.selected },
+          { "shadow-around shadow-accent2": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
         style={{

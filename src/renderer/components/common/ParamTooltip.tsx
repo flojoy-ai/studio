@@ -21,6 +21,7 @@ type ParamTooltipProps = {
   annotation?: string;
   offsetX: number;
   offsetY: number;
+  nodeId: string;
 };
 
 const getTooltipStyle = (
@@ -43,6 +44,7 @@ export const ParamTooltip = ({
   annotation,
   offsetX = 0,
   offsetY = 0,
+  nodeId,
 }: ParamTooltipProps) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -109,8 +111,8 @@ export const ParamTooltip = ({
               <div className="py-2" />
               <ScrollArea>
                 <div className="max-h-32">
-                  {param.desc?.split("\n").map((line) => (
-                    <span key={line}>
+                  {param.desc?.split("\n").map((line, i) => (
+                    <span key={`${nodeId}-${param.name}-${line}-${i}`}>
                       {line}
                       <br />
                     </span>

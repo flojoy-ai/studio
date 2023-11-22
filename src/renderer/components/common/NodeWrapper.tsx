@@ -1,13 +1,40 @@
+import { CustomNodeProps } from "@src/types";
+import clsx from "clsx";
 import React from "react";
-import { CustomNodeProps } from "../../types/node";
+import HandleComponent from "./HandleComponent";
 
 const NodeWrapper = ({
-  wrapperProps: { nodeError },
+  selected,
+  nodeError,
   children,
+  data,
 }: {
-  wrapperProps: CustomNodeProps;
+  selected: boolean;
+  nodeError: string;
   children: React.ReactNode;
+  data: CustomNodeProps["data"];
 }) => {
+  if (data.invalid) {
+    return (
+      <div
+        className={clsx(
+          "flex min-h-[160px] items-center justify-center break-words rounded-2xl border-2 border-solid border-red-400 bg-red-400/20 p-4",
+          { "shadow-around shadow-red-500": selected },
+        )}
+      >
+        <div>
+          <div className="text-center text-3xl font-extrabold tracking-widest text-red-400">
+            ???
+          </div>
+          <div className="py-0.5" />
+          <h2 className="m-0 mb-6 text-center font-sans text-2xl font-extrabold tracking-wider text-red-400">
+            UNKNOWN
+          </h2>
+        </div>
+        <HandleComponent data={data} variant="red" />
+      </div>
+    );
+  }
   return (
     <div className="relative" data-testid="node-wrapper">
       {nodeError && <ErrorPopup message={nodeError} />}

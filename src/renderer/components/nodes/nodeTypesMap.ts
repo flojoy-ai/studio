@@ -8,7 +8,7 @@ import NumpyNode from "./NumpyNode";
 import ScipyNode from "./ScipyNode";
 import VisorNode from "./VisorNode";
 
-export const nodeTypesMap = {
+export default {
   default: DefaultNode,
   AI_ML: DataNode,
   GENERATORS: DataNode,

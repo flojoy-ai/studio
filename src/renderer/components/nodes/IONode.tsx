@@ -1,25 +1,22 @@
 import { memo, useState } from "react";
 import clsx from "clsx";
 import { CustomNodeProps } from "@src/types/node";
-import NodeWrapper from "@src/components/common/NodeWrapper";
-import { DodecahedronSVG } from "@src/assets/DodecahedronSVG";
-import HandleComponent from "@src/components/common/HandleComponent";
-import NodeInput from "@src/components/common/NodeInput";
+import NodeWrapper from "@/components/common/NodeWrapper";
+import { DodecahedronSVG } from "@/assets/DodecahedronSVG";
+import HandleComponent from "@/components/common/HandleComponent";
+import NodeInput from "@/components/common/NodeInput";
+import { useNodeStatus } from "@src/hooks/useNodeStatus";
 
-const IONode = (props: CustomNodeProps) => {
-  const {
-    isRunning,
-    nodeProps: { data },
-    nodeError,
-  } = props;
-
+const IONode = ({ selected, data }: CustomNodeProps) => {
   const [isRenamingTitle, setIsRenamingTitle] = useState(false);
+  const { nodeRunning, nodeError } = useNodeStatus(data.id);
+
   return (
-    <NodeWrapper wrapperProps={props}>
+    <NodeWrapper nodeError={nodeError} data={data} selected={selected}>
       <div
         className={clsx(
           "flex h-48 w-48 flex-col items-center",
-          { "shadow-around shadow-accent4": isRunning || data.selected },
+          { "shadow-around shadow-accent4": nodeRunning || selected },
           { "shadow-around shadow-red-700": nodeError },
         )}
       >
