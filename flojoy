@@ -135,12 +135,12 @@ createFlojoyDirectoryWithYmlFile() {
 	if test -d "$FOLDER"; then
 		if test -f "$FILE"; then
 			info_msg "$FILE exists."
-			echo "PATH: $CWD" >$FILE
+			echo "PATH: $CWD" >"$FILE"
 			feedback $? "Updated file path in flojoy.yaml file." "Couldn't update file path in flojoy.yaml file, check the permission or sign in as root user"
 
 		else
 			info_msg "file flojoy.yaml in directory $FOLDER does not exists. "
-			touch $FILE && echo "PATH: $CWD" >$FILE
+			touch "$FILE" && echo "PATH: $CWD" >"$FILE"
 			feedback $? "Successfully created flojoy.yaml file in $FOLDER directory." "Couldn't create flojoy.yaml file in $FOLDER directory, check the permission or sign in as root user"
 		fi
 	else
