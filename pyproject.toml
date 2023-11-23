@@ -29,6 +29,7 @@ qcodes = "^0.40.0"
 pyvisa-py = "^0.7.0"
 pyvisa = "^1.13.0"
 pyusb = "^1.2.1"
+tm-devices = "^1.0.0"
 watchfiles = "^0.21.0"
 
 

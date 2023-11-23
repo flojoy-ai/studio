@@ -1,5 +1,7 @@
 from threading import Lock
 
+from tm_devices.drivers.pi.pi_device import PIDevice
+
 from flojoy.parameter_types import (
     HardwareConnection,
     HardwareDevice,
@@ -12,6 +14,8 @@ from flojoy.parameter_types import (
     NIDevice,
     NIConnection,
 )
+from tm_devices import DeviceManager
+from tm_devices.helpers import PYVISA_PY_BACKEND
 from typing import Any, Callable
 from .config import logger
 
@@ -20,6 +24,8 @@ _connection_lock = Lock()
 
 class DeviceConnectionManager:
     handles: dict[str | int, HardwareConnection] = {}
+    tm = DeviceManager(verbose=False)
+    tm.visa_library = PYVISA_PY_BACKEND
 
     @classmethod
     def register_connection(
@@ -32,6 +38,10 @@ class DeviceConnectionManager:
             id = device.get_id()
             if id in cls.handles:
                 raise ValueError(f"Connection with id {id} already exists")
+
+            # Let tm_devices take care of any devices it created
+            if isinstance(connection, PIDevice) and cleanup is None:
+                cleanup = noop
 
             match device:
                 case CameraDevice():
@@ -50,7 +60,13 @@ class DeviceConnectionManager:
 
     @classmethod
     def clear(cls):
+        cls.tm.remove_all_devices()
+        logger.info("Cleaned up tm_devices DeviceManager")
+
         with _connection_lock:
+            logger.info(f"Connections closed: {cls.handles}")
             cls.handles.clear()
 
-        logger.info(f"Connections closed: {cls.handles}")
+
+def noop(_):
+    return None
