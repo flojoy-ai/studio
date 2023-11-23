@@ -457,6 +457,7 @@ class FlojoyScriptBuilder:
         Copy paste the temp dir into the output dir if specified
         and into the port dir if specified
         """
+
         if path_to_output: # output locally on computer
             try:
                 shutil.copytree(tempdir.name, path_to_output)
@@ -470,6 +471,28 @@ class FlojoyScriptBuilder:
         if port: # output to microcontroller
             logger.debug("outputting to microcontroller")
             try:
+                # first, delete all other files on microcontroller
+                logger.debug("clearing mc root...")
+                proc = subprocess.Popen(
+                    f"mpremote connect {port} + run precompilation/templates/functions/clear_mc_root.py",
+                    stdin=subprocess.PIPE,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    shell=True
+                )
+                logger.debug("waiting for clear_mc_root.py to finish...")
+                ec = proc.wait()
+                stderr = proc.stderr.read().decode()
+                stdout = proc.stdout.read().decode()
+                if proc.stderr: proc.stderr.close()
+                if proc.stdout: proc.stdout.close()
+                logger.debug(f"finished clearing mc root with exit code: {ec}")
+                if ec != 0:
+                    logger.debug(f"Got error from MC: {stderr}")
+                    logger.debug(f"stdout: {stdout}")
+                    raise Exception("Error: ", stderr)
+
+                # then, copy all files to microcontroller
                 cmd = [
                     "cd",
                     tempdir.name,
