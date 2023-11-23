@@ -188,6 +188,8 @@ check-dependencies
 if (!(python -c "import pipx" 2>&1).Count -eq 0) {
   & python -m pip install --user pipx
   & python -m pipx ensurepath
+  $existing_path="$env:PATH"
+  $env:PATH="$HOME/.local/bin:$existing_path"
 }
 $poetry_path = "$HOME/.local/bin/poetry"
 
