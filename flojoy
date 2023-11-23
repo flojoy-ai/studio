@@ -194,7 +194,7 @@ fi
 # Install node packages
 
 if [ $initNodePackages = true ]; then
-	if ! command -v pnpm; then
+	if ! command -v pnpm &>/dev/null; then
 		npm install --global pnpm
 	fi
 	info_msg "Argument -n is not provided, Node packages will be installed from package.json"
@@ -241,6 +241,7 @@ if [ $isRemoteMode = true ]; then
 		fi
 	else
 		cd "$blocks_dir" || exit
+		echo "$PWD"
 		git stash
 		git pull
 	fi
