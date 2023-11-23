@@ -171,7 +171,7 @@ function createFlojoyDirectoryWithYmlFile {
 
   $CREDENTIALS_FILE = "$FOLDER/credentials.txt"
   if (-not (Test-Path $CREDENTIALS_FILE)) {
-    New-Item $CREDENTIALS_FILE -ItemType File | Out-Null
+    New-Item $CREDENTIALS_FILE -ItemType File  | Out-Null
   }
 }
 
@@ -179,11 +179,9 @@ function createFlojoyDirectoryWithYmlFile {
 createFlojoyDirectoryWithYmlFile
 
 
-# Check if Conda or NPM is missing.
-. ./check-dependencies.ps1
-
 # Call the function to check for dependencies
-check-dependencies
+. .\check-dependencies.ps1
+check_dependencies -ErrorAction Stop
 
 if (!(python -c "import pipx" 2>&1).Count -eq 0) {
   & python -m pip install --user pipx

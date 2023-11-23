@@ -8,7 +8,7 @@ function check_dependencies {
     exit 1
   }
   if (Get-Command python -ErrorAction SilentlyContinue) {
-    if (!(python -c "import sys; exit(0) if sys.version_info >= (3,11) else exit(1)" 2>&1).Count -eq 0) {
+    if (!(python -c "import sys; exit(0) if sys.version_info >= (3,11) else exit(1)" -ErrorAction SilentlyContinue | Out-Null).Count -eq 0) {
       error_msg "$py_missing"
       exit 1
     }
