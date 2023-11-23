@@ -62,9 +62,6 @@ $enableSentry = $true
 $enableTelemetry = $false
 $isDebugMode = $false
 $isRemoteMode = $false
-$flojoyEnv = "flojoy-studio"
-$envYml = "environment.yml"
-$updateEnv = $true
 
 
 
@@ -88,15 +85,13 @@ function feedback {
 # Help function
 function helpFunction {
   Write-Host ""
-  Write-Host "Usage: $0 -n -p -S -T -d -r -u -c conda_exec"
+  Write-Host "Usage: $0 -n -p -S -T -d -r"
   Write-Host  " -n: To NOT install npm packages"
   Write-Host  " -p: To NOT install python packages"
   Write-Host  " -S: To NOT enable Sentry"
   Write-Host  " -T: To enable Telemetry"
   Write-Host  " -d: To enable debug mode"
   Write-Host  " -r: To start studio in remote mode without electron"
-  Write-Host  " -u: To NOT update $flojoyEnv env"
-  Write-Host  " -c: To provide custom file path for conda executable"
 }
 
 # Assign command-line arguments to a variable
@@ -139,16 +134,6 @@ while ($arguments) {
   elseif ($key -ceq "-d") {
     $isDebugMode = $true
     $index = $index + 1
-    continue
-  }
-  elseif ($key -ceq "-u") {
-    $updateEnv = $false
-    $index = $index + 1
-    continue
-  }
-  elseif ($key -ceq "-c") {
-    $conda_exec = $arguments[$index + 1]
-    $index = $index + 2
     continue
   }
   else {
@@ -198,46 +183,33 @@ createFlojoyDirectoryWithYmlFile
 . ./check-dependencies.ps1
 
 # Call the function to check for dependencies
-$conda_exec = check_dependencies
+check-dependencies
 
-# Get envs and expressions to activate conda on current PowerShell
-$_conda_expressions = @(Invoke-Expression "$conda_exec shell.powershell hook")
+if (!(python -c "import pipx" 2>&1).Count -eq 0) {
+  & python -m pip install --user pipx
+  & python -m pipx ensurepath
+}
+$poetry_path = "$HOME/.local/bin/poetry"
 
-# Iterate through the list of strings and execute each as a command
-foreach ($_expression in $_conda_expressions) {
-  if ($_expression) {
-    Invoke-Expression $_expression
-  }
+if(!(Test-Path "$poetry_path")){
+  python -m pipx install poetry --force
 }
-
-$env_list = @(conda env list)
-$isEnvExists = $env_list | Select-String -Pattern "$flojoyEnv "
-if ($isEnvExists) {
-  info_msg "$flojoyEnv env found!"
-  if ($updateEnv -eq $true) {
-    info_msg "Updating $flojoyEnv env..."
-    conda env update --file $envYml --name $flojoyEnv | Out-Null
-  }
-}
-else {
-  # Environment doesn't exist, create it
-  info_msg "$flojoyEnv env not found, creating env with conda..."
-  conda env create --file $envYml --name $flojoyEnv | Out-Null
-}
-conda activate $flojoyEnv
 
 # Install Python packages
 
 if ($initPythonPackages) {
   info_msg "Flag -p is not provided, Python packages will be installed with Poetry!"
   Set-Location $CWD
-  & poetry install
+  Invoke-Expression "$poetry_path install"
   feedback $? 'Python packages installed successfully!' "Python package installation failed! check error details printed above."
 }
 
 # Install Node packages
 
 if ($initNodePackages) {
+  if (!(Get-Command pnpm -ErrorAction SilentlyContinue)) {
+    & npm install --global pnpm | Out-Null
+  }
   info_msg "Argument -n is not provided, Node packages will be installed from package.json"
   & pnpm install
   feedback $? 'Installed Node packages successfully.' 'Node packages installation failed! check error details printed above.'

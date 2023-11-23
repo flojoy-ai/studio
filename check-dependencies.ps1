@@ -9,11 +9,11 @@ function check_dependencies {
   }
   if (Get-Command python -ErrorAction SilentlyContinue) {
     if (!(python -c "import sys; exit(0) if sys.version_info >= (3,11) else exit(1)" 2>&1).Count -eq 0) {
-      return "$py_missing"
+      error_msg "$py_missing"
       exit 1
     }
   } else {
-    return "$py_missing"
+    error_msg "$py_missing"
     exit 1
   }
 }
