@@ -276,5 +276,18 @@ else {
   $startProjectCmd = "pnpm run start-project:win"
 
 }
+# Define arguments array
+$argsArray = @(
+    "--prefix", "[{time}-{name}]",
+    "-n", "React,FastAPI",
+    "-c", "auto",
+    "pnpm:remote",
+    "$poetry_path run python3 main.py"
+)
 
-Invoke-Expression $startProjectCmd
+# Join the arguments array into a single string
+$arguments = $argsArray -join ' '
+
+# Execute the command using Start-Process
+Start-Process -FilePath "npx" -ArgumentList $arguments -Wait
+
