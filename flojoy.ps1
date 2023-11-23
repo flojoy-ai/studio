@@ -191,7 +191,7 @@ if (!(python -c "import pipx" 2>&1).Count -eq 0) {
   $existing_path="$env:PATH"
   $env:PATH="$HOME/.local/bin:$existing_path"
 }
-$poetry_path = "$HOME/.local/bin/poetry"
+$poetry_path = "$HOME/.local/bin/poetry.exe"
 
 if(!(Test-Path "$poetry_path")){
   python -m pipx install poetry --force
@@ -273,21 +273,11 @@ if ($isDebugMode -eq $true) {
 }
 else {
   $Env:FASTAPI_LOG = "info"
-  $startProjectCmd = "pnpm run start-project:win"
-
+  $startProjectCmd = 'npx concurrently --prefix "[{time}-{name}]" -n "React,FastAPI" -c auto "pnpm:remote" "$poetry_path run python main.py"'
+  
+  
 }
 # Define arguments array
-$argsArray = @(
-    "--prefix", "[{time}-{name}]",
-    "-n", "React,FastAPI",
-    "-c", "auto",
-    "pnpm:remote",
-    "$poetry_path run python3 main.py"
-)
+Invoke-Expression $startProjectCmd
 
-# Join the arguments array into a single string
-$arguments = $argsArray -join ' '
-
-# Execute the command using Start-Process
-Start-Process -FilePath "npx" -ArgumentList $arguments -Wait
 
