@@ -3,5 +3,5 @@ export const parseElectronError = (err: string) => {
     .replace("Error:", "")
     .replace("Error occurred in handler for", "")
     .replace("Error invoking remote method", "");
-  return removeDefaultMsg.split(":")[1] ?? "";
+  return removeDefaultMsg.split(":").slice(1).join(":") ?? "";
 };
