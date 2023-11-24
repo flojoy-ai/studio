@@ -1,4 +1,5 @@
 import { ScrollArea, ScrollBar } from "@src/components/ui/scroll-area";
+import { Spinner } from "@src/components/ui/spinner";
 import { useEffect, useState } from "react"
 
 type ShellCommandOutputProps = {
@@ -16,13 +17,19 @@ export const ShellCommandOutput = ({ command }: ShellCommandOutputProps) => {
 
   return (
     <div className="w-full">
-      <ScrollArea className="h-96 p-2 bg-popover w-full">
-        <code className="whitespace-pre">
-          {output}
-        </code>
-        <ScrollBar />
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+      {output ?
+        (<ScrollArea className="h-96 p-2 bg-popover w-full">
+          <code className="whitespace-pre">
+            {output}
+          </code>
+          <ScrollBar />
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>)
+        : (
+          <div className="h-96 w-full flex justify-center items-center">
+            <Spinner />
+          </div>
+        )}
     </div>
   )
 }
