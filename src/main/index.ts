@@ -26,7 +26,14 @@ import {
   spawnCaptain,
 } from "./python";
 import { logListener, openLogFolder, sendToStatusBar } from "./logging";
-import { ifconfig, isPortFree, killProcess, netstat, ping, writeFileSync } from "./utils";
+import {
+  ifconfig,
+  isPortFree,
+  killProcess,
+  netstat,
+  ping,
+  writeFileSync,
+} from "./utils";
 import {
   browsePythonInterpreter,
   handlePythonInterpreter,

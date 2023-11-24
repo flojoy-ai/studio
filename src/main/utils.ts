@@ -27,28 +27,37 @@ export const killProcess = async (port: number) => {
 };
 
 export const ping = async (addr: string) => {
-  return await execCommand(new Command({
-    win32: `ping -n 1 ${addr}`,
-    darwin: `ping -c 1 ${addr}`,
-    linux: `ping -c 1 ${addr}`,
-  }), { quiet: true });
-}
+  return await execCommand(
+    new Command({
+      win32: `ping -n 1 ${addr}`,
+      darwin: `ping -c 1 ${addr}`,
+      linux: `ping -c 1 ${addr}`,
+    }),
+    { quiet: true },
+  );
+};
 
 export const netstat = async () => {
-  return await execCommand(new Command({
-    win32: "netstat",
-    darwin: "netstat",
-    linux: "netstat",
-  }), { quiet: true });
-}
+  return await execCommand(
+    new Command({
+      win32: "netstat",
+      darwin: "netstat",
+      linux: "netstat",
+    }),
+    { quiet: true },
+  );
+};
 
 export const ifconfig = async () => {
-  return await execCommand(new Command({
-    "win32": "ipconfig /all",
-    "darwin": "ifconfig",
-    "linux": "ifconfig",
-  }), { quiet: true });
-}
+  return await execCommand(
+    new Command({
+      win32: "ipconfig /all",
+      darwin: "ifconfig",
+      linux: "ifconfig",
+    }),
+    { quiet: true },
+  );
+};
 
 export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);
