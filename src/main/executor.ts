@@ -62,11 +62,17 @@ export function execCommand(
 
       // Note: if you reject with an empty string, Electron does not bubble 
       // it to the renderer properly...
-      if (stderr === "") {
-        reject("Exited with non-zero exit code, but no output");
+      //
+      // Other note: ping writes only to stdout even 
+      // if it exits with code 1 so we need to reject with stdout if stderr is blank
+      if (stderr !== "") {
+        reject(stderr);
+      }
+      else if (stdout !== "") {
+        reject(stdout);
       }
       else {
-        reject(stderr);
+        reject("Exited with non-zero exit code, but no output");
       }
     });
   });
