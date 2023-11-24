@@ -76,7 +76,7 @@
     "js-yaml": "^4.1.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.279.0",
+    "lucide-react": "^0.292.0",
     "mixpanel-browser": "^2.47.0",
     "plotly.js": "file:bauhaus/plotly.js-2.23.2.tgz",
     "rc-slider": "^10.3.1",
