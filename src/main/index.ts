@@ -216,7 +216,7 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.browsePythonInterpreter, browsePythonInterpreter);
   ipcMain.handle(API.listPythonPackages, listPythonPackages);
   ipcMain.handle(API.pyvisaInfo, pyvisaInfo);
-  ipcMain.handle(API.ping, (_, addr) => ping(addr))
+  ipcMain.handle(API.ping, (_, addr) => ping(addr));
   ipcMain.handle(API.netstat, netstat),
     ipcMain.handle(API.ifconfig, ifconfig),
     ipcMain.handle(

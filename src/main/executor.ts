@@ -18,6 +18,7 @@ export function execCommand(
     });
 
     let stdout = "";
+    let stderr = "";
     let errout = "";
 
     const quiet = Boolean(options && options.quiet);
@@ -35,6 +36,7 @@ export function execCommand(
         sendToStatusBar(data);
       }
       log.error(data);
+      stderr += data;
     });
 
     child.on("error", (error) => {
@@ -45,11 +47,27 @@ export function execCommand(
       }
     });
 
+
     child.on("close", (code) => {
       if (code === 0) {
         resolve(stdout);
       }
-      reject(errout);
+
+      // exited from 'error' condition, meaning
+      // the process could not be spawned/killed
+      if (errout !== "") {
+        reject(errout);
+        return;
+      }
+
+      // Note: if you reject with an empty string, Electron does not bubble 
+      // it to the renderer properly...
+      if (stderr === "") {
+        reject("Exited with non-zero exit code, but no output");
+      }
+      else {
+        reject(stderr);
+      }
     });
   });
 }

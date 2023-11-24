@@ -2,7 +2,6 @@ import * as http from "http";
 import * as fs from "fs";
 import { execCommand } from "./executor";
 import { Command } from "./command";
-import log from "electron-log/main";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -28,17 +27,11 @@ export const killProcess = async (port: number) => {
 };
 
 export const ping = async (addr: string) => {
-  try {
-    return await execCommand(new Command({
-      win32: `ping -n 1 ${addr}`,
-      darwin: `ping -c 1 ${addr}`,
-      linux: `ping -c 1 ${addr}`,
-    }), { quiet: true });
-  } catch (e) {
-    log.info("Caught error in ping");
-    log.info(String(e));
-    throw e;
-  }
+  return await execCommand(new Command({
+    win32: `ping -n 1 ${addr}`,
+    darwin: `ping -c 1 ${addr}`,
+    linux: `ping -c 1 ${addr}`,
+  }), { quiet: true });
 }
 
 export const netstat = async () => {
