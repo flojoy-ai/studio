@@ -1,7 +1,9 @@
 import * as http from "http";
 import * as fs from "fs";
+import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
+
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -27,6 +29,10 @@ export const killProcess = async (port: number) => {
 };
 
 export const ping = async (addr: string) => {
+  if (isIP(addr) === 0) {
+    throw new Error(`Invalid IP address: ${addr}`)
+  }
+
   return await execCommand(
     new Command({
       win32: `ping -n 1 ${addr}`,

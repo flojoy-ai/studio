@@ -14,6 +14,7 @@ export const PingTab = () => {
 
   const ping = async () => {
     try {
+      // TODO: Sanitize user input (security vulnerability)
       const out = await window.api.ping(addr);
       setStatus("success");
       setOutput(out);

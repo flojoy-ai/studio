@@ -11,9 +11,9 @@ import { useTheme } from "@src/providers/themeProvider";
 import StatusBar from "@src/routes/common/StatusBar";
 
 export const HEADER_HEIGHT = 72;
-export const ACTIONS_HEIGHT = 56;
+export const ACTIONS_HEIGHT = 52;
 const SERVER_STATUS_HEIGHT = 32;
-export const BOTTOM_STATUS_BAR_HEIGHT = 128;
+export const BOTTOM_STATUS_BAR_HEIGHT = 64;
 
 export const LAYOUT_TOP_HEIGHT =
   HEADER_HEIGHT + ACTIONS_HEIGHT + SERVER_STATUS_HEIGHT;
@@ -66,9 +66,8 @@ export const Layout = () => {
       <main
         className="bg-background"
         style={{
-          height: `calc(100vh - ${
-            LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
-          }px)`,
+          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
+            }px)`,
         }}
       >
         <Toaster theme={theme} closeButton />
