@@ -2,6 +2,7 @@ import * as http from "http";
 import * as fs from "fs";
 import { execCommand } from "./executor";
 import { Command } from "./command";
+import log from "electron-log/main";
 
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
@@ -25,6 +26,36 @@ export const killProcess = async (port: number) => {
     }),
   );
 };
+
+export const ping = async (addr: string) => {
+  try {
+    return await execCommand(new Command({
+      win32: `ping -n 1 ${addr}`,
+      darwin: `ping -c 1 ${addr}`,
+      linux: `ping -c 1 ${addr}`,
+    }), { quiet: true });
+  } catch (e) {
+    log.info("Caught error in ping");
+    log.info(String(e));
+    throw e;
+  }
+}
+
+export const netstat = async () => {
+  return await execCommand(new Command({
+    win32: "netstat",
+    darwin: "netstat",
+    linux: "netstat",
+  }), { quiet: true });
+}
+
+export const ifconfig = async () => {
+  return await execCommand(new Command({
+    "win32": "ipconfig /all",
+    "darwin": "ifconfig",
+    "linux": "ifconfig",
+  }), { quiet: true });
+}
 
 export const writeFileSync = (_, filePath: string, text: string): void => {
   fs.writeFileSync(filePath, text);

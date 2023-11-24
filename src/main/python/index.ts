@@ -33,9 +33,9 @@ export async function checkPythonInstallation(
         global.pythonInterpreters = global.pythonInterpreters.map((i) =>
           i.path === interpreter
             ? {
-                ...i,
-                default: true,
-              }
+              ...i,
+              default: true,
+            }
             : i,
         );
       } else {
@@ -73,9 +73,8 @@ export async function pipxEnsurepath(): Promise<void> {
     { quiet: true },
   );
 
-  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${
-    process.env.PATH
-  }`;
+  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${process.env.PATH
+    }`;
 }
 
 export async function installPoetry(): Promise<string> {
@@ -139,3 +138,14 @@ export function killCaptain(): boolean {
   }
   return (global.captainProcess as ChildProcess).kill();
 }
+
+export async function listPythonPackages() {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  return await execCommand(new Command(`${poetry} run pip freeze`), { quiet: true });
+}
+
+export async function pyvisaInfo() {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  return await execCommand(new Command(`${poetry} run pyvisa-info`), { quiet: true });
+}
+

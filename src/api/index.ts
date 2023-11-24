@@ -34,4 +34,10 @@ export default {
   sendLogToStatusbar: (...log: string[]) =>
     ipcRenderer.send(API.sendLogToStatusbar, ...log),
   isPackaged: (): boolean => app.isPackaged,
+  listPythonPackages: (): Promise<string> => ipcRenderer.invoke(API.listPythonPackages),
+  pyvisaInfo: (): Promise<string> => ipcRenderer.invoke(API.pyvisaInfo),
+  ping: (addr: string): Promise<string> => ipcRenderer.invoke(API.ping, addr),
+  netstat: (): Promise<string> => ipcRenderer.invoke(API.netstat),
+  ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
+
 };

@@ -5,6 +5,7 @@ import {
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
 import { Button } from "@src/components/ui/button";
+import { DebugMenu } from "./DebugMenu";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
@@ -23,39 +24,42 @@ export const HardwareInfo = () => {
   const cameras: DeviceCardProps[] | undefined =
     devices.cameras.length > 0
       ? devices.cameras.map((c) => {
-          const parts = c.name.split(":");
-          const name = parts[0];
-          const description = parts.slice(1).join(":").trim();
-          return {
-            name,
-            description,
-            port: typeof c.id === "number" ? undefined : `Port: ${c.id}`,
-          };
-        })
+        const parts = c.name.split(":");
+        const name = parts[0];
+        const description = parts.slice(1).join(":").trim();
+        return {
+          name,
+          description,
+          port: typeof c.id === "number" ? undefined : `Port: ${c.id}`,
+        };
+      })
       : undefined;
 
   const serialDevices: DeviceCardProps[] | undefined =
     devices.serialDevices.length > 0
       ? devices.serialDevices.map((d) => ({
-          name: d.description,
-          port: `Port: ${d.port}`,
-          description: d.hwid,
-          manufacturer: d.manufacturer,
-        }))
+        name: d.description,
+        port: `Port: ${d.port}`,
+        description: d.hwid,
+        manufacturer: d.manufacturer,
+      }))
       : undefined;
 
   const visaDevices: DeviceCardProps[] | undefined =
     devices.visaDevices.length > 0
       ? devices.visaDevices.map((d) => ({
-          name: d.name,
-          port: d.address,
-          description: d.description,
-        }))
+        name: d.name,
+        port: d.address,
+        description: d.description,
+      }))
       : undefined;
 
   return (
     <div>
-      <Button onClick={refetch}>Refresh</Button>
+      <div className="gap-2 flex">
+        <Button onClick={refetch}>Refresh</Button>
+        <DebugMenu />
+      </div>
       <div className="py-3" />
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
