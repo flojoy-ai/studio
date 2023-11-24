@@ -16,35 +16,37 @@ export const DebugMenu = () => {
       <DialogTrigger asChild>
         <Button variant="outline">Debug Menu</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-4xl">
+      <DialogContent className="max-w-4xl">
         <DialogHeader>
           <DialogTitle>Debug</DialogTitle>
         </DialogHeader>
-        <Tabs defaultValue="ping" className="max-w-[832px]">
-          <TabsList className="grid w-full grid-cols-5 bg-background">
-            <TabsTrigger value="ping">Check Connection</TabsTrigger>
-            <TabsTrigger value="netstat">Network Connections</TabsTrigger>
-            <TabsTrigger value="ifconfig">IP Addresses</TabsTrigger>
-            <TabsTrigger value="python-packages">Python Packages</TabsTrigger>
-            <TabsTrigger value="pyvisa-info">PyVISA</TabsTrigger>
-          </TabsList>
-          <div className="py-2" />
-          <TabsContent className="h-96" value="ping">
-            <PingTab />
-          </TabsContent>
-          <TabsContent value="netstat">
-            <ShellCommandOutput command={window.api.netstat} />
-          </TabsContent>
-          <TabsContent value="ifconfig">
-            <ShellCommandOutput command={window.api.ifconfig} />
-          </TabsContent>
-          <TabsContent value="python-packages" >
-            <ShellCommandOutput command={window.api.listPythonPackages} />
-          </TabsContent>
-          <TabsContent value="pyvisa-info">
-            <ShellCommandOutput command={window.api.pyvisaInfo} />
-          </TabsContent>
-        </Tabs>
+        <div className="overflow-hidden">
+          <Tabs defaultValue="ping" className="w-full">
+            <TabsList className="w-full grid grid-cols-5 bg-background">
+              <TabsTrigger className="text-xs md:text-sm" value="ping">Check Connection</TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="netstat">Network Connections</TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="ifconfig">IP Addresses</TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="python-packages">Python Packages</TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="pyvisa-info">PyVISA</TabsTrigger>
+            </TabsList>
+            <div className="py-2" />
+            <TabsContent className="h-96" value="ping">
+              <PingTab />
+            </TabsContent>
+            <TabsContent value="netstat">
+              <ShellCommandOutput command={window.api.netstat} />
+            </TabsContent>
+            <TabsContent value="ifconfig">
+              <ShellCommandOutput command={window.api.ifconfig} />
+            </TabsContent>
+            <TabsContent value="python-packages" >
+              <ShellCommandOutput command={window.api.listPythonPackages} />
+            </TabsContent>
+            <TabsContent value="pyvisa-info">
+              <ShellCommandOutput command={window.api.pyvisaInfo} />
+            </TabsContent>
+          </Tabs>
+        </div>
       </DialogContent>
     </Dialog>
   )
