@@ -34,7 +34,7 @@
     "test:watch": "jest --watch --coverage",
     "test:dev": "jest --updateSnapshot",
     "cy:run:report": "nyc --reporter=html cypress run",
-    "electron:test": "pnpm run build && npx playwright test"
+    "electron:test": "npx playwright test"
   },
   "dependencies": {
     "@plotly/d3": "^3.8.1",
