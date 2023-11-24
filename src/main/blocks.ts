@@ -180,3 +180,7 @@ const getBlocksDirPath = (): string => {
   }
   return join(app.getPath("downloads"), "blocks");
 };
+
+export const setBlocksDirPermission = () => {
+  fs.chmodSync(getBlocksDirPath(), 0o755);
+};

@@ -10,7 +10,7 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-import { saveBlocksPack } from "./blocks";
+import { saveBlocksPack, setBlocksDirPermission } from "./blocks";
 import { ChildProcess } from "node:child_process";
 import log from "electron-log/main";
 import { API } from "../types/api";
@@ -212,15 +212,14 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
   ipcMain.handle(API.browsePythonInterpreter, browsePythonInterpreter);
-  ipcMain.handle(
-    API.saveBlocks,
-    async () =>
-      await saveBlocksPack({
-        win: global.mainWindow,
-        icon: getIcon(),
-        startup: true,
-      }),
-  );
+  ipcMain.handle(API.saveBlocks, async () => {
+    await saveBlocksPack({
+      win: global.mainWindow,
+      icon: getIcon(),
+      startup: true,
+    });
+    setBlocksDirPermission;
+  });
   ipcMain.handle(
     API.updateBlocks,
     async () =>
