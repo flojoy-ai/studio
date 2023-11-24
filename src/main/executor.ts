@@ -47,7 +47,6 @@ export function execCommand(
       }
     });
 
-
     child.on("close", (code) => {
       if (code === 0) {
         resolve(stdout);
@@ -60,18 +59,16 @@ export function execCommand(
         return;
       }
 
-      // Note: if you reject with an empty string, Electron does not bubble 
+      // Note: if you reject with an empty string, Electron does not bubble
       // it to the renderer properly...
       //
-      // Other note: ping writes only to stdout even 
+      // Other note: ping writes only to stdout even
       // if it exits with code 1 so we need to reject with stdout if stderr is blank
       if (stderr !== "") {
         reject(stderr);
-      }
-      else if (stdout !== "") {
+      } else if (stdout !== "") {
         reject(stdout);
-      }
-      else {
+      } else {
         reject("Exited with non-zero exit code, but no output");
       }
     });

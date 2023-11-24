@@ -4,7 +4,6 @@ import { isIP } from "net";
 import { execCommand } from "./executor";
 import { Command } from "./command";
 
-
 export const isPortFree = (port: number) =>
   new Promise((resolve) => {
     const server = http
@@ -30,7 +29,7 @@ export const killProcess = async (port: number) => {
 
 export const ping = async (addr: string) => {
   if (isIP(addr) === 0) {
-    throw new Error(`Invalid IP address: ${addr}`)
+    throw new Error(`Invalid IP address: ${addr}`);
   }
 
   return await execCommand(

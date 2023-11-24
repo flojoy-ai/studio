@@ -15,7 +15,7 @@ export const PingTab = () => {
 
   useEffect(() => {
     setStatus(undefined);
-  }, [])
+  }, []);
 
   const ping = async () => {
     setStatus("waiting");
@@ -35,8 +35,8 @@ export const PingTab = () => {
     status === "success"
       ? "✅ IP Address is responsive"
       : status === "failed"
-        ? "❌ IP address could not be reached"
-        : "";
+      ? "❌ IP address could not be reached"
+      : "";
 
   return (
     <div>
@@ -49,7 +49,9 @@ export const PingTab = () => {
             value={addr}
           />
         </div>
-        <Button onClick={ping} disabled={status === "waiting"}>Ping</Button>
+        <Button onClick={ping} disabled={status === "waiting"}>
+          Ping
+        </Button>
       </div>
       <div className="py-1" />
       {status !== "waiting" ? (
@@ -57,12 +59,16 @@ export const PingTab = () => {
           <div>{statusStr}</div>
           <div className="py-2" />
           {output && (
-            <ScrollArea className="h-64 p-2 bg-popover">
+            <ScrollArea className="h-64 bg-popover p-2">
               <code className="whitespace-pre">{output}</code>
             </ScrollArea>
           )}
         </>
-      ) : <div className="flex justify-center items-center"><Spinner /></div>}
+      ) : (
+        <div className="flex items-center justify-center">
+          <Spinner />
+        </div>
+      )}
     </div>
   );
 };

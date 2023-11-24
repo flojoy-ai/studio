@@ -1,14 +1,19 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@src/components/ui/tabs"
-import { ShellCommandOutput } from "./ShellCommandOutput"
-import { PingTab } from "./PingTab"
+} from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@src/components/ui/tabs";
+import { ShellCommandOutput } from "./ShellCommandOutput";
+import { PingTab } from "./PingTab";
 
 export const DebugMenu = () => {
   return (
@@ -22,12 +27,25 @@ export const DebugMenu = () => {
         </DialogHeader>
         <div className="overflow-hidden">
           <Tabs defaultValue="ping" className="w-full">
-            <TabsList className="w-full grid grid-cols-5 bg-background">
-              <TabsTrigger className="text-xs md:text-sm" value="ping">Check Connection</TabsTrigger>
-              <TabsTrigger className="text-xs md:text-sm" value="netstat">Network Connections</TabsTrigger>
-              <TabsTrigger className="text-xs md:text-sm" value="ifconfig">IP Addresses</TabsTrigger>
-              <TabsTrigger className="text-xs md:text-sm" value="python-packages">Python Packages</TabsTrigger>
-              <TabsTrigger className="text-xs md:text-sm" value="pyvisa-info">PyVISA</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-5 bg-background">
+              <TabsTrigger className="text-xs md:text-sm" value="ping">
+                Check Connection
+              </TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="netstat">
+                Network Connections
+              </TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="ifconfig">
+                IP Addresses
+              </TabsTrigger>
+              <TabsTrigger
+                className="text-xs md:text-sm"
+                value="python-packages"
+              >
+                Python Packages
+              </TabsTrigger>
+              <TabsTrigger className="text-xs md:text-sm" value="pyvisa-info">
+                PyVISA
+              </TabsTrigger>
             </TabsList>
             <div className="py-2" />
             <TabsContent className="h-96" value="ping">
@@ -39,7 +57,7 @@ export const DebugMenu = () => {
             <TabsContent value="ifconfig">
               <ShellCommandOutput command={window.api.ifconfig} />
             </TabsContent>
-            <TabsContent value="python-packages" >
+            <TabsContent value="python-packages">
               <ShellCommandOutput command={window.api.listPythonPackages} />
             </TabsContent>
             <TabsContent value="pyvisa-info">
@@ -49,5 +67,5 @@ export const DebugMenu = () => {
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

@@ -66,8 +66,9 @@ export const Layout = () => {
       <main
         className="bg-background"
         style={{
-          height: `calc(100vh - ${LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
-            }px)`,
+          height: `calc(100vh - ${
+            LAYOUT_TOP_HEIGHT + BOTTOM_STATUS_BAR_HEIGHT
+          }px)`,
         }}
       >
         <Toaster theme={theme} closeButton />
