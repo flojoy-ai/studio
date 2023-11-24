@@ -165,7 +165,7 @@ const downloadBlocksRepo = async (
     new Promise((resolve, reject) => {
       cpFolder(join(extractPath, "blocks-main"), downloadPath, (err) => {
         if (err) {
-          reject(false);
+          reject(err.map((e) => e.message).join("\n"));
           return;
         }
         resolve(true);
