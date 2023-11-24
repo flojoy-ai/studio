@@ -19,4 +19,9 @@ export enum API {
   showSaveDialog = "SHOW_SAVE_DIALOG",
   browsePythonInterpreter = "BROWSE_PY_INTERPRETER",
   sendLogToStatusbar = "SEND_LOG_TO_STATUSBAR",
+  listPythonPackages = "LIST_PYTHON_PACKAGES",
+  pyvisaInfo = "PYVISA_INFO",
+  ping = "PING",
+  netstat = "NETSTAT",
+  ifconfig = "IFCONFIG",
 }

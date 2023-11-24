@@ -18,10 +18,13 @@ export function execCommand(
     });
 
     let stdout = "";
+    let stderr = "";
     let errout = "";
 
+    const quiet = Boolean(options && options.quiet);
+
     child.stdout?.on("data", (data) => {
-      if (!options?.quiet) {
+      if (!quiet) {
         sendToStatusBar(data);
       }
       log.info(data);
@@ -29,16 +32,17 @@ export function execCommand(
     });
 
     child.stderr?.on("data", (data) => {
-      if (!options?.quiet) {
+      if (!quiet) {
         sendToStatusBar(data);
       }
       log.error(data);
+      stderr += data;
     });
 
     child.on("error", (error) => {
       log.error(error.message);
       errout += error.message;
-      if (!options?.quiet) {
+      if (!quiet) {
         sendToStatusBar(error.message);
       }
     });
@@ -47,7 +51,26 @@ export function execCommand(
       if (code === 0) {
         resolve(stdout);
       }
-      reject(errout);
+
+      // exited from 'error' condition, meaning
+      // the process could not be spawned/killed
+      if (errout !== "") {
+        reject(errout);
+        return;
+      }
+
+      // Note: if you reject with an empty string, Electron does not bubble
+      // it to the renderer properly...
+      //
+      // Other note: ping writes only to stdout even
+      // if it exits with code 1 so we need to reject with stdout if stderr is blank
+      if (stderr !== "") {
+        reject(stderr);
+      } else if (stdout !== "") {
+        reject(stdout);
+      } else {
+        reject("Exited with non-zero exit code, but no output");
+      }
     });
   });
 }

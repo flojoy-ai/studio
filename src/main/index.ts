@@ -20,11 +20,20 @@ import {
   installPipx,
   installPoetry,
   killCaptain,
+  listPythonPackages,
   pipxEnsurepath,
+  pyvisaInfo,
   spawnCaptain,
 } from "./python";
 import { logListener, openLogFolder, sendToStatusBar } from "./logging";
-import { isPortFree, killProcess, writeFileSync } from "./utils";
+import {
+  ifconfig,
+  isPortFree,
+  killProcess,
+  netstat,
+  ping,
+  writeFileSync,
+} from "./utils";
 import {
   browsePythonInterpreter,
   handlePythonInterpreter,
@@ -212,6 +221,11 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
   ipcMain.handle(API.browsePythonInterpreter, browsePythonInterpreter);
+  ipcMain.handle(API.listPythonPackages, listPythonPackages);
+  ipcMain.handle(API.pyvisaInfo, pyvisaInfo);
+  ipcMain.handle(API.ping, (_, addr) => ping(addr));
+  ipcMain.handle(API.netstat, netstat);
+  ipcMain.handle(API.ifconfig, ifconfig);
   ipcMain.handle(API.saveBlocks, async () => {
     await saveBlocksPack({
       win: global.mainWindow,

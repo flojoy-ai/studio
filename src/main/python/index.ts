@@ -139,3 +139,17 @@ export function killCaptain(): boolean {
   }
   return (global.captainProcess as ChildProcess).kill();
 }
+
+export async function listPythonPackages() {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  return await execCommand(new Command(`${poetry} run pip freeze`), {
+    quiet: true,
+  });
+}
+
+export async function pyvisaInfo() {
+  const poetry = process.env.POETRY_PATH ?? "poetry";
+  return await execCommand(new Command(`${poetry} run pyvisa-info`), {
+    quiet: true,
+  });
+}
