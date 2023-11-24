@@ -13,6 +13,6 @@ class BlocksWatcher:
         logger.info(f"Starting file watcher for blocks dir {blocks_path}")
 
         async for change in awatch(blocks_path):
-            logger.info(f"Found changes in: {change}")
+            logger.info(f"Detected {len(change)} file changes in {blocks_path}..")
             if self.ws.active_connections_map:
                 await self.ws.broadcast({"type": "manifest_update"})

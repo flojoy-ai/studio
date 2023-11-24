@@ -212,15 +212,13 @@ app.whenReady().then(async () => {
   ipcMain.handle(API.killCaptain, killCaptain);
   ipcMain.handle(API.openLogFolder, openLogFolder);
   ipcMain.handle(API.browsePythonInterpreter, browsePythonInterpreter);
-  ipcMain.handle(
-    API.saveBlocks,
-    async () =>
-      await saveBlocksPack({
-        win: global.mainWindow,
-        icon: getIcon(),
-        startup: true,
-      }),
-  );
+  ipcMain.handle(API.saveBlocks, async () => {
+    await saveBlocksPack({
+      win: global.mainWindow,
+      icon: getIcon(),
+      startup: true,
+    });
+  });
   ipcMain.handle(
     API.updateBlocks,
     async () =>
