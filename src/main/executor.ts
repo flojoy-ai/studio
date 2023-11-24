@@ -24,7 +24,7 @@ export function execCommand(
     const quiet = Boolean(options && options.quiet);
 
     child.stdout?.on("data", (data) => {
-      if (quiet) {
+      if (!quiet) {
         sendToStatusBar(data);
       }
       log.info(data);
@@ -32,7 +32,7 @@ export function execCommand(
     });
 
     child.stderr?.on("data", (data) => {
-      if (quiet) {
+      if (!quiet) {
         sendToStatusBar(data);
       }
       log.error(data);
@@ -42,7 +42,7 @@ export function execCommand(
     child.on("error", (error) => {
       log.error(error.message);
       errout += error.message;
-      if (quiet) {
+      if (!quiet) {
         sendToStatusBar(error.message);
       }
     });
