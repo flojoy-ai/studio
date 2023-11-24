@@ -28,8 +28,8 @@ export const PingTab = () => {
     status === "success"
       ? "✅ IP Address is responsive"
       : status === "failed"
-      ? "❌ IP address could not be reached"
-      : "";
+        ? "❌ IP address could not be reached"
+        : "";
 
   return (
     <div>
@@ -44,11 +44,12 @@ export const PingTab = () => {
         </div>
         <Button onClick={ping}>Ping</Button>
       </div>
+      <div className="py-1" />
       <div>{statusStr}</div>
       <div className="py-2" />
       {output && (
-        <ScrollArea className="h-80 bg-muted">
-          <div>{output}</div>
+        <ScrollArea className="h-64 p-2 bg-popover">
+          <code className="whitespace-pre">{output}</code>
         </ScrollArea>
       )}
     </div>
