@@ -10,7 +10,7 @@ import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
 import { update } from "./update";
-import { saveBlocksPack, setBlocksDirPermission } from "./blocks";
+import { saveBlocksPack } from "./blocks";
 import { ChildProcess } from "node:child_process";
 import log from "electron-log/main";
 import { API } from "../types/api";
@@ -218,7 +218,6 @@ app.whenReady().then(async () => {
       icon: getIcon(),
       startup: true,
     });
-    setBlocksDirPermission;
   });
   ipcMain.handle(
     API.updateBlocks,
