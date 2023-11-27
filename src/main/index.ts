@@ -9,7 +9,7 @@ import {
 import contextMenu from "electron-context-menu";
 import { release } from "node:os";
 import { join } from "node:path";
-import { update } from "./update";
+import { checkForUpdates, update } from "./update";
 import { saveBlocksPack } from "./blocks";
 import { ChildProcess } from "node:child_process";
 import log from "electron-log/main";
@@ -216,6 +216,7 @@ app.whenReady().then(async () => {
     sendToStatusBar(logs.join(" ")),
   );
   ipcMain.on(API.downloadLogs, handleDownloadLogs);
+  ipcMain.on(API.checkForUpdates, checkForUpdates);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);

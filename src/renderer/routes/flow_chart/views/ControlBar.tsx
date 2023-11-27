@@ -35,6 +35,9 @@ const ControlBar = () => {
   const handleChangeNodesPath = () => {
     window.api.changeBlocksPath();
   };
+  const handleCheckForUpdates = () => {
+    window.api.checkForUpdates();
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -151,6 +154,9 @@ const ControlBar = () => {
                     onClick={handleUpdateBlocksPack}
                   >
                     Update blocks resource pack
+                  </MenubarItem>
+                  <MenubarItem onClick={handleCheckForUpdates}>
+                    Check for Studio updates
                   </MenubarItem>
                 </>
               )}

@@ -25,4 +25,5 @@ export enum API {
   netstat = "NETSTAT",
   ifconfig = "IFCONFIG",
   downloadLogs = "DOWNLOAD_LOGS",
+  checkForUpdates = "CHECK_FOR_UPDATES",
 }
