@@ -7,7 +7,6 @@ import pyvisa
 import serial.tools.list_ports
 
 from captain.types.devices import CameraDevice, SerialDevice, VISADevice
-import traceback
 
 __all__ = ["get_device_finder"]
 
@@ -50,32 +49,28 @@ class DefaultDeviceFinder:
 
     def get_visa_devices(self) -> list[VISADevice]:
         """Returns a list of VISA devices connected to the system."""
-        try:
-            rm = pyvisa.ResourceManager("@py")
-            devices = []
-            used_addrs = set()
+        rm = pyvisa.ResourceManager("@py")
+        devices = []
+        used_addrs = set()
 
-            for addr in rm.list_resources():
-                if addr in used_addrs:
-                    continue
-                try:
-                    device = rm.open_resource(addr)
-                    devices.append(
-                        VISADevice(
-                            name=addr.split("::")[0],
-                            address=addr,
-                            description=device.query("*IDN?"),
-                        )
+        for addr in rm.list_resources():
+            if addr in used_addrs:
+                continue
+            try:
+                device = rm.open_resource(addr)
+                devices.append(
+                    VISADevice(
+                        name=addr.split("::")[0],
+                        address=addr,
+                        description=device.query("*IDN?"),
                     )
-                    device.close()
-                    used_addrs.add(addr)
-                except pyvisa.VisaIOError:
-                    pass
+                )
+                device.close()
+                used_addrs.add(addr)
+            except pyvisa.VisaIOError:
+                pass
 
-            return devices
-        except Exception as e:
-            print("exception in get_visa_devices: ", e, traceback.format_exec())
-            return []
+        return devices
 
 
 class LinuxDeviceFinder(DefaultDeviceFinder):
