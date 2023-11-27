@@ -66,12 +66,14 @@ const getExecutablePath = () => {
       );
     case "win32": {
       const arch = process.arch;
-      const folderName = `win-${arch}-unpacked`;
+      const folderName =
+        arch === "arm64" ? `win-${arch}-unpacked` : "win-unpacked";
       return join(process.cwd(), `dist/${folderName}/Flojoy Studio.exe`);
     }
     case "linux": {
       const arch = process.arch;
-      const folderName = `linux-${arch}-unpacked`;
+      const folderName =
+        arch === "arm64" ? `linux-${arch}-unpacked` : "linux-unpacked";
       return join(process.cwd(), `dist/${folderName}/flojoy-studio`);
     }
     default:
