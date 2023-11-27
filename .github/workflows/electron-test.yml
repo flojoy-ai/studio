@@ -1,4 +1,4 @@
-name: Electron App Testing
+name: E2E Testing
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - synchronize
 
 jobs:
-  trigger_workflow:
+  electron_app:
     runs-on: macos-latest-xlarge
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     steps:

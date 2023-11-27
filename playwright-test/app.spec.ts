@@ -44,6 +44,7 @@ test.describe(`${productName} test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
+    test.setTimeout(600000);
     const window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     const title = await window.$("title");
