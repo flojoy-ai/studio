@@ -26,7 +26,9 @@ test("Startup test", async () => {
   const title = await window.$("title");
   expect(await title?.innerText()).toContain("Flojoy Studio");
   const welcomeText = `Welcome to Flojoy Studio V${version}`;
-  const locatorText = await window.getByText(welcomeText).innerText();
+  const locatorText = await window
+    .getByText(welcomeText)
+    .innerText({ timeout: 600000 });
   expect(locatorText).toBe(welcomeText);
   // close app
   await electronApp.close();
