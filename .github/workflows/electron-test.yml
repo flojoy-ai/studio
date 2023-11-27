@@ -1,0 +1,47 @@
+name: Electron App Testing
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  trigger_workflow:
+    runs-on: macos-latest-xlarge
+    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Node Dependencies
+        run: pnpm install
+
+      - name: Build executable
+        run: pnpm run build && pnpm run electron-package:mac
+
+      - name: Run Test
+        run: pnpm run electron:test

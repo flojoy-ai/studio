@@ -10,6 +10,9 @@ module.exports = async function (params) {
   if (process.platform !== "win32") {
     return;
   }
+  if (process.env.NODE_ENV === "dev") {
+    return;
+  }
 
   const signCmd = `AzureSignTool sign -kvu "${process.env.AZURE_KEY_VAULT_URI}" -kvi "${process.env.AZURE_CLIENT_ID}" -kvt "${process.env.AZURE_TENANT_ID}" -kvs "${process.env.AZURE_CLIENT_SECRET}" -kvc ${process.env.AZURE_CERT_NAME} -tr http://timestamp.digicert.com -v "${params.path}"`;
   const signTask = new Promise((resolve, reject) => {

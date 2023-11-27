@@ -8,18 +8,22 @@ const { version } = JSON.parse(
 
 test("Startup test", async () => {
   const executablePath = getExecutablePath();
+  console.log("executable at: ", executablePath, " is starting...");
   const electronApp = await electron.launch({
     executablePath,
   });
+  console.log(" testing if isPackaged...");
   const isPackaged = await electronApp.evaluate(async ({ app }) => {
     return app.isPackaged;
   });
+  console.log("isPackaged? : ", isPackaged);
 
   expect(isPackaged).toBe(true);
 
   const window = await electronApp.firstWindow();
   await window.waitForLoadState("domcontentloaded");
   const title = await window.$("title");
+  console.log(" found title: ", title);
   expect(await title?.innerText()).toContain("Flojoy Studio");
   const welcomeText = `Welcome to Flojoy Studio V${version}`;
   const locatorText = await window.getByText(welcomeText).innerText();
