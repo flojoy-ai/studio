@@ -25,7 +25,12 @@ import {
   pyvisaInfo,
   spawnCaptain,
 } from "./python";
-import { logListener, openLogFolder, sendToStatusBar } from "./logging";
+import {
+  handleDownloadLogs,
+  logListener,
+  openLogFolder,
+  sendToStatusBar,
+} from "./logging";
 import {
   ifconfig,
   isPortFree,
@@ -210,6 +215,7 @@ app.whenReady().then(async () => {
   ipcMain.on(API.sendLogToStatusbar, (_, ...logs) =>
     sendToStatusBar(logs.join(" ")),
   );
+  ipcMain.on(API.downloadLogs, handleDownloadLogs);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);

@@ -40,4 +40,5 @@ export default {
   ping: (addr: string): Promise<string> => ipcRenderer.invoke(API.ping, addr),
   netstat: (): Promise<string> => ipcRenderer.invoke(API.netstat),
   ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
+  downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
 };

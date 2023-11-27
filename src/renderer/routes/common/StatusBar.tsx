@@ -8,6 +8,7 @@ import {
 } from "@src/routes/common/Layout";
 import { cn } from "@src/lib/utils";
 import { Button } from "@src/components/ui/button";
+import { DownloadIcon } from "lucide-react";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -24,10 +25,17 @@ const StatusBar = (): JSX.Element => {
       }
     }
   }, [minimize, logs?.length]);
+  const handleDownloadLogs = () => {
+    if ("api" in window) {
+      window.api.downloadLogs();
+    }
+  };
   // Listen for messages from the main process
-  window.api.subscribeToElectronLogs((data) => {
-    setMessages((prev) => (prev.includes(data) ? prev : [...prev, data]));
-  });
+  useEffect(() => {
+    window.api.subscribeToElectronLogs((data) => {
+      setMessages((prev) => (prev.includes(data) ? prev : [...prev, data]));
+    });
+  }, []);
 
   return (
     <div
@@ -77,6 +85,16 @@ const StatusBar = (): JSX.Element => {
             {minimize ? "Expand log" : "Collapse log"}
           </Button>
         </div>
+        {!minimize && (
+          <Button
+            variant={"outline"}
+            className=" fixed bottom-0 right-0 rounded-none"
+            onClick={handleDownloadLogs}
+          >
+            <DownloadIcon size={19} className="mr-2" />
+            Download Full Logs
+          </Button>
+        )}
         <div
           className={cn(
             "w-full bg-background p-7 pt-2 transition-all duration-1000 ease-in-out ",

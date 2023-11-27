@@ -24,4 +24,5 @@ export enum API {
   ping = "PING",
   netstat = "NETSTAT",
   ifconfig = "IFCONFIG",
+  downloadLogs = "DOWNLOAD_LOGS",
 }
