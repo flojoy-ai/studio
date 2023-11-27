@@ -12,6 +12,7 @@ import { ThemeProvider } from "@src/providers/themeProvider";
 import PythonManagerTabView from "./routes/python_manager_panel/PythonManagerTabView";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
+import packageJson from "../../package.json";
 
 function ErrorBoundary() {
   const error: Error = useRouteError() as Error;
@@ -39,7 +40,7 @@ const App = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div id="tw-theme-root">
         <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
-          Flojoy Studio
+          Flojoy Studio ({packageJson.version})
         </div>
         {/* <ElectronLogsDialog /> */}
         <Routes>

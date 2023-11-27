@@ -1,6 +1,9 @@
-import { app, ipcMain, shell } from "electron";
+import { app, dialog, ipcMain, shell } from "electron";
 import log from "electron-log/main";
 import { API } from "../types/api";
+import { join } from "path";
+import { writeFileSync } from "./utils";
+import { readFileSync } from "fs";
 
 export function openLogFolder(): void {
   shell.openPath(app.getPath("logs"));
@@ -16,4 +19,25 @@ export const logListener = (event): void => {
   } else {
     log.error("Can't send message to statusBar: mainWindow is destroyed");
   }
+};
+
+export const handleDownloadLogs = () => {
+  const logFile = join(app.getPath("logs"), "main.log");
+  const logs = readFileSync(logFile).toString();
+  const savePath = join(
+    app.getPath("downloads"),
+    `flojoy-log-${new Date().toISOString().replace(/[-:.]/g, "")}.log`,
+  );
+  writeFileSync(undefined, savePath, logs);
+  dialog
+    .showMessageBox(global.mainWindow, {
+      type: "info",
+      message: "Logs downloaded!",
+      detail: `Logs has been downloaded to ${savePath}`,
+      buttons: ["OK", "Open File"],
+    })
+    .then((response) => {
+      if (response.response === 0) return;
+      shell.openPath(savePath);
+    });
 };

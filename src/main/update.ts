@@ -1,6 +1,7 @@
 import { MessageBoxOptions, app, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
 import log from "electron-log/main";
+import { sendToStatusBar } from "./logging";
 
 const CHECK_FOR_UPDATE_INTERVAL = 600000; // 10 mins default
 export function update(cleanupFunc: () => Promise<void>) {
@@ -9,8 +10,14 @@ export function update(cleanupFunc: () => Promise<void>) {
   autoUpdater.autoDownload = false;
   autoUpdater.allowDowngrade = false;
   autoUpdater.logger = {
-    error: (msg) => log.error(msg),
-    info: (msg) => log.info(msg),
+    error: (msg) => {
+      sendToStatusBar(msg);
+      log.error(msg);
+    },
+    info: (msg) => {
+      sendToStatusBar(msg);
+      log.info(msg);
+    },
     warn: (msg) => log.warn(msg),
     debug: (msg) => log.debug(msg),
   };
@@ -97,3 +104,30 @@ export function update(cleanupFunc: () => Promise<void>) {
     }
   });
 }
+
+export const checkForUpdates = () => {
+  sendToStatusBar("Checking for updates...");
+  autoUpdater.checkForUpdates().then((res) => {
+    if (res?.updateInfo.version) {
+      const removeV = res.updateInfo.version.replace("v", "").replace("V", "");
+      const [remoteMajor, remoteMinor, remotePatch] = removeV.split(".");
+
+      const appVersion = app.getVersion().replace("v", "").replace("V", "");
+      const [appVersionMajor, appVersionMinor, appVersionPatch] =
+        appVersion.split(".");
+
+      // Compare versions
+      if (
+        parseInt(remoteMajor) <= parseInt(appVersionMajor) &&
+        parseInt(remoteMinor) <= parseInt(appVersionMinor) &&
+        parseInt(remotePatch) <= parseInt(appVersionPatch)
+      ) {
+        dialog.showMessageBox(global.mainWindow, {
+          type: "info",
+          message: "Already updated to latest version",
+          detail: `Current version ${appVersion} is up to date.`,
+        });
+      }
+    }
+  });
+};
