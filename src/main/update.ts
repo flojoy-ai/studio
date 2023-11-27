@@ -124,8 +124,8 @@ export const checkForUpdates = () => {
       ) {
         dialog.showMessageBox(global.mainWindow, {
           type: "info",
-          message: "Already up-to-date",
-          detail: `Current version ${appVersion} is the latest.`,
+          message: "Already updated to latest version",
+          detail: `Current version ${appVersion} is up to date.`,
         });
       }
     }
