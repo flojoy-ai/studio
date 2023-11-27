@@ -55,7 +55,7 @@ jobs:
 
       - name: Build executable
         if: ${{ matrix.os == 'windows-latest' }}
-        run: $env:NODE_ENV=dev && pnpm run electron-package:windows
+        run: $Env:NODE_ENV="dev" && pnpm run electron-package:windows
 
       - name: Build executable
         if: ${{ matrix.os == 'ubuntu-latest' }}
