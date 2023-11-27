@@ -64,8 +64,16 @@ const getExecutablePath = () => {
         process.cwd(),
         "dist/mac-universal/Flojoy Studio.app/Contents/MacOS/Flojoy Studio",
       );
-    case "win32":
-      return join(process.cwd(), "dist/resources/Flojoy Studio.exe");
+    case "win32": {
+      const arch = process.arch;
+      const folderName = `win-${arch}-unpacked`;
+      return join(process.cwd(), `dist/${folderName}/Flojoy Studio.exe`);
+    }
+    case "linux": {
+      const arch = process.arch;
+      const folderName = `linux-${arch}-unpacked`;
+      return join(process.cwd(), `dist/${folderName}/flojoy-studio`);
+    }
     default:
       return "";
   }
