@@ -1,37 +1,59 @@
-import { _electron as electron } from "playwright";
-import { test, expect } from "@playwright/test";
+import { ElectronApplication, _electron as electron } from "playwright";
+import { test, expect, defineConfig } from "@playwright/test";
 import fs from "fs";
 import { join } from "path";
-const { version } = JSON.parse(
+const { productName, version } = JSON.parse(
   fs.readFileSync(join(process.cwd(), "package.json"), { encoding: "utf-8" }),
 );
-
-test("Startup test", async () => {
-  test.setTimeout(600000); // 10mins
-  const executablePath = getExecutablePath();
-  console.log("executable at: ", executablePath, " is starting...");
-  const electronApp = await electron.launch({
-    executablePath,
+test.describe(`${productName} test`, () => {
+  let app: ElectronApplication;
+  test.beforeAll(async () => {
+    defineConfig({
+      timeout: 600000,
+      fullyParallel: true,
+    });
+    const executablePath = getExecutablePath();
+    app = await electron.launch({
+      executablePath,
+    });
   });
-  console.log(" testing if isPackaged...");
-  const isPackaged = await electronApp.evaluate(async ({ app }) => {
-    return app.isPackaged;
+
+  test.afterAll(async () => {
+    await app.close();
   });
-  console.log("isPackaged? : ", isPackaged);
 
-  expect(isPackaged).toBe(true);
+  test("Check if app is packaged", async () => {
+    const isPackaged = await app.evaluate(async ({ app: _app }) => {
+      return _app.isPackaged;
+    });
+    expect(isPackaged).toBe(true);
+  });
 
-  const window = await electronApp.firstWindow();
-  await window.waitForLoadState("domcontentloaded");
-  const title = await window.$("title");
-  expect(await title?.innerText()).toContain("Flojoy Studio");
-  const welcomeText = `Welcome to Flojoy Studio V${version}`;
-  const locatorText = await window
-    .getByText(welcomeText)
-    .innerText({ timeout: 600000 });
-  expect(locatorText).toBe(welcomeText);
-  // close app
-  await electronApp.close();
+  test(`Check if title matches product name: ${productName}`, async () => {
+    const appName = await app.evaluate(async ({ app: _app }) => {
+      return _app.getName();
+    });
+    expect(appName).toBe(productName);
+  });
+
+  test(`Check if version matches package.json version: ${version}`, async () => {
+    const appVersion = await app.evaluate(async ({ app: _app }) => {
+      return _app.getVersion();
+    });
+    expect(appVersion).toEqual(version);
+  });
+
+  test("App should be loaded correctly.", async () => {
+    const window = await app.firstWindow();
+    await window.waitForLoadState("domcontentloaded");
+    const title = await window.$("title");
+    expect(await title?.innerText()).toContain(productName);
+    const welcomeText = `Welcome to Flojoy Studio V${version}`;
+    const locatorText = await window
+      .getByText(welcomeText)
+      .innerText({ timeout: 600000 });
+    expect(locatorText).toBe(welcomeText);
+  });
 });
 
 const getExecutablePath = () => {
