@@ -25,6 +25,14 @@ PATH_TO_MPY_CROSS_COMPILER = os.path.join(sys.path[0], PATH_TO_MPY_CROSS_COMPILE
 # TODO - get these guys from env variables
 
 """
+RUNTIME PARAMETERS
+________________________________________________________
+These parameters are used to configure stuff during runtime.
+"""
+GC_THRESHOLD = 150000  # garbage collection threshold
+
+
+"""
 FILE FILTERS
 ________________________________________________________
 These filters are applied to all python files in the output directory.

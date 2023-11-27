@@ -19,6 +19,7 @@ from precompilation.config import (
     EXTRA_FILES_DIR,
     FILES_GROUPS_TO_BE_OUTPUTTED,
     FILTERS_FOR_FILES,
+    GC_THRESHOLD,
     HEADER,
 )
 from precompilation.exceptions.exceptions import FunctionOrClassAlreadyExists
@@ -52,6 +53,7 @@ class FlojoyScriptBuilder:
         self.items = []
         self.indent_level = 0
         self.imports = set()
+        self.block_imports = set()
         self.func_or_classes = set()
         self.path_to_output = path_to_output
         self.is_ci = is_ci
@@ -64,29 +66,33 @@ class FlojoyScriptBuilder:
         alias: str | None = None,
         from_string: str | None = None,
         raw: bool = False,
+        is_block_import: bool = False,
     ):
         """
         imports modules that aren't imported otherwise but necessary.
         If raw is true, import_string is added as is.
         """
+
+        imports = self.imports if not is_block_import else self.block_imports
+
         if raw:
-            self.imports.add(import_string)
+            imports.add(import_string)
             return
 
         if import_string == "":
             return
         if from_string:
             if alias:
-                self.imports.add(
+                imports.add(
                     f"from {from_string} import {import_string} as {alias}"
                 )
             else:
-                self.imports.add(f"from {from_string} import {import_string}")
+                imports.add(f"from {from_string} import {import_string}")
         else:
             if alias:
-                self.imports.add(f"import {import_string} as {alias}")
+                imports.add(f"import {import_string} as {alias}")
             else:
-                self.imports.add(f"import {import_string}")
+                imports.add(f"import {import_string}")
 
     def _add_function_or_class(self, item: Any, add_modules: bool = True):
         """
@@ -205,7 +211,15 @@ class FlojoyScriptBuilder:
         """
         Create the final script string and output it
         """
-        all_items = list(self.imports) + self.items
+        try:
+            self.imports.remove("import gc") # make sure no duplicate import for gc
+        except KeyError:
+            pass
+        all_items = ["import gc", f"gc.threshold({GC_THRESHOLD})"] + \
+            list(self.imports)\
+            + list(self.block_imports)\
+                + self.items 
+        
         final_string = HEADER + "\n" + "\n".join(all_items)
         filename = os.path.join(get_absolute_path(self.path_to_output), "main.py")
         with open(filename, "w") as f:
@@ -295,8 +309,9 @@ class FlojoyScriptBuilder:
             module_path = get_module_path(cmd, mc_mode=True)
             module_path = module_path.replace(".", os.path.sep) + ".py"
             copy_file_to_output_dir(module_path)
-            imported.add(module_path)
             # ------------------------------------------------
+
+            imported.add(module_path)
 
             # -- check imports of module, and import any missing files recursively (only from nodes/) --
             stack = deque()
@@ -349,11 +364,17 @@ class FlojoyScriptBuilder:
             # -- import module --
             module_path = module_path.replace(os.path.sep, ".")
             if ci_available:
-                self._add_code_block(
-                    f"from {module_path[:-3]} import {cmd_mock} as {cmd}"
+                self._add_import(
+                    f"from {module_path[:-3]} import {cmd_mock} as {cmd}",
+                    raw=True,
+                    is_block_import=True,
                 )
             else:
-                self._add_code_block(f"from {module_path[:-3]} import {cmd}")
+                self._add_import(
+                    f"from {module_path[:-3]} import {cmd}",
+                    raw=True,
+                    is_block_import=True,
+                )
             # ------------------
 
         # add node_to_func to script (mapping of node_ids to function names)
@@ -392,10 +413,10 @@ class FlojoyScriptBuilder:
         """
         #   -- add some necessary imports --
         self._add_import("json")
+        self._add_import(from_string="typing", import_string="Any") 
         #   --------------------------------
         #   -- add the flowchart and run it --
         self._add_code_block("set_offline()")
-        self._add_import(from_string="typing", import_string="Any")
         self._add_function_or_class(MultiDiGraph)
         self._add_function_or_class(LightTopology)
         self._add_function_or_class(flowchart_to_graph, add_modules=False)
@@ -427,11 +448,13 @@ class FlojoyScriptBuilder:
     #     for file in to_remove:
     #         os.remove(file)
 
+    # TODO clean this up
     def run_script(self, tempdir: TemporaryDirectory[str], port: str, manager: Manager):
         asyncio.run(
             self.signaler.signal_script_running_microcontroller(self.jobset_id)
         )
-        cmd = f"mpremote connect {port} + mount {tempdir.name} + run {tempdir.name}/main.py"
+        logger.debug(f"Temp dir {tempdir.name} contents: " + str(os.listdir(tempdir.name)))
+        cmd = f"mpremote connect {port} + mount {tempdir.name} run {tempdir.name}/main.py"
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         manager.set_mc(p, port, play=True)
         logger.debug("set the mc_proc")
@@ -452,6 +475,7 @@ class FlojoyScriptBuilder:
         logger.debug("done running MC")
         asyncio.run(self.signaler.signal_standby(self.jobset_id))
 
+    # TODO clean this up
     def output(self, tempdir: TemporaryDirectory[str], port: str, path_to_output: str | None, manager: Manager):
         """
         Copy paste the temp dir into the output dir if specified

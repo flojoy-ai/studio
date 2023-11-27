@@ -19,7 +19,7 @@ async def precompile(
     maximum_runtime: float,
     path_to_requirements: str,
     signaler: Signaler,
-    path_to_output: str = "",
+    path_to_output: str = "test",
     is_ci: bool = False,
     upload: bool = False,
     port: str = "",
@@ -27,6 +27,9 @@ async def precompile(
     """
     Precompiles a flowchart into a script that can be run on a remote machine or a microcontroller (not yet done for microcontroller).
     """
+
+    if port == "":
+        raise Exception("No port provided")
 
     tempdir = tempfile.TemporaryDirectory()
     tmpdirname = tempdir.name
@@ -36,9 +39,11 @@ async def precompile(
     sw = FlojoyScriptBuilder(
         tmpdirname, jobset_id=jobset_id, is_ci=is_ci, signaler=signaler
     )
+    
     await asyncio.create_task(
         signaler.signal_script_building_microcontroller(jobset_id)
     )  # signal build start to front-end
+
     flowchart_as_dict = json.loads(fc)
     light_topology = create_light_topology(
         flowchart_as_dict, jobset_id, node_delay, maximum_runtime

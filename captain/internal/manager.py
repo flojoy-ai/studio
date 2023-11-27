@@ -44,7 +44,12 @@ class Manager(object):
         """
         This function terminates the microcontroller process (play or upload) and soft reboots the microcontroller.
         """
-        mc_proc, mc_port, play = self.mc_info
+        try:
+            mc_proc, mc_port, play = self.mc_info
+        except ValueError:
+            logger.warning("nothing to terminate")
+            return  # mc_info not set
+                
         if mc_proc:
             # terminate the microcontroller process
             logger.debug("terminating mc...")
@@ -57,12 +62,12 @@ class Manager(object):
 
             if play: # this means "play" was pressed
                 # soft reboot the microcontroller
-                logger.debug("soft rebooting mc...")
-                stderr = subprocess.run(["mpremote", "connect", mc_port, "+", "soft-reset"], stderr=subprocess.PIPE).stderr.decode()
+                logger.debug("resetting mc...")
+                stderr = subprocess.run(["mpremote", "connect", mc_port, "+", "reset"], stderr=subprocess.PIPE).stderr.decode()
                 if (stderr != ""):
-                    logger.error(f"soft reboot failed: {stderr}")
+                    logger.error(f"reset failed: {stderr}")
                 else:
-                    logger.debug("soft rebooted mc")
+                    logger.debug("reset mc")
 
             self.mc_info = () # reset mc_info
             
