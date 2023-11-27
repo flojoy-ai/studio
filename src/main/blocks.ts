@@ -4,6 +4,7 @@ import { join } from "path";
 import axios from "axios";
 import AdmZip from "adm-zip";
 import { sendToStatusBar } from "./logging";
+import { ncp as cpFolder } from "ncp";
 
 type SaveBlocksPackProps = {
   win: BrowserWindow;
@@ -58,9 +59,7 @@ export const saveBlocksPack = async ({
       "Update can take few minutes to complete, please do not close the app!",
     );
     try {
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "");
-      fs.renameSync(getBlocksDirPath(), `${getBlocksDirPath()}_${timestamp}`);
-      await downloadBlocksRepo(getBlocksDirPath(), win);
+      await downloadBlocksRepo(getBlocksDirPath(), win, true);
       return;
     } catch (error) {
       sendToStatusBar(
@@ -137,8 +136,12 @@ const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
 
-const downloadBlocksRepo = async (downloadPath: string, win: BrowserWindow) => {
-  if (fs.existsSync(downloadPath)) {
+const downloadBlocksRepo = async (
+  downloadPath: string,
+  win: BrowserWindow,
+  update: boolean = false,
+) => {
+  if (fs.existsSync(downloadPath) && !update) {
     dialog.showMessageBox(win, {
       message: "Blocks resource pack added successfully!",
       detail: `Blocks resources will be added from ${downloadPath}`,
@@ -154,16 +157,29 @@ const downloadBlocksRepo = async (downloadPath: string, win: BrowserWindow) => {
   const zipFilePath = join(app.getPath("temp"), "blocks.zip");
   fs.writeFileSync(zipFilePath, buffer);
   const admZip = new AdmZip(zipFilePath);
-  const downloadPathWithoutBlock = downloadPath.replace("blocks", "");
-  sendToStatusBar(`Extracting resource pack to ${downloadPath}...`);
-  admZip.extractAllTo(downloadPathWithoutBlock, true);
-  fs.renameSync(`${downloadPath}-main`, downloadPath);
+  sendToStatusBar(`Extracting resource pack ...`);
+  const extractPath = join(app.getPath("temp"), "blocks");
+  admZip.extractAllTo(extractPath, true);
+  sendToStatusBar(`Copying files to ${downloadPath}...`);
+  await Promise.resolve(
+    new Promise((resolve, reject) => {
+      cpFolder(join(extractPath, "blocks-main"), downloadPath, (err) => {
+        if (err) {
+          reject(err.map((e) => e.message).join("\n"));
+          return;
+        }
+        resolve(true);
+      });
+    }),
+  );
+  savePathToLocalFile(getBlocksPathFile(), downloadPath);
   dialog.showMessageBox(win, {
-    message: "Blocks resource pack downloaded successfully!",
+    message: `Blocks resource pack ${
+      update ? "updated" : "downloaded"
+    } successfully!`,
     type: "info",
   });
   fs.unlinkSync(zipFilePath);
-  savePathToLocalFile(getBlocksPathFile(), downloadPath);
   win.reload();
 };
 /**

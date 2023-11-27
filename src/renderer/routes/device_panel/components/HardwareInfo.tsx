@@ -5,6 +5,7 @@ import {
 import { DeviceCardProps } from "./DeviceCard";
 import { DeviceSection } from "./DeviceSection";
 import { Button } from "@src/components/ui/button";
+import { DebugMenu } from "./DebugMenu";
 
 export const HardwareInfo = () => {
   const devices = useHardwareDevices();
@@ -55,7 +56,10 @@ export const HardwareInfo = () => {
 
   return (
     <div>
-      <Button onClick={refetch}>Refresh</Button>
+      <div className="flex gap-2">
+        <Button onClick={refetch}>Refresh</Button>
+        <DebugMenu />
+      </div>
       <div className="py-3" />
       <DeviceSection title="Cameras" devices={cameras} />
       <div className="py-6" />
