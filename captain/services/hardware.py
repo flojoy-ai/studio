@@ -84,7 +84,7 @@ class MacDeviceFinder(DefaultDeviceFinder):
         for device in os.popen("arp -a"):
             ip = device.split(maxsplit=4)[1].strip("()").split(".")
             valid_addr = (
-                ip[0] == "169" and ip[1] == "254" and f"{ip[3]}.{ip[3]}" != "255.255"
+                ip[0] == "169" and ip[1] == "254" and f"{ip[2]}.{ip[3]}" != "255.255"
             )
             if not valid_addr:
                 continue
