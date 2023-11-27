@@ -8,8 +8,11 @@ on:
 
 jobs:
   electron_app:
-    runs-on: macos-latest-xlarge
     if: ${{ github.event.pull_request.base.ref == 'main' }}
+    strategy:
+      matrix:
+        os: [macos-latest-xlarge, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -47,7 +50,16 @@ jobs:
         run: pnpm install
 
       - name: Build executable
+        if: ${{ matrix.os == 'macos-latest-xlarge' }}
         run: export NODE_ENV=dev && pnpm run electron-package:mac
+
+      - name: Build executable
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: set NODE_ENV=dev && pnpm run electron-package:windows
+
+      - name: Build executable
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: export NODE_ENV=dev && pnpm run electron-package:linux
 
       - name: Run Test
         run: pnpm run electron:test
