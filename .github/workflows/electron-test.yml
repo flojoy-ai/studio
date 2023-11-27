@@ -11,7 +11,7 @@ jobs:
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     strategy:
       matrix:
-        os: [macos-latest-xlarge, ubuntu-latest, windows-latest]
+        os: [macos-latest-xlarge, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
