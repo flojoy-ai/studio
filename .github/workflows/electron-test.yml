@@ -42,7 +42,7 @@ jobs:
         run: pnpm install
 
       - name: Build executable
-        run: pnpm run build && pnpm run electron-package:mac
+        run: export NODE_ENV=dev && pnpm run electron-package:mac
 
       - name: Run Test
         run: pnpm run electron:test
