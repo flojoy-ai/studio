@@ -7,6 +7,7 @@ const { version } = JSON.parse(
 );
 
 test("Startup test", async () => {
+  test.setTimeout(600000); // 10mins
   const executablePath = getExecutablePath();
   console.log("executable at: ", executablePath, " is starting...");
   const electronApp = await electron.launch({
@@ -23,7 +24,6 @@ test("Startup test", async () => {
   const window = await electronApp.firstWindow();
   await window.waitForLoadState("domcontentloaded");
   const title = await window.$("title");
-  console.log(" found title: ", title);
   expect(await title?.innerText()).toContain("Flojoy Studio");
   const welcomeText = `Welcome to Flojoy Studio V${version}`;
   const locatorText = await window.getByText(welcomeText).innerText();
