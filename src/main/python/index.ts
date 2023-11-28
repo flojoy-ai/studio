@@ -72,16 +72,20 @@ export async function pipxEnsurepath(): Promise<void> {
     new Command(`"${py}" -c "${pipxBinScript}"`),
     { quiet: true },
   );
+  const trimmedPath = pipxBinPath.trim().split(" ").join("");
+  const existingPaths = process.env.PATH;
 
-  process.env.PATH = `${pipxBinPath.trim().split(" ").join("")}:${
-    process.env.PATH
-  }`;
+  if (existingPaths?.includes(trimmedPath)) {
+    process.env.PATH = `${trimmedPath}:${existingPaths}`;
+  }
+  console.log("paths: ", process.env.PATH);
 }
 
-export async function installPoetry(): Promise<string> {
+export async function installPoetry(): Promise<void> {
   const py = process.env.PY_INTERPRETER ?? "python";
-  process.env.POETRY_PATH = `${os.homedir}/.local/bin/poetry`;
-  return await execCommand(new Command(`${py} -m pipx install poetry --force`));
+  await execCommand(new Command(`${py} -m pipx install poetry --force`));
+  const poetryPath = await getPoetryPath();
+  process.env.POETRY_PATH = poetryPath;
 }
 
 export async function installDependencies(): Promise<string> {
@@ -153,3 +157,13 @@ export async function pyvisaInfo() {
     quiet: true,
   });
 }
+
+const getPoetryPath = async () => {
+  const localBinPath = `${os.homedir}/.local/bin/poetry`;
+  try {
+    await execCommand(new Command(localBinPath), { quiet: true });
+    return localBinPath;
+  } catch (error) {
+    return "poetry";
+  }
+};

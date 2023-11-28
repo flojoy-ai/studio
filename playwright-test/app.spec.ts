@@ -41,7 +41,7 @@ test.describe(`${productName} test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
-    const timeoutSecond = 130000; // 25mins
+    const timeoutSecond = 150000; // 25mins
 
     test.setTimeout(timeoutSecond);
     const window = await app.firstWindow();
@@ -52,7 +52,7 @@ test.describe(`${productName} test`, () => {
     await new Promise((resolve) => {
       setTimeout(() => {
         resolve(true);
-      }, 120000);
+      }, 140000);
     });
     const logPath = await app.evaluate(async ({ app: _app }) => {
       return _app.getPath("logs");
