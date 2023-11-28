@@ -73,6 +73,40 @@ class DefaultDeviceFinder:
         return devices
 
 
+class MacDeviceFinder(DefaultDeviceFinder):
+    def get_visa_devices(self) -> list[VISADevice]:
+        if os.uname().machine != "arm64":
+            return super().get_visa_devices()
+
+        rm = pyvisa.ResourceManager("@py")
+        devices = []
+
+        for device in os.popen("arp -a"):
+            ip = device.split(maxsplit=4)[1].strip("()").split(".")
+            valid_addr = (
+                ip[0] == "169" and ip[1] == "254" and f"{ip[2]}.{ip[3]}" != "255.255"
+            )
+            if not valid_addr:
+                continue
+
+            addr = f"TCPIP::169.254.{ip[2]}.{ip[3]}::INSTR"
+            try:
+                inst = rm.open_resource(addr)
+                devices.append(
+                    VISADevice(
+                        name=addr.split("::")[0],
+                        address=addr,
+                        description=inst.query("*IDN?"),
+                    )
+                )
+
+                inst.close()
+            except pyvisa.VisaIOError:
+                pass
+
+        return devices
+
+
 class LinuxDeviceFinder(DefaultDeviceFinder):
     def get_cameras(self) -> list[CameraDevice]:
         command = r"v4l2-ctl --list-devices | grep -A1 -P '^[^\s-][^:]+'"
@@ -97,6 +131,10 @@ class LinuxDeviceFinder(DefaultDeviceFinder):
 
 
 def get_device_finder():
-    if platform in ["win32", "darwin"]:
-        return DefaultDeviceFinder()
-    return LinuxDeviceFinder()
+    match platform:
+        case "darwin":
+            return MacDeviceFinder()
+        case "linux":
+            return LinuxDeviceFinder()
+        case _:
+            return DefaultDeviceFinder()
