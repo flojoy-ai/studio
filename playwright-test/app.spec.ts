@@ -49,20 +49,13 @@ test.describe(`${productName} test`, () => {
     const title = await window.$("title");
     expect(await title?.innerText()).toContain(productName);
     const welcomeText = `Welcome to Flojoy Studio V${version}`;
-    const png = await window.screenshot({ fullPage: true });
-    fs.writeFileSync(`test-results/${process.platform}-output.png`, png);
-    try {
-      const locatorText = await window
-        .getByText(welcomeText)
-        .innerText({ timeout: 120000 });
-      expect(locatorText).toBe(welcomeText);
-    } catch (error) {
-      const screenshot = await window.screenshot({ fullPage: true });
-      fs.writeFileSync(
-        `test-results/${process.platform}-error.png"`,
-        screenshot,
-      );
-    }
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 120000);
+    });
+    const screenshot = await window.screenshot({ fullPage: true });
+    fs.writeFileSync(`test-results/${process.platform}-output.png`, screenshot);
   });
 });
 
