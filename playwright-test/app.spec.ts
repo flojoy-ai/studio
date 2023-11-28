@@ -16,6 +16,12 @@ test.describe(`${productName} test`, () => {
   });
 
   test.afterAll(async () => {
+    const logPath = await app.evaluate(async ({ app: _app }) => {
+      return _app.getPath("logs");
+    });
+    const logFile = join(logPath, "main.log");
+    const logs = fs.readFileSync(logFile);
+    fs.writeFileSync(`test-results/${process.platform}-logs.txt`, logs);
     await app.close();
   });
 
@@ -41,27 +47,14 @@ test.describe(`${productName} test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
-    const timeoutSecond = 150000; // 25mins
-
+    const timeoutSecond = 900000; // 15mins
     test.setTimeout(timeoutSecond);
     const window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     const title = await window.$("title");
-    // expect(await title?.innerText()).toContain(productName);
+    expect(await title?.innerText()).toContain(productName);
     const welcomeText = `Welcome to Flojoy Studio V${version}`;
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 140000);
-    });
-    const logPath = await app.evaluate(async ({ app: _app }) => {
-      return _app.getPath("logs");
-    });
-    const logFile = join(logPath, "main.log");
-    const logs = fs.readFileSync(logFile);
-    fs.writeFileSync(`test-results/${process.platform}-logs.txt`, logs);
-    // const screenshot = await window.screenshot({ fullPage: true });
-    // fs.writeFileSync(`test-results/${process.platform}-output.png`, screenshot);
+    await window.getByText(welcomeText).innerText({ timeout: timeoutSecond });
   });
 });
 
