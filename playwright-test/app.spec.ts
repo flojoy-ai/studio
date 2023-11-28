@@ -54,8 +54,14 @@ test.describe(`${productName} test`, () => {
         resolve(true);
       }, 120000);
     });
-    const screenshot = await window.screenshot({ fullPage: true });
-    fs.writeFileSync(`test-results/${process.platform}-output.png`, screenshot);
+    const logPath = await app.evaluate(async ({ app: _app }) => {
+      return _app.getPath("logs");
+    });
+    const logFile = join(logPath, "main.log");
+    const logs = fs.readFileSync(logFile);
+    fs.writeFileSync(`test-results/${process.platform}-logs.txt`, logs);
+    // const screenshot = await window.screenshot({ fullPage: true });
+    // fs.writeFileSync(`test-results/${process.platform}-output.png`, screenshot);
   });
 });
 

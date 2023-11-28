@@ -12,5 +12,6 @@ export default defineConfig({
     screenshot: {
       mode: "on",
     },
+    trace: "on",
   },
 });
