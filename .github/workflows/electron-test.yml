@@ -5,6 +5,10 @@ on:
     types:
       - opened
       - synchronize
+# When pushing new commits, cancel any running builds on that branch
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   NODE_ENV: "dev"
@@ -14,7 +18,7 @@ jobs:
     if: ${{ github.event.pull_request.base.ref == 'main' }}
     strategy:
       matrix:
-        os: [macos-latest-xlarge, windows-latest]
+        os: [macos-latest-xlarge, windows-latest, "ubuntu-latest"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
