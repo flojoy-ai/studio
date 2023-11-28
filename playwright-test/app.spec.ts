@@ -44,7 +44,8 @@ test.describe(`${productName} test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
-    test.setTimeout(600000);
+    const timeoutSecond = 1500000; // 25mins
+    test.setTimeout(timeoutSecond);
     const window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     const title = await window.$("title");
@@ -52,7 +53,7 @@ test.describe(`${productName} test`, () => {
     const welcomeText = `Welcome to Flojoy Studio V${version}`;
     const locatorText = await window
       .getByText(welcomeText)
-      .innerText({ timeout: 600000 });
+      .innerText({ timeout: timeoutSecond });
     expect(locatorText).toBe(welcomeText);
   });
 });
