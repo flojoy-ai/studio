@@ -75,10 +75,9 @@ export async function pipxEnsurepath(): Promise<void> {
   const trimmedPath = pipxBinPath.trim().split(" ").join("");
   const existingPaths = process.env.PATH;
 
-  if (existingPaths?.includes(trimmedPath)) {
+  if (!existingPaths?.includes(trimmedPath)) {
     process.env.PATH = `${trimmedPath}:${existingPaths}`;
   }
-  console.log("paths: ", process.env.PATH);
 }
 
 export async function installPoetry(): Promise<void> {
