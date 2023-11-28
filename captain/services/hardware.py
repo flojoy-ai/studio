@@ -75,9 +75,6 @@ class DefaultDeviceFinder:
 
 class MacDeviceFinder(DefaultDeviceFinder):
     def get_visa_devices(self) -> list[VISADevice]:
-        if os.uname().machine != "arm64":
-            return super().get_visa_devices()
-
         rm = pyvisa.ResourceManager("@py")
         devices = []
 
