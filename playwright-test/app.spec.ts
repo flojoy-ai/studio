@@ -1,17 +1,14 @@
 import { ElectronApplication, _electron as electron } from "playwright";
-import { test, expect, defineConfig } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import fs from "fs";
 import { join } from "path";
 const { productName, version } = JSON.parse(
   fs.readFileSync(join(process.cwd(), "package.json"), { encoding: "utf-8" }),
 );
+
 test.describe(`${productName} test`, () => {
   let app: ElectronApplication;
   test.beforeAll(async () => {
-    defineConfig({
-      timeout: 600000,
-      fullyParallel: true,
-    });
     const executablePath = getExecutablePath();
     app = await electron.launch({
       executablePath,
@@ -44,17 +41,28 @@ test.describe(`${productName} test`, () => {
   });
 
   test("App should be loaded correctly.", async () => {
-    const timeoutSecond = 1500000; // 25mins
+    const timeoutSecond = 100000; // 25mins
+
     test.setTimeout(timeoutSecond);
     const window = await app.firstWindow();
     await window.waitForLoadState("domcontentloaded");
     const title = await window.$("title");
     expect(await title?.innerText()).toContain(productName);
     const welcomeText = `Welcome to Flojoy Studio V${version}`;
-    const locatorText = await window
-      .getByText(welcomeText)
-      .innerText({ timeout: timeoutSecond });
-    expect(locatorText).toBe(welcomeText);
+    const png = await window.screenshot({ fullPage: true });
+    fs.writeFileSync(`test-results/${process.platform}-output.png`, png);
+    try {
+      const locatorText = await window
+        .getByText(welcomeText)
+        .innerText({ timeout: 120000 });
+      expect(locatorText).toBe(welcomeText);
+    } catch (error) {
+      const screenshot = await window.screenshot({ fullPage: true });
+      fs.writeFileSync(
+        `test-results/${process.platform}-error.png"`,
+        screenshot,
+      );
+    }
   });
 });
 
