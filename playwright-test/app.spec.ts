@@ -74,10 +74,11 @@ const getExecutablePath = () => {
     }
     case "linux": {
       const arch = process.arch;
-      const fileName = `${productName}-${version}${
-        arch === "arm64" ? `-${arch}` : ""
-      }.AppImage`;
-      const appPath = join(process.cwd(), `dist/${fileName}`);
+      // const fileName = `${productName}-${version}${
+      //   arch === "arm64" ? `-${arch}` : ""
+      // }.AppImage`;
+      const folderName = `linux-${arch === "arm64" ? `${arch}-` : ""}unpacked`;
+      const appPath = join(process.cwd(), `dist/${folderName}/flojoy-studio`);
       execSync(`chmod +x "${appPath}"`);
       return appPath;
     }
