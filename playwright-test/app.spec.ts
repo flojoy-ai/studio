@@ -76,7 +76,7 @@ const getExecutablePath = () => {
       const arch = process.arch;
       const fileName = `${productName}-${version}${
         arch === "arm64" ? `-${arch}` : ""
-      }.appImage`;
+      }.AppImage`;
       const appPath = join(process.cwd(), `dist/${fileName}`);
       execSync(`chmod +x "${appPath}"`);
       return appPath;
