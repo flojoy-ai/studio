@@ -87,41 +87,41 @@ export const ParamTooltip = ({
       })}
       {elemRef.current
         ? createPortal(
-          <div
-            className={clsx(
-              "absolute z-50 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
-              tooltipOpen
-                ? "pointer-events-auto opacity-100"
-                : "pointer-events-none opacity-0",
-            )}
-            style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
-          >
-            <div className="whitespace-nowrap text-lg font-medium">
-              {param.name}{" "}
-              <span className="text-sm font-normal text-foreground/60">
-                {annotation}
-              </span>
-            </div>
-            {param.type.split("|").map((t) => (
-              <code key={t}>
-                {t}
-                <br />
-              </code>
-            ))}
-            <div className="py-2" />
-            <ScrollArea>
-              <div className="max-h-32">
-                {param.desc?.split("\n").map((line, i) => (
-                  <span key={`${nodeId}-${param.name}-${line}-${i}`}>
-                    {line}
-                    <br />
-                  </span>
-                )) ?? "No description."}
+            <div
+              className={clsx(
+                "absolute z-50 w-64 overflow-y-auto rounded-lg border bg-modal p-4 text-left font-sans text-sm font-normal text-foreground opacity-0 shadow-md transition-opacity duration-150 hover:pointer-events-auto hover:opacity-100",
+                tooltipOpen
+                  ? "pointer-events-auto opacity-100"
+                  : "pointer-events-none opacity-0",
+              )}
+              style={getTooltipStyle(elemRef.current, offsetX, offsetY)}
+            >
+              <div className="whitespace-nowrap text-lg font-medium">
+                {param.name}{" "}
+                <span className="text-sm font-normal text-foreground/60">
+                  {annotation}
+                </span>
               </div>
-            </ScrollArea>
-          </div>,
-          document.getElementById("flow-chart-area") ?? document.body,
-        )
+              {param.type.split("|").map((t) => (
+                <code key={t}>
+                  {t}
+                  <br />
+                </code>
+              ))}
+              <div className="py-2" />
+              <ScrollArea>
+                <div className="max-h-32">
+                  {param.desc?.split("\n").map((line, i) => (
+                    <span key={`${nodeId}-${param.name}-${line}-${i}`}>
+                      {line}
+                      <br />
+                    </span>
+                  )) ?? "No description."}
+                </div>
+              </ScrollArea>
+            </div>,
+            document.getElementById("flow-chart-area") ?? document.body,
+          )
         : null}
     </>
   );
