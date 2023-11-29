@@ -73,9 +73,11 @@ const getExecutablePath = () => {
     }
     case "linux": {
       const arch = process.arch;
-      const folderName =
-        arch === "arm64" ? `linux-${arch}-unpacked` : "linux-unpacked";
-      return join(process.cwd(), `dist/${folderName}/flojoy-studio`);
+      const fileName = `${productName}-${version}${
+        arch === "arm64" ? `-${arch}` : ""
+      }.appImage`;
+      console.log("filename: ", fileName);
+      return join(process.cwd(), `dist/${fileName}`);
     }
     default:
       return "";
