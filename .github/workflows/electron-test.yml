@@ -24,6 +24,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Set up Xvfb (Linux only)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          export DISPLAY=:99
+          Xvfb $DISPLAY -ac &
+          sleep 5
+
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
@@ -68,13 +77,6 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: pnpm run electron-package:linux
 
-      - name: List dirs (linux)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          cd dist
-          ls
-          cd linux-unpacked
-          ls
       - name: Run Test
         run: pnpm run electron:test
 
@@ -84,3 +86,4 @@ jobs:
         with:
           name: test-${{ matrix.os }}-output
           path: test-results
+
