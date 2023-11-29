@@ -2,17 +2,20 @@ import { ElectronApplication, _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
 import fs from "fs";
 import { join } from "path";
-import { execSync } from "child_process";
+import { getExecutablePath, killBackend, writeLogFile } from "./utils";
 const { productName, version } = JSON.parse(
   fs.readFileSync(join(process.cwd(), "package.json"), { encoding: "utf-8" }),
 );
 
-test.describe(`${productName} test`, () => {
+test.describe(`${productName} startup test`, () => {
   let app: ElectronApplication;
   test.beforeAll(async () => {
     const executablePath = getExecutablePath();
     app = await electron.launch({
       executablePath,
+    });
+    app.on("close", () => {
+      killBackend();
     });
   });
 
@@ -20,9 +23,7 @@ test.describe(`${productName} test`, () => {
     const logPath = await app.evaluate(async ({ app: _app }) => {
       return _app.getPath("logs");
     });
-    const logFile = join(logPath, "main.log");
-    const logs = fs.readFileSync(logFile);
-    fs.writeFileSync(`test-results/${process.platform}-logs.txt`, logs);
+    writeLogFile(logPath, `flojoy-startup-test`);
     await app.close();
   });
 
@@ -58,28 +59,3 @@ test.describe(`${productName} test`, () => {
     await window.getByText(welcomeText).innerText({ timeout: timeoutSecond });
   });
 });
-
-const getExecutablePath = () => {
-  switch (process.platform) {
-    case "darwin":
-      return join(
-        process.cwd(),
-        "dist/mac-universal/Flojoy Studio.app/Contents/MacOS/Flojoy Studio",
-      );
-    case "win32": {
-      const arch = process.arch;
-      const folderName =
-        arch === "arm64" ? `win-${arch}-unpacked` : "win-unpacked";
-      return join(process.cwd(), `dist/${folderName}/Flojoy Studio.exe`);
-    }
-    case "linux": {
-      const arch = process.arch;
-      const folderName = `linux-${arch === "arm64" ? `${arch}-` : ""}unpacked`;
-      const appPath = join(process.cwd(), `dist/${folderName}/flojoy-studio`);
-      execSync(`chmod +x "${appPath}"`);
-      return appPath;
-    }
-    default:
-      throw new Error("Unrecognized platform: " + process.platform);
-  }
-};
