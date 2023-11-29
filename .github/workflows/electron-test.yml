@@ -68,7 +68,7 @@ jobs:
       - name: Build executable
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: pnpm run electron-package:linux
-      
+
       - name: Set up Xvfb (Linux only)
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
@@ -76,7 +76,7 @@ jobs:
           sudo apt-get install -y xvfb
           Xvfb -screen 0 1024x768x24 :0 &
           sleep 5
-          
+
       - name: Run Test
         run: pnpm run electron:test
 
@@ -86,4 +86,3 @@ jobs:
         with:
           name: test-${{ matrix.os }}-output
           path: test-results
-
