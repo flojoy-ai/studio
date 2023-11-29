@@ -79,7 +79,8 @@ jobs:
         run: pnpm run electron:test
 
       - name: Upload outputs
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: test-output
+          name: test-${{ matrix.os }}-output
           path: test-results
