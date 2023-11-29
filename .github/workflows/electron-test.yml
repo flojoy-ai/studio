@@ -12,6 +12,7 @@ concurrency:
 
 env:
   NODE_ENV: "dev"
+  DISPLAY: :0
 
 jobs:
   electron_app:
@@ -23,15 +24,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
-      - name: Set up Xvfb (Linux only)
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          export DISPLAY=:99
-          Xvfb $DISPLAY -ac &
-          sleep 5
 
       - name: Setup Python
         uses: actions/setup-python@v3
@@ -76,7 +68,15 @@ jobs:
       - name: Build executable
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: pnpm run electron-package:linux
-
+      
+      - name: Set up Xvfb (Linux only)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb -screen 0 1024x768x24 :0 &
+          sleep 5
+          
       - name: Run Test
         run: pnpm run electron:test
 
