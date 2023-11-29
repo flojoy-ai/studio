@@ -1,0 +1,88 @@
+name: E2E Testing
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+# When pushing new commits, cancel any running builds on that branch
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_ENV: "dev"
+  DISPLAY: :0
+
+jobs:
+  electron_app:
+    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    strategy:
+      matrix:
+        os: [macos-latest-xlarge, windows-latest, "ubuntu-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+
+      - name: Setup Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install Node Dependencies
+        run: pnpm install
+
+      - name: Build executable
+        if: ${{ matrix.os == 'macos-latest-xlarge' }}
+        run: pnpm run electron-package:mac
+
+      - name: Build executable
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: pnpm run electron-package:windows
+
+      - name: Build executable
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: pnpm run electron-package:linux
+
+      - name: Set up Xvfb (Linux only)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb -screen 0 1024x768x24 :0 &
+          sleep 5
+
+      - name: Run Test
+        run: pnpm run electron:test
+
+      - name: Upload outputs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-${{ matrix.os }}-output
+          path: test-results

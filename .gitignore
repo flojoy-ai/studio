@@ -68,3 +68,4 @@ build
 .logs
 bin
 out
+test-results
