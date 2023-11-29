@@ -2,6 +2,7 @@ import { ElectronApplication, _electron as electron } from "playwright";
 import { test, expect } from "@playwright/test";
 import fs from "fs";
 import { join } from "path";
+import { execSync } from "child_process";
 const { productName, version } = JSON.parse(
   fs.readFileSync(join(process.cwd(), "package.json"), { encoding: "utf-8" }),
 );
@@ -76,8 +77,9 @@ const getExecutablePath = () => {
       const fileName = `${productName}-${version}${
         arch === "arm64" ? `-${arch}` : ""
       }.appImage`;
-      console.log("filename: ", fileName);
-      return join(process.cwd(), `dist/${fileName}`);
+      const appPath = join(process.cwd(), `dist/${fileName}`);
+      execSync(`chmod +x ${appPath}`);
+      return appPath;
     }
     default:
       return "";
