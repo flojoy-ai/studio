@@ -42,4 +42,5 @@ export default {
   ifconfig: (): Promise<string> => ipcRenderer.invoke(API.ifconfig),
   downloadLogs: (): void => ipcRenderer.send(API.downloadLogs),
   checkForUpdates: (): void => ipcRenderer.send(API.checkForUpdates),
+  restartCaptain: (): Promise<void> => ipcRenderer.invoke(API.restartCaptain),
 };

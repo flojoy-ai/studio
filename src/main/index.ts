@@ -23,6 +23,7 @@ import {
   listPythonPackages,
   pipxEnsurepath,
   pyvisaInfo,
+  restartCaptain,
   spawnCaptain,
 } from "./python";
 import {
@@ -217,6 +218,7 @@ app.whenReady().then(async () => {
   );
   ipcMain.on(API.downloadLogs, handleDownloadLogs);
   ipcMain.on(API.checkForUpdates, checkForUpdates);
+  ipcMain.handle(API.restartCaptain, restartCaptain);
   ipcMain.handle(API.setPythonInterpreter, handlePythonInterpreter);
   ipcMain.handle(API.showSaveDialog, handleShowSaveAsDialog);
   ipcMain.handle(API.checkPythonInstallation, checkPythonInstallation);

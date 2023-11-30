@@ -64,7 +64,7 @@ export const saveBlocksPack = async ({
   ) {
     return;
   }
-  if (update || isBlocksOutdated()) {
+  if (update) {
     const response = dialog.showMessageBoxSync(win, {
       icon,
       message: "Updating will overwrite your local changes.",
@@ -166,15 +166,6 @@ const downloadBlocksRepo = async (
   win: BrowserWindow,
   update: boolean = false,
 ) => {
-  if (fs.existsSync(downloadPath) && !update) {
-    dialog.showMessageBox(win, {
-      message: "Blocks resource pack added successfully!",
-      detail: `Blocks resources will be added from ${downloadPath}`,
-    });
-    savePathToLocalFile(getBlocksPathFile(), downloadPath);
-    win.reload();
-    return;
-  }
   const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
   sendToStatusBar("Downloading blocks resource...");
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
