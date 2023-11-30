@@ -4,7 +4,7 @@ import threading
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from captain.routes import blocks, devices, flowchart, key, pymgr, update, ws
+from captain.routes import blocks, devices, flowchart, key, pymgr, update, ws, log
 from captain.services.consumer.blocks_watcher import BlocksWatcher
 from captain.utils.config import origins
 from captain.utils.logger import logger
@@ -23,6 +23,7 @@ app.add_middleware(
 # routes
 app.include_router(ws.router)
 app.include_router(flowchart.router)
+app.include_router(log.router)
 app.include_router(key.router)
 app.include_router(update.router)
 app.include_router(blocks.router)

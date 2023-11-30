@@ -143,7 +143,7 @@ export const Index = (): JSX.Element => {
         status: "error",
         message: "Something went wrong when starting Flojoy Studio...",
       });
-      setErrorTitle("Something went wrong :(");
+      setErrorTitle("Failed to spawn captain!");
       // TODO: automate the log reporting part
       setErrorDesc(
         "Sorry about that! Please open the log folder and send the log to us on Discord!",
@@ -278,7 +278,7 @@ export const Index = (): JSX.Element => {
     ) {
       navigate("/flowchart");
     }
-  }, [navigate, serverStatus]);
+  }, [serverStatus]);
 
   return (
     <div className="flex h-screen flex-col bg-muted">

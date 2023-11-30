@@ -23,4 +23,7 @@ def get_blocks_path():
 
 
 def get_flojoy_dir():
-    return os.path.abspath(os.path.join(Path.home(), ".flojoy"))
+    dir_path = os.path.abspath(os.path.join(Path.home(), ".flojoy"))
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+    return dir_path

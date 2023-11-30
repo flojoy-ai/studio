@@ -26,4 +26,5 @@ export enum API {
   ifconfig = "IFCONFIG",
   downloadLogs = "DOWNLOAD_LOGS",
   checkForUpdates = "CHECK_FOR_UPDATES",
+  restartCaptain = "RESTART_CAPTAIN",
 }

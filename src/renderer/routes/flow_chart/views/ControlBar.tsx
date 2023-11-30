@@ -20,12 +20,14 @@ import FlowControlButtons from "./ControlBar/FlowControlButtons";
 import { useTheme } from "@src/providers/themeProvider";
 import { IS_CLOUD_DEMO } from "@src/data/constants";
 import { DemoWarningTooltip } from "@src/components/ui/demo-warning-tooltip";
+import { DebugSettingsModal } from "./DebugSettingsModal";
 
 const ControlBar = () => {
   const [isKeyboardShortcutOpen, setIsKeyboardShortcutOpen] =
     useState<boolean>(false);
   const [isEnvVarModalOpen, setIsEnvVarModalOpen] = useState<boolean>(false);
   const [isNodeSettingsOpen, setIsNodeSettingsOpen] = useState(false);
+  const [isDebugSettingsOpen, setIsDebugSettingsOpen] = useState(false);
   const [isEditorSettingsOpen, setIsEditorSettingsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
@@ -78,6 +80,10 @@ const ControlBar = () => {
       <EditorSettingsModal
         handleSettingsModalOpen={setIsEditorSettingsOpen}
         isSettingsModalOpen={isEditorSettingsOpen}
+      />
+      <DebugSettingsModal
+        handleSettingsModalOpen={setIsDebugSettingsOpen}
+        isSettingsModalOpen={isDebugSettingsOpen}
       />
 
       <FlowControlButtons />
@@ -141,25 +147,31 @@ const ControlBar = () => {
               >
                 Node Settings
               </MenubarItem>
-              {"api" in window && (
-                <>
-                  <MenubarItem
-                    data-testid="btn-change-blocks-path"
-                    onClick={handleChangeNodesPath}
-                  >
-                    Change blocks resource path
-                  </MenubarItem>
-                  <MenubarItem
-                    data-testid="btn-update-blocks-pack"
-                    onClick={handleUpdateBlocksPack}
-                  >
-                    Update blocks resource pack
-                  </MenubarItem>
-                  <MenubarItem onClick={handleCheckForUpdates}>
-                    Check for Studio updates
-                  </MenubarItem>
-                </>
-              )}
+              <MenubarItem
+                data-testid="btn-debug-settings"
+                onClick={() => setIsDebugSettingsOpen(true)}
+              >
+                Debug Settings
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-change-blocks-path"
+                onClick={handleChangeNodesPath}
+              >
+                Change blocks resource path
+              </MenubarItem>
+              <MenubarItem
+                data-testid="btn-update-blocks-pack"
+                onClick={handleUpdateBlocksPack}
+              >
+                Update blocks resource pack
+              </MenubarItem>
+              <MenubarItem onClick={handleCheckForUpdates}>
+                Check for Studio updates
+              </MenubarItem>
+
+              <MenubarItem onClick={() => window.api.restartCaptain()}>
+                Restart Backend
+              </MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>

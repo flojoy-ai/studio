@@ -128,3 +128,17 @@ export const getBlocksMetadata = async () => {
     return null;
   }
 };
+
+type LogLevel = {
+  level: string;
+};
+
+export const getLogLevel = async () => {
+  const res = await baseClient.get("log_level");
+  const data = res.data as LogLevel;
+  return data.level;
+};
+
+export const setLogLevel = async (level: string) => {
+  await baseClient.post("log_level", { level });
+};

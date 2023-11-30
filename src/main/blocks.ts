@@ -26,6 +26,30 @@ const getBlocksPathFile = (): string => {
   return join(flojoyDir, fileName);
 };
 
+const getBlocksVersionFile = (): string => {
+  const fileName = "blocks_version.txt";
+  const flojoyDir = join(app.getPath("home"), ".flojoy");
+  if (!fs.existsSync(flojoyDir)) {
+    fs.mkdirSync(flojoyDir);
+  }
+  return join(flojoyDir, fileName);
+};
+
+const setBlocksVersion = (fileName: string, version: string) => {
+  fs.writeFileSync(fileName, version);
+};
+
+const getBlocksVersion = (): string => {
+  if (fs.existsSync(getBlocksVersionFile())) {
+    return fs.readFileSync(getBlocksVersionFile(), { encoding: "utf-8" });
+  }
+  return "";
+};
+
+export const isBlocksOutdated = (): boolean => {
+  return getBlocksVersion() !== app.getVersion();
+};
+
 export const saveBlocksPack = async ({
   win,
   icon,
@@ -35,7 +59,8 @@ export const saveBlocksPack = async ({
   if (
     startup &&
     fs.existsSync(getBlocksPathFile()) &&
-    fs.existsSync(getBlocksDirPath())
+    fs.existsSync(getBlocksDirPath()) &&
+    !isBlocksOutdated()
   ) {
     return;
   }
@@ -59,7 +84,10 @@ export const saveBlocksPack = async ({
       "Update can take few minutes to complete, please do not close the app!",
     );
     try {
-      await downloadBlocksRepo(getBlocksDirPath(), win, true);
+      await downloadBlocksRepo({
+        downloadPath: getBlocksDirPath(),
+        update: true,
+      });
       return;
     } catch (error) {
       sendToStatusBar(
@@ -73,14 +101,14 @@ export const saveBlocksPack = async ({
   const defaultSavePath = getBlocksDirPath();
   try {
     if (startup) {
-      await downloadBlocksRepo(defaultSavePath, win);
+      await downloadBlocksRepo({ downloadPath: defaultSavePath, quiet: true });
       return;
     }
     const savePath = getSavePath(win, icon, defaultSavePath ?? "", !startup);
     if (!startup && defaultSavePath === savePath) {
       return;
     }
-    await downloadBlocksRepo(savePath, win);
+    await downloadBlocksRepo({ downloadPath: savePath });
   } catch (error) {
     sendToStatusBar(
       `Failed to download blocks resource, reason: ", ${String(error)}`,
@@ -135,22 +163,17 @@ const getSavePath = (
 const savePathToLocalFile = (fileName: string, path: string) => {
   fs.writeFileSync(fileName, path);
 };
-
-const downloadBlocksRepo = async (
-  downloadPath: string,
-  win: BrowserWindow,
-  update: boolean = false,
-) => {
-  if (fs.existsSync(downloadPath) && !update) {
-    dialog.showMessageBox(win, {
-      message: "Blocks resource pack added successfully!",
-      detail: `Blocks resources will be added from ${downloadPath}`,
-    });
-    savePathToLocalFile(getBlocksPathFile(), downloadPath);
-    win.reload();
-    return;
-  }
-  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/heads/main.zip`;
+type DownloadBlocksRepoProps = {
+  downloadPath: string;
+  update?: boolean;
+  quiet?: boolean;
+};
+const downloadBlocksRepo = async ({
+  downloadPath,
+  update = false,
+  quiet = false,
+}: DownloadBlocksRepoProps) => {
+  const repoURL = `https://github.com/flojoy-ai/blocks/archive/refs/tags/v${app.getVersion()}.zip`;
   sendToStatusBar("Downloading blocks resource...");
   const res = await axios.get(repoURL, { responseType: "arraybuffer" });
   const buffer = Buffer.from(res.data);
@@ -163,24 +186,31 @@ const downloadBlocksRepo = async (
   sendToStatusBar(`Copying files to ${downloadPath}...`);
   await Promise.resolve(
     new Promise((resolve, reject) => {
-      cpFolder(join(extractPath, "blocks-main"), downloadPath, (err) => {
-        if (err) {
-          reject(err.map((e) => e.message).join("\n"));
-          return;
-        }
-        resolve(true);
-      });
+      cpFolder(
+        join(extractPath, `blocks-${app.getVersion()}`),
+        downloadPath,
+        (err) => {
+          if (err) {
+            reject(err.map((e) => e.message).join("\n"));
+            return;
+          }
+          resolve(true);
+        },
+      );
     }),
   );
   savePathToLocalFile(getBlocksPathFile(), downloadPath);
-  dialog.showMessageBox(win, {
-    message: `Blocks resource pack ${
-      update ? "updated" : "downloaded"
-    } successfully!`,
-    type: "info",
-  });
+  setBlocksVersion(getBlocksVersionFile(), app.getVersion());
+  if (!quiet) {
+    dialog.showMessageBox(global.mainWindow, {
+      message: `Blocks resource pack ${
+        update ? "updated" : "downloaded"
+      } successfully!`,
+      type: "info",
+    });
+    global.mainWindow?.reload();
+  }
   fs.unlinkSync(zipFilePath);
-  win.reload();
 };
 /**
  *

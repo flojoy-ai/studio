@@ -11,6 +11,7 @@ import {
 } from "./interpreter";
 import * as os from "os";
 import { existsSync, readFileSync } from "fs";
+import { killProcess } from "../utils";
 
 export async function checkPythonInstallation(
   _,
@@ -93,38 +94,40 @@ export async function installDependencies(): Promise<string> {
 }
 
 export async function spawnCaptain(): Promise<void> {
-  const poetry = process.env.POETRY_PATH ?? "poetry";
-  const command = new Command(`${poetry} run python main.py`);
+  return new Promise((_, reject) => {
+    const poetry = process.env.POETRY_PATH ?? "poetry";
+    const command = new Command(`${poetry} run python main.py`);
 
-  log.info("execCommand: " + command.getCommand());
+    log.info("execCommand: " + command.getCommand());
 
-  global.captainProcess = spawn(
-    command.getCommand().split(" ")[0],
-    command.getCommand().split(" ").slice(1),
-    {
-      cwd: app.isPackaged ? process.resourcesPath : undefined,
-    },
-  );
+    global.captainProcess = spawn(
+      command.getCommand().split(" ")[0],
+      command.getCommand().split(" ").slice(1),
+      {
+        cwd: app.isPackaged ? process.resourcesPath : undefined,
+      },
+    );
 
-  global.captainProcess.stdout?.on("data", (data) => {
-    log.info(data.toString());
-    sendToStatusBar(data.toString());
-  });
+    global.captainProcess.stdout?.on("data", (data) => {
+      log.info(data.toString());
+      sendToStatusBar(data.toString());
+    });
 
-  global.captainProcess.stderr?.on("data", (data) => {
-    log.error(data.toString());
-    sendToStatusBar(data.toString());
-  });
+    global.captainProcess.stderr?.on("data", (data) => {
+      log.error(data.toString());
+      sendToStatusBar(data.toString());
+    });
 
-  global.captainProcess.on("error", (error) => {
-    log.error(error.message);
-    sendToStatusBar(error.message);
-  });
+    global.captainProcess.on("error", (error) => {
+      log.error(error.message);
+      sendToStatusBar(error.message);
+    });
 
-  global.captainProcess.on("exit", (code) => {
-    if (code !== 0 && !global?.mainWindow?.isDestroyed()) {
-      throw new Error("Captain process is exited with code " + code);
-    }
+    global.captainProcess.on("exit", (code) => {
+      if (code !== 0 && !global?.mainWindow?.isDestroyed()) {
+        reject("Captain process is exited with code " + code);
+      }
+    });
   });
 }
 
@@ -166,3 +169,13 @@ const getPoetryPath = async () => {
     return "poetry";
   }
 };
+
+export async function restartCaptain() {
+  if (!global.captainProcess?.killed) {
+    const killed = global.captainProcess?.kill();
+    while (!killed) {
+      continue;
+    }
+  }
+  await spawnCaptain();
+}
