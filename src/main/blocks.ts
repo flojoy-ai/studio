@@ -48,8 +48,6 @@ const getBlocksVersion = (): string => {
 };
 
 export const isBlocksOutdated = (): boolean => {
-  console.log(version);
-  console.log(getBlocksVersion());
   return getBlocksVersion() !== version;
 };
 
