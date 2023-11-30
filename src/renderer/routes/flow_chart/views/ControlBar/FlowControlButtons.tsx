@@ -90,6 +90,7 @@ const FlowControlButtons = () => {
       {playBtnDisabled || serverStatus === IServerStatus.STANDBY ? (
         <Button
           data-cy="btn-play"
+          data-testid="btn-play"
           variant="dotted"
           id="btn-play"
           onClick={handleClick}
