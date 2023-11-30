@@ -3301,15 +3301,13 @@ name = "tm-devices"
 version = "1.0.0"
 description = "Manage connections and interactions with Test & Measurement devices."
 optional = false
-python-versions = ">=3.8,<4.0"
-files = [
-    {file = "tm_devices-1.0.0-py3-none-any.whl", hash = "sha256:bba2b8bb4df08118493a8ba398052d3d6f58ae7b9f43fd95e9b01c5bd288d919"},
-    {file = "tm_devices-1.0.0.tar.gz", hash = "sha256:1dd714c351921d6516cc0a6ab862658a77071c4ac0a0ea874e8c5019237117ab"},
-]
+python-versions = "^3.8"
+files = []
+develop = false
 
 [package.dependencies]
 gpib-ctypes = ">=0.3.0"
-libusb-package = ">=1.0.26.0,<1.0.26.2 || >1.0.26.2"
+libusb-package = ">=1.0.26.0,!=1.0.26.2"
 packaging = ">=21.3"
 psutil = ">=5.9.2"
 pyserial = ">=3.5"
@@ -3327,6 +3325,12 @@ traceback-with-variables = ">=2.0.4"
 typing-extensions = ">=4.4.0"
 urllib3 = ">=2.0"
 zeroconf = ">=0.54.0"
+
+[package.source]
+type = "git"
+url = "https://github.com/tektronix/tm_devices.git"
+reference = "main"
+resolved_reference = "edd32da3079fe978d6451b43d3034767ac436bc6"
 
 [[package]]
 name = "tomli"
@@ -3938,4 +3942,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "baf677c2109f9a123a701f0d826bfe0360f075f2d33a43d47f5234596a374008"
+content-hash = "b02d7b21113831710605ea385916c00076ab0b2cbd20df8ed359ec15476b8e18"
