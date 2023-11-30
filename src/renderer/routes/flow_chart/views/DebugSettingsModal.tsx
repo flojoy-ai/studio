@@ -33,7 +33,7 @@ export const DebugSettingsModal = ({
 
   const onLogLevelChange = async (val: string) => {
     try {
-      setLogLevel(val);
+      await setLogLevel(val);
       setLevel(val);
     } catch {
       toast.error("Failed to set log level, is the backend running?")
